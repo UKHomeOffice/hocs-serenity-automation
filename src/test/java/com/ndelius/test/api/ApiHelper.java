@@ -1,25 +1,20 @@
-package com.ndelius.test.api.service;
+package com.ndelius.test.api;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.json.JSONException;
+import net.serenitybdd.core.pages.PageObject;
 import org.json.JSONObject;
 
 
-public class AddStudentService {
+public class ApiHelper extends PageObject {
 
     private Response response;
     private RequestSpecification request;
     private Response post;
 
-    public void getStudent() {
-        response = RestAssured.given().header("auth", "Sh@r3dSe3cr3t").
-                get("http://localhost:54801/api/student");
-    }
-
-    public void getStatusLog() {
-        response.then().statusCode(200);
+    public void assertStatusLog(int statusCode) {
+        response.then().statusCode(statusCode);
         response.then().log().all();
     }
 
@@ -31,7 +26,7 @@ public class AddStudentService {
         response.then().log().body();
     }
 
-    public void newStudent() throws JSONException {
+    public void newStudent() {
         RestAssured.baseURI = "http://localhost:54801/api/student";
         request = RestAssured.given().header("auth", "Sh@r3dSe3cr3t");
 
