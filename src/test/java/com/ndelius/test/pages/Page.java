@@ -786,7 +786,7 @@ public class Page extends PageObject {
                         "  respHeaders: [],                                                " +
                         "  filters: []                                                     " +
                         "}]));                                                             ");
-        driver.get(page);
+        driver.navigate().to(page);
     }
 
 }

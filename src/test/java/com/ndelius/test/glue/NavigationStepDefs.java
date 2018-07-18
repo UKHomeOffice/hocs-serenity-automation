@@ -5,6 +5,7 @@ import static config.Services.HOCS;
 import static org.junit.Assert.fail;
 
 import com.ndelius.test.pages.Page;
+import com.ndelius.test.pages.homepage.Homepage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Managed;
@@ -14,6 +15,8 @@ public class NavigationStepDefs {
 
     @Managed
     WebDriver driver;
+
+    Homepage homepage;
 
     Page page;
 
@@ -32,7 +35,7 @@ public class NavigationStepDefs {
     public void iAmTakenToThePage(String page) {
         switch (page.toUpperCase()) {
             case "HOCS DEMO FORM":
-                driver.get("http://localhost:8080/action/test/form");
+                //driver.get(LOCAL.getEnvironmentURL() + HOCS.getPort() + "/action/test/form");
                 break;
             default:
                 fail(page + " is not defined with NavigationStepDefs.iNavigateToThePage");
