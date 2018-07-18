@@ -3,6 +3,7 @@ package config;
 public enum Services {
 
     CASE(""),
+    HOCS("8080"),
     INFO(""),
     WORKFLOW("8081");
 
@@ -12,7 +13,7 @@ public enum Services {
         this.port = port;
     }
 
-    public String getService() {
+    public String getPort() {
         return ":" + port;
     }
 

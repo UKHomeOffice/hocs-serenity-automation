@@ -763,7 +763,7 @@ public class Page extends PageObject {
         Serenity.setSessionVariable("circumstanceSubType").to(circumstanceSubType);
     }
 
-    public void setHocsHeader(String page){
+    public void modifyHeadersAndNavigateTo(String page){
         ChromeOptions options = new ChromeOptions();
         options.addExtensions(new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
 

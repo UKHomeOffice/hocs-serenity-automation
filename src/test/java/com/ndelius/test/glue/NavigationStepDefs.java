@@ -1,5 +1,7 @@
 package com.ndelius.test.glue;
 
+import static config.Environments.LOCAL;
+import static config.Services.HOCS;
 import static org.junit.Assert.fail;
 
 import com.ndelius.test.pages.Page;
@@ -19,7 +21,7 @@ public class NavigationStepDefs {
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOCS DEMO FORM":
-                page.setHocsHeader("localhost:8080");
+                page.modifyHeadersAndNavigateTo(LOCAL.getEnvironmentURL() + HOCS.getPort());
                 break;
             default:
                 fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage");
@@ -28,7 +30,6 @@ public class NavigationStepDefs {
 
     @Then("^I am taken to the \"([^\"]*)\" Page$")
     public void iAmTakenToThePage(String page) {
-
         switch (page.toUpperCase()) {
             case "HOCS DEMO FORM":
                 driver.get("http://localhost:8080/action/test/form");

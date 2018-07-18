@@ -16,7 +16,7 @@ public class WorkflowService extends PageObject {
 
     public void getInfo() {
         response = RestAssured.given().
-                get(LOCAL.getEnvironmentURL() + WORKFLOW.getService() + "/actuator/info");
+                get(LOCAL.getEnvironmentURL() + WORKFLOW.getPort() + "/actuator/info");
     }
 
 }
