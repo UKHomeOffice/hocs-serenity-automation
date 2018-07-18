@@ -1,25 +1,27 @@
 package com.ndelius.test.pages;
 
-import net.serenitybdd.core.Serenity;
-
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Page extends PageObject {
 
@@ -759,6 +761,32 @@ public class Page extends PageObject {
     public void selectCircumstanceSubType(String circumstanceSubType) {
         circumstanceSubtypeDropdown.selectByVisibleText(circumstanceSubType);
         Serenity.setSessionVariable("circumstanceSubType").to(circumstanceSubType);
+    }
+
+    public void setHocsHeader(String page){
+        ChromeOptions options = new ChromeOptions();
+        options.addExtensions(new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
+
+        // launch the browser
+        WebDriver driver = new ChromeDriver(options);
+
+        // set the context on the extension so the localStorage can be accessed
+        driver.get("chrome-extension://idgpnmonknjnojddfkpgkljpfnnfcklj/icon.png");
+
+        // setup ModHeader with two headers (token1 and token2)
+        ((JavascriptExecutor) driver).executeScript(
+                "localStorage.setItem('profiles', JSON.stringify([{                " +
+                        "  title: 'Selenium', hideComment: true, appendMode: '',           " +
+                        "  headers: [                                                      " +
+                        "    {enabled: true, name: 'X-Auth-Token', value: '01234', comment: ''}, " +
+                        "    {enabled: true, name: 'X-Auth-Roles', value: 'CREATE,BULK,DOCUMENT,DCU,UKVI,FOI', comment: ''},  " +
+                        "    {enabled: true, name: 'X-Auth-UserId', value: 'Test', comment: ''}, " +
+                        "    {enabled: true, name: 'X-Auth-Username', value: 'Test', comment: ''}  " +
+                        "  ],                                                              " +
+                        "  respHeaders: [],                                                " +
+                        "  filters: []                                                     " +
+                        "}]));                                                             ");
+        driver.get(page);
     }
 
 }
