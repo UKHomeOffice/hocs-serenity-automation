@@ -1,4 +1,4 @@
-package com.ndelius.test.api.workflow;
+package com.hocs.test.api.workflow;
 
 import static config.Environments.LOCAL;
 import static config.Services.WORKFLOW;

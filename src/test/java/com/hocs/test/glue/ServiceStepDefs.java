@@ -1,9 +1,9 @@
-package com.ndelius.test.glue;
+package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
-import com.ndelius.test.api.ApiHelper;
-import com.ndelius.test.api.workflow.WorkflowService;
+import com.hocs.test.api.ApiHelper;
+import com.hocs.test.api.workflow.WorkflowService;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -27,6 +27,9 @@ public class ServiceStepDefs {
     public void api_will_return_a_successful_response(int statusCode) {
         apiHelper.assertStatusLog(statusCode);
     }
+
+    @Then("API ")
+    public void dsg (){}
 
 }
 

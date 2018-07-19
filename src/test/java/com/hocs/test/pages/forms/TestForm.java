@@ -1,8 +1,9 @@
-package com.ndelius.test.pages.forms;
+package com.hocs.test.pages.forms;
 
-import com.ndelius.test.pages.Page;
+import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class TestForm extends Page {
 
@@ -64,8 +65,8 @@ public class TestForm extends Page {
     }
 
     public void selectCheckbox() {
-        checkboxOne.click();
-        checkboxThree.click();
+        checkboxOne.sendKeys(Keys.SPACE);
+        checkboxThree.sendKeys(Keys.SPACE);
     }
 
     public void selectRadioButton() {

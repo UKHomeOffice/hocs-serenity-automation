@@ -1,4 +1,4 @@
-package com.ndelius.test.pages;
+package com.hocs.test.pages;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -31,7 +32,10 @@ public class Page extends PageObject {
 
     protected static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-    @FindBy(css = "h1")
+    @Managed
+    WebDriver driver;
+
+    @FindBy(className = "govuk-heading-l")
     public WebElementFacade pageTitle;
 
     @FindBy(id = "offender-overview")
@@ -292,6 +296,9 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Update']")
     protected WebElementFacade updateButton;
 
+    @FindBy(id = "name")
+    protected WebElementFacade nameBox;
+
     @FindBy(css = "[id*=FirstName]")
     protected WebElementFacade firstNameBox;
 
@@ -301,7 +308,7 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=LastName]")
     protected WebElementFacade lastNameBox;
 
-    @FindBy(css = "[id*=Surname]")
+    @FindBy(id = "surname")
     protected WebElementFacade surnameBox;
 
     @FindBy(css = "[id*=Team]")

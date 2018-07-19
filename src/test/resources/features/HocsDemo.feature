@@ -2,9 +2,10 @@ Feature: ErrorHandling
 
   @issues:SPG-17441,DST-2826,DST-1576 @SR11
   Scenario: User can submit HOCS Demo Form
-    Given I navigate to the "HOCS Demo Form" Page
+    Given I login as "Dom" on "Hocs Dev"
+    And I navigate to the "Test Form" Page
     When I submit valid detail in all fields
-    Then I am taken to the "HOCS Main Form" Page
+    Then I am taken to the "HOCS Home" Page
 
   Scenario: Get all students via API
     When I request "Workflow Service" info
