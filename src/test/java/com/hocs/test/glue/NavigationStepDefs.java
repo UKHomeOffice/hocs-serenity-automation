@@ -1,16 +1,13 @@
 package com.hocs.test.glue;
 
-import static config.Environments.DEV;
+import static config.Environments.LOCAL;
+import static config.Services.HOCS;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.login.LoginPage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import net.thucydides.browsermob.fixtureservices.BrowserMobFixtureService;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationStepDefs {
@@ -18,36 +15,24 @@ public class NavigationStepDefs {
     @Managed
     WebDriver driver;
 
-    @Steps(shared = true)
-    LoginStepDefs loginStepDefs;
-
-    BrowserMobFixtureService browserMobFixtureService;
-
-    Homepage homepage;
-
-    LoginPage loginPage;
-
     Page page;
 
     @Given("^I navigate to the \"([^\"]*)\" Page$")
-    public void iNavigateToThePage(String environment) {
-        switch (environment.toUpperCase()) {
-            case "HOCS DEV":
-                driver.get(DEV.getEnvironmentURL());
-                break;
-            case "TEST FORM":
-                homepage.clickTestFormLink();
+    public void iNavigateToThePage(String hocsPage) {
+        switch (hocsPage.toUpperCase()) {
+            case "HOCS DEMO FORM":
+                page.modifyHeadersAndNavigateTo(LOCAL.getEnvironmentURL() + HOCS.getPort());
                 break;
             default:
-                fail(environment + " is not defined with NavigationStepDefs.iNavigateToThePage");
+                fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage");
         }
     }
 
     @Then("^I am taken to the \"([^\"]*)\" Page$")
     public void iAmTakenToThePage(String page) {
         switch (page.toUpperCase()) {
-            case "HOCS HOME":
-                homepage.pageTitleIsDisplayed();
+            case "HOCS DEMO FORM":
+                driver.get("http://localhost:8080/action/test/form");
                 break;
             default:
                 fail(page + " is not defined with NavigationStepDefs.iNavigateToThePage");

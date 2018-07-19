@@ -1,14 +1,14 @@
-package com.hocs.test.api.workflow;
+package com.hocs.test.api.caseService;
 
 import static config.Environments.LOCAL;
-import static config.Services.WORKFLOW;
+import static config.Services.CASE;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 
-public class WorkflowService extends PageObject {
+public class CaseService extends PageObject {
 
     private Response response;
 
@@ -18,7 +18,7 @@ public class WorkflowService extends PageObject {
 
     public void getInfo() {
         Serenity.setSessionVariable("getInfo")
-                .to(LOCAL.getEnvironmentURL() + WORKFLOW.getPort() + "/actuator/info");
+                .to(LOCAL.getEnvironmentURL() + CASE.getPort() + "/actuator/info");
     }
 
     public void assertResponse(int statusCode) {

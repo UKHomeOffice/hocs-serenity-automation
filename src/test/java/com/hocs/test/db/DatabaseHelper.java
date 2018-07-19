@@ -1,4 +1,4 @@
-//package com.ndelius.test.db;
+//package com.hocs.test.db;
 //
 //import net.serenitybdd.core.Serenity;
 //import net.serenitybdd.core.pages.PageObject;

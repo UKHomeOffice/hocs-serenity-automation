@@ -6,12 +6,17 @@ import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.core.pages.PageObject;
 import org.json.JSONObject;
 
-
 public class ApiHelper extends PageObject {
 
     private Response response;
     private RequestSpecification request;
     private Response post;
+
+    public void getInfo(String getInfo) {
+        response = RestAssured.given().
+                get(getInfo);
+        System.out.println(getInfo);
+    }
 
     public void assertStatusLog(int statusCode) {
         response.then().statusCode(statusCode);

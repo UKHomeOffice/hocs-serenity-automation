@@ -2,7 +2,7 @@ package config;
 
 public enum Services {
 
-    CASE(""),
+    CASE("8082"),
     HOCS("8080"),
     INFO(""),
     WORKFLOW("8081");

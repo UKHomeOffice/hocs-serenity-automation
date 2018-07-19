@@ -7,6 +7,10 @@ Feature: ErrorHandling
     When I submit valid detail in all fields
     Then I am taken to the "HOCS Home" Page
 
-  Scenario: Get all students via API
+  Scenario: Get Workflow Service Response
     When I request "Workflow Service" info
+    Then API returns a 200 response
+
+  Scenario: Get Case Service Response
+    When I request "Case Service" info
     Then API returns a 200 response
