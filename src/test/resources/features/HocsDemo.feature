@@ -9,8 +9,12 @@ Feature: ErrorHandling
 
   Scenario: Get Workflow Service Response
     When I request "Workflow Service" info
-    Then API returns a 200 response
+    Then "Workflow Service" returns a 200 response
 
   Scenario: Get Case Service Response
     When I request "Case Service" info
-    Then API returns a 200 response
+    Then "Case Service" returns a 200 response
+
+  Scenario: Assert Case Service Response Body
+    When I request "Workflow Service" info
+    Then the response body has the correct contents

@@ -1,6 +1,5 @@
 package com.hocs.test.glue;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.api.ApiHelper;
@@ -29,13 +28,25 @@ public class ServiceStepDefs {
             default:
                 fail(service + " is not defined within ServiceStepDefs.whenIRequestServiceInfo");
         }
-        apiHelper.getInfo(sessionVariableCalled("getInfo"));
     }
 
-    @Then("API returns a (\\d+) response$")
-    public void api_will_return_a_successful_response(int statusCode) {
-        apiHelper.assertStatusLog(statusCode);
+    @Then("\"([^\"]*)\" returns a (\\d+) response$")
+    public void api_will_return_a_successful_response(String service, int statusCode) {
+        switch (service.toUpperCase()) {
+            case "CASE SERVICE":
+                apiHelper.assertStatusLog(statusCode);
+                break;
+            case "WORKFLOW SERVICE":
+                workflowService.assertResponse(statusCode);
+                break;
+            default:
+                fail(service + " is not defined within ServiceStepDefs.whenIRequestServiceInfo");
+        }
     }
 
+    @Then("^the response body has the correct contents$")
+    public void theResponseBodyHasTheCorrectContents() {
+        workflowService.assertResponseBody();
+    }
 }
 

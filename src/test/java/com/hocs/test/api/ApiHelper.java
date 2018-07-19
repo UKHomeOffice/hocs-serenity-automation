@@ -1,5 +1,7 @@
 package com.hocs.test.api;
 
+import static org.hamcrest.core.Is.is;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -9,18 +11,25 @@ import org.json.JSONObject;
 public class ApiHelper extends PageObject {
 
     private Response response;
+
     private RequestSpecification request;
+
     private Response post;
 
     public void getInfo(String getInfo) {
         response = RestAssured.given().
                 get(getInfo);
-        System.out.println(getInfo);
+    }
+
+    public void assertResponseBody() {
+        response.then().
+                statusCode(200).
+                body("app.name", is("hocs-workflow"),
+                        "app.fullname", is("Hocs Workflow Service"));
     }
 
     public void assertStatusLog(int statusCode) {
         response.then().statusCode(statusCode);
-        response.then().log().all();
     }
 
     public void getResponseBody() {
