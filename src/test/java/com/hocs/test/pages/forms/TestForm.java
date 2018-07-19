@@ -3,9 +3,14 @@ package com.hocs.test.pages.forms;
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
+import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.webelements.RadioButtonGroup;
+import org.openqa.selenium.WebDriver;
 
 public class TestForm extends Page {
+
+    @Managed
+    WebDriver driver;
 
     @FindBy(id = "date-day")
     private WebElementFacade dateDayField;
@@ -29,7 +34,7 @@ public class TestForm extends Page {
     private WebElementFacade textField;
 
     @FindBy(id = "case-type-isA")
-    private WebElementFacade radioButtonA;
+    private RadioButtonGroup radioButtonA;
 
     @FindBy(id = "case-type-isB")
     private WebElementFacade radioButtonB;
@@ -65,8 +70,8 @@ public class TestForm extends Page {
     }
 
     public void selectCheckbox() {
-        checkboxOne.sendKeys(Keys.SPACE);
-        checkboxThree.sendKeys(Keys.SPACE);
+        checkboxOne.click();
+        checkboxThree.click();
     }
 
     public void selectRadioButton() {

@@ -1,10 +1,9 @@
 package com.hocs.test.glue;
 
-import static config.Environments.LOCAL;
-import static config.Services.HOCS;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Managed;
@@ -17,11 +16,13 @@ public class NavigationStepDefs {
 
     Page page;
 
+    Homepage homepage;
+
     @Given("^I navigate to the \"([^\"]*)\" Page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
-            case "HOCS DEMO FORM":
-                page.modifyHeadersAndNavigateTo(LOCAL.getEnvironmentURL() + HOCS.getPort());
+            case "TEST FORM":
+                homepage.clickTestFormLink();
                 break;
             default:
                 fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage");
@@ -31,8 +32,8 @@ public class NavigationStepDefs {
     @Then("^I am taken to the \"([^\"]*)\" Page$")
     public void iAmTakenToThePage(String page) {
         switch (page.toUpperCase()) {
-            case "HOCS DEMO FORM":
-                driver.get("http://localhost:8080/action/test/form");
+            case "HOCS HOME":
+                homepage.pageTitleIsDisplayed();
                 break;
             default:
                 fail(page + " is not defined with NavigationStepDefs.iNavigateToThePage");
