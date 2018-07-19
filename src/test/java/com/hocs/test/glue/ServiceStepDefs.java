@@ -28,8 +28,5 @@ public class ServiceStepDefs {
         apiHelper.assertStatusLog(statusCode);
     }
 
-    @Then("API ")
-    public void dsg (){}
-
 }
 
