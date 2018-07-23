@@ -1,6 +1,5 @@
-package com.ndelius.test.pages;
+package com.hocs.test.pages;
 
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -31,7 +31,7 @@ public class Page extends PageObject {
 
     protected static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-    @FindBy(css = "h1")
+    @FindBy(className = "govuk-heading-l")
     public WebElementFacade pageTitle;
 
     @FindBy(id = "offender-overview")
@@ -79,30 +79,6 @@ public class Page extends PageObject {
     @FindBy(css = "input[type='submit'][value='More']")
     protected WebElementFacade moreButton;
 
-    @FindBy(css = "[id*=Cluster]")
-    protected WebElementFacade cluster;
-
-    @FindBy(xpath = "//select[@id='caseloadForm:Team']/option[2]")
-    protected WebElementFacade teamDropdownSecondOption;
-
-    @FindBy(css = "[id*=Officer]")
-    protected WebElementFacade officerDropdown;
-
-    @FindBy(xpath = "//select[@id='caseloadForm:Officer']/option[2]")
-    protected WebElementFacade officerDropdownSecondOption;
-
-    @FindBy(css = "[id*=Filter]")
-    protected WebElementFacade filterDropdown;
-
-    @FindBy(css = "#offender-overview")
-    protected WebElementFacade offenderOverview;
-
-    @FindBy(css = "[id*=crn]")
-    protected WebElementFacade caseReferenceNumber;
-
-    @FindBy(css = "[id*=ReferralDate]")
-    protected WebElementFacade referralDate;
-
     @FindBy(css = "[value = 'Document']")
     protected WebElementFacade documentButton;
 
@@ -114,42 +90,6 @@ public class Page extends PageObject {
 
     @FindBy(linkText = "View")
     protected WebElementFacade viewButton;
-
-    @FindBy(linkText = "View Offender")
-    protected WebElementFacade viewOffenderLink;
-
-    @FindBy(id = "ConvictionDate")
-    protected WebElementFacade addConvictionDate;
-
-    @FindBy(id = "MainOffence")
-    protected WebElementFacade mainOffenceDropdown;
-
-    @FindBy(id = "NsiProvider")
-    protected WebElementFacade nsiProviderDropdown;
-
-    @FindBy(id = "NsiType")
-    protected WebElementFacade nsiTypeDropdown;
-
-    @FindBy(id = "NsiSubType")
-    protected WebElementFacade nsiSubTypeDropdown;
-
-    @FindBy(id = "OffenceDate")
-    protected WebElementFacade offenceDate;
-
-    @FindBy(id = "OffenceCount")
-    protected WebElementFacade offenceCount;
-
-    @FindBy(css = "[id*=Provider]")
-    protected WebElementFacade providerDropdown;
-
-    @FindBy(id = "Status")
-    protected WebElementFacade statusDropdown;
-
-    @FindBy(id = "StatusDate")
-    protected WebElementFacade statusDateBox;
-
-    @FindBy(id = "StatusTime")
-    protected WebElementFacade statusTimeBox;
 
     @FindBy(id = "Date")
     protected WebElementFacade dateField;
@@ -175,12 +115,6 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Defaults']")
     protected WebElementFacade defaultsButton;
 
-    @FindBy(className = "select2-search__field")
-    protected WebElementFacade spgErrorDetailsAssignToSearchField;
-
-    @FindBy(linkText = "Assign to me")
-    protected WebElementFacade spgErrorDetailsAssignToMe;
-
     @FindBy(css = "[id*=incidentNumber]")
     protected WebElementFacade incidentNumberField;
 
@@ -202,27 +136,6 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=Staff]")
     protected WebElementFacade staffDropdown;
 
-    @FindBy(id = "offenderTransferRequestListForm:offenderTransferRequestTable:0:TransferReason")
-    protected WebElementFacade transferOffenderReasonDropdown;
-
-    @FindBy(id = "offenderTransferRequestListForm:offenderTransferRequestTable:1:TransferReason")
-    protected WebElementFacade transferEventReasonDropdown;
-
-    @FindBy(id = "offenderTransferRequestListForm:offenderTransferRequestTable:2:TransferReason")
-    protected WebElementFacade transferLicenceReasonDropdown;
-
-    @FindBy(id = "acceptOffenderTransferListForm:acceptTransferTable:0:checkbox")
-    protected WebElementFacade offenderTransferCheckbox;
-
-    @FindBy(id = "acceptOffenderTransferListForm:acceptTransferTable:0:TargetTeam")
-    protected WebElementFacade offenderTransferTargetTeam;
-
-    @FindBy(id = "acceptOffenderTransferListForm:acceptTransferTable:0:TargetStaff")
-    protected WebElementFacade offenderTransferTargetOfficer;
-
-    @FindBy(className = "noRecordsFound")
-    protected WebElementFacade noRecordsFound;
-
     @FindBy(css = "[id*=StartDate]")
     protected WebElementFacade startDate;
 
@@ -231,24 +144,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[id*=searchResults]")
     protected WebElementFacade searchResults;
-
-    @FindBy(id = "ReleaseDate")
-    protected WebElementFacade actualReleaseDateField;
-
-    @FindBy(css = "[id*=ReleaseType]")
-    protected WebElementFacade releaseTypeDropdown;
-
-    @FindBy(css = "[id*=Institution]")
-    protected WebElementFacade releasedFromDropdown;
-
-    @FindBy(css = "[id*=ThroughcareDateType]")
-    protected WebElementFacade throughcareDateTypeDropdown;
-
-    @FindBy(css = "[id*=ThroughcareDate]")
-    protected WebElementFacade throughcareDateField;
-
-    @FindBy(id = "linkNavigation3OffenderTransferRequest")
-    protected WebElementFacade offenderTransferRequest;
 
     @FindBy(css = "input[type = 'submit'][value = 'Clear Search Fields']")
     protected WebElementFacade clearSearchFields;
@@ -262,7 +157,7 @@ public class Page extends PageObject {
     @FindBy(linkText = "Previous")
     protected WebElementFacade previousButton;
 
-    @FindBy(linkText = "Next")
+    @FindBy(css = "[value = 'Next']")
     protected WebElementFacade nextButton;
 
     @FindBy(linkText = "Last")
@@ -292,6 +187,9 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Update']")
     protected WebElementFacade updateButton;
 
+    @FindBy(id = "name")
+    protected WebElementFacade nameBox;
+
     @FindBy(css = "[id*=FirstName]")
     protected WebElementFacade firstNameBox;
 
@@ -301,7 +199,7 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=LastName]")
     protected WebElementFacade lastNameBox;
 
-    @FindBy(css = "[id*=Surname]")
+    @FindBy(id = "surname")
     protected WebElementFacade surnameBox;
 
     @FindBy(css = "[id*=Team]")
@@ -312,9 +210,6 @@ public class Page extends PageObject {
 
     @FindBy(xpath = "//select[contains(@id, 'Title')]/option[2]")
     protected WebElementFacade titleDropdownSecondOption;
-
-    @FindBy(css = "[id*='Relationship']")
-    private WebElementFacade relationshipTypeDropdown;
 
     @FindBy(xpath = "//select[contains(@id, 'Relationship')]/option[2]")
     protected WebElementFacade relationshipTypeDropdownSecondOption;
@@ -330,9 +225,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[id*=Gender]")
     protected WebElementFacade genderDropdown;
-
-    @FindBy(xpath = "//select[contains(@id, 'Gender')]/option[2]")
-    private WebElementFacade genderDropdownSecondOption;
 
     @FindBy(css = "[id*=appearancesTable]")
     protected WebElementFacade appearancesTable;
@@ -364,6 +256,14 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=NationalSearch]")
     protected WebElementFacade searchTypeDropdown;
 
+    @Managed
+    WebDriver driver;
+
+    @FindBy(css = "[id*='Relationship']")
+    private WebElementFacade relationshipTypeDropdown;
+
+    @FindBy(xpath = "//select[contains(@id, 'Gender')]/option[2]")
+    private WebElementFacade genderDropdownSecondOption;
 
     public void associatedDocumentsIsDisplayed() {
         associatedDocumentTable.isDisplayed();
@@ -403,10 +303,6 @@ public class Page extends PageObject {
 
     public boolean updateButtonIsDisplayed() {
         return isElementDisplayed(updateButton);
-    }
-
-    public void clickViewOffenderLink() {
-        viewOffenderLink.click();
     }
 
     public void clickNewLink() {
@@ -519,7 +415,7 @@ public class Page extends PageObject {
     public int generateRandomNumber(int digits) {
         Random rand = new Random();
 
-        double maxNumber = (Math.pow(10,digits)-1);
+        double maxNumber = (Math.pow(10, digits) - 1);
         return rand.nextInt((int) maxNumber) + 1;
     }
 
@@ -602,10 +498,6 @@ public class Page extends PageObject {
 
     public void clickAddOffenderButton() {
         addOffenderButton.click();
-    }
-
-    public void clickOffenderTransferRequest() {
-        offenderTransferRequest.click();
     }
 
     public void clickCancelButton() {
@@ -691,81 +583,10 @@ public class Page extends PageObject {
         Serenity.setSessionVariable("date").to(date);
     }
 
-    public void selectProvider(String provider) {
-        providerDropdown.selectByVisibleText(provider);
-        Serenity.setSessionVariable("provider").to(provider);
-    }
-
-    public void selectTrust(String trust) {
-        trustDropdown.selectByVisibleText(trust);
-        Serenity.setSessionVariable("provider").to(trust);
-    }
-
-    public void selectFirstProvider() {
-        providerDropdown.selectByIndex(1);
-        String provider = providerDropdown.selectByIndex(1).getText().split("\n ")[1];
-        Serenity.setSessionVariable("provider").to(provider);
-    }
-
-    public void selectCourt(String court) {
-        courtDropdown.selectByVisibleText(court);
-        Serenity.setSessionVariable("court").to(court);
-    }
-
-    public void selectFirstCourt() {
-        courtDropdown.selectByIndex(1);
-        String court = courtDropdown.selectByIndex(1).getText().split("\n ")[1];
-        Serenity.setSessionVariable("court").to(court);
-    }
-
-    public void selectRelationshipTypeDropdown(String relationshipType) {
-        waitFor(relationshipTypeDropdownSecondOption);
-        releaseTypeDropdown.selectByVisibleText(relationshipType);
-        setSessionVariable("relationshipType").to(relationshipType);
-    }
-
-    public void selectTitleDropdown(String title) {
-        waitFor(titleDropdownSecondOption);
-        titleDropdown.selectByVisibleText(title);
-        setSessionVariable("title").to(title);
-    }
-
-    public void selectType(String type) {
-        typeDropdown.selectByVisibleText(type);
-        Serenity.setSessionVariable("type").to(type);
-    }
-
-    public void selectFirstType() {
-        typeDropdown.selectByIndex(1);
-        String type = typeDropdown.selectByIndex(1).getText().split("\n ")[1];
-        Serenity.setSessionVariable("type").to(type);
-    }
-
-    public void clickDefaultsButton() {
-        defaultsButton.click();
-    }
-
-    public void assertCircumstanceTypeDropdownIs(String expectedValue) {
-        assertThat(circumstanceTypeDropdown.getAttribute("title"), is(expectedValue));
-    }
-
-    public void assertCircumstanceSubTypeDropdownIs(String expectedValue) {
-        assertThat(circumstanceSubtypeDropdown.getText(), is(expectedValue));
-    }
-
-    public void selectCircumstanceType(String circumstanceType) {
-        circumstanceTypeDropdown.selectByVisibleText(circumstanceType);
-        Serenity.setSessionVariable("circumstanceType").to(circumstanceType);
-    }
-
-    public void selectCircumstanceSubType(String circumstanceSubType) {
-        circumstanceSubtypeDropdown.selectByVisibleText(circumstanceSubType);
-        Serenity.setSessionVariable("circumstanceSubType").to(circumstanceSubType);
-    }
-
-    public void modifyHeadersAndNavigateTo(String page){
+    public void modifyHeadersAndNavigateTo(String page) {
         ChromeOptions options = new ChromeOptions();
-        options.addExtensions(new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
+        options.addExtensions(
+                new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
 
         // launch the browser
         WebDriver driver = new ChromeDriver(options);
@@ -779,14 +600,16 @@ public class Page extends PageObject {
                         "  title: 'Selenium', hideComment: true, appendMode: '',           " +
                         "  headers: [                                                      " +
                         "    {enabled: true, name: 'X-Auth-Token', value: '01234', comment: ''}, " +
-                        "    {enabled: true, name: 'X-Auth-Roles', value: 'CREATE,BULK,DOCUMENT,DCU,UKVI,FOI', comment: ''},  " +
+                        "    {enabled: true, name: 'X-Auth-Roles', value: 'CREATE,BULK,DOCUMENT,DCU,UKVI,FOI', comment: ''},  "
+                        +
                         "    {enabled: true, name: 'X-Auth-UserId', value: 'Test', comment: ''}, " +
-                        "    {enabled: true, name: 'X-Auth-Username', value: 'Test', comment: ''}  " +
+                        "    {enabled: true, name: 'X-Auth-Username', value: 'Test', comment: ''}  "
+                        +
                         "  ],                                                              " +
                         "  respHeaders: [],                                                " +
                         "  filters: []                                                     " +
                         "}]));                                                             ");
-        driver.get(page);
+        driver.navigate().to(page);
     }
 
 }

@@ -1,4 +1,4 @@
-//package com.ndelius.test.db;
+//package com.hocs.test.db;
 //
 //import config.Environments;
 //import config.Users;

@@ -1,4 +1,4 @@
-package com.ndelius.test;
+package com.hocs.test;
 
 import cucumber.api.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
