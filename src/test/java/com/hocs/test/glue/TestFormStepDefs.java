@@ -7,16 +7,17 @@ import cucumber.api.java.en.When;
 public class TestFormStepDefs {
 
     Page page;
+
     TestForm testForm;
 
     @When("^I submit valid detail in all fields$")
     public void iSubmitValidDetailInAllFields() throws InterruptedException {
         testForm.enterName("Dom");
         testForm.enterSurname("Barnett");
-        testForm.enterDate("04","03","1988");
-       // testForm.selectCheckbox();
+        testForm.enterDate("04", "03", "1988");
+        testForm.selectCheckbox();
         testForm.enterText();
-//        testForm.selectRadioButton();
+        testForm.selectRadioButton();
         testForm.selectTestDropdown(4);
         page.clickSubmitButton();
     }

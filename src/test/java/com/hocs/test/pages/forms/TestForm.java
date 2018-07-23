@@ -21,25 +21,28 @@ public class TestForm extends Page {
     @FindBy(id = "date-year")
     private WebElementFacade dateYearField;
 
-    @FindBy(id = "checkboxContext-Has1")
+    @FindBy(css = "label[for='checkboxContext-Has1']")
     private WebElementFacade checkboxOne;
 
-    @FindBy(id = "checkboxContext-Has2")
+    @FindBy(css = "label[for='checkboxContext-Has2']")
     private WebElementFacade checkboxTwo;
 
-    @FindBy(id = "checkboxContext-Has3")
+    @FindBy(css = "label[for='checkboxContext-Has3']")
     private WebElementFacade checkboxThree;
 
     @FindBy(id = "text-area")
     private WebElementFacade textField;
 
-    @FindBy(id = "case-type-isA")
+    @FindBy(className = "govuk-radios__label")
+    private WebElementFacade radioButtons;
+
+    @FindBy(css = "label[for='case-type-isA']")
     private RadioButtonGroup radioButtonA;
 
-    @FindBy(id = "case-type-isB")
+    @FindBy(css = "label[for='case-type-isB']")
     private WebElementFacade radioButtonB;
 
-    @FindBy(id = "case-type-isC")
+    @FindBy(css = "label[for='case-type-isC']")
     private WebElementFacade radioButtonC;
 
     @FindBy(id = "dropdown-test")
@@ -69,6 +72,11 @@ public class TestForm extends Page {
         textField.sendKeys(generateRandomString());
     }
 
+    public void getRadioButtons() {
+        String text = radioButtons.getText();
+        System.out.println(text);
+    }
+
     public void selectCheckbox() {
         checkboxOne.click();
         checkboxThree.click();
@@ -76,6 +84,7 @@ public class TestForm extends Page {
 
     public void selectRadioButton() {
         radioButtonC.click();
+        radioButtonB.click();
     }
 
     public void selectTestDropdown(int index) {

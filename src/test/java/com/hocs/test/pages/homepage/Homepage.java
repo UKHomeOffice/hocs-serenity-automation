@@ -11,6 +11,9 @@ public class Homepage extends Page {
     @Managed
     WebDriver driver;
 
+    @FindBy(linkText = "Create single case")
+    private WebElementFacade createSingleCase;
+
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
@@ -18,6 +21,8 @@ public class Homepage extends Page {
         waitFor(pageTitle);
         pageTitle.containsText("Main");
     }
+
+    public void clickCreateSingleCase() { createSingleCase.click(); }
 
     public void clickTestFormLink() {
         testFormLink.click();
