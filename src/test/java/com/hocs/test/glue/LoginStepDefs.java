@@ -1,10 +1,10 @@
 package com.hocs.test.glue;
 
-import static config.Environments.DEV;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
+import config.Environments;
 import config.Users;
 import cucumber.api.java.en.Given;
 import net.serenitybdd.core.Serenity;
@@ -24,16 +24,9 @@ public class LoginStepDefs {
 
     Page page;
 
-    @Given("^I login as \"([^\"]*)\" on \"([^\"]*)\"$")
-    public void iLoginas(String user, String environment) {
-        switch (environment.toUpperCase()) {
-            case "HOCS DEV":
-                driver.get(DEV.getEnvironmentURL());
-                Serenity.setSessionVariable("homePage").to(DEV.getEnvironmentURL());
-                break;
-            default:
-                fail(environment + " is not defined with NavigationStepDefs.iNavigateToThePage");
-        }
+    @Given("^I login as \"([^\"]*)\"")
+    public void iLoginas(String user) {
+        navigateToNDelius();
         Serenity.setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
             case "DOM":
@@ -42,13 +35,34 @@ public class LoginStepDefs {
             default:
                 fail(user + " is not defined with LoginStepDefs.iLoginAs()");
         }
-
         page.clickSubmitButton();
     }
 
     private void enterHocsLoginDetails(Users user) {
         loginPage.enterUsername(user.getUsername());
         loginPage.enterPassword(user.getPassword());
+    }
+
+    private void navigateToNDelius() {
+        String env = System.getProperty("environment");
+        String baseUrl = "";
+
+        if (env == null) {
+            System.out.println("Environment parameter not set. Defaulting to 'DEV'");
+            baseUrl = Environments.DEV.getEnvironmentURL();
+        } else {
+            switch (env.toUpperCase()) {
+                case "DEV":
+                    baseUrl = Environments.DEV.getEnvironmentURL();
+                    break;
+                case "LOCAL":
+                    baseUrl = Environments.LOCAL.getEnvironmentURL();
+                    break;
+                default:
+                    fail(env + " is not defined within LoginStepDefs, navigateToNDelius method");
+            }
+        }
+        driver.get(baseUrl);
     }
 
 }

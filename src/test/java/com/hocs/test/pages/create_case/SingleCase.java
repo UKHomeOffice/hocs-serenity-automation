@@ -6,13 +6,13 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class SingleCase extends Page {
 
-    @FindBy(id = "case-type-MIN")
+    @FindBy(css = "label[for='case-type-MIN']")
     private WebElementFacade dcuMinRadioButton;
 
-    @FindBy(id = "case-type-TRO")
+    @FindBy(css = "label[for='case-type-TRO']")
     private WebElementFacade dcuTroRadioButton;
 
-    @FindBy(id = "case-type-DTEN")
+    @FindBy(css = "label[for='case-type-DTEN']")
     private WebElementFacade dcuDtenRadioButton;
 
     public void clickDcuMinRadioButton() {
@@ -26,7 +26,6 @@ public class SingleCase extends Page {
     public void clickDcuDtenRadioButton() {
         dcuDtenRadioButton.click();
     }
-
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
