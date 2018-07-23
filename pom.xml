@@ -81,11 +81,6 @@
             <artifactId>json</artifactId>
             <version>20180130</version>
         </dependency>
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-browsermob-plugin</artifactId>
-            <version>1.9.30</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -34,7 +34,7 @@ public class ServiceStepDefs {
     public void api_will_return_a_successful_response(String service, int statusCode) {
         switch (service.toUpperCase()) {
             case "CASE SERVICE":
-                apiHelper.assertStatusLog(statusCode);
+                caseService.assertResponse(statusCode);
                 break;
             case "WORKFLOW SERVICE":
                 workflowService.assertResponse(statusCode);
