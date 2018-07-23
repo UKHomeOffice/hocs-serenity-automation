@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
 import config.Environments;
+import config.Services;
 import config.Users;
 import cucumber.api.java.en.Given;
 import net.serenitybdd.core.Serenity;
@@ -56,7 +57,7 @@ public class LoginStepDefs {
                     baseUrl = Environments.DEV.getEnvironmentURL();
                     break;
                 case "LOCAL":
-                    baseUrl = Environments.LOCAL.getEnvironmentURL();
+                    baseUrl = Environments.LOCAL.getEnvironmentURL() + Services.HOCS.getPort();
                     break;
                 default:
                     fail(env + " is not defined within LoginStepDefs, navigateToNDelius method");

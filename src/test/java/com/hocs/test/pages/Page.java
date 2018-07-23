@@ -31,9 +31,6 @@ public class Page extends PageObject {
 
     protected static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-    @Managed
-    WebDriver driver;
-
     @FindBy(className = "govuk-heading-l")
     public WebElementFacade pageTitle;
 
@@ -214,9 +211,6 @@ public class Page extends PageObject {
     @FindBy(xpath = "//select[contains(@id, 'Title')]/option[2]")
     protected WebElementFacade titleDropdownSecondOption;
 
-    @FindBy(css = "[id*='Relationship']")
-    private WebElementFacade relationshipTypeDropdown;
-
     @FindBy(xpath = "//select[contains(@id, 'Relationship')]/option[2]")
     protected WebElementFacade relationshipTypeDropdownSecondOption;
 
@@ -231,9 +225,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[id*=Gender]")
     protected WebElementFacade genderDropdown;
-
-    @FindBy(xpath = "//select[contains(@id, 'Gender')]/option[2]")
-    private WebElementFacade genderDropdownSecondOption;
 
     @FindBy(css = "[id*=appearancesTable]")
     protected WebElementFacade appearancesTable;
@@ -265,6 +256,14 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=NationalSearch]")
     protected WebElementFacade searchTypeDropdown;
 
+    @Managed
+    WebDriver driver;
+
+    @FindBy(css = "[id*='Relationship']")
+    private WebElementFacade relationshipTypeDropdown;
+
+    @FindBy(xpath = "//select[contains(@id, 'Gender')]/option[2]")
+    private WebElementFacade genderDropdownSecondOption;
 
     public void associatedDocumentsIsDisplayed() {
         associatedDocumentTable.isDisplayed();
@@ -416,7 +415,7 @@ public class Page extends PageObject {
     public int generateRandomNumber(int digits) {
         Random rand = new Random();
 
-        double maxNumber = (Math.pow(10,digits)-1);
+        double maxNumber = (Math.pow(10, digits) - 1);
         return rand.nextInt((int) maxNumber) + 1;
     }
 
@@ -584,9 +583,10 @@ public class Page extends PageObject {
         Serenity.setSessionVariable("date").to(date);
     }
 
-    public void modifyHeadersAndNavigateTo(String page){
+    public void modifyHeadersAndNavigateTo(String page) {
         ChromeOptions options = new ChromeOptions();
-        options.addExtensions(new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
+        options.addExtensions(
+                new File("C:\\Users\\dom.barnett\\Downloads\\ModHeader_v2_2_3_0.crx"));
 
         // launch the browser
         WebDriver driver = new ChromeDriver(options);
@@ -600,9 +600,11 @@ public class Page extends PageObject {
                         "  title: 'Selenium', hideComment: true, appendMode: '',           " +
                         "  headers: [                                                      " +
                         "    {enabled: true, name: 'X-Auth-Token', value: '01234', comment: ''}, " +
-                        "    {enabled: true, name: 'X-Auth-Roles', value: 'CREATE,BULK,DOCUMENT,DCU,UKVI,FOI', comment: ''},  " +
+                        "    {enabled: true, name: 'X-Auth-Roles', value: 'CREATE,BULK,DOCUMENT,DCU,UKVI,FOI', comment: ''},  "
+                        +
                         "    {enabled: true, name: 'X-Auth-UserId', value: 'Test', comment: ''}, " +
-                        "    {enabled: true, name: 'X-Auth-Username', value: 'Test', comment: ''}  " +
+                        "    {enabled: true, name: 'X-Auth-Username', value: 'Test', comment: ''}  "
+                        +
                         "  ],                                                              " +
                         "  respHeaders: [],                                                " +
                         "  filters: []                                                     " +

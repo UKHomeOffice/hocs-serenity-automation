@@ -22,7 +22,9 @@ public class Homepage extends Page {
         pageTitle.containsText("Main");
     }
 
-    public void clickCreateSingleCase() { createSingleCase.click(); }
+    public void clickCreateSingleCase() {
+        createSingleCase.click();
+    }
 
     public void clickTestFormLink() {
         testFormLink.click();

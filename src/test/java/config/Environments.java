@@ -15,5 +15,4 @@ public enum Environments {
         return hostname;
     }
 
-
 }
