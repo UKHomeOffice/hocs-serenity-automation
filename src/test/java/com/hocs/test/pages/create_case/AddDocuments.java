@@ -15,7 +15,7 @@ public class AddDocuments extends Page {
     }
 
     public void uploadDocument() {
-        addDocument.sendKeys("INSERT DOCUMENT LOCATION");
+        upload("INSERT DOC LOCATION").to(addDocument);
     }
 
 }

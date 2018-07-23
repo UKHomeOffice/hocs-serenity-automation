@@ -432,7 +432,7 @@ public class Page extends PageObject {
     public void clickAcceptAllButton() {
         acceptAllButton.click();
     }
-    
+
     public void clickCancelButton() {
         cancelButton.click();
     }
