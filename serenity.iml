@@ -270,5 +270,6 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.report:0.8.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
   </component>
 </module>
