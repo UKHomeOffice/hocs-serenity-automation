@@ -1,4 +1,4 @@
-Feature: ErrorHandling
+Feature: HOCS DEMO
 
   @test
   Scenario: User can submit HOCS Demo Form
