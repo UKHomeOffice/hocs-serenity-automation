@@ -34,21 +34,6 @@ public class Page extends PageObject {
     @FindBy(className = "govuk-heading-l")
     public WebElementFacade pageTitle;
 
-    @FindBy(id = "offender-overview")
-    public WebElementFacade offenderDetails;
-
-    @FindBy(css = "[id*=CircumstanceType]")
-    protected WebElementFacade circumstanceTypeDropdown;
-
-    @FindBy(xpath = "//select[contains(@id, 'CircumstanceType')]/option[2]")
-    protected WebElementFacade circumstanceTypeDropdownSecondOption;
-
-    @FindBy(css = "[id*=CircumstanceSubType]")
-    protected WebElementFacade circumstanceSubtypeDropdown;
-
-    @FindBy(xpath = "//select[contains(@id, 'CircumstanceSubType')]/option[2]")
-    protected WebElementFacade circumstanceSubtypeDropdownSecondOption;
-
     @FindBy(css = "[value='Add/Update']")
     protected WebElementFacade addUpdateButton;
 
@@ -94,15 +79,6 @@ public class Page extends PageObject {
     @FindBy(id = "Date")
     protected WebElementFacade dateField;
 
-    @FindBy(id = "Court")
-    protected WebElementFacade courtDropdown;
-
-    @FindBy(css = "[id*=Type]")
-    protected WebElementFacade typeDropdown;
-
-    @FindBy(css = "[value='Add Offender']")
-    protected WebElementFacade addOffenderButton;
-
     @FindBy(css = "[value='Withdraw']")
     protected WebElementFacade withdrawButton;
 
@@ -111,15 +87,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value='Reject']")
     protected WebElementFacade rejectButton;
-
-    @FindBy(css = "[value = 'Defaults']")
-    protected WebElementFacade defaultsButton;
-
-    @FindBy(css = "[id*=incidentNumber]")
-    protected WebElementFacade incidentNumberField;
-
-    @FindBy(css = "[id*=ResultsTable]")
-    protected WebElementFacade resultsTable;
 
     @FindBy(css = "[value='Close']")
     protected WebElementFacade closeButton;
@@ -172,12 +139,6 @@ public class Page extends PageObject {
     @FindBy(linkText = "delete")
     protected WebElementFacade deleteButton;
 
-    @FindBy(css = "[title = 'View event']")
-    protected WebElementFacade viewEvent;
-
-    @FindBy(css = "[title = 'Add New Event']")
-    protected WebElementFacade addNewEvent;
-
     @FindBy(css = "[value = 'Add']")
     protected WebElementFacade addButton;
 
@@ -190,15 +151,6 @@ public class Page extends PageObject {
     @FindBy(id = "name")
     protected WebElementFacade nameBox;
 
-    @FindBy(css = "[id*=FirstName]")
-    protected WebElementFacade firstNameBox;
-
-    @FindBy(css = "[id*=MiddleName]")
-    protected WebElementFacade middleNameBox;
-
-    @FindBy(css = "[id*=LastName]")
-    protected WebElementFacade lastNameBox;
-
     @FindBy(id = "surname")
     protected WebElementFacade surnameBox;
 
@@ -207,15 +159,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[id*='Title']")
     protected WebElementFacade titleDropdown;
-
-    @FindBy(xpath = "//select[contains(@id, 'Title')]/option[2]")
-    protected WebElementFacade titleDropdownSecondOption;
-
-    @FindBy(xpath = "//select[contains(@id, 'Relationship')]/option[2]")
-    protected WebElementFacade relationshipTypeDropdownSecondOption;
-
-    @FindBy(css = "[id*=Trust]")
-    protected WebElementFacade trustDropdown;
 
     @FindBy(css = "[id*=FromDate]")
     protected WebElementFacade fromDate;
@@ -246,12 +189,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[id*=newNotes]")
     protected WebElementFacade newNotesBox;
-
-    @FindBy(css = "[id*=addPregnancyMaternity]")
-    protected WebElementFacade addPregnancyAndMaternityLink;
-
-    @FindBy(css = "[id*=pregnancyMaternity]")
-    protected WebElementFacade pregnancyMaternityLink;
 
     @FindBy(css = "[id*=NationalSearch]")
     protected WebElementFacade searchTypeDropdown;
@@ -496,24 +433,12 @@ public class Page extends PageObject {
         acceptAllButton.click();
     }
 
-    public void clickAddOffenderButton() {
-        addOffenderButton.click();
-    }
-
     public void clickCancelButton() {
         cancelButton.click();
     }
 
     public void clickClearSearchFields() {
         clearSearchFields.click();
-    }
-
-    public void clickViewEvent() {
-        viewEvent.click();
-    }
-
-    public void clickAddNewEvent() {
-        addNewEvent.click();
     }
 
     public void clickViewDocumentsButton() {

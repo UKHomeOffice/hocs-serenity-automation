@@ -1,4 +1,4 @@
-Feature: ErrorHandling
+Feature: HOCS DEMO
 
   @test
   Scenario: User can submit HOCS Demo Form
@@ -7,7 +7,6 @@ Feature: ErrorHandling
     When I submit valid detail in all fields
     Then I am taken to the "HOCS Home" Page
 
-  @test
   Scenario: Get Workflow Service Response
     When I request "Workflow Service" info
     Then "Workflow Service" returns a 200 response

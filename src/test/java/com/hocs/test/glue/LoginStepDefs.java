@@ -1,6 +1,6 @@
 package com.hocs.test.glue;
 
-import static org.junit.Assert.fail;
+import static junit.framework.TestCase.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
