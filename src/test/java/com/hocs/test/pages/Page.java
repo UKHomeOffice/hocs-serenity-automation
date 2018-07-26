@@ -133,7 +133,7 @@ public class Page extends PageObject {
     @FindBy(className = "highlight")
     protected WebElementFacade noTableResults;
 
-    @FindBy(css = "[value = 'Cancel']")
+    @FindBy(css = "[class = 'govuk-back-link ']")
     protected WebElementFacade cancelButton;
 
     @FindBy(linkText = "delete")
