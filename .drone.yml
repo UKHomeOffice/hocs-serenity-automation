@@ -1,0 +1,26 @@
+pipeline:
+
+  my-build:
+    image: docker:18.03
+    environment:
+      - DOCKER_HOST=tcp://172.17.0.1:2375
+    commands:
+      - docker build -t <image_name> .
+    when:
+      branch: master
+      event: push
+
+    image_to_quay:
+      image: quay.io/ukhomeofficedigital/drone-docker
+      secrets:
+        - docker_password
+      environment:
+        - DOCKER_USERNAME=ukhomeofficedigital+<your_robot_username>
+      registry: quay.io
+      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+      tags:
+        - ${DRONE_COMMIT_SHA}
+        - latest
+      when:
+        branch: master
+        event: push
