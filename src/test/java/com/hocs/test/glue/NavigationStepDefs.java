@@ -24,6 +24,9 @@ public class NavigationStepDefs {
             case "TEST FORM":
                 homepage.clickTestFormLink();
                 break;
+            case "CREATE SINGLE CASE":
+                homepage.clickCreateSingleCase();
+                break;
             default:
                 fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage");
         }

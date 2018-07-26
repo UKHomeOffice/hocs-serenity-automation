@@ -25,7 +25,7 @@ public class LoginStepDefs {
 
     Page page;
 
-    @Given("^I login as \"([^\"]*)\"")
+    @Given("^I am user \"([^\"]*)\"")
     public void iLoginas(String user) {
         navigateToNDelius();
         Serenity.setSessionVariable("user").to(user);
