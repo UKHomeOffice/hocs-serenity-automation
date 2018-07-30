@@ -5,7 +5,7 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - docker build -t <image_name> .
+      - docker build -t hocs_serenity_automation .
     when:
       branch: master
       event: push
