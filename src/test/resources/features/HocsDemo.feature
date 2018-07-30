@@ -2,7 +2,7 @@ Feature: HOCS DEMO
 
   @test
   Scenario: User can submit HOCS Demo Form
-    Given I login as "Dom"
+    Given I am user "Dom"
     And I navigate to the "Test Form" Page
     When I submit valid detail in all fields
     Then I am taken to the "HOCS Home" Page

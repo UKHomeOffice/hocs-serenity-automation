@@ -25,59 +25,56 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Page extends PageObject {
 
-    protected static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
+    private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
-    protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    protected static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+    private static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
     @FindBy(className = "govuk-heading-l")
-    public WebElementFacade pageTitle;
+    protected WebElementFacade pageTitle;
 
     @FindBy(css = "[value='Add/Update']")
-    protected WebElementFacade addUpdateButton;
+    private WebElementFacade addUpdateButton;
 
     @FindBy(css = "[id*=documentTable]")
-    protected WebElementFacade associatedDocumentTable;
-
-    @FindBy(css = "[id*=CRN]")
-    protected WebElementFacade CRN;
+    private WebElementFacade associatedDocumentTable;
 
     @FindBy(name = "go")
-    protected WebElementFacade lookupButton;
+    private WebElementFacade lookupButton;
 
     @FindBy(css = "[value = 'Search']")
-    protected WebElementFacade searchButton;
+    private WebElementFacade searchButton;
 
     @FindBy(css = "[type = 'submit']")
-    protected WebElementFacade submitButton;
+    private WebElementFacade submitButton;
 
     @FindBy(linkText = "Print")
     protected WebElementFacade printButton;
 
     @FindBy(css = "[value = 'Refresh']")
-    protected WebElementFacade refreshButton;
+    private WebElementFacade refreshButton;
 
     @FindBy(css = "[value = 'Save']")
-    protected WebElementFacade saveButton;
+    private WebElementFacade saveButton;
 
     @FindBy(css = "input[type='submit'][value='More']")
-    protected WebElementFacade moreButton;
+    private WebElementFacade moreButton;
 
     @FindBy(css = "[value = 'Document']")
-    protected WebElementFacade documentButton;
+    private WebElementFacade documentButton;
 
     @FindBy(linkText = "update")
-    protected WebElementFacade updateLink;
+    private WebElementFacade updateLink;
 
     @FindBy(linkText = "view")
-    protected WebElementFacade viewLink;
+    private WebElementFacade viewLink;
 
     @FindBy(linkText = "View")
-    protected WebElementFacade viewButton;
+    private WebElementFacade viewButton;
 
     @FindBy(id = "Date")
-    protected WebElementFacade dateField;
+    private WebElementFacade dateField;
 
     @FindBy(css = "[value='Withdraw']")
     protected WebElementFacade withdrawButton;
@@ -89,64 +86,64 @@ public class Page extends PageObject {
     protected WebElementFacade rejectButton;
 
     @FindBy(css = "[value='Close']")
-    protected WebElementFacade closeButton;
+    private WebElementFacade closeButton;
 
     @FindBy(css = "[value='Transfer']")
     protected WebElementFacade offenderTransfer;
 
     @FindBy(css = "[value='Accept All']")
-    protected WebElementFacade acceptAllButton;
+    private WebElementFacade acceptAllButton;
 
     @FindBy(css = "[value='Accept']")
-    protected WebElementFacade acceptButton;
+    private WebElementFacade acceptButton;
 
     @FindBy(css = "[id*=Staff]")
     protected WebElementFacade staffDropdown;
 
     @FindBy(css = "[id*=StartDate]")
-    protected WebElementFacade startDate;
+    private WebElementFacade startDate;
 
     @FindBy(css = "[id*=EndDate]")
-    protected WebElementFacade endDate;
+    private WebElementFacade endDate;
 
     @FindBy(css = "[id*=searchResults]")
     protected WebElementFacade searchResults;
 
     @FindBy(css = "input[type = 'submit'][value = 'Clear Search Fields']")
-    protected WebElementFacade clearSearchFields;
+    private WebElementFacade clearSearchFields;
 
     @FindBy(css = "[value = 'Confirm']")
-    protected WebElementFacade confirmButton;
+    private WebElementFacade confirmButton;
 
     @FindBy(linkText = "First")
-    protected WebElementFacade firstButton;
+    private WebElementFacade firstButton;
 
     @FindBy(linkText = "Previous")
-    protected WebElementFacade previousButton;
+    private WebElementFacade previousButton;
 
     @FindBy(css = "[value = 'Next']")
-    protected WebElementFacade nextButton;
+    private WebElementFacade nextButton;
 
     @FindBy(linkText = "Last")
-    protected WebElementFacade lastButton;
+    private WebElementFacade lastButton;
 
     @FindBy(className = "highlight")
     protected WebElementFacade noTableResults;
 
     @FindBy(css = "[class = 'govuk-back-link ']")
-    protected WebElementFacade cancelButton;
+    private WebElementFacade cancelButton;
 
     @FindBy(linkText = "delete")
-    protected WebElementFacade deleteButton;
+    private WebElementFacade deleteButton;
 
     @FindBy(css = "[value = 'Add']")
-    protected WebElementFacade addButton;
+    private WebElementFacade addButton;
 
     @FindBy(css = "[value = 'View Documents']")
-    protected WebElementFacade viewDocumentsButton;
+    private WebElementFacade viewDocumentsButton;
 
     @FindBy(css = "[value = 'Update']")
-    protected WebElementFacade updateButton;
+    private WebElementFacade updateButton;
 
     @FindBy(id = "name")
     protected WebElementFacade nameBox;
@@ -169,29 +166,20 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=Gender]")
     protected WebElementFacade genderDropdown;
 
-    @FindBy(css = "[id*=appearancesTable]")
-    protected WebElementFacade appearancesTable;
-
-    @FindBy(css = "[id*=PrisonerNumber]")
-    protected WebElementFacade prisonerNumber;
-
     @FindBy(css = "[value = 'Renew]")
-    protected WebElementFacade renewButton;
+    private WebElementFacade renewButton;
 
     @FindBy(linkText = "new")
-    protected WebElementFacade newLink;
+    private WebElementFacade newLink;
 
     @FindBy(linkText = "delete")
-    protected WebElementFacade deleteLink;
+    private WebElementFacade deleteLink;
 
     @FindBy(css = "[id*=Notes]")
-    protected WebElementFacade notesBox;
+    private WebElementFacade notesBox;
 
     @FindBy(css = "[id*=newNotes]")
-    protected WebElementFacade newNotesBox;
-
-    @FindBy(css = "[id*=NationalSearch]")
-    protected WebElementFacade searchTypeDropdown;
+    private WebElementFacade newNotesBox;
 
     @Managed
     WebDriver driver;
