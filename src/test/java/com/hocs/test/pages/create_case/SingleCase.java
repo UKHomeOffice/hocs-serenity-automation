@@ -1,5 +1,8 @@
 package com.hocs.test.pages.create_case;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -29,7 +32,7 @@ public class SingleCase extends Page {
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
-        pageTitle.containsText("Create Case");
+        assertThat(pageTitle, is("Create case"));
     }
 
 

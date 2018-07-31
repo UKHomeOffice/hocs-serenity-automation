@@ -24,3 +24,31 @@ pipeline:
     when:
       branch: master
       event: push
+
+  install-docker-image:
+    image: docker:17.09.1
+    environment:
+      - DOCKER_HOST=tcp://172.17.0.1:2375
+    secrets:
+      - docker_password
+    commands:
+      - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
+      - docker tag hocs-workflow quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
+      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
+    when:
+      branch: master
+      event: push
+
+  tag-docker-image-with-git-tag:
+    image: docker:17.09.1
+    environment:
+      - DOCKER_HOST=tcp://172.17.0.1:2375
+    secrets:
+      - docker_password
+    commands:
+      - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
+      - docker tag hocs-workflow quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
+      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
+    when:
+      event: tag
+

@@ -30,7 +30,7 @@ public class NavigationStepDefs {
     }
 
     @Then("^I am taken to the \"([^\"]*)\" Page$")
-    public void iAmTakenToThePage(String page) {
+    public void iAmTakenToThePage(String page) throws InterruptedException {
         switch (page.toUpperCase()) {
             case "HOCS HOME":
                 homepage.pageTitleIsDisplayed();
