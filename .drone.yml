@@ -10,18 +10,17 @@ pipeline:
       branch: master
       event: push
 
-  install-docker-image:
-    image: docker:17.09.1
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
+  image_to_quay:
+    image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
       - docker_password
-    commands:
-      - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
-      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
-      - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:latest
-      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:latest
+    environment:
+      - DOCKER_USERNAME=ukhomeofficedigital+hocs
+    registry: quay.io
+    repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    tags:
+      - ${DRONE_BUILD_NUMBER}
+      - latest
     when:
       branch: master
       event: push
