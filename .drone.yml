@@ -35,6 +35,8 @@ pipeline:
       - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
       - docker tag hocs-workflow quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:build-$${DRONE_BUILD_NUMBER}
+      - docker tag hocs-workflow quay.io/ukhomeofficedigital/hocs-serenity-automation:latest
+      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:latest
     when:
       branch: master
       event: push
