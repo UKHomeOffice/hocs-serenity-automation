@@ -35,7 +35,7 @@ public class SingleCase extends Page {
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
-        pageTitle.containsText("Create Case");
+        assertThat(pageTitle, is("Create case"));
     }
 
     public void radioButtonsAreDisplayed() {

@@ -1,5 +1,8 @@
 package com.hocs.test.pages.homepage;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -17,9 +20,10 @@ public class Homepage extends Page {
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
-    public void pageTitleIsDisplayed() {
+    public void pageTitleIsDisplayed() throws InterruptedException {
+        wait(100);
         waitFor(pageTitle);
-        pageTitle.containsText("Main");
+        assertThat(pageTitle, is("Main"));
     }
 
     public void clickCreateSingleCase() {
