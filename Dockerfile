@@ -1,4 +1,4 @@
-FROM        maven:3.3.3-jdk-8
+FROM quay.io/ukhomeofficedigital/openjdk8
 
 VOLUME      ["/usr/src/app"]
 WORKDIR /usr/src/app
