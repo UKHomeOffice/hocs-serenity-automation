@@ -9,6 +9,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class SingleCase extends Page {
 
+    @FindBy(className = "govuk-radios")
+    private WebElementFacade allRadioButtons;
+
     @FindBy(css = "label[for='case-type-MIN']")
     private WebElementFacade dcuMinRadioButton;
 
@@ -35,5 +38,12 @@ public class SingleCase extends Page {
         assertThat(pageTitle, is("Create case"));
     }
 
+    public void radioButtonsAreDisplayed() {
+        assertThat(isElementDisplayed(allRadioButtons), is(true));
+    }
+
+    public void radioButtonsNotDisplayed() {
+        assertThat(isElementDisplayed(allRadioButtons), is(false));
+    }
 
 }

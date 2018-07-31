@@ -19,7 +19,7 @@ pipeline:
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
-      - ${DRONE_BUILD_NUMBER}
+      - build-${DRONE_BUILD_NUMBER}
       - latest
     when:
       branch: master
