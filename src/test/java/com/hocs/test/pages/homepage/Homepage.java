@@ -21,7 +21,6 @@ public class Homepage extends Page {
     private WebElementFacade testFormLink;
 
     public void pageTitleIsDisplayed() throws InterruptedException {
-        wait(100);
         waitFor(pageTitle);
         assertThat(pageTitle, is("Main"));
     }

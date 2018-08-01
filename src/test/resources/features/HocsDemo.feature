@@ -1,6 +1,6 @@
 Feature: HOCS DEMO
 
-  @test
+  @demo
   Scenario: User can submit HOCS Demo Form
     Given I am user "Dom"
     And I navigate to the "Test Form" Page
