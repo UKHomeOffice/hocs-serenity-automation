@@ -49,4 +49,9 @@ public class ViewDocumentsStepDefs {
     public void iCanSeeAPreviewOfTheDocument() {
 
     }
+
+    @And("^a document (?:is|is not) previewable$")
+    public void documentPreview() {
+
+    }
 }
