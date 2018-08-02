@@ -28,17 +28,17 @@ Feature: A user can preview any documents attached to a case
   Scenario: No Document attached to the case
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     And I am viewing a case with "no" documents attached
-    Then I see the 'No Documents' message
+    Then I see the "No Documents" message
 
   Scenario: Document pending
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     When a document has "not completed" processing
-    Then I see the 'Document pending' message
+    Then I see the "Document pending" message
     And no preview or download buttons are available for that document
 
   Scenario: Document failed
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     And a document has "failed" processing
-    Then I see the 'Document upload failed' message
+    Then I see the "Document upload failed" message
     And no preview or download buttons are available for that document
 

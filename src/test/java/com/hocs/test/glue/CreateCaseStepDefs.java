@@ -10,11 +10,11 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    AddDocuments addDocuments;
+    private AddDocuments addDocuments;
 
-    Page page;
+    private Page page;
 
-    SingleCase singleCase;
+    private SingleCase singleCase;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {
@@ -29,9 +29,14 @@ public class CreateCaseStepDefs {
 
     @When("^I create a case$")
     public void iCreateACase() {
-        singleCase.clickDcuDtenRadioButton();
+        singleCase.clickDcuMinRadioButton();
         singleCase.clickNextButton();
         addDocuments.uploadDocument();
         page.clickSubmitButton();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

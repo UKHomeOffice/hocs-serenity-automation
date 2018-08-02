@@ -36,6 +36,26 @@ public class GenericInputStepDefs {
         }
     }
 
+    @When("^I click the \"([^\"]*)\" link")
+    public void clickLink(String name) {
+        switch (name.toUpperCase()) {
+            case "UPDATE":
+                page.clickUpdateLink();
+                break;
+            case "NEW":
+                page.clickNewLink();
+                break;
+            case "DELETE":
+                page.clickDeleteLink();
+                break;
+            case "VIEW":
+                page.clickViewLink();
+                break;
+            default:
+                fail(name + " is not defined within GenericStepDefs.clickLink()");
+        }
+    }
+
     @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" box")
     public void iEnterIntoTheBox(String input, String element) {
         switch (element.toUpperCase()) {
@@ -49,6 +69,20 @@ public class GenericInputStepDefs {
     @Then("^The page title is \"([^\"]*)\"$")
     public void pageTitleIs(String title) {
         page.assertTitle(title);
+    }
+
+    @Then("^I see the \"([^\"]*)\" message$")
+    public void iSeeTheMessage(String message) {
+        switch (message.toUpperCase()) {
+            case "DOCUMENT PENDING":
+                break;
+            case "DOCUMENT UPLOAD FAILED":
+                break;
+            case "NO DOCUMENTS":
+                break;
+            default:
+                fail(message + " is not defined in GenericStepDefs.iSeeTheMessage()");
+        }
     }
 
 }

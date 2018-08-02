@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
-import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -17,8 +17,7 @@ public class ViewDocumentsStepDefs {
 
     @When("^a document has \"([^\"]*)\" processing$")
     public void aDocumentHasProcessing(String arg0) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
     }
 
     @Then("^I ([^\"]*) able to view the documents$")
@@ -36,4 +35,18 @@ public class ViewDocumentsStepDefs {
         }
     }
 
+    @And("^no preview or download buttons are available for that document$")
+    public void noPreviewOrDownloadButtonsAreAvailableForThatDocument() {
+
+    }
+
+    @Then("^no preview link is available for that document$")
+    public void noPreviewLinkIsAvailableForThatDocument() {
+
+    }
+
+    @Then("^I (?:can| can not) see a preview of the document$")
+    public void iCanSeeAPreviewOfTheDocument() {
+
+    }
 }

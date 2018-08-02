@@ -20,9 +20,9 @@ public class Homepage extends Page {
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
-    public void pageTitleIsDisplayed() throws InterruptedException {
+    public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
-        assertThat(pageTitle, is("Main"));
+        assertThat(pageTitle.getText(), is("Main"));
     }
 
     public void clickCreateSingleCase() {
