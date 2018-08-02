@@ -17,9 +17,9 @@ public class NavigationStepDefs {
 
     Page page;
 
-    Homepage homepage;
+    private Homepage homepage;
 
-    SingleCase singleCase;
+    private SingleCase singleCase;
 
     @Given("^I navigate to the \"([^\"]*)\" Page$")
     public void iNavigateToThePage(String hocsPage) {
@@ -31,7 +31,7 @@ public class NavigationStepDefs {
                 homepage.clickCreateSingleCase();
                 break;
             default:
-                fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage");
+                fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage()");
         }
     }
 
@@ -45,7 +45,7 @@ public class NavigationStepDefs {
                 singleCase.pageTitleIsDisplayed();
                 break;
             default:
-                fail(page + " is not defined with NavigationStepDefs.iNavigateToThePage");
+                fail(page + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
         }
     }
 }
