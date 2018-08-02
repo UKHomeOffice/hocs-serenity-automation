@@ -14,9 +14,11 @@ public class ViewDocumentsStepDefs {
     @When("^I am viewing a case with \"([^\"]*)\" documents attached$")
     public void iAmViewingACaseWithDocumentsAttached(String arg0) {
         switch (arg0.toUpperCase()) {
-            case "PREVIEWABLE":
+            case "NO":
                 break;
             case "NON PREVIEWABLE":
+                break;
+            case "PREVIEWABLE":
                 break;
             default:
                 fail(arg0
@@ -28,10 +30,10 @@ public class ViewDocumentsStepDefs {
     public void documentPreview(String preview) {
         switch (preview.toUpperCase()) {
             case "IS":
-                page.associatedDocumentsIsDisplayed();
+
                 break;
             case "IS NOT":
-                page.associatedDocumentsIsNotDisplayed();
+
                 break;
             default:
                 fail("Please state whether a document 'IS' or 'IS NOT' previewable");
@@ -47,10 +49,10 @@ public class ViewDocumentsStepDefs {
     public void iCanSeeAPreviewOfTheDocument(String view) {
         switch (view.toUpperCase()) {
             case "AM":
-                page.associatedDocumentsIsDisplayed();
+
                 break;
             case "AM NOT":
-                page.associatedDocumentsIsNotDisplayed();
+
                 break;
             default:
                 fail("Please state I 'AM' or 'AM NOT' able to see a preview of the document");
