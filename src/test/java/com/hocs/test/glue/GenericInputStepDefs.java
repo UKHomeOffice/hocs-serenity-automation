@@ -66,6 +66,17 @@ public class GenericInputStepDefs {
         }
     }
 
+    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data")
+    public void fillMandatoryFields(String pageName) {
+        switch (pageName.toUpperCase()) {
+            case "":
+                break;
+            default:
+                fail(pageName + " is not defined within GenericInputStepDefs.fillAllMandatoryFields()");
+        }
+    }
+
+
     @Then("^The page title is \"([^\"]*)\"$")
     public void pageTitleIs(String title) {
         page.assertTitle(title);
@@ -85,4 +96,8 @@ public class GenericInputStepDefs {
         }
     }
 
+    @When("^I enter an invalid date$")
+    public void iEnterAnInvalidDate() {
+        page.enterInvalidDate();
+    }
 }

@@ -25,6 +25,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Page extends PageObject {
 
+    @Managed
+    WebDriver driver;
+
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -181,8 +184,14 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=newNotes]")
     private WebElementFacade newNotesBox;
 
-    @Managed
-    WebDriver driver;
+    @FindBy(id = "date-day")
+    protected WebElementFacade dateDayField;
+
+    @FindBy(id = "date-month")
+    protected WebElementFacade dateMonthField;
+
+    @FindBy(id = "date-year")
+    protected WebElementFacade dateYearField;
 
     @FindBy(css = "[id*='Relationship']")
     private WebElementFacade relationshipTypeDropdown;
@@ -221,6 +230,25 @@ public class Page extends PageObject {
         newNotesBox.sendKeys(notes);
         Serenity.setSessionVariable("newNotes").to(notes);
     }
+
+    public void enterValidDate() {
+        dateDayField.clear();
+        dateDayField.sendKeys("01");
+        dateMonthField.clear();
+        dateMonthField.sendKeys("01");
+        dateYearField.clear();
+        dateYearField.sendKeys("2018");
+    }
+
+    public void enterInvalidDate() {
+        dateDayField.clear();
+        dateDayField.sendKeys("31");
+        dateMonthField.clear();
+        dateMonthField.sendKeys("06");
+        dateYearField.clear();
+        dateYearField.sendKeys("2018");
+    }
+
 
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);

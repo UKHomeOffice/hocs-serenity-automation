@@ -12,15 +12,6 @@ public class TestForm extends Page {
     @Managed
     WebDriver driver;
 
-    @FindBy(id = "date-day")
-    private WebElementFacade dateDayField;
-
-    @FindBy(id = "date-month")
-    private WebElementFacade dateMonthField;
-
-    @FindBy(id = "date-year")
-    private WebElementFacade dateYearField;
-
     @FindBy(css = "label[for='checkboxContext-Has1']")
     private WebElementFacade checkboxOne;
 
