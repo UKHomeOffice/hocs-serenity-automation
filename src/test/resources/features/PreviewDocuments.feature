@@ -15,17 +15,14 @@ Feature: A user can preview any documents attached to a case
   @HOCS-272, @HOCS-238
   Scenario: Document can be previewed (see attached screenshot)
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
-    And I am viewing a case with "one or more" documents attached
-    And a document is previewable
+    And I am viewing a case with "previewable" documents attached
     When I click the "Preview" link
-    Then I "am" able to see a preview of the document    
-    And that document line is highlighted
+    Then I "am" able to see a preview of the document
 
   @HOCS-272, @HOCS-238
   Scenario: Document cannot be previewed
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
-    And I am viewing a case with "one or more" documents attached
-    And a document is not previewable
+    And I am viewing a case with "non previewable" documents attached
     Then no preview link is available for that document
 
   @HOCS-272, @HOCS-238

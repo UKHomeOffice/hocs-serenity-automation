@@ -11,8 +11,17 @@ public class ViewDocumentsStepDefs {
 
     private Page page;
 
-    @When("^I am viewing a case with \"([^\"]*)\" (?:document|documents) attached$")
+    @When("^I am viewing a case with \"([^\"]*)\" documents attached$")
     public void iAmViewingACaseWithDocumentsAttached(String arg0) {
+        switch (arg0.toUpperCase()) {
+            case "PREVIEWABLE":
+                break;
+            case "NON PREVIEWABLE":
+                break;
+            default:
+                fail(arg0
+                        + " is not defined in ViewDocumentsStepDefs.iAmViewingACaseWithDocumentsAttached()");
+        }
     }
 
     @And("^a document \"([^\"]*)\" previewable$")
