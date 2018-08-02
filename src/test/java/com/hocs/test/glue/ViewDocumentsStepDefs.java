@@ -15,12 +15,40 @@ public class ViewDocumentsStepDefs {
     public void iAmViewingACaseWithDocumentsAttached(String arg0) {
     }
 
+    @And("^a document \"([^\"]*)\" previewable$")
+    public void documentPreview(String preview) {
+        switch (preview.toUpperCase()) {
+            case "IS":
+                page.associatedDocumentsIsDisplayed();
+                break;
+            case "IS NOT":
+                page.associatedDocumentsIsNotDisplayed();
+                break;
+            default:
+                fail("Please state whether a document 'IS' or 'IS NOT' previewable");
+        }
+    }
+
     @When("^a document has \"([^\"]*)\" processing$")
     public void aDocumentHasProcessing(String arg0) {
 
     }
 
-    @Then("^I ([^\"]*) able to view the documents$")
+    @Then("^I \"([^\"]*)\" able to see a preview of the document$")
+    public void iCanSeeAPreviewOfTheDocument(String view) {
+        switch (view.toUpperCase()) {
+            case "AM":
+                page.associatedDocumentsIsDisplayed();
+                break;
+            case "AM NOT":
+                page.associatedDocumentsIsNotDisplayed();
+                break;
+            default:
+                fail("Please state I 'AM' or 'AM NOT' able to see a preview of the document");
+        }
+    }
+
+    @Then("^I \"([^\"]*)\" able to view the documents$")
     public void iAmAbleToViewDocuments(String view) {
         switch (view.toUpperCase()) {
             case "AM":
@@ -30,8 +58,7 @@ public class ViewDocumentsStepDefs {
                 page.associatedDocumentsIsNotDisplayed();
                 break;
             default:
-                fail(page
-                        + " is not defined within GenericInputStepDefs class, iAmAbleToViewDocuments method");
+                fail("Please state I 'AM' or 'AM NOT' able to view the documents");
         }
     }
 
@@ -45,13 +72,4 @@ public class ViewDocumentsStepDefs {
 
     }
 
-    @Then("^I (?:can| can not) see a preview of the document$")
-    public void iCanSeeAPreviewOfTheDocument() {
-
-    }
-
-    @And("^a document (?:is|is not) previewable$")
-    public void documentPreview() {
-
-    }
 }

@@ -18,7 +18,7 @@ Feature: A user can preview any documents attached to a case
     And I am viewing a case with "one or more" documents attached
     And a document is previewable
     When I click the "Preview" link
-    Then I can see a preview of the document
+    Then I "am" able to see a preview of the document    
     And that document line is highlighted
 
   @HOCS-272, @HOCS-238

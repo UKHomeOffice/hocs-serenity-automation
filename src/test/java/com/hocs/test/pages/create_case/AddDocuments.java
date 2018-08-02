@@ -15,7 +15,7 @@ public class AddDocuments extends Page {
     }
 
     public void uploadDocument() {
-        upload("C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test.docx").to(addDocument);
+        upload("documents/test.docx").to(addDocument);
     }
 
 }
