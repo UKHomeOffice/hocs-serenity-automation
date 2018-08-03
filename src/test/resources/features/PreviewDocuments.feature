@@ -22,7 +22,7 @@ Feature: A user can preview any documents attached to a case
   @HOCS-272, @HOCS-238
   Scenario: Document cannot be previewed
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
-    And I am viewing a case with "non previewable" documents attached
+    When I am viewing a case with "non previewable" documents attached
     Then no preview link is available for that document
 
   @HOCS-272, @HOCS-238

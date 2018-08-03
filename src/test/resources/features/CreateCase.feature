@@ -71,3 +71,17 @@ Feature: HOCS User is able to create a case
     And I navigate to the "data entry 2" Page
     When I enter correspondence data manually
     Then the correspondence type is the primary correspondent
+
+  @HOCS-238, @HOCS-394
+  Scenario: User chooses to add another correspondent
+    Given I am user "<string>"
+    And a case has Primary correspondent
+    When I add an additional correspondent
+    Then the correspondent type is the secondary correspondent
+
+  @HOCS-238, @HOCS-394
+  Scenario: User chooses to make a secondary correspondent the primary correspondent
+    Given I am user "<string>"
+    And a case has a Secondary correspondent
+    When I select the primary correspondent radio button for a different correspondent
+    Then that correspondent becomes the primary correspondent

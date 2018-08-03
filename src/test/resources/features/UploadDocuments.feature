@@ -1,5 +1,6 @@
 Feature: A user can upload documents to a case
 
+  @HOCS-273, @HOCS-238
   Scenario: Document has a File Type that is not on the whitelist
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     When I upload a document that is not on the whitelist
@@ -26,7 +27,7 @@ Feature: A user can upload documents to a case
   Scenario: A selected document fails with a validation error
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     When I upload 1 valid document
-    And the file has an error
+    And the file has a validation error
     Then invalid files are not uploaded
 
   Scenario: When multiple files are selected, and one or more has a validation error, all files will be  displayed with the relevant status
