@@ -73,7 +73,8 @@ public class GenericInputStepDefs {
             case "":
                 break;
             default:
-                fail(pageName + " is not defined within GenericInputStepDefs.fillAllMandatoryFields()");
+                fail(pageName
+                        + " is not defined within GenericInputStepDefs.fillAllMandatoryFields()");
         }
     }
 
@@ -107,9 +108,22 @@ public class GenericInputStepDefs {
         switch (stage.toUpperCase()) {
             case "MARK UP":
                 break;
-                default:
-                    fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");
+            default:
+                fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");
         }
     }
 
+    @When("^I enter a date in the \"([^\"]*)\"$")
+    public void iEnterADateInThe(String date) {
+        switch (date.toUpperCase()) {
+            case "FUTURE":
+                page.todayPlusDays(1);
+                break;
+            case "PAST":
+                page.todayPlusDays(-1);
+                break;
+                default:
+                    fail("Please enter FUTURE or PAST");
+        }
+    }
 }

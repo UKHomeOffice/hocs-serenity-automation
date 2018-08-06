@@ -8,8 +8,21 @@ import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
 
-    @And("^I select (?:a|an) \"([^\"]*)\" topic for a case$")
-    public void andISelectATopicForACase(String caseDecision) {
+    @And("^I select (?:a|an) \"([^\"]*)\" topic for a case from the type function$")
+    public void andISelectATopicForACaseFromTheTypeFunction(String caseDecision) {
+        switch (caseDecision.toUpperCase()) {
+            case "FAQ":
+                break;
+            case "POLICY RESPONSE":
+                break;
+            default:
+                fail("Please select from FAQ or Policy Response");
+        }
+
+    }
+
+    @And("^I select (?:a|an) \"([^\"]*)\" topic for a case from the dropdown$")
+    public void andISelectATopicForACaseFromTheDropdown(String caseDecision) {
         switch (caseDecision.toUpperCase()) {
             case "FAQ":
                 break;
