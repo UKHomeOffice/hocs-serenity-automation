@@ -38,3 +38,9 @@ pipeline:
     when:
       event: tag
 
+  execute-tests:
+    command:
+      - mvn clean verify "-Dcucumber.options=--tags @demo"
+    when:
+      branch: master
+      event: push
