@@ -8,6 +8,7 @@ import config.Environments;
 import config.Services;
 import config.Users;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -24,6 +25,11 @@ public class LoginStepDefs {
     LoginPage loginPage;
 
     Page page;
+
+    @Then("^An invalid username or password error is displayed$")
+    public void invalidUsernamePasswordErrorDisplayed() {
+        loginPage.assertInvalidUsernamePassword();
+    }
 
     @Given("^I am user \"([^\"]*)\"")
     public void iLoginas(String user) {
@@ -59,8 +65,11 @@ public class LoginStepDefs {
                 case "LOCAL":
                     baseUrl = Environments.LOCAL.getEnvironmentURL() + Services.HOCS.getPort();
                     break;
+                case "QA":
+                    baseUrl = Environments.QA.getEnvironmentURL();
+                    break;
                 default:
-                    fail(env + " is not defined within LoginStepDefs, navigateToNDelius method");
+                    fail("Environment must be set to LOCAL, DEV or QA");
             }
         }
         driver.get(baseUrl);
