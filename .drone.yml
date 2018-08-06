@@ -37,11 +37,3 @@ pipeline:
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
     when:
       event: tag
-
-  execute-tests:
-    image: https://quay.io/repository/ukhomeofficedigital/hocs-serenity-automation
-    command:
-      - mvn clean verify "-Dcucumber.options=--tags @demo"
-    when:
-      branch: master
-      event: push
