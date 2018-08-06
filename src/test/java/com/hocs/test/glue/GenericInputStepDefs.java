@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -66,6 +67,17 @@ public class GenericInputStepDefs {
         }
     }
 
+    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data")
+    public void fillMandatoryFields(String pageName) {
+        switch (pageName.toUpperCase()) {
+            case "":
+                break;
+            default:
+                fail(pageName + " is not defined within GenericInputStepDefs.fillAllMandatoryFields()");
+        }
+    }
+
+
     @Then("^The page title is \"([^\"]*)\"$")
     public void pageTitleIs(String title) {
         page.assertTitle(title);
@@ -82,6 +94,21 @@ public class GenericInputStepDefs {
                 break;
             default:
                 fail(message + " is not defined in GenericStepDefs.iSeeTheMessage()");
+        }
+    }
+
+    @When("^I enter an invalid date$")
+    public void iEnterAnInvalidDate() {
+        page.enterInvalidDate();
+    }
+
+    @And("^I am at the \"([^\"]*)\" stage$")
+    public void iAmAtTheStage(String stage) {
+        switch (stage.toUpperCase()) {
+            case "MARK UP":
+                break;
+                default:
+                    fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");
         }
     }
 

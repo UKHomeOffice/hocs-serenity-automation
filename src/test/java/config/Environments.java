@@ -3,7 +3,8 @@ package config;
 public enum Environments {
 
     LOCAL("http://localhost"),
-    DEV("https://dev.notprod.cs.homeoffice.gov.uk/");
+    DEV("https://dev.notprod.cs.homeoffice.gov.uk/"),
+    QA("");
 
     private final String hostname;
 

@@ -22,7 +22,7 @@ public class Homepage extends Page {
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
-        assertThat(pageTitle.getText(), is("Main"));
+        assertThat(getHeaderText(), is("Main"));
     }
 
     public void clickCreateSingleCase() {
