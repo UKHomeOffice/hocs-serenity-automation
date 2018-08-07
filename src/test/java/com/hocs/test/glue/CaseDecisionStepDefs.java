@@ -88,6 +88,18 @@ public class CaseDecisionStepDefs {
 
     }
 
+    @When("^I click to amend the \"([^\"]*)\"$")
+    public void iClickToAmendThe(String amendment) {
+        switch (amendment.toUpperCase()) {
+            case "MINISTER":
+                break;
+            case "DRAFTING TEAM":
+                break;
+            default:
+                fail();
+        }
+    }
+
     @When("^I select an initial decision of \"([^\"]*)\"$")
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
@@ -104,15 +116,8 @@ public class CaseDecisionStepDefs {
         }
     }
 
-    @When("^I click to amend the \"([^\"]*)\"$")
-    public void iClickToAmendThe(String amendment) {
-        switch (amendment.toUpperCase()) {
-            case "MINISTER":
-                break;
-            case "DRAFTING TEAM":
-                break;
-            default:
-                fail();
-        }
+    @When("^I reject a case$")
+    public void iRejectACase() {
+
     }
 }
