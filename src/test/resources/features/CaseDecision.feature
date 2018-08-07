@@ -1,32 +1,32 @@
 Feature: DCU user decides how a case should be handled
 
-  @HOCS-266, @HOCS-238
+  @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     Given I am user "<string>"
     And I am at the "mark up" stage
     When I select an initial decision of "Policy Response"
-    Then an optional "Allocation Note" free text field is available to add an Allocation note.
+    Then an optional "Allocation Note" free text field is available
 
-  @HOCS-266, @HOCS-238
+  @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     Given I am user "<string>"
     And I am at the "mark up" stage
     When I select an initial decision of "FAQ"
-    Then an optional "Allocation Note" free text field is available to add an Allocation note.
+    Then an optional "Allocation Note" free text field is available
 
-  @HOCS-266, @HOCS-238
+  @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     Given I am user "<string>"
     And I am at the "mark up" stage
     When I select an initial decision of "Transfer to OGD"
-    Then a mandatory "Allocation Note" free text field is available to add an Allocation note.
+    Then a mandatory "Allocation Note" free text field is available
 
-  @HOCS-266, @HOCS-238
+  @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Reply Needed
     Given I am user "<string>"
     And I am at the "mark up" stage
     When I select an initial decision of "No Reply Needed"
-    Then a mandatory "Reason for No Reply Needed"  free text field is available to add a no reply needed note.
+    Then a mandatory "Reason for No Reply Needed" free text field is available
 
   @HOCS-257, @HOCS-237
   Scenario: User enters reasons for no reply and sends for closure
@@ -40,8 +40,8 @@ Feature: DCU user decides how a case should be handled
   Scenario: User does not enter reasons for no reply needed
     Given I am user "<string>"
     And I am at the "mark up" stage
-    When do not enter reasons for a no reply needed case closure
-    Then An error message is displayed
+    When I do not enter reasons for a no reply needed case closure
+    Then an error message is displayed
     And the case is not sent to the closure stage - See BPMN
     And I remain on the page
 
@@ -58,7 +58,7 @@ Feature: DCU user decides how a case should be handled
     Given I am user "<string>"
     And I am at the "mark up" stage
     And I select an "FAQ" topic for a case from the type function
-    When I click to amend the drafting team
+    When I click to amend the "drafting team"
     Then I can only select from a fixed list of drafting teams
 
   @HOCS-258, @HOCS-237
@@ -66,7 +66,7 @@ Feature: DCU user decides how a case should be handled
     Given I am user "<string>"
     And I am at the "mark up" stage
     And I select an "FAQ" topic for a case from the dropdown
-    When I click to amend the Minister
+    When I click to amend the "Minister"
     Then I can only select from a fixed list of Ministers
 
   @HOCS-258, @HOCS-237
@@ -139,17 +139,24 @@ Feature: DCU user decides how a case should be handled
   Scenario: User changes case created date and case deadline
     Given I am user "<string>"
     And I am at the "mark up" stage
-    And a case created date has been pre-populated at the create case stage
     When I enter a date in the "past"
     Then the case deadline is updated in line with the business rules (see BR MIN-6)
+
+  @HOCS-261, @HOCS-238
+  Scenario: User changes case created date and case deadline
+    Given I am user "<string>"
+    And I am at the "mark up" stage
+    When I enter a date in the "today"
+    Then the case deadline is updated in line with the business rules (see BR MIN-6)
+
+    ## Add Test for overdue i.e created more than 20 working days
 
   @HOCS-261, @HOCS-238
   Scenario: Case date must be in the past
     Given I am user "<string>"
     And I am at the "mark up" stage
-    And a case created date has been pre-populated at the create case stage
     When I enter a date in the "future"
-    Then I get an error message to say the date needs to be in the past
+    Then I get an error message to say the date must not be in the future
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
@@ -190,6 +197,14 @@ Feature: DCU user decides how a case should be handled
     And multiple topics have been set
     When I select the Primary Topic radio button for a topic that was a secondary topic
     Then it becomes the primary topic.
+
+  @HOCS-263, @HOCS-238
+  Scenario: User chooses to add another topic via type ahead function
+    Given I am user "<string>"
+    And I am at the "mark up" stage
+    And multiple topics have been set
+    When I select the Primary Topic radio button for a topic that was a secondary topic
+    Then the appropriate Answering Unit, Team and Minister is pre-populated by default
 
   @HOCS-264, @HOCS-237
   Scenario: Answering Unit and Team is pre-populated by default

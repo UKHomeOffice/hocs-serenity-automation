@@ -119,11 +119,19 @@ public class GenericInputStepDefs {
             case "FUTURE":
                 page.todayPlusDays(1);
                 break;
+            case "TODAY":
+                page.today();
+                break;
             case "PAST":
                 page.todayPlusDays(-1);
                 break;
-                default:
-                    fail("Please enter FUTURE or PAST");
+            default:
+                fail("Please enter FUTURE, PAST or TODAY");
         }
+    }
+
+    @Then("^an error message is displayed$")
+    public void anErrorMessageIsDisplayed() {
+
     }
 }
