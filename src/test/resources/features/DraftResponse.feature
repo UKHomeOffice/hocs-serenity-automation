@@ -27,18 +27,6 @@ Feature: HOCS User is able to draft a response
     And an error message appears instructing me to enter my rejection reasons in the free text field
 
   @HOCS-288, @HOCS-239
-  Scenario: User selects to answer correspondence by email
-    When I click to answer by email (see validation 'How do you want to reply')
-    Then the add a document function becomes available
-    And I can add a document to that case (see validation 'Add a document')
-
-  @HOCS-288, @HOCS-239
-  Scenario: User selects to answer correspondence by letter
-    When I click to answer by letter (see validation 'How do you want to reply')
-    Then the add a document function becomes available
-    And I can add a document to that case (see validation 'Add a document')
-
-  @HOCS-288, @HOCS-239
   Scenario: User selects to answer correspondence by phone
     When I click to answer by phone (BR - DCU MIN 14) (see validation 'How do you want to reply')
     Then I can see a free text field to enter call notes

@@ -113,20 +113,20 @@ public class GenericInputStepDefs {
         }
     }
 
-    @When("^I enter a date in the \"([^\"]*)\"$")
-    public void iEnterADateInThe(String date) {
+    @When("^I set the date to \"([^\"]*)\"$")
+    public void iSetTheDate(String date) {
         switch (date.toUpperCase()) {
-            case "FUTURE":
-                page.todayPlusDays(1);
-                break;
             case "TODAY":
                 page.today();
                 break;
-            case "PAST":
+            case "TOMORROW":
+                page.todayPlusDays(1);
+                break;
+            case "YESTERDAY":
                 page.todayPlusDays(-1);
                 break;
             default:
-                fail("Please enter FUTURE, PAST or TODAY");
+                fail("Please enter TODAY, TOMORROW or YESTERDAY");
         }
     }
 

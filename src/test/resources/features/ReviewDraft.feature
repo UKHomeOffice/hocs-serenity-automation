@@ -13,20 +13,12 @@ Feature: Review Draft
 
   @HOCS-310, @HOCS-240
   Scenario: User rejects a case
-    Given I have clicked to rejected a case
-    And the rejection reasons free text field has become available
-    When I enter my rejection reasons in the free text field
-    And click to reject the case
+    When I reject a case
     Then the case is returned to the Draft stage (BR - DCU MIN – 15) (see Validation for details on 'Reject' button)
     And the drafter becomes the owner
-    And I am navigated to my "to do" page
+    And I am taken to the "to do" Page
 
   @HOCS-310, @HOCS-240
   Scenario: User does not complete a rejection note
-    Given I have rejected a case
-    And the rejection reasons free text field has become available
-    And I do not enter my rejection reasons in the free text field
-    When I click to exit the case
+    When I attempt to reject a case without entering a reason
     Then an error message appears instructing me to enter my rejection reasons in the free text field
-    And the case is not returned to the Draft stage
-    And I remain on the page

@@ -105,19 +105,17 @@ Feature: DCU user decides how a case should be handled
     Then the case progresses as per BPMN (see BPMN link)
     And I am navigated to my "to do" page
 
-  @HOCS-261, @HOCS-238
+  #HOCS-261
   Scenario: User changes case created date and case deadline
     When I enter a date in the "past"
     Then the case deadline is updated in line with the business rules (see BR MIN-6)
 
-  @HOCS-261, @HOCS-238
+  #HOCS-261
   Scenario: User changes case created date and case deadline
     When I enter a date in the "today"
     Then the case deadline is updated in line with the business rules (see BR MIN-6)
 
-    ## Add Test for overdue i.e created more than 20 working days
-
-  @HOCS-261, @HOCS-238
+  #@HOCS-261
   Scenario: Case date must be in the past
     When I enter a date in the "future"
     Then I get an error message to say the date must not be in the future
