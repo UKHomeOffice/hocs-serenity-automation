@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -132,6 +133,22 @@ public class GenericInputStepDefs {
 
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
+
+    }
+
+    @Then("^the case is moved to the \"([^\"]*)\" stage$")
+    public void theCaseIsMovedToTheStage(String stage) {
+
+    }
+
+    @Then("^the file is downloaded$")
+    public void theFileIsDownloaded() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^I cannot click to exit the case$")
+    public void iCannotClickToExitTheCase() throws Throwable {
 
     }
 }

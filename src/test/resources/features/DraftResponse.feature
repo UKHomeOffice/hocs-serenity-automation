@@ -6,16 +6,16 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-285, @HOCS-239
   Scenario: User sees a case deadline
-    Then I can see the drafting deadline for that case
+    Then I can see the drafting deadline for a case
 
   @HOCS-285, @HOCS-239
   Scenario: Case at drafting stage has gone beyond drafting deadline
-    When the case has gone beyond the drafting deadline
+    When a case has gone beyond the drafting deadline
     Then I can see the final deadline for that case
 
   @HOCS-287, @HOCS-239
   Scenario: User completes a rejection note
-    When I reject a case
+    When I "reject" a case
     Then the case is returned to the Mark Up stage (BR - DCU MIN – 12) (see Validation for details on 'Reject' button)
     And I am taken to the "to do" Page
 
@@ -33,7 +33,7 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response has info in free text field
-    Given I have clicked to answer by phone
+    Given I click to answer by "phone"
     When I enter call notes in the free text field
     Then I can click to exit the case
     And I am taken to the "to do" Page

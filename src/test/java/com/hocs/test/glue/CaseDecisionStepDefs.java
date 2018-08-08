@@ -2,7 +2,9 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -58,6 +60,11 @@ public class CaseDecisionStepDefs {
         }
     }
 
+    @Given("^a primary topic has been set$")
+    public void aPrimaryTopicHasBeenSet() {
+
+    }
+
     @Then("^I can only select from a fixed list of answering \"([^\"]*)\"$")
     public void iCanOnlySelectFromAFixedListOfAnswering(String arg) {
         switch (arg.toUpperCase()) {
@@ -71,6 +78,12 @@ public class CaseDecisionStepDefs {
                 fail("Please select from Minister, Team or Unit");
         }
 
+    }
+
+    @When("^I close the case with no reply needed$")
+    public void iCloseTheCaseWithNoReplyNeeded() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 
     @When("^I click to amend the answering \"([^\"]*)\"$")
@@ -100,6 +113,19 @@ public class CaseDecisionStepDefs {
         }
     }
 
+    @When("^I \"([^\"]*)\" a case$")
+    public void iMakeADecisionOnACase(String decision) {
+        switch (decision.toUpperCase()) {
+            case "APPROVE":
+                break;
+            case "REJECT":
+                break;
+            default:
+                fail();
+        }
+
+    }
+
     @When("^I select an initial decision of \"([^\"]*)\"$")
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
@@ -116,8 +142,26 @@ public class CaseDecisionStepDefs {
         }
     }
 
-    @When("^I reject a case$")
-    public void iRejectACase() {
+    @Given("^multiple topics have been set$")
+    public void multipleTopicsHaveBeenSet() {
+
+    }
+
+    @Then("^the topic is set as the \"([^\"]*)\" Topic$")
+    public void theTopicIsSetAsTheTopic(String ordinal) {
+        switch (ordinal.toUpperCase()) {
+            case "PRIMARY":
+                break;
+            case "SECONDARY":
+                break;
+            default:
+                fail("Please enter PRIMARY or SECONDARY");
+        }
+
+    }
+
+    @When("^I do not enter reasons for a \"([^\"]*)\" case closure$")
+    public void iDoNotEnterReasonsForACaseClosure(String arg0) {
 
     }
 }

@@ -27,15 +27,13 @@ Feature: DCU user decides how a case should be handled
   @HOCS-257, @HOCS-237
   Scenario: User enters reasons for no reply and sends for closure
     When I close the case with no reply needed
-    Then the case is sent to the closure stage - See BPMN
-    And I am navigated to my "to do" page
+    Then the case is moved to the "closure" stage
+    And I am taken to the "to do" Page
 
   @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
-    When I do not enter reasons for a no reply needed case closure
+    When I do not enter reasons for a "no reply needed" case closure
     Then an error message is displayed
-    And the case is not sent to the closure stage - See BPMN
-    And I remain on the page
 
   @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User selects topic
@@ -102,53 +100,38 @@ Feature: DCU user decides how a case should be handled
   Scenario: Allocated case progresses
     Given I select a "Policy Response" topic for a case from the type function
     When I click to allocate the case
-    Then the case progresses as per BPMN (see BPMN link)
-    And I am navigated to my "to do" page
-
-  #HOCS-261
-  Scenario: User changes case created date and case deadline
-    When I enter a date in the "past"
-    Then the case deadline is updated in line with the business rules (see BR MIN-6)
-
-  #HOCS-261
-  Scenario: User changes case created date and case deadline
-    When I enter a date in the "today"
-    Then the case deadline is updated in line with the business rules (see BR MIN-6)
-
-  #@HOCS-261
-  Scenario: Case date must be in the past
-    When I enter a date in the "future"
-    Then I get an error message to say the date must not be in the future
+    Then the case is moved to the "<string>" stage
+    And I am taken to the "to do" Page
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
     Given a primary topic has been set
     When I select a "Policy Response" topic for a case from the type function
-    Then by default, the topic is the Secondary Topic
+    Then the topic is set as the "Secondary" Topic
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
     Given a primary topic has been set
     When I select a "FAQ" topic for a case from the type function
-    Then by default, the topic is the Secondary Topic
+    Then the topic is set as the "Secondary" Topic
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
     Given a primary topic has been set
     When I select a "Policy Response" topic for a case from the dropdown
-    Then by default, the topic is the Secondary Topic
+    Then the topic is set as the "Secondary" Topic
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
     Given a primary topic has been set
     When I select a "FAQ" topic for a case from the dropdown
-    Then by default, the topic is the Secondary Topic
+    Then the topic is set as the "Secondary" Topic
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
     Given multiple topics have been set
     When I select the Primary Topic radio button for a topic that was a secondary topic
-    Then it becomes the primary topic.
+    Then the topic is set as the "Primary" Topic
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function
