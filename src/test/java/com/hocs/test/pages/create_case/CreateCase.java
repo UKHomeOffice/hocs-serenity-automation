@@ -66,8 +66,8 @@ public class CreateCase extends Page {
         noAddDocumentsRadioButton.click();
     }
 
-    public void enterFreeText() {
-        caseDetailsFreeTextField.sendKeys(page.generateRandomString());
+    public void enterCaseDetailsFreeText() {
+        caseDetailsFreeTextField.sendKeys(generateRandomString());
     }
 
     public void pageTitleIsDisplayed() {

@@ -21,40 +21,34 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-287, @HOCS-239
   Scenario: User does not complete a rejection note
-    Given I attempt to reject a case
-    When I do not enter my rejection reasons in the free text field
+    When I attempt to reject a case without reason
     Then I cannot click to exit the case
-    And an error message appears instructing me to enter my rejection reasons in the free text field
-
-  @HOCS-288, @HOCS-239
-  Scenario: User selects to answer correspondence by phone
-    When I click to answer by phone (BR - DCU MIN 14) (see validation 'How do you want to reply')
-    Then I can see a free text field to enter call notes
+    And an error message appears instructing me to add rejection reasons
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response has info in free text field
-    Given I click to answer by "phone"
-    When I enter call notes in the free text field
-    Then I can click to exit the case
+    Given I select to reply by "phone"
+     And I enter call notes
+    When I can click to exit the case
     And I am taken to the "to do" Page
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
-    Given I click to answer by "phone"
+    Given I select to reply by "phone"
     And I do not enter call notes in the free text field
-    When I click to exit the case
-    Then I see an error message to enter call notes in the free text field
+    When I finish drafting
+    Then I see an error message instructing me to enter call notes
 
   @HOCS-291, @HOCS-239
   Scenario: User downloads template for a postal response
-    When I click to answer by "post"
+    When I select to reply by "post"
     Then I can download a template for the case type
     And it contains the name and address details of the correspondent (see BR MIN-13)
     And it is editable
 
   @HOCS-291, @HOCS-239
   Scenario: User downloads a template for an email response
-    When I click to answer by "email"
+    When I select to reply by "email"
     Then I can download a template for the case type
     And it contains the name and email address details of the correspondent (see BR MIN-13)
     And it is editable

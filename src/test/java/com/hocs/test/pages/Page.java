@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
@@ -46,6 +47,9 @@ public class Page extends PageObject {
     @FindBy(css = "[value='Add/Update']")
     private WebElementFacade addUpdateButton;
 
+    @FindBy(id = "")
+    private WebElementFacade allocationNoteField;
+
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
 
@@ -85,6 +89,9 @@ public class Page extends PageObject {
     @FindBy(id = "error-details")
     protected WebElementFacade errorDetails;
 
+    @FindBy(linkText = "Finish")
+    protected WebElementFacade finishButton;
+
     @FindBy(linkText = "First")
     private WebElementFacade firstButton;
 
@@ -98,19 +105,19 @@ public class Page extends PageObject {
     private WebElementFacade moreButton;
 
     @FindBy(id = "name")
-    protected WebElementFacade nameBox;
+    protected WebElementFacade nameField;
 
     @FindBy(linkText = "new")
     private WebElementFacade newLink;
 
     @FindBy(css = "[id*=newNotes]")
-    private WebElementFacade newNotesBox;
+    private WebElementFacade newNotesField;
 
     @FindBy(css = "[value = 'Next']")
     private WebElementFacade nextButton;
 
     @FindBy(css = "[id*=Notes]")
-    private WebElementFacade notesBox;
+    private WebElementFacade notesField;
 
     @FindBy(className = "govuk-heading-l")
     protected WebElementFacade pageTitle;
@@ -126,6 +133,9 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value='Reject']")
     protected WebElementFacade rejectButton;
+
+    @FindBy(id = "")
+    protected WebElementFacade rejectReasonTextField;
 
     @FindBy(css = "[value = 'Save']")
     private WebElementFacade saveButton;
@@ -143,7 +153,7 @@ public class Page extends PageObject {
     private WebElementFacade submitButton;
 
     @FindBy(id = "surname")
-    protected WebElementFacade surnameBox;
+    protected WebElementFacade surnameField;
 
     @FindBy(css = "[value = 'Update']")
     private WebElementFacade updateButton;
@@ -237,6 +247,10 @@ public class Page extends PageObject {
         refreshButton.click();
     }
 
+    public void clickRejectButton() {
+        rejectButton.click();
+    }
+
     public void clickSaveButton() {
         saveButton.click();
     }
@@ -267,21 +281,21 @@ public class Page extends PageObject {
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
-
     public String databaseDateTodayPlusDays(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return dbDateFormat.format(cal.getTime());
     }
-    //This returns date as 01-JAN-18, only needed for searching in Oracle DB
 
+    //This returns date as 01-JAN-18, only needed for searching in Oracle DB
     public String databaseDateTodayPlusYears(int years) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, years);
 
         return dbDateFormat.format(cal.getTime());
     }
+
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
 
     public String databaseDateTomorrow() {
@@ -303,24 +317,6 @@ public class Page extends PageObject {
         Serenity.setSessionVariable("endDate").to(endDate);
     }
 
-    public void enterStartDate(String startDate) {
-        this.startDate.clear();
-        this.startDate.sendKeys(startDate);
-        Serenity.setSessionVariable("startDate").to(startDate);
-    }
-
-    public void enterNewNotes(String notes) {
-        newNotesBox.clear();
-        newNotesBox.sendKeys(notes);
-        Serenity.setSessionVariable("newNotes").to(notes);
-    }
-
-    public void enterNotes(String notes) {
-        notesBox.clear();
-        notesBox.sendKeys(notes);
-        Serenity.setSessionVariable("notes").to(notes);
-    }
-
     public void enterInvalidDate() {
         dateDayField.clear();
         dateDayField.sendKeys("31");
@@ -328,6 +324,30 @@ public class Page extends PageObject {
         dateMonthField.sendKeys("06");
         dateYearField.clear();
         dateYearField.sendKeys("2018");
+    }
+
+    public void enterNewNotes(String notes) {
+        newNotesField.clear();
+        newNotesField.sendKeys(notes);
+        Serenity.setSessionVariable("newNotes").to(notes);
+    }
+
+    public void enterNotes(String notes) {
+        notesField.clear();
+        notesField.sendKeys(notes);
+        Serenity.setSessionVariable("notes").to(notes);
+    }
+
+    public void enterRejectionNotes() {
+        String rejectionReason = "Rejection Reason: " + generateRandomString();
+        rejectReasonTextField.sendKeys(rejectionReason);
+        setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void enterStartDate(String startDate) {
+        this.startDate.clear();
+        this.startDate.sendKeys(startDate);
+        Serenity.setSessionVariable("startDate").to(startDate);
     }
 
     public void enterValidDate() {
@@ -494,5 +514,4 @@ public class Page extends PageObject {
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
     }
-
 }

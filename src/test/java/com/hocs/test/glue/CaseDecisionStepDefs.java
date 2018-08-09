@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import com.hocs.test.pages.Page;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -9,6 +10,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
+
+    Page page;
 
     @Then("^a mandatory \"([^\"]*)\" free text field is available$")
     public void aMandatoryFreeTextFieldIsAvailable(String textField) {
@@ -119,6 +122,8 @@ public class CaseDecisionStepDefs {
             case "APPROVE":
                 break;
             case "REJECT":
+                page.clickRejectButton();
+                page.enterRejectionNotes();
                 break;
             default:
                 fail();

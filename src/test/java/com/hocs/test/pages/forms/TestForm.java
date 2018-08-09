@@ -49,13 +49,13 @@ public class TestForm extends Page {
     }
 
     public void enterName(String name) {
-        nameBox.clear();
-        nameBox.sendKeys(name);
+        nameField.clear();
+        nameField.sendKeys(name);
     }
 
     public void enterSurname(String surname) {
-        surnameBox.clear();
-        surnameBox.sendKeys(surname);
+        surnameField.clear();
+        surnameField.sendKeys(surname);
     }
 
     public void enterText() {
