@@ -16,7 +16,7 @@ public class LoginPage extends Page {
     private WebElementFacade passwordField;
 
     public void assertInvalidUsernamePassword() {
-        assertThat(getErrorDetails(),is("Invalid username or password."));
+        assertThat(getErrorDetails(), is("Invalid username or password."));
     }
 
     public void enterUsername(String username) {

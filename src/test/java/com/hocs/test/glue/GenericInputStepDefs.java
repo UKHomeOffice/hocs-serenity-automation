@@ -153,7 +153,7 @@ public class GenericInputStepDefs {
     }
 
     @When("^I attempt to reject a case without reason$")
-    public void iAttemptToRejectACaseWithoutReason(){
+    public void iAttemptToRejectACaseWithoutReason() {
         page.clickRejectButton();
         while (page.isElementDisplayed(page.nextButton)) {
             page.clickNextButton();

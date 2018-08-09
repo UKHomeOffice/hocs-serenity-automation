@@ -27,7 +27,7 @@ Feature: HOCS User is able to draft a response
   @HOCS-288, @HOCS-239
   Scenario: Phone response has info in free text field
     Given I select to reply by "phone"
-     And I enter call notes
+    And I enter call notes
     When I finish drafting
     And I am taken to the "to do" Page
 

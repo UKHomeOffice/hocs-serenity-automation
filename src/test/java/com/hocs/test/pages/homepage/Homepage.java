@@ -1,7 +1,7 @@
 package com.hocs.test.pages.homepage;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;

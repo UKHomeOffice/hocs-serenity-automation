@@ -46,7 +46,7 @@ public class DocumentsStepDefs {
     }
 
     @And("^any files have a validation error$")
-    public void anyFilesHaveAValidationError()  {
+    public void anyFilesHaveAValidationError() {
 
     }
 

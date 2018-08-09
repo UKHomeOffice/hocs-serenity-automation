@@ -22,7 +22,8 @@ public class DraftResponseStepDefs {
             case "POST":
                 draft.clickLetterReplyRadioButton();
                 break;
-                default: fail("Please enter EMAIL, PHONE or POST");
+            default:
+                fail("Please enter EMAIL, PHONE or POST");
         }
     }
 
@@ -32,7 +33,7 @@ public class DraftResponseStepDefs {
     }
 
     @When("^a case has gone beyond the drafting deadline$")
-    public void aCaseHasGoneBeyondTheDraftingDeadline()  {
+    public void aCaseHasGoneBeyondTheDraftingDeadline() {
 
     }
 }

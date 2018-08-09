@@ -1,5 +1,5 @@
 Feature: A user can remove any documents attached to the case
-  
+
   Scenario:  Document can be removed from the case
     Given I am user "<string>"
     And I am at the "Data Entry" stage
