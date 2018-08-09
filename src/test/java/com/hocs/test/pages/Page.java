@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
@@ -25,14 +26,56 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Page extends PageObject {
 
-    @Managed
-    WebDriver driver;
-
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+    @FindBy(css = "[value = 'Next']")
+    public WebElementFacade nextButton;
+
+    @FindBy(id = "date-day")
+    protected WebElementFacade dateDayField;
+
+    @FindBy(id = "date-month")
+    protected WebElementFacade dateMonthField;
+
+    @FindBy(id = "date-year")
+    protected WebElementFacade dateYearField;
+
+    @FindBy(css = "[value='Edit']")
+    protected WebElementFacade editButton;
+
+    @FindBy(id = "error-details")
+    protected WebElementFacade errorDetails;
+
+    @FindBy(linkText = "Finish")
+    protected WebElementFacade finishButton;
+
+    @FindBy(id = "name")
+    protected WebElementFacade nameField;
+
+    @FindBy(className = "govuk-heading-l")
+    protected WebElementFacade pageTitle;
+
+    @FindBy(linkText = "Print")
+    protected WebElementFacade printButton;
+
+    @FindBy(css = "[value='Reject']")
+    protected WebElementFacade rejectButton;
+
+    @FindBy(id = "")
+    protected WebElementFacade rejectReasonTextField;
+
+    @FindBy(css = "[id*=Staff]")
+    protected WebElementFacade staffDropdown;
+
+    @FindBy(id = "surname")
+    protected WebElementFacade surnameField;
+
+    @Managed
+    WebDriver driver;
 
     @FindBy(css = "[value='Accept All']")
     private WebElementFacade acceptAllButton;
@@ -45,6 +88,9 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value='Add/Update']")
     private WebElementFacade addUpdateButton;
+
+    @FindBy(id = "")
+    private WebElementFacade allocationNoteField;
 
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
@@ -61,29 +107,14 @@ public class Page extends PageObject {
     @FindBy(id = "Date")
     private WebElementFacade dateField;
 
-    @FindBy(id = "date-day")
-    protected WebElementFacade dateDayField;
-
-    @FindBy(id = "date-month")
-    protected WebElementFacade dateMonthField;
-
-    @FindBy(id = "date-year")
-    protected WebElementFacade dateYearField;
-
     @FindBy(linkText = "delete")
     private WebElementFacade deleteLink;
 
     @FindBy(css = "[value = 'Document']")
     private WebElementFacade documentButton;
 
-    @FindBy(css = "[value='Edit']")
-    protected WebElementFacade editButton;
-
     @FindBy(css = "[id*=EndDate]")
     private WebElementFacade endDate;
-
-    @FindBy(id = "error-details")
-    protected WebElementFacade errorDetails;
 
     @FindBy(linkText = "First")
     private WebElementFacade firstButton;
@@ -97,35 +128,20 @@ public class Page extends PageObject {
     @FindBy(css = "input[type='submit'][value='More']")
     private WebElementFacade moreButton;
 
-    @FindBy(id = "name")
-    protected WebElementFacade nameBox;
-
     @FindBy(linkText = "new")
     private WebElementFacade newLink;
 
     @FindBy(css = "[id*=newNotes]")
-    private WebElementFacade newNotesBox;
-
-    @FindBy(css = "[value = 'Next']")
-    private WebElementFacade nextButton;
+    private WebElementFacade newNotesField;
 
     @FindBy(css = "[id*=Notes]")
-    private WebElementFacade notesBox;
-
-    @FindBy(className = "govuk-heading-l")
-    protected WebElementFacade pageTitle;
+    private WebElementFacade notesField;
 
     @FindBy(linkText = "Previous")
     private WebElementFacade previousButton;
 
-    @FindBy(linkText = "Print")
-    protected WebElementFacade printButton;
-
     @FindBy(css = "[value = 'Refresh']")
     private WebElementFacade refreshButton;
-
-    @FindBy(css = "[value='Reject']")
-    protected WebElementFacade rejectButton;
 
     @FindBy(css = "[value = 'Save']")
     private WebElementFacade saveButton;
@@ -133,17 +149,11 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Search']")
     private WebElementFacade searchButton;
 
-    @FindBy(css = "[id*=Staff]")
-    protected WebElementFacade staffDropdown;
-
     @FindBy(css = "[id*=StartDate]")
     private WebElementFacade startDate;
 
     @FindBy(css = "[type = 'submit']")
     private WebElementFacade submitButton;
-
-    @FindBy(id = "surname")
-    protected WebElementFacade surnameBox;
 
     @FindBy(css = "[value = 'Update']")
     private WebElementFacade updateButton;
@@ -237,6 +247,10 @@ public class Page extends PageObject {
         refreshButton.click();
     }
 
+    public void clickRejectButton() {
+        rejectButton.click();
+    }
+
     public void clickSaveButton() {
         saveButton.click();
     }
@@ -267,21 +281,21 @@ public class Page extends PageObject {
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
-
     public String databaseDateTodayPlusDays(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return dbDateFormat.format(cal.getTime());
     }
-    //This returns date as 01-JAN-18, only needed for searching in Oracle DB
 
+    //This returns date as 01-JAN-18, only needed for searching in Oracle DB
     public String databaseDateTodayPlusYears(int years) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, years);
 
         return dbDateFormat.format(cal.getTime());
     }
+
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
 
     public String databaseDateTomorrow() {
@@ -303,24 +317,6 @@ public class Page extends PageObject {
         Serenity.setSessionVariable("endDate").to(endDate);
     }
 
-    public void enterStartDate(String startDate) {
-        this.startDate.clear();
-        this.startDate.sendKeys(startDate);
-        Serenity.setSessionVariable("startDate").to(startDate);
-    }
-
-    public void enterNewNotes(String notes) {
-        newNotesBox.clear();
-        newNotesBox.sendKeys(notes);
-        Serenity.setSessionVariable("newNotes").to(notes);
-    }
-
-    public void enterNotes(String notes) {
-        notesBox.clear();
-        notesBox.sendKeys(notes);
-        Serenity.setSessionVariable("notes").to(notes);
-    }
-
     public void enterInvalidDate() {
         dateDayField.clear();
         dateDayField.sendKeys("31");
@@ -328,6 +324,30 @@ public class Page extends PageObject {
         dateMonthField.sendKeys("06");
         dateYearField.clear();
         dateYearField.sendKeys("2018");
+    }
+
+    public void enterNewNotes(String notes) {
+        newNotesField.clear();
+        newNotesField.sendKeys(notes);
+        Serenity.setSessionVariable("newNotes").to(notes);
+    }
+
+    public void enterNotes(String notes) {
+        notesField.clear();
+        notesField.sendKeys(notes);
+        Serenity.setSessionVariable("notes").to(notes);
+    }
+
+    public void enterRejectionNotes() {
+        String rejectionReason = "Rejection Reason: " + generateRandomString();
+        rejectReasonTextField.sendKeys(rejectionReason);
+        setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void enterStartDate(String startDate) {
+        this.startDate.clear();
+        this.startDate.sendKeys(startDate);
+        Serenity.setSessionVariable("startDate").to(startDate);
     }
 
     public void enterValidDate() {
@@ -433,6 +453,10 @@ public class Page extends PageObject {
         driver.navigate().to(page);
     }
 
+    public boolean nextButtonIsDisplayed() {
+        return isElementDisplayed(nextButton);
+    }
+
     public void switchToAlertWindowAndClick(WebDriver driver, String buttonName) {
         switch (buttonName.toUpperCase()) {
             case "YES":
@@ -494,5 +518,4 @@ public class Page extends PageObject {
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
     }
-
 }

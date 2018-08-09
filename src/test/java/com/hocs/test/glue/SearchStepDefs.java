@@ -11,8 +11,8 @@ public class SearchStepDefs {
         switch (pageName.toUpperCase()) {
             case "":
                 break;
-                default:
-                    fail(pageName + " is not defined in SearchStepDefs.validSearchOnPage");
+            default:
+                fail(pageName + " is not defined in SearchStepDefs.validSearchOnPage");
         }
     }
 

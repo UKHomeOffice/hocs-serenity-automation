@@ -14,4 +14,14 @@ public class Documents extends Page {
     @FindBy(id = "")
     private WebElementFacade previewDocument;
 
+    @FindBy(id = "")
+    private WebElementFacade downloadDocument;
+
+    public void clickDownloadDocument() {
+        downloadDocument.click();
+    }
+
+    public void clickPreviewDocument() {
+        previewDocument.click();
+    }
 }

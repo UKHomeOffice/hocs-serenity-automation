@@ -26,4 +26,3 @@ Feature: A user can download any documents attached to the case
     Given I am user "DCU Performance and Process Team user at the DCU data entry stage"
     And I am viewing a case with "no" documents attached
     Then I see the "No Documents" message
-

@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -15,7 +16,7 @@ public class GenericInputStepDefs {
     @Managed
     WebDriver driver;
 
-    private Page page;
+    Page page;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -113,25 +114,49 @@ public class GenericInputStepDefs {
         }
     }
 
-    @When("^I enter a date in the \"([^\"]*)\"$")
-    public void iEnterADateInThe(String date) {
+    @When("^I set the date to \"([^\"]*)\"$")
+    public void iSetTheDate(String date) {
         switch (date.toUpperCase()) {
-            case "FUTURE":
-                page.todayPlusDays(1);
-                break;
             case "TODAY":
                 page.today();
                 break;
-            case "PAST":
+            case "TOMORROW":
+                page.todayPlusDays(1);
+                break;
+            case "YESTERDAY":
                 page.todayPlusDays(-1);
                 break;
             default:
-                fail("Please enter FUTURE, PAST or TODAY");
+                fail("Please enter TODAY, TOMORROW or YESTERDAY");
         }
     }
 
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
 
+    }
+
+    @Then("^the case is moved to the \"([^\"]*)\" stage$")
+    public void theCaseIsMovedToTheStage(String stage) {
+
+    }
+
+    @Then("^the file is downloaded$")
+    public void theFileIsDownloaded() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^I cannot click to exit the case$")
+    public void iCannotClickToExitTheCase() throws Throwable {
+
+    }
+
+    @When("^I attempt to reject a case without reason$")
+    public void iAttemptToRejectACaseWithoutReason() {
+        page.clickRejectButton();
+        while (page.isElementDisplayed(page.nextButton)) {
+            page.clickNextButton();
+        }
     }
 }
