@@ -7,10 +7,21 @@ import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class SingleCase extends Page {
+public class CreateCase extends Page {
+
+    Page page;
 
     @FindBy(className = "govuk-radios")
     private WebElementFacade allRadioButtons;
+
+    @FindBy(id = "")
+    private WebElementFacade caseDetailsFreeTextBox;
+
+    @FindBy(id = "")
+    private WebElementFacade createBulkCaseRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade createSingleCaseRadioButton;
 
     @FindBy(css = "label[for='case-type-MIN']")
     private WebElementFacade dcuMinRadioButton;
@@ -20,6 +31,24 @@ public class SingleCase extends Page {
 
     @FindBy(css = "label[for='case-type-DTEN']")
     private WebElementFacade dcuDtenRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade noAddDocumentsRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade yesAddDocumentsRadioButton;
+
+    public void clickAddDocumentsRadioButton() {
+        yesAddDocumentsRadioButton.click();
+    }
+
+    public void clickCreateBulkCaseRadioButton() {
+        createBulkCaseRadioButton.click();
+    }
+
+    public void clickCreateSingleCaseRadioButton() {
+        createSingleCaseRadioButton.click();
+    }
 
     public void clickDcuMinRadioButton() {
         dcuMinRadioButton.click();
@@ -31,6 +60,14 @@ public class SingleCase extends Page {
 
     public void clickDcuDtenRadioButton() {
         dcuDtenRadioButton.click();
+    }
+
+    public void clickNoDocumentsToAddButton() {
+        noAddDocumentsRadioButton.click();
+    }
+
+    public void enterFreeText() {
+        caseDetailsFreeTextBox.sendKeys(page.generateRandomString());
     }
 
     public void pageTitleIsDisplayed() {

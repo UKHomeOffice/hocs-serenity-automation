@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.create_case.SingleCase;
+import com.hocs.test.pages.create_case.CreateCase;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,13 +16,13 @@ public class CreateCaseStepDefs {
 
     private Page page;
 
-    private SingleCase singleCase;
+    private CreateCase createCase;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
             case "NO CASE TYPES":
-                singleCase.radioButtonsNotDisplayed();
+                createCase.radioButtonsNotDisplayed();
                 break;
             default:
                 fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
@@ -31,8 +31,8 @@ public class CreateCaseStepDefs {
 
     @When("^I create a case$")
     public void iCreateACase() {
-        singleCase.clickDcuMinRadioButton();
-        singleCase.clickNextButton();
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
         addDocuments.uploadDocument();
         page.clickSubmitButton();
         try {
