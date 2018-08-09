@@ -62,7 +62,7 @@ Feature: HOCS User is able to create a case
   Scenario: User can select a member from the search function
     Given I am user "<string>"
     And I navigate to the "data entry 2" Page
-    When I select to correspond with a member from the search function
+    When I select to correspond with "<minister>" from the search function
     Then the member is the "primary" correspondent
 
   @HOCS-277, @HOCS-238

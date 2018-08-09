@@ -114,7 +114,7 @@ public class Page extends PageObject {
     private WebElementFacade newNotesField;
 
     @FindBy(css = "[value = 'Next']")
-    private WebElementFacade nextButton;
+    public WebElementFacade nextButton;
 
     @FindBy(css = "[id*=Notes]")
     private WebElementFacade notesField;
@@ -451,6 +451,10 @@ public class Page extends PageObject {
                         "  filters: []                                                     " +
                         "}]));                                                             ");
         driver.navigate().to(page);
+    }
+
+    public boolean nextButtonIsDisplayed() {
+        return isElementDisplayed(nextButton);
     }
 
     public void switchToAlertWindowAndClick(WebDriver driver, String buttonName) {

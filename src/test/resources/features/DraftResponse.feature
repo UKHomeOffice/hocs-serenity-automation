@@ -22,14 +22,13 @@ Feature: HOCS User is able to draft a response
   @HOCS-287, @HOCS-239
   Scenario: User does not complete a rejection note
     When I attempt to reject a case without reason
-    Then I cannot click to exit the case
-    And an error message appears instructing me to add rejection reasons
+    Then an error message appears instructing me to add rejection reasons
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response has info in free text field
     Given I select to reply by "phone"
      And I enter call notes
-    When I can click to exit the case
+    When I finish drafting
     And I am taken to the "to do" Page
 
   @HOCS-288, @HOCS-239

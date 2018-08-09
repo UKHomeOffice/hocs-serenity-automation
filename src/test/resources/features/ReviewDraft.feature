@@ -19,5 +19,5 @@ Feature: Review Draft
 
   @HOCS-310, @HOCS-240
   Scenario: User does not complete a rejection note
-    When I attempt to reject a case without entering a reason
-    Then an error message appears instructing me to enter my rejection reasons in the free text field
+    When I attempt to reject a case without reason
+    Then an error message appears instructing me to add rejection reasons

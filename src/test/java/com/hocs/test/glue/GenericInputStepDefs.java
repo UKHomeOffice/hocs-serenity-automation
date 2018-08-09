@@ -16,7 +16,7 @@ public class GenericInputStepDefs {
     @Managed
     WebDriver driver;
 
-    private Page page;
+    Page page;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -150,5 +150,13 @@ public class GenericInputStepDefs {
     @Then("^I cannot click to exit the case$")
     public void iCannotClickToExitTheCase() throws Throwable {
 
+    }
+
+    @When("^I attempt to reject a case without reason$")
+    public void iAttemptToRejectACaseWithoutReason(){
+        page.clickRejectButton();
+        while (page.isElementDisplayed(page.nextButton)) {
+            page.clickNextButton();
+        }
     }
 }

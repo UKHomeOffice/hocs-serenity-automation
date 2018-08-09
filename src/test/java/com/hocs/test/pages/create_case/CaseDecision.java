@@ -40,11 +40,19 @@ public class CaseDecision extends Page {
     private WebElementFacade answeringUnitDropdown;
 
     @FindBy(id = "")
-    private WebElementFacade answeringTeamDropdown;
+    private WebElementFacade answeringUnitTypeFunction;
 
+    @FindBy(id = "")
+    private WebElementFacade answeringTeamTypeFunction;
+
+    @FindBy(id = "")
+    private WebElementFacade answeringTeamDropdown;
 
     @FindBy(id = "")
     private WebElementFacade signOffMinisterDropdown;
+
+    @FindBy(id = "")
+    private WebElementFacade signOffMinisterTypeFunction;
 
     public void clickAddTopic() {
         addATopicButton.click();
@@ -70,6 +78,14 @@ public class CaseDecision extends Page {
         allocationNoteFreeTextField.sendKeys(generateRandomString());
     }
 
+    public void enterAnsweringTeamTypeFunction(String team) {
+        answeringTeamTypeFunction.sendKeys(team);
+    }
+
+    public void enterAnsweringUnitTypeFuntion(String unit) {
+        answeringUnitTypeFunction.sendKeys(unit);
+    }
+
     public void enterDateReceived() {
         dateReceivedField.sendKeys(today());
     }
@@ -80,6 +96,10 @@ public class CaseDecision extends Page {
 
     public void enterFinalDeadline() {
         finalDeadlineField.sendKeys();
+    }
+
+    public void enterSignOffMinisterTypeFunction(String minister) {
+        signOffMinisterTypeFunction.sendKeys(minister);
     }
 
     public void selectAnsweringTeamFromDropdownByText(String team) {
