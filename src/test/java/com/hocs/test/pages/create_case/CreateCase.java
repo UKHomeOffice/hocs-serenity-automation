@@ -15,7 +15,7 @@ public class CreateCase extends Page {
     private WebElementFacade allRadioButtons;
 
     @FindBy(id = "")
-    private WebElementFacade caseDetailsFreeTextBox;
+    private WebElementFacade caseDetailsFreeTextField;
 
     @FindBy(id = "")
     private WebElementFacade createBulkCaseRadioButton;
@@ -67,7 +67,7 @@ public class CreateCase extends Page {
     }
 
     public void enterFreeText() {
-        caseDetailsFreeTextBox.sendKeys(page.generateRandomString());
+        caseDetailsFreeTextField.sendKeys(page.generateRandomString());
     }
 
     public void pageTitleIsDisplayed() {
