@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.create_case.CaseDecision;
+import com.hocs.test.pages.mark_up.MarkUp;
 import com.hocs.test.pages.create_case.CreateCase;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -15,7 +15,7 @@ public class CreateCaseStepDefs {
 
     private AddDocuments addDocuments;
 
-    private CaseDecision caseDecision;
+    private MarkUp markUp;
 
     private CreateCase createCase;
 
@@ -94,11 +94,11 @@ public class CreateCaseStepDefs {
 
     @When("^I select to correspond with a member from the dropdown$")
     public void iSelectToCorrespondWithAMemberFromTheDropdown() {
-        caseDecision.selectSecondSignOffMinisterFromDropdown();
+        markUp.selectSecondSignOffMinisterFromDropdown();
     }
 
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
-        caseDecision.enterSignOffMinisterTypeFunction(minister);
+        markUp.enterSignOffMinisterTypeFunction(minister);
     }
 }

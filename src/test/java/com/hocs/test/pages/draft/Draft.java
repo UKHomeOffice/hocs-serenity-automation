@@ -34,13 +34,17 @@ public class Draft extends Page {
     private WebElementFacade addResponseButton;
 
     @FindBy(id = "")
-    private WebElementFacade noSupportingDocumentsRadioButton;
+    private WebElementFacade supportingDocumentsNoRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade yesSupportingDocumentsRadioButton;
+    private WebElementFacade supportingDocumentsYesRadioButton;
 
     @FindBy(id = "")
     private WebElementFacade addSupportingDocumentsButton;
+
+    public void clearAllocationNoteField() {
+        allocationNoteFreeTextField.clear();
+    }
 
     public void clickEmailReplyRadioButton() {
         emailReplyRadioButton.click();
@@ -58,7 +62,8 @@ public class Draft extends Page {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
     }
 
-    public void enterAllocationNote() {
+    public void enterAllocationNoteField() {
+        clearAllocationNoteField();
         allocationNoteFreeTextField.sendKeys(generateRandomString());
     }
 

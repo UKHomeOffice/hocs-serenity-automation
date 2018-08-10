@@ -34,7 +34,7 @@ Feature: HOCS User is able to draft a response
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
     Given I select to reply by "phone"
-    And I do not enter call notes in the free text field
+    And I do not enter call notes
     When I finish drafting
     Then I see an error message instructing me to enter call notes
 

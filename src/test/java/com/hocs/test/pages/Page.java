@@ -32,48 +32,6 @@ public class Page extends PageObject {
 
     private static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-    @FindBy(css = "[value = 'Next']")
-    public WebElementFacade nextButton;
-
-    @FindBy(id = "date-day")
-    protected WebElementFacade dateDayField;
-
-    @FindBy(id = "date-month")
-    protected WebElementFacade dateMonthField;
-
-    @FindBy(id = "date-year")
-    protected WebElementFacade dateYearField;
-
-    @FindBy(css = "[value='Edit']")
-    protected WebElementFacade editButton;
-
-    @FindBy(id = "error-details")
-    protected WebElementFacade errorDetails;
-
-    @FindBy(linkText = "Finish")
-    protected WebElementFacade finishButton;
-
-    @FindBy(id = "name")
-    protected WebElementFacade nameField;
-
-    @FindBy(className = "govuk-heading-l")
-    protected WebElementFacade pageTitle;
-
-    @FindBy(linkText = "Print")
-    protected WebElementFacade printButton;
-
-    @FindBy(css = "[value='Reject']")
-    protected WebElementFacade rejectButton;
-
-    @FindBy(id = "")
-    protected WebElementFacade rejectReasonTextField;
-
-    @FindBy(css = "[id*=Staff]")
-    protected WebElementFacade staffDropdown;
-
-    @FindBy(id = "surname")
-    protected WebElementFacade surnameField;
-
     @Managed
     WebDriver driver;
 
@@ -90,6 +48,12 @@ public class Page extends PageObject {
     private WebElementFacade addUpdateButton;
 
     @FindBy(id = "")
+    protected WebElementFacade addressOneField;
+
+    @FindBy(id = "")
+    protected WebElementFacade addressTwoField;
+
+    @FindBy(id = "")
     private WebElementFacade allocationNoteField;
 
     @FindBy(css = "[id*=documentTable]")
@@ -104,8 +68,20 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Confirm']")
     private WebElementFacade confirmButton;
 
+    @FindBy(id = "")
+    protected WebElementFacade countryField;
+
     @FindBy(id = "Date")
     private WebElementFacade dateField;
+
+    @FindBy(id = "date-day")
+    protected WebElementFacade dateDayField;
+
+    @FindBy(id = "date-month")
+    protected WebElementFacade dateMonthField;
+
+    @FindBy(id = "date-year")
+    protected WebElementFacade dateYearField;
 
     @FindBy(linkText = "delete")
     private WebElementFacade deleteLink;
@@ -113,8 +89,20 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Document']")
     private WebElementFacade documentButton;
 
+    @FindBy(css = "[value='Edit']")
+    protected WebElementFacade editButton;
+
+    @FindBy(id = "")
+    protected WebElementFacade emailAddressField;
+
     @FindBy(css = "[id*=EndDate]")
     private WebElementFacade endDate;
+
+    @FindBy(id = "error-details")
+    protected WebElementFacade errorDetails;
+
+    @FindBy(linkText = "Finish")
+    protected WebElementFacade finishButton;
 
     @FindBy(linkText = "First")
     private WebElementFacade firstButton;
@@ -128,8 +116,14 @@ public class Page extends PageObject {
     @FindBy(css = "input[type='submit'][value='More']")
     private WebElementFacade moreButton;
 
+    @FindBy(id = "name")
+    protected WebElementFacade nameField;
+
     @FindBy(linkText = "new")
     private WebElementFacade newLink;
+
+    @FindBy(css = "[value = 'Next']")
+    public WebElementFacade nextButton;
 
     @FindBy(css = "[id*=newNotes]")
     private WebElementFacade newNotesField;
@@ -137,8 +131,23 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=Notes]")
     private WebElementFacade notesField;
 
+    @FindBy(className = "govuk-heading-l")
+    protected WebElementFacade pageTitle;
+
+    @FindBy(id = "")
+    protected WebElementFacade postCodeField;
+
     @FindBy(linkText = "Previous")
     private WebElementFacade previousButton;
+
+    @FindBy(linkText = "Print")
+    protected WebElementFacade printButton;
+
+    @FindBy(css = "[value='Reject']")
+    protected WebElementFacade rejectButton;
+
+    @FindBy(id = "")
+    protected WebElementFacade rejectReasonTextField;
 
     @FindBy(css = "[value = 'Refresh']")
     private WebElementFacade refreshButton;
@@ -149,11 +158,26 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Search']")
     private WebElementFacade searchButton;
 
+    @FindBy(css = "[id*=Staff]")
+    protected WebElementFacade staffDropdown;
+
     @FindBy(css = "[id*=StartDate]")
     private WebElementFacade startDate;
 
     @FindBy(css = "[type = 'submit']")
     private WebElementFacade submitButton;
+
+    @FindBy(id = "surname")
+    protected WebElementFacade surnameField;
+
+    @FindBy(id = "")
+    protected WebElementFacade telephoneNumberField;
+
+    @FindBy(id = "")
+    protected WebElementFacade titleDropdown;
+
+    @FindBy(id = "")
+    protected WebElementFacade townField;
 
     @FindBy(css = "[value = 'Update']")
     private WebElementFacade updateButton;

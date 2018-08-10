@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.draft.Draft;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -35,5 +36,15 @@ public class DraftResponseStepDefs {
     @When("^a case has gone beyond the drafting deadline$")
     public void aCaseHasGoneBeyondTheDraftingDeadline() {
 
+    }
+
+    @And("^I enter call notes$")
+    public void iEnterCallNotes() {
+        draft.enterAllocationNoteField();
+    }
+
+    @And("^I do not enter call notes$")
+    public void iDoNotEnterCallNotes() {
+        draft.clearAllocationNoteField();
     }
 }

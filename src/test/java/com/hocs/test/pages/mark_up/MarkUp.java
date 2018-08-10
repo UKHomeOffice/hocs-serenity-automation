@@ -1,10 +1,10 @@
-package com.hocs.test.pages.create_case;
+package com.hocs.test.pages.mark_up;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseDecision extends Page {
+public class MarkUp extends Page {
 
     @FindBy(id = "")
     private WebElementFacade policyResponseRadioButton;
