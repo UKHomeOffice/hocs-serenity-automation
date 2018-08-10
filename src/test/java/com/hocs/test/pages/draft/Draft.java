@@ -42,6 +42,21 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade addSupportingDocumentsButton;
 
+    @FindBy(id = "")
+    private WebElementFacade standardLine;
+
+    @FindBy(id = "")
+    private WebElementFacade offlineQaRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade onlineQaRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade allocateToOfflineQaDropdown;
+
+    @FindBy(id = "")
+    private WebElementFacade allocateToOnlineQaDropdown;
+
     public void clearAllocationNoteField() {
         allocationNoteFreeTextField.clear();
     }

@@ -17,6 +17,12 @@ public class Documents extends Page {
     @FindBy(id = "")
     private WebElementFacade downloadDocument;
 
+    @FindBy(id = "")
+    private WebElementFacade viewOriginalDocument;
+
+    @FindBy(id = "")
+    private WebElementFacade viewResponse;
+
     public void clickDownloadDocument() {
         downloadDocument.click();
     }
