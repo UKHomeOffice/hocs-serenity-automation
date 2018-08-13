@@ -44,19 +44,19 @@ Feature: DCU user decides how a case should be handled
   @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User overwrites drafting team
     Given I select an "FAQ" topic for a case from the type function
-    When I click to amend the "drafting team"
+    When I amend the "drafting team"
     Then I can only select from a fixed list of drafting teams
 
   @HOCS-258, @HOCS-237
   Scenario: User overwrites Minister
     Given I select an "FAQ" topic for a case from the dropdown
-    When I click to amend the "Minister"
+    When I amend the "Minister"
     Then I can only select from a fixed list of Ministers
 
   @HOCS-258, @HOCS-237
   Scenario: Allocated case progresses
     Given I select an "FAQ" topic for a case from the dropdown
-    When I click to allocate the case
+    When I allocate the case
     Then the case progresses as per BPMN (see BPMN link)
     And I am taken to the "<string>" Page
 
@@ -81,25 +81,25 @@ Feature: DCU user decides how a case should be handled
   @HOCS-260, @HOCS-2372
   Scenario: User overwrites answering unit
     Given I select a "Policy Response" topic for a case from the type function
-    When I click to amend the answering "unit"
+    When I amend the answering "unit"
     Then I can only select from a fixed list of answering "units"
 
   @HOCS-260, @HOCS-237
   Scenario: User overwrites answering team
     Given I select a "Policy Response" topic for a case from the dropdown
-    When I click to amend the answering "team"
+    When I amend the answering "team"
     Then I can only select from a fixed list of answering "teams"
 
   @HOCS-260, @HOCS-237
   Scenario: User overwrites answering team
     Given I select a "Policy Response" topic for a case from the dropdown
-    When I click to amend the answering "minister"
+    When I amend the answering "minister"
     Then I can only select from a fixed list of answering "ministers"
 
   @HOCS260, @HOCS-237
   Scenario: Allocated case progresses
     Given I select a "Policy Response" topic for a case from the type function
-    When I click to allocate the case
+    When I allocate the case
     Then the case is moved to the "<string>" stage
     And I am taken to the "to do" Page
 

@@ -47,4 +47,24 @@ public class DraftResponseStepDefs {
     public void iDoNotEnterCallNotes() {
         draft.clearAllocationNoteField();
     }
+
+    @Then("^an error message appears instructing me to add rejection reasons$")
+    public void anErrorMessageAppearsInstructingMeToAddRejectionReasons() {
+        draft.assertEnterRejectionReasonsError();
+    }
+
+    @When("^I finish drafting$")
+    public void iFinishDrafting() {
+
+    }
+
+    @Then("^I see an error message instructing me to enter call notes$")
+    public void iSeeAnErrorMessageInstructingMeToEnterCallNotes() {
+        draft.assertEnterCallNotesError();
+    }
+
+    @Then("^I can see an error message instructing me to select either ‘online QA’ or ‘offline QA’$")
+    public void iCanSeeAnErrorMessageInstructingMeToSelectEitherOnlineQAOrOfflineQA() {
+        draft.assertEnterQaMethodError();
+    }
 }

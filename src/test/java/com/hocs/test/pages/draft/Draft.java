@@ -57,6 +57,18 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
 
+    public void assertEnterCallNotesError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterQaMethodError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterRejectionReasonsError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
     public void clearAllocationNoteField() {
         allocationNoteFreeTextField.clear();
     }

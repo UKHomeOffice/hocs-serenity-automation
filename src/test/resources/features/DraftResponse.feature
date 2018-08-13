@@ -16,7 +16,7 @@ Feature: HOCS User is able to draft a response
   @HOCS-287, @HOCS-239
   Scenario: User completes a rejection note
     When I "reject" a case
-    Then the case is returned to the Mark Up stage (BR - DCU MIN – 12) (see Validation for details on 'Reject' button)
+    Then the case is returned to the Mark Up stage
     And I am taken to the "to do" Page
 
   @HOCS-287, @HOCS-239
@@ -55,7 +55,7 @@ Feature: HOCS User is able to draft a response
   @HOCS-293, @HOCS-239
   Scenario: User sees standard lines on a case
     When I view that case
-    Then I can click to download the standard line for that FAQ topic (see BR MIN-21) (see Validation 'Standard Lines')
+    Then I can download the standard line for that FAQ topic (see BR MIN-21) (see Validation 'Standard Lines')
 
   @HOCS-293, @HOCS-239
   Scenario: User selects standard line
@@ -66,7 +66,7 @@ Feature: HOCS User is able to draft a response
   @HOCS-295, @HOCS-239
   Scenario: User does not choose online or offline QA
     Given I have not selected either ‘online QA’ or ‘offline QA’
-    When I click to progress the case
+    When I progress the case
     Then I can see an error message instructing me to select either ‘online QA’ or ‘offline QA’
     And I remain on the page
 

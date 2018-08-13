@@ -147,7 +147,7 @@ public class GenericInputStepDefs {
         throw new PendingException();
     }
 
-    @Then("^I cannot click to exit the case$")
+    @Then("^I cannot exit the case$")
     public void iCannotClickToExitTheCase() throws Throwable {
 
     }
@@ -158,5 +158,10 @@ public class GenericInputStepDefs {
         while (page.isElementDisplayed(page.nextButton)) {
             page.clickNextButton();
         }
+    }
+
+    @When("^I allocate the case$")
+    public void iAllocateTheCase() {
+
     }
 }
