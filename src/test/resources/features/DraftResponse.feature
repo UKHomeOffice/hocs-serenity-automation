@@ -45,12 +45,6 @@ Feature: HOCS User is able to draft a response
     And it contains the name and address details of the correspondent (see BR MIN-13)
     And it is editable
 
-  @HOCS-291, @HOCS-239
-  Scenario: User downloads a template for an email response
-    When I select to reply by "email"
-    Then I can download a template for the case type
-    And it contains the name and email address details of the correspondent (see BR MIN-13)
-    And it is editable
 
   @HOCS-293, @HOCS-239
   Scenario: User sees standard lines on a case
