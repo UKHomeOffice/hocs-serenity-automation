@@ -4,8 +4,8 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.mark_up.MarkUp;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.mark_up.MarkUp;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -100,5 +100,32 @@ public class CreateCaseStepDefs {
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
         markUp.enterSignOffMinisterTypeFunction(minister);
+    }
+
+    @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
+    public void iCreateACaseADocument(String caseType, String document) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.clickDcuMinRadioButton();
+                break;
+            case "DCU TRO":
+                createCase.clickDcuTroRadioButton();
+                break;
+            default:
+                fail(caseType + "is not defined in CreateCaseStepDefs.iCreateACaseADocument. "
+                        + "Please select from DCU MIN, DCU TRO or ");
+        }
+
+        switch (document.toUpperCase()) {
+            case "WITH":
+                addDocuments.uploadDocument();
+                page.clickSubmitButton();
+                break;
+            case "WITHOUT":
+                page.clickSubmitButton();
+                break;
+            default:
+                fail("Please set " + document + " to be either WITH OR WITHOUT");
+        }
     }
 }

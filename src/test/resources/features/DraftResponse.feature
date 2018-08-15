@@ -38,24 +38,11 @@ Feature: HOCS User is able to draft a response
     When I finish drafting
     Then I see an error message instructing me to enter call notes
 
-  @HOCS-291, @HOCS-239
-  Scenario: User downloads template for a postal response
-    When I select to reply by "post"
-    Then I can download a template for the case type
-    And it contains the name and address details of the correspondent (see BR MIN-13)
-    And it is editable
-
-
-  @HOCS-293, @HOCS-239
-  Scenario: User sees standard lines on a case
-    When I view that case
-    Then I can download the standard line for that FAQ topic (see BR MIN-21) (see Validation 'Standard Lines')
-
   @HOCS-293, @HOCS-239
   Scenario: User selects standard line
-    When I click the FAQ response (see Validation 'Standard Lines')
-    Then the standard line for that case is downloaded
-    And I can edit it and used it as part of my draft response
+    When I click the "FAQ response" button
+    And I download the standard line for the case
+    Then I can edit it and use it as part of my draft response
 
   @HOCS-295, @HOCS-239
   Scenario: User does not choose online or offline QA

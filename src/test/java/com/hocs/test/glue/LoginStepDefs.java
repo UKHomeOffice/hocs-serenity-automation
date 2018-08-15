@@ -33,7 +33,7 @@ public class LoginStepDefs {
 
     @Given("^I am user \"([^\"]*)\"")
     public void iLoginas(String user) {
-        navigateToNDelius();
+        navigateToHocs();
         Serenity.setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
             case "DOM":
@@ -50,7 +50,7 @@ public class LoginStepDefs {
         loginPage.enterPassword(user.getPassword());
     }
 
-    private void navigateToNDelius() {
+    private void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
