@@ -67,4 +67,21 @@ public class DraftResponseStepDefs {
     public void iCanSeeAnErrorMessageInstructingMeToSelectEitherOnlineQAOrOfflineQA() {
         draft.assertEnterQaMethodError();
     }
+
+    @And("^I download the standard line for the case$")
+    public void iDownloadTheStandardLineForTheCase() {
+        draft.clickStandardLine();
+    }
+
+    @And("^I select an \"([^\"]*)\" Quality Assurer$")
+    public void iSelectAQualityAssurer(String qa) {
+        switch (qa.toUpperCase()) {
+            case "OFFLINE":
+                break;
+            case "ONLINE":
+                break;
+            default:
+                fail("Please select OFFLINE or ONLINE as a QA option");
+        }
+    }
 }

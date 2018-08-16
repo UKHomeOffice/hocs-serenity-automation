@@ -41,6 +41,21 @@ public class DataEntry {
     @FindBy(id = "")
     private WebElementFacade correspondentMemberDropdown;
 
+    @FindBy(id = "")
+    private WebElementFacade sendCopyToNumberTenTickBox;
+
+    public void clickAddCorrespondentButton() {
+        addCorrespondentButton.click();
+    }
+
+    public void clickCorrespondentIsAMember() {
+        correspondentMemberYesRadioButton.click();
+    }
+
+    public void clickCorrespondentIsNotAMember() {
+        correspondentMemberNoRadioButton.click();
+    }
+
     public void clickEmailCorrespondenceChannelRadioButton() {
         emailCorrespondenceChannelRadioButton.click();
     }
@@ -49,12 +64,30 @@ public class DataEntry {
         letterCorrespondenceChannelRadioButton.click();
     }
 
+    public void clickNo10CorrespondenceChannelRadioButton() {
+        no10CorrespondenceChannelRadioButton.click();
+    }
+
     public void clickPhoneCorrespondenceChannelRadioButton() {
         phoneCorrespondenceChannelRadioButton.click();
     }
 
-    public void clickNo10CorrespondenceChannelRadioButton() {
-        no10CorrespondenceChannelRadioButton.click();
+    public void enterDateOfCorrespondence() {
+        dateOfCorrespondenceField.clear();
+        dateOfCorrespondenceField.sendKeys();
+    }
+
+    public void enterReferenceText() {
+        referenceTextField.clear();
+        referenceTextField.sendKeys("");
+    }
+
+    public void selectFromCorrespondentDropdown() {
+        correspondentDropdown.selectByVisibleText("");
+    }
+
+    public void selectFromCorrespondentMemberDropdown() {
+        correspondentMemberDropdown.selectByVisibleText("");
     }
 
 }

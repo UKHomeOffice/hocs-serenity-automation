@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.mark_up.MarkUp;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -13,13 +14,15 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    private AddDocuments addDocuments;
+    AddDocuments addDocuments;
 
-    private MarkUp markUp;
+    Homepage homepage;
 
-    private CreateCase createCase;
+    MarkUp markUp;
 
-    private Page page;
+    CreateCase createCase;
+
+    Page page;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {
@@ -104,6 +107,8 @@ public class CreateCaseStepDefs {
 
     @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
     public void iCreateACaseADocument(String caseType, String document) {
+        homepage.clickCreateSingleCase();
+
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.clickDcuMinRadioButton();
@@ -112,9 +117,10 @@ public class CreateCaseStepDefs {
                 createCase.clickDcuTroRadioButton();
                 break;
             default:
-                fail(caseType + "is not defined in CreateCaseStepDefs.iCreateACaseADocument. "
-                        + "Please select from DCU MIN, DCU TRO or ");
+                fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
         }
+
+        page.clickNextButton();
 
         switch (document.toUpperCase()) {
             case "WITH":
@@ -128,4 +134,5 @@ public class CreateCaseStepDefs {
                 fail("Please set " + document + " to be either WITH OR WITHOUT");
         }
     }
+
 }

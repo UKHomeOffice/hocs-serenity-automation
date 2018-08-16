@@ -107,7 +107,11 @@ public class GenericInputStepDefs {
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
+            case "DRAFTING":
+                break;
             case "MARK UP":
+                break;
+            case "QA":
                 break;
             default:
                 fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");

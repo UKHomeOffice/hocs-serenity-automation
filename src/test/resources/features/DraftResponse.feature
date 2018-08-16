@@ -53,17 +53,16 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-296, @HOCS-239
   Scenario: A user selects and sends a case to a QA user
-    And I can see a list of ‘online QA’ Quality Assurers
-    When I select a Quality Assurer from that list
+    Given I click the "online QA" button
+    And I select an "online" Quality Assurer
+    When I progress the case
     Then that Quality Assurer will receive a notification to review the case
-    And the case moves on to the next stage as per BPMN
-    And I am navigated to my 'to do' page
+    And I am taken to the "to do" Page
 
   @HOCS-297, @HOCS-298, @HOCS-239
   Scenario: User selects offline QA
-    And I have clicked ‘offline QA’
-    And I can see a list of ‘offline QA’ Quality Assurers
-    When I select a Quality Assurer from that list
+    Given I click the "offline QA" button
+    And I select an "offline" Quality Assurer
+    When I progress the case
     Then that Quality Assurer will receive a notification to say they have QA’d that case
-    And the case moves on to the next stage as per BPMN?
-    And I am navigated to my "to do" page
+    And I am taken to the "to do" Page

@@ -4,7 +4,6 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.mark_up.MarkUp;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -86,9 +85,8 @@ public class CaseDecisionStepDefs {
     }
 
     @When("^I close the case with no reply needed$")
-    public void iCloseTheCaseWithNoReplyNeeded() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iCloseTheCaseWithNoReplyNeeded() {
+
     }
 
     @When("^I amend the answering \"([^\"]*)\"$")

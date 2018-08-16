@@ -57,6 +57,9 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
 
+    public Draft() {
+    }
+
     public void assertEnterCallNotesError() {
         assertThat(getErrorDetails(), is("Text to be confirmed"));
     }
@@ -73,6 +76,18 @@ public class Draft extends Page {
         allocationNoteFreeTextField.clear();
     }
 
+    public void clickAddResponseButton() {
+        addResponseButton.click();
+    }
+
+    public void clickAddSupportingDocumentsButton() {
+        addSupportingDocumentsButton.click();
+    }
+
+    public void clickDownloadTemplateLink() {
+        downloadTemplateLink.click();
+    }
+
     public void clickEmailReplyRadioButton() {
         emailReplyRadioButton.click();
     }
@@ -81,8 +96,28 @@ public class Draft extends Page {
         letterReplyRadioButton.click();
     }
 
+    public void clickNoSupportingDocumentsRadioButton() {
+        supportingDocumentsNoRadioButton.click();
+    }
+
+    public void clickOfflineQaButton() {
+        offlineQaRadioButton.click();
+    }
+
+    public void clickOnlineQaButton() {
+        onlineQaRadioButton.click();
+    }
+
     public void clickPhoneReplyRadioButton() {
         phoneReplyRadioButton.click();
+    }
+
+    public void clickStandardLine() {
+        standardLine.click();
+    }
+
+    public void clickYesSupportingDocumentsRAdioButton() {
+        supportingDocumentsYesRadioButton.click();
     }
 
     public void draftingDeadlineIsDisplayed() {
@@ -96,6 +131,14 @@ public class Draft extends Page {
 
     public String getDraftingDeadline() {
         return draftingDeadline.getText();
+    }
+
+    public void selectOfflineQualityAssurer() {
+        allocateToOfflineQaDropdown.selectByVisibleText("");
+    }
+
+    public void selectOnlineQualityAssurer() {
+        allocateToOnlineQaDropdown.selectByVisibleText("");
     }
 
 }
