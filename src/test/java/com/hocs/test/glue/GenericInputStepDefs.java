@@ -107,7 +107,11 @@ public class GenericInputStepDefs {
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
+            case "DRAFTING":
+                break;
             case "MARK UP":
+                break;
+            case "QA":
                 break;
             default:
                 fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");
@@ -147,7 +151,7 @@ public class GenericInputStepDefs {
         throw new PendingException();
     }
 
-    @Then("^I cannot click to exit the case$")
+    @Then("^I cannot exit the case$")
     public void iCannotClickToExitTheCase() throws Throwable {
 
     }
@@ -158,5 +162,10 @@ public class GenericInputStepDefs {
         while (page.isElementDisplayed(page.nextButton)) {
             page.clickNextButton();
         }
+    }
+
+    @When("^I allocate the case$")
+    public void iAllocateTheCase() {
+
     }
 }

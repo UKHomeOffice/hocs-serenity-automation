@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
-import cucumber.api.PendingException;
+import com.hocs.test.pages.mark_up.MarkUp;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,6 +11,7 @@ import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
 
+    MarkUp markUp;
     Page page;
 
     @Then("^a mandatory \"([^\"]*)\" free text field is available$")
@@ -84,12 +85,11 @@ public class CaseDecisionStepDefs {
     }
 
     @When("^I close the case with no reply needed$")
-    public void iCloseTheCaseWithNoReplyNeeded() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iCloseTheCaseWithNoReplyNeeded() {
+
     }
 
-    @When("^I click to amend the answering \"([^\"]*)\"$")
+    @When("^I amend the answering \"([^\"]*)\"$")
     public void iClickToAmendTheAnswering(String arg) {
         switch (arg.toUpperCase()) {
             case "MINISTER":
@@ -104,7 +104,7 @@ public class CaseDecisionStepDefs {
 
     }
 
-    @When("^I click to amend the \"([^\"]*)\"$")
+    @When("^I amend the \"([^\"]*)\"$")
     public void iClickToAmendThe(String amendment) {
         switch (amendment.toUpperCase()) {
             case "MINISTER":
@@ -169,4 +169,10 @@ public class CaseDecisionStepDefs {
     public void iDoNotEnterReasonsForACaseClosure(String arg0) {
 
     }
+
+    @When("^I refer the case to another Government Department$")
+    public void iReferTheCaseToAnotherGovernmentDepartment() {
+        markUp.clickReferToOgdRadioButton();
+    }
+
 }

@@ -34,13 +34,59 @@ public class Draft extends Page {
     private WebElementFacade addResponseButton;
 
     @FindBy(id = "")
-    private WebElementFacade noSupportingDocumentsRadioButton;
+    private WebElementFacade supportingDocumentsNoRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade yesSupportingDocumentsRadioButton;
+    private WebElementFacade supportingDocumentsYesRadioButton;
 
     @FindBy(id = "")
     private WebElementFacade addSupportingDocumentsButton;
+
+    @FindBy(id = "")
+    private WebElementFacade standardLine;
+
+    @FindBy(id = "")
+    private WebElementFacade offlineQaRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade onlineQaRadioButton;
+
+    @FindBy(id = "")
+    private WebElementFacade allocateToOfflineQaDropdown;
+
+    @FindBy(id = "")
+    private WebElementFacade allocateToOnlineQaDropdown;
+
+    public Draft() {
+    }
+
+    public void assertEnterCallNotesError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterQaMethodError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterRejectionReasonsError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void clearAllocationNoteField() {
+        allocationNoteFreeTextField.clear();
+    }
+
+    public void clickAddResponseButton() {
+        addResponseButton.click();
+    }
+
+    public void clickAddSupportingDocumentsButton() {
+        addSupportingDocumentsButton.click();
+    }
+
+    public void clickDownloadTemplateLink() {
+        downloadTemplateLink.click();
+    }
 
     public void clickEmailReplyRadioButton() {
         emailReplyRadioButton.click();
@@ -50,20 +96,49 @@ public class Draft extends Page {
         letterReplyRadioButton.click();
     }
 
+    public void clickNoSupportingDocumentsRadioButton() {
+        supportingDocumentsNoRadioButton.click();
+    }
+
+    public void clickOfflineQaButton() {
+        offlineQaRadioButton.click();
+    }
+
+    public void clickOnlineQaButton() {
+        onlineQaRadioButton.click();
+    }
+
     public void clickPhoneReplyRadioButton() {
         phoneReplyRadioButton.click();
+    }
+
+    public void clickStandardLine() {
+        standardLine.click();
+    }
+
+    public void clickYesSupportingDocumentsRAdioButton() {
+        supportingDocumentsYesRadioButton.click();
     }
 
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
     }
 
-    public void enterAllocationNote() {
+    public void enterAllocationNoteField() {
+        clearAllocationNoteField();
         allocationNoteFreeTextField.sendKeys(generateRandomString());
     }
 
     public String getDraftingDeadline() {
         return draftingDeadline.getText();
+    }
+
+    public void selectOfflineQualityAssurer() {
+        allocateToOfflineQaDropdown.selectByVisibleText("");
+    }
+
+    public void selectOnlineQualityAssurer() {
+        allocateToOnlineQaDropdown.selectByVisibleText("");
     }
 
 }

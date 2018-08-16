@@ -33,13 +33,13 @@ public class CreateCase extends Page {
     private WebElementFacade dcuDtenRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade noAddDocumentsRadioButton;
+    private WebElementFacade addDocumentsNoRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade yesAddDocumentsRadioButton;
+    private WebElementFacade addDocumentsYesRadioButton;
 
     public void clickAddDocumentsRadioButton() {
-        yesAddDocumentsRadioButton.click();
+        addDocumentsYesRadioButton.click();
     }
 
     public void clickCreateBulkCaseRadioButton() {
@@ -63,7 +63,7 @@ public class CreateCase extends Page {
     }
 
     public void clickNoDocumentsToAddButton() {
-        noAddDocumentsRadioButton.click();
+        addDocumentsNoRadioButton.click();
     }
 
     public void enterCaseDetailsFreeText() {

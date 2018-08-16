@@ -4,8 +4,9 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.create_case.CaseDecision;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.mark_up.MarkUp;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,13 +14,15 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    private AddDocuments addDocuments;
+    AddDocuments addDocuments;
 
-    private CaseDecision caseDecision;
+    Homepage homepage;
 
-    private CreateCase createCase;
+    MarkUp markUp;
 
-    private Page page;
+    CreateCase createCase;
+
+    Page page;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {
@@ -94,11 +97,42 @@ public class CreateCaseStepDefs {
 
     @When("^I select to correspond with a member from the dropdown$")
     public void iSelectToCorrespondWithAMemberFromTheDropdown() {
-        caseDecision.selectSecondSignOffMinisterFromDropdown();
+        markUp.selectSecondSignOffMinisterFromDropdown();
     }
 
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
-        caseDecision.enterSignOffMinisterTypeFunction(minister);
+        markUp.enterSignOffMinisterTypeFunction(minister);
     }
+
+    @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
+    public void iCreateACaseADocument(String caseType, String document) {
+        homepage.clickCreateSingleCase();
+
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.clickDcuMinRadioButton();
+                break;
+            case "DCU TRO":
+                createCase.clickDcuTroRadioButton();
+                break;
+            default:
+                fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
+        }
+
+        page.clickNextButton();
+
+        switch (document.toUpperCase()) {
+            case "WITH":
+                addDocuments.uploadDocument();
+                page.clickSubmitButton();
+                break;
+            case "WITHOUT":
+                page.clickSubmitButton();
+                break;
+            default:
+                fail("Please set " + document + " to be either WITH OR WITHOUT");
+        }
+    }
+
 }
