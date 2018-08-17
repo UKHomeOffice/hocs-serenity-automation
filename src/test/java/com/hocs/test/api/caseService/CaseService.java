@@ -1,8 +1,9 @@
 package com.hocs.test.api.caseService;
 
-import static config.Environments.LOCAL;
-import static config.Services.CASE;
+import static io.restassured.RestAssured.given;
 
+import config.Environments;
+import config.Services;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,12 +18,12 @@ public class CaseService extends PageObject {
     private Response post;
 
     public void getInfo() {
-        response = RestAssured.given()
-                .get(LOCAL.getEnvironmentURL() + CASE.getPort() + "/actuator/info");
+        RestAssured.baseURI = Environments.LOCAL.getEnvironmentURL();
+        RestAssured.port = Services.CASE.getPort();
     }
 
     public void assertResponse(int statusCode) {
-        response.then().statusCode(statusCode);
+        given().when().get("/actuator/info").then().statusCode(statusCode);
     }
 
 }

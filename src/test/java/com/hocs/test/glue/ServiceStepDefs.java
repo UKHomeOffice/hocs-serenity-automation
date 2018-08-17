@@ -20,33 +20,35 @@ public class ServiceStepDefs {
     public void whenIRequestServiceInfo(String service) {
         switch (service.toUpperCase()) {
             case "CASE SERVICE":
-                caseService.getInfo();
+                apiHelper.setupApiHelper("CASE");
                 break;
             case "WORKFLOW SERVICE":
-                workflowService.getInfo();
+                apiHelper.setupApiHelper("WORKFLOW");
                 break;
             default:
                 fail(service + " is not defined within ServiceStepDefs.whenIRequestServiceInfo");
         }
     }
 
-    @Then("\"([^\"]*)\" returns a (\\d+) response$")
-    public void api_will_return_a_successful_response(String service, int statusCode) {
-        switch (service.toUpperCase()) {
-            case "CASE SERVICE":
-                caseService.assertResponse(statusCode);
-                break;
-            case "WORKFLOW SERVICE":
-                workflowService.assertResponse(statusCode);
-                break;
-            default:
-                fail(service + " is not defined within ServiceStepDefs.whenIRequestServiceInfo");
-        }
+    @Then("^service returns a (\\d+) response$")
+    public void apiWillReturnASuccessfulResponse(int statusCode) {
+        apiHelper.assertResponse(statusCode);
     }
 
     @Then("^the response body has the correct contents$")
     public void theResponseBodyHasTheCorrectContents() {
         workflowService.assertResponseBody();
     }
+
+    @Then("^the response body contains \"([^\"]*)\" $")
+    public void theResponseBodyContains(String content) {
+        apiHelper.assertResponseBodyContains(content);
+    }
+
+    @Then("^\"([^\"]*)\" is equal to \"([^\"]*)\"$")
+    public void objectIsEqualTo(String object, String value) {
+        apiHelper.assertResponseBodyJsonObject(object, value);
+    }
+
 }
 

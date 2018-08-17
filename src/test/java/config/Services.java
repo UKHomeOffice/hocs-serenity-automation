@@ -2,19 +2,19 @@ package config;
 
 public enum Services {
 
-    CASE("8082"),
-    HOCS("8080"),
-    INFO(""),
-    WORKFLOW("8081");
+    CASE(8082),
+    HOCS(8080),
+    INFO(1),
+    WORKFLOW(8081);
 
-    private final String port;
+    private final int port;
 
-    Services(String port) {
+    Services(int port) {
         this.port = port;
     }
 
-    public String getPort() {
-        return ":" + port;
+    public int getPort() {
+        return port;
     }
 
 }
