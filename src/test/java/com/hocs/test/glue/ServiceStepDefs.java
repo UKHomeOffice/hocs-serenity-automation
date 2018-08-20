@@ -3,7 +3,6 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.api.ApiHelper;
-import com.hocs.test.api.caseService.CaseService;
 import com.hocs.test.api.workflow.WorkflowService;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,8 +10,6 @@ import cucumber.api.java.en.When;
 public class ServiceStepDefs {
 
     ApiHelper apiHelper;
-
-    CaseService caseService;
 
     WorkflowService workflowService;
 

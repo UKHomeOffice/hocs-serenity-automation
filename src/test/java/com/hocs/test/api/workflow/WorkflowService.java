@@ -16,12 +16,8 @@ public class WorkflowService extends PageObject {
 
     private Response post;
 
-    public void assertResponse(int statusCode) {
-        given().when().then().statusCode(statusCode);
-    }
-
     public void assertResponseBody() {
-        given().when().then().
+        given().when().get().then().
                 statusCode(200).
                 body("app.name", is("hocs-workflow"),
                         "app.fullname", is("Hocs Workflow Service"));
