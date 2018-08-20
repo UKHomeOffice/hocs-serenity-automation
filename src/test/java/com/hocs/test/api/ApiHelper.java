@@ -21,9 +21,8 @@ public class ApiHelper extends PageObject {
 
     public void setupApiHelper(String api) {
         String environment = System.getProperty("environment");
-        if (environment == null) {
+        if (environment == null)
             environment = "LOCAL";
-        }
 
         switch (environment.toUpperCase()) {
             case "DEV":
