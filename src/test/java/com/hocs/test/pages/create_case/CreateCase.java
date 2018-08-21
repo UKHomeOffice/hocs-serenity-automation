@@ -38,6 +38,10 @@ public class CreateCase extends Page {
     @FindBy(id = "")
     private WebElementFacade addDocumentsYesRadioButton;
 
+    public void assertNoOptionsAvailable() {
+        assertThat(allRadioButtons.getText(),is("No options available"));
+    }
+
     public void clickAddDocumentsRadioButton() {
         addDocumentsYesRadioButton.click();
     }
