@@ -9,6 +9,30 @@ public class AddDocuments extends Page {
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
 
+    @FindBy(id = "DateReceived-day")
+    private WebElementFacade dateReceivedDay;
+
+    @FindBy(id = "DateReceived-month")
+    private WebElementFacade dateReceivedMonth;
+
+    @FindBy(id = "DateReceived-year")
+    private WebElementFacade dateReceivedYear;
+
+    public void enterDayReceived() {
+        dateReceivedDay.clear();
+        dateReceivedDay.sendKeys("");
+    }
+
+    public void enterMonthReceived() {
+        dateReceivedMonth.clear();
+        dateReceivedMonth.sendKeys("");
+    }
+
+    public void enterYearReceived() {
+        dateReceivedYear.clear();
+        dateReceivedYear.sendKeys("");
+    }
+
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
         pageTitle.containsText("Add documents");
