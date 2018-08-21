@@ -2,7 +2,8 @@ package config;
 
 public enum Users {
 
-    DOM("dominic.barnett-may@digital.homeoffice.gov.uk", "bourne88");
+    DOM("dominic.barnett-may@digital.homeoffice.gov.uk", "bourne88"),
+    TEST("","");
 
     private final String username;
 

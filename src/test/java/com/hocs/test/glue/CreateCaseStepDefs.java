@@ -28,7 +28,7 @@ public class CreateCaseStepDefs {
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
             case "NO CASE TYPES":
-                createCase.radioButtonsNotDisplayed();
+                createCase.assertNoOptionsAvailable();
                 break;
             default:
                 fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");

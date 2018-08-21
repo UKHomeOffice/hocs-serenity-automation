@@ -14,13 +14,15 @@ Feature: HOCS DEMO
     When I create a case
     Then I am taken to the "HOCS Home" Page
 
+  @api
   Scenario: Get Workflow Service Response
     When I request "Workflow Service" info
-    Then "Workflow Service" returns a 200 response
+    Then service returns a 200 response
 
+  @api
   Scenario: Get Case Service Response
     When I request "Case Service" info
-    Then "Case Service" returns a 200 response
+    Then service returns a 200 response
 
   Scenario: Assert Case Service Response Body
     When I request "Workflow Service" info

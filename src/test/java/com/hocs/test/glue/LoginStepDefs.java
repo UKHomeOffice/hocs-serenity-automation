@@ -4,15 +4,14 @@ import static junit.framework.TestCase.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
-import config.Environments;
-import config.Services;
-import config.Users;
+import config.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
+import config.Services;
 
 public class LoginStepDefs {
 
@@ -38,6 +37,9 @@ public class LoginStepDefs {
         switch (user.toUpperCase()) {
             case "DOM":
                 enterHocsLoginDetails(Users.DOM);
+                break;
+            case "TEST":
+                enterHocsLoginDetails(Users.TEST);
                 break;
             default:
                 fail(user + " is not defined with LoginStepDefs.iLoginAs()");

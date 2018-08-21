@@ -1,64 +1,83 @@
 package com.hocs.test.api;
 
-import static org.hamcrest.core.Is.is;
+import static config.Environments.DEV;
+import static config.Environments.LOCAL;
+import static config.Services.CASE;
+import static config.Services.WORKFLOW;
+import static io.restassured.RestAssured.basePath;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.port;
+import static junit.framework.TestCase.fail;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.core.pages.PageObject;
-import org.json.JSONObject;
 
 public class ApiHelper extends PageObject {
 
-    private Response response;
+    Response response;
 
-    private RequestSpecification request;
+    public void setupApiHelper(String api) {
+        String environment = System.getProperty("environment");
+        if (environment == null)
+            environment = "LOCAL";
 
-    private Response post;
+        switch (environment.toUpperCase()) {
+            case "DEV":
+                baseURI = DEV.getEnvironmentURL();
+                switch (api.toUpperCase()) {
+                    case "CASE":
+                        port = CASE.getPort();
+                        break;
+                    case "WORKFLOW":
+                        port = WORKFLOW.getPort();
+                        break;
+                    default:
+                        fail("Service: " + api
+                                + " is not defined within ApiHelper.setupApiHelper()");
+                        break;
+                }
+                break;
+            case "LOCAL":
+                baseURI = LOCAL.getEnvironmentURL();
+                basePath = "/actuator/info";
+                switch (api.toUpperCase()) {
+                    case "CASE":
+                        port = CASE.getPort();
+                        break;
+                    case "WORKFLOW":
+                        port = WORKFLOW.getPort();
+                        break;
+                    default:
+                        fail("Service: " + api
+                                + " is not defined within ApiHelper.setupApiHelper()");
+                        break;
+                }
+                break;
+            default:
+                fail("Environment: " + environment +
+                        " is not defined within ApiHelper.setupApiHelper()");
+        }
 
-    public void getInfo(String getInfo) {
-        response = RestAssured.given().
-                get(getInfo);
     }
 
-    public void assertResponseBody() {
-        response.then().
-                statusCode(200).
-                body("app.name", is("hocs-workflow"),
-                        "app.fullname", is("Hocs Workflow Service"));
+    public void assertResponse(int statusCode) {
+        given().when().get().then().statusCode(statusCode);
     }
 
-    public void assertStatusLog(int statusCode) {
-        response.then().statusCode(statusCode);
+    public void assertResponseBodyContains(String content) {
+        given().when().get().then().body(containsString(content));
     }
 
-    public void getResponseBody() {
-        response.getBody();
+    public void assertResponseBodyJsonObject(String object, String value) {
+        given().when().get().then().body(object, equalTo(value));
     }
 
-    public void getResponseContents() {
-        response.then().log().body();
+    public Response getResponse() {
+        return response;
     }
 
-    public void newStudent() {
-        RestAssured.baseURI = "http://localhost:54801/api/student";
-        request = RestAssured.given().header("auth", "Sh@r3dSe3cr3t");
-
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("firstName", "Api"); // Cast
-        requestParams.put("lastName", "Test");
-        requestParams.put("year", "2");
-
-        request.header("Content-Type", "application/json");
-
-        // Add the Json to the body of the request
-        request.body(requestParams.toString());
-    }
-
-    public void postStudent() {
-        // Post the request and check the response
-        post = request.post("http://localhost:54801/api/student");
-        post.then().statusCode(201);
-//      post.then().assertThat().body("firstName", containsString ("Api"));
-    }
 }
+

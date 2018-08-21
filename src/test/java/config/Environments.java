@@ -12,6 +12,7 @@ public enum Environments {
         this.hostname = hostname;
     }
 
+
     public String getEnvironmentURL() {
         return hostname;
     }
