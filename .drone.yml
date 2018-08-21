@@ -41,7 +41,7 @@ pipeline:
   execute-tests:
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
     commands:
-      - sh demo.sh
+      - sh bin/demo.sh
     when:
       branch: master
       event: push
