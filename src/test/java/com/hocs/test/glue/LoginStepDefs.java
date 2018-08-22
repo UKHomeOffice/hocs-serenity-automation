@@ -44,7 +44,7 @@ public class LoginStepDefs {
             default:
                 fail(user + " is not defined with LoginStepDefs.iLoginAs()");
         }
-        page.clickSubmitButton();
+        page.clickContinueButton();
     }
 
     private void enterHocsLoginDetails(Users user) {

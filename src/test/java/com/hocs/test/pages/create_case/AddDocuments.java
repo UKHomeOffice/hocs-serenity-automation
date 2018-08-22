@@ -1,36 +1,26 @@
 package com.hocs.test.pages.create_case;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AddDocuments extends Page {
 
+    @FindBy(className = "govuk-error-summary")
+    private WebElementFacade errorMessage;
+
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
 
-    @FindBy(id = "DateReceived-day")
-    private WebElementFacade dateReceivedDay;
-
-    @FindBy(id = "DateReceived-month")
-    private WebElementFacade dateReceivedMonth;
-
-    @FindBy(id = "DateReceived-year")
-    private WebElementFacade dateReceivedYear;
-
-    public void enterDayReceived() {
-        dateReceivedDay.clear();
-        dateReceivedDay.sendKeys("");
+    public void assertErrorMessageText(String text) {
+        assertThat(getErrorMessageText(), containsString(text));
     }
 
-    public void enterMonthReceived() {
-        dateReceivedMonth.clear();
-        dateReceivedMonth.sendKeys("");
-    }
-
-    public void enterYearReceived() {
-        dateReceivedYear.clear();
-        dateReceivedYear.sendKeys("");
+    protected String getErrorMessageText() {
+        return errorMessage.getText();
     }
 
     public void pageTitleIsDisplayed() {

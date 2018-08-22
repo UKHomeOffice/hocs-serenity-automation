@@ -53,7 +53,7 @@ public class Page extends PageObject {
     @FindBy(id = "")
     protected WebElementFacade addressTwoField;
 
-    @FindBy(id = "")
+    @FindBy(id = "AllocationNote")
     private WebElementFacade allocationNoteField;
 
     @FindBy(css = "[id*=documentTable]")
@@ -67,6 +67,9 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value = 'Confirm']")
     private WebElementFacade confirmButton;
+
+    @FindBy(css = "[value='Continue']")
+    protected WebElementFacade continueButton;
 
     @FindBy(id = "")
     protected WebElementFacade countryField;
@@ -82,6 +85,24 @@ public class Page extends PageObject {
 
     @FindBy(id = "date-year")
     protected WebElementFacade dateYearField;
+
+    @FindBy(id = "DateOfLetter-day")
+    protected WebElementFacade dateOfLetterDay;
+
+    @FindBy(id = "DateOfLetter-month")
+    protected WebElementFacade dateOfLetterMonth;
+
+    @FindBy(id = "DateOfLetter-year")
+    protected WebElementFacade dateOfLetterYear;
+
+    @FindBy(id = "DateReceived-day")
+    protected WebElementFacade dateReceivedDay;
+
+    @FindBy(id = "DateReceived-month")
+    protected WebElementFacade dateReceivedMonth;
+
+    @FindBy(id = "DateReceived-year")
+    protected WebElementFacade dateReceivedYear;
 
     @FindBy(linkText = "delete")
     private WebElementFacade deleteLink;
@@ -101,7 +122,7 @@ public class Page extends PageObject {
     @FindBy(id = "error-details")
     protected WebElementFacade errorDetails;
 
-    @FindBy(linkText = "Finish")
+    @FindBy(css = "[value='Finish']")
     protected WebElementFacade finishButton;
 
     @FindBy(linkText = "First")
@@ -164,7 +185,7 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=StartDate]")
     private WebElementFacade startDate;
 
-    @FindBy(css = "[type = 'submit']")
+    @FindBy(css = "[value = 'Submit']")
     private WebElementFacade submitButton;
 
     @FindBy(id = "surname")
@@ -230,6 +251,8 @@ public class Page extends PageObject {
     public void clickConfirmButton() {
         confirmButton.click();
     }
+
+    public void clickContinueButton() { continueButton.click();}
 
     public void clickCloseButton() {
         closeButton.click();
@@ -329,10 +352,32 @@ public class Page extends PageObject {
         return dbDateFormat.format(cal.getTime());
     }
 
+    public void enterAllocationNote() {
+        String allocationNote = generateRandomString();
+        allocationNoteField.clear();
+        allocationNoteField.sendKeys(allocationNote);
+        Serenity.setSessionVariable("allocationNote").to(allocationNote);
+    }
+
     public void enterDate(String date) {
         dateField.clear();
         dateField.sendKeys(date);
         Serenity.setSessionVariable("date").to(date);
+    }
+
+    public void enterDayReceived() {
+        dateReceivedDay.clear();
+        dateReceivedDay.sendKeys("");
+    }
+
+    public void enterMonthReceived() {
+        dateReceivedMonth.clear();
+        dateReceivedMonth.sendKeys("");
+    }
+
+    public void enterYearReceived() {
+        dateReceivedYear.clear();
+        dateReceivedYear.sendKeys("");
     }
 
     public void enterEndDate(String endDate) {
