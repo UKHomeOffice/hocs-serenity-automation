@@ -1,9 +1,12 @@
 FROM quay.io/ukhomeofficedigital/java8-mvn
 
 VOLUME      ["/usr/src/app"]
-WORKDIR /usr/src/app
 
-FROM quay.io/ukhomeofficedigital/nodejs-base:v8.11.1
+WORKDIR /app
+
+RUN mkdir -p /app
+
+COPY . /app
 
 RUN yum install -y bzip2
 RUN yum install -y fontconfig
@@ -13,3 +16,5 @@ RUN yum install -y google-chrome-stable
 RUN yum install -y xorg-x11-server-Xvfb
 RUN Xvfb -ac :99 -screen 0 1680x1050x24 &
 RUN export DISPLAY=:99
+
+ENTRYPOINT /app/bin/demo.sh
