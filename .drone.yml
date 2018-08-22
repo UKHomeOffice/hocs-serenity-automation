@@ -31,8 +31,10 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     secrets:
       - docker_password
+      - docker_artifactory_password
     commands:
       - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
+      - docker login -u=hocs-bot -p=$${DOCKER_ARTIFACTORY_PASSWORD} docker.digital.homeoffice.gov.uk
       - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
     when:
