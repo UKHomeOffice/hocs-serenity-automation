@@ -3,8 +3,6 @@ FROM quay.io/ukhomeofficedigital/java8-mvn
 VOLUME      ["/usr/src/app"]
 WORKDIR /usr/src/app
 
-FROM quay.io/ukhomeofficedigital/nodejs-base:v8.11.1
-
 RUN yum install -y bzip2
 RUN yum install -y fontconfig
 COPY google-chrome.repo /etc/yum.repos.d/
