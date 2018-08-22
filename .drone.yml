@@ -40,7 +40,7 @@ pipeline:
 
   execute-tests:
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
-    secret:
+    secrets:
       - docker_artifactory_password
     commands:
       - docker login -u=hocs-bot -p=$${DOCKER_ARTIFACTORY_PASSWORD} docker.digital.homeoffice.gov.uk
