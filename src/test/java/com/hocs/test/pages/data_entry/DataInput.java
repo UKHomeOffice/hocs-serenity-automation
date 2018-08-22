@@ -3,19 +3,19 @@ package com.hocs.test.pages.data_entry;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class DataEntry {
+public class DataInput {
 
-    @FindBy(id = "")
-    private WebElementFacade emailCorrespondenceChannelRadioButton;
+    @FindBy(css = "label[for='OriginalChannel-EMAIL']")
+    private WebElementFacade emailOriginalChannelRadioButton;
 
-    @FindBy(id = "")
-    private WebElementFacade letterCorrespondenceChannelRadioButton;
+    @FindBy(id = "label[for='OriginalChannel-POST']")
+    private WebElementFacade postOriginalChannelRadioButton;
 
-    @FindBy(id = "")
-    private WebElementFacade phoneCorrespondenceChannelRadioButton;
+    @FindBy(id = "label[for='OriginalChannel-PHONE']")
+    private WebElementFacade phoneOriginalChannelRadioButton;
 
-    @FindBy(id = "")
-    private WebElementFacade no10CorrespondenceChannelRadioButton;
+    @FindBy(id = "label[for='OriginalChannel-NO10']")
+    private WebElementFacade numberTenOriginalChannelRadioButton;
 
     @FindBy(id = "")
     private WebElementFacade dateOfCorrespondenceField;
@@ -57,19 +57,19 @@ public class DataEntry {
     }
 
     public void clickEmailCorrespondenceChannelRadioButton() {
-        emailCorrespondenceChannelRadioButton.click();
+        emailOriginalChannelRadioButton.click();
     }
 
     public void clickLetterCorrespondenceChannelRadioButton() {
-        letterCorrespondenceChannelRadioButton.click();
+        postOriginalChannelRadioButton.click();
     }
 
     public void clickNo10CorrespondenceChannelRadioButton() {
-        no10CorrespondenceChannelRadioButton.click();
+        numberTenOriginalChannelRadioButton.click();
     }
 
     public void clickPhoneCorrespondenceChannelRadioButton() {
-        phoneCorrespondenceChannelRadioButton.click();
+        phoneOriginalChannelRadioButton.click();
     }
 
     public void enterDateOfCorrespondence() {

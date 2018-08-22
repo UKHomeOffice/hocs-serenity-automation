@@ -1,4 +1,4 @@
-FROM quay.io/ukhomeofficedigital/openjdk8
+FROM quay.io/ukhomeofficedigital/java8-mvn
 
 VOLUME      ["/usr/src/app"]
 WORKDIR /usr/src/app
