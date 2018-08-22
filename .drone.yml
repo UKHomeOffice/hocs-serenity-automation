@@ -6,6 +6,7 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker build -t hocs_serenity_automation .
+      - docker run
     when:
       branch: master
       event: push
@@ -37,14 +38,3 @@ pipeline:
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
     when:
       event: tag
-
-  execute-tests:
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
-    secrets:
-      - docker_artifactory_password
-    commands:
-      - docker login -u=hocs-bot -p=$${DOCKER_ARTIFACTORY_PASSWORD} docker.digital.homeoffice.gov.uk
-      - sh bin/demo.sh
-    when:
-      branch: master
-      event: push
