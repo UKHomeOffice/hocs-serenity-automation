@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.forms.TestForm;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -17,6 +18,8 @@ public class GenericInputStepDefs {
     WebDriver driver;
 
     Page page;
+
+    TestForm testForm;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -122,17 +125,25 @@ public class GenericInputStepDefs {
     public void iSetTheDate(String date) {
         switch (date.toUpperCase()) {
             case "TODAY":
-                page.today();
+                page.getCurrentDay();
+                page.getCurrentMonth();
+                page.getCurrentYear();
                 break;
             case "TOMORROW":
-                page.todayPlusDays(1);
                 break;
             case "YESTERDAY":
-                page.todayPlusDays(-1);
                 break;
             default:
                 fail("Please enter TODAY, TOMORROW or YESTERDAY");
         }
+    }
+
+    @When("I set a date of (\\d+) days time in the \"([^\"]*)\" field")
+    public void iSetADateOfNDaysTimeInTheField(int days, String field) {
+        String day = page.todayPlusNDaysGetDay(days);
+        String month = page.todayPlusNDaysGetMonth(days);
+        String year = page.todayPlusNDaysGetYear(days);
+
     }
 
     @Then("^an error message is displayed$")

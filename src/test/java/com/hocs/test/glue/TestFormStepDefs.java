@@ -14,7 +14,7 @@ public class TestFormStepDefs {
     public void iSubmitValidDetailInAllFields() throws InterruptedException {
         testForm.enterName("Dom");
         testForm.enterSurname("Barnett");
-        testForm.enterDate("04", "03", "1988");
+        testForm.enterCurrentDate();
         testForm.selectCheckbox();
         testForm.enterText();
         testForm.selectRadioButton();

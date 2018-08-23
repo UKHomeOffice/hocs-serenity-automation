@@ -87,7 +87,7 @@ public class MarkUp extends Page {
     }
 
     public void enterDateReceived() {
-        dateReceivedField.sendKeys(today());
+        dateReceivedField.sendKeys(getCurrentDay());
     }
 
     public void enterDraftingDeadline() {

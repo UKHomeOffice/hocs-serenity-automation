@@ -6,8 +6,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
+import cucumber.api.java.ca.Cal;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.yecht.Data.Str;
 
 public class Page extends PageObject {
 
@@ -32,6 +35,12 @@ public class Page extends PageObject {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+    private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+    private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+
+    private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
     @Managed
     WebDriver driver;
@@ -260,7 +269,9 @@ public class Page extends PageObject {
         confirmButton.click();
     }
 
-    public void clickContinueButton() { continueButton.click();}
+    public void clickContinueButton() {
+        continueButton.click();
+    }
 
     public void clickCloseButton() {
         closeButton.click();
@@ -566,31 +577,68 @@ public class Page extends PageObject {
         }
     }
 
-    public String today() {
-        Date date = Calendar.getInstance().getTime();
-
-        return simpleDateFormat.format(date);
+    public String getCurrentDay() {
+        Calendar cal = Calendar.getInstance();
+        return dayFormat.format(cal.getTime());
     }
 
-    public String todayPlusDays(int days) {
+    public String getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        return monthFormat.format(cal.getTime());
+    }
+
+    public String getCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+        return yearFormat.format(cal.getTime());
+    }
+
+    public String todayPlusNDaysGetDay(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
-        return simpleDateFormat.format(cal.getTime());
+        return dayFormat.format(cal.getTime());
+    }
+
+    public String todayPlusNDaysGetMonth(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+
+        return monthFormat.format(cal.getTime());
+    }
+
+    public String todayPlusNDaysGetYear(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+
+        return yearFormat.format(cal.getTime());
     }
 
     public String todayPlusYears(int years) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, years);
 
-        return simpleDateFormat.format(cal.getTime());
+        return new SimpleDateFormat("YYYY").format(cal.getTime());
     }
 
-    public String tomorrow() {
+    public String tomorrowsDay() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
 
-        return simpleDateFormat.format(cal.getTime());
+        return dayFormat.format(cal.getTime());
+    }
+
+    public String tomorrowsMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+
+        return monthFormat.format(cal.getTime());
+    }
+
+    public String tomorrowsYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+
+        return yearFormat.format(cal.getTime());
     }
 
     public boolean updateButtonIsDisplayed() {
