@@ -1,6 +1,7 @@
 package com.hocs.test.pages;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
@@ -122,6 +123,9 @@ public class Page extends PageObject {
     @FindBy(id = "error-details")
     protected WebElementFacade errorDetails;
 
+    @FindBy(className = "govuk-error-summary")
+    protected WebElementFacade errorMessage;
+
     @FindBy(css = "[value='Finish']")
     protected WebElementFacade finishButton;
 
@@ -211,6 +215,10 @@ public class Page extends PageObject {
 
     @FindBy(linkText = "view")
     private WebElementFacade viewLink;
+
+    public void assertErrorMessageText(String text) {
+        assertThat(getErrorMessageText(), containsString(text));
+    }
 
     public void assertTitle(String title) {
         assertThat(getTitle(), is(title));
@@ -450,6 +458,11 @@ public class Page extends PageObject {
     protected String getErrorDetails() {
         return errorDetails.getText();
     }
+
+    private String getErrorMessageText() {
+        return errorMessage.getText();
+    }
+
 
     protected String getHeaderText() {
         return pageTitle.getText();

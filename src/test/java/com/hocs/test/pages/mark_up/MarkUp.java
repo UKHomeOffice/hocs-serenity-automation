@@ -6,16 +6,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class MarkUp extends Page {
 
-    @FindBy(id = "")
+    @FindBy(css ="label[for='MarkupDecision-PR']")
     private WebElementFacade policyResponseRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css ="label[for='MarkupDecision-OGD']")
     private WebElementFacade referToOgdRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css ="label[for='MarkupDecision-FAQ']")
     private WebElementFacade faqRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css ="label[for='MarkupDecision-NRN']")
     private WebElementFacade noReplyNeededRadioButton;
 
     @FindBy(id = "")

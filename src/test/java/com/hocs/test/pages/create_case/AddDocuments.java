@@ -9,19 +9,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AddDocuments extends Page {
 
-    @FindBy(className = "govuk-error-summary")
-    private WebElementFacade errorMessage;
-
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
-
-    public void assertErrorMessageText(String text) {
-        assertThat(getErrorMessageText(), containsString(text));
-    }
-
-    protected String getErrorMessageText() {
-        return errorMessage.getText();
-    }
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
