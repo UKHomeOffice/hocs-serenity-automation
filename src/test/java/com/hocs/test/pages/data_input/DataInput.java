@@ -1,4 +1,4 @@
-package com.hocs.test.pages.data_entry;
+package com.hocs.test.pages.data_input;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -26,8 +26,8 @@ public class DataInput {
     @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    @FindBy(id = "")
-    private WebElementFacade addCorrespondentButton;
+    @FindBy(linkText = "Add a Correspondent")
+    private WebElementFacade addCorrespondentLink;
 
     @FindBy(id = "")
     private WebElementFacade primaryCorrespondent;
@@ -41,11 +41,11 @@ public class DataInput {
     @FindBy(id = "")
     private WebElementFacade correspondentMemberDropdown;
 
-    @FindBy(id = "")
+    @FindBy(id = "NumberTen-SendCopy")
     private WebElementFacade sendCopyToNumberTenTickBox;
 
     public void clickAddCorrespondentButton() {
-        addCorrespondentButton.click();
+        addCorrespondentLink.click();
     }
 
     public void clickCorrespondentIsAMember() {
@@ -88,6 +88,10 @@ public class DataInput {
 
     public void selectFromCorrespondentMemberDropdown() {
         correspondentMemberDropdown.selectByVisibleText("");
+    }
+
+    public void tickSendCopyToNumber10() {
+        sendCopyToNumberTenTickBox.click();
     }
 
 }

@@ -194,7 +194,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.serenity-bdd:serenity-cucumber:1.9.15" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.serenity-bdd:serenity-screenplay:1.9.36" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.serenity-bdd:serenity-screenplay-webdriver:1.9.36" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:2.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-junit:2.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-simple:1.7.25" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
@@ -265,5 +264,6 @@
     <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.report:0.8.1" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.deque:axe-selenium:2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:2.4.0" level="project" />
   </component>
 </module>

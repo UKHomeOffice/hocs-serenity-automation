@@ -9,27 +9,22 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AddDocuments extends Page {
 
-    @FindBy(className = "govuk-error-summary")
-    private WebElementFacade errorMessage;
-
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
-
-    public void assertErrorMessageText(String text) {
-        assertThat(getErrorMessageText(), containsString(text));
-    }
-
-    protected String getErrorMessageText() {
-        return errorMessage.getText();
-    }
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
         pageTitle.containsText("Add documents");
     }
 
+    public void bulkUploadDocuments(int documents) {
+        for (int i = 1; i <= documents; i++) {
+            upload("documents/test" + i + ".docx").to(addDocument);
+        }
+    }
+
     public void uploadDocument() {
-        upload("documents/test.docx").to(addDocument);
+        upload("documents/test1.docx").to(addDocument);
     }
 
 }

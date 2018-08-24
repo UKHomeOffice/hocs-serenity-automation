@@ -24,6 +24,9 @@ public class Homepage extends Page {
     @FindBy(linkText = "Create single case")
     private WebElementFacade createSingleCase;
 
+    @FindBy(linkText = "Create cases in bulk")
+    private WebElementFacade createBulkCases;
+
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
@@ -34,6 +37,8 @@ public class Homepage extends Page {
         assertThat(getWorktackTableContents(),
                 hasItem(containsString(sessionVariableCalled("caseReference"))));
     }
+
+    public void clickCreateBulkCases() { createBulkCases.click(); }
 
     public void clickCreateSingleCase() {
         createSingleCase.click();

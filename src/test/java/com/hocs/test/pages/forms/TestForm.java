@@ -39,13 +39,13 @@ public class TestForm extends Page {
     @FindBy(id = "dropdown-test")
     private WebElementFacade testDropdown;
 
-    public void enterDate(String day, String month, String year) {
+    public void enterCurrentDate() {
         dateDayField.clear();
-        dateDayField.sendKeys(day);
+        dateDayField.sendKeys(getCurrentDay());
         dateMonthField.clear();
-        dateMonthField.sendKeys(month);
+        dateMonthField.sendKeys(getCurrentMonth());
         dateYearField.clear();
-        dateYearField.sendKeys(year);
+        dateYearField.sendKeys(getCurrentYear());
     }
 
     public void enterName(String name) {

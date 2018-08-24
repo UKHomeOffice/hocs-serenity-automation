@@ -38,3 +38,14 @@ pipeline:
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
     when:
       event: tag
+
+  execute-tests:
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    secrets:
+       - artifactory_username
+       - artifactory_password
+    commands:
+      - sh bin/demo.sh
+    when:
+      branch: master
+      event: push
