@@ -40,6 +40,9 @@ pipeline:
 
   execute-tests:
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    secrets:
+       - artifactory_username
+       - artifactory_password
     commands:
       - sh bin/demo.sh
     when:
