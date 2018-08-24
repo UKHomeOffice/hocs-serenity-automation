@@ -8,4 +8,4 @@ RUN mkdir -p /app
 
 COPY . /app
 
-ENTRYPOINT /app/bin/demo.sh
+#ENTRYPOINT /app/bin/demo.sh
