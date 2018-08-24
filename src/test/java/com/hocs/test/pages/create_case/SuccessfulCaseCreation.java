@@ -1,12 +1,13 @@
 package com.hocs.test.pages.create_case;
 
+import com.hocs.test.pages.Page;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class SuccessfulCaseCreation {
+public class SuccessfulCaseCreation extends Page {
 
     @FindBy(className = "govuk-panel--confirmation")
     private WebElementFacade confirmationPanel;

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mvn clean verify "-Dcucumber.options=--tags @demo"
+mvn clean verify "-Dcucumber.options=--tags @HOCS-341"

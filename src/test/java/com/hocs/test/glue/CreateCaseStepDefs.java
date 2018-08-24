@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.mark_up.MarkUp;
 import cucumber.api.java.en.And;
@@ -16,13 +17,15 @@ public class CreateCaseStepDefs {
 
     AddDocuments addDocuments;
 
+    CreateCase createCase;
+
     Homepage homepage;
 
     MarkUp markUp;
 
-    CreateCase createCase;
-
     Page page;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {
@@ -155,6 +158,11 @@ public class CreateCaseStepDefs {
             default:
                 fail("Please set " + document + " to be either WITH OR WITHOUT");
         }
+    }
+
+    @Then("^A case is created successfully$")
+    public void aCaseIsCreatedSuccessfully() {
+        successfulCaseCreation.assertCaseCreatedSuccess();
     }
 
 }
