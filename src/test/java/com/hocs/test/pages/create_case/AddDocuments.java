@@ -17,8 +17,14 @@ public class AddDocuments extends Page {
         pageTitle.containsText("Add documents");
     }
 
+    public void bulkUploadDocuments(int documents) {
+        for (int i = 1; i <= documents; i++) {
+            upload("documents/test" + i + ".docx").to(addDocument);
+        }
+    }
+
     public void uploadDocument() {
-        upload("documents/test.docx").to(addDocument);
+        upload("documents/test1.docx").to(addDocument);
     }
 
 }

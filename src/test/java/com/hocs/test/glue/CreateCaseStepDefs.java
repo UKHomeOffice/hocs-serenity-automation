@@ -105,6 +105,28 @@ public class CreateCaseStepDefs {
         markUp.enterSignOffMinisterTypeFunction(minister);
     }
 
+    @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
+    public void iBulkCreateCases(int cases, String caseType) {
+        homepage.clickCreateBulkCases();
+
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.clickDcuMinRadioButton();
+                break;
+            case "DCU TRO":
+                createCase.clickDcuTroRadioButton();
+                break;
+            default:
+                fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
+        }
+
+        page.clickNextButton();
+
+        addDocuments.bulkUploadDocuments(cases);
+        page.clickFinishButton();
+
+    }
+
     @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
     public void iCreateACaseADocument(String caseType, String document) {
         homepage.clickCreateSingleCase();
@@ -125,10 +147,10 @@ public class CreateCaseStepDefs {
         switch (document.toUpperCase()) {
             case "WITH":
                 addDocuments.uploadDocument();
-                page.clickSubmitButton();
+                page.clickFinishButton();
                 break;
             case "WITHOUT":
-                page.clickSubmitButton();
+                page.clickFinishButton();
                 break;
             default:
                 fail("Please set " + document + " to be either WITH OR WITHOUT");

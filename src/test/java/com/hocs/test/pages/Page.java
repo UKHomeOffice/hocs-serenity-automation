@@ -285,6 +285,8 @@ public class Page extends PageObject {
         documentButton.click();
     }
 
+    public void clickFinishButton() { finishButton.click(); }
+
     public void clickFirstButton() {
         firstButton.click();
     }

@@ -26,7 +26,7 @@ Feature: HOCS User is able to create a case
 
   @HOCS-341, @HOCS-491, @HOCS-236
   Scenario Outline: I can create a case
-    Given I am user "User"
+    Given I am user "Dom"
     When I create a "<case>" case "<with / without>" a document
     Then I am taken to the "Data Entry" Page
     Examples:
@@ -35,3 +35,7 @@ Feature: HOCS User is able to create a case
       | DCU min | without        |
       | DCU TRO | with           |
       | DCU TRO | without        |
+
+    Scenario: I can bulk upload cases
+      Given I am user "Dom"
+      When I bulk create 40 "DCU MIN" cases
