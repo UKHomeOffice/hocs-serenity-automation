@@ -24,7 +24,7 @@ Feature: HOCS User is able to create a case
     When I navigate to the "Create Single Case" Page
     Then I am presented with "no case types"
 
-  @HOCS-341 @HOCS-491 @HOCS-236 @dom
+  @HOCS-341 @HOCS-491 @HOCS-236 @critical
   Scenario Outline: I can create a case
     Given I am user "Dom"
     When I create a "<case>" case "<with / without>" a document
@@ -35,6 +35,8 @@ Feature: HOCS User is able to create a case
       | DCU min | without        |
       | DCU TRO | with           |
       | DCU TRO | without        |
+      | DCU TEN | with           |
+      | DCU TEN | without        |
 
     Scenario: I can bulk upload cases
       Given I am user "Dom"
