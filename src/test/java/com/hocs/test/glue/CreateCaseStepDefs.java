@@ -137,15 +137,25 @@ public class CreateCaseStepDefs {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.clickDcuMinRadioButton();
+                page.clickNextButton();
                 break;
             case "DCU TRO":
                 createCase.clickDcuTroRadioButton();
+                page.clickNextButton();
+                break;
+            case "DCU TEN":
+                createCase.clickDcuDtenRadioButton();
+                page.clickNextButton();
+                addDocuments.enterDispatchDeadlineDay(10);
+                addDocuments.enterDispatchDeadlineMonth(10);
+                addDocuments.enterDispatchDeadlineYear(10);
+                addDocuments.enterDraftDeadlineDay(10);
+                addDocuments.enterDraftDeadlineMonth(10);
+                addDocuments.enterDraftDeadlineYear(10);
                 break;
             default:
                 fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
         }
-
-        page.clickNextButton();
 
         switch (document.toUpperCase()) {
             case "WITH":

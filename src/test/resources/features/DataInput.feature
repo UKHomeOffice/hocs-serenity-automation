@@ -1,8 +1,8 @@
 Feature: HOCS User is able to create a case
 
   Background:
-    Given I am user "<string>"
-    And I am at the "Data Entry" stage
+    Given I am user "Dom"
+    And I am at the "Data Input" stage
 
   @HOCS-274, @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence

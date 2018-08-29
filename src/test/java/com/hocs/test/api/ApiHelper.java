@@ -3,6 +3,7 @@ package com.hocs.test.api;
 import static config.Environments.DEV;
 import static config.Environments.LOCAL;
 import static config.Services.CASE;
+import static config.Services.INFO;
 import static config.Services.WORKFLOW;
 import static io.restassured.RestAssured.basePath;
 import static io.restassured.RestAssured.baseURI;
@@ -30,6 +31,9 @@ public class ApiHelper extends PageObject {
                 switch (api.toUpperCase()) {
                     case "CASE":
                         port = CASE.getPort();
+                        break;
+                    case "INFO":
+                        port = INFO.getPort();
                         break;
                     case "WORKFLOW":
                         port = WORKFLOW.getPort();
