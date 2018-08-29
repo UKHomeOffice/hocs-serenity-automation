@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.api.ApiHelper;
-import com.hocs.test.api.workflow.WorkflowService;
+import com.hocs.test.api.workflowService.WorkflowService;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

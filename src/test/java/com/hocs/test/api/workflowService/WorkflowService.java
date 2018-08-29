@@ -1,4 +1,4 @@
-package com.hocs.test.api.workflow;
+package com.hocs.test.api.workflowService;
 
 
 import static io.restassured.RestAssured.given;

@@ -4,7 +4,7 @@ public enum Services {
 
     CASE(8082),
     HOCS(8080),
-    INFO(1),
+    INFO(8085),
     WORKFLOW(8081);
 
     private final int port;

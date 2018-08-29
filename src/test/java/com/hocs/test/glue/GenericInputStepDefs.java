@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.forms.TestForm;
+import com.hocs.test.pages.homepage.Homepage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -20,6 +21,8 @@ public class GenericInputStepDefs {
     Page page;
 
     TestForm testForm;
+
+    Homepage homepage;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -109,17 +112,9 @@ public class GenericInputStepDefs {
 
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "DRAFTING":
-                break;
-            case "MARK UP":
-                break;
-            case "QA":
-                break;
-            default:
-                fail(stage + " is not definted in GenericInputStepDefs.iAmAtTheStage()");
-        }
+        homepage.selectStageFromWorkstacks(stage);
     }
+
 
     @When("^I set the date to \"([^\"]*)\"$")
     public void iSetTheDate(String date) {
