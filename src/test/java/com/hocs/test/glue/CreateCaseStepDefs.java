@@ -7,7 +7,7 @@ import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.mark_up.MarkUp;
+import com.hocs.test.pages.mark_up.MarkUpDecision;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,7 +21,7 @@ public class CreateCaseStepDefs {
 
     Homepage homepage;
 
-    MarkUp markUp;
+    MarkUpDecision markUpDecision;
 
     Page page;
 
@@ -100,12 +100,12 @@ public class CreateCaseStepDefs {
 
     @When("^I select to correspond with a member from the dropdown$")
     public void iSelectToCorrespondWithAMemberFromTheDropdown() {
-        markUp.selectSecondSignOffMinisterFromDropdown();
+        markUpDecision.selectSecondSignOffMinisterFromDropdown();
     }
 
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
-        markUp.enterSignOffMinisterTypeFunction(minister);
+        markUpDecision.enterSignOffMinisterTypeFunction(minister);
     }
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
@@ -124,7 +124,6 @@ public class CreateCaseStepDefs {
         }
 
         page.clickNextButton();
-
         addDocuments.bulkUploadDocuments(cases);
         page.clickFinishButton();
 

@@ -15,4 +15,28 @@ public class Answering extends Page {
     @FindBy(id = "SignOffMinister")
     private WebElementFacade signOffMinisterDropdown;
 
+    public void selectMarkupUnitByName(String markupUnit) {
+        markupUnitDropdown.selectByVisibleText(markupUnit);
+    }
+
+    public void selectMarkupUnitByIndex(int index) {
+        markupUnitDropdown.selectByIndex(index);
+    }
+
+    public void selectMarkupTeamByName(String markupTeam) {
+        markupTeamDropdown.selectByVisibleText(markupTeam);
+    }
+
+    public void selectMarkupTeamByIndex(int index) {
+        markupTeamDropdown.selectByIndex(index);
+    }
+
+    public void selectSignOffMinisterByName(String minister) {
+        signOffMinisterDropdown.selectByVisibleText(minister);
+    }
+
+    public void selectSignOffMinisterByIndex(int index) {
+        signOffMinisterDropdown.selectByIndex(index);
+    }
+
 }

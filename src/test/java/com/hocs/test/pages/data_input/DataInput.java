@@ -17,8 +17,14 @@ public class DataInput {
     @FindBy(id = "label[for='OriginalChannel-NO10']")
     private WebElementFacade numberTenOriginalChannelRadioButton;
 
-    @FindBy(id = "")
-    private WebElementFacade dateOfCorrespondenceField;
+    @FindBy(id = "DateOfCorrespondence-day")
+    private WebElementFacade dateOfCorrespondenceDayField;
+
+    @FindBy(id = "DateOfCorrespondence-month")
+    private WebElementFacade dateOfCorrespondenceMonthField;
+
+    @FindBy(id = "DateOfCorrespondence-year")
+    private WebElementFacade dateOfCorrespondenceYearField;
 
     @FindBy(id = "")
     private WebElementFacade correspondentDropdown;
@@ -32,17 +38,21 @@ public class DataInput {
     @FindBy(id = "")
     private WebElementFacade primaryCorrespondent;
 
-    @FindBy(id = "")
+    @FindBy(css = "input[id='CorrespondentIsMember-FALSE']")
     private WebElementFacade correspondentMemberNoRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css = "input[id='CorrespondentIsMember-TRUE']")
     private WebElementFacade correspondentMemberYesRadioButton;
-
-    @FindBy(id = "")
-    private WebElementFacade correspondentMemberDropdown;
 
     @FindBy(id = "NumberTen-SendCopy")
     private WebElementFacade sendCopyToNumberTenTickBox;
+
+    @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
+    private WebElementFacade addCorrespondentNoRadioButton;
+
+    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
+    private WebElementFacade addCorrespondentYesRadioButton;
+
 
     public void clickAddCorrespondentButton() {
         addCorrespondentLink.click();
@@ -72,22 +82,24 @@ public class DataInput {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void enterDateOfCorrespondence() {
-        dateOfCorrespondenceField.clear();
-        dateOfCorrespondenceField.sendKeys();
+    public void enterDayOfCorrespondence() {
+        dateOfCorrespondenceDayField.clear();
+        dateOfCorrespondenceDayField.sendKeys();
+    }
+
+    public void enterMonthOfCorrespondence() {
+        dateOfCorrespondenceMonthField.clear();
+        dateOfCorrespondenceMonthField.sendKeys();
+    }
+
+    public void enterYearOfCorrespondence() {
+        dateOfCorrespondenceYearField.clear();
+        dateOfCorrespondenceYearField.sendKeys();
     }
 
     public void enterReferenceText() {
         referenceTextField.clear();
         referenceTextField.sendKeys("");
-    }
-
-    public void selectFromCorrespondentDropdown() {
-        correspondentDropdown.selectByVisibleText("");
-    }
-
-    public void selectFromCorrespondentMemberDropdown() {
-        correspondentMemberDropdown.selectByVisibleText("");
     }
 
     public void tickSendCopyToNumber10() {
