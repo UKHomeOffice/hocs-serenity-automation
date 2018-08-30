@@ -1,9 +1,10 @@
 package com.hocs.test.pages.data_input;
 
+import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class DataInput {
+public class DataInput extends Page {
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
@@ -63,15 +64,15 @@ public class DataInput {
     private WebElementFacade addCorrespondentYesRadioButton;
 
     public void clearDateCorrespondenceReceived() {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentYearField.clear();
-    }
-
-    public void clearDateCorrespondenceSent() {
         dateCorrespondenceReceivedDayField.clear();
         dateCorrespondenceReceivedMonthField.clear();
         dateCorrespondenceReceivedYearField.clear();
+    }
+
+    public void clearDateCorrespondenceSent() {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentYearField.clear();
     }
 
     public void clickAddCorrespondentButton() {
@@ -102,39 +103,49 @@ public class DataInput {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void enterDayOfCorrespondenceReceived() {
+    public void enterDayOfCorrespondenceReceived(String day) {
         dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentDayField.sendKeys();
+        dateCorrespondenceSentDayField.sendKeys(day);
     }
 
-    public void enterMonthOfCorrespondenceReceived() {
+    public void enterMonthOfCorrespondenceReceived(String month) {
         dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentMonthField.sendKeys();
+        dateCorrespondenceSentMonthField.sendKeys(month);
     }
 
-    public void enterYearOfCorrespondenceYear() {
+    public void enterYearOfCorrespondenceReceived(String year) {
         dateCorrespondenceSentYearField.clear();
-        dateCorrespondenceSentYearField.sendKeys();
+        dateCorrespondenceSentYearField.sendKeys(year);
     }
 
-    public void enterDayOfCorrespondenceSent() {
+    public void enterDayOfCorrespondenceSent(String day) {
         dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentDayField.sendKeys();
+        dateCorrespondenceSentDayField.sendKeys(day);
     }
 
-    public void enterMonthOfCorrespondenceSent() {
+    public void enterMonthOfCorrespondenceSent(String month) {
         dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentMonthField.sendKeys();
+        dateCorrespondenceSentMonthField.sendKeys(month);
     }
 
-    public void enterYearOfCorrespondenceSent() {
+    public void enterYearOfCorrespondenceSent(String year) {
         dateCorrespondenceSentYearField.clear();
-        dateCorrespondenceSentYearField.sendKeys();
+        dateCorrespondenceSentYearField.sendKeys(year);
     }
 
     public void enterReferenceText() {
         referenceTextField.clear();
         referenceTextField.sendKeys("");
+    }
+
+    public void fillAllMandatoryFields() {
+        emailOriginalChannelRadioButton.click();
+        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+        enterDayOfCorrespondenceReceived(getCurrentDay());
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
     }
 
     public void tickSendCopyToNumber10() {

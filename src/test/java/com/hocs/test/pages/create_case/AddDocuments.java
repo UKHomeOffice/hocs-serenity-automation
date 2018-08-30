@@ -1,10 +1,6 @@
 package com.hocs.test.pages.create_case;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.Page;
-import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

@@ -60,7 +60,8 @@ public class Homepage extends Page {
         List<WebElement> matchingRows = filterRows(workstackTable, matchers);
         WebElement targetRow = matchingRows.get(0);
         WebElement detailsLink = targetRow.findElement(
-                By.xpath("//td[contains(text(), '" + caseType + "')]/following-sibling::td/a[1]"));
+                By.xpath("//td[contains(text(), '" + caseType
+                        + "')]/following-sibling::td/a[contains(text(), 'Allocate')]"));
         detailsLink.click();
     }
 
@@ -68,8 +69,8 @@ public class Homepage extends Page {
         List<WebElement> matchingRows = filterRows(workstackTable, matchers);
         WebElement targetRow = matchingRows.get(0);
         WebElement detailsLink = targetRow.findElement(By.xpath(
-                "//td[contains(text(), '" + stage + "')]/following-sibling::td[contains(text(), '"
-                        + stage + "')]/following-sibling::td/a[1]"));
+                "//td[text(), '" + stage + "']/following-sibling::td[contains(text(), '"
+                        + stage + "')]/following-sibling::td/a[contains(text(), 'Allocate')]"));
         detailsLink.click();
     }
 
@@ -77,7 +78,7 @@ public class Homepage extends Page {
         List<WebElement> matchingRows = filterRows(workstackTable, matchers);
         WebElement targetRow = matchingRows.get(0);
         WebElement detailsLink = targetRow.findElement(
-                By.xpath("//td[contains(text(), '" + stage + "')]/following-sibling::td/a[1]"));
+                By.xpath("//td[text()='" + stage + "']/following-sibling::td/a[contains(text(), 'Allocate')]"));
         detailsLink.click();
     }
 

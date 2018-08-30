@@ -41,7 +41,8 @@ public class GenericInputStepDefs {
     @Given("^I click the \"([^\"]*)\" button$")
     public void iClickTheButton(String buttonName) {
         switch (buttonName.toUpperCase()) {
-            case "":
+            case "CONTINUE":
+                page.clickContinueButton();
                 break;
             default:
                 fail(buttonName + " is not defined in GenericStepDefs.iClickTheButton()");
@@ -82,6 +83,7 @@ public class GenericInputStepDefs {
     public void fillMandatoryFields(String pageName) {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
+                dataInput.fillAllMandatoryFields();
                 break;
             default:
                 fail(pageName
@@ -107,6 +109,24 @@ public class GenericInputStepDefs {
             default:
                 fail(message + " is not defined in GenericStepDefs.iSeeTheMessage()");
         }
+    }
+
+    @Then("^\"([^\"]*)\" error message is displayed$")
+    public void errorMessageIsDisplayed(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "INVALID DATE":
+                page.assertErrorMessageText("");
+                break;
+            case "CORRESPONDENCE RECEIVED":
+                page.assertErrorMessageText("When was the correspondence received? is required");
+                break;
+            case "CORRESPONDENCE SENT":
+                page.assertErrorMessageText("When was the correspondence sent? is required");
+                break;
+            default:
+                fail(errorMessage + " is not defined in GenericStepDefs.errorMessageIsDisplayed");
+        }
+
     }
 
     @When("^I enter an invalid date$")
