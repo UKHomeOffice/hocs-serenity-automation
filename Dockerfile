@@ -7,5 +7,3 @@ WORKDIR /app
 RUN mkdir -p /app
 
 COPY . /app
-
-ENTRYPOINT /app/bin/demo.sh
