@@ -187,6 +187,9 @@
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>3.3.0</version>
+                <configuration>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
