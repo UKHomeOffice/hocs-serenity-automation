@@ -3,10 +3,12 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +19,8 @@ public class GenericInputStepDefs {
 
     @Managed
     WebDriver driver;
+
+    DataInput dataInput;
 
     Page page;
 
@@ -77,7 +81,7 @@ public class GenericInputStepDefs {
     @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data")
     public void fillMandatoryFields(String pageName) {
         switch (pageName.toUpperCase()) {
-            case "":
+            case "DATA INPUT":
                 break;
             default:
                 fail(pageName
@@ -173,5 +177,17 @@ public class GenericInputStepDefs {
     @When("^I allocate the case$")
     public void iAllocateTheCase() {
 
+    }
+
+    @But("^I do not enter a \"([^\"]*)\"$")
+    public void iDoNotEnterA(String fieldName) {
+        switch (fieldName.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED DATE":
+                dataInput.clearDateCorrespondenceReceived();
+                break;
+            case "CORRESPONDENCE SENT DATE":
+                dataInput.clearDateCorrespondenceSent();
+                break;
+        }
     }
 }

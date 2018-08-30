@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,6 +17,8 @@ public class NavigationStepDefs {
     WebDriver driver;
 
     Page page;
+
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
     private Homepage homepage;
 
@@ -36,16 +39,19 @@ public class NavigationStepDefs {
     }
 
     @Then("^I am taken to the \"([^\"]*)\" Page$")
-    public void iAmTakenToThePage(String page) throws InterruptedException {
-        switch (page.toUpperCase()) {
-            case "HOCS HOME":
-                homepage.pageTitleIsDisplayed();
-                break;
+    public void iAmTakenToThePage(String pageName) throws InterruptedException {
+        switch (pageName.toUpperCase()) {
             case "CREATE SINGLE CASE":
                 createCase.pageTitleIsDisplayed();
                 break;
+            case "HOCS HOME":
+                homepage.pageTitleIsDisplayed();
+                break;
+            case "RECORD CORRESPONDENT DETAILS":
+                page.assertTitle("Record Correspondent Details");
+                break;
             default:
-                fail(page + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
+                fail(pageName + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
         }
     }
 }

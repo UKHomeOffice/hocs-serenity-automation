@@ -48,12 +48,67 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
 
-    public void selectMemberFromDropdown(String member) {
+    public void enterCorrespondentTitle(String title) {
+        correspondentTitleField.sendKeys(title);
+    }
+
+    public void enterCorrespondentFirstName(String firstName) {
+        correspondentFirstNameField.sendKeys(firstName);
+    }
+
+    public void enterCorrespondentLastName(String lastName) {
+        correspondentLastNameField.sendKeys(lastName);
+    }
+
+    public void enterCorrespondentBuilding(String building) {
+        correspondentBuildingField.sendKeys(building);
+    }
+
+    public void enterCorrespondentStreet(String street) {
+        correspondentStreetField.sendKeys(street);
+    }
+
+    public void enterCorrespondentTownOrCity(String location) {
+        correspondentTownOrCityField.sendKeys(location);
+    }
+
+    public void enterCorrespondentPostcode(String postcode) {
+        correspondentPostcodeField.sendKeys(postcode);
+    }
+
+    public void enterCorrespondentTelephoneNumber(String number) {
+        correspondentTelephoneField.sendKeys(number);
+    }
+
+    public void enterCorrespondentEmailAddress(String email) {
+        correspondentEmailField.sendKeys(email);
+    }
+
+    public void enterCorrespondenceReference(String reference) {
+        correspondenceCaseReference.sendKeys(reference);
+    }
+
+    public void fillMandatoryFields() {
+        correspondentFirstNameField.sendKeys("Test");
+        correspondentLastNameField.sendKeys("Testing - " + generateRandomString());
+        correspondentBuildingField.sendKeys("1");
+        correspondentPostcodeField.sendKeys("S1 1AA");
+    }
+
+    public void selectCorrespondentCountry(String country) {
+        correspondentCountryDropdown.selectByVisibleText(country);
+    }
+
+    public void selectCorrespondentTypeFromDropdown(String correspondentType) {
+        correspondentTypeDropdown.selectByVisibleText(correspondentType);
+    }
+
+    public void selectMemberFromDropdownByName(String member) {
         memberDropdown.selectByVisibleText(member);
     }
 
-    public void selectFirstMemberFromDropdown() {
-        memberDropdown.selectByIndex(1);
+    public void selectMemberFromDropdownByIndex(int index) {
+        memberDropdown.selectByIndex(index);
     }
 
 }

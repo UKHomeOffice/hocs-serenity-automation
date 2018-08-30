@@ -19,9 +19,6 @@ public class MarkUpDecision extends Page {
     private WebElementFacade noReplyNeededRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade allocationNoteFreeTextField;
-
-    @FindBy(id = "")
     private WebElementFacade dateReceivedField;
 
     @FindBy(id = "")
@@ -72,10 +69,6 @@ public class MarkUpDecision extends Page {
 
     public void clickReferToOgdRadioButton() {
         referToOgdRadioButton.click();
-    }
-
-    public void enterAllocationNoteFreeText() {
-        allocationNoteFreeTextField.sendKeys(generateRandomString());
     }
 
     public void enterAnsweringTeamTypeFunction(String team) {

@@ -12,12 +12,31 @@ public class DraftingTeamDecision extends Page {
     @FindBy(css = "label[for='InitialDraftDecision-REJECT']")
     private WebElementFacade initialDraftingDecisionReject;
 
+    @FindBy(css = "label[for='ResponseChannel-LETTER']")
+    private WebElementFacade draftingResponseLetter;
+
+    @FindBy(css = "label[for='ResponseChannel-PHONE']")
+    private WebElementFacade draftingResponsePost;
+
+    @FindBy(id = "PhonecallNote")
+    private WebElementFacade phoneCallSummaryNote;
+
     public void clickAcceptInitialDraftDecision() {
         initialDraftingDecisionAccept.click();
     }
 
     public void clickRejectInitialDraftDecision() {
         initialDraftingDecisionReject.click();
+    }
+
+    public void clickDraftingResponseLetter() {
+        draftingResponseLetter.click();
+    }
+
+    public void clickDraftingResponsePhone() { draftingResponsePost.click(); }
+
+    public void enterPhoneCallSummaryNote() {
+        generateRandomString();
     }
 
 }

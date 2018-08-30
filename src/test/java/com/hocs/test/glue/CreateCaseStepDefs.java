@@ -75,16 +75,6 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @When("^I enter correspondence data manually$")
-    public void iEnterCorrespondenceDataManually() {
-
-    }
-
-    @When("^I add an additional correspondent$")
-    public void iAddAnAdditionalCorrespondent() {
-
-    }
-
     @Then("^the member is the \"([^\"]*)\" correspondent$")
     public void theMemberIsTheCorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
@@ -96,16 +86,6 @@ public class CreateCaseStepDefs {
                 fail("Please select PRIMARY or SECONDARY");
         }
 
-    }
-
-    @When("^I select to correspond with a member from the dropdown$")
-    public void iSelectToCorrespondWithAMemberFromTheDropdown() {
-        markUpDecision.selectSecondSignOffMinisterFromDropdown();
-    }
-
-    @When("^I select to correspond with \"([^\"]*)\" from the search function$")
-    public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
-        markUpDecision.enterSignOffMinisterTypeFunction(minister);
     }
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
