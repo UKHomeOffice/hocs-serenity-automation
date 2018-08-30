@@ -4,7 +4,7 @@ import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class MarkUp extends Page {
+public class MarkUpDecision extends Page {
 
     @FindBy(css ="label[for='MarkupDecision-PR']")
     private WebElementFacade policyResponseRadioButton;
@@ -17,9 +17,6 @@ public class MarkUp extends Page {
 
     @FindBy(css ="label[for='MarkupDecision-NRN']")
     private WebElementFacade noReplyNeededRadioButton;
-
-    @FindBy(id = "")
-    private WebElementFacade allocationNoteFreeTextField;
 
     @FindBy(id = "")
     private WebElementFacade dateReceivedField;
@@ -72,10 +69,6 @@ public class MarkUp extends Page {
 
     public void clickReferToOgdRadioButton() {
         referToOgdRadioButton.click();
-    }
-
-    public void enterAllocationNoteFreeText() {
-        allocationNoteFreeTextField.sendKeys(generateRandomString());
     }
 
     public void enterAnsweringTeamTypeFunction(String team) {

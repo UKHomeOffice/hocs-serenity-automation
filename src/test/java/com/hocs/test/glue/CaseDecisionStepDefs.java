@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.mark_up.MarkUp;
+import com.hocs.test.pages.mark_up.MarkUpDecision;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,7 +11,7 @@ import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
 
-    MarkUp markUp;
+    MarkUpDecision markUpDecision;
     Page page;
 
     @Then("^a mandatory \"([^\"]*)\" free text field is available$")
@@ -172,7 +172,7 @@ public class CaseDecisionStepDefs {
 
     @When("^I refer the case to another Government Department$")
     public void iReferTheCaseToAnotherGovernmentDepartment() {
-        markUp.clickReferToOgdRadioButton();
+        markUpDecision.clickReferToOgdRadioButton();
     }
 
 }

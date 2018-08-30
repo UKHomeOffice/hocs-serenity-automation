@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mvn clean verify "-Dcucumber.options=--tags @critical"
+mvn clean verify -B "-Dcucumber.options=--tags @critical"

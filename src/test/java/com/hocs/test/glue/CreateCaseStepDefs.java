@@ -7,7 +7,7 @@ import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.mark_up.MarkUp;
+import com.hocs.test.pages.mark_up.MarkUpDecision;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,7 +21,7 @@ public class CreateCaseStepDefs {
 
     Homepage homepage;
 
-    MarkUp markUp;
+    MarkUpDecision markUpDecision;
 
     Page page;
 
@@ -75,16 +75,6 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @When("^I enter correspondence data manually$")
-    public void iEnterCorrespondenceDataManually() {
-
-    }
-
-    @When("^I add an additional correspondent$")
-    public void iAddAnAdditionalCorrespondent() {
-
-    }
-
     @Then("^the member is the \"([^\"]*)\" correspondent$")
     public void theMemberIsTheCorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
@@ -96,16 +86,6 @@ public class CreateCaseStepDefs {
                 fail("Please select PRIMARY or SECONDARY");
         }
 
-    }
-
-    @When("^I select to correspond with a member from the dropdown$")
-    public void iSelectToCorrespondWithAMemberFromTheDropdown() {
-        markUp.selectSecondSignOffMinisterFromDropdown();
-    }
-
-    @When("^I select to correspond with \"([^\"]*)\" from the search function$")
-    public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
-        markUp.enterSignOffMinisterTypeFunction(minister);
     }
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
@@ -124,7 +104,6 @@ public class CreateCaseStepDefs {
         }
 
         page.clickNextButton();
-
         addDocuments.bulkUploadDocuments(cases);
         page.clickFinishButton();
 

@@ -1,9 +1,10 @@
 package com.hocs.test.pages.data_input;
 
+import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class DataInput {
+public class DataInput extends Page {
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
@@ -17,8 +18,23 @@ public class DataInput {
     @FindBy(id = "label[for='OriginalChannel-NO10']")
     private WebElementFacade numberTenOriginalChannelRadioButton;
 
-    @FindBy(id = "")
-    private WebElementFacade dateOfCorrespondenceField;
+    @FindBy(id = "DateOfCorrespondence-day")
+    private WebElementFacade dateCorrespondenceSentDayField;
+
+    @FindBy(id = "DateOfCorrespondence-month")
+    private WebElementFacade dateCorrespondenceSentMonthField;
+
+    @FindBy(id = "DateOfCorrespondence-year")
+    private WebElementFacade dateCorrespondenceSentYearField;
+
+    @FindBy(id = "DateReceived-day")
+    private WebElementFacade dateCorrespondenceReceivedDayField;
+
+    @FindBy(id = "DateReceived-month")
+    private WebElementFacade dateCorrespondenceReceivedMonthField;
+
+    @FindBy(id = "DateReceived-year")
+    private WebElementFacade dateCorrespondenceReceivedYearField;
 
     @FindBy(id = "")
     private WebElementFacade correspondentDropdown;
@@ -32,17 +48,32 @@ public class DataInput {
     @FindBy(id = "")
     private WebElementFacade primaryCorrespondent;
 
-    @FindBy(id = "")
+    @FindBy(css = "input[id='CorrespondentIsMember-FALSE']")
     private WebElementFacade correspondentMemberNoRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css = "input[id='CorrespondentIsMember-TRUE']")
     private WebElementFacade correspondentMemberYesRadioButton;
-
-    @FindBy(id = "")
-    private WebElementFacade correspondentMemberDropdown;
 
     @FindBy(id = "NumberTen-SendCopy")
     private WebElementFacade sendCopyToNumberTenTickBox;
+
+    @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
+    private WebElementFacade addCorrespondentNoRadioButton;
+
+    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
+    private WebElementFacade addCorrespondentYesRadioButton;
+
+    public void clearDateCorrespondenceReceived() {
+        dateCorrespondenceReceivedDayField.clear();
+        dateCorrespondenceReceivedMonthField.clear();
+        dateCorrespondenceReceivedYearField.clear();
+    }
+
+    public void clearDateCorrespondenceSent() {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentYearField.clear();
+    }
 
     public void clickAddCorrespondentButton() {
         addCorrespondentLink.click();
@@ -72,9 +103,34 @@ public class DataInput {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void enterDateOfCorrespondence() {
-        dateOfCorrespondenceField.clear();
-        dateOfCorrespondenceField.sendKeys();
+    public void enterDayOfCorrespondenceReceived(String day) {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentDayField.sendKeys(day);
+    }
+
+    public void enterMonthOfCorrespondenceReceived(String month) {
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentMonthField.sendKeys(month);
+    }
+
+    public void enterYearOfCorrespondenceReceived(String year) {
+        dateCorrespondenceSentYearField.clear();
+        dateCorrespondenceSentYearField.sendKeys(year);
+    }
+
+    public void enterDayOfCorrespondenceSent(String day) {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentDayField.sendKeys(day);
+    }
+
+    public void enterMonthOfCorrespondenceSent(String month) {
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentMonthField.sendKeys(month);
+    }
+
+    public void enterYearOfCorrespondenceSent(String year) {
+        dateCorrespondenceSentYearField.clear();
+        dateCorrespondenceSentYearField.sendKeys(year);
     }
 
     public void enterReferenceText() {
@@ -82,12 +138,14 @@ public class DataInput {
         referenceTextField.sendKeys("");
     }
 
-    public void selectFromCorrespondentDropdown() {
-        correspondentDropdown.selectByVisibleText("");
-    }
-
-    public void selectFromCorrespondentMemberDropdown() {
-        correspondentMemberDropdown.selectByVisibleText("");
+    public void fillAllMandatoryFields() {
+        emailOriginalChannelRadioButton.click();
+        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+        enterDayOfCorrespondenceReceived(getCurrentDay());
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
     }
 
     public void tickSendCopyToNumber10() {

@@ -1,8 +1,5 @@
 package com.hocs.test.pages.create_case;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -36,9 +33,11 @@ public class AddDocuments extends Page {
     }
 
     public void bulkUploadDocuments(int documents) {
-        for (int i = 1; i <= documents; i++) {
-            upload("documents/test" + i + ".docx").to(addDocument);
-        }
+        String pathf1 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test1.docx";
+        String pathf2 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test2.docx";
+        String pathf3 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test3.docx";
+        String allF = pathf1 + " \n " + pathf2 + " \n " + pathf3;
+        addDocument.sendKeys(allF);
     }
 
     public void enterDispatchDeadlineDay(int days) {

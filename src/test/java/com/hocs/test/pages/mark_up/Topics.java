@@ -9,4 +9,8 @@ public class Topics extends Page {
     @FindBy(id = "Topics")
     private WebElementFacade topicsTextField;
 
+    public void enterTopic() {
+        topicsTextField.sendKeys(generateRandomString());
+    }
+
 }

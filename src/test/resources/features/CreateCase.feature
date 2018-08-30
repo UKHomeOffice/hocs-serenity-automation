@@ -38,6 +38,7 @@ Feature: HOCS User is able to create a case
       | DCU TEN | with           |
       | DCU TEN | without        |
 
-    Scenario: I can bulk upload cases
-      Given I am user "Dom"
-      When I bulk create 40 "DCU MIN" cases
+  Scenario: I can bulk upload cases
+    Given I am user "Dom"
+    When I bulk create 40 "DCU MIN" cases
+    Then A case is created successfully
