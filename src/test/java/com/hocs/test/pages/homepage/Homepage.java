@@ -86,9 +86,8 @@ public class Homepage extends Page {
         return rowsFrom(workstackTable);
     }
 
-    public void pageTitleIsDisplayed() {
-        waitFor(pageTitle);
-        assertThat(getHeaderText(), is("Main"));
+    public void assertPageTitle() {
+        assertTitle("Main");
     }
 
 }

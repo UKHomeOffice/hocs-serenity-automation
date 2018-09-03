@@ -2,7 +2,9 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,6 +12,8 @@ import cucumber.api.java.en.When;
 public class DraftResponseStepDefs {
 
     Draft draft;
+
+    Page page;
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
@@ -83,5 +87,12 @@ public class DraftResponseStepDefs {
             default:
                 fail("Please select OFFLINE or ONLINE as a QA option");
         }
+    }
+
+    @When("^a case is not answered by my team$")
+    public void aCaseIsNotAnsweredByMyTeam() {
+        draft.clickAnsweredByMyTeamNoRadioButton();
+        page.clickContinueButton();
+        page.enterRejectionNotes();
     }
 }

@@ -9,6 +9,12 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
 
+    @FindBy(css = "label[for='InitialDraftDecision-Reject']")
+    private WebElementFacade answeredByMyTeamNoRadioButton;
+
+    @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
+    private WebElementFacade answeredByMyTeamYesRadioButton;
+
     @FindBy(id = "")
     private WebElementFacade draftingDeadline;
 
@@ -82,6 +88,14 @@ public class Draft extends Page {
 
     public void clickAddSupportingDocumentsButton() {
         addSupportingDocumentsButton.click();
+    }
+
+    public void clickAnsweredByMyTeamNoRadioButton() {
+        answeredByMyTeamNoRadioButton.click();
+    }
+
+    public void clickAnsweredByMyTeamYesRadioButton() {
+        answeredByMyTeamYesRadioButton.click();
     }
 
     public void clickDownloadTemplateLink() {

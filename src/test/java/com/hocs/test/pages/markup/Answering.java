@@ -1,4 +1,4 @@
-package com.hocs.test.pages.mark_up;
+package com.hocs.test.pages.markup;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;

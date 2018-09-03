@@ -230,7 +230,12 @@ public class Page extends PageObject {
     }
 
     public void assertTitle(String title) {
-        assertThat(getTitle(), is(title));
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertThat(getHeaderText(), containsString(title));
     }
 
     public void associatedDocumentsIsDisplayed() {
@@ -429,7 +434,10 @@ public class Page extends PageObject {
     }
 
     public void enterRejectionNotes() {
+        waitFor(rejectReasonTextField);
+
         String rejectionReason = "Rejection Reason: " + generateRandomString();
+        rejectReasonTextField.clear();
         rejectReasonTextField.sendKeys(rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }

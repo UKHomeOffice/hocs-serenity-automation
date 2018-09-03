@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import cucumber.api.java.en.Given;
@@ -16,13 +17,15 @@ public class NavigationStepDefs {
     @Managed
     WebDriver driver;
 
+    CreateCase createCase;
+
+    DataInput dataInput;
+
+    Homepage homepage;
+
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
-
-    private Homepage homepage;
-
-    private CreateCase createCase;
 
     @Given("^I navigate to the \"([^\"]*)\" Page$")
     public void iNavigateToThePage(String hocsPage) {
@@ -42,13 +45,16 @@ public class NavigationStepDefs {
     public void iAmTakenToThePage(String pageName) throws InterruptedException {
         switch (pageName.toUpperCase()) {
             case "CREATE SINGLE CASE":
-                createCase.pageTitleIsDisplayed();
+                createCase.assertPageTitle();
                 break;
             case "HOCS HOME":
-                homepage.pageTitleIsDisplayed();
+                homepage.assertPageTitle();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                page.assertTitle("Record Correspondent Details");
+                recordCorrespondentDetails.assertPageTitle();
+                break;
+            case "RECORD CORRESPONDENCE DETAILS":
+                dataInput.assertPageTitle();
                 break;
             default:
                 fail(pageName + " is not defined with NavigationStepDefs.iAmTakenToThePage()");

@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.mark_up.MarkUpDecision;
+import com.hocs.test.pages.markup.MarkUpDecision;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 

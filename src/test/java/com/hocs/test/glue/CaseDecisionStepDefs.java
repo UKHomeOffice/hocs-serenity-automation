@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.mark_up.MarkUpDecision;
+import com.hocs.test.pages.markup.MarkUpDecision;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

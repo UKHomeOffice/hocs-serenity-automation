@@ -15,8 +15,8 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-287, @HOCS-239
   Scenario: User completes a rejection note
-    When I "reject" a case
-    Then the case is returned to the Mark Up stage
+    When a case is not answered by my team
+    Then the case is returned to the "Markup" stage
     And I am taken to the "to do" Page
 
   @HOCS-287, @HOCS-239

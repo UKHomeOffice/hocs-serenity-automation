@@ -74,9 +74,8 @@ public class CreateCase extends Page {
         caseDetailsFreeTextField.sendKeys(generateRandomString());
     }
 
-    public void pageTitleIsDisplayed() {
-        waitFor(pageTitle);
-        assertThat(getHeaderText(), is("Create case"));
+    public void assertPageTitle() {
+        assertTitle("Create case");
     }
 
     public void radioButtonsAreDisplayed() {

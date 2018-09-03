@@ -7,22 +7,22 @@ Feature: HOCS User is able to create a case
   @HOCS-274, @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
-    And I click the "Next" button
+    And I click the "Continue" button
     Then I am taken to the "Record Correspondent Details" Page
 
   @HOCS-274, @HOCS-238
-  Scenario: DCU data entry user selects correspondence channel but does not input valid date of correspondence
+  Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence sent date
     When I fill all mandatory fields on the "Data Input" page with valid data
-    But I enter an invalid date
-    And I click the "Next" button
-    Then I see the "invalid date of correspondence" message
+    But I enter an invalid "Correspondence Sent" date
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondence Details" Page
 
   @HOCS-274, @HOCS-238
-  Scenario: DCU data entry user selects correspondence channel but does not input valid date of correspondence
+  Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence received date
     When I fill all mandatory fields on the "Data Input" page with valid data
-    But I enter an invalid date
-    And I click the "Next" button
-    Then "Invalid Date" error message is displayed
+    But I enter an invalid "Correspondence Received" date
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondence Details" Page
 
   @HOCS-274, @HOCS-238
   Scenario: DCU data entry user does not enter a Correspondence Sent Date

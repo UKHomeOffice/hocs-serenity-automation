@@ -7,7 +7,7 @@ import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.mark_up.MarkUpDecision;
+import com.hocs.test.pages.markup.MarkUpDecision;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

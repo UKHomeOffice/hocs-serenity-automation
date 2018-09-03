@@ -63,6 +63,10 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
 
+    public void assertPageTitle() {
+        assertTitle("Record Correspondence Details");
+    }
+
     public void clearDateCorrespondenceReceived() {
         dateCorrespondenceReceivedDayField.clear();
         dateCorrespondenceReceivedMonthField.clear();
@@ -104,18 +108,18 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceReceived(String day) {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentDayField.sendKeys(day);
+        dateCorrespondenceReceivedDayField.clear();
+        dateCorrespondenceReceivedDayField.sendKeys(day);
     }
 
     public void enterMonthOfCorrespondenceReceived(String month) {
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentMonthField.sendKeys(month);
+        dateCorrespondenceReceivedMonthField.clear();
+        dateCorrespondenceReceivedMonthField.sendKeys(month);
     }
 
     public void enterYearOfCorrespondenceReceived(String year) {
-        dateCorrespondenceSentYearField.clear();
-        dateCorrespondenceSentYearField.sendKeys(year);
+        dateCorrespondenceReceivedYearField.clear();
+        dateCorrespondenceReceivedYearField.sendKeys(year);
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
@@ -146,6 +150,18 @@ public class DataInput extends Page {
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
+    }
+
+    public void invalidCorrespondenceReceivedDate() {
+        enterDayOfCorrespondenceReceived("32");
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
+    }
+
+    public void invalidCorrespondenceSentDate() {
+        enterDayOfCorrespondenceSent("32");
+        enterMonthOfCorrespondenceSent(getCurrentMonth());
+        enterYearOfCorrespondenceSent(getCurrentYear());
     }
 
     public void tickSendCopyToNumber10() {

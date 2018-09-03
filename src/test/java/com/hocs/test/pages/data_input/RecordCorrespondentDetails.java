@@ -1,5 +1,9 @@
 package com.hocs.test.pages.data_input;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -47,6 +51,11 @@ public class RecordCorrespondentDetails extends Page {
 
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
+
+    public void assertPageTitle() {
+        assertTitle("Record Correspondent Details");
+    }
+
 
     public void enterCorrespondentTitle(String title) {
         correspondentTitleField.sendKeys(title);

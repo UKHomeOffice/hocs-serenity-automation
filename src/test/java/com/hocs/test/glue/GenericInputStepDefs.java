@@ -44,6 +44,9 @@ public class GenericInputStepDefs {
             case "CONTINUE":
                 page.clickContinueButton();
                 break;
+            case "NEXT":
+                page.clickNextButton();
+                break;
             default:
                 fail(buttonName + " is not defined in GenericStepDefs.iClickTheButton()");
         }
@@ -129,9 +132,18 @@ public class GenericInputStepDefs {
 
     }
 
-    @When("^I enter an invalid date$")
-    public void iEnterAnInvalidDate() {
-        page.enterInvalidDate();
+    @When("^I enter an invalid \"([^\"]*)\" date$")
+    public void iEnterAnInvalidDate(String dateField) {
+        switch (dateField.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED":
+                dataInput.invalidCorrespondenceReceivedDate();
+                break;
+            case "CORRESPONDENCE SENT":
+                dataInput.invalidCorrespondenceSentDate();
+                break;
+            default:
+                fail(dateField + " is not defined in GenericStepDefs.iEnterAnInvalidDate");
+        }
     }
 
     @And("^I am at the \"([^\"]*)\" stage$")
@@ -208,6 +220,20 @@ public class GenericInputStepDefs {
             case "CORRESPONDENCE SENT DATE":
                 dataInput.clearDateCorrespondenceSent();
                 break;
+            default:
+                fail(fieldName + " is not defined in GenericStepDefs.iDoNotEnterA");
+        }
+    }
+
+    @Then("^the case is returned to the \"([^\"]*)\" stage$")
+    public void theCaseIsReturnedToTheStage(String stage) {
+        switch (stage.toUpperCase()) {
+            case "MARKUP":
+                //todo: getCurrentStage API call needed
+                break;
+            default:
+                fail(stage + " is not defined in GenericStepDefs.theCaseIsReturnedToTheStage");
+
         }
     }
 }
