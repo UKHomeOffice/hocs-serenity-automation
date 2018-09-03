@@ -45,7 +45,7 @@ pipeline:
        - artifactory_username
        - artifactory_password
     commands:
-      - sh bin/demo.sh
+      - sh bin/smoke-tests.sh
     when:
       branch: master
       event: push
