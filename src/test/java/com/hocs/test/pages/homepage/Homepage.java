@@ -53,6 +53,21 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstTroDataInputAllocate;
 
+    @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstMarkupAllocate;
+
+    @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Casework')]")
+    private WebElementFacade firstMarkupCasework;
+
+    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstMinMarkuptAllocate;
+
+    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstDtenMarkupAllocate;
+
+    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstTroMarkupAllocate;
+
     public void assertWorkstackTableContainsCaseReference() {
         assertThat(getWorktackTableContents(),
                 hasItem(containsString(sessionVariableCalled("caseReference"))));
@@ -70,7 +85,9 @@ public class Homepage extends Page {
         firstDataInputAllocate.click();
     }
 
-    public void clickFirstDataInputCasework() { firstDataInputCasework.click(); }
+    public void clickFirstDataInputCasework() {
+        firstDataInputCasework.click();
+    }
 
     public void clickTestFormLink() {
         testFormLink.click();
