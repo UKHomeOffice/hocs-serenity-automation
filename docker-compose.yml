@@ -16,3 +16,8 @@ firefox:
     HUB_PORT_4444_TCP_ADDR: hub
   links:
   - selenium-hub:hub
+
+execute-tests:
+  image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+  command:
+    - sh bin/smoke-tests.sh

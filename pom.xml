@@ -219,4 +219,16 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <name>libs-release-local</name>
+            <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory</id>
+            <name>libs-snapshot-local</name>
+            <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
