@@ -148,7 +148,13 @@ public class GenericInputStepDefs {
 
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
-        homepage.selectStageFromWorkstacks(stage);
+        switch (stage.toUpperCase()) {
+            case "DATA INPUT":
+                homepage.clickFirstDataInputAllocate();
+                break;
+            default:
+                fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
+        }
     }
 
 

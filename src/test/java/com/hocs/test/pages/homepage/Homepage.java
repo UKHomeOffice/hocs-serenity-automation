@@ -3,7 +3,6 @@ package com.hocs.test.pages.homepage;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.thucydides.core.pages.components.HtmlTable.filterRows;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
@@ -11,6 +10,7 @@ import static org.hamcrest.Matchers.hasItem;
 import com.hocs.test.pages.Page;
 import java.util.List;
 import java.util.Map;
+import jdk.internal.vm.annotation.ForceInline;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
@@ -39,6 +39,21 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
 
+    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstDataInputAllocate;
+
+    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Casework')]")
+    private WebElementFacade firstDataInputCasework;
+
+    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstMinDataInputAllocate;
+
+    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstDtenDataInputAllocate;
+
+    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstTroDataInputAllocate;
+
     public void assertWorkstackTableContainsCaseReference() {
         assertThat(getWorktackTableContents(),
                 hasItem(containsString(sessionVariableCalled("caseReference"))));
@@ -51,6 +66,12 @@ public class Homepage extends Page {
     public void clickCreateSingleCase() {
         createSingleCase.click();
     }
+
+    public void clickFirstDataInputAllocate() {
+        firstDataInputAllocate.click();
+    }
+
+    public void clickFirstDataInputCasework() { firstDataInputCasework.click(); }
 
     public void clickTestFormLink() {
         testFormLink.click();
@@ -78,7 +99,8 @@ public class Homepage extends Page {
         List<WebElement> matchingRows = filterRows(workstackTable, matchers);
         WebElement targetRow = matchingRows.get(0);
         WebElement detailsLink = targetRow.findElement(
-                By.xpath("//td[text()='" + stage + "']/following-sibling::td/a[contains(text(), 'Allocate')]"));
+                By.xpath("//td[text()='" + stage
+                        + "']/following-sibling::td/a[contains(text(), 'Allocate')]"));
         detailsLink.click();
     }
 

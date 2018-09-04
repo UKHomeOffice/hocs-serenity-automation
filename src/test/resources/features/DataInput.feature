@@ -4,34 +4,34 @@ Feature: HOCS User is able to create a case
     Given I am user "Dom"
     And I am at the "Data Input" stage
 
-  @HOCS-274, @HOCS-238
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     Then I am taken to the "Record Correspondent Details" Page
 
-  @HOCS-274, @HOCS-238
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence sent date
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "Correspondence Sent" date
     And I click the "Continue" button
     Then I am taken to the "Record Correspondence Details" Page
 
-  @HOCS-274, @HOCS-238
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence received date
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "Correspondence Received" date
     And I click the "Continue" button
     Then I am taken to the "Record Correspondence Details" Page
 
-  @HOCS-274, @HOCS-238
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user does not enter a Correspondence Sent Date
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I do not enter a "Correspondence Sent Date"
     And I click the "Continue" button
     Then "Correspondence sent" error message is displayed
 
-  @HOCS-274, @HOCS-238
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user does not enter a Correspondence Received Date
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I do not enter a "Correspondence Received Date"
