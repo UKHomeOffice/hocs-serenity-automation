@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.hasItem;
 import com.hocs.test.pages.Page;
 import java.util.List;
 import java.util.Map;
-import jdk.internal.vm.annotation.ForceInline;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
