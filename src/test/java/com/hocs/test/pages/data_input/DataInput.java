@@ -48,10 +48,10 @@ public class DataInput extends Page {
     @FindBy(id = "")
     private WebElementFacade primaryCorrespondent;
 
-    @FindBy(css = "input[id='CorrespondentIsMember-FALSE']")
+    @FindBy(css = "label[for='CorrespondentIsMember-FALSE']")
     private WebElementFacade correspondentMemberNoRadioButton;
 
-    @FindBy(css = "input[id='CorrespondentIsMember-TRUE']")
+    @FindBy(css = "label[for='CorrespondentIsMember-TRUE']")
     private WebElementFacade correspondentMemberYesRadioButton;
 
     @FindBy(id = "NumberTen-SendCopy")

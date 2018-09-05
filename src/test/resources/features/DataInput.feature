@@ -55,7 +55,7 @@ Feature: HOCS User is able to create a case
 
   @HOCS-394, @HOCS-238
   Scenario: User chooses to add another correspondent
-    Given a case has a "Primary" correspondent
+    Given I select to correspond with a member from the dropdown
     When I add an additional correspondent
     Then the correspondence type is the "secondary" correspondent
 

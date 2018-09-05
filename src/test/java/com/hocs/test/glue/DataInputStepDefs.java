@@ -24,7 +24,12 @@ public class DataInputStepDefs {
 
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
-
+        recordCorrespondentDetails.clickAdditionalCorrespondentYes();
+        page.clickContinueButton();
+        dataInput.clickCorrespondentIsNotAMember();
+        page.clickContinueButton();
+        recordCorrespondentDetails.fillMandatoryFields();
+        page.clickContinueButton();
     }
 
     @When("^I enter correspondence data manually$")

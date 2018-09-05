@@ -24,7 +24,7 @@ public class SuccessfulCaseCreation extends Page {
 
     public String getCaseReference() {
         String wholeString = createdCaseMessage.getText();
-        String to_remove="Created case ";
+        String to_remove="Created a new case: ";
 
         String caseReference = wholeString.replace(to_remove, "");
         Serenity.setSessionVariable("caseReference").to(caseReference);

@@ -24,13 +24,13 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(id = "CLastName")
     private WebElementFacade correspondentLastNameField;
 
-    @FindBy(id = "CBuilding")
+    @FindBy(id = "CAddressOne")
     private WebElementFacade correspondentBuildingField;
 
-    @FindBy(id = "CStreet")
+    @FindBy(id = "CAddressTwo")
     private WebElementFacade correspondentStreetField;
 
-    @FindBy(id = "CTownOrCity")
+    @FindBy(id = "CAddressThree")
     private WebElementFacade correspondentTownOrCityField;
 
     @FindBy(id = "CPostcode")
@@ -48,10 +48,23 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
 
+    @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
+    private WebElementFacade additionalCorrespondentNoRadioButton;
+
+    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
+    private WebElementFacade additionalCorrespondentYesRadioButton;
+
     public void assertPageTitle() {
         assertTitle("Record Correspondent Details");
     }
 
+    public void clickAdditionalCorrespondentNo() {
+        additionalCorrespondentNoRadioButton.click();
+    }
+
+    public void clickAdditionalCorrespondentYes() {
+        additionalCorrespondentYesRadioButton.click();
+    }
 
     public void enterCorrespondentTitle(String title) {
         correspondentTitleField.sendKeys(title);

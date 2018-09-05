@@ -152,6 +152,7 @@ public class CreateCaseStepDefs {
     @Then("^A case is created successfully$")
     public void aCaseIsCreatedSuccessfully() {
         successfulCaseCreation.assertCaseCreatedSuccess();
+        successfulCaseCreation.getCaseReference();
     }
 
 }
