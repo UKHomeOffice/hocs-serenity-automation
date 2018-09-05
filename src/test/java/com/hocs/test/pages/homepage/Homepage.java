@@ -1,7 +1,6 @@
 package com.hocs.test.pages.homepage;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.thucydides.core.pages.components.HtmlTable.filterRows;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -13,10 +12,7 @@ import java.util.Map;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.matchers.BeanMatcher;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
@@ -44,14 +40,23 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Casework')]")
     private WebElementFacade firstDataInputCasework;
 
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
     private WebElementFacade firstMinDataInputAllocate;
 
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
+    private WebElementFacade firstMinDataInputCasework;
+
+    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
     private WebElementFacade firstDtenDataInputAllocate;
 
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
+    private WebElementFacade firstDtenDataInputCasework;
+
+    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
     private WebElementFacade firstTroDataInputAllocate;
+
+    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
+    private WebElementFacade firstTroDataInputCasework;
 
     @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstMarkupAllocate;
@@ -60,7 +65,7 @@ public class Homepage extends Page {
     private WebElementFacade firstMarkupCasework;
 
     @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstMinMarkuptAllocate;
+    private WebElementFacade firstMinMarkupAllocate;
 
     @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstDtenMarkupAllocate;
@@ -89,38 +94,23 @@ public class Homepage extends Page {
         firstDataInputCasework.click();
     }
 
+    public void clickFirstDtenDataInputAllocate() { firstDtenDataInputAllocate.click(); }
+
+    public void clickFirstDtenDataInputCasework() { firstDtenDataInputCasework.click(); }
+
+    public void clickFirstMinDataInputAllocate() { firstMinDataInputAllocate.click(); }
+
+    public void clickFirstMinDataInputCasework() { firstMinDataInputCasework.click(); }
+
+    public void clickFirstTroDataInputAllocate() { firstTroDataInputAllocate.click(); }
+
+    public void clickFirstTroDataInputCasework() { firstTroDataInputCasework.click(); }
+
     public void clickTestFormLink() {
         testFormLink.click();
     }
 
-    public void selectCaseTypeFromWorkstacks(String caseType, BeanMatcher... matchers) {
-        List<WebElement> matchingRows = filterRows(workstackTable, matchers);
-        WebElement targetRow = matchingRows.get(0);
-        WebElement detailsLink = targetRow.findElement(
-                By.xpath("//td[contains(text(), '" + caseType
-                        + "')]/following-sibling::td/a[contains(text(), 'Allocate')]"));
-        detailsLink.click();
-    }
-
-    public void selectCaseTypeAndStageFromWorkstacks(String stage, BeanMatcher... matchers) {
-        List<WebElement> matchingRows = filterRows(workstackTable, matchers);
-        WebElement targetRow = matchingRows.get(0);
-        WebElement detailsLink = targetRow.findElement(By.xpath(
-                "//td[text(), '" + stage + "']/following-sibling::td[contains(text(), '"
-                        + stage + "')]/following-sibling::td/a[contains(text(), 'Allocate')]"));
-        detailsLink.click();
-    }
-
-    public void selectStageFromWorkstacks(String stage, BeanMatcher... matchers) {
-        List<WebElement> matchingRows = filterRows(workstackTable, matchers);
-        WebElement targetRow = matchingRows.get(0);
-        WebElement detailsLink = targetRow.findElement(
-                By.xpath("//td[text()='" + stage
-                        + "']/following-sibling::td/a[contains(text(), 'Allocate')]"));
-        detailsLink.click();
-    }
-
-    public List<Map<Object, String>> getWorktackTableContents() {
+    private List<Map<Object, String>> getWorktackTableContents() {
         return rowsFrom(workstackTable);
     }
 

@@ -3,7 +3,7 @@ package com.hocs.test.pages.offline_qa;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class PrivateOffice {
+class PrivateOffice {
 
     @FindBy(id = "")
     private WebElementFacade acceptMarkUpMinisterButton;

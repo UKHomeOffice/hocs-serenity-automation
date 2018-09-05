@@ -15,17 +15,17 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    AddDocuments addDocuments;
+    private AddDocuments addDocuments;
 
-    CreateCase createCase;
+    private CreateCase createCase;
 
-    Homepage homepage;
+    private Homepage homepage;
 
     MarkUpDecision markUpDecision;
 
-    Page page;
+    private Page page;
 
-    SuccessfulCaseCreation successfulCaseCreation;
+    private SuccessfulCaseCreation successfulCaseCreation;
 
     @Given("^I am presented with \"([^\"]*)\"")
     public void iAmPresentedWith(String userView) {

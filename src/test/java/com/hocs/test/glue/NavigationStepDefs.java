@@ -17,15 +17,15 @@ public class NavigationStepDefs {
     @Managed
     WebDriver driver;
 
-    CreateCase createCase;
+    private CreateCase createCase;
 
-    DataInput dataInput;
+    private DataInput dataInput;
 
-    Homepage homepage;
+    private Homepage homepage;
 
     Page page;
 
-    RecordCorrespondentDetails recordCorrespondentDetails;
+    private RecordCorrespondentDetails recordCorrespondentDetails;
 
     @Given("^I navigate to the \"([^\"]*)\" Page$")
     public void iNavigateToThePage(String hocsPage) {
@@ -42,7 +42,7 @@ public class NavigationStepDefs {
     }
 
     @Then("^I am taken to the \"([^\"]*)\" Page$")
-    public void iAmTakenToThePage(String pageName) throws InterruptedException {
+    public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
             case "CREATE SINGLE CASE":
                 createCase.assertPageTitle();

@@ -9,7 +9,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.core.pages.PageObject;
 
-public class CaseService extends PageObject {
+class CaseService extends PageObject {
 
     private Response response;
 

@@ -5,7 +5,7 @@ import cucumber.api.java.en.Then;
 
 public class HomepageStepDefs {
 
-    Homepage homepage;
+    private Homepage homepage;
 
     @Then("^Case Reference is displayed on the homepage$")
     public void caseReferenceIsDisplayedOnTheHomepage() {

@@ -11,8 +11,8 @@ import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
 
-    MarkUpDecision markUpDecision;
-    Page page;
+    private MarkUpDecision markUpDecision;
+    private Page page;
 
     @Then("^a mandatory \"([^\"]*)\" free text field is available$")
     public void aMandatoryFreeTextFieldIsAvailable(String textField) {

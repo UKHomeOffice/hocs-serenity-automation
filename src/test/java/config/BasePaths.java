@@ -3,7 +3,7 @@ package config;
 public enum BasePaths {
 
     SINGLE_CASE("casetype/single"),
-    BULK_CASE("casetype/single");
+    BULK_CASE("casetype/bulk");
 
     private final String basePath;
 

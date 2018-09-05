@@ -10,15 +10,16 @@ import net.thucydides.core.annotations.Steps;
 public class DataInputStepDefs {
 
     @Steps(shared = true)
+    private
     GenericInputStepDefs genericInputStepDefs;
 
-    DataInput dataInput;
+    private DataInput dataInput;
 
     MarkUpDecision markUpDecision;
 
-    Page page;
+    private Page page;
 
-    RecordCorrespondentDetails recordCorrespondentDetails;
+    private RecordCorrespondentDetails recordCorrespondentDetails;
 
 
     @When("^I add an additional correspondent$")

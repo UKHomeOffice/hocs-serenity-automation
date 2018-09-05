@@ -9,9 +9,9 @@ import cucumber.api.java.en.When;
 
 public class ServiceStepDefs {
 
-    ApiHelper apiHelper;
+    private ApiHelper apiHelper;
 
-    WorkflowService workflowService;
+    private WorkflowService workflowService;
 
     @When("^I request \"([^\"]*)\" info$")
     public void whenIRequestServiceInfo(String service) {

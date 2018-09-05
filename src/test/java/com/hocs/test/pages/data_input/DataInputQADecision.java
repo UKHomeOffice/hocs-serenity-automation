@@ -3,7 +3,7 @@ package com.hocs.test.pages.data_input;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class DataInputQADecision {
+class DataInputQADecision {
 
     @FindBy(css = "label[for='DataInputQADecision-ACCEPT']")
     private WebElementFacade acceptDataInputQaDecision;

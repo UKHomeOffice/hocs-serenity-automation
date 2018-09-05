@@ -11,19 +11,19 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
-import config.Services;
 
 public class LoginStepDefs {
 
     @Managed
+    private
     WebDriver driver;
 
     @Steps(shared = true)
     NavigationStepDefs navigationStepDefs;
 
-    LoginPage loginPage;
+    private LoginPage loginPage;
 
-    Page page;
+    private Page page;
 
     @Then("^An invalid username or password error is displayed$")
     public void invalidUsernamePasswordErrorDisplayed() {

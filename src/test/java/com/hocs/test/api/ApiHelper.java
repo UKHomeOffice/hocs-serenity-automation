@@ -18,7 +18,7 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class ApiHelper extends PageObject {
 
-    Response response;
+    private Response response;
 
     public void setupApiHelper(String api) {
         String environment = System.getProperty("environment");

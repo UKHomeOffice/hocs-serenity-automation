@@ -6,7 +6,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 
-public class Documents extends Page {
+class Documents extends Page {
 
     @Managed
     WebDriver driver;

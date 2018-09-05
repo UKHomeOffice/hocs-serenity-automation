@@ -20,13 +20,13 @@ public class GenericInputStepDefs {
     @Managed
     WebDriver driver;
 
-    DataInput dataInput;
+    private DataInput dataInput;
 
-    Page page;
+    private Page page;
 
     TestForm testForm;
 
-    Homepage homepage;
+    private Homepage homepage;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -194,13 +194,13 @@ public class GenericInputStepDefs {
     }
 
     @Then("^the file is downloaded$")
-    public void theFileIsDownloaded() throws Throwable {
+    public void theFileIsDownloaded() {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
     @Then("^I cannot exit the case$")
-    public void iCannotClickToExitTheCase() throws Throwable {
+    public void iCannotClickToExitTheCase() {
 
     }
 

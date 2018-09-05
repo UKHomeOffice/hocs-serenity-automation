@@ -2,16 +2,12 @@ package com.hocs.test.pages;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import cucumber.api.java.ca.Cal;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -26,7 +22,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.yecht.Data.Str;
 
 public class Page extends PageObject {
 
@@ -464,7 +459,7 @@ public class Page extends PageObject {
         return rand.nextInt((int) maxNumber) + 1;
     }
 
-    public String generateRandomString() {
+    protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
 
         for (int i = 0; i < 8; i++) {
@@ -485,7 +480,7 @@ public class Page extends PageObject {
     }
 
 
-    protected String getHeaderText() {
+    private String getHeaderText() {
         return pageTitle.getText();
     }
 

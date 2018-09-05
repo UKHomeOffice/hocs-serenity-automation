@@ -4,7 +4,7 @@ import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class Deadline extends Page {
+class Deadline extends Page {
 
     @FindBy(id = "DraftingDeadline-day")
     private WebElementFacade draftingDeadlineDay;

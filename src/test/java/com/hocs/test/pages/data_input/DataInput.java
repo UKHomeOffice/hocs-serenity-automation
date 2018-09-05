@@ -107,32 +107,32 @@ public class DataInput extends Page {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void enterDayOfCorrespondenceReceived(String day) {
+    private void enterDayOfCorrespondenceReceived(String day) {
         dateCorrespondenceReceivedDayField.clear();
         dateCorrespondenceReceivedDayField.sendKeys(day);
     }
 
-    public void enterMonthOfCorrespondenceReceived(String month) {
+    private void enterMonthOfCorrespondenceReceived(String month) {
         dateCorrespondenceReceivedMonthField.clear();
         dateCorrespondenceReceivedMonthField.sendKeys(month);
     }
 
-    public void enterYearOfCorrespondenceReceived(String year) {
+    private void enterYearOfCorrespondenceReceived(String year) {
         dateCorrespondenceReceivedYearField.clear();
         dateCorrespondenceReceivedYearField.sendKeys(year);
     }
 
-    public void enterDayOfCorrespondenceSent(String day) {
+    private void enterDayOfCorrespondenceSent(String day) {
         dateCorrespondenceSentDayField.clear();
         dateCorrespondenceSentDayField.sendKeys(day);
     }
 
-    public void enterMonthOfCorrespondenceSent(String month) {
+    private void enterMonthOfCorrespondenceSent(String month) {
         dateCorrespondenceSentMonthField.clear();
         dateCorrespondenceSentMonthField.sendKeys(month);
     }
 
-    public void enterYearOfCorrespondenceSent(String year) {
+    private void enterYearOfCorrespondenceSent(String year) {
         dateCorrespondenceSentYearField.clear();
         dateCorrespondenceSentYearField.sendKeys(year);
     }
