@@ -21,7 +21,7 @@
 //    }
 //
 //    private Connection getDatabase() throws SQLException, ClassNotFoundException {
-//        String sqlConnectionHost = Environments.SR2.getDatabaseURL();
+//        String sqlConnectionHost = Environments.QA.getDatabaseURL();
 //        String username = Users.DATABASE_ADMIN.getUsername();
 //        String password = Users.DATABASE_ADMIN.getPassword();
 //

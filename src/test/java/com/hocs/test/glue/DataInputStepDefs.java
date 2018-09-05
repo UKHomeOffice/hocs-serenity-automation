@@ -57,4 +57,7 @@ public class DataInputStepDefs {
         page.clickContinueButton();
     }
 
+    @When("^I select the primary correspondent radio button for a different correspondent$")
+    public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
+    }
 }
