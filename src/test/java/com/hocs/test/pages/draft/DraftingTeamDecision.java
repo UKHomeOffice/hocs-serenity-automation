@@ -36,7 +36,7 @@ class DraftingTeamDecision extends Page {
     public void clickDraftingResponsePhone() { draftingResponsePost.click(); }
 
     public void enterPhoneCallSummaryNote() {
-        generateRandomString();
+        phoneCallSummaryNote.sendKeys(generateRandomString());
     }
 
 }

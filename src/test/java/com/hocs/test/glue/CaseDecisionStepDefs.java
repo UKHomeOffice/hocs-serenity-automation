@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.Topics;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,8 +12,11 @@ import cucumber.api.java.en.When;
 
 public class CaseDecisionStepDefs {
 
-    private MarkUpDecision markUpDecision;
-    private Page page;
+    MarkUpDecision markUpDecision;
+
+    Page page;
+
+    Topics topics;
 
     @Then("^a mandatory \"([^\"]*)\" free text field is available$")
     public void aMandatoryFreeTextFieldIsAvailable(String textField) {
@@ -59,8 +63,12 @@ public class CaseDecisionStepDefs {
                 break;
             case "REASON FOR NO REPLY NEEDED":
                 break;
+            case "TOPICS":
+                topics.assertTopicsTextFieldDisplayed();
+                break;
             default:
-                fail();
+                fail(textField
+                        + " is not defined in CaseDecisionStepDefs.anOptionalFreeTextFieldIsAvailable()");
         }
     }
 
@@ -135,16 +143,23 @@ public class CaseDecisionStepDefs {
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
             case "FAQ":
+                markUpDecision.clickFaqRadioButton();
                 break;
             case "NO REPLY NEEDED":
+                markUpDecision.clickNoReplyNeededRadioButton();
                 break;
             case "POLICY RESPONSE":
+                markUpDecision.clickPolicyResponseRadioButton();
+                break;
+            case "REFER TO OGD":
+                markUpDecision.clickReferToOgdRadioButton();
                 break;
             case "TRANSFER TO OGD":
                 break;
             default:
                 fail();
         }
+        page.clickContinueButton();
     }
 
     @Given("^multiple topics have been set$")

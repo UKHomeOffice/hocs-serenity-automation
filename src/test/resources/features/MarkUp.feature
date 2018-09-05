@@ -7,17 +7,17 @@ Feature: DCU user decides how a case should be handled
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "Policy Response"
-    Then an optional "Allocation Note" free text field is available
+    Then an optional "Topics" free text field is available
 
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "FAQ"
-    Then an optional "Allocation Note" free text field is available
+    Then an optional "Topics" free text field is available
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "Transfer to OGD"
-    Then a mandatory "Allocation Note" free text field is available
+    Then a mandatory "Topics" free text field is available
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Reply Needed

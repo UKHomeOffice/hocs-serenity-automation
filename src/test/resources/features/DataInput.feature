@@ -59,7 +59,7 @@ Feature: HOCS User is able to create a case
     When I add an additional correspondent
     Then the correspondence type is the "secondary" correspondent
 
-  @HOCS-394, @HOCS-238
+  @HOCS-394, @HOCS-238 @manual
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
