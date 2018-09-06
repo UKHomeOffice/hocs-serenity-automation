@@ -1,5 +1,8 @@
 package com.hocs.test.glue;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -13,7 +16,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class GenericInputStepDefs {
 
@@ -152,6 +158,14 @@ public class GenericInputStepDefs {
             case "DATA INPUT":
                 homepage.clickFirstDataInputAllocate();
                 break;
+            case "DATA INPUT QA":
+                try {
+                    homepage.clickFirstDataInputQaAllocate();
+                } catch (ElementShouldBeEnabledException e){
+                    homepage.clickFirstDataInputQaCasework();
+                }
+
+                break;
             default:
                 fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
         }
@@ -190,8 +204,14 @@ public class GenericInputStepDefs {
 
     @Then("^the case is moved to the \"([^\"]*)\" stage$")
     public void theCaseIsMovedToTheStage(String stage) {
+        WebElement currentStage = driver.findElement(
+                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
+                        + "')]/following-sibling::td[1]"));
+
+        assertThat(currentStage.getText().toUpperCase(),is(stage.toUpperCase()));
 
     }
+
 
     @Then("^the file is downloaded$")
     public void theFileIsDownloaded() {

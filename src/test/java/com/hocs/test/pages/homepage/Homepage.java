@@ -58,6 +58,12 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
     private WebElementFacade firstTroDataInputCasework;
 
+    @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstDataInputQaAllocate;
+
+    @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Casework')]")
+    private WebElementFacade firstDataInputQaCasework;
+
     @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstMarkupAllocate;
 
@@ -105,6 +111,10 @@ public class Homepage extends Page {
     public void clickFirstTroDataInputAllocate() { firstTroDataInputAllocate.click(); }
 
     public void clickFirstTroDataInputCasework() { firstTroDataInputCasework.click(); }
+
+    public void clickFirstDataInputQaAllocate() { firstDataInputQaAllocate.click();}
+
+    public void clickFirstDataInputQaCasework() { firstDataInputQaCasework.click();}
 
     public void clickTestFormLink() {
         testFormLink.click();
