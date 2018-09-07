@@ -1,7 +1,7 @@
 Feature: DCU user decides how a case should be handled
 
   Background:
-    Given I am user "<string>"
+    Given I am user "Dom"
     And I am at the "mark up" stage
 
   @HOCS-266, @HOCS-237

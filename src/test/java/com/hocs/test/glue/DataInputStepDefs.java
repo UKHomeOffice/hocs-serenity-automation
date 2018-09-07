@@ -5,6 +5,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
@@ -80,6 +81,11 @@ public class DataInputStepDefs {
                 break;
             default:
         }
+        page.clickFinishButton();
+    }
+
+    @When("^I do not select a Data Input QA response$")
+    public void iDoNotSelectADataInputQAResponse() {
         page.clickFinishButton();
     }
 }

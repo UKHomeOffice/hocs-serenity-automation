@@ -16,6 +16,8 @@ public class DraftResponseStepDefs {
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        page.clickContinueButton();
         switch (method.toUpperCase()) {
             case "EMAIL":
                 draft.clickEmailReplyRadioButton();
@@ -29,6 +31,7 @@ public class DraftResponseStepDefs {
             default:
                 fail("Please enter EMAIL, PHONE or POST");
         }
+        page.clickContinueButton();
     }
 
     @Then("^I can see the drafting deadline for a case$")

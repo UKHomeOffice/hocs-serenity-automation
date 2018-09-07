@@ -116,6 +116,16 @@ public class Homepage extends Page {
 
     public void clickFirstDataInputQaCasework() { firstDataInputQaCasework.click();}
 
+    public void clickFirstMarkupAllocate() { firstMarkupAllocate.click(); }
+
+    public void clickFirstMarkupCasework() { firstMarkupCasework.click(); }
+
+    public void clickFirstMinMarkupAllocate() {firstMinMarkupAllocate.click(); }
+
+    public void clickFirstDtenMarkupAllocate() {firstDtenMarkupAllocate.click(); }
+
+    public void clickFirstTroMarkupAllocate() {firstTroMarkupAllocate.click(); }
+
     public void clickTestFormLink() {
         testFormLink.click();
     }

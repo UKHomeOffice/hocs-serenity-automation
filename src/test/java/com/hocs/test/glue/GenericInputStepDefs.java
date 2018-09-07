@@ -163,7 +163,9 @@ public class GenericInputStepDefs {
                 } catch (ElementShouldBeEnabledException e) {
                     homepage.clickFirstDataInputQaCasework();
                 }
-
+                break;
+            case "MARKUP":
+                homepage.clickFirstMarkupAllocate();
                 break;
             default:
                 fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
