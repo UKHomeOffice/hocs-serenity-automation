@@ -1,4 +1,4 @@
-Feature: HOCS User is able to create a case
+Feature: HOCS User is add data to a case
 
   Background:
     Given I am user "Dom"

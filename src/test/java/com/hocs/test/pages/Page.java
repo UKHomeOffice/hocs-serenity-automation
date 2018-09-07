@@ -3,6 +3,7 @@ package com.hocs.test.pages;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -450,6 +451,10 @@ public class Page extends PageObject {
         dateMonthField.sendKeys("01");
         dateYearField.clear();
         dateYearField.sendKeys("2018");
+    }
+
+    public void errorMessageIsDisplayed() {
+        assertThat(isElementDisplayed(errorMessage), is(true));
     }
 
     public int generateRandomNumber(int digits) {

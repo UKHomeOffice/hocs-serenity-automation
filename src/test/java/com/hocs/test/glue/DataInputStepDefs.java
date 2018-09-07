@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import cucumber.api.java.en.When;
@@ -13,13 +14,15 @@ public class DataInputStepDefs {
     private
     GenericInputStepDefs genericInputStepDefs;
 
-    private DataInput dataInput;
+    DataInput dataInput;
+
+    DataInputQADecision dataInputQADecision;
 
     MarkUpDecision markUpDecision;
 
-    private Page page;
+    Page page;
 
-    private RecordCorrespondentDetails recordCorrespondentDetails;
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
 
     @When("^I add an additional correspondent$")
@@ -64,5 +67,19 @@ public class DataInputStepDefs {
 
     @When("^I select the primary correspondent radio button for a different correspondent$")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
+    }
+
+    @When("^I select a Data Input QA decision of \"([^\"]*)\"$")
+    public void iSelectADataInputQADecisionOf(String decision) {
+        switch (decision.toUpperCase()) {
+            case "ACCEPT":
+                dataInputQADecision.acceptDataInputQa();
+                break;
+            case "REJECT":
+                dataInputQADecision.rejectDataInputQa();
+                break;
+            default:
+        }
+        page.clickFinishButton();
     }
 }
