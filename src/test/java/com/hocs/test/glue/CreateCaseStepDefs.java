@@ -8,6 +8,7 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -155,4 +156,9 @@ public class CreateCaseStepDefs {
         successfulCaseCreation.getCaseReference();
     }
 
+    @When("^I do not select a type of correspondence when creating a case$")
+    public void iDoNotSelectATypeOfCorrespondenceWhenCreatingACase() {
+        homepage.clickCreateSingleCase();
+        page.clickNextButton();
+    }
 }

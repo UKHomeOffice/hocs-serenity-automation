@@ -19,7 +19,6 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class GenericInputStepDefs {
 
@@ -161,7 +160,7 @@ public class GenericInputStepDefs {
             case "DATA INPUT QA":
                 try {
                     homepage.clickFirstDataInputQaAllocate();
-                } catch (ElementShouldBeEnabledException e){
+                } catch (ElementShouldBeEnabledException e) {
                     homepage.clickFirstDataInputQaCasework();
                 }
 
@@ -199,16 +198,16 @@ public class GenericInputStepDefs {
 
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
-
+        page.errorMessageIsDisplayed();
     }
 
     @Then("^the case is moved to the \"([^\"]*)\" stage$")
-    public void theCaseIsMovedToTheStage(String stage) {
-        WebElement currentStage = driver.findElement(
+    public void theCaseIsMovedToTheStage(String expectedStage) {
+        String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
-                        + "')]/following-sibling::td[1]"));
+                        + "')]/following-sibling::td[1]")).getText();
 
-        assertThat(currentStage.getText().toUpperCase(),is(stage.toUpperCase()));
+        assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
 
     }
 

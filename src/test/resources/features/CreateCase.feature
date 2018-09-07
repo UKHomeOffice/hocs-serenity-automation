@@ -1,8 +1,16 @@
 Feature: HOCS User is able to create a case
 
+  Background:
+    Given I am user "Dom"
+
+  @HOCS-341 @HOCS-491 @HOCS-236 @critical
+  Scenario: I must select a type of correspondent
+    When I do not select a type of correspondence when creating a case
+    Then an error message is displayed
+
+
   @HOCS-341 @HOCS-491 @HOCS-236 @critical
   Scenario Outline: I can create a case
-    Given I am user "Dom"
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully
     Examples:
@@ -15,6 +23,5 @@ Feature: HOCS User is able to create a case
       | DCU TEN | without        |
 
   Scenario: I can bulk upload cases
-    Given I am user "Dom"
     When I bulk create 40 "DCU MIN" cases
     Then A case is created successfully
