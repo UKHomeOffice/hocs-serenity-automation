@@ -11,6 +11,34 @@ Feature: HOCS User is add data to a case
     Then I am taken to the "Record Correspondent Details" Page
 
   @HOCS-274 @HOCS-238 @critical
+  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I set the correspondence channel to "Email"
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondent Details" Page
+
+  @HOCS-274 @HOCS-238 @critical
+  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I set the correspondence channel to "Post"
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondent Details" Page
+
+  @HOCS-274 @HOCS-238 @critical
+  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I set the correspondence channel to "Phone"
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondent Details" Page
+
+  @HOCS-274 @HOCS-238 @critical
+  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I set the correspondence channel to "No. 10"
+    And I click the "Continue" button
+    Then I am taken to the "Record Correspondent Details" Page
+
+  @HOCS-274 @HOCS-238 @critical
   Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence sent date
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "Correspondence Sent" date

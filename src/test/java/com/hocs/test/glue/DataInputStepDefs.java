@@ -1,18 +1,19 @@
 package com.hocs.test.glue;
 
+import static junit.framework.TestCase.fail;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class DataInputStepDefs {
 
     @Steps(shared = true)
-    private
     GenericInputStepDefs genericInputStepDefs;
 
     DataInput dataInput;
@@ -80,6 +81,8 @@ public class DataInputStepDefs {
                 dataInputQADecision.rejectDataInputQa();
                 break;
             default:
+                fail(decision
+                        + " is not defined in DataInputStepDefs.iSelectADataInputQADecisionOf()");
         }
         page.clickFinishButton();
     }
@@ -87,5 +90,26 @@ public class DataInputStepDefs {
     @When("^I do not select a Data Input QA response$")
     public void iDoNotSelectADataInputQAResponse() {
         page.clickFinishButton();
+    }
+
+    @And("^I set the correspondence channel to \"([^\"]*)\"$")
+    public void iSetTheCorrespondenceChannelTo(String channel) {
+        switch (channel.toUpperCase()) {
+            case "EMAIL":
+                dataInput.clickEmailCorrespondenceChannelRadioButton();
+                break;
+            case "POST":
+                dataInput.clickPostCorrespondenceChannelRadioButton();
+                break;
+            case "PHONE":
+                dataInput.clickPhoneCorrespondenceChannelRadioButton();
+                break;
+            case "NO. 10":
+                dataInput.clickNo10CorrespondenceChannelRadioButton();
+                break;
+            default:
+                fail(channel
+                        + " is not defined in DataInputStepDefs.iSetTheCorrespondenceChannelTo()");
+        }
     }
 }
