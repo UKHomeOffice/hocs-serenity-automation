@@ -39,11 +39,11 @@ Feature: HOCS User is add data to a case
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I do not enter a "<field>"
     And I click the "Continue" button
-    Then "Correspondence sent" error message is displayed
+    Then "<error message>" error message is displayed
     Examples:
-      | field                   |
-      | Correspondence Sent     |
-      | Correspondence Received |
+      | field                   | error message           |
+      | Correspondence Sent     | Correspondence Sent     |
+      | Correspondence Received | Correspondence Received |
 
   @HOCS-276, @HOCS-238
   Scenario: User can select a member from the dropdown
