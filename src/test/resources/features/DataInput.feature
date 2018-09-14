@@ -11,60 +11,39 @@ Feature: HOCS User is add data to a case
     Then I am taken to the "Record Correspondent Details" Page
 
   @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+  Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
-    And I set the correspondence channel to "Email"
+    And I set the correspondence channel to "<channel>"
     And I click the "Continue" button
     Then I am taken to the "Record Correspondent Details" Page
+    Examples:
+      | channel |
+      | Email   |
+      | Post    |
+      | Phone   |
+      | No.10   |
 
   @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel and date of correspondence
+  Scenario Outline: DCU data entry user must enter valid dates on Data Input
     When I fill all mandatory fields on the "Data Input" page with valid data
-    And I set the correspondence channel to "Post"
-    And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" Page
-
-  @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel and date of correspondence
-    When I fill all mandatory fields on the "Data Input" page with valid data
-    And I set the correspondence channel to "Phone"
-    And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" Page
-
-  @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel and date of correspondence
-    When I fill all mandatory fields on the "Data Input" page with valid data
-    And I set the correspondence channel to "No. 10"
-    And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" Page
-
-  @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence sent date
-    When I fill all mandatory fields on the "Data Input" page with valid data
-    But I enter an invalid "Correspondence Sent" date
+    But I enter an invalid "<field>" date
     And I click the "Continue" button
     Then I am taken to the "Record Correspondence Details" Page
+    Examples:
+      | field                   |
+      | Correspondence Sent     |
+      | Correspondence Received |
 
   @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user selects correspondence channel but does not input valid correspondence received date
+  Scenario Outline: DCU data entry user cannot leave dates blank on Data Input
     When I fill all mandatory fields on the "Data Input" page with valid data
-    But I enter an invalid "Correspondence Received" date
-    And I click the "Continue" button
-    Then I am taken to the "Record Correspondence Details" Page
-
-  @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user does not enter a Correspondence Sent Date
-    When I fill all mandatory fields on the "Data Input" page with valid data
-    But I do not enter a "Correspondence Sent Date"
+    But I do not enter a "<field>"
     And I click the "Continue" button
     Then "Correspondence sent" error message is displayed
-
-  @HOCS-274 @HOCS-238 @critical
-  Scenario: DCU data entry user does not enter a Correspondence Received Date
-    When I fill all mandatory fields on the "Data Input" page with valid data
-    But I do not enter a "Correspondence Received Date"
-    And I click the "Continue" button
-    Then "Correspondence Received" error message is displayed
+    Examples:
+      | field                   |
+      | Correspondence Sent     |
+      | Correspondence Received |
 
   @HOCS-276, @HOCS-238
   Scenario: User can select a member from the dropdown
