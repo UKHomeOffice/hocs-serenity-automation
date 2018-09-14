@@ -1,6 +1,5 @@
 package com.hocs.test.glue;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
@@ -17,7 +16,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class GenericInputStepDefs {
@@ -205,11 +203,7 @@ public class GenericInputStepDefs {
 
     @Then("^the case is moved to the \"([^\"]*)\" stage$")
     public void theCaseIsMovedToTheStage(String expectedStage) {
-        String actualStage = driver.findElement(
-                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
-                        + "')]/following-sibling::td[1]")).getText();
-
-        assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
+        homepage.assertCaseStageInWorkstacks(expectedStage);
 
     }
 

@@ -95,7 +95,7 @@ public class DataInput extends Page {
         emailOriginalChannelRadioButton.click();
     }
 
-    public void clickLetterCorrespondenceChannelRadioButton() {
+    public void clickPostCorrespondenceChannelRadioButton() {
         postOriginalChannelRadioButton.click();
     }
 

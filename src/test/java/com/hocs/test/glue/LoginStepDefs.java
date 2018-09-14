@@ -1,5 +1,6 @@
 package com.hocs.test.glue;
 
+import static config.Users.*;
 import static junit.framework.TestCase.fail;
 
 import com.hocs.test.pages.Page;
@@ -36,10 +37,10 @@ public class LoginStepDefs {
         Serenity.setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
             case "DOM":
-                enterHocsLoginDetails(Users.DOM);
+                enterHocsLoginDetails(DOM);
                 break;
             case "TEST":
-                enterHocsLoginDetails(Users.TEST);
+                enterHocsLoginDetails(TEST);
                 break;
             default:
                 fail(user + " is not defined with LoginStepDefs.iLoginAs()");
