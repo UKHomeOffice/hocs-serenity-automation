@@ -8,40 +8,44 @@ Feature: HOCS User is able to draft a response
   Scenario: User sees a case deadline
     Then I can see the drafting deadline for a case
 
-  @HOCS-285, @HOCS-239
-  Scenario: Case at drafting stage has gone beyond drafting deadline
-    When a case has gone beyond the drafting deadline
-    Then I can see the final deadline for that case
-
   @HOCS-287, @HOCS-239
   Scenario: User completes a rejection note
     When a case is not answered by my team
+    And I complete the allocation note
     Then the case is moved to the "Markup" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User does not complete a rejection note
-    When I attempt to reject a case without reason
+    When a case is not answered by my team
+    And I do not enter a allocation note
     Then an error message appears instructing me to add rejection reasons
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response has info in free text field
     Given I select to reply by "phone"
-    And I enter call notes
-    When I finish drafting
-    And I am taken to the "to do" Page
+    When I enter the call details
+    Then the case is complete
+    And I go back to the home page
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
     Given I select to reply by "phone"
-    And I do not enter call notes
-    When I finish drafting
+    When I am directed to enter call notes
+    And I do not enter any text
     Then I see an error message instructing me to enter call notes
 
   @HOCS-293, @HOCS-239
-  Scenario: User selects standard line
-    When I click the "FAQ response" button
+  Scenario: User is working on a case that has a standard line
+    When I choose to repond by 'post or phone'
     And I download the standard line for the case
-    Then I can edit it and use it as part of my draft response
+    Then the standard line downloads locally to my machine so I can edit it as part of my response
+    
+   @HOCS-291, @HOCS-291
+  Scenario: User downloads a template
+    When I choose to repond by 'post or phone'
+    Then I can download a template for the case type
+    And it contains the name and address details of the correspondent
+    And it is editable
 
   @HOCS-295, @HOCS-239
   Scenario: User does not choose online or offline QA
