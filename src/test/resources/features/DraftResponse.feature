@@ -62,5 +62,6 @@ Feature: HOCS User is able to draft a response
     Given I click the "offline QA" button
     And I select an "offline" Quality Assurer from a list of members of the team that own the case
     When I progress the case
-    Then that Quality Assurer will receive a notification to say they have QA’d that case
+    Then the Quality Assurer will receive a notification to say they have QA’d that case
+    And the case will progress to the "Private Office" stage 
     And I am taken to the "to do" Page
