@@ -9,13 +9,13 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
 
-    @FindBy(id = "label[for='OriginalChannel-POST']")
+    @FindBy(css = "label[for='OriginalChannel-POST']")
     private WebElementFacade postOriginalChannelRadioButton;
 
-    @FindBy(id = "label[for='OriginalChannel-PHONE']")
+    @FindBy(css = "label[for='OriginalChannel-PHONE']")
     private WebElementFacade phoneOriginalChannelRadioButton;
 
-    @FindBy(id = "label[for='OriginalChannel-NO10']")
+    @FindBy(css = "label[for='OriginalChannel-NO10']")
     private WebElementFacade numberTenOriginalChannelRadioButton;
 
     @FindBy(id = "DateOfCorrespondence-day")
@@ -42,7 +42,7 @@ public class DataInput extends Page {
     @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    @FindBy(linkText = "Add a Correspondent")
+    @FindBy(css = ".govuk-fieldset > a:nth-child(3)")
     private WebElementFacade addCorrespondentLink;
 
     @FindBy(id = "")
@@ -62,6 +62,10 @@ public class DataInput extends Page {
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
+
+    public void addACorrespondentLinkIsDisplayed() {
+        addCorrespondentLink.isDisplayed();
+    }
 
     public void assertPageTitle() {
         assertTitle("Record Correspondence Details");

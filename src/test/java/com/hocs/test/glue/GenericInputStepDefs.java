@@ -1,7 +1,5 @@
 package com.hocs.test.glue;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -256,5 +254,17 @@ public class GenericInputStepDefs {
                 fail(stage + " is not defined in GenericStepDefs.theCaseIsReturnedToTheStage");
 
         }
+    }
+
+    @Then("^\"([^\"]*)\" link is displayed$")
+    public void linkIsDisplayed(String linkText) {
+        switch (linkText.toUpperCase()) {
+            case "ADD A CORRESPONDENT":
+                dataInput.addACorrespondentLinkIsDisplayed();
+                break;
+            default:
+                    fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
+        }
+
     }
 }
