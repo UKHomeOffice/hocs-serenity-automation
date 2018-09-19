@@ -21,7 +21,7 @@ Feature: HOCS User is add data to a case
       | Email   |
       | Post    |
       | Phone   |
-      | No.10   |
+      | No. 10  |
 
   @HOCS-274 @HOCS-238 @critical
   Scenario Outline: DCU data entry user must enter valid dates on Data Input
@@ -41,9 +41,9 @@ Feature: HOCS User is add data to a case
     And I click the "Continue" button
     Then "<error message>" error message is displayed
     Examples:
-      | field                   | error message           |
-      | Correspondence Sent     | Correspondence Sent     |
-      | Correspondence Received | Correspondence Received |
+      | field                        | error message           |
+      | Correspondence Sent Date     | Correspondence Sent     |
+      | Correspondence Received Date | Correspondence Received |
 
   @HOCS-276, @HOCS-238
   Scenario: User can select a member from the dropdown
