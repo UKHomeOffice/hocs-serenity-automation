@@ -8,20 +8,20 @@ Feature: HOCS User is add data to a case
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" page
+    Then "Add a correspondent" link is displayed
 
   @HOCS-274 @HOCS-238 @critical
   Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I set the correspondence channel to "<channel>"
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" page
+    Then "Add a correspondent" link is displayed
     Examples:
       | channel |
       | Email   |
       | Post    |
       | Phone   |
-      | No.10   |
+      | No. 10  |
 
   @HOCS-274 @HOCS-238 @critical
   Scenario Outline: DCU data entry user must enter valid dates on Data Input
@@ -41,9 +41,9 @@ Feature: HOCS User is add data to a case
     And I click the "Continue" button
     Then "<error message>" error message is displayed
     Examples:
-      | field                   | error message           |
-      | Correspondence Sent     | Correspondence Sent     |
-      | Correspondence Received | Correspondence Received |
+      | field                        | error message           |
+      | Correspondence Sent Date     | Correspondence Sent     |
+      | Correspondence Received Date | Correspondence Received |
 
   @HOCS-276, @HOCS-238
   Scenario: User can select a member from the dropdown

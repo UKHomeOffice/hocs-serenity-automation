@@ -264,8 +264,19 @@ public class GenericInputStepDefs {
         }
     }
 
+
     @Then("^the case is completed$")
     public void theCaseIsCompleted()  {
 
+    @Then("^\"([^\"]*)\" link is displayed$")
+    public void linkIsDisplayed(String linkText) {
+        switch (linkText.toUpperCase()) {
+            case "ADD A CORRESPONDENT":
+                dataInput.addACorrespondentLinkIsDisplayed();
+                break;
+            default:
+                    fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
+        }
     }
+    
 }
