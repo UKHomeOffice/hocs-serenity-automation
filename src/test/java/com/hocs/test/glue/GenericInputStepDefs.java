@@ -266,7 +266,8 @@ public class GenericInputStepDefs {
 
 
     @Then("^the case is completed$")
-    public void theCaseIsCompleted()  {
+    public void theCaseIsCompleted() {
+    }
 
     @Then("^\"([^\"]*)\" link is displayed$")
     public void linkIsDisplayed(String linkText) {
@@ -275,8 +276,8 @@ public class GenericInputStepDefs {
                 dataInput.addACorrespondentLinkIsDisplayed();
                 break;
             default:
-                    fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
+                fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
         }
     }
-    
 }
+
