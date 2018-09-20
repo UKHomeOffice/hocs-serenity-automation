@@ -55,7 +55,7 @@ Feature: HOCS User is add data to a case
     When I select to correspond with "<minister>" from the search function
     Then the member is the "primary" correspondent
 
-  @HOCS-277, @HOCS-238
+  @HOCS-277, @HOCS-238 @critical
   Scenario: User adds a correspondent manually
     When I enter correspondence data manually
     Then the correspondence type is the "primary" correspondent

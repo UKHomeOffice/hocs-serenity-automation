@@ -6,6 +6,8 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import cucumber.api.PendingException;
@@ -20,11 +22,15 @@ public class CreateCaseStepDefs {
 
     private CreateCase createCase;
 
+    DataInput dataInput;
+
     private Homepage homepage;
 
     MarkUpDecision markUpDecision;
 
     private Page page;
+
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
     private SuccessfulCaseCreation successfulCaseCreation;
 
@@ -56,6 +62,7 @@ public class CreateCaseStepDefs {
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
+                recordCorrespondentDetails.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 break;
@@ -80,6 +87,7 @@ public class CreateCaseStepDefs {
     public void theMemberIsTheCorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
+
                 break;
             case "SECONDARY":
                 break;

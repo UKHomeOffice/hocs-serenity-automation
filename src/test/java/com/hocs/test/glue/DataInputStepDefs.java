@@ -41,10 +41,9 @@ public class DataInputStepDefs {
     public void iEnterCorrespondenceDataManually() {
         genericInputStepDefs.fillMandatoryFields("Data Input");
         page.clickContinueButton();
-        dataInput.clickCorrespondentIsNotAMember();
-        page.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
         recordCorrespondentDetails.fillMandatoryFields();
-        page.clickContinueButton();
+        page.clickAddButton();
     }
 
     @When("^I select to correspond with a member from the dropdown$")

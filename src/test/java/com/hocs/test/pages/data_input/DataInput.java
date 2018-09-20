@@ -42,7 +42,7 @@ public class DataInput extends Page {
     @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    @FindBy(linkText = "Add a Correspondent")
+    @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[1]/form/div/fieldset/a")
     private WebElementFacade addCorrespondentLink;
 
     @FindBy(id = "")
@@ -79,7 +79,7 @@ public class DataInput extends Page {
         dateCorrespondenceSentYearField.clear();
     }
 
-    public void clickAddCorrespondentButton() {
+    public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
     }
 
