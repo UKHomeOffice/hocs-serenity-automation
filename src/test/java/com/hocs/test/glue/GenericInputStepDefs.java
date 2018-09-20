@@ -225,8 +225,16 @@ public class GenericInputStepDefs {
         }
     }
 
-    @When("^I allocate the case$")
-    public void iAllocateTheCase() {
+    @When("^I \"([^\"]*)\" the case$")
+    public void iActionTheCase(String action) {
+        switch (action.toUpperCase()) {
+            case "ALLOCATE":
+                break;
+            case "DISPATCH":
+                break;
+            default:
+                fail(action + " is not defined in GenericStepDefs.iActionTheCase");
+        }
 
     }
 
@@ -256,6 +264,10 @@ public class GenericInputStepDefs {
         }
     }
 
+
+    @Then("^the case is completed$")
+    public void theCaseIsCompleted()  {
+
     @Then("^\"([^\"]*)\" link is displayed$")
     public void linkIsDisplayed(String linkText) {
         switch (linkText.toUpperCase()) {
@@ -265,6 +277,6 @@ public class GenericInputStepDefs {
             default:
                     fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
         }
-
     }
+    
 }

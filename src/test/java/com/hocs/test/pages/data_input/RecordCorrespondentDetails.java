@@ -1,6 +1,12 @@
 package com.hocs.test.pages.data_input;
 
+import static net.serenitybdd.core.Serenity.*;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -9,44 +15,41 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(id = "Member")
     private WebElementFacade memberDropdown;
 
-    @FindBy(id = "CorrespondenceReference")
+    @FindBy(id = "reference")
     private WebElementFacade correspondenceCaseReference;
 
-    @FindBy(id = "Correspondent Type")
+    @FindBy(id = "type")
     private WebElementFacade correspondentTypeDropdown;
 
-    @FindBy(id = "CTitle")
-    private WebElementFacade correspondentTitleField;
+    @FindBy(id = "fullname")
+    private WebElementFacade correspondentFullNameField;
 
-    @FindBy(id = "CFirstName")
-    private WebElementFacade correspondentFirstNameField;
-
-    @FindBy(id = "CLastName")
-    private WebElementFacade correspondentLastNameField;
-
-    @FindBy(id = "CAddressOne")
+    @FindBy(id = "address1")
     private WebElementFacade correspondentBuildingField;
 
-    @FindBy(id = "CAddressTwo")
+    @FindBy(id = "address2")
     private WebElementFacade correspondentStreetField;
 
-    @FindBy(id = "CAddressThree")
+    @FindBy(id = "address3")
     private WebElementFacade correspondentTownOrCityField;
 
-    @FindBy(id = "CPostcode")
+    @FindBy(id = "postcode")
     private WebElementFacade correspondentPostcodeField;
 
-    @FindBy(id = "Country")
+    @FindBy(id = "country")
     private WebElementFacade correspondentCountryDropdown;
 
-    @FindBy(id = "CPhone")
+    @FindBy(id = "telephone")
     private WebElementFacade correspondentTelephoneField;
 
-    @FindBy(id = "CEmail")
+    @FindBy(id = "email")
     private WebElementFacade correspondentEmailField;
 
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
+
+    @FindBy(className = "govuk-radios__label")
+    private WebElementFacade primaryCorrespondentName;
 
     @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
     private WebElementFacade additionalCorrespondentNoRadioButton;
@@ -58,6 +61,11 @@ public class RecordCorrespondentDetails extends Page {
         assertTitle("Record Correspondent Details");
     }
 
+    public void assertPrimaryCorrespondent() {
+        String expectedPrimaryCorrespondent = sessionVariableCalled("fullname");
+        assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
+    }
+
     public void clickAdditionalCorrespondentNo() {
         additionalCorrespondentNoRadioButton.click();
     }
@@ -66,16 +74,9 @@ public class RecordCorrespondentDetails extends Page {
         additionalCorrespondentYesRadioButton.click();
     }
 
-    public void enterCorrespondentTitle(String title) {
-        correspondentTitleField.sendKeys(title);
-    }
-
-    public void enterCorrespondentFirstName(String firstName) {
-        correspondentFirstNameField.sendKeys(firstName);
-    }
-
-    public void enterCorrespondentLastName(String lastName) {
-        correspondentLastNameField.sendKeys(lastName);
+    public void enterCorrespondentFullName(String fullName) {
+        correspondentFullNameField.sendKeys(fullName);
+        setSessionVariable("fullname").to(fullName);
     }
 
     public void enterCorrespondentBuilding(String building) {
@@ -106,11 +107,15 @@ public class RecordCorrespondentDetails extends Page {
         correspondenceCaseReference.sendKeys(reference);
     }
 
+    public String getPrimaryCorrespondent() {
+        return primaryCorrespondentName.getText();
+    }
+
     public void fillMandatoryFields() {
-        correspondentFirstNameField.sendKeys("Test");
-        correspondentLastNameField.sendKeys("Testing - " + generateRandomString());
-        correspondentBuildingField.sendKeys("1");
-        correspondentPostcodeField.sendKeys("S1 1AA");
+        selectCorrespondentTypeFromDropdown("Correspondent");
+        enterCorrespondentFullName("Test Testing-" + generateRandomString());
+        enterCorrespondentBuilding("1");
+        enterCorrespondentPostcode("S1 1AA");
     }
 
     public void selectCorrespondentCountry(String country) {

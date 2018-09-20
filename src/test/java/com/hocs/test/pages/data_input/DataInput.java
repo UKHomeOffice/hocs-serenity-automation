@@ -83,7 +83,7 @@ public class DataInput extends Page {
         dateCorrespondenceSentYearField.clear();
     }
 
-    public void clickAddCorrespondentButton() {
+    public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
     }
 

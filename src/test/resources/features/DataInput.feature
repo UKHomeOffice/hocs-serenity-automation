@@ -28,7 +28,7 @@ Feature: HOCS User is add data to a case
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "<field>" date
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondence Details" Page
+    Then I am taken to the "Record Correspondence Details" page
     Examples:
       | field                   |
       | Correspondence Sent     |
@@ -55,7 +55,7 @@ Feature: HOCS User is add data to a case
     When I select to correspond with "<minister>" from the search function
     Then the member is the "primary" correspondent
 
-  @HOCS-277, @HOCS-238
+  @HOCS-277, @HOCS-238 @critical
   Scenario: User adds a correspondent manually
     When I enter correspondence data manually
     Then the correspondence type is the "primary" correspondent
