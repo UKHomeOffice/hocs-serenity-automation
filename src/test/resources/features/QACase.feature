@@ -7,21 +7,19 @@ Feature: QA Case
     @HOCS-310
     Scenario - User reviews draft, rejects it and provides a rejection reason
       When I "reject" the case
-      And fill out a rejection reason
-      Then the case moves back to the "draft" stage
+      Then the case is moved to the "draft" stage
       And the case allocated to the "original drafter"
       And the "original drafter" and "nominated person" receive the "qa rejected email"
-      And I go back to the home page
+      And I am taken to the "home" page
       
     @HOCS-310
     Scenario - User reviews draft, rejects it and does not provide a rejection reason
-      When I "reject" the case
-      And I don't fill out a rejection reason
+      When I attempt to reject a case without reason
       Then an error message appears instructing me to add rejection reasons
       
     @HOCS-310
     Scenario - User reviews draft and accepts the case
       When I "accept" the case
-      Then the case moves to the "private office" stage
+      Then the case is moved to the "private office" stage
       And the "nominated person" for the next owning team receives a notification email
-      And I return to my home screen
+      And I am taken to the "home" page

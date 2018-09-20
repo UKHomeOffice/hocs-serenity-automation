@@ -8,14 +8,14 @@ Feature: Review Draft
   Scenario: Draft QA user approves case for Private Office
     When I "approve" a case
     Then the case moves to 'Private Office' Stage (see BPMN link in link section)
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-310, @HOCS-240
   Scenario: User rejects a case
     When I "reject" a case
     Then the case is returned to the Draft stage (BR - DCU MIN – 15) (see Validation for details on 'Reject' button)
     And the drafter becomes the owner
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-310, @HOCS-240
   Scenario: User does not complete a rejection note

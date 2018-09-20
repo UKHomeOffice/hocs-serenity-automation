@@ -27,7 +27,7 @@ public class NavigationStepDefs {
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
-    @Given("^I navigate to the \"([^\"]*)\" Page$")
+    @Given("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "TEST FORM":
@@ -41,7 +41,7 @@ public class NavigationStepDefs {
         }
     }
 
-    @Then("^I am taken to the \"([^\"]*)\" Page$")
+    @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
             case "CREATE SINGLE CASE":

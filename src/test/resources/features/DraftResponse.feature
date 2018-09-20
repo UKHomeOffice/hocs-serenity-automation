@@ -28,7 +28,7 @@ Feature: HOCS User is able to draft a response
     Given I select to reply by "phone"
     And I enter call notes
     When I finish drafting
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
@@ -56,7 +56,7 @@ Feature: HOCS User is able to draft a response
     And I select an "online" Quality Assurer
     When I progress the case
     Then that Quality Assurer will receive a notification to review the case
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-297, @HOCS-298, @HOCS-239
   Scenario: User selects offline QA
@@ -64,4 +64,4 @@ Feature: HOCS User is able to draft a response
     And I select an "offline" Quality Assurer
     When I progress the case
     Then that Quality Assurer will receive a notification to say they have QA’d that case
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page

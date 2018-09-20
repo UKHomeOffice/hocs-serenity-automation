@@ -8,14 +8,14 @@ Feature: HOCS User is add data to a case
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" Page
+    Then I am taken to the "Record Correspondent Details" page
 
   @HOCS-274 @HOCS-238 @critical
   Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I set the correspondence channel to "<channel>"
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondent Details" Page
+    Then I am taken to the "Record Correspondent Details" page
     Examples:
       | channel |
       | Email   |
@@ -28,7 +28,7 @@ Feature: HOCS User is add data to a case
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "<field>" date
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondence Details" Page
+    Then I am taken to the "Record Correspondence Details" page
     Examples:
       | field                   |
       | Correspondence Sent     |

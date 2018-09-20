@@ -28,7 +28,7 @@ Feature: DCU user decides how a case should be handled
   Scenario: User enters reasons for no reply and sends for closure
     When I close the case with no reply needed
     Then the case is moved to the "closure" stage
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
@@ -56,15 +56,15 @@ Feature: DCU user decides how a case should be handled
   @HOCS-258, @HOCS-237
   Scenario: Allocated case progresses
     Given I select an "FAQ" topic for a case from the dropdown
-    When I allocate the case
+    When I "allocate" the case
     Then the case progresses as per BPMN (see BPMN link)
-    And I am taken to the "<string>" Page
+    And I am taken to the "<string>" page
 
   @HOCS-259, @HOCS-237
   Scenario: User can refer a case to another Govt Department
     When I refer the case to another Government Department
     Then the case proceeds as per the BPMN (see BPMN link)
-    And I am taken to the "<string>" Page
+    And I am taken to the "<string>" page
 
   @HOCS-259, @HOCS-237
   Scenario: User does not enter department in free text field
@@ -99,9 +99,9 @@ Feature: DCU user decides how a case should be handled
   @HOCS260, @HOCS-237
   Scenario: Allocated case progresses
     Given I select a "Policy Response" topic for a case from the type function
-    When I allocate the case
+    When I "allocate" the case
     Then the case is moved to the "<string>" stage
-    And I am taken to the "to do" Page
+    And I am taken to the "to do" page
 
   @HOCS-263, @HOCS-238
   Scenario: User chooses to add another topic via type ahead function

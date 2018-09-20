@@ -1,7 +1,5 @@
 package com.hocs.test.glue;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -227,8 +225,16 @@ public class GenericInputStepDefs {
         }
     }
 
-    @When("^I allocate the case$")
-    public void iAllocateTheCase() {
+    @When("^I \"([^\"]*)\" the case$")
+    public void iActionTheCase(String action) {
+        switch (action.toUpperCase()) {
+            case "ALLOCATE":
+                break;
+            case "DISPATCH":
+                break;
+            default:
+                fail(action + " is not defined in GenericStepDefs.iActionTheCase");
+        }
 
     }
 
@@ -256,5 +262,10 @@ public class GenericInputStepDefs {
                 fail(stage + " is not defined in GenericStepDefs.theCaseIsReturnedToTheStage");
 
         }
+    }
+
+    @Then("^the case is completed$")
+    public void theCaseIsCompleted()  {
+
     }
 }

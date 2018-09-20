@@ -6,6 +6,6 @@ Feature: Send Copy to Number 10
     
     @HOCS-471
     Scenario: User needs to send a copy of the case to Number 10
-    When I select to dispatch the case
+    When I "dispatch" the case
     Then the case is completed
-    And I am retunred to my home screen
+    And I am taken to the "home" page
