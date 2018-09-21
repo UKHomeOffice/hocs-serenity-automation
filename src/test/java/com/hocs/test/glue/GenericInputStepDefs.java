@@ -1,6 +1,6 @@
 package com.hocs.test.glue;
 
-import static net.serenitybdd.core.Serenity.*;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -13,7 +13,6 @@ import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.WebDriver;
@@ -231,9 +230,18 @@ public class GenericInputStepDefs {
     public void iActionTheCase(String action) {
         setSessionVariable("caseId").to(page.getCaseId());
         switch (action.toUpperCase()) {
+            case "ACCEPT":
+                page.clickAcceptButton();
+                page.clickContinueButton();
+                break;
             case "ALLOCATE":
                 break;
             case "DISPATCH":
+                break;
+            case "REJECT":
+                page.clickRejectButton();
+                page.clickContinueButton();
+                page.enterRejectionNotes();
                 break;
             default:
                 fail(action + " is not defined in GenericStepDefs.iActionTheCase");

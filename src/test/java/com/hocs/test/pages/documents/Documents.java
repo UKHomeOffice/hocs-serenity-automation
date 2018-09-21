@@ -11,10 +11,10 @@ class Documents extends Page {
     @Managed
     WebDriver driver;
 
-    @FindBy(id = "")
+    @FindBy(linkText = "Preview")
     private WebElementFacade previewDocument;
 
-    @FindBy(id = "")
+    @FindBy(linkText = "Download")
     private WebElementFacade downloadDocument;
 
     @FindBy(id = "")

@@ -47,7 +47,7 @@ public class NavigationStepDefs {
             case "CREATE SINGLE CASE":
                 createCase.assertPageTitle();
                 break;
-            case "HOCS HOME":
+            case "HOME":
                 homepage.assertPageTitle();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
