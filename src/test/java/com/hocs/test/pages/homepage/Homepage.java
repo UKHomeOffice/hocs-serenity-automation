@@ -10,6 +10,7 @@ import static org.hamcrest.core.Is.is;
 import com.hocs.test.pages.Page;
 import java.util.List;
 import java.util.Map;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
@@ -94,7 +95,6 @@ public class Homepage extends Page {
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
-
         assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
     }
 

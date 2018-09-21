@@ -92,8 +92,22 @@ public class CaseDecisionStepDefs {
 
     }
 
-    @When("^I close the case with no reply needed$")
-    public void iCloseTheCaseWithNoReplyNeeded() {
+    @When("^I close the case with a decision of \"([^\"]*)\"$")
+    public void iCloseTheCaseWithADecisionOf(String status) {
+        page.getCaseId();
+        switch (status.toUpperCase()) {
+            case "REFER TO OGD":
+                markUpDecision.clickReferToOgdRadioButton();
+                break;
+            case "NO REPLY NEEDED":
+                markUpDecision.clickNoReplyNeededRadioButton();
+                break;
+            default:
+                fail(status
+                        + " is not defined within CaseDecisionStepDefs.iCloseTheCaseWithADecisionOf");
+        }
+        page.clickContinueButton();
+        page.clickFinishButton();
 
     }
 

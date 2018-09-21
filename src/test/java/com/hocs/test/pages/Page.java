@@ -481,7 +481,6 @@ public class Page extends PageObject {
 
     public String getCaseId() {
         setSessionVariable("caseId").to(caseId.getText());
-        System.out.println(caseId.getText());
         return caseId.getText();
     }
 

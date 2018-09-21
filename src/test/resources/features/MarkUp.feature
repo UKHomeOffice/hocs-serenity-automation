@@ -2,7 +2,7 @@ Feature: DCU user decides how a case should be handled
 
   Background:
     Given I am user "Dom"
-    And I am at the "mark up" stage
+    And I am at the "markup" stage
 
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -16,8 +16,14 @@ Feature: DCU user decides how a case should be handled
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
-    When I select an initial decision of "Transfer to OGD"
+    When I select an initial decision of "Refer to OGD"
     Then a mandatory "Topics" free text field is available
+
+  @HOCS-257, @HOCS-237
+  Scenario: User enters reasons for no reply and sends for closure
+    When I close the case with a decision of "Refer to OGD"
+    Then I am taken to the "home" page
+    And the case is moved to the "Transfer Confirmation" stage
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Reply Needed
@@ -26,9 +32,9 @@ Feature: DCU user decides how a case should be handled
 
   @HOCS-257, @HOCS-237
   Scenario: User enters reasons for no reply and sends for closure
-    When I close the case with no reply needed
-    Then the case is moved to the "closure" stage
-    And I am taken to the "to do" page
+    When I close the case with a decision of "no reply needed"
+    Then I am taken to the "home" page
+    And the case is moved to the "No Reply Needed Confirmation" stage
 
   @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
