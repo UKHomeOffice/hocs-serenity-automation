@@ -13,7 +13,7 @@ Feature: Review Draft
   @HOCS-310, @HOCS-240
   Scenario: User rejects a case
     When I "reject" a case
-    Then the case is returned to the Draft stage (BR - DCU MIN – 15) (see Validation for details on 'Reject' button)
+    Then the case is moved to the "draft" stage
     And the drafter becomes the owner
     And I am taken to the "to do" page
 

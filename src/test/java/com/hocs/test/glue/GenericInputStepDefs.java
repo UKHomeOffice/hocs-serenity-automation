@@ -1,5 +1,6 @@
 package com.hocs.test.glue;
 
+import static net.serenitybdd.core.Serenity.*;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -12,6 +13,7 @@ import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.WebDriver;
@@ -227,6 +229,7 @@ public class GenericInputStepDefs {
 
     @When("^I \"([^\"]*)\" the case$")
     public void iActionTheCase(String action) {
+        setSessionVariable("caseId").to(page.getCaseId());
         switch (action.toUpperCase()) {
             case "ALLOCATE":
                 break;
@@ -252,21 +255,9 @@ public class GenericInputStepDefs {
         }
     }
 
-    @Then("^the case is returned to the \"([^\"]*)\" stage$")
-    public void theCaseIsReturnedToTheStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "MARKUP":
-                //todo: getCurrentStage API call needed
-                break;
-            default:
-                fail(stage + " is not defined in GenericStepDefs.theCaseIsReturnedToTheStage");
-
-        }
-    }
-
-
     @Then("^the case is completed$")
     public void theCaseIsCompleted() {
+        homepage.assertCaseIsComplete();
     }
 
     @Then("^\"([^\"]*)\" link is displayed$")

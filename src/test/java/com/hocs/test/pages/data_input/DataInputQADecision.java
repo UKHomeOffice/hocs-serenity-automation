@@ -9,9 +9,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInputQADecision extends Page {
 
-    @FindBy(className = "govuk-caption-l")
-    private WebElementFacade caseId;
-
     @FindBy(css = "label[for='DataInputQADecision-ACCEPT']")
     private WebElementFacade acceptDataInputQaDecision;
 
@@ -26,12 +23,6 @@ public class DataInputQADecision extends Page {
     public void rejectDataInputQa() {
         getCaseId();
         rejectDataInputQaDecision.click();
-    }
-
-    private String getCaseId() {
-        setSessionVariable("caseId").to(caseId.getText());
-        System.out.println(caseId.getText());
-        return caseId.getText();
     }
 
 }
