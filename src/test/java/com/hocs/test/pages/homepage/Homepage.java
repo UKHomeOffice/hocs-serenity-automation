@@ -15,6 +15,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
@@ -80,6 +81,14 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstTroMarkupAllocate;
+
+    public void assertCaseIsComplete() {
+        WebElementFacade caseReference = (WebElementFacade) driver.findElement(
+                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
+                        + "')]"));
+
+        assertThat(isElementDisplayed(caseReference), is(false));
+    }
 
     public void assertCaseStageInWorkstacks(String expectedStage) {
         String actualStage = driver.findElement(

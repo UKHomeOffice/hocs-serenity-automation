@@ -4,15 +4,19 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
+import com.hocs.test.pages.draft.DraftingTeamDecision;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class DraftResponseStepDefs {
 
-    private Draft draft;
+    Draft draft;
 
-    private Page page;
+    DraftingTeamDecision draftingTeamDecision;
+
+    Page page;
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
@@ -96,5 +100,39 @@ public class DraftResponseStepDefs {
         draft.clickAnsweredByMyTeamNoRadioButton();
         page.clickContinueButton();
         page.enterRejectionNotes();
+    }
+
+    @When("^I select a case \"([^\"]*)\" answered by my team$")
+    public void iSelectACaseAnsweredByMyTeam(String decision) {
+        page.getCaseId();
+
+        switch (decision.toUpperCase()) {
+            case "SHOULD":
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                break;
+            case "SHOULD NOT":
+                draftingTeamDecision.clickRejectInitialDraftDecision();
+                break;
+            default:
+                fail(decision
+                        + " is not defined in DraftResponseStepDefs.iSelectACaseAnsweredByMyTeam");
+        }
+        page.clickContinueButton();
+    }
+
+    @When("^I \"([^\"]*)\" the call details$")
+    public void iTheCallDetails(String callDetails)  {
+        switch (callDetails.toUpperCase()) {
+            case "COMPLETE":
+                draftingTeamDecision.enterPhoneCallSummaryNote();
+                page.clickFinishButton();
+                break;
+            case "DO NOT COMPLETE":
+                page.clickFinishButton();
+                break;
+            default:
+                fail(callDetails
+                        + " is not defined in DraftResponseStepDefs.iTheCallDetails");
+        }
     }
 }

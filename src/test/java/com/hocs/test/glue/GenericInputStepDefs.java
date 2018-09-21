@@ -1,5 +1,6 @@
 package com.hocs.test.glue;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
@@ -227,10 +228,20 @@ public class GenericInputStepDefs {
 
     @When("^I \"([^\"]*)\" the case$")
     public void iActionTheCase(String action) {
+        setSessionVariable("caseId").to(page.getCaseId());
         switch (action.toUpperCase()) {
+            case "ACCEPT":
+                page.clickAcceptButton();
+                page.clickContinueButton();
+                break;
             case "ALLOCATE":
                 break;
             case "DISPATCH":
+                break;
+            case "REJECT":
+                page.clickRejectButton();
+                page.clickContinueButton();
+                page.enterRejectionNotes();
                 break;
             default:
                 fail(action + " is not defined in GenericStepDefs.iActionTheCase");
@@ -252,21 +263,9 @@ public class GenericInputStepDefs {
         }
     }
 
-    @Then("^the case is returned to the \"([^\"]*)\" stage$")
-    public void theCaseIsReturnedToTheStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "MARKUP":
-                //todo: getCurrentStage API call needed
-                break;
-            default:
-                fail(stage + " is not defined in GenericStepDefs.theCaseIsReturnedToTheStage");
-
-        }
-    }
-
-
     @Then("^the case is completed$")
     public void theCaseIsCompleted() {
+        homepage.assertCaseIsComplete();
     }
 
     @Then("^\"([^\"]*)\" link is displayed$")
@@ -278,6 +277,22 @@ public class GenericInputStepDefs {
             default:
                 fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
         }
+    }
+
+    @And("^I \"([^\"]*)\" the rejection note$")
+    public void iTheRejectionNote(String rejection) {
+        switch (rejection.toUpperCase()) {
+            case "COMPLETE":
+                page.enterRejectionNotes();
+                page.clickFinishButton();
+                break;
+            case "DO NOT COMPLETE":
+                page.clickFinishButton();
+                break;
+            default:
+                fail(rejection + " is not defined in GenericStepDefs.iTheRejectionNote");
+        }
+
     }
 }
 

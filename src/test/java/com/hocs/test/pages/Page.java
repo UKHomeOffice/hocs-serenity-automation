@@ -65,6 +65,9 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
 
+    @FindBy(className = "govuk-caption-l")
+    private WebElementFacade caseId;
+
     @FindBy(css = "[class = 'govuk-back-link ']")
     private WebElementFacade cancelButton;
 
@@ -474,6 +477,12 @@ public class Page extends PageObject {
         }
 
         return randStr.toString();
+    }
+
+    public String getCaseId() {
+        setSessionVariable("caseId").to(caseId.getText());
+        System.out.println(caseId.getText());
+        return caseId.getText();
     }
 
     protected String getErrorDetails() {
