@@ -278,5 +278,21 @@ public class GenericInputStepDefs {
                 fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
         }
     }
+
+    @And("^I \"([^\"]*)\" the rejection note$")
+    public void iTheRejectionNote(String rejection) {
+        switch (rejection.toUpperCase()) {
+            case "COMPLETE":
+                page.enterRejectionNotes();
+                page.clickFinishButton();
+                break;
+            case "DO NOT COMPLETE":
+                page.clickFinishButton();
+                break;
+            default:
+                fail(rejection + " is not defined in GenericStepDefs.iTheRejectionNote");
+        }
+
+    }
 }
 

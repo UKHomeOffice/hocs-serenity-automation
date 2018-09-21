@@ -4,7 +4,7 @@ import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-class DraftingTeamDecision extends Page {
+public class DraftingTeamDecision extends Page {
 
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade initialDraftingDecisionAccept;
