@@ -7,17 +7,18 @@ Feature: DCU user decides how a case should be handled
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "Policy Response"
-    Then I have to allocate the case a "Topic"
+    Then a mandatory "Topic" free text field is available
 
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "FAQ"
-    Then I have to allocate the case a "Topic"
+    Then a mandatory "Topic" free text field is available
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "Refer to OGD"
-    Then I enter the transferring department name
+    And I enter "Insert Some Text Here" in the "Other Government Department" box
+    Then need something that should happen
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Reply Needed
@@ -26,7 +27,7 @@ Feature: DCU user decides how a case should be handled
 
 @HOCS-259, @HOCS-237
   Scenario: User does not enter department in free text field
-    When I do not state the Other Government Department for assignment
+    When I do not enter an "Other Government Department"
     Then An error message is displayed
 
   @HOCS-257, @HOCS-237
