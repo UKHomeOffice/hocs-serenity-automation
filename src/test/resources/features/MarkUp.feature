@@ -1,4 +1,4 @@
-eature: DCU user decides how a case should be handled
+Feature: DCU user decides how a case should be handled
 
   Background:
     Given I am user "Dom"
