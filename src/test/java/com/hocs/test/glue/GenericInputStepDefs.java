@@ -22,13 +22,13 @@ public class GenericInputStepDefs {
     @Managed
     WebDriver driver;
 
-    private DataInput dataInput;
+    DataInput dataInput;
 
-    private Page page;
+    Page page;
 
     TestForm testForm;
 
-    private Homepage homepage;
+    Homepage homepage;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -201,8 +201,8 @@ public class GenericInputStepDefs {
     }
 
     @Then("^the case is moved to the \"([^\"]*)\" stage$")
-    public void theCaseIsMovedToTheStage(String expectedStage) {
-        homepage.assertCaseStageInWorkstacks(expectedStage);
+    public void theCaseIsMovedToTheStage(String expectedStage, WebDriver driver) {
+        homepage.assertCaseStageInWorkstacks(expectedStage, driver);
 
     }
 

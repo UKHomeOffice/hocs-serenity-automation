@@ -91,7 +91,7 @@ public class Homepage extends Page {
         assertThat(isElementDisplayed(caseReference), is(false));
     }
 
-    public void assertCaseStageInWorkstacks(String expectedStage) {
+    public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
