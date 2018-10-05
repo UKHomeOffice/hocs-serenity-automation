@@ -201,9 +201,8 @@ public class GenericInputStepDefs {
     }
 
     @Then("^the case is moved to the \"([^\"]*)\" stage$")
-    public void theCaseIsMovedToTheStage(String expectedStage, WebDriver driver) {
+    public void theCaseIsMovedToTheStage(String expectedStage) {
         homepage.assertCaseStageInWorkstacks(expectedStage, driver);
-
     }
 
 

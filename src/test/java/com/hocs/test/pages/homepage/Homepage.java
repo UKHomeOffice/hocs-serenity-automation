@@ -10,13 +10,11 @@ import static org.hamcrest.core.Is.is;
 import com.hocs.test.pages.Page;
 import java.util.List;
 import java.util.Map;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
@@ -92,6 +90,7 @@ public class Homepage extends Page {
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {
+
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
@@ -119,31 +118,57 @@ public class Homepage extends Page {
         firstDataInputCasework.click();
     }
 
-    public void clickFirstDtenDataInputAllocate() { firstDtenDataInputAllocate.click(); }
+    public void clickFirstDtenDataInputAllocate() {
+        firstDtenDataInputAllocate.click();
+    }
 
-    public void clickFirstDtenDataInputCasework() { firstDtenDataInputCasework.click(); }
+    public void clickFirstDtenDataInputCasework() {
+        firstDtenDataInputCasework.click();
+    }
 
-    public void clickFirstMinDataInputAllocate() { firstMinDataInputAllocate.click(); }
+    public void clickFirstMinDataInputAllocate() {
+        firstMinDataInputAllocate.click();
+    }
 
-    public void clickFirstMinDataInputCasework() { firstMinDataInputCasework.click(); }
+    public void clickFirstMinDataInputCasework() {
+        firstMinDataInputCasework.click();
+    }
 
-    public void clickFirstTroDataInputAllocate() { firstTroDataInputAllocate.click(); }
+    public void clickFirstTroDataInputAllocate() {
+        firstTroDataInputAllocate.click();
+    }
 
-    public void clickFirstTroDataInputCasework() { firstTroDataInputCasework.click(); }
+    public void clickFirstTroDataInputCasework() {
+        firstTroDataInputCasework.click();
+    }
 
-    public void clickFirstDataInputQaAllocate() { firstDataInputQaAllocate.click();}
+    public void clickFirstDataInputQaAllocate() {
+        firstDataInputQaAllocate.click();
+    }
 
-    public void clickFirstDataInputQaCasework() { firstDataInputQaCasework.click();}
+    public void clickFirstDataInputQaCasework() {
+        firstDataInputQaCasework.click();
+    }
 
-    public void clickFirstMarkupAllocate() { firstMarkupAllocate.click(); }
+    public void clickFirstMarkupAllocate() {
+        firstMarkupAllocate.click();
+    }
 
-    public void clickFirstMarkupCasework() { firstMarkupCasework.click(); }
+    public void clickFirstMarkupCasework() {
+        firstMarkupCasework.click();
+    }
 
-    public void clickFirstMinMarkupAllocate() {firstMinMarkupAllocate.click(); }
+    public void clickFirstMinMarkupAllocate() {
+        firstMinMarkupAllocate.click();
+    }
 
-    public void clickFirstDtenMarkupAllocate() {firstDtenMarkupAllocate.click(); }
+    public void clickFirstDtenMarkupAllocate() {
+        firstDtenMarkupAllocate.click();
+    }
 
-    public void clickFirstTroMarkupAllocate() {firstTroMarkupAllocate.click(); }
+    public void clickFirstTroMarkupAllocate() {
+        firstTroMarkupAllocate.click();
+    }
 
     public void clickTestFormLink() {
         testFormLink.click();
