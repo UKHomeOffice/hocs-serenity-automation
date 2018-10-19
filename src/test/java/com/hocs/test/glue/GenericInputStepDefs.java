@@ -150,6 +150,7 @@ public class GenericInputStepDefs {
 
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
+        homepage.clickMyWorkstack();
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
                 homepage.clickFirstDataInputAllocate();
@@ -248,7 +249,7 @@ public class GenericInputStepDefs {
 
     }
 
-    @But("^I do not enter a \"([^\"]*)\"$")
+    @But("^I do not enter (?:a|an) \"([^\"]*)\"$")
     public void iDoNotEnterA(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "CORRESPONDENCE RECEIVED DATE":
@@ -256,6 +257,8 @@ public class GenericInputStepDefs {
                 break;
             case "CORRESPONDENCE SENT DATE":
                 dataInput.clearDateCorrespondenceSent();
+                break;
+            case "OTHER GOVERNMENT DEPARTMENT":
                 break;
             default:
                 fail(fieldName + " is not defined in GenericStepDefs.iDoNotEnterA");

@@ -30,11 +30,17 @@ public class Homepage extends Page {
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
+    @FindBy(className = "card__body")
+    private WebElementFacade myWorkstacks;
+
     @FindBy(className = "govuk-table")
     private WebElementFacade workstackTable;
 
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
+
+    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a")
+    private WebElementFacade firstDataInput;
 
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstDataInputAllocate;
@@ -110,6 +116,10 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
+    public void clickFirstDataInput() {
+        firstDataInput.click();
+    }
+
     public void clickFirstDataInputAllocate() {
         firstDataInputAllocate.click();
     }
@@ -168,6 +178,10 @@ public class Homepage extends Page {
 
     public void clickFirstTroMarkupAllocate() {
         firstTroMarkupAllocate.click();
+    }
+
+    public void clickMyWorkstack() {
+        myWorkstacks.click();
     }
 
     public void clickTestFormLink() {

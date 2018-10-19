@@ -2,7 +2,7 @@ package config;
 
 public enum Users {
 
-    DOM("dominic.barnett-may@digital.homeoffice.gov.uk", "bourne88"),
+    DCU("smoke_test_user_dcu", "Password1"),
     TEST("","");
 
     private final String username;

@@ -1,7 +1,7 @@
 Feature: HOCS User is able to create a case
 
   Background:
-    Given I am user "Dom"
+    Given I am user "DCU"
 
   @HOCS-341 @HOCS-491 @HOCS-236 @critical
   Scenario: I must select a type of correspondent

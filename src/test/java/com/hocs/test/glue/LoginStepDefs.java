@@ -36,8 +36,8 @@ public class LoginStepDefs {
         navigateToHocs();
         Serenity.setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
-            case "DOM":
-                enterHocsLoginDetails(DOM);
+            case "DCU":
+                enterHocsLoginDetails(DCU);
                 break;
             case "TEST":
                 enterHocsLoginDetails(TEST);
