@@ -71,7 +71,7 @@ public class AddDocuments extends Page {
     }
 
     public void uploadDocument() {
-        upload("target/test-classes/documents/test1.docx").to(addDocument);
+        upload("src/test/resources/documents/test1.docx").to(addDocument);
     }
 
 }

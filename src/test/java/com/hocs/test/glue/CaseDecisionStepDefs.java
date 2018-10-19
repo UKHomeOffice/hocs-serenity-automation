@@ -134,7 +134,7 @@ public class CaseDecisionStepDefs {
             case "DRAFTING TEAM":
                 break;
             default:
-                fail();
+                fail(amendment + " is not defined within CaseDecisionStepDefs.iClickToAmendThe");
         }
     }
 

@@ -1,7 +1,7 @@
 Feature: HOCS User is able to QA Data Input
 
   Background:
-    Given I am user "Dom"
+    Given I am user "DCU"
     And I am at the "Data Input QA" stage
 
   @HOCS-441 @HOCS-438
