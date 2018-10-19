@@ -150,6 +150,7 @@ public class GenericInputStepDefs {
 
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
+        homepage.clickMyWorkstack();
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
                 homepage.clickFirstDataInputAllocate();

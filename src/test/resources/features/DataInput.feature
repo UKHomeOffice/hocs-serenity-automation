@@ -4,13 +4,13 @@ Feature: HOCS User is add data to a case
     Given I am user "DCU"
     And I am at the "Data Input" stage
 
-  @HOCS-274 @HOCS-238 @critical
+  @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed
 
-  @HOCS-274 @HOCS-238 @critical
+  @HOCS-274 @HOCS-238
   Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I set the correspondence channel to "<channel>"
@@ -23,7 +23,7 @@ Feature: HOCS User is add data to a case
       | Phone   |
       | No. 10  |
 
-  @HOCS-274 @HOCS-238 @critical
+  @HOCS-274 @HOCS-238
   Scenario Outline: DCU data entry user must enter valid dates on Data Input
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "<field>" date
@@ -34,7 +34,7 @@ Feature: HOCS User is add data to a case
       | Correspondence Sent     |
       | Correspondence Received |
 
-  @HOCS-274 @HOCS-238 @critical
+  @HOCS-274 @HOCS-238
   Scenario Outline: DCU data entry user cannot leave dates blank on Data Input
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I do not enter a "<field>"
@@ -54,7 +54,7 @@ Feature: HOCS User is add data to a case
     And they become a correspondent on the case
 
 
-  @HOCS-277, @HOCS-238 @critical
+  @HOCS-277, @HOCS-238
   Scenario: User adds a correspondent manually
     When I add a correspondent
     And they are not a member
