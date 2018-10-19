@@ -2,19 +2,21 @@ Feature:  HOCS User is able to Dispatch a Response
 
   Background:
     Given I am user "<string>"
-    And I am at the "Drafting" stage
+    And I am at the "Dispatch" stage
     
-  @HOCS-443
+  @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
-    When I "reject" the case
+    When I select the "reject"
+    And I fill in a rejection reason
     Then the case is passed back to the private office stage
-    And the "original drafter" and "nominated person" receive the "qa rejected email"
-    And I am taken to the "home" page
+    And the "nominated person" for the "private office team" receive the "dispatch rejected email"
+    And I am returned to my home screen
     
-  @HOCS-443
+  @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
-    When I attempt to reject a case without reason
-    Then an error message appears instructing me to add rejection reasons
+    When I select the "reject"
+    And I don't fill in a rejection reason
+    Then I receive an error message
     
   @HOCS-443
   Scenario: User has a hard copy of a case to dispatch, they decide to accept the case
