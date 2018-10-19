@@ -17,7 +17,7 @@ Feature: QA Case
       When I attempt to reject a case without reason
       Then an error message appears instructing me to add rejection reasons
       
-    @HOCS-310
+    @HOCS-309
     Scenario: User reviews draft and accepts the case
       When I "accept" the case
       Then the case is moved to the "private office" stage
