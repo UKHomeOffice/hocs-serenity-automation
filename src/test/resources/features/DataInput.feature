@@ -47,23 +47,22 @@ Feature: HOCS User is add data to a case
 
   @HOCS-276, @HOCS-238
   Scenario: User can select a member John Bercow from the dropdown
-    When I select to add a correspondent
-    And I state the correspondent is a member
-    And I start to type in John Bercow
-    Then I select John Bercow 
-    And they become a correspondent on the case
+    Given I select to add a correspondent that "is" a member
+    When I enter "<string>" in the "search" field
+    And I select the correspondent
+    Then they should be added to the list of correspondents
 
 
   @HOCS-277, @HOCS-238
   Scenario: User adds a correspondent manually
-    When I add a correspondent
-    And they are not a member
-    And I enter their "full name"
-    And I enter their "address"
-    Then they become a correspondent on the case
+    When I select to add a correspondent that "is not" a member
+    And I enter "<string>" in the "Full Name" field
+    And I enter "<string>" in the "Address" field
+    Then they should be added to the list of correspondents
 
   @HOCS-394, @HOCS-238
   Scenario: User adds more than one correspondent
+    Given a case has a "primary" correspondent
     When I add an additional correspondent
     Then I need to choose a "primary" correspondent
 

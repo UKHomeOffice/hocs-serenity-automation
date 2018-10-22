@@ -74,13 +74,14 @@ public class GenericInputStepDefs {
         }
     }
 
-    @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" box")
-    public void iEnterIntoTheBox(String input, String element) {
+    @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
+    public void iEnterTextIntoTheNominatedField(String input, String element) {
         switch (element.toUpperCase()) {
             case "":
                 break;
             default:
-                fail(element + " is not defined within GenericInputStepDefs");
+                fail(element
+                        + " is not defined within GenericInputStepDefs.iEnterTextIntoTheNominatedField()");
         }
     }
 
@@ -295,6 +296,18 @@ public class GenericInputStepDefs {
                 fail(rejection + " is not defined in GenericStepDefs.iTheRejectionNote");
         }
 
+    }
+
+    @Given("^I add (\\d+) \"([^\"]*)\" to a case$")
+    public void iAddToACase(int number, String addition) throws Throwable {
+        for (int i = 0; i < number; i++) {
+            switch (addition.toUpperCase()) {
+                case "TOPICS":
+                    break;
+                default:
+                    fail(addition + "is not defined in GenericStepDefs.iAddToACase");
+            }
+        }
     }
 }
 

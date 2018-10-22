@@ -7,7 +7,7 @@ Feature:  HOCS User is able to Dispatch a Response
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
     When I "reject" the case
-    And I enter "<string>" in the "Reject Reason" box
+    And I enter "<string>" in the "Reject Reason" field
     Then the case is moved to the "Private Office" stage
     And the "nominated person" for the "private office team" receive the "dispatch rejected email"
     And I am returned to my home screen

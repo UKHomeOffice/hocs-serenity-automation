@@ -7,7 +7,9 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
@@ -110,5 +112,23 @@ public class DataInputStepDefs {
                 fail(channel
                         + " is not defined in DataInputStepDefs.iSetTheCorrespondenceChannelTo()");
         }
+    }
+
+    @When("^I select to add a correspondent that \"([^\"]*)\" a member$")
+    public void iSelectToAddACorrespondent(String member) {
+        switch (member.toUpperCase()) {
+            case "IS":
+                break;
+            case "IS NOT":
+                break;
+                default:
+                    fail(member + "is defined in DataInputStepDefs.iSelectToAddACorrespondent");
+        }
+
+    }
+
+    @Then("^they should be added to the list of correspondents$")
+    public void theyShouldBeAddedToTheListOfCorrespondents() {
+        recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 }

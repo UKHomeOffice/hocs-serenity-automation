@@ -17,7 +17,7 @@ Feature: DCU user decides how a case should be handled
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "Refer to OGD"
-    And I enter "Insert Some Text Here" in the "Other Government Department" box
+    And I enter "Insert Some Text Here" in the "Other Government Department" field
     Then need something that should happen
 
   @HOCS-266, @HOCS-237
@@ -45,12 +45,13 @@ Feature: DCU user decides how a case should be handled
     
   @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User selects primary topic
-    When I have added more than "1" "topic" to the case
-    Then I choose a "primary topic" from the "topics" I have choose
+    Given I add 2 "topics" to a case
+    When I select a primary topic
+    Then the topic should be set as the "primary" topic
    
   @HOCS-260, @HOCS-262, @HOCS-237
   Scenario: User selects Policy Response and has selected a Topic
-    When I select a "Policy Response"
+    When I select a "Policy Response" topic for a case from the dropdown
     And I allocate the case a "Topic"
     Then the "answering unit" is set to the "unit" that is linked to the "primary topic" 
     And the "answering team" is set to the "team" that is linked to the "primary topic"
