@@ -4,6 +4,7 @@ This automated test pack uses the [Serenity BDD](http://www.thucydides.info/docs
 
 For more information, please consult the project [Wiki](https://github.com/UKHomeOffice/hocs-serenity-automation/wiki).
 
+
 ## Requirements
 
 * [JDK 10](http://www.oracle.com/technetwork/java/javase/downloads/index.html) or above
