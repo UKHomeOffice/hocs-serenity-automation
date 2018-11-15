@@ -108,6 +108,12 @@ public class Homepage extends Page {
                 hasItem(containsString(sessionVariableCalled("caseReference"))));
     }
 
+    public void assertCreateSingleCaseIsDisplayed() {
+        assertThat(isElementDisplayed(createSingleCase), is(true));
+    }
+
+    Homepage homepage;
+
     public void clickCreateBulkCases() {
         createBulkCases.click();
     }
