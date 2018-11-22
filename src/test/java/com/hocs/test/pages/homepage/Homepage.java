@@ -112,8 +112,6 @@ public class Homepage extends Page {
         assertThat(isElementDisplayed(createSingleCase), is(true));
     }
 
-    Homepage homepage;
-
     public void clickCreateBulkCases() {
         createBulkCases.click();
     }

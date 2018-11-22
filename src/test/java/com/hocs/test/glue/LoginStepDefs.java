@@ -54,6 +54,7 @@ public class LoginStepDefs {
                 break;
             case "DANNY":
                 enterHocsLoginDetails(DANNY);
+                break;
             default:
                 fail(user + " is not defined with LoginStepDefs.iLoginAs()");
         }
