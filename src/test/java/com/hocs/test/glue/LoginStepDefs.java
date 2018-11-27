@@ -142,8 +142,8 @@ public class LoginStepDefs {
         String baseUrl = "";
 
         if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'DEV'");
-            baseUrl = Environments.DEV.getEnvironmentURL();
+            System.out.println("Environment parameter not set. Defaulting to 'QA'");
+            baseUrl = Environments.QA.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
                 case "DEV":
