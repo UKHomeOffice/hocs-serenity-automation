@@ -54,9 +54,9 @@ Feature: Team members can allocate work
       #Teams are assigned by business rules IE DCU MIN cases goto Team A so I should name the teams DCU/TRO/PolR etc
       Given I am user "TEAM_AandC"
       And I create 'created' 'team A' cases
-      # Where created is 5
+      # I create '5' 'team A' cases
       And I create 'created' 'team C' cases
-      # Where created is 3
+      # I create '3' 'team C' cases
       And assign 'assigned' 'thisTeam' cases to me
       # assign '3' 'team A' cases to me
       And assign 'assigned' 'team A' to another team member
