@@ -4,8 +4,7 @@ public enum Environments {
 
     LOCAL("http://localhost"),
     DEV("https://dev.cs-notprod.homeoffice.gov.uk/"),
-    QA("https://qa.cs-notprod.homeoffice.gov.uk/"),
-    CI("http://frontend/");
+    QA("https://qa.cs-notprod.homeoffice.gov.uk/");
 
     private final String hostname;
 

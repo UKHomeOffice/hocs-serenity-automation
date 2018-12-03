@@ -39,7 +39,7 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
 
-    @FindBy(linkText = "Workstacks")
+    @Findby(linkText = "Workstacks")
     private WebElementFacade workstacksLink;
 
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a")

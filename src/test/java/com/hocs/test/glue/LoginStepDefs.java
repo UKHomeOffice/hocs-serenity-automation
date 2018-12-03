@@ -155,9 +155,6 @@ public class LoginStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
-                case "CI":
-                    baseUrl = Environments.CI.getEnvironmentURL();
-                    break;
                 default:
                     fail("Environment must be set to LOCAL, DEV or QA");
             }
