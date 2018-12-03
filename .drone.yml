@@ -156,7 +156,7 @@ services:
     image: quay.io/ukhomeofficedigital/hocs-casework
     environment:
       SPRING_PROFILES_ACTIVE: 'development, local'
-      SERVER_PORT: 8080
+      SERVER_PORT: '8080'
       CASE_QUEUE_NAME: 'case-queue'
       CASE_QUEUE_DLQ_NAME: 'case-queue-dlq'
       DB_HOST: 'postgres'
@@ -166,7 +166,7 @@ services:
     image: quay.io/ukhomeofficedigital/hocs-workflow
     environment:
       SPRING_PROFILES_ACTIVE: 'development, local'
-      SERVER_PORT: 8080
+      SERVER_PORT: '8080'
       CASE_QUEUE_NAME: 'case-queue'
       CASE_QUEUE_DLQ_NAME: 'case-queue-dlq'
       DOCS_QUEUE_NAME: 'document-queue'
@@ -174,7 +174,7 @@ services:
       HOCS_URL: 'http://localhost:8080'
       HOCS_CASE_SERVICE: 'http://casework:8080'
       HOCS_DOCUMENT_SERVICE: 'http://documents:8080'
-      HOCS_INFO_SERVICE: 'http://info'
+      HOCS_INFO_SERVICE: 'http://info:8080'
       DB_HOST: 'postgres'
       AWS_LOCAL_HOST: 'localstack'
 
@@ -182,7 +182,7 @@ services:
     image: quay.io/ukhomeofficedigital/hocs-info-service
     environment:
       SPRING_PROFILES_ACTIVE: 'development, local'
-      SERVER_PORT: 8080
+      SERVER_PORT: '8080'
       DB_HOST: 'postgres'
 
   converter:
@@ -192,7 +192,7 @@ services:
     image: quay.io/ukhomeofficedigital/hocs-docs
     environment:
       SPRING_PROFILES_ACTIVE: 'development, local, postgres'
-      SERVER_PORT: 8080
+      SERVER_PORT: '8080'
       DOCS_QUEUE_NAME: 'document-queue'
       DOCS_QUEUE_DLQ_NAME: 'document-queue-dlq'
       CASE_QUEUE_NAME: 'case-queue'
