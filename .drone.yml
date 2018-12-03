@@ -1,4 +1,15 @@
 pipeline:
+  wait-for-keycloak:
+    image: quay.io/ukhomeofficedigital/hocs-docker-tools:build-4
+    commands:
+      - |
+        until $(curl --output /dev/null --silent --head --fail http://keycloak:8080/auth/realms/master/.well-known/openid-configuration); do
+          sleep 5
+        done
+      - |
+        export TKN=$(curl -X POST 'http://keycloak:8080/auth/realms/master/protocol/openid-connect/token' -H "Content-Type: application/x-www-form-urlencoded" -d "username=admin" -d 'password=password1' -d 'grant_type=password' -d 'client_id=admin-cli' | jq -r '.access_token')
+      - |
+        curl -vX POST http://keycloak:8080/auth/admin/realms -d @keycloak/local-realm.json --header "Authorization: Bearer $TKN" --header "Content-Type: application/json"
 
   my-build:
     image: docker:18.03
@@ -8,7 +19,6 @@ pipeline:
       - docker build -t hocs_serenity_automation .
       - docker run hocs_serenity_automation
     when:
-      branch: master
       event: push
 
   image_to_quay:
@@ -41,13 +51,14 @@ pipeline:
 
   execute-tests:
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    environment:
+      ENVIRONMENT: 'CI'
     secrets:
        - artifactory_username
        - artifactory_password
     commands:
       - sh bin/smoke-tests.sh
     when:
-      branch: master
       event: push
 
 services:
@@ -67,3 +78,129 @@ services:
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: "4444"
       DISPLAY: ":98.0"
+
+  keycloak:
+    image: jboss/keycloak:master
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password1
+      DB_VENDOR: h2
+  postgres:
+    image: quay.io/ukhomeofficedigital/postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: dev
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      HOSTNAME_EXTERNAL: localstack
+      DEFAULT_REGION: eu-west-2
+      SERVICES: sqs,s3
+  aws_cli:
+    image: quay.io/ukhomeofficedigital/hocs-docker-tools
+    command:
+      - /bin/sh
+      - -c
+      - |
+        aws --endpoint-url=http://localstack:4572 s3 mb s3://untrusted-bucket
+        aws --endpoint-url=http://localstack:4572 s3 mb s3://trusted-bucket
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name case-queue
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name case-queue-dlq
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name document-queue
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name document-queue-dlq
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name reporting-queue
+        aws --endpoint-url=http://localstack:4576 sqs create-queue --queue-name reporting-queue-dlq
+    environment:
+      AWS_ACCESS_KEY_ID: UNSET
+      AWS_SECRET_ACCESS_KEY: UNSET
+      AWS_DEFAULT_REGION: 'eu-west-2'
+
+  keycloak-proxy:
+    image: quay.io/ukhomeofficedigital/go-keycloak-proxy:v2.1.1
+    args:
+      - --config=/etc/secrets/data.yml
+      - --discovery-url=http://keycloak/auth/realms/hocs
+      - --listen=127.0.0.1:80
+      - --enable-logging=true
+      - --enable-json-logging=true
+      - --upstream-url=http://frontend:8080
+      - --upstream-response-header-timeout=60s
+      - --upstream-expect-continue-timeout=60s
+      - --upstream-keepalive-timeout=60s
+      - --server-read-timeout=60s
+      - --server-write-timeout=60s
+      - --no-redirects=false
+      - --redirection-url=http://keycloak-proxy
+      - --cors-origins='*'
+      - --resources=uri=/health|white-listed=true
+      - --resources=uri=/public/*|white-listed=true
+      - --resources=uri=/*
+      - --secure-cookie=true
+      - --http-only-cookie=true
+        - --verbose
+
+  frontend:
+    image: quay.io/ukhomeofficedigital/hocs-frontend
+    environment:
+      USE_CLIENTSIDE: 'true'
+      WORKFLOW_SERVICE: http://workflow:8080
+      CASEWORK_SERVICE: http://casework:8080
+      INFO_SERVICE: http://info:8080
+      DOCUMENT_SERVICE: http://documents:8080
+      ALLOWED_FILE_EXTENSIONS: 'txt,doc,docx'
+      DOCUMENT_BULK_LIMIT: '40'
+      S3_BUCKET: 'untrusted-bucket'
+      S3_ENDPOINT: http://localstack:4572
+
+  casework:
+    image: quay.io/ukhomeofficedigital/hocs-casework
+    environment:
+      SPRING_PROFILES_ACTIVE: 'development, local'
+      SERVER_PORT: 8080
+      CASE_QUEUE_NAME: 'case-queue'
+      CASE_QUEUE_DLQ_NAME: 'case-queue-dlq'
+      DB_HOST: 'postgres'
+      AWS_LOCAL_HOST: 'localstack'
+
+  workflow:
+    image: quay.io/ukhomeofficedigital/hocs-workflow
+    environment:
+      SPRING_PROFILES_ACTIVE: 'development, local'
+      SERVER_PORT: 8080
+      CASE_QUEUE_NAME: 'case-queue'
+      CASE_QUEUE_DLQ_NAME: 'case-queue-dlq'
+      DOCS_QUEUE_NAME: 'document-queue'
+      DOCS_QUEUE_DLQ_NAME: 'document-queue-dlq'
+      HOCS_URL: 'http://localhost:8080'
+      HOCS_CASE_SERVICE: 'http://casework:8080'
+      HOCS_DOCUMENT_SERVICE: 'http://documents:8080'
+      HOCS_INFO_SERVICE: 'http://info'
+      DB_HOST: 'postgres'
+      AWS_LOCAL_HOST: 'localstack'
+
+  info:
+    image: quay.io/ukhomeofficedigital/hocs-info-service
+    environment:
+      SPRING_PROFILES_ACTIVE: 'development, local'
+      SERVER_PORT: 8080
+      DB_HOST: 'postgres'
+
+  converter:
+    image: quay.io/ukhomeofficedigital/hocs-docs-converter
+
+  documents:
+    image: quay.io/ukhomeofficedigital/hocs-docs
+    environment:
+      SPRING_PROFILES_ACTIVE: 'development, local, postgres'
+      SERVER_PORT: 8080
+      DOCS_QUEUE_NAME: 'document-queue'
+      DOCS_QUEUE_DLQ_NAME: 'document-queue-dlq'
+      CASE_QUEUE_NAME: 'case-queue'
+      DOCS_TRUSTEDS3BUCKETNAME: 'trusted-bucket'
+      DOCS_UNTRUSTEDS3BUCKETNAME: 'untrusted-bucket'
+      HOCSCONVERTER_ROOT: 'http4://converter:8080'
+      CLAMAV_ROOT: 'http4://clamav'
+      DB_HOST: 'postgres'
+      AWS_LOCAL_HOST: 'localstack'
+
+

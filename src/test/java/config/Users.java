@@ -2,9 +2,9 @@ package config;
 
 public enum Users {
 
-    DCU("smoke_test_user_dcu", "Password1"),
+    DCU("admin", "password1"),
     TEST("",""),
-    DANNY("danny.large@ten10.com", "Password1!"),
+    DANNY("admin", "password1"),
     NoTEAM("NoTEAM@placeholder.com", "Password1!"),
     TEAM_A("teamA@placeholder.com", "Password1!"),
     TEAM_B("teamB@placeholder.com", "Password1!"),
