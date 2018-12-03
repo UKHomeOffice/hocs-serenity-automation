@@ -42,14 +42,14 @@ public class WorkstacksStepDefs {
     @When("^I view my workstacks$")
     //could belong in navigateStepDefs
     public void navigateToWorkstacks() {
-        navToWorkstacks();
+      //  navToWorkstacks();
     }
 
 
     @And("^My team has 0 cases$")
     //should be an assert not a step.
     public void isThisEvenAStep() {
-        doesntDoAnything();
+        //doesntDoAnything();
     }
 
 
@@ -134,7 +134,7 @@ public class WorkstacksStepDefs {
 
     @Then("^I see a sign up message$")
     public void noTeamsSignUpMessage() {
-        errorPage.assertNoTeamsSignUpMessage();
+        //errorPage.assertNoTeamsSignUpMessage();
     }
 
 
