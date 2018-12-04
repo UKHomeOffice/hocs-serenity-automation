@@ -132,7 +132,7 @@ public class WorkstacksStepDefs {
     }
 
 
-    /* @Then("^I see a sign up message$")
+    /*@Then("^I see a sign up message$")
     public void noTeamsSignUpMessage() {
         errorPage.assertNoTeamsSignUpMessage();
     } */
