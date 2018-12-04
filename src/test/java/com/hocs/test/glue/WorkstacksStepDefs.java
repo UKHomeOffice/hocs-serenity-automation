@@ -39,18 +39,18 @@ public class WorkstacksStepDefs {
 
     private Page page; //more pages
 
-    @When("^I view my workstacks$")
+   /* @When("^I view my workstacks$")
     //could belong in navigateStepDefs
     public void navigateToWorkstacks() {
         navToWorkstacks();
-    }
+    } */
 
 
-    @And("^My team has 0 cases$")
+   /* @And("^My team has 0 cases$")
     //should be an assert not a step.
     public void isThisEvenAStep() {
         doesntDoAnything();
-    }
+    } */
 
 
     @And("^assign 1 to another team member$")
@@ -132,10 +132,10 @@ public class WorkstacksStepDefs {
     }
 
 
-    @Then("^I see a sign up message$")
+    /*@Then("^I see a sign up message$")
     public void noTeamsSignUpMessage() {
         errorPage.assertNoTeamsSignUpMessage();
-    }
+    } */
 
 
     @Then("^I see a X value for 'thisTeam'$")

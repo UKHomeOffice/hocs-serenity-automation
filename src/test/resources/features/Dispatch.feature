@@ -9,7 +9,7 @@ Feature:  HOCS User is able to Dispatch a Response
     When I "reject" the case
     And I enter "<string>" in the "Reject Reason" field
     Then the case is moved to the "Private Office" stage
-    And the "nominated person" for the "private office team" receive the "dispatch rejected email"
+    #And the "nominated person" for the "private office team" receive the "dispatch rejected email"
     And I am returned to my home screen
     
   @HOCS-542

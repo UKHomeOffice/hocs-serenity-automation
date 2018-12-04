@@ -58,6 +58,10 @@ public class CreateCaseStepDefs {
         }
     }
 
+    @When("^I create a case with <Topic>")
+    public void iCreateACaseWithSpecificTopic() {
+    }
+
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
