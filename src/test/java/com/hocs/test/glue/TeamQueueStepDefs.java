@@ -29,6 +29,13 @@ public class TeamQueueStepDefs {
     public void iHaveSomeCasesInMyTeamqueue() {
     }
 
+    //Set X to integer variable per test or case
+    @When("^I have X cases in myworkqueue$")
+    public void iHaveSomeCasesInMyWorkqueue() {}
+
+    @When("^I assign them to myself$")
+    public void assignCasesToMyself() {}
+
     @When("^I enter <SomeFilter> into the Filter$")
     public void enterStringIntoFilter() {
     }
@@ -36,6 +43,24 @@ public class TeamQueueStepDefs {
     @When("^I enter <TOPIC> into the filter$")
     public void sendKeysTopicToFilter() {
     }
+
+    @When("^I enter <Primary Correspondent> into the filter$")
+    public void sendKeysPrimaryCorrespondent() {}
+
+    @When("^I select multiple unassigned cases$")
+    public void selectMultipleUnassignedCases() {}
+
+    @When("^I select multiple cases assigned to <anotherUser>$")
+    public void selectMultipleAssignedToAnotherUser() {}
+
+    @When("^I assign them to <anotherUser>$")
+    public void assignCasesToAnotherUser() {}
+
+    @When("^I select the reference number$")
+    public void selectTheReferenceNumber() {}
+
+    @When("^I assign int cases to <anotherUser>$")
+    public void assignNumOfCasesToAnotherUser() {}
 
     @And("^$")
     public void someMethod2() {
@@ -70,6 +95,9 @@ public class TeamQueueStepDefs {
     public void assertTheCasesAreAssignedToMe() {
     }
 
+    @Then("^USERS column should only represent Unassigned$")
+    public void assertUsersColumnOnlyRepresentsUnassigned() {}
+
     @Then("^USERS column should only represent Teammate_Name$")
     //USERS column should only represent Unassigned
     public void assertUsersColumnOnlyRepresentsSomeString() {
@@ -96,6 +124,27 @@ public class TeamQueueStepDefs {
     @Then("^the results should include cases from outside the 20 visible results$")
     public void assertResultsNotFromFirst20() {
     }
+
+    @Then("^STAGE column should only represent <Stage>$")
+    public void assertColumnOnlyRepresentsColumn() {}
+
+    @Then("^These cases are added to the total assigned to me on the 'team' page$")
+    public void assertTotalAssignedToMeOnTeamsPage() {}
+
+    @Then("^These cases are added to the total assigned to me on the 'home' page myworkqueue$")
+    public void assertTotalAssignedToMyWorkqueue() {}
+
+    @Then("^These cases are not added to the total assigned to me on the 'home' page$")
+    public void assertCasesNotAddedToAssignedToMeHome() { }
+
+    @Then("^These cases are not added to the total assigned to me on the 'team' page$")
+    public void assertCasesNotAddedToAssignedToMeTeam() { }
+
+    @Then("^<anotherUser2> can see the cases are assigned to them on the 'home' page$")
+    public void assertCasesAreNotAssignedToAnotherUserHome() { }
+
+    @Then("^<anotherUser2> can see the cases are assigned to them on the 'team' page$")
+    public void assertCasesAreNotAssignedToAnotherUserTeam() { }
 
     /*@Then("^I should only see 20 results$")
     public void iShouldOnlySeeXResults(Int results) {
