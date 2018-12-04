@@ -59,8 +59,10 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I create a case with <Topic>")
-    public void iCreateACaseWithSpecificTopic() {
-    }
+    public void iCreateACaseWithSpecificTopic() {}
+
+    @When("^I create a case with a <Primary Correspondent>$")
+    public void iCreateACaseWithSpecificPrimaryCorrespondent() {}
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {

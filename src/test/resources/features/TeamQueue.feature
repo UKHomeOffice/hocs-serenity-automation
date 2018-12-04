@@ -13,41 +13,46 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
     Scenario: Case is overdue
-      Given I create a case <casetype>
+      # I create a case with <CaseType>
+      Given I create a case
       And Set the case to (deadline -1 day)
       When I am on the "HOME" page
       Then My teamqueue should display 1 overdue case
 
     @HOCS-575
-      Given I create a case <casetype>
+      # Given I create a case with <CaseType>
+      Given I create a case
       And Set the case to (deadline -1 day)
       When I navigate to the "TEAMQUEUE" page
       Then My workflowqueue should display 1 overdue case for that <casetype>
 
     @HOCS-575
-      Given I create X cases
+      # Given I create X cases
+      Given I bulk create 5 "DCU MIN" cases
       And Y cases are (deadline -1day)
       And I assign Z to me
       # X - (Z + Y) really
       Then The unassigned cases should be equal to X
 
     @HOCS-575
-      Given I create X cases
+      #Given I create X cases
+      Given I bulk create 5 "DCU MIN" cases
       And Y cases are (deadline -1 day)
-      And I assign Z to <anotherUser>
+      And I assign int cases to <anotherUser>
+      # And I assign Z to <anotherUser>
       # X - (Z + Y) really
       Then The unassigned cases should be equal to X
 
     @HOCS-575
-      Given I am viewing the 'team' page
-      When I view the table
+      Given I am on the "TEAMQUEUES" page
+      # When I view the table
       Then Columns <columns> should be visible
 
     @HOCS-575
       #Assigning Cases
       Given I create a case
       # Commit case reference number to a VAR and assert against it in final step
-      And I am viewing the 'team' page
+      And I am on the "TEAMQUEUES" page
       When I select the reference number
       Then I will be taken to the casework of that case at the relevant stage
 
@@ -60,7 +65,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
     @HOCS-575
       Given I am on the "TEAMQUEUES" page
       When I select multiple unassigned cases
-      And I assign them to me
+      And I assign them to myself
       Then The cases are assigned to me
       And These cases are added to the total assigned to me on the 'home' page myworkqueue
       And These cases are added to the total assigned to me on the 'team' page
@@ -75,7 +80,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
       And I assign them to myself
       Then I am taken to the "HOME" page
       And These cases are added to the total assigned to me on the 'home' page myworkqueue
-      And These cases are added to the total assigned to me on the 'teams' page
+      And These cases are added to the total assigned to me on the 'team' page
 
     @HOCS-575
     Scenario reassign cases to another team mate
@@ -83,7 +88,8 @@ Feature: HOCS User Team Queues, indicators and case assignment
       # and i navigate to the 'team' page
       And I navigate to the "TEAMQUEUES" page
       When I select multiple cases assigned to <anotherUser>
-      And I assign them to <anotherUser2>
+      #AnotherUser 2, a third user in this scenario
+      And I assign them to <anotherUser>
       Then I am taken to the "HOME" page
       And These cases are not added to the total assigned to me on the 'home' page
       And These cases are not added to the total assigned to me on the 'team' page
@@ -93,21 +99,25 @@ Feature: HOCS User Team Queues, indicators and case assignment
     @HOCS-575
     Scenario Filters
       Given I am on the "TEAMQUEUES" page
-      When I enter "Teammate_Name" into the filter
+      # Enter Teammate_Name into the filter
+      When I enter <SomeFilter> into the filter
       Then USERS column should only represent Teammate_Name
 
       Given I am on the "TEAMQUEUES" page
-      When I enter "Unassigned" into the filter
+      # Enter Unassigned into the filter
+      When I enter <SomeFilter> into the filter
       Then USERS column should only represent Unassigned
 
     @HOCS-575
       Given I am on the "TEAMQUEUES" page
-      When I enter <"CaseType"> into the filter
+      #Enter casetype into the filter
+      When I enter <SomeFilter> into the filter
       Then The CASETYPE column should only represent someString
 
     @HOCS-575
       Given I am on the "TEAMQUEUES" page
-      When I enter <"Stage"> into the filter
+      #Enter Stage into the filter
+      When I enter <SomeFilter> into the filter
       | Data Input |
       | Draft      |
       | QA         |
@@ -118,16 +128,17 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
       Given I am on the "TEAMQUEUES" page
-      When I enter 'Teammate_Name' into the filter
+      # When I enter Teammate_Name
+      When I enter <SomeFilter> into the Filter
       Then USERS column should only represent Teammate_Name
 
     # Hidden Filters
     @HOCS-575
-      Given I have a case with <Primary Correspondent>
+      Given I create a case with a <Primary Correspondent>
       # Generate case and commit reference to VAR
       # Below AND comes from a @Given step def, does this work :thinking_face:
       And I am on the "TEAMQUEUES" page
-      When I enter <"Primary Correspondent"> into the filer
+      When I enter <Primary Correspondent> into the filter
       Then The case with CaseReference is displayed
 
     @HOCS-575
