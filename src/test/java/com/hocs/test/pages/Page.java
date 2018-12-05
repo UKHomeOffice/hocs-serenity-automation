@@ -197,7 +197,7 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=StartDate]")
     private WebElementFacade startDate;
 
-    @FindBy(css = "[value = 'Submit']")
+    @FindBy(css = "[value = 'Finish']")
     private WebElementFacade submitButton;
 
     @FindBy(id = "surname")

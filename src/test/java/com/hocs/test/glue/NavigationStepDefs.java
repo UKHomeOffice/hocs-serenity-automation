@@ -7,6 +7,7 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import config.Environments;
 import config.Services;
 import cucumber.api.java.en.Given;
@@ -25,6 +26,8 @@ public class NavigationStepDefs {
     private DataInput dataInput;
 
     private Homepage homepage;
+
+    private Teamqueue teamqueue;
 
     Page page;
 
@@ -52,12 +55,12 @@ public class NavigationStepDefs {
             case "HOME":
                 navigateToHocs();
                 break;
-            case "TEAMQUEUES":
+    /*        case "TEAMQUEUES":
                 navigateToTeamqueues();
                 break;
             case "WORKSTACKS":
                 navigateToWorkstacks();
-                break;
+                break;*/
             default:
                 fail(onHocsPage + " is not defined within NavigationStepDefs.iAmOnThePage");
         }
@@ -74,8 +77,8 @@ public class NavigationStepDefs {
             case "HOME":
                 homepage.assertPageTitle();
                 break;
-            case "TEAMQUEUES":
-                teamqueues.assertPageTitle();
+           /* case "TEAMQUEUES":
+                teamqueue.assertPageTitle(); */
             case "RECORD CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.assertPageTitle();
                 break;

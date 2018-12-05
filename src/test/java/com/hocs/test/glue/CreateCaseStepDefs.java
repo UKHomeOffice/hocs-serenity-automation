@@ -10,7 +10,10 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import cucumber.api.PendingException;
+
+import static jnr.posix.util.MethodName.getMethodName;
+import static org.junit.Assume.assumeNotNull;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -22,6 +25,8 @@ public class CreateCaseStepDefs {
 
     private CreateCase createCase;
 
+    private SuccessfulCaseCreation successfulCaseCreation;
+
     private DataInput dataInput;
 
     private Homepage homepage;
@@ -32,7 +37,6 @@ public class CreateCaseStepDefs {
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
-    private SuccessfulCaseCreation successfulCaseCreation;
 
     @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
@@ -45,22 +49,29 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @Given("^I create a single case with \"([^\"]*)\"$")
+    
+    @Given("^I create a single case \"([^\"]*)\"$")
     public void iCreateACaseTypeSpecificCase(String caseType) {
+
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                createCase.someDCUMINCreateCaseMethod();
+                createCase.createDCUMinSingleCase();
                 break;
             case "DCU N10":
-                createCase.someDCU10CreateCaseMethod();
+                createCase.createDC10SingleCase();
                 break;
             case "DCU TRO":
-                createCase.someDCUTROCreateCaseMethod();
+                createCase.createDCTROSingleCase();
                 break;
             default:
-                fail(caseType + " is not defined with CreateCaseStepDefs.iCreateACaseTypeSpecificCase")
+                System.out.println(createCase
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                createCase = null;
+                assumeNotNull(createCase);
         }
     }
+
 
     @When("^I create a case$")
     public void iCreateACase() {

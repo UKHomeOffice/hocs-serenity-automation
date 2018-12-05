@@ -167,8 +167,8 @@ public class GenericInputStepDefs {
             case "MARKUP":
                 homepage.clickFirstMarkupAllocate();
                 break;
-            case "DISPATCH":
-                homepage.clickFirstDispatchAllocate();
+            /*case "DISPATCH":
+                homepage.clickFirstDispatchAllocate();*/
             default:
                 fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
         }
