@@ -86,4 +86,12 @@ public class CreateCase extends Page {
         assertThat(isElementDisplayed(allRadioButtons), is(false));
     }
 
+    public void someDCUMINCreateCaseMethod() {
+    }
+
+    public void someDCU10CreateCaseMethod() {
+    }
+
+    public void someDCUTROCreateCaseMethod() {
+    }
 }
