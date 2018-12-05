@@ -22,7 +22,7 @@ public class CreateCaseStepDefs {
 
     private CreateCase createCase;
 
-    DataInput dataInput;
+    private DataInput dataInput;
 
     private Homepage homepage;
 
@@ -34,7 +34,7 @@ public class CreateCaseStepDefs {
 
     private SuccessfulCaseCreation successfulCaseCreation;
 
-    @Given("^I am presented with \"([^\"]*)\"")
+    @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
             case "NO CASE TYPES":
@@ -42,6 +42,23 @@ public class CreateCaseStepDefs {
                 break;
             default:
                 fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
+        }
+    }
+
+    @Given("^I create a single case with \"([^\"]*)\"$")
+    public void iCreateACaseTypeSpecificCase(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.someDCUMINCreateCaseMethod();
+                break;
+            case "DCU N10":
+                createCase.someDCU10CreateCaseMethod();
+                break;
+            case "DCU TRO":
+                createCase.someDCUTROCreateCaseMethod();
+                break;
+            default:
+                fail(caseType + " is not defined with CreateCaseStepDefs.iCreateACaseTypeSpecificCase")
         }
     }
 
