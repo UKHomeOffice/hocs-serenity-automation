@@ -18,6 +18,13 @@ public class SuccessfulCaseCreation extends Page {
     @FindBy(className = "govuk-panel__body")
     private WebElementFacade createdCaseMessage;
 
+    @FindBy(className = "govuk-back-link")
+    private WebElementFacade successBackButton;
+
+    public void clickSuccessfulCaseBackButton() {
+        successBackButton.click();
+    }
+
     public void assertCaseCreatedSuccess() {
         assertThat(panelTitle.getText(), is("Success"));
     }

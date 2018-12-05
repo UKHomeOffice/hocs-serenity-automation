@@ -131,4 +131,7 @@ public class Teamqueue extends Page {
 
     public void assertThatCasesAreNotAssignedToAnotherUserTeam() {
     }
+
+    public void assertCasetypeColumnOnlyShowsTestedString() {
+    }
 }

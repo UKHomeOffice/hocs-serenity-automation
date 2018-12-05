@@ -1,9 +1,6 @@
 package com.hocs.test.pages.data_input;
 
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import com.hocs.test.pages.Page;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
