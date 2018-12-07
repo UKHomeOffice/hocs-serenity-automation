@@ -51,7 +51,7 @@ Feature: HOCS User is add data to a case
 
 
     # Members of parliament not available in dropdowns
-  @HOCS-276, @HOCS-238
+  @HOCS-276 @HOCS-238
   Scenario: User can select a member John Bercow from the dropdown
     Given I select to add a correspondent that "is" a member
     When I enter "<string>" in the "search" field

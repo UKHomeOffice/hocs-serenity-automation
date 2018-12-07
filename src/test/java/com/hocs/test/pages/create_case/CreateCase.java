@@ -10,13 +10,11 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import com.hocs.test.pages.Page;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CreateCase extends Page {
-
-    Page page;
 
     AddDocuments addDocuments;
 
@@ -61,6 +59,11 @@ public class CreateCase extends Page {
         assertThat(allRadioButtons.getText(),is("No options available"));
     }
 
+    public void capturedCaseReferenceTest() {
+        String thisSessionVar = Serenity.sessionVariableCalled("caseReference");
+        System.out.println(thisSessionVar);
+    }
+
     public void clickCreateSingleCaseLink() { createSingleCaseLink.click(); }
 
     public void clickAddDocumentsRadioButton() {
@@ -89,37 +92,47 @@ public class CreateCase extends Page {
         addDocumentsNoRadioButton.click();
     }
 
-    public void enterCaseDetailsFreeText() { caseDetailsFreeTextField.sendKeys(generateRandomString()); }
+    public void enterCaseDetailsFreeText() {
+        caseDetailsFreeTextField.clear();
+        caseDetailsFreeTextField.sendKeys(generateRandomString());
+    }
 
 
     // Multi Step Methods
 
+    // Create a single DCU Min case from the home page
     public void createDCUMinSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuMinRadioButton();
-        clickNextButton();
-        addDocuments.uploadDocument();
-        page.clickSubmitButton();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        completeSingleCaseCreation();
     }
 
+    // Create a single DC10 case from the home page
     public void createDC10SingleCase() {
         clickCreateSingleCaseLink();
         clickDcuDtenRadioButton();
-        clickNextButton();
-        addDocuments.uploadDocument();
-        page.clickSubmitButton();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        completeSingleCaseCreation();
     }
 
+    // Create a single DC TRO case from the home page
     public void createDCTROSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuTroRadioButton();
+        completeSingleCaseCreation();
+    }
+
+    public void completeSingleCaseCreation() {
         clickNextButton();
         addDocuments.uploadDocument();
-        page.clickSubmitButton();
+        clickSubmitButton();
+        successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
+        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
     }
+
+
+    /* Grab session var is available in SuccessfulCaseCreation.java
+                       as getCaseReference();  */
 
 
     //Assertions

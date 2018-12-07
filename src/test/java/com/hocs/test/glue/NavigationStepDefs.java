@@ -10,10 +10,14 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import config.Environments;
 import config.Services;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
+
+import static jnr.posix.util.MethodName.getMethodName;
+import static org.junit.Assume.assumeNotNull;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationStepDefs {
@@ -50,7 +54,7 @@ public class NavigationStepDefs {
     }
 
     @Given("^I am on the \"([^\"]*)\" page$")
-    public void iAmOnThePage(String onHocsPage) {
+    public void navigateToPage(String onHocsPage) {
         switch (onHocsPage.toUpperCase()) {
             case "HOME":
                 navigateToHocs();
@@ -62,7 +66,11 @@ public class NavigationStepDefs {
                 navigateToWorkstacks();
                 break;*/
             default:
-                fail(onHocsPage + " is not defined within NavigationStepDefs.iAmOnThePage");
+                System.out.println(onHocsPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method.");
+                onHocsPage = null;
+                assumeNotNull(onHocsPage);
         }
     }
 

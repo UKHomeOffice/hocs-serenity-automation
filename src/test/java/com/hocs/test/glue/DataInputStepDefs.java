@@ -28,6 +28,10 @@ public class DataInputStepDefs {
     RecordCorrespondentDetails recordCorrespondentDetails;
 
 
+    @When("^I complete the Data Input stage$")
+    public void completeDataInputStage(){ dataInput.completeTheDataInputStage(); }
+
+
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
         recordCorrespondentDetails.clickAdditionalCorrespondentYes();
@@ -130,4 +134,8 @@ public class DataInputStepDefs {
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
+
+
+
+
 }

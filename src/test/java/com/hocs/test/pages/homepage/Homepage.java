@@ -22,7 +22,7 @@ public class Homepage extends Page {
     WebDriver driver;
 
     @FindBy(linkText = "Create single case")
-    private WebElementFacade createSingleCase;
+    public WebElementFacade createSingleCase;
 
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;

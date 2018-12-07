@@ -6,6 +6,11 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends Page {
 
+    // Elements
+
+    @FindBy(linkText = "57")
+    private WebElementFacade team4444DataInput;
+
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
 
@@ -63,25 +68,9 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
 
-    public void addACorrespondentLinkIsDisplayed() {
-        addCorrespondentLink.isDisplayed();
-    }
 
-    public void assertPageTitle() {
-        assertTitle("Record Correspondence Details");
-    }
+    // Basic Methods
 
-    public void clearDateCorrespondenceReceived() {
-        dateCorrespondenceReceivedDayField.clear();
-        dateCorrespondenceReceivedMonthField.clear();
-        dateCorrespondenceReceivedYearField.clear();
-    }
-
-    public void clearDateCorrespondenceSent() {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentYearField.clear();
-    }
 
     public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
@@ -109,6 +98,35 @@ public class DataInput extends Page {
 
     public void clickPhoneCorrespondenceChannelRadioButton() {
         phoneOriginalChannelRadioButton.click();
+    }
+
+    public void selectTeam4444() {
+        team4444DataInput.click();
+    }
+
+
+    public void tickSendCopyToNumber10() {
+        sendCopyToNumberTenTickBox.click();
+    }
+
+
+    // Multi Step Methods
+
+    public void completeTheDataInputStage() {
+        selectTeam4444();
+        System.out.println("I have selected the team and am viewing the first stage cases");
+    }
+
+    public void clearDateCorrespondenceReceived() {
+        dateCorrespondenceReceivedDayField.clear();
+        dateCorrespondenceReceivedMonthField.clear();
+        dateCorrespondenceReceivedYearField.clear();
+    }
+
+    public void clearDateCorrespondenceSent() {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentYearField.clear();
     }
 
     private void enterDayOfCorrespondenceReceived(String day) {
@@ -168,8 +186,14 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
 
-    public void tickSendCopyToNumber10() {
-        sendCopyToNumberTenTickBox.click();
+    // Assertions
+
+    public void assertPageTitle() {
+        assertTitle("Record Correspondence Details");
+    }
+
+    public void addACorrespondentLinkIsDisplayed() {
+        addCorrespondentLink.isDisplayed();
     }
 
 }

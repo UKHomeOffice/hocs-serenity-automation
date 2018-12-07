@@ -21,19 +21,19 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    private AddDocuments addDocuments;
+    AddDocuments addDocuments;
 
-    private CreateCase createCase;
+    CreateCase createCase;
 
-    private SuccessfulCaseCreation successfulCaseCreation;
+    SuccessfulCaseCreation successfulCaseCreation;
 
-    private DataInput dataInput;
+    DataInput dataInput;
 
-    private Homepage homepage;
+    Homepage homepage;
 
     MarkUpDecision markUpDecision;
 
-    private Page page;
+    Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
@@ -49,10 +49,21 @@ public class CreateCaseStepDefs {
         }
     }
 
-    
+
+   /* public void iAmPresentedWith(String userView) {
+        switch (userView.toUpperCase()) {
+            case "NO CASE TYPES":
+                createCase.assertNoOptionsAvailable();
+                break;
+            default:
+                fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
+        }
+    }*/
+
+
+
     @Given("^I create a single case \"([^\"]*)\"$")
     public void iCreateACaseTypeSpecificCase(String caseType) {
-
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
@@ -64,11 +75,11 @@ public class CreateCaseStepDefs {
                 createCase.createDCTROSingleCase();
                 break;
             default:
-                System.out.println(createCase
+                System.out.println(caseType
                         + " is not defined within " + getClass().getSimpleName()
                         + " class, " + getMethodName() + " method");
-                createCase = null;
-                assumeNotNull(createCase);
+                caseType = null;
+                assumeNotNull(caseType);
         }
     }
 
@@ -86,7 +97,12 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @When("^I create a case with <Topic>")
+    @When("^I captured the case reference number$")
+    public void caseReferenceCaptured() {
+        createCase.capturedCaseReferenceTest();
+    }
+
+    @When("^I create a case with <Topic>$")
     public void iCreateACaseWithSpecificTopic() {}
 
     @When("^I create a case with a <Primary Correspondent>$")

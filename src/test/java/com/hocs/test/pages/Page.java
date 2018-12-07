@@ -666,4 +666,13 @@ public class Page extends PageObject {
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
     }
+
+    public void assertElementIsDisplayed(WebElementFacade element) {
+        assertThat(isElementDisplayed(element), is(true));
+    }
+
+    public void assertElementIsNotDisplayed(WebElementFacade element) {
+        assertThat(isElementDisplayed(element), is(false));
+    }
+
 }

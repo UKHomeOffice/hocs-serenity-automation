@@ -6,13 +6,13 @@ Feature: HOCS is able to move cases through the entire flow
   @EndToEnd
   Scenario: End to end flow with <caseType> CaseType
     When I create a single case "DCU TRO"
-    # Select Create Single Case
-    # Select a dot option, DCUMIN, TRO, DC10, click next
-    # Upload a Doc & Click finish
-    # Remember the case reference number in a VAR
-    # Select Back button or Correspondence System(home) button
-    And I complete the Data Input Stage
-    # Select My Work
+    # Select Create Single Case *
+    # Select a dot option, DCUMIN, TRO, DC10, click next *
+    # Upload a Doc & Click finish *
+    # Remember the case reference number in a VAR *
+    # Select Back button or Correspondence System(home) button *
+    And I complete the Data Input stage
+    # Select Team 4444
     # Identify Reference via Reference number and Select Casework
     # Will become select case number                ^^^^^^^
     # Select Dot option, email, post, phone, No.10
