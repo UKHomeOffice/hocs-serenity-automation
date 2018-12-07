@@ -85,7 +85,7 @@ public class CreateCaseStepDefs {
 
 
     @When("^I create a case$")
-    public void iCreateACase() {
+    public void aCaseIsCreated() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
         addDocuments.uploadDocument();
@@ -103,10 +103,10 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I create a case with <Topic>$")
-    public void iCreateACaseWithSpecificTopic() {}
+    public void aCaseWithSpecificTopicIsCreated() {}
 
     @When("^I create a case with a <Primary Correspondent>$")
-    public void iCreateACaseWithSpecificPrimaryCorrespondent() {}
+    public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {}
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
@@ -148,7 +148,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
-    public void iBulkCreateCases(int cases, String caseType) {
+    public void bulkCreateCases(int cases, String caseType) {
         homepage.clickCreateBulkCases();
 
         switch (caseType.toUpperCase()) {
@@ -169,7 +169,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
-    public void iCreateACaseADocument(String caseType, String document) {
+    public void createCaseWithDocument(String caseType, String document) {
         homepage.clickCreateSingleCase();
 
         switch (caseType.toUpperCase()) {
@@ -215,7 +215,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I do not select a type of correspondence when creating a case$")
-    public void iDoNotSelectATypeOfCorrespondenceWhenCreatingACase() {
+    public void correspondentTypeNotSelectedDuringCaseCreation() {
         homepage.clickCreateSingleCase();
         page.clickNextButton();
     }
