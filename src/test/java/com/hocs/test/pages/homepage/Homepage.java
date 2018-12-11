@@ -45,6 +45,21 @@ public class Homepage extends Page {
     @FindBy(linkText = "Workstacks")
     private WebElementFacade workstacksLink;
 
+    @FindBy(xpath = "//span[text()='1111']")
+    private WebElementFacade team1111Markup;
+
+    @FindBy(xpath = "//span[text()='3333']")
+    private WebElementFacade team3333InitialDraft;
+
+    @FindBy(xpath = "//td[text()='Initial Draft']/following-sibling::td/a[contains(text(), 'Casework')]")
+    private WebElementFacade firstInitialDraftCaseWork;
+
+    @FindBy(xpath = "//td[text()='Initial Draft']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstInitialDraftAllocate;
+
+    @FindBy(xpath = "//td[text()='QA Response']/following-sibling::td/a[contains(text(), 'Allocate')]")
+    private WebElementFacade firstQAResponseAllocate;
+
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a")
     private WebElementFacade firstDataInput;
 
@@ -92,6 +107,36 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstTroMarkupAllocate;
+
+
+    // Basic Methods
+
+    public void selectTeam1111Markup(){
+        team1111Markup.click();
+    }
+
+    public void selectTeam333InitialDraft(){
+        team3333InitialDraft.click();
+    }
+
+    public void selectTeam3333QAResponse() {
+        team3333InitialDraft.click();
+        firstQAResponseAllocate.click();
+    }
+
+    public void clickFirstInitialDraftCaseWork() {
+        firstInitialDraftCaseWork.click();
+    }
+
+    public void clickFirstInitialDraftAllocate() {
+        firstInitialDraftAllocate.click();
+    }
+
+    // Multi Step Methods
+
+    // Assertions
+
+
 
     public void assertCaseIsComplete() {
         WebElementFacade caseReference = (WebElementFacade) driver.findElement(

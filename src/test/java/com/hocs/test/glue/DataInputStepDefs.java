@@ -29,7 +29,7 @@ public class DataInputStepDefs {
 
 
     @When("^I complete the Data Input stage$")
-    public void completeDataInputStage(){ dataInput.completeTheDataInputStage(); }
+    public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
 
 
     @When("^I add an additional correspondent$")

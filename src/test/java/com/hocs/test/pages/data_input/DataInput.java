@@ -1,15 +1,21 @@
 package com.hocs.test.pages.data_input;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends Page {
 
+    Homepage homepage;
+
     // Elements
 
-    @FindBy(linkText = "57")
+    @FindBy(xpath = "//span[text()='4444']")
     private WebElementFacade team4444DataInput;
+
+    @FindBy(xpath = "//span[text()='1111']")
+    private WebElementFacade team1111Markup;
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
@@ -104,6 +110,10 @@ public class DataInput extends Page {
         team4444DataInput.click();
     }
 
+    public void selectTeam1111() {
+        team1111Markup.click();
+    }
+
 
     public void tickSendCopyToNumber10() {
         sendCopyToNumberTenTickBox.click();
@@ -112,9 +122,14 @@ public class DataInput extends Page {
 
     // Multi Step Methods
 
-    public void completeTheDataInputStage() {
+    public void dataInputFullFlow() {
         selectTeam4444();
-        System.out.println("I have selected the team and am viewing the first stage cases");
+        System.out.println(" I have selected the teamview and am viewing the Data Input Cases");
+        homepage.clickFirstTroDataInputAllocate();
+        System.out.println(" SessionVariableCalled needed here.");
+        fillAllMandatoryFields();
+        clickContinueButton();
+        clickFinishButton();
     }
 
     public void clearDateCorrespondenceReceived() {

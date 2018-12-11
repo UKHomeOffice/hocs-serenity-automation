@@ -59,8 +59,14 @@ public class Page extends PageObject {
     @FindBy(id = "")
     protected WebElementFacade addressTwoField;
 
-    @FindBy(id = "AllocationNote")
+    @FindBy(id = "CaseNote_AllocationNote")
     private WebElementFacade allocationNoteField;
+
+    // ^^ was formerly vv
+
+    /* @FindBy(id = "AllocationNote")
+    private WebElementFacade allocationNoteField; */
+
 
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
