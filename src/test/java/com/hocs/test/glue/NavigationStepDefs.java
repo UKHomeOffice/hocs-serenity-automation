@@ -59,5 +59,6 @@ public class NavigationStepDefs {
             default:
                 fail(pageName + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
         }
+        System.out.println("I have been taken to " + pageName);
     }
 }
