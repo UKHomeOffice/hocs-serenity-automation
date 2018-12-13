@@ -27,6 +27,9 @@ public class Homepage extends Page {
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
 
+    /*@FindBy(linktext - "Login")
+    private WebElementFacade loginButton;*/
+
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
 
@@ -39,7 +42,7 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
 
-    @Findby(linkText = "Workstacks")
+    @FindBy(linkText = "Workstacks")
     private WebElementFacade workstacksLink;
 
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a")

@@ -108,14 +108,18 @@ public class LoginStepDefs {
 
 
     @And("^Select the login button$")
-    public void navigateToHome() {
-        navigateToHocs();
+    public void selectLoginButton() {
+        homepage.clickContinueButton();
     }
+
+    /*public void navigateToHome() {
+        navigateToHocs();
+    }*/
 
 
     @Then("^I will hit the Home Page$")
-    public void theCaseIsMovedToTheStage(String expectedStage) {
-        homepage.assertCaseStageInWorkstacks(expectedStage, driver);
+    public void assertHomePage() {
+        homepage.assertCreateSingleCaseIsDisplayed();
     }
 
 
