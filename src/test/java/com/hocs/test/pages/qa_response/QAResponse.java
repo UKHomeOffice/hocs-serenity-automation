@@ -11,11 +11,13 @@ public class QAResponse extends Page{
     @Managed
     WebDriver driver;
 
-    @FindBy(id = "QAResponseDecision-ACCEPT")
+    @FindBy(css = "label[for='QAResponseDecision-ACCEPT']")
     private WebElementFacade QAAcceptRadioButton;
 
-    @FindBy(id = "QAResponseDecision-REJECT")
+    @FindBy(css = "label[for='QAResponseDecision-REJECT']")
     private WebElementFacade QARejectRadioButton;
+
+
 
     // Basic Methods
 

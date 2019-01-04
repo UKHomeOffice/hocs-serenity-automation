@@ -24,6 +24,12 @@ public class Homepage extends Page {
     @FindBy(linkText = "Create single case")
     public WebElementFacade createSingleCase;
 
+    // Call session variable containing the Case Reference, use case reference to grab the link
+    // Reference is the linkText but this isnt how to do this.
+
+    @FindBy(linkText = "mySessionVariable")
+    public WebElementFacade sessionVariableCalled;
+
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
 

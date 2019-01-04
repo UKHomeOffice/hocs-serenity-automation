@@ -2,17 +2,20 @@ package com.hocs.test.pages.data_input;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends Page {
 
     Homepage homepage;
+    SuccessfulCaseCreation successfulCaseCreation;
 
     // Elements
 
-    @FindBy(xpath = "//span[text()='4444']")
-    private WebElementFacade team4444DataInput;
+    @FindBy(xpath = "//span[text()='TEAM 1']")
+    private WebElementFacade team1DataInput;
 
     @FindBy(xpath = "//span[text()='1111']")
     private WebElementFacade team1111Markup;
@@ -106,8 +109,8 @@ public class DataInput extends Page {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void selectTeam4444() {
-        team4444DataInput.click();
+    public void selectTeam1() {
+        team1DataInput.click();
     }
 
     public void selectTeam1111() {
@@ -123,10 +126,11 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        selectTeam4444();
+        selectTeam1();
         System.out.println(" I have selected the teamview and am viewing the Data Input Cases");
-        homepage.clickFirstTroDataInputAllocate();
-        System.out.println(" SessionVariableCalled needed here.");
+        successfulCaseCreation.clickSessionVariableViaLinkText();
+        System.out.println("I have found and selected the case reference");
+        System.out.println("Attempting to fill mandatory fields.");
         fillAllMandatoryFields();
         clickContinueButton();
         clickFinishButton();

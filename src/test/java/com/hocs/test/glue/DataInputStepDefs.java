@@ -7,6 +7,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.draft.Qa;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -26,6 +27,8 @@ public class DataInputStepDefs {
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
+
+    Qa qa;
 
 
     @When("^I complete the Data Input stage$")

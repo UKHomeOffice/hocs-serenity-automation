@@ -8,6 +8,9 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.draft.Qa;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -27,10 +30,16 @@ public class DraftResponseStepDefs {
 
     QAResponse qaResponse;
 
+    DataInput dataInput;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    Qa qa;
+
     @When("^I complete the initial draft stage$")
     public void completeInitialDraftStage() {
-        homepage.selectTeam333InitialDraft();
-        homepage.clickFirstInitialDraftAllocate();
+        dataInput.selectTeam1();
+        successfulCaseCreation.clickSessionVariableViaLinkText();
         draftingTeamDecision.clickAcceptInitialDraftDecision();
         page.clickContinueButton();
         draftingTeamDecision.clickDraftingResponseLetter();
@@ -40,9 +49,11 @@ public class DraftResponseStepDefs {
         addDocuments.uploadDocument();
         page.clickAddButton();
         page.clickContinueButton();
-        homepage.selectTeam3333QAResponse();
-        qaResponse.clickQAResponseAcceptRadioButton();
+        // offline QA decision NO
+        qa.clickOfflineQANoRadioButton();
         page.clickContinueButton();
+        //qaResponse.clickOfflineQANoButton();
+        System.out.println("I have completed the initial draft and am QA'ing the case");
         // Should belong to QAResponse StepDefs vv
     }
 

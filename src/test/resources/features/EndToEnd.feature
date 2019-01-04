@@ -5,14 +5,14 @@ Feature: HOCS is able to move cases through the entire flow
 
   @EndToEnd
   Scenario: End to end flow with <caseType> CaseType
-    When I create a single case "DCU TRO"
+    When I create a single case "DCU MIN"
     # Select Create Single Case *
     # Select a dot option, DCUMIN, TRO, DC10, click next *
     # Upload a Doc & Click finish *
     # Remember the case reference number in a VAR *
     # Select Back button or Correspondence System(home) button *
     And I complete the Data Input stage
-    # Select Team 4444
+    # Select TEAM 1
     # Identify Reference via Reference number and Select Casework
     # Will become select case number                ^^^^^^^
     # Select Dot option, email, post, phone, No.10
@@ -24,7 +24,7 @@ Feature: HOCS is able to move cases through the entire flow
     # Add correspondent currently broken
     # If not returned to homepage, select the homepage
     And I complete the markup stage
-    # Select team 1111
+    # Select Team 1
     # Identify case and select Allocate
     # Select dot option Policy Response, FAQ, Refer OGD, No Reply
     # Select continue
@@ -35,6 +35,7 @@ Feature: HOCS is able to move cases through the entire flow
     # Add sign off minister from DropDown
     # sendKeys some Allocation note and select Finish
     And I complete the initial draft stage
+    # YOU ARE REFACTORING HERE
     # Select team 3333 - placeholder
     # Identify case at Initial Draft stage and select Allocate
     # Select Dot options YES or NO (YES)
@@ -45,9 +46,8 @@ Feature: HOCS is able to move cases through the entire flow
     # Select Dot option No to QA this ONLINE
     # Select continue
     And I complete the QA response stage
-    # Select team 3333 and identify case
-    # If coming from previous step you are already on team 3333
-    # Select QA Response - Casework
+    # Select Team 1
+    # Find and select case
     # Dot response - Accept and select Continue
     And I complete the Private Office stage
     # Select team 3333 and identify case
@@ -66,5 +66,5 @@ Feature: HOCS is able to move cases through the entire flow
     # Select Allocate
     # Dot option Accept
     # Select Finish
-    Then Should no longer be available to perform actions on in any of the Team Queues
+    Then The case should no longer be visible in the teamqueue
 

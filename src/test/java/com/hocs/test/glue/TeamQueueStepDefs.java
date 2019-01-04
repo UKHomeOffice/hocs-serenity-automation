@@ -204,6 +204,13 @@ public class TeamQueueStepDefs {
         teamqueue.assertThatCasesAreNotAssignedToAnotherUserTeam();
     }
 
+    /*@Then("^The case should no longer be visible in the teamqueue$")
+    public void assertThatCaseInSessionVariableIsNotVisible(){
+        assertThat(SessionVariableCalled('caseReference').is.not.visible);
+        // take session variable earlier and find the element, store that element in
+        // a second session variable called 'assertMeLater' or something and then call
+        // that one here
+    }*/
     /*@Then("^I should only see 20 results$")
     public void iShouldOnlySeeXResults(Int results) {
     }*/

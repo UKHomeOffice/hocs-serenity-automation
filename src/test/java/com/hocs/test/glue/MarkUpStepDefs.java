@@ -6,6 +6,8 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
@@ -21,10 +23,14 @@ public class MarkUpStepDefs {
 
     MarkUpDecision markUpDecision;
 
+    DataInput dataInput;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        homepage.selectTeam1111Markup();
-        homepage.clickFirstMarkupAllocate();
+        dataInput.selectTeam1();
+        successfulCaseCreation.clickSessionVariableViaLinkText();
         markUpDecision.clickPolicyResponseRadioButton();
         page.clickContinueButton();
         System.out.println("I have found the Add topic button, smashing left click repeatedly....");
