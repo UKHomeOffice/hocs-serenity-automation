@@ -60,4 +60,14 @@ public class SuccessfulCaseCreation extends Page {
         System.out.println(thisReference);
         thisReference.click();
     }
+
+    public void clickSessionVariableViaLinkTextAndStoreResultingElement(){
+        String caseReferenceNumber
+                = Serenity.sessionVariableCalled("caseReference").toString();
+        System.out.println(caseReferenceNumber);
+        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
+        System.out.println(thisReference);
+        Serenity.setSessionVariable("assertCase").to(thisReference);
+        thisReference.click();
+    }
 }

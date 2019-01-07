@@ -7,23 +7,28 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.teamqueue.Teamqueue;
+import com.hocs.test.pages.data_input.DataInput;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import net.serenitybdd.core.pages.WebElementFacade;
+
 
 public class TeamQueueStepDefs {
 
-    private Teamqueue teamqueue;
+    Teamqueue teamqueue;
 
-    private AddDocuments addDocuments;
+    AddDocuments addDocuments;
 
-    private CreateCase createCase;
+    CreateCase createCase;
 
-    private Homepage homepage;
+    Homepage homepage;
 
-    private Page page;
+    DataInput dataInput;
+
+    Page page;
 
 
 
@@ -204,13 +209,12 @@ public class TeamQueueStepDefs {
         teamqueue.assertThatCasesAreNotAssignedToAnotherUserTeam();
     }
 
-    /*@Then("^The case should no longer be visible in the teamqueue$")
+   @Then("^The case should no longer be visible in the teamqueue$")
     public void assertThatCaseInSessionVariableIsNotVisible(){
-        assertThat(SessionVariableCalled('caseReference').is.not.visible);
-        // take session variable earlier and find the element, store that element in
-        // a second session variable called 'assertMeLater' or something and then call
-        // that one here
-    }*/
+        dataInput.selectTeam1();
+        teamqueue.assertCaseIsNotVisible();
+    }
+
     /*@Then("^I should only see 20 results$")
     public void iShouldOnlySeeXResults(Int results) {
     }*/

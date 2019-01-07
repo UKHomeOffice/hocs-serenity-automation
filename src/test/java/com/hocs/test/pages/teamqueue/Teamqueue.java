@@ -10,11 +10,14 @@ import static org.hamcrest.core.Is.is;
 import com.hocs.test.pages.Page;
 import java.util.List;
 import java.util.Map;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Teamqueue extends Page {
 
@@ -71,6 +74,14 @@ public class Teamqueue extends Page {
 
     public void someOtherMethods2() {
     }
+
+   public void assertCaseIsNotVisible(){
+        String assertElement
+                = Serenity.sessionVariableCalled("assertCase").toString();
+        element(assertElement).shouldNotBePresent();
+    }
+
+    // ^^ This element is already gone by this point in the test.
 
     public void assertWorkflowQueueTotal() {
     }

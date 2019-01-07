@@ -31,7 +31,8 @@ public class DispatchStepDefs {
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage(){
         dataInput.selectTeam1();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
+        successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
+       // successfulCaseCreation.clickSessionVariableViaLinkText();
         dispatch.clickDispatchAcceptRadioButton();
         page.clickFinishButton();
     }

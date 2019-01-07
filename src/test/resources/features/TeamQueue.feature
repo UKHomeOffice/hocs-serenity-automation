@@ -1,4 +1,4 @@
-Feature: HOCS User Team Queues, indicators and case assignment
+  Feature: HOCS User Team Queues, indicators and case assignment
 
   Background: Given I am user "DANNY"
     And I am on the "HOME" page
@@ -6,7 +6,8 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
     #Number of cases/ per team/ Team member / Unassigned
-    Given I am on the "HOME" page
+    Scenario: SomeScenario
+      Given I am on the "HOME" page
     And I have X cases in my teamqueue
     When I navigate to the "TEAMQUEUE" page
     Then The total of all cases per case type in the workflowqueue will be equal to X
@@ -21,6 +22,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
       # Given I create a case with <CaseType>
+     Scenario: SomeScenario
       Given I create a case
       And Set the case to (deadline -1 day)
       When I navigate to the "TEAMQUEUE" page
@@ -28,6 +30,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
       # Given I create X cases
+    Scenario: SomeScenario
       Given I bulk create 5 "DCU MIN" cases
       And Y cases are (deadline -1day)
       And I assign Z to me
@@ -36,6 +39,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
       #Given I create X cases
+    Scenario: SomeScenario
       Given I bulk create 5 "DCU MIN" cases
       And Y cases are (deadline -1 day)
       And I assign int cases to <anotherUser>
@@ -44,12 +48,14 @@ Feature: HOCS User Team Queues, indicators and case assignment
       Then The unassigned cases should be equal to X
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       # When I view the table
       Then Columns <columns> should be visible
 
     @HOCS-575
       #Assigning Cases
+    Scenario: SomeScenario
       Given I create a case
       # Commit case reference number to a VAR and assert against it in final step
       And I am on the "TEAMQUEUES" page
@@ -57,12 +63,14 @@ Feature: HOCS User Team Queues, indicators and case assignment
       Then I will be taken to the casework of that case at the relevant stage
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       When I select the reference number
       And I assign them to <anotherUser>
       Then The cases are assigned to <anotherUser>
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       When I select multiple unassigned cases
       And I assign them to myself
@@ -71,6 +79,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
       And These cases are added to the total assigned to me on the 'team' page
 
     @HOCS-575
+    Scenario: SomeScenario
     #Reassign cases to myself
       Given I am on the "HOME" page
       And I have X cases in myworkqueue
@@ -83,7 +92,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
       And These cases are added to the total assigned to me on the 'team' page
 
     @HOCS-575
-    Scenario reassign cases to another team mate
+    Scenario: reassign cases to another team mate
       Given I am on the "HOME" page
       # and i navigate to the 'team' page
       And I navigate to the "TEAMQUEUES" page
@@ -97,24 +106,27 @@ Feature: HOCS User Team Queues, indicators and case assignment
       And <anotherUser2> can see the cases are assigned to them on the 'team' page
 
     @HOCS-575
-    Scenario Filters
+    Scenario: Filters
       Given I am on the "TEAMQUEUES" page
       # Enter Teammate_Name into the filter
       When I enter <SomeFilter> into the filter
       Then USERS column should only represent Teammate_Name
 
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       # Enter Unassigned into the filter
       When I enter <SomeFilter> into the filter
       Then USERS column should only represent Unassigned
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       #Enter casetype into the filter
       When I enter <SomeFilter> into the filter
       Then The CASETYPE column should only represent someString
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       #Enter Stage into the filter
       When I enter <SomeFilter> into the filter
@@ -127,6 +139,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
       Then STAGE column should only represent <Stage>
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I am on the "TEAMQUEUES" page
       # When I enter Teammate_Name
       When I enter <SomeFilter> into the Filter
@@ -134,6 +147,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     # Hidden Filters
     @HOCS-575
+    Scenario: SomeScenario
       Given I create a case with a <Primary Correspondent>
       # Generate case and commit reference to VAR
       # Below AND comes from a @Given step def, does this work :thinking_face:
@@ -142,6 +156,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
       Then The case with CaseReference is displayed
 
     @HOCS-575
+    Scenario: SomeScenario
       Given I create a case with <Topic>
       # Generate case and commit reference to VAR
       # Below AND comes from a @Given step def, does this work :thinking_face:
@@ -151,6 +166,7 @@ Feature: HOCS User Team Queues, indicators and case assignment
 
     @HOCS-575
     # BreadCrumbs
+    Scenario: SomeScenario
       Given I am on the "HOME" page
       When I navigate to the "TEAMQUEUES" page
       Then I am taken to the "TEAMQUEUES" page
@@ -159,17 +175,17 @@ Feature: HOCS User Team Queues, indicators and case assignment
     @HOCS-575
     # Max 20 results Per Page
 
-      Given I bulk create 30 "DCU MIN" cases
-      |MIN|
-      |TRO|
-      |DC10|
-      When I navigate to the "TEAMQUEUES" page
+    #  Given I bulk create 30 "DCU MIN" cases
+    #  |MIN|
+    #  |TRO|
+    #  |DC10|
+    #  When I navigate to the "TEAMQUEUES" page
       #Commented out in TeamQ stepdefs
-      Then I should only see 20 results
+    #  Then I should only see 20 results
 
     @HOCS-575
     #Filter considers all cases not just first 20 results.
-
+    Scenario: SomeScenario
       Given I bulk create 30 "DCU MIN" cases
       # How to generate 30 cases with different data so as to verify what was not 
       # in the initial view is parted of the filtered view.
