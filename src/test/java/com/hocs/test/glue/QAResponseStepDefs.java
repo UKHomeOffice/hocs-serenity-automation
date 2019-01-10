@@ -29,4 +29,5 @@ public class QAResponseStepDefs {
         System.out.println("Finished QA Response, returning to home page.");
         page.clickContinueButton();
     }
+
 }
