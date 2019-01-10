@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
@@ -33,13 +35,11 @@ public class MarkUpStepDefs {
         successfulCaseCreation.clickSessionVariableViaLinkText();
         markUpDecision.clickPolicyResponseRadioButton();
         page.clickContinueButton();
-        System.out.println("I have found the Add topic button, smashing left click repeatedly....");
         topics.clickAddTopicButton();
         topics.enterRealTopic();
         page.clickAddButton();
         page.clickContinueButton();
-        //Answering Stage has no inputs available therefore enter a minister and clickContinueButton again
-        markUpDecision.selectSecondSignOffMinisterFromDropdown();
+        markUpDecision.selectFirstSignOffMinisterFromDropdown();
         page.clickContinueButton();
         page.enterAllocationNote();
         page.clickFinishButton();
@@ -53,8 +53,11 @@ public class MarkUpStepDefs {
             case "SECONDARY":
                 break;
             default:
-                fail(ordinal
-                        + " is not defined in MarkUpStepDefs, theTopicShouldBeSetAsTheOrdinalTopic method");
+                System.out.println(ordinal
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                ordinal = null;
+                assumeNotNull(ordinal);
         }
     }
 

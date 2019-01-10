@@ -32,10 +32,8 @@ public class DispatchStepDefs {
     public void completeTheDispatchStage(){
         dataInput.selectTeam1();
         successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
-       // successfulCaseCreation.clickSessionVariableViaLinkText();
         dispatch.clickDispatchAcceptRadioButton();
         page.clickFinishButton();
     }
-
 
 }

@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import cucumber.api.java.en.And;
@@ -21,7 +23,11 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                fail("Please state whether a document 'IS' or 'IS NOT' previewable");
+                System.out.println(preview
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                preview = null;
+                assumeNotNull(preview);
         }
     }
 
@@ -35,8 +41,11 @@ public class DocumentsStepDefs {
             case "PREVIEWABLE":
                 break;
             default:
-                fail(arg0
-                        + " is not defined in DocumentsStepDefs.iAmViewingACaseWithDocumentsAttached()");
+                System.out.println(arg0
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                arg0 = null;
+                assumeNotNull(arg0);
         }
     }
 
@@ -60,7 +69,11 @@ public class DocumentsStepDefs {
                 page.associatedDocumentsIsNotDisplayed();
                 break;
             default:
-                fail("Please state I 'AM' or 'AM NOT' able to view the documents");
+                System.out.println(view
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                view = null;
+                assumeNotNull(view);
         }
     }
 
@@ -74,7 +87,11 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                fail("Please state I 'AM' or 'AM NOT' able to see a preview of the document");
+                System.out.println(view
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                view = null;
+                assumeNotNull(view);
         }
     }
 

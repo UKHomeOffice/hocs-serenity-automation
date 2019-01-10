@@ -1,10 +1,12 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -586,8 +588,11 @@ public class Page extends PageObject {
                 driver.switchTo().alert().accept();
                 break;
             default:
-                fail(buttonName
-                        + " is not defined within the Page class, switchToAlertWindowAndClick method");
+                System.out.println(buttonName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                buttonName = null;
+                assumeNotNull(buttonName);
         }
         driver.switchTo().alert().accept();
     }

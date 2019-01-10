@@ -18,8 +18,6 @@ public class Topics extends Page {
     public WebElementFacade addTopicButton;
 
 
-
-
     // Basic Methods
 
     public void clickAddTopicButton() {
@@ -29,7 +27,6 @@ public class Topics extends Page {
     public void enterTopic() {
         topicsTextField.sendKeys(generateRandomString());
     }
-
 
 
     // Multi Step Methods

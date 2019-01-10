@@ -27,9 +27,6 @@ public class Homepage extends Page {
     // Call session variable containing the Case Reference, use case reference to grab the link
     // Reference is the linkText but this isnt how to do this.
 
-    @FindBy(linkText = "mySessionVariable")
-    public WebElementFacade sessionVariableCalled;
-
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
 
@@ -48,8 +45,11 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
 
-    @FindBy(linkText = "Workstacks")
-    private WebElementFacade workstacksLink;
+    @FindBy(css = "[value = 'Allocate']")
+    public WebElementFacade allocateButton;
+
+    @FindBy(css = "[name = 'user-id']")
+    public WebElementFacade allocateDropdown;
 
     @FindBy(xpath = "//span[text()='1111']")
     private WebElementFacade team1111Markup;
@@ -117,6 +117,15 @@ public class Homepage extends Page {
 
     // Basic Methods
 
+    public void allocateToMe(){
+        selectAllocationUserByIndex(2);
+        allocateButton.click();
+    }
+
+    public void selectAllocationUserByIndex(int index) {
+        allocateDropdown.selectByIndex(index);
+    }
+
     public void selectTeam1111Markup(){
         team1111Markup.click();
     }
@@ -140,9 +149,9 @@ public class Homepage extends Page {
 
     // Multi Step Methods
 
+
+
     // Assertions
-
-
 
     public void assertCaseIsComplete() {
         WebElementFacade caseReference = (WebElementFacade) driver.findElement(
@@ -261,10 +270,7 @@ public class Homepage extends Page {
         assertTitle("Main");
     }
 
-    public void assertReturnedToHomeScreen() {
-
-    }
-
     public void clickTeamQueueLink() {
     }
+
 }

@@ -3,7 +3,9 @@ package com.hocs.test.glue;
 import static config.Users.*;
 import static config.Usernames.*;
 import static config.Passwords.*;
+import static jnr.posix.util.MethodName.getMethodName;
 import static junit.framework.TestCase.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
@@ -56,7 +58,11 @@ public class LoginStepDefs {
                 enterHocsLoginDetails(DANNY);
                 break;
             default:
-                fail(user + " is not defined with LoginStepDefs.iLoginAs()");
+                System.out.println(user
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                user = null;
+                assumeNotNull(user);
         }
         page.clickContinueButton();
     }
@@ -82,7 +88,11 @@ public class LoginStepDefs {
                 enterHocsUsername(TESTER);
                 break;
             default:
-                fail(username + "could not be added to the field");
+                System.out.println(username
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                username = null;
+                assumeNotNull(username);
         }
     }
 
@@ -102,7 +112,11 @@ public class LoginStepDefs {
                 enterHocsPassword(TESTERPASS);
                 break;
             default:
-                fail(password + "could not be sent to the field");
+                System.out.println(password
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                password = null;
+                assumeNotNull(password);
         }
     }
 

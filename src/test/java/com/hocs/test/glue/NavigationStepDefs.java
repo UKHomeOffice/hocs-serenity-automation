@@ -49,7 +49,11 @@ public class NavigationStepDefs {
             case "TEAMQUEUE":
                 homepage.clickTeamQueueLink();
             default:
-                fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage()");
+                System.out.println(hocsPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                hocsPage = null;
+                assumeNotNull(hocsPage);
         }
     }
 
@@ -74,7 +78,6 @@ public class NavigationStepDefs {
         }
     }
 
-
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
@@ -93,11 +96,14 @@ public class NavigationStepDefs {
                 dataInput.assertPageTitle();
                 break;
             default:
-                fail(pageName + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
+                System.out.println(pageName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                pageName = null;
+                assumeNotNull(pageName);
         }
         System.out.println("I have been taken to " + pageName);
     }
-
 
     private void navigateToHocs() {
         String env = System.getProperty("environment");

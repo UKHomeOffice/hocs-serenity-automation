@@ -35,9 +35,7 @@ public class PrivateOfficeSignOffStepDefs {
     public void completePrivateOfficeStage() {
         dataInput.selectTeam1();
         successfulCaseCreation.clickSessionVariableViaLinkText();
-        System.out.println("Selecting Accept");
         privateOffice.clickPrivateOfficeAcceptRadioButton();
-        System.out.println("Private office accepts this draft, returning to home page.");
         page.clickFinishButton();
 
     }

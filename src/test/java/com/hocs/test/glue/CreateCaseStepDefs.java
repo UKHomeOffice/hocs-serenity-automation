@@ -45,7 +45,11 @@ public class CreateCaseStepDefs {
                 createCase.assertNoOptionsAvailable();
                 break;
             default:
-                fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
+                System.out.println(userView
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                userView = null;
+                assumeNotNull(userView);
         }
     }
 
@@ -55,8 +59,11 @@ public class CreateCaseStepDefs {
             case "NO CASE TYPES":
                 createCase.assertNoOptionsAvailable();
                 break;
-            default:
-                fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
+            System.out.println(userView
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                userView = null;
+                assumeNotNull(userView);
         }
     }*/
 
@@ -97,11 +104,6 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @When("^I captured the case reference number$")
-    public void caseReferenceCaptured() {
-        createCase.capturedCaseReferenceTest();
-    }
-
     @When("^I create a case with <Topic>$")
     public void aCaseWithSpecificTopicIsCreated() {}
 
@@ -117,7 +119,11 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                fail("Please select PRIMARY or SECONDARY");
+                System.out.println(ordinal
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                ordinal = null;
+                assumeNotNull(ordinal);
         }
     }
 
@@ -129,7 +135,11 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                fail("Please select PRIMARY or SECONDARY");
+                System.out.println(ordinal
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                ordinal = null;
+                assumeNotNull(ordinal);
         }
     }
 
@@ -142,7 +152,11 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                fail("Please select PRIMARY or SECONDARY");
+                System.out.println(ordinal
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                ordinal = null;
+                assumeNotNull(ordinal);
         }
 
     }
@@ -159,7 +173,11 @@ public class CreateCaseStepDefs {
                 createCase.clickDcuTroRadioButton();
                 break;
             default:
-                fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
         }
 
         page.clickNextButton();
@@ -192,7 +210,11 @@ public class CreateCaseStepDefs {
                 addDocuments.enterDraftDeadlineYear(10);
                 break;
             default:
-                fail(caseType + " is not defined in CreateCaseStepDefs.iCreateACaseADocument.");
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
         }
 
         switch (document.toUpperCase()) {
@@ -204,7 +226,11 @@ public class CreateCaseStepDefs {
                 page.clickFinishButton();
                 break;
             default:
-                fail("Please set " + document + " to be either WITH OR WITHOUT");
+                System.out.println(document
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                document = null;
+                assumeNotNull(document);
         }
     }
 

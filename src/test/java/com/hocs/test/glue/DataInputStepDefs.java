@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static junit.framework.TestCase.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
@@ -88,8 +90,11 @@ public class DataInputStepDefs {
                 dataInputQADecision.rejectDataInputQa();
                 break;
             default:
-                fail(decision
-                        + " is not defined in DataInputStepDefs.iSelectADataInputQADecisionOf()");
+                System.out.println(decision
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                decision = null;
+                assumeNotNull(decision);
         }
         page.clickFinishButton();
     }
@@ -115,8 +120,11 @@ public class DataInputStepDefs {
                 dataInput.clickNo10CorrespondenceChannelRadioButton();
                 break;
             default:
-                fail(channel
-                        + " is not defined in DataInputStepDefs.iSetTheCorrespondenceChannelTo()");
+                System.out.println(channel
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                channel = null;
+                assumeNotNull(channel);
         }
     }
 
@@ -128,7 +136,11 @@ public class DataInputStepDefs {
             case "IS NOT":
                 break;
                 default:
-                    fail(member + "is defined in DataInputStepDefs.iSelectToAddACorrespondent");
+                    System.out.println(member
+                            + " is not defined within " + getClass().getSimpleName()
+                            + " class, " + getMethodName() + " method");
+                    member = null;
+                    assumeNotNull(member);
         }
 
     }
@@ -137,8 +149,4 @@ public class DataInputStepDefs {
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
-
-
-
-
 }
