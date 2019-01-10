@@ -75,7 +75,6 @@ public class NavigationStepDefs {
     }
 
 
-
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
