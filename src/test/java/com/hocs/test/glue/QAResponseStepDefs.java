@@ -23,7 +23,9 @@ public class QAResponseStepDefs {
 
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
-        dataInput.selectTeam1();
+        homepage.findMyQAResponseCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
         successfulCaseCreation.clickSessionVariableViaLinkText();
         qaResponse.clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");

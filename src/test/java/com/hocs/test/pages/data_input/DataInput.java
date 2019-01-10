@@ -125,13 +125,10 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        //selectTeam1();
-        //System.out.println(" I have selected the teamview and am viewing the Data Input Cases");
-        //successfulCaseCreation.clickSessionVariableViaLinkText();
-        //System.out.println("I have found and selected the case reference");
         homepage.firstStageFindMyCase();
-        homepage.allocateToMe();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         System.out.println("Attempting to fill mandatory fields.");
+        homepage.findMyDataInputCase();
         fillAllMandatoryFields();
         clickContinueButton();
         clickFinishButton();

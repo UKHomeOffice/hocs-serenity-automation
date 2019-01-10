@@ -52,6 +52,24 @@ public class CreateCase extends Page {
     @FindBy(id = "")
     private WebElementFacade addDocumentsYesRadioButton;
 
+    @FindBy(id = "DTENDispatchDeadline-day")
+    private WebElementFacade d10DispatchDeadlineDay;
+
+    @FindBy(id = "DTENDispatchDeadline-month")
+    private WebElementFacade d10DispatchDeadlineMonth;
+
+    @FindBy(id = "DTENDispatchDeadline-year")
+    private WebElementFacade d10DispatchDeadlineYear;
+
+    @FindBy(id = "DTENDraftDeadline-day")
+    private WebElementFacade d10DraftDeadlineDay;
+
+    @FindBy(id = "DTENDraftDeadline-month")
+    private WebElementFacade d10DraftDeadlineMonth;
+
+    @FindBy(id = "DTENDraftDeadline-year")
+    private WebElementFacade d10DraftDeadlineYear;
+
 
     // Basic Methods
 
@@ -97,6 +115,45 @@ public class CreateCase extends Page {
         caseDetailsFreeTextField.sendKeys(generateRandomString());
     }
 
+    public void fillMandatoryDateFields(){
+        enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
+        enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(+365));
+        enterDispatchDeadlineYear(todayPlusNDaysGetYear(+365));
+        enterDraftDeadlineDay(todayPlusNDaysGetDay(+360));
+        enterDraftDeadlineMonth(todayPlusNDaysGetMonth(+360));
+        enterDraftDeadlineYear(todayPlusNDaysGetYear(+360));
+    }
+
+    private void enterDispatchDeadlineDay(String day){
+        d10DispatchDeadlineDay.clear();
+        d10DispatchDeadlineDay.sendKeys(day);
+    }
+
+    private void enterDispatchDeadlineMonth(String month){
+        d10DispatchDeadlineMonth.clear();
+        d10DispatchDeadlineMonth.sendKeys(month);
+    }
+
+    private void enterDispatchDeadlineYear(String year){
+        d10DispatchDeadlineYear.clear();
+        d10DispatchDeadlineYear.sendKeys(year);
+    }
+
+    private void enterDraftDeadlineDay(String day){
+        d10DraftDeadlineDay.clear();
+        d10DraftDeadlineDay.sendKeys(day);
+    }
+
+    private void enterDraftDeadlineMonth(String month) {
+        d10DraftDeadlineMonth.clear();
+        d10DraftDeadlineMonth.sendKeys(month);
+    }
+
+    private void enterDraftDeadlineYear(String year){
+        d10DraftDeadlineYear.clear();
+        d10DraftDeadlineYear.sendKeys(year);
+    }
+
 
     // Multi Step Methods
 
@@ -123,6 +180,7 @@ public class CreateCase extends Page {
 
     public void completeSingleCaseCreation() {
         clickNextButton();
+        fillMandatoryDateFields();
         addDocuments.uploadDocument();
         clickSubmitButton();
         successfulCaseCreation.getCaseReference();

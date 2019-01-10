@@ -9,6 +9,7 @@ import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import java.util.List;
 import java.util.Map;
 import net.serenitybdd.core.Serenity;
@@ -23,6 +24,8 @@ public class Homepage extends Page {
 
     @Managed
     WebDriver driver;
+
+    Teamqueue teamqueue;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -160,6 +163,11 @@ public class Homepage extends Page {
         allocateButton.click();
     }
 
+    public void selectAllocationUserByVisibleText(String allocationUser) {
+        allocateDropdown.selectByVisibleText(allocationUser);
+        allocateButton.click();
+    }
+
     public void selectAllocationUserByIndex(int index) {
         allocateDropdown.selectByIndex(index);
     }
@@ -190,13 +198,13 @@ public class Homepage extends Page {
    public void firstStageFindMyCase(){
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType == "DCU MIN"){
+        if(thisCaseType.equals("DCU MIN")) {
             selectTeam1();
             successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
-        } else if (thisCaseType == "DCU TRO") {
+        } else if (thisCaseType.equals("DCU TRO")) {
             selectTeam1();
             successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
-        } else if (thisCaseType == "DCU N10") {
+        } else if (thisCaseType.equals("DCU N10")) {
             selectTeam3();
             successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
         } else {
@@ -204,26 +212,151 @@ public class Homepage extends Page {
         }
     }
 
-   /* public void tryToFindMyCases() {
-        //D10 to Team 3 initially, DCMIN/TRO to Team1
-        selectTeam1();
-        System.out.println("I have found the caseReferenceLink " + caseReferenceLink);
-       if (!caseReferenceLink.isDisplayed()) {
+    public WebElement currentCase() {
+        WebElement caseReferenceLink
+                = Serenity.sessionVariableCalled("assertCase");
+        return caseReferenceLink;
+    }
+
+    public void findMyDataInputCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyMarkupCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyInitialDraftCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam2();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyQAResponseCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam2();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyPrivateOfficeCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam2();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyMinisterSignOffCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam2();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyDispatchCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyCase() {
+        WebElement thisReference = currentCase();
+        System.out.println("Stale Element Exception averted");
+        team1.click();
+        teamqueue.waitForDashboardButton();
+        System.out.println("Searching Team 1 for Element on page.");
+       if (!thisReference.isDisplayed()) {
            goHome();
            selectTeam2();
-           if(!caseReferenceLink.isDisplayed()){
+           if(!thisReference.isDisplayed()){
                goHome();
                selectTeam3();
-               caseReferenceLink.click();
+               thisReference.click();
            } else {
-               caseReferenceLink.click();
+               thisReference.click();
            }
        } else {
-           caseReferenceLink.click();
+           thisReference.click();
        }
-    }*/
-
-
+    }
 
     // Assertions
 

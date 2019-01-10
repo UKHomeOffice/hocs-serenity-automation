@@ -31,7 +31,9 @@ public class MarkUpStepDefs {
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        dataInput.selectTeam1();
+        homepage.findMyMarkupCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
         successfulCaseCreation.clickSessionVariableViaLinkText();
         markUpDecision.clickPolicyResponseRadioButton();
         page.clickContinueButton();

@@ -30,7 +30,9 @@ public class MinisterSignOffStepDefs {
 
     @When("^I complete the minister sign off stage$")
     public void completeTheMinisterSignOffStage(){
-        dataInput.selectTeam1();
+        homepage.findMyMinisterSignOffCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
         successfulCaseCreation.clickSessionVariableViaLinkText();
         minister.clickMinisterSignOffAcceptRadioButton();
         page.clickFinishButton();

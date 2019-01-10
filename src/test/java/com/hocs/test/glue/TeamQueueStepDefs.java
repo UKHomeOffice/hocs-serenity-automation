@@ -30,13 +30,6 @@ public class TeamQueueStepDefs {
 
     Page page;
 
-
-
-    @Given("^$")
-    public void someMethod() {
-        teamqueue.someMethods();
-    }
-
     // Set X to integer variable per case or test
     @When("^I have X cases in my teamqueue$")
     public void iHaveSomeCasesInMyTeamqueue() {

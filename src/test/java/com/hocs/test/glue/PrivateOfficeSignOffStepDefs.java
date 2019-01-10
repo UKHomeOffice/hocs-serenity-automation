@@ -33,7 +33,9 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
-        dataInput.selectTeam1();
+        homepage.findMyPrivateOfficeCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
         successfulCaseCreation.clickSessionVariableViaLinkText();
         privateOffice.clickPrivateOfficeAcceptRadioButton();
         page.clickFinishButton();

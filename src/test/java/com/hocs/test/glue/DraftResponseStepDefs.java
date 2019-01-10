@@ -40,7 +40,9 @@ public class DraftResponseStepDefs {
 
     @When("^I complete the initial draft stage$")
     public void completeInitialDraftStage() {
-        dataInput.selectTeam1();
+        homepage.findMyInitialDraftCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
         successfulCaseCreation.clickSessionVariableViaLinkText();
         draftingTeamDecision.clickAcceptInitialDraftDecision();
         page.clickContinueButton();

@@ -1,15 +1,8 @@
 package com.hocs.test.pages.teamqueue;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
-import java.util.List;
-import java.util.Map;
+
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -24,8 +17,16 @@ public class Teamqueue extends Page {
     @Managed
     WebDriver driver;
 
+    @FindBy(linkText = "Dashboard")
+    public WebElementFacade dashboardButton;
 
-    public void someMethods() {
+
+    public void clickDashboard() {
+        dashboardButton.click();
+    }
+
+    public void waitForDashboardButton() {
+        waitFor(dashboardButton);
     }
 
 

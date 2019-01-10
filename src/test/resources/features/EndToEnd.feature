@@ -25,7 +25,7 @@ Feature: HOCS is able to move cases through the entire flow
     # YOU ARE REFACTORING HERE
     And I complete the QA response stage
     And I complete the Private Office stage
-    And I complete the minister sign off stage
+   # And I complete the minister sign off stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
 
@@ -37,8 +37,8 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the initial draft stage
    #  YOU ARE REFACTORING HERE
     And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the minister sign off stage
+   # And I complete the Private Office stage
+   # And I complete the minister sign off stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
 
