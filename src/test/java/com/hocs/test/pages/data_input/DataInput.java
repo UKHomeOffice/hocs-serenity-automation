@@ -122,7 +122,6 @@ public class DataInput extends Page {
         sendCopyToNumberTenTickBox.click();
     }
 
-
     // Multi Step Methods
 
     public void dataInputFullFlow() {
