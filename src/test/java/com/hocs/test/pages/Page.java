@@ -59,8 +59,14 @@ public class Page extends PageObject {
     @FindBy(id = "")
     protected WebElementFacade addressTwoField;
 
-    @FindBy(id = "AllocationNote")
+    @FindBy(id = "CaseNote_AllocationNote")
     private WebElementFacade allocationNoteField;
+
+    // ^^ was formerly vv
+
+    /* @FindBy(id = "AllocationNote")
+    private WebElementFacade allocationNoteField; */
+
 
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
@@ -197,7 +203,7 @@ public class Page extends PageObject {
     @FindBy(css = "[id*=StartDate]")
     private WebElementFacade startDate;
 
-    @FindBy(css = "[value = 'Submit']")
+    @FindBy(css = "[value = 'Finish']")
     private WebElementFacade submitButton;
 
     @FindBy(id = "surname")
@@ -666,4 +672,13 @@ public class Page extends PageObject {
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
     }
+
+    public void assertElementIsDisplayed(WebElementFacade element) {
+        assertThat(isElementDisplayed(element), is(true));
+    }
+
+    public void assertElementIsNotDisplayed(WebElementFacade element) {
+        assertThat(isElementDisplayed(element), is(false));
+    }
+
 }

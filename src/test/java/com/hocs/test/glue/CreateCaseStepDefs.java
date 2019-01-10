@@ -10,7 +10,10 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import cucumber.api.PendingException;
+
+import static jnr.posix.util.MethodName.getMethodName;
+import static org.junit.Assume.assumeNotNull;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,23 +21,24 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs {
 
-    private AddDocuments addDocuments;
+    AddDocuments addDocuments;
 
-    private CreateCase createCase;
+    CreateCase createCase;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     DataInput dataInput;
 
-    private Homepage homepage;
+    Homepage homepage;
 
     MarkUpDecision markUpDecision;
 
-    private Page page;
+    Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
-    private SuccessfulCaseCreation successfulCaseCreation;
 
-    @Given("^I am presented with \"([^\"]*)\"")
+    @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
             case "NO CASE TYPES":
@@ -45,8 +49,43 @@ public class CreateCaseStepDefs {
         }
     }
 
+
+   /* public void iAmPresentedWith(String userView) {
+        switch (userView.toUpperCase()) {
+            case "NO CASE TYPES":
+                createCase.assertNoOptionsAvailable();
+                break;
+            default:
+                fail(userView + " is not defined with CreateCaseStepDefs.iAmPresentedWith");
+        }
+    }*/
+
+
+
+    @Given("^I create a single case \"([^\"]*)\"$")
+    public void createACaseTypeSpecificCase(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                break;
+            case "DCU N10":
+                createCase.createDC10SingleCase();
+                break;
+            case "DCU TRO":
+                createCase.createDCTROSingleCase();
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
+    }
+
+
     @When("^I create a case$")
-    public void iCreateACase() {
+    public void aCaseIsCreated() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
         addDocuments.uploadDocument();
@@ -57,6 +96,17 @@ public class CreateCaseStepDefs {
             e.printStackTrace();
         }
     }
+
+    @When("^I captured the case reference number$")
+    public void caseReferenceCaptured() {
+        createCase.capturedCaseReferenceTest();
+    }
+
+    @When("^I create a case with <Topic>$")
+    public void aCaseWithSpecificTopicIsCreated() {}
+
+    @When("^I create a case with a <Primary Correspondent>$")
+    public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {}
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
@@ -98,7 +148,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
-    public void iBulkCreateCases(int cases, String caseType) {
+    public void bulkCreateCases(int cases, String caseType) {
         homepage.clickCreateBulkCases();
 
         switch (caseType.toUpperCase()) {
@@ -119,7 +169,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
-    public void iCreateACaseADocument(String caseType, String document) {
+    public void createCaseWithDocument(String caseType, String document) {
         homepage.clickCreateSingleCase();
 
         switch (caseType.toUpperCase()) {
@@ -165,7 +215,7 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I do not select a type of correspondence when creating a case$")
-    public void iDoNotSelectATypeOfCorrespondenceWhenCreatingACase() {
+    public void correspondentTypeNotSelectedDuringCaseCreation() {
         homepage.clickCreateSingleCase();
         page.clickNextButton();
     }

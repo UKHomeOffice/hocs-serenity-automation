@@ -1,10 +1,24 @@
 package com.hocs.test.pages.data_input;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends Page {
+
+    Homepage homepage;
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    // Elements
+
+    @FindBy(xpath = "//span[text()='TEAM 1']")
+    private WebElementFacade team1DataInput;
+
+    @FindBy(xpath = "//span[text()='1111']")
+    private WebElementFacade team1111Markup;
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
@@ -63,25 +77,9 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
 
-    public void addACorrespondentLinkIsDisplayed() {
-        addCorrespondentLink.isDisplayed();
-    }
 
-    public void assertPageTitle() {
-        assertTitle("Record Correspondence Details");
-    }
+    // Basic Methods
 
-    public void clearDateCorrespondenceReceived() {
-        dateCorrespondenceReceivedDayField.clear();
-        dateCorrespondenceReceivedMonthField.clear();
-        dateCorrespondenceReceivedYearField.clear();
-    }
-
-    public void clearDateCorrespondenceSent() {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentYearField.clear();
-    }
 
     public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
@@ -109,6 +107,44 @@ public class DataInput extends Page {
 
     public void clickPhoneCorrespondenceChannelRadioButton() {
         phoneOriginalChannelRadioButton.click();
+    }
+
+    public void selectTeam1() {
+        team1DataInput.click();
+    }
+
+    public void selectTeam1111() {
+        team1111Markup.click();
+    }
+
+
+    public void tickSendCopyToNumber10() {
+        sendCopyToNumberTenTickBox.click();
+    }
+
+    // Multi Step Methods
+
+    public void dataInputFullFlow() {
+        selectTeam1();
+        System.out.println(" I have selected the teamview and am viewing the Data Input Cases");
+        successfulCaseCreation.clickSessionVariableViaLinkText();
+        System.out.println("I have found and selected the case reference");
+        System.out.println("Attempting to fill mandatory fields.");
+        fillAllMandatoryFields();
+        clickContinueButton();
+        clickFinishButton();
+    }
+
+    public void clearDateCorrespondenceReceived() {
+        dateCorrespondenceReceivedDayField.clear();
+        dateCorrespondenceReceivedMonthField.clear();
+        dateCorrespondenceReceivedYearField.clear();
+    }
+
+    public void clearDateCorrespondenceSent() {
+        dateCorrespondenceSentDayField.clear();
+        dateCorrespondenceSentMonthField.clear();
+        dateCorrespondenceSentYearField.clear();
     }
 
     private void enterDayOfCorrespondenceReceived(String day) {
@@ -168,8 +204,14 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
 
-    public void tickSendCopyToNumber10() {
-        sendCopyToNumberTenTickBox.click();
+    // Assertions
+
+    public void assertPageTitle() {
+        assertTitle("Record Correspondence Details");
+    }
+
+    public void addACorrespondentLinkIsDisplayed() {
+        addCorrespondentLink.isDisplayed();
     }
 
 }

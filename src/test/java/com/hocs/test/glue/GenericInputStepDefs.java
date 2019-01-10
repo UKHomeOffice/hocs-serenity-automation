@@ -151,12 +151,13 @@ public class GenericInputStepDefs {
 
     @And("^I am at the \"([^\"]*)\" stage$")
     public void iAmAtTheStage(String stage) {
-        homepage.clickMyWorkstack();
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                homepage.clickFirstDataInputAllocate();
+                homepage.clickMyWorkstack();
+                homepage.clickFirstDataInputCasework();
                 break;
             case "DATA INPUT QA":
+                homepage.clickMyWorkstack();
                 try {
                     homepage.clickFirstDataInputQaAllocate();
                 } catch (ElementShouldBeEnabledException e) {
@@ -166,6 +167,8 @@ public class GenericInputStepDefs {
             case "MARKUP":
                 homepage.clickFirstMarkupAllocate();
                 break;
+            /*case "DISPATCH":
+                homepage.clickFirstDispatchAllocate();*/
             default:
                 fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
         }

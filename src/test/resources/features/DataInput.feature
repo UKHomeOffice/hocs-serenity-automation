@@ -10,7 +10,11 @@ Feature: HOCS User is add data to a case
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed
 
-  @HOCS-274 @HOCS-238
+
+    #After first test the first case in 'Data Input' is moved to the Add Correspondent stage
+    # Therefore the following tests fail as they expect to arrive on the Data Input page
+    # Must clear out and remake a data input stage case before each run but test is sound otherwise
+  @HOCS-274 @HOCS-238 @Testing
   Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I set the correspondence channel to "<channel>"
@@ -45,7 +49,9 @@ Feature: HOCS User is add data to a case
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @HOCS-276, @HOCS-238
+
+    # Members of parliament not available in dropdowns
+  @HOCS-276 @HOCS-238
   Scenario: User can select a member John Bercow from the dropdown
     Given I select to add a correspondent that "is" a member
     When I enter "<string>" in the "search" field

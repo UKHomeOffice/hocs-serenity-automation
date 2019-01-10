@@ -7,6 +7,13 @@ public class HomepageStepDefs {
 
     private Homepage homepage;
 
+
+    @Then("^I am returned to my home screen$")
+    public void returnedToHomeScreen() {
+        homepage.assertElementIsDisplayed(homepage.createSingleCase);
+    }
+
+
     @Then("^Case Reference is displayed on the homepage$")
     public void caseReferenceIsDisplayedOnTheHomepage() {
         homepage.assertWorkstackTableContainsCaseReference();

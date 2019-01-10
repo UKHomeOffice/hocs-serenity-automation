@@ -7,7 +7,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import cucumber.api.PendingException;
+import com.hocs.test.pages.draft.Qa;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -27,6 +27,12 @@ public class DataInputStepDefs {
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
+
+    Qa qa;
+
+
+    @When("^I complete the Data Input stage$")
+    public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
 
 
     @When("^I add an additional correspondent$")
@@ -131,4 +137,8 @@ public class DataInputStepDefs {
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
+
+
+
+
 }

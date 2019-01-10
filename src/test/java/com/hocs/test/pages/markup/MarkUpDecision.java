@@ -45,7 +45,7 @@ public class MarkUpDecision extends Page {
     @FindBy(id = "")
     private WebElementFacade answeringTeamDropdown;
 
-    @FindBy(id = "")
+    @FindBy(id = "SignOffMinister")
     private WebElementFacade signOffMinisterDropdown;
 
     @FindBy(id = "")
@@ -116,7 +116,7 @@ public class MarkUpDecision extends Page {
     }
 
     public void selectSecondSignOffMinisterFromDropdown() {
-        signOffMinisterDropdown.selectByIndex(1);
+        signOffMinisterDropdown.selectByIndex(2);
     }
 
 

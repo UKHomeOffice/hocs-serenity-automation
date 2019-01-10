@@ -7,9 +7,17 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.teamqueue.Teamqueue;
+import config.Environments;
+import config.Services;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
+
+import static jnr.posix.util.MethodName.getMethodName;
+import static org.junit.Assume.assumeNotNull;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationStepDefs {
@@ -22,6 +30,8 @@ public class NavigationStepDefs {
     private DataInput dataInput;
 
     private Homepage homepage;
+
+    private Teamqueue teamqueue;
 
     Page page;
 
@@ -36,10 +46,34 @@ public class NavigationStepDefs {
             case "CREATE SINGLE CASE":
                 homepage.clickCreateSingleCase();
                 break;
+            case "TEAMQUEUE":
+                homepage.clickTeamQueueLink();
             default:
                 fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage()");
         }
     }
+
+    @Given("^I am on the \"([^\"]*)\" page$")
+    public void navigateToPage(String onHocsPage) {
+        switch (onHocsPage.toUpperCase()) {
+            case "HOME":
+                navigateToHocs();
+                break;
+    /*        case "TEAMQUEUES":
+                navigateToTeamqueues();
+                break;
+            case "WORKSTACKS":
+                navigateToWorkstacks();
+                break;*/
+            default:
+                System.out.println(onHocsPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method.");
+                onHocsPage = null;
+                assumeNotNull(onHocsPage);
+        }
+    }
+
 
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
@@ -50,6 +84,8 @@ public class NavigationStepDefs {
             case "HOME":
                 homepage.assertPageTitle();
                 break;
+           /* case "TEAMQUEUES":
+                teamqueue.assertPageTitle(); */
             case "RECORD CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.assertPageTitle();
                 break;
@@ -61,4 +97,31 @@ public class NavigationStepDefs {
         }
         System.out.println("I have been taken to " + pageName);
     }
+
+
+    private void navigateToHocs() {
+        String env = System.getProperty("environment");
+        String baseUrl = "";
+
+        if (env == null) {
+            System.out.println("Environment parameter not set. Defaulting to 'QA'");
+            baseUrl = Environments.QA.getEnvironmentURL();
+        } else {
+            switch (env.toUpperCase()) {
+                case "DEV":
+                    baseUrl = Environments.DEV.getEnvironmentURL();
+                    break;
+                case "LOCAL":
+                    baseUrl = Environments.LOCAL.getEnvironmentURL() + Services.HOCS.getPort();
+                    break;
+                case "QA":
+                    baseUrl = Environments.QA.getEnvironmentURL();
+                    break;
+                default:
+                    TestCase.fail("Environment must be set to LOCAL, DEV or QA");
+            }
+        }
+        driver.get(baseUrl);
+    }
+
 }

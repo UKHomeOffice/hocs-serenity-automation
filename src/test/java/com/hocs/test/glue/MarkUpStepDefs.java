@@ -2,11 +2,48 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.Page;
+import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.Topics;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class MarkUpStepDefs {
+
+    Homepage homepage;
+
+    Page page;
+
+    Topics topics;
+
+    MarkUpDecision markUpDecision;
+
+    DataInput dataInput;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    @When("^I complete the markup stage$")
+    public void completeTheMarkupStage() {
+        dataInput.selectTeam1();
+        successfulCaseCreation.clickSessionVariableViaLinkText();
+        markUpDecision.clickPolicyResponseRadioButton();
+        page.clickContinueButton();
+        System.out.println("I have found the Add topic button, smashing left click repeatedly....");
+        topics.clickAddTopicButton();
+        topics.enterRealTopic();
+        page.clickAddButton();
+        page.clickContinueButton();
+        //Answering Stage has no inputs available therefore enter a minister and clickContinueButton again
+        markUpDecision.selectSecondSignOffMinisterFromDropdown();
+        page.clickContinueButton();
+        page.enterAllocationNote();
+        page.clickFinishButton();
+    }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")
     public void theTopicShouldBeSetAsTheOrdinalTopic(String ordinal) {

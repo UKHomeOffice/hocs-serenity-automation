@@ -4,7 +4,13 @@ import static org.junit.Assert.fail;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
+import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.DraftingTeamDecision;
+import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.draft.Qa;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -17,6 +23,39 @@ public class DraftResponseStepDefs {
     DraftingTeamDecision draftingTeamDecision;
 
     Page page;
+
+    Homepage homepage;
+
+    AddDocuments addDocuments;
+
+    QAResponse qaResponse;
+
+    DataInput dataInput;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    Qa qa;
+
+    @When("^I complete the initial draft stage$")
+    public void completeInitialDraftStage() {
+        dataInput.selectTeam1();
+        successfulCaseCreation.clickSessionVariableViaLinkText();
+        draftingTeamDecision.clickAcceptInitialDraftDecision();
+        page.clickContinueButton();
+        draftingTeamDecision.clickDraftingResponseLetter();
+        page.clickContinueButton();
+        draft.clickAddDocumentsButton();
+        draft.selectDocumentTypeByIndex(1);
+        addDocuments.uploadDocument();
+        page.clickAddButton();
+        page.clickContinueButton();
+        // offline QA decision NO
+        qa.clickOfflineQANoRadioButton();
+        page.clickContinueButton();
+        //qaResponse.clickOfflineQANoButton();
+        System.out.println("I have completed the initial draft and am QA'ing the case");
+        // Should belong to QAResponse StepDefs vv
+    }
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {

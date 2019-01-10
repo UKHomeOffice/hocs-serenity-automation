@@ -15,6 +15,12 @@ public class Draft extends Page {
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade answeredByMyTeamYesRadioButton;
 
+    @FindBy(css = ".govuk-body.govuk-link")
+    private WebElementFacade draftStageAddDocumentsButton;
+
+    @FindBy(id = "document_type")
+    private WebElementFacade documentTypeDropDown;
+
     @FindBy(id = "")
     private WebElementFacade draftingDeadline;
 
@@ -63,31 +69,22 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
 
-    public Draft() {
-    }
+    // Basic Methods
 
-    public void assertEnterCallNotesError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
-    }
-
-    public void assertEnterQaMethodError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
-    }
-
-    public void assertEnterRejectionReasonsError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    public void clickAddDocumentsButton() {
+        draftStageAddDocumentsButton.click();
     }
 
     public void clearAllocationNoteField() {
         allocationNoteFreeTextField.clear();
     }
 
-    public void clickAddResponseButton() {
-        addResponseButton.click();
+    public void selectDocumentTypeByIndex(int index) {
+        documentTypeDropDown.selectByIndex(index);
     }
 
-    public void clickAddSupportingDocumentsButton() {
-        addSupportingDocumentsButton.click();
+    public void clickAddResponseButton() {
+        addResponseButton.click();
     }
 
     public void clickAnsweredByMyTeamNoRadioButton() {
@@ -134,8 +131,7 @@ public class Draft extends Page {
         supportingDocumentsYesRadioButton.click();
     }
 
-    public void draftingDeadlineIsDisplayed() {
-        assertThat(isElementDisplayed(draftingDeadline), is(true));
+    public Draft() {
     }
 
     public void enterAllocationNoteField() {
@@ -155,4 +151,24 @@ public class Draft extends Page {
         allocateToOnlineQaDropdown.selectByVisibleText("");
     }
 
+    // Multi Step Methods
+
+    // Assertions
+
+
+    public void assertEnterCallNotesError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterQaMethodError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void assertEnterRejectionReasonsError() {
+        assertThat(getErrorDetails(), is("Text to be confirmed"));
+    }
+
+    public void draftingDeadlineIsDisplayed() {
+        assertThat(isElementDisplayed(draftingDeadline), is(true));
+    }
 }
