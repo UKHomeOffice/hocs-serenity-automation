@@ -40,7 +40,6 @@ public class PrivateOfficeSignOffStepDefs {
         System.out.println("Private office accepts this draft, returning to home page.");
         page.clickFinishButton();
 
-
     }
 
 
