@@ -8,21 +8,38 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import java.util.List;
 import java.util.Map;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
     @Managed
     WebDriver driver;
 
+    SuccessfulCaseCreation successfulCaseCreation;
+
     @FindBy(linkText = "Create single case")
     public WebElementFacade createSingleCase;
+
+    @FindBy(linkText = "Correspondence System")
+    public WebElementFacade home;
+
+    @FindBy(xpath = "//span[text()='TEAM 1']")
+    public WebElementFacade team1;
+
+    @FindBy(xpath = "//span[text()='TEAM 2']")
+    public WebElementFacade team2;
+
+    @FindBy(xpath = "//span[text()='TEAM 3']")
+    public WebElementFacade team3;
 
     // Call session variable containing the Case Reference, use case reference to grab the link
     // Reference is the linkText but this isnt how to do this.
@@ -50,6 +67,9 @@ public class Homepage extends Page {
 
     @FindBy(css = "[name = 'user-id']")
     public WebElementFacade allocateDropdown;
+
+    @FindBy(xpath = "//span[text()='Cases']")
+    public WebElementFacade myCases;
 
     @FindBy(xpath = "//span[text()='1111']")
     private WebElementFacade team1111Markup;
@@ -117,6 +137,24 @@ public class Homepage extends Page {
 
     // Basic Methods
 
+    public void selectMyCases() { myCases.click();}
+
+    public void goHome() {
+        home.click();
+    }
+
+    public void selectTeam1() {
+        team1.click();
+    }
+
+    public void selectTeam2() {
+        team2.click();
+    }
+
+    public void selectTeam3() {
+        team3.click();
+    }
+
     public void allocateToMe(){
         selectAllocationUserByIndex(2);
         allocateButton.click();
@@ -148,6 +186,42 @@ public class Homepage extends Page {
     }
 
     // Multi Step Methods
+
+   public void firstStageFindMyCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType == "DCU MIN"){
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
+        } else if (thisCaseType == "DCU TRO") {
+            selectTeam1();
+            successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
+        } else if (thisCaseType == "DCU N10") {
+            selectTeam3();
+            successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+   /* public void tryToFindMyCases() {
+        //D10 to Team 3 initially, DCMIN/TRO to Team1
+        selectTeam1();
+        System.out.println("I have found the caseReferenceLink " + caseReferenceLink);
+       if (!caseReferenceLink.isDisplayed()) {
+           goHome();
+           selectTeam2();
+           if(!caseReferenceLink.isDisplayed()){
+               goHome();
+               selectTeam3();
+               caseReferenceLink.click();
+           } else {
+               caseReferenceLink.click();
+           }
+       } else {
+           caseReferenceLink.click();
+       }
+    }*/
 
 
 

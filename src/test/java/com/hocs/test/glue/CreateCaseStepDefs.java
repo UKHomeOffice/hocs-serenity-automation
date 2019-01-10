@@ -18,6 +18,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 
 public class CreateCaseStepDefs {
 
@@ -74,12 +75,15 @@ public class CreateCaseStepDefs {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
+                Serenity.setSessionVariable("caseType").to(caseType);
                 break;
             case "DCU N10":
                 createCase.createDC10SingleCase();
+                Serenity.setSessionVariable("caseType").to(caseType);
                 break;
             case "DCU TRO":
                 createCase.createDCTROSingleCase();
+                Serenity.setSessionVariable("caseType").to(caseType);
                 break;
             default:
                 System.out.println(caseType
