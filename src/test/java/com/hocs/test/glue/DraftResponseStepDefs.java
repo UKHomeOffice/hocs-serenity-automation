@@ -38,23 +38,63 @@ public class DraftResponseStepDefs {
 
     Qa qa;
 
-    @When("^I complete the initial draft stage$")
-    public void completeInitialDraftStage() {
-        homepage.findMyInitialDraftCase();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-        homepage.selectMyCases();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
-        draftingTeamDecision.clickAcceptInitialDraftDecision();
-        page.clickContinueButton();
-        draftingTeamDecision.clickDraftingResponseLetter();
-        page.clickContinueButton();
-        draft.clickAddDocumentsButton();
-        draft.selectDocumentTypeByIndex(1);
-        addDocuments.uploadDocument();
-        page.clickAddButton();
-        page.clickContinueButton();
-        qa.clickOfflineQANoRadioButton();
-        page.clickContinueButton();
+    @When("^Initial draft stage \"([^\"]*)\"$")
+    public void completeInitialDraftStage(String caseType) {
+        switch (caseType.toUpperCase()){
+            case "DCU MIN":
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draftingTeamDecision.clickDraftingResponseLetter();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                qa.clickOfflineQANoRadioButton();
+                page.clickContinueButton();
+                break;
+            case "DCU N10":
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                qa.clickOfflineQANoRadioButton();
+                page.clickContinueButton();
+                break;
+            case "DCU TRO":  //does not have offline QA option available
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draftingTeamDecision.clickDraftingResponseLetter();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
     }
 
     @When("^I select to reply by \"([^\"]*)\"$")
@@ -187,5 +227,10 @@ public class DraftResponseStepDefs {
                 callDetails = null;
                 assumeNotNull(callDetails);
         }
+    }
+
+    @Then("^The case is returned to the Initial Draft stage$")
+    public void assertCaseReturnedToInitialDraft() {
+        qaResponse.findAndAssertMyInitialDraftCase();
     }
 }

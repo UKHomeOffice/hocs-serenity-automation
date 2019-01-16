@@ -33,8 +33,18 @@ public class MinisterSignOffStepDefs {
         homepage.findMyMinisterSignOffCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         minister.clickMinisterSignOffAcceptRadioButton();
+        page.clickFinishButton();
+    }
+
+    @When("^The case is rejected by the Minister$")
+    public void rejectAtMinisterSignOff() {
+        homepage.findMyMinisterSignOffCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        minister.clickMinisterSignOffRejectRadioButton();
         page.clickFinishButton();
     }
 

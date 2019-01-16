@@ -52,7 +52,7 @@ public class SuccessfulCaseCreation extends Page {
 
     // Call session variable and set it to linkText of a findElement.by
 
-    public void clickSessionVariableViaLinkText() {
+    public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber
                 = Serenity.sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
@@ -61,7 +61,7 @@ public class SuccessfulCaseCreation extends Page {
         thisReference.click();
     }
 
-    public void clickSessionVariableViaLinkTextAndStoreResultingElement(){
+    public void selectCaseReferenceNumberViaLinkTextAndStoreResultingElement(){
         String caseReferenceNumber
                 = Serenity.sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);

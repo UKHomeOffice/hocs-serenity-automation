@@ -44,6 +44,9 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(id = "email")
     private WebElementFacade correspondentEmailField;
 
+    @FindBy(linkText = "Add a correspondent")
+    private WebElementFacade addACorrespondentButton;
+
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
 
@@ -55,6 +58,12 @@ public class RecordCorrespondentDetails extends Page {
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade additionalCorrespondentYesRadioButton;
+
+    @FindBy(css = "label[for='isMember-false']")
+    private WebElementFacade correspondentNotMPRadioButton;
+
+    @FindBy(css = "label[for='isMember-true']")
+    private WebElementFacade correspondentIsMPRadioButton;
 
     public void assertPageTitle() {
         assertTitle("Record Correspondent Details");
@@ -71,6 +80,18 @@ public class RecordCorrespondentDetails extends Page {
 
     public void clickAdditionalCorrespondentYes() {
         additionalCorrespondentYesRadioButton.click();
+    }
+
+    public void selectAddACorrespondent() {
+        addACorrespondentButton.click();
+    }
+
+    public void selectNotMPRadioButton(){
+        correspondentNotMPRadioButton.click();
+    }
+
+    public void selectIsMPRadioButton(){
+        correspondentIsMPRadioButton.click();
     }
 
     public void enterCorrespondentFullName(String fullName) {
@@ -108,6 +129,14 @@ public class RecordCorrespondentDetails extends Page {
 
     public String getPrimaryCorrespondent() {
         return primaryCorrespondentName.getText();
+    }
+
+    public void addAMemberOfPublicCorrespondent() {
+        selectAddACorrespondent();
+        selectNotMPRadioButton();
+        clickContinueButton();
+        fillMandatoryFields();
+        clickAddButton();
     }
 
     public void fillMandatoryFields() {

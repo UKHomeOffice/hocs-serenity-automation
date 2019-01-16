@@ -161,7 +161,7 @@ public class CreateCase extends Page {
     public void createDCUMinSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuMinRadioButton();
-        completeSingleCaseCreation();
+        completeDCUMINSingleCaseCreation();
     }
 
     // Create a single DC10 case from the home page
@@ -175,7 +175,25 @@ public class CreateCase extends Page {
     public void createDCTROSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuTroRadioButton();
-        completeSingleCaseCreation();
+        completeDCTROSingleCaseCreation();
+    }
+
+    public void completeDCTROSingleCaseCreation() {
+        clickNextButton();
+        addDocuments.uploadDocument();
+        clickSubmitButton();
+        successfulCaseCreation.getCaseReference();
+        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
+    }
+
+    public void completeDCUMINSingleCaseCreation(){
+        clickNextButton();
+        addDocuments.uploadDocument();
+        clickSubmitButton();
+        successfulCaseCreation.getCaseReference();
+        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
     }
 
     public void completeSingleCaseCreation() {

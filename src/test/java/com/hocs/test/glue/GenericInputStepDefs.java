@@ -233,7 +233,11 @@ public class GenericInputStepDefs {
         String day = page.todayPlusNDaysGetDay(days);
         String month = page.todayPlusNDaysGetMonth(days);
         String year = page.todayPlusNDaysGetYear(days);
+    }
 
+    @When("^I set a deadline of -1 days$")
+    public void setDeadlineToDaysDays(int days) {
+        dataInput.setDateMinusOneDay();
     }
 
     @Then("^an error message is displayed$")
@@ -245,7 +249,6 @@ public class GenericInputStepDefs {
     public void theCaseIsMovedToTheStage(String expectedStage) {
         homepage.assertCaseStageInWorkstacks(expectedStage, driver);
     }
-
 
     @Then("^the file is downloaded$")
     public void theFileIsDownloaded() {

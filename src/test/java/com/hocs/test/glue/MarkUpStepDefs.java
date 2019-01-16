@@ -34,7 +34,7 @@ public class MarkUpStepDefs {
         homepage.findMyMarkupCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         markUpDecision.clickPolicyResponseRadioButton();
         page.clickContinueButton();
         topics.clickAddTopicButton();

@@ -3,6 +3,7 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -11,6 +12,7 @@ public class DataInput extends Page {
 
     Homepage homepage;
     SuccessfulCaseCreation successfulCaseCreation;
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
     // Elements
 
@@ -127,11 +129,17 @@ public class DataInput extends Page {
     public void dataInputFullFlow() {
         homepage.firstStageFindMyCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-        System.out.println("Attempting to fill mandatory fields.");
         homepage.findMyDataInputCase();
         fillAllMandatoryFields();
         clickContinueButton();
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
         clickFinishButton();
+    }
+
+    public void setDateMinusOneDay (){
+        enterDayOfCorrespondenceReceived(todayPlusNDaysGetDay(-1));
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
     }
 
     public void clearDateCorrespondenceReceived() {
@@ -146,17 +154,17 @@ public class DataInput extends Page {
         dateCorrespondenceSentYearField.clear();
     }
 
-    private void enterDayOfCorrespondenceReceived(String day) {
+    public void enterDayOfCorrespondenceReceived(String day) {
         dateCorrespondenceReceivedDayField.clear();
         dateCorrespondenceReceivedDayField.sendKeys(day);
     }
 
-    private void enterMonthOfCorrespondenceReceived(String month) {
+    public void enterMonthOfCorrespondenceReceived(String month) {
         dateCorrespondenceReceivedMonthField.clear();
         dateCorrespondenceReceivedMonthField.sendKeys(month);
     }
 
-    private void enterYearOfCorrespondenceReceived(String year) {
+    public void enterYearOfCorrespondenceReceived(String year) {
         dateCorrespondenceReceivedYearField.clear();
         dateCorrespondenceReceivedYearField.sendKeys(year);
     }

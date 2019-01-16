@@ -33,7 +33,7 @@ public class DispatchStepDefs {
         homepage.findMyDispatchCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         dispatch.clickDispatchAcceptRadioButton();
         page.clickFinishButton();
     }
