@@ -29,8 +29,6 @@ public class WorkstacksStepDefs {
     private
     WebDriver driver; // set webdriver to var driver
 
-    //Somepage somepage if you need to include another pages elements
-    //Errorpage errorpage - build generic error page page.
 
     @Steps(shared = true)
     NavigationStepDefs navigationStepDefs;
@@ -38,6 +36,22 @@ public class WorkstacksStepDefs {
     private LoginPage loginpage; //require loginpage file features not sure why this is under @steps instead of @managed
 
     private Page page; //more pages
+    Homepage homepage;
+    Workstacks workstacks;
+
+    @When("^I allocate the case to myself$")
+    public void allocateToMe(){
+        homepage.firstStageFindMyCase();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+
+   }
+
+   @Then("^The case is added to My Cases$")
+   public void assertThatCaseIsAllocatedToMe(){
+        homepage.selectMyCases();
+        workstacks.assertCaseReferenceIsVisible();
+   }
 
    /* @When("^I view my workstacks$")
     //could belong in navigateStepDefs
@@ -60,11 +74,11 @@ public class WorkstacksStepDefs {
     }
 
 
-    @And("^I assign X to me$")
-    public void assignCaseToMe() {
-        //as above make the amount of cases not static
-        Workstacks.assignCaseToMyself();
-    }
+//    @And("^I assign X to me$")
+//    public void assignCaseToMe() {
+//        //as above make the amount of cases not static
+//        Workstacks.assignCaseToMyself();
+//    }
 
     @And("^I do not see 'thisTeam'$")
     public void assertNoTeamWhenNoCasesForTeam() {

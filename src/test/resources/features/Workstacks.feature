@@ -1,6 +1,13 @@
 Feature: Team members can allocate work
 
+  Background:
+    Given I am user "DANNY"
   # single quotes represent future unknown vars
+    @Allocate
+      Scenario: A single case is allocated to the current user
+        When I create a single case "DCU MIN"
+        And I allocate the case to myself
+        Then The case is added to My Cases
 
     @HOCS-402
     Scenario: A user is in no teams
