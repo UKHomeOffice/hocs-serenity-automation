@@ -1,166 +1,189 @@
 Feature: Team members can allocate work
 
   Background:
-    Given I am user "DANNY"
+    Given I am user "EAMON"
   # single quotes represent future unknown vars
-    @Allocate
-      Scenario: A single case is allocated to the current user
-        When I create a single case "DCU MIN"
-        And I allocate the case to myself
-        Then The case is added to My Cases
+  @Allocate
+  Scenario: A single case is allocated to the current user
+    When I create a single case "DCU MIN"
+    And I allocate the case to myself
+    Then The case is added to My Cases
 
-    @HOCS-402
-    Scenario: A user is in no teams
-      Given I am user "NoTEAM"
-      When I view my workstacks
-      Then I see a sign up message
+  @Allocate
+  Scenario: A single case is allocated to the current user using checkboxes
+    When I create a single case "DCU MIN"
+    And I select the check box against the case
 
-    @HOCS-402
-    Scenario: A user is in a team with no or zero cases
+  @Unallocate
+  Scenario: A single case is unallocated from the current user
+    When I create a single case "DCU MIN"
+    And I allocate the case to myself
+    And I unallocate the case from myself
+    Then The case is not visible in My Cases
+
+  @Filtering
+  Scenario: Cases are filtered by Case Reference type in Team Workstacks
+    When I navigate to the "TEAM 1" team page
+    And I enter Case Reference type into the filter
+    Then The cases are filtered by the chose Case Reference
+
+
+
+
+
+
+  @HOCS-402
+  Scenario: A user is in no teams
+    Given I am user "NoTEAM"
+    When I view my workstacks
+    Then I see a sign up message
+
+  @HOCS-402
+  Scenario: A user is in a team with no or zero cases
       #Setup on UI and set correct users per test
-      Given I am user "TEAM_A"
-      And My team has 0 cases
-      When I view my workstacks
-      Then I see a X value for 'thisTeam'
+    Given I am user "TEAM_A"
+    And My team has 0 cases
+    When I view my workstacks
+    Then I see a X value for 'thisTeam'
       # I see a 0 value for 'team A'
 
-    @HOCS-402
+  @HOCS-402
       # Another team member should be 'assign to' some specific user
-    Scenario: A user is in one team
-      Given I am user "TEAM_A"
-      And I create 'created' cases
+  Scenario: A user is in one team
+    Given I am user "TEAM_A"
+    And I create 'created' cases
       # I create 5 cases
-      And I assign X to me
+    And I assign X to me
       # I assign 3 to me
       # And leave one unassigned (this is implied)
-      And assign 1 to another team member
-      When I view my workstacks
-      Then I see a X value for 'thisTeam'
+    And assign 1 to another team member
+    When I view my workstacks
+    Then I see a X value for 'thisTeam'
       # I see a 5 value for 'team A'
       #Do I view multiple teams or only my team?
-      And I see a X value for assigned to me
+    And I see a X value for assigned to me
       # I see a 3 value for assigned to me
-      And I see a Z value for unassigned
+    And I see a Z value for unassigned
       # I see a 1 value for unassigned
 
-    @HOCS-402
-    Scenario: A user is in a team with cases and a team without cases
-      Given I am user "TEAM_AandB"
-      And I create 'created' 'team A' cases
+  @HOCS-402
+  Scenario: A user is in a team with cases and a team without cases
+    Given I am user "TEAM_AandB"
+    And I create 'created' 'team A' cases
       # I create '5' 'team A' cases
       # And 'team B' has 0 cases this is implied
-      When I view my workstacks
-      Then I see a X value for 'thisTeam'
+    When I view my workstacks
+    Then I see a X value for 'thisTeam'
       # I see a 5 value for 'team A'
-      And I do not see 'thisTeam'
+    And I do not see 'thisTeam'
       # I do not see 'team B'
 
 
-    @HOCS-402
-    Scenario: A user is in two teams and both teams have cases
+  @HOCS-402
+  Scenario: A user is in two teams and both teams have cases
       #Teams are assigned by business rules IE DCU MIN cases goto Team A so I should name the teams DCU/TRO/PolR etc
-      Given I am user "TEAM_AandC"
-      And I create 'created' 'team A' cases
+    Given I am user "TEAM_AandC"
+    And I create 'created' 'team A' cases
       # I create '5' 'team A' cases
-      And I create 'created' 'team C' cases
+    And I create 'created' 'team C' cases
       # I create '3' 'team C' cases
-      And assign 'assigned' 'thisTeam' cases to me
+    And assign 'assigned' 'thisTeam' cases to me
       # assign '3' 'team A' cases to me
-      And assign 'assigned' 'team A' to another team member
+    And assign 'assigned' 'team A' to another team member
       # assign '1' 'team A' to another team member
       # And leave 1 unassigned (this is implied)
-      And assign 'assigned' 'thisTeam' cases to me
+    And assign 'assigned' 'thisTeam' cases to me
       # assign '2' 'team C' cases to myself
       #And leave 1 unassigned (this is implied)
-      When I view my workstacks
-      Then I see that I have X cases assigned to me
+    When I view my workstacks
+    Then I see that I have X cases assigned to me
       # I see that I have 5 cases assigned to me
-      And I see 'thisTeam' has X cases total
+    And I see 'thisTeam' has X cases total
       # I see 'team A' has 5 cases total
-      And I see 'thisTeam' has X unassigned case
+    And I see 'thisTeam' has X unassigned case
       # I see 'team A' has 1 unassigned case
-      And I see 'thisTeam' has X cases total
+    And I see 'thisTeam' has X cases total
       # I see 'team C' has 3 cases total
       # Step def available for this but does not include variable parameter of teams yet.
-      And I see 'thisTeam' has X unassigned case
+    And I see 'thisTeam' has X unassigned case
       # I see 'team C' has 1 unassigned case
 
-    @HOCS-402
-    Scenario: A user has no allocated work
-      Given I am user "TEAM_A"
-      And I create 5 'team A' cases
-      And assign 4 to another team member
+  @HOCS-402
+  Scenario: A user has no allocated work
+    Given I am user "TEAM_A"
+    And I create 5 'team A' cases
+    And assign 4 to another team member
       # StepDef Available without variable parameters
       # And leave 1 unassigned
-      When I view my workstacks
-      Then I see that I have X cases assigned to me
+    When I view my workstacks
+    Then I see that I have X cases assigned to me
       # I see that I have 0 cases assigned to me
-      And I see 'thisTeam' has X cases total
+    And I see 'thisTeam' has X cases total
       # I see team A has 5 cases total
-      And I see 'thisTeam' has X unassigned case
+    And I see 'thisTeam' has X unassigned case
       # I see team A has 1 unassigned case
 
-    @HOCS-402
-    Scenario: A user has an overdue case 
+  @HOCS-402
+  Scenario: A user has an overdue case 
       #How do you make a case overdue?  deadline of -1 day
-      Given I am user "TEAM_A"
-      And I create 1 'team A' cases with "deadline -1 day"
+    Given I am user "TEAM_A"
+    And I create 1 'team A' cases with "deadline -1 day"
       # Add to CreateCase StepDefs
-      And assign 'assigned' 'thisTeam' cases to me
+    And assign 'assigned' 'thisTeam' cases to me
       # I assign 1 'team A' case to me
-      And I create 4 'team A cases
+    And I create 4 'team A cases
       # CreateCase Stepdef needed
-      And assign 'assigned' 'thisTeam' cases to me
+    And assign 'assigned' 'thisTeam' cases to me
       # assign 2 'team A' cases to me
-      When I view my workstacks
-      Then I see that I have X cases assigned to me
+    When I view my workstacks
+    Then I see that I have X cases assigned to me
       # I see that I have 3 cases assigned to me
-      And I see 1 of my cases is overdue
-      And I see 'thisTeam' has X cases total
+    And I see 1 of my cases is overdue
+    And I see 'thisTeam' has X cases total
       # I see team A has 5 cases total
 
-    @HOCS-402
-    Scenario: A user is in a team with an overdue case
-      Given I am user "TEAM_A"
-      And I create 1 'team A' case with 'deadline -1 day'
+  @HOCS-402
+  Scenario: A user is in a team with an overdue case
+    Given I am user "TEAM_A"
+    And I create 1 'team A' case with 'deadline -1 day'
       #Add to CreateCase StepDefs
-      And I create 4 more cases
-      When I view my workstacks
-      And I see 'thisTeam' has X cases total
+    And I create 4 more cases
+    When I view my workstacks
+    And I see 'thisTeam' has X cases total
       # I see team A has 5 cases total
-      And I see 1 of my cases is overdue
+    And I see 1 of my cases is overdue
 
-    @HOCS-402
-    Scenario: A user has a priority case
-      Given I am user "TEAM_A"
-      And I create 4 'team a' cases
+  @HOCS-402
+  Scenario: A user has a priority case
+    Given I am user "TEAM_A"
+    And I create 4 'team a' cases
       #CreateCase StepDefs
-      And I create 1 PRIORITY 'team a' case
+    And I create 1 PRIORITY 'team a' case
       # CreateCase StepDefs
-      And I assign X to me
+    And I assign X to me
       # assign 3 to myself
       # Assign priority case to myself as well
       # How is priority given and shown to the user?
-      When I view my workstacks
-      Then I see that I have X cases assigned to me
+    When I view my workstacks
+    Then I see that I have X cases assigned to me
       # I see that I have 3 cases assigned to me
-      And I see 1 of my cases is priority
-      And I see 'thisTeam' has X cases total
+    And I see 1 of my cases is priority
+    And I see 'thisTeam' has X cases total
       # I see team A has 5 cases total
 
-    @HOCS-402
-    Scenario: A user is in a team with a priority case
-      Given I am user "TEAM_A"
-      And I create 4 'team A' cases
-      And I create 1 PRIORITY 'team a' case
+  @HOCS-402
+  Scenario: A user is in a team with a priority case
+    Given I am user "TEAM_A"
+    And I create 4 'team A' cases
+    And I create 1 PRIORITY 'team a' case
       # CreateCaseStepDefs ^^
-      And assign 'assigned' 'thisTeam' cases to me
+    And assign 'assigned' 'thisTeam' cases to me
       # assign 3 'team A' cases to me
-      And A case not assigned to me is priority
-      When I view my workstacks
-      Then I see that I have X cases assigned to me
+    And A case not assigned to me is priority
+    When I view my workstacks
+    Then I see that I have X cases assigned to me
       # I see that I have 3 cases assigned to me
-      And I see 'thisTeam' has X cases total
+    And I see 'thisTeam' has X cases total
       # I see team A has 5 cases total
-      And A case not assigned to me is priority
+    And A case not assigned to me is priority
       # I see 1 unassigned case is priority

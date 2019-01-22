@@ -4,7 +4,8 @@ public enum Usernames {
 
     DANNYLARGE("danny.large@ten10.com"),
     DCUSER("smoke_test_user_dcu"),
-    TESTER("");
+    TESTER(""),
+    EAMONDROKO("eamon.droko@ten10.com");
 
     private final String username;
 

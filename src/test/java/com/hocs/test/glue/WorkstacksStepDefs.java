@@ -47,10 +47,36 @@ public class WorkstacksStepDefs {
 
    }
 
+   @When("^I unallocate the case from myself$")
+   public void unallocateCase(){
+        homepage.selectMyCases();
+        workstacks.clickCheckboxWhereCaseReferenceIs();
+        workstacks.clickUnallocateCasesButton();
+
+   }
+
+   @When("^I select the check box against the case$")
+   public void selectCaseCheckbox(){
+        homepage.firstStageFindMyCase();
+        workstacks.clickCheckboxWhereCaseReferenceIs();
+   }
+
+
    @Then("^The case is added to My Cases$")
    public void assertThatCaseIsAllocatedToMe(){
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
+   }
+
+   @Then("^The case is not visible in My Cases$")
+   public void assertThatCaseHasBeenUnallocatedFromMe(){
+        workstacks.assertCaseReferenceIsNotVisible();
+
+   }
+
+   @When("^I enter Case Reference type into the filter$")
+   public void enterCaseReferenceType(){
+
    }
 
    /* @When("^I view my workstacks$")

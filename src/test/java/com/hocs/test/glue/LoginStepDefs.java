@@ -57,6 +57,9 @@ public class LoginStepDefs {
             case "DANNY":
                 enterHocsLoginDetails(DANNY);
                 break;
+            case "EAMON":
+                enterHocsLoginDetails(EAMON);
+                break;
             default:
                 System.out.println(user
                         + " is not defined within " + getClass().getSimpleName()

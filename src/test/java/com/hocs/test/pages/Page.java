@@ -21,6 +21,7 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -231,6 +232,8 @@ public class Page extends PageObject {
 
     @FindBy(linkText = "view")
     private WebElementFacade viewLink;
+
+    //@FindBy()
 
     public void assertErrorMessageText(String text) {
         assertThat(getErrorMessageText(), containsString(text));
@@ -539,6 +542,14 @@ public class Page extends PageObject {
         }
     }
 
+    public boolean isElementDisplayed(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException | StaleElementReferenceException | NullPointerException e) {
+            return false;
+        }
+    }
+
     public void lookupTerms() {
         lookupButton.click();
     }
@@ -684,6 +695,14 @@ public class Page extends PageObject {
 
     public void assertElementIsNotDisplayed(WebElementFacade element) {
         assertThat(isElementDisplayed(element), is(false));
+    }
+
+    public void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

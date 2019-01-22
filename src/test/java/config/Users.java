@@ -12,7 +12,8 @@ public enum Users {
     TEAM_AandC("teamAandC@placeholder.com", "Password1!"),
     TEAM_C("teamC@placeholder.com", "Password1!"),
     TEAM_D("teamD@placeholder.com", "Password1!"),
-    TEAM_E("teamE@placeholder.com", "Password1!");
+    TEAM_E("teamE@placeholder.com", "Password1!"),
+    EAMON("eamon.droko@ten10.com", "Password1!");
 
 
     private final String username;

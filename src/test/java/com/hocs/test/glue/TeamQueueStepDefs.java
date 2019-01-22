@@ -202,8 +202,8 @@ public class TeamQueueStepDefs {
         teamqueue.assertThatCasesAreNotAssignedToAnotherUserTeam();
     }
 
-   @Then("^The case should no longer be visible in the teamqueue$")
-    public void assertThatCaseInSessionVariableIsNotVisible(){
+    @Then("^The case should no longer be visible in the teamqueue$")
+    public void assertThatCaseInSessionVariableIsNotVisible() {
         dataInput.selectTeam1();
         teamqueue.assertCaseIsNotVisible();
     }

@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import com.google.common.annotations.GwtIncompatible;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
@@ -13,6 +14,7 @@ import config.Services;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
 
@@ -56,6 +58,27 @@ public class NavigationStepDefs {
                 assumeNotNull(hocsPage);
         }
     }
+
+    @When("^I navigate to the \"([^\"]*)\" team page$")
+    public void navigateToTeamPage(String teamPage) {
+        switch (teamPage.toUpperCase()){
+            case "TEAM 1":
+                homepage.selectTeam1();
+                homepage.team1.click();
+                break;
+            case "TEAM 3":
+                homepage.team3.click();
+                break;
+            default: System.out.println(teamPage
+                    + " is not defined within " + getClass().getSimpleName()
+                    + " class, " + getMethodName() + " method");
+                teamPage = null;
+                assumeNotNull(teamPage);
+        }
+
+    }
+
+
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void navigateToPage(String onHocsPage) {
