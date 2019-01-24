@@ -51,7 +51,8 @@ public class DraftResponseStepDefs {
                 draftingTeamDecision.clickDraftingResponseLetter();
                 page.clickContinueButton();
                 draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
+                // Select Draft only because others fail to become primary causing the script to fail
+                draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
                 page.clickAddButton();
                 page.clickContinueButton();

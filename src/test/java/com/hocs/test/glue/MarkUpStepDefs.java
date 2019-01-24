@@ -41,10 +41,12 @@ public class MarkUpStepDefs {
         topics.enterRealTopic();
         page.clickAddButton();
         page.clickContinueButton();
-        markUpDecision.selectFirstSignOffMinisterFromDropdown();
+        // Teams override here
         page.clickContinueButton();
-        page.enterAllocationNote();
-        page.clickFinishButton();
+       // markUpDecision.selectFirstSignOffMinisterFromDropdown();
+       // page.clickContinueButton();
+       // page.enterAllocationNote();
+       // page.clickFinishButton();
     }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")

@@ -20,6 +20,8 @@ public class CreateCase extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+    Homepage homepage;
+
     // Elements
 
     @FindBy(className = "govuk-radios")
@@ -81,8 +83,6 @@ public class CreateCase extends Page {
         String thisSessionVar = Serenity.sessionVariableCalled("caseReference");
         System.out.println(thisSessionVar);
     }
-
-    public void clickCreateSingleCaseLink() { createSingleCaseLink.click(); }
 
     public void clickAddDocumentsRadioButton() {
         addDocumentsYesRadioButton.click();
@@ -159,21 +159,21 @@ public class CreateCase extends Page {
 
     // Create a single DCU Min case from the home page
     public void createDCUMinSingleCase() {
-        clickCreateSingleCaseLink();
+        homepage.clickCreateSingleCase();
         clickDcuMinRadioButton();
         completeDCUMINSingleCaseCreation();
     }
 
     // Create a single DC10 case from the home page
     public void createDC10SingleCase() {
-        clickCreateSingleCaseLink();
+        homepage.clickCreateSingleCase();
         clickDcuDtenRadioButton();
         completeSingleCaseCreation();
     }
 
     // Create a single DC TRO case from the home page
     public void createDCTROSingleCase() {
-        clickCreateSingleCaseLink();
+        homepage.clickCreateSingleCase();
         clickDcuTroRadioButton();
         completeDCTROSingleCaseCreation();
     }

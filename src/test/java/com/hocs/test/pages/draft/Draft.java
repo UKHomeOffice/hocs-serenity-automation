@@ -17,7 +17,7 @@ public class Draft extends Page {
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(css = ".govuk-body.govuk-link")
+    @FindBy(xpath = "//a[text()='document']")
     private WebElementFacade draftStageAddDocumentsButton;
 
     @FindBy(id = "document_type")

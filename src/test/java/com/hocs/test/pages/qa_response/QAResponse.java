@@ -52,15 +52,15 @@ public class QAResponse extends Page{
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
         if(thisCaseType.equals("DCU MIN")) {
-            System.out.println("DCUMIN identified, selecting team 1");
+            System.out.println("DCU MIN identified, selecting team 1");
             homepage.selectTeam1();
             homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
         } else if (thisCaseType.equals("DCU TRO")) {
-            System.out.println("DCUTRO identified, selecting team 3");
+            System.out.println("DCU TRO identified, selecting team 3");
             homepage.selectTeam3();
             homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
         } else if (thisCaseType.equals("DCU N10")) {
-            System.out.println("DCUN10 identified, selecting team 2");
+            System.out.println("DCU N10 identified, selecting team 2");
             homepage.selectTeam3();
             homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
         } else {

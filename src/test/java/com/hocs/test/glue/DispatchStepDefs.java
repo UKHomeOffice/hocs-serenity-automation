@@ -29,12 +29,13 @@ public class DispatchStepDefs {
     SuccessfulCaseCreation successfulCaseCreation;
 
     @When("^I complete the dispatch stage$")
-    public void completeTheDispatchStage(){
+    public void completeTheDispatchStage() {
         homepage.findMyDispatchCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         dispatch.clickDispatchAcceptRadioButton();
+        page.clickContinueButton();
         page.clickFinishButton();
     }
 

@@ -29,7 +29,7 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @FindBy(linkText = "Create single case")
+    @FindBy(linkText = "Create Single Case")
     public WebElementFacade createSingleCase;
 
     @FindBy(linkText = "Correspondence System")

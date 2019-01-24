@@ -14,7 +14,7 @@ public class Topics extends Page {
     private WebElementFacade focusedTopicsTextField;
 
 
-    @FindBy(css = ".govuk-link")
+    @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicButton;
 
 
