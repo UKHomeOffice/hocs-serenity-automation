@@ -13,6 +13,7 @@ import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.draft.Qa;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -37,6 +38,8 @@ public class DraftResponseStepDefs {
     SuccessfulCaseCreation successfulCaseCreation;
 
     Qa qa;
+
+    Teamqueue teamqueue;
 
     @When("^Initial draft stage \"([^\"]*)\"$")
     public void completeInitialDraftStage(String caseType) {
@@ -67,7 +70,7 @@ public class DraftResponseStepDefs {
                 draftingTeamDecision.clickAcceptInitialDraftDecision();
                 page.clickContinueButton();
                 draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
+                draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
                 page.clickAddButton();
                 page.clickContinueButton();
@@ -84,7 +87,7 @@ public class DraftResponseStepDefs {
                 draftingTeamDecision.clickDraftingResponseLetter();
                 page.clickContinueButton();
                 draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
+                draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
                 page.clickAddButton();
                 page.clickContinueButton();
@@ -230,8 +233,19 @@ public class DraftResponseStepDefs {
         }
     }
 
-    @Then("^The case is returned to the Initial Draft stage$")
-    public void assertCaseReturnedToInitialDraft() {
-        qaResponse.findAndAssertMyInitialDraftCase();
+    @Then("^The case is returned to the \"([^\"]*)\" stage$")
+    public void assertCaseReturnedToInitialDraft(String stage) {
+        switch (stage.toUpperCase()){
+            case "INITIAL DRAFT":
+                homepage.selectTeam1();
+                teamqueue.assertCaseStage(stage);
+                break;
+            default:
+                System.out.println(stage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                stage = null;
+                assumeNotNull(stage);
+        }
     }
 }

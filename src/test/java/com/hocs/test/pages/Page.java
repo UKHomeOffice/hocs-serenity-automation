@@ -176,6 +176,9 @@ public class Page extends PageObject {
     @FindBy(className = "govuk-heading-l")
     protected WebElementFacade pageTitle;
 
+    @FindBy(xpath = "//h1/span")
+    protected WebElementFacade pageCaption;
+
     @FindBy(id = "")
     protected WebElementFacade postCodeField;
 
@@ -237,6 +240,15 @@ public class Page extends PageObject {
 
     public void assertErrorMessageText(String text) {
         assertThat(getErrorMessageText(), containsString(text));
+    }
+
+    public void assertCaption(String caption) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertThat(getCaptionText(), containsString(caption));
     }
 
     public void assertTitle(String title) {
@@ -506,6 +518,10 @@ public class Page extends PageObject {
 
     private String getHeaderText() {
         return pageTitle.getText();
+    }
+
+    private String getCaptionText() {
+        return pageCaption.getText();
     }
 
     private int getRandomNumber() {

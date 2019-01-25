@@ -1,6 +1,10 @@
 package com.hocs.test.pages.teamqueue;
 
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import com.hocs.test.pages.Page;
 
 import net.serenitybdd.core.Serenity;
@@ -29,6 +33,40 @@ public class Teamqueue extends Page {
         waitFor(dashboardButton);
     }
 
+    // NAVIGATE THE TABLE FOR THE STAGE.....
+
+    public String getStageFromWorkstacksTable() {
+        WebElement caseReferenceStage = getDriver().findElement(
+                By.xpath("//a[text()='" +sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[1]"));
+        System.out.println(caseReferenceStage);
+        return caseReferenceStage.getText();
+    }
+
+    public void assertCaseStage(String stage) {
+        assertThat(getStageFromWorkstacksTable().toUpperCase(), is(stage.toUpperCase()));
+    }
+
+    public String getAllocatedUserFromWorkstacksTable() {
+        WebElement caseReferenceStage = driver.findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[2]"));
+        return caseReferenceStage.getText();
+    }
+
+    public String getTeamFromWorkstacksTable() {
+        WebElement caseReferenceStage = driver.findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[3]"));
+        return caseReferenceStage.getText();
+    }
+
+    public String getDeadlineFromWorkstacksTable() {
+        WebElement caseReferenceStage = driver.findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[4]"));
+        return caseReferenceStage.getText();
+    }
 
     public void iHaveCasesInMyTeamqueue() {
     }

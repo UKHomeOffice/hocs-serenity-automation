@@ -24,6 +24,9 @@ public class QAResponse extends Page{
     @FindBy(id = "CaseNote_RejectionNote")
     private WebElementFacade draftDecisionNoteField;
 
+    @FindBy(id ="CaseNote_QA")
+    private WebElementFacade draftDecisionNoteFieldTheSecond;
+
 
     // Basic Methods
 
@@ -40,31 +43,31 @@ public class QAResponse extends Page{
 
     public void enterDraftDecision() {
         String draftDecisionNote = generateRandomString();
-        draftDecisionNoteField.clear();
-        draftDecisionNoteField.sendKeys(draftDecisionNote);
+        draftDecisionNoteFieldTheSecond.clear();
+        draftDecisionNoteFieldTheSecond.sendKeys(draftDecisionNote);
         Serenity.setSessionVariable("draftDecisionNote").to(draftDecisionNote);
     }
 
     
     // Assertions
 
-    public void findAndAssertMyInitialDraftCase(){
-        String thisCaseType =
-                Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            System.out.println("DCU MIN identified, selecting team 1");
-            homepage.selectTeam1();
-            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-        } else if (thisCaseType.equals("DCU TRO")) {
-            System.out.println("DCU TRO identified, selecting team 3");
-            homepage.selectTeam3();
-            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-        } else if (thisCaseType.equals("DCU N10")) {
-            System.out.println("DCU N10 identified, selecting team 2");
-            homepage.selectTeam3();
-            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-        } else {
-            System.out.println("The case could now be found");
-        }
-    }
+//    public void findAndAssertMyInitialDraftCase(){
+//        String thisCaseType =
+//                Serenity.sessionVariableCalled("caseType").toString();
+//        if(thisCaseType.equals("DCU MIN")) {
+//            System.out.println("DCU MIN identified, selecting team 1");
+//            homepage.selectTeam1();
+//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
+//        } else if (thisCaseType.equals("DCU TRO")) {
+//            System.out.println("DCU TRO identified, selecting team 3");
+//            homepage.selectTeam3();
+//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
+//        } else if (thisCaseType.equals("DCU N10")) {
+//            System.out.println("DCU N10 identified, selecting team 2");
+//            homepage.selectTeam3();
+//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
+//        } else {
+//            System.out.println("The case could now be found");
+//        }
+//    }
 }

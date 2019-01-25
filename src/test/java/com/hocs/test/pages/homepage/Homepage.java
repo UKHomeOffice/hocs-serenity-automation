@@ -152,10 +152,11 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstTroMarkupAllocate;
 
-
     // Basic Methods
 
-    public void selectMyCases() { myCases.click();}
+    public void selectMyCases() {
+        myCases.click();
+    }
 
     public void goHome() {
         home.click();
@@ -177,7 +178,7 @@ public class Homepage extends Page {
         team3.click();
     }
 
-    public void allocateToMe(){
+    public void allocateToMe() {
         selectAllocationUserByIndex(2);
         allocateButton.click();
     }
@@ -289,12 +290,10 @@ public class Homepage extends Page {
     }
 
 
-
-
-    public void findMyQAResponseCase(){
+    public void findMyQAResponseCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             selectTeam3();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -308,10 +307,10 @@ public class Homepage extends Page {
         }
     }
 
-    public void findMyPrivateOfficeCase(){
+    public void findMyPrivateOfficeCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             selectTeam1();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -325,10 +324,10 @@ public class Homepage extends Page {
         }
     }
 
-    public void findMyMinisterSignOffCase(){
+    public void findMyMinisterSignOffCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             selectTeam1();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -342,10 +341,10 @@ public class Homepage extends Page {
         }
     }
 
-    public void findMyDispatchCase(){
+    public void findMyDispatchCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             selectTeam1();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -365,19 +364,19 @@ public class Homepage extends Page {
         team1.click();
         teamqueue.waitForDashboardButton();
         System.out.println("Searching Team 1 for Element on page.");
-       if (!thisReference.isDisplayed()) {
-           goHome();
-           selectTeam2();
-           if(!thisReference.isDisplayed()){
-               goHome();
-               selectTeam3();
-               thisReference.click();
-           } else {
-               thisReference.click();
-           }
-       } else {
-           thisReference.click();
-       }
+        if (!thisReference.isDisplayed()) {
+            goHome();
+            selectTeam2();
+            if (!thisReference.isDisplayed()) {
+                goHome();
+                selectTeam3();
+                thisReference.click();
+            } else {
+                thisReference.click();
+            }
+        } else {
+            thisReference.click();
+        }
     }
 
     // Assertions

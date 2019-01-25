@@ -111,11 +111,6 @@ public class DataInput extends Page {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void selectTeam1111() {
-        team1111Markup.click();
-    }
-
-
     public void tickSendCopyToNumber10() {
         sendCopyToNumberTenTickBox.click();
     }

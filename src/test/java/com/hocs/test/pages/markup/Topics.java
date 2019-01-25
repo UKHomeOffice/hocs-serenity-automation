@@ -32,6 +32,7 @@ public class Topics extends Page {
     // Multi Step Methods
 
     public void enterRealTopic() {
+
         topicsTextField.click();
         System.out.println("Clicked topic Dropdown");
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");

@@ -43,6 +43,9 @@ public class NavigationStepDefs {
     @Given("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
+            case "HOME":
+                homepage.goHome();
+                break;
             case "TEST FORM":
                 homepage.clickTestFormLink();
                 break;
@@ -51,6 +54,12 @@ public class NavigationStepDefs {
                 break;
             case "TEAMQUEUE":
                 homepage.clickTeamQueueLink();
+            case "TEAM 1":
+                homepage.selectTeam1();
+                break;
+            case "MY CASES":
+                homepage.selectMyCases();
+                break;
             default:
                 System.out.println(hocsPage
                         + " is not defined within " + getClass().getSimpleName()

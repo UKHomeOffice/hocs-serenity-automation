@@ -30,7 +30,7 @@ public class MarkUpStepDefs {
     SuccessfulCaseCreation successfulCaseCreation;
 
     @When("^I complete the markup stage$")
-    public void completeTheMarkupStage() {
+    public void acompleteTheMarkupStage() {
         homepage.findMyMarkupCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
@@ -39,9 +39,18 @@ public class MarkUpStepDefs {
         page.clickContinueButton();
         topics.clickAddTopicButton();
         topics.enterRealTopic();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         page.clickAddButton();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         page.clickContinueButton();
-        // Teams override here
         page.clickContinueButton();
        // markUpDecision.selectFirstSignOffMinisterFromDropdown();
        // page.clickContinueButton();
