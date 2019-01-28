@@ -207,10 +207,6 @@ public class CreateCase extends Page {
     }
 
 
-    /* Grab session var is available in SuccessfulCaseCreation.java
-                       as getCaseReference();  */
-
-
     //Assertions
 
     public void assertPageTitle() {

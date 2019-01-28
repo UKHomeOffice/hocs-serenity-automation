@@ -6,7 +6,6 @@ import com.hocs.test.pages.Page;
 
 public class Dispatch extends Page {
 
-
     @FindBy(css = "label[for='DispatchDecision-ACCEPT']")
     private WebElementFacade dispatchAcceptRadioButton;
 
@@ -15,10 +14,6 @@ public class Dispatch extends Page {
 
     public void clickDispatchAcceptRadioButton() {
         dispatchAcceptRadioButton.click();
-    }
-
-    public void clickDispatchRejectRadioButton(){
-        dispatchRejectRadioButton.click();
     }
 
 }

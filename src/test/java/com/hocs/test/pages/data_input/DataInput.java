@@ -82,7 +82,6 @@ public class DataInput extends Page {
 
     // Basic Methods
 
-
     public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
     }
@@ -115,12 +114,14 @@ public class DataInput extends Page {
         sendCopyToNumberTenTickBox.click();
     }
 
+
     // Multi Step Methods
 
     public void dataInputFullFlow() {
         homepage.firstStageFindMyCase();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.findMyDataInputCase();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         fillAllMandatoryFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
@@ -201,6 +202,7 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceSent(getCurrentMonth());
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
+
 
     // Assertions
 

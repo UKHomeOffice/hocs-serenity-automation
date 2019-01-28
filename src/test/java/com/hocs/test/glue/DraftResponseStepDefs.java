@@ -46,6 +46,7 @@ public class DraftResponseStepDefs {
         switch (caseType.toUpperCase()){
             case "DCU MIN":
                 homepage.findMyInitialDraftCase();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
                 homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
@@ -64,6 +65,7 @@ public class DraftResponseStepDefs {
                 break;
             case "DCU N10":
                 homepage.findMyInitialDraftCase();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
                 homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
@@ -79,6 +81,7 @@ public class DraftResponseStepDefs {
                 break;
             case "DCU TRO":  //does not have offline QA option available
                 homepage.findMyInitialDraftCase();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
                 homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
@@ -236,10 +239,31 @@ public class DraftResponseStepDefs {
     @Then("^The case is moved to the \"([^\"]*)\" stage$")
     public void assertCaseReturnedToInitialDraft(String stage) {
         switch (stage.toUpperCase()){
-            case "INITIAL DRAFT":
-                homepage.selectTeam1();
+            case "DATA INPUT":
+                homepage.findMyDataInputCase();
                 teamqueue.assertCaseStage(stage);
                 break;
+            case "MARKUP":
+                homepage.findMyMarkupCase();
+                teamqueue.assertCaseStage(stage);
+                break;
+            case "INITIAL DRAFT":
+                homepage.findMyInitialDraftCase();
+                teamqueue.assertCaseStage(stage);
+                break;
+            case "QA RESPONSE":
+                homepage.findMyQAResponseCase();
+                teamqueue.assertCaseStage(stage);
+                break;
+            case "PRIVATE OFFICE":
+                homepage.findMyPrivateOfficeCase();
+                teamqueue.assertCaseStage(stage);
+            case "MINISTER SIGN OFF":
+                homepage.findMyMinisterSignOffCase();
+                teamqueue.assertCaseStage(stage);
+            case "DISPATCH":
+                homepage.findMyDispatchCase();
+                teamqueue.assertCaseStage(stage);
             default:
                 System.out.println(stage
                         + " is not defined within " + getClass().getSimpleName()

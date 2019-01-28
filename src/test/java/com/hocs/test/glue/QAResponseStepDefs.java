@@ -24,6 +24,7 @@ public class QAResponseStepDefs {
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
         homepage.findMyQAResponseCase();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
@@ -35,6 +36,7 @@ public class QAResponseStepDefs {
     @When("^I reject the case at the QA Response stage$")
     public void rejectAtQaResponse(){
         homepage.findMyQAResponseCase();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();

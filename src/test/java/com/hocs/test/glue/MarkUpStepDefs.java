@@ -30,8 +30,9 @@ public class MarkUpStepDefs {
     SuccessfulCaseCreation successfulCaseCreation;
 
     @When("^I complete the markup stage$")
-    public void acompleteTheMarkupStage() {
+    public void completeTheMarkupStage() {
         homepage.findMyMarkupCase();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();

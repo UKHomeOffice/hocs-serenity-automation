@@ -1,7 +1,5 @@
 package com.hocs.test.glue;
 
-import static org.junit.Assert.fail;
-
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
@@ -94,7 +92,6 @@ public class CreateCaseStepDefs {
                 assumeNotNull(caseType);
         }
     }
-
 
     @When("^I create a case$")
     public void aCaseIsCreated() {

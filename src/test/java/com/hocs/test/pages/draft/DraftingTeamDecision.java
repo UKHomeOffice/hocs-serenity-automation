@@ -6,8 +6,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DraftingTeamDecision extends Page {
 
-    //@FindBy(css = "label[for='']")
-
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade initialDraftingDecisionAccept;
 

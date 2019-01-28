@@ -3,7 +3,6 @@
   Background: Given I am user "DANNY"
     And I am on the "HOME" page
 
-
     @HOCS-575
     #Number of cases/ per team/ Team member / Unassigned
     Scenario: SomeScenario

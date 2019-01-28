@@ -1,22 +1,13 @@
 package com.hocs.test.pages.draft;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.teamqueue.Teamqueue;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
-
-    Homepage homepage;
-    SuccessfulCaseCreation successfulCaseCreation;
-    Teamqueue teamqueue;
 
     @FindBy(css = "label[for='InitialDraftDecision-Reject']")
     private WebElementFacade answeredByMyTeamNoRadioButton;
@@ -80,6 +71,7 @@ public class Draft extends Page {
 
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
+
 
     // Basic Methods
 
@@ -167,31 +159,6 @@ public class Draft extends Page {
 
     // Assertions
 
-    public void assertCaseIsAtDraft(){
-        String thisCaseType =
-                Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            homepage.selectTeam1();
-            homepage.assertInitialDraftInWorkStacks();
-            //successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-            //homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-            //homepage.goHome();
-            //homepage.selectMyCases();
-            //successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-            //assertCaption("Initial Draft");
-        } else if (thisCaseType.equals("DCU TRO")) {
-            homepage.selectTeam3();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-            homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com");
-        } else if (thisCaseType.equals("DCU N10")) {
-            homepage.selectTeam3();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-            homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com");
-        } else {
-            System.out.println("The caseType is " + thisCaseType);
-        }
-    }
-
     public void assertEnterCallNotesError() {
         assertThat(getErrorDetails(), is("Text to be confirmed"));
     }
@@ -206,11 +173,5 @@ public class Draft extends Page {
 
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
-    }
-
-    public void assertDraftAResponseHeader() {
-        String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
-        assertTitle(caseReferenceNumber + "Draft a Response");
     }
 }
