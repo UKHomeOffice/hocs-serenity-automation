@@ -2,6 +2,8 @@ package com.hocs.test.pages.create_case;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -45,7 +47,7 @@ public class SuccessfulCaseCreation extends Page {
         String to_remove="Created a new case: ";
 
         String caseReference = wholeString.replace(to_remove, "");
-        Serenity.setSessionVariable("caseReference").to(caseReference);
+        setSessionVariable("caseReference").to(caseReference);
 
         return caseReference;
     }
@@ -54,7 +56,7 @@ public class SuccessfulCaseCreation extends Page {
 
     public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
@@ -63,11 +65,11 @@ public class SuccessfulCaseCreation extends Page {
 
     public void selectCaseReferenceNumberViaLinkTextAndStoreResultingElement(){
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
-        Serenity.setSessionVariable("assertCase").to(thisReference);
+        setSessionVariable("assertCase").to(thisReference);
         thisReference.click();
     }
 }

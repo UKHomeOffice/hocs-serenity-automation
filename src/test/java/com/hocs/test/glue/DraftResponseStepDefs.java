@@ -45,55 +45,29 @@ public class DraftResponseStepDefs {
     public void completeInitialDraftStage(String caseType) {
         switch (caseType.toUpperCase()){
             case "DCU MIN":
-                homepage.findMyInitialDraftCase();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                draft.findAndAllocateDraftStage();
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draftingTeamDecision.clickDraftingResponseLetter();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                // Select Draft only because others fail to become primary causing the script to fail
-                draft.selectDocumentTypeByIndex(2);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
-                qa.clickOfflineQANoRadioButton();
-                page.clickContinueButton();
+                draftingTeamDecision.acceptAndDraftALetter();
+                draftingTeamDecision.uploadDraftResponse();
+                qa.dontQAOffline();
                 break;
             case "DCU N10":
-                homepage.findMyInitialDraftCase();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                draft.findAndAllocateDraftStage();
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
                 draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(2);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
-                qa.clickOfflineQANoRadioButton();
-                page.clickContinueButton();
+                draft.clickContinueButton();
+                draftingTeamDecision.uploadDraftResponse();
+                qa.dontQAOffline();
                 break;
             case "DCU TRO":  //does not have offline QA option available
-                homepage.findMyInitialDraftCase();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                draft.findAndAllocateDraftStage();
                 homepage.selectMyCases();
                 successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draftingTeamDecision.clickDraftingResponseLetter();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(2);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
+                draftingTeamDecision.acceptAndDraftALetter();
+                draftingTeamDecision.uploadDraftResponse();
+                draft.clickContinueButton();
                 break;
             default:
                 System.out.println(caseType
@@ -107,7 +81,7 @@ public class DraftResponseStepDefs {
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
         draft.clickAnsweredByMyTeamYesRadioButton();
-        page.clickContinueButton();
+        draft.clickContinueButton();
         switch (method.toUpperCase()) {
             case "EMAIL":
                 draft.clickEmailReplyRadioButton();
@@ -125,7 +99,7 @@ public class DraftResponseStepDefs {
                 method = null;
                 assumeNotNull(method);
         }
-        page.clickContinueButton();
+        draft.clickContinueButton();
     }
 
     @Then("^I can see the drafting deadline for a case$")
@@ -192,8 +166,8 @@ public class DraftResponseStepDefs {
     @When("^a case is not answered by my team$")
     public void aCaseIsNotAnsweredByMyTeam() {
         draft.clickAnsweredByMyTeamNoRadioButton();
-        page.clickContinueButton();
-        page.enterRejectionNotes();
+        draft.clickContinueButton();
+        draft.enterRejectionNotes();
     }
 
     @When("^I select a case \"([^\"]*)\" answered by my team$")
@@ -214,7 +188,7 @@ public class DraftResponseStepDefs {
                 decision = null;
                 assumeNotNull(decision);
         }
-        page.clickContinueButton();
+        draft.clickContinueButton();
     }
 
     @When("^I \"([^\"]*)\" the call details$")
@@ -222,10 +196,10 @@ public class DraftResponseStepDefs {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draftingTeamDecision.enterPhoneCallSummaryNote();
-                page.clickFinishButton();
+                draft.clickFinishButton();
                 break;
             case "DO NOT COMPLETE":
-                page.clickFinishButton();
+                draft.clickFinishButton();
                 break;
             default:
                 System.out.println(callDetails
@@ -236,34 +210,27 @@ public class DraftResponseStepDefs {
         }
     }
 
-    @Then("^The case is moved to the \"([^\"]*)\" stage$")
-    public void assertCaseReturnedToInitialDraft(String stage) {
+    @Then("^The case should be moved to the \"([^\"]*)\" stage$")
+    public void assertCaseReturnedToStage(String stage) {
         switch (stage.toUpperCase()){
             case "DATA INPUT":
                 homepage.findMyDataInputCase();
-                teamqueue.assertCaseStage(stage);
                 break;
             case "MARKUP":
                 homepage.findMyMarkupCase();
-                teamqueue.assertCaseStage(stage);
                 break;
             case "INITIAL DRAFT":
                 homepage.findMyInitialDraftCase();
-                teamqueue.assertCaseStage(stage);
                 break;
             case "QA RESPONSE":
                 homepage.findMyQAResponseCase();
-                teamqueue.assertCaseStage(stage);
                 break;
             case "PRIVATE OFFICE":
                 homepage.findMyPrivateOfficeCase();
-                teamqueue.assertCaseStage(stage);
             case "MINISTER SIGN OFF":
                 homepage.findMyMinisterSignOffCase();
-                teamqueue.assertCaseStage(stage);
             case "DISPATCH":
                 homepage.findMyDispatchCase();
-                teamqueue.assertCaseStage(stage);
             default:
                 System.out.println(stage
                         + " is not defined within " + getClass().getSimpleName()
@@ -271,5 +238,6 @@ public class DraftResponseStepDefs {
                 stage = null;
                 assumeNotNull(stage);
         }
+        teamqueue.assertCaseStage(stage);
     }
 }

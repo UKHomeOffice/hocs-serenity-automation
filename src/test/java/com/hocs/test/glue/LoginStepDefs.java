@@ -17,6 +17,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
@@ -24,15 +26,14 @@ import org.openqa.selenium.WebDriver;
 public class LoginStepDefs {
 
     @Managed
-    private
     WebDriver driver;
 
     Homepage homepage;
 
+    LoginPage loginPage;
+
     @Steps(shared = true)
     NavigationStepDefs navigationStepDefs;
-
-    private LoginPage loginPage;
 
     private Page page;
 
@@ -46,7 +47,7 @@ public class LoginStepDefs {
     @Given("^I am user \"([^\"]*)\"")
     public void iLoginas(String user) {
         navigateToHocs();
-        Serenity.setSessionVariable("user").to(user);
+        setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
             case "DCU":
                 enterHocsLoginDetails(DCU);
@@ -67,7 +68,7 @@ public class LoginStepDefs {
                 user = null;
                 assumeNotNull(user);
         }
-        page.clickContinueButton();
+        loginPage.clickContinueButton();
     }
 
 
@@ -79,7 +80,7 @@ public class LoginStepDefs {
 
     @When("^I enter my username \"([^\"]*)\" in the username field$")
     public void enterUname(String username) {
-        Serenity.setSessionVariable("username").to(username);
+        setSessionVariable("username").to(username);
         switch (username) {
             case "DANNY LARGE":
                 enterHocsUsername(DANNYLARGE);
@@ -103,7 +104,7 @@ public class LoginStepDefs {
 
     @And("^I enter my password \"([^\"]*)\" in the password field$")
     public void enterHocsPassword(String password) {
-        Serenity.setSessionVariable("password").to(password);
+        setSessionVariable("password").to(password);
         switch (password){
             case "DANNY PASS":
                 enterHocsPassword(DANNYPASS);
@@ -123,31 +124,20 @@ public class LoginStepDefs {
         }
     }
 
-
     @And("^Select the login button$")
     public void selectLoginButton() {
-        homepage.clickContinueButton();
+        loginPage.clickContinueButton();
     }
-
-    /*public void navigateToHome() {
-        navigateToHocs();
-    }*/
-
 
     @Then("^I will hit the Home Page$")
     public void assertHomePage() {
         homepage.assertCreateSingleCaseIsDisplayed();
     }
 
-
-
-
-
     private void enterHocsLoginDetails(Users user) {
         loginPage.enterUsername(user.getUsername());
         loginPage.enterPassword(user.getPassword());
     }
-
 
     private void enterHocsUsername(Usernames username) {
         loginPage.enterUsername(username.getUsername());

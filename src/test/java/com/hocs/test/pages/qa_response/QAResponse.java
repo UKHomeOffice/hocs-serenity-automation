@@ -3,6 +3,8 @@ package com.hocs.test.pages.qa_response;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +38,7 @@ public class QAResponse extends Page{
 
     public void clickQAResponseRejectRadioButton() {
         QARejectRadioButton.click();
+        System.out.println("Case rejected, entering decision note");
     }
 
 
@@ -45,29 +48,7 @@ public class QAResponse extends Page{
         String draftDecisionNote = generateRandomString();
         draftDecisionNoteFieldTheSecond.clear();
         draftDecisionNoteFieldTheSecond.sendKeys(draftDecisionNote);
-        Serenity.setSessionVariable("draftDecisionNote").to(draftDecisionNote);
+        setSessionVariable("draftDecisionNote").to(draftDecisionNote);
     }
 
-    
-    // Assertions
-
-//    public void findAndAssertMyInitialDraftCase(){
-//        String thisCaseType =
-//                Serenity.sessionVariableCalled("caseType").toString();
-//        if(thisCaseType.equals("DCU MIN")) {
-//            System.out.println("DCU MIN identified, selecting team 1");
-//            homepage.selectTeam1();
-//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-//        } else if (thisCaseType.equals("DCU TRO")) {
-//            System.out.println("DCU TRO identified, selecting team 3");
-//            homepage.selectTeam3();
-//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-//        } else if (thisCaseType.equals("DCU N10")) {
-//            System.out.println("DCU N10 identified, selecting team 2");
-//            homepage.selectTeam3();
-//            homepage.assertCaseStageInWorkstacks("Initial Draft", driver);
-//        } else {
-//            System.out.println("The case could now be found");
-//        }
-//    }
 }

@@ -30,7 +30,7 @@ public class QAResponseStepDefs {
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         qaResponse.clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");
-        page.clickContinueButton();
+        qaResponse.clickContinueButton();
     }
 
     @When("^I reject the case at the QA Response stage$")
@@ -41,10 +41,9 @@ public class QAResponseStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         qaResponse.clickQAResponseRejectRadioButton();
-        System.out.println("Case rejected, entering decision note");
-        page.clickContinueButton();
+        qaResponse.clickContinueButton();
         qaResponse.enterDraftDecision();
-        page.clickFinishButton();
+        qaResponse.clickFinishButton();
     }
 
 }

@@ -36,8 +36,8 @@ public class DispatchStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         dispatch.clickDispatchAcceptRadioButton();
-        page.clickContinueButton();
-        page.clickFinishButton();
+        dispatch.clickContinueButton();
+        dispatch.clickFinishButton();
     }
 
 }

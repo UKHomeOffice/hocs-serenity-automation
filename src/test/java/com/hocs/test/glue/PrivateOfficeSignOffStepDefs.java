@@ -39,7 +39,7 @@ public class PrivateOfficeSignOffStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         privateOffice.clickPrivateOfficeAcceptRadioButton();
-        privateOffice.clickFinishButton();
+        privateOffice.clickContinueButton();
     }
 
     @When("^The case is rejected at the Private Office stage$")
@@ -50,6 +50,8 @@ public class PrivateOfficeSignOffStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         privateOffice.clickPrivateOfficeRejectRadioButton();
+        privateOffice.clickContinueButton();
+        privateOffice.enterPORejectNotes();
         privateOffice.clickFinishButton();
     }
 

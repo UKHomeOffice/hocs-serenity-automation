@@ -36,7 +36,7 @@ public class MinisterSignOffStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         minister.clickMinisterSignOffAcceptRadioButton();
-        page.clickContinueButton();
+        minister.clickContinueButton();
     }
 
     @When("^The case is rejected by the Minister$")
@@ -47,7 +47,7 @@ public class MinisterSignOffStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         minister.clickMinisterSignOffRejectRadioButton();
-        page.clickFinishButton();
+        minister.clickFinishButton();
     }
 
 }

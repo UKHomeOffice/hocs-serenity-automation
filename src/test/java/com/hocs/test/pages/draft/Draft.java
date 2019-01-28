@@ -4,10 +4,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.homepage.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
+
+    Homepage homepage;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     @FindBy(css = "label[for='InitialDraftDecision-Reject']")
     private WebElementFacade answeredByMyTeamNoRadioButton;
@@ -156,6 +162,12 @@ public class Draft extends Page {
     }
 
     // Multi Step Methods
+
+    public void findAndAllocateDraftStage() {
+        homepage.findMyInitialDraftCase();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+    }
 
     // Assertions
 

@@ -18,6 +18,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class CreateCaseStepDefs {
 
@@ -53,23 +54,7 @@ public class CreateCaseStepDefs {
         }
     }
 
-
-   /* public void iAmPresentedWith(String userView) {
-        switch (userView.toUpperCase()) {
-            case "NO CASE TYPES":
-                createCase.assertNoOptionsAvailable();
-                break;
-            System.out.println(userView
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                userView = null;
-                assumeNotNull(userView);
-        }
-    }*/
-
-
-
-    @Given("^The current user creates a single case \"([^\"]*)\"$")
+    @Given("^I create a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -98,12 +83,8 @@ public class CreateCaseStepDefs {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
         addDocuments.uploadDocument();
-        page.clickSubmitButton();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        createCase.clickSubmitButton();
+        page.sleep(500);
     }
 
     @When("^I create a case with <Topic>$")
@@ -182,9 +163,9 @@ public class CreateCaseStepDefs {
                 assumeNotNull(caseType);
         }
 
-        page.clickNextButton();
+        createCase.clickNextButton();
         addDocuments.bulkUploadDocuments(cases);
-        page.clickFinishButton();
+        createCase.clickFinishButton();
 
     }
 
@@ -195,15 +176,15 @@ public class CreateCaseStepDefs {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.clickDcuMinRadioButton();
-                page.clickNextButton();
+                createCase.clickNextButton();
                 break;
             case "DCU TRO":
                 createCase.clickDcuTroRadioButton();
-                page.clickNextButton();
+                createCase.clickNextButton();
                 break;
             case "DCU TEN":
                 createCase.clickDcuDtenRadioButton();
-                page.clickNextButton();
+                createCase.clickNextButton();
                 addDocuments.enterDispatchDeadlineDay(10);
                 addDocuments.enterDispatchDeadlineMonth(10);
                 addDocuments.enterDispatchDeadlineYear(10);
@@ -222,10 +203,10 @@ public class CreateCaseStepDefs {
         switch (document.toUpperCase()) {
             case "WITH":
                 addDocuments.uploadDocument();
-                page.clickFinishButton();
+                createCase.clickFinishButton();
                 break;
             case "WITHOUT":
-                page.clickFinishButton();
+                createCase.clickFinishButton();
                 break;
             default:
                 System.out.println(document
@@ -245,6 +226,6 @@ public class CreateCaseStepDefs {
     @When("^I do not select a type of correspondence when creating a case$")
     public void correspondentTypeNotSelectedDuringCaseCreation() {
         homepage.clickCreateSingleCase();
-        page.clickNextButton();
+        createCase.clickNextButton();
     }
 }

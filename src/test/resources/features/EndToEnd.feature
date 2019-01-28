@@ -6,7 +6,7 @@ Feature: HOCS is able to move cases through the entire flow
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Data Input stage
     When I create a single case "<caseType>"
-    Then The case is moved to the "DATA INPUT" stage
+    Then The case should be moved to the "DATA INPUT" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -19,7 +19,7 @@ Feature: HOCS is able to move cases through the entire flow
   Scenario Outline: Case moves to Markup stage
     When I create a single case "<caseType>"
     And I complete the Data Input stage
-    Then The case is moved to the "MARKUP" stage
+    Then The case should be moved to the "MARKUP" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -31,7 +31,7 @@ Feature: HOCS is able to move cases through the entire flow
     When I create a single case "<caseType>"
     And I complete the Data Input stage
     And I complete the markup stage
-    Then The case is moved to the "INITIAL DRAFT" stage
+    Then The case should be moved to the "INITIAL DRAFT" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -44,7 +44,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the Data Input stage
     And I complete the markup stage
     And Initial draft stage "<string>"
-    Then The case is moved to the "QA RESPONSE" stage
+    Then The case should be moved to the "QA RESPONSE" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -58,7 +58,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the markup stage
     And Initial draft stage "<string>"
     And I complete the QA response stage
-    Then The case is moved to the "PRIVATE OFFICE" stage
+    Then The case should be moved to the "PRIVATE OFFICE" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -72,7 +72,7 @@ Feature: HOCS is able to move cases through the entire flow
     And Initial draft stage "<string>"
     And I complete the QA response stage
     And I complete the Private Office stage
-    Then The case is moved to the "MINISTER SIGN OFF" stage
+    Then The case should be moved to the "MINISTER SIGN OFF" stage
     Examples:
       | caseType|
       | DCU MIN |
@@ -86,19 +86,14 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the QA response stage
     And I complete the Private Office stage
     And I complete the minister sign off stage
-    Then The case is moved to the "DISPATCH" stage
+    Then The case should be moved to the "DISPATCH" stage
     Examples:
       | caseType|
       | DCU MIN |
       | DCU TRO |
       | DCU N10 |
 
-#  @Workflow @CopyToN10
-#  Scenario: Case moves to Copy To Number Ten stage
-#    When I create a single case "caseType"
-#    Then The case is moved to the "DATA INPUT" stage
-
-
+  #Remember to do Copy to #10
 
   @EndToEnd @DCUMIN @Critical @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType

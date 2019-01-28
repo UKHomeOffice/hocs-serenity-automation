@@ -17,35 +17,35 @@ public class PrivateOffice extends Page {
     WebDriver driver;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
-    private WebElementFacade PrivateOfficeAcceptRadioButton;
+    private WebElementFacade privateOfficeAcceptRadioButton;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-REJECT']")
-    private WebElementFacade PrivateOfficeRejectRadioButton;
+    private WebElementFacade privateOfficeRejectRadioButton;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-CHANGE']")
-    private WebElementFacade PrivateOfficeChangeMinisterRadioButton;
+    private WebElementFacade privateOfficeChangeMinisterRadioButton;
 
     @FindBy(id = "CaseNote_PrivateOfficeReject")
-    private WebElementFacade privaetOfficeRejectNoteField;
+    private WebElementFacade privateOfficeRejectNoteField;
 
     public void clickPrivateOfficeAcceptRadioButton(){
-        PrivateOfficeAcceptRadioButton.click();
+        privateOfficeAcceptRadioButton.click();
     }
 
     public void clickPrivateOfficeRejectRadioButton(){
-        PrivateOfficeRejectRadioButton.click();
+        privateOfficeRejectRadioButton.click();
     }
 
     public void clickPrivateOfficeChangeMinisterRadioButton(){
-        PrivateOfficeChangeMinisterRadioButton.click();
+        privateOfficeChangeMinisterRadioButton.click();
     }
 
     public void enterPORejectNotes() {
-        waitFor(privaetOfficeRejectNoteField);
+        waitFor(privateOfficeRejectNoteField);
 
         String poRejectNote = "Rejection Reason: " + generateRandomString();
-        privaetOfficeRejectNoteField.clear();
-        privaetOfficeRejectNoteField.sendKeys(poRejectNote);
+        privateOfficeRejectNoteField.clear();
+        privateOfficeRejectNoteField.sendKeys(poRejectNote);
         setSessionVariable("PORejectNote").to(poRejectNote);
     }
 }

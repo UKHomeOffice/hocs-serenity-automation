@@ -37,26 +37,14 @@ public class MarkUpStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         markUpDecision.clickPolicyResponseRadioButton();
-        page.clickContinueButton();
+        markUpDecision.clickContinueButton();
         topics.clickAddTopicButton();
         topics.enterRealTopic();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        page.clickAddButton();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        page.clickContinueButton();
-        page.clickContinueButton();
-       // markUpDecision.selectFirstSignOffMinisterFromDropdown();
-       // page.clickContinueButton();
-       // page.enterAllocationNote();
-       // page.clickFinishButton();
+        page.sleep(1000);
+        markUpDecision.clickAddButton();
+        page.sleep(5000);
+        markUpDecision.clickContinueButton();
+        markUpDecision.clickContinueButton();
     }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")

@@ -40,6 +40,7 @@ public class Teamqueue extends Page {
                 By.xpath("//a[text()='" +sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
         System.out.println(caseReferenceStage);
+
         return caseReferenceStage.getText();
     }
 
@@ -51,6 +52,7 @@ public class Teamqueue extends Page {
         WebElement caseReferenceStage = driver.findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[2]"));
+
         return caseReferenceStage.getText();
     }
 
@@ -58,6 +60,7 @@ public class Teamqueue extends Page {
         WebElement caseReferenceStage = driver.findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[3]"));
+
         return caseReferenceStage.getText();
     }
 
@@ -65,6 +68,7 @@ public class Teamqueue extends Page {
         WebElement caseReferenceStage = driver.findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[4]"));
+
         return caseReferenceStage.getText();
     }
 
@@ -116,7 +120,7 @@ public class Teamqueue extends Page {
 
    public void assertCaseIsNotVisible(){
         String assertElement
-                = Serenity.sessionVariableCalled("assertCase").toString();
+                = sessionVariableCalled("assertCase").toString();
         element(assertElement).shouldNotBePresent();
     }
 

@@ -11,6 +11,7 @@ import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -80,7 +81,7 @@ public class CreateCase extends Page {
     }
 
     public void capturedCaseReferenceTest() {
-        String thisSessionVar = Serenity.sessionVariableCalled("caseReference");
+        String thisSessionVar = sessionVariableCalled("caseReference");
         System.out.println(thisSessionVar);
     }
 
@@ -114,6 +115,12 @@ public class CreateCase extends Page {
         caseDetailsFreeTextField.clear();
         caseDetailsFreeTextField.sendKeys(generateRandomString());
     }
+
+   /* public void enterDispatchDeadline(int days){
+        enterDispatchDeadlineDay(todayPlusNDaysGetDay(days));
+        enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(days));
+        enterDispatchDeadlineYear(todayPlusNDaysGetYear(days));
+    } */
 
     public void fillMandatoryDateFields(){
         enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
@@ -157,21 +164,18 @@ public class CreateCase extends Page {
 
     // Multi Step Methods
 
-    // Create a single DCU Min case from the home page
     public void createDCUMinSingleCase() {
         homepage.clickCreateSingleCase();
         clickDcuMinRadioButton();
         completeDCUMINSingleCaseCreation();
     }
 
-    // Create a single DC10 case from the home page
     public void createDC10SingleCase() {
         homepage.clickCreateSingleCase();
         clickDcuDtenRadioButton();
         completeSingleCaseCreation();
     }
 
-    // Create a single DC TRO case from the home page
     public void createDCTROSingleCase() {
         homepage.clickCreateSingleCase();
         clickDcuTroRadioButton();
@@ -184,7 +188,7 @@ public class CreateCase extends Page {
         clickSubmitButton();
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
+        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
     public void completeDCUMINSingleCaseCreation(){
@@ -193,7 +197,7 @@ public class CreateCase extends Page {
         clickSubmitButton();
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
+        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
     public void completeSingleCaseCreation() {
@@ -203,7 +207,7 @@ public class CreateCase extends Page {
         clickSubmitButton();
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
+        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
 
@@ -221,12 +225,4 @@ public class CreateCase extends Page {
         assertThat(isElementDisplayed(allRadioButtons), is(false));
     }
 
-    public void someDCUMINCreateCaseMethod() {
-    }
-
-    public void someDCU10CreateCaseMethod() {
-    }
-
-    public void someDCUTROCreateCaseMethod() {
-    }
 }

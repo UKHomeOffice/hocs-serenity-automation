@@ -40,40 +40,40 @@ public class DataInputStepDefs {
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
         recordCorrespondentDetails.clickAdditionalCorrespondentYes();
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsNotAMember();
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         recordCorrespondentDetails.fillMandatoryFields();
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
     }
 
     @When("^I enter correspondence data manually$")
     public void iEnterCorrespondenceDataManually() {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         dataInput.clickAddCorrespondentLink();
         recordCorrespondentDetails.fillMandatoryFields();
-        page.clickAddButton();
+        dataInput.clickAddButton();
     }
 
     @When("^I select to correspond with a member from the dropdown$")
     public void iSelectToCorrespondWithAMemberFromTheDropdown() {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsAMember();
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         recordCorrespondentDetails.selectMemberFromDropdownByIndex(1);
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
     }
 
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsAMember();
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
         recordCorrespondentDetails.selectMemberFromDropdownByName(minister);
-        page.clickContinueButton();
+        dataInput.clickContinueButton();
     }
 
     @When("^I select the primary correspondent radio button for a different correspondent$")
@@ -96,12 +96,12 @@ public class DataInputStepDefs {
                 decision = null;
                 assumeNotNull(decision);
         }
-        page.clickFinishButton();
+        dataInput.clickFinishButton();
     }
 
     @When("^I do not select a Data Input QA response$")
     public void iDoNotSelectADataInputQAResponse() {
-        page.clickFinishButton();
+        dataInput.clickFinishButton();
     }
 
     @And("^I set the correspondence channel to \"([^\"]*)\"$")

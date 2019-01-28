@@ -103,7 +103,7 @@ public class CaseDecisionStepDefs {
 
     @When("^I close the case with a decision of \"([^\"]*)\"$")
     public void iCloseTheCaseWithADecisionOf(String status) {
-        page.getCaseId();
+        markUpDecision.getCaseId();
         switch (status.toUpperCase()) {
             case "REFER TO OGD":
                 markUpDecision.clickReferToOgdRadioButton();
@@ -118,8 +118,8 @@ public class CaseDecisionStepDefs {
                 status = null;
                 assumeNotNull(status);
         }
-        page.clickContinueButton();
-        page.clickFinishButton();
+        markUpDecision.clickContinueButton();
+        markUpDecision.clickFinishButton();
 
     }
 
@@ -160,8 +160,8 @@ public class CaseDecisionStepDefs {
             case "APPROVE":
                 break;
             case "REJECT":
-                page.clickRejectButton();
-                page.enterRejectionNotes();
+                markUpDecision.clickRejectButton();
+                markUpDecision.enterRejectionNotes();
                 break;
             default:
                 fail();
@@ -189,7 +189,7 @@ public class CaseDecisionStepDefs {
             default:
                 fail();
         }
-        page.clickContinueButton();
+        markUpDecision.clickContinueButton();
     }
 
     @Given("^multiple topics have been set$")

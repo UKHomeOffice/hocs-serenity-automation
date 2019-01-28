@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
@@ -236,7 +239,13 @@ public class Page extends PageObject {
     @FindBy(linkText = "view")
     private WebElementFacade viewLink;
 
-    //@FindBy()
+    public void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void assertErrorMessageText(String text) {
         assertThat(getErrorMessageText(), containsString(text));
@@ -404,13 +413,13 @@ public class Page extends PageObject {
         String allocationNote = generateRandomString();
         allocationNoteField.clear();
         allocationNoteField.sendKeys(allocationNote);
-        Serenity.setSessionVariable("allocationNote").to(allocationNote);
+        setSessionVariable("allocationNote").to(allocationNote);
     }
 
     public void enterDate(String date) {
         dateField.clear();
         dateField.sendKeys(date);
-        Serenity.setSessionVariable("date").to(date);
+        setSessionVariable("date").to(date);
     }
 
     public void enterDayReceived() {
@@ -431,7 +440,7 @@ public class Page extends PageObject {
     public void enterEndDate(String endDate) {
         this.endDate.clear();
         this.endDate.sendKeys(endDate);
-        Serenity.setSessionVariable("endDate").to(endDate);
+        setSessionVariable("endDate").to(endDate);
     }
 
     public void enterInvalidDate() {
@@ -446,13 +455,13 @@ public class Page extends PageObject {
     public void enterNewNotes(String notes) {
         newNotesField.clear();
         newNotesField.sendKeys(notes);
-        Serenity.setSessionVariable("newNotes").to(notes);
+        setSessionVariable("newNotes").to(notes);
     }
 
     public void enterNotes(String notes) {
         notesField.clear();
         notesField.sendKeys(notes);
-        Serenity.setSessionVariable("notes").to(notes);
+        setSessionVariable("notes").to(notes);
     }
 
     public void enterRejectionNotes() {
@@ -467,7 +476,7 @@ public class Page extends PageObject {
     public void enterStartDate(String startDate) {
         this.startDate.clear();
         this.startDate.sendKeys(startDate);
-        Serenity.setSessionVariable("startDate").to(startDate);
+        setSessionVariable("startDate").to(startDate);
     }
 
     public void enterValidDate() {
@@ -487,6 +496,7 @@ public class Page extends PageObject {
         Random rand = new Random();
 
         double maxNumber = (Math.pow(10, digits) - 1);
+
         return rand.nextInt((int) maxNumber) + 1;
     }
 
@@ -504,6 +514,7 @@ public class Page extends PageObject {
 
     public String getCaseId() {
         setSessionVariable("caseId").to(caseId.getText());
+
         return caseId.getText();
     }
 
@@ -625,7 +636,7 @@ public class Page extends PageObject {
     }
 
     public void switchToOpenedWindow(WebDriver driver) {
-        Serenity.setSessionVariable("originalWindowHandle").to(driver.getWindowHandle());
+        setSessionVariable("originalWindowHandle").to(driver.getWindowHandle());
         driver.getWindowHandle();
 
         for (String winHandle : driver.getWindowHandles()) {
@@ -635,16 +646,19 @@ public class Page extends PageObject {
 
     public String getCurrentDay() {
         Calendar cal = Calendar.getInstance();
+
         return dayFormat.format(cal.getTime());
     }
 
     public String getCurrentMonth() {
         Calendar cal = Calendar.getInstance();
+
         return monthFormat.format(cal.getTime());
     }
 
     public String getCurrentYear() {
         Calendar cal = Calendar.getInstance();
+
         return yearFormat.format(cal.getTime());
     }
 

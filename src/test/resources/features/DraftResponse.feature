@@ -8,7 +8,7 @@ Feature: HOCS User is able to draft a response
   Scenario: User decides the case is not for them, and completes a rejection note
     When I select a case "should not" answered by my team
     And I "complete" the rejection note
-    Then the case is moved to the "Markup" stage
+    Then the case should be moved to the "Markup" stage
     And the "initial draft reject"email is sent to the "Mark Up user" and "Nominated Person in the "Markup Team"
     And I return to the home page
 

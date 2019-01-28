@@ -135,10 +135,7 @@ public class GenericInputStepDefs {
         System.out.println("The Stage is " + thisStage );
     }
 
-    // + sessionVariableCalled("caseReference")
-    //                        +
-
-    @Then("^I see the \"([^\"]*)\" message$")
+    @Then("^I should see the \"([^\"]*)\" message$")
     public void iSeeTheMessage(String message) {
         switch (message.toUpperCase()) {
             case "DOCUMENT PENDING":
@@ -259,11 +256,6 @@ public class GenericInputStepDefs {
     public void anErrorMessageIsDisplayed() {
         page.errorMessageIsDisplayed();
     }
-
-//    @Then("^the case is moved to the \"([^\"]*)\" stage$")
-//    public void theCaseIsMovedToTheStage(String expectedStage) {
-//        homepage.assertInitialDraftInWorkStacks(expectedStage, driver);
-//    }
 
     @Then("^the file is downloaded$")
     public void theFileIsDownloaded() {
