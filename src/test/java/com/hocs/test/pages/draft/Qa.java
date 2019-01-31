@@ -3,14 +3,10 @@ package com.hocs.test.pages.draft;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.draft.Qa;
-import com.hocs.test.pages.draft.Draft;
 
 public class Qa extends Page {
 
     Draft draft;
-
-    Qa qa;
 
     @FindBy(css = "label[for='OfflineQA-TRUE']")
     private WebElementFacade offlineQaYesRadioButton;
@@ -30,13 +26,13 @@ public class Qa extends Page {
 
     public void dontQAOffline() {
         draft.clickContinueButton();
-        qa.clickOfflineQANoRadioButton();
+        clickOfflineQANoRadioButton();
         draft.clickContinueButton();
     }
 
     public void qaOffline() {
         draft.clickContinueButton();
-        qa.clickOfflineQAYesRadioButton();
+        clickOfflineQAYesRadioButton();
         draft.clickContinueButton();
     }
 

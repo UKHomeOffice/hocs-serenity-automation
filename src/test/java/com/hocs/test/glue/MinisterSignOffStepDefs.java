@@ -47,7 +47,9 @@ public class MinisterSignOffStepDefs {
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         minister.clickMinisterSignOffRejectRadioButton();
-        minister.clickFinishButton();
+        minister.clickContinueButton();
+        minister.enterMinisterRejectionNote();
+        minister.clickContinueButton();
     }
 
 }

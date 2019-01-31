@@ -17,6 +17,9 @@ public class MinisterSignOff extends Page {
     @FindBy(css = "label[for='MinisterSignOffDecision-REJECT']")
     private WebElementFacade ministerSignOffRejectRadioButton;
 
+    @FindBy(id = "CaseNote_MinisterReject")
+    public WebElementFacade ministerRejectionNote;
+
     // Basic Methods
 
     public void clickMinisterSignOffAcceptRadioButton(){
@@ -25,6 +28,15 @@ public class MinisterSignOff extends Page {
 
     public void clickMinisterSignOffRejectRadioButton(){
         ministerSignOffRejectRadioButton.click();
+    }
+
+    public void clearRejectionNoteField() {
+        ministerRejectionNote.clear();
+    }
+
+    public void enterMinisterRejectionNote() {
+        clearRejectionNoteField();
+        ministerRejectionNote.sendKeys(generateRandomString());
     }
 
 }

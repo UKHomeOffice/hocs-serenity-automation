@@ -1,8 +1,6 @@
 package com.hocs.test.pages.draft;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.draft.Draft;
-import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.create_case.AddDocuments;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -10,8 +8,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class DraftingTeamDecision extends Page {
 
     Draft draft;
-
-    DraftingTeamDecision draftingTeamDecision;
 
     AddDocuments addDocuments;
 
@@ -54,9 +50,9 @@ public class DraftingTeamDecision extends Page {
     // Multi Step Methods
 
     public void acceptAndDraftALetter(){
-        draftingTeamDecision.clickAcceptInitialDraftDecision();
+        clickAcceptInitialDraftDecision();
         draft.clickContinueButton();
-        draftingTeamDecision.clickDraftingResponseLetter();
+        clickDraftingResponseLetter();
         draft.clickContinueButton();
     }
 

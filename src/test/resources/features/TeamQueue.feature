@@ -3,21 +3,6 @@
   Background: Given I am user "DANNY"
     And I am on the "HOME" page
 
-    @HOCS-583
-    Scenario Outline: A Topic is assigned to a Teamqueue
-      Given I create a case with <Topic>
-      When I log in as a user from <Team>
-      Then The case should be visible in the <Teamqueue>
-
-    @HOCS-583
-    Scenario Outline: A Topic has a default team and sign off minister
-      Given I create a case with <Topic>
-      When I complete the Data Input stage
-      Then The default team should be <Team>
-      And The default Sign off minister should be <Minister>
-
-
-
     @HOCS-575
     #Number of cases/ per team/ Team member / Unassigned
     Scenario: SomeScenario

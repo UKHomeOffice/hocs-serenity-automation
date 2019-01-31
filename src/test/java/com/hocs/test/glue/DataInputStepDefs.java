@@ -1,15 +1,13 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static junit.framework.TestCase.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.markup.MarkUpDecision;
-import com.hocs.test.pages.draft.Qa;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -22,20 +20,38 @@ public class DataInputStepDefs {
 
     DataInput dataInput;
 
-    DataInputQADecision dataInputQADecision;
+    Homepage homepage;
 
-    MarkUpDecision markUpDecision;
+    DataInputQADecision dataInputQADecision;
 
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
-    Qa qa;
-
-
     @When("^I complete the Data Input stage$")
     public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
 
+    @When("^The Data Input Stage is completed for \"([^\"]*)\" caseType$")
+    public void completeDataInputPerCaseType(String caseType) {
+        switch (caseType.toUpperCase()){
+            case "DCU MIN":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "DCU N10":
+                homepage.selectTransfersN10Team();
+                break;
+            case "DCU TRO":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
+        dataInput.dataInputFullFlow();
+    }
 
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {

@@ -16,12 +16,6 @@ public class DataInput extends Page {
 
     // Elements
 
-    @FindBy(xpath = "//span[text()='TEAM 1']")
-    private WebElementFacade team1DataInput;
-
-    @FindBy(xpath = "//span[text()='1111']")
-    private WebElementFacade team1111Markup;
-
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
 
@@ -118,7 +112,7 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        homepage.selectPerformanceProcessTeam();
+       // homepage.selectPerformanceProcessTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();

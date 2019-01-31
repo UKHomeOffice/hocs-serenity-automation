@@ -1,14 +1,12 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 
 import cucumber.api.PendingException;
@@ -25,8 +23,6 @@ public class MarkUpStepDefs {
 
     MarkUpDecision markUpDecision;
 
-    DataInput dataInput;
-
     SuccessfulCaseCreation successfulCaseCreation;
 
     @When("^I complete the markup stage$")
@@ -42,9 +38,22 @@ public class MarkUpStepDefs {
         topics.enterRealTopic();
         page.sleep(1000);
         markUpDecision.clickAddButton();
-        page.sleep(5000);
+        page.sleep(1000);
         markUpDecision.clickContinueButton();
+        page.sleep(1000);
+        markUpDecision.clickFinishButton();
+    }
+
+    @When("^I assign the Topic \"([^\"]*)\"$")
+    public void enterSpecificMarkupTopic(String topic) {
+        homepage.selectCentralDraftingTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        markUpDecision.clickPolicyResponseRadioButton();
         markUpDecision.clickContinueButton();
+
     }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")

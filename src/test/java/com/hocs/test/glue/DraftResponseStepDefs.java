@@ -1,39 +1,28 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.DraftingTeamDecision;
-import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.teamqueue.Teamqueue;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class DraftResponseStepDefs {
 
-    Draft draft;
-
-    DraftingTeamDecision draftingTeamDecision;
-
     Page page;
+
+    Draft draft;
 
     Homepage homepage;
 
-    AddDocuments addDocuments;
-
-    QAResponse qaResponse;
-
-    DataInput dataInput;
+    DraftingTeamDecision draftingTeamDecision;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -41,42 +30,55 @@ public class DraftResponseStepDefs {
 
     Teamqueue teamqueue;
 
-    @When("^Initial draft stage \"([^\"]*)\"$")
-    public void completeInitialDraftStage(String caseType) {
-        switch (caseType.toUpperCase()){
-            case "DCU MIN":
-                draft.findAndAllocateDraftStage();
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.acceptAndDraftALetter();
-                draftingTeamDecision.uploadDraftResponse();
-                qa.dontQAOffline();
-                break;
-            case "DCU N10":
-                draft.findAndAllocateDraftStage();
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                draft.clickContinueButton();
-                draftingTeamDecision.uploadDraftResponse();
-                qa.dontQAOffline();
-                break;
-            case "DCU TRO":  //does not have offline QA option available
-                draft.findAndAllocateDraftStage();
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.acceptAndDraftALetter();
-                draftingTeamDecision.uploadDraftResponse();
-                draft.clickContinueButton();
-                break;
-            default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
-        }
+    @When("^I complete the Initial Draft stage$")
+    public void initialDraftFullFlow() {
+        homepage.selectAnimalsInScienceTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        draftingTeamDecision.acceptAndDraftALetter();
+        draftingTeamDecision.uploadDraftResponse();
+        qa.dontQAOffline();
     }
+
+//    @When("^Initial draft stage \"([^\"]*)\"$")
+//    public void completeInitialDraftStage(String caseType) {
+//        switch (caseType.toUpperCase()){
+//            case "DCU MIN":
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                draftingTeamDecision.acceptAndDraftALetter();
+//                draftingTeamDecision.uploadDraftResponse();
+//                qa.dontQAOffline();
+//                break;
+//            case "DCU N10":
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                draftingTeamDecision.clickAcceptInitialDraftDecision();
+//                draft.clickContinueButton();
+//                draftingTeamDecision.uploadDraftResponse();
+//                qa.dontQAOffline();
+//                break;
+//            case "DCU TRO":  //does not have offline QA option available
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                draftingTeamDecision.acceptAndDraftALetter();
+//                draftingTeamDecision.uploadDraftResponse();
+//                draft.clickContinueButton();
+//                break;
+//            default:
+//                System.out.println(caseType
+//                        + " is not defined within " + getClass().getSimpleName()
+//                        + " class, " + getMethodName() + " method");
+//                caseType = null;
+//                assumeNotNull(caseType);
+//        }
+//    }
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
@@ -219,19 +221,22 @@ public class DraftResponseStepDefs {
             case "MARKUP":
                 homepage.selectCentralDraftingTeam();
                 break;
-            //case "INITIAL DRAFT":
-            //    homepage.thisDependsOnTheCase();
-            //    break;
+            case "INITIAL DRAFT":
+                 homepage.selectAnimalsInScienceTeam();
+                 break;
             case "QA RESPONSE":
                 homepage.selectPerformanceProcessTeam();
                 break;
             case "PRIVATE OFFICE":
                 //Depends on the Team but mainly this one
                 homepage.selectMinisterForLordsTeam();
-            case "MINISTER SIGN OFF":
+                break;
+            case "MINISTERIAL SIGN OFF":
                 homepage.selectMinisterForLordsTeam();
+                break;
             case "DISPATCH":
                 homepage.selectPerformanceProcessTeam();
+                break;
             default:
                 System.out.println(stage
                         + " is not defined within " + getClass().getSimpleName()
@@ -239,6 +244,6 @@ public class DraftResponseStepDefs {
                 stage = null;
                 assumeNotNull(stage);
         }
-        teamqueue.assertCaseStage(stage);
+       teamqueue.assertCaseStage(stage);
     }
 }

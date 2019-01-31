@@ -104,24 +104,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Casework')]")
     private WebElementFacade firstDataInputCasework;
 
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstMinDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstMinDataInputCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstDtenDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstDtenDataInputCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstTroDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstTroDataInputCasework;
-
     @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstDataInputQaAllocate;
 
@@ -130,18 +112,6 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstMarkupAllocate;
-
-    @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Casework')]")
-    private WebElementFacade firstMarkupCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstMinMarkupAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstDtenMarkupAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstTroMarkupAllocate;
 
     // Basic Methods
 
@@ -406,43 +376,11 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
-    public void clickFirstDataInput() {
-        firstDataInput.click();
-    }
-
-    public void clickFirstDataInputAllocate() {
-        firstDataInputAllocate.click();
-    }
-
-    public void clickFirstDataInputCasework() {
+    public void clickFirstDataInputCasework () {
         firstDataInputCasework.click();
     }
 
-    public void clickFirstDtenDataInputAllocate() {
-        firstDtenDataInputAllocate.click();
-    }
-
-    public void clickFirstDtenDataInputCasework() {
-        firstDtenDataInputCasework.click();
-    }
-
-    public void clickFirstMinDataInputAllocate() {
-        firstMinDataInputAllocate.click();
-    }
-
-    public void clickFirstMinDataInputCasework() {
-        firstMinDataInputCasework.click();
-    }
-
-    public void clickFirstTroDataInputAllocate() {
-        firstTroDataInputAllocate.click();
-    }
-
-    public void clickFirstTroDataInputCasework() {
-        firstTroDataInputCasework.click();
-    }
-
-    public void clickFirstDataInputQaAllocate() {
+    public void clickFirstDataInputQaAllocate () {
         firstDataInputQaAllocate.click();
     }
 
@@ -454,23 +392,7 @@ public class Homepage extends Page {
         firstMarkupAllocate.click();
     }
 
-    public void clickFirstMarkupCasework() {
-        firstMarkupCasework.click();
-    }
-
-    public void clickFirstMinMarkupAllocate() {
-        firstMinMarkupAllocate.click();
-    }
-
-    public void clickFirstDtenMarkupAllocate() {
-        firstDtenMarkupAllocate.click();
-    }
-
-    public void clickFirstTroMarkupAllocate() {
-        firstTroMarkupAllocate.click();
-    }
-
-    public void clickMyWorkstack() {
+    public void clickMyWorkstack () {
         myWorkstacks.click();
     }
 
