@@ -118,9 +118,10 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        homepage.firstStageFindMyCase();
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-        homepage.findMyDataInputCase();
+        homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         fillAllMandatoryFields();
         clickContinueButton();

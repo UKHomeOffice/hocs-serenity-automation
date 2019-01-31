@@ -31,7 +31,7 @@ public class MarkUpStepDefs {
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        homepage.findMyMarkupCase();
+        homepage.selectCentralDraftingTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();

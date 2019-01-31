@@ -52,10 +52,10 @@ public class NavigationStepDefs {
             case "CREATE SINGLE CASE":
                 homepage.clickCreateSingleCase();
                 break;
-            case "TEAMQUEUE":
-                homepage.clickTeamQueueLink();
-            case "TEAM 1":
-                homepage.selectTeam1();
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
+                homepage.selectAnimalsInScienceTeam();
+            case "PERFORMANCE AND PROCESS TEAM":
+                homepage.selectPerformanceProcessTeam();
                 break;
             case "MY CASES":
                 homepage.selectMyCases();

@@ -214,23 +214,24 @@ public class DraftResponseStepDefs {
     public void assertCaseReturnedToStage(String stage) {
         switch (stage.toUpperCase()){
             case "DATA INPUT":
-                homepage.findMyDataInputCase();
+                homepage.selectPerformanceProcessTeam();
                 break;
             case "MARKUP":
-                homepage.findMyMarkupCase();
+                homepage.selectCentralDraftingTeam();
                 break;
-            case "INITIAL DRAFT":
-                homepage.findMyInitialDraftCase();
-                break;
+            //case "INITIAL DRAFT":
+            //    homepage.thisDependsOnTheCase();
+            //    break;
             case "QA RESPONSE":
-                homepage.findMyQAResponseCase();
+                homepage.selectPerformanceProcessTeam();
                 break;
             case "PRIVATE OFFICE":
-                homepage.findMyPrivateOfficeCase();
+                //Depends on the Team but mainly this one
+                homepage.selectMinisterForLordsTeam();
             case "MINISTER SIGN OFF":
-                homepage.findMyMinisterSignOffCase();
+                homepage.selectMinisterForLordsTeam();
             case "DISPATCH":
-                homepage.findMyDispatchCase();
+                homepage.selectPerformanceProcessTeam();
             default:
                 System.out.println(stage
                         + " is not defined within " + getClass().getSimpleName()

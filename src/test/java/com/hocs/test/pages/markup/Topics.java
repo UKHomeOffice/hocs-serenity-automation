@@ -36,7 +36,8 @@ public class Topics extends Page {
         topicsTextField.click();
         System.out.println("Clicked topic Dropdown");
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
-        System.out.println("Sent Cardiff University Kittens to topic dropdown");
+        System.out.println("Sent topic 1 to topic dropdown, waiting 1 second");
+        sleep(1000);
         topicsTextField.sendKeys(Keys.RETURN);
         System.out.println("Hit return");
     }

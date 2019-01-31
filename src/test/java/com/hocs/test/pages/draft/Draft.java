@@ -164,9 +164,10 @@ public class Draft extends Page {
     // Multi Step Methods
 
     public void findAndAllocateDraftStage() {
-        homepage.findMyInitialDraftCase();
+        homepage.selectAnimalsInScienceTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.goHome();
     }
 
     // Assertions

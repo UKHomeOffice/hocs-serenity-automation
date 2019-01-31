@@ -35,38 +35,29 @@ public class Homepage extends Page {
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade home;
 
-    @FindBy(xpath = "//span[text()='TEAM 1']")
-    public WebElementFacade team1;
-
-    @FindBy(xpath = "//span[text()='TEAM 2']")
-    public WebElementFacade team2;
-
-    @FindBy(xpath = "//span[text()='TEAM 3']")
-    public WebElementFacade team3;
-
-    @FindBy(xpath = "//span[text()='Performance and Process Team']" )
-    public WebElementFacade performanceAndProcessTeam;
-
-    @FindBy(xpath = "//span[text()='Central Drafting Team']" )
-    public WebElementFacade centralDraftingTeam;
-
-    @FindBy(xpath = "//span[text()='Minister for Lords']")
-    public WebElementFacade ministerForLords;
+    @FindBy(xpath = "//span[text()='Performance and Process Team']")
+    public WebElementFacade performanceProcessTeam;
 
     @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
-    public WebElementFacade transfersAndNo10Team;
+    public WebElementFacade transferN10Team;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Immigration']")
+    public WebElementFacade ministerOfStateForImmigrationTeam;
+
+    @FindBy(xpath = "//span[text()='Minister for Lords']")
+    public WebElementFacade ministerForLordsTeam;
 
     @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
-    public WebElementFacade animalsInScienceRegulationUnit;
+    public WebElementFacade animalsInScienceTeam;
 
-    // Call session variable containing the Case Reference, use case reference to grab the link
-    // Reference is the linkText but this isnt how to do this.
+    @FindBy(xpath = "//span[text()='Central Drafting Team']")
+    public WebElementFacade centralDraftingTeam;
+
+    @FindBy(xpath = "//span[text()='']")
+    public WebElementFacade someTeamName;
 
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
-
-    /*@FindBy(linktext - "Login")
-    private WebElementFacade loginButton;*/
 
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
@@ -163,19 +154,31 @@ public class Homepage extends Page {
     }
 
     public void selectPerformanceAndProcessTeam() {
-        performanceAndProcessTeam.click();
+        performanceProcessTeam.click();
     }
 
-    public void selectTeam1() {
-        team1.click();
+    public void selectPerformanceProcessTeam() {
+        performanceProcessTeam.click();
     }
 
-    public void selectTeam2() {
-        team2.click();
+    public void selectTransfersN10Team() {
+        transferN10Team.click();
     }
 
-    public void selectTeam3() {
-        team3.click();
+    public void selectImmigrationMinisterTeam() {
+        ministerOfStateForImmigrationTeam.click();
+    }
+
+    public void selectMinisterForLordsTeam() {
+        ministerForLordsTeam.click();
+    }
+
+    public void selectAnimalsInScienceTeam() {
+        animalsInScienceTeam.click();
+    }
+
+    public void selectCentralDraftingTeam() {
+        centralDraftingTeam.click();
     }
 
     public void allocateToMe() {
@@ -192,19 +195,6 @@ public class Homepage extends Page {
         allocateDropdown.selectByIndex(index);
     }
 
-    public void selectTeam1111Markup(){
-        team1111Markup.click();
-    }
-
-    public void selectTeam333InitialDraft(){
-        team3333InitialDraft.click();
-    }
-
-    public void selectTeam3333QAResponse() {
-        team3333InitialDraft.click();
-        firstQAResponseAllocate.click();
-    }
-
     public void clickFirstInitialDraftCaseWork() {
         firstInitialDraftCaseWork.click();
     }
@@ -215,18 +205,21 @@ public class Homepage extends Page {
 
     // Multi Step Methods
 
-   public void firstStageFindMyCase(){
+    public void firstStageFindMyCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             performanceAndProcessTeam.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU TRO")) {
             performanceAndProcessTeam.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU N10")) {
             transfersAndNo10Team.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
@@ -238,10 +231,10 @@ public class Homepage extends Page {
         return caseReferenceLink;
     }
 
-    public void findMyDataInputCase(){
+    public void findMyDataInputCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             performanceAndProcessTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -255,10 +248,10 @@ public class Homepage extends Page {
         }
     }
 
-    public void findMyMarkupCase(){
+    public void findMyMarkupCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             centralDraftingTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -272,10 +265,10 @@ public class Homepage extends Page {
         }
     }
 
-    public void findMyInitialDraftCase(){
+    public void findMyInitialDraftCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             selectTeam1();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
@@ -288,7 +281,6 @@ public class Homepage extends Page {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
-
 
     public void findMyQAResponseCase() {
         String thisCaseType =
@@ -393,7 +385,7 @@ public class Homepage extends Page {
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
-        System.out.println("Case is at " + actualStage + " stage" );
+        System.out.println("Case is at " + actualStage + " stage");
         assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
     }
 
@@ -474,10 +466,6 @@ public class Homepage extends Page {
         firstDtenMarkupAllocate.click();
     }
 
-    /*public void clickFirstDispatchAllocate() {
-        firstDispatchAllocate.click();
-    }*/
-
     public void clickFirstTroMarkupAllocate() {
         firstTroMarkupAllocate.click();
     }
@@ -500,5 +488,4 @@ public class Homepage extends Page {
 
     public void clickTeamQueueLink() {
     }
-
 }

@@ -33,7 +33,7 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
-        homepage.findMyPrivateOfficeCase();
+        homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
@@ -44,7 +44,7 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^The case is rejected at the Private Office stage$")
     public void rejectAtPrivateOffice() {
-        homepage.findMyPrivateOfficeCase();
+        homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
