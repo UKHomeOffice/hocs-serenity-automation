@@ -3,7 +3,7 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Data Input stage
     When I create a single case "<caseType>"
     Then The case should be moved to the "DATA INPUT" stage
@@ -15,10 +15,10 @@ Feature: HOCS is able to move cases through the entire flow
 
 
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Markup stage
     When I create a single case "<caseType>"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "<caseType>" caseType
     Then The case should be moved to the "MARKUP" stage
     Examples:
       | caseType|
@@ -26,10 +26,10 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Initial Draft stage
     When I create a single case "<caseType>"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     Then The case should be moved to the "INITIAL DRAFT" stage
     Examples:
@@ -38,10 +38,10 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to QA Response stage
     When I create a single case "<caseType>"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
     Then The case should be moved to the "QA RESPONSE" stage
@@ -51,7 +51,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Private Office stage
     When I create a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -64,7 +64,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU MIN |
       | DCU N10 |
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Minister Sign Off stage
     When I create a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -77,7 +77,7 @@ Feature: HOCS is able to move cases through the entire flow
       | caseType|
       | DCU MIN |
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @Demo
   Scenario Outline: Case moves to Dispatch stage
     When I create a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -95,7 +95,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   #Remember to do Copy to #10
 
-  @EndToEnd @DCUMIN @Critical @SmokeTests
+  @EndToEnd @DCUMIN @Critical @SmokeTests @Demo
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single case "DCU MIN"
     And The Data Input Stage is completed for "DCU MIN" caseType
@@ -127,6 +127,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the QA response stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
+
 
 
 

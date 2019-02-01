@@ -13,6 +13,11 @@ public class Topics extends Page {
     @FindBy(id = "react-select-2-input")
     private WebElementFacade focusedTopicsTextField;
 
+    @FindBy(id = "DraftingTeamName")
+    public WebElementFacade autoAssignedDraftTeam;
+
+    @FindBy(id = "POTeamName")
+    public WebElementFacade autoAssignedPrivateOfficeTeam;
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicButton;
@@ -48,10 +53,5 @@ public class Topics extends Page {
     public void assertTopicsTextFieldDisplayed() {
         isElementDisplayed(topicsTextField);
     }
-
-    public void assertAddTopicButtonIsVisible() {
-
-    }
-
 
 }

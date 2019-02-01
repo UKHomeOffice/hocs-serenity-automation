@@ -113,10 +113,10 @@ public class DataInput extends Page {
 
     public void dataInputFullFlow() {
        // homepage.selectPerformanceProcessTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         fillAllMandatoryFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();

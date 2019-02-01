@@ -33,11 +33,11 @@ public class DraftResponseStepDefs {
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
         homepage.selectAnimalsInScienceTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.goHome();
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         draftingTeamDecision.acceptAndDraftALetter();
         draftingTeamDecision.uploadDraftResponse();
         qa.dontQAOffline();
@@ -49,7 +49,7 @@ public class DraftResponseStepDefs {
 //            case "DCU MIN":
 //                draft.findAndAllocateDraftStage();
 //                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
 //                draftingTeamDecision.acceptAndDraftALetter();
 //                draftingTeamDecision.uploadDraftResponse();
 //                qa.dontQAOffline();
@@ -57,7 +57,7 @@ public class DraftResponseStepDefs {
 //            case "DCU N10":
 //                draft.findAndAllocateDraftStage();
 //                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
 //                draftingTeamDecision.clickAcceptInitialDraftDecision();
 //                draft.clickContinueButton();
 //                draftingTeamDecision.uploadDraftResponse();
@@ -66,7 +66,7 @@ public class DraftResponseStepDefs {
 //            case "DCU TRO":  //does not have offline QA option available
 //                draft.findAndAllocateDraftStage();
 //                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
 //                draftingTeamDecision.acceptAndDraftALetter();
 //                draftingTeamDecision.uploadDraftResponse();
 //                draft.clickContinueButton();

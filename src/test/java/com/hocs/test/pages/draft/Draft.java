@@ -165,7 +165,7 @@ public class Draft extends Page {
 
     public void findAndAllocateDraftStage() {
         homepage.selectAnimalsInScienceTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.goHome();
     }

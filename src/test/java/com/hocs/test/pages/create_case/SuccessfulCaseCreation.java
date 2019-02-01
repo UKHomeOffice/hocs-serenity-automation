@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.interactions.Actions;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -60,6 +61,29 @@ public class SuccessfulCaseCreation extends Page {
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
+        Actions actions = new Actions (getDriver());
+        actions.moveToElement(thisReference);
+        actions.perform();
+        sleep(1000);
+        thisReference.click();
+    }
+
+    public void selectCaseReferenceNumberViaXpath() {
+        WebElement thisReference = getDriver().findElement(
+              By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                      + "']"));
+        waitFor(thisReference);
+        System.out.println(thisReference);
+        thisReference.click();
+    }
+
+    public void selectCaseReferenceNumberViaXpathMarkup() {
+        WebElement thisReference = getDriver().findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']"));
+        waitFor(thisReference);
+        System.out.println(thisReference);
+        thisReference.click();
         thisReference.click();
     }
 

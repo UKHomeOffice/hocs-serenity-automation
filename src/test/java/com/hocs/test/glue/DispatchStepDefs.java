@@ -23,7 +23,7 @@ public class DispatchStepDefs {
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage() {
         homepage.selectPerformanceProcessTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();

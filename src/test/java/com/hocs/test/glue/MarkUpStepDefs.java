@@ -28,10 +28,10 @@ public class MarkUpStepDefs {
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
         homepage.selectCentralDraftingTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpathMarkup();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         markUpDecision.clickPolicyResponseRadioButton();
         markUpDecision.clickContinueButton();
         topics.clickAddTopicButton();
@@ -47,10 +47,10 @@ public class MarkUpStepDefs {
     @When("^I assign the Topic \"([^\"]*)\"$")
     public void enterSpecificMarkupTopic(String topic) {
         homepage.selectCentralDraftingTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         markUpDecision.clickPolicyResponseRadioButton();
         markUpDecision.clickContinueButton();
 
