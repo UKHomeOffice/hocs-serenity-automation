@@ -54,13 +54,9 @@ public class Workstacks extends Page {
 
     public void clickWorkstackFilterField(){
         selectWorkstackFilter.click();
-
     }
 
     public void displayMINCardNumber(){
-
-
-
     }
 
     public void assignCaseToMyself() {
@@ -71,13 +67,9 @@ public class Workstacks extends Page {
         allocateToMeButton.click();
     }
 
-//    public void setCheckboxesToArray(){
-//
-//        List<WebElement> myCheckboxes= driver.findElements(By.xpath("//input[contains(@id, 'selected_cases_'])"));
-//        System.out.println(myCheckboxes);
-//    }
 
-    public void clickCheckboxWhereCaseReferenceIs() {
+
+    public void clickCheckboxRelevantToCaseReference() {
         String caseReference =
                 sessionVariableCalled("caseReference").toString();
         WebDriver webDriver = getDriver();
@@ -90,12 +82,7 @@ public class Workstacks extends Page {
     public void clickUnallocateCasesButton() {
         unallocateFromMeButton.click();
     }
-//
-//    public void clickCheckboxWhereCaseReferenceIs(String caseReference) {
-//        WebDriver webDriver = getDriver();
-//
-//        webDriver.findElement(By.xpath("//a[contains(text(), '" + caseReference + "')]/../..//input")).click();
-//    }
+
 
     public void assertCaseReferenceIsVisible() {
         String caseReferenceNumber
@@ -126,10 +113,7 @@ public class Workstacks extends Page {
         assertThat(isElementDisplayed(element), is(false));
     }
 
-//    public void clickCaseCheckbox(){
-//        clickCaseCheckbox.setChecked(true);
-//
-//    }
+
 
     public static void assignTeamSpecificCasesToMe() {
     }

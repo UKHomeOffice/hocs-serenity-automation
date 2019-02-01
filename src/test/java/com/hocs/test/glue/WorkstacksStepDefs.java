@@ -44,7 +44,7 @@ public class WorkstacksStepDefs {
 
     Workstacks workstacks;
 
-    @When("^I allocate the case to myself$")
+    @When("^The current user allocates the case to themself$")
     public void allocateToMe() {
         homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
@@ -52,47 +52,44 @@ public class WorkstacksStepDefs {
 
     }
 
-    @When("^I unallocate the case from myself$")
+    @When("^They unallocate the case from themself")
     public void unallocateCase() {
         homepage.selectMyCases();
-        workstacks.clickCheckboxWhereCaseReferenceIs();
+        workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickUnallocateCasesButton();
 
     }
 
-    @When("^I select the check box against the case$")
+    @When("^They select the check box against the case$")
     public void selectCaseCheckbox() {
         homepage.firstStageFindMyCase();
-        workstacks.clickCheckboxWhereCaseReferenceIs();
+        workstacks.clickCheckboxRelevantToCaseReference();
     }
 
 
-    @Then("^The case is added to My Cases$")
+    @Then("^The case is added to the current user's cases$")
     public void assertThatCaseIsAllocatedToMe() {
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @Then("^The case is not visible in My Cases$")
+    @Then("^The case is not visible in the user's cases$")
     public void assertThatCaseHasBeenUnallocatedFromMe() {
         workstacks.assertCaseReferenceIsNotVisible();
 
     }
 
-    @When("^I enter Case Reference type \"([^\"]*)\" into the filter$")
+    @When("^They enter Case Reference type \"([^\"]*)\" into the filter$")
     public void enterCaseReferenceType(String caseReferenceType) {
         workstacks.selectWorkstackFilter.click();
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
-                setSessionVariable("caseReferenceType").to(caseReferenceType);
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
             case "DTEN":
-                setSessionVariable("caseReferenceType").to(caseReferenceType);
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
             case "TRO":
-                setSessionVariable("caseReferenceType").to(caseReferenceType);
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
             default: System.out.println(caseReferenceType

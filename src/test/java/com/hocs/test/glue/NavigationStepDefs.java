@@ -60,7 +60,7 @@ public class NavigationStepDefs {
         }
     }
 
-    @When("^I navigate to the \"([^\"]*)\" team page$")
+    @When("^The current user navigates to the \"([^\"]*)\" team page$")
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":

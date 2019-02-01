@@ -5,26 +5,26 @@ Feature: Team members can allocate work
   # single quotes represent future unknown vars
   @Allocate
   Scenario: A single case is allocated to the current user
-    When I create a single case "DCU MIN"
-    And I allocate the case to myself
-    Then The case is added to My Cases
+    When The current user creates a single case "DCU MIN"
+    And  The current user allocates the case to themself
+    Then The case is added to the current user's cases
 
   @Allocate
   Scenario: A single case is allocated to the current user using checkboxes
-    When I create a single case "DCU MIN"
-    And I select the check box against the case
+    When The current user creates a single case "DCU MIN"
+    And They select the check box against the case
 
   @Unallocate
   Scenario: A single case is unallocated from the current user
-    When I create a single case "DCU MIN"
-    And I allocate the case to myself
-    And I unallocate the case from myself
-    Then The case is not visible in My Cases
+    When The current user creates a single case "DCU MIN"
+    And The current user allocates the case to themself
+    And They unallocate the case from themself
+    Then The case is not visible in the user's cases
 
   @Filtering
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
-    And I enter Case Reference type "MIN" into the filter
+    When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
+    And They enter Case Reference type "MIN" into the filter
     Then The cases are filtered by the chosen Case Reference
 
 
