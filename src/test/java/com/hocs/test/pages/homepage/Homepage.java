@@ -44,6 +44,21 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='TEAM 3']")
     public WebElementFacade team3;
 
+    @FindBy(xpath = "//span[text()='Performance and Process Team']" )
+    public WebElementFacade performanceAndProcessTeam;
+
+    @FindBy(xpath = "//span[text()='Central Drafting Team']" )
+    public WebElementFacade centralDraftingTeam;
+
+    @FindBy(xpath = "//span[text()='Minister for Lords']")
+    public WebElementFacade ministerForLords;
+
+    @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
+    public WebElementFacade transfersAndNo10Team;
+
+    @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
+    public WebElementFacade animalsInScienceRegulationUnit;
+
     // Call session variable containing the Case Reference, use case reference to grab the link
     // Reference is the linkText but this isnt how to do this.
 
@@ -146,6 +161,10 @@ public class Homepage extends Page {
         home.click();
     }
 
+    public void selectPerformanceAndProcessTeam() {
+        performanceAndProcessTeam.click();
+    }
+
     public void selectTeam1() {
         team1.click();
     }
@@ -199,13 +218,13 @@ public class Homepage extends Page {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
         if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+            performanceAndProcessTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam1();
+            performanceAndProcessTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            transfersAndNo10Team.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else {
             System.out.println("The caseType is " + thisCaseType);
@@ -222,7 +241,7 @@ public class Homepage extends Page {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
         if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+            performanceAndProcessTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
             selectTeam1();
@@ -239,7 +258,7 @@ public class Homepage extends Page {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
         if(thisCaseType.equals("DCU MIN")) {
-            selectTeam3();
+            centralDraftingTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
             selectTeam1();

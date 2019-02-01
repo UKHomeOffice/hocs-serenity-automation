@@ -31,7 +31,7 @@ public class CreateCase extends Page {
     @FindBy(id = "")
     private WebElementFacade createBulkCaseRadioButton;
 
-    @FindBy(linkText = "Create single case")
+    @FindBy(linkText = "Create Single Case")
     private WebElementFacade createSingleCaseLink;
 
     @FindBy(id = "")

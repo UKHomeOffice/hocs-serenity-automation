@@ -20,6 +20,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends Page {
 
@@ -34,6 +36,12 @@ public class Workstacks extends Page {
     @FindBy(css = "[type='submit']")
     public WebElementFacade unallocateFromMeButton;
 
+    @FindBy(id = "workstack-filter")
+    public WebElementFacade selectWorkstackFilter;
+
+    @FindBy(xpath = "//span[text()='DCU Ministerial']/preceding-sibling::span")
+    public WebElementFacade dcuMINCardNumber;
+
 
     public static void assertTeamHasNoCases() {
     }
@@ -42,6 +50,17 @@ public class Workstacks extends Page {
     }
 
     public static void assignMultipleTeamSpecificCasesToTeammate() {
+    }
+
+    public void clickWorkstackFilterField(){
+        selectWorkstackFilter.click();
+
+    }
+
+    public void displayMINCardNumber(){
+
+
+
     }
 
     public void assignCaseToMyself() {
@@ -60,7 +79,7 @@ public class Workstacks extends Page {
 
     public void clickCheckboxWhereCaseReferenceIs() {
         String caseReference =
-                Serenity.sessionVariableCalled("caseReference").toString();
+                sessionVariableCalled("caseReference").toString();
         WebDriver webDriver = getDriver();
 
         webDriver.findElement(
@@ -80,7 +99,7 @@ public class Workstacks extends Page {
 
     public void assertCaseReferenceIsVisible() {
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
@@ -93,7 +112,7 @@ public class Workstacks extends Page {
         sleep(1000);
 
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebDriver driver = getDriver();
         WebElement element = null;

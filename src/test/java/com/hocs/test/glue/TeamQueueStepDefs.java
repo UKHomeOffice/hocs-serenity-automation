@@ -202,11 +202,11 @@ public class TeamQueueStepDefs {
         teamqueue.assertThatCasesAreNotAssignedToAnotherUserTeam();
     }
 
-    @Then("^The case should no longer be visible in the teamqueue$")
-    public void assertThatCaseInSessionVariableIsNotVisible() {
-        dataInput.selectTeam1();
-        teamqueue.assertCaseIsNotVisible();
-    }
+//    @Then("^The case should no longer be visible in the teamqueue$")
+//    public void assertThatCaseInSessionVariableIsNotVisible() {
+//        dataInput.selectTeam1();
+//        teamqueue.assertCaseIsNotVisible();
+//    }
 
     /*@Then("^I should only see 20 results$")
     public void iShouldOnlySeeXResults(Int results) {

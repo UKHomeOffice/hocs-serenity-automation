@@ -3,7 +3,9 @@ package com.hocs.test.glue;
 import static config.Users.*;
 import static config.Usernames.*;
 import static config.Passwords.*;
+import static jnr.posix.util.MethodName.getMethodName;
 import static junit.framework.TestCase.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
@@ -19,6 +21,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 // Workstacks page link under homepage.java as workstacksLink
 
@@ -36,48 +39,77 @@ public class WorkstacksStepDefs {
     private LoginPage loginpage; //require loginpage file features not sure why this is under @steps instead of @managed
 
     private Page page; //more pages
+
     Homepage homepage;
+
     Workstacks workstacks;
 
     @When("^I allocate the case to myself$")
-    public void allocateToMe(){
+    public void allocateToMe() {
         homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
 
-   }
+    }
 
-   @When("^I unallocate the case from myself$")
-   public void unallocateCase(){
+    @When("^I unallocate the case from myself$")
+    public void unallocateCase() {
         homepage.selectMyCases();
         workstacks.clickCheckboxWhereCaseReferenceIs();
         workstacks.clickUnallocateCasesButton();
 
-   }
+    }
 
-   @When("^I select the check box against the case$")
-   public void selectCaseCheckbox(){
+    @When("^I select the check box against the case$")
+    public void selectCaseCheckbox() {
         homepage.firstStageFindMyCase();
         workstacks.clickCheckboxWhereCaseReferenceIs();
-   }
+    }
 
 
-   @Then("^The case is added to My Cases$")
-   public void assertThatCaseIsAllocatedToMe(){
+    @Then("^The case is added to My Cases$")
+    public void assertThatCaseIsAllocatedToMe() {
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
-   }
+    }
 
-   @Then("^The case is not visible in My Cases$")
-   public void assertThatCaseHasBeenUnallocatedFromMe(){
+    @Then("^The case is not visible in My Cases$")
+    public void assertThatCaseHasBeenUnallocatedFromMe() {
         workstacks.assertCaseReferenceIsNotVisible();
 
-   }
+    }
 
-   @When("^I enter Case Reference type into the filter$")
-   public void enterCaseReferenceType(){
+    @When("^I enter Case Reference type \"([^\"]*)\" into the filter$")
+    public void enterCaseReferenceType(String caseReferenceType) {
+        workstacks.selectWorkstackFilter.click();
+        switch (caseReferenceType.toUpperCase()) {
+            case "MIN":
+                setSessionVariable("caseReferenceType").to(caseReferenceType);
+                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                break;
+            case "DTEN":
+                setSessionVariable("caseReferenceType").to(caseReferenceType);
+                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                break;
+            case "TRO":
+                setSessionVariable("caseReferenceType").to(caseReferenceType);
+                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                break;
+            default: System.out.println(caseReferenceType
+                    + " is not defined within " + getClass().getSimpleName()
+                    + " class, " + getMethodName() + " method");
+                caseReferenceType = null;
+                assumeNotNull(caseReferenceType);
+        }
+    }
 
-   }
+    @Then("^The cases are filtered by the chosen Case Reference$")
+    public void assertCasesAreFilteredByCaseReference(){
+
+    }
+
+
+
 
    /* @When("^I view my workstacks$")
     //could belong in navigateStepDefs
@@ -98,7 +130,6 @@ public class WorkstacksStepDefs {
         // make integer variable so can assign X number based on requirements for test
         Workstacks.assignCaseToTeamMember();
     }
-
 
 //    @And("^I assign X to me$")
 //    public void assignCaseToMe() {
@@ -135,7 +166,6 @@ public class WorkstacksStepDefs {
         Workstacks.assignTeamSpecificCasesToMe();
     }
 
-
     //Asserts @Then & @And
     //Are @And Asserts okay or will they be dodgy, use * instead
 
@@ -160,7 +190,7 @@ public class WorkstacksStepDefs {
 
 
     @And("^I see 1 of my cases is priority$")
-    public void myPriorityCases () {
+    public void myPriorityCases() {
         Workstacks.assertThatMyCaseIsPriority();
     }
 
@@ -189,27 +219,6 @@ public class WorkstacksStepDefs {
     public void assertXCasesAreAssignedToMe() {
         Workstacks.assertThatXCasesAreAssignedToMe();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -111,10 +111,6 @@ public class DataInput extends Page {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void selectTeam1() {
-        team1DataInput.click();
-    }
-
     public void selectTeam1111() {
         team1111Markup.click();
     }

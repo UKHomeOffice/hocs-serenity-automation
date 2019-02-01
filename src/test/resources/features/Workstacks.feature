@@ -23,9 +23,9 @@ Feature: Team members can allocate work
 
   @Filtering
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
-    When I navigate to the "TEAM 1" team page
-    And I enter Case Reference type into the filter
-    Then The cases are filtered by the chose Case Reference
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I enter Case Reference type "MIN" into the filter
+    Then The cases are filtered by the chosen Case Reference
 
 
 

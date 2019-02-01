@@ -20,6 +20,7 @@ import net.thucydides.core.annotations.Managed;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assume.assumeNotNull;
+
 import org.openqa.selenium.WebDriver;
 
 public class NavigationStepDefs {
@@ -61,23 +62,22 @@ public class NavigationStepDefs {
 
     @When("^I navigate to the \"([^\"]*)\" team page$")
     public void navigateToTeamPage(String teamPage) {
-        switch (teamPage.toUpperCase()){
-            case "TEAM 1":
-                homepage.selectTeam1();
-                homepage.team1.click();
+        switch (teamPage.toUpperCase()) {
+            case "PERFORMANCE AND PROCESS TEAM":
+                homepage.performanceAndProcessTeam.click();
                 break;
-            case "TEAM 3":
-                homepage.team3.click();
+            case "TRANSFERS AND NO10 TEAM":
+                homepage.transfersAndNo10Team.click();
                 break;
-            default: System.out.println(teamPage
-                    + " is not defined within " + getClass().getSimpleName()
-                    + " class, " + getMethodName() + " method");
+            default:
+                System.out.println(teamPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
                 teamPage = null;
                 assumeNotNull(teamPage);
         }
 
     }
-
 
 
     @Given("^I am on the \"([^\"]*)\" page$")
