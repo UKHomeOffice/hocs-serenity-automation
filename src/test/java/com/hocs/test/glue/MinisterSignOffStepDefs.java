@@ -30,9 +30,21 @@ public class MinisterSignOffStepDefs {
 
     @When("^I complete the minister sign off stage$")
     public void completeTheMinisterSignOffStage(){
-        dataInput.selectTeam1();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
+        homepage.findMyMinisterSignOffCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         minister.clickMinisterSignOffAcceptRadioButton();
+        page.clickFinishButton();
+    }
+
+    @When("^The case is rejected by the Minister$")
+    public void rejectAtMinisterSignOff() {
+        homepage.findMyMinisterSignOffCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        minister.clickMinisterSignOffRejectRadioButton();
         page.clickFinishButton();
     }
 

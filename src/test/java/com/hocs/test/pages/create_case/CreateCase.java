@@ -31,7 +31,7 @@ public class CreateCase extends Page {
     @FindBy(id = "")
     private WebElementFacade createBulkCaseRadioButton;
 
-    @FindBy(linkText = "Create single case")
+    @FindBy(linkText = "Create Single Case")
     private WebElementFacade createSingleCaseLink;
 
     @FindBy(id = "")
@@ -51,6 +51,24 @@ public class CreateCase extends Page {
 
     @FindBy(id = "")
     private WebElementFacade addDocumentsYesRadioButton;
+
+    @FindBy(id = "DTENDispatchDeadline-day")
+    private WebElementFacade d10DispatchDeadlineDay;
+
+    @FindBy(id = "DTENDispatchDeadline-month")
+    private WebElementFacade d10DispatchDeadlineMonth;
+
+    @FindBy(id = "DTENDispatchDeadline-year")
+    private WebElementFacade d10DispatchDeadlineYear;
+
+    @FindBy(id = "DTENDraftDeadline-day")
+    private WebElementFacade d10DraftDeadlineDay;
+
+    @FindBy(id = "DTENDraftDeadline-month")
+    private WebElementFacade d10DraftDeadlineMonth;
+
+    @FindBy(id = "DTENDraftDeadline-year")
+    private WebElementFacade d10DraftDeadlineYear;
 
 
     // Basic Methods
@@ -97,6 +115,45 @@ public class CreateCase extends Page {
         caseDetailsFreeTextField.sendKeys(generateRandomString());
     }
 
+    public void fillMandatoryDateFields(){
+        enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
+        enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(+365));
+        enterDispatchDeadlineYear(todayPlusNDaysGetYear(+365));
+        enterDraftDeadlineDay(todayPlusNDaysGetDay(+360));
+        enterDraftDeadlineMonth(todayPlusNDaysGetMonth(+360));
+        enterDraftDeadlineYear(todayPlusNDaysGetYear(+360));
+    }
+
+    private void enterDispatchDeadlineDay(String day){
+        d10DispatchDeadlineDay.clear();
+        d10DispatchDeadlineDay.sendKeys(day);
+    }
+
+    private void enterDispatchDeadlineMonth(String month){
+        d10DispatchDeadlineMonth.clear();
+        d10DispatchDeadlineMonth.sendKeys(month);
+    }
+
+    private void enterDispatchDeadlineYear(String year){
+        d10DispatchDeadlineYear.clear();
+        d10DispatchDeadlineYear.sendKeys(year);
+    }
+
+    private void enterDraftDeadlineDay(String day){
+        d10DraftDeadlineDay.clear();
+        d10DraftDeadlineDay.sendKeys(day);
+    }
+
+    private void enterDraftDeadlineMonth(String month) {
+        d10DraftDeadlineMonth.clear();
+        d10DraftDeadlineMonth.sendKeys(month);
+    }
+
+    private void enterDraftDeadlineYear(String year){
+        d10DraftDeadlineYear.clear();
+        d10DraftDeadlineYear.sendKeys(year);
+    }
+
 
     // Multi Step Methods
 
@@ -104,7 +161,7 @@ public class CreateCase extends Page {
     public void createDCUMinSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuMinRadioButton();
-        completeSingleCaseCreation();
+        completeDCUMINSingleCaseCreation();
     }
 
     // Create a single DC10 case from the home page
@@ -118,11 +175,30 @@ public class CreateCase extends Page {
     public void createDCTROSingleCase() {
         clickCreateSingleCaseLink();
         clickDcuTroRadioButton();
-        completeSingleCaseCreation();
+        completeDCTROSingleCaseCreation();
+    }
+
+    public void completeDCTROSingleCaseCreation() {
+        clickNextButton();
+        addDocuments.uploadDocument();
+        clickSubmitButton();
+        successfulCaseCreation.getCaseReference();
+        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
+    }
+
+    public void completeDCUMINSingleCaseCreation(){
+        clickNextButton();
+        addDocuments.uploadDocument();
+        clickSubmitButton();
+        successfulCaseCreation.getCaseReference();
+        successfulCaseCreation.clickSuccessfulCaseBackButton();
+        System.out.println("The Case Reference number has been captured as " + Serenity.sessionVariableCalled("caseReference"));
     }
 
     public void completeSingleCaseCreation() {
         clickNextButton();
+        fillMandatoryDateFields();
         addDocuments.uploadDocument();
         clickSubmitButton();
         successfulCaseCreation.getCaseReference();

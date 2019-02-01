@@ -18,8 +18,6 @@ public class Topics extends Page {
     public WebElementFacade addTopicButton;
 
 
-
-
     // Basic Methods
 
     public void clickAddTopicButton() {
@@ -31,14 +29,13 @@ public class Topics extends Page {
     }
 
 
-
     // Multi Step Methods
 
     public void enterRealTopic() {
         topicsTextField.click();
         System.out.println("Clicked topic Dropdown");
-        focusedTopicsTextField.sendKeys("topic 1");
-        System.out.println("Sent topic 1 to topic dropdown");
+        focusedTopicsTextField.sendKeys("Cardiff University Kittens");
+        System.out.println("Sent Cardiff University Kittens to topic dropdown");
         topicsTextField.sendKeys(Keys.RETURN);
         System.out.println("Hit return");
     }

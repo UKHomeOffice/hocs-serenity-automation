@@ -1,7 +1,9 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
@@ -36,7 +38,11 @@ public class GenericInputStepDefs {
             case "":
                 break;
             default:
-                fail(dropdown + " is not defined within GenericInputStepDefs");
+                System.out.println(expectedText
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                expectedText = null;
+                assumeNotNull(expectedText);
         }
     }
 
@@ -50,7 +56,11 @@ public class GenericInputStepDefs {
                 page.clickNextButton();
                 break;
             default:
-                fail(buttonName + " is not defined in GenericStepDefs.iClickTheButton()");
+                System.out.println(buttonName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                buttonName = null;
+                assumeNotNull(buttonName);
         }
     }
 
@@ -70,7 +80,11 @@ public class GenericInputStepDefs {
                 page.clickViewLink();
                 break;
             default:
-                fail(name + " is not defined within GenericStepDefs.clickLink()");
+                System.out.println(name
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                name = null;
+                assumeNotNull(name);
         }
     }
 
@@ -80,8 +94,11 @@ public class GenericInputStepDefs {
             case "":
                 break;
             default:
-                fail(element
-                        + " is not defined within GenericInputStepDefs.iEnterTextIntoTheNominatedField()");
+                System.out.println(element
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                element = null;
+                assumeNotNull(element);
         }
     }
 
@@ -92,8 +109,11 @@ public class GenericInputStepDefs {
                 dataInput.fillAllMandatoryFields();
                 break;
             default:
-                fail(pageName
-                        + " is not defined within GenericInputStepDefs.fillAllMandatoryFields()");
+                System.out.println(pageName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                pageName = null;
+                assumeNotNull(pageName);
         }
     }
 
@@ -113,7 +133,11 @@ public class GenericInputStepDefs {
             case "NO DOCUMENTS":
                 break;
             default:
-                fail(message + " is not defined in GenericStepDefs.iSeeTheMessage()");
+                System.out.println(message
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                message = null;
+                assumeNotNull(message);
         }
     }
 
@@ -130,7 +154,11 @@ public class GenericInputStepDefs {
                 page.assertErrorMessageText("When was the correspondence sent? is required");
                 break;
             default:
-                fail(errorMessage + " is not defined in GenericStepDefs.errorMessageIsDisplayed");
+                System.out.println(errorMessage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                errorMessage = null;
+                assumeNotNull(errorMessage);
         }
 
     }
@@ -145,7 +173,11 @@ public class GenericInputStepDefs {
                 dataInput.invalidCorrespondenceSentDate();
                 break;
             default:
-                fail(dateField + " is not defined in GenericStepDefs.iEnterAnInvalidDate");
+                System.out.println(dateField
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                dateField = null;
+                assumeNotNull(dateField);
         }
     }
 
@@ -170,7 +202,11 @@ public class GenericInputStepDefs {
             /*case "DISPATCH":
                 homepage.clickFirstDispatchAllocate();*/
             default:
-                fail(stage + " is not defined in GenericStepDefs.iAmAtTheStage");
+                System.out.println(stage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                stage = null;
+                assumeNotNull(stage);
         }
     }
 
@@ -197,7 +233,11 @@ public class GenericInputStepDefs {
         String day = page.todayPlusNDaysGetDay(days);
         String month = page.todayPlusNDaysGetMonth(days);
         String year = page.todayPlusNDaysGetYear(days);
+    }
 
+    @When("^I set a deadline of -1 days$")
+    public void setDeadlineToDaysDays(int days) {
+        dataInput.setDateMinusOneDay();
     }
 
     @Then("^an error message is displayed$")
@@ -209,7 +249,6 @@ public class GenericInputStepDefs {
     public void theCaseIsMovedToTheStage(String expectedStage) {
         homepage.assertCaseStageInWorkstacks(expectedStage, driver);
     }
-
 
     @Then("^the file is downloaded$")
     public void theFileIsDownloaded() {
@@ -248,7 +287,11 @@ public class GenericInputStepDefs {
                 page.enterRejectionNotes();
                 break;
             default:
-                fail(action + " is not defined in GenericStepDefs.iActionTheCase");
+                System.out.println(action
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                action = null;
+                assumeNotNull(action);
         }
 
     }
@@ -265,7 +308,11 @@ public class GenericInputStepDefs {
             case "OTHER GOVERNMENT DEPARTMENT":
                 break;
             default:
-                fail(fieldName + " is not defined in GenericStepDefs.iDoNotEnterA");
+                System.out.println(fieldName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                fieldName = null;
+                assumeNotNull(fieldName);
         }
     }
 
@@ -281,7 +328,11 @@ public class GenericInputStepDefs {
                 dataInput.addACorrespondentLinkIsDisplayed();
                 break;
             default:
-                fail(linkText + " is not defined in GenericStepDefs.linkIsDisplayed");
+                System.out.println(linkText
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                linkText = null;
+                assumeNotNull(linkText);
         }
     }
 
@@ -296,7 +347,11 @@ public class GenericInputStepDefs {
                 page.clickFinishButton();
                 break;
             default:
-                fail(rejection + " is not defined in GenericStepDefs.iTheRejectionNote");
+                System.out.println(rejection
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                rejection = null;
+                assumeNotNull(rejection);
         }
 
     }
@@ -308,7 +363,11 @@ public class GenericInputStepDefs {
                 case "TOPICS":
                     break;
                 default:
-                    fail(addition + "is not defined in GenericStepDefs.iAddToACase");
+                    System.out.println(addition
+                            + " is not defined within " + getClass().getSimpleName()
+                            + " class, " + getMethodName() + " method");
+                    addition = null;
+                    assumeNotNull(addition);
             }
         }
     }

@@ -8,27 +8,59 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import java.util.List;
 import java.util.Map;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
     @Managed
     WebDriver driver;
 
+    Teamqueue teamqueue;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
     @FindBy(linkText = "Create single case")
     public WebElementFacade createSingleCase;
 
+    @FindBy(linkText = "Correspondence System")
+    public WebElementFacade home;
+
+    @FindBy(xpath = "//span[text()='TEAM 1']")
+    public WebElementFacade team1;
+
+    @FindBy(xpath = "//span[text()='TEAM 2']")
+    public WebElementFacade team2;
+
+    @FindBy(xpath = "//span[text()='TEAM 3']")
+    public WebElementFacade team3;
+
+    @FindBy(xpath = "//span[text()='Performance and Process Team']" )
+    public WebElementFacade performanceAndProcessTeam;
+
+    @FindBy(xpath = "//span[text()='Central Drafting Team']" )
+    public WebElementFacade centralDraftingTeam;
+
+    @FindBy(xpath = "//span[text()='Minister for Lords']")
+    public WebElementFacade ministerForLords;
+
+    @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
+    public WebElementFacade transfersAndNo10Team;
+
+    @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
+    public WebElementFacade animalsInScienceRegulationUnit;
+
     // Call session variable containing the Case Reference, use case reference to grab the link
     // Reference is the linkText but this isnt how to do this.
-
-    @FindBy(linkText = "mySessionVariable")
-    public WebElementFacade sessionVariableCalled;
 
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
@@ -48,8 +80,14 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table__cell")
     private WebElementFacade workstackTableCell;
 
-    @FindBy(linkText = "Workstacks")
-    private WebElementFacade workstacksLink;
+    @FindBy(css = "[value = 'Allocate']")
+    public WebElementFacade allocateButton;
+
+    @FindBy(css = "[name = 'user-id']")
+    public WebElementFacade allocateDropdown;
+
+    @FindBy(xpath = "//span[text()='Cases']")
+    public WebElementFacade myCases;
 
     @FindBy(xpath = "//span[text()='1111']")
     private WebElementFacade team1111Markup;
@@ -117,6 +155,42 @@ public class Homepage extends Page {
 
     // Basic Methods
 
+    public void selectMyCases() { myCases.click();}
+
+    public void goHome() {
+        home.click();
+    }
+
+    public void selectPerformanceAndProcessTeam() {
+        performanceAndProcessTeam.click();
+    }
+
+    public void selectTeam1() {
+        team1.click();
+    }
+
+    public void selectTeam2() {
+        team2.click();
+    }
+
+    public void selectTeam3() {
+        team3.click();
+    }
+
+    public void allocateToMe(){
+        selectAllocationUserByIndex(2);
+        allocateButton.click();
+    }
+
+    public void selectAllocationUserByVisibleText(String allocationUser) {
+        allocateDropdown.selectByVisibleText(allocationUser);
+        allocateButton.click();
+    }
+
+    public void selectAllocationUserByIndex(int index) {
+        allocateDropdown.selectByIndex(index);
+    }
+
     public void selectTeam1111Markup(){
         team1111Markup.click();
     }
@@ -140,9 +214,173 @@ public class Homepage extends Page {
 
     // Multi Step Methods
 
+   public void firstStageFindMyCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            performanceAndProcessTeam.click();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            performanceAndProcessTeam.click();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+        } else if (thisCaseType.equals("DCU N10")) {
+            transfersAndNo10Team.click();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public WebElement currentCase() {
+        WebElement caseReferenceLink
+                = Serenity.sessionVariableCalled("assertCase");
+        return caseReferenceLink;
+    }
+
+    public void findMyDataInputCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            performanceAndProcessTeam.click();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyMarkupCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            centralDraftingTeam.click();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyInitialDraftCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+
+
+
+    public void findMyQAResponseCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyPrivateOfficeCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam2();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyMinisterSignOffCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam2();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyDispatchCase(){
+        String thisCaseType =
+                Serenity.sessionVariableCalled("caseType").toString();
+        if(thisCaseType.equals("DCU MIN")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU TRO")) {
+            selectTeam1();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else if (thisCaseType.equals("DCU N10")) {
+            selectTeam3();
+            successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        } else {
+            System.out.println("The caseType is " + thisCaseType);
+        }
+    }
+
+    public void findMyCase() {
+        WebElement thisReference = currentCase();
+        System.out.println("Stale Element Exception averted");
+        team1.click();
+        teamqueue.waitForDashboardButton();
+        System.out.println("Searching Team 1 for Element on page.");
+       if (!thisReference.isDisplayed()) {
+           goHome();
+           selectTeam2();
+           if(!thisReference.isDisplayed()){
+               goHome();
+               selectTeam3();
+               thisReference.click();
+           } else {
+               thisReference.click();
+           }
+       } else {
+           thisReference.click();
+       }
+    }
+
     // Assertions
-
-
 
     public void assertCaseIsComplete() {
         WebElementFacade caseReference = (WebElementFacade) driver.findElement(
@@ -153,10 +391,10 @@ public class Homepage extends Page {
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {
-
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
+        System.out.println("Case is at " + actualStage + " stage" );
         assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
     }
 
@@ -261,10 +499,7 @@ public class Homepage extends Page {
         assertTitle("Main");
     }
 
-    public void assertReturnedToHomeScreen() {
-
-    }
-
     public void clickTeamQueueLink() {
     }
+
 }

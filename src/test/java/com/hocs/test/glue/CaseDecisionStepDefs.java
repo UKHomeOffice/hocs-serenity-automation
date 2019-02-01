@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
@@ -26,7 +28,11 @@ public class CaseDecisionStepDefs {
             case "REASON FOR NO REPLY NEEDED":
                 break;
             default:
-                fail();
+                System.out.println(textField
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                textField = null;
+                assumeNotNull(textField);
         }
     }
 
@@ -67,8 +73,11 @@ public class CaseDecisionStepDefs {
                 topics.assertTopicsTextFieldDisplayed();
                 break;
             default:
-                fail(textField
-                        + " is not defined in CaseDecisionStepDefs.anOptionalFreeTextFieldIsAvailable()");
+                System.out.println(textField
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                textField = null;
+                assumeNotNull(textField);
         }
     }
 
@@ -103,8 +112,11 @@ public class CaseDecisionStepDefs {
                 markUpDecision.clickNoReplyNeededRadioButton();
                 break;
             default:
-                fail(status
-                        + " is not defined within CaseDecisionStepDefs.iCloseTheCaseWithADecisionOf");
+                System.out.println(status
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                status = null;
+                assumeNotNull(status);
         }
         page.clickContinueButton();
         page.clickFinishButton();
@@ -134,7 +146,11 @@ public class CaseDecisionStepDefs {
             case "DRAFTING TEAM":
                 break;
             default:
-                fail(amendment + " is not defined within CaseDecisionStepDefs.iClickToAmendThe");
+                System.out.println(amendment
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                amendment = null;
+                assumeNotNull(amendment);
         }
     }
 

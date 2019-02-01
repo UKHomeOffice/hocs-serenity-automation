@@ -115,8 +115,8 @@ public class MarkUpDecision extends Page {
         answeringUnitDropdown.selectByIndex(1);
     }
 
-    public void selectSecondSignOffMinisterFromDropdown() {
-        signOffMinisterDropdown.selectByIndex(2);
+    public void selectFirstSignOffMinisterFromDropdown() {
+        signOffMinisterDropdown.selectByIndex(1);
     }
 
 

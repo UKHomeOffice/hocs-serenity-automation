@@ -30,12 +30,12 @@ public class DispatchStepDefs {
 
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage(){
-        dataInput.selectTeam1();
-        successfulCaseCreation.clickSessionVariableViaLinkTextAndStoreResultingElement();
-       // successfulCaseCreation.clickSessionVariableViaLinkText();
+        homepage.findMyDispatchCase();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         dispatch.clickDispatchAcceptRadioButton();
         page.clickFinishButton();
     }
-
 
 }

@@ -4,7 +4,8 @@ public enum Passwords {
 
     DANNYPASS("Password1!"),
     DCUPASS("Password1"),
-    TESTERPASS("");
+    TESTERPASS(""),
+    EAMONPASS("Password1!");
 
     private final String password;
 

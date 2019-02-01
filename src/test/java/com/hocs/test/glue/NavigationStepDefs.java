@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static org.junit.Assert.fail;
 
+import com.google.common.annotations.GwtIncompatible;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
@@ -13,11 +14,13 @@ import config.Services;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assume.assumeNotNull;
+
 import org.openqa.selenium.WebDriver;
 
 public class NavigationStepDefs {
@@ -49,9 +52,33 @@ public class NavigationStepDefs {
             case "TEAMQUEUE":
                 homepage.clickTeamQueueLink();
             default:
-                fail(hocsPage + " is not defined with NavigationStepDefs.iNavigateToThePage()");
+                System.out.println(hocsPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                hocsPage = null;
+                assumeNotNull(hocsPage);
         }
     }
+
+    @When("^The current user navigates to the \"([^\"]*)\" team page$")
+    public void navigateToTeamPage(String teamPage) {
+        switch (teamPage.toUpperCase()) {
+            case "PERFORMANCE AND PROCESS TEAM":
+                homepage.performanceAndProcessTeam.click();
+                break;
+            case "TRANSFERS AND NO10 TEAM":
+                homepage.transfersAndNo10Team.click();
+                break;
+            default:
+                System.out.println(teamPage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                teamPage = null;
+                assumeNotNull(teamPage);
+        }
+
+    }
+
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void navigateToPage(String onHocsPage) {
@@ -74,7 +101,6 @@ public class NavigationStepDefs {
         }
     }
 
-
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
@@ -93,11 +119,14 @@ public class NavigationStepDefs {
                 dataInput.assertPageTitle();
                 break;
             default:
-                fail(pageName + " is not defined with NavigationStepDefs.iAmTakenToThePage()");
+                System.out.println(pageName
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                pageName = null;
+                assumeNotNull(pageName);
         }
         System.out.println("I have been taken to " + pageName);
     }
-
 
     private void navigateToHocs() {
         String env = System.getProperty("environment");

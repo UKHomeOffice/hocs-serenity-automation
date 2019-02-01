@@ -7,16 +7,21 @@
     @HOCS-575
     #Number of cases/ per team/ Team member / Unassigned
     Scenario: SomeScenario
+      # login to homepage
       Given I am on the "HOME" page
+      # generate cases, set number of cases to session variable, which team?
     And I have X cases in my teamqueue
+      # Again which team, select team X
     When I navigate to the "TEAMQUEUE" page
+
     Then The total of all cases per case type in the workflowqueue will be equal to X
 
     @HOCS-575
     Scenario: Case is overdue
       # I create a case with <CaseType>
       Given I create a case
-      And Set the case to (deadline -1 day)
+      # refactor to be slicker
+      And I set a deadline of -1 days
       When I am on the "HOME" page
       Then My teamqueue should display 1 overdue case
 
@@ -24,7 +29,7 @@
       # Given I create a case with <CaseType>
      Scenario: SomeScenario
       Given I create a case
-      And Set the case to (deadline -1 day)
+      And I set a deadline of -1 days
       When I navigate to the "TEAMQUEUE" page
       Then My workflowqueue should display 1 overdue case for that <casetype>
 
@@ -32,6 +37,7 @@
       # Given I create X cases
     Scenario: SomeScenario
       Given I bulk create 5 "DCU MIN" cases
+      # multiple cases deadline -1 day
       And Y cases are (deadline -1day)
       And I assign Z to me
       # X - (Z + Y) really

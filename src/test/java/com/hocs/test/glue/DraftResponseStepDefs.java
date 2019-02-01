@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
@@ -36,25 +38,63 @@ public class DraftResponseStepDefs {
 
     Qa qa;
 
-    @When("^I complete the initial draft stage$")
-    public void completeInitialDraftStage() {
-        dataInput.selectTeam1();
-        successfulCaseCreation.clickSessionVariableViaLinkText();
-        draftingTeamDecision.clickAcceptInitialDraftDecision();
-        page.clickContinueButton();
-        draftingTeamDecision.clickDraftingResponseLetter();
-        page.clickContinueButton();
-        draft.clickAddDocumentsButton();
-        draft.selectDocumentTypeByIndex(1);
-        addDocuments.uploadDocument();
-        page.clickAddButton();
-        page.clickContinueButton();
-        // offline QA decision NO
-        qa.clickOfflineQANoRadioButton();
-        page.clickContinueButton();
-        //qaResponse.clickOfflineQANoButton();
-        System.out.println("I have completed the initial draft and am QA'ing the case");
-        // Should belong to QAResponse StepDefs vv
+    @When("^Initial draft stage \"([^\"]*)\"$")
+    public void completeInitialDraftStage(String caseType) {
+        switch (caseType.toUpperCase()){
+            case "DCU MIN":
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draftingTeamDecision.clickDraftingResponseLetter();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                qa.clickOfflineQANoRadioButton();
+                page.clickContinueButton();
+                break;
+            case "DCU N10":
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                qa.clickOfflineQANoRadioButton();
+                page.clickContinueButton();
+                break;
+            case "DCU TRO":  //does not have offline QA option available
+                homepage.findMyInitialDraftCase();
+                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+                homepage.selectMyCases();
+                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+                draftingTeamDecision.clickAcceptInitialDraftDecision();
+                page.clickContinueButton();
+                draftingTeamDecision.clickDraftingResponseLetter();
+                page.clickContinueButton();
+                draft.clickAddDocumentsButton();
+                draft.selectDocumentTypeByIndex(1);
+                addDocuments.uploadDocument();
+                page.clickAddButton();
+                page.clickContinueButton();
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
     }
 
     @When("^I select to reply by \"([^\"]*)\"$")
@@ -72,7 +112,11 @@ public class DraftResponseStepDefs {
                 draft.clickLetterReplyRadioButton();
                 break;
             default:
-                fail("Please enter EMAIL, PHONE or POST");
+                System.out.println(method
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                method = null;
+                assumeNotNull(method);
         }
         page.clickContinueButton();
     }
@@ -130,7 +174,11 @@ public class DraftResponseStepDefs {
             case "ONLINE":
                 break;
             default:
-                fail("Please select OFFLINE or ONLINE as a QA option");
+                System.out.println(qa
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                qa = null;
+                assumeNotNull(qa);
         }
     }
 
@@ -153,8 +201,11 @@ public class DraftResponseStepDefs {
                 draftingTeamDecision.clickRejectInitialDraftDecision();
                 break;
             default:
-                fail(decision
-                        + " is not defined in DraftResponseStepDefs.iSelectACaseAnsweredByMyTeam");
+                System.out.println(decision
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                decision = null;
+                assumeNotNull(decision);
         }
         page.clickContinueButton();
     }
@@ -170,8 +221,16 @@ public class DraftResponseStepDefs {
                 page.clickFinishButton();
                 break;
             default:
-                fail(callDetails
-                        + " is not defined in DraftResponseStepDefs.iTheCallDetails");
+                System.out.println(callDetails
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                callDetails = null;
+                assumeNotNull(callDetails);
         }
+    }
+
+    @Then("^The case is returned to the Initial Draft stage$")
+    public void assertCaseReturnedToInitialDraft() {
+        qaResponse.findAndAssertMyInitialDraftCase();
     }
 }

@@ -1,6 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.api.ApiHelper;
 import com.hocs.test.api.workflowService.WorkflowService;
@@ -23,7 +25,11 @@ public class ServiceStepDefs {
                 apiHelper.setupApiHelper("WORKFLOW");
                 break;
             default:
-                fail(service + " is not defined within ServiceStepDefs.whenIRequestServiceInfo");
+                System.out.println(service
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                service = null;
+                assumeNotNull(service);
         }
     }
 
