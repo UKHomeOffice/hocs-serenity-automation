@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import java.io.File;
@@ -14,9 +13,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import net.serenitybdd.core.Serenity;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -726,13 +722,4 @@ public class Page extends PageObject {
     public void assertElementIsNotDisplayed(WebElementFacade element) {
         assertThat(isElementDisplayed(element), is(false));
     }
-
-    public void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

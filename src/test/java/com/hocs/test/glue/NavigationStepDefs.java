@@ -1,8 +1,5 @@
 package com.hocs.test.glue;
 
-import static org.junit.Assert.fail;
-
-import com.google.common.annotations.GwtIncompatible;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
@@ -73,10 +70,10 @@ public class NavigationStepDefs {
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":
-                homepage.performanceAndProcessTeam.click();
+                homepage.selectPerformanceProcessTeam();
                 break;
             case "TRANSFERS AND NO10 TEAM":
-                homepage.transfersAndNo10Team.click();
+                homepage.selectTransfersN10Team();
                 break;
             default:
                 System.out.println(teamPage
