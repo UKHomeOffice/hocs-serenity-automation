@@ -25,9 +25,13 @@ Feature: Team members can allocate work
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
     When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
     And They enter Case Reference type "MIN" into the filter
-    Then The cases are filtered by the chosen Case Reference
+    Then The cases should be filtered by the "MIN" Case Reference
 
-
+  @Filtering
+    Scenario: Cases are filtered by Current Stage in Team Workstacks
+    When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
+    And They enter Current Stage "DATA INPUT" into the filter
+    Then The cases should be filtered by the "DATA INPUT" Current Stage
 
 
 

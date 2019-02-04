@@ -100,8 +100,47 @@ public class WorkstacksStepDefs {
         }
     }
 
-    @Then("^The cases are filtered by the chosen Case Reference$")
-    public void assertCasesAreFilteredByCaseReference(){
+    @When("^They enter Current Stage \"([^\"]*)\" into the filter$")
+    public void enterCurrentStage (String currentStage) {
+        workstacks.selectWorkstackFilter.click();
+        switch (currentStage.toUpperCase()) {
+            case "DATA INPUT":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "MARK UP":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "INPUT DRAFT":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "QA RESPONSE":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "PRIVATE OFFICE APPROVAL":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "MINISTERIAL SIGN OFF":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            case "DISPATCH":
+                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                break;
+            default: System.out.println(currentStage
+                    + " is not defined within " + getClass().getSimpleName()
+                    + " class, " + getMethodName() + " method");
+                currentStage = null;
+                assumeNotNull(currentStage);
+        }
+    }
+
+    @Then("^The cases should be filtered by the \"([^\"]*)\" Case Reference$")
+    public void assertCasesAreFilteredByCaseReference(String caseReference){
+        workstacks.assertCasesAreFilteredByRef(caseReference);
+    }
+
+    @Then("^The cases should be filtered by the \"([^\"]*)\" Current Stage")
+    public void assertCasesAreFilteredByCurrentStage(String currentStage){
+        workstacks.assertCasesAreFilteredByStage(currentStage);
 
     }
 

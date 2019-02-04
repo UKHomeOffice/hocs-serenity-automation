@@ -13,15 +13,18 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 
+import static jnr.posix.util.MethodName.getMethodName;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.yecht.Data.Str;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.junit.Assume.assumeNotNull;
 
 public class Workstacks extends Page {
 
@@ -29,6 +32,10 @@ public class Workstacks extends Page {
     Homepage homepage;
 
     WebDriver driver;
+
+
+    @FindBy(xpath = "//span[@class='govuk-hint'][1]")
+    public WebElementFacade totalNumberOfItems;
 
     @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeButton;
@@ -42,6 +49,8 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[text()='DCU Ministerial']/preceding-sibling::span")
     public WebElementFacade dcuMINCardNumber;
 
+    @FindBy(xpath = "//tbody[@class='govuk-table__body']")
+    public WebElementFacade caseResultsTable;
 
     public static void assertTeamHasNoCases() {
     }
@@ -67,6 +76,50 @@ public class Workstacks extends Page {
         allocateToMeButton.click();
     }
 
+
+    public void assertCasesAreFilteredByRef(String caseReference) {
+        int totalNumberOfCases = getTotalOfCases();
+
+        List<WebElementFacade> listOfReferences = findAll("//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference + "')]");
+        assertThat(listOfReferences.size(), is(totalNumberOfCases));
+    }
+
+    public void assertCasesAreFilteredByStage(String currentStage) {
+        int totalNumberOfCases = getTotalOfCases();
+        int dispatchCount = 0;
+        int dataInputCount = 0;
+        int qaResponseCount = 0;
+
+        List<WebElementFacade> listOfReference = findAll("//tbody[@class='govuk-table__body']/tr/td[3]");
+        for (WebElementFacade element : listOfReference) {
+            String elementText = element.getText();
+
+
+            switch (elementText.toUpperCase()) {
+                case "DISPATCH" :
+                    dispatchCount++;
+                    break;
+                case "DATA INPUT" :
+                    dataInputCount++;
+                    break;
+                case "QA RESPONSE" :
+                    qaResponseCount++;
+                    break;
+                default: System.out.println(elementText
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                    elementText = null;
+                    assumeNotNull(elementText);
+            }
+        }
+
+    }
+
+    public int getTotalOfCases() {
+        String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
+
+        return Integer.parseInt(tempNumberOfItems);
+    }
 
 
     public void clickCheckboxRelevantToCaseReference() {
