@@ -1,20 +1,11 @@
 package com.hocs.test.pages.private_office;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import com.hocs.test.pages.Page;
-
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-import net.thucydides.core.annotations.Managed;
-
-import org.openqa.selenium.WebDriver;
-
 public class PrivateOffice extends Page {
-
-    @Managed
-    WebDriver driver;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
     private WebElementFacade privateOfficeAcceptRadioButton;

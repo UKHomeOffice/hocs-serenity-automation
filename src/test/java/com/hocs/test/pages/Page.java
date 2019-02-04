@@ -55,20 +55,8 @@ public class Page extends PageObject {
     @FindBy(css = "[value='Add/Update']")
     private WebElementFacade addUpdateButton;
 
-    @FindBy(id = "")
-    protected WebElementFacade addressOneField;
-
-    @FindBy(id = "")
-    protected WebElementFacade addressTwoField;
-
     @FindBy(id = "CaseNote_AllocationNote")
     private WebElementFacade allocationNoteField;
-
-    // ^^ was formerly vv
-
-    /* @FindBy(id = "AllocationNote")
-    private WebElementFacade allocationNoteField; */
-
 
     @FindBy(css = "[id*=documentTable]")
     private WebElementFacade associatedDocumentTable;
@@ -87,9 +75,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value='Continue']")
     protected WebElementFacade continueButton;
-
-    @FindBy(id = "")
-    protected WebElementFacade countryField;
 
     @FindBy(id = "Date")
     private WebElementFacade dateField;
@@ -722,4 +707,5 @@ public class Page extends PageObject {
     public void assertElementIsNotDisplayed(WebElementFacade element) {
         assertThat(isElementDisplayed(element), is(false));
     }
+
 }

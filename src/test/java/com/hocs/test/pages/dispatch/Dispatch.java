@@ -16,4 +16,6 @@ public class Dispatch extends Page {
         dispatchAcceptRadioButton.click();
     }
 
+    public void clickDispatchRejectRadioButton() { dispatchRejectRadioButton.click(); }
+
 }

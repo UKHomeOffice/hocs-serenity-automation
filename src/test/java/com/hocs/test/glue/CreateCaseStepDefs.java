@@ -54,7 +54,7 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @Given("^I create a single case \"([^\"]*)\"$")
+    @Given("^The current user creates a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":

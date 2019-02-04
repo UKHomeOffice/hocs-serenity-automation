@@ -1,10 +1,7 @@
 package com.hocs.test.pages.qa_response;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.homepage.Homepage;
-import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
@@ -14,8 +11,6 @@ public class QAResponse extends Page{
 
     @Managed
     WebDriver driver;
-
-    Homepage homepage;
 
     @FindBy(css = "label[for='QAResponseDecision-ACCEPT']")
     private WebElementFacade QAAcceptRadioButton;

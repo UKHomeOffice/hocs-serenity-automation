@@ -2,32 +2,36 @@ Feature: Team members can allocate work
 
   Background:
     Given I am user "EAMON"
-  # single quotes represent future unknown vars
-  @Allocate
+
+
+  @Allocate @Demo
   Scenario: A single case is allocated to the current user
     When The current user creates a single case "DCU MIN"
     And  The current user allocates the case to themself
     Then The case is added to the current user's cases
 
-  @Allocate
+
+    # Bug against this test HOCS-806
+  @Allocate @HOCS-806
   Scenario: A single case is allocated to the current user using checkboxes
     When The current user creates a single case "DCU MIN"
+    # Failing step below
     And They select the check box against the case
 
-  @Unallocate
+  @Unallocate @Demo
   Scenario: A single case is unallocated from the current user
     When The current user creates a single case "DCU MIN"
     And The current user allocates the case to themself
     And They unallocate the case from themself
     Then The case is not visible in the user's cases
 
-  @Filtering
+  @Filtering @Demo
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
     When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
     And They enter Case Reference type "MIN" into the filter
     Then The cases should be filtered by the "MIN" Case Reference
 
-  @Filtering
+  @Filtering @Demo
     Scenario: Cases are filtered by Current Stage in Team Workstacks
     When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
     And They enter Current Stage "DATA INPUT" into the filter

@@ -5,7 +5,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @QAResponse @Critical @Workflow @SmokeTests @Demo
     Scenario: DCU MIN Case returned to Initial Draft stage when rejected by QA Response Team
-      When I create a single case "DCU MIN"
+      When The current user creates a single case "DCU MIN"
       And The Data Input Stage is completed for "DCU MIN" caseType
       And I complete the markup stage
       And I complete the Initial Draft stage
@@ -14,7 +14,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @QAResponse @Workflow @SmokeTests
   Scenario: DCU TRO Case returned to Initial Draft stage when rejected by QA Response team
-    When I create a single case "DCU TRO"
+    When The current user creates a single case "DCU TRO"
     And The Data Input Stage is completed for "DCU TRO" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -23,7 +23,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @QAResponse @Workflow @SmokeTests
   Scenario: DCU N10 Case returned to Initial Draft stage when rejected by QA Response team
-    When I create a single case "DCU N10"
+    When The current user creates a single case "DCU N10"
     And The Data Input Stage is completed for "DCU N10" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -32,7 +32,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @PrivateOffice @Workflow @SmokeTests @Demo
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by Private Office Team
-    When I create a single case "DCU MIN"
+    When The current user creates a single case "DCU MIN"
     And The Data Input Stage is completed for "DCU MIN" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -42,17 +42,17 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @PrivateOffice @Workflow @SmokeTests
   Scenario: DCU N10 Case returned to Initial Draft stage when rejected by Private Office Team
-    When I create a single case "DCU N10"
+    When The current user creates a single case "DCU N10"
     And I complete the Data Input stage
     And I complete the markup stage
-    And Initial draft stage "DCU N10"
+    And I complete the Initial Draft stage
     And I complete the QA response stage
     And The case is rejected at the Private Office stage
     Then The case should be moved to the "INITIAL DRAFT" stage
 
   @RejectFlow @MinisterSignOff @Workflow @SmokeTests @Demo
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister
-    When I create a single case "DCU MIN"
+    When The current user creates a single case "DCU MIN"
     And The Data Input Stage is completed for "DCU MIN" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage

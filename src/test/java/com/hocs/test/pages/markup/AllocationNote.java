@@ -9,10 +9,4 @@ public class AllocationNote extends Page{
     @FindBy(id = "CaseNote_AllocationNote")
     private WebElementFacade allocationNoteInput;
 
-    // Basic Methods
-
-    // Multi Step Methods
-
-    // Assertions
-
 }
