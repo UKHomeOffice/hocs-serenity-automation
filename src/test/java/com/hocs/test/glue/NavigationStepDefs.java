@@ -1,8 +1,5 @@
 package com.hocs.test.glue;
 
-import static org.junit.Assert.fail;
-
-import com.google.common.annotations.GwtIncompatible;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
@@ -43,14 +40,23 @@ public class NavigationStepDefs {
     @Given("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
+            case "HOME":
+                homepage.goHome();
+                break;
             case "TEST FORM":
                 homepage.clickTestFormLink();
                 break;
             case "CREATE SINGLE CASE":
                 homepage.clickCreateSingleCase();
                 break;
-            case "TEAMQUEUE":
-                homepage.clickTeamQueueLink();
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
+                homepage.selectAnimalsInScienceTeam();
+            case "PERFORMANCE AND PROCESS TEAM":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "MY CASES":
+                homepage.selectMyCases();
+                break;
             default:
                 System.out.println(hocsPage
                         + " is not defined within " + getClass().getSimpleName()
@@ -64,10 +70,10 @@ public class NavigationStepDefs {
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":
-                homepage.performanceAndProcessTeam.click();
+                homepage.selectPerformanceProcessTeam();
                 break;
             case "TRANSFERS AND NO10 TEAM":
-                homepage.transfersAndNo10Team.click();
+                homepage.selectTransfersN10Team();
                 break;
             default:
                 System.out.println(teamPage

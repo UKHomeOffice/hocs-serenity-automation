@@ -8,7 +8,7 @@ Feature:  HOCS User is able to Dispatch a Response
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
     When I "reject" the case
     And I enter "<string>" in the "Reject Reason" field
-    Then the case is moved to the "Private Office" stage
+    Then the case should be moved to the "Private Office" stage
     #And the "nominated person" for the "private office team" receive the "dispatch rejected email"
     And I am returned to my home screen
     
@@ -27,6 +27,6 @@ Feature:  HOCS User is able to Dispatch a Response
   Scenario: User has a hard copy of a case to dispatch, they decide to accept the case, and the case needs to have a copy sent to Number 10
     Given the case had the "send copy to number 10" box checked
     When I "dispatch" the case
-    Then the case is moved to the "Send copy to number 10" stage
+    Then the case should be moved to the "Send copy to number 10" stage
     And the "nominated person" in the "transfers and number 10" team get a notification email
     And I am taken to the "home" page

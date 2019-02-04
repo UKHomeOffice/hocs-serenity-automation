@@ -29,44 +29,35 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @FindBy(linkText = "Create single case")
+    @FindBy(linkText = "Create Single Case")
     public WebElementFacade createSingleCase;
 
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade home;
 
-    @FindBy(xpath = "//span[text()='TEAM 1']")
-    public WebElementFacade team1;
-
-    @FindBy(xpath = "//span[text()='TEAM 2']")
-    public WebElementFacade team2;
-
-    @FindBy(xpath = "//span[text()='TEAM 3']")
-    public WebElementFacade team3;
-
-    @FindBy(xpath = "//span[text()='Performance and Process Team']" )
-    public WebElementFacade performanceAndProcessTeam;
-
-    @FindBy(xpath = "//span[text()='Central Drafting Team']" )
-    public WebElementFacade centralDraftingTeam;
-
-    @FindBy(xpath = "//span[text()='Minister for Lords']")
-    public WebElementFacade ministerForLords;
+    @FindBy(xpath = "//span[text()='Performance and Process Team']")
+    public WebElementFacade performanceProcessTeam;
 
     @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
-    public WebElementFacade transfersAndNo10Team;
+    public WebElementFacade transferN10Team;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Immigration']")
+    public WebElementFacade ministerOfStateForImmigrationTeam;
+
+    @FindBy(xpath = "//span[text()='Minister for Lords']")
+    public WebElementFacade ministerForLordsTeam;
 
     @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
-    public WebElementFacade animalsInScienceRegulationUnit;
+    public WebElementFacade animalsInScienceTeam;
 
-    // Call session variable containing the Case Reference, use case reference to grab the link
-    // Reference is the linkText but this isnt how to do this.
+    @FindBy(xpath = "//span[text()='Central Drafting Team']")
+    public WebElementFacade centralDraftingTeam;
+
+    @FindBy(xpath = "//span[text()='']")
+    public WebElementFacade someTeamName;
 
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
-
-    /*@FindBy(linktext - "Login")
-    private WebElementFacade loginButton;*/
 
     @FindBy(linkText = "View test form")
     private WebElementFacade testFormLink;
@@ -113,24 +104,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Casework')]")
     private WebElementFacade firstDataInputCasework;
 
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstMinDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstMinDataInputCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstDtenDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstDtenDataInputCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Allocate']")
-    private WebElementFacade firstTroDataInputAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[text()='Casework']")
-    private WebElementFacade firstTroDataInputCasework;
-
     @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstDataInputQaAllocate;
 
@@ -140,44 +113,45 @@ public class Homepage extends Page {
     @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
     private WebElementFacade firstMarkupAllocate;
 
-    @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Casework')]")
-    private WebElementFacade firstMarkupCasework;
-
-    @FindBy(xpath = "//td[contains(text(),'MIN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstMinMarkupAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'DTEN')]/following-sibling::td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstDtenMarkupAllocate;
-
-    @FindBy(xpath = "//td[contains(text(),'TRO')]/following-sibling::td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstTroMarkupAllocate;
-
-
     // Basic Methods
 
-    public void selectMyCases() { myCases.click();}
+    public void selectMyCases() {
+        myCases.click();
+    }
 
     public void goHome() {
         home.click();
     }
 
     public void selectPerformanceAndProcessTeam() {
-        performanceAndProcessTeam.click();
+        performanceProcessTeam.click();
     }
 
-    public void selectTeam1() {
-        team1.click();
+    public void selectPerformanceProcessTeam() {
+        performanceProcessTeam.click();
     }
 
-    public void selectTeam2() {
-        team2.click();
+    public void selectTransfersN10Team() {
+        transferN10Team.click();
     }
 
-    public void selectTeam3() {
-        team3.click();
+    public void selectImmigrationMinisterTeam() {
+        ministerOfStateForImmigrationTeam.click();
     }
 
-    public void allocateToMe(){
+    public void selectMinisterForLordsTeam() {
+        ministerForLordsTeam.click();
+    }
+
+    public void selectAnimalsInScienceTeam() {
+        animalsInScienceTeam.click();
+    }
+
+    public void selectCentralDraftingTeam() {
+        centralDraftingTeam.click();
+    }
+
+    public void allocateToMe() {
         selectAllocationUserByIndex(2);
         allocateButton.click();
     }
@@ -191,19 +165,6 @@ public class Homepage extends Page {
         allocateDropdown.selectByIndex(index);
     }
 
-    public void selectTeam1111Markup(){
-        team1111Markup.click();
-    }
-
-    public void selectTeam333InitialDraft(){
-        team3333InitialDraft.click();
-    }
-
-    public void selectTeam3333QAResponse() {
-        team3333InitialDraft.click();
-        firstQAResponseAllocate.click();
-    }
-
     public void clickFirstInitialDraftCaseWork() {
         firstInitialDraftCaseWork.click();
     }
@@ -214,18 +175,21 @@ public class Homepage extends Page {
 
     // Multi Step Methods
 
-   public void firstStageFindMyCase(){
+    public void firstStageFindMyCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            performanceAndProcessTeam.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU TRO")) {
-            performanceAndProcessTeam.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+            selectPerformanceProcessTeam();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else if (thisCaseType.equals("DCU N10")) {
-            transfersAndNo10Team.click();
-            successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+            selectTransfersN10Team();
+            successfulCaseCreation
+                    .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
@@ -237,147 +201,123 @@ public class Homepage extends Page {
         return caseReferenceLink;
     }
 
-    public void findMyDataInputCase(){
+    public void findMyDataInputCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            performanceAndProcessTeam.click();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam1();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-    public void findMyMarkupCase(){
+    public void findMyMarkupCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
+        if (thisCaseType.equals("DCU MIN")) {
             centralDraftingTeam.click();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam1();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-    public void findMyInitialDraftCase(){
+    public void findMyInitialDraftCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-
-
-
-    public void findMyQAResponseCase(){
+    public void findMyQAResponseCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            selectTeam3();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-    public void findMyPrivateOfficeCase(){
+    public void findMyPrivateOfficeCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam2();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-    public void findMyMinisterSignOffCase(){
+    public void findMyMinisterSignOffCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam2();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
     }
 
-    public void findMyDispatchCase(){
+    public void findMyDispatchCase() {
         String thisCaseType =
                 Serenity.sessionVariableCalled("caseType").toString();
-        if(thisCaseType.equals("DCU MIN")) {
-            selectTeam1();
+        if (thisCaseType.equals("DCU MIN")) {
+            selectPerformanceProcessTeam();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU TRO")) {
-            selectTeam1();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else if (thisCaseType.equals("DCU N10")) {
-            selectTeam3();
+            selectTransfersN10Team();
             successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
         } else {
             System.out.println("The caseType is " + thisCaseType);
         }
-    }
-
-    public void findMyCase() {
-        WebElement thisReference = currentCase();
-        System.out.println("Stale Element Exception averted");
-        team1.click();
-        teamqueue.waitForDashboardButton();
-        System.out.println("Searching Team 1 for Element on page.");
-       if (!thisReference.isDisplayed()) {
-           goHome();
-           selectTeam2();
-           if(!thisReference.isDisplayed()){
-               goHome();
-               selectTeam3();
-               thisReference.click();
-           } else {
-               thisReference.click();
-           }
-       } else {
-           thisReference.click();
-       }
     }
 
     // Assertions
@@ -394,7 +334,7 @@ public class Homepage extends Page {
         String actualStage = driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]/following-sibling::td[1]")).getText();
-        System.out.println("Case is at " + actualStage + " stage" );
+        System.out.println("Case is at " + actualStage + " stage");
         assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
     }
 
@@ -415,43 +355,11 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
-    public void clickFirstDataInput() {
-        firstDataInput.click();
-    }
-
-    public void clickFirstDataInputAllocate() {
-        firstDataInputAllocate.click();
-    }
-
-    public void clickFirstDataInputCasework() {
+    public void clickFirstDataInputCasework () {
         firstDataInputCasework.click();
     }
 
-    public void clickFirstDtenDataInputAllocate() {
-        firstDtenDataInputAllocate.click();
-    }
-
-    public void clickFirstDtenDataInputCasework() {
-        firstDtenDataInputCasework.click();
-    }
-
-    public void clickFirstMinDataInputAllocate() {
-        firstMinDataInputAllocate.click();
-    }
-
-    public void clickFirstMinDataInputCasework() {
-        firstMinDataInputCasework.click();
-    }
-
-    public void clickFirstTroDataInputAllocate() {
-        firstTroDataInputAllocate.click();
-    }
-
-    public void clickFirstTroDataInputCasework() {
-        firstTroDataInputCasework.click();
-    }
-
-    public void clickFirstDataInputQaAllocate() {
+    public void clickFirstDataInputQaAllocate () {
         firstDataInputQaAllocate.click();
     }
 
@@ -463,27 +371,7 @@ public class Homepage extends Page {
         firstMarkupAllocate.click();
     }
 
-    public void clickFirstMarkupCasework() {
-        firstMarkupCasework.click();
-    }
-
-    public void clickFirstMinMarkupAllocate() {
-        firstMinMarkupAllocate.click();
-    }
-
-    public void clickFirstDtenMarkupAllocate() {
-        firstDtenMarkupAllocate.click();
-    }
-
-    /*public void clickFirstDispatchAllocate() {
-        firstDispatchAllocate.click();
-    }*/
-
-    public void clickFirstTroMarkupAllocate() {
-        firstTroMarkupAllocate.click();
-    }
-
-    public void clickMyWorkstack() {
+    public void clickMyWorkstack () {
         myWorkstacks.click();
     }
 
@@ -501,5 +389,4 @@ public class Homepage extends Page {
 
     public void clickTeamQueueLink() {
     }
-
 }

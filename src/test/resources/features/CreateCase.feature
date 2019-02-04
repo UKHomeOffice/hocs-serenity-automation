@@ -1,15 +1,14 @@
 Feature: HOCS User is able to create a case
 
   Background:
-    Given I am user "DCU"
+    Given I am user "DANNY"
 
   @HOCS-341 @HOCS-491 @HOCS-236
   Scenario: I must select a type of correspondent
     When I do not select a type of correspondence when creating a case
     Then an error message is displayed
 
-
-  @HOCS-341 @HOCS-491 @HOCS-236
+  @HOCS-341 @HOCS-491 @HOCS-236 @SmokeTests @CreateCases
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully

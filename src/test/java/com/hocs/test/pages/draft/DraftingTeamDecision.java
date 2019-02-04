@@ -1,12 +1,15 @@
 package com.hocs.test.pages.draft;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.AddDocuments;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DraftingTeamDecision extends Page {
 
-    //@FindBy(css = "label[for='']")
+    Draft draft;
+
+    AddDocuments addDocuments;
 
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade initialDraftingDecisionAccept;
@@ -22,6 +25,9 @@ public class DraftingTeamDecision extends Page {
 
     @FindBy(id = "PhonecallNote")
     private WebElementFacade phoneCallSummaryNote;
+
+
+    //Basic Methods
 
     public void clickAcceptInitialDraftDecision() {
         initialDraftingDecisionAccept.click();
@@ -39,6 +45,22 @@ public class DraftingTeamDecision extends Page {
 
     public void enterPhoneCallSummaryNote() {
         phoneCallSummaryNote.sendKeys(generateRandomString());
+    }
+
+    // Multi Step Methods
+
+    public void acceptAndDraftALetter(){
+        clickAcceptInitialDraftDecision();
+        draft.clickContinueButton();
+        clickDraftingResponseLetter();
+        draft.clickContinueButton();
+    }
+
+    public void uploadDraftResponse(){
+        draft.clickAddDocumentsButton();
+        draft.selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        draft.clickAddButton();
     }
 
 }

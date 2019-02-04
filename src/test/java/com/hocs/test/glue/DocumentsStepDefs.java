@@ -32,7 +32,7 @@ public class DocumentsStepDefs {
     }
 
     @When("^I am viewing a case with \"([^\"]*)\" documents attached$")
-    public void iAmViewingACaseWithDocumentsAttached(String arg0) {
+    public void viewingACaseWithAttachedDocs(String arg0) {
         switch (arg0.toUpperCase()) {
             case "NO":
                 break;

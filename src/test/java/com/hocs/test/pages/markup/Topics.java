@@ -13,8 +13,13 @@ public class Topics extends Page {
     @FindBy(id = "react-select-2-input")
     private WebElementFacade focusedTopicsTextField;
 
+    @FindBy(id = "DraftingTeamName")
+    public WebElementFacade autoAssignedDraftTeam;
 
-    @FindBy(css = ".govuk-link")
+    @FindBy(id = "POTeamName")
+    public WebElementFacade autoAssignedPrivateOfficeTeam;
+
+    @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicButton;
 
 
@@ -32,10 +37,12 @@ public class Topics extends Page {
     // Multi Step Methods
 
     public void enterRealTopic() {
+
         topicsTextField.click();
         System.out.println("Clicked topic Dropdown");
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
-        System.out.println("Sent Cardiff University Kittens to topic dropdown");
+        System.out.println("Sent topic 1 to topic dropdown, waiting 1 second");
+        sleep(1000);
         topicsTextField.sendKeys(Keys.RETURN);
         System.out.println("Hit return");
     }
@@ -46,10 +53,5 @@ public class Topics extends Page {
     public void assertTopicsTextFieldDisplayed() {
         isElementDisplayed(topicsTextField);
     }
-
-    public void assertAddTopicButtonIsVisible() {
-
-    }
-
 
 }

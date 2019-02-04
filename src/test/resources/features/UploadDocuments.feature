@@ -8,7 +8,7 @@ Feature: A user can upload documents to a case #this test can be run at any stag
     When I select 'manage documents'
     And choose document type 'draft'
     And upload a 'mp3' file
-    Then I see the "document type failure" message
+    Then I should see the "document type failure" message
     And invalid files are not uploaded
 
   @HOCS-273, @HOCS-238
@@ -16,7 +16,7 @@ Feature: A user can upload documents to a case #this test can be run at any stag
     When I select 'manage documents'
     And choose document type 'draft'
     And upload a 15MB 'PDF' file
-    Then I see the "document size failure" message
+    Then I should see the "document size failure" message
     And invalid files are not uploaded
 
   @HOCS-273, @HOCS-238
@@ -25,7 +25,7 @@ Feature: A user can upload documents to a case #this test can be run at any stag
     And choose document type 'draft'
     And upload a 'docx' file
     And upload a 'mp3' file
-    Then I see the "document type failure" message
+    Then I should see the "document type failure" message
     And invalid files are not uploaded
 
   @HOCS-273, @HOCS-238

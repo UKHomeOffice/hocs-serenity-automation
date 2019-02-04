@@ -7,7 +7,7 @@ Feature: QA Case #this test can be reused for both the private office and minist
     @HOCS-310
     Scenario: User reviews draft, rejects it and provides a rejection reason
       When I "reject" the case
-      Then the case is moved to the "draft" stage
+      Then the case should be moved to the "draft" stage
       And the case allocated to the "original drafter"
       And the "original drafter" and "nominated person" receive the "qa rejected email"
       And I am taken to the "home" page
@@ -20,6 +20,6 @@ Feature: QA Case #this test can be reused for both the private office and minist
     @HOCS-309
     Scenario: User reviews draft and accepts the case
       When I "accept" the case
-      Then the case is moved to the "private office" stage
+      Then the case should be moved to the "private office" stage
       And the "nominated person" for the next owning team receives a notification email
       And I am taken to the "home" page

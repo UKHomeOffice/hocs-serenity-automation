@@ -16,12 +16,6 @@ public class DataInput extends Page {
 
     // Elements
 
-    @FindBy(xpath = "//span[text()='TEAM 1']")
-    private WebElementFacade team1DataInput;
-
-    @FindBy(xpath = "//span[text()='1111']")
-    private WebElementFacade team1111Markup;
-
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
     private WebElementFacade emailOriginalChannelRadioButton;
 
@@ -82,7 +76,6 @@ public class DataInput extends Page {
 
     // Basic Methods
 
-
     public void clickAddCorrespondentLink() {
         addCorrespondentLink.click();
     }
@@ -111,21 +104,19 @@ public class DataInput extends Page {
         phoneOriginalChannelRadioButton.click();
     }
 
-    public void selectTeam1111() {
-        team1111Markup.click();
-    }
-
-
     public void tickSendCopyToNumber10() {
         sendCopyToNumberTenTickBox.click();
     }
 
+
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        homepage.firstStageFindMyCase();
+       // homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-        homepage.findMyDataInputCase();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         fillAllMandatoryFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
@@ -206,6 +197,7 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceSent(getCurrentMonth());
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
+
 
     // Assertions
 

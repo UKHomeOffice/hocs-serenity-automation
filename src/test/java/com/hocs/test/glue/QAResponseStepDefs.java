@@ -23,26 +23,27 @@ public class QAResponseStepDefs {
 
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
-        homepage.findMyQAResponseCase();
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         qaResponse.clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");
-        page.clickContinueButton();
+        qaResponse.clickContinueButton();
     }
 
     @When("^I reject the case at the QA Response stage$")
     public void rejectAtQaResponse(){
-        homepage.findMyQAResponseCase();
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         qaResponse.clickQAResponseRejectRadioButton();
-        System.out.println("Case rejected, entering decision note");
-        page.clickContinueButton();
+        qaResponse.clickContinueButton();
         qaResponse.enterDraftDecision();
-        page.clickFinishButton();
+        qaResponse.clickFinishButton();
     }
 
 }

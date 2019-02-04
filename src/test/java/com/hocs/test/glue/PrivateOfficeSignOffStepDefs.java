@@ -33,21 +33,25 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
-        homepage.findMyPrivateOfficeCase();
+        homepage.selectMinisterForLordsTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         privateOffice.clickPrivateOfficeAcceptRadioButton();
-        privateOffice.clickFinishButton();
+        privateOffice.clickContinueButton();
     }
 
     @When("^The case is rejected at the Private Office stage$")
     public void rejectAtPrivateOffice() {
-        homepage.findMyPrivateOfficeCase();
+        homepage.selectMinisterForLordsTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         privateOffice.clickPrivateOfficeRejectRadioButton();
+        privateOffice.clickContinueButton();
+        privateOffice.enterPORejectNotes();
         privateOffice.clickFinishButton();
     }
 

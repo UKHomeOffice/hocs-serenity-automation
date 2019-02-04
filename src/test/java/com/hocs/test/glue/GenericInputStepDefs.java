@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
@@ -17,7 +18,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class GenericInputStepDefs {
 
@@ -123,7 +126,16 @@ public class GenericInputStepDefs {
         page.assertTitle(title);
     }
 
-    @Then("^I see the \"([^\"]*)\" message$")
+    @Then("^I should send the string of the first child to the console$")
+    public void sendStageToConsole(){
+        WebElement caseReferenceStage = driver.findElement(
+                By.xpath("//a[text()='MIN/0120171/19']/../following-sibling::td[1]"));
+        System.out.println(caseReferenceStage);
+        String thisStage = caseReferenceStage.getText();
+        System.out.println("The Stage is " + thisStage );
+    }
+
+    @Then("^I should see the \"([^\"]*)\" message$")
     public void iSeeTheMessage(String message) {
         switch (message.toUpperCase()) {
             case "DOCUMENT PENDING":
@@ -243,11 +255,6 @@ public class GenericInputStepDefs {
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
         page.errorMessageIsDisplayed();
-    }
-
-    @Then("^the case is moved to the \"([^\"]*)\" stage$")
-    public void theCaseIsMovedToTheStage(String expectedStage) {
-        homepage.assertCaseStageInWorkstacks(expectedStage, driver);
     }
 
     @Then("^the file is downloaded$")

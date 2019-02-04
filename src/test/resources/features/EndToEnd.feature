@@ -3,37 +3,133 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @EndToEnd @DCUMIN
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Data Input stage
+    When I create a single case "<caseType>"
+    Then The case should be moved to the "DATA INPUT" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU TRO |
+      | DCU N10 |
+
+
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Markup stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    Then The case should be moved to the "MARKUP" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU TRO |
+      | DCU N10 |
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Initial Draft stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    And I complete the markup stage
+    Then The case should be moved to the "INITIAL DRAFT" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU TRO |
+      | DCU N10 |
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to QA Response stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    And I complete the markup stage
+    And I complete the Initial Draft stage
+    Then The case should be moved to the "QA RESPONSE" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU TRO |
+      | DCU N10 |
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Private Office stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    And I complete the markup stage
+    And I complete the Initial Draft stage
+    And I complete the QA response stage
+    Then The case should be moved to the "PRIVATE OFFICE" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU N10 |
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Minister Sign Off stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    And I complete the markup stage
+    And I complete the Initial Draft stage
+    And I complete the QA response stage
+    And I complete the Private Office stage
+    Then The case should be moved to the "MINISTERIAL SIGN OFF" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+
+  @Workflow @SmokeTests @Demo
+  Scenario Outline: Case moves to Dispatch stage
+    When I create a single case "<caseType>"
+    And The Data Input Stage is completed for "<caseType>" caseType
+    And I complete the markup stage
+    And I complete the Initial Draft stage
+    And I complete the QA response stage
+    And I complete the Private Office stage
+    And I complete the minister sign off stage
+    Then The case should be moved to the "DISPATCH" stage
+    Examples:
+      | caseType|
+      | DCU MIN |
+      | DCU TRO |
+      | DCU N10 |
+
+  #Remember to do Copy to #10
+
+  @EndToEnd @DCUMIN @Critical @SmokeTests @Demo
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single case "DCU MIN"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "DCU MIN" caseType
     And I complete the markup stage
-    And Initial draft stage "DCU MIN"
+    And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
     And I complete the minister sign off stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
 
-  @EndToEnd
+  @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single case "DCU N10"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "DCU N10" caseType
     And I complete the markup stage
-    And Initial draft stage "DCU N10"
+    And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
 
-  @EndToEnd
+  @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single case "DCU TRO"
-    And I complete the Data Input stage
+    And The Data Input Stage is completed for "DCU TRO" caseType
     And I complete the markup stage
-    And Initial draft stage "DCU TRO"
+    And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the dispatch stage
     Then The case should no longer be visible in the teamqueue
+
+
+
+
 
 

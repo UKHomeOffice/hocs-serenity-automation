@@ -2,12 +2,15 @@ package com.hocs.test.pages.create_case;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.Serenity;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.interactions.Actions;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -45,7 +48,7 @@ public class SuccessfulCaseCreation extends Page {
         String to_remove="Created a new case: ";
 
         String caseReference = wholeString.replace(to_remove, "");
-        Serenity.setSessionVariable("caseReference").to(caseReference);
+        setSessionVariable("caseReference").to(caseReference);
 
         return caseReference;
     }
@@ -54,20 +57,43 @@ public class SuccessfulCaseCreation extends Page {
 
     public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
+        Actions actions = new Actions (getDriver());
+        actions.moveToElement(thisReference);
+        actions.perform();
+        sleep(1000);
+        thisReference.click();
+    }
+
+    public void selectCaseReferenceNumberViaXpath() {
+        WebElement thisReference = getDriver().findElement(
+              By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                      + "']"));
+        waitFor(thisReference);
+        System.out.println(thisReference);
+        thisReference.click();
+    }
+
+    public void selectCaseReferenceNumberViaXpathMarkup() {
+        WebElement thisReference = getDriver().findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']"));
+        waitFor(thisReference);
+        System.out.println(thisReference);
+        thisReference.click();
         thisReference.click();
     }
 
     public void selectCaseReferenceNumberViaLinkTextAndStoreResultingElement(){
         String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
-        Serenity.setSessionVariable("assertCase").to(thisReference);
+        setSessionVariable("assertCase").to(thisReference);
         thisReference.click();
     }
 }

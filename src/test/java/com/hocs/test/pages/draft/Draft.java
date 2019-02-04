@@ -1,15 +1,19 @@
 package com.hocs.test.pages.draft;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
-import net.serenitybdd.core.Serenity;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.homepage.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
+
+    Homepage homepage;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     @FindBy(css = "label[for='InitialDraftDecision-Reject']")
     private WebElementFacade answeredByMyTeamNoRadioButton;
@@ -17,7 +21,7 @@ public class Draft extends Page {
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(css = ".govuk-body.govuk-link")
+    @FindBy(xpath = "//a[text()='document']")
     private WebElementFacade draftStageAddDocumentsButton;
 
     @FindBy(id = "document_type")
@@ -73,6 +77,7 @@ public class Draft extends Page {
 
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
+
 
     // Basic Methods
 
@@ -158,8 +163,14 @@ public class Draft extends Page {
 
     // Multi Step Methods
 
-    // Assertions
+    public void findAndAllocateDraftStage() {
+        homepage.selectAnimalsInScienceTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.goHome();
+    }
 
+    // Assertions
 
     public void assertEnterCallNotesError() {
         assertThat(getErrorDetails(), is("Text to be confirmed"));
@@ -175,11 +186,5 @@ public class Draft extends Page {
 
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
-    }
-
-    public void assertDraftAResponseHeader() {
-        String caseReferenceNumber
-                = Serenity.sessionVariableCalled("caseReference").toString();
-        assertTitle(caseReferenceNumber + "Draft a Response");
     }
 }

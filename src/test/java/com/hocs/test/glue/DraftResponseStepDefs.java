@@ -1,106 +1,89 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.DraftingTeamDecision;
-import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.draft.Qa;
-import cucumber.api.PendingException;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class DraftResponseStepDefs {
 
-    Draft draft;
-
-    DraftingTeamDecision draftingTeamDecision;
-
     Page page;
+
+    Draft draft;
 
     Homepage homepage;
 
-    AddDocuments addDocuments;
-
-    QAResponse qaResponse;
-
-    DataInput dataInput;
+    DraftingTeamDecision draftingTeamDecision;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
     Qa qa;
 
-    @When("^Initial draft stage \"([^\"]*)\"$")
-    public void completeInitialDraftStage(String caseType) {
-        switch (caseType.toUpperCase()){
-            case "DCU MIN":
-                homepage.findMyInitialDraftCase();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draftingTeamDecision.clickDraftingResponseLetter();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
-                qa.clickOfflineQANoRadioButton();
-                page.clickContinueButton();
-                break;
-            case "DCU N10":
-                homepage.findMyInitialDraftCase();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
-                qa.clickOfflineQANoRadioButton();
-                page.clickContinueButton();
-                break;
-            case "DCU TRO":  //does not have offline QA option available
-                homepage.findMyInitialDraftCase();
-                homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
-                homepage.selectMyCases();
-                successfulCaseCreation.selectCaseReferenceNumberViaLinkText();
-                draftingTeamDecision.clickAcceptInitialDraftDecision();
-                page.clickContinueButton();
-                draftingTeamDecision.clickDraftingResponseLetter();
-                page.clickContinueButton();
-                draft.clickAddDocumentsButton();
-                draft.selectDocumentTypeByIndex(1);
-                addDocuments.uploadDocument();
-                page.clickAddButton();
-                page.clickContinueButton();
-                break;
-            default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
-        }
+    Teamqueue teamqueue;
+
+    @When("^I complete the Initial Draft stage$")
+    public void initialDraftFullFlow() {
+        homepage.selectAnimalsInScienceTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        draftingTeamDecision.acceptAndDraftALetter();
+        draftingTeamDecision.uploadDraftResponse();
+        qa.dontQAOffline();
     }
+
+//    @When("^Initial draft stage \"([^\"]*)\"$")
+//    public void completeInitialDraftStage(String caseType) {
+//        switch (caseType.toUpperCase()){
+//            case "DCU MIN":
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//                draftingTeamDecision.acceptAndDraftALetter();
+//                draftingTeamDecision.uploadDraftResponse();
+//                qa.dontQAOffline();
+//                break;
+//            case "DCU N10":
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//                draftingTeamDecision.clickAcceptInitialDraftDecision();
+//                draft.clickContinueButton();
+//                draftingTeamDecision.uploadDraftResponse();
+//                qa.dontQAOffline();
+//                break;
+//            case "DCU TRO":  //does not have offline QA option available
+//                draft.findAndAllocateDraftStage();
+//                homepage.selectMyCases();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//                draftingTeamDecision.acceptAndDraftALetter();
+//                draftingTeamDecision.uploadDraftResponse();
+//                draft.clickContinueButton();
+//                break;
+//            default:
+//                System.out.println(caseType
+//                        + " is not defined within " + getClass().getSimpleName()
+//                        + " class, " + getMethodName() + " method");
+//                caseType = null;
+//                assumeNotNull(caseType);
+//        }
+//    }
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
         draft.clickAnsweredByMyTeamYesRadioButton();
-        page.clickContinueButton();
+        draft.clickContinueButton();
         switch (method.toUpperCase()) {
             case "EMAIL":
                 draft.clickEmailReplyRadioButton();
@@ -118,7 +101,7 @@ public class DraftResponseStepDefs {
                 method = null;
                 assumeNotNull(method);
         }
-        page.clickContinueButton();
+        draft.clickContinueButton();
     }
 
     @Then("^I can see the drafting deadline for a case$")
@@ -185,8 +168,8 @@ public class DraftResponseStepDefs {
     @When("^a case is not answered by my team$")
     public void aCaseIsNotAnsweredByMyTeam() {
         draft.clickAnsweredByMyTeamNoRadioButton();
-        page.clickContinueButton();
-        page.enterRejectionNotes();
+        draft.clickContinueButton();
+        draft.enterRejectionNotes();
     }
 
     @When("^I select a case \"([^\"]*)\" answered by my team$")
@@ -207,7 +190,7 @@ public class DraftResponseStepDefs {
                 decision = null;
                 assumeNotNull(decision);
         }
-        page.clickContinueButton();
+        draft.clickContinueButton();
     }
 
     @When("^I \"([^\"]*)\" the call details$")
@@ -215,10 +198,10 @@ public class DraftResponseStepDefs {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draftingTeamDecision.enterPhoneCallSummaryNote();
-                page.clickFinishButton();
+                draft.clickFinishButton();
                 break;
             case "DO NOT COMPLETE":
-                page.clickFinishButton();
+                draft.clickFinishButton();
                 break;
             default:
                 System.out.println(callDetails
@@ -229,8 +212,38 @@ public class DraftResponseStepDefs {
         }
     }
 
-    @Then("^The case is returned to the Initial Draft stage$")
-    public void assertCaseReturnedToInitialDraft() {
-        qaResponse.findAndAssertMyInitialDraftCase();
+    @Then("^The case should be moved to the \"([^\"]*)\" stage$")
+    public void assertCaseReturnedToStage(String stage) {
+        switch (stage.toUpperCase()){
+            case "DATA INPUT":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "MARKUP":
+                homepage.selectCentralDraftingTeam();
+                break;
+            case "INITIAL DRAFT":
+                 homepage.selectAnimalsInScienceTeam();
+                 break;
+            case "QA RESPONSE":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "PRIVATE OFFICE":
+                //Depends on the Team but mainly this one
+                homepage.selectMinisterForLordsTeam();
+                break;
+            case "MINISTERIAL SIGN OFF":
+                homepage.selectMinisterForLordsTeam();
+                break;
+            case "DISPATCH":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            default:
+                System.out.println(stage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                stage = null;
+                assumeNotNull(stage);
+        }
+       teamqueue.assertCaseStage(stage);
     }
 }

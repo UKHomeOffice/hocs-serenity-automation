@@ -19,6 +19,6 @@ public class TestFormStepDefs {
         testForm.enterText();
         testForm.selectRadioButton();
         testForm.selectTestDropdown(4);
-        page.clickSubmitButton();
+        testForm.clickSubmitButton();
     }
 }
