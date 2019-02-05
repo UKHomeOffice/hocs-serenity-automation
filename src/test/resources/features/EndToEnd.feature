@@ -3,7 +3,7 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests
   Scenario Outline: Case moves to Data Input stage
     When The current user creates a single case "<caseType>"
     Then The case should be moved to the "DATA INPUT" stage
@@ -15,7 +15,7 @@ Feature: HOCS is able to move cases through the entire flow
 
 
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests
   Scenario Outline: Case moves to Markup stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -26,7 +26,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests
   Scenario Outline: Case moves to Initial Draft stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -38,7 +38,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests
   Scenario Outline: Case moves to QA Response stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -51,7 +51,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests
   Scenario Outline: Case moves to Private Office stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -64,7 +64,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU MIN |
       | DCU N10 |
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Minister Sign Off stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -77,7 +77,7 @@ Feature: HOCS is able to move cases through the entire flow
       | caseType|
       | DCU MIN |
 
-  @Workflow @SmokeTests @Demo
+  @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Dispatch stage
     When The current user creates a single case "<caseType>"
     And The Data Input Stage is completed for "<caseType>" caseType
@@ -90,12 +90,12 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+   #   | DCU TRO |
+   #   | DCU N10 |
 
   #Remember to do Copy to #10
 
-  @EndToEnd @DCUMIN @Critical @SmokeTests @Demo
+  @EndToEnd @DCUMIN @Critical @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When The current user creates a single case "DCU MIN"
     And The Data Input Stage is completed for "DCU MIN" caseType
