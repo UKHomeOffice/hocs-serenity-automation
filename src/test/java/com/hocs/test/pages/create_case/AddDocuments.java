@@ -74,19 +74,6 @@ public class AddDocuments extends Page {
         upload("src/test/resources/documents/test1.docx").to(addDocument);
     }
 
-    public void uploadDocumentDrone() {
-        upload("$${DRONE_BUILD_NUMBER}").to(addDocument);
-    }
-
-    /* public void uploadLocalOrCloud(){
-        if (runtimeEnv == localHost ) {
-            uploadDocument();
-        } else if ( Denvironment == someCloudContainer) {
-            uploadDocumentDrone();
-        }
-    } */
-
-
 }
 
 
