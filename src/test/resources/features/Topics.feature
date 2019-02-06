@@ -5,7 +5,7 @@ Feature: HOCS Topics are assigned to the correct Team
 
   @Topics @HOCS-584
   Scenario Outline: Topics are assigned to the correct team
-    When The current user creates a single case "DCU MIN"
+    When the current user creates a single case "DCU MIN"
     And I complete the Data Input stage
     And I assign the Topic "<Topic>"
     Then The case should be assigned to the "<draftingTeam>" for Drafting

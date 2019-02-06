@@ -6,7 +6,7 @@ Feature: Team members can allocate work
 
   @Allocate @DCUMIN
   Scenario: A single case is allocated to the current user
-    When The current user creates a single case "DCU MIN"
+    When the current user creates a single case "DCU MIN"
     And  The current user allocates the case to themself
     Then The case is added to the current user's cases
 
@@ -14,13 +14,13 @@ Feature: Team members can allocate work
     # Bug against this test HOCS-806
   @Allocate @HOCS-806
   Scenario: A single case is allocated to the current user using checkboxes
-    When The current user creates a single case "DCU MIN"
+    When the current user creates a single case "DCU MIN"
     # Failing step below
     And They select the check box against the case
 
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
-    When The current user creates a single case "DCU MIN"
+    When the current user creates a single case "DCU MIN"
     And The current user allocates the case to themself
     And They unallocate the case from themself
     Then The case is not visible in the user's cases

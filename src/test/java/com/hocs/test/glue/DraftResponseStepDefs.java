@@ -212,7 +212,7 @@ public class DraftResponseStepDefs {
         }
     }
 
-    @Then("^The case should be moved to the \"([^\"]*)\" stage$")
+    @Then("^the case should be moved to the \"([^\"]*)\" stage$")
     public void assertCaseReturnedToStage(String stage) {
         switch (stage.toUpperCase()){
             case "DATA INPUT":

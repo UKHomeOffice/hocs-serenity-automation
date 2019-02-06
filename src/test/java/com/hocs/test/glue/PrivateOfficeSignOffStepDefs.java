@@ -42,7 +42,7 @@ public class PrivateOfficeSignOffStepDefs {
         privateOffice.clickContinueButton();
     }
 
-    @When("^The case is rejected at the Private Office stage$")
+    @When("^the case is rejected at the Private Office stage$")
     public void rejectAtPrivateOffice() {
         homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
