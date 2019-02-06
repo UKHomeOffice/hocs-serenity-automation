@@ -29,7 +29,7 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @FindBy(linkText = "Create Single Case")
+    @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
 
     @FindBy(linkText = "Correspondence System")
@@ -159,6 +159,7 @@ public class Homepage extends Page {
     public void selectAllocationUserByVisibleText(String allocationUser) {
         allocateDropdown.selectByVisibleText(allocationUser);
         allocateButton.click();
+
     }
 
     public void selectAllocationUserByIndex(int index) {

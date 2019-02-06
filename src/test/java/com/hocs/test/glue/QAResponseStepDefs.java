@@ -24,7 +24,7 @@ public class QAResponseStepDefs {
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
         homepage.selectPerformanceProcessTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
         homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
