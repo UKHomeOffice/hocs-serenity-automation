@@ -37,7 +37,7 @@ public class NavigationStepDefs {
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
-    @Given("^I navigate to the \"([^\"]*)\" page$")
+    @Given("^the current user navigates to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":

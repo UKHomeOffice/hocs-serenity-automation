@@ -14,6 +14,8 @@ import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class CreateCase extends Page {
 
@@ -23,7 +25,11 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
+    WebDriver driver;
+
     // Elements
+
+
 
     @FindBy(className = "govuk-radios")
     private WebElementFacade allRadioButtons;
@@ -72,6 +78,9 @@ public class CreateCase extends Page {
 
     @FindBy(id = "DTENDraftDeadline-year")
     private WebElementFacade d10DraftDeadlineYear;
+
+    @FindBy(xpath = "//a[text()='Case type is required']")
+    private WebElementFacade caseTypeErrorMessage;
 
 
     // Basic Methods
@@ -223,6 +232,14 @@ public class CreateCase extends Page {
 
     public void radioButtonsNotDisplayed() {
         assertThat(isElementDisplayed(allRadioButtons), is(false));
+    }
+
+    public void assertCaseTypeErrorMessage() {
+        String errorMessageCaseType = driver.findElement(By.xpath("//a[text()='Case type is required']")).getText();
+        System.out.println(errorMessageCaseType);
+
+        assertThat(errorMessageCaseType, is("Case type is required"));
+
     }
 
 }

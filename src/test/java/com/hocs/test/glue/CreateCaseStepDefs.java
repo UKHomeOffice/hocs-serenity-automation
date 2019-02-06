@@ -51,7 +51,7 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @Given("the current user creates a single case \"([^\"]*)\"$")
+    @Given("^the current user creates a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -220,9 +220,14 @@ public class CreateCaseStepDefs {
         successfulCaseCreation.getCaseReference();
     }
 
-    @When("^I do not select a type of correspondence when creating a case$")
+    @When("^they do not select a type of correspondence when creating a case$")
     public void correspondentTypeNotSelectedDuringCaseCreation() {
-        homepage.clickCreateSingleCase();
         createCase.clickNextButton();
+    }
+
+    @Then("^an error message should be displayed informing the user that case type is required$")
+    public void assertThatCaseTypeErrorMessageIsDisplayed() {
+        createCase.assertCaseTypeErrorMessage();
+
     }
 }
