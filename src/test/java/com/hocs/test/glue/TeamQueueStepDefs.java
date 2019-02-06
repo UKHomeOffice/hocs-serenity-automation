@@ -202,7 +202,7 @@ public class TeamQueueStepDefs {
         teamqueue.assertThatCasesAreNotAssignedToAnotherUserTeam();
     }
 
-   @Then("^The case should no longer be visible in the teamqueue$")
+   @Then("^the case should no longer be visible in the teamqueue$")
     public void assertThatCaseInSessionVariableIsNotVisible(){
         homepage.selectPerformanceProcessTeam();
         teamqueue.assertCaseIsNotVisible();

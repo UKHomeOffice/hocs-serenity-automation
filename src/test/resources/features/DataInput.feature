@@ -1,7 +1,7 @@
 Feature: HOCS User is add data to a case
 
   Background:
-    Given I am user "DCU"
+    Given I am user "DANNY"
     And I am at the "Data Input" stage
 
   @HOCS-274 @HOCS-238

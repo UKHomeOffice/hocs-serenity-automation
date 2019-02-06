@@ -39,7 +39,7 @@ public class MinisterSignOffStepDefs {
         minister.clickContinueButton();
     }
 
-    @When("^The case is rejected by the Minister$")
+    @When("^the case is rejected by the Minister$")
     public void rejectAtMinisterSignOff() {
         homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();

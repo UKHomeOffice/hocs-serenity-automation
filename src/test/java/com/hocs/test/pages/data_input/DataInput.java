@@ -3,7 +3,6 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;

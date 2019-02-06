@@ -67,12 +67,6 @@ public class Draft extends Page {
     private WebElementFacade standardLine;
 
     @FindBy(id = "")
-    private WebElementFacade offlineQaRadioButton;
-
-    @FindBy(id = "")
-    private WebElementFacade onlineQaRadioButton;
-
-    @FindBy(id = "")
     private WebElementFacade allocateToOfflineQaDropdown;
 
     @FindBy(id = "")
@@ -119,14 +113,6 @@ public class Draft extends Page {
 
     public void clickNoSupportingDocumentsRadioButton() {
         supportingDocumentsNoRadioButton.click();
-    }
-
-    public void clickOfflineQaButton() {
-        offlineQaRadioButton.click();
-    }
-
-    public void clickOnlineQaButton() {
-        onlineQaRadioButton.click();
     }
 
     public void clickPhoneReplyRadioButton() {

@@ -1,13 +1,12 @@
   Feature: HOCS User Team Queues, indicators and case assignment
 
-  Background: Given I am user "DANNY"
+  Background:
+    Given I am user "DANNY"
     And I am on the "HOME" page
 
     @HOCS-575
     #Number of cases/ per team/ Team member / Unassigned
     Scenario: SomeScenario
-      # login to homepage
-      Given I am on the "HOME" page
       # generate cases, set number of cases to session variable, which team?
     And I have X cases in my teamqueue
       # Again which team, select team X

@@ -16,10 +16,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-
 public class CreateCaseStepDefs {
 
     AddDocuments addDocuments;
@@ -54,7 +51,7 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @Given("^I create a single case \"([^\"]*)\"$")
+    @Given("the current user creates a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":

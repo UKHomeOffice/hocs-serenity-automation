@@ -31,7 +31,7 @@ public class DataInputStepDefs {
     @When("^I complete the Data Input stage$")
     public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
 
-    @When("^The Data Input Stage is completed for \"([^\"]*)\" caseType$")
+    @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()){
             case "DCU MIN":
@@ -145,7 +145,7 @@ public class DataInputStepDefs {
     }
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member$")
-    public void iSelectToAddACorrespondent(String member) {
+    public void SelectToAddACorrespondent(String member) {
         switch (member.toUpperCase()) {
             case "IS":
                 break;
