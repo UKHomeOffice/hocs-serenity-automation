@@ -50,9 +50,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Central Drafting Team']")
     public WebElementFacade centralDraftingTeam;
 
-    @FindBy(xpath = "//span[text()='']")
-    public WebElementFacade someTeamName;
-
     @FindBy(linkText = "Create cases in bulk")
     private WebElementFacade createBulkCases;
 
@@ -65,44 +62,9 @@ public class Homepage extends Page {
     @FindBy(className = "govuk-table")
     private WebElementFacade workstackTable;
 
-    @FindBy(className = "govuk-table__cell")
-    private WebElementFacade workstackTableCell;
-
-    @FindBy(css = "[value = 'Allocate']")
-    public WebElementFacade allocateButton;
-
-    @FindBy(css = "[name = 'user-id']")
-    public WebElementFacade allocateDropdown;
-
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
-    @FindBy(xpath = "//td[text()='Initial Draft']/following-sibling::td/a[contains(text(), 'Casework')]")
-    private WebElementFacade firstInitialDraftCaseWork;
-
-    @FindBy(xpath = "//td[text()='Initial Draft']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstInitialDraftAllocate;
-
-    @FindBy(xpath = "//td[text()='QA Response']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstQAResponseAllocate;
-
-    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a")
-    private WebElementFacade firstDataInput;
-
-    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstDataInputAllocate;
-
-    @FindBy(xpath = "//td[text()='Data Input']/following-sibling::td/a[contains(text(), 'Casework')]")
-    private WebElementFacade firstDataInputCasework;
-
-    @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstDataInputQaAllocate;
-
-    @FindBy(xpath = "//td[text()='Data Input QA']/following-sibling::td/a[contains(text(), 'Casework')]")
-    private WebElementFacade firstDataInputQaCasework;
-
-    @FindBy(xpath = "//td[text()='Markup']/following-sibling::td/a[contains(text(), 'Allocate')]")
-    private WebElementFacade firstMarkupAllocate;
 
     // Basic Methods
 
@@ -138,27 +100,6 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-    public void allocateToMe() {
-        selectAllocationUserByIndex(2);
-        allocateButton.click();
-    }
-
-    public void selectAllocationUserByVisibleText(String allocationUser) {
-        allocateDropdown.selectByVisibleText(allocationUser);
-        allocateButton.click();
-    }
-
-    public void selectAllocationUserByIndex(int index) {
-        allocateDropdown.selectByIndex(index);
-    }
-
-    public void clickFirstInitialDraftCaseWork() {
-        firstInitialDraftCaseWork.click();
-    }
-
-    public void clickFirstInitialDraftAllocate() {
-        firstInitialDraftAllocate.click();
-    }
 
     // Multi Step Methods
 
@@ -222,22 +163,6 @@ public class Homepage extends Page {
 
     public void clickCreateSingleCase() {
         createSingleCase.click();
-    }
-
-    public void clickFirstDataInputCasework () {
-        firstDataInputCasework.click();
-    }
-
-    public void clickFirstDataInputQaAllocate () {
-        firstDataInputQaAllocate.click();
-    }
-
-    public void clickFirstDataInputQaCasework() {
-        firstDataInputQaCasework.click();
-    }
-
-    public void clickFirstMarkupAllocate() {
-        firstMarkupAllocate.click();
     }
 
     public void clickMyWorkstack () {

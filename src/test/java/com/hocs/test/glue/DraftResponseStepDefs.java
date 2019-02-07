@@ -10,6 +10,7 @@ import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.teamqueue.Teamqueue;
+import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -30,11 +31,13 @@ public class DraftResponseStepDefs {
 
     Teamqueue teamqueue;
 
+    Workstacks workstacks;
+
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
         homepage.selectAnimalsInScienceTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
         homepage.goHome();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();

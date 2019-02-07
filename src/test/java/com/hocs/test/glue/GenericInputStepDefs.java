@@ -193,34 +193,34 @@ public class GenericInputStepDefs {
         }
     }
 
-    @And("^I am at the \"([^\"]*)\" stage$")
-    public void iAmAtTheStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "DATA INPUT":
-                homepage.clickMyWorkstack();
-                homepage.clickFirstDataInputCasework();
-                break;
-            case "DATA INPUT QA":
-                homepage.clickMyWorkstack();
-                try {
-                    homepage.clickFirstDataInputQaAllocate();
-                } catch (ElementShouldBeEnabledException e) {
-                    homepage.clickFirstDataInputQaCasework();
-                }
-                break;
-            case "MARKUP":
-                homepage.clickFirstMarkupAllocate();
-                break;
-            /*case "DISPATCH":
-                homepage.clickFirstDispatchAllocate();*/
-            default:
-                System.out.println(stage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                stage = null;
-                assumeNotNull(stage);
-        }
-    }
+//    @And("^I am at the \"([^\"]*)\" stage$")
+//    public void iAmAtTheStage(String stage) {
+//        switch (stage.toUpperCase()) {
+//            case "DATA INPUT":
+//                homepage.clickMyWorkstack();
+//                homepage.clickFirstDataInputCasework();
+//                break;
+//            case "DATA INPUT QA":
+//                homepage.clickMyWorkstack();
+//                try {
+//                    homepage.clickFirstDataInputQaAllocate();
+//                } catch (ElementShouldBeEnabledException e) {
+//                    homepage.clickFirstDataInputQaCasework();
+//                }
+//                break;
+//            case "MARKUP":
+//                homepage.clickFirstMarkupAllocate();
+//                break;
+//            /*case "DISPATCH":
+//                homepage.clickFirstDispatchAllocate();*/
+//            default:
+//                System.out.println(stage
+//                        + " is not defined within " + getClass().getSimpleName()
+//                        + " class, " + getMethodName() + " method");
+//                stage = null;
+//                assumeNotNull(stage);
+//        }
+//    }
 
 
     @When("^I set the date to \"([^\"]*)\"$")

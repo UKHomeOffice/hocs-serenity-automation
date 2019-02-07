@@ -50,6 +50,20 @@ pipeline:
       branch: master
       event: push
 
+  upload-serenity-report:
+    image: plugins/s3
+    settings:
+      bucket: ${S3_BUCKET_NAME}
+      access_key:
+        from_secret: S3_ACCESS_KEY
+      secret_key:
+        from_secret: S3_SECRET_KEY
+      source: target/site/serenity/*.html
+      target: /${DRONE_BUILD_NUMBER}/report/
+    when:
+      branch: master
+      event: push
+
 services:
   selenium:
     image: selenium/hub

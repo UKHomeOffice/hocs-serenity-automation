@@ -5,6 +5,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -28,11 +29,14 @@ public class MinisterSignOffStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+    Workstacks workstacks;
+
     @When("^I complete the minister sign off stage$")
     public void completeTheMinisterSignOffStage(){
         homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         minister.clickMinisterSignOffAcceptRadioButton();
@@ -43,7 +47,8 @@ public class MinisterSignOffStepDefs {
     public void rejectAtMinisterSignOff() {
         homepage.selectMinisterForLordsTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         minister.clickMinisterSignOffRejectRadioButton();

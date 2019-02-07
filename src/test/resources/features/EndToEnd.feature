@@ -35,8 +35,8 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+ #     | DCU TRO |
+  #    | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to QA Response stage
