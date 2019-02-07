@@ -60,6 +60,9 @@ pipeline:
         from_secret: S3_SECRET_KEY
       source: target/site/serenity/*.html
       target: /${DRONE_BUILD_NUMBER}/report/
+      when:
+        branch: master
+        event: push
 
 services:
   selenium:
