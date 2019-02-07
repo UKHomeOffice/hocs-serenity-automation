@@ -28,15 +28,15 @@ pipeline:
 
   steps:
     - name: uploadSerenityReport
-        image: plugins/s3
-        settings:
-          bucket: ${S3_BUCKET_NAME}
-          access_key:
-            from_secret: S3_ACCESS_KEY
-          secret_key:
-            from_secret: S3_SECRET_KEY
-          source: target/site/serenity/*.html
-          target: /${DRONE_BUILD_NUMBER}/report/
+      image: plugins/s3
+      settings:
+        bucket: ${S3_BUCKET_NAME}
+        access_key:
+          from_secret: S3_ACCESS_KEY
+        secret_key:
+          from_secret: S3_SECRET_KEY
+        source: target/site/serenity/*.html
+        target: /${DRONE_BUILD_NUMBER}/report/
 
   tag-docker-image-with-git-tag:
     image: docker:17.09.1
