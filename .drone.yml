@@ -52,17 +52,14 @@ pipeline:
 
   upload-serenity-report:
     image: plugins/s3
-    secrets:
-      - s3_bucket_name
-      - s3_access_key
-      - s3_secret_key
+    secrets: [ s3_bucket_name, s3_access_key, s3_secret_key ]
     settings:
       bucket: $${s3_bucket_name}
       access_key:
         from_secret: s3_access_key
       secret_key:
         from_secret: s3_secret_key
-      source: target/site/serenity/**/*
+      source: /target/site/serenity/**/*
       target: /$${DRONE_BUILD_NUMBER}/report/
     when:
       branch: master
