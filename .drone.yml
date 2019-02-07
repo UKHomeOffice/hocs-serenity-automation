@@ -41,6 +41,7 @@ pipeline:
 
   execute-tests:
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    err_ignore: true
     secrets:
        - artifactory_username
        - artifactory_password
