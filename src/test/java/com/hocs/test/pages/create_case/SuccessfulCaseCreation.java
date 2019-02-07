@@ -77,7 +77,7 @@ public class SuccessfulCaseCreation extends Page {
         thisReference.click();
     }
 
-    public void selectCaseReferenceNumberViaXpathMarkup() {
+    public void selectCaseReferenceNumberViaXpathDoubleClick() {
         WebElement thisReference = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']"));

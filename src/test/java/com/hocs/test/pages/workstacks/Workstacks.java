@@ -41,9 +41,40 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//tbody[@class='govuk-table__body']")
     public WebElementFacade caseResultsTable;
 
+    @FindBy(css = "[value = 'Allocate']")
+    public WebElementFacade allocateButton;
+
+    @FindBy(css = "[name = 'user-id']")
+    public WebElementFacade allocateDropdown;
+
+
+    // Basic Methods
+
     public void clickAllocateToMeButton() {
         allocateToMeButton.click();
     }
+
+    public int getTotalOfCases() {
+        String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
+
+        return Integer.parseInt(tempNumberOfItems);
+    }
+
+    public void clickCheckboxRelevantToCaseReference() {
+        String caseReference =
+                sessionVariableCalled("caseReference").toString();
+        WebDriver webDriver = getDriver();
+
+        webDriver.findElement(
+                By.xpath("//a[contains(text(), '" + caseReference + "')]/../..//input")).click();
+
+    }
+
+    public void clickUnallocateCasesButton() {
+        unallocateFromMeButton.click();
+    }
+
+    // Assertions
 
     public void assertCasesAreFilteredByRef(String caseReference) {
         int totalNumberOfCases = getTotalOfCases();
@@ -81,26 +112,6 @@ public class Workstacks extends Page {
             }
         }
 
-    }
-
-    public int getTotalOfCases() {
-        String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
-
-        return Integer.parseInt(tempNumberOfItems);
-    }
-
-    public void clickCheckboxRelevantToCaseReference() {
-        String caseReference =
-                sessionVariableCalled("caseReference").toString();
-        WebDriver webDriver = getDriver();
-
-        webDriver.findElement(
-                By.xpath("//a[contains(text(), '" + caseReference + "')]/../..//input")).click();
-
-    }
-
-    public void clickUnallocateCasesButton() {
-        unallocateFromMeButton.click();
     }
 
     public void assertCaseReferenceIsVisible() {

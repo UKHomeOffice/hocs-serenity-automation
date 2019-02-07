@@ -8,6 +8,7 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
@@ -21,6 +22,8 @@ public class MarkUpStepDefs {
 
     Topics topics;
 
+    Workstacks workstacks;
+
     MarkUpDecision markUpDecision;
 
     SuccessfulCaseCreation successfulCaseCreation;
@@ -28,8 +31,9 @@ public class MarkUpStepDefs {
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
         homepage.selectCentralDraftingTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpathMarkup();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         markUpDecision.clickPolicyResponseRadioButton();
@@ -48,7 +52,7 @@ public class MarkUpStepDefs {
     public void enterSpecificMarkupTopic(String topic) {
         homepage.selectCentralDraftingTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         markUpDecision.clickPolicyResponseRadioButton();

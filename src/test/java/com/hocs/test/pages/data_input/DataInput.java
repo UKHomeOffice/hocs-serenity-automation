@@ -3,6 +3,7 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -12,6 +13,7 @@ public class DataInput extends Page {
     Homepage homepage;
     SuccessfulCaseCreation successfulCaseCreation;
     RecordCorrespondentDetails recordCorrespondentDetails;
+    Workstacks workstacks;
 
     // Elements
 
@@ -113,7 +115,8 @@ public class DataInput extends Page {
     public void dataInputFullFlow() {
        // homepage.selectPerformanceProcessTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
         homepage.selectMyCases();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         fillAllMandatoryFields();

@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -14,6 +15,8 @@ public class Draft extends Page {
     Homepage homepage;
 
     SuccessfulCaseCreation successfulCaseCreation;
+
+    Workstacks workstacks;
 
     @FindBy(css = "label[for='InitialDraftDecision-Reject']")
     private WebElementFacade answeredByMyTeamNoRadioButton;
@@ -152,7 +155,7 @@ public class Draft extends Page {
     public void findAndAllocateDraftStage() {
         homepage.selectAnimalsInScienceTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        homepage.selectAllocationUserByVisibleText("Danny Large (danny.large@ten10.com)");
+        workstacks.clickAllocateToMeButton();
         homepage.goHome();
     }
 
