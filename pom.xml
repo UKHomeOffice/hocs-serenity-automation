@@ -114,6 +114,7 @@
                     <systemPropertyVariables>
                         <env>${environment}</env>
                     </systemPropertyVariables>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
