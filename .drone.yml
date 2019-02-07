@@ -50,7 +50,7 @@ pipeline:
       branch: master
       event: push
 
-  uploadSerenityReport:
+  upload-serenity-report:
     image: plugins/s3
     settings:
       bucket: ${S3_BUCKET_NAME}
