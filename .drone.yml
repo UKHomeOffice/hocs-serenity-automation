@@ -63,6 +63,9 @@ pipeline:
     when:
       branch: master
       event: push
+      status:
+        - success
+        - failure
 
 services:
   selenium:
