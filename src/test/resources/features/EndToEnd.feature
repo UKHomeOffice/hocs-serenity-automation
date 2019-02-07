@@ -64,7 +64,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU MIN |
       | DCU N10 |
 
-  @Workflow @SmokeTests @DCUMIN
+  @Workflow @SmokeTests @DCUMINbroken
   Scenario Outline: Case moves to Minister Sign Off stage
     When the current user creates a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
@@ -77,7 +77,7 @@ Feature: HOCS is able to move cases through the entire flow
       | caseType|
       | DCU MIN |
 
-  @Workflow @SmokeTests @DCUMIN
+  @Workflow @SmokeTests @DCUMINbroken
   Scenario Outline: Case moves to Dispatch stage
     When the current user creates a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
@@ -95,7 +95,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   #Remember to do Copy to #10
 
-  @EndToEnd @DCUMIN @Critical @SmokeTests
+  @EndToEnd @DCUMINbroken @Critical @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When the current user creates a single case "DCU MIN"
     And the Data Input Stage is completed for "DCU MIN" caseType
