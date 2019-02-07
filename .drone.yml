@@ -52,9 +52,9 @@ pipeline:
 
   upload-serenity-report:
     image: plugins/s3
-    secrets: [ s3_bucket_name, s3_access_key, s3_secret_key ]
+    secrets: [ s3_access_key, s3_secret_key ]
     settings:
-      bucket: $${s3_bucket_name}
+      bucket: cs-qa-s3
       access_key:
         from_secret: s3_access_key
       secret_key:
