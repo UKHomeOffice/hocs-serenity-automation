@@ -60,7 +60,7 @@ pipeline:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      source: /target/site/serenity/**/*(
+      source: /target/site/serenity/**/*
       target: /$${DRONE_BUILD_NUMBER}/report/
     when:
       branch: master
