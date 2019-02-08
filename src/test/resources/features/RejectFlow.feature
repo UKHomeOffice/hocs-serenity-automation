@@ -29,7 +29,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
     And I reject the case at the QA Response stage
     Then the case should be moved to the "INITIAL DRAFT" stage
 
-  @RejectFlow @PrivateOffice @Workflow @SmokeTests @DCUMINbroken
+  @RejectFlow @PrivateOffice @Workflow @SmokeTests @DCUMIN
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by Private Office Team
     When the current user creates a single case "DCU MIN"
     And the Data Input Stage is completed for "DCU MIN" caseType
@@ -49,7 +49,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
     And the case is rejected at the Private Office stage
     Then the case should be moved to the "INITIAL DRAFT" stage
 
-  @RejectFlow @MinisterSignOff @Workflow @SmokeTests @DCUMINbroken
+  @RejectFlow @MinisterSignOff @Workflow @SmokeTests @DCUMIN
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister
     When the current user creates a single case "DCU MIN"
     And the Data Input Stage is completed for "DCU MIN" caseType
