@@ -52,7 +52,7 @@ pipeline:
 
   upload-serenity-report:
     image: plugins/s3
-    secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
+    secrets: [ S3_BUCKET_NAME, aws_access_key_id, aws_secret_access_key ]
     settings:
       region: eu-west-2
       bucket: $${S3_BUCKET_NAME}
@@ -60,7 +60,7 @@ pipeline:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      source: /target/site/serenity/**/*
+      source: /target/site/serenity/**
       target: /$${DRONE_BUILD_NUMBER}/report/
     when:
       branch: master
