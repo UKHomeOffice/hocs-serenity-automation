@@ -54,13 +54,13 @@ pipeline:
     image: plugins/s3
     secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
     region: [ eu-west-2 ]
-    bucket: ${S3_BUCKET_NAME}
+    bucket: cs-test-s3
     access_key:
       from_secret: aws_access_key_id
     secret_key:
       from_secret: aws_secret_access_key
-    source: /target/site/serenity/**/*
-    target: /$${DRONE_BUILD_NUMBER}/report/
+    source: target/site/serenity/**/*
+    target: /reports/
     when:
       branch: master
       event: push
