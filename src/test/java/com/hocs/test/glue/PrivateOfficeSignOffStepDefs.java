@@ -36,7 +36,7 @@ public class PrivateOfficeSignOffStepDefs {
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
         homepage.selectMinisterForLordsTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
         homepage.selectMyCases();
@@ -48,7 +48,7 @@ public class PrivateOfficeSignOffStepDefs {
     @When("^the case is rejected at the Private Office stage$")
     public void rejectAtPrivateOffice() {
         homepage.selectMinisterForLordsTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
         homepage.selectMyCases();
