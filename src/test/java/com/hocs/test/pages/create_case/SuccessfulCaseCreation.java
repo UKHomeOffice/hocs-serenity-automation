@@ -68,12 +68,16 @@ public class SuccessfulCaseCreation extends Page {
     }
 
     public void selectCaseReferenceNumberViaXpath() {
-        WebElement thisReference = getDriver().findElement(
-              By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
-                      + "']"));
-        waitFor(thisReference);
-        System.out.println(thisReference);
-        thisReference.click();
+        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
+                + "']").get(0);
+//        WebElement thisReference = getDriver().findElement(
+//              By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+//                      + "']"));
+        //waitFor(thisReference);
+        waitFor(referenceElement).waitUntilClickable();
+        //sleep(500);
+        System.out.println(referenceElement);
+        referenceElement.click();
     }
 
     public void selectCaseReferenceNumberViaXpathDoubleClick() {
