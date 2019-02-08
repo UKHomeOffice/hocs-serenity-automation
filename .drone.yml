@@ -55,10 +55,8 @@ pipeline:
     secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
     region: [ eu-west-2 ]
     bucket: cs-test-s3
-    access_key:
-      from_secret: aws_access_key_id
-    secret_key:
-      from_secret: aws_secret_access_key
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
     target: /reports/
     when:
