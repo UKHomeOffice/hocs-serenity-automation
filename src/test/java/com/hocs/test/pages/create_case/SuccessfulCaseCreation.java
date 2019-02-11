@@ -95,5 +95,6 @@ public class SuccessfulCaseCreation extends Page {
         System.out.println(thisReference);
         setSessionVariable("assertCase").to(thisReference);
         thisReference.click();
+        thisReference.click();
     }
 }

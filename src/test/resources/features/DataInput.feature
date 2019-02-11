@@ -1,8 +1,8 @@
 Feature: HOCS User is add data to a case
 
   Background:
-    Given I am user "DCU"
-    And I am at the "Data Input" stage
+    Given I am user "EAMON"
+    When I am at the "DATA INPUT" stage
 
   @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
@@ -70,3 +70,8 @@ Feature: HOCS User is add data to a case
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     Then the correspondence type is the "primary" correspondent
+
+  @Validation
+  Scenario: Date correspondence was sent must be entered at Data Input stage
+    And I don't enter the date correspondence was sent at the data input stage
+    Then an error message should be displayed informing the user that correspondence date is required

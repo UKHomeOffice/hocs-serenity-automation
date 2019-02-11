@@ -5,9 +5,9 @@ Feature: Team members can allocate work
   # single quotes represent future unknown vars
   @Allocate
   Scenario: A single case is allocated to the current user
-    When The current user creates a single case "DCU MIN"
-    And  The current user allocates the case to themself
-    Then The case is added to the current user's cases
+    When the current user creates a single case "DCU MIN"
+    And  the current user allocates the case to themself
+    Then the case is added to the current user's cases
 
   @Allocate
   Scenario: A single case is allocated to the current user using checkboxes

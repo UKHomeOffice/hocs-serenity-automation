@@ -49,6 +49,9 @@ public class NavigationStepDefs {
             case "CREATE SINGLE CASE":
                 homepage.clickCreateSingleCase();
                 break;
+            case "CREATE BULK CASES":
+                homepage.clickCreateBulkCases();
+                break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 homepage.selectAnimalsInScienceTeam();
             case "PERFORMANCE AND PROCESS TEAM":
@@ -57,6 +60,8 @@ public class NavigationStepDefs {
             case "MY CASES":
                 homepage.selectMyCases();
                 break;
+            case "ADD STANDARD LINE":
+                homepage.selectAddStandardLine();
             default:
                 System.out.println(hocsPage
                         + " is not defined within " + getClass().getSimpleName()
@@ -92,12 +97,25 @@ public class NavigationStepDefs {
             case "HOME":
                 navigateToHocs();
                 break;
-    /*        case "TEAMQUEUES":
-                navigateToTeamqueues();
+            case "TEST FORM":
+                homepage.clickTestFormLink();
                 break;
-            case "WORKSTACKS":
-                navigateToWorkstacks();
-                break;*/
+            case "CREATE SINGLE CASE":
+                homepage.clickCreateSingleCase();
+                break;
+            case "CREATE BULK CASES":
+                homepage.clickCreateBulkCases();
+                break;
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
+                homepage.selectAnimalsInScienceTeam();
+            case "PERFORMANCE AND PROCESS TEAM":
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "MY CASES":
+                homepage.selectMyCases();
+                break;
+            case "ADD STANDARD LINE":
+                homepage.selectAddStandardLine();
             default:
                 System.out.println(onHocsPage
                         + " is not defined within " + getClass().getSimpleName()

@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
@@ -34,6 +35,10 @@ public class GenericInputStepDefs {
     TestForm testForm;
 
     Homepage homepage;
+
+    CreateCase createCase;
+
+    
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -127,12 +132,12 @@ public class GenericInputStepDefs {
     }
 
     @Then("^I should send the string of the first child to the console$")
-    public void sendStageToConsole(){
+    public void sendStageToConsole() {
         WebElement caseReferenceStage = driver.findElement(
                 By.xpath("//a[text()='MIN/0120171/19']/../following-sibling::td[1]"));
         System.out.println(caseReferenceStage);
         String thisStage = caseReferenceStage.getText();
-        System.out.println("The Stage is " + thisStage );
+        System.out.println("The Stage is " + thisStage);
     }
 
     @Then("^I should see the \"([^\"]*)\" message$")
@@ -197,8 +202,9 @@ public class GenericInputStepDefs {
     public void iAmAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                homepage.clickMyWorkstack();
-                homepage.clickFirstDataInputCasework();
+                homepage.clickCreateSingleCase();
+                createCase.createDCUMinSingleCase();
+
                 break;
             case "DATA INPUT QA":
                 homepage.clickMyWorkstack();

@@ -8,6 +8,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -27,6 +28,8 @@ public class DataInputStepDefs {
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
+
+    Workstacks workstacks;
 
     @When("^I complete the Data Input stage$")
     public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
@@ -161,8 +164,66 @@ public class DataInputStepDefs {
 
     }
 
+    @When("^they complete the first data input screen$")
+    public void completeFirstDataInputScreen() {
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickContinueButton();
+        dataInput.clickFinishButton();
+    }
+
+    @When("^they click the continue button$")
+    public void clickContinueButton() {
+        dataInput.clickContinueButton();
+    }
+
+    @When("^I don't enter the date correspondence was sent at the data input stage$")
+    public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.clickContinueButton();
+    }
+
+    @When("^they don't select how correspondence was received radio button at the data input stage$")
+    public void userDoesNotSelectHowWasCorrespondenceReceivedRadioButtonDataInputStage() {
+        homepage.firstStageFindMyCase();
+        workstacks.clickAllocateToMeButton();
+        dataInput.clickContinueButton();
+    }
+
+    @When("^they do not add a primary correspondent at the data input stage$")
+    public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
+        homepage.firstStageFindMyCase();
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickFinishButton();
+    }
+
     @Then("^they should be added to the list of correspondents$")
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
+    }
+
+    @Then("^an error message should be displayed informing the user that correspondence date is required$")
+    public void assertThatCorrespondenceDateErrorMessageIsShown() {
+        dataInput.assertCorrespondenceDateErrorMessage();
+
+    }
+
+    @Then("^an error message should be displayed informing the user that how the correspondence was sent is required$")
+    public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
+        dataInput.assertHowWasCorrespondenceReceivedErrorMessage()  ;
+
+    }
+
+    @Then("^an error message should be displayed informing the user the primary correspondent must be added")
+    public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
+        dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
     }
 }
