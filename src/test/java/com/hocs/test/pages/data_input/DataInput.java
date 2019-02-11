@@ -3,7 +3,9 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -73,6 +75,15 @@ public class DataInput extends Page {
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
+
+    @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
+    private WebElementFacade correspondenceDateErrorMessage;
+
+    @FindBy(xpath = "//a[text()='How was the correspondence received? is required']")
+    private WebElementFacade howWasCorrespondenceReceivedErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Which is the primary correspondent? is required']")
+    private WebElementFacade whichIsThePrimaryCorrespondentErrorMessage;
 
 
     // Basic Methods
@@ -158,17 +169,17 @@ public class DataInput extends Page {
         dateCorrespondenceReceivedYearField.sendKeys(year);
     }
 
-    private void enterDayOfCorrespondenceSent(String day) {
+    public void enterDayOfCorrespondenceSent(String day) {
         dateCorrespondenceSentDayField.clear();
         dateCorrespondenceSentDayField.sendKeys(day);
     }
 
-    private void enterMonthOfCorrespondenceSent(String month) {
+    public void enterMonthOfCorrespondenceSent(String month) {
         dateCorrespondenceSentMonthField.clear();
         dateCorrespondenceSentMonthField.sendKeys(month);
     }
 
-    private void enterYearOfCorrespondenceSent(String year) {
+    public void enterYearOfCorrespondenceSent(String year) {
         dateCorrespondenceSentYearField.clear();
         dateCorrespondenceSentYearField.sendKeys(year);
     }
@@ -211,4 +222,15 @@ public class DataInput extends Page {
         addCorrespondentLink.isDisplayed();
     }
 
+    public void assertCorrespondenceDateErrorMessage() {
+        assertThat(correspondenceDateErrorMessage.getText(), is("When was the correspondence sent? is required"));
+    }
+
+    public void assertHowWasCorrespondenceReceivedErrorMessage() {
+        assertThat(howWasCorrespondenceReceivedErrorMessage.getText(), is("How was the correspondence received? is required"));
+    }
+
+    public void assertWhichIsThePrimaryCorrespondentErrorMessage() {
+        assertThat(whichIsThePrimaryCorrespondentErrorMessage.getText(), is("Which is the primary correspondent? is required"));
+    }
 }
