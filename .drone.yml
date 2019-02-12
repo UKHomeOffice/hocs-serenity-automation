@@ -72,8 +72,10 @@ pipeline:
     webhook: ${HOCS_SLACK}
     channel: hocs-dev
     template: >
-      {{#success}}
-        build ${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+      {{#success build.status}}
+        build {{build.number}} ${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+      {{else}}
+        build {{build.number}} this is the second argument needed to make the plugin run and should not have sent this message to slack.
       {{/success}}
     when:
       branch: master
