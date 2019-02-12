@@ -69,7 +69,7 @@ pipeline:
   slack-notification:
     image: plugins/slack
     secrets: [ hocs_slack, report_viewer_domain ]
-    webhook: ${HOCS_SLACK}
+    webhook_url: ${HOCS_SLACK}
     channel: hocs-dev
     template: >
       {{#success build.status}}
