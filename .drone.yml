@@ -71,7 +71,12 @@ pipeline:
     secrets: [ hocs-slack, report-viewer-domain ]
     webhook: ${HOCS-SLACK}
     channel: hocs-dev
-    template: See test results here.  https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+    template: >
+      {{#success build.status}}
+        build {{DRONE_BUILD_NUNMBER}} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+      {{else}}
+        build {{DRONE_BUILD_NUMBER}} failed, but tests have ran, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+      {{/success}}
     when:
       branch: master
       event: push
