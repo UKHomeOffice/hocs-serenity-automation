@@ -28,6 +28,7 @@ public class MarkUpStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
         homepage.selectCentralDraftingTeam();
@@ -58,6 +59,11 @@ public class MarkUpStepDefs {
         markUpDecision.clickPolicyResponseRadioButton();
         markUpDecision.clickContinueButton();
 
+    }
+
+    @When("^I click the continue button without adding a topic at the markup stage$")
+    public void clickAddButtonAtMarkupStage() {
+        markUpDecision.clickAddButton();
     }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")

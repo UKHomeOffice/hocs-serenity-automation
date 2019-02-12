@@ -10,9 +10,15 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import com.hocs.test.pages.teamqueue.Teamqueue;
+import com.hocs.test.pages.workstacks.Workstacks;
 import java.util.List;
 import java.util.Map;
+import jxl.read.biff.Record;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -27,6 +33,14 @@ public class Homepage extends Page {
     WebDriver driver;
 
     SuccessfulCaseCreation successfulCaseCreation;
+
+    CreateCase createCase;
+
+    Workstacks workstacks;
+
+    DataInput dataInput;
+
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
@@ -138,6 +152,26 @@ public class Homepage extends Page {
 
     }
 
+//    public void completeCaseUntilMarkupStage() {
+//        clickCreateSingleCase();
+//        createCase.createDCUMinSingleCase();
+//        selectPerformanceProcessTeam();
+//        successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
+//        workstacks.clickAllocateToMeButton();
+//        dataInput.enterDayOfCorrespondenceSent("01");
+//        dataInput.enterMonthOfCorrespondenceSent("01");
+//        dataInput.enterYearOfCorrespondenceSent("2019");
+//        dataInput.clickEmailCorrespondenceChannelRadioButton();
+//        dataInput.clickContinueButton();
+//        dataInput.clickAddCorrespondentLink();
+//        dataInput.clickCorrespondentIsNotAMember();
+//        dataInput.clickContinueButton();
+//        recordCorrespondentDetails.selectCorrespondentType();
+//        recordCorrespondentDetails.enterCorrespondentFullName("Bob");
+//        recordCorrespondentDetails.clickAddButton();
+//        dataInput.clickFinishButton();
+//
+//    }
 
     // Assertions
 

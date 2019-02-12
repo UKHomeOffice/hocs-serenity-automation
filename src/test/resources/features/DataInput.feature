@@ -75,3 +75,35 @@ Feature: HOCS User is add data to a case
   Scenario: Date correspondence was sent must be entered at Data Input stage
     And I don't enter the date correspondence was sent at the data input stage
     Then an error message should be displayed informing the user that correspondence date is required
+
+  @Validation
+  Scenario: How correspondence was received radio button must be selected at Data Input stage
+    And I don't select how correspondence was received radio button at the data input stage
+    Then an error message should be displayed informing the user that how the correspondence was sent is required
+
+  @Validation
+  Scenario: User must add a primary correspondent at Data Input stage
+    And I do not add a primary correspondent at the data input stage
+    Then an error message should be displayed informing the user the primary correspondent must be added
+
+  @Validation
+  Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
+    And I do not select a radio button when asked the primary correspondent type
+    Then an error message should be displayed informing the user that the correspondent type must be provided
+
+  @Validation
+  Scenario: User must select an MP from drop down box at Data Input stage
+    And I do not select an MP from the drop down box at the data input stage
+    Then an error message should be displayed informing the user that member is required
+
+  @Validation
+  Scenario: User must select a correspondent type from the drop down if the correspondent is not an MP
+    And I do not select a correspondent type from the drop down box
+    Then an error message should be displayed informing the user that correspondent type must be selected
+
+  @Validation
+  Scenario: User must enter text in correspondent's Full Name field
+    And I do not enter any text in the full name field
+    Then an error message should be displayed informing the user that the correspondent's full name is required
+
+

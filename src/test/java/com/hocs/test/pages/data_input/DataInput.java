@@ -55,16 +55,17 @@ public class DataInput extends Page {
     @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    @FindBy(css = ".govuk-fieldset > a:nth-child(3)")
+    //@FindBy(xpath = "(//div//a[@class='govuk-body govuk-link'])[1]")
+    @FindBy(xpath = "(//a[text()='Add a '])")
     private WebElementFacade addCorrespondentLink;
 
     @FindBy(id = "")
     private WebElementFacade primaryCorrespondent;
 
-    @FindBy(css = "label[for='CorrespondentIsMember-FALSE']")
+    @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentMemberNoRadioButton;
 
-    @FindBy(css = "label[for='CorrespondentIsMember-TRUE']")
+    @FindBy(css = "label[for='isMember-true']")
     private WebElementFacade correspondentMemberYesRadioButton;
 
     @FindBy(css = "label[for='CopyNumberTen-TRUE']")
@@ -85,6 +86,17 @@ public class DataInput extends Page {
     @FindBy(xpath = "//a[text()='Which is the primary correspondent? is required']")
     private WebElementFacade whichIsThePrimaryCorrespondentErrorMessage;
 
+    @FindBy(xpath = "//a[text()='The correspondent type must be provided']")
+    private WebElementFacade correspondentTypeMustBeProvidedErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Member is required']")
+    private WebElementFacade memberIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='The correspondent must have a type']")
+    private WebElementFacade correspondentMustHaveATypeErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
+    private WebElementFacade correspondentNameMustBeEnteredErrorMessage;
 
     // Basic Methods
 
@@ -232,5 +244,21 @@ public class DataInput extends Page {
 
     public void assertWhichIsThePrimaryCorrespondentErrorMessage() {
         assertThat(whichIsThePrimaryCorrespondentErrorMessage.getText(), is("Which is the primary correspondent? is required"));
+    }
+
+    public void assertCorrespondentTypeMustBeSelectedErrorMessage() {
+        assertThat(correspondentTypeMustBeProvidedErrorMessage.getText(), is ("The correspondent type must be provided"));
+    }
+
+    public void assertMemberIsRequiredErrorMessage() {
+        assertThat(memberIsRequiredErrorMessage.getText(), is ("Member is required"));
+    }
+
+    public void assertCorrespondentTypeDropDownErrorMessage() {
+        assertThat(correspondentMustHaveATypeErrorMessage.getText(), is ("The correspondent must have a type"));
+    }
+
+    public void assertCorrespondentFullNameErrorMessage() {
+        assertThat(correspondentNameMustBeEnteredErrorMessage.getText(), is("The correspondent's full name is required") );
     }
 }

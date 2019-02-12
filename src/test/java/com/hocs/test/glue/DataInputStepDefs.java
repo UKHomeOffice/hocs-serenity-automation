@@ -32,11 +32,13 @@ public class DataInputStepDefs {
     Workstacks workstacks;
 
     @When("^I complete the Data Input stage$")
-    public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
+    public void completeDataInputStage() {
+        dataInput.dataInputFullFlow();
+    }
 
     @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")
     public void completeDataInputPerCaseType(String caseType) {
-        switch (caseType.toUpperCase()){
+        switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 homepage.selectPerformanceProcessTeam();
                 break;
@@ -154,12 +156,12 @@ public class DataInputStepDefs {
                 break;
             case "IS NOT":
                 break;
-                default:
-                    System.out.println(member
-                            + " is not defined within " + getClass().getSimpleName()
-                            + " class, " + getMethodName() + " method");
-                    member = null;
-                    assumeNotNull(member);
+            default:
+                System.out.println(member
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                member = null;
+                assumeNotNull(member);
         }
 
     }
@@ -186,16 +188,14 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
     }
 
-    @When("^they don't select how correspondence was received radio button at the data input stage$")
+    @When("^I don't select how correspondence was received radio button at the data input stage$")
     public void userDoesNotSelectHowWasCorrespondenceReceivedRadioButtonDataInputStage() {
-        homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
         dataInput.clickContinueButton();
     }
 
-    @When("^they do not add a primary correspondent at the data input stage$")
+    @When("^I do not add a primary correspondent at the data input stage$")
     public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
-        homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
         dataInput.enterDayOfCorrespondenceSent("01");
         dataInput.enterMonthOfCorrespondenceSent("01");
@@ -203,6 +203,82 @@ public class DataInputStepDefs {
         dataInput.clickEmailCorrespondenceChannelRadioButton();
         dataInput.clickContinueButton();
         dataInput.clickFinishButton();
+    }
+
+    @When("^I do not select a radio button when asked the primary correspondent type$")
+    public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickContinueButton();
+
+    }
+
+    @When("^I do not select an MP from the drop down box at the data input stage$")
+    public void userDoesNotSelectMPFromDownDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+    }
+
+    @When("^I do not select a correspondent type from the drop down box$")
+    public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsNotAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+
+    }
+
+    @When("^I do not enter any text in the full name field$")
+    public void userDoesNotEnterTextInFullNameField() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsNotAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+    }
+
+    @Then("^an error message should be displayed informing the user that the correspondent's full name is required")
+    public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
+        dataInput.assertCorrespondentFullNameErrorMessage();
+    }
+
+    @Then("^an error message should be displayed informing the user that correspondent type must be selected$")
+    public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
+        dataInput.assertCorrespondentTypeDropDownErrorMessage();
+    }
+
+    @Then("^an error message should be displayed informing the user that member is required$")
+    public void assertThatMemberIsRequiredErrorMessageIsShown() {
+        dataInput.assertMemberIsRequiredErrorMessage();
+    }
+
+    @Then("^an error message should be displayed informing the user that the correspondent type must be provided")
+    public void assertThatCorrespondentTypeErrorMessageIsShown() {
+        dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @Then("^they should be added to the list of correspondents$")
@@ -218,7 +294,7 @@ public class DataInputStepDefs {
 
     @Then("^an error message should be displayed informing the user that how the correspondence was sent is required$")
     public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
-        dataInput.assertHowWasCorrespondenceReceivedErrorMessage()  ;
+        dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
 
     }
 
