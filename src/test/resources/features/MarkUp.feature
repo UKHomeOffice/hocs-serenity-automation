@@ -1,8 +1,8 @@
 Feature: DCU user decides how a case should be handled
 
   Background:
-    Given I am user "DCU"
-    And I am at the "markup" stage
+    Given I am user "EAMON"
+    And I am at the "MARKUP" stage
 
   @HOCS-266, @HOCS-237
   Scenario: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -75,6 +75,9 @@ Feature: DCU user decides how a case should be handled
     When I amend the answering "minister"
     Then I can only select from a fixed list of answering "ministers"
 
+  @Validation
+  Scenario: User must add a topic at the Markup Stage
+    When I click the continue button without adding a topic at the markup stage
   
 
   

@@ -8,6 +8,7 @@ import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
@@ -38,7 +39,9 @@ public class GenericInputStepDefs {
 
     CreateCase createCase;
 
-    
+    SuccessfulCaseCreation successfulCaseCreation;
+
+
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -204,7 +207,8 @@ public class GenericInputStepDefs {
             case "DATA INPUT":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-
+                homepage.selectPerformanceProcessTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
                 break;
             case "DATA INPUT QA":
                 homepage.clickMyWorkstack();
@@ -214,9 +218,9 @@ public class GenericInputStepDefs {
                     homepage.clickFirstDataInputQaCasework();
                 }
                 break;
-            case "MARKUP":
-                homepage.clickFirstMarkupAllocate();
-                break;
+//            case "MARKUP":
+//                homepage.completeCaseUntilMarkupStage();
+//                break;
             /*case "DISPATCH":
                 homepage.clickFirstDispatchAllocate();*/
             default:

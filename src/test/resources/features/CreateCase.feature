@@ -1,7 +1,7 @@
 Feature: HOCS User is able to create a case
 
   Background:
-    Given I am user "DANNY"
+    Given I am user "EAMON"
     When I am on the "CREATE SINGLE CASE" page
 
   @HOCS-341 @HOCS-491 @HOCS-236

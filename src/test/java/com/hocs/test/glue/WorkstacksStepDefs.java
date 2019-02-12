@@ -46,17 +46,14 @@ public class WorkstacksStepDefs {
 
     @When("^the current user allocates the case to themself$")
     public void allocateToMe() {
-        homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
     }
 
     @Then("^they allocate the case to themself$")
     public void allocateCaseToUser() {
-        homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
     }
-
 
     @When("^they unallocate the case from themself")
     public void unallocateCase() {
