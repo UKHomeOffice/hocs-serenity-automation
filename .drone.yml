@@ -68,18 +68,21 @@ pipeline:
 
   slack-notification:
     image: plugins/slack
-    secrets: [ hocs_slack, report_viewer_domain ]
-    webhook_url: ${HOCS_SLACK}
+    secrets: [ slack_webhook, report_viewer_domain ]
+    webhook: ${SLACK_WEBHOOK}
     channel: hocs-dev
     template: >
       {{#success build.status}}
-        build {{build.number}} ${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+        build {{build.number}} $${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://$${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
       {{else}}
         build {{build.number}} this is the second argument needed to make the plugin run and should not have sent this message to slack.
       {{/success}}
     when:
       branch: master
       event: push
+      status:
+        - success
+        - failure
 
 services:
   selenium:
