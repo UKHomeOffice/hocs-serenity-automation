@@ -73,9 +73,9 @@ pipeline:
     channel: hocs-dev
     template: >
       {{#success build.status}}
-        @here build {{build.number}} ${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+        @here build {{build.number}} {{DRONE_BUILD_NUMBER}} succeeded and tests have executed successfully, please find results here https://{{REPORT_VIEWER_DOMAIN}}/s3/target/site/serenity/index.html
       {{else}}
-        @here build {{build.number}} ${DRONE_BUILD_NUMBER} Unfortunately has some test failrures, please see the results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+        @here build {{build.number}} {{DRONE_BUILD_NUMBER}} unfortunately has some test failures, please see the results here https://{{REPORT_VIEWER_DOMAIN}}/s3/target/site/serenity/index.html
       {{/success}}
     when:
       branch: master
