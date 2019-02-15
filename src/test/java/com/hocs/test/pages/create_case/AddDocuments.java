@@ -1,5 +1,8 @@
 package com.hocs.test.pages.create_case;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -26,6 +29,12 @@ public class AddDocuments extends Page {
 
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
+
+    @FindBy(xpath = "//a[text()='Document type is required']")
+    private WebElementFacade documentTypeIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Document is required']")
+    private WebElementFacade documentIsRequiredErrorMessage;
 
     public void pageTitleIsDisplayed() {
         waitFor(pageTitle);
@@ -68,6 +77,14 @@ public class AddDocuments extends Page {
     public void enterDraftDeadlineYear(int days) {
         draftDeadlineYear.clear();
         draftDeadlineYear.sendKeys(todayPlusNDaysGetYear(days));
+    }
+
+    public void assertDocumentTypeIsRequiredErrorMessage() {
+        assertThat(documentTypeIsRequiredErrorMessage.getText(), is ("Document type is required"));
+    }
+
+    public void assertDocumentIsRequiedErrorMessage() {
+        assertThat(documentIsRequiredErrorMessage.getText(), is("Document is required"));
     }
 
     public void uploadDocument() {

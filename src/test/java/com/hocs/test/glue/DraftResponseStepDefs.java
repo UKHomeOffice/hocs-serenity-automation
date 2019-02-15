@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.DraftingTeamDecision;
@@ -29,6 +30,8 @@ public class DraftResponseStepDefs {
     Qa qa;
 
     Teamqueue teamqueue;
+
+    AddDocuments addDocuments;
 
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
@@ -79,6 +82,127 @@ public class DraftResponseStepDefs {
 //                assumeNotNull(caseType);
 //        }
 //    }
+
+    @When("^I click the continue button on the correspondence answer screen$")
+    public void clickContinueButtonOnCorrespondenceAnswerScreen() {
+        draft.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected radio buttons on this screen$")
+    public void assertThatCorrespondenceCanBeAnsweredErrorMessageIsShown() {
+        draft.assertCorrespondenceAnsweredErrorMessage();
+    }
+
+    @When("^I click the finish button on the case rejection screen$")
+    public void clickFinishButtonOnCaseRejectionScreen() {
+        draft.clickAnsweredByMyTeamNoRadioButton();
+        draft.clickContinueButton();
+        draft.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not entered a reason in the text box$")
+    public void assertThatShouldBeAnsweredErrorMessageIsShown() {
+        draft.assertShouldBeAnsweredErrorMessage();
+    }
+
+    @When("^I click the continue button on how do you intend to respond screen$")
+    public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.sleep(500);
+        draft.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a response on this screen$")
+    public void assertThatHowDoYouIntendToRespondScreenIsShown() {
+        draft.assertHowDoYouIntendToRespondErrorMessage();
+    }
+
+    @When("^I click the finish button on the summarise your call screen$")
+    public void clickFinishButtonOnSummariseYourCallScreen() {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.clickPhoneReplyRadioButton();
+        draft.clickContinueButton();
+        draft.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not summarised the call$")
+    public void assertThatSummariseYourCallErrorMessageIsShown() {
+        draft.assertPleaseSummariseYourCallErrorMessage();
+    }
+
+    @When("^I click the continue button on the which is the primary draft document screen$")
+    public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.clickLetterReplyRadioButton();
+        draft.clickContinueButton();
+        draft.sleep(500);
+        draft.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not added a primary draft document$")
+    public void assertThatWhichIsThePrimaryDraftDocumentErrorMesasgeIsShown() {
+        draft.assertWhichIsThePrimaryDraftDocumentErrorMessage();
+    }
+
+    @When("^I click the add button on the add documents screen$")
+    public void clickAddButtonOnAddDocumentScreen() {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.clickLetterReplyRadioButton();
+        draft.clickContinueButton();
+        draft.clickAddDocumentsButton();
+        addDocuments.clickAddButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a document type and added a document$")
+    public void assertThatAddDocumentErrorMessagesAreShown() {
+       addDocuments.assertDocumentTypeIsRequiredErrorMessage();
+       addDocuments.assertDocumentIsRequiedErrorMessage();
+    }
+
+    @When("^I click the continue button on the do you want QA this offline screen$")
+    public void clickContinueButtonOnDoYouWantToQAOfflineScreen() {
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.clickLetterReplyRadioButton();
+        draft.clickContinueButton();
+        draft.clickAddDocumentsButton();
+        draft.selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        addDocuments.clickAddButton();
+        draft.clickContinueButton();
+        draft.sleep(500);
+        draft.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected whether the case should be QA offline or not$")
+    public void assertThatQAOfflineErrorMessageIsShown() {
+        draft.assertDoYouWantToQAThisOfflineErrorMessage();
+    }
+
+    @When("^I click the finish button on the who has done the offline QA screen$")
+    public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen(){
+        draft.clickAnsweredByMyTeamYesRadioButton();
+        draft.clickContinueButton();
+        draft.clickLetterReplyRadioButton();
+        draft.clickContinueButton();
+        draft.clickAddDocumentsButton();
+        draft.selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        addDocuments.clickAddButton();
+        draft.clickContinueButton();
+        draft.clickOfflineQaButton();
+        draft.clickContinueButton();
+        draft.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected the user that did the offline QA$")
+    public void assertThatWhoHasDoneTheOfflineQAErrorMessageIsShown(){
+        draft.assertWhoHasDoneOfflineQAErrorMessage();
+    }
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {

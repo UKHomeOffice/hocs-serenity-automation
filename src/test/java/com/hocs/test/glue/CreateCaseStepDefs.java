@@ -226,12 +226,12 @@ public class CreateCaseStepDefs {
         successfulCaseCreation.getCaseReference();
     }
 
-    @When("^I do not select a type of correspondence when creating a case$")
+    @When("^I click the next button on the create single case screen$")
     public void correspondentTypeNotSelectedDuringCaseCreation() {
         createCase.clickNextButton();
     }
 
-    @Then("^an error message should be displayed informing the user that case type is required$")
+    @Then("^an error message should be displayed as I have not selected the case type$")
     public void assertThatCaseTypeErrorMessageIsDisplayed() {
         createCase.assertCaseTypeErrorMessage();
 
@@ -251,19 +251,14 @@ public class CreateCaseStepDefs {
 
     }
 
-    @When("^they click the finish button$")
-    public void userClicksCreateCaseFinishButton() {
-        createCase.clickFinishButton();
-    }
-
-    @When("^they select the case type")
+        @When("^they select the case type")
     public void userClicksCaseRadioButtonAndClicksNextButton() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
 
     }
 
-    @When("^I do not entered date received in the text boxes$")
+    @When("^I click the finish button on the create single case screen$")
     public void userCreatesCaseWithoutEnteringDateReceived() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
@@ -272,7 +267,7 @@ public class CreateCaseStepDefs {
 
     }
 
-    @When("^I create the case with an invalid date$")
+    @When("^I click the finish button after entering an invalid date on the create single case screen$")
     public void userCreatesCaseWithInvalidDate() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
@@ -289,13 +284,13 @@ public class CreateCaseStepDefs {
         createCase.clickFinishButton();
     }
 
-    @Then("^an error message should be displayed when I create the case")
+    @Then("^an error message should be displayed as I have not entered the correspondence received date")
     public void assertThatDateReceivedErrorMessageIsShown() {
         createCase.assertDateReceivedNotEnteredErrorMessage();
 
     }
 
-    @Then("^an error message should be displayed informing the user that the date is invalid$")
+    @Then("^an error message should be displayed as I have entered an invalid date$")
     public void assertThatDateReceivedIsInvalidErrorMessageIsShown() {
         createCase.assertDateReceivedIsInvalidErrorMessage();
     }

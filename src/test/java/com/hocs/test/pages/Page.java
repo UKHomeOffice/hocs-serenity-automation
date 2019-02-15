@@ -305,6 +305,12 @@ public class Page extends PageObject {
         continueButton.click();
     }
 
+    public void waitForContinueButton() {
+        waitFor(continueButton).waitUntilClickable();
+        continueButton.click();
+
+    }
+
     public void clickCloseButton() {
         closeButton.click();
     }
@@ -317,7 +323,9 @@ public class Page extends PageObject {
         documentButton.click();
     }
 
-    public void clickFinishButton() { finishButton.click(); }
+    public void clickFinishButton() {
+        finishButton.click();
+    }
 
     public void clickFirstButton() {
         firstButton.click();

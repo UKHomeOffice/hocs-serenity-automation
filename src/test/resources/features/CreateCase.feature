@@ -28,16 +28,16 @@ Feature: HOCS User is able to create a case
 
   @Validation
   Scenario: Create Single Case correspondence selection is validated
-    And I do not select a type of correspondence when creating a case
-    Then an error message should be displayed informing the user that case type is required
+    And I click the next button on the create single case screen
+    Then an error message should be displayed as I have not selected the case type
 
   @Validation
   Scenario: When creating a Single MIN Case date received is required
-    And I do not entered date received in the text boxes
-    Then an error message should be displayed when I create the case
+    And I click the finish button on the create single case screen
+    Then an error message should be displayed as I have not entered the correspondence received date
 
   @Validation
   Scenario: When creating a Single MIN case a valid date must be entered
-    And I create the case with an invalid date
-    Then an error message should be displayed informing the user that the date is invalid
+    And I click the finish button after entering an invalid date on the create single case screen
+    Then an error message should be displayed as I have entered an invalid date
 

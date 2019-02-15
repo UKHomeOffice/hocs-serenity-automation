@@ -17,8 +17,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
@@ -42,7 +44,6 @@ public class LoginStepDefs {
     public void invalidUsernamePasswordErrorDisplayed() {
         loginPage.assertInvalidUsernamePassword();
     }
-
 
     @Given("^I am user \"([^\"]*)\"")
     public void iLoginas(String user) {
@@ -71,7 +72,6 @@ public class LoginStepDefs {
         loginPage.clickContinueButton();
     }
 
-
     @Given("^I am on the Home Office Correspondance Login Page")
     public void homeUrl() {
         navigateToHocs();
@@ -79,7 +79,7 @@ public class LoginStepDefs {
 
 
     @When("^I enter my username \"([^\"]*)\" in the username field$")
-    public void enterUname(String username) {
+    public void enterUsername(String username) {
         setSessionVariable("username").to(username);
         switch (username) {
             case "DANNY LARGE":
@@ -100,12 +100,10 @@ public class LoginStepDefs {
         }
     }
 
-
-
     @And("^I enter my password \"([^\"]*)\" in the password field$")
     public void enterHocsPassword(String password) {
         setSessionVariable("password").to(password);
-        switch (password){
+        switch (password) {
             case "DANNY PASS":
                 enterHocsPassword(DANNYPASS);
                 break;

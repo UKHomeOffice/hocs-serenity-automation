@@ -10,8 +10,13 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
+import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.Topics;
+import com.hocs.test.pages.workstacks.Workstacks;
+import com.openhtmltopdf.css.parser.property.PrimitivePropertyBuilders.Top;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.But;
@@ -41,7 +46,13 @@ public class GenericInputStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+    Workstacks workstacks;
 
+    RecordCorrespondentDetails recordCorrespondentDetails;
+
+    MarkUpDecision markUpDecision;
+
+    Topics topics;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -218,9 +229,60 @@ public class GenericInputStepDefs {
                     homepage.clickFirstDataInputQaCasework();
                 }
                 break;
-//            case "MARKUP":
-//                homepage.completeCaseUntilMarkupStage();
-//                break;
+            case "MARKUP":
+                homepage.clickCreateSingleCase();
+                createCase.createDCUMinSingleCase();
+                homepage.selectPerformanceProcessTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
+                workstacks.clickAllocateToMeButton();
+                dataInput.enterDayOfCorrespondenceSent("01");
+                dataInput.enterMonthOfCorrespondenceSent("01");
+                dataInput.enterYearOfCorrespondenceSent("2019");
+                dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.clickContinueButton();
+                dataInput.clickAddCorrespondentLink();
+                dataInput.clickCorrespondentIsNotAMember();
+                dataInput.clickContinueButton();
+                recordCorrespondentDetails.selectCorrespondentType();
+                recordCorrespondentDetails.enterCorrespondentFullName("Bob");
+                recordCorrespondentDetails.clickAddButton();
+                dataInput.clickFinishButton();
+                homepage.selectCentralDraftingTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                break;
+            case "DRAFT":
+                homepage.clickCreateSingleCase();
+                createCase.createDCUMinSingleCase();
+                homepage.selectPerformanceProcessTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
+                workstacks.clickAllocateToMeButton();
+                dataInput.enterDayOfCorrespondenceSent("01");
+                dataInput.enterMonthOfCorrespondenceSent("01");
+                dataInput.enterYearOfCorrespondenceSent("2019");
+                dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.clickContinueButton();
+                dataInput.clickAddCorrespondentLink();
+                dataInput.clickCorrespondentIsNotAMember();
+                dataInput.clickContinueButton();
+                recordCorrespondentDetails.selectCorrespondentType();
+                recordCorrespondentDetails.enterCorrespondentFullName("Bob");
+                recordCorrespondentDetails.clickAddButton();
+                dataInput.clickFinishButton();
+                homepage.selectCentralDraftingTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                workstacks.clickAllocateToMeButton();
+                markUpDecision.clickPolicyResponseRadioButton();
+                markUpDecision.clickContinueButton();
+                markUpDecision.sleep(500);
+                markUpDecision.clickAddTopic();
+                topics.enterRealTopic();
+                topics.clickAddButton();
+                markUpDecision.clickContinueButton();
+                markUpDecision.clickFinishButton();
+                homepage.selectAnimalsInScienceTeam();
+                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                workstacks.clickAllocateToMeButton();
+                break;
             /*case "DISPATCH":
                 homepage.clickFirstDispatchAllocate();*/
             default:
