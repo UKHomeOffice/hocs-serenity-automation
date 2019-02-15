@@ -16,16 +16,35 @@ public class Draft extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    Workstacks workstacks;
-
-    @FindBy(css = "label[for='InitialDraftDecision-Reject']")
+    @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
     private WebElementFacade answeredByMyTeamNoRadioButton;
 
-    @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
+    @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
     private WebElementFacade answeredByMyTeamYesRadioButton;
 
     @FindBy(xpath = "//a[text()='document']")
     private WebElementFacade draftStageAddDocumentsButton;
+
+    @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
+    private WebElementFacade correspondenceAnsweredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Why should this should not be answered by your team? is required']")
+    private WebElementFacade shouldBeAnsweredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='How do you intend to respond? is required']")
+    private WebElementFacade howDoYouIntendToRespondErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Please summarise your call. is required']")
+    private WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Which is the primary draft document? is required']")
+    private WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Do you want to QA this offline? is required']")
+    private WebElementFacade doYouWantToQAThisOfflineErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
+    private WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
 
     @FindBy(id = "document_type")
     private WebElementFacade documentTypeDropDown;
@@ -42,10 +61,10 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade emailReplyRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css = "label[for=ResponseChannel-LETTER]")
     private WebElementFacade letterReplyRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(css = "label[for=ResponseChannel-PHONE]")
     private WebElementFacade phoneReplyRadioButton;
 
     @FindBy(id = "")
@@ -69,12 +88,17 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade standardLine;
 
+    @FindBy(css = "label[for=OfflineQA-TRUE]")
+    private WebElementFacade offlineQaRadioButton;
+
+    @FindBy(css = "label[for=OfflineQA-FALSE]")
+    private WebElementFacade onlineQaRadioButton;
+
     @FindBy(id = "")
     private WebElementFacade allocateToOfflineQaDropdown;
 
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
-
 
     // Basic Methods
 
@@ -173,7 +197,39 @@ public class Draft extends Page {
         assertThat(getErrorDetails(), is("Text to be confirmed"));
     }
 
+    public void assertCorrespondenceAnsweredErrorMessage() {
+        assertThat(correspondenceAnsweredErrorMessage.getText(),
+                is("Can this correspondence be answered by your team? is required"));
+    }
+
+    public void assertShouldBeAnsweredErrorMessage() {
+        assertThat(shouldBeAnsweredErrorMessage.getText(),
+                is("Why should this should not be answered by your team? is required"));
+    }
+
+    public void assertHowDoYouIntendToRespondErrorMessage() {
+        assertThat(howDoYouIntendToRespondErrorMessage.getText(),
+                is("How do you intend to respond? is required"));
+    }
+
+    public void assertPleaseSummariseYourCallErrorMessage() {
+        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is ("Please summarise your call. is required"));
+    }
+
+    public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
+        assertThat(whichIsThePrimaryDraftDocumentErrorMessage.getText(), is("Which is the primary draft document? is required"));
+    }
+
+    public void assertDoYouWantToQAThisOfflineErrorMessage() {
+        assertThat(doYouWantToQAThisOfflineErrorMessage.getText(), is ("Do you want to QA this offline? is required"));
+    }
+
+    public void assertWhoHasDoneOfflineQAErrorMessage(){
+        assertThat(whoHadDoneTheOfflineQAErrorMessage.getText(), is ("Who has done the Offline QA for this case? is required"));
+    }
+
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
     }
+
 }

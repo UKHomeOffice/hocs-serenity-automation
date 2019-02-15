@@ -73,37 +73,37 @@ Feature: HOCS User is add data to a case
 
   @Validation
   Scenario: Date correspondence was sent must be entered at Data Input stage
-    And I don't enter the date correspondence was sent at the data input stage
-    Then an error message should be displayed informing the user that correspondence date is required
+    And I click the continue button at the data input stage
+    Then an error message should be displayed as I have not entered a correspondence date
 
   @Validation
   Scenario: How correspondence was received radio button must be selected at Data Input stage
-    And I don't select how correspondence was received radio button at the data input stage
-    Then an error message should be displayed informing the user that how the correspondence was sent is required
+    And I click the continue button at the data input stage
+    Then an error message should be displayed as I have not selected a radio button
 
   @Validation
   Scenario: User must add a primary correspondent at Data Input stage
-    And I do not add a primary correspondent at the data input stage
-    Then an error message should be displayed informing the user the primary correspondent must be added
+    And I click the finish button on the which is the primary correspondent screen
+    Then an error message should be displayed as I have not added a primary correspondent
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
-    And I do not select a radio button when asked the primary correspondent type
-    Then an error message should be displayed informing the user that the correspondent type must be provided
+    And I click the continue button on the is the correspondent an MP screen
+    Then an error message should be displayed as I must select a radio button on this screen
 
   @Validation
   Scenario: User must select an MP from drop down box at Data Input stage
-    And I do not select an MP from the drop down box at the data input stage
-    Then an error message should be displayed informing the user that member is required
+    And I click the add button on the add member of parliament screen
+    Then an error message should be displayed as I must select a member of parliament from the drop down
 
   @Validation
   Scenario: User must select a correspondent type from the drop down if the correspondent is not an MP
-    And I do not select a correspondent type from the drop down box
-    Then an error message should be displayed informing the user that correspondent type must be selected
+    And I click the add button on the record correspondent details screen
+    Then an error message should be displayed as I have not selected the correspondent type
 
   @Validation
   Scenario: User must enter text in correspondent's Full Name field
-    And I do not enter any text in the full name field
-    Then an error message should be displayed informing the user that the correspondent's full name is required
+    And I click the add button on the record correspondent details screen
+    Then an error message should be displayed as I have not entered text in the full name field
 
 

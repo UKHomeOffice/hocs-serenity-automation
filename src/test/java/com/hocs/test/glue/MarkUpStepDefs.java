@@ -10,9 +10,12 @@ import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 
+import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.Steps;
 
 public class MarkUpStepDefs {
 
@@ -27,6 +30,8 @@ public class MarkUpStepDefs {
     MarkUpDecision markUpDecision;
 
     SuccessfulCaseCreation successfulCaseCreation;
+
+    Workstacks workstacks;
 
 
     @When("^I complete the markup stage$")
@@ -61,9 +66,44 @@ public class MarkUpStepDefs {
 
     }
 
-    @When("^I click the continue button without adding a topic at the markup stage$")
-    public void clickAddButtonAtMarkupStage() {
+    @When("^I click the continue button on the markup response screen$")
+    public void clickContinueButtonOnMarkupResponseScreen() {
+        workstacks.clickAllocateToMeButton();
+        markUpDecision.clickContinueButton();
+    }
+
+    @When("^I click the continue button on the add a topic screen$")
+    public void clickContinueButtonOnAddATopicScreen() {
+        workstacks.clickAllocateToMeButton();
+        markUpDecision.clickPolicyResponseRadioButton();
+        markUpDecision.clickContinueButton();
+        markUpDecision.sleep(500);
+        markUpDecision.clickContinueButton();
+    }
+
+    @When("^I click the add button on the add topic screen")
+    public void clickAddButtonOnAddTopicScreen() {
+        workstacks.clickAllocateToMeButton();
+        markUpDecision.clickPolicyResponseRadioButton();
+        markUpDecision.clickContinueButton();
+        markUpDecision.sleep(500);
+        markUpDecision.clickAddTopic();
         markUpDecision.clickAddButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a topic$")
+    public void assertThatTopicIsRequiredErrorMessageIsShown() {
+        markUpDecision.assertTopicIsRequiredErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a response$")
+    public void assertThatMarkupResponseErrorMessageIsShown() {
+        markUpDecision.assertSortOfResponseErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I have not added a topic$")
+    public void assertThatAddATopicErrorMessageIsShown() {
+        markUpDecision.assertAddATopicErrorMessage();
     }
 
     @Then("^the topic should be set as the \"([^\"]*)\" topic$")

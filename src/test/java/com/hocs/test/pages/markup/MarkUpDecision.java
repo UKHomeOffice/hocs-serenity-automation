@@ -1,21 +1,23 @@
 package com.hocs.test.pages.markup;
 
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class MarkUpDecision extends Page {
 
-    @FindBy(css ="label[for='MarkupDecision-PR']")
+    @FindBy(css = "label[for='MarkupDecision-PR']")
     private WebElementFacade policyResponseRadioButton;
 
-    @FindBy(css ="label[for='MarkupDecision-OGD']")
+    @FindBy(css = "label[for='MarkupDecision-OGD']")
     private WebElementFacade referToOgdRadioButton;
 
-    @FindBy(css ="label[for='MarkupDecision-FAQ']")
+    @FindBy(css = "label[for='MarkupDecision-FAQ']")
     private WebElementFacade faqRadioButton;
 
-    @FindBy(css ="label[for='MarkupDecision-NRN']")
+    @FindBy(css = "label[for='MarkupDecision-NRN']")
     private WebElementFacade noReplyNeededRadioButton;
 
     @FindBy(id = "")
@@ -27,7 +29,7 @@ public class MarkUpDecision extends Page {
     @FindBy(id = "")
     private WebElementFacade finalDeadlineField;
 
-    @FindBy(id = "")
+    @FindBy(xpath = "//a[text()='Add a ']")
     private WebElementFacade addATopicButton;
 
     @FindBy(id = "")
@@ -50,6 +52,15 @@ public class MarkUpDecision extends Page {
 
     @FindBy(id = "")
     private WebElementFacade signOffMinisterTypeFunction;
+
+    @FindBy(xpath = "//a[text()='What sort of response is required? is required']")
+    private WebElementFacade whatSortOfResponseErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Which is the primary topic? is required']")
+    private WebElementFacade whichIsThePrimaryTopicErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Topic is required']")
+    private WebElementFacade topicIsRequiredErrorMessage;
 
     public void clickAddTopic() {
         addATopicButton.click();
@@ -75,7 +86,7 @@ public class MarkUpDecision extends Page {
         answeringTeamTypeFunction.sendKeys(team);
     }
 
-    public void enterAnsweringUnitTypeFuntion(String unit) {
+    public void enterAnsweringUnitTypeFunction(String unit) {
         answeringUnitTypeFunction.sendKeys(unit);
     }
 
@@ -119,5 +130,16 @@ public class MarkUpDecision extends Page {
         signOffMinisterDropdown.selectByIndex(1);
     }
 
+    public void assertSortOfResponseErrorMessage() {
+        assertThat(whatSortOfResponseErrorMessage.getText(), is("What sort of response is required? is required"));
+    }
+
+    public void assertAddATopicErrorMessage() {
+        assertThat(whichIsThePrimaryTopicErrorMessage.getText(), is("Which is the primary topic? is required"));
+    }
+
+    public void assertTopicIsRequiredErrorMessage() {
+        assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
+    }
 
 }

@@ -1,8 +1,8 @@
 Feature: HOCS User is able to draft a response
 
   Background:
-    Given I am user "<string>"
-    And I am at the "Draft" stage
+    Given I am user "EAMON"
+    And I am at the "DRAFT" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note
@@ -47,3 +47,43 @@ Feature: HOCS User is able to draft a response
     Then the Quality Assurer will receive a notification to say they have QA’d that case
     And the case will progress to the "Private Office" stage
     And I am taken to the home page
+
+  @Validation
+  Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
+    And I click the continue button on the correspondence answer screen
+    Then an error message should be displayed as I have not selected radio buttons on this screen
+
+  @Validation
+  Scenario: User must enter the reason that their team cannot answer a case in the text box at the Draft stage
+    And I click the finish button on the case rejection screen
+    Then an error message should be displayed as I have not entered a reason in the text box
+
+  @Validation
+  Scenario: User must select a radio button when asked how they intend to respond at the Draft stage
+    And I click the continue button on how do you intend to respond screen
+    Then an error message should be displayed as I have not selected a response on this screen
+
+  @Validation
+  Scenario: User must summarise their call in the text box at the Draft stage after selecting phone response
+    And I click the finish button on the summarise your call screen
+    Then an error message should be displayed as I have not summarised the call
+
+  @Validation
+  Scenario: User must add a primary draft document at the Draft stage
+    And I click the continue button on the which is the primary draft document screen
+    Then an error message should be displayed as I have not added a primary draft document
+
+  @Validation
+  Scenario: User must select the Draft document type and add a document on the add document screen at the Draft stage
+    And I click the add button on the add documents screen
+    Then an error message should be displayed as I have not selected a document type and added a document
+
+  @Validation
+  Scenario: User must select a radio button when asked whether they want to QA the case offline
+    And I click the continue button on the do you want QA this offline screen
+    Then an error message should be displayed as I have not selected whether the case should be QA offline or not
+
+  @Validation
+  Scenario: User must select the user that has done the Offline QA from the drop down at the Draft stage
+    And I click the finish button on the who has done the offline QA screen
+    Then an error message should be displayed as I have not selected the user that did the offline QA

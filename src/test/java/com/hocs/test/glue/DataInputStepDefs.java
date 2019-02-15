@@ -182,19 +182,15 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
     }
 
-    @When("^I don't enter the date correspondence was sent at the data input stage$")
+    @When("^I click the continue button at the data input stage$")
     public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
         workstacks.clickAllocateToMeButton();
         dataInput.clickContinueButton();
     }
 
-    @When("^I don't select how correspondence was received radio button at the data input stage$")
-    public void userDoesNotSelectHowWasCorrespondenceReceivedRadioButtonDataInputStage() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.clickContinueButton();
-    }
 
-    @When("^I do not add a primary correspondent at the data input stage$")
+
+    @When("^I click the finish button on the which is the primary correspondent screen$")
     public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
         workstacks.clickAllocateToMeButton();
         dataInput.enterDayOfCorrespondenceSent("01");
@@ -205,7 +201,7 @@ public class DataInputStepDefs {
         dataInput.clickFinishButton();
     }
 
-    @When("^I do not select a radio button when asked the primary correspondent type$")
+    @When("^I click the continue button on the is the correspondent an MP screen$")
     public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
         workstacks.clickAllocateToMeButton();
         dataInput.enterDayOfCorrespondenceSent("01");
@@ -218,7 +214,7 @@ public class DataInputStepDefs {
 
     }
 
-    @When("^I do not select an MP from the drop down box at the data input stage$")
+    @When("^I click the add button on the add member of parliament screen$")
     public void userDoesNotSelectMPFromDownDownBox() {
         workstacks.clickAllocateToMeButton();
         dataInput.enterDayOfCorrespondenceSent("01");
@@ -232,7 +228,7 @@ public class DataInputStepDefs {
         dataInput.clickAddButton();
     }
 
-    @When("^I do not select a correspondent type from the drop down box$")
+    @When("^I click the add button on the record correspondent details screen$")
     public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
         workstacks.clickAllocateToMeButton();
         dataInput.enterDayOfCorrespondenceSent("01");
@@ -247,36 +243,22 @@ public class DataInputStepDefs {
 
     }
 
-    @When("^I do not enter any text in the full name field$")
-    public void userDoesNotEnterTextInFullNameField() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.clickContinueButton();
-        dataInput.clickAddCorrespondentLink();
-        dataInput.clickCorrespondentIsNotAMember();
-        dataInput.clickContinueButton();
-        dataInput.clickAddButton();
-    }
-
-    @Then("^an error message should be displayed informing the user that the correspondent's full name is required")
+    @Then("^an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
         dataInput.assertCorrespondentFullNameErrorMessage();
     }
 
-    @Then("^an error message should be displayed informing the user that correspondent type must be selected$")
+    @Then("^an error message should be displayed as I have not selected the correspondent type$")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeDropDownErrorMessage();
     }
 
-    @Then("^an error message should be displayed informing the user that member is required$")
+    @Then("^an error message should be displayed as I must select a member of parliament from the drop down$")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
         dataInput.assertMemberIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed informing the user that the correspondent type must be provided")
+    @Then("^an error message should be displayed as I must select a radio button on this screen$")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
@@ -286,19 +268,19 @@ public class DataInputStepDefs {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 
-    @Then("^an error message should be displayed informing the user that correspondence date is required$")
+    @Then("^an error message should be displayed as I have not entered a correspondence date$")
     public void assertThatCorrespondenceDateErrorMessageIsShown() {
         dataInput.assertCorrespondenceDateErrorMessage();
 
     }
 
-    @Then("^an error message should be displayed informing the user that how the correspondence was sent is required$")
+    @Then("^an error message should be displayed as I have not selected a radio button$")
     public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
         dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
 
     }
 
-    @Then("^an error message should be displayed informing the user the primary correspondent must be added")
+    @Then("^an error message should be displayed as I have not added a primary correspondent$")
     public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
         dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
     }

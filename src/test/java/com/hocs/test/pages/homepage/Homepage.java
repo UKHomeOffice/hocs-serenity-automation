@@ -34,13 +34,7 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    CreateCase createCase;
 
-    Workstacks workstacks;
-
-    DataInput dataInput;
-
-    RecordCorrespondentDetails recordCorrespondentDetails;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
@@ -121,6 +115,16 @@ public class Homepage extends Page {
     }
 
 
+    public void selectAllocationUserByVisibleText(String allocationUser) {
+        allocateDropdown.selectByVisibleText(allocationUser);
+        allocateButton.click();
+
+    }
+
+    public void selectAllocationUserByIndex(int index) {
+        allocateDropdown.selectByIndex(index);
+    }
+
     // Multi Step Methods
 
     public void firstStageFindMyCase() {
@@ -152,26 +156,6 @@ public class Homepage extends Page {
 
     }
 
-//    public void completeCaseUntilMarkupStage() {
-//        clickCreateSingleCase();
-//        createCase.createDCUMinSingleCase();
-//        selectPerformanceProcessTeam();
-//        successfulCaseCreation.selectCaseReferenceNumberViaXpathDoubleClick();
-//        workstacks.clickAllocateToMeButton();
-//        dataInput.enterDayOfCorrespondenceSent("01");
-//        dataInput.enterMonthOfCorrespondenceSent("01");
-//        dataInput.enterYearOfCorrespondenceSent("2019");
-//        dataInput.clickEmailCorrespondenceChannelRadioButton();
-//        dataInput.clickContinueButton();
-//        dataInput.clickAddCorrespondentLink();
-//        dataInput.clickCorrespondentIsNotAMember();
-//        dataInput.clickContinueButton();
-//        recordCorrespondentDetails.selectCorrespondentType();
-//        recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-//        recordCorrespondentDetails.clickAddButton();
-//        dataInput.clickFinishButton();
-//
-//    }
 
     // Assertions
 
