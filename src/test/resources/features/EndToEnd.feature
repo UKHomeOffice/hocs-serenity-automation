@@ -3,7 +3,7 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @DroneTest
   Scenario Outline: Case moves to Data Input stage
     When the current user creates a single case "<caseType>"
     Then the case should be moved to the "DATA INPUT" stage
