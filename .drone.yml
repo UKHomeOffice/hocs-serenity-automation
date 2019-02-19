@@ -78,7 +78,7 @@ pipeline:
       {{#success build.status}}
         build {{build.number}} succeeded and tests have executed successfully, please find results here https://${REPORT_URL}/s3/target/site/serenity/index.html
       {{else}}
-        build {{build.number}} unfortunately has some test failures, please see the results here "https://${REPORT_URL}/s3/target/site/serenity/index.html"
+        build {{build.number}} unfortunately has some test failures, please see the results here https://${REPORT_URL}/s3/target/site/serenity/index.html
       {{/success}}
     when:
       branch: master
