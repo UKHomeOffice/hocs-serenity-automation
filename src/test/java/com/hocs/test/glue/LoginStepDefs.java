@@ -44,7 +44,7 @@ public class LoginStepDefs {
     }
 
 
-    @Given("^I am user \"([^\"]*)\"")
+    @Given("^I am user \"([^\"]*)\"$")
     public void iLoginas(String user) {
         navigateToHocs();
         setSessionVariable("user").to(user);
