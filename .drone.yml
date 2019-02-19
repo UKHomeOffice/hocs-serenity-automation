@@ -70,7 +70,7 @@ pipeline:
     image: plugins/slack
     secrets: [ slack_webhook, report_viewer_domain ]
     environment:
-      -REPORT_URL=${REPORT_VIEWER_DOMAIN}
+      - REPORT_URL=${REPORT_VIEWER_DOMAIN}
     webhook: ${SLACK_WEBHOOK}
     channel: hocs-dev
     username: HOCS-SERENITY-AUTOMATOR
