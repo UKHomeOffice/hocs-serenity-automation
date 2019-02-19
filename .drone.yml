@@ -69,13 +69,17 @@ pipeline:
   slack-notification:
     image: plugins/slack
     secrets: [ slack_webhook, report_viewer_domain ]
+    environment:
+      -REPORT_URL=${REPORT_VIEWER_DOMAIN}
     webhook: ${SLACK_WEBHOOK}
     channel: hocs-dev
+    username: HOCS-SERENITY-AUTOMATOR
+    icon_emoji: ":fire:"
     template: >
       {{#success build.status}}
-        build {{build.number}} ${DRONE_BUILD_NUMBER} succeeded and tests have executed successfully, please find results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+        build {{build.number}} succeeded and tests have executed successfully, please find results here https://${REPORT_URL}/s3/target/site/serenity/index.html
       {{else}}
-        build {{build.number}} ${DRONE_BUILD_NUMBER} unfortunately has some test failures, please see the results here https://${REPORT_VIEWER_DOMAIN}/s3/target/site/serenity/index.html
+        build {{build.number}} unfortunately has some test failures, please see the results here "https://${REPORT_URL}/s3/target/site/serenity/index.html"
       {{/success}}
     when:
       branch: master
