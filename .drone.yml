@@ -74,7 +74,6 @@ pipeline:
     webhook: ${SLACK_WEBHOOK}
     channel: hocs-dev
     username: HOCS-SERENITY-AUTOMATOR
-    icon_emoji: ":fire:"
     template: >
       {{#success build.status}}
         build {{build.number}} succeeded and tests have executed successfully, please find results here https://${REPORT_URL}/s3/target/site/serenity/index.html
