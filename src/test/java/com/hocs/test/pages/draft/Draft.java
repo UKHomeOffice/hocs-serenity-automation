@@ -94,7 +94,7 @@ public class Draft extends Page {
     @FindBy(css = "label[for=OfflineQA-FALSE]")
     private WebElementFacade onlineQaRadioButton;
 
-    @FindBy(id = "")
+    @FindBy(id = "OfflineQaUser")
     private WebElementFacade allocateToOfflineQaDropdown;
 
     @FindBy(id = "")
@@ -166,8 +166,8 @@ public class Draft extends Page {
         return draftingDeadline.getText();
     }
 
-    public void selectOfflineQualityAssurer() {
-        allocateToOfflineQaDropdown.selectByVisibleText("");
+    public void selectOfflineQualityAssurer(String userName) {
+        allocateToOfflineQaDropdown.selectByVisibleText(userName);
     }
 
     public void selectOnlineQualityAssurer() {

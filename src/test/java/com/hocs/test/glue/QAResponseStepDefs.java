@@ -7,6 +7,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 
@@ -51,4 +52,25 @@ public class QAResponseStepDefs {
         qaResponse.clickFinishButton();
     }
 
+    @When("^I click the continue button on the do you approve the QA response screen$")
+    public void clickContinueButtonOnApproveResponseScreen() {
+        qaResponse.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a radio button on the QA approve response screen$")
+    public void assertThatQAApproveResponseErrorMessageIsShown() {
+        qaResponse.assertQADoYouApproveErrorMessage();
+    }
+
+    @When("^I click the finish button on the QA response feedback screen$")
+    public void clickFinishButtonOnQAResponseFeedbackScreen() {
+        qaResponse.clickQAResponseRejectRadioButton();
+        qaResponse.clickContinueButton();
+        qaResponse.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response$")
+    public void assertThatQAResponseFeedbackErrorMessageIsShown() {
+        qaResponse.assertQAWhatIsYourFeedbackErrorMessage();
+    }
 }
