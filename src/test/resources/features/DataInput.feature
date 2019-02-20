@@ -1,8 +1,8 @@
 Feature: HOCS User is add data to a case
 
   Background:
-    Given I am user "DANNY"
-    And I am at the "Data Input" stage
+    Given I am user "EAMON"
+    When I am at the "DATA INPUT" stage
 
   @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
@@ -70,3 +70,40 @@ Feature: HOCS User is add data to a case
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     Then the correspondence type is the "primary" correspondent
+
+  @Validation
+  Scenario: Date correspondence was sent must be entered at Data Input stage
+    And I click the continue button at the data input stage
+    Then an error message should be displayed as I have not entered a correspondence date
+
+  @Validation
+  Scenario: How correspondence was received radio button must be selected at Data Input stage
+    And I click the continue button at the data input stage
+    Then an error message should be displayed as I have not selected a radio button
+
+  @Validation
+  Scenario: User must add a primary correspondent at Data Input stage
+    And I click the finish button on the which is the primary correspondent screen
+    Then an error message should be displayed as I have not added a primary correspondent
+
+  @Validation
+  Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
+    And I click the continue button on the is the correspondent an MP screen
+    Then an error message should be displayed as I must select a radio button on this screen
+
+  @Validation
+  Scenario: User must select an MP from drop down box at Data Input stage
+    And I click the add button on the add member of parliament screen
+    Then an error message should be displayed as I must select a member of parliament from the drop down
+
+  @Validation
+  Scenario: User must select a correspondent type from the drop down if the correspondent is not an MP
+    And I click the add button on the record correspondent details screen
+    Then an error message should be displayed as I have not selected the correspondent type
+
+  @Validation
+  Scenario: User must enter text in correspondent's Full Name field
+    And I click the add button on the record correspondent details screen
+    Then an error message should be displayed as I have not entered text in the full name field
+
+

@@ -16,6 +16,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 public class CreateCaseStepDefs {
 
@@ -51,7 +53,7 @@ public class CreateCaseStepDefs {
         }
     }
 
-    @Given("the current user creates a single case \"([^\"]*)\"$")
+    @Given("^I create a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -85,10 +87,12 @@ public class CreateCaseStepDefs {
     }
 
     @When("^I create a case with <Topic>$")
-    public void aCaseWithSpecificTopicIsCreated() {}
+    public void aCaseWithSpecificTopicIsCreated() {
+    }
 
     @When("^I create a case with a <Primary Correspondent>$")
-    public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {}
+    public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {
+    }
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
     public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
@@ -220,9 +224,81 @@ public class CreateCaseStepDefs {
         successfulCaseCreation.getCaseReference();
     }
 
-    @When("^I do not select a type of correspondence when creating a case$")
+    @When("^I click the next button on the create single case screen$")
     public void correspondentTypeNotSelectedDuringCaseCreation() {
-        homepage.clickCreateSingleCase();
         createCase.clickNextButton();
     }
+
+    @Then("^an error message should be displayed as I have not selected the case type$")
+    public void assertThatCaseTypeErrorMessageIsDisplayed() {
+        createCase.assertCaseTypeErrorMessage();
+
+    }
+
+    @When("^they do not enter a date into the date received text boxes$")
+    public void deleteDefaultDateFromTextBoxes() {
+        dataInput.clearDateCorrespondenceReceived();
+    }
+
+    @When("^they enter an invalid date into the date received text boxes$")
+    public void enterInvalidDateIntoTextBoxes() {
+        dataInput.enterDayOfCorrespondenceReceived("29");
+        dataInput.enterMonthOfCorrespondenceReceived("02");
+        dataInput.enterYearOfCorrespondenceReceived("2019");
+
+
+    }
+
+        @When("^they select the case type")
+    public void userClicksCaseRadioButtonAndClicksNextButton() {
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
+
+    }
+
+    @When("^I click the finish button on the create single case screen$")
+    public void userCreatesCaseWithoutEnteringDateReceived() {
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
+        dataInput.clearDateCorrespondenceReceived();
+        createCase.clickFinishButton();
+
+    }
+
+    @When("^I click the finish button after entering an invalid date on the create single case screen$")
+    public void userCreatesCaseWithInvalidDate() {
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
+        dataInput.enterDayOfCorrespondenceReceived("29");
+        dataInput.enterMonthOfCorrespondenceReceived("02");
+        dataInput.enterYearOfCorrespondenceReceived("2019");
+        createCase.clickFinishButton();
+    }
+
+    @When("^they create the bulk cases without adding a document$")
+    public void userCreatesBulkCasesWithoutAddingADocument() {
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
+        createCase.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not entered the correspondence received date")
+    public void assertThatDateReceivedErrorMessageIsShown() {
+        createCase.assertDateReceivedNotEnteredErrorMessage();
+
+    }
+
+    @Then("^an error message should be displayed as I have entered an invalid date$")
+    public void assertThatDateReceivedIsInvalidErrorMessageIsShown() {
+        createCase.assertDateReceivedIsInvalidErrorMessage();
+    }
+
+    @Then("^an error message should be displayed informing the user that documents are mandatory$")
+    public void assertThatDocumentsAreMandatoryErrorMessageIsShown() {
+        createCase.assertDocumentsAreMandatoryErrorMessage();
+
+    }
+
+
 }
+

@@ -59,4 +59,38 @@ public class PrivateOfficeSignOffStepDefs {
         privateOffice.clickFinishButton();
     }
 
+    @When("^I click the continue button on PO approve response screen$")
+    public void clickContinueButtonOnPOApproveResponseScreen() {
+        privateOffice.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected whether I approve the response$")
+    public void assertThatApprovedResponseErrorMessageIsShown() {
+        privateOffice.assertDoYouApproveTheResponseErrorMessage();
+    }
+
+    @When("^I click the finish button on the change minister screen$")
+    public void clickFinishButtonOnChangeMinisterScreen() {
+        privateOffice.clickPrivateOfficeChangeMinisterRadioButton();
+        privateOffice.clickContinueButton();
+        privateOffice.clickFinishButton();
+    }
+
+    @Then("^error messages should be displayed as I have not selected an override team or entered change reasoning$")
+    public void assertThatChangeMinisterErrorMessagesAreShown() {
+        privateOffice.assertChangeMinisterErrorMessages();
+    }
+
+    @When("^I click the finish button on the what is your feedback response screen$")
+    public void clickFinishButtonOnWhatIsFeedbackResponseScreen() {
+        privateOffice.clickPrivateOfficeRejectRadioButton();
+        privateOffice.clickContinueButton();
+        privateOffice.clickFinishButton();
+    }
+
+    @Then("^an error message should be displayed as I have not entered feedback into the text box")
+    public void assertThatFeedbackResponseErrorMessageIsShown() {
+        privateOffice.assertWhatIsYourFeedbackResponse();
+    }
+
 }

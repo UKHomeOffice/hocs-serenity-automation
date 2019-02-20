@@ -146,6 +146,10 @@ public class RecordCorrespondentDetails extends Page {
         enterCorrespondentPostcode("S1 1AA");
     }
 
+    public void selectCorrespondentType() {
+        selectCorrespondentTypeFromDropdown("Correspondent");
+    }
+
     public void selectCorrespondentCountry(String country) {
         correspondentCountryDropdown.selectByVisibleText(country);
     }

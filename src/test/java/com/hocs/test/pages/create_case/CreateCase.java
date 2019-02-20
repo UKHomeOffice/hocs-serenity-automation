@@ -14,6 +14,9 @@ import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class CreateCase extends Page {
 
@@ -23,7 +26,11 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
+    WebDriver driver;
+
     // Elements
+
+
 
     @FindBy(className = "govuk-radios")
     private WebElementFacade allRadioButtons;
@@ -73,6 +80,17 @@ public class CreateCase extends Page {
     @FindBy(id = "DTENDraftDeadline-year")
     private WebElementFacade d10DraftDeadlineYear;
 
+    @FindBy(xpath = "//a[text()='Case type is required']")
+    private WebElementFacade caseTypeIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Date received is required']")
+    private WebElementFacade dateReceivedIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Documents are mandatory when bulk creating a case']")
+    private WebElementFacade documentsAreMandatoryErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Date received must be a valid date']")
+    private WebElementFacade dateReceivedIsInvalidErrorMessage;
 
     // Basic Methods
 
@@ -225,4 +243,22 @@ public class CreateCase extends Page {
         assertThat(isElementDisplayed(allRadioButtons), is(false));
     }
 
+    public void assertCaseTypeErrorMessage() {
+        assertThat(caseTypeIsRequiredErrorMessage.getText(), is("Case type is required"));
+
+    }
+
+    public void assertDateReceivedNotEnteredErrorMessage() {
+        assertThat(dateReceivedIsRequiredErrorMessage.getText(), is("Date received is required"));
+
+    }
+
+    public void assertDocumentsAreMandatoryErrorMessage() {
+        assertThat(documentsAreMandatoryErrorMessage.getText(), is("Documents are mandatory when bulk creating a case"));
+    }
+
+    public void assertDateReceivedIsInvalidErrorMessage() {
+        assertThat(dateReceivedIsInvalidErrorMessage.getText(), is("Date received must be a valid date"));
+
+    }
 }

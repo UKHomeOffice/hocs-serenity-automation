@@ -8,6 +8,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,12 +29,16 @@ public class DataInputStepDefs {
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
+    Workstacks workstacks;
+
     @When("^I complete the Data Input stage$")
-    public void completeDataInputStage(){ dataInput.dataInputFullFlow(); }
+    public void completeDataInputStage() {
+        dataInput.dataInputFullFlow();
+    }
 
     @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")
     public void completeDataInputPerCaseType(String caseType) {
-        switch (caseType.toUpperCase()){
+        switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 homepage.selectPerformanceProcessTeam();
                 break;
@@ -151,18 +156,132 @@ public class DataInputStepDefs {
                 break;
             case "IS NOT":
                 break;
-                default:
-                    System.out.println(member
-                            + " is not defined within " + getClass().getSimpleName()
-                            + " class, " + getMethodName() + " method");
-                    member = null;
-                    assumeNotNull(member);
+            default:
+                System.out.println(member
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                member = null;
+                assumeNotNull(member);
         }
 
+    }
+
+    @When("^they complete the first data input screen$")
+    public void completeFirstDataInputScreen() {
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickContinueButton();
+        dataInput.clickFinishButton();
+    }
+
+    @When("^they click the continue button$")
+    public void clickContinueButton() {
+        dataInput.clickContinueButton();
+    }
+
+    @When("^I click the continue button at the data input stage$")
+    public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.clickContinueButton();
+    }
+
+
+
+    @When("^I click the finish button on the which is the primary correspondent screen$")
+    public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickFinishButton();
+    }
+
+    @When("^I click the continue button on the is the correspondent an MP screen$")
+    public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickContinueButton();
+
+    }
+
+    @When("^I click the add button on the add member of parliament screen$")
+    public void userDoesNotSelectMPFromDownDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+    }
+
+    @When("^I click the add button on the record correspondent details screen$")
+    public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsNotAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+
+    }
+
+    @Then("^an error message should be displayed as I have not entered text in the full name field")
+    public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
+        dataInput.assertCorrespondentFullNameErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I have not selected the correspondent type$")
+    public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
+        dataInput.assertCorrespondentTypeDropDownErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I must select a member of parliament from the drop down$")
+    public void assertThatMemberIsRequiredErrorMessageIsShown() {
+        dataInput.assertMemberIsRequiredErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I must select a radio button on this screen$")
+    public void assertThatCorrespondentTypeErrorMessageIsShown() {
+        dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @Then("^they should be added to the list of correspondents$")
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
+    }
+
+    @Then("^an error message should be displayed as I have not entered a correspondence date$")
+    public void assertThatCorrespondenceDateErrorMessageIsShown() {
+        dataInput.assertCorrespondenceDateErrorMessage();
+
+    }
+
+    @Then("^an error message should be displayed as I have not selected a radio button$")
+    public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
+        dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
+
+    }
+
+    @Then("^an error message should be displayed as I have not added a primary correspondent$")
+    public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
+        dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
     }
 }

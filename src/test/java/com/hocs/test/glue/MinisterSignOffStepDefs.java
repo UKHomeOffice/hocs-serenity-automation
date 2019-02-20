@@ -57,4 +57,26 @@ public class MinisterSignOffStepDefs {
         minister.clickContinueButton();
     }
 
+    @When("^I click the continue button on the approve response screen$")
+    public void clickContinueButtonOnApproveReponseScreen() {
+        minister.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a radio button on the approve response screen$")
+    public void assertThatApproveResponseErrorMessageIsShown() {
+        minister.assertDoYouApproveTheResponseErrorMessage();
+    }
+
+    @When("^I click the continue button on the minister sign off feedback response screen$")
+    public void clickContinueButtonOnFeedbackResponseMinisterSignOffScreen() {
+        minister.clickMinisterSignOffRejectRadioButton();
+        minister.clickContinueButton();
+        minister.sleep(500);
+        minister.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as I have not entered feedback in the text box$")
+    public void assertThatFeedbackResponseMinisterSignOffErrorMessageIsShown() {
+        minister.assertFeedbackResponseMinisterSignOffErrorMessage();
+    }
 }

@@ -1,7 +1,7 @@
 Feature: QA Case #this test can be reused for both the private office and minister sign off stages
 
     Background:
-    Given I am user "<string>"
+    Given I am user "EAMON"
     And I am at the "QA" stage
  
     @HOCS-310
@@ -23,3 +23,13 @@ Feature: QA Case #this test can be reused for both the private office and minist
       Then the case should be moved to the "private office" stage
       And the "nominated person" for the next owning team receives a notification email
       And I am taken to the "home" page
+
+    @Validation
+    Scenario: User must select a radio button to indicate whether they approve the QA response
+      And I click the continue button on the do you approve the QA response screen
+      Then an error message should be displayed as I have not selected a radio button on the QA approve response screen
+
+    @Validation
+    Scenario: User must enter their feedback for the a disapproved QA response in the text box
+      And I click the finish button on the QA response feedback screen
+      Then an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response

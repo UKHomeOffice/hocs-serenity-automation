@@ -6,6 +6,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 import net.serenitybdd.core.pages.WebElementFacade;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QAResponse extends Page{
 
@@ -23,6 +25,12 @@ public class QAResponse extends Page{
 
     @FindBy(id ="CaseNote_QA")
     private WebElementFacade draftDecisionNoteFieldTheSecond;
+
+    @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
+    private WebElementFacade QADoYouApproveTheReponseErrorMessage;
+
+    @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
+    private WebElementFacade QAWhatIsYourFeedbackAboutTheResponseErrorMessage;
 
 
     // Basic Methods
@@ -44,6 +52,14 @@ public class QAResponse extends Page{
         draftDecisionNoteFieldTheSecond.clear();
         draftDecisionNoteFieldTheSecond.sendKeys(draftDecisionNote);
         setSessionVariable("draftDecisionNote").to(draftDecisionNote);
+    }
+
+    public void assertQADoYouApproveErrorMessage() {
+        assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
+    }
+
+    public void assertQAWhatIsYourFeedbackErrorMessage() {
+        assertThat(QAWhatIsYourFeedbackAboutTheResponseErrorMessage.getText(), is("What is your feedback about the response? is required"));
     }
 
 }

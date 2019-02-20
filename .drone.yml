@@ -58,7 +58,29 @@ pipeline:
     access_key: ${AWS_ACCESS_KEY_ID}
     secret_key: ${AWS_SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
-    target: /reports/
+    target: /reports/$${DRONE_BUILD_NUMBER}/
+    when:
+      branch: master
+      event: push
+      status:
+        - success
+        - failure
+
+  slack-notification:
+    image: plugins/slack
+    secrets: [ slack_webhook, report_viewer_domain ]
+    environment:
+      - REPORT_URL=${REPORT_VIEWER_DOMAIN}
+    webhook: ${SLACK_WEBHOOK}
+    channel: hocs-dev
+    username: HOCS-SERENITY-AUTOMATOR
+    icon_emoji: ":fire:"
+    template: >
+      {{#success build.status}}
+        build {{build.number}} succeeded and tests have executed successfully, please find results here https://${REPORT_URL}/s3/target/site/serenity/index.html
+      {{else}}
+        build {{build.number}} unfortunately has some test failures, please see the results here https://${REPORT_URL}/s3/target/site/serenity/index.html
+      {{/success}}
     when:
       branch: master
       event: push

@@ -44,15 +44,18 @@ public class WorkstacksStepDefs {
 
     Workstacks workstacks;
 
-    @When("^The current user allocates the case to themself$")
+    @When("^the current user allocates the case to themself$")
     public void allocateToMe() {
-        homepage.firstStageFindMyCase();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
-
     }
 
-    @When("^They unallocate the case from themself")
+    @Then("^they allocate the case to themself$")
+    public void allocateCaseToUser() {
+        workstacks.clickAllocateToMeButton();
+    }
+
+    @When("^they unallocate the case from themself")
     public void unallocateCase() {
         homepage.selectMyCases();
         workstacks.clickCheckboxRelevantToCaseReference();
@@ -60,7 +63,7 @@ public class WorkstacksStepDefs {
 
     }
 
-    @When("^They select the check box against the case$")
+    @When("^they select the check box against the case$")
     public void selectCaseCheckbox() {
         homepage.firstStageFindMyCase();
         workstacks.clickCheckboxRelevantToCaseReference();

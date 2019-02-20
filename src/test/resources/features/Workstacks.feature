@@ -7,8 +7,8 @@ Feature: Team members can allocate work
   @Allocate @DCUMIN
   Scenario: A single case is allocated to the current user
     When the current user creates a single case "DCU MIN"
-    And  The current user allocates the case to themself
-    Then The case is added to the current user's cases
+    And  the current user allocates the case to themself
+    Then the case is added to the current user's cases
 
 
     # Bug against this test HOCS-806

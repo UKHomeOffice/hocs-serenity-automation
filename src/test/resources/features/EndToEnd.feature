@@ -3,9 +3,9 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @DroneTest
   Scenario Outline: Case moves to Data Input stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     Then the case should be moved to the "DATA INPUT" stage
     Examples:
       | caseType|
@@ -17,7 +17,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Markup stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     Then the case should be moved to the "MARKUP" stage
     Examples:
@@ -28,7 +28,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Initial Draft stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     Then the case should be moved to the "INITIAL DRAFT" stage
@@ -40,7 +40,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to QA Response stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -53,7 +53,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Private Office stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -66,7 +66,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Minister Sign Off stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -79,7 +79,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Dispatch stage
-    When the current user creates a single case "<caseType>"
+    When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -97,7 +97,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @EndToEnd @DCUMIN @Critical @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
-    When the current user creates a single case "DCU MIN"
+    When I create a single case "DCU MIN"
     And the Data Input Stage is completed for "DCU MIN" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -109,7 +109,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
-    When the current user creates a single case "DCU N10"
+    When I create a single case "DCU N10"
     And the Data Input Stage is completed for "DCU N10" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
@@ -120,7 +120,7 @@ Feature: HOCS is able to move cases through the entire flow
 
   @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
-    When the current user creates a single case "DCU TRO"
+    When I create a single case "DCU TRO"
     And the Data Input Stage is completed for "DCU TRO" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
