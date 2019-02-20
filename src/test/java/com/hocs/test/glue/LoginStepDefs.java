@@ -72,7 +72,7 @@ public class LoginStepDefs {
         loginPage.clickContinueButton();
     }
 
-    @Given("^I am on the Home Office Correspondance Login Page")
+    @Given("^I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
         navigateToHocs();
     }
@@ -90,6 +90,9 @@ public class LoginStepDefs {
                 break;
             case "TESTER":
                 enterHocsUsername(TESTER);
+                break;
+            case "EAMON DROKO":
+                enterHocsUsername(EAMONDROKO);
                 break;
             default:
                 System.out.println(username
@@ -112,6 +115,9 @@ public class LoginStepDefs {
                 break;
             case "TESTER PASS":
                 enterHocsPassword(TESTERPASS);
+                break;
+            case "EAMON PASS":
+                enterHocsPassword(EAMONPASS);
                 break;
             default:
                 System.out.println(password
