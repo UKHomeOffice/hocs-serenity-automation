@@ -115,15 +115,15 @@ public class Homepage extends Page {
     }
 
 
-    public void selectAllocationUserByVisibleText(String allocationUser) {
-        allocateDropdown.selectByVisibleText(allocationUser);
-        allocateButton.click();
+//    public void selectAllocationUserByVisibleText(String allocationUser) {
+//        allocateDropdown.selectByVisibleText(allocationUser);
+//        allocateButton.click();
+//
+//    }
 
-    }
-
-    public void selectAllocationUserByIndex(int index) {
-        allocateDropdown.selectByIndex(index);
-    }
+//    public void selectAllocationUserByIndex(int index) {
+//        allocateDropdown.selectByIndex(index);
+//    }
 
     // Multi Step Methods
 

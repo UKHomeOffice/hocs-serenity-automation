@@ -236,14 +236,6 @@ public class GenericInputStepDefs {
                 homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
-            case "DATA INPUT QA":
-                homepage.clickMyWorkstack();
-                try {
-                    homepage.clickFirstDataInputQaAllocate();
-                } catch (ElementShouldBeEnabledException e) {
-                    homepage.clickFirstDataInputQaCasework();
-                }
-                break;
             case "MARKUP":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
@@ -339,7 +331,7 @@ public class GenericInputStepDefs {
                 addDocuments.uploadDocument();
                 addDocuments.clickAddButton();
                 draft.clickContinueButton();
-                draft.clickOnlineQaButton();
+                qa.clickOfflineQANoRadioButton();
                 draft.clickContinueButton();
                 homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
@@ -386,7 +378,7 @@ public class GenericInputStepDefs {
                 addDocuments.uploadDocument();
                 addDocuments.clickAddButton();
                 draft.clickContinueButton();
-                draft.clickOfflineQaButton();
+                qa.clickOfflineQAYesRadioButton();
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();
@@ -435,7 +427,7 @@ public class GenericInputStepDefs {
                 addDocuments.uploadDocument();
                 addDocuments.clickAddButton();
                 draft.clickContinueButton();
-                draft.clickOfflineQaButton();
+                qa.clickOfflineQAYesRadioButton();
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();
@@ -489,7 +481,7 @@ public class GenericInputStepDefs {
                 addDocuments.uploadDocument();
                 addDocuments.clickAddButton();
                 draft.clickContinueButton();
-                draft.clickOfflineQaButton();
+                qa.clickOfflineQAYesRadioButton();
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();

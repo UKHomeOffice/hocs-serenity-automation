@@ -34,6 +34,8 @@ public class DraftResponseStepDefs {
 
     AddDocuments addDocuments;
 
+    Workstacks workstacks;
+
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
         homepage.selectAnimalsInScienceTeam();
@@ -195,7 +197,7 @@ public class DraftResponseStepDefs {
         addDocuments.uploadDocument();
         addDocuments.clickAddButton();
         draft.clickContinueButton();
-        draft.clickOfflineQaButton();
+        qa.clickOfflineQAYesRadioButton();
         draft.clickContinueButton();
         draft.clickFinishButton();
     }

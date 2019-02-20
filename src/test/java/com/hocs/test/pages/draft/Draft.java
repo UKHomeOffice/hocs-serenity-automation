@@ -176,12 +176,12 @@ public class Draft extends Page {
 
     // Multi Step Methods
 
-    public void findAndAllocateDraftStage() {
-        homepage.selectAnimalsInScienceTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-    }
+//    public void findAndAllocateDraftStage() {
+//        homepage.selectAnimalsInScienceTeam();
+//        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//        workstacks.clickAllocateToMeButton();
+//        homepage.goHome();
+//    }
 
     // Assertions
 

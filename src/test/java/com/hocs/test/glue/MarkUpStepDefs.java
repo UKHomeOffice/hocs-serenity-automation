@@ -31,9 +31,6 @@ public class MarkUpStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    Workstacks workstacks;
-
-
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
         homepage.selectCentralDraftingTeam();
