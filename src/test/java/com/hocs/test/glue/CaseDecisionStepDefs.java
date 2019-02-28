@@ -12,6 +12,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
+
 public class CaseDecisionStepDefs {
 
     MarkUpDecision markUpDecision;
@@ -28,11 +31,7 @@ public class CaseDecisionStepDefs {
             case "REASON FOR NO REPLY NEEDED":
                 break;
             default:
-                System.out.println(textField
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                textField = null;
-                assumeNotNull(textField);
+                pendingStep(textField + " is not defined within " + getMethodName());
         }
     }
 
@@ -73,11 +72,7 @@ public class CaseDecisionStepDefs {
                 topics.assertTopicsTextFieldDisplayed();
                 break;
             default:
-                System.out.println(textField
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                textField = null;
-                assumeNotNull(textField);
+                pendingStep(textField + " is not defined within " + getMethodName());
         }
     }
 
@@ -112,11 +107,8 @@ public class CaseDecisionStepDefs {
                 markUpDecision.clickNoReplyNeededRadioButton();
                 break;
             default:
-                System.out.println(status
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                status = null;
-                assumeNotNull(status);
+                pendingStep(status + " is not defined within " + getMethodName());
+
         }
         markUpDecision.clickContinueButton();
         markUpDecision.clickFinishButton();
@@ -146,11 +138,8 @@ public class CaseDecisionStepDefs {
             case "DRAFTING TEAM":
                 break;
             default:
-                System.out.println(amendment
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                amendment = null;
-                assumeNotNull(amendment);
+                pendingStep(amendment + " is not defined within " + getMethodName());
+
         }
     }
 

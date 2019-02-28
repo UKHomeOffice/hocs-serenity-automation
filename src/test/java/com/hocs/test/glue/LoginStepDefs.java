@@ -20,6 +20,7 @@ import net.serenitybdd.core.Serenity;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -63,11 +64,8 @@ public class LoginStepDefs {
                 enterHocsLoginDetails(EAMON);
                 break;
             default:
-                System.out.println(user
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                user = null;
-                assumeNotNull(user);
+                pendingStep(user + " is not defined within " + getMethodName());
+
         }
         loginPage.clickContinueButton();
     }
@@ -99,11 +97,8 @@ public class LoginStepDefs {
                 enterHocsPassword(EAMONPASS);
                 break;
             default:
-                System.out.println(credentials
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                credentials = null;
-                assumeNotNull(credentials);
+                pendingStep(credentials + " is not defined within " + getMethodName());
+
         }
 
         loginPage.clickContinueButton();
@@ -126,11 +121,8 @@ public class LoginStepDefs {
                 enterHocsPassword(EAMONPASS);
                 break;
             default:
-                System.out.println(password
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                password = null;
-                assumeNotNull(password);
+                pendingStep(password + " is not defined within " + getMethodName());
+
         }
     }
 

@@ -34,6 +34,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class GenericInputStepDefs {
 
     @Managed
@@ -75,11 +77,8 @@ public class GenericInputStepDefs {
             case "":
                 break;
             default:
-                System.out.println(expectedText
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                expectedText = null;
-                assumeNotNull(expectedText);
+                pendingStep(expectedText + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -93,11 +92,7 @@ public class GenericInputStepDefs {
                 page.clickNextButton();
                 break;
             default:
-                System.out.println(buttonName
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                buttonName = null;
-                assumeNotNull(buttonName);
+                pendingStep(buttonName + " is not defined within " + getMethodName());
         }
     }
 
@@ -117,11 +112,8 @@ public class GenericInputStepDefs {
                 page.clickViewLink();
                 break;
             default:
-                System.out.println(name
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                name = null;
-                assumeNotNull(name);
+                pendingStep(name + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -131,11 +123,8 @@ public class GenericInputStepDefs {
             case "":
                 break;
             default:
-                System.out.println(element
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                element = null;
-                assumeNotNull(element);
+                pendingStep(element + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -146,11 +135,8 @@ public class GenericInputStepDefs {
                 dataInput.fillAllMandatoryFields();
                 break;
             default:
-                System.out.println(pageName
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                pageName = null;
-                assumeNotNull(pageName);
+                pendingStep(pageName + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -179,11 +165,8 @@ public class GenericInputStepDefs {
             case "NO DOCUMENTS":
                 break;
             default:
-                System.out.println(message
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                message = null;
-                assumeNotNull(message);
+                pendingStep(message + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -200,11 +183,8 @@ public class GenericInputStepDefs {
                 page.assertErrorMessageText("When was the correspondence sent? is required");
                 break;
             default:
-                System.out.println(errorMessage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                errorMessage = null;
-                assumeNotNull(errorMessage);
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+
         }
 
     }
@@ -219,11 +199,8 @@ public class GenericInputStepDefs {
                 dataInput.invalidCorrespondenceSentDate();
                 break;
             default:
-                System.out.println(dateField
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                dateField = null;
-                assumeNotNull(dateField);
+                pendingStep(dateField + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -500,11 +477,8 @@ public class GenericInputStepDefs {
                 workstacks.clickAllocateToMeButton();
                 break;
             default:
-                System.out.println(stage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                stage = null;
-                assumeNotNull(stage);
+                pendingStep(stage + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -580,11 +554,8 @@ public class GenericInputStepDefs {
                 page.enterRejectionNotes();
                 break;
             default:
-                System.out.println(action
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                action = null;
-                assumeNotNull(action);
+                pendingStep(action + " is not defined within " + getMethodName());
+
         }
 
     }
@@ -621,11 +592,8 @@ public class GenericInputStepDefs {
                 dataInput.addACorrespondentLinkIsDisplayed();
                 break;
             default:
-                System.out.println(linkText
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                linkText = null;
-                assumeNotNull(linkText);
+                pendingStep(linkText + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -640,11 +608,8 @@ public class GenericInputStepDefs {
                 page.clickFinishButton();
                 break;
             default:
-                System.out.println(rejection
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                rejection = null;
-                assumeNotNull(rejection);
+                pendingStep(rejection + " is not defined within " + getMethodName());
+
         }
 
     }
@@ -656,11 +621,8 @@ public class GenericInputStepDefs {
                 case "TOPICS":
                     break;
                 default:
-                    System.out.println(addition
-                            + " is not defined within " + getClass().getSimpleName()
-                            + " class, " + getMethodName() + " method");
-                    addition = null;
-                    assumeNotNull(addition);
+                    pendingStep(addition + " is not defined within " + getMethodName());
+
             }
         }
     }

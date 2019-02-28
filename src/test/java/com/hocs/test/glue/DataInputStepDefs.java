@@ -14,6 +14,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class DataInputStepDefs {
 
     @Steps(shared = true)
@@ -49,11 +51,8 @@ public class DataInputStepDefs {
                 homepage.selectPerformanceProcessTeam();
                 break;
             default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
+                pendingStep(caseType + " is not defined within " + getMethodName());
+
         }
         dataInput.dataInputFullFlow();
     }
@@ -111,11 +110,8 @@ public class DataInputStepDefs {
                 dataInputQADecision.rejectDataInputQa();
                 break;
             default:
-                System.out.println(decision
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                decision = null;
-                assumeNotNull(decision);
+                pendingStep(decision + " is not defined within " + getMethodName());
+
         }
         dataInput.clickFinishButton();
     }
@@ -141,11 +137,8 @@ public class DataInputStepDefs {
                 dataInput.clickNo10CorrespondenceChannelRadioButton();
                 break;
             default:
-                System.out.println(channel
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                channel = null;
-                assumeNotNull(channel);
+                pendingStep(channel + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -157,11 +150,8 @@ public class DataInputStepDefs {
             case "IS NOT":
                 break;
             default:
-                System.out.println(member
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                member = null;
-                assumeNotNull(member);
+                pendingStep(member + " is not defined within " + getMethodName());
+
         }
 
     }
@@ -187,7 +177,6 @@ public class DataInputStepDefs {
         workstacks.clickAllocateToMeButton();
         dataInput.clickContinueButton();
     }
-
 
 
     @When("^I click the finish button on the which is the primary correspondent screen$")

@@ -9,6 +9,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class DocumentsStepDefs {
 
     private Page page;
@@ -23,11 +25,8 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                System.out.println(preview
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                preview = null;
-                assumeNotNull(preview);
+                pendingStep(preview + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -41,11 +40,8 @@ public class DocumentsStepDefs {
             case "PREVIEWABLE":
                 break;
             default:
-                System.out.println(arg0
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                arg0 = null;
-                assumeNotNull(arg0);
+                pendingStep(arg0 + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -69,11 +65,8 @@ public class DocumentsStepDefs {
                 page.associatedDocumentsIsNotDisplayed();
                 break;
             default:
-                System.out.println(view
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                view = null;
-                assumeNotNull(view);
+                pendingStep(view + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -87,11 +80,8 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                System.out.println(view
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                view = null;
-                assumeNotNull(view);
+                pendingStep(view + " is not defined within " + getMethodName());
+
         }
     }
 

@@ -23,6 +23,8 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 // Workstacks page link under homepage.java as workstacksLink
@@ -108,11 +110,8 @@ public class WorkstacksStepDefs {
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
             default:
-                System.out.println(caseReferenceType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseReferenceType = null;
-                assumeNotNull(caseReferenceType);
+                pendingStep(caseReferenceType + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -127,11 +126,8 @@ public class WorkstacksStepDefs {
                 workstacks.clickTROFilterCard();
                 break;
             default:
-                System.out.println(caseTypeCard
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseTypeCard = null;
-                assumeNotNull(caseTypeCard);
+                pendingStep(caseTypeCard + " is not defined within " + getMethodName());
+
         }
     }
 
@@ -161,11 +157,8 @@ public class WorkstacksStepDefs {
                 workstacks.selectWorkstackFilter.sendKeys(currentStage);
                 break;
             default:
-                System.out.println(currentStage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                currentStage = null;
-                assumeNotNull(currentStage);
+                pendingStep(currentStage + " is not defined within " + getMethodName());
+
         }
     }
 

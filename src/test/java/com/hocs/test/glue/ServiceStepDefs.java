@@ -9,6 +9,8 @@ import com.hocs.test.api.workflowService.WorkflowService;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class ServiceStepDefs {
 
     private ApiHelper apiHelper;
@@ -25,11 +27,8 @@ public class ServiceStepDefs {
                 apiHelper.setupApiHelper("WORKFLOW");
                 break;
             default:
-                System.out.println(service
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                service = null;
-                assumeNotNull(service);
+                pendingStep(service + " is not defined within " + getMethodName());
+
         }
     }
 

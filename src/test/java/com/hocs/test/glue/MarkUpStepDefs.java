@@ -17,6 +17,8 @@ import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class MarkUpStepDefs {
 
     Homepage homepage;
@@ -111,11 +113,8 @@ public class MarkUpStepDefs {
             case "SECONDARY":
                 break;
             default:
-                System.out.println(ordinal
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                ordinal = null;
-                assumeNotNull(ordinal);
+                pendingStep(ordinal + " is not defined within " + getMethodName());
+
         }
     }
 
