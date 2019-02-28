@@ -16,6 +16,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class DraftResponseStepDefs {
 
     Page page;
@@ -125,8 +127,8 @@ public class DraftResponseStepDefs {
 
     @Then("^an error message should be displayed as I have not selected a document type and added a document$")
     public void assertThatAddDocumentErrorMessagesAreShown() {
-       addDocuments.assertDocumentTypeIsRequiredErrorMessage();
-       addDocuments.assertDocumentIsRequiedErrorMessage();
+        addDocuments.assertDocumentTypeIsRequiredErrorMessage();
+        addDocuments.assertDocumentIsRequiedErrorMessage();
     }
 
     @When("^I click the continue button on the do you want QA this offline screen$")
@@ -150,7 +152,7 @@ public class DraftResponseStepDefs {
     }
 
     @When("^I click the finish button on the who has done the offline QA screen$")
-    public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen(){
+    public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen() {
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickLetterReplyRadioButton();
@@ -166,7 +168,7 @@ public class DraftResponseStepDefs {
     }
 
     @Then("^an error message should be displayed as I have not selected the user that did the offline QA$")
-    public void assertThatWhoHasDoneTheOfflineQAErrorMessageIsShown(){
+    public void assertThatWhoHasDoneTheOfflineQAErrorMessageIsShown() {
         draft.assertWhoHasDoneOfflineQAErrorMessage();
     }
 
@@ -272,7 +274,7 @@ public class DraftResponseStepDefs {
     }
 
     @When("^I \"([^\"]*)\" the call details$")
-    public void iTheCallDetails(String callDetails)  {
+    public void iTheCallDetails(String callDetails) {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draftingTeamDecision.enterPhoneCallSummaryNote();
@@ -288,7 +290,7 @@ public class DraftResponseStepDefs {
 
     @Then("^the case should be moved to the \"([^\"]*)\" stage$")
     public void assertCaseReturnedToStage(String stage) {
-        switch (stage.toUpperCase()){
+        switch (stage.toUpperCase()) {
             case "DATA INPUT":
                 homepage.selectPerformanceProcessTeam();
                 break;
@@ -296,8 +298,8 @@ public class DraftResponseStepDefs {
                 homepage.selectCentralDraftingTeam();
                 break;
             case "INITIAL DRAFT":
-                 homepage.selectAnimalsInScienceTeam();
-                 break;
+                homepage.selectAnimalsInScienceTeam();
+                break;
             case "QA RESPONSE":
                 homepage.selectPerformanceProcessTeam();
                 break;
@@ -314,6 +316,6 @@ public class DraftResponseStepDefs {
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
-       teamqueue.assertCaseStage(stage);
+        teamqueue.assertCaseStage(stage);
     }
 }

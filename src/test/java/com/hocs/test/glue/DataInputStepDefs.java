@@ -14,6 +14,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class DataInputStepDefs {
 
     @Steps(shared = true)
@@ -171,7 +173,6 @@ public class DataInputStepDefs {
         workstacks.clickAllocateToMeButton();
         dataInput.clickContinueButton();
     }
-
 
 
     @When("^I click the finish button on the which is the primary correspondent screen$")

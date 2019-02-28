@@ -16,6 +16,8 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class WorkstacksStepDefs {
@@ -112,11 +114,8 @@ public class WorkstacksStepDefs {
                 workstacks.clickTROFilterCard();
                 break;
             default:
-                System.out.println(caseTypeCard
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseTypeCard = null;
-                assumeNotNull(caseTypeCard);
+                pendingStep(caseTypeCard + " is not defined within " + getMethodName());
+
         }
     }
 

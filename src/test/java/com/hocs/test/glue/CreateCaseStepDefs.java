@@ -245,7 +245,7 @@ public class CreateCaseStepDefs {
 
     }
 
-        @When("^they select the case type")
+    @When("^they select the case type")
     public void userClicksCaseRadioButtonAndClicksNextButton() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
