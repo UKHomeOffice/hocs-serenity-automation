@@ -227,6 +227,18 @@ public class DataInputStepDefs {
 
     }
 
+    @When("^I click the add button when creating a case note$")
+    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
+        workstacks.clickCaseTimelineTab();
+        workstacks.clickAddCaseNoteButton();
+        workstacks.clickAddButton();
+    }
+
+    @Then("^an error message should be displayed as I have not added any text into the case note text box$")
+    public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
+        workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
+    }
+
     @Then("^an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
         dataInput.assertCorrespondentFullNameErrorMessage();

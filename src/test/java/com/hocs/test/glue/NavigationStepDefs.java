@@ -37,7 +37,7 @@ public class NavigationStepDefs {
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
-    @Given("^the current user navigates to the \"([^\"]*)\" page$")
+    @When("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":
@@ -67,7 +67,7 @@ public class NavigationStepDefs {
         }
     }
 
-    @When("^The current user navigates to the \"([^\"]*)\" team page$")
+    @When("^I navigate to the \"([^\"]*)\" team page$")
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":

@@ -27,15 +27,14 @@ public class Homepage extends Page {
     SuccessfulCaseCreation successfulCaseCreation;
 
 
-
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
 
     @FindBy(xpath = "//a[text()='Add Standard Line")
     public WebElementFacade addStandardLine;
 
-    @FindBy(linkText = "Correspondence System")
-    public WebElementFacade home;
+    @FindBy(xpath = "//h2[text()='My Cases']")
+    public WebElementFacade homePageMyCasesAssertion;
 
     @FindBy(xpath = "//span[text()='Performance and Process Team']")
     public WebElementFacade performanceProcessTeam;
@@ -100,7 +99,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
-
     // Basic Methods
 
     public void waitForPerformanceProcessTeam() {
@@ -113,10 +111,6 @@ public class Homepage extends Page {
 
     public void selectMyCases() {
         myCases.click();
-    }
-
-    public void goHome() {
-        home.click();
     }
 
     public void selectPerformanceProcessTeam() {
@@ -214,7 +208,6 @@ public class Homepage extends Page {
 
     }
 
-
     // Assertions
 
     public void assertCaseIsComplete() {
@@ -249,7 +242,7 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
-    public void clickMyWorkstack () {
+    public void clickMyWorkstack() {
         myWorkstacks.click();
     }
 
@@ -266,7 +259,7 @@ public class Homepage extends Page {
     }
 
     public void assertPageTitle() {
-        assertTitle("Main");
+        assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
     }
 
 }
