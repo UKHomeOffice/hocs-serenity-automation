@@ -33,3 +33,8 @@ Feature: QA Case #this test can be reused for both the private office and minist
     Scenario: User must enter their feedback for the a disapproved QA response in the text box
       And I click the finish button on the QA response feedback screen
       Then an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response
+
+    @Validation
+    Scenario: User must enter text in the text box when creating a Case note at the QA Response stage
+      And I click the add button when creating a case note
+      Then an error message should be displayed as I have not added any text into the case note text box

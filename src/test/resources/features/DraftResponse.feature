@@ -87,3 +87,8 @@ Feature: HOCS User is able to draft a response
   Scenario: User must select the user that has done the Offline QA from the drop down at the Draft stage
     And I click the finish button on the who has done the offline QA screen
     Then an error message should be displayed as I have not selected the user that did the offline QA
+
+  @Validation
+  Scenario: User must enter text in the text box when creating a Case note at the Draft stage
+    And I click the add button when creating a case note
+    Then an error message should be displayed as I have not added any text into the case note text box

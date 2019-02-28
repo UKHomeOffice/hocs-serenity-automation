@@ -20,6 +20,8 @@ public class SuccessfulCaseCreation extends Page {
 
     WebDriver driver;
 
+    Page page;
+
     @FindBy(className = "govuk-panel--confirmation")
     private WebElementFacade confirmationPanel;
 
@@ -70,7 +72,8 @@ public class SuccessfulCaseCreation extends Page {
     public void selectCaseReferenceNumberViaXpath() {
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
-        waitFor(referenceElement).waitUntilClickable();
+        page.javascriptScrollToElem(referenceElement);
+//        waitFor(referenceElement).waitUntilClickable();
         //sleep(500);
         System.out.println(referenceElement);
         referenceElement.click();

@@ -8,6 +8,7 @@ import static junit.framework.TestCase.fail;
 import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -21,6 +22,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 // Workstacks page link under homepage.java as workstacksLink
@@ -44,8 +46,12 @@ public class WorkstacksStepDefs {
 
     Workstacks workstacks;
 
-    @When("^the current user allocates the case to themself$")
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    @When("^I allocate the case to myself")
     public void allocateToMe() {
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
         homepage.goHome();
     }
@@ -55,34 +61,40 @@ public class WorkstacksStepDefs {
         workstacks.clickAllocateToMeButton();
     }
 
-    @When("^they unallocate the case from themself")
+    @When("^I unallocate the case from myself")
     public void unallocateCase() {
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
         homepage.selectMyCases();
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickUnallocateCasesButton();
 
     }
 
-    @When("^they select the check box against the case$")
-    public void selectCaseCheckbox() {
-        homepage.firstStageFindMyCase();
+    @When("^I select the check box against a case and allocate it to myself$")
+    public void allocateCaseUsingCheckbox() {
+        homepage.selectPerformanceProcessTeam();
         workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.clickAllocatedSelectedToMeButton();
+        workstacks.goHome();
     }
 
 
-    @Then("^The case is added to the current user's cases$")
+    @Then("^the case should be added to my workstack$")
     public void assertThatCaseIsAllocatedToMe() {
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @Then("^The case is not visible in the user's cases$")
+    @Then("^the case should not be visible in my workstack$")
     public void assertThatCaseHasBeenUnallocatedFromMe() {
         workstacks.assertCaseReferenceIsNotVisible();
 
     }
 
-    @When("^They enter Case Reference type \"([^\"]*)\" into the filter$")
+    @When("^I enter the Case Reference type \"([^\"]*)\" into the filter$")
     public void enterCaseReferenceType(String caseReferenceType) {
         workstacks.selectWorkstackFilter.click();
         switch (caseReferenceType.toUpperCase()) {
@@ -95,16 +107,36 @@ public class WorkstacksStepDefs {
             case "TRO":
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
-            default: System.out.println(caseReferenceType
-                    + " is not defined within " + getClass().getSimpleName()
-                    + " class, " + getMethodName() + " method");
+            default:
+                System.out.println(caseReferenceType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
                 caseReferenceType = null;
                 assumeNotNull(caseReferenceType);
         }
     }
 
-    @When("^They enter Current Stage \"([^\"]*)\" into the filter$")
-    public void enterCurrentStage (String currentStage) {
+    @When("^I click the \"([^\"]*)\" case type filter card$")
+    public void clickCaseTypeFilterCard(String caseTypeCard) {
+        homepage.selectPerformanceProcessTeam();
+        switch (caseTypeCard.toUpperCase()) {
+            case "MIN":
+                workstacks.clickMINFilterCard();
+                break;
+            case "TRO":
+                workstacks.clickTROFilterCard();
+                break;
+            default:
+                System.out.println(caseTypeCard
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseTypeCard = null;
+                assumeNotNull(caseTypeCard);
+        }
+    }
+
+    @When("^I enter the Current Stage \"([^\"]*)\" into the filter$")
+    public void enterCurrentStage(String currentStage) {
         workstacks.selectWorkstackFilter.click();
         switch (currentStage.toUpperCase()) {
             case "DATA INPUT":
@@ -128,21 +160,55 @@ public class WorkstacksStepDefs {
             case "DISPATCH":
                 workstacks.selectWorkstackFilter.sendKeys(currentStage);
                 break;
-            default: System.out.println(currentStage
-                    + " is not defined within " + getClass().getSimpleName()
-                    + " class, " + getMethodName() + " method");
+            default:
+                System.out.println(currentStage
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
                 currentStage = null;
                 assumeNotNull(currentStage);
         }
     }
 
-    @Then("^The cases should be filtered by the \"([^\"]*)\" Case Reference$")
-    public void assertCasesAreFilteredByCaseReference(String caseReference){
+    @When("^I click the dashboard breadcrumb$")
+    public void clickDashboardBreadcrumbOnTeamWorkstack() {
+        workstacks.dashboardBreadcrumb.click();
+    }
+
+    @Then("^I should be taken back to the homepage$")
+    public void assertThatDashboardBreadcrumbTakesUserToHomepage() {
+        homepage.assertPageTitle();
+    }
+
+    @When("^I click the team breadcrumb$")
+    public void clickTeamBreadcrumbOnTeamWorkstack() {
+        workstacks.clickMINFilterCard();
+        workstacks.clickTeamBreadcrumb();
+    }
+
+    @Then("^I should be taken to the team page of the team workstack$")
+    public void assertThatTeamBreadcrumbTakesUserToTeamPage() {
+        workstacks.assertThatDCUMinFilterCardIsVisible();
+    }
+
+    @When("^I click the workflow breadcrumb$")
+    public void clickWorkflowBreadcrumbOnTeamWorkstack() {
+        workstacks.clickMINFilterCard();
+        workstacks.clickDataInputFilterCard();
+        workstacks.clickWorkflowBreadcrumb();
+    }
+
+    @Then("^I should be taken to workflow page of the team workstack$")
+    public void assertThatWorkflowBreadcrumbTakesUserToWorkflowPage() {
+        workstacks.assertThatDataInputFilterCardIsVisible();
+    }
+
+    @Then("^the cases should be filtered by the \"([^\"]*)\" Case Reference$")
+    public void assertCasesAreFilteredByCaseReference(String caseReference) {
         workstacks.assertCasesAreFilteredByRef(caseReference);
     }
 
-    @Then("^The cases should be filtered by the \"([^\"]*)\" Current Stage")
-    public void assertCasesAreFilteredByCurrentStage(String currentStage){
+    @Then("^the cases should be filtered by the \"([^\"]*)\" Current Stage")
+    public void assertCasesAreFilteredByCurrentStage(String currentStage) {
         workstacks.assertCasesAreFilteredByStage(currentStage);
 
     }

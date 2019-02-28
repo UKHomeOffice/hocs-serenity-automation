@@ -5,7 +5,10 @@ Feature: HOCS User is able to login
 
   @Login @critical
   Scenario: I can login to the Home Office Correspondence System
-    When I enter my username "EAMON DROKO" in the username field
-    And I enter my password "EAMON PASS" in the password field
-    And Select the login button
-    Then I will hit the Home Page
+    When I enter my login credentials "EAMON DROKO" and click the login button
+    Then I should be taken to the homepage
+
+  @Validation
+  Scenario: User must enter valid login credentials on the login screen
+    When I enter invalid login credentials on the login screen
+    Then an error message should be displayed as the credentials are invalid

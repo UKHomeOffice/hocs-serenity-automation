@@ -78,29 +78,35 @@ public class LoginStepDefs {
     }
 
 
-    @When("^I enter my username \"([^\"]*)\" in the username field$")
-    public void enterUsername(String username) {
-        setSessionVariable("username").to(username);
-        switch (username) {
+    @When("^I enter my login credentials \"([^\"]*)\" and click the login button$")
+    public void enterCredentialsAndClickLogin(String credentials) {
+        setSessionVariable("credentials").to(credentials);
+        switch (credentials) {
             case "DANNY LARGE":
                 enterHocsUsername(DANNYLARGE);
+                enterHocsPassword(DANNYPASS);
                 break;
             case "DCU":
                 enterHocsUsername(DCUSER);
+                enterHocsPassword(DCUPASS);
                 break;
             case "TESTER":
                 enterHocsUsername(TESTER);
+                enterHocsPassword(TESTERPASS);
                 break;
             case "EAMON DROKO":
                 enterHocsUsername(EAMONDROKO);
+                enterHocsPassword(EAMONPASS);
                 break;
             default:
-                System.out.println(username
+                System.out.println(credentials
                         + " is not defined within " + getClass().getSimpleName()
                         + " class, " + getMethodName() + " method");
-                username = null;
-                assumeNotNull(username);
+                credentials = null;
+                assumeNotNull(credentials);
         }
+
+        loginPage.clickContinueButton();
     }
 
     @And("^I enter my password \"([^\"]*)\" in the password field$")
@@ -128,14 +134,27 @@ public class LoginStepDefs {
         }
     }
 
+    @When("^I enter invalid login credentials on the login screen$")
+    public void enterInvalidLoginCredentials() {
+        enterHocsLoginDetails(FAKE);
+        homepage.clickContinueButton();
+    }
+
+    @Then("^an error message should be displayed as the credentials are invalid$")
+    public void assertThatInvalidCredentialsErrorMessageIsShown() {
+        loginPage.assertLoginErrorMessage();
+    }
+
+
     @And("^Select the login button$")
     public void selectLoginButton() {
         loginPage.clickContinueButton();
     }
 
-    @Then("^I will hit the Home Page$")
+    @Then("^I should be taken to the homepage$")
     public void assertHomePage() {
-        homepage.assertCreateSingleCaseIsDisplayed();
+        homepage.sleep(500);
+        homepage.assertPageTitle();
     }
 
     private void enterHocsLoginDetails(Users user) {
