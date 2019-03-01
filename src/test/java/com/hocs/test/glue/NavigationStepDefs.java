@@ -111,6 +111,9 @@ public class NavigationStepDefs {
                 break;
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
+//            case "SEARCH":
+//                homepage.selectSearchPage;
+//                break;
             default:
                 pendingStep(onHocsPage + " is not defined within " + getMethodName());
 
