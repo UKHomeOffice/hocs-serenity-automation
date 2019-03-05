@@ -21,6 +21,7 @@ import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
+import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.openhtmltopdf.css.parser.property.PrimitivePropertyBuilders.Top;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;

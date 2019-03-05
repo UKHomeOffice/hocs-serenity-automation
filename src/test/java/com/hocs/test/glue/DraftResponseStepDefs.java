@@ -49,43 +49,6 @@ public class DraftResponseStepDefs {
         qa.dontQAOffline();
     }
 
-//    @When("^Initial draft stage \"([^\"]*)\"$")
-//    public void completeInitialDraftStage(String caseType) {
-//        switch (caseType.toUpperCase()){
-//            case "DCU MIN":
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.acceptAndDraftALetter();
-//                draftingTeamDecision.uploadDraftResponse();
-//                qa.dontQAOffline();
-//                break;
-//            case "DCU N10":
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.clickAcceptInitialDraftDecision();
-//                draft.clickContinueButton();
-//                draftingTeamDecision.uploadDraftResponse();
-//                qa.dontQAOffline();
-//                break;
-//            case "DCU TRO":  //does not have offline QA option available
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.acceptAndDraftALetter();
-//                draftingTeamDecision.uploadDraftResponse();
-//                draft.clickContinueButton();
-//                break;
-//            default:
-//                System.out.println(caseType
-//                        + " is not defined within " + getClass().getSimpleName()
-//                        + " class, " + getMethodName() + " method");
-//                caseType = null;
-//                assumeNotNull(caseType);
-//        }
-//    }
-
     @When("^I click the continue button on the correspondence answer screen$")
     public void clickContinueButtonOnCorrespondenceAnswerScreen() {
         draft.clickContinueButton();

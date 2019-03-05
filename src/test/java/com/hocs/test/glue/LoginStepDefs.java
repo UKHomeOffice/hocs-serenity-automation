@@ -170,8 +170,10 @@ public class LoginStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
+                case "DEMO" :
+                    baseUrl = Environments.DEMO.getEnvironmentURL();
                 default:
-                    fail("Environment must be set to LOCAL, DEV or QA");
+                    fail("Environment must be set to LOCAL, DEV, DEMO or QA");
             }
         }
         driver.get(baseUrl);

@@ -23,9 +23,6 @@ import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-// Workstacks page link under homepage.java as workstacksLink
-
-
 public class WorkstacksStepDefs {
 
     @Managed

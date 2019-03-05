@@ -716,4 +716,8 @@ public class Page extends PageObject {
         assertThat(isElementDisplayed(element), is(false));
     }
 
+    public void assertElementTextIs(WebElementFacade elem, String thisElementsText) {
+        System.out.println(thisElementsText);
+        assertThat(elem.getValue(), is(thisElementsText));
+    }
 }

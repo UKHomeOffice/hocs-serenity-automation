@@ -13,9 +13,7 @@ Feature: HOCS is able to move cases through the entire flow
       | DCU TRO |
       | DCU N10 |
 
-
-
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @CaseBuilder
   Scenario Outline: Case moves to Markup stage
     When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
@@ -23,8 +21,8 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+#      | DCU TRO |
+#      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Initial Draft stage

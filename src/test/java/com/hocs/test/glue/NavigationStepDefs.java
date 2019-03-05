@@ -170,6 +170,8 @@ public class NavigationStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
+                case "DEMO" :
+                    baseUrl = Environments.DEMO.getEnvironmentURL();
                 default:
                     TestCase.fail("Environment must be set to LOCAL, DEV or QA");
             }

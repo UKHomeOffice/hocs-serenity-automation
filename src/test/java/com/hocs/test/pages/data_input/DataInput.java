@@ -137,12 +137,13 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-       // homepage.selectPerformanceProcessTeam();
+        homepage.waitForPerformanceProcessTeam();
+        homepage.selectPerformanceProcessTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+       // homepage.goHome();
+       // homepage.selectMyCases();
+       // successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         fillAllMandatoryFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();

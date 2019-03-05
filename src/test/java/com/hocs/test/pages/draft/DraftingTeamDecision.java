@@ -63,4 +63,16 @@ public class DraftingTeamDecision extends Page {
         draft.clickAddButton();
     }
 
+    public void initialDraftFullFlow() {
+        homepage.selectAnimalsInScienceTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.dontQAOffline();
+    }
+
 }

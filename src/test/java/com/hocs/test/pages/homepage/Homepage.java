@@ -63,6 +63,23 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Central Drafting Team']")
     public WebElementFacade centralDraftingTeam;
 
+    @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
+    public WebElementFacade policeWorkforceProfessionalismUnit;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Policing and Fire Service']")
+    public WebElementFacade ministerOfStateForPolicingAndFireServiceTeam;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Security and Economic Crime']")
+    public WebElementFacade ministerOfStateForSecurityAndEconomicCrime;
+
+    @FindBy(xpath = "//span[text()='Public Protection Unit']")
+    public WebElementFacade publicProtectionUnit;
+
+    @FindBy(xpath = "//span[text()='Counter Extremism Unit']")
+    public WebElementFacade counterExtremismUnit;
+
+    @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
+    public WebElementFacade extremismAnalysisUnit;
 
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     private WebElementFacade createBulkCases;
@@ -82,6 +99,14 @@ public class Homepage extends Page {
 
     // Basic Methods
 
+    public void waitForPerformanceProcessTeam() {
+        performanceProcessTeam.waitUntilEnabled();
+    }
+
+    public void waitForMyCases() {
+        myCases.waitUntilEnabled();
+    }
+
     public void selectMyCases() {
         myCases.click();
     }
@@ -92,6 +117,14 @@ public class Homepage extends Page {
 
     public void selectPerformanceProcessTeam() {
         performanceProcessTeam.click();
+    }
+
+    public void selectPublicProtectionUnit() {
+        publicProtectionUnit.click();
+    }
+
+    public void waitForProcessTeam() {
+        performanceProcessTeam.waitUntilVisible();
     }
 
     public void selectTransfersN10Team() {
@@ -114,6 +147,15 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
+    public void selectPoliceWorkforceProfessionalismTeam() { policeWorkforceProfessionalismUnit.click(); }
+
+    public void selectMinisterOfStatePolicingFireTeam() { ministerOfStateForPolicingAndFireServiceTeam.click(); }
+
+    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {ministerOfStateForSecurityAndEconomicCrime.click(); }
+
+    public void selectExtremismAnalysisUnit() {extremismAnalysisUnit.click(); }
+
+    public void selectCounterExtremismUnit() { counterExtremismUnit.click(); }
 
 //    public void selectAllocationUserByVisibleText(String allocationUser) {
 //        allocateDropdown.selectByVisibleText(allocationUser);

@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
@@ -32,6 +33,8 @@ public class CreateCaseStepDefs {
     Homepage homepage;
 
     MarkUpDecision markUpDecision;
+
+    Topics topics;
 
     Page page;
 
@@ -86,8 +89,22 @@ public class CreateCaseStepDefs {
         page.sleep(500);
     }
 
-    @When("^I create a case with <Topic>$")
-    public void aCaseWithSpecificTopicIsCreated() {
+    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\"$")
+    public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                setSessionVariable("caseType").to(caseType);
+                dataInput.dataInputFullFlow();
+                topics.fromMarkupStartSelectATopic(topic);
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
     }
 
     @When("^I create a case with a <Primary Correspondent>$")
