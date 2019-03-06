@@ -40,8 +40,16 @@ public class Topics extends Page {
     @FindBy(id = "OverridePOTeamUUID")
     public WebElementFacade overridePrivateOfficeTeamDropdown;
 
+    @FindBy(xpath = "//label")
+    public WebElementFacade assignedTopic;
+
 
     // Basic Methods
+
+    public String getPrimaryTopicText() {
+        String thisTopic = assignedTopic.getText();
+        return thisTopic;
+    }
 
     public void clickAddTopicButton() {
         addTopicButton.click();
@@ -69,6 +77,15 @@ public class Topics extends Page {
         clickContinueButton();
     }
 
+    public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
+        clickAddTopicButton();
+        clickTopicsTextField();
+        focusedTopicsTextField.sendKeys(topic);
+        sleep(1000);
+        hitReturnToSendTopic();
+        clickAddButton();
+    }
+
     // Multi Step Methods
 
     public void enterRealTopic() {
@@ -88,6 +105,18 @@ public class Topics extends Page {
         markUpDecision.clickPolicyResponseRadioButton();
         clickContinueButton();
         enterATopic(topic);
+    }
+
+    public void fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage (String topic) {
+        homepage.selectCentralDraftingTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        markUpDecision.clickPolicyResponseRadioButton();
+        clickContinueButton();
+        enterATopicWithoutContinuingToTheDraftStage(topic);
     }
 
 

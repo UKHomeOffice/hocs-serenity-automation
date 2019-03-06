@@ -720,4 +720,9 @@ public class Page extends PageObject {
         System.out.println(thisElementsText);
         assertThat(elem.getValue(), is(thisElementsText));
     }
+
+    public void assertElementTextNotValue(WebElementFacade elem, String thisElementsText) {
+        System.out.println(thisElementsText);
+        assertThat(elem.getText(), is(thisElementsText));
+    }
 }

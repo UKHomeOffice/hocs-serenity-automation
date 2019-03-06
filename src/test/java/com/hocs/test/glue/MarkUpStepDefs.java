@@ -103,6 +103,7 @@ public class MarkUpStepDefs {
                 setSessionVariable("draftTeam").to(topics.autoAssignedDraftTeam.getValue());
                 page.clickFinishButton();
                 draftingTeamDecision.initialDraftFullFlow();
+                qaResponse.qaResponseFullFlow();
                 break;
             default:
                 pendingStep(defaultTeam + " is not defined within " + getMethodName());
@@ -246,8 +247,43 @@ public class MarkUpStepDefs {
                 //homepage.selectUnderSecretaryStateCrimeSafeguarding();
                 //workstacks.assertCaseReferenceIsVisible();
                 break;
+            case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT" :
+                homepage.selectCounterTerrorismLegislationInvestigatoryPowersUnit();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "PRESS OFFICE" :
+                homepage.selectPressOffice();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "FINANCE" :
+                homepage.selectFinanceTeam();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES" :
+                homepage.selectChemBioRadioNuclearExplosivesTeam();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "MINISTER OF STATE FOR IMMIGRATION" :
+                homepage.selectImmigrationMinisterTeam();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME" :
+                homepage.selectMinisterOfStateForSecurityEconomicCrimeTeam();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
+            case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE" :
+                homepage.selectMinisterOfStatePolicingFireTeam();
+                workstacks.assertCaseReferenceIsVisible();
+                break;
             default:
                 pendingStep(team + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("^the \"([^\"]*)\" should be assigned to the case$")
+    public void assertTopicIsAssignedToTheCase(String topic) {
+        String thisText = topics.assignedTopic.getText();
+        System.out.println(thisText);
+        topics.assertElementTextNotValue(topics.assignedTopic, topic);
     }
 }

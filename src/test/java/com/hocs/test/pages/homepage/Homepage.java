@@ -81,6 +81,18 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
     public WebElementFacade extremismAnalysisUnit;
 
+    @FindBy(xpath = "//span[text()='Counter-Terrorism Legislation and Investigatory Powers Unit']")
+    public WebElementFacade counterTerrorismLegislationInvestigatoryPowersUnit;
+
+    @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
+    public WebElementFacade chemBioRadioNuclearExplosives;
+
+    @FindBy(xpath = "//span[text()='Press Office']")
+    public WebElementFacade pressOffice;
+
+    @FindBy(xpath = "//span[text()='Finance']")
+    public WebElementFacade financeTeam;
+
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     private WebElementFacade createBulkCases;
 
@@ -156,6 +168,22 @@ public class Homepage extends Page {
     public void selectExtremismAnalysisUnit() {extremismAnalysisUnit.click(); }
 
     public void selectCounterExtremismUnit() { counterExtremismUnit.click(); }
+
+    public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
+        counterTerrorismLegislationInvestigatoryPowersUnit.click();
+    }
+
+    public void selectPressOffice() {
+        pressOffice.click();
+    }
+
+    public void selectFinanceTeam() {
+        financeTeam.click();
+    }
+
+    public void selectChemBioRadioNuclearExplosivesTeam() {
+        chemBioRadioNuclearExplosives.click();
+    }
 
 //    public void selectAllocationUserByVisibleText(String allocationUser) {
 //        allocateDropdown.selectByVisibleText(allocationUser);

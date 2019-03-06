@@ -107,6 +107,24 @@ public class CreateCaseStepDefs {
         }
     }
 
+    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" and view the primary topics$")
+    public void aCaseWithSpecificTopic(String caseType, String topic) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                setSessionVariable("caseType").to(caseType);
+                dataInput.dataInputFullFlow();
+                topics.fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage(topic);
+                break;
+            default:
+                System.out.println(caseType
+                        + " is not defined within " + getClass().getSimpleName()
+                        + " class, " + getMethodName() + " method");
+                caseType = null;
+                assumeNotNull(caseType);
+        }
+    }
+
     @When("^I create a case with a <Primary Correspondent>$")
     public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {
     }

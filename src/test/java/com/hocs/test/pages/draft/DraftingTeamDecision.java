@@ -78,7 +78,7 @@ public class DraftingTeamDecision extends Page {
     }
 
     public void initialDraftFullFlow() {
-        sleep(1000);
+        sleep(3500);
         WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
                 + "']").get(0);
         thisDraftTeam.click();
