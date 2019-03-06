@@ -12,8 +12,8 @@ import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.draft.Draft;
-import com.hocs.test.glue.DraftResponseStepDefs;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
@@ -39,7 +39,7 @@ public class MarkUpStepDefs {
 
     Draft draft;
 
-    DraftResponseStepDefs draftResponseStepDefs;
+    DraftingTeamDecision draftingTeamDecision;
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
@@ -101,8 +101,8 @@ public class MarkUpStepDefs {
             case "PRIVATE OFFICE" :
                 topics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(topics.autoAssignedDraftTeam.getValue());
-                draftResponseStepDefs.initialDraftFullFlow();
                 page.clickFinishButton();
+                draftingTeamDecision.initialDraftFullFlow();
                 break;
             default:
                 pendingStep(defaultTeam + " is not defined within " + getMethodName());
