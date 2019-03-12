@@ -1,8 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
@@ -28,11 +27,7 @@ public class CaseDecisionStepDefs {
             case "REASON FOR NO REPLY NEEDED":
                 break;
             default:
-                System.out.println(textField
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                textField = null;
-                assumeNotNull(textField);
+                pendingStep(textField + " is not defined within " + getMethodName());
         }
     }
 
@@ -44,7 +39,7 @@ public class CaseDecisionStepDefs {
             case "POLICY RESPONSE":
                 break;
             default:
-                fail("Please select from FAQ or Policy Response");
+                pendingStep(caseDecision + " is not defined within " + getMethodName());
         }
 
     }
@@ -57,7 +52,7 @@ public class CaseDecisionStepDefs {
             case "POLICY RESPONSE":
                 break;
             default:
-                fail("Please select from FAQ or Policy Response");
+                pendingStep(caseDecision + " is not defined within " + getMethodName());
         }
 
     }
@@ -73,11 +68,7 @@ public class CaseDecisionStepDefs {
                 topics.assertTopicsTextFieldDisplayed();
                 break;
             default:
-                System.out.println(textField
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                textField = null;
-                assumeNotNull(textField);
+                pendingStep(textField + " is not defined within " + getMethodName());
         }
     }
 
@@ -96,7 +87,7 @@ public class CaseDecisionStepDefs {
             case "UNIT":
                 break;
             default:
-                fail("Please select from Minister, Team or Unit");
+                pendingStep(arg + " is not defined within " + getMethodName());
         }
 
     }
@@ -112,11 +103,7 @@ public class CaseDecisionStepDefs {
                 markUpDecision.clickNoReplyNeededRadioButton();
                 break;
             default:
-                System.out.println(status
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                status = null;
-                assumeNotNull(status);
+                pendingStep(status + " is not defined within " + getMethodName());
         }
         markUpDecision.clickContinueButton();
         markUpDecision.clickFinishButton();
@@ -133,7 +120,7 @@ public class CaseDecisionStepDefs {
             case "UNIT":
                 break;
             default:
-                fail("Please select from Minister, Team or Unit");
+                pendingStep(arg + " is not defined within " + getMethodName());
         }
 
     }
@@ -146,11 +133,7 @@ public class CaseDecisionStepDefs {
             case "DRAFTING TEAM":
                 break;
             default:
-                System.out.println(amendment
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                amendment = null;
-                assumeNotNull(amendment);
+                pendingStep(amendment + " is not defined within " + getMethodName());
         }
     }
 
@@ -164,7 +147,7 @@ public class CaseDecisionStepDefs {
                 markUpDecision.enterRejectionNotes();
                 break;
             default:
-                fail();
+                pendingStep(decision + " is not defined within " + getMethodName());
         }
 
     }
@@ -187,7 +170,7 @@ public class CaseDecisionStepDefs {
             case "TRANSFER TO OGD":
                 break;
             default:
-                fail();
+                pendingStep(decision + " is not defined within " + getMethodName());
         }
         markUpDecision.clickContinueButton();
     }
@@ -205,7 +188,7 @@ public class CaseDecisionStepDefs {
             case "SECONDARY":
                 break;
             default:
-                fail("Please enter PRIMARY or SECONDARY");
+                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
 
     }

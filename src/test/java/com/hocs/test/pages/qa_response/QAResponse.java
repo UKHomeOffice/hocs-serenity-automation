@@ -67,9 +67,6 @@ public class QAResponse extends Page{
         homepage.selectPerformanceProcessTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
-      //  homepage.goHome();
-      //  homepage.selectMyCases();
-      //  successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");
         clickContinueButton();

@@ -1,7 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
@@ -49,11 +49,7 @@ public class DataInputStepDefs {
                 homepage.selectPerformanceProcessTeam();
                 break;
             default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
         dataInput.dataInputFullFlow();
     }
@@ -111,11 +107,7 @@ public class DataInputStepDefs {
                 dataInputQADecision.rejectDataInputQa();
                 break;
             default:
-                System.out.println(decision
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                decision = null;
-                assumeNotNull(decision);
+                pendingStep(decision + " is not defined within " + getMethodName());
         }
         dataInput.clickFinishButton();
     }
@@ -141,11 +133,7 @@ public class DataInputStepDefs {
                 dataInput.clickNo10CorrespondenceChannelRadioButton();
                 break;
             default:
-                System.out.println(channel
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                channel = null;
-                assumeNotNull(channel);
+                pendingStep(channel + " is not defined within " + getMethodName());
         }
     }
 
@@ -157,11 +145,7 @@ public class DataInputStepDefs {
             case "IS NOT":
                 break;
             default:
-                System.out.println(member
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                member = null;
-                assumeNotNull(member);
+                pendingStep(member + " is not defined within " + getMethodName());
         }
 
     }

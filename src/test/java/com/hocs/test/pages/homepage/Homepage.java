@@ -1,31 +1,23 @@
 package com.hocs.test.pages.homepage;
 
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.teamqueue.Teamqueue;
-import com.hocs.test.pages.workstacks.Workstacks;
 import java.util.List;
 import java.util.Map;
-import jxl.read.biff.Record;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
@@ -204,24 +196,20 @@ public class Homepage extends Page {
             case "DCU MIN":
                 selectPerformanceProcessTeam();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             case "DCU TRO":
                 selectPerformanceProcessTeam();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             case "DCU N10":
                 selectTransfersN10Team();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             default:
-                System.out.println(thisCaseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                thisCaseType = null;
-                assumeNotNull(thisCaseType);
+                pendingStep(thisCaseType + " is not defined within " + getMethodName());
         }
 
     }

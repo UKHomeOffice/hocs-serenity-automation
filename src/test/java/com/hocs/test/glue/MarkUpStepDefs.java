@@ -3,7 +3,6 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
@@ -18,8 +17,6 @@ import com.hocs.test.pages.draft.Draft;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
 
 public class MarkUpStepDefs {
 
@@ -82,11 +79,7 @@ public class MarkUpStepDefs {
                 topics.enterATopic(topic);
                 break;
             default:
-                System.out.println(topic
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                topic = null;
-                assumeNotNull(topic);
+                pendingStep(topic + " is not defined within " + getMethodName());
         }
 
     }
@@ -158,11 +151,7 @@ public class MarkUpStepDefs {
             case "SECONDARY":
                 break;
             default:
-                System.out.println(ordinal
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                ordinal = null;
-                assumeNotNull(ordinal);
+                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
     }
 
@@ -182,11 +171,7 @@ public class MarkUpStepDefs {
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             default:
-                System.out.println(draftingTeam
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                draftingTeam = null;
-                assumeNotNull(draftingTeam);
+                pendingStep(draftingTeam + " is not defined within " + getMethodName());
         }
     }
 
@@ -201,6 +186,8 @@ public class MarkUpStepDefs {
                 topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
                 break;
+            default:
+                pendingStep(privateOfficeTeam + " is not defined within " + getMethodName());
         }
     }
 

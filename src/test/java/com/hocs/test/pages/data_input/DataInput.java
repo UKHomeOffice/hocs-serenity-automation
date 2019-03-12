@@ -3,7 +3,6 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.workstacks.Workstacks;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -137,13 +136,8 @@ public class DataInput extends Page {
     // Multi Step Methods
 
     public void dataInputFullFlow() {
-        homepage.waitForPerformanceProcessTeam();
-        homepage.selectPerformanceProcessTeam();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
-       // homepage.goHome();
-       // homepage.selectMyCases();
-       // successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         fillAllMandatoryFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();

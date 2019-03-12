@@ -2,7 +2,6 @@ package com.hocs.test.pages.markup;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import net.serenitybdd.core.annotations.findby.FindBy;

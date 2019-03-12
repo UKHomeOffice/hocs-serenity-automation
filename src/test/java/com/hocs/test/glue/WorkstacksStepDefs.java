@@ -1,34 +1,25 @@
 package com.hocs.test.glue;
 
-import static config.Users.*;
-import static config.Usernames.*;
-import static config.Passwords.*;
 import static jnr.posix.util.MethodName.getMethodName;
-import static junit.framework.TestCase.fail;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import config.*;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
+
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class WorkstacksStepDefs {
 
     @Managed
     private
     WebDriver driver; // set webdriver to var driver
-
 
     @Steps(shared = true)
     NavigationStepDefs navigationStepDefs;
@@ -92,11 +83,8 @@ public class WorkstacksStepDefs {
             case "TRO":
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
                 break;
-            default: System.out.println(caseReferenceType
-                    + " is not defined within " + getClass().getSimpleName()
-                    + " class, " + getMethodName() + " method");
-                caseReferenceType = null;
-                assumeNotNull(caseReferenceType);
+            default:
+                pendingStep(caseReferenceType + " is not defined within " + getMethodName());
         }
     }
 
@@ -125,11 +113,8 @@ public class WorkstacksStepDefs {
             case "DISPATCH":
                 workstacks.selectWorkstackFilter.sendKeys(currentStage);
                 break;
-            default: System.out.println(currentStage
-                    + " is not defined within " + getClass().getSimpleName()
-                    + " class, " + getMethodName() + " method");
-                currentStage = null;
-                assumeNotNull(currentStage);
+            default:
+                pendingStep(currentStage + " is not defined within " + getMethodName());
         }
     }
 

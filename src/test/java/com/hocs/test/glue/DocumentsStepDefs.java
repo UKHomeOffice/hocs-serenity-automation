@@ -1,8 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import cucumber.api.java.en.And;
@@ -23,11 +22,7 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                System.out.println(preview
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                preview = null;
-                assumeNotNull(preview);
+                pendingStep(preview + " is not defined within " + getMethodName());
         }
     }
 
@@ -41,11 +36,7 @@ public class DocumentsStepDefs {
             case "PREVIEWABLE":
                 break;
             default:
-                System.out.println(arg0
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                arg0 = null;
-                assumeNotNull(arg0);
+                pendingStep(arg0 + " is not defined within " + getMethodName());
         }
     }
 
@@ -69,11 +60,7 @@ public class DocumentsStepDefs {
                 page.associatedDocumentsIsNotDisplayed();
                 break;
             default:
-                System.out.println(view
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                view = null;
-                assumeNotNull(view);
+                pendingStep(view + " is not defined within " + getMethodName());
         }
     }
 
@@ -87,11 +74,7 @@ public class DocumentsStepDefs {
 
                 break;
             default:
-                System.out.println(view
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                view = null;
-                assumeNotNull(view);
+                pendingStep(view + " is not defined within " + getMethodName());
         }
     }
 

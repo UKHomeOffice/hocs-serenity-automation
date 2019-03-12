@@ -3,19 +3,11 @@ package com.hocs.test.pages.create_case;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkUpDecision;
-import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class CreateCase extends Page {
 

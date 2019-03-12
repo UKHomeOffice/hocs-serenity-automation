@@ -16,7 +16,7 @@ import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import org.openqa.selenium.WebDriver;
 
@@ -63,11 +63,7 @@ public class NavigationStepDefs {
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
             default:
-                System.out.println(hocsPage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                hocsPage = null;
-                assumeNotNull(hocsPage);
+                pendingStep(hocsPage + " is not defined within " + getMethodName());
         }
     }
 
@@ -81,11 +77,7 @@ public class NavigationStepDefs {
                 homepage.selectTransfersN10Team();
                 break;
             default:
-                System.out.println(teamPage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                teamPage = null;
-                assumeNotNull(teamPage);
+                pendingStep(teamPage + " is not defined within " + getMethodName());
         }
 
     }
@@ -117,11 +109,7 @@ public class NavigationStepDefs {
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
             default:
-                System.out.println(onHocsPage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method.");
-                onHocsPage = null;
-                assumeNotNull(onHocsPage);
+                pendingStep(onHocsPage + " is not defined within " + getMethodName());
         }
     }
 
@@ -143,11 +131,7 @@ public class NavigationStepDefs {
                 dataInput.assertPageTitle();
                 break;
             default:
-                System.out.println(pageName
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                pageName = null;
-                assumeNotNull(pageName);
+                pendingStep(pageName + " is not defined within " + getMethodName());
         }
         System.out.println("I have been taken to " + pageName);
     }

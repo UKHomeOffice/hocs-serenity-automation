@@ -72,6 +72,7 @@ public class SuccessfulCaseCreation extends Page {
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
         sleep(500);
+        javascriptScrollToElem(referenceElement);
         System.out.println(referenceElement);
         referenceElement.click();
     }
@@ -86,14 +87,14 @@ public class SuccessfulCaseCreation extends Page {
         referenceElement.click();
     }
 
-    public void selectCaseReferenceNumberViaLinkTextAndStoreResultingElement(){
-        String caseReferenceNumber
-                = sessionVariableCalled("caseReference").toString();
-        System.out.println(caseReferenceNumber);
-        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
-        System.out.println(thisReference);
-        setSessionVariable("assertCase").to(thisReference);
-        thisReference.click();
-        thisReference.click();
+    public void selectCaseReferenceNumberViaXpathStoreResultingElement(){
+        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
+                + "']").get(0);
+        waitFor(referenceElement).waitUntilClickable();
+        sleep(500);
+        javascriptScrollToElem(referenceElement);
+        System.out.println(referenceElement);
+        setSessionVariable("assertCase").to(referenceElement);
+        referenceElement.click();
     }
 }

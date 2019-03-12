@@ -6,13 +6,10 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import junit.framework.TestCase;
 import net.thucydides.core.annotations.Managed;
 
-import org.jruby.RubyProcess.Sys;
 import org.openqa.selenium.WebDriver;
 
 
