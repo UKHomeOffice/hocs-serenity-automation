@@ -1,15 +1,28 @@
 package com.hocs.test.pages.draft;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.create_case.AddDocuments;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class DraftingTeamDecision extends Page {
 
     Draft draft;
 
     AddDocuments addDocuments;
+
+    Homepage homepage;
+
+    Workstacks workstacks;
+
+    Qa qa;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
     private WebElementFacade initialDraftingDecisionAccept;
@@ -61,6 +74,21 @@ public class DraftingTeamDecision extends Page {
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
         draft.clickAddButton();
+    }
+
+    public void initialDraftFullFlow() {
+        sleep(3500);
+        WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
+                + "']").get(0);
+        thisDraftTeam.click();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.dontQAOffline();
     }
 
 }

@@ -9,11 +9,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static org.junit.Assume.assumeNotNull;
 
 public class Workstacks extends Page {
 
@@ -104,11 +104,8 @@ public class Workstacks extends Page {
                 case "QA RESPONSE" :
                     qaResponseCount++;
                     break;
-                default: System.out.println(elementText
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                    elementText = null;
-                    assumeNotNull(elementText);
+                default:
+                    pendingStep(elementText + " is not defined within " + getMethodName());
             }
         }
 

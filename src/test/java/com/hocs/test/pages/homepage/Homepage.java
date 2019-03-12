@@ -1,31 +1,23 @@
 package com.hocs.test.pages.homepage;
 
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assume.assumeNotNull;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.teamqueue.Teamqueue;
-import com.hocs.test.pages.workstacks.Workstacks;
 import java.util.List;
 import java.util.Map;
-import jxl.read.biff.Record;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class Homepage extends Page {
 
@@ -63,6 +55,35 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Central Drafting Team']")
     public WebElementFacade centralDraftingTeam;
 
+    @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
+    public WebElementFacade policeWorkforceProfessionalismUnit;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Policing and Fire Service']")
+    public WebElementFacade ministerOfStateForPolicingAndFireServiceTeam;
+
+    @FindBy(xpath = "//span[text()='Minister of State for Security and Economic Crime']")
+    public WebElementFacade ministerOfStateForSecurityAndEconomicCrime;
+
+    @FindBy(xpath = "//span[text()='Public Protection Unit']")
+    public WebElementFacade publicProtectionUnit;
+
+    @FindBy(xpath = "//span[text()='Counter Extremism Unit']")
+    public WebElementFacade counterExtremismUnit;
+
+    @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
+    public WebElementFacade extremismAnalysisUnit;
+
+    @FindBy(xpath = "//span[text()='Counter-Terrorism Legislation and Investigatory Powers Unit']")
+    public WebElementFacade counterTerrorismLegislationInvestigatoryPowersUnit;
+
+    @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
+    public WebElementFacade chemBioRadioNuclearExplosives;
+
+    @FindBy(xpath = "//span[text()='Press Office']")
+    public WebElementFacade pressOffice;
+
+    @FindBy(xpath = "//span[text()='Finance']")
+    public WebElementFacade financeTeam;
 
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     private WebElementFacade createBulkCases;
@@ -82,6 +103,14 @@ public class Homepage extends Page {
 
     // Basic Methods
 
+    public void waitForPerformanceProcessTeam() {
+        performanceProcessTeam.waitUntilEnabled();
+    }
+
+    public void waitForMyCases() {
+        myCases.waitUntilEnabled();
+    }
+
     public void selectMyCases() {
         myCases.click();
     }
@@ -92,6 +121,14 @@ public class Homepage extends Page {
 
     public void selectPerformanceProcessTeam() {
         performanceProcessTeam.click();
+    }
+
+    public void selectPublicProtectionUnit() {
+        publicProtectionUnit.click();
+    }
+
+    public void waitForProcessTeam() {
+        performanceProcessTeam.waitUntilVisible();
     }
 
     public void selectTransfersN10Team() {
@@ -114,6 +151,31 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
+    public void selectPoliceWorkforceProfessionalismTeam() { policeWorkforceProfessionalismUnit.click(); }
+
+    public void selectMinisterOfStatePolicingFireTeam() { ministerOfStateForPolicingAndFireServiceTeam.click(); }
+
+    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {ministerOfStateForSecurityAndEconomicCrime.click(); }
+
+    public void selectExtremismAnalysisUnit() {extremismAnalysisUnit.click(); }
+
+    public void selectCounterExtremismUnit() { counterExtremismUnit.click(); }
+
+    public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
+        counterTerrorismLegislationInvestigatoryPowersUnit.click();
+    }
+
+    public void selectPressOffice() {
+        pressOffice.click();
+    }
+
+    public void selectFinanceTeam() {
+        financeTeam.click();
+    }
+
+    public void selectChemBioRadioNuclearExplosivesTeam() {
+        chemBioRadioNuclearExplosives.click();
+    }
 
 //    public void selectAllocationUserByVisibleText(String allocationUser) {
 //        allocateDropdown.selectByVisibleText(allocationUser);
@@ -134,24 +196,20 @@ public class Homepage extends Page {
             case "DCU MIN":
                 selectPerformanceProcessTeam();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             case "DCU TRO":
                 selectPerformanceProcessTeam();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             case "DCU N10":
                 selectTransfersN10Team();
                 successfulCaseCreation
-                        .selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
+                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
             default:
-                System.out.println(thisCaseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                thisCaseType = null;
-                assumeNotNull(thisCaseType);
+                pendingStep(thisCaseType + " is not defined within " + getMethodName());
         }
 
     }

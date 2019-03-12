@@ -7,7 +7,6 @@ import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Managed;

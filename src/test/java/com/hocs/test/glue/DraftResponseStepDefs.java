@@ -1,7 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
@@ -48,43 +48,6 @@ public class DraftResponseStepDefs {
         draftingTeamDecision.uploadDraftResponse();
         qa.dontQAOffline();
     }
-
-//    @When("^Initial draft stage \"([^\"]*)\"$")
-//    public void completeInitialDraftStage(String caseType) {
-//        switch (caseType.toUpperCase()){
-//            case "DCU MIN":
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.acceptAndDraftALetter();
-//                draftingTeamDecision.uploadDraftResponse();
-//                qa.dontQAOffline();
-//                break;
-//            case "DCU N10":
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.clickAcceptInitialDraftDecision();
-//                draft.clickContinueButton();
-//                draftingTeamDecision.uploadDraftResponse();
-//                qa.dontQAOffline();
-//                break;
-//            case "DCU TRO":  //does not have offline QA option available
-//                draft.findAndAllocateDraftStage();
-//                homepage.selectMyCases();
-//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//                draftingTeamDecision.acceptAndDraftALetter();
-//                draftingTeamDecision.uploadDraftResponse();
-//                draft.clickContinueButton();
-//                break;
-//            default:
-//                System.out.println(caseType
-//                        + " is not defined within " + getClass().getSimpleName()
-//                        + " class, " + getMethodName() + " method");
-//                caseType = null;
-//                assumeNotNull(caseType);
-//        }
-//    }
 
     @When("^I click the continue button on the correspondence answer screen$")
     public void clickContinueButtonOnCorrespondenceAnswerScreen() {
@@ -222,11 +185,7 @@ public class DraftResponseStepDefs {
                 draft.clickLetterReplyRadioButton();
                 break;
             default:
-                System.out.println(method
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                method = null;
-                assumeNotNull(method);
+                pendingStep(method + " is not defined within " + getMethodName());
         }
         draft.clickContinueButton();
     }
@@ -284,11 +243,7 @@ public class DraftResponseStepDefs {
             case "ONLINE":
                 break;
             default:
-                System.out.println(qa
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                qa = null;
-                assumeNotNull(qa);
+                pendingStep(qa + " is not defined within " + getMethodName());
         }
     }
 
@@ -311,11 +266,7 @@ public class DraftResponseStepDefs {
                 draftingTeamDecision.clickRejectInitialDraftDecision();
                 break;
             default:
-                System.out.println(decision
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                decision = null;
-                assumeNotNull(decision);
+                pendingStep(decision + " is not defined within " + getMethodName());
         }
         draft.clickContinueButton();
     }
@@ -331,11 +282,7 @@ public class DraftResponseStepDefs {
                 draft.clickFinishButton();
                 break;
             default:
-                System.out.println(callDetails
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                callDetails = null;
-                assumeNotNull(callDetails);
+                pendingStep(callDetails + " is not defined within " + getMethodName());
         }
     }
 
@@ -354,7 +301,7 @@ public class DraftResponseStepDefs {
             case "QA RESPONSE":
                 homepage.selectPerformanceProcessTeam();
                 break;
-            case "PRIVATE OFFICE":
+            case "PRIVATE OFFICE APPROVAL":
                 //Depends on the Team but mainly this one
                 homepage.selectMinisterForLordsTeam();
                 break;
@@ -365,11 +312,7 @@ public class DraftResponseStepDefs {
                 homepage.selectPerformanceProcessTeam();
                 break;
             default:
-                System.out.println(stage
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                stage = null;
-                assumeNotNull(stage);
+                pendingStep(stage + " is not defined within " + getMethodName());
         }
        teamqueue.assertCaseStage(stage);
     }

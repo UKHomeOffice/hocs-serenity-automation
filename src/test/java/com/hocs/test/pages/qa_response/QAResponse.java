@@ -1,6 +1,9 @@
 package com.hocs.test.pages.qa_response;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
@@ -13,6 +16,12 @@ public class QAResponse extends Page{
 
     @Managed
     WebDriver driver;
+
+    Homepage homepage;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    Workstacks workstacks;
 
     @FindBy(css = "label[for='QAResponseDecision-ACCEPT']")
     private WebElementFacade QAAcceptRadioButton;
@@ -52,6 +61,15 @@ public class QAResponse extends Page{
         draftDecisionNoteFieldTheSecond.clear();
         draftDecisionNoteFieldTheSecond.sendKeys(draftDecisionNote);
         setSessionVariable("draftDecisionNote").to(draftDecisionNote);
+    }
+
+    public void qaResponseFullFlow() {
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        clickQAResponseAcceptRadioButton();
+        System.out.println("Finished QA Response, returning to home page.");
+        clickContinueButton();
     }
 
     public void assertQADoYouApproveErrorMessage() {

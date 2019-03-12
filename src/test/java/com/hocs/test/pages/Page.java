@@ -1,11 +1,11 @@
 package com.hocs.test.pages;
 
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assume.assumeNotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -566,6 +566,10 @@ public class Page extends PageObject {
         }
     }
 
+    public void javascriptScrollToElem(WebElementFacade element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
     public void lookupTerms() {
         lookupButton.click();
     }
@@ -615,11 +619,7 @@ public class Page extends PageObject {
                 driver.switchTo().alert().accept();
                 break;
             default:
-                System.out.println(buttonName
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                buttonName = null;
-                assumeNotNull(buttonName);
+                pendingStep(buttonName + " is not defined within " + getMethodName());
         }
         driver.switchTo().alert().accept();
     }
@@ -716,4 +716,13 @@ public class Page extends PageObject {
         assertThat(isElementDisplayed(element), is(false));
     }
 
+    public void assertElementTextIs(WebElementFacade elem, String thisElementsText) {
+        System.out.println(thisElementsText);
+        assertThat(elem.getValue(), is(thisElementsText));
+    }
+
+    public void assertElementTextNotValue(WebElementFacade elem, String thisElementsText) {
+        System.out.println(thisElementsText);
+        assertThat(elem.getText(), is(thisElementsText));
+    }
 }

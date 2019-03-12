@@ -1,9 +1,7 @@
 package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
-
+import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.api.ApiHelper;
 import com.hocs.test.api.workflowService.WorkflowService;
 import cucumber.api.java.en.Then;
@@ -25,11 +23,7 @@ public class ServiceStepDefs {
                 apiHelper.setupApiHelper("WORKFLOW");
                 break;
             default:
-                System.out.println(service
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                service = null;
-                assumeNotNull(service);
+                pendingStep(service + " is not defined within " + getMethodName());
         }
     }
 

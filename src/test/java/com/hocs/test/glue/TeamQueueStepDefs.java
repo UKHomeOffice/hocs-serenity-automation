@@ -1,20 +1,13 @@
 package com.hocs.test.glue;
 
-import static org.junit.Assert.fail;
-
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.data_input.DataInput;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import net.serenitybdd.core.pages.WebElementFacade;
-
 
 public class TeamQueueStepDefs {
 

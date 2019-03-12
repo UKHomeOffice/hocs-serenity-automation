@@ -1,28 +1,24 @@
 package com.hocs.test.glue;
 
+import config.*;
 import static config.Users.*;
 import static config.Usernames.*;
 import static config.Passwords.*;
 import static jnr.posix.util.MethodName.getMethodName;
-import static junit.framework.TestCase.fail;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 
-import config.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
-
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
+
 import org.openqa.selenium.WebDriver;
 
 public class LoginStepDefs {
@@ -63,11 +59,7 @@ public class LoginStepDefs {
                 enterHocsLoginDetails(EAMON);
                 break;
             default:
-                System.out.println(user
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                user = null;
-                assumeNotNull(user);
+                pendingStep(user + " is not defined within " + getMethodName());
         }
         loginPage.clickContinueButton();
     }
@@ -95,11 +87,7 @@ public class LoginStepDefs {
                 enterHocsUsername(EAMONDROKO);
                 break;
             default:
-                System.out.println(username
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                username = null;
-                assumeNotNull(username);
+                pendingStep(username + " is not defined within " + getMethodName());
         }
     }
 
@@ -120,11 +108,7 @@ public class LoginStepDefs {
                 enterHocsPassword(EAMONPASS);
                 break;
             default:
-                System.out.println(password
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                password = null;
-                assumeNotNull(password);
+                pendingStep(password + " is not defined within " + getMethodName());
         }
     }
 
@@ -170,8 +154,10 @@ public class LoginStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
+                case "DEMO" :
+                    baseUrl = Environments.DEMO.getEnvironmentURL();
                 default:
-                    fail("Environment must be set to LOCAL, DEV or QA");
+                    pendingStep(env + " is not defined within " + getMethodName());
             }
         }
         driver.get(baseUrl);

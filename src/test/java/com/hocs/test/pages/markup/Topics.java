@@ -1,11 +1,22 @@
 package com.hocs.test.pages.markup;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
 public class Topics extends Page {
+
+    Homepage homepage;
+
+    SuccessfulCaseCreation successfulCaseCreation;
+
+    MarkUpDecision markUpDecision;
+
+    Workstacks workstacks;
 
     @FindBy(id = "react-select-2-input")
     private WebElementFacade topicsTextField;
@@ -22,8 +33,22 @@ public class Topics extends Page {
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicButton;
 
+    @FindBy(id = "OverrideDraftingTeamUUID")
+    public WebElementFacade overrideInitialDraftTeamDropdown;
+
+    @FindBy(id = "OverridePOTeamUUID")
+    public WebElementFacade overridePrivateOfficeTeamDropdown;
+
+    @FindBy(xpath = "//label")
+    public WebElementFacade assignedTopic;
+
 
     // Basic Methods
+
+    public String getPrimaryTopicText() {
+        String thisTopic = assignedTopic.getText();
+        return thisTopic;
+    }
 
     public void clickAddTopicButton() {
         addTopicButton.click();
@@ -33,18 +58,64 @@ public class Topics extends Page {
         topicsTextField.sendKeys(generateRandomString());
     }
 
+    public void clickTopicsTextField() {
+        topicsTextField.click();
+    }
+
+    public void hitReturnToSendTopic() {
+        topicsTextField.sendKeys(Keys.RETURN);
+    }
+
+    public void enterATopic(String topic) {
+        clickAddTopicButton();
+        clickTopicsTextField();
+        focusedTopicsTextField.sendKeys(topic);
+        sleep(1000);
+        hitReturnToSendTopic();
+        clickAddButton();
+        clickContinueButton();
+    }
+
+    public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
+        clickAddTopicButton();
+        clickTopicsTextField();
+        focusedTopicsTextField.sendKeys(topic);
+        sleep(1000);
+        hitReturnToSendTopic();
+        clickAddButton();
+    }
 
     // Multi Step Methods
 
     public void enterRealTopic() {
-
         topicsTextField.click();
-        System.out.println("Clicked topic Dropdown");
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
-        System.out.println("Sent topic 1 to topic dropdown, waiting 1 second");
         sleep(1000);
         topicsTextField.sendKeys(Keys.RETURN);
-        System.out.println("Hit return");
+    }
+
+    public void fromMarkupStartSelectATopic (String topic) {
+        homepage.selectCentralDraftingTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        markUpDecision.clickPolicyResponseRadioButton();
+        clickContinueButton();
+        enterATopic(topic);
+    }
+
+    public void fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage (String topic) {
+        homepage.selectCentralDraftingTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+        homepage.selectMyCases();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        markUpDecision.clickPolicyResponseRadioButton();
+        clickContinueButton();
+        enterATopicWithoutContinuingToTheDraftStage(topic);
     }
 
 
@@ -52,6 +123,14 @@ public class Topics extends Page {
 
     public void assertTopicsTextFieldDisplayed() {
         isElementDisplayed(topicsTextField);
+    }
+
+    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateTeam) {
+        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateTeam);
+    }
+
+    public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {
+        overrideInitialDraftTeamDropdown.selectByVisibleText(newInitialDraftTeam);
     }
 
 }

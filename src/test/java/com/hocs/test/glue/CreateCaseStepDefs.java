@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
@@ -10,15 +11,14 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 
 import static jnr.posix.util.MethodName.getMethodName;
-import static org.junit.Assume.assumeNotNull;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
 
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 public class CreateCaseStepDefs {
 
     AddDocuments addDocuments;
@@ -33,6 +33,8 @@ public class CreateCaseStepDefs {
 
     MarkUpDecision markUpDecision;
 
+    Topics topics;
+
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
@@ -45,11 +47,7 @@ public class CreateCaseStepDefs {
                 createCase.assertNoOptionsAvailable();
                 break;
             default:
-                System.out.println(userView
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                userView = null;
-                assumeNotNull(userView);
+                pendingStep(userView + " is not defined within " + getMethodName());
         }
     }
 
@@ -69,11 +67,7 @@ public class CreateCaseStepDefs {
                 setSessionVariable("caseType").to(caseType);
                 break;
             default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
@@ -86,8 +80,34 @@ public class CreateCaseStepDefs {
         page.sleep(500);
     }
 
-    @When("^I create a case with <Topic>$")
-    public void aCaseWithSpecificTopicIsCreated() {
+    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\"$")
+    public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                setSessionVariable("caseType").to(caseType);
+                homepage.waitForPerformanceProcessTeam();
+                homepage.selectPerformanceProcessTeam();
+                dataInput.dataInputFullFlow();
+                topics.fromMarkupStartSelectATopic(topic);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
+
+    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" and view the primary topics$")
+    public void aCaseWithSpecificTopic(String caseType, String topic) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                setSessionVariable("caseType").to(caseType);
+                dataInput.dataInputFullFlow();
+                topics.fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage(topic);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^I create a case with a <Primary Correspondent>$")
@@ -103,11 +123,7 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                System.out.println(ordinal
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                ordinal = null;
-                assumeNotNull(ordinal);
+                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
     }
 
@@ -119,11 +135,7 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                System.out.println(ordinal
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                ordinal = null;
-                assumeNotNull(ordinal);
+                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
     }
 
@@ -136,11 +148,7 @@ public class CreateCaseStepDefs {
             case "SECONDARY":
                 break;
             default:
-                System.out.println(ordinal
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                ordinal = null;
-                assumeNotNull(ordinal);
+                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
 
     }
@@ -157,11 +165,7 @@ public class CreateCaseStepDefs {
                 createCase.clickDcuTroRadioButton();
                 break;
             default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
 
         createCase.clickNextButton();
@@ -194,11 +198,7 @@ public class CreateCaseStepDefs {
                 addDocuments.enterDraftDeadlineYear(10);
                 break;
             default:
-                System.out.println(caseType
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                caseType = null;
-                assumeNotNull(caseType);
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
 
         switch (document.toUpperCase()) {
@@ -210,11 +210,7 @@ public class CreateCaseStepDefs {
                 createCase.clickFinishButton();
                 break;
             default:
-                System.out.println(document
-                        + " is not defined within " + getClass().getSimpleName()
-                        + " class, " + getMethodName() + " method");
-                document = null;
-                assumeNotNull(document);
+                pendingStep(document + " is not defined within " + getMethodName());
         }
     }
 

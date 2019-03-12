@@ -26,17 +26,17 @@ Feature: HOCS User is able to create a case
     When I bulk create 40 "DCU MIN" cases
     Then A case is created successfully
 
-  @Validation
+  @Validation @SmokeTests
   Scenario: Create Single Case correspondence selection is validated
     And I click the next button on the create single case screen
     Then an error message should be displayed as I have not selected the case type
 
-  @Validation
+  @Validation @SmokeTests
   Scenario: When creating a Single MIN Case date received is required
     And I click the finish button on the create single case screen
     Then an error message should be displayed as I have not entered the correspondence received date
 
-  @Validation
+  @Validation @SmokeTests
   Scenario: When creating a Single MIN case a valid date must be entered
     And I click the finish button after entering an invalid date on the create single case screen
     Then an error message should be displayed as I have entered an invalid date

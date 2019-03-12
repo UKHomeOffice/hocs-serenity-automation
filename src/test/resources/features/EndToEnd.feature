@@ -10,12 +10,10 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+  #    | DCU TRO |
+  #    | DCU N10 |
 
-
-
-  @Workflow @SmokeTests
+  @Workflow @SmokeTests @CaseBuilder
   Scenario Outline: Case moves to Markup stage
     When I create a single case "<caseType>"
     And the Data Input Stage is completed for "<caseType>" caseType
@@ -23,8 +21,8 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+#      | DCU TRO |
+#      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Initial Draft stage
@@ -48,8 +46,8 @@ Feature: HOCS is able to move cases through the entire flow
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU TRO |
-      | DCU N10 |
+  #    | DCU TRO |
+  #    | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Private Office stage
@@ -58,11 +56,11 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
-    Then the case should be moved to the "PRIVATE OFFICE" stage
+    Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
     Examples:
       | caseType|
       | DCU MIN |
-      | DCU N10 |
+ #     | DCU N10 |
 
   @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Minister Sign Off stage
@@ -107,7 +105,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the dispatch stage
     Then the case should no longer be visible in the teamqueue
 
-  @EndToEnd @Critical @SmokeTests
+  @EndToEnd @Critical
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single case "DCU N10"
     And the Data Input Stage is completed for "DCU N10" caseType
@@ -118,7 +116,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the dispatch stage
     Then the case should no longer be visible in the teamqueue
 
-  @EndToEnd @Critical @SmokeTests
+  @EndToEnd @Critical
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single case "DCU TRO"
     And the Data Input Stage is completed for "DCU TRO" caseType

@@ -27,11 +27,8 @@ public class DispatchStepDefs {
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage() {
         homepage.selectPerformanceProcessTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpathStoreResultingElement();
         workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaLinkTextAndStoreResultingElement();
         dispatch.clickDispatchAcceptRadioButton();
         dispatch.clickContinueButton();
     }
