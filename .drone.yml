@@ -58,7 +58,7 @@ pipeline:
     access_key: ${AWS_ACCESS_KEY_ID}
     secret_key: ${AWS_SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
-    target: /reports/{{build.number}}/
+    target: /reports/$${DRONE_BUILD_NUMBER}/
     when:
       branch: master
       event: push
