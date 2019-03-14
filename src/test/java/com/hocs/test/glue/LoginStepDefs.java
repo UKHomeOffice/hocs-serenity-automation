@@ -47,7 +47,7 @@ public class LoginStepDefs {
     }
 
     @Given("^I am user \"([^\"]*)\"")
-    public void iLoginas(String user) {
+    public void iLoginAs(String user) {
         navigateToHocs();
         setSessionVariable("user").to(user);
         switch (user.toUpperCase()) {
@@ -145,7 +145,6 @@ public class LoginStepDefs {
 
     @Then("^I should be taken to the homepage$")
     public void assertHomePage() {
-        homepage.sleep(500);
         homepage.assertPageTitle();
     }
 

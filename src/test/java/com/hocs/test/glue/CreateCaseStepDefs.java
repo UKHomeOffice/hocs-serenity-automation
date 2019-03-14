@@ -12,6 +12,7 @@ import com.hocs.test.pages.markup.MarkUpDecision;
 import static jnr.posix.util.MethodName.getMethodName;
 import static org.junit.Assume.assumeNotNull;
 
+import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -38,6 +39,8 @@ public class CreateCaseStepDefs {
     Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
+
+    Workstacks workstacks;
 
 
     @Given("^I am presented with \"([^\"]*)\"$")
@@ -88,6 +91,39 @@ public class CreateCaseStepDefs {
 
     @When("^I create a case with a <Primary Correspondent>$")
     public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {
+    }
+
+    @When("^I create a single MIN case$")
+    public void createNewMinCase() {
+        createCase.createDCUMinSingleCase();
+    }
+
+    @When("^I allocate the case to myself")
+    public void allocateToMe() {
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+    }
+
+    @Then("^the case should be visible in the Performance and Process Team workstack$")
+    public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
+        homepage.selectPerformanceProcessTeam();
+        workstacks.assertCaseReferenceIsVisible();
+    }
+
+    @When("^I navigate to the Performance and Process Team and select the check box against the newly created case and allocate it to myself$")
+    public void allocateCaseUsingCheckbox() {
+        homepage.selectPerformanceProcessTeam();
+        workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.clickAllocatedSelectedToMeButton();
+        workstacks.goHome();
+    }
+
+    @Then("^the case should be added to my workstack$")
+    public void assertThatCaseIsAllocatedToMe() {
+        homepage.selectMyCases();
+        workstacks.assertCaseReferenceIsVisible();
     }
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
@@ -277,6 +313,18 @@ public class CreateCaseStepDefs {
 
     }
 
+    @When("^I click the cancel button on the what type of correspondence page$")
+    public void clickCancelButtonOnWhatTypeOfCorrespondencePage() {
+        createCase.clickCancelButton();
+    }
+
+    @When("^I click the cancel button on the when was the correspondence received page$")
+    public void clickCancelButtonOnWhenWasCorrespondenceReceivedPage() {
+        createCase.clickDcuMinRadioButton();
+        createCase.clickNextButton();
+        createCase.clickCancelButton();
+
+    }
 
 }
 

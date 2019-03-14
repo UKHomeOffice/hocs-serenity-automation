@@ -90,6 +90,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on the correspondence answer screen$")
     public void clickContinueButtonOnCorrespondenceAnswerScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickContinueButton();
     }
 
@@ -100,6 +101,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the case rejection screen$")
     public void clickFinishButtonOnCaseRejectionScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamNoRadioButton();
         draft.clickContinueButton();
         draft.clickFinishButton();
@@ -112,6 +114,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on how do you intend to respond screen$")
     public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.sleep(500);
@@ -125,6 +128,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the summarise your call screen$")
     public void clickFinishButtonOnSummariseYourCallScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickPhoneReplyRadioButton();
@@ -139,6 +143,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on the which is the primary draft document screen$")
     public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickLetterReplyRadioButton();
@@ -154,6 +159,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the add button on the add documents screen$")
     public void clickAddButtonOnAddDocumentScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickLetterReplyRadioButton();
@@ -165,11 +171,12 @@ public class DraftResponseStepDefs {
     @Then("^an error message should be displayed as I have not selected a document type and added a document$")
     public void assertThatAddDocumentErrorMessagesAreShown() {
         addDocuments.assertDocumentTypeIsRequiredErrorMessage();
-        addDocuments.assertDocumentIsRequiedErrorMessage();
+        addDocuments.assertDocumentIsRequiredErrorMessage();
     }
 
     @When("^I click the continue button on the do you want QA this offline screen$")
     public void clickContinueButtonOnDoYouWantToQAOfflineScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickLetterReplyRadioButton();
@@ -190,6 +197,7 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the who has done the offline QA screen$")
     public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen() {
+        workstacks.clickAllocateToMeButton();
         draft.clickAnsweredByMyTeamYesRadioButton();
         draft.clickContinueButton();
         draft.clickLetterReplyRadioButton();

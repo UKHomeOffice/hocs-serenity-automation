@@ -3,30 +3,6 @@ Feature: Team members can allocate work
   Background:
     Given I am user "EAMON"
 
-
-  @Allocate @DCUMIN
-  Scenario: A single case is allocated to the current user
-    When I create a single case "DCU MIN"
-    And  I allocate the case to myself
-    Then the case should be added to my workstack
-
-  @Filtering @DCUMIN
-  Scenario: User is able to filter cases in the workstack using case type cards
-    When I click the "MIN" case type filter card
-    Then the cases should be filtered by the "MIN" Case Reference
-
-  @Filtering @DCUMIN
-  Scenario: Cases are filtered by Case Reference type in Team Workstacks
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
-    And I enter the Case Reference type "MIN" into the filter
-    Then the cases should be filtered by the "MIN" Case Reference
-
-  @Allocate
-  Scenario: A single case is allocated to the current user using checkboxes
-    When I create a single case "DCU MIN"
-    And I select the check box against a case and allocate it to myself
-    Then the case should be added to my workstack
-
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
     When I create a single case "DCU MIN"
@@ -62,6 +38,18 @@ Feature: Team members can allocate work
     When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
     And I click the workflow breadcrumb
     Then I should be taken to workflow page of the team workstack
+
+# Test does not run if there is only one case type available in the workstack
+  @Filtering @DCUMIN
+  Scenario: User is able to filter cases in the workstack using case type cards
+    When I click the "MIN" case type filter card
+    Then the cases should be filtered by the "MIN" Case Reference
+
+  @Filtering @DCUMIN
+  Scenario: Cases are filtered by Case Reference type in Team Workstacks
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I enter the Case Reference type "MIN" into the filter
+    Then the cases should be filtered by the "MIN" Case Reference
 
   @HOCS-402
   Scenario: A user is in no teams

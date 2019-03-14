@@ -4,7 +4,6 @@ Feature: Search should be available for all users of the application
     Given I am user "EAMON"
     When I am on the "SEARCH" page
 
-
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
     And I enter a search query <query>
