@@ -5,7 +5,8 @@ public enum Usernames {
     DANNYLARGE("danny.large@ten10.com"),
     DCUSER("smoke_test_user_dcu"),
     TESTER(""),
-    EAMONDROKO("eamon.droko@ten10.com");
+    EAMONDROKO("eamon.droko@ten10.com"),
+    FAKEUSER("FakeUser");
 
     private final String username;
 

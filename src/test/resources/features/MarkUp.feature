@@ -75,6 +75,11 @@ Feature: DCU user decides how a case should be handled
     When I amend the answering "minister"
     Then I can only select from a fixed list of answering "ministers"
 
+  @Navigation
+  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Markup stage should take the user back to the dashboard
+    And I click the back to dashboard button
+    Then I should be taken to the homepage
+
   @Validation
   Scenario: User must select a response on the first Markup Stage screen
     And I click the continue button on the markup response screen
@@ -90,6 +95,10 @@ Feature: DCU user decides how a case should be handled
     And I click the add button on the add topic screen
     Then an error message should be displayed as I have not selected a topic
 
+  @Validation
+  Scenario: User must enter text in the text box when creating a Case note at the Markup stage
+    And I click the add button when creating a case note
+    Then an error message should be displayed as I have not added any text into the case note text box
 
 
 

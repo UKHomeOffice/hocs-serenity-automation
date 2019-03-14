@@ -15,6 +15,9 @@ public class LoginPage extends Page {
     @FindBy(id = "password")
     private WebElementFacade passwordField;
 
+    @FindBy(xpath = "//li[text()='Invalid username or password.']")
+    private WebElementFacade invalidUsernameOrPasswordErrorMessage;
+
     public void assertInvalidUsernamePassword() {
         assertThat(getErrorDetails(), is("Invalid username or password."));
     }
@@ -27,6 +30,10 @@ public class LoginPage extends Page {
     public void enterPassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
+    }
+
+    public void assertLoginErrorMessage() {
+        assertThat(invalidUsernameOrPasswordErrorMessage.getText(), is("Invalid username or password.") );
     }
 
 }

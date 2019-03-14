@@ -25,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class Page extends PageObject {
 
@@ -64,7 +65,7 @@ public class Page extends PageObject {
     @FindBy(className = "govuk-caption-l")
     private WebElementFacade caseId;
 
-    @FindBy(css = "[class = 'govuk-back-link ']")
+    @FindBy(xpath = "//a[@class='govuk-back-link']")
     private WebElementFacade cancelButton;
 
     @FindBy(css = "[value='Close']")
@@ -126,6 +127,9 @@ public class Page extends PageObject {
 
     @FindBy(className = "govuk-error-summary")
     protected WebElementFacade errorMessage;
+
+    @FindBy(linkText = "Correspondence System")
+    public WebElementFacade home;
 
     @FindBy(css = "[value='Finish']")
     protected WebElementFacade finishButton;
@@ -220,6 +224,9 @@ public class Page extends PageObject {
     @FindBy(linkText = "view")
     private WebElementFacade viewLink;
 
+    @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
+    private WebElementFacade emailFeedbackButton;
+
     public void sleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -308,6 +315,10 @@ public class Page extends PageObject {
         documentButton.click();
     }
 
+    public void goHome() {
+        home.click();
+    }
+
     public void clickFinishButton() {
         finishButton.click();
     }
@@ -371,6 +382,10 @@ public class Page extends PageObject {
 
     public void clickViewLink() {
         viewLink.click();
+    }
+
+    public void clickEmailFeedbackButton() {
+        emailFeedbackButton.click();
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
@@ -475,6 +490,10 @@ public class Page extends PageObject {
         dateMonthField.sendKeys("01");
         dateYearField.clear();
         dateYearField.sendKeys("2018");
+    }
+
+    public void javascriptScrollToElem(WebElementFacade element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public void errorMessageIsDisplayed() {

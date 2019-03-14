@@ -3,42 +3,53 @@ Feature: Team members can allocate work
   Background:
     Given I am user "EAMON"
 
-
-  @Allocate @DCUMIN
-  Scenario: A single case is allocated to the current user
-    When the current user creates a single case "DCU MIN"
-    And  the current user allocates the case to themself
-    Then the case is added to the current user's cases
-
-
-    # Bug against this test HOCS-806
-  @Allocate @HOCS-806
-  Scenario: A single case is allocated to the current user using checkboxes
-    When the current user creates a single case "DCU MIN"
-    # Failing step below
-    And They select the check box against the case
-
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
-    When the current user creates a single case "DCU MIN"
-    And The current user allocates the case to themself
-    And They unallocate the case from themself
-    Then The case is not visible in the user's cases
+    When I create a single case "DCU MIN"
+    And I unallocate the case from myself
+    Then the case should not be visible in my workstack
+
+#  @Filtering @DCUMIN
+#  Scenario: Cases are filtered by Current Stage in Team Workstacks
+#    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+#    And I enter the Current Stage "DATA INPUT" into the filter
+#    Then The cases should be filtered by the "DATA INPUT" Current Stage
+
+  @Navigation
+  Scenario: User is able to navigate back to the homepage using the breadcrumb in their workstack
+    When I navigate to the "MY CASES" page
+    And I click the dashboard breadcrumb
+    Then I should be taken back to the homepage
+
+  @Navigation
+  Scenario: User is able to navigate back to the homepage using breadcrumbs in the team workstack
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I click the dashboard breadcrumb
+    Then I should be taken back to the homepage
+
+  @Navigation
+  Scenario: User is able to navigate back to the team page from the workflow page in the team workstack
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I click the team breadcrumb
+    Then I should be taken to the team page of the team workstack
+
+  @Navigation
+  Scenario: User is able to navigate back to the workflow page from the stage page in the team workstack
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I click the workflow breadcrumb
+    Then I should be taken to workflow page of the team workstack
+
+# Test does not run if there is only one case type available in the workstack
+  @Filtering @DCUMIN
+  Scenario: User is able to filter cases in the workstack using case type cards
+    When I click the "MIN" case type filter card
+    Then the cases should be filtered by the "MIN" Case Reference
 
   @Filtering @DCUMIN
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
-    When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
-    And They enter Case Reference type "MIN" into the filter
-    Then The cases should be filtered by the "MIN" Case Reference
-
-  @Filtering @DCUMIN
-    Scenario: Cases are filtered by Current Stage in Team Workstacks
-    When The current user navigates to the "PERFORMANCE AND PROCESS TEAM" team page
-    And They enter Current Stage "DATA INPUT" into the filter
-    Then The cases should be filtered by the "DATA INPUT" Current Stage
-
-
-
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    And I enter the Case Reference type "MIN" into the filter
+    Then the cases should be filtered by the "MIN" Case Reference
 
   @HOCS-402
   Scenario: A user is in no teams

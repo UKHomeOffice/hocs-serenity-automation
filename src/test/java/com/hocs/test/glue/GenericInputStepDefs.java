@@ -32,6 +32,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class GenericInputStepDefs {
 
     @Managed
@@ -254,7 +256,6 @@ public class GenericInputStepDefs {
                 markUpDecision.clickFinishButton();
                 homepage.selectAnimalsInScienceTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
                 break;
             case "QA":
                 homepage.clickCreateSingleCase();
@@ -301,7 +302,6 @@ public class GenericInputStepDefs {
                 draft.clickContinueButton();
                 homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
                 break;
             case "PO SIGNOFF":
                 homepage.clickCreateSingleCase();
@@ -350,7 +350,6 @@ public class GenericInputStepDefs {
                 draft.clickFinishButton();
                 homepage.selectMinisterForLordsTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
                 break;
             case "MINISTER SIGNOFF":
                 homepage.clickCreateSingleCase();
@@ -404,7 +403,6 @@ public class GenericInputStepDefs {
                 privateOffice.clickContinueButton();
                 homepage.selectMinisterForLordsTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
                 break;
             case "DISPATCH":
                 homepage.clickCreateSingleCase();
@@ -463,7 +461,6 @@ public class GenericInputStepDefs {
                 minister.clickContinueButton();
                 homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

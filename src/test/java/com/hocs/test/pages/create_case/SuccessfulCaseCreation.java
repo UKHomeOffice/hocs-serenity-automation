@@ -20,6 +20,8 @@ public class SuccessfulCaseCreation extends Page {
 
     WebDriver driver;
 
+    Page page;
+
     @FindBy(className = "govuk-panel--confirmation")
     private WebElementFacade confirmationPanel;
 

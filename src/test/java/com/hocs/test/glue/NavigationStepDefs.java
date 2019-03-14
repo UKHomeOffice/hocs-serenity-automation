@@ -6,6 +6,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.teamqueue.Teamqueue;
+import com.hocs.test.pages.workstacks.Workstacks;
 import config.Environments;
 import config.Services;
 
@@ -35,9 +36,11 @@ public class NavigationStepDefs {
 
     Page page;
 
+    Workstacks workstacks;
+
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
-    @Given("^the current user navigates to the \"([^\"]*)\" page$")
+    @When("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":
@@ -62,12 +65,13 @@ public class NavigationStepDefs {
                 break;
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
+                break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
         }
     }
 
-    @When("^The current user navigates to the \"([^\"]*)\" team page$")
+    @When("^I navigate to the \"([^\"]*)\" team page$")
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":
@@ -82,6 +86,10 @@ public class NavigationStepDefs {
 
     }
 
+    @When("^I click the back to dashboard button$")
+    public void clickBackToDashboardButtonOnAllocateCasePage() {
+        workstacks.clickBackToDashboardButton();
+    }
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void navigateToPage(String onHocsPage) {
@@ -103,11 +111,17 @@ public class NavigationStepDefs {
             case "PERFORMANCE AND PROCESS TEAM":
                 homepage.selectPerformanceProcessTeam();
                 break;
+            case "CENTRAL DRAFTING TEAM":
+                homepage.selectCentralDraftingTeam();
+                break;
             case "MY CASES":
                 homepage.selectMyCases();
                 break;
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
+            case "SEARCH":
+                homepage.selectSearchPage();
+                break;
             default:
                 pendingStep(onHocsPage + " is not defined within " + getMethodName());
         }

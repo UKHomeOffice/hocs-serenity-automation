@@ -14,6 +14,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 public class DataInputStepDefs {
 
     @Steps(shared = true)
@@ -173,7 +175,6 @@ public class DataInputStepDefs {
     }
 
 
-
     @When("^I click the finish button on the which is the primary correspondent screen$")
     public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
         workstacks.clickAllocateToMeButton();
@@ -225,6 +226,18 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
         dataInput.clickAddButton();
 
+    }
+
+    @When("^I click the add button when creating a case note$")
+    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
+        workstacks.clickCaseTimelineTab();
+        workstacks.clickAddCaseNoteButton();
+        workstacks.clickAddButton();
+    }
+
+    @Then("^an error message should be displayed as I have not added any text into the case note text box$")
+    public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
+        workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
     }
 
     @Then("^an error message should be displayed as I have not entered text in the full name field")

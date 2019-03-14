@@ -71,6 +71,11 @@ Feature: HOCS User is add data to a case
     When I select the primary correspondent radio button for a different correspondent
     Then the correspondence type is the "primary" correspondent
 
+  @Navigation
+  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Data Input stage should take the user back to the dashboard
+    And I click the back to dashboard button
+    Then I should be taken to the homepage
+
   @Validation
   Scenario: Date correspondence was sent must be entered at Data Input stage
     And I click the continue button at the data input stage
@@ -105,5 +110,10 @@ Feature: HOCS User is add data to a case
   Scenario: User must enter text in correspondent's Full Name field
     And I click the add button on the record correspondent details screen
     Then an error message should be displayed as I have not entered text in the full name field
+
+  @Validation
+  Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
+    And I click the add button when creating a case note
+    Then an error message should be displayed as I have not added any text into the case note text box
 
 
