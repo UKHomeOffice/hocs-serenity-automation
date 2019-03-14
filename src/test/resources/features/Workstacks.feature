@@ -9,12 +9,6 @@ Feature: Team members can allocate work
     And I unallocate the case from myself
     Then the case should not be visible in my workstack
 
-#  @Filtering @DCUMIN
-#  Scenario: Cases are filtered by Current Stage in Team Workstacks
-#    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
-#    And I enter the Current Stage "DATA INPUT" into the filter
-#    Then The cases should be filtered by the "DATA INPUT" Current Stage
-
   @Navigation
   Scenario: User is able to navigate back to the homepage using the breadcrumb in their workstack
     When I navigate to the "MY CASES" page
