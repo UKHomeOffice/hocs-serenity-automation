@@ -585,10 +585,6 @@ public class Page extends PageObject {
         }
     }
 
-    public void javascriptScrollToElem(WebElementFacade element) {
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-    }
-
     public void lookupTerms() {
         lookupButton.click();
     }

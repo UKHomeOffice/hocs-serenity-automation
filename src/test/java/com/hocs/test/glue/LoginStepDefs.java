@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import config.*;
+
 import static config.Users.*;
 import static config.Usernames.*;
 import static config.Passwords.*;
@@ -73,7 +74,7 @@ public class LoginStepDefs {
     @When("^I enter my login credentials \"([^\"]*)\" and click the login button$")
     public void enterCredentialsAndClickLogin(String credentials) {
         setSessionVariable("credentials").to(credentials);
-        switch (credentials) {
+        switch (credentials.toUpperCase()) {
             case "DANNY LARGE":
                 enterHocsUsername(DANNYLARGE);
                 enterHocsPassword(DANNYPASS);
@@ -91,9 +92,8 @@ public class LoginStepDefs {
                 enterHocsPassword(EAMONPASS);
                 break;
             default:
-                pendingStep(username + " is not defined within " + getMethodName());
+                pendingStep(credentials + " is not defined within " + getMethodName());
         }
-
         loginPage.clickContinueButton();
     }
 
@@ -128,7 +128,6 @@ public class LoginStepDefs {
     public void assertThatInvalidCredentialsErrorMessageIsShown() {
         loginPage.assertLoginErrorMessage();
     }
-
 
     @And("^Select the login button$")
     public void selectLoginButton() {
@@ -172,7 +171,7 @@ public class LoginStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
-                case "DEMO" :
+                case "DEMO":
                     baseUrl = Environments.DEMO.getEnvironmentURL();
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
