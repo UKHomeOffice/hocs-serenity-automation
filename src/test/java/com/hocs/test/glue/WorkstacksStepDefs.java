@@ -39,6 +39,14 @@ public class WorkstacksStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+    @When("^I allocate the case to myself")
+    public void allocateToMe() {
+        homepage.selectPerformanceProcessTeam();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        homepage.goHome();
+    }
+
     @Then("^they allocate the case to themself$")
     public void allocateCaseToUser() {
         workstacks.clickAllocateToMeButton();
@@ -54,6 +62,21 @@ public class WorkstacksStepDefs {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickUnallocateCasesButton();
 
+    }
+
+    @When("^I select the check box against a case and allocate it to myself$")
+    public void allocateCaseUsingCheckbox() {
+        homepage.selectPerformanceProcessTeam();
+        workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.clickAllocatedSelectedToMeButton();
+        workstacks.goHome();
+    }
+
+
+    @Then("^the case should be added to my workstack$")
+    public void assertThatCaseIsAllocatedToMe() {
+        homepage.selectMyCases();
+        workstacks.assertCaseReferenceIsVisible();
     }
 
     @Then("^the case should not be visible in my workstack$")
