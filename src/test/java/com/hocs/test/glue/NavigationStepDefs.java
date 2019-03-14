@@ -6,6 +6,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.teamqueue.Teamqueue;
+import com.hocs.test.pages.workstacks.Workstacks;
 import config.Environments;
 import config.Services;
 
@@ -35,6 +36,8 @@ public class NavigationStepDefs {
 
     Page page;
 
+    Workstacks workstacks;
+
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
     @When("^I navigate to the \"([^\"]*)\" page$")
@@ -62,6 +65,7 @@ public class NavigationStepDefs {
                 break;
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
+                break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
         }
@@ -82,6 +86,10 @@ public class NavigationStepDefs {
 
     }
 
+    @When("^I click the back to dashboard button$")
+    public void clickBackToDashboardButtonOnAllocateCasePage() {
+        workstacks.clickBackToDashboardButton();
+    }
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void navigateToPage(String onHocsPage) {
@@ -103,14 +111,17 @@ public class NavigationStepDefs {
             case "PERFORMANCE AND PROCESS TEAM":
                 homepage.selectPerformanceProcessTeam();
                 break;
+            case "CENTRAL DRAFTING TEAM":
+                homepage.selectCentralDraftingTeam();
+                break;
             case "MY CASES":
                 homepage.selectMyCases();
                 break;
             case "ADD STANDARD LINE":
                 homepage.selectAddStandardLine();
-//            case "SEARCH":
-//                homepage.selectSearchPage;
-//                break;
+            case "SEARCH":
+                homepage.selectSearchPage();
+                break;
             default:
                 pendingStep(onHocsPage + " is not defined within " + getMethodName());
         }

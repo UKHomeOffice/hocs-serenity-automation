@@ -15,7 +15,7 @@ public class LoginPage extends Page {
     @FindBy(id = "password")
     private WebElementFacade passwordField;
 
-    @FindBy(xpath = "//div[@class='error-summary']//ul//li[text()='Invalid username or password.']")
+    @FindBy(xpath = "//li[text()='Invalid username or password.']")
     private WebElementFacade invalidUsernameOrPasswordErrorMessage;
 
     public void assertInvalidUsernamePassword() {

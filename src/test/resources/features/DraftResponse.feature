@@ -48,6 +48,11 @@ Feature: HOCS User is able to draft a response
     And the case will progress to the "Private Office" stage
     And I am taken to the home page
 
+  @Navigation
+  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Draft stage should take the user back to the dashboard
+    And I click the back to dashboard button
+    Then I should be taken to the homepage
+
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
     And I click the continue button on the correspondence answer screen

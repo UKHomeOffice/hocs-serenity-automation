@@ -30,8 +30,11 @@ public class Homepage extends Page {
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
 
-    @FindBy(xpath = "//a[text()='Add Standard Line")
+    @FindBy(xpath = "//a[text()='Add Standard Line']")
     public WebElementFacade addStandardLine;
+
+    @FindBy(xpath = "//a[text()='Search']")
+    public WebElementFacade searchPage;
 
     @FindBy(xpath = "//h2[text()='My Cases']")
     public WebElementFacade homePageMyCasesAssertion;
@@ -241,6 +244,8 @@ public class Homepage extends Page {
     public void clickCreateSingleCase() {
         createSingleCase.click();
     }
+
+    public void selectSearchPage() { searchPage.click();}
 
     public void clickMyWorkstack() {
         myWorkstacks.click();

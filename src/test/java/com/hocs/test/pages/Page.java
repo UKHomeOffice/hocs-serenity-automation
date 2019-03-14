@@ -65,7 +65,7 @@ public class Page extends PageObject {
     @FindBy(className = "govuk-caption-l")
     private WebElementFacade caseId;
 
-    @FindBy(css = "[class = 'govuk-back-link ']")
+    @FindBy(xpath = "//a[@class='govuk-back-link']")
     private WebElementFacade cancelButton;
 
     @FindBy(css = "[value='Close']")

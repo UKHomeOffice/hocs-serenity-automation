@@ -58,6 +58,7 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the continue button on PO approve response screen$")
     public void clickContinueButtonOnPOApproveResponseScreen() {
+        workstacks.clickAllocateToMeButton();
         privateOffice.clickContinueButton();
     }
 
@@ -68,6 +69,7 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the finish button on the change minister screen$")
     public void clickFinishButtonOnChangeMinisterScreen() {
+        workstacks.clickAllocateToMeButton();
         privateOffice.clickPrivateOfficeChangeMinisterRadioButton();
         privateOffice.clickContinueButton();
         privateOffice.clickFinishButton();
@@ -80,6 +82,7 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the finish button on the what is your feedback response screen$")
     public void clickFinishButtonOnWhatIsFeedbackResponseScreen() {
+        workstacks.clickAllocateToMeButton();
         privateOffice.clickPrivateOfficeRejectRadioButton();
         privateOffice.clickContinueButton();
         privateOffice.clickFinishButton();

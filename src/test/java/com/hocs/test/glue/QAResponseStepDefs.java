@@ -54,6 +54,7 @@ public class QAResponseStepDefs {
 
     @When("^I click the continue button on the do you approve the QA response screen$")
     public void clickContinueButtonOnApproveResponseScreen() {
+        workstacks.clickAllocateToMeButton();
         qaResponse.clickContinueButton();
     }
 
@@ -64,6 +65,7 @@ public class QAResponseStepDefs {
 
     @When("^I click the finish button on the QA response feedback screen$")
     public void clickFinishButtonOnQAResponseFeedbackScreen() {
+        workstacks.clickAllocateToMeButton();
         qaResponse.clickQAResponseRejectRadioButton();
         qaResponse.clickContinueButton();
         qaResponse.clickFinishButton();

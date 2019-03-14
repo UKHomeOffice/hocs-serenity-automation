@@ -58,6 +58,7 @@ public class MinisterSignOffStepDefs {
 
     @When("^I click the continue button on the approve response screen$")
     public void clickContinueButtonOnApproveReponseScreen() {
+        workstacks.clickAllocateToMeButton();
         minister.clickContinueButton();
     }
 
@@ -68,6 +69,7 @@ public class MinisterSignOffStepDefs {
 
     @When("^I click the continue button on the minister sign off feedback response screen$")
     public void clickContinueButtonOnFeedbackResponseMinisterSignOffScreen() {
+        workstacks.clickAllocateToMeButton();
         minister.clickMinisterSignOffRejectRadioButton();
         minister.clickContinueButton();
         minister.sleep(500);

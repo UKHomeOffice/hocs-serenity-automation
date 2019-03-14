@@ -8,11 +8,14 @@ import com.hocs.test.pages.homepage.Homepage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
+
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends Page {
@@ -59,22 +62,22 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//a[@class='govuk-breadcrumbs__link'][text()='Workflow']")
     public WebElementFacade workflowBreadcrumb;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='DCU Ministerial']")
+    @FindBy(xpath = "//span[text()='DCU Ministerial']")
     public WebElementFacade dcuMINFilterCard;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='DCU Treat Official']")
+    @FindBy(xpath = "//span[text()='DCU Treat Official']")
     public WebElementFacade dcuTROFilterCard;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='DCU Number 10']")
+    @FindBy(xpath = "//span[text()='DCU Number 10']")
     public WebElementFacade dcuN10FilterCard;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='Data Input']")
+    @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='Dispatch']")
+    @FindBy(xpath = "///span[text()='Dispatch']")
     public WebElementFacade dispatchInputFilterCard;
 
-    @FindBy(xpath = "//a[@class='card__body']//span[text()='QA Response']")
+    @FindBy(xpath = "//span[text()='QA Response']")
     public WebElementFacade qaResponseFilterCard;
 
     @FindBy(xpath = "//a[@class='tab'][text()='Documents']")
@@ -91,6 +94,9 @@ public class Workstacks extends Page {
 
     @FindBy(xpath = "//span[@id='case-note-error']")
     public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
+
+    @FindBy(xpath = "//a[@class='govuk-back-link'][text()='Back to dashboard']")
+    public WebElementFacade backToDashboardButton;
 
     // Basic Methods
 
@@ -114,7 +120,7 @@ public class Workstacks extends Page {
         workflowBreadcrumb.click();
     }
 
-    public void clickMINFilterCard(){
+    public void clickMINFilterCard() {
         dcuMINFilterCard.click();
     }
 
@@ -154,11 +160,16 @@ public class Workstacks extends Page {
         addCaseNoteButton.click();
     }
 
+    public void clickBackToDashboardButton() {
+        backToDashboardButton.click();
+    }
+
     public int getTotalOfCases() {
         String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
 
         return Integer.parseInt(tempNumberOfItems);
     }
+
 
     public void clickCheckboxRelevantToCaseReference() {
         String caseReference =
@@ -187,7 +198,9 @@ public class Workstacks extends Page {
     public void assertCasesAreFilteredByRef(String caseReference) {
         int totalNumberOfCases = getTotalOfCases();
 
-        List<WebElementFacade> listOfReferences = findAll("//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference + "')]");
+        List<WebElementFacade> listOfReferences = findAll(
+                "//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference
+                        + "')]");
         assertThat(listOfReferences.size(), is(totalNumberOfCases));
     }
 
@@ -201,19 +214,19 @@ public class Workstacks extends Page {
         int dataInputCount = 0;
         int qaResponseCount = 0;
 
-        List<WebElementFacade> listOfReference = findAll("//tbody[@class='govuk-table__body']/tr/td[3]");
+        List<WebElementFacade> listOfReference = findAll(
+                "//tbody[@class='govuk-table__body']/tr/td[3]");
         for (WebElementFacade element : listOfReference) {
             String elementText = element.getText();
 
-
             switch (elementText.toUpperCase()) {
-                case "DISPATCH" :
+                case "DISPATCH":
                     dispatchCount++;
                     break;
-                case "DATA INPUT" :
+                case "DATA INPUT":
                     dataInputCount++;
                     break;
-                case "QA RESPONSE" :
+                case "QA RESPONSE":
                     qaResponseCount++;
                     break;
                 default:

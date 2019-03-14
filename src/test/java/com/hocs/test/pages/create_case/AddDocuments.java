@@ -30,6 +30,9 @@ public class AddDocuments extends Page {
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
 
+    @FindBy(xpath = "//input[@id='document']")
+    private WebElementFacade addStandardLineDocument;
+
     @FindBy(xpath = "//a[text()='Document type is required']")
     private WebElementFacade documentTypeIsRequiredErrorMessage;
 
@@ -83,12 +86,16 @@ public class AddDocuments extends Page {
         assertThat(documentTypeIsRequiredErrorMessage.getText(), is ("Document type is required"));
     }
 
-    public void assertDocumentIsRequiedErrorMessage() {
+    public void assertDocumentIsRequiredErrorMessage() {
         assertThat(documentIsRequiredErrorMessage.getText(), is("Document is required"));
     }
 
     public void uploadDocument() {
         upload("src/test/resources/documents/test1.docx").to(addDocument);
+    }
+
+    public void uploadStandardLineDocument() {
+        upload("src/test/resources/documents/test1.docx").to(addStandardLineDocument);
     }
 
 }

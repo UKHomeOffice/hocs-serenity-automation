@@ -125,7 +125,6 @@ public class MarkUpStepDefs {
         workstacks.clickAllocateToMeButton();
         markUpDecision.clickPolicyResponseRadioButton();
         markUpDecision.clickContinueButton();
-        markUpDecision.sleep(500);
         markUpDecision.clickAddTopic();
         markUpDecision.clickAddButton();
     }
