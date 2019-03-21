@@ -26,7 +26,6 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
 
@@ -35,6 +34,21 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
+
+    @FindBy(xpath = "//input[@id='case-reference']")
+    public WebElementFacade caseReferenceSearchBar;
+
+    @FindBy(xpath = "//input[@value='Find']")
+    public WebElementFacade caseReferenceFindButton;
+
+    @FindBy(xpath = "//span[text()='Case reference is required']")
+    public WebElementFacade caseReferenceIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//span[text()='Case reference is invalid format']")
+    public WebElementFacade caseReferenceIsInvalidFormatErrorMessage;
+
+    @FindBy(xpath = "//span[text()='No active workflows for case']")
+    public WebElementFacade noActiveWorkflowsForCaseErrorMessage;
 
     @FindBy(xpath = "//h2[text()='My Cases']")
     public WebElementFacade homePageMyCasesAssertion;
@@ -102,7 +116,30 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
+    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    private WebElementFacade actualCaseReferenceInsideCase;
+
     // Basic Methods
+
+    public void selectCaseReferenceSearchBar(String searchCaseReference) {
+        caseReferenceSearchBar.sendKeys(searchCaseReference);
+    }
+
+    public void clickCaseReferenceSearchFindButton() {
+        caseReferenceFindButton.click();
+    }
+
+    public void assertCaseReferenceIsRequiredErrorMessage() {
+        assertThat(caseReferenceIsRequiredErrorMessage.getText(), is("Case reference is required"));
+    }
+
+    public void assertCaseReferenceIsInvalidFormatErrorMessage() {
+        assertThat(caseReferenceIsInvalidFormatErrorMessage.getText(), is("Case reference is invalid format"));
+    }
+
+    public void assertNoActiveWorkflowsForCaseErrorMessage() {
+        assertThat(noActiveWorkflowsForCaseErrorMessage.getText(), is("No active workflows for case"));
+    }
 
     public void waitForPerformanceProcessTeam() {
         performanceProcessTeam.waitUntilEnabled();
@@ -148,15 +185,25 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-    public void selectPoliceWorkforceProfessionalismTeam() { policeWorkforceProfessionalismUnit.click(); }
+    public void selectPoliceWorkforceProfessionalismTeam() {
+        policeWorkforceProfessionalismUnit.click();
+    }
 
-    public void selectMinisterOfStatePolicingFireTeam() { ministerOfStateForPolicingAndFireServiceTeam.click(); }
+    public void selectMinisterOfStatePolicingFireTeam() {
+        ministerOfStateForPolicingAndFireServiceTeam.click();
+    }
 
-    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {ministerOfStateForSecurityAndEconomicCrime.click(); }
+    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {
+        ministerOfStateForSecurityAndEconomicCrime.click();
+    }
 
-    public void selectExtremismAnalysisUnit() {extremismAnalysisUnit.click(); }
+    public void selectExtremismAnalysisUnit() {
+        extremismAnalysisUnit.click();
+    }
 
-    public void selectCounterExtremismUnit() { counterExtremismUnit.click(); }
+    public void selectCounterExtremismUnit() {
+        counterExtremismUnit.click();
+    }
 
     public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
         counterTerrorismLegislationInvestigatoryPowersUnit.click();
@@ -245,7 +292,9 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
-    public void selectSearchPage() { searchPage.click();}
+    public void selectSearchPage() {
+        searchPage.click();
+    }
 
     public void clickMyWorkstack() {
         myWorkstacks.click();
@@ -263,8 +312,13 @@ public class Homepage extends Page {
         return rowsFrom(workstackTable);
     }
 
-    public void assertPageTitle() {
+    public void assertHomePageTitle() {
         assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
     }
+
+//    public void assertCaseReferenceInsideCase() {
+//        assertThat(actualCaseReferenceInsideCase.getText(), is());
+//    }
+
 
 }

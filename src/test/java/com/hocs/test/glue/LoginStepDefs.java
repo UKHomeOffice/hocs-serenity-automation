@@ -136,7 +136,7 @@ public class LoginStepDefs {
 
     @Then("^I should be taken to the homepage$")
     public void assertHomePage() {
-        homepage.assertPageTitle();
+        homepage.assertHomePageTitle();
     }
 
     private void enterHocsLoginDetails(Users user) {

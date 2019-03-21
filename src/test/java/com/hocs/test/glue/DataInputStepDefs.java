@@ -194,6 +194,7 @@ public class DataInputStepDefs {
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickContinueButton();
 
@@ -207,6 +208,7 @@ public class DataInputStepDefs {
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickCorrespondentIsAMember();
         dataInput.clickContinueButton();
@@ -221,6 +223,7 @@ public class DataInputStepDefs {
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickCorrespondentIsNotAMember();
         dataInput.clickContinueButton();

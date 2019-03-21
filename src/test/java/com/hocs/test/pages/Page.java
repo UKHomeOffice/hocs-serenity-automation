@@ -740,4 +740,5 @@ public class Page extends PageObject {
         System.out.println(thisElementsText);
         assertThat(elem.getText(), is(thisElementsText));
     }
+
 }

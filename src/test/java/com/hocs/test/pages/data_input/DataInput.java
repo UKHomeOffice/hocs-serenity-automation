@@ -50,17 +50,10 @@ public class DataInput extends Page {
     private WebElementFacade dateCorrespondenceReceivedYearField;
 
     @FindBy(id = "")
-    private WebElementFacade correspondentDropdown;
-
-    @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    //@FindBy(xpath = "(//div//a[@class='govuk-body govuk-link'])[1]")
-    @FindBy(xpath = "(//a[text()='Add a '])")
+    @FindBy(xpath = "(//a[@class='govuk-body govuk-link'])[1]")
     private WebElementFacade addCorrespondentLink;
-
-    @FindBy(id = "")
-    private WebElementFacade primaryCorrespondent;
 
     @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentMemberNoRadioButton;

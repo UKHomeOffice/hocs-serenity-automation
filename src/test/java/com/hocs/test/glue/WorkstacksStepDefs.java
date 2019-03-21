@@ -39,13 +39,13 @@ public class WorkstacksStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @When("^I allocate the case to myself")
-    public void allocateToMe() {
-        homepage.selectPerformanceProcessTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-    }
+//    @When("^I allocate the case to myself")
+//    public void allocateToMe() {
+//        homepage.selectPerformanceProcessTeam();
+//        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//        workstacks.clickAllocateToMeButton();
+//        homepage.goHome();
+//    }
 
     @Then("^they allocate the case to themself$")
     public void allocateCaseToUser() {
@@ -61,7 +61,12 @@ public class WorkstacksStepDefs {
         homepage.selectMyCases();
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickUnallocateCasesButton();
+    }
 
+    @When("^I unallocate all the cases from myself$")
+    public void unallocateAllCasesFromMyCases() {
+        workstacks.clickAllWorkstackCheckboxes();
+        workstacks.clickUnallocateCasesButton();
     }
 
     @When("^I select the check box against a case and allocate it to myself$")
@@ -72,9 +77,15 @@ public class WorkstacksStepDefs {
         workstacks.goHome();
     }
 
+    @When("^I unallocate all cases from the users in the team$")
+    public void unallocatedAllCasesFromTeamwork() {
+        workstacks.clickAllWorkstackCheckboxes();
+        workstacks.clickUnallocateCasesButton();
+    }
+
 
     @Then("^the case should be added to my workstack$")
-    public void assertThatCaseIsAllocatedToMe() {
+    public void assertThatCaseHasBeenAddedToMyWorkstack() {
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
     }
@@ -83,6 +94,11 @@ public class WorkstacksStepDefs {
     public void assertThatCaseHasBeenUnallocatedFromMe() {
         workstacks.assertCaseReferenceIsNotVisible();
 
+    }
+
+    @Then("^no cases should be visible in my workstack$")
+    public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
+        workstacks.assertThatThereAreNoCasesInWorkstack();
     }
 
     @When("^I enter the Case Reference type \"([^\"]*)\" into the filter$")
@@ -156,7 +172,7 @@ public class WorkstacksStepDefs {
 
     @Then("^I should be taken back to the homepage$")
     public void assertThatDashboardBreadcrumbTakesUserToHomepage() {
-        homepage.assertPageTitle();
+        homepage.assertHomePageTitle();
     }
 
     @When("^I click the team breadcrumb$")

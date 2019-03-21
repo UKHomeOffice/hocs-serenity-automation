@@ -2,11 +2,11 @@ Feature: Search should be available for all users of the application
 
   Background:
     Given I am user "EAMON"
-    When I am on the "SEARCH" page
+#    When I am on the "SEARCH" page
 
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
-    And I enter a search query <query>
+    When I enter a valid search query
     Then I should be taken directly to the case
 
   @SearchForm @SearchByCaseReferenceNumber
@@ -23,9 +23,14 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: An error message should be displayed if a user enters a Reference number that does not exist
-    And I have permissions to view the case
-    When I enter a search query <query>
-    Then an error message should be displayed stating <errorMessage> (this case does not exist)
+#    And I have permissions to view the case
+    When I enter a non-existent case reference
+    Then an error message should be displayed stating that there are no active workflows for the case
+
+  @SearchForm @SearchByCaseReferenceNumber
+  Scenario: User must enter a search query in the case reference search bar
+    When I click the find button
+    Then an error message should be displayed stating that a case reference is required
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search for a case by Case Type

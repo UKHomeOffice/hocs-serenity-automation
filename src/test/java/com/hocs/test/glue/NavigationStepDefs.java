@@ -134,7 +134,7 @@ public class NavigationStepDefs {
                 createCase.assertPageTitle();
                 break;
             case "HOME":
-                homepage.assertPageTitle();
+                homepage.assertHomePageTitle();
                 break;
            /* case "TEAMQUEUES":
                 teamqueue.assertPageTitle(); */

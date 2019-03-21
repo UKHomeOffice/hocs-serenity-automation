@@ -177,7 +177,6 @@ public class CreateCase extends Page {
         homepage.clickCreateSingleCase();
         clickDcuMinRadioButton();
         completeDCUMINSingleCaseCreation();
-        sleep(3000);
     }
 
     public void createDC10SingleCase() {

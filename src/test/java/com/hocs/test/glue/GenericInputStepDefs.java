@@ -43,8 +43,6 @@ public class GenericInputStepDefs {
 
     Page page;
 
-    TestForm testForm;
-
     Homepage homepage;
 
     CreateCase createCase;
@@ -215,6 +213,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -236,6 +235,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -268,6 +268,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -314,6 +315,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -362,6 +364,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -415,6 +418,7 @@ public class GenericInputStepDefs {
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();

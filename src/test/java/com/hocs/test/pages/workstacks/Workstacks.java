@@ -98,6 +98,9 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//a[@class='govuk-back-link'][text()='Back to dashboard']")
     public WebElementFacade backToDashboardButton;
 
+    @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
+    public WebElementFacade zeroItemsInWorkstackCount;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -181,6 +184,15 @@ public class Workstacks extends Page {
 
     }
 
+    public void clickAllWorkstackCheckboxes() {
+        List<WebElementFacade> checkboxList = findAll(By.xpath("//td//input[@class='govuk-checkboxes__input']"));
+
+        for (WebElementFacade boxes:checkboxList) {
+
+            boxes.click();
+        }
+    }
+
     public void clickUnallocateCasesButton() {
         unallocateFromMeButton.click();
     }
@@ -262,6 +274,10 @@ public class Workstacks extends Page {
         }
 
         assertThat(isElementDisplayed(element), is(false));
+    }
+
+    public void assertThatThereAreNoCasesInWorkstack() {
+        assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
     }
 
 }

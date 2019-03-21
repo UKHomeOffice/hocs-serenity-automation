@@ -26,13 +26,13 @@ Feature: HOCS User is able to create a case
   Scenario: A single case is allocated to the current user
     And I create a single MIN case
     When I allocate the case to myself
-    Then the case should be added to my workstack
+    Then the case should be visible in my workstack
 
   @Allocate
   Scenario: A single case is allocated to the current user using checkboxes
     And I create a single MIN case
     When I navigate to the Performance and Process Team and select the check box against the newly created case and allocate it to myself
-    Then the case should be added to my workstack
+    Then the case should be visible in my workstack
 
   Scenario: I can bulk upload cases
     When I bulk create 40 "DCU MIN" cases
