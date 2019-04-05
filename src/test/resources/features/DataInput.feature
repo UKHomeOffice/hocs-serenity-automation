@@ -84,7 +84,12 @@ Feature: HOCS User is add data to a case
   @Validation
   Scenario: How correspondence was received radio button must be selected at Data Input stage
     And I click the continue button at the data input stage
-    Then an error message should be displayed as I have not selected a radio button
+    Then an error message should be displayed as I have not selected a correspondence received radio button
+
+  @Validation
+  Scenario: Should the response be copied to Number 10 radio button must be selected at Data Input stage
+    And I click the continue button at the data input stage
+    Then an error message should be displayed as I have not selected a copied to number 10 radio button
 
   @Validation
   Scenario: User must add a primary correspondent at Data Input stage
@@ -94,7 +99,7 @@ Feature: HOCS User is add data to a case
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
     And I click the continue button on the is the correspondent an MP screen
-    Then an error message should be displayed as I must select a radio button on this screen
+    Then an error message should be displayed as I must select a correspondent type on this screen
 
   @Validation
   Scenario: User must select an MP from drop down box at Data Input stage

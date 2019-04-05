@@ -5,19 +5,21 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 public class SearchForm extends Page {
 
     @Managed
     WebDriver driver;
 
-    @FindBy(xpath = "//input[@value='MIN']")
+    @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
 
-    @FindBy(xpath = "//input[@value='DTEN']")
+    @FindBy(css = "label[for='caseTypes_DTEN']")
     public WebElementFacade searchDTENCheckbox;
 
-    @FindBy(xpath = "//input[@value='TRO']")
+    @FindBy(css = "label[for='caseTypes_TRO']")
     public WebElementFacade searchTROCheckbox;
 
     @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")
@@ -49,6 +51,15 @@ public class SearchForm extends Page {
 
     @FindBy(xpath = "//input[@id='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
+
+    @FindBy(xpath = "//a[contains(text(), 'MIN')]")
+    public WebElementFacade searchResultsMINCases;
+
+    @FindBy(xpath = "//a[contains(text(), 'TRO')]")
+    public WebElementFacade searchResultsTROCases;
+
+    @FindBy(xpath = "//a[contains(text(), 'DTEN')]")
+    public WebElementFacade searchResultsDTENCases;
 
     public void selectMINCheckbox() {
         searchMINCheckbox.click();
@@ -88,6 +99,18 @@ public class SearchForm extends Page {
 
     public void selectCaseStatusActiveCheckbox() {
         caseStatusActiveCheckbox.click();
+    }
+
+    public void assertThatMINCaseIsNotVisible() {
+        assertThat(isElementDisplayed(searchResultsMINCases), is(false));
+    }
+
+    public void assertThatDTENCaseIsNotVisible() {
+        assertThat(isElementDisplayed(searchResultsDTENCases), is(false));
+    }
+
+    public void assertThatTROCaseIsNotVisible() {
+        assertThat(isElementDisplayed(searchResultsTROCases), is(false));
     }
 
 

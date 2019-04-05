@@ -31,12 +31,6 @@ public class LoginStepDefs {
 
     LoginPage loginPage;
 
-    @Steps(shared = true)
-    NavigationStepDefs navigationStepDefs;
-
-    private Page page;
-
-
     @Then("^An invalid username or password error is displayed$")
     public void invalidUsernamePasswordErrorDisplayed() {
         loginPage.assertInvalidUsernamePassword();

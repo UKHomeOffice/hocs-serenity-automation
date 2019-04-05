@@ -238,6 +238,7 @@ public class DataInputStepDefs {
         workstacks.clickAddButton();
     }
 
+
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")
     public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
         workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
@@ -258,7 +259,7 @@ public class DataInputStepDefs {
         dataInput.assertMemberIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I must select a radio button on this screen$")
+    @Then("^an error message should be displayed as I must select a correspondent type on this screen$")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
@@ -274,7 +275,7 @@ public class DataInputStepDefs {
 
     }
 
-    @Then("^an error message should be displayed as I have not selected a radio button$")
+    @Then("^an error message should be displayed as I have not selected a correspondence received radio button$")
     public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
         dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
 
@@ -283,5 +284,10 @@ public class DataInputStepDefs {
     @Then("^an error message should be displayed as I have not added a primary correspondent$")
     public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
         dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a copied to number 10 radio button$")
+    public void assertThatShouldResponseBeCopiedN10ErrorMessageIsShown() {
+        dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
     }
 }

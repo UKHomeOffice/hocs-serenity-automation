@@ -34,8 +34,8 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search for a case by Case Type
-    And I search by the <caseType>
-    Then only <caseType> results should be displayed in the results list
+    And I search by the case type "MIN"
+    Then only the chosen "MIN" case type results should be displayed in the results list
 
   @SearchForm @SearchByCaseType
   Scenario: If a user searches for a Case Type that does not exist, no results should be displayed
@@ -144,7 +144,7 @@ Feature: Search should be available for all users of the application
     Then there should be no cases displayed in the results list if no cases match the search parameters
 
   @SearchForm @SearchByCorrespondent
-  Scenario: User should be able to search by correspondent either by select a member of a house from a drop down list or by entering a name
+  Scenario: User should be able to search by correspondent by entering their name
     And I search by <correspondentName>
     Then cases with specified <correspondentName> should be displayed in the results list
 

@@ -11,10 +11,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
 
-    Homepage homepage;
-
-    SuccessfulCaseCreation successfulCaseCreation;
-
     @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
     private WebElementFacade answeredByMyTeamNoRadioButton;
 
@@ -157,9 +153,6 @@ public class Draft extends Page {
 
     public void clickYesSupportingDocumentsRAdioButton() {
         supportingDocumentsYesRadioButton.click();
-    }
-
-    public Draft() {
     }
 
     public void enterAllocationNoteField() {

@@ -3,6 +3,7 @@ package com.hocs.test.pages.homepage;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -11,11 +12,13 @@ import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 import java.util.List;
 import java.util.Map;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
+import org.aspectj.weaver.World;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -25,6 +28,8 @@ public class Homepage extends Page {
     WebDriver driver;
 
     SuccessfulCaseCreation successfulCaseCreation;
+
+    Workstacks workstacks;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
@@ -95,6 +100,12 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
     public WebElementFacade chemBioRadioNuclearExplosives;
 
+    @FindBy(xpath = "//span[text()='Under Secretary of State for Crime, Safeguarding and Vulnerability']")
+    public WebElementFacade underSecretaryCrimeSafeguardVulnerability;
+
+    @FindBy(xpath = "//span[text()='Criminal & Financial Investigations']")
+    public WebElementFacade criminalAndFinacialInvestigations;
+
     @FindBy(xpath = "//span[text()='Press Office']")
     public WebElementFacade pressOffice;
 
@@ -116,13 +127,11 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
-    @FindBy(xpath = "//span[@class='govuk-caption-l']")
-    private WebElementFacade actualCaseReferenceInsideCase;
-
     // Basic Methods
 
     public void selectCaseReferenceSearchBar(String searchCaseReference) {
-        caseReferenceSearchBar.sendKeys(searchCaseReference);
+        caseReferenceSearchBar.sendKeys();
+        setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
     }
 
     public void clickCaseReferenceSearchFindButton() {
@@ -207,6 +216,14 @@ public class Homepage extends Page {
 
     public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
         counterTerrorismLegislationInvestigatoryPowersUnit.click();
+    }
+
+    public void selectUnderSecretaryCrimeSafeguardingVulerabilityTeam() {
+        underSecretaryCrimeSafeguardVulnerability.click();
+    }
+
+    public void selectCriminalAndFinacialInvestigationsTeam(){
+        criminalAndFinacialInvestigations.click();
     }
 
     public void selectPressOffice() {
@@ -315,10 +332,6 @@ public class Homepage extends Page {
     public void assertHomePageTitle() {
         assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
     }
-
-//    public void assertCaseReferenceInsideCase() {
-//        assertThat(actualCaseReferenceInsideCase.getText(), is());
-//    }
 
 
 }

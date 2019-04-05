@@ -36,8 +36,6 @@ public class MarkUpStepDefs {
 
     QAResponse qaResponse;
 
-    Draft draft;
-
     DraftingTeamDecision draftingTeamDecision;
 
     @When("^I complete the markup stage$")

@@ -60,6 +60,42 @@ public class NavigationStepDefs {
             case "PERFORMANCE AND PROCESS TEAM":
                 homepage.selectPerformanceProcessTeam();
                 break;
+            case "TRANSFERS AND NO10 TEAM":
+                homepage.selectTransfersN10Team();
+                break;
+            case "CENTRAL DRAFTING TEAM":
+                homepage.selectCentralDraftingTeam();
+                break;
+            case "MINISTER FOR LORDS":
+                homepage.selectMinisterForLordsTeam();
+                break;
+            case "EXTREMISM ANALYSIS UNIT":
+                homepage.selectExtremismAnalysisUnit();
+                break;
+            case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
+                homepage.selectPoliceWorkforceProfessionalismTeam();
+                break;
+            case "UNDER SECRETARY OF STATE FOR CRIME SAFEGUARDING AND VULNERABILITY":
+                homepage.selectUnderSecretaryCrimeSafeguardingVulerabilityTeam();
+                break;
+            case "CRIMINAL AND FINANCIAL INVESTIGATIONS":
+                homepage.selectCriminalAndFinacialInvestigationsTeam();
+                break;
+            case "CHEMICAL BIOLOGICAL RADIOLOGICAL NUCLEAR EXPLOSIVES":
+                homepage.selectChemBioRadioNuclearExplosivesTeam();
+                break;
+            case "PRESS OFFICE":
+                homepage.selectPressOffice();
+                break;
+            case "COUNTER EXTREMISM UNIT":
+                homepage.selectCounterExtremismUnit();
+                break;
+            case "FINANCE":
+                homepage.selectFinanceTeam();
+                break;
+            case "COUNTERTERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
+                homepage.selectCounterTerrorismLegislationInvestigatoryPowersUnit();
+                break;
             case "MY CASES":
                 homepage.selectMyCases();
                 break;
@@ -168,7 +204,7 @@ public class NavigationStepDefs {
                 case "QA":
                     baseUrl = Environments.QA.getEnvironmentURL();
                     break;
-                case "DEMO" :
+                case "DEMO":
                     baseUrl = Environments.DEMO.getEnvironmentURL();
                 default:
                     TestCase.fail("Environment must be set to LOCAL, DEV or QA");

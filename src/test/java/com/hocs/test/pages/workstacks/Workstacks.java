@@ -5,6 +5,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
+import org.hamcrest.core.Is;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -101,6 +102,10 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
+    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    private WebElementFacade actualCaseReferenceInsideCase;
+
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -193,6 +198,12 @@ public class Workstacks extends Page {
         }
     }
 
+    public String getFirstCaseReferenceInWorkstack(){
+        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]").get(0);
+
+            firstCaseInWorkstack.getText();
+    }
+
     public void clickUnallocateCasesButton() {
         unallocateFromMeButton.click();
     }
@@ -278,6 +289,11 @@ public class Workstacks extends Page {
 
     public void assertThatThereAreNoCasesInWorkstack() {
         assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
+    }
+
+    public void assertCaseReferenceInsideCase() {
+        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        assertThat(actualCaseReferenceInsideCase.getText(), is(searchCaseReference));
     }
 
 }
