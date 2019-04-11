@@ -48,31 +48,25 @@ public class fetch extends Page {
         setSessionVariable("stage").to(stage);
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                homepage.selectPerformanceProcessTeam();
                 getFirstUnallocatedDataInputCase(caseType);
                 break;
             case "MARKUP":
-                homepage.selectCentralDraftingTeam();
                 getFirstUnallocatedMarkupCase(caseType);
                 break;
             case "INITIAL DRAFT":
                 // Only Cardiff University Kittens ATM, add random topics later
-                homepage.selectAnimalsInScienceTeam();
                 getFirstUnallocatedInitialDraftCase(caseType);
                 break;
             case "QA RESPONSE":
-                homepage.selectPerformanceProcessTeam();
                 getFirstUnallocatedQaResponseCase(caseType);
                 break;
             case "PRIVATE OFFICE APPROVAL":
                 // As in draft stage, only cardiff uni kittens as Current topic so
                 // always come to this team for now, add random topics later
                 // Might not need this as we are just interested in 'a case at a stage'
-                homepage.selectMinisterForLordsTeam();
                 getFirstUnallocatedPrivateOfficeCase(caseType);
                 break;
             case "MINISTERIAL SIGN OFF":
-                homepage.selectMinisterForLordsTeam();
                 getFirstUnallocatedMinisterialSignOffCase(caseType);
                 break;
             case "DISPATCH":
@@ -158,13 +152,13 @@ public class fetch extends Page {
             case "DCU N10":
                 break;
             default:
-                pendingStep(caseType + " is not defined withing " + getMethodName());
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
     public void getFirstUnallocatedInitialDraftCase(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
                 try {
                     homepage.selectAnimalsInScienceTeam();
                     try {
@@ -174,7 +168,7 @@ public class fetch extends Page {
                         firstUnallocatedMINCase.click();
                         workstacks.clickAllocateToMeButton();
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("I couldn't find an Initial Draft case so I am searching for a Markup");
+                        System.out.println("I couldnt find an Initial Draft case so I am searching for a Markup case");
                         goHome();
                         getFirstUnallocatedMarkupCase(caseType);
                         markupFullFlow.moveCaseFromMarkupToInitialDraft();
@@ -183,8 +177,8 @@ public class fetch extends Page {
                         giveMeACase(thisCaseType, thisStage);
                     }
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Animals In Science Team not available, therefore there are no Initial Draft cases, "
-                            + "searching for a Markup case");
+                    System.out.println("Animals in Science Regulation unit is not available, therefore there are no draft "
+                            + "cases, searching for a Markup case");
                     goHome();
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
@@ -193,9 +187,9 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 break;
-            case "DCU TRO":
+            case "DCU TRO" :
                 break;
-            case "DCU N10":
+            case "DCU N10" :
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -206,7 +200,7 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    homepage.selectPerformanceProcessTeam();
+                    homepage.selectAnimalsInScienceTeam();
                     try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'QA Response')]][following-sibling::td[2]"
@@ -214,6 +208,7 @@ public class fetch extends Page {
                         firstUnallocatedMINCase.click();
                         workstacks.clickAllocateToMeButton();
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("I couldnt find a QA Response case so I am searching for a Draft case");
                         goHome();
                         getFirstUnallocatedInitialDraftCase(caseType);
                         draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
@@ -246,8 +241,9 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    homepage.selectMinisterForLordsTeam();
-                    try {
+                    homepage.selectPerformanceProcessTeam();
+                    // SHOULD BE AND WILL BECOME -->>> homepage.selectMinisterForLordsTeam(); DEFECT IS HOCS-927
+                     try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'Private Office Approval')]][following-sibling::td[2]"
                                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -255,7 +251,7 @@ public class fetch extends Page {
                         workstacks.clickAllocateToMeButton();
                     } catch (IndexOutOfBoundsException e) {
                         goHome();
-                        System.out.println("I couldn't find a Ministerial Sign off case so I am searching for a QA "
+                        System.out.println("I couldn't find a Private Office Approval case so I am searching for a QA "
                                 + "Response case");
                         homepage.selectAnimalsInScienceTeam();
                         getFirstUnallocatedQaResponseCase(caseType);

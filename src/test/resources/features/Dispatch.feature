@@ -2,7 +2,7 @@ Feature:  HOCS User is able to Dispatch a Response
 
   Background:
     Given I am user "EAMON"
-    And I am at the "DISPATCH" stage
+    And I get a "DCU MIN" case at "DISPATCH" stage
 
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason

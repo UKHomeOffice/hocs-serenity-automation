@@ -7,6 +7,7 @@ import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.give_me_a_case.fetch;
 import config.Environments;
 import config.Services;
 
@@ -33,6 +34,8 @@ public class NavigationStepDefs {
     private Homepage homepage;
 
     private Teamqueue teamqueue;
+
+    private fetch fetch;
 
     Page page;
 
@@ -120,6 +123,11 @@ public class NavigationStepDefs {
                 pendingStep(teamPage + " is not defined within " + getMethodName());
         }
 
+    }
+
+    @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
+    public void reallyGiveMeACase(String caseType, String stage) {
+        fetch.giveMeACase(caseType, stage);
     }
 
     @When("^I click the back to dashboard button$")

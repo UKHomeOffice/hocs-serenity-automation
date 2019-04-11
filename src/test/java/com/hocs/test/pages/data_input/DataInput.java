@@ -207,13 +207,14 @@ public class DataInput extends Page {
     }
 
     public void fillAllMandatoryFields() {
-        emailOriginalChannelRadioButton.click();
         enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
         enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
         enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
+        emailOriginalChannelRadioButton.click();
+        selectN10ResponseNoRadioButton();
     }
 
     public void invalidCorrespondenceReceivedDate() {

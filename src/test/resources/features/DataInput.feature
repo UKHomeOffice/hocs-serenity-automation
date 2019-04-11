@@ -2,10 +2,11 @@ Feature: HOCS User is add data to a case
 
   Background:
     Given I am user "EAMON"
-    When I am at the "DATA INPUT" stage
+    #When I am at the "DATA INPUT" stage
 
   @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
+    When I get a "DCU MIN" case at "DATA INPUT" stage
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed

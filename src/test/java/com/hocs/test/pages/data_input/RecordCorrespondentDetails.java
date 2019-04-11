@@ -135,11 +135,11 @@ public class RecordCorrespondentDetails extends Page {
         selectAddACorrespondent();
         selectNotMPRadioButton();
         clickContinueButton();
-        fillMandatoryFields();
+        fillMandatoryCorrespondentFields();
         clickAddButton();
     }
 
-    public void fillMandatoryFields() {
+    public void fillMandatoryCorrespondentFields() {
         selectCorrespondentTypeFromDropdown("Correspondent");
         enterCorrespondentFullName("Test Testing-" + generateRandomString());
         enterCorrespondentBuilding("1");

@@ -62,7 +62,7 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsNotAMember();
         dataInput.clickContinueButton();
-        recordCorrespondentDetails.fillMandatoryFields();
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
         dataInput.clickContinueButton();
     }
 
@@ -71,7 +71,7 @@ public class DataInputStepDefs {
         genericInputStepDefs.fillMandatoryFields("Data Input");
         dataInput.clickContinueButton();
         dataInput.clickAddCorrespondentLink();
-        recordCorrespondentDetails.fillMandatoryFields();
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
         dataInput.clickAddButton();
     }
 
