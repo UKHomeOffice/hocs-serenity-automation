@@ -4,6 +4,11 @@ Feature: Search should be available for all users of the application
     Given I am user "EAMON"
 #    When I am on the "SEARCH" page
 
+  @SearchForm @Validation
+  Scenario: User must enter search criteria when using the search form
+    When I click the search button on the search page
+    Then an error message should be displayed as I have not entered any search criteria
+
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
     When I enter a valid search query
@@ -38,11 +43,6 @@ Feature: Search should be available for all users of the application
     Then only the chosen "MIN" case type results should be displayed in the results list
 
   @SearchForm @SearchByCaseType
-  Scenario: If a user searches for a Case Type that does not exist, no results should be displayed
-    And I search by <caseTypeThatHasNotBeenBuiltYet>
-    Then no results should be displayed as there are no cases with the <caseTypeThatHasNotBeenBuiltYet>
-
-  @SearchForm @SearchByCaseType
   Scenario: User with permissions to view the case they search for should have the cases displayed in the list when searching by Case Type
     And I have permissions to view the case
     When I search by <caseType>
@@ -61,8 +61,8 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search by Case Type and another parameter
-    And I search by the <caseType> and <anotherParameter>
-    Then cases that are <caseType> that also contain <anotherParameter> should be displayed in the results list
+    And I search by the case type "MIN" and another parameter "BOB CORRESPONDENT"
+    Then cases that are "MIN" case type that also contain another parameter "BOB CORRESPONDENT" should be displayed in the results list
 
   @SearchForm @SearchByCaseType
   Scenario: No cases should be displayed if the user searches by Case Type and another parameter when a case does not exist with both parameters
@@ -145,8 +145,8 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCorrespondent
   Scenario: User should be able to search by correspondent by entering their name
-    And I search by <correspondentName>
-    Then cases with specified <correspondentName> should be displayed in the results list
+    And I search by the correspondent name "CORBYN"
+    Then cases with specified correspondent name "CORBYN" should be displayed in the results list
 
   @SearchForm @SearchByCorrespondent
   Scenario: No cases should be displayed in the results list if there are no cases with the specified correspondent name

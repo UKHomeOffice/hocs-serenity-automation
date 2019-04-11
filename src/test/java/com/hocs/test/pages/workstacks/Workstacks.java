@@ -21,12 +21,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends Page {
 
-
-    Homepage homepage;
-
-    WebDriver driver;
-
-
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
 
@@ -102,9 +96,17 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
-    @FindBy(xpath = "//span[@class='govuk-caption-l']")
-    private WebElementFacade actualCaseReferenceInsideCase;
+    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
+    public WebElementFacade caseReferenceOnAllocationScreen;
 
+    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
+
+    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[3]")
+    public WebElementFacade primaryCorrespondentName;
+
+    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
+    public WebElementFacade primaryTopicName;
 
     // Basic Methods
 
@@ -192,16 +194,10 @@ public class Workstacks extends Page {
     public void clickAllWorkstackCheckboxes() {
         List<WebElementFacade> checkboxList = findAll(By.xpath("//td//input[@class='govuk-checkboxes__input']"));
 
-        for (WebElementFacade boxes:checkboxList) {
+        for (WebElementFacade boxes : checkboxList) {
 
             boxes.click();
         }
-    }
-
-    public String getFirstCaseReferenceInWorkstack(){
-        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]").get(0);
-
-            firstCaseInWorkstack.getText();
     }
 
     public void clickUnallocateCasesButton() {
@@ -281,7 +277,7 @@ public class Workstacks extends Page {
         try {
             element = driver.findElement(By.linkText(caseReferenceNumber));
         } catch (NoSuchElementException e) {
-            // we expect this excpetion to be caught
+            // we expect this exception to be caught
         }
 
         assertThat(isElementDisplayed(element), is(false));
@@ -291,9 +287,15 @@ public class Workstacks extends Page {
         assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
     }
 
-    public void assertCaseReferenceInsideCase() {
+    public void assertCaseReferenceBeforeAllocation(){
         String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
-        assertThat(actualCaseReferenceInsideCase.getText(), is(searchCaseReference));
+        assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
+
+    }
+
+    public void assertCaseReferenceAfterAllocation() {
+        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
 
 }

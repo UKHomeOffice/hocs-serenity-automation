@@ -130,9 +130,18 @@ public class Homepage extends Page {
     // Basic Methods
 
     public void selectCaseReferenceSearchBar(String searchCaseReference) {
-        caseReferenceSearchBar.sendKeys();
+        caseReferenceSearchBar.sendKeys(searchCaseReference);
         setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
     }
+
+//    public String getFirstCaseReferenceInWorkstack() {
+//        selectPerformanceProcessTeam();
+//        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]")
+//                .get(0);
+//
+//        return firstCaseInWorkstack.getText();
+//
+//    }
 
     public void clickCaseReferenceSearchFindButton() {
         caseReferenceFindButton.click();
@@ -243,7 +252,7 @@ public class Homepage extends Page {
 //        allocateButton.click();
 //
 //    }
-
+//
 //    public void selectAllocationUserByIndex(int index) {
 //        allocateDropdown.selectByIndex(index);
 //    }
