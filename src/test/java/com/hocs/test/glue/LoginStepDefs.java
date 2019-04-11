@@ -31,12 +31,6 @@ public class LoginStepDefs {
 
     LoginPage loginPage;
 
-    @Steps(shared = true)
-    NavigationStepDefs navigationStepDefs;
-
-    private Page page;
-
-
     @Then("^An invalid username or password error is displayed$")
     public void invalidUsernamePasswordErrorDisplayed() {
         loginPage.assertInvalidUsernamePassword();
@@ -136,7 +130,7 @@ public class LoginStepDefs {
 
     @Then("^I should be taken to the homepage$")
     public void assertHomePage() {
-        homepage.assertPageTitle();
+        homepage.assertHomePageTitle();
     }
 
     private void enterHocsLoginDetails(Users user) {

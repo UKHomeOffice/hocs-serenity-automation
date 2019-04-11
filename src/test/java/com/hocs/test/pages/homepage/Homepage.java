@@ -3,6 +3,7 @@ package com.hocs.test.pages.homepage;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -11,11 +12,13 @@ import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.workstacks.Workstacks;
 import java.util.List;
 import java.util.Map;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
+import org.aspectj.weaver.World;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -26,6 +29,7 @@ public class Homepage extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
+    Workstacks workstacks;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
@@ -35,6 +39,21 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
+
+    @FindBy(xpath = "//input[@id='case-reference']")
+    public WebElementFacade caseReferenceSearchBar;
+
+    @FindBy(xpath = "//input[@value='Find']")
+    public WebElementFacade caseReferenceFindButton;
+
+    @FindBy(xpath = "//span[text()='Case reference is required']")
+    public WebElementFacade caseReferenceIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//span[text()='Case reference is invalid format']")
+    public WebElementFacade caseReferenceIsInvalidFormatErrorMessage;
+
+    @FindBy(xpath = "//span[text()='No active workflows for case']")
+    public WebElementFacade noActiveWorkflowsForCaseErrorMessage;
 
     @FindBy(xpath = "//h2[text()='My Cases']")
     public WebElementFacade homePageMyCasesAssertion;
@@ -81,6 +100,12 @@ public class Homepage extends Page {
     @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
     public WebElementFacade chemBioRadioNuclearExplosives;
 
+    @FindBy(xpath = "//span[text()='Under Secretary of State for Crime, Safeguarding and Vulnerability']")
+    public WebElementFacade underSecretaryCrimeSafeguardVulnerability;
+
+    @FindBy(xpath = "//span[text()='Criminal & Financial Investigations']")
+    public WebElementFacade criminalAndFinacialInvestigations;
+
     @FindBy(xpath = "//span[text()='Press Office']")
     public WebElementFacade pressOffice;
 
@@ -103,6 +128,36 @@ public class Homepage extends Page {
     public WebElementFacade myCases;
 
     // Basic Methods
+
+    public void selectCaseReferenceSearchBar(String searchCaseReference) {
+        caseReferenceSearchBar.sendKeys(searchCaseReference);
+        setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
+    }
+
+//    public String getFirstCaseReferenceInWorkstack() {
+//        selectPerformanceProcessTeam();
+//        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]")
+//                .get(0);
+//
+//        return firstCaseInWorkstack.getText();
+//
+//    }
+
+    public void clickCaseReferenceSearchFindButton() {
+        caseReferenceFindButton.click();
+    }
+
+    public void assertCaseReferenceIsRequiredErrorMessage() {
+        assertThat(caseReferenceIsRequiredErrorMessage.getText(), is("Case reference is required"));
+    }
+
+    public void assertCaseReferenceIsInvalidFormatErrorMessage() {
+        assertThat(caseReferenceIsInvalidFormatErrorMessage.getText(), is("Case reference is invalid format"));
+    }
+
+    public void assertNoActiveWorkflowsForCaseErrorMessage() {
+        assertThat(noActiveWorkflowsForCaseErrorMessage.getText(), is("No active workflows for case"));
+    }
 
     public void waitForPerformanceProcessTeam() {
         performanceProcessTeam.waitUntilEnabled();
@@ -148,18 +203,36 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-    public void selectPoliceWorkforceProfessionalismTeam() { policeWorkforceProfessionalismUnit.click(); }
+    public void selectPoliceWorkforceProfessionalismTeam() {
+        policeWorkforceProfessionalismUnit.click();
+    }
 
-    public void selectMinisterOfStatePolicingFireTeam() { ministerOfStateForPolicingAndFireServiceTeam.click(); }
+    public void selectMinisterOfStatePolicingFireTeam() {
+        ministerOfStateForPolicingAndFireServiceTeam.click();
+    }
 
-    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {ministerOfStateForSecurityAndEconomicCrime.click(); }
+    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {
+        ministerOfStateForSecurityAndEconomicCrime.click();
+    }
 
-    public void selectExtremismAnalysisUnit() {extremismAnalysisUnit.click(); }
+    public void selectExtremismAnalysisUnit() {
+        extremismAnalysisUnit.click();
+    }
 
-    public void selectCounterExtremismUnit() { counterExtremismUnit.click(); }
+    public void selectCounterExtremismUnit() {
+        counterExtremismUnit.click();
+    }
 
     public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
         counterTerrorismLegislationInvestigatoryPowersUnit.click();
+    }
+
+    public void selectUnderSecretaryCrimeSafeguardingVulerabilityTeam() {
+        underSecretaryCrimeSafeguardVulnerability.click();
+    }
+
+    public void selectCriminalAndFinacialInvestigationsTeam(){
+        criminalAndFinacialInvestigations.click();
     }
 
     public void selectPressOffice() {
@@ -179,7 +252,7 @@ public class Homepage extends Page {
 //        allocateButton.click();
 //
 //    }
-
+//
 //    public void selectAllocationUserByIndex(int index) {
 //        allocateDropdown.selectByIndex(index);
 //    }
@@ -245,7 +318,9 @@ public class Homepage extends Page {
         createSingleCase.click();
     }
 
-    public void selectSearchPage() { searchPage.click();}
+    public void selectSearchPage() {
+        searchPage.click();
+    }
 
     public void clickMyWorkstack() {
         myWorkstacks.click();
@@ -263,8 +338,9 @@ public class Homepage extends Page {
         return rowsFrom(workstackTable);
     }
 
-    public void assertPageTitle() {
+    public void assertHomePageTitle() {
         assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
     }
+
 
 }

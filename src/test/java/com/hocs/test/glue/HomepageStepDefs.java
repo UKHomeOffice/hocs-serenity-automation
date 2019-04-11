@@ -12,7 +12,7 @@ public class HomepageStepDefs {
         homepage.assertElementIsDisplayed(homepage.createSingleCase);
     }
 
-    @Then("^Case Reference is displayed on the homepage$")
+    @Then("^case reference is displayed on the homepage$")
     public void caseReferenceIsDisplayedOnTheHomepage() {
         homepage.assertWorkstackTableContainsCaseReference();
     }

@@ -3,7 +3,6 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 
@@ -18,8 +17,6 @@ public class QAResponseStepDefs {
     Homepage homepage;
 
     QAResponse qaResponse;
-
-    DataInput dataInput;
 
     SuccessfulCaseCreation successfulCaseCreation;
 

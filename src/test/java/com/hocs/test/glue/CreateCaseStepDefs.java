@@ -8,7 +8,6 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkUpDecision;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -31,8 +30,6 @@ public class CreateCaseStepDefs {
     DataInput dataInput;
 
     Homepage homepage;
-
-    MarkUpDecision markUpDecision;
 
     Topics topics;
 
@@ -144,8 +141,8 @@ public class CreateCaseStepDefs {
         workstacks.goHome();
     }
 
-    @Then("^the case should be added to my workstack$")
-    public void assertThatCaseIsAllocatedToMe() {
+    @Then("^the case should be visible in my workstack$")
+    public void assertThatCaseIsAddedToMyWorkstack() {
         homepage.selectMyCases();
         workstacks.assertCaseReferenceIsVisible();
     }
@@ -340,6 +337,7 @@ public class CreateCaseStepDefs {
     public void clickCancelButtonOnWhenWasCorrespondenceReceivedPage() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
+        createCase.sleep(500);
         createCase.clickCancelButton();
 
     }

@@ -20,8 +20,6 @@ public class PrivateOfficeSignOffStepDefs {
 
     Homepage homepage;
 
-    DataInput dataInput;
-
     PrivateOffice privateOffice;
 
     SuccessfulCaseCreation successfulCaseCreation;

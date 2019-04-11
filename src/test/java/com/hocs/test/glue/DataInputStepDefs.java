@@ -193,7 +193,9 @@ public class DataInputStepDefs {
         dataInput.enterMonthOfCorrespondenceSent("01");
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseYesRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickContinueButton();
 
@@ -206,7 +208,9 @@ public class DataInputStepDefs {
         dataInput.enterMonthOfCorrespondenceSent("01");
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickCorrespondentIsAMember();
         dataInput.clickContinueButton();
@@ -220,7 +224,9 @@ public class DataInputStepDefs {
         dataInput.enterMonthOfCorrespondenceSent("01");
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
         dataInput.clickContinueButton();
+        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickCorrespondentIsNotAMember();
         dataInput.clickContinueButton();
@@ -234,6 +240,7 @@ public class DataInputStepDefs {
         workstacks.clickAddCaseNoteButton();
         workstacks.clickAddButton();
     }
+
 
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")
     public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
@@ -255,7 +262,7 @@ public class DataInputStepDefs {
         dataInput.assertMemberIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I must select a radio button on this screen$")
+    @Then("^an error message should be displayed as I must select a correspondent type on this screen$")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
@@ -271,7 +278,7 @@ public class DataInputStepDefs {
 
     }
 
-    @Then("^an error message should be displayed as I have not selected a radio button$")
+    @Then("^an error message should be displayed as I have not selected a correspondence received radio button$")
     public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
         dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
 
@@ -280,5 +287,10 @@ public class DataInputStepDefs {
     @Then("^an error message should be displayed as I have not added a primary correspondent$")
     public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
         dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as I have not selected a copied to number 10 radio button$")
+    public void assertThatShouldResponseBeCopiedN10ErrorMessageIsShown() {
+        dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
     }
 }

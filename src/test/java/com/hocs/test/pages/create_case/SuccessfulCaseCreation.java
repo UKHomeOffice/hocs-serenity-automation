@@ -73,7 +73,6 @@ public class SuccessfulCaseCreation extends Page {
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
-        sleep(500);
         javascriptScrollToElem(referenceElement);
         System.out.println(referenceElement);
         referenceElement.click();
@@ -83,7 +82,7 @@ public class SuccessfulCaseCreation extends Page {
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
-        //sleep(500);
+//        sleep(500);
         System.out.println(referenceElement);
         referenceElement.click();
         referenceElement.click();

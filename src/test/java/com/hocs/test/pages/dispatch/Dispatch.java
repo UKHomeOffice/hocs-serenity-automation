@@ -3,6 +3,7 @@ package com.hocs.test.pages.dispatch;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.Page;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -20,11 +21,20 @@ public class Dispatch extends Page {
     @FindBy(xpath = "//a[text()='Why are you unable to dispatch this? is required']")
     private WebElementFacade whyAreYouUnableToDispatchErrorMessage;
 
+    @FindBy(xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
+    private WebElementFacade whyAreYouUnableToDispatchThisTextbox;
+
     public void clickDispatchAcceptRadioButton() {
         dispatchAcceptRadioButton.click();
     }
 
-    public void clickDispatchRejectRadioButton() { dispatchRejectRadioButton.click();}
+    public void clickDispatchRejectRadioButton() {
+        dispatchRejectRadioButton.click();
+    }
+
+    public void enterTextInWhyAreYouUnableToDispatchTextbox() {
+        whyAreYouUnableToDispatchErrorMessage.sendKeys("");
+    }
 
     public void assertAreYouAbleToDispatchErrorMessageIsShown() {
         assertThat(areYouAbleToDispatchErrorMessage.getText(), is("Are you able to dispatch this? is required"));

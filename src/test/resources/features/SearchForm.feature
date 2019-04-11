@@ -2,11 +2,16 @@ Feature: Search should be available for all users of the application
 
   Background:
     Given I am user "EAMON"
-    When I am on the "SEARCH" page
+#    When I am on the "SEARCH" page
+
+  @SearchForm @Validation
+  Scenario: User must enter search criteria when using the search form
+    When I click the search button on the search page
+    Then an error message should be displayed as I have not entered any search criteria
 
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
-    And I enter a search query <query>
+    When I enter a valid search query
     Then I should be taken directly to the case
 
   @SearchForm @SearchByCaseReferenceNumber
@@ -23,19 +28,19 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: An error message should be displayed if a user enters a Reference number that does not exist
-    And I have permissions to view the case
-    When I enter a search query <query>
-    Then an error message should be displayed stating <errorMessage> (this case does not exist)
+#    And I have permissions to view the case
+    When I enter a non-existent case reference
+    Then an error message should be displayed stating that there are no active workflows for the case
+
+  @SearchForm @SearchByCaseReferenceNumber
+  Scenario: User must enter a search query in the case reference search bar
+    When I click the find button
+    Then an error message should be displayed stating that a case reference is required
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search for a case by Case Type
-    And I search by the <caseType>
-    Then only <caseType> results should be displayed in the results list
-
-  @SearchForm @SearchByCaseType
-  Scenario: If a user searches for a Case Type that does not exist, no results should be displayed
-    And I search by <caseTypeThatHasNotBeenBuiltYet>
-    Then no results should be displayed as there are no cases with the <caseTypeThatHasNotBeenBuiltYet>
+    And I search by the case type "MIN"
+    Then only the chosen "MIN" case type results should be displayed in the results list
 
   @SearchForm @SearchByCaseType
   Scenario: User with permissions to view the case they search for should have the cases displayed in the list when searching by Case Type
@@ -56,8 +61,8 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search by Case Type and another parameter
-    And I search by the <caseType> and <anotherParameter>
-    Then cases that are <caseType> that also contain <anotherParameter> should be displayed in the results list
+    And I search by the case type "MIN" and another parameter "BOB CORRESPONDENT"
+    Then cases that are "MIN" case type that also contain another parameter "BOB CORRESPONDENT" should be displayed in the results list
 
   @SearchForm @SearchByCaseType
   Scenario: No cases should be displayed if the user searches by Case Type and another parameter when a case does not exist with both parameters
@@ -139,9 +144,9 @@ Feature: Search should be available for all users of the application
     Then there should be no cases displayed in the results list if no cases match the search parameters
 
   @SearchForm @SearchByCorrespondent
-  Scenario: User should be able to search by correspondent either by select a member of a house from a drop down list or by entering a name
-    And I search by <correspondentName>
-    Then cases with specified <correspondentName> should be displayed in the results list
+  Scenario: User should be able to search by correspondent by entering their name
+    And I search by the correspondent name "CORBYN"
+    Then cases with specified correspondent name "CORBYN" should be displayed in the results list
 
   @SearchForm @SearchByCorrespondent
   Scenario: No cases should be displayed in the results list if there are no cases with the specified correspondent name

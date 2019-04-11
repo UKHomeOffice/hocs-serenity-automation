@@ -11,10 +11,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
 
-    Homepage homepage;
-
-    SuccessfulCaseCreation successfulCaseCreation;
-
     @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
     private WebElementFacade answeredByMyTeamNoRadioButton;
 
@@ -99,6 +95,12 @@ public class Draft extends Page {
     @FindBy(id = "")
     private WebElementFacade allocateToOnlineQaDropdown;
 
+    @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
+    private WebElementFacade summariseCallTextBox;
+
+    @FindBy(xpath = "//textarea[@name='CaseNote_RejectionNote']")
+    public WebElementFacade whyShouldThisNotBeAnsweredTextBox;
+
     // Basic Methods
 
     public void clickAddDocumentsButton() {
@@ -153,9 +155,6 @@ public class Draft extends Page {
         supportingDocumentsYesRadioButton.click();
     }
 
-    public Draft() {
-    }
-
     public void enterAllocationNoteField() {
         clearAllocationNoteField();
         allocationNoteFreeTextField.sendKeys(generateRandomString());
@@ -171,6 +170,14 @@ public class Draft extends Page {
 
     public void selectOnlineQualityAssurer() {
         allocateToOnlineQaDropdown.selectByVisibleText("");
+    }
+
+    public void enterTextInSummariseCallTextbox() {
+        summariseCallTextBox.sendKeys(" ");
+    }
+
+    public void enterTextInWhyShouldThisBeAnsweredTextbox() {
+        whyShouldThisNotBeAnsweredTextBox.sendKeys(" ");
     }
 
     // Multi Step Methods
@@ -205,19 +212,21 @@ public class Draft extends Page {
     }
 
     public void assertPleaseSummariseYourCallErrorMessage() {
-        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is ("Please summarise your call. is required"));
+        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
     }
 
     public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
-        assertThat(whichIsThePrimaryDraftDocumentErrorMessage.getText(), is("Which is the primary draft document? is required"));
+        assertThat(whichIsThePrimaryDraftDocumentErrorMessage.getText(),
+                is("Which is the primary draft document? is required"));
     }
 
     public void assertDoYouWantToQAThisOfflineErrorMessage() {
-        assertThat(doYouWantToQAThisOfflineErrorMessage.getText(), is ("Do you want to QA this offline? is required"));
+        assertThat(doYouWantToQAThisOfflineErrorMessage.getText(), is("Do you want to QA this offline? is required"));
     }
 
-    public void assertWhoHasDoneOfflineQAErrorMessage(){
-        assertThat(whoHadDoneTheOfflineQAErrorMessage.getText(), is ("Who has done the Offline QA for this case? is required"));
+    public void assertWhoHasDoneOfflineQAErrorMessage() {
+        assertThat(whoHadDoneTheOfflineQAErrorMessage.getText(),
+                is("Who has done the Offline QA for this case? is required"));
     }
 
     public void draftingDeadlineIsDisplayed() {

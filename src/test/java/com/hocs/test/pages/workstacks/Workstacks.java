@@ -5,6 +5,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
+import org.hamcrest.core.Is;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -19,12 +20,6 @@ import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends Page {
-
-
-    Homepage homepage;
-
-    WebDriver driver;
-
 
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
@@ -97,6 +92,21 @@ public class Workstacks extends Page {
 
     @FindBy(xpath = "//a[@class='govuk-back-link'][text()='Back to dashboard']")
     public WebElementFacade backToDashboardButton;
+
+    @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
+    public WebElementFacade zeroItemsInWorkstackCount;
+
+    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
+    public WebElementFacade caseReferenceOnAllocationScreen;
+
+    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
+
+    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[3]")
+    public WebElementFacade primaryCorrespondentName;
+
+    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
+    public WebElementFacade primaryTopicName;
 
     // Basic Methods
 
@@ -181,6 +191,15 @@ public class Workstacks extends Page {
 
     }
 
+    public void clickAllWorkstackCheckboxes() {
+        List<WebElementFacade> checkboxList = findAll(By.xpath("//td//input[@class='govuk-checkboxes__input']"));
+
+        for (WebElementFacade boxes : checkboxList) {
+
+            boxes.click();
+        }
+    }
+
     public void clickUnallocateCasesButton() {
         unallocateFromMeButton.click();
     }
@@ -258,10 +277,25 @@ public class Workstacks extends Page {
         try {
             element = driver.findElement(By.linkText(caseReferenceNumber));
         } catch (NoSuchElementException e) {
-            // we expect this excpetion to be caught
+            // we expect this exception to be caught
         }
 
         assertThat(isElementDisplayed(element), is(false));
+    }
+
+    public void assertThatThereAreNoCasesInWorkstack() {
+        assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
+    }
+
+    public void assertCaseReferenceBeforeAllocation(){
+        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
+
+    }
+
+    public void assertCaseReferenceAfterAllocation() {
+        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
 
 }

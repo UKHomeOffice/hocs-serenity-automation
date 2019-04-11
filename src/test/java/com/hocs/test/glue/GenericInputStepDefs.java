@@ -43,8 +43,6 @@ public class GenericInputStepDefs {
 
     Page page;
 
-    TestForm testForm;
-
     Homepage homepage;
 
     CreateCase createCase;
@@ -214,7 +212,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -235,7 +235,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseYesRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -267,7 +269,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseYesRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -313,7 +317,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseYesRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -361,7 +367,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseYesRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
@@ -414,7 +422,9 @@ public class GenericInputStepDefs {
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
+                dataInput.selectN10ResponseYesRadioButton();
                 dataInput.clickContinueButton();
+                dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();

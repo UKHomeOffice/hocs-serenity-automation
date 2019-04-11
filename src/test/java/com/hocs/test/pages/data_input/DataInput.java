@@ -1,9 +1,9 @@
 package com.hocs.test.pages.data_input;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -12,9 +12,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends Page {
 
-    Homepage homepage;
     SuccessfulCaseCreation successfulCaseCreation;
+
     RecordCorrespondentDetails recordCorrespondentDetails;
+
     Workstacks workstacks;
 
     // Elements
@@ -50,17 +51,10 @@ public class DataInput extends Page {
     private WebElementFacade dateCorrespondenceReceivedYearField;
 
     @FindBy(id = "")
-    private WebElementFacade correspondentDropdown;
-
-    @FindBy(id = "")
     private WebElementFacade referenceTextField;
 
-    //@FindBy(xpath = "(//div//a[@class='govuk-body govuk-link'])[1]")
-    @FindBy(xpath = "(//a[text()='Add a '])")
+    @FindBy(xpath = "(//a[@class='govuk-body govuk-link'])[1]")
     private WebElementFacade addCorrespondentLink;
-
-    @FindBy(id = "")
-    private WebElementFacade primaryCorrespondent;
 
     @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentMemberNoRadioButton;
@@ -76,6 +70,12 @@ public class DataInput extends Page {
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
     private WebElementFacade addCorrespondentYesRadioButton;
+
+    @FindBy(css = "label[for='CopyNumberTen-TRUE']")
+    private WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
+
+    @FindBy(css = "label[for='CopyNumberTen-FALSE']")
+    private WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
     @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
     private WebElementFacade correspondenceDateErrorMessage;
@@ -97,6 +97,9 @@ public class DataInput extends Page {
 
     @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
     private WebElementFacade correspondentNameMustBeEnteredErrorMessage;
+
+    @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
+    private WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
     // Basic Methods
 
@@ -132,7 +135,6 @@ public class DataInput extends Page {
         sendCopyToNumberTenTickBox.click();
     }
 
-
     // Multi Step Methods
 
     public void dataInputFullFlow() {
@@ -144,7 +146,7 @@ public class DataInput extends Page {
         clickFinishButton();
     }
 
-    public void setDateMinusOneDay (){
+    public void setDateMinusOneDay() {
         enterDayOfCorrespondenceReceived(todayPlusNDaysGetDay(-1));
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
@@ -219,6 +221,13 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
 
+    public void selectN10ResponseYesRadioButton() {
+        shouldResponseBeCopiedN10YesRadioButton.click();
+    }
+
+    public void selectN10ResponseNoRadioButton() {
+        shouldResponseBeCopiedN10NoRadioButton.click();
+    }
 
     // Assertions
 
@@ -235,26 +244,32 @@ public class DataInput extends Page {
     }
 
     public void assertHowWasCorrespondenceReceivedErrorMessage() {
-        assertThat(howWasCorrespondenceReceivedErrorMessage.getText(), is("How was the correspondence received? is required"));
+        assertThat(howWasCorrespondenceReceivedErrorMessage.getText(),
+                is("How was the correspondence received? is required"));
     }
 
     public void assertWhichIsThePrimaryCorrespondentErrorMessage() {
-        assertThat(whichIsThePrimaryCorrespondentErrorMessage.getText(), is("Which is the primary correspondent? is required"));
+        assertThat(whichIsThePrimaryCorrespondentErrorMessage.getText(),
+                is("Which is the primary correspondent? is required"));
     }
 
     public void assertCorrespondentTypeMustBeSelectedErrorMessage() {
-        assertThat(correspondentTypeMustBeProvidedErrorMessage.getText(), is ("The correspondent type must be provided"));
+        assertThat(correspondentTypeMustBeProvidedErrorMessage.getText(), is("The correspondent type must be provided"));
     }
 
     public void assertMemberIsRequiredErrorMessage() {
-        assertThat(memberIsRequiredErrorMessage.getText(), is ("Member is required"));
+        assertThat(memberIsRequiredErrorMessage.getText(), is("Member is required"));
     }
 
     public void assertCorrespondentTypeDropDownErrorMessage() {
-        assertThat(correspondentMustHaveATypeErrorMessage.getText(), is ("The correspondent must have a type"));
+        assertThat(correspondentMustHaveATypeErrorMessage.getText(), is("The correspondent must have a type"));
     }
 
     public void assertCorrespondentFullNameErrorMessage() {
-        assertThat(correspondentNameMustBeEnteredErrorMessage.getText(), is("The correspondent's full name is required") );
+        assertThat(correspondentNameMustBeEnteredErrorMessage.getText(), is("The correspondent's full name is required"));
+    }
+
+    public void assertShouldResponseBeCopiedN10ErrorMessage() {
+        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(), is("Should the response be copied to Number 10? is required"));
     }
 }

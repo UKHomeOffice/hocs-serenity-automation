@@ -23,7 +23,6 @@ public class StandardLineStepDefs {
     @Then("^an error message should be displayed as I have not selected an associated topic for the standard line$")
     public void assertThatAssociatedTopicErrorMessageIsShown() {
         standardLine.assertAssociatedTopicErrorMessage();
-
     }
 
     @Then("^an error message should be displayed as I have not entered an expiration date for the standard line$")

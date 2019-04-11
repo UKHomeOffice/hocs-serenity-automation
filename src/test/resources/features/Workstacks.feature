@@ -9,6 +9,18 @@ Feature: Team members can allocate work
     And I unallocate the case from myself
     Then the case should not be visible in my workstack
 
+  @Unallocate
+  Scenario: All cases are unallocated from the current user
+    When I navigate to the "MY CASES" page
+    And I unallocate all the cases from myself
+    Then no cases should be visible in my workstack
+
+  @Unallocate
+  Scenario: All cases are unallocated within a team workstack
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
+    And I unallocate all cases from the users in the team
+#    Then no cases should be allocated to any users in the team
+
   @Navigation
   Scenario: User is able to navigate back to the homepage using the breadcrumb in their workstack
     When I navigate to the "MY CASES" page
