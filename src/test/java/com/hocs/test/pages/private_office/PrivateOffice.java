@@ -67,4 +67,9 @@ public class PrivateOffice extends Page {
     public void assertWhatIsYourFeedbackResponse() {
         assertThat(whatIsYourFeedbackResponseErrorMessage.getText(), is("What is your feedback about the response? is required"));
     }
+
+    public void moveCaseFromPrivateOfficeToMinisterSignOff() {
+        clickPrivateOfficeAcceptRadioButton();
+        clickContinueButton();
+    }
 }

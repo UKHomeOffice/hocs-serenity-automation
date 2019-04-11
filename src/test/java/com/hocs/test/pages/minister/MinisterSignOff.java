@@ -49,4 +49,9 @@ public class MinisterSignOff extends Page {
     public void assertFeedbackResponseMinisterSignOffErrorMessage() {
         assertThat(whatIsYourFeedbackMinisterSignOffErrorMessage.getText(), is("What is your feedback about the response? is required"));
     }
+
+    public void moveCaseFromMinisterToDispatch() {
+        clickMinisterSignOffAcceptRadioButton();
+        clickContinueButton();
+    }
 }

@@ -146,6 +146,13 @@ public class DataInput extends Page {
         clickFinishButton();
     }
 
+    public void moveCaseFromDataInputToMarkup() {
+        fillAllMandatoryFields();
+        clickContinueButton();
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickFinishButton();
+    }
+
     public void setDateMinusOneDay() {
         enterDayOfCorrespondenceReceived(todayPlusNDaysGetDay(-1));
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
