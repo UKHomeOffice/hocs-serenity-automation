@@ -2,16 +2,15 @@ Feature: HOCS User is add data to a case
 
   Background:
     Given I am user "EAMON"
-    #When I am at the "DATA INPUT" stage
+    And I get a "DCU MIN" case at "DATA INPUT" stage
 
-  @HOCS-274 @HOCS-238
+  @HOCS-274 @HOCS-238 @thisTest
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
-    When I get a "DCU MIN" case at "DATA INPUT" stage
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed
 
-  @HOCS-274 @HOCS-238 @Testing
+  @HOCS-274 @HOCS-238
   Scenario Outline: DCU data entry user select different correspondence channels
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I set the correspondence channel to "<channel>"
@@ -46,18 +45,18 @@ Feature: HOCS User is add data to a case
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @HOCS-276 @HOCS-238
-  Scenario: User can select a member John Bercow from the dropdown
-    Given I select to add a correspondent that "is" a member
-    When I enter "<string>" in the "search" field
-    And I select the correspondent
+  @HOCS-276 @HOCS-238 @Refactoring
+  Scenario: User can add a Member of Parliament as a Correspondent
+    When I fill all mandatory fields on the "DATA INPUT" page with valid data
+    And I select to add a correspondent that "is" a member of parliament
+    And I enter "Rt Hon John Bercow MP" in the "ADD A MEMBER OF PARLIAMENT" field
     Then they should be added to the list of correspondents
 
-  @HOCS-277, @HOCS-238
-  Scenario: User adds a correspondent manually
-    When I select to add a correspondent that "is not" a member
-    And I enter "<string>" in the "Full Name" field
-    And I enter "<string>" in the "Address" field
+  @HOCS-277, @HOCS-238 @Refactoring
+  Scenario: User can add a Correspondent who is not a Member of Parliament
+    When I fill all mandatory fields on the "DATA INPUT" page with valid data
+    And I select to add a correspondent that "is not" a member of parliament
+    And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then they should be added to the list of correspondents
 
   @HOCS-394, @HOCS-238

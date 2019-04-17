@@ -114,7 +114,15 @@ public class GenericInputStepDefs {
     @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
     public void iEnterTextIntoTheNominatedField(String input, String element) {
         switch (element.toUpperCase()) {
-            case "":
+            case "ADD A MEMBER OF PARLIAMENT":
+                setSessionVariable("fullName").to(input);
+                recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
+                break;
+            case "FULL NAME" :
+                setSessionVariable("fullName").to(input);
+
+                break;
+            case "ADDRESS" :
                 break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
@@ -126,6 +134,11 @@ public class GenericInputStepDefs {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
                 dataInput.fillAllMandatoryFields();
+                dataInput.clickContinueButton();
+                break;
+            case "CORRESPONDENT DETAILS" :
+                recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                dataInput.clickAddButton();
                 break;
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());

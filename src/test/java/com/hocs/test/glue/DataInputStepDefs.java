@@ -139,12 +139,18 @@ public class DataInputStepDefs {
         }
     }
 
-    @When("^I select to add a correspondent that \"([^\"]*)\" a member$")
+    @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
     public void SelectToAddACorrespondent(String member) {
         switch (member.toUpperCase()) {
             case "IS":
+                dataInput.clickAddCorrespondentLink();
+                dataInput.clickCorrespondentIsAMember();
+                dataInput.clickContinueButton();
                 break;
             case "IS NOT":
+                dataInput.clickAddCorrespondentLink();
+                dataInput.clickCorrespondentIsNotAMember();
+                dataInput.clickContinueButton();
                 break;
             default:
                 pendingStep(member + " is not defined within " + getMethodName());
