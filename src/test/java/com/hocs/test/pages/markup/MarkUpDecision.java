@@ -142,6 +142,4 @@ public class MarkUpDecision extends Page {
         assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
     }
 
-
-
 }

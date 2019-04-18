@@ -38,6 +38,11 @@ public class DataInputStepDefs {
         dataInput.dataInputFullFlow();
     }
 
+    @When("^I complete the Data Input stage and send a copy to Number Ten$")
+    public void completeDataInputStageWCopyToN10() {
+        dataInput.dataInputFullFlowWCopyToN10();
+    }
+
     @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
@@ -140,33 +145,15 @@ public class DataInputStepDefs {
     }
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
-    public void SelectToAddACorrespondent(String member) {
-        switch (member.toUpperCase()) {
-            case "IS":
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsAMember();
-                dataInput.clickContinueButton();
-                break;
-            case "IS NOT":
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
-                break;
-            default:
-                pendingStep(member + " is not defined within " + getMethodName());
+    public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
+        dataInput.clickAddCorrespondentLink();
+
+        if (isOrIsNot.toUpperCase().equals("IS")) {
+            dataInput.clickCorrespondentIsAMember();
+        } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
+            dataInput.clickCorrespondentIsNotAMember();
         }
 
-    }
-
-    @When("^they complete the first data input screen$")
-    public void completeFirstDataInputScreen() {
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.clickContinueButton();
-        dataInput.clickContinueButton();
-        dataInput.clickFinishButton();
     }
 
     @When("^they click the continue button$")
@@ -174,63 +161,12 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
     }
 
-    @When("^I click the continue button at the data input stage$")
-    public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
-        dataInput.clickContinueButton();
-    }
-
-
-    @When("^I click the finish button on the which is the primary correspondent screen$")
-    public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
-        dataInput.clickFinishButton();
-    }
-
-    @When("^I click the continue button on the is the correspondent an MP screen$")
-    public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
-        dataInput.clickAddCorrespondentLink();
-        dataInput.clickContinueButton();
-    }
-
-    @When("^I click the add button on the add member of parliament screen$")
-    public void userDoesNotSelectMPFromDownDownBox() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.selectN10ResponseNoRadioButton();
-        dataInput.clickContinueButton();
-        dataInput.sleep(500);
-        dataInput.clickAddCorrespondentLink();
-        dataInput.clickCorrespondentIsAMember();
-        dataInput.clickContinueButton();
-        dataInput.clickAddButton();
-    }
-
-    @When("^I click the add button on the record correspondent details screen$")
-    public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.selectN10ResponseNoRadioButton();
-        dataInput.clickContinueButton();
-        dataInput.sleep(500);
-        dataInput.clickAddCorrespondentLink();
-        dataInput.clickCorrespondentIsNotAMember();
-        dataInput.clickContinueButton();
-        dataInput.clickAddButton();
-
-    }
-
-    @When("^I click the add button when creating a case note$")
+    @When("^I click the add button without entering text into the case note$")
     public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
         workstacks.clickCaseTimelineTab();
         workstacks.clickAddCaseNoteButton();
         workstacks.clickAddButton();
     }
-
 
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")
     public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
@@ -263,13 +199,13 @@ public class DataInputStepDefs {
     }
 
     @Then("^an error message should be displayed as I have not added a primary correspondent$")
-    public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
+    public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsDisplayed() {
         dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
     }
 
     @Then("^an error message should be displayed as I have not entered a \"([^\"]*)\"$")
-    public void assertValidationMessagesOnDataInputForm(String message) {
-        switch(message.toUpperCase()){
+    public void assertValidationMessagesOnDataInputForm(String field) {
+        switch(field.toUpperCase()){
             case "CORRESPONDENCE DATE" :
                 dataInput.assertCorrespondenceDateErrorMessage();
                 break;
@@ -280,7 +216,7 @@ public class DataInputStepDefs {
                 dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
                 break;
             default:
-                pendingStep(message + " is not defined within " + getMethodName());
+                pendingStep(field + " is not defined within " + getMethodName());
         }
     }
 }

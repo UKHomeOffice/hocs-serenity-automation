@@ -132,7 +132,7 @@ public class Draft extends Page {
     }
 
     public void clickEmailReplyRadioButton() {
-        emailReplyRadioButton.click();
+        clickOn(emailReplyRadioButton);
     }
 
     public void clickLetterReplyRadioButton() {

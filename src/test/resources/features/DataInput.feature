@@ -78,7 +78,7 @@ Feature: HOCS User is add data to a case
 
   @Validation
   Scenario Outline: User must complete all mandatory inputs on the Data Input form
-    When I click the continue button at the data input stage
+    When I click the "continue" button
     Then an error message should be displayed as I have not entered a "<formDetail>"
 
     Examples:
@@ -90,31 +90,31 @@ Feature: HOCS User is add data to a case
   @Validation
   Scenario: User must add a primary correspondent at Data Input stage
     And I fill all mandatory fields on the "DATA INPUT" page with valid data
-    And I click the finish button on the which is the primary correspondent screen
+    And I click the "FINISH" button on the "PRIMARY CORRESPONDENT" page
     Then an error message should be displayed as I have not added a primary correspondent
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
     And I fill all mandatory fields on the "DATA INPUT" page with valid data
-    And I click the continue button on the is the correspondent an MP screen
+    And I click the "CONTINUE" button on the "IS THE CORRESPONDENT AN MP" page
     Then an error message should be displayed as I must select a correspondent type on this screen
 
   @Validation
   Scenario: User must select an MP from drop down box at Data Input stage
-    And I click the add button on the add member of parliament screen
+    And I click the "ADD" button on the "ADD MEMBER OF PARLIAMENT" page
     Then an error message should be displayed as I must select a member of parliament from the drop down
 
   @Validation
   Scenario: User must select a correspondent type from the drop down if the correspondent is not an MP
-    And I click the add button on the record correspondent details screen
+    And I click the "ADD" button on the "RECORD CORRESPONDENT DETAILS" page
     Then an error message should be displayed as I have not selected the correspondent type
 
   @Validation
   Scenario: User must enter text in correspondent's Full Name field
-    And I click the add button on the record correspondent details screen
+    And I click the "ADD" button on the "RECORD CORRESPONDENT DETAILS" page
     Then an error message should be displayed as I have not entered text in the full name field
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
-    And I click the add button when creating a case note
+    And I click the add button without entering text into the case note
     Then an error message should be displayed as I have not added any text into the case note text box

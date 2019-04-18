@@ -99,6 +99,7 @@ public class RecordCorrespondentDetails extends Page {
     }
 
     public void enterCorrespondentFullName(String fullName) {
+        correspondentFullNameField.clear();
         correspondentFullNameField.sendKeys(fullName);
         setSessionVariable("fullName").to(fullName);
     }
@@ -137,7 +138,6 @@ public class RecordCorrespondentDetails extends Page {
 
     public void addAMemberOfParliamentCorrespondent(String member) {
         memberDropdownInitialize.click();
-        //memberDropdown.sendKeys(member);
         typeInto(memberDropdown, member);
         waitABit(500);
         memberDropdown.sendKeys(Keys.RETURN);

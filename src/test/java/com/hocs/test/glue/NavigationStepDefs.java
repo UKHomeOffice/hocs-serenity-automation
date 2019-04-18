@@ -37,8 +37,6 @@ public class NavigationStepDefs extends Page {
 
     private fetch fetch;
 
-    Page page;
-
     Workstacks workstacks;
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
@@ -126,12 +124,12 @@ public class NavigationStepDefs extends Page {
     }
 
     @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
-    public void reallyGiveMeACase(String caseType, String stage) {
+    public void getMeACase(String caseType, String stage) {
         fetch.giveMeACase(caseType, stage);
     }
 
     @When("^I click the back to dashboard button$")
-    public void clickBackToDashboardButtonOnAllocateCasePage() {
+    public void clickBackToDashboardButton() {
         workstacks.clickBackToDashboardButton();
     }
 

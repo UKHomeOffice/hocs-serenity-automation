@@ -34,7 +34,7 @@ import org.openqa.selenium.WebElement;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class GenericInputStepDefs {
+public class GenericInputStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -78,17 +78,8 @@ public class GenericInputStepDefs {
     }
 
     @Given("^I click the \"([^\"]*)\" button$")
-    public void iClickTheButton(String buttonName) {
-        switch (buttonName.toUpperCase()) {
-            case "CONTINUE":
-                page.clickContinueButton();
-                break;
-            case "NEXT":
-                page.clickNextButton();
-                break;
-            default:
-                pendingStep(buttonName + " is not defined within " + getMethodName());
-        }
+    public void clickTheButton(String buttonName) {
+        clickTheRequiredButton(buttonName);
     }
 
     @When("^I click the \"([^\"]*)\" link")
@@ -120,20 +111,21 @@ public class GenericInputStepDefs {
                 break;
             case "FULL NAME" :
                 setSessionVariable("fullName").to(input);
-
+                recordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
             case "ADDRESS" :
+                // placeholder
                 break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
         }
     }
 
-    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data")
+    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data$")
     public void fillMandatoryFields(String pageName) {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
-                dataInput.fillAllMandatoryFields();
+                dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
                 break;
             case "CORRESPONDENT DETAILS" :
@@ -534,6 +526,29 @@ public class GenericInputStepDefs {
     @Then("^I cannot exit the case$")
     public void iCannotClickToExitTheCase() {
 
+    }
+
+    @When("^I click the \"([^\"]*)\" button on the \"([^\"]*)\" page$")
+    public void selectGenericButtonFromSpecificPage(String button, String page) {
+        switch(page.toUpperCase()) {
+            case "IS THE CORRESPONDENT AN MP" :
+                dataInput.clickAddCorrespondentLink();
+                clickTheRequiredButton(button);
+                break;
+            case "ADD MEMBER OF PARLIAMENT" :
+                dataInput.getToAddMemberOfParliamentPrerequisites();
+                clickTheRequiredButton(button);
+                break;
+            case "PRIMARY CORRESPONDENT" :
+                clickTheRequiredButton(button);
+                break;
+            case "RECORD CORRESPONDENT DETAILS" :
+                dataInput.getToRecordCorrespondentDetailsPrerequisites();
+                clickTheRequiredButton(button);
+                break;
+            default:
+                pendingStep(page + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^I attempt to reject a case without reason$")
