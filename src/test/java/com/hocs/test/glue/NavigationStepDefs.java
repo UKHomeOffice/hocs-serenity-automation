@@ -22,7 +22,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import org.openqa.selenium.WebDriver;
 
-public class NavigationStepDefs {
+public class NavigationStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -220,5 +220,4 @@ public class NavigationStepDefs {
         }
         driver.get(baseUrl);
     }
-
 }

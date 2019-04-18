@@ -44,6 +44,9 @@ public class Page extends PageObject {
     @Managed
     WebDriver driver;
 
+    @FindBy(linkText = "Logout")
+    public WebElementFacade logoutButton;
+
     @FindBy(css = "[value='Accept All']")
     private WebElementFacade acceptAllButton;
 
@@ -353,6 +356,10 @@ public class Page extends PageObject {
 
     public void clickRejectButton() {
         rejectButton.click();
+    }
+
+    public void clickLogoutButton() {
+        clickOn(logoutButton);
     }
 
     public void clickSaveButton() {

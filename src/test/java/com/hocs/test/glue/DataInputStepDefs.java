@@ -176,35 +176,19 @@ public class DataInputStepDefs {
 
     @When("^I click the continue button at the data input stage$")
     public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
-        workstacks.clickAllocateToMeButton();
         dataInput.clickContinueButton();
     }
 
 
     @When("^I click the finish button on the which is the primary correspondent screen$")
     public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.clickContinueButton();
         dataInput.clickFinishButton();
     }
 
     @When("^I click the continue button on the is the correspondent an MP screen$")
     public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
-        workstacks.clickAllocateToMeButton();
-        dataInput.enterDayOfCorrespondenceSent("01");
-        dataInput.enterMonthOfCorrespondenceSent("01");
-        dataInput.enterYearOfCorrespondenceSent("2019");
-        dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.selectN10ResponseYesRadioButton();
-        dataInput.clickContinueButton();
-        dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();
         dataInput.clickContinueButton();
-
     }
 
     @When("^I click the add button on the add member of parliament screen$")
@@ -278,25 +262,25 @@ public class DataInputStepDefs {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 
-    @Then("^an error message should be displayed as I have not entered a correspondence date$")
-    public void assertThatCorrespondenceDateErrorMessageIsShown() {
-        dataInput.assertCorrespondenceDateErrorMessage();
-
-    }
-
-    @Then("^an error message should be displayed as I have not selected a correspondence received radio button$")
-    public void assertThatHowCorrespondenceWasSentErrorMessageIsShown() {
-        dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
-
-    }
-
     @Then("^an error message should be displayed as I have not added a primary correspondent$")
     public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsShown() {
         dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected a copied to number 10 radio button$")
-    public void assertThatShouldResponseBeCopiedN10ErrorMessageIsShown() {
-        dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
+    @Then("^an error message should be displayed as I have not entered a \"([^\"]*)\"$")
+    public void assertValidationMessagesOnDataInputForm(String message) {
+        switch(message.toUpperCase()){
+            case "CORRESPONDENCE DATE" :
+                dataInput.assertCorrespondenceDateErrorMessage();
+                break;
+            case "CORRESPONDENCE TYPE" :
+                dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
+                break;
+            case "COPY TO NUMBER TEN" :
+                dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
+                break;
+            default:
+                pendingStep(message + " is not defined within " + getMethodName());
+        }
     }
 }

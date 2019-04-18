@@ -4,7 +4,7 @@ Feature: HOCS User is add data to a case
     Given I am user "EAMON"
     And I get a "DCU MIN" case at "DATA INPUT" stage
 
-  @HOCS-274 @HOCS-238 @thisTest
+  @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
@@ -45,14 +45,14 @@ Feature: HOCS User is add data to a case
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @HOCS-276 @HOCS-238 @Refactoring
+  @HOCS-276 @HOCS-238
   Scenario: User can add a Member of Parliament as a Correspondent
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I select to add a correspondent that "is" a member of parliament
     And I enter "Rt Hon John Bercow MP" in the "ADD A MEMBER OF PARLIAMENT" field
     Then they should be added to the list of correspondents
 
-  @HOCS-277, @HOCS-238 @Refactoring
+  @HOCS-277, @HOCS-238
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I select to add a correspondent that "is not" a member of parliament
@@ -77,27 +77,25 @@ Feature: HOCS User is add data to a case
     Then I should be taken to the homepage
 
   @Validation
-  Scenario: Date correspondence was sent must be entered at Data Input stage
-    And I click the continue button at the data input stage
-    Then an error message should be displayed as I have not entered a correspondence date
+  Scenario Outline: User must complete all mandatory inputs on the Data Input form
+    When I click the continue button at the data input stage
+    Then an error message should be displayed as I have not entered a "<formDetail>"
 
-  @Validation
-  Scenario: How correspondence was received radio button must be selected at Data Input stage
-    And I click the continue button at the data input stage
-    Then an error message should be displayed as I have not selected a correspondence received radio button
-
-  @Validation
-  Scenario: Should the response be copied to Number 10 radio button must be selected at Data Input stage
-    And I click the continue button at the data input stage
-    Then an error message should be displayed as I have not selected a copied to number 10 radio button
+    Examples:
+    | formDetail |
+    | Correspondence Date |
+    | Correspondence Type |
+    | Copy to Number Ten  |
 
   @Validation
   Scenario: User must add a primary correspondent at Data Input stage
+    And I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the finish button on the which is the primary correspondent screen
     Then an error message should be displayed as I have not added a primary correspondent
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
+    And I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the continue button on the is the correspondent an MP screen
     Then an error message should be displayed as I must select a correspondent type on this screen
 
@@ -120,5 +118,3 @@ Feature: HOCS User is add data to a case
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not added any text into the case note text box
-
-
