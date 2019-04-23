@@ -59,11 +59,14 @@ public class DataInputStepDefs {
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
         recordCorrespondentDetails.clickAdditionalCorrespondentYes();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+        //        dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsNotAMember();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
         recordCorrespondentDetails.fillMandatoryFields();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
     }
 
     @When("^I enter correspondence data manually$")
@@ -182,7 +185,9 @@ public class DataInputStepDefs {
         dataInput.enterMonthOfCorrespondenceSent("01");
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.clickContinueButton();
+        dataInput.selectN10ResponseNoRadioButton();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
         dataInput.clickFinishButton();
     }
 
@@ -193,7 +198,7 @@ public class DataInputStepDefs {
         dataInput.enterMonthOfCorrespondenceSent("01");
         dataInput.enterYearOfCorrespondenceSent("2019");
         dataInput.clickEmailCorrespondenceChannelRadioButton();
-        dataInput.selectN10ResponseYesRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
         dataInput.clickContinueButton();
         dataInput.sleep(500);
         dataInput.clickAddCorrespondentLink();

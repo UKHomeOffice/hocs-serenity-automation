@@ -40,6 +40,9 @@ public class Homepage extends Page {
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
 
+    @FindBy(xpath = "//a[text()='Logout']")
+    public WebElementFacade logoutPage;
+
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
 
@@ -231,7 +234,7 @@ public class Homepage extends Page {
         underSecretaryCrimeSafeguardVulnerability.click();
     }
 
-    public void selectCriminalAndFinacialInvestigationsTeam(){
+    public void selectCriminalAndFinacialInvestigationsTeam() {
         criminalAndFinacialInvestigations.click();
     }
 
@@ -332,6 +335,10 @@ public class Homepage extends Page {
 
     public void selectAddStandardLine() {
         addStandardLine.click();
+    }
+
+    public void selectLogout() {
+        logoutPage.click();
     }
 
     private List<Map<Object, String>> getWorktackTableContents() {

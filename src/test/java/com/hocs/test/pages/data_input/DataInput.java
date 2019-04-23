@@ -62,6 +62,9 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='isMember-true']")
     private WebElementFacade correspondentMemberYesRadioButton;
 
+    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    private WebElementFacade addMemberOfParliamentSearchField;
+
     @FindBy(css = "label[for='CopyNumberTen-TRUE']")
     private WebElementFacade sendCopyToNumberTenTickBox;
 
@@ -115,6 +118,11 @@ public class DataInput extends Page {
         correspondentMemberNoRadioButton.click();
     }
 
+    public void selectAddAnMPField() {
+        addMemberOfParliamentSearchField.click();
+        addMemberOfParliamentSearchField.sendKeys("example");
+    }
+
     public void clickEmailCorrespondenceChannelRadioButton() {
         emailOriginalChannelRadioButton.click();
     }
@@ -165,33 +173,27 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceReceived(String day) {
-        dateCorrespondenceReceivedDayField.clear();
-        dateCorrespondenceReceivedDayField.sendKeys(day);
+        typeInto(dateCorrespondenceReceivedDayField, day);
     }
 
     public void enterMonthOfCorrespondenceReceived(String month) {
-        dateCorrespondenceReceivedMonthField.clear();
-        dateCorrespondenceReceivedMonthField.sendKeys(month);
+        typeInto(dateCorrespondenceReceivedMonthField, month);
     }
 
     public void enterYearOfCorrespondenceReceived(String year) {
-        dateCorrespondenceReceivedYearField.clear();
-        dateCorrespondenceReceivedYearField.sendKeys(year);
+        typeInto(dateCorrespondenceReceivedYearField, year);
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentDayField.sendKeys(day);
+         typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentMonthField.sendKeys(month);
+        typeInto(dateCorrespondenceSentMonthField, month);
     }
 
     public void enterYearOfCorrespondenceSent(String year) {
-        dateCorrespondenceSentYearField.clear();
-        dateCorrespondenceSentYearField.sendKeys(year);
+        typeInto(dateCorrespondenceSentYearField, year);
     }
 
     public void enterReferenceText() {
