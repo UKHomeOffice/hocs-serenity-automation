@@ -39,19 +39,6 @@ public class WorkstacksStepDefs {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-//    @When("^I allocate the case to myself")
-//    public void allocateToMe() {
-//        homepage.selectPerformanceProcessTeam();
-//        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-//        workstacks.clickAllocateToMeButton();
-//        homepage.goHome();
-//    }
-
-    @Then("^they allocate the case to themself$")
-    public void allocateCaseToUser() {
-        workstacks.clickAllocateToMeButton();
-    }
-
     @When("^I unallocate the case from myself")
     public void unallocateCase() {
         homepage.selectPerformanceProcessTeam();
@@ -63,10 +50,20 @@ public class WorkstacksStepDefs {
         workstacks.clickUnallocateCasesButton();
     }
 
+    @Then("^the case should not be visible in my workstack$")
+    public void assertThatCaseHasBeenUnallocatedFromMe() {
+        workstacks.assertCaseReferenceIsNotVisible();
+    }
+
     @When("^I unallocate all the cases from myself$")
     public void unallocateAllCasesFromMyCases() {
         workstacks.clickAllWorkstackCheckboxes();
         workstacks.clickUnallocateCasesButton();
+    }
+
+    @Then("^no cases should be visible in my workstack$")
+    public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
+        workstacks.assertThatThereAreNoCasesInWorkstack();
     }
 
     @When("^I select the check box against a case and allocate it to myself$")
@@ -90,17 +87,6 @@ public class WorkstacksStepDefs {
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @Then("^the case should not be visible in my workstack$")
-    public void assertThatCaseHasBeenUnallocatedFromMe() {
-        workstacks.assertCaseReferenceIsNotVisible();
-
-    }
-
-    @Then("^no cases should be visible in my workstack$")
-    public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
-        workstacks.assertThatThereAreNoCasesInWorkstack();
-    }
-
     @When("^I enter the Case Reference type \"([^\"]*)\" into the filter$")
     public void enterCaseReferenceType(String caseReferenceType) {
         workstacks.selectWorkstackFilter.click();
@@ -119,6 +105,11 @@ public class WorkstacksStepDefs {
         }
     }
 
+    @Then("^the cases should be filtered by the \"([^\"]*)\" Case Reference$")
+    public void assertCasesAreFilteredByCaseReference(String caseReference) {
+        workstacks.assertCasesAreFilteredByRef(caseReference);
+    }
+
     @When("^I click the \"([^\"]*)\" case type filter card$")
     public void clickCaseTypeFilterCard(String caseTypeCard) {
         homepage.selectPerformanceProcessTeam();
@@ -131,8 +122,12 @@ public class WorkstacksStepDefs {
                 break;
             default:
                 pendingStep(caseTypeCard + " is not defined within " + getMethodName());
-
         }
+    }
+
+    @Then("^the cases should be filtered by the \"([^\"]*)\" Current Stage")
+    public void assertCasesAreFilteredByCurrentStage(String currentStage) {
+        workstacks.assertCasesAreFilteredByStage(currentStage);
     }
 
     @When("^I enter the Current Stage \"([^\"]*)\" into the filter$")
@@ -196,17 +191,6 @@ public class WorkstacksStepDefs {
     @Then("^I should be taken to workflow page of the team workstack$")
     public void assertThatWorkflowBreadcrumbTakesUserToWorkflowPage() {
         workstacks.assertThatDataInputFilterCardIsVisible();
-    }
-
-    @Then("^the cases should be filtered by the \"([^\"]*)\" Case Reference$")
-    public void assertCasesAreFilteredByCaseReference(String caseReference) {
-        workstacks.assertCasesAreFilteredByRef(caseReference);
-    }
-
-    @Then("^the cases should be filtered by the \"([^\"]*)\" Current Stage")
-    public void assertCasesAreFilteredByCurrentStage(String currentStage) {
-        workstacks.assertCasesAreFilteredByStage(currentStage);
-
     }
 
 }

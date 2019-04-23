@@ -198,14 +198,17 @@ public class GenericInputStepDefs extends Page {
             case "DATA INPUT":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "MARKUP":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
@@ -215,6 +218,7 @@ public class GenericInputStepDefs extends Page {
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
+                dataInput.clickCorrespondentIsAMember();
                 dataInput.clickCorrespondentIsNotAMember();
                 dataInput.clickContinueButton();
                 recordCorrespondentDetails.selectCorrespondentType();
@@ -227,14 +231,16 @@ public class GenericInputStepDefs extends Page {
             case "DRAFT":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
@@ -261,14 +267,16 @@ public class GenericInputStepDefs extends Page {
             case "QA":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
@@ -303,20 +311,22 @@ public class GenericInputStepDefs extends Page {
                 draft.clickContinueButton();
                 qa.clickOfflineQANoRadioButton();
                 draft.clickContinueButton();
-                homepage.selectPerformanceProcessTeam();
+                homepage.selectAnimalsInScienceTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "PO SIGNOFF":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
@@ -353,20 +363,22 @@ public class GenericInputStepDefs extends Page {
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "MINISTER SIGNOFF":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
@@ -403,7 +415,7 @@ public class GenericInputStepDefs extends Page {
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 workstacks.clickAllocateToMeButton();
                 privateOffice.clickPrivateOfficeAcceptRadioButton();
@@ -414,14 +426,16 @@ public class GenericInputStepDefs extends Page {
             case "DISPATCH":
                 homepage.clickCreateSingleCase();
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+//                homepage.selectPerformanceProcessTeam();
+//                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                successfulCaseCreation.getCaseReference();
                 workstacks.clickAllocateToMeButton();
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
                 dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
+                dataInput.selectN10ResponseNoRadioButton();
                 dataInput.clickContinueButton();
                 dataInput.sleep(500);
                 dataInput.clickAddCorrespondentLink();
@@ -458,7 +472,7 @@ public class GenericInputStepDefs extends Page {
                 draft.clickContinueButton();
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
                 draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                homepage.selectPerformanceProcessTeam();
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 workstacks.clickAllocateToMeButton();
                 privateOffice.clickPrivateOfficeAcceptRadioButton();

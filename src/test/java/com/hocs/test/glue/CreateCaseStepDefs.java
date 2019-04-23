@@ -127,6 +127,12 @@ public class CreateCaseStepDefs {
         homepage.goHome();
     }
 
+    @Then("^the case should be visible in my workstack$")
+    public void assertThatCaseIsAddedToMyWorkstack() {
+        homepage.selectMyCases();
+        workstacks.assertCaseReferenceIsVisible();
+    }
+
     @Then("^the case should be visible in the Performance and Process Team workstack$")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
         homepage.selectPerformanceProcessTeam();
@@ -139,12 +145,6 @@ public class CreateCaseStepDefs {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocatedSelectedToMeButton();
         workstacks.goHome();
-    }
-
-    @Then("^the case should be visible in my workstack$")
-    public void assertThatCaseIsAddedToMyWorkstack() {
-        homepage.selectMyCases();
-        workstacks.assertCaseReferenceIsVisible();
     }
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
@@ -261,7 +261,6 @@ public class CreateCaseStepDefs {
     @Then("^an error message should be displayed as I have not selected the case type$")
     public void assertThatCaseTypeErrorMessageIsDisplayed() {
         createCase.assertCaseTypeErrorMessage();
-
     }
 
     @When("^they do not enter a date into the date received text boxes$")
@@ -274,15 +273,12 @@ public class CreateCaseStepDefs {
         dataInput.enterDayOfCorrespondenceReceived("29");
         dataInput.enterMonthOfCorrespondenceReceived("02");
         dataInput.enterYearOfCorrespondenceReceived("2019");
-
-
     }
 
     @When("^they select the case type")
     public void userClicksCaseRadioButtonAndClicksNextButton() {
         createCase.clickDcuMinRadioButton();
         createCase.clickNextButton();
-
     }
 
     @When("^I click the finish button on the create single case screen$")
@@ -291,7 +287,6 @@ public class CreateCaseStepDefs {
         createCase.clickNextButton();
         dataInput.clearDateCorrespondenceReceived();
         createCase.clickFinishButton();
-
     }
 
     @When("^I click the finish button after entering an invalid date on the create single case screen$")

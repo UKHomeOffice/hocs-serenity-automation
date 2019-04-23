@@ -205,9 +205,9 @@ public class CreateCase extends Page {
         clickNextButton();
         addDocuments.uploadDocument();
         clickSubmitButton();
-        successfulCaseCreation.getCaseReference();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
+//        successfulCaseCreation.getCaseReference();
+//        successfulCaseCreation.clickSuccessfulCaseBackButton();
+//        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
     public void completeSingleCaseCreation() {

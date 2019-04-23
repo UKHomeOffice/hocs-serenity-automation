@@ -50,7 +50,7 @@ public class TestForm extends Page {
 
     public void enterName(String name) {
         nameField.clear();
-        nameField.sendKeys(name);
+        nameField. sendKeys(name);
     }
 
     public void enterSurname(String surname) {

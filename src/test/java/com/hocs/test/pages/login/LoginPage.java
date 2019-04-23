@@ -23,13 +23,11 @@ public class LoginPage extends Page {
     }
 
     public void enterUsername(String username) {
-        usernameField.clear();
-        usernameField.sendKeys(username);
+        typeInto(usernameField, username);
     }
 
     public void enterPassword(String password) {
-        passwordField.clear();
-        passwordField.sendKeys(password);
+        typeInto(passwordField, password);
     }
 
     public void assertLoginErrorMessage() {

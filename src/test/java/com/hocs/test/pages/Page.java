@@ -78,7 +78,7 @@ public class Page extends PageObject {
     private WebElementFacade confirmButton;
 
     @FindBy(css = "[value='Continue']")
-    protected WebElementFacade continueButton;
+    public WebElementFacade continueButton;
 
     @FindBy(id = "Date")
     private WebElementFacade dateField;
@@ -303,7 +303,6 @@ public class Page extends PageObject {
     public void waitForContinueButton() {
         waitFor(continueButton).waitUntilClickable();
         continueButton.click();
-
     }
 
     public void clickCloseButton() {
@@ -328,7 +327,7 @@ public class Page extends PageObject {
 
     public void clickFirstButton() {
         firstButton.click();
-    }
+            }
 
     public void clickLastButton() {
         lastButton.click();

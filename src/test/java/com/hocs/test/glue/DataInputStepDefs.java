@@ -64,11 +64,14 @@ public class DataInputStepDefs {
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
         recordCorrespondentDetails.clickAdditionalCorrespondentYes();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+        //        dataInput.clickContinueButton();
         dataInput.clickCorrespondentIsNotAMember();
-        dataInput.clickContinueButton();
-        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
+        recordCorrespondentDetails.fillMandatoryFields();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
     }
 
     @When("^I enter correspondence data manually$")
@@ -161,7 +164,75 @@ public class DataInputStepDefs {
         dataInput.clickContinueButton();
     }
 
-    @When("^I click the add button without entering text into the case note$")
+    @When("^I click the continue button at the data input stage$")
+    public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.clickContinueButton();
+    }
+
+
+    @When("^I click the finish button on the which is the primary correspondent screen$")
+    public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
+        page.clickOn(dataInput.continueButton);
+//        dataInput.clickContinueButton();
+        dataInput.clickFinishButton();
+    }
+
+    @When("^I click the continue button on the is the correspondent an MP screen$")
+    public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.sleep(500);
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickContinueButton();
+
+    }
+
+    @When("^I click the add button on the add member of parliament screen$")
+    public void userDoesNotSelectMPFromDownDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.sleep(500);
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+    }
+
+    @When("^I click the add button on the record correspondent details screen$")
+    public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
+        workstacks.clickAllocateToMeButton();
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        dataInput.clickEmailCorrespondenceChannelRadioButton();
+        dataInput.selectN10ResponseNoRadioButton();
+        dataInput.clickContinueButton();
+        dataInput.sleep(500);
+        dataInput.clickAddCorrespondentLink();
+        dataInput.clickCorrespondentIsNotAMember();
+        dataInput.clickContinueButton();
+        dataInput.clickAddButton();
+
+    }
+
+    @When("^I click the add button when creating a case note$")
     public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
         workstacks.clickCaseTimelineTab();
         workstacks.clickAddCaseNoteButton();
