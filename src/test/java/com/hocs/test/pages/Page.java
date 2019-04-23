@@ -44,6 +44,9 @@ public class Page extends PageObject {
     @Managed
     WebDriver driver;
 
+    @FindBy(linkText = "Logout")
+    public WebElementFacade logoutButton;
+
     @FindBy(css = "[value='Accept All']")
     private WebElementFacade acceptAllButton;
 
@@ -355,6 +358,10 @@ public class Page extends PageObject {
         rejectButton.click();
     }
 
+    public void clickLogoutButton() {
+        clickOn(logoutButton);
+    }
+
     public void clickSaveButton() {
         saveButton.click();
     }
@@ -388,6 +395,24 @@ public class Page extends PageObject {
         emailFeedbackButton.click();
     }
 
+    public void clickThisButton(String buttonName) {
+        switch (buttonName.toUpperCase()) {
+            case "CONTINUE":
+                clickContinueButton();
+                break;
+            case "NEXT":
+                clickNextButton();
+                break;
+            case "FINISH":
+                clickFinishButton();
+                break;
+            case "ADD":
+                clickAddButton();
+                break;
+            default:
+                pendingStep(buttonName + " is not defined within " + getMethodName());
+        }
+    }
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
     public String databaseDateTodayPlusDays(int days) {
         Calendar cal = Calendar.getInstance();

@@ -2,14 +2,13 @@ Feature:  HOCS User is able to Dispatch a Response
 
   Background:
     Given I am user "EAMON"
-    And I am at the "DISPATCH" stage
+    And I get a "DCU MIN" case at "DISPATCH" stage
 
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
     When I "reject" the case
     And I enter "<string>" in the "Reject Reason" field
     Then the case should be moved to the "Private Office" stage
-    #And the "nominated person" for the "private office team" receive the "dispatch rejected email"
     And I am returned to my home screen
 
   @HOCS-542
@@ -23,7 +22,7 @@ Feature:  HOCS User is able to Dispatch a Response
     Then the case is completed
     And I am taken to the "home" page
 
-  @HOCS-443
+  @HOCS-443 @DoesntFit
   Scenario: User has a hard copy of a case to dispatch, they decide to accept the case, and the case needs to have a copy sent to Number 10
     Given the case had the "send copy to number 10" box checked
     When I "dispatch" the case
@@ -31,7 +30,7 @@ Feature:  HOCS User is able to Dispatch a Response
     And the "nominated person" in the "transfers and number 10" team get a notification email
     And I am taken to the "home" page
 
-  @Navigation
+  @Navigation @DoesntFit
   Scenario: Clicking the Back to dashboard button on the allocate case screen at the Dispatch stage should take the user back to the dashboard
     And I click the back to dashboard button
     Then I should be taken to the homepage

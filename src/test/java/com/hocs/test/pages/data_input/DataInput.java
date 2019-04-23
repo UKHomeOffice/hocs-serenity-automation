@@ -140,7 +140,23 @@ public class DataInput extends Page {
     public void dataInputFullFlow() {
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
-        fillAllMandatoryFields();
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickFinishButton();
+    }
+
+    public void dataInputFullFlowWithCopyToN10() {
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        workstacks.clickAllocateToMeButton();
+        fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
+        clickContinueButton();
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickFinishButton();
+    }
+
+    public void moveCaseFromDataInputToMarkup() {
+        fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
         clickFinishButton();
@@ -199,14 +215,52 @@ public class DataInput extends Page {
         referenceTextField.sendKeys("");
     }
 
-    public void fillAllMandatoryFields() {
-        emailOriginalChannelRadioButton.click();
+    public void fillAllMandatoryCorrespondenceFields() {
         enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
         enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
         enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
+        emailOriginalChannelRadioButton.click();
+        selectN10ResponseNoRadioButton();
+    }
+
+    public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
+        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+        enterDayOfCorrespondenceReceived(getCurrentDay());
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
+        emailOriginalChannelRadioButton.click();
+        selectN10ResponseYesRadioButton();
+    }
+
+    public void getToAddMemberOfParliamentPrerequisites() {
+        enterDayOfCorrespondenceSent("01");
+        enterMonthOfCorrespondenceSent("01");
+        enterYearOfCorrespondenceSent("2019");
+        clickEmailCorrespondenceChannelRadioButton();
+        selectN10ResponseNoRadioButton();
+        clickContinueButton();
+        sleep(500);
+        clickAddCorrespondentLink();
+        clickCorrespondentIsAMember();
+        clickContinueButton();
+    }
+
+    public void getToRecordCorrespondentDetailsPrerequisites() {
+        enterDayOfCorrespondenceSent("01");
+        enterMonthOfCorrespondenceSent("01");
+        enterYearOfCorrespondenceSent("2019");
+        clickEmailCorrespondenceChannelRadioButton();
+        selectN10ResponseNoRadioButton();
+        clickContinueButton();
+        sleep(500);
+        clickAddCorrespondentLink();
+        clickCorrespondentIsNotAMember();
+        clickContinueButton();
     }
 
     public void invalidCorrespondenceReceivedDate() {

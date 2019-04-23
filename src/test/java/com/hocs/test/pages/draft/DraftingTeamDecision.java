@@ -91,4 +91,11 @@ public class DraftingTeamDecision extends Page {
         qa.dontQAOffline();
     }
 
+    public void moveCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.dontQAOffline();
+        clickContinueButton();
+    }
+
 }

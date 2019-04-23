@@ -80,4 +80,9 @@ public class QAResponse extends Page{
         assertThat(QAWhatIsYourFeedbackAboutTheResponseErrorMessage.getText(), is("What is your feedback about the response? is required"));
     }
 
+    public void moveCaseFromQaResponseToPrivateOfficeApproval() {
+        clickQAResponseAcceptRadioButton();
+        clickContinueButton();
+    }
+
 }

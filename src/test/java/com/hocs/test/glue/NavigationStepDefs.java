@@ -7,6 +7,7 @@ import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.give_me_a_case.fetch;
 import config.Environments;
 import config.Services;
 
@@ -21,7 +22,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import org.openqa.selenium.WebDriver;
 
-public class NavigationStepDefs {
+public class NavigationStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -34,7 +35,7 @@ public class NavigationStepDefs {
 
     private Teamqueue teamqueue;
 
-    Page page;
+    private fetch fetch;
 
     Workstacks workstacks;
 
@@ -122,8 +123,13 @@ public class NavigationStepDefs {
 
     }
 
+    @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
+    public void getMeACase(String caseType, String stage) {
+        fetch.giveMeACase(caseType, stage);
+    }
+
     @When("^I click the back to dashboard button$")
-    public void clickBackToDashboardButtonOnAllocateCasePage() {
+    public void clickBackToDashboardButton() {
         workstacks.clickBackToDashboardButton();
     }
 
@@ -212,5 +218,4 @@ public class NavigationStepDefs {
         }
         driver.get(baseUrl);
     }
-
 }

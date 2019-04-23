@@ -2,7 +2,7 @@ Feature: QA Case #this test can be reused for both the private office and minist
 
     Background:
     Given I am user "EAMON"
-    And I am at the "QA" stage
+    And I get a "DCU MIN" case at "QA RESPONSE" stage
  
     @HOCS-310
     Scenario: User reviews draft, rejects it and provides a rejection reason

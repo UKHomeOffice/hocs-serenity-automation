@@ -11,7 +11,6 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.draft.Qa;
-import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
@@ -32,9 +31,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class GenericInputStepDefs {
+public class GenericInputStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -78,17 +76,8 @@ public class GenericInputStepDefs {
     }
 
     @Given("^I click the \"([^\"]*)\" button$")
-    public void iClickTheButton(String buttonName) {
-        switch (buttonName.toUpperCase()) {
-            case "CONTINUE":
-                page.clickContinueButton();
-                break;
-            case "NEXT":
-                page.clickNextButton();
-                break;
-            default:
-                pendingStep(buttonName + " is not defined within " + getMethodName());
-        }
+    public void clickTheButton(String buttonName) {
+        clickThisButton(buttonName);
     }
 
     @When("^I click the \"([^\"]*)\" link")
@@ -114,18 +103,28 @@ public class GenericInputStepDefs {
     @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
     public void iEnterTextIntoTheNominatedField(String input, String element) {
         switch (element.toUpperCase()) {
-            case "":
+            case "ADD A MEMBER OF PARLIAMENT":
+                setSessionVariable("fullName").to(input);
+                recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
+                break;
+            case "FULL NAME" :
+                setSessionVariable("fullName").to(input);
+                recordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
         }
     }
 
-    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data")
+    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data$")
     public void fillMandatoryFields(String pageName) {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
-                dataInput.fillAllMandatoryFields();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                break;
+            case "CORRESPONDENT DETAILS" :
+                recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                dataInput.clickAddButton();
                 break;
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
@@ -521,6 +520,29 @@ public class GenericInputStepDefs {
     @Then("^I cannot exit the case$")
     public void iCannotClickToExitTheCase() {
 
+    }
+
+    @When("^I click the \"([^\"]*)\" button on the \"([^\"]*)\" page$")
+    public void selectGenericButtonFromSpecificPage(String button, String page) {
+        switch(page.toUpperCase()) {
+            case "IS THE CORRESPONDENT AN MP" :
+                dataInput.clickAddCorrespondentLink();
+                clickThisButton(button);
+                break;
+            case "ADD MEMBER OF PARLIAMENT" :
+                dataInput.getToAddMemberOfParliamentPrerequisites();
+                clickThisButton(button);
+                break;
+            case "PRIMARY CORRESPONDENT" :
+                clickThisButton(button);
+                break;
+            case "RECORD CORRESPONDENT DETAILS" :
+                dataInput.getToRecordCorrespondentDetailsPrerequisites();
+                clickThisButton(button);
+                break;
+            default:
+                pendingStep(page + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^I attempt to reject a case without reason$")

@@ -8,10 +8,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class RecordCorrespondentDetails extends Page {
 
-    @FindBy(id = "Member")
+    @FindBy(className = "govuk-typeahead__control")
+    private WebElementFacade memberDropdownInitialize;
+
+    @FindBy(id = "react-select-2-input")
     private WebElementFacade memberDropdown;
 
     @FindBy(id = "reference")
@@ -70,7 +74,7 @@ public class RecordCorrespondentDetails extends Page {
     }
 
     public void assertPrimaryCorrespondent() {
-        String expectedPrimaryCorrespondent = sessionVariableCalled("fullname");
+        String expectedPrimaryCorrespondent = sessionVariableCalled("fullName");
         assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
     }
 
@@ -95,8 +99,9 @@ public class RecordCorrespondentDetails extends Page {
     }
 
     public void enterCorrespondentFullName(String fullName) {
+        correspondentFullNameField.clear();
         correspondentFullNameField.sendKeys(fullName);
-        setSessionVariable("fullname").to(fullName);
+        setSessionVariable("fullName").to(fullName);
     }
 
     public void enterCorrespondentBuilding(String building) {
@@ -131,15 +136,25 @@ public class RecordCorrespondentDetails extends Page {
         return primaryCorrespondentName.getText();
     }
 
+    public void addAMemberOfParliamentCorrespondent(String member) {
+        memberDropdownInitialize.click();
+        typeInto(memberDropdown, member);
+        waitABit(500);
+        memberDropdown.sendKeys(Keys.RETURN);
+        clickAddButton();
+        waitABit(2000);
+        clickAddButton();
+    }
+
     public void addAMemberOfPublicCorrespondent() {
         selectAddACorrespondent();
         selectNotMPRadioButton();
         clickContinueButton();
-        fillMandatoryFields();
+        fillMandatoryCorrespondentFields();
         clickAddButton();
     }
 
-    public void fillMandatoryFields() {
+    public void fillMandatoryCorrespondentFields() {
         selectCorrespondentTypeFromDropdown("Correspondent");
         enterCorrespondentFullName("Test Testing-" + generateRandomString());
         enterCorrespondentBuilding("1");
