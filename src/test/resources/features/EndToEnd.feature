@@ -94,7 +94,7 @@ Feature: HOCS is able to move cases through the entire flow
   @EndToEnd @DCUMIN @Critical
   Scenario: End to End flow and send a copy to N10
     When I create a "DCU MIN" case with Copy to N10
-    When I am at the "DISPATCH" stage
+    And I am at the "DISPATCH" stage
     And dispatch the case
 #    And I complete the markup stage
 #    And I complete the Initial Draft stage

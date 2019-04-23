@@ -55,6 +55,7 @@ Feature: HOCS User is add data to a case
   @HOCS-277, @HOCS-238
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
+    And I click the "Continue" button
     And I select to add a correspondent that "is not" a member of parliament
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then they should be added to the list of correspondents

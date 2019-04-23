@@ -395,7 +395,7 @@ public class Page extends PageObject {
         emailFeedbackButton.click();
     }
 
-    public void clickTheRequiredButton(String buttonName) {
+    public void clickThisButton(String buttonName) {
         switch (buttonName.toUpperCase()) {
             case "CONTINUE":
                 clickContinueButton();

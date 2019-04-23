@@ -146,7 +146,7 @@ public class DataInput extends Page {
         clickFinishButton();
     }
 
-    public void dataInputFullFlowWCopyToN10() {
+    public void dataInputFullFlowWithCopyToN10() {
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();

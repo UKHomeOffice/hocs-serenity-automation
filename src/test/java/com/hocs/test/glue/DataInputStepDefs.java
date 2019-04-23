@@ -40,7 +40,7 @@ public class DataInputStepDefs {
 
     @When("^I complete the Data Input stage and send a copy to Number Ten$")
     public void completeDataInputStageWCopyToN10() {
-        dataInput.dataInputFullFlowWCopyToN10();
+        dataInput.dataInputFullFlowWithCopyToN10();
     }
 
     @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")

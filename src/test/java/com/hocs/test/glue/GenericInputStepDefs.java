@@ -11,7 +11,6 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.draft.Qa;
-import com.hocs.test.pages.forms.TestForm;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
@@ -32,7 +31,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
 
 public class GenericInputStepDefs extends Page {
 
@@ -79,7 +77,7 @@ public class GenericInputStepDefs extends Page {
 
     @Given("^I click the \"([^\"]*)\" button$")
     public void clickTheButton(String buttonName) {
-        clickTheRequiredButton(buttonName);
+        clickThisButton(buttonName);
     }
 
     @When("^I click the \"([^\"]*)\" link")
@@ -113,9 +111,6 @@ public class GenericInputStepDefs extends Page {
                 setSessionVariable("fullName").to(input);
                 recordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
-            case "ADDRESS" :
-                // placeholder
-                break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
         }
@@ -126,7 +121,6 @@ public class GenericInputStepDefs extends Page {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
                 dataInput.fillAllMandatoryCorrespondenceFields();
-                dataInput.clickContinueButton();
                 break;
             case "CORRESPONDENT DETAILS" :
                 recordCorrespondentDetails.fillMandatoryCorrespondentFields();
@@ -533,18 +527,18 @@ public class GenericInputStepDefs extends Page {
         switch(page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP" :
                 dataInput.clickAddCorrespondentLink();
-                clickTheRequiredButton(button);
+                clickThisButton(button);
                 break;
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
-                clickTheRequiredButton(button);
+                clickThisButton(button);
                 break;
             case "PRIMARY CORRESPONDENT" :
-                clickTheRequiredButton(button);
+                clickThisButton(button);
                 break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
-                clickTheRequiredButton(button);
+                clickThisButton(button);
                 break;
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
