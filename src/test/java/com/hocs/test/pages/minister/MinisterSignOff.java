@@ -9,29 +9,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MinisterSignOff extends Page {
 
     @FindBy(css = "label[for='MinisterSignOffDecision-ACCEPT']")
-    private WebElementFacade minsterSignOffAcceptRadioButton;
+    public WebElementFacade minsterSignOffAcceptRadioButton;
 
     @FindBy(css = "label[for='MinisterSignOffDecision-REJECT']")
-    private WebElementFacade ministerSignOffRejectRadioButton;
+    public WebElementFacade ministerSignOffRejectRadioButton;
 
     @FindBy(id = "CaseNote_MinisterReject")
     public WebElementFacade ministerRejectionNote;
 
     @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    private WebElementFacade doYouApproveTheResponseErrorMessage;
+    public WebElementFacade doYouApproveTheResponseErrorMessage;
 
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    private WebElementFacade whatIsYourFeedbackMinisterSignOffErrorMessage;
+    public WebElementFacade whatIsYourFeedbackMinisterSignOffErrorMessage;
 
     // Basic Methods
-
-    public void clickMinisterSignOffAcceptRadioButton(){
-        minsterSignOffAcceptRadioButton.click();
-    }
-
-    public void clickMinisterSignOffRejectRadioButton(){
-        ministerSignOffRejectRadioButton.click();
-    }
 
     public void clearRejectionNoteField() {
         ministerRejectionNote.clear();

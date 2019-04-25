@@ -11,40 +11,28 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class PrivateOffice extends Page {
 
     @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
-    private WebElementFacade privateOfficeAcceptRadioButton;
+    public WebElementFacade privateOfficeAcceptRadioButton;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-REJECT']")
-    private WebElementFacade privateOfficeRejectRadioButton;
+    public WebElementFacade privateOfficeRejectRadioButton;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-CHANGE']")
-    private WebElementFacade privateOfficeChangeMinisterRadioButton;
+    public WebElementFacade privateOfficeChangeMinisterRadioButton;
 
     @FindBy(id = "CaseNote_PrivateOfficeReject")
-    private WebElementFacade privateOfficeRejectNoteField;
+    public WebElementFacade privateOfficeRejectNoteField;
 
     @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    private WebElementFacade doYouApproveTheResponseErrorMessage;
+    public WebElementFacade doYouApproveTheResponseErrorMessage;
 
     @FindBy(xpath = "//a[text()='Override Private Office Team is required']")
-    private WebElementFacade overridePrivateOfficeTeamIsRequiredErrorMessage;
+    public WebElementFacade overridePrivateOfficeTeamIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Why should this be approved by this team instead? is required']")
-    private WebElementFacade whyShouldThisBeApprovedErrorMessage;
+    public WebElementFacade whyShouldThisBeApprovedErrorMessage;
 
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    private WebElementFacade whatIsYourFeedbackResponseErrorMessage;
-
-    public void clickPrivateOfficeAcceptRadioButton(){
-        privateOfficeAcceptRadioButton.click();
-    }
-
-    public void clickPrivateOfficeRejectRadioButton(){
-        privateOfficeRejectRadioButton.click();
-    }
-
-    public void clickPrivateOfficeChangeMinisterRadioButton(){
-        privateOfficeChangeMinisterRadioButton.click();
-    }
+    public WebElementFacade whatIsYourFeedbackResponseErrorMessage;
 
     public void enterPORejectNotes() {
         waitFor(privateOfficeRejectNoteField);

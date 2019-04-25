@@ -9,10 +9,10 @@ public class Qa extends Page {
     Draft draft;
 
     @FindBy(css = "label[for='OfflineQA-TRUE']")
-    private WebElementFacade offlineQaYesRadioButton;
+    public WebElementFacade offlineQaYesRadioButton;
 
     @FindBy(css = "label[for='OfflineQA-FALSE']")
-    private WebElementFacade offlineQaNoRadioButton;
+    public WebElementFacade offlineQaNoRadioButton;
 
     public void clickOfflineQAYesRadioButton(){
         offlineQaYesRadioButton.click();

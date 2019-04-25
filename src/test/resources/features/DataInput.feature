@@ -73,8 +73,9 @@ Feature: HOCS User is add data to a case
     Then the correspondence type is the "primary" correspondent
 
   @Navigation
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Data Input stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  Scenario: Clicking the cancel button on the allocate case screen at the Data Input stage should take the user back to the
+  dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

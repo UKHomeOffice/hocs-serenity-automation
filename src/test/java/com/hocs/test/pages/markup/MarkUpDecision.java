@@ -9,77 +9,61 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class MarkUpDecision extends Page {
 
     @FindBy(css = "label[for='MarkupDecision-PR']")
-    private WebElementFacade policyResponseRadioButton;
+    public WebElementFacade policyResponseRadioButton;
 
     @FindBy(css = "label[for='MarkupDecision-OGD']")
-    private WebElementFacade referToOgdRadioButton;
+    public WebElementFacade referToOgdRadioButton;
 
     @FindBy(css = "label[for='MarkupDecision-FAQ']")
-    private WebElementFacade faqRadioButton;
+    public WebElementFacade faqRadioButton;
 
     @FindBy(css = "label[for='MarkupDecision-NRN']")
-    private WebElementFacade noReplyNeededRadioButton;
+    public WebElementFacade noReplyNeededRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade dateReceivedField;
+    public WebElementFacade dateReceivedField;
 
     @FindBy(id = "")
-    private WebElementFacade draftingDeadlineField;
+    public WebElementFacade draftingDeadlineField;
 
     @FindBy(id = "")
-    private WebElementFacade finalDeadlineField;
+    public WebElementFacade finalDeadlineField;
 
     @FindBy(xpath = "//a[text()='Add a ']")
-    private WebElementFacade addATopicButton;
+    public WebElementFacade addATopicButton;
 
     @FindBy(id = "")
-    private WebElementFacade primaryTopicRadioButton;
+    public WebElementFacade primaryTopicRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade answeringUnitDropdown;
+    public WebElementFacade answeringUnitDropdown;
 
     @FindBy(id = "")
-    private WebElementFacade answeringUnitTypeFunction;
+    public WebElementFacade answeringUnitTypeFunction;
 
     @FindBy(id = "")
-    private WebElementFacade answeringTeamTypeFunction;
+    public WebElementFacade answeringTeamTypeFunction;
 
     @FindBy(id = "")
-    private WebElementFacade answeringTeamDropdown;
+    public WebElementFacade answeringTeamDropdown;
 
     @FindBy(id = "SignOffMinister")
-    private WebElementFacade signOffMinisterDropdown;
+    public WebElementFacade signOffMinisterDropdown;
 
     @FindBy(id = "")
-    private WebElementFacade signOffMinisterTypeFunction;
+    public WebElementFacade signOffMinisterTypeFunction;
 
     @FindBy(xpath = "//a[text()='What sort of response is required? is required']")
-    private WebElementFacade whatSortOfResponseErrorMessage;
+    public WebElementFacade whatSortOfResponseErrorMessage;
 
     @FindBy(xpath = "//a[text()='Which is the primary topic? is required']")
-    private WebElementFacade whichIsThePrimaryTopicErrorMessage;
+    public WebElementFacade whichIsThePrimaryTopicErrorMessage;
 
     @FindBy(xpath = "//a[text()='Topic is required']")
-    private WebElementFacade topicIsRequiredErrorMessage;
-
-    public void clickAddTopic() {
-        addATopicButton.click();
-    }
-
-    public void clickFaqRadioButton() {
-        faqRadioButton.click();
-    }
-
-    public void clickNoReplyNeededRadioButton() {
-        noReplyNeededRadioButton.click();
-    }
+    public WebElementFacade topicIsRequiredErrorMessage;
 
     public void clickPolicyResponseRadioButton() {
         policyResponseRadioButton.click();
-    }
-
-    public void clickReferToOgdRadioButton() {
-        referToOgdRadioButton.click();
     }
 
     public void enterAnsweringTeamTypeFunction(String team) {

@@ -25,8 +25,9 @@ Feature: QA Case #this test can be reused for both the private office and minist
       And I am taken to the "home" page
 
     @Navigation
-    Scenario: Clicking the Back to dashboard button on the allocate case screen at the QA Response stage should take the user back to the dashboard
-      And I click the back to dashboard button
+    Scenario: Clicking the cancel button on the allocate case screen at the QA Response stage should take the user back to
+    the dashboard
+      And I click the cancel button
       Then I should be taken to the homepage
 
     @Validation

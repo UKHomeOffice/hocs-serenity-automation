@@ -10,10 +10,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class LoginPage extends Page {
 
     @FindBy(id = "username")
-    private WebElementFacade usernameField;
+    public WebElementFacade usernameField;
 
     @FindBy(id = "password")
-    private WebElementFacade passwordField;
+    public WebElementFacade passwordField;
 
     @FindBy(xpath = "//li[text()='Invalid username or password.']")
     private WebElementFacade invalidUsernameOrPasswordErrorMessage;

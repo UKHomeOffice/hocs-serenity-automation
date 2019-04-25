@@ -5,8 +5,9 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
     When I am at the "PO SIGNOFF" stage
 
   @Navigation
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the PO Sign Off stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  Scenario: Clicking the cancel button on the allocate case screen at the PO Sign Off stage should take the user back to the
+  dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

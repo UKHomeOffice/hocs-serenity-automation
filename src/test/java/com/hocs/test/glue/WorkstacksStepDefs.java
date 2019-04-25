@@ -41,13 +41,13 @@ public class WorkstacksStepDefs {
 
     @When("^I unallocate the case from myself")
     public void unallocateCase() {
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.myCases);
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.clickUnallocateCasesButton();
+        page.clickOn(workstacks.unallocateFromMeButton);
     }
 
     @Then("^the case should not be visible in my workstack$")
@@ -58,7 +58,7 @@ public class WorkstacksStepDefs {
     @When("^I unallocate all the cases from myself$")
     public void unallocateAllCasesFromMyCases() {
         workstacks.clickAllWorkstackCheckboxes();
-        workstacks.clickUnallocateCasesButton();
+        page.clickOn(workstacks.unallocateFromMeButton);
     }
 
     @Then("^no cases should be visible in my workstack$")
@@ -68,28 +68,28 @@ public class WorkstacksStepDefs {
 
     @When("^I select the check box against a case and allocate it to myself$")
     public void allocateCaseUsingCheckbox() {
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.clickAllocatedSelectedToMeButton();
-        workstacks.goHome();
+        page.clickOn(workstacks.allocateCheckboxCaseToMeButton);
+        page.clickOn(workstacks.home);
     }
 
     @When("^I unallocate all cases from the users in the team$")
     public void unallocatedAllCasesFromTeamwork() {
         workstacks.clickAllWorkstackCheckboxes();
-        workstacks.clickUnallocateCasesButton();
+        page.clickOn(workstacks.unallocateFromMeButton);
     }
 
 
     @Then("^the case should be added to my workstack$")
     public void assertThatCaseHasBeenAddedToMyWorkstack() {
-        homepage.selectMyCases();
+        page.clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
     @When("^I enter the Case Reference type \"([^\"]*)\" into the filter$")
     public void enterCaseReferenceType(String caseReferenceType) {
-        workstacks.selectWorkstackFilter.click();
+        page.clickOn(workstacks.selectWorkstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
                 workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
@@ -112,13 +112,13 @@ public class WorkstacksStepDefs {
 
     @When("^I click the \"([^\"]*)\" case type filter card$")
     public void clickCaseTypeFilterCard(String caseTypeCard) {
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         switch (caseTypeCard.toUpperCase()) {
             case "MIN":
-                workstacks.clickMINFilterCard();
+                page.clickOn(workstacks.dcuMINFilterCard);
                 break;
             case "TRO":
-                workstacks.clickTROFilterCard();
+                page.clickOn(workstacks.dcuTROFilterCard);
                 break;
             default:
                 pendingStep(caseTypeCard + " is not defined within " + getMethodName());
@@ -132,7 +132,7 @@ public class WorkstacksStepDefs {
 
     @When("^I enter the Current Stage \"([^\"]*)\" into the filter$")
     public void enterCurrentStage(String currentStage) {
-        workstacks.selectWorkstackFilter.click();
+        page.clickOn(workstacks.selectWorkstackFilter);
         switch (currentStage.toUpperCase()) {
             case "DATA INPUT":
                 workstacks.selectWorkstackFilter.sendKeys(currentStage);
@@ -162,7 +162,7 @@ public class WorkstacksStepDefs {
 
     @When("^I click the dashboard breadcrumb$")
     public void clickDashboardBreadcrumbOnTeamWorkstack() {
-        workstacks.dashboardBreadcrumb.click();
+        page.clickOn(workstacks.dashboardBreadcrumb);
     }
 
     @Then("^I should be taken back to the homepage$")
@@ -172,8 +172,8 @@ public class WorkstacksStepDefs {
 
     @When("^I click the team breadcrumb$")
     public void clickTeamBreadcrumbOnTeamWorkstack() {
-        workstacks.clickMINFilterCard();
-        workstacks.clickTeamBreadcrumb();
+        page.clickOn(workstacks.dcuMINFilterCard);
+        page.clickOn(workstacks.teamBreadcrumb);
     }
 
     @Then("^I should be taken to the team page of the team workstack$")
@@ -183,9 +183,9 @@ public class WorkstacksStepDefs {
 
     @When("^I click the workflow breadcrumb$")
     public void clickWorkflowBreadcrumbOnTeamWorkstack() {
-        workstacks.clickMINFilterCard();
-        workstacks.clickDataInputFilterCard();
-        workstacks.clickWorkflowBreadcrumb();
+        page.clickOn(workstacks.dcuMINFilterCard);
+        page.clickOn(workstacks.dataInputFilterCard);
+        page.clickOn(workstacks.workflowBreadcrumb);
     }
 
     @Then("^I should be taken to workflow page of the team workstack$")

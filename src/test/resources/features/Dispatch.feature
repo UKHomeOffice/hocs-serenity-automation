@@ -30,9 +30,10 @@ Feature:  HOCS User is able to Dispatch a Response
     And the "nominated person" in the "transfers and number 10" team get a notification email
     And I am taken to the "home" page
 
-  @Navigation @DoesntFit
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Dispatch stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  @Navigation
+  Scenario: Clicking the cancel button on the allocate case screen at the Dispatch stage should take the user back to the
+  dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

@@ -49,11 +49,6 @@ public class SuccessfulCaseCreation extends Page {
         assertThat(panelTitle.getText(), is("Success"));
     }
 
-
-    public void selectNewCaseReference() {
-        newCaseReference.click();
-    }
-
     // Set Case Reference Number to session variable during case creation
 
 //    public String getCaseReference() {
