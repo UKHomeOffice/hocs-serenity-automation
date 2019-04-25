@@ -32,8 +32,9 @@ Feature:  HOCS User is able to Dispatch a Response
     And I am taken to the "home" page
 
   @Navigation
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Dispatch stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  Scenario: Clicking the cancel button on the allocate case screen at the Dispatch stage should take the user back to the
+  dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

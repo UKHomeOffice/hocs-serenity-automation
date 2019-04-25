@@ -76,8 +76,9 @@ Feature: DCU user decides how a case should be handled
     Then I can only select from a fixed list of answering "ministers"
 
   @Navigation
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Markup stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  Scenario: Clicking the cancel button on the allocate case screen at the Markup stage should take the user back to the
+  dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

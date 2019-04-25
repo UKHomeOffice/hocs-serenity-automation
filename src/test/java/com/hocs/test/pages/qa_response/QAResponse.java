@@ -24,22 +24,22 @@ public class QAResponse extends Page{
     Workstacks workstacks;
 
     @FindBy(css = "label[for='QAResponseDecision-ACCEPT']")
-    private WebElementFacade QAAcceptRadioButton;
+    public WebElementFacade QAAcceptRadioButton;
 
     @FindBy(css = "label[for='QAResponseDecision-REJECT']")
-    private WebElementFacade QARejectRadioButton;
+    public WebElementFacade QARejectRadioButton;
 
     @FindBy(id = "CaseNote_RejectionNote")
-    private WebElementFacade draftDecisionNoteField;
+    public WebElementFacade draftDecisionNoteField;
 
     @FindBy(id ="CaseNote_QA")
-    private WebElementFacade draftDecisionNoteFieldTheSecond;
+    public WebElementFacade draftDecisionNoteFieldTheSecond;
 
     @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    private WebElementFacade QADoYouApproveTheReponseErrorMessage;
+    public WebElementFacade QADoYouApproveTheReponseErrorMessage;
 
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    private WebElementFacade QAWhatIsYourFeedbackAboutTheResponseErrorMessage;
+    public WebElementFacade QAWhatIsYourFeedbackAboutTheResponseErrorMessage;
 
 
     // Basic Methods

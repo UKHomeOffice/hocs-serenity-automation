@@ -12,91 +12,91 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class Draft extends Page {
 
     @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
-    private WebElementFacade answeredByMyTeamNoRadioButton;
+    public WebElementFacade answeredByMyTeamNoRadioButton;
 
     @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
-    private WebElementFacade answeredByMyTeamYesRadioButton;
+    public WebElementFacade answeredByMyTeamYesRadioButton;
 
     @FindBy(xpath = "//a[text()='document']")
-    private WebElementFacade draftStageAddDocumentsButton;
+    public WebElementFacade draftStageAddDocumentsButton;
 
     @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
-    private WebElementFacade correspondenceAnsweredErrorMessage;
+    public WebElementFacade correspondenceAnsweredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Why should this should not be answered by your team? is required']")
-    private WebElementFacade shouldBeAnsweredErrorMessage;
+    public WebElementFacade shouldBeAnsweredErrorMessage;
 
     @FindBy(xpath = "//a[text()='How do you intend to respond? is required']")
-    private WebElementFacade howDoYouIntendToRespondErrorMessage;
+    public WebElementFacade howDoYouIntendToRespondErrorMessage;
 
     @FindBy(xpath = "//a[text()='Please summarise your call. is required']")
-    private WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
+    public WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Which is the primary draft document? is required']")
-    private WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
+    public WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
 
     @FindBy(xpath = "//a[text()='Do you want to QA this offline? is required']")
-    private WebElementFacade doYouWantToQAThisOfflineErrorMessage;
+    public WebElementFacade doYouWantToQAThisOfflineErrorMessage;
 
     @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
-    private WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
+    public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
 
     @FindBy(id = "document_type")
-    private WebElementFacade documentTypeDropDown;
+    public WebElementFacade documentTypeDropDown;
 
     @FindBy(css = ".govuk-heading-l")
     public WebElementFacade draftAResponseHeader;
 
     @FindBy(id = "")
-    private WebElementFacade draftingDeadline;
+    public WebElementFacade draftingDeadline;
 
     @FindBy(id = "")
-    private WebElementFacade rejectNoteField;
+    public WebElementFacade rejectNoteField;
 
     @FindBy(id = "")
-    private WebElementFacade emailReplyRadioButton;
+    public WebElementFacade emailReplyRadioButton;
 
     @FindBy(css = "label[for=ResponseChannel-LETTER]")
-    private WebElementFacade letterReplyRadioButton;
+    public WebElementFacade letterReplyRadioButton;
 
     @FindBy(css = "label[for=ResponseChannel-PHONE]")
-    private WebElementFacade phoneReplyRadioButton;
+    public WebElementFacade phoneReplyRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade allocationNoteFreeTextField;
+    public WebElementFacade allocationNoteFreeTextField;
 
     @FindBy(id = "")
-    private WebElementFacade downloadTemplateLink;
+    public WebElementFacade downloadTemplateLink;
 
     @FindBy(id = "")
-    private WebElementFacade addResponseButton;
+    public WebElementFacade addResponseButton;
 
     @FindBy(id = "")
-    private WebElementFacade supportingDocumentsNoRadioButton;
+    public WebElementFacade supportingDocumentsNoRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade supportingDocumentsYesRadioButton;
+    public WebElementFacade supportingDocumentsYesRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade addSupportingDocumentsButton;
+    public WebElementFacade addSupportingDocumentsButton;
 
     @FindBy(id = "")
-    private WebElementFacade standardLine;
+    public WebElementFacade standardLine;
 
     @FindBy(css = "label[for=OfflineQA-TRUE]")
-    private WebElementFacade offlineQaRadioButton;
+    public WebElementFacade offlineQaRadioButton;
 
     @FindBy(css = "label[for=OfflineQA-FALSE]")
-    private WebElementFacade onlineQaRadioButton;
+    public WebElementFacade onlineQaRadioButton;
 
     @FindBy(id = "OfflineQaUser")
-    private WebElementFacade allocateToOfflineQaDropdown;
+    public WebElementFacade allocateToOfflineQaDropdown;
 
     @FindBy(id = "")
-    private WebElementFacade allocateToOnlineQaDropdown;
+    public WebElementFacade allocateToOnlineQaDropdown;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
-    private WebElementFacade summariseCallTextBox;
+    public WebElementFacade summariseCallTextBox;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_RejectionNote']")
     public WebElementFacade whyShouldThisNotBeAnsweredTextBox;
@@ -113,46 +113,6 @@ public class Draft extends Page {
 
     public void selectDocumentTypeByIndex(int index) {
         documentTypeDropDown.selectByIndex(index);
-    }
-
-    public void clickAddResponseButton() {
-        addResponseButton.click();
-    }
-
-    public void clickAnsweredByMyTeamNoRadioButton() {
-        answeredByMyTeamNoRadioButton.click();
-    }
-
-    public void clickAnsweredByMyTeamYesRadioButton() {
-        answeredByMyTeamYesRadioButton.click();
-    }
-
-    public void clickDownloadTemplateLink() {
-        downloadTemplateLink.click();
-    }
-
-    public void clickEmailReplyRadioButton() {
-        emailReplyRadioButton.click();
-    }
-
-    public void clickLetterReplyRadioButton() {
-        letterReplyRadioButton.click();
-    }
-
-    public void clickNoSupportingDocumentsRadioButton() {
-        supportingDocumentsNoRadioButton.click();
-    }
-
-    public void clickPhoneReplyRadioButton() {
-        phoneReplyRadioButton.click();
-    }
-
-    public void clickStandardLine() {
-        standardLine.click();
-    }
-
-    public void clickYesSupportingDocumentsRAdioButton() {
-        supportingDocumentsYesRadioButton.click();
     }
 
     public void enterAllocationNoteField() {

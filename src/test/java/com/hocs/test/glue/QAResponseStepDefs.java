@@ -24,35 +24,35 @@ public class QAResponseStepDefs {
 
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        qaResponse.clickQAResponseAcceptRadioButton();
+        page.clickOn(qaResponse.QAAcceptRadioButton);
         System.out.println("Finished QA Response, returning to home page.");
-        qaResponse.clickContinueButton();
+        page.clickOn(qaResponse.continueButton);
     }
 
     @When("^I reject the case at the QA Response stage$")
     public void rejectAtQaResponse(){
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        qaResponse.clickQAResponseRejectRadioButton();
-        qaResponse.clickContinueButton();
+        page.clickOn(qaResponse.QARejectRadioButton);
+        page.clickOn(qaResponse.continueButton);
         qaResponse.enterDraftDecision();
-        qaResponse.clickFinishButton();
+        page.clickOn(qaResponse.finishButton);
     }
 
     @When("^I click the continue button on the do you approve the QA response screen$")
     public void clickContinueButtonOnApproveResponseScreen() {
-        workstacks.clickAllocateToMeButton();
-        qaResponse.clickContinueButton();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(qaResponse.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected a radio button on the QA approve response screen$")
@@ -62,10 +62,10 @@ public class QAResponseStepDefs {
 
     @When("^I click the finish button on the QA response feedback screen$")
     public void clickFinishButtonOnQAResponseFeedbackScreen() {
-        workstacks.clickAllocateToMeButton();
-        qaResponse.clickQAResponseRejectRadioButton();
-        qaResponse.clickContinueButton();
-        qaResponse.clickFinishButton();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(qaResponse.QARejectRadioButton);
+        page.clickOn(qaResponse.continueButton);
+        page.clickOn(qaResponse.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response$")

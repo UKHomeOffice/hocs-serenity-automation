@@ -48,10 +48,10 @@ public class Page extends PageObject {
     private WebElementFacade acceptAllButton;
 
     @FindBy(css = "[value='Accept']")
-    private WebElementFacade acceptButton;
+    public WebElementFacade acceptButton;
 
     @FindBy(css = "[value = 'Add']")
-    private WebElementFacade addButton;
+    public WebElementFacade addButton;
 
     @FindBy(css = "[value='Add/Update']")
     private WebElementFacade addUpdateButton;
@@ -66,7 +66,7 @@ public class Page extends PageObject {
     private WebElementFacade caseId;
 
     @FindBy(xpath = "//a[@class='govuk-back-link']")
-    private WebElementFacade cancelButton;
+    public WebElementFacade cancelButton;
 
     @FindBy(css = "[value='Close']")
     private WebElementFacade closeButton;
@@ -108,7 +108,7 @@ public class Page extends PageObject {
     protected WebElementFacade dateReceivedYear;
 
     @FindBy(linkText = "delete")
-    private WebElementFacade deleteLink;
+    public WebElementFacade deleteLink;
 
     @FindBy(css = "[value = 'Document']")
     private WebElementFacade documentButton;
@@ -132,7 +132,7 @@ public class Page extends PageObject {
     public WebElementFacade home;
 
     @FindBy(css = "[value='Finish']")
-    protected WebElementFacade finishButton;
+    public WebElementFacade finishButton;
 
     @FindBy(linkText = "First")
     private WebElementFacade firstButton;
@@ -150,7 +150,7 @@ public class Page extends PageObject {
     protected WebElementFacade nameField;
 
     @FindBy(linkText = "new")
-    private WebElementFacade newLink;
+    public WebElementFacade newLink;
 
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
@@ -177,7 +177,7 @@ public class Page extends PageObject {
     protected WebElementFacade printButton;
 
     @FindBy(css = "[value='Reject']")
-    protected WebElementFacade rejectButton;
+    public WebElementFacade rejectButton;
 
     @FindBy(id = "RejectionNote")
     protected WebElementFacade rejectReasonTextField;
@@ -189,7 +189,7 @@ public class Page extends PageObject {
     private WebElementFacade saveButton;
 
     @FindBy(css = "[value = 'Search']")
-    private WebElementFacade searchButton;
+    public WebElementFacade searchButton;
 
     @FindBy(css = "[id*=Staff]")
     protected WebElementFacade staffDropdown;
@@ -216,13 +216,13 @@ public class Page extends PageObject {
     private WebElementFacade updateButton;
 
     @FindBy(linkText = "update")
-    private WebElementFacade updateLink;
+    public WebElementFacade updateLink;
 
     @FindBy(linkText = "View")
     private WebElementFacade viewButton;
 
     @FindBy(linkText = "view")
-    private WebElementFacade viewLink;
+    public WebElementFacade viewLink;
 
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
@@ -273,24 +273,12 @@ public class Page extends PageObject {
         acceptButton.click();
     }
 
-    public void clickAcceptAllButton() {
-        acceptAllButton.click();
-    }
-
     public void clickAddButton() {
         addButton.click();
     }
 
-    public void clickAddUpdateButton() {
-        addUpdateButton.click();
-    }
-
     public void clickCancelButton() {
         cancelButton.click();
-    }
-
-    public void clickConfirmButton() {
-        confirmButton.click();
     }
 
     public void clickContinueButton() {
@@ -302,16 +290,8 @@ public class Page extends PageObject {
         continueButton.click();
     }
 
-    public void clickCloseButton() {
-        closeButton.click();
-    }
-
     public void clickDeleteLink() {
         deleteLink.click();
-    }
-
-    public void clickDocumentButton() {
-        documentButton.click();
     }
 
     public void goHome() {
@@ -322,18 +302,6 @@ public class Page extends PageObject {
         finishButton.click();
     }
 
-    public void clickFirstButton() {
-        firstButton.click();
-            }
-
-    public void clickLastButton() {
-        lastButton.click();
-    }
-
-    public void clickMoreButton() {
-        moreButton.click();
-    }
-
     public void clickNextButton() {
         nextButton.click();
     }
@@ -342,20 +310,8 @@ public class Page extends PageObject {
         newLink.click();
     }
 
-    public void clickPreviousButton() {
-        previousButton.click();
-    }
-
-    public void clickRefreshButton() {
-        refreshButton.click();
-    }
-
     public void clickRejectButton() {
         rejectButton.click();
-    }
-
-    public void clickSaveButton() {
-        saveButton.click();
     }
 
     public void clickSearchButton() {
@@ -366,25 +322,12 @@ public class Page extends PageObject {
         submitButton.click();
     }
 
-    public void clickUpdateButton() {
-        updateButton.click();
-    }
-
     public void clickUpdateLink() {
         updateLink.click();
     }
 
-    public void clickViewButton() {
-        waitFor(viewButton);
-        viewButton.click();
-    }
-
     public void clickViewLink() {
         viewLink.click();
-    }
-
-    public void clickEmailFeedbackButton() {
-        emailFeedbackButton.click();
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB

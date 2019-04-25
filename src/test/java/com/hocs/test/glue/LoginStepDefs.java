@@ -31,6 +31,8 @@ public class LoginStepDefs {
 
     LoginPage loginPage;
 
+    Page page;
+
     @Then("^An invalid username or password error is displayed$")
     public void invalidUsernamePasswordErrorDisplayed() {
         loginPage.assertInvalidUsernamePassword();
@@ -56,7 +58,7 @@ public class LoginStepDefs {
             default:
                 pendingStep(user + " is not defined within " + getMethodName());
         }
-        loginPage.clickContinueButton();
+        page.clickOn(loginPage.continueButton);
     }
 
     @Given("^I am on the Home Office Correspondence Login Page")
@@ -88,7 +90,7 @@ public class LoginStepDefs {
             default:
                 pendingStep(credentials + " is not defined within " + getMethodName());
         }
-        loginPage.clickContinueButton();
+        page.clickOn(loginPage.continueButton);
     }
 
     @And("^I enter my password \"([^\"]*)\" in the password field$")
@@ -115,7 +117,7 @@ public class LoginStepDefs {
     @When("^I enter invalid login credentials on the login screen$")
     public void enterInvalidLoginCredentials() {
         enterHocsLoginDetails(FAKE);
-        homepage.clickContinueButton();
+        page.clickOn(homepage.continueButton);
     }
 
     @Then("^an error message should be displayed as the credentials are invalid$")
@@ -125,7 +127,7 @@ public class LoginStepDefs {
 
     @And("^Select the login button$")
     public void selectLoginButton() {
-        loginPage.clickContinueButton();
+        page.clickOn(loginPage.continueButton);
     }
 
     @Then("^I should be taken to the homepage$")

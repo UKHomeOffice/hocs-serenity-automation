@@ -20,6 +20,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.aspectj.weaver.World;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class Homepage extends Page {
@@ -116,16 +117,16 @@ public class Homepage extends Page {
     public WebElementFacade financeTeam;
 
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
-    private WebElementFacade createBulkCases;
+    public WebElementFacade createBulkCases;
 
     @FindBy(linkText = "View test form")
-    private WebElementFacade testFormLink;
+    public WebElementFacade testFormLink;
 
     @FindBy(className = "card__body")
-    private WebElementFacade myWorkstacks;
+    public WebElementFacade myWorkstacks;
 
     @FindBy(className = "govuk-table")
-    private WebElementFacade workstackTable;
+    public WebElementFacade workstackTable;
 
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
@@ -137,6 +138,10 @@ public class Homepage extends Page {
         setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
     }
 
+    public void hitEnterCaseReferenceSearchBar() {
+        caseReferenceSearchBar.sendKeys(Keys.ENTER);
+    }
+
 //    public String getFirstCaseReferenceInWorkstack() {
 //        selectPerformanceProcessTeam();
 //        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]")
@@ -145,10 +150,6 @@ public class Homepage extends Page {
 //        return firstCaseInWorkstack.getText();
 //
 //    }
-
-    public void clickCaseReferenceSearchFindButton() {
-        caseReferenceFindButton.click();
-    }
 
     public void assertCaseReferenceIsRequiredErrorMessage() {
         assertThat(caseReferenceIsRequiredErrorMessage.getText(), is("Case reference is required"));
@@ -190,67 +191,11 @@ public class Homepage extends Page {
         transferN10Team.click();
     }
 
-    public void selectImmigrationMinisterTeam() {
-        ministerOfStateForImmigrationTeam.click();
-    }
-
-    public void selectMinisterForLordsTeam() {
-        ministerForLordsTeam.click();
-    }
-
-    public void selectAnimalsInScienceTeam() {
-        animalsInScienceTeam.click();
-    }
-
     public void selectCentralDraftingTeam() {
         centralDraftingTeam.click();
     }
 
-    public void selectPoliceWorkforceProfessionalismTeam() {
-        policeWorkforceProfessionalismUnit.click();
-    }
-
-    public void selectMinisterOfStatePolicingFireTeam() {
-        ministerOfStateForPolicingAndFireServiceTeam.click();
-    }
-
-    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {
-        ministerOfStateForSecurityAndEconomicCrime.click();
-    }
-
-    public void selectExtremismAnalysisUnit() {
-        extremismAnalysisUnit.click();
-    }
-
-    public void selectCounterExtremismUnit() {
-        counterExtremismUnit.click();
-    }
-
-    public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
-        counterTerrorismLegislationInvestigatoryPowersUnit.click();
-    }
-
-    public void selectUnderSecretaryCrimeSafeguardingVulerabilityTeam() {
-        underSecretaryCrimeSafeguardVulnerability.click();
-    }
-
-    public void selectCriminalAndFinacialInvestigationsTeam() {
-        criminalAndFinacialInvestigations.click();
-    }
-
-    public void selectPressOffice() {
-        pressOffice.click();
-    }
-
-    public void selectFinanceTeam() {
-        financeTeam.click();
-    }
-
-    public void selectChemBioRadioNuclearExplosivesTeam() {
-        chemBioRadioNuclearExplosives.click();
-    }
-
-//    public void selectAllocationUserByVisibleText(String allocationUser) {
+//        public void selectAllocationUserByVisibleText(String allocationUser) {
 //        allocateDropdown.selectByVisibleText(allocationUser);
 //        allocateButton.click();
 //
@@ -313,32 +258,12 @@ public class Homepage extends Page {
         assertThat(isElementDisplayed(createSingleCase), is(true));
     }
 
-    public void clickCreateBulkCases() {
-        createBulkCases.click();
-    }
-
     public void clickCreateSingleCase() {
         createSingleCase.click();
     }
 
     public void selectSearchPage() {
         searchPage.click();
-    }
-
-    public void clickMyWorkstack() {
-        myWorkstacks.click();
-    }
-
-    public void clickTestFormLink() {
-        testFormLink.click();
-    }
-
-    public void selectAddStandardLine() {
-        addStandardLine.click();
-    }
-
-    public void selectLogout() {
-        logoutPage.click();
     }
 
     private List<Map<Object, String>> getWorktackTableContents() {

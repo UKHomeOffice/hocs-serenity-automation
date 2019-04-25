@@ -10,27 +10,19 @@ import static org.hamcrest.CoreMatchers.is;
 public class Dispatch extends Page {
 
     @FindBy(css = "label[for='DispatchDecision-ACCEPT']")
-    private WebElementFacade dispatchAcceptRadioButton;
+    public WebElementFacade dispatchAcceptRadioButton;
 
     @FindBy(css = "label[for='DispatchDecision-REJECT']")
-    private WebElementFacade dispatchRejectRadioButton;
+    public WebElementFacade dispatchRejectRadioButton;
 
     @FindBy(xpath = "//a[text()='Are you able to dispatch this? is required']")
-    private WebElementFacade areYouAbleToDispatchErrorMessage;
+    public WebElementFacade areYouAbleToDispatchErrorMessage;
 
     @FindBy(xpath = "//a[text()='Why are you unable to dispatch this? is required']")
-    private WebElementFacade whyAreYouUnableToDispatchErrorMessage;
+    public WebElementFacade whyAreYouUnableToDispatchErrorMessage;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
-    private WebElementFacade whyAreYouUnableToDispatchThisTextbox;
-
-    public void clickDispatchAcceptRadioButton() {
-        dispatchAcceptRadioButton.click();
-    }
-
-    public void clickDispatchRejectRadioButton() {
-        dispatchRejectRadioButton.click();
-    }
+    public WebElementFacade whyAreYouUnableToDispatchThisTextbox;
 
     public void enterTextInWhyAreYouUnableToDispatchTextbox() {
         whyAreYouUnableToDispatchErrorMessage.sendKeys("");

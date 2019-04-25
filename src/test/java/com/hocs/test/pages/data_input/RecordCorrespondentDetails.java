@@ -74,10 +74,6 @@ public class RecordCorrespondentDetails extends Page {
         assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
     }
 
-    public void clickAdditionalCorrespondentNo() {
-        additionalCorrespondentNoRadioButton.click();
-    }
-
     public void clickAdditionalCorrespondentYes() {
         additionalCorrespondentYesRadioButton.click();
     }
@@ -88,10 +84,6 @@ public class RecordCorrespondentDetails extends Page {
 
     public void selectNotMPRadioButton(){
         correspondentNotMPRadioButton.click();
-    }
-
-    public void selectIsMPRadioButton(){
-        correspondentIsMPRadioButton.click();
     }
 
     public void enterCorrespondentFullName(String fullName) {

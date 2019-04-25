@@ -40,10 +40,6 @@ public class StandardLine extends Page {
     @FindBy(xpath = "//td[@class='govuk-table__cell'][text()='testtesttest.docx']")
     public WebElementFacade standardLineDocumentAssert;
 
-    public void selectAssociatedTopic() {
-        associatedTopicTypeahead.click();
-    }
-
     public void enterExpirationDate() {
         expirationDateDayTextBox.sendKeys("06");
         expirationDateMonthTextBox.sendKeys("03");

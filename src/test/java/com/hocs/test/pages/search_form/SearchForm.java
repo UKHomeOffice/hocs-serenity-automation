@@ -20,6 +20,8 @@ public class SearchForm extends Page {
 
     Workstacks workstacks;
 
+    Page page;
+
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
 
@@ -71,18 +73,6 @@ public class SearchForm extends Page {
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    public void selectMINCheckbox() {
-        searchMINCheckbox.click();
-    }
-
-    public void selectDTENCheckbox() {
-        searchDTENCheckbox.click();
-    }
-
-    public void selectTROCheckbox() {
-        searchTROCheckbox.click();
-    }
-
     public void enterSearchReceivedAfterDate() {
         receivedAfterDayTextbox.sendKeys(" ");
         receivedAfterMonthTextbox.sendKeys(" ");
@@ -111,17 +101,13 @@ public class SearchForm extends Page {
         searchSignOffMinisterDropdown.sendKeys(signOffMinisterName);
     }
 
-    public void selectCaseStatusActiveCheckbox() {
-        caseStatusActiveCheckbox.click();
-    }
-
     public void viewFirstSearchResultCaseSummary() {
         WebElementFacade firstSearchResult = findAll("//td//a").get(0);
         firstSearchResult.click();
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            workstacks.allocateToMeButton.click();
+            page.clickOn(workstacks.allocateToMeButton);
         }
-        workstacks.clickCaseSummaryTab();
+        page.clickOn(workstacks.caseSummaryTab);
 
     }
 
