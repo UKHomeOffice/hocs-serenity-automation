@@ -171,7 +171,7 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-        typeInto(dateCorrespondenceSentDayField, day);
+         typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {

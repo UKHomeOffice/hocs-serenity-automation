@@ -133,6 +133,9 @@ public class NavigationStepDefs extends Page {
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
         page.clickOn(workstacks.backToDashboardButton);
+    @When("I click the cancel button")
+    public void clickCancelButtonOnAllocateCasePage() {
+        page.clickOn(workstacks.allocateScreenCancelButton);
     }
 
     @When("I click the cancel button")

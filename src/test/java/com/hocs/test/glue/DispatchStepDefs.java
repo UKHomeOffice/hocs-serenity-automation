@@ -35,6 +35,7 @@ public class DispatchStepDefs {
 
     @When("^I click the continue button on the are you able to dispatch screen$")
     public void clickContinueButtonOnAreYouAbleToDispatchScreen() {
+        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(dispatch.continueButton);
     }
 
@@ -45,6 +46,7 @@ public class DispatchStepDefs {
 
     @When("^I click the finish button on the unable to dispatch screen$")
     public void clickContinueButtonOnUnableToDispatchScreen() {
+        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(dispatch.dispatchRejectRadioButton);
         page.clickOn(dispatch.continueButton);
         page.clickOn(dispatch.finishButton);
