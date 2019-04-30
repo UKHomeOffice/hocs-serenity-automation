@@ -133,9 +133,7 @@ public class NavigationStepDefs extends Page {
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
         page.clickOn(workstacks.backToDashboardButton);
-    @When("I click the cancel button")
-    public void clickCancelButtonOnAllocateCasePage() {
-        page.clickOn(workstacks.allocateScreenCancelButton);
+
     }
 
     @When("I click the cancel button")
@@ -179,6 +177,7 @@ public class NavigationStepDefs extends Page {
         }
     }
 
+
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
@@ -188,8 +187,10 @@ public class NavigationStepDefs extends Page {
             case "HOME":
                 homepage.assertHomePageTitle();
                 break;
+
            /* case "TEAMQUEUES":
                 teamqueue.assertPageTitle(); */
+
             case "RECORD CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.assertPageTitle();
                 break;
@@ -202,7 +203,7 @@ public class NavigationStepDefs extends Page {
         System.out.println("I have been taken to " + pageName);
     }
 
-    private void navigateToHocs() {
+    public void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
