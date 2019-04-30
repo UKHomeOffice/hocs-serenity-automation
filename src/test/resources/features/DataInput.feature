@@ -89,11 +89,11 @@ Feature: HOCS User is add data to a case
     | Correspondence Type |
     | Copy to Number Ten  |
 
-  @Validation
-  Scenario: User must add a primary correspondent at Data Input stage
-    And I fill all mandatory fields on the "DATA INPUT" page with valid data
-    And I click the "FINISH" button on the "PRIMARY CORRESPONDENT" page
-    Then an error message should be displayed as I have not added a primary correspondent
+#  @Validation
+#  Scenario: User must add a primary correspondent at Data Input stage
+#    And I fill all mandatory fields on the "DATA INPUT" page with valid data
+#    And I click the "FINISH" button on the "PRIMARY CORRESPONDENT" page
+#    Then an error message should be displayed as I have not added a primary correspondent
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage

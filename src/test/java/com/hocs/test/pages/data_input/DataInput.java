@@ -18,6 +18,8 @@ public class DataInput extends Page {
 
     Workstacks workstacks;
 
+    Page page;
+
     // Elements
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
@@ -169,7 +171,7 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-         typeInto(dateCorrespondenceSentDayField, day);
+        typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {
@@ -193,7 +195,7 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
         emailOriginalChannelRadioButton.click();
-        selectN10ResponseNoRadioButton();
+        shouldResponseBeCopiedN10NoRadioButton.click();
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
@@ -204,33 +206,44 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
         emailOriginalChannelRadioButton.click();
-        selectN10ResponseYesRadioButton();
+        shouldResponseBeCopiedN10YesRadioButton.click();
     }
 
     public void getToAddMemberOfParliamentPrerequisites() {
         enterDayOfCorrespondenceSent("01");
         enterMonthOfCorrespondenceSent("01");
         enterYearOfCorrespondenceSent("2019");
-        clickEmailCorrespondenceChannelRadioButton();
-        selectN10ResponseNoRadioButton();
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
         clickContinueButton();
         sleep(500);
-        clickAddCorrespondentLink();
-        clickCorrespondentIsAMember();
+        addCorrespondentLink.click();
+        correspondentMemberYesRadioButton.click();
         clickContinueButton();
+    }
+
+    public void getToIsCorrespondentAnMPPrerequisites() {
+        enterDayOfCorrespondenceSent("01");
+        enterMonthOfCorrespondenceSent("01");
+        enterYearOfCorrespondenceSent("2019");
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
+        clickContinueButton();
+        sleep(500);
+        addCorrespondentLink.click();
     }
 
     public void getToRecordCorrespondentDetailsPrerequisites() {
         enterDayOfCorrespondenceSent("01");
         enterMonthOfCorrespondenceSent("01");
         enterYearOfCorrespondenceSent("2019");
-        clickEmailCorrespondenceChannelRadioButton();
-        selectN10ResponseNoRadioButton();
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
         clickContinueButton();
         sleep(500);
-        clickAddCorrespondentLink();
-        clickCorrespondentIsNotAMember();
-        clickContinueButton();
+        addCorrespondentLink.click();
+        correspondentMemberNoRadioButton.click();
+        continueButton.click();
     }
 
     public void invalidCorrespondenceReceivedDate() {
@@ -286,6 +299,7 @@ public class DataInput extends Page {
     }
 
     public void assertShouldResponseBeCopiedN10ErrorMessage() {
-        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(), is("Should the response be copied to Number 10? is required"));
+        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(),
+                is("Should the response be copied to Number 10? is required"));
     }
 }

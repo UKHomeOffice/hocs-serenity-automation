@@ -57,7 +57,7 @@ public class PrivateOffice extends Page {
     }
 
     public void moveCaseFromPrivateOfficeToMinisterSignOff() {
-        clickPrivateOfficeAcceptRadioButton();
+        privateOfficeAcceptRadioButton.click();
         clickContinueButton();
     }
 }

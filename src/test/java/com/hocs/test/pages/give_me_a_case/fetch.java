@@ -6,6 +6,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.markup.MarkUpDecision;
+import java.util.NoSuchElementException;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -19,6 +21,7 @@ import com.hocs.test.pages.markup.MarkupFull;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException;
 
 
 public class fetch extends Page {
@@ -42,6 +45,48 @@ public class fetch extends Page {
     Homepage homepage;
 
     Workstacks workstacks;
+
+    Page page;
+
+    MarkUpDecision markUpDecision;
+
+    public void getFirstUnallocatedMINCaseDataInputStage() {
+        WebElementFacade firstUnallocatedMINCase = findAll(
+                "//td[following-sibling::td[1][contains(text(), 'Data "
+                        + "Input')]][following-sibling::td[2]"
+                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+        firstUnallocatedMINCase.click();
+        workstacks.clickAllocateToMeButton();
+    }
+
+    public void getTeamAndFirstUnallocatedMINCaseDataInputStage() {
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.performanceProcessTeam);
+        WebElementFacade firstUnallocatedMINCase = findAll(
+                "//td[following-sibling::td[1][contains(text(), 'Data "
+                        + "Input')]][following-sibling::td[2]"
+                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+        firstUnallocatedMINCase.click();
+        workstacks.clickAllocateToMeButton();
+    }
+
+    public void getFirstUnallocatedMINCaseMarkupStage() {
+        WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
+                + "'Markup')]][following-sibling::td[2]"
+                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+        firstUnallocatedMINCase.click();
+        workstacks.clickAllocateToMeButton();
+    }
+
+    public void getTeamAndFirstUnallocatedMINCaseMarkupStage() {
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.centralDraftingTeam);
+        WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
+                + "'Markup')]][following-sibling::td[2]"
+                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+        firstUnallocatedMINCase.click();
+        workstacks.clickAllocateToMeButton();
+    }
 
     public void giveMeACase(String caseType, String stage) {
         setSessionVariable("caseType").to(caseType);
@@ -83,12 +128,15 @@ public class fetch extends Page {
                 try {
                     homepage.selectPerformanceProcessTeam();
                     try {
-                        WebElementFacade firstUnallocatedMINCase = findAll(
-                                "//td[following-sibling::td[1][contains(text(), 'Data "
-                                        + "Input')]][following-sibling::td[2]"
-                                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-                        firstUnallocatedMINCase.click();
-                        workstacks.clickAllocateToMeButton();
+                        getFirstUnallocatedMINCaseDataInputStage();
+                        try {
+                            dataInput.emailOriginalChannelRadioButton.click();
+                        } catch (NoSuchElementException No) {
+                            System.out.println("Email element not available, searching for a fresh Data Input case");
+                            goHome();
+                            getFirstUnallocatedDataInputCase(caseType);
+                            //getTeamAndFirstUnallocatedMINCaseDataInputStage();
+                        }
                     } catch (IndexOutOfBoundsException ex) {
                         System.out.println("I couldn't find a Data Input case so I am building a new case");
                         goHome();
@@ -122,11 +170,13 @@ public class fetch extends Page {
                 try {
                     homepage.selectCentralDraftingTeam();
                     try {
-                        WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
-                                + "'Markup')]][following-sibling::td[2]"
-                                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-                        firstUnallocatedMINCase.click();
-                        workstacks.clickAllocateToMeButton();
+                        getFirstUnallocatedMINCaseMarkupStage();
+
+                        if (markUpDecision.isElementDisplayed(markUpDecision.policyResponseRadioButton)) {
+                            System.out.println("An appropriate Markup case has been found");
+                        } else {
+                            getTeamAndFirstUnallocatedMINCaseMarkupStage();
+                        }
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("I couldn't find a Markup case so I am searching for a Data Input case");
                         goHome();
@@ -157,10 +207,10 @@ public class fetch extends Page {
     }
 
     public void getFirstUnallocatedInitialDraftCase(String caseType) {
-        switch(caseType.toUpperCase()) {
-            case "DCU MIN" :
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
                 try {
-                    homepage.selectAnimalsInScienceTeam();
+                    page.clickOn(homepage.animalsInScienceTeam);
                     try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'Initial Draft')]][following-sibling::td[2]"
@@ -187,9 +237,9 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 break;
-            case "DCU TRO" :
+            case "DCU TRO":
                 break;
-            case "DCU N10" :
+            case "DCU N10":
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -200,7 +250,7 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    homepage.selectAnimalsInScienceTeam();
+                    page.clickOn(homepage.animalsInScienceTeam);
                     try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'QA Response')]][following-sibling::td[2]"
@@ -243,7 +293,7 @@ public class fetch extends Page {
                 try {
                     homepage.selectPerformanceProcessTeam();
                     // SHOULD BE AND WILL BECOME -->>> homepage.selectMinisterForLordsTeam(); DEFECT IS HOCS-927
-                     try {
+                    try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'Private Office Approval')]][following-sibling::td[2]"
                                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -253,7 +303,7 @@ public class fetch extends Page {
                         goHome();
                         System.out.println("I couldn't find a Private Office Approval case so I am searching for a QA "
                                 + "Response case");
-                        homepage.selectAnimalsInScienceTeam();
+                        page.clickOn(homepage.animalsInScienceTeam);
                         getFirstUnallocatedQaResponseCase(caseType);
                         qa.moveCaseFromQaResponseToPrivateOfficeApproval();
                         String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -285,13 +335,13 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    homepage.selectMinisterForLordsTeam();
+                    page.clickOn(homepage.ministerForLordsTeam);
                     try {
                         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                                 + "'Ministerial Sign off')]][following-sibling::td[2]"
                                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
                         firstUnallocatedMINCase.click();
-                         workstacks.clickAllocateToMeButton();
+                        workstacks.clickAllocateToMeButton();
                     } catch (IndexOutOfBoundsException e) {
                         goHome();
                         System.out.println("I couldn't find a Ministerial Sign off case so I am searching for a Private "

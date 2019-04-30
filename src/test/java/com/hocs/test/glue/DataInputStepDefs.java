@@ -67,7 +67,7 @@ public class DataInputStepDefs {
         page.clickOn(dataInput.continueButton);
         page.clickOn(dataInput.correspondentMemberNoRadioButton);
         page.clickOn(dataInput.continueButton);
-        recordCorrespondentDetails.fillMandatoryFields();
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
         page.clickOn(dataInput.continueButton);
     }
 
@@ -76,7 +76,7 @@ public class DataInputStepDefs {
         genericInputStepDefs.fillMandatoryFields("Data Input");
         page.clickOn(dataInput.continueButton);
         page.clickOn(dataInput.addCorrespondentLink);
-        recordCorrespondentDetails.fillMandatoryFields();
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
         page.clickOn(dataInput.addButton);
     }
 
@@ -146,12 +146,13 @@ public class DataInputStepDefs {
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
-        dataInput.clickAddCorrespondentLink();
+        page.clickOn(dataInput.addCorrespondentLink);
+
 
         if (isOrIsNot.toUpperCase().equals("IS")) {
-            dataInput.clickCorrespondentIsAMember();
+            page.clickOn(dataInput.correspondentMemberYesRadioButton);
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
-            dataInput.clickCorrespondentIsNotAMember();
+            page.clickOn(dataInput.correspondentMemberNoRadioButton);
         }
     }
 

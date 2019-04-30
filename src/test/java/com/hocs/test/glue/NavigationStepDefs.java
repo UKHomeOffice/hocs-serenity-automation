@@ -41,6 +41,8 @@ public class NavigationStepDefs extends Page {
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
+    Page page;
+
     @When("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
@@ -130,7 +132,9 @@ public class NavigationStepDefs extends Page {
 
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
-        workstacks.clickBackToDashboardButton();
+        page.clickOn(workstacks.backToDashboardButton);
+    }
+
     @When("I click the cancel button")
     public void clickCancelButtonOnAllocateCasePage() {
         page.clickOn(workstacks.allocateScreenCancelButton);

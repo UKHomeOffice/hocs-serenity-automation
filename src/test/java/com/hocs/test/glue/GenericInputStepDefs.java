@@ -75,11 +75,6 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @Given("^I click the \"([^\"]*)\" button$")
-    public void clickTheButton(String buttonName) {
-        clickThisButton(buttonName);
-    }
-
     @When("^I click the \"([^\"]*)\" link")
     public void clickLink(String name) {
         switch (name.toUpperCase()) {
@@ -524,22 +519,33 @@ public class GenericInputStepDefs extends Page {
     public void selectGenericButtonFromSpecificPage(String button, String page) {
         switch(page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP" :
-                dataInput.clickAddCorrespondentLink();
-                clickThisButton(button);
+                dataInput.getToIsCorrespondentAnMPPrerequisites();
                 break;
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
-                clickThisButton(button);
                 break;
             case "PRIMARY CORRESPONDENT" :
-                clickThisButton(button);
+                //ceoihci
                 break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
-                clickThisButton(button);
                 break;
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
+        }
+
+        switch (button.toUpperCase()) {
+            case "CONTINUE" :
+                clickOn(continueButton);
+                break;
+            case "FINISH" :
+                clickOn(finishButton);
+                break;
+            case "ADD" :
+                clickOn(addButton);
+                break;
+            default:
+                pendingStep(button + " is not defined within " + getMethodName());
         }
     }
 
