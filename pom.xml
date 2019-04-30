@@ -14,7 +14,14 @@
         <serenity.version>1.9.36</serenity.version>
         <serenity.cucumber.version>1.9.15</serenity.cucumber.version>
         <environment/>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <gatling.version>3.0.0</gatling.version>
+        <gatling-plugin.version>3.0.0</gatling-plugin.version>
+        <scala-maven-plugin.version>3.4.4</scala-maven-plugin.version>
     </properties>
+
     <repositories>
         <repository>
             <snapshots>
@@ -36,6 +43,12 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>${gatling.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
@@ -175,6 +188,19 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>${gatling-plugin.version}</version>
+                <configuration>
+                    <runMultipleSimulations>true</runMultipleSimulations>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

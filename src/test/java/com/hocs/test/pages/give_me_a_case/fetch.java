@@ -4,6 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -76,6 +77,16 @@ public class fetch extends Page {
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
     }
+
+    /*
+
+                        if (isElementDisplayed(dataInput.dateCorrespondenceSentDayField)) {
+                            System.out.println("I found an appropriate data input case");
+                        } else {
+
+                        }
+     */
+
 
     public void getFirstUnallocatedDataInputCase(String caseType) {
         switch (caseType.toUpperCase()) {

@@ -76,7 +76,7 @@ public class GenericInputStepDefs extends Page {
     }
 
     @Given("^I click the \"([^\"]*)\" button$")
-    public void clickTheButton(String buttonName) {
+    public void gclickTheButton(String buttonName) {
         clickThisButton(buttonName);
     }
 

@@ -33,7 +33,7 @@ public class DataInput extends Page {
     private WebElementFacade numberTenOriginalChannelRadioButton;
 
     @FindBy(id = "DateOfCorrespondence-day")
-    private WebElementFacade dateCorrespondenceSentDayField;
+    public WebElementFacade dateCorrespondenceSentDayField;
 
     @FindBy(id = "DateOfCorrespondence-month")
     private WebElementFacade dateCorrespondenceSentMonthField;
