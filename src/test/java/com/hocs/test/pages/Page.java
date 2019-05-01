@@ -11,6 +11,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -666,6 +668,15 @@ public class Page extends PageObject {
 
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
+    }
+
+    public boolean isWebElementFacadePresent(WebElementFacade cssLink) {
+        try {
+            $(cssLink);
+            return true;
+        } catch (NoSuchElementException | ElementShouldBeEnabledException e) {
+            return false;
+        }
     }
 
     public void assertElementIsDisplayed(WebElementFacade element) {

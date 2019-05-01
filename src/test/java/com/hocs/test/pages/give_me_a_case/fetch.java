@@ -22,6 +22,9 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -51,6 +54,8 @@ public class fetch extends Page {
     Page page;
 
     MarkUpDecision markUpDecision;
+
+    WebDriver driver;
 
     public void getFirstUnallocatedMINCaseDataInputCase() {
         WebElementFacade firstUnallocatedMINCase = findAll(
@@ -159,6 +164,8 @@ public class fetch extends Page {
     public void getFirstUnallocatedMarkupCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
+
+
                 try {
                     homepage.selectCentralDraftingTeam();
                 } catch (ElementShouldBeEnabledException e) {
@@ -171,12 +178,13 @@ public class fetch extends Page {
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
                 }
+
+
                 try {
                     getFirstUnallocatedMINCaseMarkupCase();
-                    try {
-//                        markUpDecision.policyResponseRadioButton.click();
-//                        assertThat();
-                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                    if (isWebElementFacadePresent(markUpDecision.policyResponseRadioButton)) {
+                        System.out.println("Email button found, continuing test");
+                    } else {
                         System.out.println("Policy Response element not available therefore, searching for a fresh "
                                 + "Markup case");
                         goHome();
@@ -192,6 +200,8 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
 
                 }
+
+
                 break;
 
             case "DCU TRO":
