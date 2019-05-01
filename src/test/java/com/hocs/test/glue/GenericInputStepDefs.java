@@ -549,6 +549,23 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
+    @When("^I click the \"([^\"]*)\" button$")
+    public void clickTheButton(String button) {
+        switch(button.toUpperCase()) {
+            case "CONTINUE" :
+                clickOn(continueButton);
+                break;
+            case "FINISH" :
+                clickOn(finishButton);
+                break;
+            case "ADD" :
+                clickOn(addButton);
+                break;
+            default:
+                pendingStep(button + " is not defined within " + getMethodName());
+        }
+    }
+
     @When("^I attempt to reject a case without reason$")
     public void iAttemptToRejectACaseWithoutReason() {
         page.clickRejectButton();

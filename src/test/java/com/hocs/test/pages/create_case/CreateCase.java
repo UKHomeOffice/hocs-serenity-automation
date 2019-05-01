@@ -184,7 +184,7 @@ public class CreateCase extends Page {
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
-    public void completeDCUMINSingleCaseCreation(){
+    public void givemcompleteDCUMINSingleCaseCreation(){
         clickNextButton();
         addDocuments.uploadDocument();
         clickSubmitButton();
