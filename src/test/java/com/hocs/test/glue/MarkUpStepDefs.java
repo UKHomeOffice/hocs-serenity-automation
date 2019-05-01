@@ -111,7 +111,6 @@ public class MarkUpStepDefs {
 
     @When("^I click the continue button on the add a topic screen$")
     public void clickContinueButtonOnAddATopicScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(markUpDecision.policyResponseRadioButton);
         page.clickOn(markUpDecision.continueButton);
         markUpDecision.sleep(500);
@@ -120,7 +119,6 @@ public class MarkUpStepDefs {
 
     @When("^I click the add button on the add topic screen")
     public void clickAddButtonOnAddTopicScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(markUpDecision.policyResponseRadioButton);
         page.clickOn(markUpDecision.continueButton);
         page.clickOn(markUpDecision.addATopicButton);

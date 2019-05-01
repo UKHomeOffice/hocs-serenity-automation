@@ -22,6 +22,8 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class fetch extends Page {
@@ -50,7 +52,7 @@ public class fetch extends Page {
 
     MarkUpDecision markUpDecision;
 
-    public void getFirstUnallocatedMINCaseDataInputStage() {
+    public void getFirstUnallocatedMINCaseDataInputCase() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Data "
                         + "Input')]][following-sibling::td[2]"
@@ -59,18 +61,7 @@ public class fetch extends Page {
         workstacks.clickAllocateToMeButton();
     }
 
-    public void getTeamAndFirstUnallocatedMINCaseDataInputStage() {
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.performanceProcessTeam);
-        WebElementFacade firstUnallocatedMINCase = findAll(
-                "//td[following-sibling::td[1][contains(text(), 'Data "
-                        + "Input')]][following-sibling::td[2]"
-                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
-        workstacks.clickAllocateToMeButton();
-    }
-
-    public void getFirstUnallocatedMINCaseMarkupStage() {
+    public void getFirstUnallocatedMINCaseMarkupCase() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -78,11 +69,9 @@ public class fetch extends Page {
         workstacks.clickAllocateToMeButton();
     }
 
-    public void getTeamAndFirstUnallocatedMINCaseMarkupStage() {
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.centralDraftingTeam);
+    public void getFirstUnallocatedMINInitialDraftCase() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
-                + "'Markup')]][following-sibling::td[2]"
+                + "'Initial Draft')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
         workstacks.clickAllocateToMeButton();
@@ -127,24 +116,6 @@ public class fetch extends Page {
             case "DCU MIN":
                 try {
                     homepage.selectPerformanceProcessTeam();
-                    try {
-                        getFirstUnallocatedMINCaseDataInputStage();
-                        try {
-                            dataInput.emailOriginalChannelRadioButton.click();
-                        } catch (NoSuchElementException No) {
-                            System.out.println("Email element not available, searching for a fresh Data Input case");
-                            goHome();
-                            getFirstUnallocatedDataInputCase(caseType);
-                            //getTeamAndFirstUnallocatedMINCaseDataInputStage();
-                        }
-                    } catch (IndexOutOfBoundsException ex) {
-                        System.out.println("I couldn't find a Data Input case so I am building a new case");
-                        goHome();
-                        createCase.createDCUMinSingleCase();
-                        String thisCaseType = sessionVariableCalled("caseType").toString();
-                        String thisStage = sessionVariableCalled("stage").toString();
-                        giveMeACase(thisCaseType, thisStage);
-                    }
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance Process Team not available, therefore there are no Data Input cases, "
                             + "creating a new case");
@@ -152,7 +123,27 @@ public class fetch extends Page {
                     createCase.createDCUMinSingleCase();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
+                    goHome();
                     giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedMINCaseDataInputCase();
+                    try {
+                        dataInput.emailOriginalChannelRadioButton.click();
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Email element not available, searching for a fresh Data Input case");
+                        goHome();
+                        getFirstUnallocatedDataInputCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("I couldn't find a Data Input case so I am building a new case");
+                    goHome();
+                    createCase.createDCUMinSingleCase();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    goHome();
+                    giveMeACase(thisCaseType, thisStage);
+
                 }
                 break;
             case "DCU TRO":
@@ -162,6 +153,7 @@ public class fetch extends Page {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+
     }
 
     public void getFirstUnallocatedMarkupCase(String caseType) {
@@ -169,23 +161,6 @@ public class fetch extends Page {
             case "DCU MIN":
                 try {
                     homepage.selectCentralDraftingTeam();
-                    try {
-                        getFirstUnallocatedMINCaseMarkupStage();
-
-                        if (markUpDecision.isElementDisplayed(markUpDecision.policyResponseRadioButton)) {
-                            System.out.println("An appropriate Markup case has been found");
-                        } else {
-                            getTeamAndFirstUnallocatedMINCaseMarkupStage();
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("I couldn't find a Markup case so I am searching for a Data Input case");
-                        goHome();
-                        getFirstUnallocatedDataInputCase(caseType);
-                        dataInput.moveCaseFromDataInputToMarkup();
-                        String thisCaseType = sessionVariableCalled("caseType").toString();
-                        String thisStage = sessionVariableCalled("stage").toString();
-                        giveMeACase(thisCaseType, thisStage);
-                    }
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available, therefore there are no Markup cases, "
                             + "searching for a Data Input Case");
@@ -196,36 +171,46 @@ public class fetch extends Page {
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
                 }
+                try {
+                    getFirstUnallocatedMINCaseMarkupCase();
+                    try {
+//                        markUpDecision.policyResponseRadioButton.click();
+//                        assertThat();
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Policy Response element not available therefore, searching for a fresh "
+                                + "Markup case");
+                        goHome();
+                        getFirstUnallocatedMarkupCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("I couldn't find a Markup case so I am searching for a Data Input case");
+                    goHome();
+                    getFirstUnallocatedDataInputCase(caseType);
+                    dataInput.moveCaseFromDataInputToMarkup();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+
+                }
                 break;
+
             case "DCU TRO":
                 break;
+
             case "DCU N10":
                 break;
+
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
+
 
     public void getFirstUnallocatedInitialDraftCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
                     page.clickOn(homepage.animalsInScienceTeam);
-                    try {
-                        WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
-                                + "'Initial Draft')]][following-sibling::td[2]"
-                                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-                        firstUnallocatedMINCase.click();
-                        workstacks.clickAllocateToMeButton();
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("I couldnt find an Initial Draft case so I am searching for a Markup case");
-                        goHome();
-                        getFirstUnallocatedMarkupCase(caseType);
-                        markupFullFlow.moveCaseFromMarkupToInitialDraft();
-                        String thisCaseType = sessionVariableCalled("caseType").toString();
-                        String thisStage = sessionVariableCalled("stage").toString();
-                        giveMeACase(thisCaseType, thisStage);
-                    }
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation unit is not available, therefore there are no draft "
                             + "cases, searching for a Markup case");
@@ -236,6 +221,27 @@ public class fetch extends Page {
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
                 }
+                try {
+                    getFirstUnallocatedMINInitialDraftCase();
+                    try {
+                        draftingTeamDecision.initialDraftingDecisionAccept.click();
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Policy Response element not available therefore, searching for a fresh "
+                                + "Initial Draft case");
+                        goHome();
+                        page.clickOn(homepage.animalsInScienceTeam);
+                    }
+
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("I couldnt find an Initial Draft case so I am searching for a Markup case");
+                    goHome();
+                    getFirstUnallocatedMarkupCase(caseType);
+                    markupFullFlow.moveCaseFromMarkupToInitialDraft();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+                }
+
                 break;
             case "DCU TRO":
                 break;
@@ -245,6 +251,7 @@ public class fetch extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
+
 
     public void getFirstUnallocatedQaResponseCase(String caseType) {
         switch (caseType.toUpperCase()) {
