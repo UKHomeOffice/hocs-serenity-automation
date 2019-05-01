@@ -195,9 +195,11 @@ public class fetch extends Page {
                     goHome();
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
+                    goHome();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedMarkupCase(caseType);
 
                 }
 
