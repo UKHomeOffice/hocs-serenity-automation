@@ -53,7 +53,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on the correspondence answer screen$")
     public void clickContinueButtonOnCorrespondenceAnswerScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.continueButton);
     }
 
@@ -64,7 +63,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the case rejection screen$")
     public void clickFinishButtonOnCaseRejectionScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamNoRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.finishButton);
@@ -77,7 +75,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on how do you intend to respond screen$")
     public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         draft.sleep(500);
@@ -91,7 +88,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the summarise your call screen$")
     public void clickFinishButtonOnSummariseYourCallScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.phoneReplyRadioButton);
@@ -106,7 +102,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on the which is the primary draft document screen$")
     public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.letterReplyRadioButton);
@@ -122,7 +117,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the add button on the add documents screen$")
     public void clickAddButtonOnAddDocumentScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.letterReplyRadioButton);
@@ -139,7 +133,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the continue button on the do you want QA this offline screen$")
     public void clickContinueButtonOnDoYouWantToQAOfflineScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.letterReplyRadioButton);
@@ -160,7 +153,6 @@ public class DraftResponseStepDefs {
 
     @When("^I click the finish button on the who has done the offline QA screen$")
     public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(draft.answeredByMyTeamYesRadioButton);
         page.clickOn(draft.continueButton);
         page.clickOn(draft.letterReplyRadioButton);

@@ -106,6 +106,7 @@ public class DataInput extends Page {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
+
     // Basic Methods
 
     public void selectAddAnMPField() {

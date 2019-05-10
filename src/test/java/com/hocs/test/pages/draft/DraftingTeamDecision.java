@@ -88,8 +88,9 @@ public class DraftingTeamDecision extends Page {
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
         uploadDraftResponse();
+        qa.sleep(500);
         qa.dontQAOffline();
-        clickContinueButton();
+//        clickContinueButton();
     }
 
 }

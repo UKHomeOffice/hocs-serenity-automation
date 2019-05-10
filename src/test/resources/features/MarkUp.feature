@@ -86,7 +86,7 @@ Feature: DCU user decides how a case should be handled
     And I click the continue button on the markup response screen
     Then an error message should be displayed as I have not selected a response
 
-  @Validation @TestTheTest
+  @Validation
   Scenario: User must add a topic at the Markup Stage
     And I click the continue button on the add a topic screen
     Then an error message should be displayed as I have not added a topic

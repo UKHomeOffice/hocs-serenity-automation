@@ -105,7 +105,6 @@ public class MarkUpStepDefs {
 
     @When("^I click the continue button on the markup response screen$")
     public void clickContinueButtonOnMarkupResponseScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(markUpDecision.continueButton);
     }
 

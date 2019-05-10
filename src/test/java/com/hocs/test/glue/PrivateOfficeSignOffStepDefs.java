@@ -56,7 +56,6 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the continue button on PO approve response screen$")
     public void clickContinueButtonOnPOApproveResponseScreen() {
-        page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(privateOffice.continueButton);
     }
 

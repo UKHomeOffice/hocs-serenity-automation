@@ -75,9 +75,15 @@ public class WorkstacksStepDefs {
     }
 
     @When("^I unallocate all cases from the users in the team$")
-    public void unallocatedAllCasesFromTeamwork() {
+    public void unallocatedAllCasesFromTeamWorkstack() {
         workstacks.clickAllWorkstackCheckboxes();
         page.clickOn(workstacks.unallocateFromMeButton);
+    }
+
+    @When("^I allocate all cases to a single user$")
+    public void allocateAllCasesInTeamworkWorkstack() {
+        workstacks.clickAllWorkstackCheckboxes();
+        page.clickOn(workstacks.allocateCheckboxCaseToMeButton);
     }
 
 
