@@ -175,13 +175,14 @@ public class fetch extends Page {
                     System.out.println("I couldn't find a Data Input case so I am building a new case");
                     goHome();
                     createCase.createDCUMinSingleCase();
-                    String thisCaseType = sessionVariableCalled("caseType").toString();
-                    String thisStage = sessionVariableCalled("stage").toString();
+//                    String thisCaseType = sessionVariableCalled("caseType").toString();
+//                    String thisStage = sessionVariableCalled("stage").toString();
                     goHome();
                     page.clickOn(homepage.performanceProcessTeam);
                     getFirstUnallocatedMINCaseDataInputCase();
                     dataInput.moveCaseFromDataInputToMarkup();
-                    giveMeACase(thisCaseType, thisStage);
+//                    giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedMarkupCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -273,6 +274,7 @@ public class fetch extends Page {
                     goHome();
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
+                    getFirstUnallocatedInitialDraftCase(caseType);
 //                    page.clickOn(homepage.animalsInScienceTeam);
 //                    getFirstUnallocatedMINInitialDraftCase();
 //                    markupFullFlow.moveCaseFromMarkupToInitialDraft();
