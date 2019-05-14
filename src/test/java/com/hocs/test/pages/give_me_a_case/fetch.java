@@ -175,14 +175,9 @@ public class fetch extends Page {
                     System.out.println("I couldn't find a Data Input case so I am building a new case");
                     goHome();
                     createCase.createDCUMinSingleCase();
-//                    String thisCaseType = sessionVariableCalled("caseType").toString();
-//                    String thisStage = sessionVariableCalled("stage").toString();
                     goHome();
                     page.clickOn(homepage.performanceProcessTeam);
                     getFirstUnallocatedMINCaseDataInputCase();
-                    dataInput.moveCaseFromDataInputToMarkup();
-//                    giveMeACase(thisCaseType, thisStage);
-                    getFirstUnallocatedMarkupCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -214,9 +209,11 @@ public class fetch extends Page {
                     try {
                         assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
                                 + "response is required?"));
-                        System.out.println("Question found, continuing test");
+                        System.out.println("Markup 'What sort of response is required?' question found therefore, "
+                                + "continuing test");
                     } catch (org.openqa.selenium.NoSuchElementException e) {
-                        System.out.println("Policy Response element not available therefore, searching for a fresh Markup "
+                        System.out.println("Markup 'What sort of response is required?' question not found therefore, "
+                                + "searching for a fresh Markup "
                                 + "case");
                         goHome();
                         getFirstUnallocatedMarkupCase(caseType);
@@ -225,10 +222,8 @@ public class fetch extends Page {
                     System.out.println("I couldn't find a Markup case so I am searching for a Data Input case");
                     goHome();
                     getFirstUnallocatedDataInputCase(caseType);
-//                    dataInput.moveCaseFromDataInputToMarkup();
-//                    String thisCaseType = sessionVariableCalled("caseType").toString();
-//                    String thisStage = sessionVariableCalled("stage").toString();
-//                    giveMeACase(thisCaseType, thisStage);
+                    dataInput.moveCaseFromDataInputToMarkup();
+                    getFirstUnallocatedMarkupCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -262,9 +257,12 @@ public class fetch extends Page {
                         assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
                                 is("Can this "
                                         + "correspondence be answered by your team?"));
-                        System.out.println("Question found, continuing test");
+                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' question "
+                                + "found therefore, continuing test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Element not available therefore, searching for a fresh "
+                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' question not "
+                                + "found therefore, searching "
+                                + "for a fresh "
                                 + "Initial Draft case");
                         goHome();
                         getFirstUnallocatedInitialDraftCase(caseType);
@@ -275,12 +273,6 @@ public class fetch extends Page {
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
-//                    page.clickOn(homepage.animalsInScienceTeam);
-//                    getFirstUnallocatedMINInitialDraftCase();
-//                    markupFullFlow.moveCaseFromMarkupToInitialDraft();
-//                    String thisCaseType = sessionVariableCalled("caseType").toString();
-//                    String thisStage = sessionVariableCalled("stage").toString();
-//                    giveMeACase(thisCaseType, thisStage);
                 }
                 break;
             case "DCU TRO":
@@ -312,9 +304,12 @@ public class fetch extends Page {
                     try {
                         assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
                                 + "response?"));
-                        System.out.println("Question found, continuing test");
+                        System.out.println("QA Response 'Do you approve the response?' question found therefore, "
+                                + "continuing "
+                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Element not available therefore, searching for a fresh QA case");
+                        System.out.println("QA Response 'Do you approve the response?' question not found therefore, "
+                                + "searching for a fresh QA Response case");
                         goHome();
                         page.clickOn(homepage.animalsInScienceTeam);
                     }
@@ -323,9 +318,7 @@ public class fetch extends Page {
                     goHome();
                     getFirstUnallocatedInitialDraftCase(caseType);
                     draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
-                    String thisCaseType = sessionVariableCalled("caseType").toString();
-                    String thisStage = sessionVariableCalled("stage").toString();
-                    giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -359,13 +352,15 @@ public class fetch extends Page {
                     getFirstUnallocatedMINPrivateOfficeCase();
                     try {
                         page.clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Private Office Approval']").getText(), is("Private Office Approval"));
+                        assertThat($("//caption[text()='Private Office Approval']").getText(),
+                                is("Private Office Approval"));
                         System.out.println("Private Office Approval is active stage");
                         assertThat($("//span[text()='Do you approve the response?']").getText(),
                                 is("Do you approve the response?"));
-                        System.out.println("Question found, continuing test");
+                        System.out.println("Private Office 'Do you approve the response?' question found therefore, "
+                                + "continuing test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Elements not available therefore, searching for a fresh Private Office case");
+                        System.out.println("Elements not found therefore, searching for a fresh Private Office case");
                         goHome();
                         getFirstUnallocatedPrivateOfficeCase(caseType);
                     }
@@ -375,9 +370,7 @@ public class fetch extends Page {
                             + "Response case");
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
-                    String thisCaseType = sessionVariableCalled("caseType").toString();
-                    String thisStage = sessionVariableCalled("stage").toString();
-                    giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedPrivateOfficeCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -409,14 +402,16 @@ public class fetch extends Page {
                     getFirstUnallocatedMINMinisterialSignOffCase();
                     try {
                         page.clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Ministerial Sign off'])").getText(), is("Ministerial Sign Off"));
+                        assertThat($("//caption[text()='Ministerial Sign off']").getText(), is("Ministerial Sign off"));
                         System.out.println("Ministerial Sign Off is active stage");
                         assertThat($("//span[text()='Do you approve the response?']").getText(),
                                 is("Do you approve the response?"));
-                        System.out.println("Question found, continuing test");
+                        System.out.println("Ministerial Sign Off 'Do you approve the response?' question found therefore, "
+                                + "continuing "
+                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println(
-                                "Elements not available therefore, searching for a fresh Ministerial Sign Off case");
+                                "Elements not found therefore, searching for a fresh Ministerial Sign Off case");
                         goHome();
                         getFirstUnallocatedMinisterialSignOffCase(caseType);
                     }
@@ -426,9 +421,7 @@ public class fetch extends Page {
                             + "Office Approval case");
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
-                    String thisCaseType = sessionVariableCalled("caseType").toString();
-                    String thisStage = sessionVariableCalled("stage").toString();
-                    giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedMinisterialSignOffCase(caseType);
                 }
                 break;
             case "DCU TRO":
@@ -458,12 +451,16 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINDispatchCase();
                     try {
-                        assertThat($("//span[text()='Are you able to dispatch this?']"), is("Are you able to dispatch "
-                                + "this?"));
-                        System.out.println("Question found, continuing test");
+                        page.clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
+                        System.out.println("Dispatch is active stage");
+                        assertThat($("//label[text()='How do you intend to respond?']").getText(),
+                                is("How do you intend to respond?"));
+                        System.out.println("Dispatch 'How do you intend to respond?' question found therefore, continuing "
+                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println(
-                                "Elements not available therefore, searching for a fresh Dispatch case");
+                                "Elements not found therefore, searching for a fresh Dispatch case");
                         goHome();
                         getFirstUnallocatedDispatchCase(caseType);
                     }
@@ -472,9 +469,7 @@ public class fetch extends Page {
                     System.out.println("I couldn't find a Dispatch case so I am searching for a Ministerial Case");
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
-                    String thisCaseType = sessionVariableCalled("caseType").toString();
-                    String thisStage = sessionVariableCalled("stage").toString();
-                    giveMeACase(thisCaseType, thisStage);
+                    getFirstUnallocatedDispatchCase(caseType);
                 }
                 break;
             case "DCU TRO":
