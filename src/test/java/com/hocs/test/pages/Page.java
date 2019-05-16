@@ -203,7 +203,7 @@ public class Page extends PageObject {
     private WebElementFacade startDate;
 
     @FindBy(css = "[value = 'Finish']")
-    private WebElementFacade submitButton;
+    public WebElementFacade submitButton;
 
     @FindBy(id = "surname")
     protected WebElementFacade surnameField;

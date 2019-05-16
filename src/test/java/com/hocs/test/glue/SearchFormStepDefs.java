@@ -42,7 +42,7 @@ public class SearchFormStepDefs {
 
     @When("^I enter a valid search query$")
     public void enterValidCaseReferenceForSearch() {
-        homepage.selectCaseReferenceSearchBar("MIN/0120005/19");
+        homepage.selectCaseReferenceSearchBar();
         homepage.hitEnterCaseReferenceSearchBar();
     }
 
@@ -60,8 +60,8 @@ public class SearchFormStepDefs {
 
     @When("^I enter a non-existent case reference$")
     public void enterInvalidCaseReferenceForSearch() {
-        homepage.selectCaseReferenceSearchBar("MIN/0000000/19");
-        homepage.hitEnterCaseReferenceSearchBar();
+//        homepage.selectCaseReferenceSearchBar("MIN/0000000/19");
+//        homepage.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("^an error message should be displayed stating that there are no active workflows for the case$")
@@ -69,9 +69,9 @@ public class SearchFormStepDefs {
         homepage.assertNoActiveWorkflowsForCaseErrorMessage();
     }
 
-    @When("^I click the find button$")
+    @When("^I hit the enter button$")
     public void clickSearchFindButton() {
-        page.clickOn(homepage.caseReferenceFindButton);
+        homepage.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("^an error message should be displayed stating that a case reference is required$")

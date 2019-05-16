@@ -133,23 +133,18 @@ public class Homepage extends Page {
 
     // Basic Methods
 
-    public void selectCaseReferenceSearchBar(String searchCaseReference) {
-        caseReferenceSearchBar.sendKeys(searchCaseReference);
-        setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
+    public void selectCaseReferenceSearchBar() {
+        clickOn(performanceProcessTeam);
+        String getFirstCaseReferenceForSearch = findBy("(//td[following-sibling::td[1][contains(text(), 'Data "
+                + "Input')]])[1]").getText();
+        setSessionVariable("searchByCaseReferenceQuery").to(getFirstCaseReferenceForSearch);
+        clickOn(home);
+        caseReferenceSearchBar.sendKeys(getFirstCaseReferenceForSearch);
     }
 
     public void hitEnterCaseReferenceSearchBar() {
         caseReferenceSearchBar.sendKeys(Keys.ENTER);
     }
-
-//    public String getFirstCaseReferenceInWorkstack() {
-//        selectPerformanceProcessTeam();
-//        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]")
-//                .get(0);
-//
-//        return firstCaseInWorkstack.getText();
-//
-//    }
 
     public void assertCaseReferenceIsRequiredErrorMessage() {
         assertThat(caseReferenceIsRequiredErrorMessage.getText(), is("Case reference is required"));

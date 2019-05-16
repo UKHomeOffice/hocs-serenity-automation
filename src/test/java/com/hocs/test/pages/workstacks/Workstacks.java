@@ -225,13 +225,13 @@ public class Workstacks extends Page {
     }
 
     public void assertCaseReferenceBeforeAllocation(){
-        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
         assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
 
     }
 
     public void assertCaseReferenceAfterAllocation() {
-        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
         assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
 }

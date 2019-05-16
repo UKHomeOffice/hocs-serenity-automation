@@ -24,7 +24,7 @@ public class QAResponseStepDefs {
 
     @When("^I complete the QA response stage$")
     public void completeQAResponseStage() {
-        page.clickOn(homepage.performanceProcessTeam);
+        page.clickOn(homepage.animalsInScienceTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(homepage.home);
@@ -37,7 +37,7 @@ public class QAResponseStepDefs {
 
     @When("^I reject the case at the QA Response stage$")
     public void rejectAtQaResponse(){
-        page.clickOn(homepage.performanceProcessTeam);
+        page.clickOn(homepage.animalsInScienceTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(homepage.home);

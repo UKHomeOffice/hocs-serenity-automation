@@ -1,10 +1,16 @@
 package com.hocs.test.pages.create_case;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
+
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
@@ -17,10 +23,13 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
+    Workstacks workstacks;
+
+    Page page;
+
     WebDriver driver;
 
     // Elements
-
 
 
     @FindBy(className = "govuk-radios")
@@ -86,7 +95,7 @@ public class CreateCase extends Page {
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
-        assertThat(allRadioButtons.getText(),is("No options available"));
+        assertThat(allRadioButtons.getText(), is("No options available"));
     }
 
     public void capturedCaseReferenceTest() {
@@ -98,11 +107,14 @@ public class CreateCase extends Page {
         dcuMinRadioButton.click();
     }
 
-    public void clickDcuTroRadioButton() { dcuTroRadioButton.click(); }
+    public void clickDcuTroRadioButton() {
+        dcuTroRadioButton.click();
+    }
 
     public void clickDcuDtenRadioButton() {
         dcuDtenRadioButton.click();
     }
+
     public void enterCaseDetailsFreeText() {
         caseDetailsFreeTextField.clear();
         caseDetailsFreeTextField.sendKeys(generateRandomString());
@@ -114,7 +126,7 @@ public class CreateCase extends Page {
         enterDispatchDeadlineYear(todayPlusNDaysGetYear(days));
     } */
 
-    public void fillMandatoryDateFields(){
+    public void fillMandatoryDateFields() {
         enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
         enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(+365));
         enterDispatchDeadlineYear(todayPlusNDaysGetYear(+365));
@@ -123,22 +135,22 @@ public class CreateCase extends Page {
         enterDraftDeadlineYear(todayPlusNDaysGetYear(+360));
     }
 
-    private void enterDispatchDeadlineDay(String day){
+    private void enterDispatchDeadlineDay(String day) {
         d10DispatchDeadlineDay.clear();
         d10DispatchDeadlineDay.sendKeys(day);
     }
 
-    private void enterDispatchDeadlineMonth(String month){
+    private void enterDispatchDeadlineMonth(String month) {
         d10DispatchDeadlineMonth.clear();
         d10DispatchDeadlineMonth.sendKeys(month);
     }
 
-    private void enterDispatchDeadlineYear(String year){
+    private void enterDispatchDeadlineYear(String year) {
         d10DispatchDeadlineYear.clear();
         d10DispatchDeadlineYear.sendKeys(year);
     }
 
-    private void enterDraftDeadlineDay(String day){
+    private void enterDraftDeadlineDay(String day) {
         d10DraftDeadlineDay.clear();
         d10DraftDeadlineDay.sendKeys(day);
     }
@@ -148,17 +160,16 @@ public class CreateCase extends Page {
         d10DraftDeadlineMonth.sendKeys(month);
     }
 
-    private void enterDraftDeadlineYear(String year){
+    private void enterDraftDeadlineYear(String year) {
         d10DraftDeadlineYear.clear();
         d10DraftDeadlineYear.sendKeys(year);
     }
 
-
     // Multi Step Methods
 
     public void createDCUMinSingleCase() {
-        homepage.clickCreateSingleCase();
-        clickDcuMinRadioButton();
+        page.clickOn(homepage.createSingleCase);
+        page.clickOn(dcuMinRadioButton);
         completeDCUMINSingleCaseCreation();
     }
 
@@ -184,25 +195,25 @@ public class CreateCase extends Page {
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
-    public void completeDCUMINSingleCaseCreation(){
-        clickNextButton();
+    public void completeDCUMINSingleCaseCreation() {
+        page.clickOn(nextButton);
         addDocuments.uploadDocument();
-        clickSubmitButton();
-//        successfulCaseCreation.getCaseReference();
-//        successfulCaseCreation.clickSuccessfulCaseBackButton();
-//        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
+        page.clickOn(submitButton);
+        page.clickOn($("//input[@id='submit']"));
+        String newCaseReference = workstacks.$("//h1").getText();
+        setSessionVariable("caseReference").to(newCaseReference);
+        page.clickOn(homepage.home);
     }
 
     public void completeSingleCaseCreation() {
-        clickNextButton();
+        page.clickOn(nextButton);
         fillMandatoryDateFields();
         addDocuments.uploadDocument();
-        clickSubmitButton();
+        page.clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
-
 
     //Assertions
 

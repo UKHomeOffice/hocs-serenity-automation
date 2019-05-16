@@ -119,10 +119,13 @@ public class CreateCaseStepDefs {
         createCase.createDCUMinSingleCase();
     }
 
-    @When("^I allocate the case to myself")
+    @When("^I allocate the case to myself$")
     public void allocateToMe() {
-        page.clickOn(homepage.performanceProcessTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+//        page.clickOn(homepage.performanceProcessTeam);
+//        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        page.clickOn(createCase.$("//input[@id='submit']"));
+        String newCaseReference = workstacks.$("//h1").getText();
+        setSessionVariable("caseReference").to(newCaseReference);
         page.clickOn(workstacks.allocateToMeButton);
         page.clickOn(homepage.home);
     }
@@ -141,6 +144,10 @@ public class CreateCaseStepDefs {
 
     @When("^I navigate to the Performance and Process Team and select the check box against the newly created case and allocate it to myself$")
     public void allocateCaseUsingCheckbox() {
+        page.clickOn(createCase.$("//input[@id='submit']"));
+        String newCaseReference = workstacks.$("//h1").getText();
+        setSessionVariable("caseReference").to(newCaseReference);
+        page.clickOn(homepage.home);
         page.clickOn(homepage.performanceProcessTeam);
         workstacks.clickCheckboxRelevantToCaseReference();
         page.clickOn(workstacks.allocateCheckboxCaseToMeButton);
@@ -320,14 +327,14 @@ public class CreateCaseStepDefs {
 
     @When("^I click the cancel button on the what type of correspondence page$")
     public void clickCancelButtonOnWhatTypeOfCorrespondencePage() {
-        createCase.clickCancelButton();
+        page.clickOn(createCase.cancelButton);
     }
 
     @When("^I click the cancel button on the when was the correspondence received page$")
     public void clickCancelButtonOnWhenWasCorrespondenceReceivedPage() {
         page.clickOn(createCase.dcuMinRadioButton);
         page.clickOn(createCase.nextButton);
-        createCase.sleep(500);
+        createCase.sleep(100);
         page.clickOn(createCase.cancelButton);
     }
 }

@@ -136,7 +136,7 @@ public class NavigationStepDefs extends Page {
 
     }
 
-    @When("I click the cancel button")
+    @When("^I click the cancel button$")
     public void clickCancelButtonOnAllocateCasePage() {
         page.clickOn(workstacks.allocateScreenCancelButton);
     }
