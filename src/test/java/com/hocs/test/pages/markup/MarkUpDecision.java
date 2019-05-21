@@ -62,6 +62,24 @@ public class MarkUpDecision extends Page {
     @FindBy(xpath = "//a[text()='Topic is required']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
+    public void selectFAQRadioButton() {
+        clickOn(faqRadioButton);
+    }
+
+    public void selectNoReplyNeededRadioButton() {
+        clickOn(noReplyNeededRadioButton);
+    }
+
+    public void selectPolicyResponseRadioButton() {
+        clickOn(policyResponseRadioButton);
+    }
+
+    public void selectReferToOGDRadioButton() {
+        clickOn(referToOgdRadioButton);
+    }
+
+
+
     public void clickPolicyResponseRadioButton() {
         policyResponseRadioButton.click();
     }

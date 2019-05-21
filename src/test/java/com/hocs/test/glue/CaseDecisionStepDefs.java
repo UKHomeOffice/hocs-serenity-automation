@@ -22,12 +22,15 @@ public class CaseDecisionStepDefs {
 
     Topics topics;
 
-    @Then("^a mandatory \"([^\"]*)\" free text field is available$")
+    @Then("^a mandatory \"([^\"]*)\" free text field is displayed$")
     public void aMandatoryFreeTextFieldIsAvailable(String textField) {
         switch (textField.toUpperCase()) {
             case "ALLOCATION NOTE":
                 break;
             case "REASON FOR NO REPLY NEEDED":
+                break;
+            case "TOPIC" :
+                topics.assertTopicsTextFieldDisplayed();
                 break;
             default:
                 pendingStep(textField + " is not defined within " + getMethodName());
@@ -157,23 +160,23 @@ public class CaseDecisionStepDefs {
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
             case "FAQ":
-                page.clickOn(markUpDecision.faqRadioButton);
+                markUpDecision.selectFAQRadioButton();
                 break;
-            case "NO REPLY NEEDED":
-                page.clickOn(markUpDecision.noReplyNeededRadioButton);
+            case "NO RESPONSE NEEDED":
+                markUpDecision.selectNoReplyNeededRadioButton();
                 break;
             case "POLICY RESPONSE":
-                page.clickOn(markUpDecision.policyResponseRadioButton);
+                markUpDecision.selectPolicyResponseRadioButton();
                 break;
             case "REFER TO OGD":
-                page.clickOn(markUpDecision.referToOgdRadioButton);
+                markUpDecision.selectReferToOGDRadioButton();
                 break;
             case "TRANSFER TO OGD":
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        page.clickOn(markUpDecision.continueButton);
+        markUpDecision.clickContinueButton();
     }
 
     @Given("^multiple topics have been set$")

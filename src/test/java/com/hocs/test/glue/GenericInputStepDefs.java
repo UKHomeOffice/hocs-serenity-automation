@@ -568,6 +568,9 @@ public class GenericInputStepDefs extends Page {
             case "CANCEL" :
                 clickOn(cancelButton);
                 break;
+            case "ADD A TOPIC" :
+                clickOn(addTopicButton);
+                break;
             default:
                 pendingStep(button + " is not defined within " + getMethodName());
         }
@@ -614,6 +617,10 @@ public class GenericInputStepDefs extends Page {
                 dataInput.clearDateCorrespondenceSent();
                 break;
             case "OTHER GOVERNMENT DEPARTMENT":
+                clickOn(finishButton);
+                break;
+            case "REASON FOR NO RESPONSE NEEDED" :
+                clickOn(finishButton);
                 break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());

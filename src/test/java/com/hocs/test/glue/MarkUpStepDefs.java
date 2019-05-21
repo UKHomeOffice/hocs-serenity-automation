@@ -7,6 +7,8 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.ReferToOGD;
+import com.hocs.test.pages.markup.NoResponseNeeded;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -31,6 +33,10 @@ public class MarkUpStepDefs {
     Workstacks workstacks;
 
     MarkUpDecision markUpDecision;
+
+    ReferToOGD refer;
+
+    NoResponseNeeded noResponseNeeded;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -269,4 +275,15 @@ public class MarkUpStepDefs {
         System.out.println(thisText);
         topics.assertElementTextNotValue(topics.assignedTopic, topic);
     }
+
+    @Then("^the Other Government Department name free text field is displayed$")
+    public void assertOtherGvmtDepTBIsDisplayed() {
+        refer.assertOGDTitleTextBoxIsDisplayed();
+    }
+
+    @Then("^the No Response Needed casenote field is displayed$")
+    public void assertNoResponseNeededTextBox() {
+        noResponseNeeded.assertNRNTextBoxIsDisplayed();
+    }
+
 }

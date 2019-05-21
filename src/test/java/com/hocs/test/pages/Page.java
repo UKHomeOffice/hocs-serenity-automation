@@ -229,6 +229,9 @@ public class Page extends PageObject {
     @FindBy(linkText = "view")
     public WebElementFacade viewLink;
 
+    @FindBy(xpath = "//a[text()='Add a ']")
+    public WebElementFacade addTopicButton;
+
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
 
