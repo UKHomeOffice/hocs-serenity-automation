@@ -49,28 +49,18 @@ public class SuccessfulCaseCreation extends Page {
         assertThat(panelTitle.getText(), is("Success"));
     }
 
-    // Set Case Reference Number to session variable during case creation
-
-//    public String getCaseReference() {
-//        String wholeString = createdCaseMessage.getText();
-//        String to_remove="Created a new case: ";
-//
-//        String caseReference = wholeString.replace(to_remove, "");
-//        setSessionVariable("caseReference").to(caseReference);
-//
-//        return caseReference;
-//    }
-
     public String getCaseReference() {
-        String wholeString = workstacks.caseReferenceOnAllocationScreen.getText();
-
-        String caseReference = wholeString;
+        String caseReference = newCaseReference.getAttribute("value");
+        System.out.println(caseReference);
         setSessionVariable("caseReference").to(caseReference);
 
         return caseReference;
     }
 
-    // Call session variable and set it to linkText of a findElement.by
+    public void allocateToMeViaSuccessfulCreationScreen() {
+        clickOn(newCaseReference);
+        clickOn(workstacks.allocateToMeButton);
+    }
 
     public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber

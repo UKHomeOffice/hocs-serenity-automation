@@ -168,8 +168,8 @@ public class CreateCase extends Page {
     // Multi Step Methods
 
     public void createDCUMinSingleCase() {
-        page.clickOn(homepage.createSingleCase);
-        page.clickOn(dcuMinRadioButton);
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuMinRadioButton);
         completeDCUMINSingleCaseCreation();
     }
 
@@ -198,11 +198,8 @@ public class CreateCase extends Page {
     public void completeDCUMINSingleCaseCreation() {
         page.clickOn(nextButton);
         addDocuments.uploadDocument();
-        page.clickOn(submitButton);
-        page.clickOn($("//input[@id='submit']"));
-        String newCaseReference = workstacks.$("//h1").getText();
-        setSessionVariable("caseReference").to(newCaseReference);
-        page.clickOn(homepage.home);
+        clickOn(submitButton);
+        successfulCaseCreation.getCaseReference();
     }
 
     public void completeSingleCaseCreation() {
@@ -213,6 +210,22 @@ public class CreateCase extends Page {
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
+    }
+
+    public void openACase() {
+        homepage.clickCreateSingleCase();
+    }
+
+    public void getToWhenWasCorReceived() {
+        //openACase();
+        clickOn(dcuMinRadioButton);
+        clickOn(nextButton);
+        waitABit(100);
+    }
+
+    public void cancelAtWhatTypeOfCor() {
+        openACase();
+        clickOn(cancelButton);
     }
 
     //Assertions

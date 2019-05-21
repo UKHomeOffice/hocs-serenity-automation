@@ -119,26 +119,22 @@ public class CreateCaseStepDefs {
         createCase.createDCUMinSingleCase();
     }
 
-    @When("^I allocate the case to myself$")
+    @When("^I allocate the case to myself via the successful case creation screen$")
     public void allocateToMe() {
-//        page.clickOn(homepage.performanceProcessTeam);
-//        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(createCase.$("//input[@id='submit']"));
-        String newCaseReference = workstacks.$("//h1").getText();
-        setSessionVariable("caseReference").to(newCaseReference);
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
+        successfulCaseCreation.allocateToMeViaSuccessfulCreationScreen();
     }
 
     @Then("^the case should be visible in my workstack$")
     public void assertThatCaseIsAddedToMyWorkstack() {
+        homepage.goHome();
         page.clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
     @Then("^the case should be visible in the Performance and Process Team workstack$")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
-        page.clickOn(homepage.performanceProcessTeam);
+        homepage.goHome();
+        homepage.selectPerformanceProcessTeam();
         workstacks.assertCaseReferenceIsVisible();
     }
 
@@ -255,11 +251,6 @@ public class CreateCaseStepDefs {
         successfulCaseCreation.getCaseReference();
     }
 
-    @When("^I click the next button on the create single case screen$")
-    public void correspondentTypeNotSelectedDuringCaseCreation() {
-        page.clickOn(createCase.nextButton);
-    }
-
     @Then("^an error message should be displayed as I have not selected the case type$")
     public void assertThatCaseTypeErrorMessageIsDisplayed() {
         createCase.assertCaseTypeErrorMessage();
@@ -327,15 +318,24 @@ public class CreateCaseStepDefs {
 
     @When("^I click the cancel button on the what type of correspondence page$")
     public void clickCancelButtonOnWhatTypeOfCorrespondencePage() {
-        page.clickOn(createCase.cancelButton);
+        createCase.cancelAtWhatTypeOfCor();
     }
 
-    @When("^I click the cancel button on the when was the correspondence received page$")
+    @When("^I move to the When Was Correspondence Received Page$")
     public void clickCancelButtonOnWhenWasCorrespondenceReceivedPage() {
-        page.clickOn(createCase.dcuMinRadioButton);
-        page.clickOn(createCase.nextButton);
-        createCase.sleep(100);
-        page.clickOn(createCase.cancelButton);
+        createCase.getToWhenWasCorReceived();
+    }
+
+    @When("^I enter a blank date$")
+    public void enterInvalidDateOnCaseCreateScreen() {
+        createCase.enterNoDate();
+    }
+
+    @When("^I enter an invalid date$")
+    public void enterAnInvalidDate() {
+        dataInput.enterDayOfCorrespondenceReceived("29");
+        dataInput.enterMonthOfCorrespondenceReceived("02");
+        dataInput.enterYearOfCorrespondenceReceived("2019");
     }
 }
 

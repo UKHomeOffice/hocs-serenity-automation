@@ -561,6 +561,12 @@ public class GenericInputStepDefs extends Page {
             case "ADD" :
                 clickOn(addButton);
                 break;
+            case "NEXT" :
+                clickOn(nextButton);
+                break;
+            case "CANCEL" :
+                clickOn(cancelButton);
+                break;
             default:
                 pendingStep(button + " is not defined within " + getMethodName());
         }

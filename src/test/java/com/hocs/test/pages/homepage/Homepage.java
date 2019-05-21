@@ -171,11 +171,11 @@ public class Homepage extends Page {
     }
 
     public void selectPerformanceProcessTeam() {
-        performanceProcessTeam.click();
+        clickOn(performanceProcessTeam);
     }
 
     public void selectPublicProtectionUnit() {
-        publicProtectionUnit.click();
+        clickOn(publicProtectionUnit);
     }
 
     public void waitForProcessTeam() {

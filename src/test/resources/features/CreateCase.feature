@@ -25,7 +25,7 @@ Feature: HOCS User is able to create a case
   @Allocate
   Scenario: A single case is allocated to the current user
     And I create a single MIN case
-    When I allocate the case to myself
+    When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
   @Allocate
@@ -44,26 +44,31 @@ Feature: HOCS User is able to create a case
 
   @Navigation
   Scenario: User should be taken back to the dashboard when they click the cancel button on the what type of correspondence page
-    And I click the cancel button on the what type of correspondence page
+    And I click the "CANCEL" button
     Then I should be taken to the homepage
 
   @Navigation
   Scenario: User should be taken back to the dashboard when they click the cancel button on the when was the correspodence received page
-    And I click the cancel button on the when was the correspondence received page
+    And I move to the When Was Correspondence Received Page
+    And I click the "CANCEL" button
     Then I should be taken to the homepage
 
   @Validation
   Scenario: Create Single Case correspondence selection is validated
-    And I click the next button on the create single case screen
+    And I click the "NEXT" button
     Then an error message should be displayed as I have not selected the case type
 
   @Validation @SmokeTests
   Scenario: When creating a Single MIN Case date received is required
-    And I click the finish button on the create single case screen
+    And I move to the When Was Correspondence Received Page
+    And I enter a blank date
+    And I click the "FINISH" button
     Then an error message should be displayed as I have not entered the correspondence received date
 
   @Validation @SmokeTests
   Scenario: When creating a Single MIN case a valid date must be entered
-    And I click the finish button after entering an invalid date on the create single case screen
+    And I move to the When Was Correspondence Received Page
+    And I enter an invalid date
+    And I click the "FINISH" button
     Then an error message should be displayed as I have entered an invalid date
 

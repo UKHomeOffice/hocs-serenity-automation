@@ -403,6 +403,12 @@ public class Page extends PageObject {
         dateYearField.sendKeys("2018");
     }
 
+    public void enterNoDate() {
+        dateReceivedDay.clear();
+        dateReceivedMonth.clear();
+        dateReceivedYear.clear();
+    }
+
     public void enterNewNotes(String notes) {
         newNotesField.clear();
         newNotesField.sendKeys(notes);
