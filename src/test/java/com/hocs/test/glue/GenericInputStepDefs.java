@@ -124,6 +124,7 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
+        waitABit(4000);
     }
 
 

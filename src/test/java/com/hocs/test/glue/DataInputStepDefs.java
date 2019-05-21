@@ -146,14 +146,15 @@ public class DataInputStepDefs {
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
-        page.clickOn(dataInput.addCorrespondentLink);
+        dataInput.selectAddACorrespondentLink();
 
 
         if (isOrIsNot.toUpperCase().equals("IS")) {
-            page.clickOn(dataInput.correspondentMemberYesRadioButton);
+            dataInput.selectCorrespondentIsAMemberRadioButton();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
-            page.clickOn(dataInput.correspondentMemberNoRadioButton);
+            dataInput.selectCorrespondentIsNotAMemberRadioButton();
         }
+        clickContinueButton();
     }
 
     @When("^they complete the first data input screen$")

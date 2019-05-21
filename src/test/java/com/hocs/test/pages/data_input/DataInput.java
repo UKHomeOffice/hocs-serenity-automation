@@ -113,6 +113,17 @@ public class DataInput extends Page {
         addMemberOfParliamentSearchField.click();
         addMemberOfParliamentSearchField.sendKeys("example");
     }
+    public void selectAddACorrespondentLink() {
+        clickOn(addCorrespondentLink);
+    }
+
+    public void selectCorrespondentIsAMemberRadioButton(){
+        clickOn(correspondentMemberYesRadioButton);
+    }
+
+    public void selectCorrespondentIsNotAMemberRadioButton() {
+        clickOn(correspondentMemberNoRadioButton);
+    }
 
     // Multi Step Methods
 
