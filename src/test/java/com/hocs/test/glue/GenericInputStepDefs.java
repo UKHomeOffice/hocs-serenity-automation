@@ -75,25 +75,20 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @Given("^I click the \"([^\"]*)\" button$")
-    public void clickTheButton(String buttonName) {
-        clickThisButton(buttonName);
-    }
-
     @When("^I click the \"([^\"]*)\" link")
     public void clickLink(String name) {
         switch (name.toUpperCase()) {
             case "UPDATE":
-                page.clickUpdateLink();
+                page.clickOn(page.updateLink);
                 break;
             case "NEW":
-                page.clickNewLink();
+                page.clickOn(page.newLink);
                 break;
             case "DELETE":
-                page.clickDeleteLink();
+                page.clickOn(page.deleteLink);
                 break;
             case "VIEW":
-                page.clickViewLink();
+                page.clickOn(page.viewLink);
                 break;
             default:
                 pendingStep(name + " is not defined within " + getMethodName());
@@ -129,6 +124,7 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
+        waitABit(4000);
     }
 
 
@@ -196,286 +192,284 @@ public class GenericInputStepDefs extends Page {
     public void iAmAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+                page.clickOn(successfulCaseCreation.newCaseReference);
                 break;
             case "MARKUP":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseNoRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "DRAFT":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                markUpDecision.clickPolicyResponseRadioButton();
-                markUpDecision.clickContinueButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(markUpDecision.policyResponseRadioButton);
+                page.clickOn(markUpDecision.continueButton);
                 markUpDecision.sleep(500);
-                markUpDecision.clickAddTopic();
+                page.clickOn(markUpDecision.addATopicButton);
                 topics.enterRealTopic();
-                topics.clickAddButton();
-                markUpDecision.clickContinueButton();
-                markUpDecision.clickFinishButton();
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(topics.addButton);
+                page.clickOn(markUpDecision.continueButton);
+                page.clickOn(markUpDecision.finishButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "QA":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                markUpDecision.clickPolicyResponseRadioButton();
-                markUpDecision.clickContinueButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(markUpDecision.policyResponseRadioButton);
+                page.clickOn(markUpDecision.continueButton);
                 markUpDecision.sleep(500);
-                markUpDecision.clickAddTopic();
+                page.clickOn(markUpDecision.addATopicButton);
                 topics.enterRealTopic();
-                topics.clickAddButton();
-                markUpDecision.clickContinueButton();
-                markUpDecision.clickFinishButton();
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(topics.addButton);
+                page.clickOn(markUpDecision.continueButton);
+                page.clickOn(markUpDecision.finishButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                draft.clickAnsweredByMyTeamYesRadioButton();
-                draft.clickContinueButton();
-                draft.clickLetterReplyRadioButton();
-                draft.clickContinueButton();
-                draft.clickAddDocumentsButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(draft.answeredByMyTeamYesRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.letterReplyRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.draftStageAddDocumentsButton);
                 draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
-                addDocuments.clickAddButton();
-                draft.clickContinueButton();
-                qa.clickOfflineQANoRadioButton();
-                draft.clickContinueButton();
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(addDocuments.addButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(qa.offlineQaNoRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "PO SIGNOFF":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                markUpDecision.clickPolicyResponseRadioButton();
-                markUpDecision.clickContinueButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(markUpDecision.policyResponseRadioButton);
+                page.clickOn(markUpDecision.continueButton);
                 markUpDecision.sleep(500);
-                markUpDecision.clickAddTopic();
+                page.clickOn(markUpDecision.addATopicButton);
                 topics.enterRealTopic();
-                topics.clickAddButton();
-                markUpDecision.clickContinueButton();
-                markUpDecision.clickFinishButton();
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(topics.addButton);
+                page.clickOn(markUpDecision.continueButton);
+                page.clickOn(markUpDecision.finishButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                draft.clickAnsweredByMyTeamYesRadioButton();
-                draft.clickContinueButton();
-                draft.clickLetterReplyRadioButton();
-                draft.clickContinueButton();
-                draft.clickAddDocumentsButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(draft.answeredByMyTeamYesRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.letterReplyRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.draftStageAddDocumentsButton);
                 draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
-                addDocuments.clickAddButton();
-                draft.clickContinueButton();
-                qa.clickOfflineQAYesRadioButton();
-                draft.clickContinueButton();
+                page.clickOn(addDocuments.addButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(qa.offlineQaYesRadioButton);
+                page.clickOn(draft.continueButton);
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
-                draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(draft.finishButton);
+                page.clickOn(homepage.performanceProcessTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "MINISTER SIGNOFF":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                markUpDecision.clickPolicyResponseRadioButton();
-                markUpDecision.clickContinueButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(markUpDecision.policyResponseRadioButton);
+                page.clickOn(markUpDecision.continueButton);
                 markUpDecision.sleep(500);
-                markUpDecision.clickAddTopic();
+                page.clickOn(markUpDecision.addATopicButton);
                 topics.enterRealTopic();
-                topics.clickAddButton();
-                markUpDecision.clickContinueButton();
-                markUpDecision.clickFinishButton();
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(topics.addButton);
+                page.clickOn(markUpDecision.continueButton);
+                page.clickOn(markUpDecision.finishButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                draft.clickAnsweredByMyTeamYesRadioButton();
-                draft.clickContinueButton();
-                draft.clickLetterReplyRadioButton();
-                draft.clickContinueButton();
-                draft.clickAddDocumentsButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(draft.answeredByMyTeamYesRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.letterReplyRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.draftStageAddDocumentsButton);
                 draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
-                addDocuments.clickAddButton();
-                draft.clickContinueButton();
-                qa.clickOfflineQAYesRadioButton();
-                draft.clickContinueButton();
+                page.clickOn(addDocuments.addButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(qa.offlineQaYesRadioButton);
+                page.clickOn(draft.continueButton);
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
-                draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(draft.finishButton);
+                page.clickOn(homepage.performanceProcessTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                privateOffice.clickPrivateOfficeAcceptRadioButton();
-                privateOffice.clickContinueButton();
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(privateOffice.privateOfficeAcceptRadioButton);
+                page.clickOn(privateOffice.continueButton);
+                page.clickOn(homepage.ministerForLordsTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             case "DISPATCH":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 createCase.createDCUMinSingleCase();
-                homepage.selectPerformanceProcessTeam();
-                successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
+                page.clickOn(successfulCaseCreation.newCaseReference);
+                successfulCaseCreation.getCaseReference();
+                page.clickOn(workstacks.allocateToMeButton);
                 dataInput.enterDayOfCorrespondenceSent("01");
                 dataInput.enterMonthOfCorrespondenceSent("01");
                 dataInput.enterYearOfCorrespondenceSent("2019");
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
-                dataInput.selectN10ResponseYesRadioButton();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
+                page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 dataInput.sleep(500);
-                dataInput.clickAddCorrespondentLink();
-                dataInput.clickCorrespondentIsNotAMember();
-                dataInput.clickContinueButton();
+                page.clickOn(dataInput.addCorrespondentLink);
+                page.clickOn(dataInput.correspondentMemberNoRadioButton);
+                page.clickOn(dataInput.continueButton);
                 recordCorrespondentDetails.selectCorrespondentType();
                 recordCorrespondentDetails.enterCorrespondentFullName("Bob");
-                recordCorrespondentDetails.clickAddButton();
-                dataInput.clickFinishButton();
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(dataInput.addButton);
+                page.clickOn(dataInput.finishButton);
+                page.clickOn(homepage.centralDraftingTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                markUpDecision.clickPolicyResponseRadioButton();
-                markUpDecision.clickContinueButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(markUpDecision.policyResponseRadioButton);
+                page.clickOn(markUpDecision.continueButton);
                 markUpDecision.sleep(500);
-                markUpDecision.clickAddTopic();
+                page.clickOn(markUpDecision.addATopicButton);
                 topics.enterRealTopic();
-                topics.clickAddButton();
-                markUpDecision.clickContinueButton();
-                markUpDecision.clickFinishButton();
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(topics.addButton);
+                page.clickOn(markUpDecision.continueButton);
+                page.clickOn(markUpDecision.finishButton);
+                page.clickOn(homepage.animalsInScienceTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                draft.clickAnsweredByMyTeamYesRadioButton();
-                draft.clickContinueButton();
-                draft.clickLetterReplyRadioButton();
-                draft.clickContinueButton();
-                draft.clickAddDocumentsButton();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(draft.answeredByMyTeamYesRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.letterReplyRadioButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(draft.draftStageAddDocumentsButton);
                 draft.selectDocumentTypeByIndex(2);
                 addDocuments.uploadDocument();
-                addDocuments.clickAddButton();
-                draft.clickContinueButton();
-                qa.clickOfflineQAYesRadioButton();
-                draft.clickContinueButton();
+                page.clickOn(addDocuments.addButton);
+                page.clickOn(draft.continueButton);
+                page.clickOn(qa.offlineQaYesRadioButton);
+                page.clickOn(draft.continueButton);
                 draft.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
-                draft.clickFinishButton();
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(draft.finishButton);
+                page.clickOn(homepage.performanceProcessTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                privateOffice.clickPrivateOfficeAcceptRadioButton();
-                privateOffice.clickContinueButton();
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(privateOffice.privateOfficeAcceptRadioButton);
+                page.clickOn(privateOffice.continueButton);
+                page.clickOn(homepage.ministerForLordsTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-                workstacks.clickAllocateToMeButton();
-                minister.clickMinisterSignOffAcceptRadioButton();
-                minister.clickContinueButton();
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(workstacks.allocateToMeButton);
+                page.clickOn(minister.minsterSignOffAcceptRadioButton);
+                page.clickOn(minister.continueButton);
+                page.clickOn(homepage.performanceProcessTeam);
                 successfulCaseCreation.selectCaseReferenceNumberViaXpath();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
     }
-
 
     @When("^I set the date to \"([^\"]*)\"$")
     public void iSetTheDate(String date) {
@@ -526,22 +520,59 @@ public class GenericInputStepDefs extends Page {
     public void selectGenericButtonFromSpecificPage(String button, String page) {
         switch(page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP" :
-                dataInput.clickAddCorrespondentLink();
-                clickThisButton(button);
+                dataInput.getToIsCorrespondentAnMPPrerequisites();
                 break;
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
-                clickThisButton(button);
                 break;
             case "PRIMARY CORRESPONDENT" :
-                clickThisButton(button);
+                //ceoihci
                 break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
-                clickThisButton(button);
                 break;
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
+        }
+
+        switch (button.toUpperCase()) {
+            case "CONTINUE" :
+                clickOn(continueButton);
+                break;
+            case "FINISH" :
+                clickOn(finishButton);
+                break;
+            case "ADD" :
+                clickOn(addButton);
+                break;
+            default:
+                pendingStep(button + " is not defined within " + getMethodName());
+        }
+    }
+
+    @When("^I click the \"([^\"]*)\" button$")
+    public void clickTheButton(String button) {
+        switch(button.toUpperCase()) {
+            case "CONTINUE" :
+                clickOn(continueButton);
+                break;
+            case "FINISH" :
+                clickOn(finishButton);
+                break;
+            case "ADD" :
+                clickOn(addButton);
+                break;
+            case "NEXT" :
+                clickOn(nextButton);
+                break;
+            case "CANCEL" :
+                clickOn(cancelButton);
+                break;
+            case "ADD A TOPIC" :
+                clickOn(addTopicButton);
+                break;
+            default:
+                pendingStep(button + " is not defined within " + getMethodName());
         }
     }
 
@@ -549,7 +580,7 @@ public class GenericInputStepDefs extends Page {
     public void iAttemptToRejectACaseWithoutReason() {
         page.clickRejectButton();
         while (page.isElementDisplayed(page.nextButton)) {
-            page.clickNextButton();
+            page.clickOn(page.nextButton);
         }
     }
 
@@ -558,16 +589,16 @@ public class GenericInputStepDefs extends Page {
         setSessionVariable("caseId").to(page.getCaseId());
         switch (action.toUpperCase()) {
             case "ACCEPT":
-                page.clickAcceptButton();
-                page.clickContinueButton();
+                page.clickOn(page.acceptButton);
+                page.clickOn(page.continueButton);
                 break;
             case "ALLOCATE":
                 break;
             case "DISPATCH":
                 break;
             case "REJECT":
-                page.clickRejectButton();
-                page.clickContinueButton();
+                page.clickOn(page.rejectButton);
+                page.clickOn(page.continueButton);
                 page.enterRejectionNotes();
                 break;
             default:
@@ -586,6 +617,10 @@ public class GenericInputStepDefs extends Page {
                 dataInput.clearDateCorrespondenceSent();
                 break;
             case "OTHER GOVERNMENT DEPARTMENT":
+                clickOn(finishButton);
+                break;
+            case "REASON FOR NO RESPONSE NEEDED" :
+                clickOn(finishButton);
                 break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
@@ -613,10 +648,10 @@ public class GenericInputStepDefs extends Page {
         switch (rejection.toUpperCase()) {
             case "COMPLETE":
                 page.enterRejectionNotes();
-                page.clickFinishButton();
+                page.clickOn(page.finishButton);
                 break;
             case "DO NOT COMPLETE":
-                page.clickFinishButton();
+                page.clickOn(page.finishButton);
                 break;
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());

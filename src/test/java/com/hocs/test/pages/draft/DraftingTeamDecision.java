@@ -25,10 +25,10 @@ public class DraftingTeamDecision extends Page {
     SuccessfulCaseCreation successfulCaseCreation;
 
     @FindBy(css = "label[for='InitialDraftDecision-ACCEPT']")
-    private WebElementFacade initialDraftingDecisionAccept;
+    public WebElementFacade initialDraftingDecisionAccept;
 
     @FindBy(css = "label[for='InitialDraftDecision-REJECT']")
-    private WebElementFacade initialDraftingDecisionReject;
+    public WebElementFacade initialDraftingDecisionReject;
 
     @FindBy(css = "label[for='ResponseChannel-LETTER']")
     private WebElementFacade draftingResponseLetter;
@@ -46,15 +46,9 @@ public class DraftingTeamDecision extends Page {
         initialDraftingDecisionAccept.click();
     }
 
-    public void clickRejectInitialDraftDecision() {
-        initialDraftingDecisionReject.click();
-    }
-
     public void clickDraftingResponseLetter() {
         draftingResponseLetter.click();
     }
-
-    public void clickDraftingResponsePhone() { draftingResponsePost.click(); }
 
     public void enterPhoneCallSummaryNote() {
         phoneCallSummaryNote.sendKeys(generateRandomString());
@@ -94,8 +88,9 @@ public class DraftingTeamDecision extends Page {
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
         uploadDraftResponse();
+        qa.sleep(500);
         qa.dontQAOffline();
-        clickContinueButton();
+//        clickContinueButton();
     }
 
 }

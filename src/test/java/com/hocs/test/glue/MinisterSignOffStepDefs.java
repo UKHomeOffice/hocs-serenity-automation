@@ -32,34 +32,33 @@ public class MinisterSignOffStepDefs {
 
     @When("^I complete the minister sign off stage$")
     public void completeTheMinisterSignOffStage(){
-        homepage.selectMinisterForLordsTeam();
+        page.clickOn(homepage.ministerForLordsTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        minister.clickMinisterSignOffAcceptRadioButton();
-        minister.clickContinueButton();
+        page.clickOn(minister.minsterSignOffAcceptRadioButton);
+        page.clickOn(minister.continueButton);
     }
 
     @When("^the case is rejected by the Minister$")
     public void rejectAtMinisterSignOff() {
-        homepage.selectMinisterForLordsTeam();
+        page.clickOn(homepage.ministerForLordsTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(homepage.home);
+        page.clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        minister.clickMinisterSignOffRejectRadioButton();
-        minister.clickContinueButton();
+        page.clickOn(minister.ministerSignOffRejectRadioButton);
+        page.clickOn(minister.continueButton);
         minister.enterMinisterRejectionNote();
-        minister.clickContinueButton();
+        page.clickOn(minister.continueButton);
     }
 
     @When("^I click the continue button on the approve response screen$")
-    public void clickContinueButtonOnApproveReponseScreen() {
-        workstacks.clickAllocateToMeButton();
-        minister.clickContinueButton();
+    public void clickContinueButtonOnApproveResponseScreen() {
+        page.clickOn(minister.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected a radio button on the approve response screen$")
@@ -69,11 +68,10 @@ public class MinisterSignOffStepDefs {
 
     @When("^I click the continue button on the minister sign off feedback response screen$")
     public void clickContinueButtonOnFeedbackResponseMinisterSignOffScreen() {
-        workstacks.clickAllocateToMeButton();
-        minister.clickMinisterSignOffRejectRadioButton();
-        minister.clickContinueButton();
+        page.clickOn(minister.ministerSignOffRejectRadioButton);
+        page.clickOn(minister.continueButton);
         minister.sleep(500);
-        minister.clickContinueButton();
+        page.clickOn(minister.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback in the text box$")

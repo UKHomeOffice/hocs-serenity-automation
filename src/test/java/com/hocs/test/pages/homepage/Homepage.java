@@ -20,6 +20,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import org.aspectj.weaver.World;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class Homepage extends Page {
@@ -39,6 +40,9 @@ public class Homepage extends Page {
 
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
+
+    @FindBy(xpath = "//a[text()='Logout']")
+    public WebElementFacade logoutPage;
 
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
@@ -113,38 +117,33 @@ public class Homepage extends Page {
     public WebElementFacade financeTeam;
 
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
-    private WebElementFacade createBulkCases;
+    public WebElementFacade createBulkCases;
 
     @FindBy(linkText = "View test form")
-    private WebElementFacade testFormLink;
+    public WebElementFacade testFormLink;
 
     @FindBy(className = "card__body")
-    private WebElementFacade myWorkstacks;
+    public WebElementFacade myWorkstacks;
 
     @FindBy(className = "govuk-table")
-    private WebElementFacade workstackTable;
+    public WebElementFacade workstackTable;
 
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
     // Basic Methods
 
-    public void selectCaseReferenceSearchBar(String searchCaseReference) {
-        caseReferenceSearchBar.sendKeys(searchCaseReference);
-        setSessionVariable("searchCaseReferenceNumber").to(searchCaseReference);
+    public void selectCaseReferenceSearchBar() {
+        clickOn(performanceProcessTeam);
+        String getFirstCaseReferenceForSearch = findBy("(//td[following-sibling::td[1][contains(text(), 'Data "
+                + "Input')]])[1]").getText();
+        setSessionVariable("searchByCaseReferenceQuery").to(getFirstCaseReferenceForSearch);
+        clickOn(home);
+        caseReferenceSearchBar.sendKeys(getFirstCaseReferenceForSearch);
     }
 
-//    public String getFirstCaseReferenceInWorkstack() {
-//        selectPerformanceProcessTeam();
-//        WebElementFacade firstCaseInWorkstack = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input' )]]")
-//                .get(0);
-//
-//        return firstCaseInWorkstack.getText();
-//
-//    }
-
-    public void clickCaseReferenceSearchFindButton() {
-        caseReferenceFindButton.click();
+    public void hitEnterCaseReferenceSearchBar() {
+        caseReferenceSearchBar.sendKeys(Keys.ENTER);
     }
 
     public void assertCaseReferenceIsRequiredErrorMessage() {
@@ -172,11 +171,11 @@ public class Homepage extends Page {
     }
 
     public void selectPerformanceProcessTeam() {
-        performanceProcessTeam.click();
+        clickOn(performanceProcessTeam);
     }
 
     public void selectPublicProtectionUnit() {
-        publicProtectionUnit.click();
+        clickOn(publicProtectionUnit);
     }
 
     public void waitForProcessTeam() {
@@ -187,67 +186,11 @@ public class Homepage extends Page {
         transferN10Team.click();
     }
 
-    public void selectImmigrationMinisterTeam() {
-        ministerOfStateForImmigrationTeam.click();
-    }
-
-    public void selectMinisterForLordsTeam() {
-        ministerForLordsTeam.click();
-    }
-
-    public void selectAnimalsInScienceTeam() {
-        animalsInScienceTeam.click();
-    }
-
     public void selectCentralDraftingTeam() {
         centralDraftingTeam.click();
     }
 
-    public void selectPoliceWorkforceProfessionalismTeam() {
-        policeWorkforceProfessionalismUnit.click();
-    }
-
-    public void selectMinisterOfStatePolicingFireTeam() {
-        ministerOfStateForPolicingAndFireServiceTeam.click();
-    }
-
-    public void selectMinisterOfStateForSecurityEconomicCrimeTeam() {
-        ministerOfStateForSecurityAndEconomicCrime.click();
-    }
-
-    public void selectExtremismAnalysisUnit() {
-        extremismAnalysisUnit.click();
-    }
-
-    public void selectCounterExtremismUnit() {
-        counterExtremismUnit.click();
-    }
-
-    public void selectCounterTerrorismLegislationInvestigatoryPowersUnit() {
-        counterTerrorismLegislationInvestigatoryPowersUnit.click();
-    }
-
-    public void selectUnderSecretaryCrimeSafeguardingVulerabilityTeam() {
-        underSecretaryCrimeSafeguardVulnerability.click();
-    }
-
-    public void selectCriminalAndFinacialInvestigationsTeam(){
-        criminalAndFinacialInvestigations.click();
-    }
-
-    public void selectPressOffice() {
-        pressOffice.click();
-    }
-
-    public void selectFinanceTeam() {
-        financeTeam.click();
-    }
-
-    public void selectChemBioRadioNuclearExplosivesTeam() {
-        chemBioRadioNuclearExplosives.click();
-    }
-
-//    public void selectAllocationUserByVisibleText(String allocationUser) {
+//        public void selectAllocationUserByVisibleText(String allocationUser) {
 //        allocateDropdown.selectByVisibleText(allocationUser);
 //        allocateButton.click();
 //
@@ -310,28 +253,12 @@ public class Homepage extends Page {
         assertThat(isElementDisplayed(createSingleCase), is(true));
     }
 
-    public void clickCreateBulkCases() {
-        createBulkCases.click();
-    }
-
     public void clickCreateSingleCase() {
         createSingleCase.click();
     }
 
     public void selectSearchPage() {
         searchPage.click();
-    }
-
-    public void clickMyWorkstack() {
-        myWorkstacks.click();
-    }
-
-    public void clickTestFormLink() {
-        testFormLink.click();
-    }
-
-    public void selectAddStandardLine() {
-        addStandardLine.click();
     }
 
     private List<Map<Object, String>> getWorktackTableContents() {

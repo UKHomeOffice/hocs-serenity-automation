@@ -34,7 +34,7 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseReferenceNumber
   Scenario: User must enter a search query in the case reference search bar
-    When I click the find button
+    When I hit the enter button
     Then an error message should be displayed stating that a case reference is required
 
   @SearchForm @SearchByCaseType

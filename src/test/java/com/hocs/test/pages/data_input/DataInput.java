@@ -18,121 +18,111 @@ public class DataInput extends Page {
 
     Workstacks workstacks;
 
+    Page page;
+
     // Elements
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
-    private WebElementFacade emailOriginalChannelRadioButton;
+    public WebElementFacade emailOriginalChannelRadioButton;
 
     @FindBy(css = "label[for='OriginalChannel-POST']")
-    private WebElementFacade postOriginalChannelRadioButton;
+    public WebElementFacade postOriginalChannelRadioButton;
 
     @FindBy(css = "label[for='OriginalChannel-PHONE']")
-    private WebElementFacade phoneOriginalChannelRadioButton;
+    public WebElementFacade phoneOriginalChannelRadioButton;
 
     @FindBy(css = "label[for='OriginalChannel-NO10']")
-    private WebElementFacade numberTenOriginalChannelRadioButton;
+    public WebElementFacade numberTenOriginalChannelRadioButton;
 
     @FindBy(id = "DateOfCorrespondence-day")
-    private WebElementFacade dateCorrespondenceSentDayField;
+    public WebElementFacade dateCorrespondenceSentDayField;
 
     @FindBy(id = "DateOfCorrespondence-month")
-    private WebElementFacade dateCorrespondenceSentMonthField;
+    public WebElementFacade dateCorrespondenceSentMonthField;
 
     @FindBy(id = "DateOfCorrespondence-year")
-    private WebElementFacade dateCorrespondenceSentYearField;
+    public WebElementFacade dateCorrespondenceSentYearField;
 
     @FindBy(id = "DateReceived-day")
-    private WebElementFacade dateCorrespondenceReceivedDayField;
+    public WebElementFacade dateCorrespondenceReceivedDayField;
 
     @FindBy(id = "DateReceived-month")
-    private WebElementFacade dateCorrespondenceReceivedMonthField;
+    public WebElementFacade dateCorrespondenceReceivedMonthField;
 
     @FindBy(id = "DateReceived-year")
-    private WebElementFacade dateCorrespondenceReceivedYearField;
+    public WebElementFacade dateCorrespondenceReceivedYearField;
 
     @FindBy(id = "")
-    private WebElementFacade referenceTextField;
+    public WebElementFacade referenceTextField;
 
     @FindBy(xpath = "(//a[@class='govuk-body govuk-link'])[1]")
-    private WebElementFacade addCorrespondentLink;
+    public WebElementFacade addCorrespondentLink;
 
     @FindBy(css = "label[for='isMember-false']")
-    private WebElementFacade correspondentMemberNoRadioButton;
+    public WebElementFacade correspondentMemberNoRadioButton;
 
     @FindBy(css = "label[for='isMember-true']")
-    private WebElementFacade correspondentMemberYesRadioButton;
+    public WebElementFacade correspondentMemberYesRadioButton;
+
+    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    public WebElementFacade addMemberOfParliamentSearchField;
 
     @FindBy(css = "label[for='CopyNumberTen-TRUE']")
-    private WebElementFacade sendCopyToNumberTenTickBox;
+    public WebElementFacade sendCopyToNumberTenTickBox;
 
     @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
-    private WebElementFacade addCorrespondentNoRadioButton;
+    public WebElementFacade addCorrespondentNoRadioButton;
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
-    private WebElementFacade addCorrespondentYesRadioButton;
+    public WebElementFacade addCorrespondentYesRadioButton;
 
     @FindBy(css = "label[for='CopyNumberTen-TRUE']")
-    private WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
+    public WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
 
     @FindBy(css = "label[for='CopyNumberTen-FALSE']")
-    private WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
+    public WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
     @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
-    private WebElementFacade correspondenceDateErrorMessage;
+    public WebElementFacade correspondenceDateErrorMessage;
 
     @FindBy(xpath = "//a[text()='How was the correspondence received? is required']")
-    private WebElementFacade howWasCorrespondenceReceivedErrorMessage;
+    public WebElementFacade howWasCorrespondenceReceivedErrorMessage;
 
     @FindBy(xpath = "//a[text()='Which is the primary correspondent? is required']")
-    private WebElementFacade whichIsThePrimaryCorrespondentErrorMessage;
+    public WebElementFacade whichIsThePrimaryCorrespondentErrorMessage;
 
     @FindBy(xpath = "//a[text()='The correspondent type must be provided']")
-    private WebElementFacade correspondentTypeMustBeProvidedErrorMessage;
+    public WebElementFacade correspondentTypeMustBeProvidedErrorMessage;
 
     @FindBy(xpath = "//a[text()='Member is required']")
-    private WebElementFacade memberIsRequiredErrorMessage;
+    public WebElementFacade memberIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='The correspondent must have a type']")
-    private WebElementFacade correspondentMustHaveATypeErrorMessage;
+    public WebElementFacade correspondentMustHaveATypeErrorMessage;
 
     @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
-    private WebElementFacade correspondentNameMustBeEnteredErrorMessage;
+    public WebElementFacade correspondentNameMustBeEnteredErrorMessage;
 
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
-    private WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
+    public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
+
 
     // Basic Methods
 
-    public void clickAddCorrespondentLink() {
-        addCorrespondentLink.click();
+    public void selectAddAnMPField() {
+        addMemberOfParliamentSearchField.click();
+        addMemberOfParliamentSearchField.sendKeys("example");
+    }
+    public void selectAddACorrespondentLink() {
+        clickOn(addCorrespondentLink);
     }
 
-    public void clickCorrespondentIsAMember() {
-        correspondentMemberYesRadioButton.click();
+    public void selectCorrespondentIsAMemberRadioButton(){
+        clickOn(correspondentMemberYesRadioButton);
     }
 
-    public void clickCorrespondentIsNotAMember() {
-        correspondentMemberNoRadioButton.click();
-    }
-
-    public void clickEmailCorrespondenceChannelRadioButton() {
-        emailOriginalChannelRadioButton.click();
-    }
-
-    public void clickPostCorrespondenceChannelRadioButton() {
-        postOriginalChannelRadioButton.click();
-    }
-
-    public void clickNo10CorrespondenceChannelRadioButton() {
-        numberTenOriginalChannelRadioButton.click();
-    }
-
-    public void clickPhoneCorrespondenceChannelRadioButton() {
-        phoneOriginalChannelRadioButton.click();
-    }
-
-    public void tickSendCopyToNumber10() {
-        sendCopyToNumberTenTickBox.click();
+    public void selectCorrespondentIsNotAMemberRadioButton() {
+        clickOn(correspondentMemberNoRadioButton);
     }
 
     // Multi Step Methods
@@ -181,33 +171,27 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceReceived(String day) {
-        dateCorrespondenceReceivedDayField.clear();
-        dateCorrespondenceReceivedDayField.sendKeys(day);
+        typeInto(dateCorrespondenceReceivedDayField, day);
     }
 
     public void enterMonthOfCorrespondenceReceived(String month) {
-        dateCorrespondenceReceivedMonthField.clear();
-        dateCorrespondenceReceivedMonthField.sendKeys(month);
+        typeInto(dateCorrespondenceReceivedMonthField, month);
     }
 
     public void enterYearOfCorrespondenceReceived(String year) {
-        dateCorrespondenceReceivedYearField.clear();
-        dateCorrespondenceReceivedYearField.sendKeys(year);
+        typeInto(dateCorrespondenceReceivedYearField, year);
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentDayField.sendKeys(day);
+         typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentMonthField.sendKeys(month);
+        typeInto(dateCorrespondenceSentMonthField, month);
     }
 
     public void enterYearOfCorrespondenceSent(String year) {
-        dateCorrespondenceSentYearField.clear();
-        dateCorrespondenceSentYearField.sendKeys(year);
+        typeInto(dateCorrespondenceSentYearField, year);
     }
 
     public void enterReferenceText() {
@@ -223,7 +207,7 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
         emailOriginalChannelRadioButton.click();
-        selectN10ResponseNoRadioButton();
+        shouldResponseBeCopiedN10NoRadioButton.click();
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
@@ -234,33 +218,44 @@ public class DataInput extends Page {
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
         emailOriginalChannelRadioButton.click();
-        selectN10ResponseYesRadioButton();
+        shouldResponseBeCopiedN10YesRadioButton.click();
     }
 
     public void getToAddMemberOfParliamentPrerequisites() {
         enterDayOfCorrespondenceSent("01");
         enterMonthOfCorrespondenceSent("01");
         enterYearOfCorrespondenceSent("2019");
-        clickEmailCorrespondenceChannelRadioButton();
-        selectN10ResponseNoRadioButton();
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
         clickContinueButton();
         sleep(500);
-        clickAddCorrespondentLink();
-        clickCorrespondentIsAMember();
+        addCorrespondentLink.click();
+        correspondentMemberYesRadioButton.click();
         clickContinueButton();
+    }
+
+    public void getToIsCorrespondentAnMPPrerequisites() {
+        enterDayOfCorrespondenceSent("01");
+        enterMonthOfCorrespondenceSent("01");
+        enterYearOfCorrespondenceSent("2019");
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
+        clickContinueButton();
+        sleep(500);
+        addCorrespondentLink.click();
     }
 
     public void getToRecordCorrespondentDetailsPrerequisites() {
         enterDayOfCorrespondenceSent("01");
         enterMonthOfCorrespondenceSent("01");
         enterYearOfCorrespondenceSent("2019");
-        clickEmailCorrespondenceChannelRadioButton();
-        selectN10ResponseNoRadioButton();
+        emailOriginalChannelRadioButton.click();
+        shouldResponseBeCopiedN10NoRadioButton.click();
         clickContinueButton();
         sleep(500);
-        clickAddCorrespondentLink();
-        clickCorrespondentIsNotAMember();
-        clickContinueButton();
+        addCorrespondentLink.click();
+        correspondentMemberNoRadioButton.click();
+        continueButton.click();
     }
 
     public void invalidCorrespondenceReceivedDate() {
@@ -273,14 +268,6 @@ public class DataInput extends Page {
         enterDayOfCorrespondenceSent("32");
         enterMonthOfCorrespondenceSent(getCurrentMonth());
         enterYearOfCorrespondenceSent(getCurrentYear());
-    }
-
-    public void selectN10ResponseYesRadioButton() {
-        shouldResponseBeCopiedN10YesRadioButton.click();
-    }
-
-    public void selectN10ResponseNoRadioButton() {
-        shouldResponseBeCopiedN10NoRadioButton.click();
     }
 
     // Assertions
@@ -324,6 +311,7 @@ public class DataInput extends Page {
     }
 
     public void assertShouldResponseBeCopiedN10ErrorMessage() {
-        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(), is("Should the response be copied to Number 10? is required"));
+        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(),
+                is("Should the response be copied to Number 10? is required"));
     }
 }

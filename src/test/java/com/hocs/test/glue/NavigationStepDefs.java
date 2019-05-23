@@ -41,67 +41,69 @@ public class NavigationStepDefs extends Page {
 
     private RecordCorrespondentDetails recordCorrespondentDetails;
 
+    Page page;
+
     @When("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":
-                homepage.goHome();
+                page.clickOn(homepage.home);
                 break;
             case "TEST FORM":
-                homepage.clickTestFormLink();
+                page.clickOn(homepage.testFormLink);
                 break;
             case "CREATE SINGLE CASE":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 break;
             case "CREATE BULK CASES":
-                homepage.clickCreateBulkCases();
+                page.clickOn(homepage.createBulkCases);
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(homepage.animalsInScienceTeam);
             case "PERFORMANCE AND PROCESS TEAM":
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(homepage.performanceProcessTeam);
                 break;
             case "TRANSFERS AND NO10 TEAM":
-                homepage.selectTransfersN10Team();
+                page.clickOn(homepage.transferN10Team);
                 break;
             case "CENTRAL DRAFTING TEAM":
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(homepage.centralDraftingTeam);
                 break;
             case "MINISTER FOR LORDS":
-                homepage.selectMinisterForLordsTeam();
+                page.clickOn(homepage.ministerForLordsTeam);
                 break;
             case "EXTREMISM ANALYSIS UNIT":
-                homepage.selectExtremismAnalysisUnit();
+                page.clickOn(homepage.extremismAnalysisUnit);
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
-                homepage.selectPoliceWorkforceProfessionalismTeam();
+                page.clickOn(homepage.policeWorkforceProfessionalismUnit);
                 break;
             case "UNDER SECRETARY OF STATE FOR CRIME SAFEGUARDING AND VULNERABILITY":
-                homepage.selectUnderSecretaryCrimeSafeguardingVulerabilityTeam();
+                page.clickOn(homepage.underSecretaryCrimeSafeguardVulnerability);
                 break;
             case "CRIMINAL AND FINANCIAL INVESTIGATIONS":
-                homepage.selectCriminalAndFinacialInvestigationsTeam();
+                page.clickOn(homepage.criminalAndFinacialInvestigations);
                 break;
             case "CHEMICAL BIOLOGICAL RADIOLOGICAL NUCLEAR EXPLOSIVES":
-                homepage.selectChemBioRadioNuclearExplosivesTeam();
+                page.clickOn(homepage.chemBioRadioNuclearExplosives);
                 break;
             case "PRESS OFFICE":
-                homepage.selectPressOffice();
+                page.clickOn(homepage.pressOffice);
                 break;
             case "COUNTER EXTREMISM UNIT":
-                homepage.selectCounterExtremismUnit();
+                page.clickOn(homepage.counterExtremismUnit);
                 break;
             case "FINANCE":
-                homepage.selectFinanceTeam();
+                page.clickOn(homepage.financeTeam);
                 break;
             case "COUNTERTERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
-                homepage.selectCounterTerrorismLegislationInvestigatoryPowersUnit();
+                page.clickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
                 break;
             case "MY CASES":
-                homepage.selectMyCases();
+                page.clickOn(homepage.myCases);
                 break;
             case "ADD STANDARD LINE":
-                homepage.selectAddStandardLine();
+                page.clickOn(homepage.addStandardLine);
                 break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
@@ -112,10 +114,10 @@ public class NavigationStepDefs extends Page {
     public void navigateToTeamPage(String teamPage) {
         switch (teamPage.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(homepage.performanceProcessTeam);
                 break;
             case "TRANSFERS AND NO10 TEAM":
-                homepage.selectTransfersN10Team();
+                page.clickOn(homepage.transferN10Team);
                 break;
             default:
                 pendingStep(teamPage + " is not defined within " + getMethodName());
@@ -130,7 +132,13 @@ public class NavigationStepDefs extends Page {
 
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
-        workstacks.clickBackToDashboardButton();
+        page.clickOn(workstacks.backToDashboardButton);
+
+    }
+
+    @When("^I click the cancel button$")
+    public void clickCancelButtonOnAllocateCasePage() {
+        page.clickOn(workstacks.allocateScreenCancelButton);
     }
 
     @Given("^I am on the \"([^\"]*)\" page$")
@@ -140,34 +148,35 @@ public class NavigationStepDefs extends Page {
                 navigateToHocs();
                 break;
             case "TEST FORM":
-                homepage.clickTestFormLink();
+                page.clickOn(homepage.testFormLink);
                 break;
             case "CREATE SINGLE CASE":
-                homepage.clickCreateSingleCase();
+                page.clickOn(homepage.createSingleCase);
                 break;
             case "CREATE BULK CASES":
-                homepage.clickCreateBulkCases();
+                page.clickOn(homepage.createBulkCases);
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
-                homepage.selectAnimalsInScienceTeam();
+                page.clickOn(homepage.animalsInScienceTeam);
             case "PERFORMANCE AND PROCESS TEAM":
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(homepage.performanceProcessTeam);
                 break;
             case "CENTRAL DRAFTING TEAM":
-                homepage.selectCentralDraftingTeam();
+                page.clickOn(homepage.centralDraftingTeam);
                 break;
             case "MY CASES":
-                homepage.selectMyCases();
+                page.clickOn(homepage.myCases);
                 break;
             case "ADD STANDARD LINE":
-                homepage.selectAddStandardLine();
+                page.clickOn(homepage.addStandardLine);
             case "SEARCH":
-                homepage.selectSearchPage();
+                page.clickOn(homepage.searchPage);
                 break;
             default:
                 pendingStep(onHocsPage + " is not defined within " + getMethodName());
         }
     }
+
 
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {
@@ -178,8 +187,10 @@ public class NavigationStepDefs extends Page {
             case "HOME":
                 homepage.assertHomePageTitle();
                 break;
+
            /* case "TEAMQUEUES":
                 teamqueue.assertPageTitle(); */
+
             case "RECORD CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.assertPageTitle();
                 break;
@@ -192,7 +203,7 @@ public class NavigationStepDefs extends Page {
         System.out.println("I have been taken to " + pageName);
     }
 
-    private void navigateToHocs() {
+    public void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 

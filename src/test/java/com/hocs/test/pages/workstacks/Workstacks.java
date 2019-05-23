@@ -102,76 +102,19 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[@class='govuk-caption-l']")
     public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
 
-    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[3]")
+    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
     public WebElementFacade primaryCorrespondentName;
 
     @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
     public WebElementFacade primaryTopicName;
 
+    @FindBy(xpath = "//a[@class='govuk-back-link']")
+    public WebElementFacade allocateScreenCancelButton;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
         allocateToMeButton.click();
-    }
-
-    public void clickAllocatedSelectedToMeButton() {
-        allocateCheckboxCaseToMeButton.click();
-    }
-
-    public void clickNavigationBreadcrumb() {
-        dashboardBreadcrumb.click();
-    }
-
-    public void clickTeamBreadcrumb() {
-        teamBreadcrumb.click();
-    }
-
-    public void clickWorkflowBreadcrumb() {
-        workflowBreadcrumb.click();
-    }
-
-    public void clickMINFilterCard() {
-        dcuMINFilterCard.click();
-    }
-
-    public void clickTROFilterCard() {
-        dcuTROFilterCard.click();
-    }
-
-    public void clickD10FilterCard() {
-        dcuN10FilterCard.click();
-    }
-
-    public void clickDataInputFilterCard() {
-        dataInputFilterCard.click();
-    }
-
-    public void clickDispatchFilterCard() {
-        dispatchInputFilterCard.click();
-    }
-
-    public void clickQAResponseFilterCard() {
-        qaResponseFilterCard.click();
-    }
-
-    public void clickCaseDocumentsTab() {
-        caseDocumentsTab.click();
-    }
-
-    public void clickCaseSummaryTab() {
-        caseSummaryTab.click();
-    }
-
-    public void clickCaseTimelineTab() {
-        caseTimelineTab.click();
-    }
-
-    public void clickAddCaseNoteButton() {
-        addCaseNoteButton.click();
-    }
-
-    public void clickBackToDashboardButton() {
-        backToDashboardButton.click();
     }
 
     public int getTotalOfCases() {
@@ -180,6 +123,13 @@ public class Workstacks extends Page {
         return Integer.parseInt(tempNumberOfItems);
     }
 
+    public void selectTimeLineTab() {
+        clickOn(caseTimelineTab);
+    }
+
+    public void selectSummaryTab() {
+        clickOn(caseSummaryTab);
+    }
 
     public void clickCheckboxRelevantToCaseReference() {
         String caseReference =
@@ -188,7 +138,6 @@ public class Workstacks extends Page {
 
         webDriver.findElement(
                 By.xpath("//a[contains(text(), '" + caseReference + "')]/../..//input")).click();
-
     }
 
     public void clickAllWorkstackCheckboxes() {
@@ -198,10 +147,6 @@ public class Workstacks extends Page {
 
             boxes.click();
         }
-    }
-
-    public void clickUnallocateCasesButton() {
-        unallocateFromMeButton.click();
     }
 
     // Assertions
@@ -288,14 +233,13 @@ public class Workstacks extends Page {
     }
 
     public void assertCaseReferenceBeforeAllocation(){
-        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
         assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
 
     }
 
     public void assertCaseReferenceAfterAllocation() {
-        String searchCaseReference = sessionVariableCalled("searchCaseReferenceNumber").toString();
+        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
         assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
-
 }

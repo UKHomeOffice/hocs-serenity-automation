@@ -47,13 +47,13 @@ public class DataInputStepDefs {
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(homepage.performanceProcessTeam);
                 break;
             case "DCU N10":
-                homepage.selectTransfersN10Team();
+                page.clickOn(homepage.transferN10Team);
                 break;
             case "DCU TRO":
-                homepage.selectPerformanceProcessTeam();
+                page.clickOn(homepage.performanceProcessTeam);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -64,40 +64,40 @@ public class DataInputStepDefs {
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
         recordCorrespondentDetails.clickAdditionalCorrespondentYes();
-        dataInput.clickContinueButton();
-        dataInput.clickCorrespondentIsNotAMember();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.correspondentMemberNoRadioButton);
+        page.clickOn(dataInput.continueButton);
         recordCorrespondentDetails.fillMandatoryCorrespondentFields();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
     }
 
     @When("^I enter correspondence data manually$")
     public void iEnterCorrespondenceDataManually() {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        dataInput.clickContinueButton();
-        dataInput.clickAddCorrespondentLink();
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.addCorrespondentLink);
         recordCorrespondentDetails.fillMandatoryCorrespondentFields();
-        dataInput.clickAddButton();
+        page.clickOn(dataInput.addButton);
     }
 
     @When("^I select to correspond with a member from the dropdown$")
     public void iSelectToCorrespondWithAMemberFromTheDropdown() {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        dataInput.clickContinueButton();
-        dataInput.clickCorrespondentIsAMember();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.correspondentMemberYesRadioButton);
+        page.clickOn(dataInput.continueButton);
         recordCorrespondentDetails.selectMemberFromDropdownByIndex(1);
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
     }
 
     @When("^I select to correspond with \"([^\"]*)\" from the search function$")
     public void iSelectToCorrespondWithAMemberFromTheSearchFunction(String minister) {
         genericInputStepDefs.fillMandatoryFields("Data Input");
-        dataInput.clickContinueButton();
-        dataInput.clickCorrespondentIsAMember();
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.correspondentMemberYesRadioButton);
+        page.clickOn(dataInput.continueButton);
         recordCorrespondentDetails.selectMemberFromDropdownByName(minister);
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
     }
 
     @When("^I select the primary correspondent radio button for a different correspondent$")
@@ -128,16 +128,16 @@ public class DataInputStepDefs {
     public void iSetTheCorrespondenceChannelTo(String channel) {
         switch (channel.toUpperCase()) {
             case "EMAIL":
-                dataInput.clickEmailCorrespondenceChannelRadioButton();
+                page.clickOn(dataInput.emailOriginalChannelRadioButton);
                 break;
             case "POST":
-                dataInput.clickPostCorrespondenceChannelRadioButton();
+                page.clickOn(dataInput.postOriginalChannelRadioButton);
                 break;
             case "PHONE":
-                dataInput.clickPhoneCorrespondenceChannelRadioButton();
+                page.clickOn(dataInput.phoneOriginalChannelRadioButton);
                 break;
             case "NO. 10":
-                dataInput.clickNo10CorrespondenceChannelRadioButton();
+                page.clickOn(dataInput.numberTenOriginalChannelRadioButton);
                 break;
             default:
                 pendingStep(channel + " is not defined within " + getMethodName());
@@ -146,26 +146,104 @@ public class DataInputStepDefs {
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
-        dataInput.clickAddCorrespondentLink();
+        dataInput.selectAddACorrespondentLink();
+
 
         if (isOrIsNot.toUpperCase().equals("IS")) {
-            dataInput.clickCorrespondentIsAMember();
+            dataInput.selectCorrespondentIsAMemberRadioButton();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
-            dataInput.clickCorrespondentIsNotAMember();
+            dataInput.selectCorrespondentIsNotAMemberRadioButton();
         }
+        clickContinueButton();
+    }
 
+    @When("^they complete the first data input screen$")
+    public void completeFirstDataInputScreen() {
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        page.clickOn(dataInput.emailOriginalChannelRadioButton);
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.finishButton);
     }
 
     @When("^they click the continue button$")
     public void clickContinueButton() {
-        dataInput.clickContinueButton();
+        page.clickOn(dataInput.continueButton);
     }
 
-    @When("^I click the add button without entering text into the case note$")
+    @When("^I click the continue button at the data input stage$")
+    public void userDoesNotEnterDateCorrespondenceWasSentDataInputStage() {
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(dataInput.continueButton);
+    }
+
+
+    @When("^I click the finish button on the which is the primary correspondent screen$")
+    public void userDoesNotAddPrimaryCorrespondentDataInputStage() {
+        page.clickOn(workstacks.allocateToMeButton);
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        page.clickOn(dataInput.emailOriginalChannelRadioButton);
+        page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.finishButton);
+    }
+
+    @When("^I click the continue button on the is the correspondent an MP screen$")
+    public void userDoesNotSelectPrimaryCorrespondentTypeRadioButton() {
+        page.clickOn(workstacks.allocateToMeButton);
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        page.clickOn(dataInput.emailOriginalChannelRadioButton);
+        page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+        page.clickOn(dataInput.continueButton);
+        dataInput.sleep(500);
+        page.clickOn(dataInput.addCorrespondentLink);
+        page.clickOn(dataInput.continueButton);
+    }
+
+    @When("^I click the add button on the add member of parliament screen$")
+    public void userDoesNotSelectMPFromDownDownBox() {
+        page.clickOn(workstacks.allocateToMeButton);
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        page.clickOn(dataInput.emailOriginalChannelRadioButton);
+        page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+        page.clickOn(dataInput.continueButton);
+        dataInput.sleep(500);
+        page.clickOn(dataInput.addCorrespondentLink);
+        page.clickOn(dataInput.correspondentMemberYesRadioButton);
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.addButton);
+    }
+
+    @When("^I click the add button on the record correspondent details screen$")
+    public void userDoesNotSelectCorrespondentTypeFromDropDownBox() {
+        page.clickOn(workstacks.allocateToMeButton);
+        dataInput.enterDayOfCorrespondenceSent("01");
+        dataInput.enterMonthOfCorrespondenceSent("01");
+        dataInput.enterYearOfCorrespondenceSent("2019");
+        page.clickOn(dataInput.emailOriginalChannelRadioButton);
+        page.clickOn(dataInput.shouldResponseBeCopiedN10NoRadioButton);
+        page.clickOn(dataInput.continueButton);
+        dataInput.sleep(500);
+        page.clickOn(dataInput.addCorrespondentLink);
+        page.clickOn(dataInput.correspondentMemberNoRadioButton);
+        page.clickOn(dataInput.continueButton);
+        page.clickOn(dataInput.addButton);
+
+    }
+
+    @When("^I click the add button when creating a case note$")
     public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        workstacks.clickCaseTimelineTab();
-        workstacks.clickAddCaseNoteButton();
-        workstacks.clickAddButton();
+        page.clickOn(workstacks.caseTimelineTab);
+        page.clickOn(workstacks.addCaseNoteButton);
+        page.clickOn(workstacks.addButton);
     }
 
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")

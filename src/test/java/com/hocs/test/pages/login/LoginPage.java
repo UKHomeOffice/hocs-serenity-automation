@@ -10,10 +10,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class LoginPage extends Page {
 
     @FindBy(id = "username")
-    private WebElementFacade usernameField;
+    public WebElementFacade usernameField;
 
     @FindBy(id = "password")
-    private WebElementFacade passwordField;
+    public WebElementFacade passwordField;
 
     @FindBy(xpath = "//li[text()='Invalid username or password.']")
     private WebElementFacade invalidUsernameOrPasswordErrorMessage;
@@ -23,13 +23,11 @@ public class LoginPage extends Page {
     }
 
     public void enterUsername(String username) {
-        usernameField.clear();
-        usernameField.sendKeys(username);
+        typeInto(usernameField, username);
     }
 
     public void enterPassword(String password) {
-        passwordField.clear();
-        passwordField.sendKeys(password);
+        typeInto(passwordField, password);
     }
 
     public void assertLoginErrorMessage() {

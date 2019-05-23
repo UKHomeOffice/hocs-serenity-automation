@@ -22,12 +22,15 @@ public class CaseDecisionStepDefs {
 
     Topics topics;
 
-    @Then("^a mandatory \"([^\"]*)\" free text field is available$")
+    @Then("^a mandatory \"([^\"]*)\" free text field is displayed$")
     public void aMandatoryFreeTextFieldIsAvailable(String textField) {
         switch (textField.toUpperCase()) {
             case "ALLOCATION NOTE":
                 break;
             case "REASON FOR NO REPLY NEEDED":
+                break;
+            case "TOPIC" :
+                topics.assertTopicsTextFieldDisplayed();
                 break;
             default:
                 pendingStep(textField + " is not defined within " + getMethodName());
@@ -77,7 +80,6 @@ public class CaseDecisionStepDefs {
 
     @Given("^a primary topic has been set$")
     public void aPrimaryTopicHasBeenSet() {
-
     }
 
     @Then("^I can only select from a fixed list of answering \"([^\"]*)\"$")
@@ -100,16 +102,16 @@ public class CaseDecisionStepDefs {
         markUpDecision.getCaseId();
         switch (status.toUpperCase()) {
             case "REFER TO OGD":
-                markUpDecision.clickReferToOgdRadioButton();
+                page.clickOn(markUpDecision.referToOgdRadioButton);
                 break;
             case "NO REPLY NEEDED":
-                markUpDecision.clickNoReplyNeededRadioButton();
+                page.clickOn(markUpDecision.noReplyNeededRadioButton);
                 break;
             default:
                 pendingStep(status + " is not defined within " + getMethodName());
         }
-        markUpDecision.clickContinueButton();
-        markUpDecision.clickFinishButton();
+        page.clickOn(markUpDecision.continueButton);
+        page.clickOn(markUpDecision.finishButton);
 
     }
 
@@ -146,29 +148,28 @@ public class CaseDecisionStepDefs {
             case "APPROVE":
                 break;
             case "REJECT":
-                markUpDecision.clickRejectButton();
+                page.clickOn(markUpDecision.rejectButton);
                 markUpDecision.enterRejectionNotes();
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I select an initial decision of \"([^\"]*)\"$")
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
             case "FAQ":
-                markUpDecision.clickFaqRadioButton();
+                markUpDecision.selectFAQRadioButton();
                 break;
-            case "NO REPLY NEEDED":
-                markUpDecision.clickNoReplyNeededRadioButton();
+            case "NO RESPONSE NEEDED":
+                markUpDecision.selectNoReplyNeededRadioButton();
                 break;
             case "POLICY RESPONSE":
-                markUpDecision.clickPolicyResponseRadioButton();
+                markUpDecision.selectPolicyResponseRadioButton();
                 break;
             case "REFER TO OGD":
-                markUpDecision.clickReferToOgdRadioButton();
+                markUpDecision.selectReferToOGDRadioButton();
                 break;
             case "TRANSFER TO OGD":
                 break;
@@ -203,7 +204,6 @@ public class CaseDecisionStepDefs {
 
     @When("^I refer the case to another Government Department$")
     public void iReferTheCaseToAnotherGovernmentDepartment() {
-        markUpDecision.clickReferToOgdRadioButton();
+        page.clickOn(markUpDecision.referToOgdRadioButton);
     }
-
 }

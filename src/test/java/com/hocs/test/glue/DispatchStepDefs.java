@@ -26,17 +26,16 @@ public class DispatchStepDefs {
 
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage() {
-        homepage.selectPerformanceProcessTeam();
+        page.clickOn(homepage.performanceProcessTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpathStoreResultingElement();
-        workstacks.clickAllocateToMeButton();
-        dispatch.clickDispatchAcceptRadioButton();
-        dispatch.clickContinueButton();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(dispatch.dispatchAcceptRadioButton);
+        page.clickOn(dispatch.continueButton);
     }
 
     @When("^I click the continue button on the are you able to dispatch screen$")
     public void clickContinueButtonOnAreYouAbleToDispatchScreen() {
-        workstacks.clickAllocateToMeButton();
-        dispatch.clickContinueButton();
+        page.clickOn(dispatch.continueButton);
     }
 
     @Then("^an error message should be displayed as I have selected whether the case can be dispatched$")
@@ -46,10 +45,9 @@ public class DispatchStepDefs {
 
     @When("^I click the finish button on the unable to dispatch screen$")
     public void clickContinueButtonOnUnableToDispatchScreen() {
-        workstacks.clickAllocateToMeButton();
-        dispatch.clickDispatchRejectRadioButton();
-        dispatch.clickContinueButton();
-        dispatch.clickFinishButton();
+        page.clickOn(dispatch.dispatchRejectRadioButton);
+        page.clickOn(dispatch.continueButton);
+        page.clickOn(dispatch.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered a reason for not dispatching in the text box$")

@@ -2,11 +2,12 @@ Feature: User decides how cases should be handled at Minister Sign Off stage
   
   Background: 
     Given I am user "EAMON"
-    When I am at the "MINISTER SIGNOFF" stage
+    When I get a "DCU MIN" case at "MINISTERIAL SIGN OFF" stage
 
   @Navigation
-  Scenario: Clicking the Back to dashboard button on the allocate case screen at the Minster Sign Off stage should take the user back to the dashboard
-    And I click the back to dashboard button
+  Scenario: Clicking the cancel button on the allocate case screen at the Minster Sign Off stage should take the user back
+  to the dashboard
+    And I click the cancel button
     Then I should be taken to the homepage
 
   @Validation

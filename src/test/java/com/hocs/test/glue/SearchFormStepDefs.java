@@ -31,8 +31,8 @@ public class SearchFormStepDefs {
 
     @When("^I click the search button on the search page$")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        homepage.selectSearchPage();
-        searchForm.clickSearchButton();
+        page.clickOn(homepage.searchPage);
+        page.clickOn(searchForm.searchButton);
     }
 
     @Then("^an error message should be displayed as I have not entered any search criteria$")
@@ -42,8 +42,8 @@ public class SearchFormStepDefs {
 
     @When("^I enter a valid search query$")
     public void enterValidCaseReferenceForSearch() {
-        homepage.selectCaseReferenceSearchBar("MIN/0120069/19");
-        homepage.clickCaseReferenceSearchFindButton();
+        homepage.selectCaseReferenceSearchBar();
+        homepage.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("^I should be taken directly to the case$")
@@ -60,8 +60,8 @@ public class SearchFormStepDefs {
 
     @When("^I enter a non-existent case reference$")
     public void enterInvalidCaseReferenceForSearch() {
-        homepage.selectCaseReferenceSearchBar("MIN/0000000/19");
-        homepage.clickCaseReferenceSearchFindButton();
+//        homepage.selectCaseReferenceSearchBar("MIN/0000000/19");
+//        homepage.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("^an error message should be displayed stating that there are no active workflows for the case$")
@@ -69,9 +69,9 @@ public class SearchFormStepDefs {
         homepage.assertNoActiveWorkflowsForCaseErrorMessage();
     }
 
-    @When("^I click the find button$")
+    @When("^I hit the enter button$")
     public void clickSearchFindButton() {
-        homepage.clickCaseReferenceSearchFindButton();
+        homepage.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("^an error message should be displayed stating that a case reference is required$")
@@ -81,23 +81,22 @@ public class SearchFormStepDefs {
 
     @When("^I search by the case type \"([^\"]*)\"$")
     public void selectCaseTypeCheckbox(String caseType) {
-        homepage.selectSearchPage();
+        page.clickOn(homepage.searchPage);
         searchForm.sleep(500);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                searchForm.selectMINCheckbox();
+                page.clickOn(searchForm.searchMINCheckbox);
                 break;
             case "DTEN":
-                searchForm.selectDTENCheckbox();
+                page.clickOn(searchForm.searchDTENCheckbox);
                 break;
             case "TRO":
-                searchForm.selectTROCheckbox();
+                page.clickOn(searchForm.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        searchForm.clickSearchButton();
-
+        page.clickOn(searchForm.searchButton);
     }
 
     @Then("^only the chosen \"([^\"]*)\" case type results should be displayed in the results list$")
@@ -123,16 +122,16 @@ public class SearchFormStepDefs {
 
     @When("^I search by the case type \"([^\"]*)\" and another parameter \"([^\"]*)\"$")
     public void searchByCaseTypeAndAnotherParameter(String caseType, String anotherParameter) {
-        homepage.selectSearchPage();
+        page.clickOn(homepage.searchPage);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                searchForm.selectMINCheckbox();
+                page.clickOn(searchForm.searchMINCheckbox);
                 break;
             case "DTEN":
-                searchForm.selectDTENCheckbox();
+                page.clickOn(searchForm.searchDTENCheckbox);
                 break;
             case "TRO":
-                searchForm.selectTROCheckbox();
+                page.clickOn(searchForm.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -148,7 +147,7 @@ public class SearchFormStepDefs {
             default:
                 pendingStep(anotherParameter + " is not defined within " + getMethodName());
         }
-        searchForm.clickSearchButton();
+        page.clickOn(searchForm.searchButton);
     }
 
     @Then("^cases that are \"([^\"]*)\" case type that also contain another parameter \"([^\"]*)\" should be displayed in "
@@ -199,7 +198,7 @@ public class SearchFormStepDefs {
             default:
                 pendingStep(correspondentName + " is not defined within " + getMethodName());
         }
-        searchForm.clickSearchButton();
+        page.clickOn(searchForm.searchButton);
     }
 
     @Then("^cases with specified correspondent name \"([^\"]*)\" should be displayed in the results list$")
@@ -215,11 +214,8 @@ public class SearchFormStepDefs {
                 break;
             default:
                 pendingStep(correspondentName + " is not defined within " + getMethodName());
-
         }
     }
-
-
 }
 
 

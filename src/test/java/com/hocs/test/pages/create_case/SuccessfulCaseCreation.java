@@ -3,6 +3,8 @@ package com.hocs.test.pages.create_case;
 import com.hocs.test.pages.Page;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -22,6 +24,8 @@ public class SuccessfulCaseCreation extends Page {
 
     Page page;
 
+    Workstacks workstacks;
+
     @FindBy(className = "govuk-panel--confirmation")
     private WebElementFacade confirmationPanel;
 
@@ -34,6 +38,9 @@ public class SuccessfulCaseCreation extends Page {
     @FindBy(className = "govuk-back-link")
     private WebElementFacade successBackButton;
 
+    @FindBy(className = "govuk-button-panel--link")
+    public WebElementFacade newCaseReference;
+
     public void clickSuccessfulCaseBackButton() {
         successBackButton.click();
     }
@@ -42,19 +49,18 @@ public class SuccessfulCaseCreation extends Page {
         assertThat(panelTitle.getText(), is("Success"));
     }
 
-    // Set Case Reference Number to session variable during case creation
-
     public String getCaseReference() {
-        String wholeString = createdCaseMessage.getText();
-        String to_remove="Created a new case: ";
-
-        String caseReference = wholeString.replace(to_remove, "");
+        String caseReference = newCaseReference.getAttribute("value");
+        System.out.println(caseReference);
         setSessionVariable("caseReference").to(caseReference);
 
         return caseReference;
     }
 
-    // Call session variable and set it to linkText of a findElement.by
+    public void allocateToMeViaSuccessfulCreationScreen() {
+        clickOn(newCaseReference);
+        clickOn(workstacks.allocateToMeButton);
+    }
 
     public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber

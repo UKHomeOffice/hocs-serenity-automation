@@ -11,6 +11,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -51,10 +53,10 @@ public class Page extends PageObject {
     private WebElementFacade acceptAllButton;
 
     @FindBy(css = "[value='Accept']")
-    private WebElementFacade acceptButton;
+    public WebElementFacade acceptButton;
 
     @FindBy(css = "[value = 'Add']")
-    private WebElementFacade addButton;
+    public WebElementFacade addButton;
 
     @FindBy(css = "[value='Add/Update']")
     private WebElementFacade addUpdateButton;
@@ -69,7 +71,7 @@ public class Page extends PageObject {
     private WebElementFacade caseId;
 
     @FindBy(xpath = "//a[@class='govuk-back-link']")
-    private WebElementFacade cancelButton;
+    public WebElementFacade cancelButton;
 
     @FindBy(css = "[value='Close']")
     private WebElementFacade closeButton;
@@ -78,7 +80,7 @@ public class Page extends PageObject {
     private WebElementFacade confirmButton;
 
     @FindBy(css = "[value='Continue']")
-    protected WebElementFacade continueButton;
+    public WebElementFacade continueButton;
 
     @FindBy(id = "Date")
     private WebElementFacade dateField;
@@ -111,7 +113,7 @@ public class Page extends PageObject {
     protected WebElementFacade dateReceivedYear;
 
     @FindBy(linkText = "delete")
-    private WebElementFacade deleteLink;
+    public WebElementFacade deleteLink;
 
     @FindBy(css = "[value = 'Document']")
     private WebElementFacade documentButton;
@@ -135,7 +137,7 @@ public class Page extends PageObject {
     public WebElementFacade home;
 
     @FindBy(css = "[value='Finish']")
-    protected WebElementFacade finishButton;
+    public WebElementFacade finishButton;
 
     @FindBy(linkText = "First")
     private WebElementFacade firstButton;
@@ -153,7 +155,7 @@ public class Page extends PageObject {
     protected WebElementFacade nameField;
 
     @FindBy(linkText = "new")
-    private WebElementFacade newLink;
+    public WebElementFacade newLink;
 
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
@@ -180,7 +182,7 @@ public class Page extends PageObject {
     protected WebElementFacade printButton;
 
     @FindBy(css = "[value='Reject']")
-    protected WebElementFacade rejectButton;
+    public WebElementFacade rejectButton;
 
     @FindBy(id = "RejectionNote")
     protected WebElementFacade rejectReasonTextField;
@@ -192,7 +194,7 @@ public class Page extends PageObject {
     private WebElementFacade saveButton;
 
     @FindBy(css = "[value = 'Search']")
-    private WebElementFacade searchButton;
+    public WebElementFacade searchButton;
 
     @FindBy(css = "[id*=Staff]")
     protected WebElementFacade staffDropdown;
@@ -201,7 +203,7 @@ public class Page extends PageObject {
     private WebElementFacade startDate;
 
     @FindBy(css = "[value = 'Finish']")
-    private WebElementFacade submitButton;
+    public WebElementFacade submitButton;
 
     @FindBy(id = "surname")
     protected WebElementFacade surnameField;
@@ -219,13 +221,16 @@ public class Page extends PageObject {
     private WebElementFacade updateButton;
 
     @FindBy(linkText = "update")
-    private WebElementFacade updateLink;
+    public WebElementFacade updateLink;
 
     @FindBy(linkText = "View")
     private WebElementFacade viewButton;
 
     @FindBy(linkText = "view")
-    private WebElementFacade viewLink;
+    public WebElementFacade viewLink;
+
+    @FindBy(xpath = "//a[text()='Add a ']")
+    public WebElementFacade addTopicButton;
 
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
@@ -276,24 +281,12 @@ public class Page extends PageObject {
         acceptButton.click();
     }
 
-    public void clickAcceptAllButton() {
-        acceptAllButton.click();
-    }
-
     public void clickAddButton() {
         addButton.click();
     }
 
-    public void clickAddUpdateButton() {
-        addUpdateButton.click();
-    }
-
     public void clickCancelButton() {
         cancelButton.click();
-    }
-
-    public void clickConfirmButton() {
-        confirmButton.click();
     }
 
     public void clickContinueButton() {
@@ -303,19 +296,10 @@ public class Page extends PageObject {
     public void waitForContinueButton() {
         waitFor(continueButton).waitUntilClickable();
         continueButton.click();
-
-    }
-
-    public void clickCloseButton() {
-        closeButton.click();
     }
 
     public void clickDeleteLink() {
         deleteLink.click();
-    }
-
-    public void clickDocumentButton() {
-        documentButton.click();
     }
 
     public void goHome() {
@@ -326,18 +310,6 @@ public class Page extends PageObject {
         finishButton.click();
     }
 
-    public void clickFirstButton() {
-        firstButton.click();
-    }
-
-    public void clickLastButton() {
-        lastButton.click();
-    }
-
-    public void clickMoreButton() {
-        moreButton.click();
-    }
-
     public void clickNextButton() {
         nextButton.click();
     }
@@ -346,24 +318,8 @@ public class Page extends PageObject {
         newLink.click();
     }
 
-    public void clickPreviousButton() {
-        previousButton.click();
-    }
-
-    public void clickRefreshButton() {
-        refreshButton.click();
-    }
-
     public void clickRejectButton() {
         rejectButton.click();
-    }
-
-    public void clickLogoutButton() {
-        clickOn(logoutButton);
-    }
-
-    public void clickSaveButton() {
-        saveButton.click();
     }
 
     public void clickSearchButton() {
@@ -374,45 +330,14 @@ public class Page extends PageObject {
         submitButton.click();
     }
 
-    public void clickUpdateButton() {
-        updateButton.click();
-    }
-
     public void clickUpdateLink() {
         updateLink.click();
-    }
-
-    public void clickViewButton() {
-        waitFor(viewButton);
-        viewButton.click();
     }
 
     public void clickViewLink() {
         viewLink.click();
     }
 
-    public void clickEmailFeedbackButton() {
-        emailFeedbackButton.click();
-    }
-
-    public void clickThisButton(String buttonName) {
-        switch (buttonName.toUpperCase()) {
-            case "CONTINUE":
-                clickContinueButton();
-                break;
-            case "NEXT":
-                clickNextButton();
-                break;
-            case "FINISH":
-                clickFinishButton();
-                break;
-            case "ADD":
-                clickAddButton();
-                break;
-            default:
-                pendingStep(buttonName + " is not defined within " + getMethodName());
-        }
-    }
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
     public String databaseDateTodayPlusDays(int days) {
         Calendar cal = Calendar.getInstance();
@@ -479,6 +404,12 @@ public class Page extends PageObject {
         dateMonthField.sendKeys("06");
         dateYearField.clear();
         dateYearField.sendKeys("2018");
+    }
+
+    public void enterNoDate() {
+        dateReceivedDay.clear();
+        dateReceivedMonth.clear();
+        dateReceivedYear.clear();
     }
 
     public void enterNewNotes(String notes) {
@@ -746,6 +677,15 @@ public class Page extends PageObject {
 
     public boolean updateLinkIsDisplayed() {
         return isElementDisplayed(updateLink);
+    }
+
+    public boolean isWebElementFacadePresent(WebElementFacade cssLink) {
+        try {
+            $(cssLink);
+            return true;
+        } catch (NoSuchElementException | ElementShouldBeEnabledException e) {
+            return false;
+        }
     }
 
     public void assertElementIsDisplayed(WebElementFacade element) {

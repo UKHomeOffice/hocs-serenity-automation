@@ -1,10 +1,16 @@
 package com.hocs.test.pages.create_case;
 
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
+
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
@@ -17,76 +23,79 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
+    Workstacks workstacks;
+
+    Page page;
+
     WebDriver driver;
 
     // Elements
 
 
-
     @FindBy(className = "govuk-radios")
-    private WebElementFacade allRadioButtons;
+    public WebElementFacade allRadioButtons;
 
     @FindBy(id = "")
-    private WebElementFacade caseDetailsFreeTextField;
+    public WebElementFacade caseDetailsFreeTextField;
 
     @FindBy(id = "")
-    private WebElementFacade createBulkCaseRadioButton;
+    public WebElementFacade createBulkCaseRadioButton;
 
     @FindBy(linkText = "Create Single Case")
-    private WebElementFacade createSingleCaseLink;
+    public WebElementFacade createSingleCaseLink;
 
     @FindBy(id = "")
-    private WebElementFacade createSingleCaseRadioButton;
+    public WebElementFacade createSingleCaseRadioButton;
 
     @FindBy(css = "label[for='case-type-MIN']")
-    private WebElementFacade dcuMinRadioButton;
+    public WebElementFacade dcuMinRadioButton;
 
     @FindBy(css = "label[for='case-type-TRO']")
-    private WebElementFacade dcuTroRadioButton;
+    public WebElementFacade dcuTroRadioButton;
 
     @FindBy(css = "label[for='case-type-DTEN']")
-    private WebElementFacade dcuDtenRadioButton;
+    public WebElementFacade dcuDtenRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade addDocumentsNoRadioButton;
+    public WebElementFacade addDocumentsNoRadioButton;
 
     @FindBy(id = "")
-    private WebElementFacade addDocumentsYesRadioButton;
+    public WebElementFacade addDocumentsYesRadioButton;
 
     @FindBy(id = "DTENDispatchDeadline-day")
-    private WebElementFacade d10DispatchDeadlineDay;
+    public WebElementFacade d10DispatchDeadlineDay;
 
     @FindBy(id = "DTENDispatchDeadline-month")
-    private WebElementFacade d10DispatchDeadlineMonth;
+    public WebElementFacade d10DispatchDeadlineMonth;
 
     @FindBy(id = "DTENDispatchDeadline-year")
-    private WebElementFacade d10DispatchDeadlineYear;
+    public WebElementFacade d10DispatchDeadlineYear;
 
     @FindBy(id = "DTENDraftDeadline-day")
-    private WebElementFacade d10DraftDeadlineDay;
+    public WebElementFacade d10DraftDeadlineDay;
 
     @FindBy(id = "DTENDraftDeadline-month")
-    private WebElementFacade d10DraftDeadlineMonth;
+    public WebElementFacade d10DraftDeadlineMonth;
 
     @FindBy(id = "DTENDraftDeadline-year")
-    private WebElementFacade d10DraftDeadlineYear;
+    public WebElementFacade d10DraftDeadlineYear;
 
     @FindBy(xpath = "//a[text()='Case type is required']")
-    private WebElementFacade caseTypeIsRequiredErrorMessage;
+    public WebElementFacade caseTypeIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Date received is required']")
-    private WebElementFacade dateReceivedIsRequiredErrorMessage;
+    public WebElementFacade dateReceivedIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Documents are mandatory when bulk creating a case']")
-    private WebElementFacade documentsAreMandatoryErrorMessage;
+    public WebElementFacade documentsAreMandatoryErrorMessage;
 
     @FindBy(xpath = "//a[text()='Date received must be a valid date']")
-    private WebElementFacade dateReceivedIsInvalidErrorMessage;
+    public WebElementFacade dateReceivedIsInvalidErrorMessage;
 
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
-        assertThat(allRadioButtons.getText(),is("No options available"));
+        assertThat(allRadioButtons.getText(), is("No options available"));
     }
 
     public void capturedCaseReferenceTest() {
@@ -94,30 +103,16 @@ public class CreateCase extends Page {
         System.out.println(thisSessionVar);
     }
 
-    public void clickAddDocumentsRadioButton() {
-        addDocumentsYesRadioButton.click();
-    }
-
-    public void clickCreateBulkCaseRadioButton() {
-        createBulkCaseRadioButton.click();
-    }
-
-    public void clickCreateSingleCaseRadioButton() {
-        createSingleCaseRadioButton.click();
-    }
-
     public void clickDcuMinRadioButton() {
         dcuMinRadioButton.click();
     }
 
-    public void clickDcuTroRadioButton() { dcuTroRadioButton.click(); }
+    public void clickDcuTroRadioButton() {
+        dcuTroRadioButton.click();
+    }
 
     public void clickDcuDtenRadioButton() {
         dcuDtenRadioButton.click();
-    }
-
-    public void clickNoDocumentsToAddButton() {
-        addDocumentsNoRadioButton.click();
     }
 
     public void enterCaseDetailsFreeText() {
@@ -131,7 +126,7 @@ public class CreateCase extends Page {
         enterDispatchDeadlineYear(todayPlusNDaysGetYear(days));
     } */
 
-    public void fillMandatoryDateFields(){
+    public void fillMandatoryDateFields() {
         enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
         enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(+365));
         enterDispatchDeadlineYear(todayPlusNDaysGetYear(+365));
@@ -140,22 +135,22 @@ public class CreateCase extends Page {
         enterDraftDeadlineYear(todayPlusNDaysGetYear(+360));
     }
 
-    private void enterDispatchDeadlineDay(String day){
+    private void enterDispatchDeadlineDay(String day) {
         d10DispatchDeadlineDay.clear();
         d10DispatchDeadlineDay.sendKeys(day);
     }
 
-    private void enterDispatchDeadlineMonth(String month){
+    private void enterDispatchDeadlineMonth(String month) {
         d10DispatchDeadlineMonth.clear();
         d10DispatchDeadlineMonth.sendKeys(month);
     }
 
-    private void enterDispatchDeadlineYear(String year){
+    private void enterDispatchDeadlineYear(String year) {
         d10DispatchDeadlineYear.clear();
         d10DispatchDeadlineYear.sendKeys(year);
     }
 
-    private void enterDraftDeadlineDay(String day){
+    private void enterDraftDeadlineDay(String day) {
         d10DraftDeadlineDay.clear();
         d10DraftDeadlineDay.sendKeys(day);
     }
@@ -165,17 +160,16 @@ public class CreateCase extends Page {
         d10DraftDeadlineMonth.sendKeys(month);
     }
 
-    private void enterDraftDeadlineYear(String year){
+    private void enterDraftDeadlineYear(String year) {
         d10DraftDeadlineYear.clear();
         d10DraftDeadlineYear.sendKeys(year);
     }
 
-
     // Multi Step Methods
 
     public void createDCUMinSingleCase() {
-        homepage.clickCreateSingleCase();
-        clickDcuMinRadioButton();
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuMinRadioButton);
         completeDCUMINSingleCaseCreation();
     }
 
@@ -201,25 +195,38 @@ public class CreateCase extends Page {
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
-    public void completeDCUMINSingleCaseCreation(){
-        clickNextButton();
+    public void completeDCUMINSingleCaseCreation() {
+        page.clickOn(nextButton);
         addDocuments.uploadDocument();
-        clickSubmitButton();
+        clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
     public void completeSingleCaseCreation() {
-        clickNextButton();
+        page.clickOn(nextButton);
         fillMandatoryDateFields();
         addDocuments.uploadDocument();
-        clickSubmitButton();
+        page.clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
+    public void openACase() {
+        homepage.clickCreateSingleCase();
+    }
+
+    public void getToWhenWasCorReceived() {
+        //openACase();
+        clickOn(dcuMinRadioButton);
+        clickOn(nextButton);
+        waitABit(100);
+    }
+
+    public void cancelAtWhatTypeOfCor() {
+        openACase();
+        clickOn(cancelButton);
+    }
 
     //Assertions
 
