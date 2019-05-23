@@ -39,46 +39,12 @@ Feature: DCU user decides how a case should be handled
     But I do not enter a "REASON FOR NO RESPONSE NEEDED"
     Then an error message is displayed
 
-  @HOCS-258, @HOCS-262, @HOCS-237 @FixMe
+  @HOCS-258, @HOCS-262, @HOCS-237 @SmokeTests
   Scenario: User selects topic
-    Then I select a "topic"
+    When I select an initial decision of "POLICY RESPONSE"
+    And I add the topic "CARDIFF UNIVERSITY KITTENS"
+    Then the topic should be added to the case
     
-  @HOCS-258, @HOCS-262, @HOCS-237 @FixMe
-  Scenario: User selects additional topics
-    Then I select a "additional topic"
-    
-  @HOCS-258, @HOCS-262, @HOCS-237
-  Scenario: User selects primary topic
-    Given I add 2 "topics" to a case
-    When I select a primary topic
-    Then the topic should be set as the "primary" topic
-   
-  @HOCS-260, @HOCS-262, @HOCS-237
-  Scenario: User selects Policy Response and has selected a Topic
-    When I select a "Policy Response" topic for a case from the dropdown
-    And I allocate the case a "Topic"
-    Then the "answering unit" is set to the "unit" that is linked to the "primary topic" 
-    And the "answering team" is set to the "team" that is linked to the "primary topic"
-    And the sign off minister is set to the minister that is linked to the "primary topic"
-
-  @HOCS-260, @HOCS-2372
-  Scenario: User overwrites answering unit
-    Given I select a "Policy Response" topic for a case from the type function
-    When I amend the answering "unit"
-    Then I can only select from a fixed list of answering "units"
-
-  @HOCS-260, @HOCS-237
-  Scenario: User overwrites answering team
-    Given I select a "Policy Response" topic for a case from the dropdown
-    When I amend the answering "team"
-    Then I can only select from a fixed list of answering "teams"
-
-  @HOCS-260, @HOCS-237
-  Scenario: User overwrites answering minister
-    Given I select a "Policy Response" topic for a case from the dropdown
-    When I amend the answering "minister"
-    Then I can only select from a fixed list of answering "ministers"
-
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the Markup stage should take the user back to the
   dashboard

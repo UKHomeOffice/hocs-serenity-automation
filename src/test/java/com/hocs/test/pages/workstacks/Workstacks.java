@@ -123,6 +123,14 @@ public class Workstacks extends Page {
         return Integer.parseInt(tempNumberOfItems);
     }
 
+    public void selectTimeLineTab() {
+        clickOn(caseTimelineTab);
+    }
+
+    public void selectSummaryTab() {
+        clickOn(caseSummaryTab);
+    }
+
     public void clickCheckboxRelevantToCaseReference() {
         String caseReference =
                 sessionVariableCalled("caseReference").toString();

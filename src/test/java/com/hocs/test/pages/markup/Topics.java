@@ -7,6 +7,9 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class Topics extends Page {
 
@@ -17,6 +20,11 @@ public class Topics extends Page {
     MarkUpDecision markUpDecision;
 
     Workstacks workstacks;
+
+    @FindBy(xpath = "//li[1]/p[3]")
+    public WebElementFacade topicInTimeline;
+
+    // Explore @findAll during test so Topic is not hardcoded
 
     @FindBy(id = "react-select-2-input")
     private WebElementFacade topicsTextField;
@@ -131,6 +139,20 @@ public class Topics extends Page {
 
     public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {
         overrideInitialDraftTeamDropdown.selectByVisibleText(newInitialDraftTeam);
+    }
+
+    public void assertTopicsAssigned() {
+        workstacks.selectTimeLineTab();
+        waitABit(2000);
+        workstacks.selectSummaryTab();
+        waitABit(2000);
+        workstacks.selectTimeLineTab();
+        waitABit(2000);
+        String testTopic = sessionVariableCalled("topic").toString();
+        String thisTopic = topicInTimeline.getText().toUpperCase();
+        System.out.println(thisTopic);
+        System.out.println(thisTopic);
+        assertThat(thisTopic, is("NAME: " + testTopic));
     }
 
 }

@@ -90,6 +90,21 @@ public class MarkUpStepDefs {
 
     }
 
+    @When("^I add the topic \"([^\"]*)\"$")
+    public void enterTheTopic(String topic) {
+        switch(topic.toUpperCase()) {
+            case "CARDIFF UNIVERSITY KITTENS" :
+                topics.enterATopicWithoutContinuingToTheDraftStage(topic);
+                setSessionVariable("topic").to(topic);
+                break;
+            case "EXTREMISTS LEAFLETING THE PUBLIC" :
+                topics.enterATopicWithoutContinuingToTheDraftStage(topic);
+                break;
+            default:
+                pendingStep(topic + " is not defined within " + getMethodName());
+        }
+    }
+
     @When("^I override the \"([^\"]*)\" team to \"([^\"]*)\"$")
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         switch (defaultTeam.toUpperCase()) {
@@ -155,6 +170,11 @@ public class MarkUpStepDefs {
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("^the topic should be added to the case$")
+    public void assertTopicOnCase() {
+        topics.assertTopicsAssigned();
     }
 
     @Then("^the case should be assigned to the \"([^\"]*)\" for drafting$")
