@@ -1,7 +1,7 @@
 Feature: Team members can allocate work
 
   Background:
-    Given I am user "EAMON"
+    Given I am user "DANNY"
 
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
@@ -25,7 +25,7 @@ Feature: Team members can allocate work
   Scenario: All cases within a team workstack are allocated to a single user
     When I navigate to the "CENTRAL DRAFTING TEAM" page
     And I allocate all cases to a single user
-#    Then that user should be displayed as the owner for all cases
+    Then all cases should be allocated to that user
 
   @Navigation
   Scenario: User is able to navigate back to the homepage using the breadcrumb in their workstack

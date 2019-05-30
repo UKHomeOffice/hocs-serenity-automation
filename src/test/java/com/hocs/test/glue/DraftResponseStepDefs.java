@@ -18,7 +18,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class DraftResponseStepDefs {
+public class DraftResponseStepDefs extends Page{
 
     Page page;
 
@@ -292,26 +292,25 @@ public class DraftResponseStepDefs {
     public void assertCaseReturnedToStage(String stage) {
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                page.clickOn(homepage.performanceProcessTeam);
+                clickOn(homepage.performanceProcessTeam);
                 break;
             case "MARKUP":
-                page.clickOn(homepage.centralDraftingTeam);
+                clickOn(homepage.centralDraftingTeam);
                 break;
             case "INITIAL DRAFT":
-                page.clickOn(homepage.animalsInScienceTeam);
+                clickOn(homepage.animalsInScienceTeam);
                 break;
             case "QA RESPONSE":
-                page.clickOn(homepage.performanceProcessTeam);
+                clickOn(homepage.performanceProcessTeam);
                 break;
             case "PRIVATE OFFICE APPROVAL":
-                //Depends on the Team but mainly this one
-                page.clickOn(homepage.ministerForLordsTeam);
+                clickOn(homepage.ministerForLordsTeam);
                 break;
             case "MINISTERIAL SIGN OFF":
-                page.clickOn(homepage.ministerForLordsTeam);
+                clickOn(homepage.ministerForLordsTeam);
                 break;
             case "DISPATCH":
-                page.clickOn(homepage.performanceProcessTeam);
+                clickOn(homepage.performanceProcessTeam);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

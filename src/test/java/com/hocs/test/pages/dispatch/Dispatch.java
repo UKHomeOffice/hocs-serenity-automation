@@ -4,6 +4,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.Page;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -22,15 +23,39 @@ public class Dispatch extends Page {
     public WebElementFacade whyAreYouUnableToDispatchErrorMessage;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
-    public WebElementFacade whyAreYouUnableToDispatchThisTextbox;
+    public WebElementFacade dispatchRejectNoteField;
 
     public void enterTextInWhyAreYouUnableToDispatchTextbox() {
         whyAreYouUnableToDispatchErrorMessage.sendKeys("");
     }
 
+    public void selectDispatchRejectButton() {
+        clickOn(dispatchRejectRadioButton);
+    }
+
+    public void dispatchTheCase() {
+        clickOn(dispatchAcceptRadioButton);
+        clickContinueButton();
+    }
+
     public void getToUnableToDispatchScreenPrerequisites() {
         clickOn(dispatchRejectRadioButton);
         clickOn(continueButton);
+    }
+
+    public void rejectCaseWithoutReason() {
+        selectDispatchRejectButton();
+        clickContinueButton();
+        clickFinishButton();
+    }
+
+    public void enterDispatchRejectionNotes() {
+        waitFor(dispatchRejectNoteField);
+
+        String rejectionReason = "Rejection Reason: " + generateRandomString();
+        dispatchRejectNoteField.clear();
+        dispatchRejectNoteField.sendKeys(rejectionReason);
+        setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void assertAreYouAbleToDispatchErrorMessageIsShown() {

@@ -112,6 +112,10 @@ public class GenericInputStepDefs extends Page {
                 setSessionVariable("fullName").to(input);
                 recordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
+            case "REJECT REASON" :
+                setSessionVariable("fullname").to(input);
+                dispatch.enterDispatchRejectionNotes();
+                break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
         }
@@ -508,7 +512,7 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
-        page.errorMessageIsDisplayed();
+        errorMessageIsDisplayed();
     }
 
     @Then("^the file is downloaded$")
@@ -623,11 +627,18 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I attempt to reject a case without reason$")
-    public void iAttemptToRejectACaseWithoutReason() {
-        page.clickRejectButton();
-        while (page.isElementDisplayed(page.nextButton)) {
-            page.clickOn(page.nextButton);
+    @When("^I attempt to reject the \"([^\"]*)\" case without reason$")
+    public void iAttemptToRejectACaseWithoutReason(String caseType) {
+        switch(caseType.toUpperCase()){
+            case "INITIAL DRAFT" :
+                page.clickRejectButton();
+                while (page.isElementDisplayed(page.nextButton)) {
+                    page.clickOn(page.nextButton);
+                }
+                break;
+            case "DISPATCH" :
+                dispatch.rejectCaseWithoutReason();
+                break;
         }
     }
 
@@ -642,11 +653,11 @@ public class GenericInputStepDefs extends Page {
             case "ALLOCATE":
                 break;
             case "DISPATCH":
+                dispatch.dispatchTheCase();
                 break;
             case "REJECT":
-                page.clickOn(page.rejectButton);
-                page.clickOn(page.continueButton);
-                page.enterRejectionNotes();
+                dispatch.selectDispatchRejectButton();
+                clickContinueButton();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -676,6 +687,7 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^the case is completed$")
     public void theCaseIsCompleted() {
+        homepage.selectPerformanceProcessTeam();
         homepage.assertCaseIsComplete();
     }
 

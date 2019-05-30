@@ -7,23 +7,22 @@ Feature:  HOCS User is able to Dispatch a Response
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
     When I "reject" the case
-    And I enter "<string>" in the "Reject Reason" field
-    Then the case should be moved to the "Private Office" stage
-    And I am returned to my home screen
+    And I enter "someString" in the "Reject Reason" field
+    And I click the "FINISH" button
+    Then the case should be moved to the "Private Office Approval" stage
 
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
-    When I attempt to reject a case without reason
+    When I attempt to reject the "DISPATCH" case without reason
     Then an error message is displayed
 
-  @HOCS-443
+  @HOCS-443 @FixMe
   Scenario: User has a hard copy of a case to dispatch, they decide to accept the case
-    When I "dispatch" the case
+    When I "DISPATCH" the case
     Then the case is completed
-    And I am taken to the "home" page
 
   @HOCS-443 @DoesntFit
-  Scenario: User has a hard copy of a case to dispatch, they decide to accept the case, and the case needs to have a copy sent to Number 10
+  Scenario: Dispatch a case with Copy to Number Ten selected
     Given the case had the "send copy to number 10" box checked
     When I "dispatch" the case
     Then the case should be moved to the "Send copy to number 10" stage

@@ -111,6 +111,8 @@ public class fetch extends Page {
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
         page.clickOn(workstacks.allocateToMeButton);
+        getCaseId();
+
     }
 
     public void giveMeACase(String caseType, String stage) {
