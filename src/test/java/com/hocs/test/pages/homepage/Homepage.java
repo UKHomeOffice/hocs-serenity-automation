@@ -190,11 +190,6 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-//        public void selectAllocationUserByVisibleText(String allocationUser) {
-//        allocateDropdown.selectByVisibleText(allocationUser);
-//        allocateButton.click();
-//
-//    }
 //
 //    public void selectAllocationUserByIndex(int index) {
 //        allocateDropdown.selectByIndex(index);
@@ -233,7 +228,7 @@ public class Homepage extends Page {
         WebElementFacade caseReference = (WebElementFacade) driver.findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]"));
-        assertThat(isElementDisplayed(caseReference), is(false));
+        assertThat(isWebElementFacadePresent(caseReference), is(false));
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {

@@ -19,7 +19,7 @@ Feature: DCU user decides how a case should be handled
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "Refer to OGD"
-  #  And I click the "CONTINUE" button
+    And I click the "CONTINUE" button
     Then the Other Government Department name free text field is displayed
 
   @HOCS-266, @HOCS-237
@@ -48,27 +48,27 @@ Feature: DCU user decides how a case should be handled
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the Markup stage should take the user back to the
   dashboard
-    And I click the cancel button
+    And I click the "CANCEL" button
     Then I should be taken to the homepage
 
   @Validation
   Scenario: User must select a response on the first Markup Stage screen
-    And I click the continue button on the markup response screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected a response
 
   @Validation
   Scenario: User must add a topic at the Markup Stage
-    And I click the continue button on the add a topic screen
+    And I click the "CONTINUE" button on the "ADD A TOPIC" page
     Then an error message should be displayed as I have not added a topic
 
   @Validation
   Scenario: User must select a topic from the dropdown box at the Markup Stage
-    And I click the add button on the add topic screen
+    And I click the "ADD" button on the "ENTER A NEW TOPIC" page
     Then an error message should be displayed as I have not selected a topic
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
-    And I click the add button when creating a case note
+    And I click the "ADD" button
     Then an error message should be displayed as I have not added any text into the case note text box
 
 

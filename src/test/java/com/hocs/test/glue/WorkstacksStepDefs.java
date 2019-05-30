@@ -83,7 +83,7 @@ public class WorkstacksStepDefs {
     @When("^I allocate all cases to a single user$")
     public void allocateAllCasesInTeamworkWorkstack() {
         workstacks.clickAllWorkstackCheckboxes();
-        page.clickOn(workstacks.allocateCheckboxCaseToMeButton);
+        workstacks.selectAllocationUserByVisibleText("Eamon Droko (eamon.droko@ten10.com)");
     }
 
 
@@ -197,6 +197,11 @@ public class WorkstacksStepDefs {
     @Then("^I should be taken to workflow page of the team workstack$")
     public void assertThatWorkflowBreadcrumbTakesUserToWorkflowPage() {
         workstacks.assertThatDataInputFilterCardIsVisible();
+    }
+
+    @Then("^all cases should be allocated to that user$")
+    public void assertAllCasesAssignedToAllocatedUser() {
+        workstacks.assertAllAllocatedUsers();
     }
 
 }

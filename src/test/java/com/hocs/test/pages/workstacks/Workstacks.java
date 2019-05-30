@@ -45,7 +45,7 @@ public class Workstacks extends Page {
     @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
 
-    @FindBy(css = "[name = 'user-id']")
+    @FindBy(id = "selected_user")
     public WebElementFacade allocateDropdown;
 
     @FindBy(xpath = "//a[@class='govuk-breadcrumbs__link']")
@@ -115,6 +115,12 @@ public class Workstacks extends Page {
 
     public void clickAllocateToMeButton() {
         allocateToMeButton.click();
+    }
+
+    public void selectAllocationUserByVisibleText(String allocationUser) {
+        allocateDropdown.selectByVisibleText(allocationUser);
+        allocateButton.click();
+
     }
 
     public int getTotalOfCases() {
@@ -241,5 +247,12 @@ public class Workstacks extends Page {
     public void assertCaseReferenceAfterAllocation() {
         String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
         assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
+    }
+
+    public void assertAllAllocatedUsers() {
+        WebElementFacade eamonAllocated = findAll("//td[contains(text(), 'eamon')]").get(0);
+        String thisAllocatedUserIs = eamonAllocated.getText();
+        System.out.println(thisAllocatedUserIs);
+        assertThat(thisAllocatedUserIs, is("eamon.droko@ten10.com"));
     }
 }

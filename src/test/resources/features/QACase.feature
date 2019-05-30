@@ -12,9 +12,9 @@ Feature: QA Case #this test can be reused for both the private office and minist
       And the "original drafter" and "nominated person" receive the "qa rejected email"
       And I am taken to the "home" page
       
-    @HOCS-310
+    @HOCS-310 @FixMe
     Scenario: User reviews draft, rejects it and does not provide a rejection reason
-      When I attempt to reject a case without reason
+      When I attempt to reject the "INITIAL DRAFT" case without reason
       Then an error message appears instructing me to add rejection reasons
       
     @HOCS-309
@@ -37,7 +37,7 @@ Feature: QA Case #this test can be reused for both the private office and minist
 
     @Validation
     Scenario: User must enter their feedback for the a disapproved QA response in the text box
-      And I click the finish button on the QA response feedback screen
+      And I click the "FINISH" button on the "QA RESPONSE FEEDBACK" page
       Then an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response
 
     @Validation

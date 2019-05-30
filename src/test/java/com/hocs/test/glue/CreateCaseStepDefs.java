@@ -57,14 +57,17 @@ public class CreateCaseStepDefs {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
                 setSessionVariable("caseType").to(caseType);
+                homepage.goHome();
                 break;
             case "DCU N10":
                 createCase.createDC10SingleCase();
                 setSessionVariable("caseType").to(caseType);
+                homepage.goHome();
                 break;
             case "DCU TRO":
                 createCase.createDCTROSingleCase();
                 setSessionVariable("caseType").to(caseType);
+                homepage.goHome();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -85,7 +88,7 @@ public class CreateCaseStepDefs {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
-                setSessionVariable("caseType").to(caseType);
+                homepage.goHome();
                 homepage.waitForPerformanceProcessTeam();
                 page.clickOn(homepage.performanceProcessTeam);
                 dataInput.dataInputFullFlow();

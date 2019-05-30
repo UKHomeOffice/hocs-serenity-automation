@@ -34,6 +34,12 @@ public class MinisterSignOff extends Page {
         ministerRejectionNote.sendKeys(generateRandomString());
     }
 
+    public void getToMinisterFeedbackResponseScreenPrerequisites() {
+        clickOn(ministerSignOffRejectRadioButton);
+        clickOn(continueButton);
+        sleep(500);
+    }
+
     public void assertDoYouApproveTheResponseErrorMessage() {
         assertThat(doYouApproveTheResponseErrorMessage.getText(), is("Do you approve the response? is required"));
     }

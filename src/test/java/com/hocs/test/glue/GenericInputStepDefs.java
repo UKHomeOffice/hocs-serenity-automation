@@ -10,12 +10,14 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
+import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
 
@@ -65,6 +67,10 @@ public class GenericInputStepDefs extends Page {
 
     PrivateOffice privateOffice;
 
+    QAResponse qaResponse;
+
+    Dispatch dispatch;
+
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
         switch (dropdown.toUpperCase()) {
@@ -105,6 +111,10 @@ public class GenericInputStepDefs extends Page {
             case "FULL NAME" :
                 setSessionVariable("fullName").to(input);
                 recordCorrespondentDetails.enterCorrespondentFullName(input);
+                break;
+            case "REJECT REASON" :
+                setSessionVariable("fullname").to(input);
+                dispatch.enterDispatchRejectionNotes();
                 break;
             default:
                 pendingStep(element + " is not defined within " + getMethodName());
@@ -502,7 +512,7 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
-        page.errorMessageIsDisplayed();
+        errorMessageIsDisplayed();
     }
 
     @Then("^the file is downloaded$")
@@ -525,11 +535,52 @@ public class GenericInputStepDefs extends Page {
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
                 break;
-            case "PRIMARY CORRESPONDENT" :
-                //ceoihci
-                break;
+//            case "PRIMARY CORRESPONDENT" :
+//                break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
+                break;
+            case "ADD A TOPIC" :
+                markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+                break;
+            case "ENTER A NEW TOPIC" :
+                markUpDecision.getToMarkupEnterANewTopicScreenPrerequisites();
+                break;
+            case "CASE REJECTION" :
+                draft.getToDraftCaseRejectionScreenPrerequisites();
+                break;
+            case "HOW DO YOU INTEND TO RESPOND" :
+                draft.getToHowDoYouIntendToRespondScreenPrerequisites();
+                break;
+            case "SUMMARISE YOUR CALL" :
+                draft.getToSummariseYouCallScreenPrerequisites();
+                break;
+            case "PRIMARY DRAFT DOCUMENT" :
+                draft.getToPrimaryDraftDocumentScreenPrerequisites();
+                break;
+            case "ADD DOCUMENT" :
+                draft.getToAddDocumentScreenPrerequisites();
+                break;
+            case "DO YOU WANT TO QA OFFLINE" :
+                draft.getToDoYouWantToQAOfflineScreenPrerequisites();
+                break;
+            case "WHO HAS DONE THE QA OFFLINE" :
+                draft.getToWhoDidTheQAOfflineScreenPrerequisites();
+                break;
+            case "QA RESPONSE FEEDBACK" :
+                qaResponse.getToQAResponseFeedbackScreenPrerequisites();
+                break;
+            case "CHANGE MINISTER" :
+                privateOffice.getToChangeMinisterScreenPrerequisites();
+                break;
+            case "PO FEEDBACK RESPONSE" :
+                privateOffice.getToPOFeedbackResponseScreenPrerequisites();
+                break;
+            case "MINISTER SIGN OFF FEEDBACK RESPONSE" :
+                minister.getToMinisterFeedbackResponseScreenPrerequisites();
+                break;
+            case "UNABLE TO DISPATCH" :
+                dispatch.getToUnableToDispatchScreenPrerequisites();
                 break;
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
@@ -576,11 +627,18 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I attempt to reject a case without reason$")
-    public void iAttemptToRejectACaseWithoutReason() {
-        page.clickRejectButton();
-        while (page.isElementDisplayed(page.nextButton)) {
-            page.clickOn(page.nextButton);
+    @When("^I attempt to reject the \"([^\"]*)\" case without reason$")
+    public void iAttemptToRejectACaseWithoutReason(String caseType) {
+        switch(caseType.toUpperCase()){
+            case "INITIAL DRAFT" :
+                page.clickRejectButton();
+                while (page.isElementDisplayed(page.nextButton)) {
+                    page.clickOn(page.nextButton);
+                }
+                break;
+            case "DISPATCH" :
+                dispatch.rejectCaseWithoutReason();
+                break;
         }
     }
 
@@ -595,11 +653,11 @@ public class GenericInputStepDefs extends Page {
             case "ALLOCATE":
                 break;
             case "DISPATCH":
+                dispatch.dispatchTheCase();
                 break;
             case "REJECT":
-                page.clickOn(page.rejectButton);
-                page.clickOn(page.continueButton);
-                page.enterRejectionNotes();
+                dispatch.selectDispatchRejectButton();
+                clickContinueButton();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -629,6 +687,7 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^the case is completed$")
     public void theCaseIsCompleted() {
+        homepage.selectPerformanceProcessTeam();
         homepage.assertCaseIsComplete();
     }
 
@@ -669,6 +728,13 @@ public class GenericInputStepDefs extends Page {
                     pendingStep(addition + " is not defined within " + getMethodName());
             }
         }
+    }
+
+    @When("^I click the add button when creating a case note$")
+    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
+        page.clickOn(workstacks.caseTimelineTab);
+        page.clickOn(workstacks.addCaseNoteButton);
+        page.clickOn(workstacks.addButton);
     }
 }
 

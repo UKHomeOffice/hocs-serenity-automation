@@ -2,6 +2,7 @@ package com.hocs.test.pages;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -480,6 +481,12 @@ public class Page extends PageObject {
         setSessionVariable("caseId").to(caseId.getText());
 
         return caseId.getText();
+    }
+
+    public void assertCaseIdIsOnCurrentPage() {
+        String thisCaseID = sessionVariableCalled("caseId").toString();
+        WebElementFacade thisIdSearch = findAll("//td/a[contains(text(), '" + thisCaseID + "')]").get(0);
+        assertThat((isElementDisplayed(thisIdSearch)), is(true));
     }
 
     protected String getErrorDetails() {

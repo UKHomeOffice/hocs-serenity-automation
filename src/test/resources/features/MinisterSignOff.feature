@@ -17,7 +17,7 @@ Feature: User decides how cases should be handled at Minister Sign Off stage
 
   @Validation
   Scenario: User must enter feedback in a text box if they do not approve the Minister Sign Off response
-    And I click the continue button on the minister sign off feedback response screen
+    And I click the "CONTINUE" button on the "MINISTER SIGN OFF FEEDBACK RESPONSE" page
     Then an error message should be displayed as I have not entered feedback in the text box
 
   @Validation

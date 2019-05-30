@@ -2,6 +2,7 @@ package com.hocs.test.pages.markup;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -78,8 +79,6 @@ public class MarkUpDecision extends Page {
         clickOn(referToOgdRadioButton);
     }
 
-
-
     public void clickPolicyResponseRadioButton() {
         policyResponseRadioButton.click();
     }
@@ -144,4 +143,15 @@ public class MarkUpDecision extends Page {
         assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
     }
 
+    public void getToMarkupAddATopicScreenPrerequisites() {
+        clickOn(policyResponseRadioButton);
+        clickOn(continueButton);
+        sleep(500);
+    }
+
+    public void getToMarkupEnterANewTopicScreenPrerequisites() {
+        clickOn(policyResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(addATopicButton);
+    }
 }

@@ -6,7 +6,6 @@ import com.hocs.test.pages.Page;
 
 public class Qa extends Page {
 
-    Draft draft;
 
     @FindBy(css = "label[for='OfflineQA-TRUE']")
     public WebElementFacade offlineQaYesRadioButton;
@@ -14,26 +13,26 @@ public class Qa extends Page {
     @FindBy(css = "label[for='OfflineQA-FALSE']")
     public WebElementFacade offlineQaNoRadioButton;
 
-    public void clickOfflineQAYesRadioButton(){
+    private void clickOfflineQAYesRadioButton(){
         offlineQaYesRadioButton.click();
     }
 
-    public void clickOfflineQANoRadioButton() {
+    private void clickOfflineQANoRadioButton() {
         offlineQaNoRadioButton.click();
     }
 
     // Multi Step Methods
 
     public void dontQAOffline() {
-        draft.clickContinueButton();
+        clickContinueButton();
         clickOfflineQANoRadioButton();
-        draft.clickContinueButton();
+        clickContinueButton();
     }
 
     public void qaOffline() {
-        draft.clickContinueButton();
+        clickContinueButton();
         clickOfflineQAYesRadioButton();
-        draft.clickContinueButton();
+        clickContinueButton();
     }
 
 }

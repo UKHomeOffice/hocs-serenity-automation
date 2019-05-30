@@ -4,12 +4,18 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.qa_response.QAResponse;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
+
+    AddDocuments addDocuments;
+
+    Qa qa;
 
     @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
     public WebElementFacade answeredByMyTeamNoRadioButton;
@@ -141,6 +147,68 @@ public class Draft extends Page {
     }
 
     // Multi Step Methods
+
+    public void getToDraftCaseRejectionScreenPrerequisites() {
+        clickOn(answeredByMyTeamNoRadioButton);
+        clickOn(continueButton);
+    }
+
+    public void getToHowDoYouIntendToRespondScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        sleep(500);
+    }
+
+    public void getToSummariseYouCallScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(phoneReplyRadioButton);
+        clickOn(continueButton);
+    }
+
+    public void getToPrimaryDraftDocumentScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        clickOn(continueButton);
+        sleep(500);
+    }
+
+    public void getToAddDocumentScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        clickOn(continueButton);
+        clickOn(draftStageAddDocumentsButton);
+    }
+
+    public void getToDoYouWantToQAOfflineScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        clickOn(continueButton);
+        clickOn(draftStageAddDocumentsButton);
+        selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        clickOn(addDocuments.addButton);
+        clickOn(continueButton);
+        sleep(500);
+    }
+
+    public void getToWhoDidTheQAOfflineScreenPrerequisites() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        clickOn(continueButton);
+        clickOn(draftStageAddDocumentsButton);
+        selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        clickOn(addDocuments.addButton);
+        clickOn(continueButton);
+        clickOn(qa.offlineQaYesRadioButton);
+        clickOn(continueButton);
+        clickOn(finishButton);
+    }
 
     // Assertions
 
