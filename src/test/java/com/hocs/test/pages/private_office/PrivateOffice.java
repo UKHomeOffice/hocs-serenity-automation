@@ -43,6 +43,16 @@ public class PrivateOffice extends Page {
         setSessionVariable("PORejectNote").to(poRejectNote);
     }
 
+    public void getToChangeMinisterScreenPrerequisites() {
+        clickOn(privateOfficeChangeMinisterRadioButton);
+        clickOn(continueButton);
+    }
+
+    public void getToPOFeedbackResponseScreenPrerequisites() {
+        clickOn(privateOfficeRejectRadioButton);
+        clickOn(continueButton);
+    }
+
     public void assertDoYouApproveTheResponseErrorMessage() {
         assertThat(doYouApproveTheResponseErrorMessage.getText(), is("Do you approve the response? is required"));
     }

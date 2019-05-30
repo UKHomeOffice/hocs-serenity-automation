@@ -153,8 +153,7 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Performance Process Team not available, therefore there are no Data Input cases, "
-                            + "creating a new case");
+                    System.out.println("Performance Process Team not found - Creating a new case");
                     page.clickOn(homepage.home);
                     createCase.createDCUMinSingleCase();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -167,12 +166,12 @@ public class fetch extends Page {
                     try {
                         dataInput.dateCorrespondenceSentDayField.clear();
                     } catch (ElementShouldBeEnabledException | org.openqa.selenium.NoSuchElementException e) {
-                        System.out.println("Date Sent field not available, searching for a fresh Data Input case");
+                        System.out.println("Element not found - Searching for fresh Data Input case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedDataInputCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    System.out.println("I couldn't find a Data Input case so I am building a new case");
+                    System.out.println("Data Input case not found - Creating a new case");
                     page.clickOn(homepage.home);
                     createCase.createDCUMinSingleCase();
                     page.clickOn(homepage.home);
@@ -195,8 +194,7 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Central Drafting Team not available, therefore there are no Markup cases, "
-                            + "searching for a Data Input Case");
+                    System.out.println("Central Drafting Team not available -  Searching for a Data Input Case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
@@ -207,19 +205,20 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINCaseMarkupCase();
                     try {
+                        page.clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Markup']").getText(),
+                                is("Markup"));
+                        System.out.println("Markup is active stage - Continuing test");
                         assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
                                 + "response is required?"));
-                        System.out.println("Markup 'What sort of response is required?' question found therefore, "
-                                + "continuing test");
                     } catch (org.openqa.selenium.NoSuchElementException e) {
-                        System.out.println("Markup 'What sort of response is required?' question not found therefore, "
-                                + "searching for a fresh Markup "
-                                + "case");
+                        System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
+                                + " fresh Markup case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedMarkupCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    System.out.println("I couldn't find a Markup case so I am searching for a Data Input case");
+                    System.out.println("Markup case not found - Searching for a Data Input case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
@@ -242,8 +241,7 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Animals in Science Regulation unit is not available, therefore there are no draft "
-                            + "cases, searching for a Markup case");
+                    System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
@@ -254,21 +252,21 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINInitialDraftCase();
                     try {
+                        page.clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Initial Draft']").getText(),
+                                is("Initial Draft"));
+                        System.out.println("Initial Draft is active stage - Continuing Test");
                         assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
                                 is("Can this "
                                         + "correspondence be answered by your team?"));
-                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' question "
-                                + "found therefore, continuing test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' question not "
-                                + "found therefore, searching "
-                                + "for a fresh "
-                                + "Initial Draft case");
+                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
+                                + "found - Searching for a fresh Initial Draft case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedInitialDraftCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("I couldn't find an Initial Draft case so I am searching for a Markup case");
+                    System.out.println("Initial Draft case not found - Searching for a Markup case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
@@ -290,8 +288,8 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Animals in Science Regulation unit is not available, therefore there are no QA "
-                            + "cases, searching for a Draft case");
+                    System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
+                            + "case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
@@ -302,19 +300,22 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINQAResponseCase();
                     try {
+                        page.clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='QA Response']").getText(),
+                                is("QA Response"));
+                        System.out.println("QA Response is active stage - Continuing Test");
                         assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
                                 + "response?"));
-                        System.out.println("QA Response 'Do you approve the response?' question found therefore, "
-                                + "continuing "
-                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' question not found therefore, "
                                 + "searching for a fresh QA Response case");
+                        System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
+                                + " fresh QA Response case");
                         page.clickOn(homepage.home);
                         page.clickOn(homepage.animalsInScienceTeam);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("I couldn't find a QA Response case so I am searching for a Draft case");
+                    System.out.println("QA Response case not found - Searching for an Initial Draft case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
@@ -328,7 +329,6 @@ public class fetch extends Page {
             default:
                 pendingStep(caseType + " is not defined withing " + getMethodName());
         }
-
     }
 
     public void getFirstUnallocatedPrivateOfficeCase(String caseType) {
@@ -337,9 +337,7 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Minister for Lords team not available, therefore there are no Private Office "
-                            + "Approval cases, "
-                            + "searching for a QA Response case");
+                    System.out.println("Minister for Lords team not available - Searching for a QA Response case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
@@ -353,13 +351,12 @@ public class fetch extends Page {
                         page.clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Private Office Approval']").getText(),
                                 is("Private Office Approval"));
-                        System.out.println("Private Office Approval is active stage");
+                        System.out.println("Private Office Approval is active stage - Continuing Test");
                         assertThat($("//span[text()='Do you approve the response?']").getText(),
                                 is("Do you approve the response?"));
-                        System.out.println("Private Office 'Do you approve the response?' question found therefore, "
-                                + "continuing test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Elements not found therefore, searching for a fresh Private Office case");
+                        System.out.println("Private Office Approval 'Do you approve the response?' element not found - "
+                                + "Searching for a fresh Private Office Approval case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedPrivateOfficeCase(caseType);
                     }
@@ -367,6 +364,7 @@ public class fetch extends Page {
                     page.clickOn(homepage.home);
                     System.out.println("I couldn't find a Private Office Approval case so I am searching for a QA "
                             + "Response case");
+                    System.out.println("Private Office Approval case not found - Searching for a QA Response case");
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
                     getFirstUnallocatedPrivateOfficeCase(caseType);
@@ -387,9 +385,8 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Minister for Lords team not available, therefore there are no Minister Sign Off "
-                            + "cases, "
-                            + "searching for a Private Office Approval Case");
+                    System.out.println("Minister for Lords team not available - Searching for a Private Office Approval "
+                            + "case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
@@ -402,22 +399,18 @@ public class fetch extends Page {
                     try {
                         page.clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Ministerial Sign off']").getText(), is("Ministerial Sign off"));
-                        System.out.println("Ministerial Sign Off is active stage");
+                        System.out.println("Ministerial Sign Off is active stage - Continuing Test");
                         assertThat($("//span[text()='Do you approve the response?']").getText(),
                                 is("Do you approve the response?"));
-                        System.out.println("Ministerial Sign Off 'Do you approve the response?' question found therefore, "
-                                + "continuing "
-                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println(
-                                "Elements not found therefore, searching for a fresh Ministerial Sign Off case");
+                        System.out.println("Ministerial Sign Off case 'Do you approve the response?' element not found - "
+                                + "Searching for a fresh Ministerial Sign Off case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedMinisterialSignOffCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     page.clickOn(homepage.home);
-                    System.out.println("I couldn't find a Ministerial Sign off case so I am searching for a Private "
-                            + "Office Approval case");
+                    System.out.println("Ministerial Sign Off case not found - Searching for a Private Office case");
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
@@ -438,8 +431,7 @@ public class fetch extends Page {
                 try {
                     page.clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
-                    System.out.println("Performance Process Team not available, therefore there are no Dispatch cases, "
-                            + "searching for a Ministerial Sign off Case");
+                    System.out.println("Performance Process Team not available - Searching for a Ministerial Sign Off case");
                     page.clickOn(homepage.home);
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
@@ -452,20 +444,18 @@ public class fetch extends Page {
                     try {
                         page.clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
-                        System.out.println("Dispatch is active stage");
+                        System.out.println("Dispatch is active stage - Continuing Test");
                         assertThat($("//label[text()='How do you intend to respond?']").getText(),
                                 is("How do you intend to respond?"));
-                        System.out.println("Dispatch 'How do you intend to respond?' question found therefore, continuing "
-                                + "test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println(
-                                "Elements not found therefore, searching for a fresh Dispatch case");
+                        System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
+                                + "fresh Dispatch case");
                         page.clickOn(homepage.home);
                         getFirstUnallocatedDispatchCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     page.clickOn(homepage.home);
-                    System.out.println("I couldn't find a Dispatch case so I am searching for a Ministerial Case");
+                    System.out.println("Dispatch case not found - Searching for a Minister Sign Off case");
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
                     getFirstUnallocatedDispatchCase(caseType);
@@ -479,6 +469,4 @@ public class fetch extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
-
-
 }

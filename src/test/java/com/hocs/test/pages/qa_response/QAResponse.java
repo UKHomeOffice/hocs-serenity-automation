@@ -72,6 +72,11 @@ public class QAResponse extends Page{
         clickContinueButton();
     }
 
+    public void getToQAResponseFeedbackScreenPrerequisites() {
+        clickOn(QARejectRadioButton);
+        clickOn(continueButton);
+    }
+
     public void assertQADoYouApproveErrorMessage() {
         assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
     }

@@ -129,22 +129,6 @@ public class MarkUpStepDefs {
         page.clickOn(markUpDecision.continueButton);
     }
 
-    @When("^I click the continue button on the add a topic screen$")
-    public void clickContinueButtonOnAddATopicScreen() {
-        page.clickOn(markUpDecision.policyResponseRadioButton);
-        page.clickOn(markUpDecision.continueButton);
-        markUpDecision.sleep(500);
-        page.clickOn(markUpDecision.continueButton);
-    }
-
-    @When("^I click the add button on the add topic screen")
-    public void clickAddButtonOnAddTopicScreen() {
-        page.clickOn(markUpDecision.policyResponseRadioButton);
-        page.clickOn(markUpDecision.continueButton);
-        page.clickOn(markUpDecision.addATopicButton);
-        page.clickOn(markUpDecision.addButton);
-    }
-
     @Then("^an error message should be displayed as I have not selected a topic$")
     public void assertThatTopicIsRequiredErrorMessageIsShown() {
         markUpDecision.assertTopicIsRequiredErrorMessage();

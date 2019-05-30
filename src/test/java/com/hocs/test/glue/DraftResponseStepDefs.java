@@ -61,69 +61,69 @@ public class DraftResponseStepDefs {
         draft.assertCorrespondenceAnsweredErrorMessage();
     }
 
-    @When("^I click the finish button on the case rejection screen$")
-    public void clickFinishButtonOnCaseRejectionScreen() {
-        page.clickOn(draft.answeredByMyTeamNoRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.finishButton);
-    }
+//    @When("^I click the finish button on the case rejection screen$")
+//    public void clickFinishButtonOnCaseRejectionScreen() {
+//        page.clickOn(draft.answeredByMyTeamNoRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.finishButton);
+//    }
 
     @Then("^an error message should be displayed as I have not entered a reason in the text box$")
     public void assertThatShouldBeAnsweredErrorMessageIsShown() {
         draft.assertShouldBeAnsweredErrorMessage();
     }
 
-    @When("^I click the continue button on how do you intend to respond screen$")
-    public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        draft.sleep(500);
-        page.clickOn(draft.continueButton);
-    }
+//    @When("^I click the continue button on how do you intend to respond screen$")
+//    public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
+//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
+//        page.clickOn(draft.continueButton);
+//        draft.sleep(500);
+//        page.clickOn(draft.continueButton);
+//    }
 
     @Then("^an error message should be displayed as I have not selected a response on this screen$")
     public void assertThatHowDoYouIntendToRespondScreenIsShown() {
         draft.assertHowDoYouIntendToRespondErrorMessage();
     }
 
-    @When("^I click the finish button on the summarise your call screen$")
-    public void clickFinishButtonOnSummariseYourCallScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.phoneReplyRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.finishButton);
-    }
+//    @When("^I click the finish button on the summarise your call screen$")
+//    public void clickFinishButtonOnSummariseYourCallScreen() {
+//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.phoneReplyRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.finishButton);
+//    }
 
     @Then("^an error message should be displayed as I have not summarised the call$")
     public void assertThatSummariseYourCallErrorMessageIsShown() {
         draft.assertPleaseSummariseYourCallErrorMessage();
     }
 
-    @When("^I click the continue button on the which is the primary draft document screen$")
-    public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.letterReplyRadioButton);
-        page.clickOn(draft.continueButton);
-        draft.sleep(500);
-        page.clickOn(draft.continueButton);
-    }
+//    @When("^I click the continue button on the which is the primary draft document screen$")
+//    public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
+//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.letterReplyRadioButton);
+//        page.clickOn(draft.continueButton);
+//        draft.sleep(500);
+//        page.clickOn(draft.continueButton);
+//    }
 
     @Then("^an error message should be displayed as I have not added a primary draft document$")
     public void assertThatWhichIsThePrimaryDraftDocumentErrorMesasgeIsShown() {
         draft.assertWhichIsThePrimaryDraftDocumentErrorMessage();
     }
 
-    @When("^I click the add button on the add documents screen$")
-    public void clickAddButtonOnAddDocumentScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.letterReplyRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.draftStageAddDocumentsButton);
-        page.clickOn(addDocuments.addButton);
-    }
+//    @When("^I click the add button on the add documents screen$")
+//    public void clickAddButtonOnAddDocumentScreen() {
+//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.letterReplyRadioButton);
+//        page.clickOn(draft.continueButton);
+//        page.clickOn(draft.draftStageAddDocumentsButton);
+//        page.clickOn(addDocuments.addButton);
+//    }
 
     @Then("^an error message should be displayed as I have not selected a document type and added a document$")
     public void assertThatAddDocumentErrorMessagesAreShown() {

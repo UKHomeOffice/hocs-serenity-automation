@@ -10,12 +10,14 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
+import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
+import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
 
@@ -64,6 +66,10 @@ public class GenericInputStepDefs extends Page {
     Qa qa;
 
     PrivateOffice privateOffice;
+
+    QAResponse qaResponse;
+
+    Dispatch dispatch;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -525,11 +531,52 @@ public class GenericInputStepDefs extends Page {
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
                 break;
-            case "PRIMARY CORRESPONDENT" :
-                //ceoihci
-                break;
+//            case "PRIMARY CORRESPONDENT" :
+//                break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
+                break;
+            case "ADD A TOPIC" :
+                markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+                break;
+            case "ENTER A NEW TOPIC" :
+                markUpDecision.getToMarkupEnterANewTopicScreenPrerequisites();
+                break;
+            case "CASE REJECTION" :
+                draft.getToDraftCaseRejectionScreenPrerequisites();
+                break;
+            case "HOW DO YOU INTEND TO RESPOND" :
+                draft.getToHowDoYouIntendToRespondScreenPrerequisites();
+                break;
+            case "SUMMARISE YOUR CALL" :
+                draft.getToSummariseYouCallScreenPrerequisites();
+                break;
+            case "PRIMARY DRAFT DOCUMENT" :
+                draft.getToPrimaryDraftDocumentScreenPrerequisites();
+                break;
+            case "ADD DOCUMENT" :
+                draft.getToAddDocumentScreenPrerequisites();
+                break;
+            case "DO YOU WANT TO QA OFFLINE" :
+                draft.getToDoYouWantToQAOfflineScreenPrerequisites();
+                break;
+            case "WHO HAS DONE THE QA OFFLINE" :
+                draft.getToWhoDidTheQAOfflineScreenPrerequisites();
+                break;
+            case "QA RESPONSE FEEDBACK" :
+                qaResponse.getToQAResponseFeedbackScreenPrerequisites();
+                break;
+            case "CHANGE MINISTER" :
+                privateOffice.getToChangeMinisterScreenPrerequisites();
+                break;
+            case "PO FEEDBACK RESPONSE" :
+                privateOffice.getToPOFeedbackResponseScreenPrerequisites();
+                break;
+            case "MINISTER SIGN OFF FEEDBACK RESPONSE" :
+                minister.getToMinisterFeedbackResponseScreenPrerequisites();
+                break;
+            case "UNABLE TO DISPATCH" :
+                dispatch.getToUnableToDispatchScreenPrerequisites();
                 break;
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
@@ -669,6 +716,13 @@ public class GenericInputStepDefs extends Page {
                     pendingStep(addition + " is not defined within " + getMethodName());
             }
         }
+    }
+
+    @When("^I click the add button when creating a case note$")
+    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
+        page.clickOn(workstacks.caseTimelineTab);
+        page.clickOn(workstacks.addCaseNoteButton);
+        page.clickOn(workstacks.addButton);
     }
 }
 

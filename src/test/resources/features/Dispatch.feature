@@ -43,7 +43,7 @@ Feature:  HOCS User is able to Dispatch a Response
 
   @Validation
   Scenario: User must enter their reason for not being able to dispatch case in the text box at the Dispatch Stage
-    And I click the finish button on the unable to dispatch screen
+    And I click the "FINISH" button on the "UNABLE TO DISPATCH" page
     Then an error message should be displayed as I have not entered a reason for not dispatching in the text box
 
   @Validation

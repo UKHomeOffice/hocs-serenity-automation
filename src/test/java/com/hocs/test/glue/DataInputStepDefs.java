@@ -47,6 +47,7 @@ public class DataInputStepDefs {
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
+                page.clickOn(homepage.home);
                 page.clickOn(homepage.performanceProcessTeam);
                 break;
             case "DCU N10":
@@ -236,14 +237,6 @@ public class DataInputStepDefs {
         page.clickOn(dataInput.correspondentMemberNoRadioButton);
         page.clickOn(dataInput.continueButton);
         page.clickOn(dataInput.addButton);
-
-    }
-
-    @When("^I click the add button when creating a case note$")
-    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        page.clickOn(workstacks.caseTimelineTab);
-        page.clickOn(workstacks.addCaseNoteButton);
-        page.clickOn(workstacks.addButton);
     }
 
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")

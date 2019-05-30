@@ -58,12 +58,12 @@ Feature: DCU user decides how a case should be handled
 
   @Validation
   Scenario: User must add a topic at the Markup Stage
-    And I click the continue button on the add a topic screen
+    And I click the "CONTINUE" button on the "ADD A TOPIC" page
     Then an error message should be displayed as I have not added a topic
 
   @Validation
   Scenario: User must select a topic from the dropdown box at the Markup Stage
-    And I click the add button on the add topic screen
+    And I click the "ADD" button on the "ENTER A NEW TOPIC" page
     Then an error message should be displayed as I have not selected a topic
 
   @Validation

@@ -106,7 +106,7 @@ Feature: HOCS User is add data to a case
     And I click the "ADD" button on the "RECORD CORRESPONDENT DETAILS" page
     Then an error message should be displayed as I have not entered text in the full name field
 
-  @Validation @FixMe
+  @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
-    And I click the add button without entering text into the case note
+    And I click the add button when creating a case note
     Then an error message should be displayed as I have not added any text into the case note text box

@@ -28,6 +28,11 @@ public class Dispatch extends Page {
         whyAreYouUnableToDispatchErrorMessage.sendKeys("");
     }
 
+    public void getToUnableToDispatchScreenPrerequisites() {
+        clickOn(dispatchRejectRadioButton);
+        clickOn(continueButton);
+    }
+
     public void assertAreYouAbleToDispatchErrorMessageIsShown() {
         assertThat(areYouAbleToDispatchErrorMessage.getText(), is("Are you able to dispatch this? is required"));
     }
