@@ -13,6 +13,7 @@ import static org.hamcrest.core.Is.is;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
+import com.ibm.icu.impl.UResource.Key;
 import java.util.List;
 import java.util.Map;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -190,11 +191,6 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-//
-//    public void selectAllocationUserByIndex(int index) {
-//        allocateDropdown.selectByIndex(index);
-//    }
-
     // Multi Step Methods
 
     public void firstStageFindMyCase() {
@@ -208,6 +204,7 @@ public class Homepage extends Page {
                 break;
             case "DCU TRO":
                 selectPerformanceProcessTeam();
+                System.out.println("THIS IS A TRO TEST");
                 successfulCaseCreation
                         .selectCaseReferenceNumberViaXpathStoreResultingElement();
                 break;
@@ -229,6 +226,21 @@ public class Homepage extends Page {
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
                         + "')]"));
         assertThat(isWebElementFacadePresent(caseReference), is(false));
+    }
+
+    public void assertCaseIsCompleteViaSearch() {
+        caseReferenceSearchBar.clear();
+        String thisCaseId = sessionVariableCalled("caseId").toString();
+        caseReferenceSearchBar.sendKeys(thisCaseId);
+        caseReferenceSearchBar.sendKeys(Keys.RETURN);
+        assertThat(isElementDisplayed(workstacks.allocateToMeButton), is(false));
+    }
+
+    public void getCurrentCase() {
+        caseReferenceSearchBar.clear();
+        String currentCase = sessionVariableCalled("caseId").toString();
+        caseReferenceSearchBar.sendKeys(currentCase);
+        caseReferenceSearchBar.sendKeys(Keys.RETURN);
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {

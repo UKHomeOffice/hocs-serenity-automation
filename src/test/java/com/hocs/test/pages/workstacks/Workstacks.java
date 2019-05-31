@@ -213,8 +213,17 @@ public class Workstacks extends Page {
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
         assertThat(isElementDisplayed(thisReference), is(true));
-
     }
+
+    public void assertCaseIdIsVisible() {
+        String caseReferenceNumber
+                = sessionVariableCalled("caseId").toString();
+        System.out.println(caseReferenceNumber);
+        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
+        System.out.println(thisReference);
+        assertThat(isElementDisplayed(thisReference), is(true));
+    }
+
 
     public void assertCaseReferenceIsNotVisible() {
         sleep(1000);

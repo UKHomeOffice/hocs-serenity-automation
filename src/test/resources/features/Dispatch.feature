@@ -21,14 +21,6 @@ Feature:  HOCS User is able to Dispatch a Response
     When I "DISPATCH" the case
     Then the case is completed
 
-  @HOCS-443 @DoesntFit
-  Scenario: Dispatch a case with Copy to Number Ten selected
-    Given the case had the "send copy to number 10" box checked
-    When I "dispatch" the case
-    Then the case should be moved to the "Send copy to number 10" stage
-    And the "nominated person" in the "transfers and number 10" team get a notification email
-    And I am taken to the "home" page
-
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the Dispatch stage should take the user back to the
   dashboard

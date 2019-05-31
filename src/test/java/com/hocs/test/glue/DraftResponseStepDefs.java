@@ -312,6 +312,9 @@ public class DraftResponseStepDefs extends Page{
             case "DISPATCH":
                 clickOn(homepage.performanceProcessTeam);
                 break;
+            case "COPY TO NUMBER 10" :
+                clickOn(homepage.transferN10Team);
+                break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }

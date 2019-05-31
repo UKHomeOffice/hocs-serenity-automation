@@ -57,6 +57,16 @@ public class SuccessfulCaseCreation extends Page {
         return caseReference;
     }
 
+    public String getThisCaseId() {
+        String caseReference = newCaseReference.getAttribute("value");
+        System.out.println(caseReference + " is the case reference");
+        setSessionVariable("caseId").to(caseReference);
+
+        return caseReference;
+    }
+
+
+
     public void allocateToMeViaSuccessfulCreationScreen() {
         clickOn(newCaseReference);
         clickOn(workstacks.allocateToMeButton);

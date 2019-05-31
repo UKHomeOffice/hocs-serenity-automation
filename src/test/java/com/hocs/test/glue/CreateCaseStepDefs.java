@@ -55,7 +55,7 @@ public class CreateCaseStepDefs {
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                createCase.createDCUMinSingleCase();
+                createCase.createDCUMInSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 homepage.goHome();
                 break;

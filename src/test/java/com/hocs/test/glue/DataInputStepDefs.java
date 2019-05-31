@@ -239,6 +239,8 @@ public class DataInputStepDefs {
         page.clickOn(dataInput.addButton);
     }
 
+
+
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")
     public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
         workstacks.assertCaseNoteMustNotBeBlankErrorMessage();

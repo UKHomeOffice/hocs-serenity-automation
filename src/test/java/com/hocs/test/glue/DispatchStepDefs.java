@@ -10,7 +10,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
 
-public class DispatchStepDefs {
+public class DispatchStepDefs extends Page {
 
     @Managed
 
@@ -26,11 +26,10 @@ public class DispatchStepDefs {
 
     @When("^I complete the dispatch stage$")
     public void completeTheDispatchStage() {
-        page.clickOn(homepage.performanceProcessTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpathStoreResultingElement();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(dispatch.dispatchAcceptRadioButton);
-        page.clickOn(dispatch.continueButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(dispatch.dispatchAcceptRadioButton);
+        clickOn(dispatch.continueButton);
     }
 
     @When("^I click the continue button on the are you able to dispatch screen$")
@@ -45,9 +44,9 @@ public class DispatchStepDefs {
 
     @When("^I click the finish button on the unable to dispatch screen$")
     public void clickContinueButtonOnUnableToDispatchScreen() {
-        page.clickOn(dispatch.dispatchRejectRadioButton);
-        page.clickOn(dispatch.continueButton);
-        page.clickOn(dispatch.finishButton);
+        clickOn(dispatch.dispatchRejectRadioButton);
+        clickOn(dispatch.continueButton);
+        clickOn(dispatch.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered a reason for not dispatching in the text box$")

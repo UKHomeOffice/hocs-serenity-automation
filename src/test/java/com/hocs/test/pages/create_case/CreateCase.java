@@ -173,6 +173,15 @@ public class CreateCase extends Page {
         completeDCUMINSingleCaseCreation();
     }
 
+    public void createDCUMInSingleCaseWithID() {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuMinRadioButton);
+        clickOn(nextButton);
+        addDocuments.uploadDocument();
+        clickOn(submitButton);
+        successfulCaseCreation.getThisCaseId();
+    }
+
     public void createDC10SingleCase() {
         homepage.clickCreateSingleCase();
         clickDcuDtenRadioButton();
@@ -196,7 +205,7 @@ public class CreateCase extends Page {
     }
 
     public void completeDCUMINSingleCaseCreation() {
-        page.clickOn(nextButton);
+        clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
