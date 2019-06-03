@@ -3,6 +3,7 @@ package com.hocs.test.pages.data_input;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.homepage.Homepage;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,6 +18,8 @@ public class DataInput extends Page {
     RecordCorrespondentDetails recordCorrespondentDetails;
 
     Workstacks workstacks;
+
+    Homepage homepage;
 
     Page page;
 
@@ -136,8 +139,17 @@ public class DataInput extends Page {
         clickFinishButton();
     }
 
+    public void dataInputFullFlowMIN() {
+        homepage.getCurrentCase();
+        workstacks.clickAllocateToMeButton();
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickFinishButton();
+    }
+
     public void dataInputFullFlowWithCopyToN10() {
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
         clickContinueButton();

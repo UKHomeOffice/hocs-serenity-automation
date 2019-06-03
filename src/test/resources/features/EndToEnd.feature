@@ -91,19 +91,6 @@ Feature: HOCS is able to move cases through the entire flow
    #   | DCU TRO |
    #   | DCU N10 |
 
-  @EndToEnd @DCUMIN @Critical
-  Scenario: End to End flow and send a copy to N10
-    When I create a "DCU MIN" case with Copy to N10
-    And I am at the "DISPATCH" stage
-    And dispatch the case
-#    And I complete the markup stage
-#    And I complete the Initial Draft stage
-#    And I complete the QA response stage
-#    And I complete the Private Office stage
-#    And I complete the minister sign off stage
-#    And I complete the dispatch stage
-    Then the case should be sent to the Copy to N10 stage in the Transfers and Number Ten team
-
   @EndToEnd @DCUMIN @Critical @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single case "DCU MIN"
@@ -136,6 +123,14 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the QA response stage
     And I complete the dispatch stage
     Then the case should no longer be visible in the teamqueue
+
+  @HOCS-443 @Dispatch
+  Scenario: Dispatch a case with Copy to Number Ten selected
+    Given I create a single case "DCU MIN"
+    And I complete the Data Input stage and send a copy to Number Ten
+    And I take the case up to the DISPATCH stage
+    When I complete the dispatch stage
+    Then the case should be moved to the "COPY TO NUMBER 10" stage
 
 
 

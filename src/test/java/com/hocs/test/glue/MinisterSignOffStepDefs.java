@@ -13,7 +13,7 @@ import net.thucydides.core.annotations.Managed;
 
 import org.openqa.selenium.WebDriver;
 
-public class MinisterSignOffStepDefs {
+public class MinisterSignOffStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -32,28 +32,20 @@ public class MinisterSignOffStepDefs {
 
     @When("^I complete the minister sign off stage$")
     public void completeTheMinisterSignOffStage(){
-        page.clickOn(homepage.ministerForLordsTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(minister.minsterSignOffAcceptRadioButton);
-        page.clickOn(minister.continueButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(minister.minsterSignOffAcceptRadioButton);
+        clickOn(minister.continueButton);
     }
 
     @When("^the case is rejected by the Minister$")
     public void rejectAtMinisterSignOff() {
-        page.clickOn(homepage.ministerForLordsTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(minister.ministerSignOffRejectRadioButton);
-        page.clickOn(minister.continueButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(minister.ministerSignOffRejectRadioButton);
+        clickOn(minister.continueButton);
         minister.enterMinisterRejectionNote();
-        page.clickOn(minister.continueButton);
+        clickOn(minister.continueButton);
     }
 
     @When("^I click the continue button on the approve response screen$")

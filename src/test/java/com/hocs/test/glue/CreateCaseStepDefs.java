@@ -19,7 +19,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class CreateCaseStepDefs {
+public class CreateCaseStepDefs extends Page {
 
     AddDocuments addDocuments;
 
@@ -32,8 +32,6 @@ public class CreateCaseStepDefs {
     Homepage homepage;
 
     Topics topics;
-
-    Page page;
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
@@ -55,9 +53,11 @@ public class CreateCaseStepDefs {
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                createCase.createDCUMinSingleCase();
+                createCase.createDCUMInSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 homepage.goHome();
+                homepage.selectPerformanceProcessTeam();
+                prepareCaseIdAssertion();
                 break;
             case "DCU N10":
                 createCase.createDC10SingleCase();
@@ -80,7 +80,7 @@ public class CreateCaseStepDefs {
         createCase.clickNextButton();
         addDocuments.uploadDocument();
         createCase.clickSubmitButton();
-        page.sleep(500);
+        waitABit(500);
     }
 
     @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\"$")
@@ -90,7 +90,7 @@ public class CreateCaseStepDefs {
                 createCase.createDCUMinSingleCase();
                 homepage.goHome();
                 homepage.waitForPerformanceProcessTeam();
-                page.clickOn(homepage.performanceProcessTeam);
+                clickOn(homepage.performanceProcessTeam);
                 dataInput.dataInputFullFlow();
                 topics.fromMarkupStartSelectATopic(topic);
                 break;
@@ -130,7 +130,7 @@ public class CreateCaseStepDefs {
     @Then("^the case should be visible in my workstack$")
     public void assertThatCaseIsAddedToMyWorkstack() {
         homepage.goHome();
-        page.clickOn(homepage.myCases);
+        clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
@@ -143,14 +143,14 @@ public class CreateCaseStepDefs {
 
     @When("^I navigate to the Performance and Process Team and select the check box against the newly created case and allocate it to myself$")
     public void allocateCaseUsingCheckbox() {
-        page.clickOn(createCase.$("//input[@id='submit']"));
+        clickOn(createCase.$("//input[@id='submit']"));
         String newCaseReference = workstacks.$("//h1").getText();
         setSessionVariable("caseReference").to(newCaseReference);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.performanceProcessTeam);
+        clickOn(homepage.home);
+        clickOn(homepage.performanceProcessTeam);
         workstacks.clickCheckboxRelevantToCaseReference();
-        page.clickOn(workstacks.allocateCheckboxCaseToMeButton);
-        page.clickOn(workstacks.home);
+        clickOn(workstacks.allocateCheckboxCaseToMeButton);
+        clickOn(workstacks.home);
     }
 
     @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
@@ -193,37 +193,37 @@ public class CreateCaseStepDefs {
 
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
     public void bulkCreateCases(int cases, String caseType) {
-        page.clickOn(homepage.createBulkCases);
+        clickOn(homepage.createBulkCases);
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                page.clickOn(createCase.dcuMinRadioButton);
+                clickOn(createCase.dcuMinRadioButton);
                 break;
             case "DCU TRO":
-                page.clickOn(createCase.dcuTroRadioButton);
+                clickOn(createCase.dcuTroRadioButton);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        page.clickOn(createCase.nextButton);
+        clickOn(createCase.nextButton);
         addDocuments.bulkUploadDocuments(cases);
-        page.clickOn(createCase.finishButton);
+        clickOn(createCase.finishButton);
     }
 
     @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
     public void createCaseWithDocument(String caseType, String document) {
-        page.clickOn(homepage.createSingleCase);
+        clickOn(homepage.createSingleCase);
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                page.clickOn(createCase.dcuMinRadioButton);
-                page.clickOn(createCase.nextButton);
+                clickOn(createCase.dcuMinRadioButton);
+                clickOn(createCase.nextButton);
                 break;
             case "DCU TRO":
-                page.clickOn(createCase.dcuTroRadioButton);
-                page.clickOn(createCase.nextButton);
+                clickOn(createCase.dcuTroRadioButton);
+                clickOn(createCase.nextButton);
                 break;
             case "DCU TEN":
-                page.clickOn(createCase.dcuDtenRadioButton);
-                page.clickOn(createCase.nextButton);
+                clickOn(createCase.dcuDtenRadioButton);
+                clickOn(createCase.nextButton);
                 addDocuments.enterDispatchDeadlineDay(10);
                 addDocuments.enterDispatchDeadlineMonth(10);
                 addDocuments.enterDispatchDeadlineYear(10);
@@ -238,10 +238,10 @@ public class CreateCaseStepDefs {
         switch (document.toUpperCase()) {
             case "WITH":
                 addDocuments.uploadDocument();
-                page.clickOn(createCase.finishButton);
+                clickOn(createCase.finishButton);
                 break;
             case "WITHOUT":
-                page.clickOn(createCase.finishButton);
+                clickOn(createCase.finishButton);
                 break;
             default:
                 pendingStep(document + " is not defined within " + getMethodName());
@@ -273,33 +273,33 @@ public class CreateCaseStepDefs {
 
     @When("^they select the case type")
     public void userClicksCaseRadioButtonAndClicksNextButton() {
-        page.clickOn(createCase.dcuMinRadioButton);
-        page.clickOn(createCase.nextButton);
+        clickOn(createCase.dcuMinRadioButton);
+        clickOn(createCase.nextButton);
     }
 
     @When("^I click the finish button on the create single case screen$")
     public void userCreatesCaseWithoutEnteringDateReceived() {
-        page.clickOn(createCase.dcuMinRadioButton);
-        page.clickOn(createCase.nextButton);
+        clickOn(createCase.dcuMinRadioButton);
+        clickOn(createCase.nextButton);
         dataInput.clearDateCorrespondenceReceived();
-        page.clickOn(createCase.finishButton);
+        clickOn(createCase.finishButton);
     }
 
     @When("^I click the finish button after entering an invalid date on the create single case screen$")
     public void userCreatesCaseWithInvalidDate() {
-        page.clickOn(createCase.dcuMinRadioButton);
-        page.clickOn(createCase.nextButton);
+        clickOn(createCase.dcuMinRadioButton);
+        clickOn(createCase.nextButton);
         dataInput.enterDayOfCorrespondenceReceived("29");
         dataInput.enterMonthOfCorrespondenceReceived("02");
         dataInput.enterYearOfCorrespondenceReceived("2019");
-        page.clickOn(createCase.finishButton);
+        clickOn(createCase.finishButton);
     }
 
     @When("^they create the bulk cases without adding a document$")
     public void userCreatesBulkCasesWithoutAddingADocument() {
-        page.clickOn(createCase.dcuMinRadioButton);
-        page.clickOn(createCase.nextButton);
-        page.clickOn(createCase.finishButton);
+        clickOn(createCase.dcuMinRadioButton);
+        clickOn(createCase.nextButton);
+        clickOn(createCase.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered the correspondence received date")

@@ -40,12 +40,8 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
-        page.clickOn(homepage.animalsInScienceTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        homepage.getCurrentCase();
         page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         draftingTeamDecision.acceptAndDraftALetter();
         draftingTeamDecision.uploadDraftResponse();
         qa.dontQAOffline();
@@ -301,7 +297,7 @@ public class DraftResponseStepDefs extends Page{
                 clickOn(homepage.animalsInScienceTeam);
                 break;
             case "QA RESPONSE":
-                clickOn(homepage.performanceProcessTeam);
+                clickOn(homepage.animalsInScienceTeam);
                 break;
             case "PRIVATE OFFICE APPROVAL":
                 clickOn(homepage.ministerForLordsTeam);
@@ -311,6 +307,9 @@ public class DraftResponseStepDefs extends Page{
                 break;
             case "DISPATCH":
                 clickOn(homepage.performanceProcessTeam);
+                break;
+            case "COPY TO NUMBER 10" :
+                clickOn(homepage.transferN10Team);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

@@ -17,6 +17,7 @@ import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
+import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
@@ -46,6 +47,8 @@ public class GenericInputStepDefs extends Page {
     Homepage homepage;
 
     CreateCase createCase;
+
+    DraftingTeamDecision draftingTeamDecision;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -481,6 +484,40 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
+    @When("^I take the case up to the DISPATCH stage$")
+    public void moveFromDataInputToDispatch() {
+        homepage.getCurrentCase();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(markUpDecision.policyResponseRadioButton);
+        page.clickOn(markUpDecision.continueButton);
+        page.clickOn(topics.addTopicButton);
+        topics.enterRealTopic();
+        page.sleep(1000);
+        page.clickOn(markUpDecision.addButton);
+        page.sleep(1000);
+        page.clickOn(markUpDecision.continueButton);
+        page.sleep(1000);
+        page.clickOn(markUpDecision.finishButton);
+        homepage.getCurrentCase();
+        page.clickOn(workstacks.allocateToMeButton);
+        draftingTeamDecision.acceptAndDraftALetter();
+        draftingTeamDecision.uploadDraftResponse();
+        qa.dontQAOffline();
+        homepage.getCurrentCase();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(qaResponse.QAAcceptRadioButton);
+        System.out.println("Finished QA Response, returning to home page.");
+        page.clickOn(qaResponse.continueButton);
+        homepage.getCurrentCase();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(privateOffice.privateOfficeAcceptRadioButton);
+        page.clickOn(privateOffice.continueButton);
+        homepage.getCurrentCase();
+        page.clickOn(workstacks.allocateToMeButton);
+        page.clickOn(minister.minsterSignOffAcceptRadioButton);
+        page.clickOn(minister.continueButton);
+    }
+
     @When("^I set the date to \"([^\"]*)\"$")
     public void iSetTheDate(String date) {
         switch (date.toUpperCase()) {
@@ -687,8 +724,7 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^the case is completed$")
     public void theCaseIsCompleted() {
-        homepage.selectPerformanceProcessTeam();
-        homepage.assertCaseIsComplete();
+        homepage.assertCaseIsCompleteViaSearch();
     }
 
     @Then("^\"([^\"]*)\" link is displayed$")

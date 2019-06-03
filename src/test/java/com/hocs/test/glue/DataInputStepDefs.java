@@ -48,7 +48,7 @@ public class DataInputStepDefs {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 page.clickOn(homepage.home);
-                page.clickOn(homepage.performanceProcessTeam);
+                dataInput.dataInputFullFlowMIN();
                 break;
             case "DCU N10":
                 page.clickOn(homepage.transferN10Team);
@@ -59,7 +59,6 @@ public class DataInputStepDefs {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        dataInput.dataInputFullFlow();
     }
 
     @When("^I add an additional correspondent$")
@@ -238,6 +237,8 @@ public class DataInputStepDefs {
         page.clickOn(dataInput.continueButton);
         page.clickOn(dataInput.addButton);
     }
+
+
 
     @Then("^an error message should be displayed as I have not added any text into the case note text box$")
     public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
