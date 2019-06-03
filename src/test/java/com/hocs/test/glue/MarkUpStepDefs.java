@@ -22,7 +22,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class MarkUpStepDefs {
+public class MarkUpStepDefs extends Page {
 
     Homepage homepage;
 
@@ -46,22 +46,18 @@ public class MarkUpStepDefs {
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        page.clickOn(homepage.centralDraftingTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(markUpDecision.policyResponseRadioButton);
-        page.clickOn(markUpDecision.continueButton);
-        page.clickOn(topics.addTopicButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(markUpDecision.policyResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(topics.addTopicButton);
         topics.enterRealTopic();
-        page.sleep(1000);
-        page.clickOn(markUpDecision.addButton);
-        page.sleep(1000);
-        page.clickOn(markUpDecision.continueButton);
-        page.sleep(1000);
-        page.clickOn(markUpDecision.finishButton);
+        waitABit(1000);
+        clickOn(addButton);
+        waitABit(1000);
+        clickOn(continueButton);
+        waitABit(1000);
+        clickOn(finishButton);
     }
 
     @When("^I assign the Topic \"([^\"]*)\"$")
