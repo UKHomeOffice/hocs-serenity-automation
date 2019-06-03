@@ -2,7 +2,6 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.draft.Draft;
@@ -19,8 +18,6 @@ import cucumber.api.java.en.When;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 public class DraftResponseStepDefs extends Page{
-
-    Page page;
 
     Draft draft;
 
@@ -41,7 +38,7 @@ public class DraftResponseStepDefs extends Page{
     @When("^I complete the Initial Draft stage$")
     public void initialDraftFullFlow() {
         homepage.getCurrentCase();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
         draftingTeamDecision.acceptAndDraftALetter();
         draftingTeamDecision.uploadDraftResponse();
         qa.dontQAOffline();
@@ -49,7 +46,7 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^I click the continue button on the correspondence answer screen$")
     public void clickContinueButtonOnCorrespondenceAnswerScreen() {
-        page.clickOn(draft.continueButton);
+        clickOn(draft.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected radio buttons on this screen$")
@@ -57,69 +54,25 @@ public class DraftResponseStepDefs extends Page{
         draft.assertCorrespondenceAnsweredErrorMessage();
     }
 
-//    @When("^I click the finish button on the case rejection screen$")
-//    public void clickFinishButtonOnCaseRejectionScreen() {
-//        page.clickOn(draft.answeredByMyTeamNoRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.finishButton);
-//    }
-
     @Then("^an error message should be displayed as I have not entered a reason in the text box$")
     public void assertThatShouldBeAnsweredErrorMessageIsShown() {
         draft.assertShouldBeAnsweredErrorMessage();
     }
-
-//    @When("^I click the continue button on how do you intend to respond screen$")
-//    public void clickContinueButtonOnHowDoYouIntendToRespondScreen() {
-//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-//        page.clickOn(draft.continueButton);
-//        draft.sleep(500);
-//        page.clickOn(draft.continueButton);
-//    }
 
     @Then("^an error message should be displayed as I have not selected a response on this screen$")
     public void assertThatHowDoYouIntendToRespondScreenIsShown() {
         draft.assertHowDoYouIntendToRespondErrorMessage();
     }
 
-//    @When("^I click the finish button on the summarise your call screen$")
-//    public void clickFinishButtonOnSummariseYourCallScreen() {
-//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.phoneReplyRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.finishButton);
-//    }
-
     @Then("^an error message should be displayed as I have not summarised the call$")
     public void assertThatSummariseYourCallErrorMessageIsShown() {
         draft.assertPleaseSummariseYourCallErrorMessage();
     }
 
-//    @When("^I click the continue button on the which is the primary draft document screen$")
-//    public void clickContinueButtonOnWhichIsPrimaryDraftDocScreen() {
-//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.letterReplyRadioButton);
-//        page.clickOn(draft.continueButton);
-//        draft.sleep(500);
-//        page.clickOn(draft.continueButton);
-//    }
-
     @Then("^an error message should be displayed as I have not added a primary draft document$")
     public void assertThatWhichIsThePrimaryDraftDocumentErrorMesasgeIsShown() {
         draft.assertWhichIsThePrimaryDraftDocumentErrorMessage();
     }
-
-//    @When("^I click the add button on the add documents screen$")
-//    public void clickAddButtonOnAddDocumentScreen() {
-//        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.letterReplyRadioButton);
-//        page.clickOn(draft.continueButton);
-//        page.clickOn(draft.draftStageAddDocumentsButton);
-//        page.clickOn(addDocuments.addButton);
-//    }
 
     @Then("^an error message should be displayed as I have not selected a document type and added a document$")
     public void assertThatAddDocumentErrorMessagesAreShown() {
@@ -129,17 +82,17 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^I click the continue button on the do you want QA this offline screen$")
     public void clickContinueButtonOnDoYouWantToQAOfflineScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.letterReplyRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.draftStageAddDocumentsButton);
+        clickOn(draft.answeredByMyTeamYesRadioButton);
+        clickOn(draft.continueButton);
+        clickOn(draft.letterReplyRadioButton);
+        clickOn(draft.continueButton);
+        clickOn(draft.draftStageAddDocumentsButton);
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
-        page.clickOn(addDocuments.addButton);
-        page.clickOn(draft.continueButton);
+        clickOn(addDocuments.addButton);
+        clickOn(draft.continueButton);
         draft.sleep(500);
-        page.clickOn(draft.continueButton);
+        clickOn(draft.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected whether the case should be QA offline or not$")
@@ -149,18 +102,18 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^I click the finish button on the who has done the offline QA screen$")
     public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen() {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.letterReplyRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.draftStageAddDocumentsButton);
+        clickOn(draft.answeredByMyTeamYesRadioButton);
+        clickOn(draft.continueButton);
+        clickOn(draft.letterReplyRadioButton);
+        clickOn(draft.continueButton);
+        clickOn(draft.draftStageAddDocumentsButton);
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
-        page.clickOn(addDocuments.addButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(qa.offlineQaYesRadioButton);
-        page.clickOn(draft.continueButton);
-        page.clickOn(draft.finishButton);
+        clickOn(addDocuments.addButton);
+        clickOn(draft.continueButton);
+        clickOn(qa.offlineQaYesRadioButton);
+        clickOn(draft.continueButton);
+        clickOn(draft.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not selected the user that did the offline QA$")
@@ -170,22 +123,22 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
-        page.clickOn(draft.answeredByMyTeamYesRadioButton);
-        page.clickOn(draft.continueButton);
+        clickOn(draft.answeredByMyTeamYesRadioButton);
+        clickOn(draft.continueButton);
         switch (method.toUpperCase()) {
             case "EMAIL":
-                page.clickOn(draft.emailReplyRadioButton);
+                clickOn(draft.emailReplyRadioButton);
                 break;
             case "PHONE":
-                page.clickOn(draft.phoneReplyRadioButton);
+                clickOn(draft.phoneReplyRadioButton);
                 break;
             case "POST":
-                page.clickOn(draft.letterReplyRadioButton);
+                clickOn(draft.letterReplyRadioButton);
                 break;
             default:
                 pendingStep(method + " is not defined within " + getMethodName());
         }
-        page.clickOn(draft.continueButton);
+        clickOn(draft.continueButton);
     }
 
     @Then("^I can see the drafting deadline for a case$")
@@ -213,11 +166,6 @@ public class DraftResponseStepDefs extends Page{
         draft.assertEnterRejectionReasonsError();
     }
 
-    @When("^I finish drafting$")
-    public void iFinishDrafting() {
-
-    }
-
     @Then("^I see an error message instructing me to enter call notes$")
     public void iSeeAnErrorMessageInstructingMeToEnterCallNotes() {
         draft.assertEnterCallNotesError();
@@ -230,7 +178,7 @@ public class DraftResponseStepDefs extends Page{
 
     @And("^I download the standard line for the case$")
     public void iDownloadTheStandardLineForTheCase() {
-        page.clickOn(draft.standardLine);
+        clickOn(draft.standardLine);
     }
 
     @And("^I select an \"([^\"]*)\" Quality Assurer$")
@@ -247,26 +195,26 @@ public class DraftResponseStepDefs extends Page{
 
     @When("^a case is not answered by my team$")
     public void aCaseIsNotAnsweredByMyTeam() {
-        page.clickOn(draft.answeredByMyTeamNoRadioButton);
-        page.clickOn(draft.continueButton);
+        clickOn(draft.answeredByMyTeamNoRadioButton);
+        clickOn(draft.continueButton);
         draft.enterRejectionNotes();
     }
 
     @When("^I select a case \"([^\"]*)\" answered by my team$")
     public void iSelectACaseAnsweredByMyTeam(String decision) {
-        page.getCaseId();
+        getCaseId();
 
         switch (decision.toUpperCase()) {
             case "SHOULD":
-                page.clickOn(draftingTeamDecision.initialDraftingDecisionAccept);
+                clickOn(draftingTeamDecision.initialDraftingDecisionAccept);
                 break;
             case "SHOULD NOT":
-                page.clickOn(draftingTeamDecision.initialDraftingDecisionReject);
+                clickOn(draftingTeamDecision.initialDraftingDecisionReject);
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        page.clickOn(draft.continueButton);
+        clickOn(draft.continueButton);
     }
 
     @When("^I \"([^\"]*)\" the call details$")
@@ -274,10 +222,10 @@ public class DraftResponseStepDefs extends Page{
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draftingTeamDecision.enterPhoneCallSummaryNote();
-                page.clickOn(draft.finishButton);
+                clickOn(draft.finishButton);
                 break;
             case "DO NOT COMPLETE":
-                page.clickOn(draft.finishButton);
+                clickOn(draft.finishButton);
                 break;
             default:
                 pendingStep(callDetails + " is not defined within " + getMethodName());

@@ -20,8 +20,6 @@ public class SearchForm extends Page {
 
     Workstacks workstacks;
 
-    Page page;
-
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
 
@@ -105,9 +103,9 @@ public class SearchForm extends Page {
         WebElementFacade firstSearchResult = findAll("//td//a").get(0);
         firstSearchResult.click();
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            page.clickOn(workstacks.allocateToMeButton);
+            clickOn(workstacks.allocateToMeButton);
         }
-        page.clickOn(workstacks.caseSummaryTab);
+        clickOn(workstacks.caseSummaryTab);
 
     }
 
