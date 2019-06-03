@@ -19,9 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 
-public class SearchFormStepDefs {
-
-    Page page;
+public class SearchFormStepDefs extends Page {
 
     Homepage homepage;
 
@@ -31,8 +29,8 @@ public class SearchFormStepDefs {
 
     @When("^I click the search button on the search page$")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        page.clickOn(homepage.searchPage);
-        page.clickOn(searchForm.searchButton);
+        clickOn(homepage.searchPage);
+        clickOn(searchForm.searchButton);
     }
 
     @Then("^an error message should be displayed as I have not entered any search criteria$")
@@ -81,22 +79,22 @@ public class SearchFormStepDefs {
 
     @When("^I search by the case type \"([^\"]*)\"$")
     public void selectCaseTypeCheckbox(String caseType) {
-        page.clickOn(homepage.searchPage);
+        clickOn(homepage.searchPage);
         searchForm.sleep(500);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                page.clickOn(searchForm.searchMINCheckbox);
+                clickOn(searchForm.searchMINCheckbox);
                 break;
             case "DTEN":
-                page.clickOn(searchForm.searchDTENCheckbox);
+                clickOn(searchForm.searchDTENCheckbox);
                 break;
             case "TRO":
-                page.clickOn(searchForm.searchTROCheckbox);
+                clickOn(searchForm.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        page.clickOn(searchForm.searchButton);
+        clickOn(searchForm.searchButton);
     }
 
     @Then("^only the chosen \"([^\"]*)\" case type results should be displayed in the results list$")
@@ -122,16 +120,16 @@ public class SearchFormStepDefs {
 
     @When("^I search by the case type \"([^\"]*)\" and another parameter \"([^\"]*)\"$")
     public void searchByCaseTypeAndAnotherParameter(String caseType, String anotherParameter) {
-        page.clickOn(homepage.searchPage);
+        clickOn(homepage.searchPage);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                page.clickOn(searchForm.searchMINCheckbox);
+                clickOn(searchForm.searchMINCheckbox);
                 break;
             case "DTEN":
-                page.clickOn(searchForm.searchDTENCheckbox);
+                clickOn(searchForm.searchDTENCheckbox);
                 break;
             case "TRO":
-                page.clickOn(searchForm.searchTROCheckbox);
+                clickOn(searchForm.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -147,7 +145,7 @@ public class SearchFormStepDefs {
             default:
                 pendingStep(anotherParameter + " is not defined within " + getMethodName());
         }
-        page.clickOn(searchForm.searchButton);
+        clickOn(searchForm.searchButton);
     }
 
     @Then("^cases that are \"([^\"]*)\" case type that also contain another parameter \"([^\"]*)\" should be displayed in "
@@ -198,7 +196,7 @@ public class SearchFormStepDefs {
             default:
                 pendingStep(correspondentName + " is not defined within " + getMethodName());
         }
-        page.clickOn(searchForm.searchButton);
+        clickOn(searchForm.searchButton);
     }
 
     @Then("^cases with specified correspondent name \"([^\"]*)\" should be displayed in the results list$")

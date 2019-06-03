@@ -14,8 +14,6 @@ public class DispatchStepDefs extends Page {
 
     @Managed
 
-    Page page;
-
     Dispatch dispatch;
 
     Homepage homepage;
@@ -34,7 +32,7 @@ public class DispatchStepDefs extends Page {
 
     @When("^I click the continue button on the are you able to dispatch screen$")
     public void clickContinueButtonOnAreYouAbleToDispatchScreen() {
-        page.clickOn(dispatch.continueButton);
+        clickOn(dispatch.continueButton);
     }
 
     @Then("^an error message should be displayed as I have selected whether the case can be dispatched$")

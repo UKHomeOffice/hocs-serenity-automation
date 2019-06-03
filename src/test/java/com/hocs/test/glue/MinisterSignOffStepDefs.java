@@ -50,7 +50,7 @@ public class MinisterSignOffStepDefs extends Page {
 
     @When("^I click the continue button on the approve response screen$")
     public void clickContinueButtonOnApproveResponseScreen() {
-        page.clickOn(minister.continueButton);
+        clickOn(minister.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected a radio button on the approve response screen$")
@@ -60,10 +60,10 @@ public class MinisterSignOffStepDefs extends Page {
 
     @When("^I click the continue button on the minister sign off feedback response screen$")
     public void clickContinueButtonOnFeedbackResponseMinisterSignOffScreen() {
-        page.clickOn(minister.ministerSignOffRejectRadioButton);
-        page.clickOn(minister.continueButton);
-        minister.sleep(500);
-        page.clickOn(minister.continueButton);
+        clickOn(minister.ministerSignOffRejectRadioButton);
+        clickOn(minister.continueButton);
+        waitABit(500);
+        clickOn(minister.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback in the text box$")
