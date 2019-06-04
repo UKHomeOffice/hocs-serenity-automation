@@ -239,11 +239,11 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent("2019");
         emailOriginalChannelRadioButton.click();
         shouldResponseBeCopiedN10NoRadioButton.click();
-        clickContinueButton();
+        clickOn(continueButton);
         sleep(500);
         addCorrespondentLink.click();
         correspondentMemberYesRadioButton.click();
-        clickContinueButton();
+        clickOn(continueButton);
     }
 
     public void getToIsCorrespondentAnMPPrerequisites() {
@@ -252,7 +252,7 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent("2019");
         emailOriginalChannelRadioButton.click();
         shouldResponseBeCopiedN10NoRadioButton.click();
-        clickContinueButton();
+        clickOn(continueButton);
         sleep(500);
         addCorrespondentLink.click();
     }
