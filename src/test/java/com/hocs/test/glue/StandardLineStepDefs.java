@@ -7,9 +7,7 @@ import com.hocs.test.pages.standard_line.StandardLine;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class StandardLineStepDefs {
-
-    Page page;
+public class StandardLineStepDefs extends Page {
 
     Homepage homepage;
 
@@ -19,8 +17,8 @@ public class StandardLineStepDefs {
 
     @When("^I click the add button on the create standard line screen$")
     public void clickAddButtonOnStandardLineScreen() {
-        page.clickOn(standardLine.associatedTopicTypeahead);
-        page.clickOn(standardLine.addButton);
+        clickOn(standardLine.associatedTopicTypeahead);
+        clickOn(standardLine.addButton);
     }
 
     @Then("^an error message should be displayed as I have not selected an associated topic for the standard line$")
@@ -40,11 +38,11 @@ public class StandardLineStepDefs {
 
     @When("^I create a new standard line$")
     public void createNewStandardLineAndClickAddButton() {
-        page.clickOn(standardLine.associatedTopicTypeahead);
+        clickOn(standardLine.associatedTopicTypeahead);
         standardLine.enterExpirationDate();
         addDocuments.uploadStandardLineDocument();
-        page.clickOn(standardLine.addButton);
-        page.clickOn(homepage.animalsInScienceTeam);
+        clickOn(standardLine.addButton);
+        clickOn(homepage.animalsInScienceTeam);
 
     }
 }

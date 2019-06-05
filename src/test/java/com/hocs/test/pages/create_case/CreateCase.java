@@ -25,8 +25,6 @@ public class CreateCase extends Page {
 
     Workstacks workstacks;
 
-    Page page;
-
     WebDriver driver;
 
     // Elements
@@ -212,10 +210,10 @@ public class CreateCase extends Page {
     }
 
     public void completeSingleCaseCreation() {
-        page.clickOn(nextButton);
+        clickOn(nextButton);
         fillMandatoryDateFields();
         addDocuments.uploadDocument();
-        page.clickOn(submitButton);
+        clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
         successfulCaseCreation.clickSuccessfulCaseBackButton();
         System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));

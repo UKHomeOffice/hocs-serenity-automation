@@ -13,7 +13,7 @@ import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 
 
-public class PrivateOfficeSignOffStepDefs {
+public class PrivateOfficeSignOffStepDefs extends Page {
 
     @Managed
     WebDriver driver;
@@ -26,37 +26,27 @@ public class PrivateOfficeSignOffStepDefs {
 
     Workstacks workstacks;
 
-    Page page;
-
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
-        page.clickOn(homepage.ministerForLordsTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(privateOffice.privateOfficeAcceptRadioButton);
-        page.clickOn(privateOffice.continueButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(privateOffice.privateOfficeAcceptRadioButton);
+        clickOn(privateOffice.continueButton);
     }
 
     @When("^the case is rejected at the Private Office stage$")
     public void rejectAtPrivateOffice() {
-        page.clickOn(homepage.ministerForLordsTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(privateOffice.privateOfficeRejectRadioButton);
-        page.clickOn(privateOffice.continueButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(privateOffice.privateOfficeRejectRadioButton);
+        clickOn(privateOffice.continueButton);
         privateOffice.enterPORejectNotes();
-        page.clickOn(privateOffice.finishButton);
+        clickOn(privateOffice.finishButton);
     }
 
     @When("^I click the continue button on PO approve response screen$")
     public void clickContinueButtonOnPOApproveResponseScreen() {
-        page.clickOn(privateOffice.continueButton);
+        clickOn(privateOffice.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected whether I approve the response$")
@@ -66,9 +56,9 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the finish button on the change minister screen$")
     public void clickFinishButtonOnChangeMinisterScreen() {
-        page.clickOn(privateOffice.privateOfficeChangeMinisterRadioButton);
-        page.clickOn(privateOffice.continueButton);
-        page.clickOn(privateOffice.finishButton);
+        clickOn(privateOffice.privateOfficeChangeMinisterRadioButton);
+        clickOn(privateOffice.continueButton);
+        clickOn(privateOffice.finishButton);
     }
 
     @Then("^error messages should be displayed as I have not selected an override team or entered change reasoning$")
@@ -78,9 +68,9 @@ public class PrivateOfficeSignOffStepDefs {
 
     @When("^I click the finish button on the what is your feedback response screen$")
     public void clickFinishButtonOnWhatIsFeedbackResponseScreen() {
-        page.clickOn(privateOffice.privateOfficeRejectRadioButton);
-        page.clickOn(privateOffice.continueButton);
-        page.clickOn(privateOffice.finishButton);
+        clickOn(privateOffice.privateOfficeRejectRadioButton);
+        clickOn(privateOffice.continueButton);
+        clickOn(privateOffice.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback into the text box")

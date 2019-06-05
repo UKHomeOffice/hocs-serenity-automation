@@ -713,5 +713,13 @@ public class Page extends PageObject {
         assertThat(elem.getText(), is(thisElementsText));
     }
 
+    public void prepareCaseIdAssertion() {
+        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseId") + "']").get(0);
+        waitFor(referenceElement).waitUntilClickable();
+        System.out.println(referenceElement);
+        setSessionVariable("assertCase").to(referenceElement);
+        goHome();
+    }
+
 
 }

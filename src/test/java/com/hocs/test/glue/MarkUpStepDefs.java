@@ -22,7 +22,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class MarkUpStepDefs {
+public class MarkUpStepDefs extends Page {
 
     Homepage homepage;
 
@@ -46,34 +46,30 @@ public class MarkUpStepDefs {
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        page.clickOn(homepage.centralDraftingTeam);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(markUpDecision.policyResponseRadioButton);
-        page.clickOn(markUpDecision.continueButton);
-        page.clickOn(topics.addTopicButton);
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(markUpDecision.policyResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(topics.addTopicButton);
         topics.enterRealTopic();
-        page.sleep(1000);
-        page.clickOn(markUpDecision.addButton);
-        page.sleep(1000);
-        page.clickOn(markUpDecision.continueButton);
-        page.sleep(1000);
-        page.clickOn(markUpDecision.finishButton);
+        waitABit(1000);
+        clickOn(addButton);
+        waitABit(1000);
+        clickOn(continueButton);
+        waitABit(1000);
+        clickOn(finishButton);
     }
 
     @When("^I assign the Topic \"([^\"]*)\"$")
     public void enterSpecificMarkupTopic(String topic) {
-        page.clickOn(homepage.centralDraftingTeam);
+        clickOn(homepage.centralDraftingTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(workstacks.allocateToMeButton);
-        page.clickOn(homepage.home);
-        page.clickOn(homepage.myCases);
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(homepage.home);
+        clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        page.clickOn(markUpDecision.policyResponseRadioButton);
-        page.clickOn(markUpDecision.continueButton);
+        clickOn(markUpDecision.policyResponseRadioButton);
+        clickOn(markUpDecision.continueButton);
         switch (topic.toUpperCase()) {
             case "CARDIFF UNIVERSITY KITTENS":
                 topics.enterATopic(topic);
@@ -110,12 +106,12 @@ public class MarkUpStepDefs {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT" :
                 topics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
-                page.clickOn(page.finishButton);
+                clickOn(page.finishButton);
                 break;
             case "PRIVATE OFFICE" :
                 topics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(topics.autoAssignedDraftTeam.getValue());
-                page.clickOn(page.finishButton);
+                clickOn(page.finishButton);
                 draftingTeamDecision.initialDraftFullFlow();
                 qaResponse.qaResponseFullFlow();
                 break;
@@ -126,7 +122,7 @@ public class MarkUpStepDefs {
 
     @When("^I click the continue button on the markup response screen$")
     public void clickContinueButtonOnMarkupResponseScreen() {
-        page.clickOn(markUpDecision.continueButton);
+        clickOn(markUpDecision.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected a topic$")
@@ -208,7 +204,7 @@ public class MarkUpStepDefs {
         homepage.goHome();
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT" :
-                page.clickOn(homepage.publicProtectionUnit);
+                clickOn(homepage.publicProtectionUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "WINDRUSH COMPENSATION TEAM" :
@@ -218,54 +214,54 @@ public class MarkUpStepDefs {
             case "POLICE STRATEGY & REFORM UNIT" :
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT" :
-                page.clickOn(homepage.animalsInScienceTeam);
+                clickOn(homepage.animalsInScienceTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT" :
-                page.clickOn(homepage.policeWorkforceProfessionalismUnit);
+                clickOn(homepage.policeWorkforceProfessionalismUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER FOR LORDS" :
-                page.clickOn(homepage.ministerForLordsTeam);
+                clickOn(homepage.ministerForLordsTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "EXTREMISM ANALYSIS UNIT" :
-                page.clickOn(homepage.extremismAnalysisUnit);
+                clickOn(homepage.extremismAnalysisUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "COUNTER EXTREMISM UNIT" :
-                page.clickOn(homepage.counterExtremismUnit);
+                clickOn(homepage.counterExtremismUnit);
                 workstacks.assertCaseReferenceIsVisible();
             case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY" :
                 //homepage.selectUnderSecretaryStateCrimeSafeguarding();
                 //workstacks.assertCaseReferenceIsVisible();
                 break;
             case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT" :
-                page.clickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
+                clickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "PRESS OFFICE" :
-                page.clickOn(homepage.pressOffice);
+                clickOn(homepage.pressOffice);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "FINANCE" :
-                page.clickOn(homepage.financeTeam);
+                clickOn(homepage.financeTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES" :
-                page.clickOn(homepage.chemBioRadioNuclearExplosives);
+                clickOn(homepage.chemBioRadioNuclearExplosives);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR IMMIGRATION" :
-                page.clickOn(homepage.ministerOfStateForImmigrationTeam);
+                clickOn(homepage.ministerOfStateForImmigrationTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME" :
-                page.clickOn(homepage.ministerOfStateForSecurityAndEconomicCrime);
+                clickOn(homepage.ministerOfStateForSecurityAndEconomicCrime);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE" :
-                page.clickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
+                clickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
             default:

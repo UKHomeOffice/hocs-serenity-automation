@@ -50,8 +50,6 @@ public class fetch extends Page {
 
     Workstacks workstacks;
 
-    Page page;
-
     MarkUpDecision markUpDecision;
 
     WebDriver driver;
@@ -62,7 +60,7 @@ public class fetch extends Page {
                         + "Input')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINCaseMarkupCase() {
@@ -70,7 +68,7 @@ public class fetch extends Page {
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINInitialDraftCase() {
@@ -78,7 +76,7 @@ public class fetch extends Page {
                 + "'Initial Draft')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINQAResponseCase() {
@@ -86,7 +84,7 @@ public class fetch extends Page {
                 + "'QA Response')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINPrivateOfficeCase() {
@@ -94,7 +92,7 @@ public class fetch extends Page {
                 + "'Private Office Approval')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINMinisterialSignOffCase() {
@@ -102,7 +100,7 @@ public class fetch extends Page {
                 + "'Ministerial Sign off')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
     }
 
     public void getFirstUnallocatedMINDispatchCase() {
@@ -110,7 +108,7 @@ public class fetch extends Page {
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
-        page.clickOn(workstacks.allocateToMeButton);
+        clickOn(workstacks.allocateToMeButton);
         getCaseId();
 
     }
@@ -153,14 +151,14 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.performanceProcessTeam);
+                    clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance Process Team not found - Creating a new case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     createCase.createDCUMinSingleCase();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
@@ -169,15 +167,15 @@ public class fetch extends Page {
                         dataInput.dateCorrespondenceSentDayField.clear();
                     } catch (ElementShouldBeEnabledException | org.openqa.selenium.NoSuchElementException e) {
                         System.out.println("Element not found - Searching for fresh Data Input case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedDataInputCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     createCase.createDCUMinSingleCase();
-                    page.clickOn(homepage.home);
-                    page.clickOn(homepage.performanceProcessTeam);
+                    clickOn(homepage.home);
+                    clickOn(homepage.performanceProcessTeam);
                     getFirstUnallocatedMINCaseDataInputCase();
                 }
                 break;
@@ -194,10 +192,10 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.centralDraftingTeam);
+                    clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available -  Searching for a Data Input Case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -207,7 +205,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINCaseMarkupCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Markup']").getText(),
                                 is("Markup"));
                         System.out.println("Markup is active stage - Continuing test");
@@ -216,12 +214,12 @@ public class fetch extends Page {
                     } catch (org.openqa.selenium.NoSuchElementException e) {
                         System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
                                 + " fresh Markup case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedMarkupCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Markup case not found - Searching for a Data Input case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     getFirstUnallocatedMarkupCase(caseType);
@@ -241,10 +239,10 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.animalsInScienceTeam);
+                    clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -254,7 +252,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINInitialDraftCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Initial Draft']").getText(),
                                 is("Initial Draft"));
                         System.out.println("Initial Draft is active stage - Continuing Test");
@@ -264,12 +262,12 @@ public class fetch extends Page {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
                                 + "found - Searching for a fresh Initial Draft case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedInitialDraftCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
                     markupFullFlow.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
@@ -288,11 +286,11 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.animalsInScienceTeam);
+                    clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
                             + "case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -302,7 +300,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINQAResponseCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='QA Response']").getText(),
                                 is("QA Response"));
                         System.out.println("QA Response is active stage - Continuing Test");
@@ -316,7 +314,7 @@ public class fetch extends Page {
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
@@ -335,10 +333,10 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.ministerForLordsTeam);
+                    clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Minister for Lords team not available - Searching for a QA Response case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -348,7 +346,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINPrivateOfficeCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Private Office Approval']").getText(),
                                 is("Private Office Approval"));
                         System.out.println("Private Office Approval is active stage - Continuing Test");
@@ -357,11 +355,11 @@ public class fetch extends Page {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Private Office Approval 'Do you approve the response?' element not found - "
                                 + "Searching for a fresh Private Office Approval case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedPrivateOfficeCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     System.out.println("I couldn't find a Private Office Approval case so I am searching for a QA "
                             + "Response case");
                     System.out.println("Private Office Approval case not found - Searching for a QA Response case");
@@ -383,11 +381,11 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.ministerForLordsTeam);
+                    clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Minister for Lords team not available - Searching for a Private Office Approval "
                             + "case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -397,7 +395,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINMinisterialSignOffCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Ministerial Sign off']").getText(), is("Ministerial Sign off"));
                         System.out.println("Ministerial Sign Off is active stage - Continuing Test");
                         assertThat($("//span[text()='Do you approve the response?']").getText(),
@@ -405,11 +403,11 @@ public class fetch extends Page {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Ministerial Sign Off case 'Do you approve the response?' element not found - "
                                 + "Searching for a fresh Ministerial Sign Off case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedMinisterialSignOffCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     System.out.println("Ministerial Sign Off case not found - Searching for a Private Office case");
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
@@ -429,10 +427,10 @@ public class fetch extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
-                    page.clickOn(homepage.performanceProcessTeam);
+                    clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance Process Team not available - Searching for a Ministerial Sign Off case");
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -442,7 +440,7 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINDispatchCase();
                     try {
-                        page.clickOn(workstacks.caseSummaryTab);
+                        clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
                         System.out.println("Dispatch is active stage - Continuing Test");
                         assertThat($("//label[text()='How do you intend to respond?']").getText(),
@@ -450,11 +448,11 @@ public class fetch extends Page {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
                                 + "fresh Dispatch case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedDispatchCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    page.clickOn(homepage.home);
+                    clickOn(homepage.home);
                     System.out.println("Dispatch case not found - Searching for a Minister Sign Off case");
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();

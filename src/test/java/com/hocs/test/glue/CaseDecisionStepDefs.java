@@ -14,11 +14,9 @@ import cucumber.api.java.en.When;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 
-public class CaseDecisionStepDefs {
+public class CaseDecisionStepDefs extends Page {
 
     MarkUpDecision markUpDecision;
-
-    Page page;
 
     Topics topics;
 
@@ -102,16 +100,16 @@ public class CaseDecisionStepDefs {
         markUpDecision.getCaseId();
         switch (status.toUpperCase()) {
             case "REFER TO OGD":
-                page.clickOn(markUpDecision.referToOgdRadioButton);
+                clickOn(markUpDecision.referToOgdRadioButton);
                 break;
             case "NO REPLY NEEDED":
-                page.clickOn(markUpDecision.noReplyNeededRadioButton);
+                clickOn(markUpDecision.noReplyNeededRadioButton);
                 break;
             default:
                 pendingStep(status + " is not defined within " + getMethodName());
         }
-        page.clickOn(markUpDecision.continueButton);
-        page.clickOn(markUpDecision.finishButton);
+        clickOn(markUpDecision.continueButton);
+        clickOn(markUpDecision.finishButton);
 
     }
 
@@ -148,7 +146,7 @@ public class CaseDecisionStepDefs {
             case "APPROVE":
                 break;
             case "REJECT":
-                page.clickOn(markUpDecision.rejectButton);
+                clickOn(markUpDecision.rejectButton);
                 markUpDecision.enterRejectionNotes();
                 break;
             default:
@@ -203,6 +201,6 @@ public class CaseDecisionStepDefs {
 
     @When("^I refer the case to another Government Department$")
     public void iReferTheCaseToAnotherGovernmentDepartment() {
-        page.clickOn(markUpDecision.referToOgdRadioButton);
+        clickOn(markUpDecision.referToOgdRadioButton);
     }
 }
