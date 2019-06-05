@@ -7,6 +7,7 @@ Feature: DCU user decides how a case should be handled
   @HOCS-266, @HOCS-237
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
+    And I click the "CONTINUE" button
     And I click the "ADD A TOPIC" button
     Then a mandatory "TOPIC" free text field is displayed
 
@@ -18,30 +19,34 @@ Feature: DCU user decides how a case should be handled
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
-    When I select an initial decision of "Refer to OGD"
+    When I select an initial decision of "REFER TO OGD"
     And I click the "CONTINUE" button
     Then the Other Government Department name free text field is displayed
 
   @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Response Needed
     When I select an initial decision of "NO RESPONSE NEEDED"
+    And I click the "CONTINUE" button
     Then the No Response Needed casenote field is displayed
 
 @HOCS-259, @HOCS-237
   Scenario: User does not enter department in free text field
     When I select an initial decision of "Refer to OGD"
+    And I click the "CONTINUE" button
     But I do not enter an "Other Government Department"
     Then an error message is displayed
 
   @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
     When I select an initial decision of "NO RESPONSE NEEDED"
+    And I click the "CONTINUE" button
     But I do not enter a "REASON FOR NO RESPONSE NEEDED"
     Then an error message is displayed
 
   @HOCS-258, @HOCS-262, @HOCS-237 @SmokeTests
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
+    And I click the "CONTINUE" button
     And I add the topic "CARDIFF UNIVERSITY KITTENS"
     Then the topic should be added to the case
     

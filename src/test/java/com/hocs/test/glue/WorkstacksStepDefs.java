@@ -63,6 +63,7 @@ public class WorkstacksStepDefs {
 
     @Then("^no cases should be visible in my workstack$")
     public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
+        workstacks.sleep(500);
         workstacks.assertThatThereAreNoCasesInWorkstack();
     }
 
@@ -201,6 +202,7 @@ public class WorkstacksStepDefs {
 
     @Then("^all cases should be allocated to that user$")
     public void assertAllCasesAssignedToAllocatedUser() {
+        workstacks.sleep(1000);
         workstacks.assertAllAllocatedUsers();
     }
 

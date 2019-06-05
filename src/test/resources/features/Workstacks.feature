@@ -1,7 +1,7 @@
 Feature: Team members can allocate work
 
   Background:
-    Given I am user "DANNY"
+    Given I am user "EAMON"
 
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
