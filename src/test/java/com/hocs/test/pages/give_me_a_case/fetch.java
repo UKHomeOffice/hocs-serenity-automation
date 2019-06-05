@@ -307,12 +307,10 @@ public class fetch extends Page {
                         assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
                                 + "response?"));
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("QA Response 'Do you approve the response?' question not found therefore, "
-                                + "searching for a fresh QA Response case");
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
                                 + " fresh QA Response case");
-                        clickOn(homepage.home);
-                        clickOn(homepage.animalsInScienceTeam);
+                        page.clickOn(homepage.home);
+                        getFirstUnallocatedQaResponseCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");

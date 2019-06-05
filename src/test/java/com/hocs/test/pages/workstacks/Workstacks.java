@@ -30,7 +30,7 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateCheckboxCaseToMeButton;
 
-    @FindBy(xpath = "//li//button[text()='Unallocate selected']")
+    @FindBy(xpath = "//button[text()='Unallocate selected']")
     public WebElementFacade unallocateFromMeButton;
 
     @FindBy(id = "workstack-filter")

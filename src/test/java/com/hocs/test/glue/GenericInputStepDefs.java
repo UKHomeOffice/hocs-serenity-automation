@@ -490,12 +490,12 @@ public class GenericInputStepDefs extends Page {
         clickOn(markUpDecision.continueButton);
         clickOn(topics.addTopicButton);
         topics.enterRealTopic();
-        waitABit(1000);
-        clickOn(markUpDecision.addButton);
-        waitABit(1000);
-        clickOn(continueButton);
-        waitABit(1000);
-        clickOn(finishButton);
+//        page.sleep(1000);
+        page.clickOn(markUpDecision.addButton);
+//        page.sleep(1000);
+        page.clickOn(markUpDecision.continueButton);
+//        page.sleep(1000);
+        page.clickOn(markUpDecision.finishButton);
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
         draftingTeamDecision.acceptAndDraftALetter();

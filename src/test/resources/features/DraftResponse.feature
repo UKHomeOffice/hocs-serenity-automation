@@ -56,7 +56,7 @@ Feature: HOCS User is able to draft a response
 
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
-    And I click the continue button on the correspondence answer screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected radio buttons on this screen
 
   @Validation

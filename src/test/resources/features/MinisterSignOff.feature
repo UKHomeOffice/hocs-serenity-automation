@@ -12,7 +12,7 @@ Feature: User decides how cases should be handled at Minister Sign Off stage
 
   @Validation
   Scenario: User must select a radio button when asked whether or not they approve the response at the Minister Sign Off stage
-    And I click the continue button on the approve response screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected a radio button on the approve response screen
 
   @Validation

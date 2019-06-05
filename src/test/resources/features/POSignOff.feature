@@ -12,7 +12,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
 
   @Validation
   Scenario: User must select a radio button when asked whether they approve the Private Office response
-    And I click the continue button on PO approve response screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected whether I approve the response
 
   @Validation

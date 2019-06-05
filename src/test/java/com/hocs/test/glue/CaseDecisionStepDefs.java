@@ -174,7 +174,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        markUpDecision.clickContinueButton();
     }
 
     @Given("^multiple topics have been set$")
