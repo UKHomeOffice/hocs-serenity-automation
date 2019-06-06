@@ -309,7 +309,7 @@ public class fetch extends Page {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
                                 + " fresh QA Response case");
-                        page.clickOn(homepage.home);
+                        clickOn(homepage.home);
                         getFirstUnallocatedQaResponseCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
