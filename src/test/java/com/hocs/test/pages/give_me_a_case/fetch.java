@@ -54,7 +54,7 @@ public class fetch extends Page {
 
     WebDriver driver;
 
-    public void getFirstUnallocatedMINCaseDataInputCase() {
+    private void getFirstUnallocatedMINCaseDataInputStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Data "
                         + "Input')]][following-sibling::td[2]"
@@ -63,7 +63,14 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINCaseMarkupCase() {
+    private void getFirstUnallocatedDTENCaseDataInputStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+    }
+
+    private void getFirstUnallocatedMINCaseMarkupStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -71,7 +78,14 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINInitialDraftCase() {
+    private void getFirstUnallocatedDTENCaseMarkupStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+    }
+
+    private void getFirstUnallocatedMINInitialDraftStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Initial Draft')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -79,7 +93,14 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINQAResponseCase() {
+    private void getFirstUnallocatedDTENCaseInitialDraftStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial Draft')"
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+    }
+
+    private void getFirstUnallocatedMINQAResponseStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'QA Response')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -87,7 +108,14 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINPrivateOfficeCase() {
+    private void getFirstUnallocatedDTENCaseQAResponseStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+    }
+
+    private void getFirstUnallocatedMINPrivateOfficeStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office Approval')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -95,7 +123,15 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINMinisterialSignOffCase() {
+    private void getFirstUnallocatedDTENCasePrivateOfficeStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), "
+                + "'Private Office')]][following-sibling::td[2]"
+                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+    }
+
+    private void getFirstUnallocatedMINMinisterialSignOffStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Ministerial Sign off')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
@@ -103,15 +139,16 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
-    public void getFirstUnallocatedMINDispatchCase() {
+    private void getFirstUnallocatedMINDispatchStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
         firstUnallocatedMINCase.click();
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
-
     }
+
+
 
     public void giveMeACase(String caseType, String stage) {
         setSessionVariable("caseType").to(caseType);
@@ -162,7 +199,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINCaseDataInputCase();
+                    getFirstUnallocatedMINCaseDataInputStage();
                     try {
                         dataInput.dateCorrespondenceSentDayField.clear();
                     } catch (ElementShouldBeEnabledException | org.openqa.selenium.NoSuchElementException e) {
@@ -176,7 +213,7 @@ public class fetch extends Page {
                     createCase.createDCUMinSingleCase();
                     clickOn(homepage.home);
                     clickOn(homepage.performanceProcessTeam);
-                    getFirstUnallocatedMINCaseDataInputCase();
+                    getFirstUnallocatedMINCaseDataInputStage();
                 }
                 break;
             case "DCU TRO":
@@ -203,7 +240,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINCaseMarkupCase();
+                    getFirstUnallocatedMINCaseMarkupStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Markup']").getText(),
@@ -250,7 +287,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINInitialDraftCase();
+                    getFirstUnallocatedMINInitialDraftStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Initial Draft']").getText(),
@@ -298,7 +335,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINQAResponseCase();
+                    getFirstUnallocatedMINQAResponseStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='QA Response']").getText(),
@@ -344,7 +381,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINPrivateOfficeCase();
+                    getFirstUnallocatedMINPrivateOfficeStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Private Office Approval']").getText(),
@@ -393,7 +430,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINMinisterialSignOffCase();
+                    getFirstUnallocatedMINMinisterialSignOffStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Ministerial Sign off']").getText(), is("Ministerial Sign off"));
@@ -438,7 +475,7 @@ public class fetch extends Page {
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
-                    getFirstUnallocatedMINDispatchCase();
+                    getFirstUnallocatedMINDispatchStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
                         assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
@@ -467,4 +504,6 @@ public class fetch extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
+
+
 }

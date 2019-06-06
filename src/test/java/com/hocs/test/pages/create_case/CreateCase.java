@@ -168,10 +168,10 @@ public class CreateCase extends Page {
     public void createDCUMinSingleCase() {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);
-        completeDCUMINSingleCaseCreation();
+        completeSingleCaseCreation();
     }
 
-    public void createDCUMInSingleCaseWithID() {
+    public void createDCUMinSingleCaseWithID() {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
@@ -180,41 +180,35 @@ public class CreateCase extends Page {
         successfulCaseCreation.getThisCaseId();
     }
 
-    public void createDC10SingleCase() {
-        homepage.clickCreateSingleCase();
-        clickDcuDtenRadioButton();
-        completeSingleCaseCreation();
-    }
-
-    public void createDCTROSingleCase() {
-        homepage.clickCreateSingleCase();
-        clickDcuTroRadioButton();
-        completeDCTROSingleCaseCreation();
-        successfulCaseCreation.getThisCaseId();
-    }
-
-    public void completeDCTROSingleCaseCreation() {
-        clickNextButton();
-        addDocuments.uploadDocument();
-        clickSubmitButton();
-    }
-
-    public void completeDCUMINSingleCaseCreation() {
+    public void createDCUTROSingleCaseWithID() {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuDtenRadioButton);
         clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);
-        successfulCaseCreation.getCaseReference();
+        successfulCaseCreation.getThisCaseId();
+    }
+
+    public void createDCU10SingleCase() {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuDtenRadioButton);
+        completeSingleCaseCreation();
+    }
+
+    public void createDCUTROSingleCase() {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuTroRadioButton);
+        completeSingleCaseCreation();
     }
 
     public void completeSingleCaseCreation() {
         clickOn(nextButton);
-        fillMandatoryDateFields();
+//        fillMandatoryDateFields();
         addDocuments.uploadDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
-        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
-    }
+//        successfulCaseCreation.clickSuccessfulCaseBackButton();
+   }
 
     public void openACase() {
         homepage.clickCreateSingleCase();
