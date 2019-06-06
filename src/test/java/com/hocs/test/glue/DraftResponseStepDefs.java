@@ -14,11 +14,13 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.thucydides.core.annotations.Steps;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 public class DraftResponseStepDefs extends Page{
 
+    @Steps(shared = true)
     Draft draft;
 
     Homepage homepage;
@@ -42,6 +44,30 @@ public class DraftResponseStepDefs extends Page{
         draftingTeamDecision.acceptAndDraftALetter();
         draftingTeamDecision.uploadDraftResponse();
         qa.dontQAOffline();
+    }
+
+    @When("^I complete the Initial Draft stage for \"([^\"]*)\"$")
+    public void initialDraftFullFlowPerCaseType(String caseType) {
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                draftingTeamDecision.acceptAndDraftALetter();
+                draftingTeamDecision.uploadDraftResponse();
+                qa.dontQAOffline();
+                break;
+            case "DCU TRO" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                draftingTeamDecision.acceptAndDraftALetter();
+                draftingTeamDecision.uploadDraftResponse();
+                clickOn(continueButton);
+                break;
+            case "DCU N10" :
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^I click the continue button on the correspondence answer screen$")
@@ -232,6 +258,49 @@ public class DraftResponseStepDefs extends Page{
         }
     }
 
+    @Then("^the \"([^\"]*)\" case should be moved to the \"([^\"]*)\" stage$")
+    public void assertCaseTypeReturnedToStage(String caseType, String stage) {
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
+                assertCaseReturnedToStage(stage);
+                break;
+            case "DCU TRO" :
+                switch(stage.toUpperCase()){
+                    case "DATA INPUT" :
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "MARKUP" :
+                        clickOn(homepage.transferN10Team);
+                        teamqueue.assertCaseStage(stage);
+                        break;
+                    case "INITIAL DRAFT" :
+                        clickOn(homepage.animalsInScienceTeam);
+                        teamqueue.assertCaseStage(stage);
+                        break;
+                    case "QA RESPONSE" :
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "PRIVATE OFFICE APPROVAL" :
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "MINISTERIAL SIGN OFF" :
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "DISPATCH" :
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "COPY TO NUMBER 10" :
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
+
     @Then("^the case should be moved to the \"([^\"]*)\" stage$")
     public void assertCaseReturnedToStage(String stage) {
         switch (stage.toUpperCase()) {
@@ -239,7 +308,7 @@ public class DraftResponseStepDefs extends Page{
                 clickOn(homepage.performanceProcessTeam);
                 break;
             case "MARKUP":
-                clickOn(homepage.centralDraftingTeam);
+                clickOn(homepage.performanceProcessTeam);
                 break;
             case "INITIAL DRAFT":
                 clickOn(homepage.animalsInScienceTeam);

@@ -53,6 +53,7 @@ public class DataInputStepDefs extends Page {
                 break;
             case "DCU TRO":
                 clickOn(homepage.performanceProcessTeam);
+                dataInput.dataInputFullFlow();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

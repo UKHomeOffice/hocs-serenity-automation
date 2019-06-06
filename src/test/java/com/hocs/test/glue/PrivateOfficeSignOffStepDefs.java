@@ -1,4 +1,7 @@
 package com.hocs.test.glue;
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.private_office.PrivateOffice;
@@ -32,6 +35,24 @@ public class PrivateOfficeSignOffStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         clickOn(privateOffice.privateOfficeAcceptRadioButton);
         clickOn(privateOffice.continueButton);
+    }
+
+    @When("^I complete the Private Office stage for \"([^\"]*)\"$")
+    public void completePrivateOfficeStagePerCaseType(String caseType) {
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                clickOn(privateOffice.privateOfficeAcceptRadioButton);
+                clickOn(privateOffice.continueButton);
+                break;
+            case "DCU TRO" :
+                break;
+            case "DCU N10" :
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^the case is rejected at the Private Office stage$")

@@ -1,5 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
@@ -30,6 +33,17 @@ public class DispatchStepDefs extends Page {
         clickOn(dispatch.continueButton);
     }
 
+    @When("^I complete the dispatch stage for \"([^\"]*)\"$")
+    public void completeTheDispatchStagePerCaseType(String caseType) {
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
+                break;
+            case "DCU TRO" :
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
     @When("^I click the continue button on the are you able to dispatch screen$")
     public void clickContinueButtonOnAreYouAbleToDispatchScreen() {
         clickOn(dispatch.continueButton);
