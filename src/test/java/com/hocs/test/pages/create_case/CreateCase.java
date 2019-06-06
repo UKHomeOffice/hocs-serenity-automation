@@ -190,16 +190,13 @@ public class CreateCase extends Page {
         homepage.clickCreateSingleCase();
         clickDcuTroRadioButton();
         completeDCTROSingleCaseCreation();
+        successfulCaseCreation.getThisCaseId();
     }
 
     public void completeDCTROSingleCaseCreation() {
         clickNextButton();
         addDocuments.uploadDocument();
         clickSubmitButton();
-        successfulCaseCreation.getCaseReference();
-        successfulCaseCreation.clickSuccessfulCaseBackButton();
-        homepage.waitForMyCases();
-        System.out.println("The Case Reference number has been captured as " + sessionVariableCalled("caseReference"));
     }
 
     public void completeDCUMINSingleCaseCreation() {

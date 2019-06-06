@@ -1,5 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
@@ -36,6 +39,23 @@ public class MinisterSignOffStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         clickOn(minister.minsterSignOffAcceptRadioButton);
         clickOn(minister.continueButton);
+    }
+
+    @When("^I complete the minister sign off stage for \"([^\"]*)\"$")
+    public void completeTheMinisterSignOffStagePerCaseType(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                clickOn(minister.minsterSignOffAcceptRadioButton);
+                clickOn(minister.continueButton);
+                break;
+            case "DCU TRO" :
+                homepage.goHome();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
     @When("^the case is rejected by the Minister$")

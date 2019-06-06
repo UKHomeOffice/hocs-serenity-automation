@@ -1,5 +1,8 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.create_case.AddDocuments;
@@ -9,7 +12,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class TeamQueueStepDefs {
+public class TeamQueueStepDefs extends Page{
 
     Teamqueue teamqueue;
 
@@ -20,8 +23,6 @@ public class TeamQueueStepDefs {
     Homepage homepage;
 
     DataInput dataInput;
-
-    Page page;
 
     // Set X to integer variable per case or test
     @When("^I have X cases in my teamqueue$")
@@ -201,8 +202,17 @@ public class TeamQueueStepDefs {
         teamqueue.assertCaseIsNotVisible();
     }
 
-    /*@Then("^I should only see 20 results$")
-    public void iShouldOnlySeeXResults(Int results) {
-    }*/
-
+    @Then("^the case should no longer be visible in the \"([^\"]*)\" teamqueue$")
+    public void assertThatCaseHasBeenDispatchedPerCaseType(String caseType) {
+        switch(caseType.toUpperCase()) {
+            case "DCU MIN" :
+                break;
+            case "DCU TRO" :
+                clickOn(homepage.animalsInScienceTeam);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        teamqueue.assertCaseIsNotVisible();
+    }
 }
