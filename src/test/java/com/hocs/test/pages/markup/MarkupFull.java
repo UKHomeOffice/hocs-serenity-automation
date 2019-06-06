@@ -2,12 +2,18 @@ package com.hocs.test.pages.markup;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.homepage.Homepage;
 
 public class MarkupFull extends Page {
 
     Topics topics;
 
     MarkUpDecision markUpDecision;
+
+    Workstacks workstacks;
+
+    Homepage homepage;
 
     public void moveCaseFromMarkupToInitialDraft() {
         markUpDecision.clickPolicyResponseRadioButton();
@@ -20,6 +26,21 @@ public class MarkupFull extends Page {
         clickContinueButton();
         sleep(1000);
         clickFinishButton();
+    }
+
+    public void markupStageFullFlow() {
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(markUpDecision.policyResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(topics.addTopicButton);
+        topics.enterRealTopic();
+        waitABit(1000);
+        clickOn(addButton);
+        waitABit(1000);
+        clickOn(continueButton);
+        waitABit(1000);
+        clickOn(finishButton);
     }
 
 }

@@ -7,13 +7,6 @@ Feature: HOCS DEMO
     When I submit valid detail in all fields
     Then I am taken to the "HOCS Home" page
 
-
-  Scenario: Upload document
-    Given I am user "DCU"
-    And I navigate to the "Create Single Case" Page
-    When I create a case
-    Then I am taken to the "HOCS Home" page
-
   @api
   Scenario: Get Workflow Service Response
     When I request "Workflow Service" info

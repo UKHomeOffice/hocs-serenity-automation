@@ -28,4 +28,4 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Private Office response stage
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not added any text into the case note text box
+    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"

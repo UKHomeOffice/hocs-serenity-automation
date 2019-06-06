@@ -282,6 +282,25 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent(getCurrentYear());
     }
 
+    public void addAnAdditionalCorrespondent() {
+        recordCorrespondentDetails.clickAdditionalCorrespondentYes();
+        clickOn(continueButton);
+        clickOn(correspondentMemberNoRadioButton);
+        clickOn(continueButton);
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+        clickOn(continueButton);
+    }
+
+    public void completeTheFirstDataInputFields() {
+        enterDayOfCorrespondenceSent("01");
+        enterMonthOfCorrespondenceSent("01");
+        enterYearOfCorrespondenceSent("2019");
+        clickOn(emailOriginalChannelRadioButton);
+        clickOn(continueButton);
+        clickOn(continueButton);
+        clickOn(finishButton);
+    }
+
     // Assertions
 
     public void assertPageTitle() {

@@ -37,7 +37,7 @@ public class WorkstacksStepDefs extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @When("^I unallocate the case from myself")
+    @When("^I unallocate the case from myself$")
     public void unallocateCase() {
         clickOn(homepage.performanceProcessTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
@@ -55,8 +55,7 @@ public class WorkstacksStepDefs extends Page {
 
     @When("^I unallocate all the cases from myself$")
     public void unallocateAllCasesFromMyCases() {
-        workstacks.clickAllWorkstackCheckboxes();
-        clickOn(workstacks.unallocateFromMeButton);
+        workstacks.unallocatedAllCases();
     }
 
     @Then("^no cases should be visible in my workstack$")
