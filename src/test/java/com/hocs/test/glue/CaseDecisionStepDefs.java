@@ -108,8 +108,8 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(status + " is not defined within " + getMethodName());
         }
-        clickOn(markUpDecision.continueButton);
-        clickOn(markUpDecision.finishButton);
+        clickOn(continueButton);
+        clickOn(finishButton);
 
     }
 

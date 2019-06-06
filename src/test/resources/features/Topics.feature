@@ -3,7 +3,7 @@ Feature: HOCS Topics are assigned to the correct Team
   Background:
     Given I am user "DANNY"
 
-  @Topics @TopicsDefaultTeams @SmokeTests
+  @Topics @TopicsDefaultTeams
   Scenario Outline: Topics are assigned to the correct team
     When I create a single case "DCU MIN"
     #And I complete the Data Input stage

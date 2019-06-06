@@ -74,15 +74,6 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I create a case$")
-    public void aCaseIsCreated() {
-        createCase.clickDcuMinRadioButton();
-        createCase.clickNextButton();
-        addDocuments.uploadDocument();
-        createCase.clickSubmitButton();
-        waitABit(500);
-    }
-
     @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\"$")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         switch (caseType.toUpperCase()) {

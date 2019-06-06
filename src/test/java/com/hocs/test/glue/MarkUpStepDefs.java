@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.MarkupFull;
 import com.hocs.test.pages.markup.ReferToOGD;
 import com.hocs.test.pages.markup.NoResponseNeeded;
 import com.hocs.test.pages.markup.Topics;
@@ -34,6 +35,8 @@ public class MarkUpStepDefs extends Page {
 
     MarkUpDecision markUpDecision;
 
+    MarkupFull markup;
+
     ReferToOGD refer;
 
     NoResponseNeeded noResponseNeeded;
@@ -46,18 +49,7 @@ public class MarkUpStepDefs extends Page {
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(markUpDecision.policyResponseRadioButton);
-        clickOn(continueButton);
-        clickOn(topics.addTopicButton);
-        topics.enterRealTopic();
-        waitABit(1000);
-        clickOn(addButton);
-        waitABit(1000);
-        clickOn(continueButton);
-        waitABit(1000);
-        clickOn(finishButton);
+        markup.markupStageFullFlow();
     }
 
     @When("^I assign the Topic \"([^\"]*)\"$")
