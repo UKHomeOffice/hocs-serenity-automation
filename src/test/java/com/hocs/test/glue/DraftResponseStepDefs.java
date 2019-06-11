@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.draft.Draft;
@@ -18,7 +19,7 @@ import net.thucydides.core.annotations.Steps;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class DraftResponseStepDefs extends Page{
+public class DraftResponseStepDefs extends Page {
 
     @Steps(shared = true)
     Draft draft;
@@ -41,9 +42,15 @@ public class DraftResponseStepDefs extends Page{
     public void initialDraftFullFlow() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
-        draftingTeamDecision.acceptAndDraftALetter();
-        draftingTeamDecision.uploadDraftResponse();
-        qa.dontQAOffline();
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            draftingTeamDecision.dtenAcceptAndDraftALetter();
+            draftingTeamDecision.uploadDraftResponse();
+            qa.dontQAOffline();
+        } else {
+            draftingTeamDecision.acceptAndDraftALetter();
+            draftingTeamDecision.uploadDraftResponse();
+            qa.dontQAOffline();
+        }
     }
 
     @When("^I complete the Initial Draft stage for \"([^\"]*)\"$")
@@ -326,7 +333,7 @@ public class DraftResponseStepDefs extends Page{
             case "DISPATCH":
                 clickOn(homepage.performanceProcessTeam);
                 break;
-            case "COPY TO NUMBER 10" :
+            case "COPY TO NUMBER 10":
                 clickOn(homepage.transferN10Team);
                 break;
             default:

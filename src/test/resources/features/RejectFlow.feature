@@ -33,7 +33,8 @@ Feature: If the response is rejected the case is returned to certain stages in t
 
   @RejectFlow @QAResponse @Workflow
   Scenario: DCU N10 Case returned to Initial Draft stage when rejected by QA Response team
-    When the Data Input Stage is completed for "DCU N10" caseType
+    When I create a single case "DCU N10"
+    And the Data Input Stage is completed for "DCU N10" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
     And I reject the case at the QA Response stage
@@ -52,7 +53,7 @@ Feature: If the response is rejected the case is returned to certain stages in t
   @RejectFlow @PrivateOffice @Workflow
   Scenario: DCU N10 Case returned to Initial Draft stage when rejected by Private Office Team
     When I create a single case "DCU N10"
-    And I complete the Data Input stage
+    And the Data Input Stage is completed for "DCU N10" caseType
     And I complete the markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
