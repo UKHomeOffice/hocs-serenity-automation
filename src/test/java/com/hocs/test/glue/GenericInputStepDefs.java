@@ -278,8 +278,6 @@ public class GenericInputStepDefs extends Page {
             case "ADD MEMBER OF PARLIAMENT" :
                 dataInput.getToAddMemberOfParliamentPrerequisites();
                 break;
-//            case "PRIMARY CORRESPONDENT" :
-//                break;
             case "RECORD CORRESPONDENT DETAILS" :
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
                 break;

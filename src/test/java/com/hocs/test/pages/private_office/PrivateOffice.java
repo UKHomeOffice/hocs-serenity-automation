@@ -70,4 +70,9 @@ public class PrivateOffice extends Page {
         privateOfficeAcceptRadioButton.click();
         clickContinueButton();
     }
+
+    public void moveDTENCaseFromPrivateOfficeToDispatch() {
+        clickOn(privateOfficeAcceptRadioButton);
+        clickOn(continueButton);
+    }
 }

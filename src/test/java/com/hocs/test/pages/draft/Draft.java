@@ -164,42 +164,96 @@ public class Draft extends Page {
         clickOn(continueButton);
         clickOn(phoneReplyRadioButton);
         clickOn(continueButton);
+
     }
 
     public void getToPrimaryDraftDocumentScreenPrerequisites() {
-        clickOn(answeredByMyTeamYesRadioButton);
-        clickOn(continueButton);
-        clickOn(letterReplyRadioButton);
-        clickOn(continueButton);
-        sleep(500);
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+        } else {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            clickOn(letterReplyRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+        }
     }
 
     public void getToAddDocumentScreenPrerequisites() {
-        clickOn(answeredByMyTeamYesRadioButton);
-        clickOn(continueButton);
-        clickOn(letterReplyRadioButton);
-        clickOn(continueButton);
-        clickOn(draftStageAddDocumentsButton);
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(draftStageAddDocumentsButton);
+        } else {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            clickOn(letterReplyRadioButton);
+            clickOn(continueButton);
+            clickOn(draftStageAddDocumentsButton);
+        }
     }
 
     public void getToDoYouWantToQAOfflineScreenPrerequisites() {
-        clickOn(answeredByMyTeamYesRadioButton);
-        clickOn(continueButton);
-        clickOn(letterReplyRadioButton);
-        clickOn(continueButton);
-        clickOn(draftStageAddDocumentsButton);
-        selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addDocuments.addButton);
-        clickOn(continueButton);
-        sleep(500);
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(draftStageAddDocumentsButton);
+            selectDocumentTypeByIndex(2);
+            addDocuments.uploadDocument();
+            clickOn(addDocuments.addButton);
+            clickOn(continueButton);
+            sleep(500);
+        } else {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            clickOn(letterReplyRadioButton);
+            clickOn(continueButton);
+            clickOn(draftStageAddDocumentsButton);
+            selectDocumentTypeByIndex(2);
+            addDocuments.uploadDocument();
+            clickOn(addDocuments.addButton);
+            clickOn(continueButton);
+            sleep(500);
+        }
     }
 
     public void getToWhoDidTheQAOfflineScreenPrerequisites() {
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(draftStageAddDocumentsButton);
+            selectDocumentTypeByIndex(2);
+            addDocuments.uploadDocument();
+            clickOn(addDocuments.addButton);
+            clickOn(continueButton);
+            clickOn(qa.offlineQaYesRadioButton);
+            clickOn(continueButton);
+            clickOn(finishButton);
+        } else {
+            clickOn(answeredByMyTeamYesRadioButton);
+            clickOn(continueButton);
+            clickOn(letterReplyRadioButton);
+            clickOn(continueButton);
+            clickOn(draftStageAddDocumentsButton);
+            selectDocumentTypeByIndex(2);
+            addDocuments.uploadDocument();
+            clickOn(addDocuments.addButton);
+            clickOn(continueButton);
+            clickOn(qa.offlineQaYesRadioButton);
+            clickOn(continueButton);
+            clickOn(finishButton);
+        }
+    }
+
+    public void moveDTENCaseFromDraftToPrivateOffice() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
-        clickOn(letterReplyRadioButton);
-        clickOn(continueButton);
+        sleep(500);
         clickOn(draftStageAddDocumentsButton);
         selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
@@ -207,6 +261,7 @@ public class Draft extends Page {
         clickOn(continueButton);
         clickOn(qa.offlineQaYesRadioButton);
         clickOn(continueButton);
+        selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
         clickOn(finishButton);
     }
 
@@ -221,7 +276,7 @@ public class Draft extends Page {
     }
 
     public void assertEnterRejectionReasonsError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
+        assertThat(getErrorDetails(), is("Why should this should not be answered by your team? is required"));
     }
 
     public void assertCorrespondenceAnsweredErrorMessage() {

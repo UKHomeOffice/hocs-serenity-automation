@@ -2,7 +2,7 @@ Feature: DCU user decides how a case should be handled
 
   Background:
     Given I am user "EAMON"
-    When I get a "DCU MIN" case at "MARKUP" stage
+    When I get a "DCU N10" case at "MARKUP" stage
 
   @HOCS-266, @HOCS-237
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -73,7 +73,7 @@ Feature: DCU user decides how a case should be handled
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
-    And I click the "ADD" button
+    And I click the add button when creating a case note
     Then an error message should be displayed as I have not added any text into the case note text box
 
 

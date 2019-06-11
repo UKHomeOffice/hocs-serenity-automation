@@ -23,7 +23,7 @@ Feature: Team members can allocate work
 
   @Allocate
   Scenario: All cases within a team workstack are allocated to a single user
-    When I navigate to the "CENTRAL DRAFTING TEAM" page
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
     And I allocate all cases to a single user
     Then all cases should be allocated to that user
 
