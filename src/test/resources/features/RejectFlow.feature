@@ -12,13 +12,23 @@ Feature: If the response is rejected the case is returned to certain stages in t
       And I reject the case at the QA Response stage
       Then the case should be moved to the "INITIAL DRAFT" stage
 
-  @RejectFlow @QAResponse @Workflow
+  @RejectFlow @QAResponse @Workflow @SmokeTests
   Scenario: DCU TRO Case returned to Initial Draft stage when rejected by QA Response team
     When I create a single case "DCU TRO"
     And the Data Input Stage is completed for "DCU TRO" caseType
     And I complete the markup stage
-    And I complete the Initial Draft stage
+    And I complete the Initial Draft stage for "DCU TRO"
     And I reject the case at the QA Response stage
+    Then the case should be moved to the "INITIAL DRAFT" stage
+
+  @RejectFlow @Dispatch @Workflow @SmokeTests
+  Scenario: DCU TRO Case returned to Initial Draft stage when rejected at Dispatch
+    When I create a single case "DCU TRO"
+    And the Data Input Stage is completed for "DCU TRO" caseType
+    And I complete the markup stage
+    And I complete the Initial Draft stage for "DCU TRO"
+    And I complete the QA response stage
+    And I reject the case at Dispatch stage
     Then the case should be moved to the "INITIAL DRAFT" stage
 
   @RejectFlow @QAResponse @Workflow
