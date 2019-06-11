@@ -85,6 +85,24 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='CopyNumberTen-FALSE']")
     public WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-day']")
+    public WebElementFacade dtenDraftingDeadlineDayField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-month']")
+    public WebElementFacade dtenDraftingDeadlineMonthField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-year']")
+    public WebElementFacade dtenDraftingDeadlineYearField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-day']")
+    public WebElementFacade dtenDispatchDeadlineDayField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-month']")
+    public WebElementFacade dtenDispatchDeadlineMonthField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
+    public WebElementFacade dtenDispatchDeadlineYearField;
+
     @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
     public WebElementFacade correspondenceDateErrorMessage;
 
@@ -109,18 +127,18 @@ public class DataInput extends Page {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
-
     // Basic Methods
 
     public void selectAddAnMPField() {
         addMemberOfParliamentSearchField.click();
         addMemberOfParliamentSearchField.sendKeys("example");
     }
+
     public void selectAddACorrespondentLink() {
         clickOn(addCorrespondentLink);
     }
 
-    public void selectCorrespondentIsAMemberRadioButton(){
+    public void selectCorrespondentIsAMemberRadioButton() {
         clickOn(correspondentMemberYesRadioButton);
     }
 
@@ -195,7 +213,7 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-         typeInto(dateCorrespondenceSentDayField, day);
+        typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {
@@ -212,14 +230,32 @@ public class DataInput extends Page {
     }
 
     public void fillAllMandatoryCorrespondenceFields() {
-        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
-        enterDayOfCorrespondenceReceived(getCurrentDay());
-        enterMonthOfCorrespondenceReceived(getCurrentMonth());
-        enterYearOfCorrespondenceReceived(getCurrentYear());
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceReceived(getCurrentDay());
+            enterMonthOfCorrespondenceReceived(getCurrentMonth());
+            enterYearOfCorrespondenceReceived(getCurrentYear());
+            emailOriginalChannelRadioButton.click();
+//            clickOn(continueButton);
+        } else {
+            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceReceived(getCurrentDay());
+            enterMonthOfCorrespondenceReceived(getCurrentMonth());
+            enterYearOfCorrespondenceReceived(getCurrentYear());
+            emailOriginalChannelRadioButton.click();
+            shouldResponseBeCopiedN10NoRadioButton.click();
+        }
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
@@ -234,40 +270,94 @@ public class DataInput extends Page {
     }
 
     public void getToAddMemberOfParliamentPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickOn(continueButton);
-        sleep(500);
-        addCorrespondentLink.click();
-        correspondentMemberYesRadioButton.click();
-        clickOn(continueButton);
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            addCorrespondentLink.click();
+            correspondentMemberYesRadioButton.click();
+            clickOn(continueButton);
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            addCorrespondentLink.click();
+            correspondentMemberYesRadioButton.click();
+            clickOn(continueButton);
+        }
     }
 
     public void getToIsCorrespondentAnMPPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickOn(continueButton);
-        sleep(500);
-        addCorrespondentLink.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            addCorrespondentLink.click();
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            addCorrespondentLink.click();
+        }
     }
-
     public void getToRecordCorrespondentDetailsPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickContinueButton();
-        sleep(500);
-        addCorrespondentLink.click();
-        correspondentMemberNoRadioButton.click();
-        continueButton.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            addCorrespondentLink.click();
+            correspondentMemberNoRadioButton.click();
+            continueButton.click();
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickContinueButton();
+            sleep(500);
+            addCorrespondentLink.click();
+            correspondentMemberNoRadioButton.click();
+            continueButton.click();
+        }
     }
 
     public void invalidCorrespondenceReceivedDate() {

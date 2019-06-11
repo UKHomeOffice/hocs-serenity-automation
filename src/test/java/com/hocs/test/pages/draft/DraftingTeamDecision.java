@@ -39,7 +39,6 @@ public class DraftingTeamDecision extends Page {
     @FindBy(id = "PhonecallNote")
     private WebElementFacade phoneCallSummaryNote;
 
-
     //Basic Methods
 
     public void clickAcceptInitialDraftDecision() {
@@ -56,14 +55,20 @@ public class DraftingTeamDecision extends Page {
 
     // Multi Step Methods
 
-    public void acceptAndDraftALetter(){
+    public void acceptAndDraftALetter() {
         clickAcceptInitialDraftDecision();
         draft.clickContinueButton();
         clickDraftingResponseLetter();
         draft.clickContinueButton();
     }
 
-    public void uploadDraftResponse(){
+    public void dtenAcceptAndDraftALetter() {
+        clickOn(initialDraftingDecisionAccept);
+        clickOn(continueButton);
+    }
+
+
+    public void uploadDraftResponse() {
         draft.clickAddDocumentsButton();
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
@@ -90,7 +95,13 @@ public class DraftingTeamDecision extends Page {
         uploadDraftResponse();
         qa.sleep(500);
         qa.dontQAOffline();
-//        clickContinueButton();
+    }
+
+    public void moveDTENCaseFromInitialDraftToQaResponse() {
+        dtenAcceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        qa.dontQAOffline();
     }
 
 }

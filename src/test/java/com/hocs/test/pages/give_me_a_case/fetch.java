@@ -6,6 +6,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -23,6 +24,7 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.yecht.Data.Str;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -54,6 +56,8 @@ public class fetch extends Page {
 
     WebDriver driver;
 
+    Draft draft;
+
     private void getFirstUnallocatedMINCaseDataInputStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Data "
@@ -65,7 +69,8 @@ public class fetch extends Page {
 
     private void getFirstUnallocatedDTENCaseDataInputStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                .get(0);
         firstUnallocatedDTENCase.click();
         clickOn(workstacks.allocateToMeButton);
     }
@@ -80,7 +85,8 @@ public class fetch extends Page {
 
     private void getFirstUnallocatedDTENCaseMarkupStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                .get(0);
         firstUnallocatedDTENCase.click();
         clickOn(workstacks.allocateToMeButton);
     }
@@ -95,7 +101,8 @@ public class fetch extends Page {
 
     private void getFirstUnallocatedDTENCaseInitialDraftStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial Draft')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                .get(0);
         firstUnallocatedDTENCase.click();
         clickOn(workstacks.allocateToMeButton);
     }
@@ -110,7 +117,8 @@ public class fetch extends Page {
 
     private void getFirstUnallocatedDTENCaseQAResponseStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                .get(0);
         firstUnallocatedDTENCase.click();
         clickOn(workstacks.allocateToMeButton);
     }
@@ -126,7 +134,7 @@ public class fetch extends Page {
     private void getFirstUnallocatedDTENCasePrivateOfficeStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
         firstUnallocatedDTENCase.click();
         clickOn(workstacks.allocateToMeButton);
     }
@@ -148,6 +156,14 @@ public class fetch extends Page {
         getCaseId();
     }
 
+    private void getFirstUnallocatedDTENDispatchStage() {
+        WebElementFacade firstUnallocatedDTENCase = findAll(
+                "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
+                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+        firstUnallocatedDTENCase.click();
+        clickOn(workstacks.allocateToMeButton);
+        getCaseId();
+    }
 
 
     public void giveMeACase(String caseType, String stage) {
@@ -184,7 +200,7 @@ public class fetch extends Page {
         }
     }
 
-    public void getFirstUnallocatedDataInputCase(String caseType) {
+    private void getFirstUnallocatedDataInputCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -219,13 +235,41 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.transferN10Team);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Transfers & N10 Team not found - Creating a new case");
+                    clickOn(homepage.home);
+                    createCase.createDCU10SingleCase();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    clickOn(homepage.home);
+                    giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedDTENCaseDataInputStage();
+                    try {
+                        dataInput.dtenDraftingDeadlineDayField.clear();
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Element not found - Searching for fresh Data Input case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedDataInputCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Data Input case not found - Creating a new case");
+                    clickOn(homepage.home);
+                    createCase.createDCU10SingleCase();
+                    clickOn(homepage.home);
+                    clickOn(homepage.transferN10Team);
+                    getFirstUnallocatedDTENCaseDataInputStage();
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
-    public void getFirstUnallocatedMarkupCase(String caseType) {
+    private void getFirstUnallocatedMarkupCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -249,7 +293,7 @@ public class fetch extends Page {
                         assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
                                 + "response is required?"));
                     } catch (org.openqa.selenium.NoSuchElementException e) {
-                        System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
+                        System.out.println("Markup 'What sort of response is required?' element not found - Searching for a"
                                 + " fresh Markup case");
                         clickOn(homepage.home);
                         getFirstUnallocatedMarkupCase(caseType);
@@ -265,6 +309,35 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.centralDraftingTeam);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Central Drafting Team not available - Searching for a Data Input Case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedDataInputCase(caseType);
+                }
+                try {
+                    getFirstUnallocatedDTENCaseMarkupStage();
+                    try {
+                        clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Markup']").getText(),
+                                is("Markup"));
+                        System.out.println("Markup is active stage - Continuing test");
+                        assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
+                                + "response is required?"));
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
+                                + " fresh Markup case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedMarkupCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Markup case not found - Searching for a Data Input case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedDataInputCase(caseType);
+                    dataInput.moveCaseFromDataInputToMarkup();
+                    getFirstUnallocatedMarkupCase(caseType);
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -272,7 +345,7 @@ public class fetch extends Page {
     }
 
 
-    public void getFirstUnallocatedInitialDraftCase(String caseType) {
+    private void getFirstUnallocatedInitialDraftCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -313,13 +386,46 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.animalsInScienceTeam);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Central Drafting Team not available - Searching for a Markup case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedMarkupCase(caseType);
+                    markupFullFlow.moveCaseFromMarkupToInitialDraft();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedDTENCaseInitialDraftStage();
+                    try {
+                        clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
+                        System.out.println("Initial Draft is active stage - Continuing Test");
+                        assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
+                                is("Can this "
+                                        + "correspondence be answered by your team?"));
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?'] element not"
+                                + " found - Searching for a fresh Initial Draft case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedInitialDraftCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Initial Draft case not found - Searching for a Markup case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedMarkupCase(caseType);
+                    markupFullFlow.moveCaseFromMarkupToInitialDraft();
+                    getFirstUnallocatedInitialDraftCase(caseType);
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
-    public void getFirstUnallocatedQaResponseCase(String caseType) {
+    private void getFirstUnallocatedQaResponseCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -360,13 +466,47 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.animalsInScienceTeam);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
+                            + "case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedInitialDraftCase(caseType);
+                    draftingTeamDecision.moveDTENCaseFromInitialDraftToQaResponse();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedDTENCaseQAResponseStage();
+                    try {
+                        clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='QA Response']").getText(),
+                                is("QA Response"));
+                        System.out.println("QA Response is active stage - Continuing Test");
+                        assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
+                                + "response?"));
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("QA Response 'Do you approve the response?' element not found = Searching for a"
+                                + " fresh QA Response case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedQaResponseCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("QA Response case not found - Searching for an Initial Draft case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedInitialDraftCase(caseType);
+                    draftingTeamDecision.moveDTENCaseFromInitialDraftToQaResponse();
+                    getFirstUnallocatedQaResponseCase(caseType);
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined withing " + getMethodName());
         }
     }
 
-    public void getFirstUnallocatedPrivateOfficeCase(String caseType) {
+    private void getFirstUnallocatedPrivateOfficeCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -397,8 +537,6 @@ public class fetch extends Page {
                     }
                 } catch (IndexOutOfBoundsException e) {
                     clickOn(homepage.home);
-                    System.out.println("I couldn't find a Private Office Approval case so I am searching for a QA "
-                            + "Response case");
                     System.out.println("Private Office Approval case not found - Searching for a QA Response case");
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
@@ -408,13 +546,46 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.ministerForLordsTeam);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Minister for Lords team not available - Searching for an Initial Draft case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedPrivateOfficeCase(caseType);
+                    draft.moveDTENCaseFromDraftToPrivateOffice();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedDTENCasePrivateOfficeStage();
+                    try {
+                        clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Private Office']").getText(),
+                                is("Private Office"));
+                        System.out.println("Private Office is active stage - Continuing Test");
+                        assertThat($("//span[text()='Do you approve the response?']").getText(),
+                                is("Do you approve the response?"));
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Private Office 'Do you approve the response?' element not found - Searching "
+                                + "for a fresh Private Office case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedDTENCasePrivateOfficeStage();
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    clickOn(homepage.home);
+                    System.out.println("Private Office case not found - Searching for an Initial Draft case");
+                    getFirstUnallocatedInitialDraftCase(caseType);
+                    draft.moveDTENCaseFromDraftToPrivateOffice();
+                    getFirstUnallocatedPrivateOfficeCase(caseType);
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
-    public void getFirstUnallocatedMinisterialSignOffCase(String caseType) {
+    private void getFirstUnallocatedMinisterialSignOffCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -460,7 +631,7 @@ public class fetch extends Page {
         }
     }
 
-    public void getFirstUnallocatedDispatchCase(String caseType) {
+    private void getFirstUnallocatedDispatchCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 try {
@@ -499,6 +670,38 @@ public class fetch extends Page {
             case "DCU TRO":
                 break;
             case "DCU N10":
+                try {
+                    clickOn(homepage.transferN10Team);
+                } catch (ElementShouldBeEnabledException e) {
+                    System.out.println("Transfers & N10 Team not available - Searching for a Private Office case");
+                    clickOn(homepage.home);
+                    getFirstUnallocatedPrivateOfficeCase(caseType);
+                    privateOffice.moveDTENCaseFromPrivateOfficeToDispatch();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
+                }
+                try {
+                    getFirstUnallocatedDTENDispatchStage();
+                    try {
+                        clickOn(workstacks.caseSummaryTab);
+                        assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
+                        System.out.println("Dispatch is active stage - Continuing Test");
+                        assertThat($("//span[text()='Are you able to dispatch this?']").getText(),
+                                is("Are you able to dispatch this?"));
+                    } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
+                        System.out.println("Dispatch 'Are you able to dispatch this?' element not found - Searching for a "
+                                + "fresh Dispatch case");
+                        clickOn(homepage.home);
+                        getFirstUnallocatedDispatchCase(caseType);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    clickOn(homepage.home);
+                    System.out.println("Dispatch case not found - Searching for a Private Office case");
+                    getFirstUnallocatedPrivateOfficeCase(caseType);
+                    privateOffice.moveDTENCaseFromPrivateOfficeToDispatch();
+                    getFirstUnallocatedDispatchCase(caseType);
+                }
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

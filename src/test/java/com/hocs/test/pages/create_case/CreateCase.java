@@ -203,11 +203,9 @@ public class CreateCase extends Page {
 
     public void completeSingleCaseCreation() {
         clickOn(nextButton);
-//        fillMandatoryDateFields();
         addDocuments.uploadDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
-//        successfulCaseCreation.clickSuccessfulCaseBackButton();
    }
 
     public void openACase() {

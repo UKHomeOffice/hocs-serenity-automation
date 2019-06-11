@@ -2,7 +2,7 @@ Feature: HOCS User is able to draft a response
 
   Background:
     Given I am user "EAMON"
-    And I get a "DCU MIN" case at "INITIAL DRAFT" stage
+    And I get a "DCU N10" case at "INITIAL DRAFT" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note
@@ -64,12 +64,13 @@ Feature: HOCS User is able to draft a response
     And I click the "FINISH" button on the "CASE REJECTION" page
     Then an error message should be displayed as I have not entered a reason in the text box
 
-  @Validation
+
+  @Validation @ScreenNotAvailableInDTEN
   Scenario: User must select a radio button when asked how they intend to respond at the Draft stage
     And I click the "CONTINUE" button on the "HOW DO YOU INTEND TO RESPOND" page
     Then an error message should be displayed as I have not selected a response on this screen
 
-  @Validation
+  @Validation @ScreenNotAvailableInDTEN
   Scenario: User must summarise their call in the text box at the Draft stage after selecting phone response
     And I click the "FINISH" button on the "SUMMARISE YOUR CALL" page
     Then an error message should be displayed as I have not summarised the call
