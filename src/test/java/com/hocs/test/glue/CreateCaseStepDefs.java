@@ -61,7 +61,6 @@ public class CreateCaseStepDefs extends Page {
                 prepareCaseIdAssertion();
                 break;
             case "DCU N10":
-//                createCase.createDCU10SingleCase();
                 createCase.createDCUTROSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 homepage.goHome();

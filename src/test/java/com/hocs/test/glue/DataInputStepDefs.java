@@ -49,7 +49,9 @@ public class DataInputStepDefs extends Page {
                 dataInput.dataInputFullFlowMIN();
                 break;
             case "DCU N10":
-                clickOn(homepage.transferN10Team);
+//                clickOn(homepage.transferN10Team);
+                clickOn(homepage.home);
+                dataInput.dataInputFullFlowDTEN();
                 break;
             case "DCU TRO":
                 clickOn(homepage.performanceProcessTeam);

@@ -175,6 +175,15 @@ public class DataInput extends Page {
         clickFinishButton();
     }
 
+    public void dataInputFullFlowDTEN() {
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        fillAllMandatoryCorrespondenceFields();
+        clickOn(continueButton);
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickOn(finishButton);
+    }
+
     public void moveCaseFromDataInputToMarkup() {
         fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
