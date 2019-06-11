@@ -20,9 +20,9 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "MARKUP" stage
     Examples:
       | caseType|
-      | DCU MIN |
+#      | DCU MIN |
 #      | DCU TRO |
-#      | DCU N10 |
+      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Initial Draft stage
@@ -32,9 +32,9 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "INITIAL DRAFT" stage
     Examples:
       | caseType|
-      | DCU MIN |
+#      | DCU MIN |
  #     | DCU TRO |
-  #    | DCU N10 |
+      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to QA Response stage
@@ -45,9 +45,9 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "QA RESPONSE" stage
     Examples:
       | caseType|
-      | DCU MIN |
+#      | DCU MIN |
   #    | DCU TRO |
-  #    | DCU N10 |
+      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to Private Office stage
@@ -59,8 +59,8 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
     Examples:
       | caseType|
-      | DCU MIN |
- #     | DCU N10 |
+#      | DCU MIN |
+      | DCU N10 |
 
   @Workflow @SmokeTests @DCUMIN
   Scenario Outline: Case moves to Minister Sign Off stage

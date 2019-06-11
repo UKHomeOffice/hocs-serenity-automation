@@ -15,6 +15,7 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
