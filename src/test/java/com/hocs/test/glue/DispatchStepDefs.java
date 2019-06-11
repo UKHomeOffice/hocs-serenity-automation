@@ -44,6 +44,18 @@ public class DispatchStepDefs extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
+
+    @When("^I reject the case at Dispatch stage$")
+    public void rejectAtDispatchStage() {
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        dispatch.selectDispatchRejectButton();
+        clickOn(continueButton);
+        dispatch.dispatchRejectNoteField.clear();
+        dispatch.dispatchRejectNoteField.sendKeys("I reject this notion");
+        clickOn(finishButton);
+    }
+
     @When("^I click the continue button on the are you able to dispatch screen$")
     public void clickContinueButtonOnAreYouAbleToDispatchScreen() {
         clickOn(dispatch.continueButton);
