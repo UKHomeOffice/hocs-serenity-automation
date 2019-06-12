@@ -221,6 +221,7 @@ public class Draft extends Page {
         }
     }
 
+
     public void getToWhoDidTheQAOfflineScreenPrerequisites() {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);

@@ -2,7 +2,7 @@ Feature: HOCS User is add data to a case
 
   Background:
     Given I am user "EAMON"
-    And I get a "DCU N10" case at "DATA INPUT" stage
+    And I get a "DCU TRO" case at "DATA INPUT" stage
 
   @HOCS-274 @HOCS-238
   Scenario: DCU data entry user selects correspondence channel and date of correspondence

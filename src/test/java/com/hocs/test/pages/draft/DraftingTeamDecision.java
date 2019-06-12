@@ -97,6 +97,13 @@ public class DraftingTeamDecision extends Page {
         qa.dontQAOffline();
     }
 
+    public void moveTROCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        clickOn(continueButton);
+    }
+
     public void moveDTENCaseFromInitialDraftToQaResponse() {
         dtenAcceptAndDraftALetter();
         uploadDraftResponse();
