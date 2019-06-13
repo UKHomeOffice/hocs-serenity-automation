@@ -61,7 +61,8 @@ public class DraftResponseStepDefs extends Page{
                 clickOn(workstacks.allocateToMeButton);
                 draftingTeamDecision.acceptAndDraftALetter();
                 draftingTeamDecision.uploadDraftResponse();
-                clickOn(continueButton);
+                qa.dontQAOffline();
+                // adding comment to force a change in the code
                 break;
             case "DCU N10" :
                 break;

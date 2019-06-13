@@ -3,7 +3,7 @@ Feature: HOCS is able to move cases through the entire flow
   Background:
     Given I am user "DANNY"
 
-  @Workflow @SmokeTests @DroneTest @DCUTRO
+  @Workflow @SmokeTests @DCUTRO
   Scenario Outline: Case moves to Data Input stage
     When I create a single case "<caseType>"
     Then the case should be moved to the "DATA INPUT" stage
@@ -20,7 +20,7 @@ Feature: HOCS is able to move cases through the entire flow
     Then the "<caseType>" case should be moved to the "MARKUP" stage
     Examples:
       | caseType|
-#      | DCU MIN |
+      | DCU MIN |
       | DCU TRO |
 #      | DCU N10 |
 
@@ -59,7 +59,7 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
     Examples:
       | caseType|
-  #    | DCU MIN |
+      | DCU MIN |
   #    | DCU N10 |
 
   @Workflow @SmokeTests @DCUMIN
@@ -70,8 +70,6 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
-    # TRO has no Private Office so dont run this test for it, and have 0 code in that step for future staged
-    # tests
     Then the case should be moved to the "MINISTERIAL SIGN OFF" stage
     Examples:
       | caseType|
@@ -89,7 +87,7 @@ Feature: HOCS is able to move cases through the entire flow
     Then the "<caseType>" case should be moved to the "DISPATCH" stage
     Examples:
       | caseType|
-      | DCU MIN |
+  #    | DCU MIN |
       | DCU TRO |
    #   | DCU N10 |
 
