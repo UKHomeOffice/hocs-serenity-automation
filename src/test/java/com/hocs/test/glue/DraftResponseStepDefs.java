@@ -62,6 +62,7 @@ public class DraftResponseStepDefs extends Page{
                 draftingTeamDecision.acceptAndDraftALetter();
                 draftingTeamDecision.uploadDraftResponse();
                 qa.dontQAOffline();
+                // adding comment to force a change in the code
                 break;
             case "DCU N10" :
                 break;
