@@ -40,6 +40,8 @@ public class fetch extends Page {
 
     DraftingTeamDecision draftingTeamDecision;
 
+    Draft draft;
+
     QAResponse qa;
 
     PrivateOffice privateOffice;
@@ -56,21 +58,19 @@ public class fetch extends Page {
 
     WebDriver driver;
 
-    Draft draft;
-
     private void getFirstUnallocatedMINCaseDataInputStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Data "
                         + "Input')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseDataInputStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
-        firstUnallocatedTROCase.click();
+        clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -78,7 +78,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -86,14 +86,14 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseMarkupStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
-        firstUnallocatedTROCase.click();
+        clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -101,7 +101,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -109,7 +109,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Initial Draft')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -117,7 +117,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial "
                 + "Draft')]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')"
                 + "]]").get(0);
-        firstUnallocatedTROCase.click();
+        clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -125,7 +125,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial Draft')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -133,14 +133,14 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'QA Response')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseQAResponse() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
-        firstUnallocatedTROCase.click();
+        clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -148,7 +148,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -156,7 +156,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office Approval')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -164,7 +164,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -172,7 +172,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Ministerial Sign off')]][following-sibling::td[2]"
                 + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
@@ -180,7 +180,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        firstUnallocatedMINCase.click();
+        clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
     }
@@ -188,7 +188,7 @@ public class fetch extends Page {
     private void getFirstUnallocatedTROCaseDispatchStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Dispatch')"
                 + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
-        firstUnallocatedTROCase.click();
+        clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
     }
@@ -197,7 +197,7 @@ public class fetch extends Page {
         WebElementFacade firstUnallocatedDTENCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
-        firstUnallocatedDTENCase.click();
+        clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
     }
@@ -214,7 +214,6 @@ public class fetch extends Page {
                 getFirstUnallocatedMarkupCase(caseType);
                 break;
             case "INITIAL DRAFT":
-                // Only Cardiff University Kittens ATM, add random topics later
                 getFirstUnallocatedInitialDraftCase(caseType);
                 break;
             case "QA RESPONSE":
@@ -373,7 +372,7 @@ public class fetch extends Page {
                 break;
             case "DCU TRO":
                 try {
-                    clickOn(homepage.transferN10Team);
+                    clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Transfers & N10 Team not available - Searching for a Data Input case");
                     clickOn(homepage.home);
@@ -406,7 +405,7 @@ public class fetch extends Page {
                 break;
             case "DCU N10":
                 try {
-                    clickOn(homepage.centralDraftingTeam);
+                    clickOn(homepage.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available - Searching for a Data Input case");
                     clickOn(homepage.home);
@@ -458,13 +457,19 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINCaseInitialDraftStage();
                     try {
-                        clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Initial Draft']").getText(),
-                                is("Initial Draft"));
-                        assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                is("Can this "
-                                        + "correspondence be answered by your team?"));
-                        System.out.println("Initial Draft is active stage - Continuing Test");
+                        clickOn(workstacks.caseTimelineTab);
+                        if (draft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
+                            clickOn(homepage.home);
+                            getFirstUnallocatedInitialDraftCase(caseType);
+                        } else {
+                            clickOn(workstacks.caseSummaryTab);
+                            assertThat($("//caption[text()='Initial Draft']").getText(),
+                                    is("Initial Draft"));
+                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
+                                    is("Can this "
+                                            + "correspondence be answered by your team?"));
+                            System.out.println("Initial Draft is active stage - Continuing Test");
+                        }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
                                 + "found - Searching for a fresh Initial Draft case");
@@ -494,12 +499,18 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedTROCaseInitialDraftStage();
                     try {
-                        clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
-                        assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                is("Can "
-                                        + "this correspondence be answered by your team?"));
-                        System.out.println("Initial Draft is active stage - Continuing Test");
+                        clickOn(workstacks.caseTimelineTab);
+                        if (draft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
+                            clickOn(homepage.home);
+                            getFirstUnallocatedInitialDraftCase(caseType);
+                        } else {
+                            clickOn(workstacks.caseSummaryTab);
+                            assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
+                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
+                                    is("Can "
+                                            + "this correspondence be answered by your team?"));
+                            System.out.println("Initial Draft is active stage - Continuing Test");
+                        }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
                                 + "found - Searching for a fresh Initial Draft case");
@@ -529,14 +540,20 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedDTENCaseInitialDraftStage();
                     try {
-                        clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
-                        assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                is("Can this "
-                                        + "correspondence be answered by your team?"));
-                        System.out.println("Initial Draft is active stage - Continuing Test");
+                        clickOn(workstacks.caseTimelineTab);
+                        if (draft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
+                            clickOn(homepage.home);
+                            getFirstUnallocatedInitialDraftCase(caseType);
+                        } else {
+                            clickOn(workstacks.caseSummaryTab);
+                            assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
+                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
+                                    is("Can this "
+                                            + "correspondence be answered by your team?"));
+                            System.out.println("Initial Draft is active stage - Continuing Test");
+                        }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
-                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?'] element not"
+                        System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not"
                                 + " found - Searching for a fresh Initial Draft case");
                         clickOn(homepage.home);
                         getFirstUnallocatedInitialDraftCase(caseType);
@@ -685,12 +702,18 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedMINCasePrivateOfficeStage();
                     try {
-                        clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Private Office Approval']").getText(),
-                                is("Private Office Approval"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(),
-                                is("Do you approve the response?"));
-                        System.out.println("Private Office Approval is active stage - Continuing Test");
+                        clickOn(workstacks.caseTimelineTab);
+                        if (draft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
+                            clickOn(homepage.home);
+                            getFirstUnallocatedPrivateOfficeCase(caseType);
+                        } else {
+                            clickOn(workstacks.caseSummaryTab);
+                            assertThat($("//caption[text()='Private Office Approval']").getText(),
+                                    is("Private Office Approval"));
+                            assertThat($("//span[text()='Do you approve the response?']").getText(),
+                                    is("Do you approve the response?"));
+                            System.out.println("Private Office Approval is active stage - Continuing Test");
+                        }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Private Office Approval 'Do you approve the response?' element not found - "
                                 + "Searching for a fresh Private Office Approval case");
@@ -722,12 +745,18 @@ public class fetch extends Page {
                 try {
                     getFirstUnallocatedDTENCasePrivateOfficeStage();
                     try {
-                        clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Private Office']").getText(),
-                                is("Private Office"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(),
-                                is("Do you approve the response?"));
-                        System.out.println("Private Office is active stage - Continuing Test");
+                        clickOn(workstacks.caseTimelineTab);
+                        if (draft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
+                            clickOn(homepage.home);
+                            getFirstUnallocatedPrivateOfficeCase(caseType);
+                        } else {
+                            clickOn(workstacks.caseSummaryTab);
+                            assertThat($("//caption[text()='Private Office Approval']").getText(),
+                                    is("Private Office Approval"));
+                            assertThat($("//span[text()='Do you approve the response?']").getText(),
+                                    is("Do you approve the response?"));
+                            System.out.println("Private Office is active stage - Continuing Test");
+                        }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Private Office 'Do you approve the response?' element not found - Searching "
                                 + "for a fresh Private Office case");
