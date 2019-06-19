@@ -21,12 +21,6 @@ Feature:  HOCS User is able to Dispatch a Response
     When I "DISPATCH" the case
     Then the case is completed
 
-  @Navigation
-  Scenario: Clicking the cancel button on the allocate case screen at the Dispatch stage should take the user back to the
-  dashboard
-    And I click the cancel button
-    Then I should be taken to the homepage
-
   @Validation
   Scenario: User must select a radio button when asked if they able to dispatch the case at the Dispatch Stage
     And I click the continue button on the are you able to dispatch screen

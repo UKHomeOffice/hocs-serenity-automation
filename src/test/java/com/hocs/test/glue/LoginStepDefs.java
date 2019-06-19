@@ -8,6 +8,7 @@ import static config.Passwords.*;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
@@ -40,23 +41,29 @@ public class LoginStepDefs extends Page {
     public void iLoginAs(String user) {
         navigateToHocs();
         setSessionVariable("user").to(user);
-        switch (user.toUpperCase()) {
-            case "DCU":
-                enterHocsLoginDetails(DCU);
-                break;
-            case "TEST":
-                enterHocsLoginDetails(TEST);
-                break;
-            case "DANNY":
-                enterHocsLoginDetails(DANNY);
-                break;
-            case "EAMON":
-                enterHocsLoginDetails(EAMON);
-                break;
-            default:
-                pendingStep(user + " is not defined within " + getMethodName());
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("On fresh browser, beginning test..");
+            switch (user.toUpperCase()) {
+                case "DCU":
+                    enterHocsLoginDetails(DCU);
+                    break;
+                case "TEST":
+                    enterHocsLoginDetails(TEST);
+                    break;
+                case "DANNY":
+                    enterHocsLoginDetails(DANNY);
+                    break;
+                case "EAMON":
+                    enterHocsLoginDetails(EAMON);
+                    break;
+                default:
+                    pendingStep(user + " is not defined within " + getMethodName());
+            }
+            clickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Browser not closed down correctly, attempting to continue test");
+            homepage.goHome();
         }
-        clickOn(loginPage.continueButton);
     }
 
     @Given("^I am on the Home Office Correspondence Login Page")
