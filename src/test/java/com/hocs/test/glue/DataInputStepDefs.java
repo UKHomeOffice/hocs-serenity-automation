@@ -14,8 +14,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
-
 public class DataInputStepDefs extends Page {
 
     @Steps(shared = true)
@@ -64,7 +62,12 @@ public class DataInputStepDefs extends Page {
 
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
-        dataInput.addAnAdditionalCorrespondent();
+        clickOn(recordCorrespondentDetails.additionalCorrespondentYesRadioButton);
+        clickOn(dataInput.continueButton);
+        clickOn(dataInput.correspondentMemberNoRadioButton);
+        clickOn(continueButton);
+        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+        clickOn(continueButton);
     }
 
     @When("^I select a Data Input QA decision of \"([^\"]*)\"$")
@@ -79,12 +82,12 @@ public class DataInputStepDefs extends Page {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        dataInput.clickFinishButton();
+        clickOn(dataInput.finishButton);
     }
 
     @When("^I do not select a Data Input QA response$")
     public void iDoNotSelectADataInputQAResponse() {
-        dataInput.clickFinishButton();
+        clickOn(dataInput.finishButton);
     }
 
     @And("^I set the correspondence channel to \"([^\"]*)\"$")
@@ -117,7 +120,7 @@ public class DataInputStepDefs extends Page {
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
             dataInput.selectCorrespondentIsNotAMemberRadioButton();
         }
-        clickContinueButton();
+        clickOn(dataInput.continueButton);
     }
 
     @When("^they complete the first data input screen$")

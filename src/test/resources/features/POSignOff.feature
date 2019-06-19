@@ -2,7 +2,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
 
   Background: 
     Given I am user "EAMON"
-    When I get a "DCU TRO" case at "PRIVATE OFFICE APPROVAL" stage
+    When I get a "DCU N10" case at "PRIVATE OFFICE APPROVAL" stage
 
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the PO Sign Off stage should take the user back to the

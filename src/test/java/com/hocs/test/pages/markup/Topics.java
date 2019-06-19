@@ -75,28 +75,28 @@ public class Topics extends Page {
     }
 
     public void enterATopic(String topic) {
-        clickAddTopicButton();
-        clickTopicsTextField();
+        clickOn(addTopicButton);
+        clickOn(topicsTextField);
         focusedTopicsTextField.sendKeys(topic);
         sleep(1000);
         hitReturnToSendTopic();
-        clickAddButton();
-        clickContinueButton();
+        clickOn(addButton);
+        clickOn(continueButton);
     }
 
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
-        clickAddTopicButton();
-        clickTopicsTextField();
+        clickOn(addTopicButton);
+        clickOn(topicsTextField);
         focusedTopicsTextField.sendKeys(topic);
         sleep(1000);
         hitReturnToSendTopic();
-        clickAddButton();
+        clickOn(addButton);
     }
 
     // Multi Step Methods
 
     public void enterRealTopic() {
-        topicsTextField.click();
+        clickOn(topicsTextField);
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
         sleep(1000);
         topicsTextField.sendKeys(Keys.RETURN);

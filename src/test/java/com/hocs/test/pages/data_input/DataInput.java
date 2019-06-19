@@ -21,8 +21,6 @@ public class DataInput extends Page {
 
     Homepage homepage;
 
-    Page page;
-
     // Elements
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
@@ -150,29 +148,29 @@ public class DataInput extends Page {
 
     public void dataInputFullFlow() {
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
+        clickOn(workstacks.allocateToMeButton);
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void dataInputFullFlowMIN() {
         homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void dataInputFullFlowWithCopyToN10() {
         homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void dataInputFullFlowDTEN() {
@@ -186,9 +184,9 @@ public class DataInput extends Page {
 
     public void moveCaseFromDataInputToMarkup() {
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void setDateMinusOneDay() {
@@ -253,8 +251,7 @@ public class DataInput extends Page {
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
-            emailOriginalChannelRadioButton.click();
-//            clickOn(continueButton);
+            clickOn(emailOriginalChannelRadioButton);
         } else {
             enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
             enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
@@ -262,8 +259,8 @@ public class DataInput extends Page {
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
-            emailOriginalChannelRadioButton.click();
-            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
         }
     }
 
@@ -274,8 +271,8 @@ public class DataInput extends Page {
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10YesRadioButton.click();
+        clickOn(emailOriginalChannelRadioButton);
+        clickOn(shouldResponseBeCopiedN10YesRadioButton);
     }
 
     public void getToAddMemberOfParliamentPrerequisites() {
@@ -290,22 +287,22 @@ public class DataInput extends Page {
             enterDayOfCorrespondenceSent("01");
             enterMonthOfCorrespondenceSent("01");
             enterYearOfCorrespondenceSent("2019");
-            emailOriginalChannelRadioButton.click();
+            clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
             sleep(500);
-            addCorrespondentLink.click();
-            correspondentMemberYesRadioButton.click();
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberYesRadioButton);
             clickOn(continueButton);
         } else {
             enterDayOfCorrespondenceSent("01");
             enterMonthOfCorrespondenceSent("01");
             enterYearOfCorrespondenceSent("2019");
-            emailOriginalChannelRadioButton.click();
-            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
             sleep(500);
-            addCorrespondentLink.click();
-            correspondentMemberYesRadioButton.click();
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberYesRadioButton);
             clickOn(continueButton);
         }
     }
@@ -322,21 +319,20 @@ public class DataInput extends Page {
             enterDayOfCorrespondenceSent("01");
             enterMonthOfCorrespondenceSent("01");
             enterYearOfCorrespondenceSent("2019");
-            emailOriginalChannelRadioButton.click();
+            clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
-            sleep(500);
-            addCorrespondentLink.click();
+            clickOn(addCorrespondentLink);
         } else {
             enterDayOfCorrespondenceSent("01");
             enterMonthOfCorrespondenceSent("01");
             enterYearOfCorrespondenceSent("2019");
-            emailOriginalChannelRadioButton.click();
-            shouldResponseBeCopiedN10NoRadioButton.click();
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
-            sleep(500);
-            addCorrespondentLink.click();
+            clickOn(addCorrespondentLink);
         }
     }
+
     public void getToRecordCorrespondentDetailsPrerequisites() {
         if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
             typeInto(dtenDraftingDeadlineDayField, "01");
@@ -352,20 +348,20 @@ public class DataInput extends Page {
             emailOriginalChannelRadioButton.click();
             clickOn(continueButton);
             sleep(500);
-            addCorrespondentLink.click();
-            correspondentMemberNoRadioButton.click();
-            continueButton.click();
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberNoRadioButton);
+            clickOn(continueButton);
         } else {
             enterDayOfCorrespondenceSent("01");
             enterMonthOfCorrespondenceSent("01");
             enterYearOfCorrespondenceSent("2019");
-            emailOriginalChannelRadioButton.click();
-            shouldResponseBeCopiedN10NoRadioButton.click();
-            clickContinueButton();
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
+            clickOn(continueButton);
             sleep(500);
-            addCorrespondentLink.click();
-            correspondentMemberNoRadioButton.click();
-            continueButton.click();
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberNoRadioButton);
+            clickOn(continueButton);
         }
     }
 

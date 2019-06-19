@@ -14,12 +14,11 @@ public class DataInputQADecision extends Page {
 
     public void acceptDataInputQa() {
         getCaseId();
-        acceptDataInputQaDecision.click();
+        clickOn(acceptDataInputQaDecision);
     }
 
     public void rejectDataInputQa() {
         getCaseId();
-        rejectDataInputQaDecision.click();
+        clickOn(rejectDataInputQaDecision);
     }
-
 }

@@ -60,7 +60,7 @@ public class WorkstacksStepDefs extends Page {
 
     @Then("^no cases should be visible in my workstack$")
     public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
-        workstacks.sleep(500);
+//        workstacks.sleep(500);
         workstacks.assertThatThereAreNoCasesInWorkstack();
     }
 

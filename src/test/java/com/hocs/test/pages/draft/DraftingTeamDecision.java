@@ -56,10 +56,10 @@ public class DraftingTeamDecision extends Page {
     // Multi Step Methods
 
     public void acceptAndDraftALetter() {
-        clickAcceptInitialDraftDecision();
-        draft.clickContinueButton();
-        clickDraftingResponseLetter();
-        draft.clickContinueButton();
+        clickOn(initialDraftingDecisionAccept);
+        clickOn(draft.continueButton);
+        clickOn(draftingResponseLetter);
+        clickOn(draft.continueButton);
     }
 
     public void dtenAcceptAndDraftALetter() {
@@ -69,10 +69,10 @@ public class DraftingTeamDecision extends Page {
 
 
     public void uploadDraftResponse() {
-        draft.clickAddDocumentsButton();
+        clickOn(draft.draftStageAddDocumentsButton);
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
-        draft.clickAddButton();
+        clickOn(draft.addButton);
     }
 
     public void initialDraftFullFlow() {
@@ -81,9 +81,9 @@ public class DraftingTeamDecision extends Page {
                 + "']").get(0);
         thisDraftTeam.click();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(homepage.home);
+        clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         acceptAndDraftALetter();
         uploadDraftResponse();
@@ -110,5 +110,4 @@ public class DraftingTeamDecision extends Page {
         qa.sleep(500);
         qa.dontQAOffline();
     }
-
 }

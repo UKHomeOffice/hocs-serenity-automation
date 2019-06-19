@@ -36,7 +36,6 @@ public class PrivateOffice extends Page {
 
     public void enterPORejectNotes() {
         waitFor(privateOfficeRejectNoteField);
-
         String poRejectNote = "Rejection Reason: " + generateRandomString();
         privateOfficeRejectNoteField.clear();
         privateOfficeRejectNoteField.sendKeys(poRejectNote);
@@ -67,8 +66,8 @@ public class PrivateOffice extends Page {
     }
 
     public void moveCaseFromPrivateOfficeToMinisterSignOff() {
-        privateOfficeAcceptRadioButton.click();
-        clickContinueButton();
+        clickOn(privateOfficeAcceptRadioButton);
+        clickOn(continueButton);
     }
 
     public void moveDTENCaseFromPrivateOfficeToDispatch() {

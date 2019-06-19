@@ -75,7 +75,6 @@ public class MarkUpStepDefs extends Page {
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I add the topic \"([^\"]*)\"$")

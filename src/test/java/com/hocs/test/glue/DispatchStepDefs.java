@@ -21,8 +21,6 @@ public class DispatchStepDefs extends Page {
 
     Homepage homepage;
 
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Workstacks workstacks;
 
     @When("^I complete the dispatch stage$")

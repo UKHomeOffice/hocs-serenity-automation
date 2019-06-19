@@ -2,7 +2,7 @@ Feature: DCU user decides how a case should be handled
 
   Background:
     Given I am user "EAMON"
-    When I get a "DCU TRO" case at "MARKUP" stage
+    When I get a "DCU MIN" case at "MARKUP" stage
 
   @HOCS-266, @HOCS-237
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
