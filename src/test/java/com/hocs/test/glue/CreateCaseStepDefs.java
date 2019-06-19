@@ -56,21 +56,21 @@ public class CreateCaseStepDefs extends Page {
             case "DCU MIN":
                 createCase.createDCUMinSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
-                homepage.goHome();
-                homepage.selectPerformanceProcessTeam();
+                clickOn(homepage.home);
+                clickOn(homepage.performanceProcessTeam);
                 prepareCaseIdAssertion();
                 break;
             case "DCU N10":
                 createCase.createDCUTROSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
-                homepage.goHome();
-                homepage.selectTransfersN10Team();
+                clickOn(homepage.home);
+                clickOn(homepage.transferN10Team);
                 prepareCaseIdAssertion();
                 break;
             case "DCU TRO":
                 createCase.createDCUTROSingleCase();
                 setSessionVariable("caseType").to(caseType);
-                homepage.goHome();
+                clickOn(homepage.home);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -79,10 +79,10 @@ public class CreateCaseStepDefs extends Page {
 
     @When("^I create a case$")
     public void aCaseIsCreated() {
-        createCase.clickDcuMinRadioButton();
-        createCase.clickNextButton();
+        clickOn(createCase.dcuMinRadioButton);
+        clickOn(createCase.nextButton);
         addDocuments.uploadDocument();
-        createCase.clickSubmitButton();
+        clickOn(createCase.submitButton);
         waitABit(500);
     }
 
@@ -91,7 +91,7 @@ public class CreateCaseStepDefs extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
-                homepage.goHome();
+                clickOn(homepage.home);
                 homepage.waitForPerformanceProcessTeam();
                 clickOn(homepage.performanceProcessTeam);
                 dataInput.dataInputFullFlow();
@@ -117,7 +117,7 @@ public class CreateCaseStepDefs extends Page {
     }
 
     @When("^I create a case with a <Primary Correspondent>$")
-    public void aCaseWithSpecifiedPrimaryCorrespondantIsCreated() {
+    public void aCaseWithSpecifiedPrimaryCorrespondentIsCreated() {
     }
 
     @When("^I create a single MIN case$")
@@ -149,15 +149,15 @@ public class CreateCaseStepDefs extends Page {
 
     @Then("^the case should be visible in my workstack$")
     public void assertThatCaseIsAddedToMyWorkstack() {
-        homepage.goHome();
+        clickOn(homepage.home);
         clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
     @Then("^the case should be visible in the Performance and Process Team workstack$")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
-        homepage.goHome();
-        homepage.selectPerformanceProcessTeam();
+        clickOn(homepage.home);
+        clickOn(homepage.performanceProcessTeam);
         workstacks.assertCaseReferenceIsVisible();
     }
 

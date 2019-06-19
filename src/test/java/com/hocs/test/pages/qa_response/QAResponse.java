@@ -91,8 +91,8 @@ public class QAResponse extends Page{
     }
 
     public void moveCaseFromQaResponseToPrivateOfficeApproval() {
-        clickQAResponseAcceptRadioButton();
-        clickContinueButton();
+        clickOn(QAAcceptRadioButton);
+        clickOn(continueButton);
     }
 
 }

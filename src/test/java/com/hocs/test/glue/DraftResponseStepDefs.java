@@ -27,8 +27,6 @@ public class DraftResponseStepDefs extends Page {
 
     DraftingTeamDecision draftingTeamDecision;
 
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Qa qa;
 
     Teamqueue teamqueue;

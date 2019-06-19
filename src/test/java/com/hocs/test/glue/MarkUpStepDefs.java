@@ -52,11 +52,8 @@ public class MarkUpStepDefs extends Page {
         clickOn(continueButton);
         clickOn(topics.addTopicButton);
         topics.enterRealTopic();
-        waitABit(1000);
         clickOn(addButton);
-        waitABit(1000);
         clickOn(continueButton);
-        waitABit(1000);
         clickOn(finishButton);
     }
 
@@ -83,7 +80,6 @@ public class MarkUpStepDefs extends Page {
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I add the topic \"([^\"]*)\"$")

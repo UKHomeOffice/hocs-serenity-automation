@@ -32,9 +32,9 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "INITIAL DRAFT" stage
     Examples:
       | caseType|
-#      | DCU MIN |
- #     | DCU TRO |
-      | DCU N10 |
+      | DCU MIN |
+#      | DCU TRO |
+#      | DCU N10 |
 
   @Workflow @SmokeTests
   Scenario Outline: Case moves to QA Response stage

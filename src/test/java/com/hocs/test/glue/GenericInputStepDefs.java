@@ -60,8 +60,6 @@ public class GenericInputStepDefs extends Page {
 
     Draft draft;
 
-    AddDocuments addDocuments;
-
     MinisterSignOff minister;
 
     Qa qa;
@@ -198,11 +196,8 @@ public class GenericInputStepDefs extends Page {
         clickOn(markUpDecision.continueButton);
         clickOn(topics.addTopicButton);
         topics.enterRealTopic();
-        waitABit(1000);
         clickOn(markUpDecision.addButton);
-        waitABit(1000);
         clickOn(continueButton);
-        waitABit(1000);
         clickOn(finishButton);
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -455,7 +450,6 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());
         }
-
     }
 
     @Given("^I add (\\d+) \"([^\"]*)\" to a case$")

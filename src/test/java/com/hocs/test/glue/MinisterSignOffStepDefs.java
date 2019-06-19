@@ -18,15 +18,11 @@ public class MinisterSignOffStepDefs extends Page {
     @Managed
     WebDriver driver;
 
-    Page page;
-
-    DataInput dataInput;
+    Page page;;
 
     Homepage homepage;
 
     MinisterSignOff minister;
-
-    SuccessfulCaseCreation successfulCaseCreation;
 
     Workstacks workstacks;
 

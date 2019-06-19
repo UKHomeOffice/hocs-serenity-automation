@@ -23,8 +23,6 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
-    Workstacks workstacks;
-
     WebDriver driver;
 
     // Elements

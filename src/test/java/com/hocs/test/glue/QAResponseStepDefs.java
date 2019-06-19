@@ -15,8 +15,6 @@ public class QAResponseStepDefs extends Page {
 
     QAResponse qaResponse;
 
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Workstacks workstacks;
 
     @When("^I complete the QA response stage$")

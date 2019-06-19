@@ -56,12 +56,13 @@ public class WorkstacksStepDefs extends Page {
     @When("^I unallocate all the cases from myself$")
     public void unallocateAllCasesFromMyCases() {
         workstacks.clickAllWorkstackCheckboxes();
+        workstacks.sleep(1000);
         clickOn(workstacks.unallocateFromMeButton);
     }
 
     @Then("^no cases should be visible in my workstack$")
     public void assertThatAllCasesHaveBeenUnallocatedFromMyWorkstack() {
-        workstacks.sleep(500);
+//        workstacks.sleep(500);
         workstacks.assertThatThereAreNoCasesInWorkstack();
     }
 

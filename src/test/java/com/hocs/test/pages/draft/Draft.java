@@ -177,7 +177,6 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            sleep(500);
         }
     }
 
@@ -185,7 +184,6 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            sleep(500);
             clickOn(draftStageAddDocumentsButton);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
@@ -200,7 +198,7 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            sleep(500);
+//            sleep(500);
             clickOn(draftStageAddDocumentsButton);
             selectDocumentTypeByIndex(2);
             addDocuments.uploadDocument();
@@ -226,7 +224,6 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            sleep(500);
             clickOn(draftStageAddDocumentsButton);
             selectDocumentTypeByIndex(2);
             addDocuments.uploadDocument();
@@ -254,7 +251,6 @@ public class Draft extends Page {
     public void moveDTENCaseFromDraftToPrivateOffice() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
-        sleep(500);
         clickOn(draftStageAddDocumentsButton);
         selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();

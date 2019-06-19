@@ -10,16 +10,15 @@ public class MarkupFull extends Page {
     MarkUpDecision markUpDecision;
 
     public void moveCaseFromMarkupToInitialDraft() {
-        markUpDecision.clickPolicyResponseRadioButton();
-        clickContinueButton();
-        topics.clickAddTopicButton();
+        clickOn(markUpDecision.policyResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(addTopicButton);
         topics.enterRealTopic();
-        sleep(1000);
-        clickAddButton();
-        sleep(1000);
-        clickContinueButton();
-        sleep(1000);
-        clickFinishButton();
+//        sleep(1000);
+        clickOn(addButton);
+//        sleep(1000);
+        clickOn(continueButton);
+//        sleep(1000);
+        clickOn(finishButton);
     }
-
 }

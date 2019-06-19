@@ -2,7 +2,7 @@ Feature: HOCS User is able to draft a response
 
   Background:
     Given I am user "EAMON"
-    And I get a "DCU TRO" case at "INITIAL DRAFT" stage
+    And I get a "DCU N10" case at "INITIAL DRAFT" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note

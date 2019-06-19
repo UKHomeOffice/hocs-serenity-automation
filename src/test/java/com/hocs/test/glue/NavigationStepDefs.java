@@ -120,7 +120,6 @@ public class NavigationStepDefs extends Page {
             default:
                 pendingStep(teamPage + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
@@ -131,7 +130,6 @@ public class NavigationStepDefs extends Page {
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
         clickOn(workstacks.backToDashboardButton);
-
     }
 
     @When("^I click the cancel button$")
@@ -174,7 +172,6 @@ public class NavigationStepDefs extends Page {
                 pendingStep(onHocsPage + " is not defined within " + getMethodName());
         }
     }
-
 
     @Then("^I am taken to the \"([^\"]*)\" page$")
     public void iAmTakenToThePage(String pageName) {

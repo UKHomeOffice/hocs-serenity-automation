@@ -220,9 +220,6 @@ public class fetch extends Page {
                 getFirstUnallocatedQaResponseCase(caseType);
                 break;
             case "PRIVATE OFFICE APPROVAL":
-                // As in draft stage, only cardiff uni kittens as Current topic so
-                // always come to this team for now, add random topics later
-                // Might not need this as we are just interested in 'a case at a stage'
                 getFirstUnallocatedPrivateOfficeCase(caseType);
                 break;
             case "MINISTERIAL SIGN OFF":
@@ -410,6 +407,10 @@ public class fetch extends Page {
                     System.out.println("Central Drafting Team not available - Searching for a Data Input case");
                     clickOn(homepage.home);
                     getFirstUnallocatedDataInputCase(caseType);
+                    dataInput.moveCaseFromDataInputToMarkup();
+                    String thisCaseType = sessionVariableCalled("caseType").toString();
+                    String thisStage = sessionVariableCalled("stage").toString();
+                    giveMeACase(thisCaseType, thisStage);
                 }
                 try {
                     getFirstUnallocatedDTENCaseMarkupStage();
@@ -438,7 +439,6 @@ public class fetch extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
-
 
     private void getFirstUnallocatedInitialDraftCase(String caseType) {
         switch (caseType.toUpperCase()) {
