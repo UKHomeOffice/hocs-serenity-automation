@@ -24,15 +24,14 @@ public class Qa extends Page {
     // Multi Step Methods
 
     public void dontQAOffline() {
-        clickContinueButton();
-        clickOfflineQANoRadioButton();
-        clickContinueButton();
+        clickOn(continueButton);
+        clickOn(offlineQaNoRadioButton);
+        clickOn(continueButton);
     }
 
     public void qaOffline() {
-        clickContinueButton();
-        clickOfflineQAYesRadioButton();
-        clickContinueButton();
+        clickOn(continueButton);
+        clickOn(offlineQaYesRadioButton);
+        clickOn(continueButton);
     }
-
 }

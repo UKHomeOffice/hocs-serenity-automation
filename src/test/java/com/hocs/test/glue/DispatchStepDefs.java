@@ -21,8 +21,6 @@ public class DispatchStepDefs extends Page {
 
     Homepage homepage;
 
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Workstacks workstacks;
 
     @When("^I complete the dispatch stage$")
@@ -76,5 +74,15 @@ public class DispatchStepDefs extends Page {
     @Then("^an error message should be displayed as I have not entered a reason for not dispatching in the text box$")
     public void assertThatWhyAreYouUnableToDispatchErrorMessageIsShown() {
         dispatch.assertWhyAreYouUnableToDispatchErrorMessageIsShown();
+    }
+
+    @When("^the case is rejected at the Dispatch stage$")
+    public void rejectAtDispatch() {
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(dispatch.dispatchRejectRadioButton);
+        clickOn(continueButton);
+        dispatch.enterDispatchRejectionNotes();
+        clickOn(finishButton);
     }
 }

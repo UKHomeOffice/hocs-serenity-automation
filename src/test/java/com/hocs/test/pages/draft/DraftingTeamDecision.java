@@ -39,7 +39,6 @@ public class DraftingTeamDecision extends Page {
     @FindBy(id = "PhonecallNote")
     private WebElementFacade phoneCallSummaryNote;
 
-
     //Basic Methods
 
     public void clickAcceptInitialDraftDecision() {
@@ -56,18 +55,24 @@ public class DraftingTeamDecision extends Page {
 
     // Multi Step Methods
 
-    public void acceptAndDraftALetter(){
-        clickAcceptInitialDraftDecision();
-        draft.clickContinueButton();
-        clickDraftingResponseLetter();
-        draft.clickContinueButton();
+    public void acceptAndDraftALetter() {
+        clickOn(initialDraftingDecisionAccept);
+        clickOn(draft.continueButton);
+        clickOn(draftingResponseLetter);
+        clickOn(draft.continueButton);
     }
 
-    public void uploadDraftResponse(){
-        draft.clickAddDocumentsButton();
+    public void dtenAcceptAndDraftALetter() {
+        clickOn(initialDraftingDecisionAccept);
+        clickOn(continueButton);
+    }
+
+
+    public void uploadDraftResponse() {
+        clickOn(draft.draftStageAddDocumentsButton);
         draft.selectDocumentTypeByIndex(2);
         addDocuments.uploadDocument();
-        draft.clickAddButton();
+        clickOn(draft.addButton);
     }
 
     public void initialDraftFullFlow() {
@@ -76,9 +81,9 @@ public class DraftingTeamDecision extends Page {
                 + "']").get(0);
         thisDraftTeam.click();
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(homepage.home);
+        clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         acceptAndDraftALetter();
         uploadDraftResponse();
@@ -90,7 +95,19 @@ public class DraftingTeamDecision extends Page {
         uploadDraftResponse();
         qa.sleep(500);
         qa.dontQAOffline();
-//        clickContinueButton();
     }
 
+    public void moveTROCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        clickOn(continueButton);
+    }
+
+    public void moveDTENCaseFromInitialDraftToQaResponse() {
+        dtenAcceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        qa.dontQAOffline();
+    }
 }

@@ -92,7 +92,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(arg + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I close the case with a decision of \"([^\"]*)\"$")
@@ -108,9 +107,8 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(status + " is not defined within " + getMethodName());
         }
-        clickOn(continueButton);
-        clickOn(finishButton);
-
+        clickOn(markUpDecision.continueButton);
+        clickOn(markUpDecision.finishButton);
     }
 
     @When("^I amend the answering \"([^\"]*)\"$")
@@ -125,7 +123,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(arg + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I amend the \"([^\"]*)\"$")
@@ -174,7 +171,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        markUpDecision.clickContinueButton();
     }
 
     @Given("^multiple topics have been set$")

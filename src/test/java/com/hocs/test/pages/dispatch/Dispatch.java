@@ -35,7 +35,7 @@ public class Dispatch extends Page {
 
     public void dispatchTheCase() {
         clickOn(dispatchAcceptRadioButton);
-        clickContinueButton();
+        clickOn(continueButton);
     }
 
     public void getToUnableToDispatchScreenPrerequisites() {
@@ -44,14 +44,13 @@ public class Dispatch extends Page {
     }
 
     public void rejectCaseWithoutReason() {
-        selectDispatchRejectButton();
-        clickContinueButton();
-        clickFinishButton();
+        clickOn(dispatchRejectRadioButton);
+        clickOn(continueButton);
+        clickOn(finishButton);
     }
 
     public void enterDispatchRejectionNotes() {
         waitFor(dispatchRejectNoteField);
-
         String rejectionReason = "Rejection Reason: " + generateRandomString();
         dispatchRejectNoteField.clear();
         dispatchRejectNoteField.sendKeys(rejectionReason);
@@ -65,5 +64,4 @@ public class Dispatch extends Page {
     public void assertWhyAreYouUnableToDispatchErrorMessageIsShown() {
         assertThat(whyAreYouUnableToDispatchErrorMessage.getText(), is("Why are you unable to dispatch this? is required"));
     }
-
 }

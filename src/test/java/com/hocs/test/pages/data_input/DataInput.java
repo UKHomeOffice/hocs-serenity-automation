@@ -21,8 +21,6 @@ public class DataInput extends Page {
 
     Homepage homepage;
 
-    Page page;
-
     // Elements
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
@@ -85,6 +83,24 @@ public class DataInput extends Page {
     @FindBy(css = "label[for='CopyNumberTen-FALSE']")
     public WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-day']")
+    public WebElementFacade dtenDraftingDeadlineDayField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-month']")
+    public WebElementFacade dtenDraftingDeadlineMonthField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-year']")
+    public WebElementFacade dtenDraftingDeadlineYearField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-day']")
+    public WebElementFacade dtenDispatchDeadlineDayField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-month']")
+    public WebElementFacade dtenDispatchDeadlineMonthField;
+
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
+    public WebElementFacade dtenDispatchDeadlineYearField;
+
     @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
     public WebElementFacade correspondenceDateErrorMessage;
 
@@ -109,18 +125,18 @@ public class DataInput extends Page {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
-
     // Basic Methods
 
     public void selectAddAnMPField() {
         addMemberOfParliamentSearchField.click();
         addMemberOfParliamentSearchField.sendKeys("example");
     }
+
     public void selectAddACorrespondentLink() {
         clickOn(addCorrespondentLink);
     }
 
-    public void selectCorrespondentIsAMemberRadioButton(){
+    public void selectCorrespondentIsAMemberRadioButton() {
         clickOn(correspondentMemberYesRadioButton);
     }
 
@@ -132,36 +148,45 @@ public class DataInput extends Page {
 
     public void dataInputFullFlow() {
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
+        clickOn(workstacks.allocateToMeButton);
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void dataInputFullFlowMIN() {
         homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void dataInputFullFlowWithCopyToN10() {
         homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
+    }
+
+    public void dataInputFullFlowDTEN() {
+        homepage.getCurrentCase();
+        clickOn(workstacks.allocateToMeButton);
+        fillAllMandatoryCorrespondenceFields();
+        clickOn(continueButton);
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickOn(finishButton);
     }
 
     public void moveCaseFromDataInputToMarkup() {
         fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
+        clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
-        clickFinishButton();
+        clickOn(finishButton);
     }
 
     public void setDateMinusOneDay() {
@@ -195,7 +220,7 @@ public class DataInput extends Page {
     }
 
     public void enterDayOfCorrespondenceSent(String day) {
-         typeInto(dateCorrespondenceSentDayField, day);
+        typeInto(dateCorrespondenceSentDayField, day);
     }
 
     public void enterMonthOfCorrespondenceSent(String month) {
@@ -212,14 +237,31 @@ public class DataInput extends Page {
     }
 
     public void fillAllMandatoryCorrespondenceFields() {
-        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
-        enterDayOfCorrespondenceReceived(getCurrentDay());
-        enterMonthOfCorrespondenceReceived(getCurrentMonth());
-        enterYearOfCorrespondenceReceived(getCurrentYear());
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceReceived(getCurrentDay());
+            enterMonthOfCorrespondenceReceived(getCurrentMonth());
+            enterYearOfCorrespondenceReceived(getCurrentYear());
+            clickOn(emailOriginalChannelRadioButton);
+        } else {
+            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceReceived(getCurrentDay());
+            enterMonthOfCorrespondenceReceived(getCurrentMonth());
+            enterYearOfCorrespondenceReceived(getCurrentYear());
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
+        }
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
@@ -229,45 +271,98 @@ public class DataInput extends Page {
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10YesRadioButton.click();
+        clickOn(emailOriginalChannelRadioButton);
+        clickOn(shouldResponseBeCopiedN10YesRadioButton);
     }
 
     public void getToAddMemberOfParliamentPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickOn(continueButton);
-        sleep(500);
-        addCorrespondentLink.click();
-        correspondentMemberYesRadioButton.click();
-        clickOn(continueButton);
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberYesRadioButton);
+            clickOn(continueButton);
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberYesRadioButton);
+            clickOn(continueButton);
+        }
     }
 
     public void getToIsCorrespondentAnMPPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickOn(continueButton);
-        sleep(500);
-        addCorrespondentLink.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(continueButton);
+            clickOn(addCorrespondentLink);
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
+            clickOn(continueButton);
+            clickOn(addCorrespondentLink);
+        }
     }
 
     public void getToRecordCorrespondentDetailsPrerequisites() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        emailOriginalChannelRadioButton.click();
-        shouldResponseBeCopiedN10NoRadioButton.click();
-        clickContinueButton();
-        sleep(500);
-        addCorrespondentLink.click();
-        correspondentMemberNoRadioButton.click();
-        continueButton.click();
+        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+            typeInto(dtenDraftingDeadlineDayField, "01");
+            typeInto(dtenDraftingDeadlineMonthField, "01");
+            typeInto(dtenDraftingDeadlineYearField, "2019");
+            typeInto(dtenDispatchDeadlineDayField, "01");
+            typeInto(dtenDispatchDeadlineMonthField, "01");
+            typeInto(dtenDispatchDeadlineYearField, "2019");
+            clickOn(continueButton);
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            emailOriginalChannelRadioButton.click();
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberNoRadioButton);
+            clickOn(continueButton);
+        } else {
+            enterDayOfCorrespondenceSent("01");
+            enterMonthOfCorrespondenceSent("01");
+            enterYearOfCorrespondenceSent("2019");
+            clickOn(emailOriginalChannelRadioButton);
+            clickOn(shouldResponseBeCopiedN10NoRadioButton);
+            clickOn(continueButton);
+            sleep(500);
+            clickOn(addCorrespondentLink);
+            clickOn(correspondentMemberNoRadioButton);
+            clickOn(continueButton);
+        }
     }
 
     public void invalidCorrespondenceReceivedDate() {

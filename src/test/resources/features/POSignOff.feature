@@ -2,7 +2,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
 
   Background: 
     Given I am user "EAMON"
-    When I get a "DCU MIN" case at "PRIVATE OFFICE APPROVAL" stage
+    When I get a "DCU N10" case at "PRIVATE OFFICE APPROVAL" stage
 
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the PO Sign Off stage should take the user back to the
@@ -12,10 +12,10 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
 
   @Validation
   Scenario: User must select a radio button when asked whether they approve the Private Office response
-    And I click the continue button on PO approve response screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected whether I approve the response
 
-  @Validation
+  @Validation @NotAvailableInDTEN
   Scenario: If the user decides to change the case minister they must select an override team and enter their reasoning in the text box
     And I click the "FINISH" button on the "CHANGE MINISTER" page
     Then error messages should be displayed as I have not selected an override team or entered change reasoning

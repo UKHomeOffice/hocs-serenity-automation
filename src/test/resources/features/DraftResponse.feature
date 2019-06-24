@@ -2,7 +2,7 @@ Feature: HOCS User is able to draft a response
 
   Background:
     Given I am user "EAMON"
-    And I get a "DCU MIN" case at "INITIAL DRAFT" stage
+    And I get a "DCU N10" case at "INITIAL DRAFT" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note
@@ -56,7 +56,7 @@ Feature: HOCS User is able to draft a response
 
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
-    And I click the continue button on the correspondence answer screen
+    And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected radio buttons on this screen
 
   @Validation
@@ -64,12 +64,13 @@ Feature: HOCS User is able to draft a response
     And I click the "FINISH" button on the "CASE REJECTION" page
     Then an error message should be displayed as I have not entered a reason in the text box
 
-  @Validation
+
+  @Validation @ScreenNotAvailableInDTEN
   Scenario: User must select a radio button when asked how they intend to respond at the Draft stage
     And I click the "CONTINUE" button on the "HOW DO YOU INTEND TO RESPOND" page
     Then an error message should be displayed as I have not selected a response on this screen
 
-  @Validation
+  @Validation @ScreenNotAvailableInDTEN
   Scenario: User must summarise their call in the text box at the Draft stage after selecting phone response
     And I click the "FINISH" button on the "SUMMARISE YOUR CALL" page
     Then an error message should be displayed as I have not summarised the call
@@ -84,12 +85,12 @@ Feature: HOCS User is able to draft a response
     And I click the "ADD" button on the "ADD DOCUMENT" page
     Then an error message should be displayed as I have not selected a document type and added a document
 
-  @Validation
+  @Validation @ScreenNotAvailableInTRO
   Scenario: User must select a radio button when asked whether they want to QA the case offline
     And I click the "CONTINUE" button on the "DO YOU WANT TO QA OFFLINE" page
     Then an error message should be displayed as I have not selected whether the case should be QA offline or not
 
-  @Validation
+  @Validation @ScreenNotAvailableInTRO
   Scenario: User must select the user that has done the Offline QA from the drop down at the Draft stage
     And I click the "FINISH" button on the "WHO HAS DONE THE QA OFFLINE" page
     Then an error message should be displayed as I have not selected the user that did the offline QA

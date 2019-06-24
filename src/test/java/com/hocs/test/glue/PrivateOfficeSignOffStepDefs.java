@@ -25,8 +25,6 @@ public class PrivateOfficeSignOffStepDefs extends Page {
 
     PrivateOffice privateOffice;
 
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Workstacks workstacks;
 
     @When("^I complete the Private Office stage$")

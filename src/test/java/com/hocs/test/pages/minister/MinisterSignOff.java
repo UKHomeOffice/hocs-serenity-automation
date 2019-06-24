@@ -49,7 +49,7 @@ public class MinisterSignOff extends Page {
     }
 
     public void moveCaseFromMinisterToDispatch() {
-        minsterSignOffAcceptRadioButton.click();
-        clickContinueButton();
+        clickOn(minsterSignOffAcceptRadioButton);
+        clickOn(continueButton);
     }
 }

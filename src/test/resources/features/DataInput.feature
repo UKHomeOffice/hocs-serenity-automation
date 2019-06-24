@@ -87,7 +87,7 @@ Feature: HOCS User is add data to a case
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
-    And I fill all mandatory fields on the "DATA INPUT" page with valid data
+#    And I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "CONTINUE" button on the "IS THE CORRESPONDENT AN MP" page
     Then an error message should be displayed as I must select a correspondent type on this screen
 

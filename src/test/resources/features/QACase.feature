@@ -2,7 +2,7 @@ Feature: QA Case #this test can be reused for both the private office and minist
 
     Background:
     Given I am user "EAMON"
-    And I get a "DCU MIN" case at "QA RESPONSE" stage
+    And I get a "DCU TRO" case at "QA RESPONSE" stage
  
     @HOCS-310
     Scenario: User reviews draft, rejects it and provides a rejection reason
@@ -32,7 +32,7 @@ Feature: QA Case #this test can be reused for both the private office and minist
 
     @Validation
     Scenario: User must select a radio button to indicate whether they approve the QA response
-      And I click the continue button on the do you approve the QA response screen
+      And I click the "CONTINUE" button
       Then an error message should be displayed as I have not selected a radio button on the QA approve response screen
 
     @Validation

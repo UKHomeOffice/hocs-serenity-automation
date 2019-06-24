@@ -77,6 +77,11 @@ public class QAResponse extends Page{
         clickOn(continueButton);
     }
 
+    public void moveTROCaseFromQAResponseToDispatch() {
+        clickOn(QAAcceptRadioButton);
+        clickOn(continueButton);
+    }
+
     public void assertQADoYouApproveErrorMessage() {
         assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
     }
@@ -86,8 +91,8 @@ public class QAResponse extends Page{
     }
 
     public void moveCaseFromQaResponseToPrivateOfficeApproval() {
-        clickQAResponseAcceptRadioButton();
-        clickContinueButton();
+        clickOn(QAAcceptRadioButton);
+        clickOn(continueButton);
     }
 
 }

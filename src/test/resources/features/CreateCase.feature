@@ -24,14 +24,14 @@ Feature: HOCS User is able to create a case
 
   @Allocate
   Scenario: A single case is allocated to the current user
-    And I create a single MIN case
+    And I create a single "DCU DTEN" case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
   @Allocate
   Scenario: A single case is allocated to the current user using checkboxes
-    And I create a single MIN case
-    When I navigate to the Performance and Process Team and select the check box against the newly created case and allocate it to myself
+    And I create a single "DCU DTEN" case
+    When I navigate to the "TRANSFERS AND N10 TEAM" and select the check box against the newly created case and allocate it to myself
     Then the case should be visible in my workstack
 
   Scenario: I can bulk upload cases

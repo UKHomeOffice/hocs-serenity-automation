@@ -61,7 +61,7 @@ public class RecordCorrespondentDetails extends Page {
     private WebElementFacade additionalCorrespondentNoRadioButton;
 
     @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
-    private WebElementFacade additionalCorrespondentYesRadioButton;
+    public WebElementFacade additionalCorrespondentYesRadioButton;
 
     @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentNotMPRadioButton;
