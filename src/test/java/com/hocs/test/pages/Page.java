@@ -720,6 +720,4 @@ public class Page extends PageObject {
         setSessionVariable("assertCase").to(referenceElement);
         goHome();
     }
-
-
 }

@@ -178,9 +178,18 @@ public class CreateCase extends Page {
         successfulCaseCreation.getThisCaseId();
     }
 
-    public void createDCUTROSingleCaseWithID() {
+    public void createDCUTENSingleCaseWithID() {
         clickOn(homepage.createSingleCase);
         clickOn(dcuDtenRadioButton);
+        clickOn(nextButton);
+        addDocuments.uploadDocument();
+        clickOn(submitButton);
+        successfulCaseCreation.getThisCaseId();
+    }
+
+    public void createDCUTROSingleCaseWithID() {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuTroRadioButton);
         clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);

@@ -43,17 +43,13 @@ public class DataInputStepDefs extends Page {
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                clickOn(homepage.home);
                 dataInput.dataInputFullFlowMIN();
                 break;
             case "DCU N10":
-//                clickOn(homepage.transferN10Team);
-                clickOn(homepage.home);
                 dataInput.dataInputFullFlowDTEN();
                 break;
             case "DCU TRO":
-                clickOn(homepage.performanceProcessTeam);
-                dataInput.dataInputFullFlow();
+                dataInput.dataInputFullFlowTRO();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
