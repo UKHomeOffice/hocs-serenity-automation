@@ -10,6 +10,7 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.qa_response.QAResponse;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.hamcrest.core.Is;
 
 public class Draft extends Page {
 
@@ -20,8 +21,11 @@ public class Draft extends Page {
     @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
     public WebElementFacade answeredByMyTeamNoRadioButton;
 
-    @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
+    @FindBy(css = "label[for=InitialDraftDecision-ACCEPT]")
     public WebElementFacade answeredByMyTeamYesRadioButton;
+
+    @FindBy(css = "label[for=ReturnToResponseChannelDecision-ACCEPT]")
+    public WebElementFacade returnToResponseChannelYes;
 
     @FindBy(xpath = "//a[text()='document']")
     public WebElementFacade draftStageAddDocumentsButton;
@@ -311,6 +315,10 @@ public class Draft extends Page {
 
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
+    }
+
+    public void assertThatResponseChannelIsDisplayed() {
+        assertThat(isElementDisplayed(returnToResponseChannelYes), is(true));
     }
 
 }

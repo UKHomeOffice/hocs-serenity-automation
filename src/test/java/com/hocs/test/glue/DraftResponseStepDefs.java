@@ -255,10 +255,10 @@ public class DraftResponseStepDefs extends Page {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draftingTeamDecision.enterPhoneCallSummaryNote();
-                clickOn(draft.finishButton);
+                clickOn(continueButton);
                 break;
             case "DO NOT COMPLETE":
-                clickOn(draft.finishButton);
+                clickOn(draft.continueButton);
                 break;
             default:
                 pendingStep(callDetails + " is not defined within " + getMethodName());
@@ -339,5 +339,10 @@ public class DraftResponseStepDefs extends Page {
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
         teamqueue.assertCaseStage(stage);
+    }
+
+    @Then("^I am given the chance to add another response type$")
+    public void assertThisResponseIsTrue() {
+        draft.assertThatResponseChannelIsDisplayed();
     }
 }

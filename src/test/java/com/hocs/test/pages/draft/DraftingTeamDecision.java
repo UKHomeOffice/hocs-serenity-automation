@@ -36,7 +36,7 @@ public class DraftingTeamDecision extends Page {
     @FindBy(css = "label[for='ResponseChannel-PHONE']")
     private WebElementFacade draftingResponsePost;
 
-    @FindBy(id = "PhonecallNote")
+    @FindBy(id = "CaseNote_PhonecallNote")
     private WebElementFacade phoneCallSummaryNote;
 
     //Basic Methods

@@ -290,9 +290,7 @@ public class Page extends PageObject {
         cancelButton.click();
     }
 
-    public void clickContinueButton() {
-        continueButton.click();
-    }
+
 
     public void waitForContinueButton() {
         waitFor(continueButton).waitUntilClickable();
@@ -337,6 +335,10 @@ public class Page extends PageObject {
 
     public void clickViewLink() {
         viewLink.click();
+    }
+
+    public void clickContinueButton() {
+        clickOn(continueButton);
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB

@@ -2,7 +2,7 @@ Feature: HOCS User is able to draft a response
 
   Background:
     Given I am user "EAMON"
-    And I get a "DCU N10" case at "INITIAL DRAFT" stage
+    And I get a "DCU MIN" case at "INITIAL DRAFT" stage
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note
@@ -22,9 +22,7 @@ Feature: HOCS User is able to draft a response
   Scenario: User responds by Phone and fills out call details to complete the stage
     Given I select to reply by "phone"
     When I "complete" the call details
-    Then I am taken to the "home" page
-    And the case is completed
-    And I return to the home page
+    Then I am given the chance to add another response type
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
