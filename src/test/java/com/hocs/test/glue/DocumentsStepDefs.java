@@ -10,9 +10,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class DocumentsStepDefs {
-
-    private Page page;
+public class DocumentsStepDefs extends Page {
 
     @And("^a document \"([^\"]*)\" previewable$")
     public void documentPreview(String preview) {
@@ -56,10 +54,10 @@ public class DocumentsStepDefs {
     public void iAmAbleToViewDocuments(String view) {
         switch (view.toUpperCase()) {
             case "AM":
-                page.associatedDocumentsIsDisplayed();
+                associatedDocumentsIsDisplayed();
                 break;
             case "AM NOT":
-                page.associatedDocumentsIsNotDisplayed();
+                associatedDocumentsIsNotDisplayed();
                 break;
             default:
                 pendingStep(view + " is not defined within " + getMethodName());

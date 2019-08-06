@@ -17,5 +17,4 @@ public enum Usernames {
     public String getUsername() {
         return username;
     }
-
 }

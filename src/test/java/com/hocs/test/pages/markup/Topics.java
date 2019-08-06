@@ -154,5 +154,4 @@ public class Topics extends Page {
         System.out.println(thisTopic);
         assertThat(thisTopic, is("NAME: " + testTopic));
     }
-
 }

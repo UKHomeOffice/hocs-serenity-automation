@@ -4,10 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.minister.MinisterSignOff;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 
 import cucumber.api.java.en.When;
@@ -20,8 +18,6 @@ public class MinisterSignOffStepDefs extends Page {
 
     @Managed
     WebDriver driver;
-
-    Page page;;
 
     Homepage homepage;
 

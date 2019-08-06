@@ -4,9 +4,7 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.forms.TestForm;
 import cucumber.api.java.en.When;
 
-public class TestFormStepDefs {
-
-    private Page page;
+public class TestFormStepDefs extends Page {
 
     private TestForm testForm;
 

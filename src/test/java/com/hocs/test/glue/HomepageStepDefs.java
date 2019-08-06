@@ -5,7 +5,7 @@ import cucumber.api.java.en.Then;
 
 public class HomepageStepDefs {
 
-    private Homepage homepage;
+    Homepage homepage;
 
     @Then("^I am returned to my home screen$")
     public void returnedToHomeScreen() {

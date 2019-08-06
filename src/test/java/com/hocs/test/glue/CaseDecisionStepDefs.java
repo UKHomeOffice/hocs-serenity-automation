@@ -11,9 +11,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
-
-
 public class CaseDecisionStepDefs extends Page {
 
     MarkUpDecision markUpDecision;
@@ -45,7 +42,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(caseDecision + " is not defined within " + getMethodName());
         }
-
     }
 
     @And("^I select (?:a|an) \"([^\"]*)\" topic for a case from the dropdown$")
@@ -58,7 +54,6 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(caseDecision + " is not defined within " + getMethodName());
         }
-
     }
 
     @Then("^an optional \"([^\"]*)\" free text field is available$")
@@ -188,12 +183,10 @@ public class CaseDecisionStepDefs extends Page {
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I do not enter reasons for a \"([^\"]*)\" case closure$")
     public void iDoNotEnterReasonsForACaseClosure(String arg0) {
-
     }
 
     @When("^I refer the case to another Government Department$")

@@ -33,5 +33,4 @@ public class LoginPage extends Page {
     public void assertLoginErrorMessage() {
         assertThat(invalidUsernameOrPasswordErrorMessage.getText(), is("Invalid username or password.") );
     }
-
 }

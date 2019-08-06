@@ -11,6 +11,7 @@ import cucumber.api.java.en.When;
 
 
 public class QAResponseStepDefs extends Page {
+
     Homepage homepage;
 
     QAResponse qaResponse;
@@ -27,7 +28,7 @@ public class QAResponseStepDefs extends Page {
     }
 
     @When("^I reject the case at the QA Response stage$")
-    public void rejectAtQaResponse(){
+    public void rejectAtQaResponse() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
         clickOn(qaResponse.QARejectRadioButton);

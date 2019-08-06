@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
@@ -44,11 +43,7 @@ public class GenericInputStepDefs extends Page {
 
     Homepage homepage;
 
-    CreateCase createCase;
-
     DraftingTeamDecision draftingTeamDecision;
-
-    SuccessfulCaseCreation successfulCaseCreation;
 
     Workstacks workstacks;
 
@@ -107,12 +102,12 @@ public class GenericInputStepDefs extends Page {
                 setSessionVariable("fullName").to(input);
                 recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
                 break;
-            case "FULL NAME" :
+            case "FULL NAME":
                 setSessionVariable("fullName").to(input);
                 recordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
-            case "REJECT REASON" :
-                setSessionVariable("fullname").to(input);
+            case "REJECT REASON":
+                setSessionVariable("fullName").to(input);
                 dispatch.enterDispatchRejectionNotes();
                 break;
             default:
@@ -126,14 +121,14 @@ public class GenericInputStepDefs extends Page {
             case "DATA INPUT":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
-            case "CORRESPONDENT DETAILS" :
+            case "CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.fillMandatoryCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
-        waitABit(4000);
+//        waitABit(4000);
     }
 
 
@@ -171,7 +166,6 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I enter an invalid \"([^\"]*)\" date$")
@@ -261,61 +255,60 @@ public class GenericInputStepDefs extends Page {
 
     @Then("^I cannot exit the case$")
     public void iCannotClickToExitTheCase() {
-
     }
 
     @When("^I click the \"([^\"]*)\" button on the \"([^\"]*)\" page$")
     public void selectGenericButtonFromSpecificPage(String button, String page) {
-        switch(page.toUpperCase()) {
-            case "IS THE CORRESPONDENT AN MP" :
+        switch (page.toUpperCase()) {
+            case "IS THE CORRESPONDENT AN MP":
                 dataInput.getToIsCorrespondentAnMPPrerequisites();
                 break;
-            case "ADD MEMBER OF PARLIAMENT" :
+            case "ADD MEMBER OF PARLIAMENT":
                 dataInput.getToAddMemberOfParliamentPrerequisites();
                 break;
-            case "RECORD CORRESPONDENT DETAILS" :
+            case "RECORD CORRESPONDENT DETAILS":
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
                 break;
-            case "ADD A TOPIC" :
+            case "ADD A TOPIC":
                 markUpDecision.getToMarkupAddATopicScreenPrerequisites();
                 break;
-            case "ENTER A NEW TOPIC" :
+            case "ENTER A NEW TOPIC":
                 markUpDecision.getToMarkupEnterANewTopicScreenPrerequisites();
                 break;
-            case "CASE REJECTION" :
+            case "CASE REJECTION":
                 draft.getToDraftCaseRejectionScreenPrerequisites();
                 break;
-            case "HOW DO YOU INTEND TO RESPOND" :
+            case "HOW DO YOU INTEND TO RESPOND":
                 draft.getToHowDoYouIntendToRespondScreenPrerequisites();
                 break;
-            case "SUMMARISE YOUR CALL" :
+            case "SUMMARISE YOUR CALL":
                 draft.getToSummariseYouCallScreenPrerequisites();
                 break;
-            case "PRIMARY DRAFT DOCUMENT" :
+            case "PRIMARY DRAFT DOCUMENT":
                 draft.getToPrimaryDraftDocumentScreenPrerequisites();
                 break;
-            case "ADD DOCUMENT" :
+            case "ADD DOCUMENT":
                 draft.getToAddDocumentScreenPrerequisites();
                 break;
-            case "DO YOU WANT TO QA OFFLINE" :
+            case "DO YOU WANT TO QA OFFLINE":
                 draft.getToDoYouWantToQAOfflineScreenPrerequisites();
                 break;
-            case "WHO HAS DONE THE QA OFFLINE" :
+            case "WHO HAS DONE THE QA OFFLINE":
                 draft.getToWhoDidTheQAOfflineScreenPrerequisites();
                 break;
-            case "QA RESPONSE FEEDBACK" :
+            case "QA RESPONSE FEEDBACK":
                 qaResponse.getToQAResponseFeedbackScreenPrerequisites();
                 break;
-            case "CHANGE MINISTER" :
+            case "CHANGE MINISTER":
                 privateOffice.getToChangeMinisterScreenPrerequisites();
                 break;
-            case "PO FEEDBACK RESPONSE" :
+            case "PO FEEDBACK RESPONSE":
                 privateOffice.getToPOFeedbackResponseScreenPrerequisites();
                 break;
-            case "MINISTER SIGN OFF FEEDBACK RESPONSE" :
+            case "MINISTER SIGN OFF FEEDBACK RESPONSE":
                 minister.getToMinisterFeedbackResponseScreenPrerequisites();
                 break;
-            case "UNABLE TO DISPATCH" :
+            case "UNABLE TO DISPATCH":
                 dispatch.getToUnableToDispatchScreenPrerequisites();
                 break;
             default:
@@ -323,13 +316,13 @@ public class GenericInputStepDefs extends Page {
         }
 
         switch (button.toUpperCase()) {
-            case "CONTINUE" :
+            case "CONTINUE":
                 clickOn(continueButton);
                 break;
-            case "FINISH" :
+            case "FINISH":
                 clickOn(finishButton);
                 break;
-            case "ADD" :
+            case "ADD":
                 clickOn(addButton);
                 break;
             default:
@@ -339,23 +332,23 @@ public class GenericInputStepDefs extends Page {
 
     @When("^I click the \"([^\"]*)\" button$")
     public void clickTheButton(String button) {
-        switch(button.toUpperCase()) {
-            case "CONTINUE" :
+        switch (button.toUpperCase()) {
+            case "CONTINUE":
                 clickOn(continueButton);
                 break;
-            case "FINISH" :
+            case "FINISH":
                 clickOn(finishButton);
                 break;
-            case "ADD" :
+            case "ADD":
                 clickOn(addButton);
                 break;
-            case "NEXT" :
+            case "NEXT":
                 clickOn(nextButton);
                 break;
-            case "CANCEL" :
+            case "CANCEL":
                 clickOn(cancelButton);
                 break;
-            case "ADD A TOPIC" :
+            case "ADD A TOPIC":
                 clickOn(addTopicButton);
                 break;
             default:
@@ -365,14 +358,14 @@ public class GenericInputStepDefs extends Page {
 
     @When("^I attempt to reject the \"([^\"]*)\" case without reason$")
     public void iAttemptToRejectACaseWithoutReason(String caseType) {
-        switch(caseType.toUpperCase()){
-            case "INITIAL DRAFT" :
+        switch (caseType.toUpperCase()) {
+            case "INITIAL DRAFT":
                 clickRejectButton();
                 while (isElementDisplayed(nextButton)) {
                     clickOn(nextButton);
                 }
                 break;
-            case "DISPATCH" :
+            case "DISPATCH":
                 dispatch.rejectCaseWithoutReason();
                 break;
         }
@@ -398,7 +391,6 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-
     }
 
     @But("^I do not enter (?:a|an) \"([^\"]*)\"$")
@@ -413,7 +405,7 @@ public class GenericInputStepDefs extends Page {
             case "OTHER GOVERNMENT DEPARTMENT":
                 clickOn(finishButton);
                 break;
-            case "REASON FOR NO RESPONSE NEEDED" :
+            case "REASON FOR NO RESPONSE NEEDED":
                 clickOn(finishButton);
                 break;
             default:

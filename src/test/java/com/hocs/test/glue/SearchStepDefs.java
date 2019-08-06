@@ -18,5 +18,4 @@ public class SearchStepDefs {
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
     }
-
 }

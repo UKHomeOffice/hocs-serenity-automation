@@ -2,7 +2,7 @@ Feature: DCU user decides how a case should be handled
 
   Background:
     Given I am user "EAMON"
-    When I get a "DCU MIN" case at "MARKUP" stage
+    When I get a "DCU N10" case at "MARKUP" stage
 
   @HOCS-266, @HOCS-237
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -29,7 +29,7 @@ Feature: DCU user decides how a case should be handled
     And I click the "CONTINUE" button
     Then the No Response Needed casenote field is displayed
 
-@HOCS-259, @HOCS-237
+  @HOCS-259, @HOCS-237
   Scenario: User does not enter department in free text field
     When I select an initial decision of "Refer to OGD"
     And I click the "CONTINUE" button
@@ -73,7 +73,7 @@ Feature: DCU user decides how a case should be handled
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
-    And I click the "ADD" button
+    And I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
 
 

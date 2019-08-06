@@ -27,7 +27,6 @@ public class CreateCase extends Page {
 
     // Elements
 
-
     @FindBy(className = "govuk-radios")
     public WebElementFacade allRadioButtons;
 
@@ -247,12 +246,10 @@ public class CreateCase extends Page {
 
     public void assertCaseTypeErrorMessage() {
         assertThat(caseTypeIsRequiredErrorMessage.getText(), is("Case type is required"));
-
     }
 
     public void assertDateReceivedNotEnteredErrorMessage() {
         assertThat(dateReceivedIsRequiredErrorMessage.getText(), is("Date received is required"));
-
     }
 
     public void assertDocumentsAreMandatoryErrorMessage() {
@@ -261,6 +258,5 @@ public class CreateCase extends Page {
 
     public void assertDateReceivedIsInvalidErrorMessage() {
         assertThat(dateReceivedIsInvalidErrorMessage.getText(), is("Date received must be a valid date"));
-
     }
 }

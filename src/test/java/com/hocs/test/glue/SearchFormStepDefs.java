@@ -1,22 +1,14 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.search_form.SearchForm;
 import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Managed;
-import org.openqa.selenium.WebDriver;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.describedAs;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 
 
 public class SearchFormStepDefs extends Page {
@@ -80,7 +72,7 @@ public class SearchFormStepDefs extends Page {
     @When("^I search by the case type \"([^\"]*)\"$")
     public void selectCaseTypeCheckbox(String caseType) {
         clickOn(homepage.searchPage);
-        searchForm.sleep(500);
+//        searchForm.sleep(500);
         switch (caseType.toUpperCase()) {
             case "MIN":
                 clickOn(searchForm.searchMINCheckbox);
@@ -115,7 +107,6 @@ public class SearchFormStepDefs extends Page {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-
     }
 
     @When("^I search by the case type \"([^\"]*)\" and another parameter \"([^\"]*)\"$")

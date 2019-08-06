@@ -110,7 +110,6 @@ public class DataInputStepDefs extends Page {
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         dataInput.selectAddACorrespondentLink();
 
-
         if (isOrIsNot.toUpperCase().equals("IS")) {
             dataInput.selectCorrespondentIsAMemberRadioButton();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
@@ -125,24 +124,24 @@ public class DataInputStepDefs extends Page {
     }
 
     @Then("^an error message should be displayed as I have not \"([^\"]*)\"$")
-    public void assertReasionForErrorMessage(String reason) {
-        switch(reason.toUpperCase()) {
-            case "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX" :
+    public void assertReasonForErrorMessage(String reason) {
+        switch (reason.toUpperCase()) {
+            case "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX":
                 workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
                 break;
-            case "ENTERED TEXT INTO THE FULL NAME FIELD" :
+            case "ENTERED TEXT INTO THE FULL NAME FIELD":
                 dataInput.assertCorrespondentFullNameErrorMessage();
                 break;
-            case "SELECTED THE CORRESPONDENCE TYPE" :
+            case "SELECTED THE CORRESPONDENCE TYPE":
                 dataInput.assertCorrespondentTypeDropDownErrorMessage();
                 break;
-            case "SELECTED A MEMBER OF PARLIAMENT" :
+            case "SELECTED A MEMBER OF PARLIAMENT":
                 dataInput.assertMemberIsRequiredErrorMessage();
                 break;
-            case "SELECTED THIS CORRESPONDENCE TYPE" :
+            case "SELECTED THIS CORRESPONDENCE TYPE":
                 dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
                 break;
-            case "ADDED A PRIMARY CORRESPONDENT" :
+            case "ADDED A PRIMARY CORRESPONDENT":
                 dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
                 break;
             default:
@@ -187,14 +186,14 @@ public class DataInputStepDefs extends Page {
 
     @Then("^an error message should be displayed as I have not entered a \"([^\"]*)\"$")
     public void assertValidationMessagesOnDataInputForm(String field) {
-        switch(field.toUpperCase()){
-            case "CORRESPONDENCE DATE" :
+        switch (field.toUpperCase()) {
+            case "CORRESPONDENCE DATE":
                 dataInput.assertCorrespondenceDateErrorMessage();
                 break;
-            case "CORRESPONDENCE TYPE" :
+            case "CORRESPONDENCE TYPE":
                 dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
                 break;
-            case "COPY TO NUMBER TEN" :
+            case "COPY TO NUMBER TEN":
                 dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
                 break;
             default:

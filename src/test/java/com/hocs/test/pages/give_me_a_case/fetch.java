@@ -7,12 +7,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.draft.Draft;
-import com.hocs.test.pages.markup.MarkUpDecision;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
@@ -21,10 +19,8 @@ import com.hocs.test.pages.markup.MarkupFull;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.yecht.Data.Str;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -48,13 +44,9 @@ public class fetch extends Page {
 
     MinisterSignOff minister;
 
-    Dispatch dispatch;
-
     Homepage homepage;
 
     Workstacks workstacks;
-
-    MarkUpDecision markUpDecision;
 
     WebDriver driver;
 
@@ -201,7 +193,6 @@ public class fetch extends Page {
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
     }
-
 
     public void giveMeACase(String caseType, String stage) {
         setSessionVariable("caseType").to(caseType);

@@ -61,8 +61,8 @@ Feature: Search should be available for all users of the application
 
   @SearchForm @SearchByCaseType
   Scenario: User should be able to search by Case Type and another parameter
-    And I search by the case type "MIN" and another parameter "BOB CORRESPONDENT"
-    Then cases that are "MIN" case type that also contain another parameter "BOB CORRESPONDENT" should be displayed in the results list
+    And I search by the case type "MIN" and another parameter "KITTENS TOPIC"
+    Then cases that are "MIN" case type that also contain another parameter "KITTENS TOPIC" should be displayed in the results list
 
   @SearchForm @SearchByCaseType
   Scenario: No cases should be displayed if the user searches by Case Type and another parameter when a case does not exist with both parameters

@@ -330,6 +330,7 @@ public class DataInput extends Page {
             enterYearOfCorrespondenceSent("2019");
             clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
+            sleep(500);
             clickOn(addCorrespondentLink);
         } else {
             enterDayOfCorrespondenceSent("01");
@@ -338,6 +339,7 @@ public class DataInput extends Page {
             clickOn(emailOriginalChannelRadioButton);
             clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
+            sleep(500);
             clickOn(addCorrespondentLink);
         }
     }

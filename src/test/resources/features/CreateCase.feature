@@ -17,10 +17,10 @@ Feature: HOCS User is able to create a case
       | case    | with / without |
       | DCU min | with           |
       | DCU min | without        |
-#      | DCU TRO | with           |
-#      | DCU TRO | without        |
-#      | DCU TEN | with           |
-#      | DCU TEN | without        |
+      | DCU TRO | with           |
+      | DCU TRO | without        |
+      | DCU TEN | with           |
+      | DCU TEN | without        |
 
   @Allocate
   Scenario: A single case is allocated to the current user

@@ -240,7 +240,6 @@ public class DraftResponseStepDefs extends Page {
     @When("^I select a case \"([^\"]*)\" answered by my team$")
     public void iSelectACaseAnsweredByMyTeam(String decision) {
         getCaseId();
-
         switch (decision.toUpperCase()) {
             case "SHOULD":
                 clickOn(draftingTeamDecision.initialDraftingDecisionAccept);

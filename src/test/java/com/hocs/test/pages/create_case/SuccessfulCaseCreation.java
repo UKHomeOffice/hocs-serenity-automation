@@ -22,8 +22,6 @@ public class SuccessfulCaseCreation extends Page {
 
     WebDriver driver;
 
-    Page page;
-
     Workstacks workstacks;
 
     @FindBy(className = "govuk-panel--confirmation")
@@ -64,8 +62,6 @@ public class SuccessfulCaseCreation extends Page {
 
         return caseReference;
     }
-
-
 
     public void allocateToMeViaSuccessfulCreationScreen() {
         clickOn(newCaseReference);
