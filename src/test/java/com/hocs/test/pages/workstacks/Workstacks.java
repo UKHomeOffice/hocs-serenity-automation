@@ -139,7 +139,7 @@ public class Workstacks extends Page {
 
     public void clickCheckboxRelevantToCaseReference() {
         String caseReference =
-                sessionVariableCalled("caseId").toString();
+                sessionVariableCalled("caseReference").toString();
         WebDriver webDriver = getDriver();
 
         webDriver.findElement(
@@ -222,7 +222,7 @@ public class Workstacks extends Page {
 
     public void assertCaseIdIsVisible() {
         String caseReferenceNumber
-                = sessionVariableCalled("caseId").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
         System.out.println(thisReference);
@@ -234,7 +234,7 @@ public class Workstacks extends Page {
         sleep(1000);
 
         String caseReferenceNumber
-                = sessionVariableCalled("caseId").toString();
+                = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
         WebDriver driver = getDriver();
         WebElement element = null;

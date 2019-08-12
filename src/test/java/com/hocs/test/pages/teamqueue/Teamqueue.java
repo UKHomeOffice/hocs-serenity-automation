@@ -36,7 +36,7 @@ public class Teamqueue extends Page {
 
     public String getStageFromWorkstacksTable() {
         WebElement caseReferenceStage = getDriver().findElement(
-                By.xpath("//a[text()='" + sessionVariableCalled("caseId")
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
         System.out.println(caseReferenceStage);
 
