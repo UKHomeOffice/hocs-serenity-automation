@@ -72,3 +72,22 @@ Feature: HOCS User is able to create a case
     And I click the "FINISH" button
     Then an error message should be displayed as I have entered an invalid date
 
+  @Accordion
+  Scenario: Accordion should display the correct correspondence received date at the Data Input stage
+    And I create a single "DCU MIN" case
+    When I select the Data Input button on the accordion at the case allocation screen
+    Then the correspondence received date should be same as the create a case screen
+
+  @Accordion
+  Scenario: Markup accordion should contain the same information entered at the Data Input stage
+    And I create a single "DCU MIN" case
+    And I allocate the case to myself via the successful case creation screen
+    And I move that case to the "MARKUP" stage
+    When I select the Data Input button of the accordion at the Markup Stage
+    Then the information shown should match what I entered at the Data Input stage
+
+  @Accordion
+  Scenario: Initial Draft accordion should contain the same information entered at the Markup stage
+    And I create a single "DCU MIN" case
+    And I allocate the case to myself via the successful case creation screen
+    And I move that case to the "INITIAL DRAFT" stage

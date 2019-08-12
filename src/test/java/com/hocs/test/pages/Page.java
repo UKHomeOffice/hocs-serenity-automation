@@ -236,6 +236,9 @@ public class Page extends PageObject {
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
 
+    @FindBy(xpath = "//button[@id='accordion-default-heading-0']")
+    public WebElementFacade dataInputAccordionButton;
+
     public void sleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

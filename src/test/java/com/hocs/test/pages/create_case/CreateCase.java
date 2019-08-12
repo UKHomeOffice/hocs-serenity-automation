@@ -14,6 +14,7 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
+import org.yecht.Data.Str;
 
 public class CreateCase extends Page {
 
@@ -74,6 +75,15 @@ public class CreateCase extends Page {
 
     @FindBy(id = "DTENDraftDeadline-year")
     public WebElementFacade d10DraftDeadlineYear;
+
+    @FindBy(id = "DateReceived-day")
+    public WebElementFacade correspondenceReceivedDayField;
+
+    @FindBy(id = "DateReceived-month")
+    public WebElementFacade correspondenceReceivedMonthField;
+
+    @FindBy(id = "DateReceived-year")
+    public WebElementFacade correspondenceReceivedYearField;
 
     @FindBy(xpath = "//a[text()='Case type is required']")
     public WebElementFacade caseTypeIsRequiredErrorMessage;
@@ -210,6 +220,9 @@ public class CreateCase extends Page {
     public void completeSingleCaseCreation() {
         clickOn(nextButton);
         addDocuments.uploadDocument();
+        storeCorrespondenceReceivedDay();
+        storeCorrespondenceReceivedMonth();
+        storeCorrespondenceReceivedYear();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
    }
@@ -228,6 +241,24 @@ public class CreateCase extends Page {
     public void cancelAtWhatTypeOfCor() {
         openACase();
         clickOn(cancelButton);
+    }
+
+    public void storeCorrespondenceReceivedDay() {
+        String correspondenceDay = correspondenceReceivedDayField.getValue();
+        setSessionVariable("correspondenceReceivedDay").to(correspondenceDay);
+        System.out.println(correspondenceDay);
+    }
+
+    public void storeCorrespondenceReceivedMonth() {
+        String correspondenceMonth = correspondenceReceivedMonthField.getValue();
+        setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
+        System.out.println(correspondenceMonth);
+    }
+
+    public void storeCorrespondenceReceivedYear() {
+        String correspondenceYear = correspondenceReceivedYearField.getValue();
+        setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
+        System.out.println(correspondenceYear);
     }
 
     //Assertions

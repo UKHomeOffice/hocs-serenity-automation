@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
@@ -11,6 +12,7 @@ import com.hocs.test.pages.homepage.Homepage;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -18,6 +20,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.annotations.findby.FindBy;
+import org.openqa.selenium.Keys;
 import org.yecht.Data.Str;
 
 public class CreateCaseStepDefs extends Page {
@@ -38,6 +42,7 @@ public class CreateCaseStepDefs extends Page {
 
     Workstacks workstacks;
 
+    MarkUpDecision markUpDecision;
 
     @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
@@ -104,19 +109,19 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" and view the primary topics$")
-    public void aCaseWithSpecificTopic(String caseType, String topic) {
-        switch (caseType.toUpperCase()) {
-            case "DCU MIN":
-                createCase.createDCUMinSingleCase();
-                setSessionVariable("caseType").to(caseType);
-                dataInput.dataInputFullFlow();
-                topics.fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage(topic);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
+//    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" and view the primary topics$")
+//    public void aCaseWithSpecificTopic(String caseType, String topic) {
+//        switch (caseType.toUpperCase()) {
+//            case "DCU MIN":
+//                createCase.createDCUMinSingleCase();
+//                setSessionVariable("caseType").to(caseType);
+//                dataInput.dataInputFullFlow();
+//                topics.fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage(topic);
+//                break;
+//            default:
+//                pendingStep(caseType + " is not defined within " + getMethodName());
+//        }
+//    }
 
     @When("^I create a case with a <Primary Correspondent>$")
     public void aCaseWithSpecifiedPrimaryCorrespondentIsCreated() {
@@ -375,6 +380,49 @@ public class CreateCaseStepDefs extends Page {
         dataInput.enterDayOfCorrespondenceReceived("29");
         dataInput.enterMonthOfCorrespondenceReceived("02");
         dataInput.enterYearOfCorrespondenceReceived("2019");
+    }
+
+    @When("^I select the Data Input button on the accordion at the case allocation screen$")
+    public void selectDataInputAccordionOfNewCase(){
+        clickOn(successfulCaseCreation.newCaseReference);
+        clickOn(dataInputAccordionButton);
+    }
+
+    @Then("^the correspondence received date should be same as the create a case screen$")
+    public void assertDataInputAccordionCorrespondenceReceivedDate() {
+        dataInput.assertAccordionCorrespondenceReceivedDate();
+    }
+
+    @When("^I select the Data Input button of the accordion at the Markup Stage$")
+    public void selectDataInputButtonAccordionAtMarkupStage() {
+        clickOn(dataInputAccordionButton);
+    }
+
+    @Then("^the information shown should match what I entered at the Data Input stage$")
+    public void assertMarkupStageDataInputAccordionFields() {
+        markUpDecision.assertAccordionDataInputFields();
+    }
+
+    @When("^I move that case to the \"([^\"]*)\" stage$")
+    public void moveCaseToNextStage(String stage){
+        String caseReference = sessionVariableCalled("caseReference");
+
+        switch (stage.toUpperCase()){
+            case "MARKUP":
+                dataInput.completeDataInputStageAndStoreEnteredInformation();
+                typeInto(homepage.caseReferenceSearchBar, caseReference);
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+            break;
+            case "INITIAL DRAFT":
+                dataInput.completeDataInputStageAndStoreEnteredInformation();
+                typeInto(homepage.caseReferenceSearchBar, caseReference);
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                markUpDecision.completeMarkupStageAndStoreEnteredInformation();
+                topics.enterRealTopic();
+            break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
     }
 }
 
