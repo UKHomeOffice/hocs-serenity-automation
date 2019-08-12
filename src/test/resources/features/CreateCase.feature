@@ -27,6 +27,7 @@ Feature: HOCS User is able to create a case
     And I create a single "DCU DTEN" case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
+#    add a comment
 
   @Allocate
   Scenario: A single case is allocated to the current user using checkboxes
