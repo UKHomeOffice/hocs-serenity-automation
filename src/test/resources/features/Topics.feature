@@ -18,7 +18,7 @@ Feature: HOCS Topics are assigned to the correct Team
       | Domestic Violence Protection Orders | Public Protection Unit             | Under Secretary of State for Crime, Safeguarding and Vulnerability |
 
 
-  @Topics @Overrides
+  @Topics @Overrides @DroneTest
   Scenario Outline: The user overrides the "<defaultTeam>" Team
     When I create a "<caseType>" case with "<Topic>"
     And I override the "<defaultTeam>" team to "<overrideTeam>"
