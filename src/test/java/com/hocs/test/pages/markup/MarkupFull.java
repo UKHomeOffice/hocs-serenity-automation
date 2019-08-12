@@ -1,7 +1,5 @@
 package com.hocs.test.pages.markup;
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.markup.Topics;
-import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
 

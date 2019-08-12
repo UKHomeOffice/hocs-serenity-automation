@@ -265,7 +265,7 @@ public class Draft extends Page {
     // Assertions
 
     public void assertEnterCallNotesError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
+        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
     }
 
     public void assertEnterQaMethodError() {
@@ -273,7 +273,7 @@ public class Draft extends Page {
     }
 
     public void assertEnterRejectionReasonsError() {
-        assertThat(getErrorDetails(), is("Why should this should not be answered by your team? is required"));
+        assertThat(shouldBeAnsweredErrorMessage.getText(), is("Why should this should not be answered by your team? is required"));
     }
 
     public void assertCorrespondenceAnsweredErrorMessage() {
@@ -312,5 +312,4 @@ public class Draft extends Page {
     public void draftingDeadlineIsDisplayed() {
         assertThat(isElementDisplayed(draftingDeadline), is(true));
     }
-
 }

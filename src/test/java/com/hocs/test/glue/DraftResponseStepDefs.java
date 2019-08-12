@@ -68,9 +68,13 @@ public class DraftResponseStepDefs extends Page {
                 draftingTeamDecision.acceptAndDraftALetter();
                 draftingTeamDecision.uploadDraftResponse();
                 qa.dontQAOffline();
-                // adding comment to force a change in the code
                 break;
             case "DCU N10" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                draftingTeamDecision.dtenAcceptAndDraftALetter();
+                draftingTeamDecision.uploadDraftResponse();
+                qa.dontQAOffline();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -236,7 +240,6 @@ public class DraftResponseStepDefs extends Page {
     @When("^I select a case \"([^\"]*)\" answered by my team$")
     public void iSelectACaseAnsweredByMyTeam(String decision) {
         getCaseId();
-
         switch (decision.toUpperCase()) {
             case "SHOULD":
                 clickOn(draftingTeamDecision.initialDraftingDecisionAccept);

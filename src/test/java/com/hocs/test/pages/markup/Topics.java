@@ -8,6 +8,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -49,6 +50,9 @@ public class Topics extends Page {
 
     @FindBy(xpath = "//label")
     public WebElementFacade assignedTopic;
+
+    @FindBy(xpath = "//div[@class='css-xp4uvy govuk-typeahead__single-value']")
+    public WebElementFacade selectedTopicName;
 
 
     // Basic Methods
@@ -98,6 +102,8 @@ public class Topics extends Page {
     public void enterRealTopic() {
         clickOn(topicsTextField);
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
+        String topicName = selectedTopicName.getText();
+        setSessionVariable("selectedTopicName").to(topicName);
         sleep(1000);
         topicsTextField.sendKeys(Keys.RETURN);
     }
@@ -126,7 +132,6 @@ public class Topics extends Page {
         enterATopicWithoutContinuingToTheDraftStage(topic);
     }
 
-
     // Assertions
 
     public void assertTopicsTextFieldDisplayed() {
@@ -154,5 +159,4 @@ public class Topics extends Page {
         System.out.println(thisTopic);
         assertThat(thisTopic, is("NAME: " + testTopic));
     }
-
 }

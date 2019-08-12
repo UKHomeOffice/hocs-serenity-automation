@@ -5,11 +5,14 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class DataInput extends Page {
 
@@ -101,6 +104,9 @@ public class DataInput extends Page {
     @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
     public WebElementFacade dtenDispatchDeadlineYearField;
 
+    @FindBy(xpath = "//div[@class='css-xp4uvy govuk-typeahead__single-value']")
+    public WebElementFacade memberOfParliamentName;
+
     @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
     public WebElementFacade correspondenceDateErrorMessage;
 
@@ -124,6 +130,9 @@ public class DataInput extends Page {
 
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
+
+    @FindBy(xpath = "//span[@class='govuk-body full-width']")
+    public WebElementFacade dataInputAccordionCorrespondenceReceived;
 
     // Basic Methods
 
@@ -156,6 +165,15 @@ public class DataInput extends Page {
     }
 
     public void dataInputFullFlowMIN() {
+        homepage.getCurrentCase();
+        workstacks.clickAllocateToMeButton();
+        fillAllMandatoryCorrespondenceFields();
+        clickOn(continueButton);
+        recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
+        clickOn(finishButton);
+    }
+
+    public void dataInputFullFlowTRO() {
         homepage.getCurrentCase();
         workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFields();
@@ -321,6 +339,7 @@ public class DataInput extends Page {
             enterYearOfCorrespondenceSent("2019");
             clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
+            sleep(500);
             clickOn(addCorrespondentLink);
         } else {
             enterDayOfCorrespondenceSent("01");
@@ -329,6 +348,7 @@ public class DataInput extends Page {
             clickOn(emailOriginalChannelRadioButton);
             clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
+            sleep(500);
             clickOn(addCorrespondentLink);
         }
     }
@@ -396,6 +416,44 @@ public class DataInput extends Page {
         clickOn(finishButton);
     }
 
+    public void completeDataInputStageAndStoreEnteredInformation() {
+        enterDayOfCorrespondenceSent(getCurrentDay());
+        String currentDay = dateCorrespondenceSentDayField.getValue();
+        setSessionVariable("currentDay").to(currentDay);
+
+        enterMonthOfCorrespondenceSent(getCurrentMonth());
+        String currentMonth = dateCorrespondenceSentMonthField.getValue();
+        setSessionVariable("currentMonth").to(currentMonth);
+
+        enterYearOfCorrespondenceSent(getCurrentYear());
+        String currentYear = dateCorrespondenceSentYearField.getValue();
+        setSessionVariable("currentYear").to(currentYear);
+
+        clickOn(emailOriginalChannelRadioButton);
+        String selectedCorrespondenceReceivedRadioButton = emailOriginalChannelRadioButton.getText().toUpperCase();
+        setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
+
+        clickOn(shouldResponseBeCopiedN10NoRadioButton);
+        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getValue();
+        setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
+
+        clickOn(continueButton);
+        sleep(500);
+        clickOn(addCorrespondentLink);
+        clickOn(correspondentMemberYesRadioButton);
+        clickOn(continueButton);
+
+        typeInto(addMemberOfParliamentSearchField, "Valerie Vaz MP");
+        addMemberOfParliamentSearchField.sendKeys(Keys.ENTER);
+        String memberOfParliament = memberOfParliamentName.getText();
+        setSessionVariable("memberOfParliamentName").to(memberOfParliament);
+        sleep(500);
+        clickOn(addButton);
+        sleep(500);
+        clickOn(addButton);
+        clickOn(finishButton);
+    }
+
     // Assertions
 
     public void assertPageTitle() {
@@ -439,5 +497,12 @@ public class DataInput extends Page {
     public void assertShouldResponseBeCopiedN10ErrorMessage() {
         assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(),
                 is("Should the response be copied to Number 10? is required"));
+    }
+
+    public void assertAccordionCorrespondenceReceivedDate() {
+        String dataInputCorrespondenceReceivedDate =
+                sessionVariableCalled("correspondenceReceivedDay") + "/" + sessionVariableCalled(
+                        "correspondenceReceivedMonth") + "/" + sessionVariableCalled("correspondenceReceivedYear");
+        assertThat(dataInputAccordionCorrespondenceReceived.getText(), containsText(dataInputCorrespondenceReceivedDate));
     }
 }

@@ -140,6 +140,42 @@ public class LoginStepDefs extends Page {
         homepage.assertHomePageTitle();
     }
 
+    @When("^I logout as the initial user$")
+    public void selectLogoutButton() {
+        clickOn(homepage.logoutButton);
+    }
+
+    @When("^I enter the login credentials of another user \"([^\"]*)\" and click the login button$")
+    public void loginAsDifferentUserAfterLogout(String credentials) {
+        navigateToHocs();
+        setSessionVariable("credentials").to(credentials);
+        switch (credentials.toUpperCase()) {
+            case "DANNY LARGE":
+                enterHocsUsername(DANNYLARGE);
+                enterHocsPassword(DANNYPASS);
+                break;
+            case "DCU":
+                enterHocsUsername(DCUSER);
+                enterHocsPassword(DCUPASS);
+                break;
+            case "TESTER":
+                enterHocsUsername(TESTER);
+                enterHocsPassword(TESTERPASS);
+                break;
+            case "EAMON DROKO":
+                enterHocsUsername(EAMONDROKO);
+                enterHocsPassword(EAMONPASS);
+                break;
+            default:
+                pendingStep(credentials + " is not defined within " + getMethodName());
+        }
+        clickOn(loginPage.continueButton);
+    }
+
+    @Then("^I should be logged in as the new user$")
+    public void assertThatSystemIsLoggedInAsNewUser() {
+    }
+
     private void enterHocsLoginDetails(Users user) {
         loginPage.enterUsername(user.getUsername());
         loginPage.enterPassword(user.getPassword());
@@ -180,5 +216,4 @@ public class LoginStepDefs extends Page {
         }
         driver.get(baseUrl);
     }
-
 }

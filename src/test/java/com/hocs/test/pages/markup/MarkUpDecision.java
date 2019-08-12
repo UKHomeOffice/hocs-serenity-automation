@@ -1,13 +1,18 @@
 package com.hocs.test.pages.markup;
-
-import static org.junit.Assert.assertThat;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 public class MarkUpDecision extends Page {
+
+    Workstacks workstacks;
 
     @FindBy(css = "label[for='MarkupDecision-PR']")
     public WebElementFacade policyResponseRadioButton;
@@ -53,6 +58,9 @@ public class MarkUpDecision extends Page {
 
     @FindBy(id = "")
     public WebElementFacade signOffMinisterTypeFunction;
+
+    @FindBy(xpath = "//div[@id='accordion-default-content-0']")
+    public WebElementFacade markupStageDataInputAccordion;
 
     @FindBy(xpath = "//a[text()='What sort of response is required? is required']")
     public WebElementFacade whatSortOfResponseErrorMessage;
@@ -153,5 +161,32 @@ public class MarkUpDecision extends Page {
         clickOn(policyResponseRadioButton);
         clickOn(continueButton);
         clickOn(addATopicButton);
+    }
+
+    public void completeMarkupStageAndStoreEnteredInformation() {
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(faqRadioButton);
+        String whatSortOfResponseRadioButton = faqRadioButton.getText();
+        setSessionVariable("selectedWhatSortOfResponseRadioButton").to(whatSortOfResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(addATopicButton);
+    }
+
+    public void assertAccordionDataInputFields() {
+        String correspondenceSentDate =
+                sessionVariableCalled("currentDay") + "/" + sessionVariableCalled("currentMonth") + "/"
+                        + sessionVariableCalled("currentYear");
+
+        String correspondenceReceivedRadioButtonSelection = sessionVariableCalled(
+                "selectedCorrespondenceReceivedRadioButton");
+
+        String copiedToN10RadioButtonSelection = sessionVariableCalled("selectedCopiedN10NoRadioButton");
+
+        String memberOfParliamentName = sessionVariableCalled("memberOfParliamentName");
+
+        assertThat(markupStageDataInputAccordion.getText(), containsText(correspondenceSentDate));
+        assertThat(markupStageDataInputAccordion.getText(), containsText(correspondenceReceivedRadioButtonSelection));
+//        assertThat(markupStageDataInputAccordion.getText(), containsText(copiedToN10RadioButtonSelection));
+        assertThat(markupStageDataInputAccordion.getText(), containsText(memberOfParliamentName));
     }
 }

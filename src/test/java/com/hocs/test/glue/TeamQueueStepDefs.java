@@ -12,7 +12,7 @@ import com.hocs.test.pages.data_input.DataInput;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class TeamQueueStepDefs extends Page{
+public class TeamQueueStepDefs extends Page {
 
     Teamqueue teamqueue;
 

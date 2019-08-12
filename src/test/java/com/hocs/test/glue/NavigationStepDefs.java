@@ -27,19 +27,17 @@ public class NavigationStepDefs extends Page {
     @Managed
     WebDriver driver;
 
-    private CreateCase createCase;
+    CreateCase createCase;
 
-    private DataInput dataInput;
+    DataInput dataInput;
 
-    private Homepage homepage;
+    Homepage homepage;
 
-    private Teamqueue teamqueue;
-
-    private fetch fetch;
+    fetch fetch;
 
     Workstacks workstacks;
 
-    private RecordCorrespondentDetails recordCorrespondentDetails;
+    RecordCorrespondentDetails recordCorrespondentDetails;
 
     @When("^I navigate to the \"([^\"]*)\" page$")
     public void iNavigateToThePage(String hocsPage) {
@@ -72,6 +70,9 @@ public class NavigationStepDefs extends Page {
                 break;
             case "EXTREMISM ANALYSIS UNIT":
                 clickOn(homepage.extremismAnalysisUnit);
+                break;
+            case "MINSTER OF STATE FOR POLICING AND FIRE SERVICE":
+                clickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
                 clickOn(homepage.policeWorkforceProfessionalismUnit);

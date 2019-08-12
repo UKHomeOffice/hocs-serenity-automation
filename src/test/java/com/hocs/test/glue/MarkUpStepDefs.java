@@ -27,8 +27,6 @@ public class MarkUpStepDefs extends Page {
 
     Homepage homepage;
 
-    Page page;
-
     Topics topics;
 
     Workstacks workstacks;
@@ -66,10 +64,10 @@ public class MarkUpStepDefs extends Page {
             case "CARDIFF UNIVERSITY KITTENS":
                 topics.enterATopic(topic);
                 break;
-            case "CYBER STALKING AND HARASSMENT" :
+            case "CYBER STALKING AND HARASSMENT":
                 topics.enterATopic(topic);
                 break;
-            case "DOMESTIC VIOLENCE PROTECTION ORDERS" :
+            case "DOMESTIC VIOLENCE PROTECTION ORDERS":
                 topics.enterATopic(topic);
                 break;
             default:
@@ -79,12 +77,12 @@ public class MarkUpStepDefs extends Page {
 
     @When("^I add the topic \"([^\"]*)\"$")
     public void enterTheTopic(String topic) {
-        switch(topic.toUpperCase()) {
-            case "CARDIFF UNIVERSITY KITTENS" :
+        switch (topic.toUpperCase()) {
+            case "CARDIFF UNIVERSITY KITTENS":
                 topics.enterATopicWithoutContinuingToTheDraftStage(topic);
                 setSessionVariable("topic").to(topic);
                 break;
-            case "EXTREMISTS LEAFLETING THE PUBLIC" :
+            case "EXTREMISTS LEAFLETING THE PUBLIC":
                 topics.enterATopicWithoutContinuingToTheDraftStage(topic);
                 break;
             default:
@@ -95,14 +93,14 @@ public class MarkUpStepDefs extends Page {
     @When("^I override the \"([^\"]*)\" team to \"([^\"]*)\"$")
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         switch (defaultTeam.toUpperCase()) {
-            case "INITIAL DRAFT" :
+            case "INITIAL DRAFT":
                 topics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
-                clickOn(page.finishButton);
+                clickOn(finishButton);
                 break;
-            case "PRIVATE OFFICE" :
+            case "PRIVATE OFFICE":
                 topics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(topics.autoAssignedDraftTeam.getValue());
-                clickOn(page.finishButton);
+                clickOn(finishButton);
                 draftingTeamDecision.initialDraftFullFlow();
                 qaResponse.qaResponseFullFlow();
                 break;
@@ -151,15 +149,15 @@ public class MarkUpStepDefs extends Page {
     @Then("^the case should be assigned to the \"([^\"]*)\" for drafting$")
     public void theCaseShouldBeAssignedToTheDraftTeam(String draftingTeam) {
         switch (draftingTeam.toUpperCase()) {
-            case "ANIMALS IN SCIENCE REGULATION UNIT" :
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
                 topics.assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
-            case "PUBLIC PROTECTION UNIT" :
+            case "PUBLIC PROTECTION UNIT":
                 topics.assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
-            case "DOMESTIC VIOLENCE PROTECTION ORDERS" :
+            case "DOMESTIC VIOLENCE PROTECTION ORDERS":
                 topics.assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
@@ -171,11 +169,11 @@ public class MarkUpStepDefs extends Page {
     @Then("^the case should be assigned to the \"([^\"]*)\" for approval$")
     public void theCaseShouldBeAssignedToThePrivateOfficeTeam(String privateOfficeTeam) {
         switch (privateOfficeTeam.toUpperCase()) {
-            case "MINISTER FOR LORDS" :
+            case "MINISTER FOR LORDS":
                 topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
                 break;
-            case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY" :
+            case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY":
                 topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
                 break;
@@ -194,64 +192,54 @@ public class MarkUpStepDefs extends Page {
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
         homepage.goHome();
         switch (team.toUpperCase()) {
-            case "PUBLIC PROTECTION UNIT" :
+            case "PUBLIC PROTECTION UNIT":
                 clickOn(homepage.publicProtectionUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "WINDRUSH COMPENSATION TEAM" :
-                //homepage.selectWindrusCompensationTeam();
-                //workstacks.assertCaseReferenceIsVisible();
-                break;
-            case "POLICE STRATEGY & REFORM UNIT" :
-                break;
-            case "ANIMALS IN SCIENCE REGULATION UNIT" :
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
                 clickOn(homepage.animalsInScienceTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "POLICE WORKFORCE AND PROFESSIONALISM UNIT" :
+            case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
                 clickOn(homepage.policeWorkforceProfessionalismUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "MINISTER FOR LORDS" :
+            case "MINISTER FOR LORDS":
                 clickOn(homepage.ministerForLordsTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "EXTREMISM ANALYSIS UNIT" :
+            case "EXTREMISM ANALYSIS UNIT":
                 clickOn(homepage.extremismAnalysisUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "COUNTER EXTREMISM UNIT" :
+            case "COUNTER EXTREMISM UNIT":
                 clickOn(homepage.counterExtremismUnit);
                 workstacks.assertCaseReferenceIsVisible();
-            case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY" :
-                //homepage.selectUnderSecretaryStateCrimeSafeguarding();
-                //workstacks.assertCaseReferenceIsVisible();
-                break;
-            case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT" :
+            case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
                 clickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "PRESS OFFICE" :
+            case "PRESS OFFICE":
                 clickOn(homepage.pressOffice);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "FINANCE" :
+            case "FINANCE":
                 clickOn(homepage.financeTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES" :
+            case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES":
                 clickOn(homepage.chemBioRadioNuclearExplosives);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "MINISTER OF STATE FOR IMMIGRATION" :
+            case "MINISTER OF STATE FOR IMMIGRATION":
                 clickOn(homepage.ministerOfStateForImmigrationTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME" :
+            case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME":
                 clickOn(homepage.ministerOfStateForSecurityAndEconomicCrime);
                 workstacks.assertCaseReferenceIsVisible();
                 break;
-            case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE" :
+            case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
                 clickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
                 workstacks.assertCaseReferenceIsVisible();
                 break;

@@ -45,9 +45,12 @@ public class AddDocuments extends Page {
     }
 
     public void bulkUploadDocuments(int documents) {
-        String pathf1 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test1.docx";
-        String pathf2 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test2.docx";
-        String pathf3 = "C:\\Users\\dom.barnett\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources\\documents\\test3.docx";
+        String pathf1 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
+                + "\\documents\\test1.docx";
+        String pathf2 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
+                + "\\documents\\test2.docx";
+        String pathf3 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
+                + "\\documents\\test3.docx";
         String allF = pathf1 + " \n " + pathf2 + " \n " + pathf3;
         addDocument.sendKeys(allF);
     }
@@ -97,7 +100,6 @@ public class AddDocuments extends Page {
     public void uploadStandardLineDocument() {
         upload("src/test/resources/documents/test1.docx").to(addStandardLineDocument);
     }
-
 }
 
 

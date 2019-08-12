@@ -43,6 +43,5 @@ public class StandardLineStepDefs extends Page {
         addDocuments.uploadStandardLineDocument();
         clickOn(standardLine.addButton);
         clickOn(homepage.animalsInScienceTeam);
-
     }
 }

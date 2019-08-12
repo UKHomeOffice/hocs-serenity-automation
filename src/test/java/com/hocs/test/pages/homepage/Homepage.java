@@ -216,7 +216,6 @@ public class Homepage extends Page {
             default:
                 pendingStep(thisCaseType + " is not defined within " + getMethodName());
         }
-
     }
 
     // Assertions
@@ -275,6 +274,4 @@ public class Homepage extends Page {
     public void assertHomePageTitle() {
         assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
     }
-
-
 }

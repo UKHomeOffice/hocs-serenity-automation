@@ -46,19 +46,19 @@ Feature: HOCS User is add data to a case
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @HOCS-276 @HOCS-238 @FixMe
+  @HOCS-276 @HOCS-238
   Scenario: User can add a Member of Parliament as a Correspondent
-    # Scenario is failing as the Add Correspondent Link is not loading correctly during the test run.
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
-    And I select to add a correspondent that "is" a member of parliament
+    And I click the "CONTINUE" button
+    And I select to add a correspondent that "IS" a member of parliament
     And I enter "Rt Hon John Bercow MP" in the "ADD A MEMBER OF PARLIAMENT" field
     Then they should be added to the list of correspondents
 
   @HOCS-277, @HOCS-238
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
-    And I click the "Continue" button
-    And I select to add a correspondent that "is not" a member of parliament
+    And I click the "CONTINUE" button
+    And I select to add a correspondent that "IS NOT" a member of parliament
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then they should be added to the list of correspondents
 
@@ -76,7 +76,7 @@ Feature: HOCS User is add data to a case
 
   @Validation
   Scenario Outline: User must complete all mandatory inputs on the Data Input form
-    When I click the "continue" button
+    When I click the "CONTINUE" button
     Then an error message should be displayed as I have not entered a "<formDetail>"
 
     Examples:
@@ -87,7 +87,6 @@ Feature: HOCS User is add data to a case
 
   @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
-#    And I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "CONTINUE" button on the "IS THE CORRESPONDENT AN MP" page
     Then an error message should be displayed as I must select a correspondent type on this screen
 
