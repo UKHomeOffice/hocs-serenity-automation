@@ -1,7 +1,7 @@
 Feature: HOCS is able to move cases through the entire flow
 
   Background:
-    Given I am user "DANNY"
+    Given I am user "EAMON"
 
   @Workflow @SmokeTests @DCUTRO
   Scenario Outline: Case moves to Data Input stage

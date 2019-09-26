@@ -198,8 +198,12 @@ public class TeamQueueStepDefs extends Page {
 
    @Then("^the case should no longer be visible in the teamqueue$")
     public void assertThatCaseInSessionVariableIsNotVisible(){
-        homepage.selectPerformanceProcessTeam();
-        teamqueue.assertCaseIsNotVisible();
+        if (isElementDisplayed(homepage.performanceProcessTeam)) {
+            homepage.selectPerformanceProcessTeam();
+            teamqueue.assertCaseIsNotVisible();
+        }else{
+            teamqueue.assertCaseIsNotVisible();
+        }
     }
 
     @Then("^the case should no longer be visible in the \"([^\"]*)\" teamqueue$")

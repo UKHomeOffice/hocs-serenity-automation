@@ -82,7 +82,7 @@ public class SuccessfulCaseCreation extends Page {
     }
 
     public void selectCaseReferenceNumberViaXpath() {
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseID")
+        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseId")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
         javascriptScrollToElem(referenceElement);

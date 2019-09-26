@@ -102,10 +102,11 @@ public class Topics extends Page {
     public void enterRealTopic() {
         clickOn(topicsTextField);
         focusedTopicsTextField.sendKeys("Cardiff University Kittens");
+        focusedTopicsTextField.sendKeys(Keys.RETURN);
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
         sleep(1000);
-        topicsTextField.sendKeys(Keys.RETURN);
+//        topicsTextField.sendKeys(Keys.RETURN);
     }
 
     public void fromMarkupStartSelectATopic (String topic) {
