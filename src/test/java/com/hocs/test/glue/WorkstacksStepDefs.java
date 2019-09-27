@@ -95,13 +95,13 @@ public class WorkstacksStepDefs extends Page {
         clickOn(workstacks.selectWorkstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
-                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
                 break;
             case "DTEN":
-                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
                 break;
             case "TRO":
-                workstacks.selectWorkstackFilter.sendKeys(caseReferenceType);
+                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
                 break;
             default:
                 pendingStep(caseReferenceType + " is not defined within " + getMethodName());
@@ -133,7 +133,7 @@ public class WorkstacksStepDefs extends Page {
         workstacks.assertCasesAreFilteredByStage(currentStage);
     }
 
-    @When("^I enter the Current Stage \"([^\"]*)\" into the filter$")
+    @When("^I enter the current stage \"([^\"]*)\" into the filter$")
     public void enterCurrentStage(String currentStage) {
         clickOn(workstacks.selectWorkstackFilter);
         switch (currentStage.toUpperCase()) {

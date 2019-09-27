@@ -70,6 +70,27 @@ public class MarkUpStepDefs extends Page {
             case "DOMESTIC VIOLENCE PROTECTION ORDERS":
                 topics.enterATopic(topic);
                 break;
+            case "CHILD SEXUAL EXPLOITATION":
+                topics.enterATopic(topic);
+                break;
+            case "PERMANENT SECRETARY AFU":
+                topics.enterATopic(topic);
+                break;
+            case "PERMANENT SECRETARY CAIT":
+                topics.enterATopic(topic);
+                break;
+            case "AFGHAN INTERPRETERS":
+                topics.enterATopic(topic);
+                break;
+            case "FUTURE FUNDS":
+                topics.enterATopic(topic);
+                break;
+            case "CRIMINAL RECORDS":
+                topics.enterATopic(topic);
+                break;
+            case "CLASSIFICATION OF CANNABIS":
+                topics.enterATopic(topic);
+                break;
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
         }
@@ -161,6 +182,29 @@ public class MarkUpStepDefs extends Page {
                 topics.assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
+            case "TACKLING EXPLOITATION AND ABUSE UNIT":
+                topics.assertElementTextIs(
+                        topics.autoAssignedDraftTeam, draftingTeam
+                );
+                break;
+            case "ACCOUNTING AND FINANCE UNIT":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
+            case "CENTRAL ANALYSIS AND INSIGHT TEAM":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
+            case "DOMESTIC ASYLUM POLICY":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
+            case "EFFICIENCY AND RESOURCES UNIT":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
+            case "INTERNATIONAL CRIMINALITY UNIT":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
+            case "DRUGS & ALCOHOL UNIT":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                break;
             default:
                 pendingStep(draftingTeam + " is not defined within " + getMethodName());
         }
@@ -176,6 +220,15 @@ public class MarkUpStepDefs extends Page {
             case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY":
                 topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
+                break;
+            case "PERMANENT SECRETARY":
+                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+                break;
+            case "MINISTER OF STATE FOR IMMIGRATION":
+                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+                 break;
+            case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
+                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
                 break;
             default:
                 pendingStep(privateOfficeTeam + " is not defined within " + getMethodName());

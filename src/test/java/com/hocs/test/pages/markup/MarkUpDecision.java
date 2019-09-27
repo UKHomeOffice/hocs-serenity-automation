@@ -165,8 +165,8 @@ public class MarkUpDecision extends Page {
 
     public void completeMarkupStageAndStoreEnteredInformation() {
         clickOn(workstacks.allocateToMeButton);
-        clickOn(faqRadioButton);
-        String whatSortOfResponseRadioButton = faqRadioButton.getText();
+        clickOn(policyResponseRadioButton);
+        String whatSortOfResponseRadioButton = policyResponseRadioButton.getText();
         setSessionVariable("selectedWhatSortOfResponseRadioButton").to(whatSortOfResponseRadioButton);
         clickOn(continueButton);
         clickOn(addATopicButton);

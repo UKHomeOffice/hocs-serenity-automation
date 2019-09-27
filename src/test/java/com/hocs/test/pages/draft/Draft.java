@@ -29,7 +29,7 @@ public class Draft extends Page {
     @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
     public WebElementFacade correspondenceAnsweredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Why should this should not be answered by your team? is required']")
+    @FindBy(xpath = "//a[text()='Why should this not be answered by your team? is required']")
     public WebElementFacade shouldBeAnsweredErrorMessage;
 
     @FindBy(xpath = "//a[text()='How do you intend to respond? is required']")
@@ -283,7 +283,7 @@ public class Draft extends Page {
 
     public void assertShouldBeAnsweredErrorMessage() {
         assertThat(shouldBeAnsweredErrorMessage.getText(),
-                is("Why should this should not be answered by your team? is required"));
+                is("Why should this not be answered by your team? is required"));
     }
 
     public void assertHowDoYouIntendToRespondErrorMessage() {
