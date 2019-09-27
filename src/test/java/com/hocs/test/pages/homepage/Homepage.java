@@ -222,14 +222,14 @@ public class Homepage extends Page {
 
     public void assertCaseIsComplete() {
         WebElementFacade caseReference = (WebElementFacade) driver.findElement(
-                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
+                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseReference")
                         + "')]"));
         assertThat(isWebElementFacadePresent(caseReference), is(false));
     }
 
     public void assertCaseIsCompleteViaSearch() {
         caseReferenceSearchBar.clear();
-        String thisCaseId = sessionVariableCalled("caseId").toString();
+        String thisCaseId = sessionVariableCalled("caseReference").toString();
         caseReferenceSearchBar.sendKeys(thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
         assertThat(isElementDisplayed(workstacks.allocateToMeButton), is(false));
@@ -237,14 +237,14 @@ public class Homepage extends Page {
 
     public void getCurrentCase() {
         caseReferenceSearchBar.clear();
-        String currentCase = sessionVariableCalled("caseId").toString();
+        String currentCase = sessionVariableCalled("caseReference").toString();
         caseReferenceSearchBar.sendKeys(currentCase);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {
         String actualStage = driver.findElement(
-                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseId")
+                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseReference")
                         + "')]/following-sibling::td[1]")).getText();
         System.out.println("Case is at " + actualStage + " stage");
         assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));

@@ -373,7 +373,7 @@ public class GenericInputStepDefs extends Page {
 
     @When("^I \"([^\"]*)\" the case$")
     public void iActionTheCase(String action) {
-        setSessionVariable("caseId").to(getCaseId());
+        setSessionVariable("caseReference").to(getCaseId());
         switch (action.toUpperCase()) {
             case "ACCEPT":
                 clickOn(acceptButton);

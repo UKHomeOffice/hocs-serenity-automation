@@ -481,13 +481,13 @@ public class Page extends PageObject {
     }
 
     public String getCaseId() {
-        setSessionVariable("caseId").to(caseId.getText());
+        setSessionVariable("caseReference").to(caseId.getText());
 
         return caseId.getText();
     }
 
     public void assertCaseIdIsOnCurrentPage() {
-        String thisCaseID = sessionVariableCalled("caseId").toString();
+        String thisCaseID = sessionVariableCalled("caseReference").toString();
         WebElementFacade thisIdSearch = findAll("//td/a[contains(text(), '" + thisCaseID + "')]").get(0);
         assertThat((isElementDisplayed(thisIdSearch)), is(true));
     }
@@ -717,7 +717,7 @@ public class Page extends PageObject {
     }
 
     public void prepareCaseIdAssertion() {
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseId") + "']").get(0);
+        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference") + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
         System.out.println(referenceElement);
         setSessionVariable("assertCase").to(referenceElement);
