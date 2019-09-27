@@ -10,17 +10,14 @@ Feature: User is able to add Standard Lines
 #    And I create a new standard line
 #    Then
 
-  @Validation
   Scenario: User must select an associated topic from the dropdown box when adding a new standard line
     And I click the add button on the create standard line screen
     Then an error message should be displayed as I have not selected an associated topic for the standard line
 
-  @Validation
   Scenario: User must enter an expiration date when adding a new standard line
     And I click the add button on the create standard line screen
     Then an error message should be displayed as I have not entered an expiration date for the standard line
 
-  @Validation
   Scenario: User must upload a document when adding a new standard line
     And I click the add button on the create standard line screen
     Then an error message should be displayed as I have not added a document for the standard line

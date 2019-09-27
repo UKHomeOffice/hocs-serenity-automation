@@ -59,7 +59,7 @@ public class QAResponse extends Page{
     public void enterDraftDecision() {
         String draftDecisionNote = generateRandomString();
         draftDecisionNoteFieldTheSecond.clear();
-        draftDecisionNoteFieldTheSecond.sendKeys(draftDecisionNote);
+        typeInto(draftDecisionNoteFieldTheSecond, draftDecisionNote);
         setSessionVariable("draftDecisionNote").to(draftDecisionNote);
     }
 
