@@ -85,18 +85,18 @@ public class SearchForm extends Page {
 
     public void enterSearchCorrespondent(String correspondentNameQuery) {
         searchCorrespondentTextbox.click();
-        searchCorrespondentTextbox.sendKeys(correspondentNameQuery);
+        typeInto(searchCorrespondentTextbox, correspondentNameQuery);
         setSessionVariable("correspondentNameQuery").to(correspondentNameQuery);
     }
 
     public void enterSearchTopic(String topicQuery) {
         searchTopicTextbox.click();
-        searchTopicTextbox.sendKeys(topicQuery);
+        typeInto(searchTopicTextbox, topicQuery);
         setSessionVariable("topicQuery").to(topicQuery);
     }
 
     public void selectSearchSignOffMinister(String signOffMinisterName) {
-        searchSignOffMinisterDropdown.sendKeys(signOffMinisterName);
+        typeInto(searchSignOffMinisterDropdown, signOffMinisterName);
     }
 
     public void viewFirstSearchResultCaseSummary() {

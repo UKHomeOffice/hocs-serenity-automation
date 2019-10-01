@@ -67,7 +67,7 @@ public class Topics extends Page {
     }
 
     public void enterTopic() {
-        topicsTextField.sendKeys(generateRandomString());
+        typeInto(topicsTextField, generateRandomString());
     }
 
     public void clickTopicsTextField() {
@@ -81,7 +81,7 @@ public class Topics extends Page {
     public void enterATopic(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        focusedTopicsTextField.sendKeys(topic);
+        typeInto(focusedTopicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
@@ -91,7 +91,7 @@ public class Topics extends Page {
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        focusedTopicsTextField.sendKeys(topic);
+        typeInto(focusedTopicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
         clickOn(addButton);

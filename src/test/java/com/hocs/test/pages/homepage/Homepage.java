@@ -140,7 +140,7 @@ public class Homepage extends Page {
                 + "Input')]])[1]").getText();
         setSessionVariable("searchByCaseReferenceQuery").to(getFirstCaseReferenceForSearch);
         clickOn(home);
-        caseReferenceSearchBar.sendKeys(getFirstCaseReferenceForSearch);
+        typeInto(caseReferenceSearchBar, getFirstCaseReferenceForSearch);
     }
 
     public void hitEnterCaseReferenceSearchBar() {
@@ -230,7 +230,7 @@ public class Homepage extends Page {
     public void assertCaseIsCompleteViaSearch() {
         caseReferenceSearchBar.clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
-        caseReferenceSearchBar.sendKeys(thisCaseId);
+        typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
         assertThat(isElementDisplayed(workstacks.allocateToMeButton), is(false));
     }
@@ -238,7 +238,7 @@ public class Homepage extends Page {
     public void getCurrentCase() {
         caseReferenceSearchBar.clear();
         String currentCase = sessionVariableCalled("caseReference").toString();
-        caseReferenceSearchBar.sendKeys(currentCase);
+        typeInto(caseReferenceSearchBar, currentCase);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
     }
 

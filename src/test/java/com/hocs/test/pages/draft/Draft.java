@@ -122,8 +122,7 @@ public class Draft extends Page {
     }
 
     public void enterAllocationNoteField() {
-        clearAllocationNoteField();
-        allocationNoteFreeTextField.sendKeys(generateRandomString());
+        typeInto(allocationNoteFreeTextField, generateRandomString());
     }
 
     public String getDraftingDeadline() {
@@ -139,11 +138,11 @@ public class Draft extends Page {
     }
 
     public void enterTextInSummariseCallTextbox() {
-        summariseCallTextBox.sendKeys(" ");
+        typeInto(summariseCallTextBox, " ");
     }
 
     public void enterTextInWhyShouldThisBeAnsweredTextbox() {
-        whyShouldThisNotBeAnsweredTextBox.sendKeys(" ");
+        typeInto(whyShouldThisNotBeAnsweredTextBox, " ");
     }
 
     // Multi Step Methods

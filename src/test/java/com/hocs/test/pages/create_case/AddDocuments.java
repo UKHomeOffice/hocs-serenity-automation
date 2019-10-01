@@ -56,33 +56,27 @@ public class AddDocuments extends Page {
     }
 
     public void enterDispatchDeadlineDay(int days) {
-        dispatchDeadlineDay.clear();
-        dispatchDeadlineDay.sendKeys(todayPlusNDaysGetDay(days));
+        typeInto(dispatchDeadlineDay, todayPlusNDaysGetDay(days));
     }
 
-    public void enterDispatchDeadlineMonth(int days) {
-        dispatchDeadlineMonth.clear();
-        dispatchDeadlineMonth.sendKeys(todayPlusNDaysGetMonth(days));
+    public void enterDispatchDeadlineMonth(int months) {
+        typeInto(dispatchDeadlineMonth, todayPlusNDaysGetMonth(months));
     }
 
-    public void enterDispatchDeadlineYear(int days) {
-        dispatchDeadlineYear.clear();
-        dispatchDeadlineYear.sendKeys(todayPlusNDaysGetYear(days));
+    public void enterDispatchDeadlineYear(int years) {
+        typeInto(dispatchDeadlineYear, todayPlusNDaysGetYear(years));
     }
 
     public void enterDraftDeadlineDay(int days) {
-        draftDeadlineDay.clear();
-        draftDeadlineDay.sendKeys(todayPlusNDaysGetDay(days));
+        typeInto(draftDeadlineDay, todayPlusNDaysGetDay(days));
     }
 
-    public void enterDraftDeadlineMonth(int days) {
-        draftDeadlineMonth.clear();
-        draftDeadlineMonth.sendKeys(todayPlusNDaysGetMonth(days));
+    public void enterDraftDeadlineMonth(int months) {
+        typeInto(draftDeadlineMonth, todayPlusNDaysGetMonth(months));
     }
 
-    public void enterDraftDeadlineYear(int days) {
-        draftDeadlineYear.clear();
-        draftDeadlineYear.sendKeys(todayPlusNDaysGetYear(days));
+    public void enterDraftDeadlineYear(int years) {
+        typeInto(draftDeadlineYear, todayPlusNDaysGetYear(years));
     }
 
     public void assertDocumentTypeIsRequiredErrorMessage() {

@@ -369,30 +369,25 @@ public class Page extends PageObject {
 
     public void enterAllocationNote() {
         String allocationNote = generateRandomString();
-        allocationNoteField.clear();
-        allocationNoteField.sendKeys(allocationNote);
+        typeInto(allocationNoteField, allocationNote);
         setSessionVariable("allocationNote").to(allocationNote);
     }
 
     public void enterDate(String date) {
-        dateField.clear();
-        dateField.sendKeys(date);
+        typeInto(dateField, date);
         setSessionVariable("date").to(date);
     }
 
     public void enterDayReceived() {
-        dateReceivedDay.clear();
-        dateReceivedDay.sendKeys("");
+        typeInto(dateReceivedDay, "");
     }
 
     public void enterMonthReceived() {
-        dateReceivedMonth.clear();
-        dateReceivedMonth.sendKeys("");
+        typeInto(dateReceivedMonth, "");
     }
 
     public void enterYearReceived() {
-        dateReceivedYear.clear();
-        dateReceivedYear.sendKeys("");
+        typeInto(dateReceivedYear, "");
     }
 
     public void enterEndDate(String endDate) {
@@ -402,12 +397,9 @@ public class Page extends PageObject {
     }
 
     public void enterInvalidDate() {
-        dateDayField.clear();
-        dateDayField.sendKeys("31");
-        dateMonthField.clear();
-        dateMonthField.sendKeys("06");
-        dateYearField.clear();
-        dateYearField.sendKeys("2018");
+        typeInto(dateDayField, "31");
+        typeInto(dateMonthField, "06");
+        typeInto(dateYearField, "2018");
     }
 
     public void enterNoDate() {
@@ -417,14 +409,12 @@ public class Page extends PageObject {
     }
 
     public void enterNewNotes(String notes) {
-        newNotesField.clear();
-        newNotesField.sendKeys(notes);
+        typeInto(newNotesField, notes);
         setSessionVariable("newNotes").to(notes);
     }
 
     public void enterNotes(String notes) {
-        notesField.clear();
-        notesField.sendKeys(notes);
+        typeInto(notesField, notes);
         setSessionVariable("notes").to(notes);
     }
 
@@ -432,8 +422,7 @@ public class Page extends PageObject {
         waitFor(rejectReasonTextField);
 
         String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectReasonTextField.clear();
-        rejectReasonTextField.sendKeys(rejectionReason);
+        typeInto(rejectReasonTextField, rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
@@ -444,12 +433,9 @@ public class Page extends PageObject {
     }
 
     public void enterValidDate() {
-        dateDayField.clear();
-        dateDayField.sendKeys("01");
-        dateMonthField.clear();
-        dateMonthField.sendKeys("01");
-        dateYearField.clear();
-        dateYearField.sendKeys("2018");
+        typeInto(dateDayField, "01");
+        typeInto(dateMonthField, "01");
+        typeInto(dateYearField, "2018");
     }
 
     public void javascriptScrollToElem(WebElementFacade element) {
