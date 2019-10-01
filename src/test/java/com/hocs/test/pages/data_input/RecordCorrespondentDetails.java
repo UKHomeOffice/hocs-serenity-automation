@@ -86,42 +86,41 @@ public class RecordCorrespondentDetails extends Page {
         addACorrespondentButton.click();
     }
 
-    public void selectNotMPRadioButton(){
+    public void selectNotMPRadioButton() {
         correspondentNotMPRadioButton.click();
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        correspondentFullNameField.clear();
-        correspondentFullNameField.sendKeys(fullName);
+        typeInto(correspondentFullNameField, fullName);
         setSessionVariable("fullName").to(fullName);
     }
 
     public void enterCorrespondentBuilding(String building) {
-        correspondentBuildingField.sendKeys(building);
+        typeInto(correspondentBuildingField, building);
     }
 
     public void enterCorrespondentStreet(String street) {
-        correspondentStreetField.sendKeys(street);
+        typeInto(correspondentStreetField, street);
     }
 
     public void enterCorrespondentTownOrCity(String location) {
-        correspondentTownOrCityField.sendKeys(location);
+        typeInto(correspondentTownOrCityField, location);
     }
 
     public void enterCorrespondentPostcode(String postcode) {
-        correspondentPostcodeField.sendKeys(postcode);
+        typeInto(correspondentPostcodeField, postcode);
     }
 
     public void enterCorrespondentTelephoneNumber(String number) {
-        correspondentTelephoneField.sendKeys(number);
+        typeInto(correspondentTelephoneField, number);
     }
 
     public void enterCorrespondentEmailAddress(String email) {
-        correspondentEmailField.sendKeys(email);
+        typeInto(correspondentEmailField, email);
     }
 
     public void enterCorrespondenceReference(String reference) {
-        correspondenceCaseReference.sendKeys(reference);
+        typeInto(correspondenceCaseReference, reference);
     }
 
     public String getPrimaryCorrespondent() {

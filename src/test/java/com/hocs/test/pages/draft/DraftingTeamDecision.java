@@ -50,7 +50,7 @@ public class DraftingTeamDecision extends Page {
     }
 
     public void enterPhoneCallSummaryNote() {
-        phoneCallSummaryNote.sendKeys(generateRandomString());
+        typeInto(phoneCallSummaryNote, generateRandomString());
     }
 
     // Multi Step Methods

@@ -92,15 +92,15 @@ public class MarkUpDecision extends Page {
     }
 
     public void enterAnsweringTeamTypeFunction(String team) {
-        answeringTeamTypeFunction.sendKeys(team);
+        typeInto(answeringTeamTypeFunction, team);
     }
 
     public void enterAnsweringUnitTypeFunction(String unit) {
-        answeringUnitTypeFunction.sendKeys(unit);
+        typeInto(answeringUnitTypeFunction, unit);
     }
 
     public void enterDateReceived() {
-        dateReceivedField.sendKeys(getCurrentDay());
+        typeInto(dateReceivedField, getCurrentDay());
     }
 
     public void enterDraftingDeadline() {
@@ -112,7 +112,7 @@ public class MarkUpDecision extends Page {
     }
 
     public void enterSignOffMinisterTypeFunction(String minister) {
-        signOffMinisterTypeFunction.sendKeys(minister);
+        typeInto(signOffMinisterTypeFunction, minister);
     }
 
     public void selectAnsweringTeamFromDropdownByText(String team) {

@@ -121,8 +121,7 @@ public class CreateCase extends Page {
     }
 
     public void enterCaseDetailsFreeText() {
-        caseDetailsFreeTextField.clear();
-        caseDetailsFreeTextField.sendKeys(generateRandomString());
+        typeInto(caseDetailsFreeTextField, generateRandomString());
     }
 
    /* public void enterDispatchDeadline(int days){
@@ -141,33 +140,27 @@ public class CreateCase extends Page {
     }
 
     private void enterDispatchDeadlineDay(String day) {
-        d10DispatchDeadlineDay.clear();
-        d10DispatchDeadlineDay.sendKeys(day);
+        typeInto(d10DispatchDeadlineDay, day);
     }
 
     private void enterDispatchDeadlineMonth(String month) {
-        d10DispatchDeadlineMonth.clear();
-        d10DispatchDeadlineMonth.sendKeys(month);
+        typeInto(d10DispatchDeadlineMonth, month);
     }
 
     private void enterDispatchDeadlineYear(String year) {
-        d10DispatchDeadlineYear.clear();
-        d10DispatchDeadlineYear.sendKeys(year);
+        typeInto(d10DispatchDeadlineYear, year);
     }
 
     private void enterDraftDeadlineDay(String day) {
-        d10DraftDeadlineDay.clear();
-        d10DraftDeadlineDay.sendKeys(day);
+        typeInto(d10DispatchDeadlineDay, day);
     }
 
     private void enterDraftDeadlineMonth(String month) {
-        d10DraftDeadlineMonth.clear();
-        d10DraftDeadlineMonth.sendKeys(month);
+        typeInto(d10DispatchDeadlineMonth, month);
     }
 
     private void enterDraftDeadlineYear(String year) {
-        d10DraftDeadlineYear.clear();
-        d10DraftDeadlineYear.sendKeys(year);
+        typeInto(d10DispatchDeadlineYear, year);
     }
 
     // Multi Step Methods

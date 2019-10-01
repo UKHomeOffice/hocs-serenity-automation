@@ -40,27 +40,21 @@ public class TestForm extends Page {
     private WebElementFacade testDropdown;
 
     public void enterCurrentDate() {
-        dateDayField.clear();
-        dateDayField.sendKeys(getCurrentDay());
-        dateMonthField.clear();
-        dateMonthField.sendKeys(getCurrentMonth());
-        dateYearField.clear();
-        dateYearField.sendKeys(getCurrentYear());
+        typeInto(dateDayField, getCurrentDay());
+        typeInto(dateMonthField, getCurrentMonth());
+        typeInto(dateYearField, getCurrentYear());
     }
 
     public void enterName(String name) {
-        nameField.clear();
-        nameField. sendKeys(name);
+        typeInto(nameField, name);
     }
 
     public void enterSurname(String surname) {
-        surnameField.clear();
-        surnameField.sendKeys(surname);
+        typeInto(surnameField, surname);
     }
 
     public void enterText() {
-        textField.clear();
-        textField.sendKeys(generateRandomString());
+        typeInto(textField, generateRandomString());
     }
 
     public void getRadioButtons() {

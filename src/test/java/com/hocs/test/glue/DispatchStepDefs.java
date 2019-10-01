@@ -49,8 +49,7 @@ public class DispatchStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         dispatch.selectDispatchRejectButton();
         clickOn(continueButton);
-        dispatch.dispatchRejectNoteField.clear();
-        dispatch.dispatchRejectNoteField.sendKeys("I reject this notion");
+        typeInto(dispatch.dispatchRejectNoteField, "I reject this nothing");
         clickOn(finishButton);
     }
 

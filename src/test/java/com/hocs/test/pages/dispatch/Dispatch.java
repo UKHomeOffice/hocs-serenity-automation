@@ -26,7 +26,7 @@ public class Dispatch extends Page {
     public WebElementFacade dispatchRejectNoteField;
 
     public void enterTextInWhyAreYouUnableToDispatchTextbox() {
-        whyAreYouUnableToDispatchErrorMessage.sendKeys("");
+        typeInto(whyAreYouUnableToDispatchErrorMessage, "");
     }
 
     public void selectDispatchRejectButton() {
@@ -52,8 +52,7 @@ public class Dispatch extends Page {
     public void enterDispatchRejectionNotes() {
         waitFor(dispatchRejectNoteField);
         String rejectionReason = "Rejection Reason: " + generateRandomString();
-        dispatchRejectNoteField.clear();
-        dispatchRejectNoteField.sendKeys(rejectionReason);
+        typeInto(dispatchRejectNoteField, rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 

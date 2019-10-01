@@ -138,25 +138,25 @@ public class WorkstacksStepDefs extends Page {
         clickOn(workstacks.selectWorkstackFilter);
         switch (currentStage.toUpperCase()) {
             case "DATA INPUT":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "MARK UP":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "INPUT DRAFT":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "QA RESPONSE":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "PRIVATE OFFICE APPROVAL":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "MINISTERIAL SIGN OFF":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             case "DISPATCH":
-                workstacks.selectWorkstackFilter.sendKeys(currentStage);
+                typeInto(workstacks.selectWorkstackFilter, currentStage);
                 break;
             default:
                 pendingStep(currentStage + " is not defined within " + getMethodName());

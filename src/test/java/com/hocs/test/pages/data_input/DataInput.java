@@ -138,7 +138,7 @@ public class DataInput extends Page {
 
     public void selectAddAnMPField() {
         addMemberOfParliamentSearchField.click();
-        addMemberOfParliamentSearchField.sendKeys("example");
+        typeInto(addMemberOfParliamentSearchField, "example");
     }
 
     public void selectAddACorrespondentLink() {
@@ -250,8 +250,7 @@ public class DataInput extends Page {
     }
 
     public void enterReferenceText() {
-        referenceTextField.clear();
-        referenceTextField.sendKeys("");
+        typeInto(referenceTextField, " ");
     }
 
     public void fillAllMandatoryCorrespondenceFields() {

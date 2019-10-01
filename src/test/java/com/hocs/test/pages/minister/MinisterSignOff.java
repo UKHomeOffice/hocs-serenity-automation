@@ -30,8 +30,7 @@ public class MinisterSignOff extends Page {
     }
 
     public void enterMinisterRejectionNote() {
-        clearRejectionNoteField();
-        ministerRejectionNote.sendKeys(generateRandomString());
+        typeInto(ministerRejectionNote, generateRandomString());
     }
 
     public void getToMinisterFeedbackResponseScreenPrerequisites() {
