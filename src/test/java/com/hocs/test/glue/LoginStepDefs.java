@@ -66,6 +66,28 @@ public class LoginStepDefs extends Page {
         }
     }
 
+    @Given("I that I have navigated to the Management UI as the user \"([^\"]*)\"")
+    public void iHaveNavigatedToTheManagementUI(String user) {
+        navigateToManagementUI();
+        setSessionVariable("user").to(user);
+        switch (user.toUpperCase()) {
+            case "DCU":
+                enterHocsLoginDetails(DCU);
+                break;
+            case "TEST":
+                enterHocsLoginDetails(TEST);
+                break;
+            case "DANNY":
+                enterHocsLoginDetails(DANNY);
+                break;
+            case "EAMON":
+                enterHocsLoginDetails(EAMON);
+                break;
+            default:
+                pendingStep(user + " is not defined within " + getMethodName());
+        }
+    }
+
     @Given("^I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
         navigateToHocs();
@@ -189,7 +211,6 @@ public class LoginStepDefs extends Page {
         loginPage.enterPassword(password.getPassword());
     }
 
-
     private void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
@@ -213,6 +234,19 @@ public class LoginStepDefs extends Page {
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
             }
+        }
+        driver.get(baseUrl);
+    }
+
+    private void navigateToManagementUI() {
+        String env = System.getProperty("environment");
+        String baseUrl = "";
+
+        if (env == null) {
+            System.out.println("Environment parameter not set. Defaulting to 'QA'");
+            baseUrl = Environments.MANAGEMENTUIQA.getEnvironmentURL();
+        } else {
+            baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
         }
         driver.get(baseUrl);
     }
