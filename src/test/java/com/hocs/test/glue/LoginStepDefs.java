@@ -66,7 +66,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("I that I have navigated to the Management UI as the user \"([^\"]*)\"")
+    @Given("^I that I have navigated to the Management UI as the user \"([^\"]*)\"$")
     public void iHaveNavigatedToTheManagementUI(String user) {
         navigateToManagementUI();
         setSessionVariable("user").to(user);
@@ -86,6 +86,7 @@ public class LoginStepDefs extends Page {
             default:
                 pendingStep(user + " is not defined within " + getMethodName());
         }
+        clickOn(loginPage.continueButton);
     }
 
     @Given("^I am on the Home Office Correspondence Login Page")
