@@ -291,6 +291,7 @@ public class Draft extends Page {
     }
 
     public void assertPleaseSummariseYourCallErrorMessage() {
+        sleep(500);
         assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
     }
 

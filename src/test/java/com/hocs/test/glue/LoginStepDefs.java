@@ -66,7 +66,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("^I that I have navigated to the Management UI as the user \"([^\"]*)\"$")
+    @Given("^that I have navigated to the Management UI as the user \"([^\"]*)\"$")
     public void iHaveNavigatedToTheManagementUI(String user) {
         navigateToManagementUI();
         setSessionVariable("user").to(user);

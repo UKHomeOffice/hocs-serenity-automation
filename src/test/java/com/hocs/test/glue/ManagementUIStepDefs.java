@@ -5,6 +5,7 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -24,10 +25,22 @@ public class ManagementUIStepDefs extends Page {
         switch (managementPage.toUpperCase()) {
             case "TEAM":
                 clickOn(dashboard.addRemoveUsersButton);
-                teamManagement.assertTeamManagementPageTitle();
                 break;
             case "UNIT":
                 clickOn(dashboard.addUnitButton);
+                break;
+            default:
+                pendingStep(managementPage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^I should be taken to the \"([^\"]*)\" Management page$")
+    public void assertThatTheUserIsTakenToTheSelectedManagementPage(String managementPage) {
+        switch (managementPage.toUpperCase()) {
+            case "TEAM":
+                teamManagement.assertTeamManagementPageTitle();
+                break;
+            case "UNIT":
                 unitManagement.assertUnitManagementPageTitle();
                 break;
             default:
