@@ -9,8 +9,8 @@ Feature: HOCS is able to move cases through the entire flow
     Then the case should be moved to the "DATA INPUT" stage
     Examples:
       | caseType|
-      | DCU MIN |
-      | DCU TRO |
+#      | DCU MIN |
+#      | DCU TRO |
       | DCU N10 |
 
   @Workflow @SmokeTests @CaseBuilder @DCUTRO
