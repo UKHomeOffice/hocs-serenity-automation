@@ -53,6 +53,9 @@ public class ManagementUIStepDefs extends Page {
             case "PURSUE DISRUPTIONS UNIT":
                 teamManagement.selectATeam(teamName);
                 break;
+            case "OSCT SECRETARIAT":
+                teamManagement.selectATeam(teamName);
+                break;
             default:
                 pendingStep(teamName + " is not defined within " + getMethodName());
         }
@@ -60,8 +63,13 @@ public class ManagementUIStepDefs extends Page {
 
     @And("^I add the user \"([^\"]*)\" to the team$")
     public void addUserToSelectedTeam(String nameOfUser) {
+        waitABit(500);
+        teamManagement.assertTeamName();
         switch (nameOfUser.toUpperCase()) {
             case "EAMON.DROKO@TEN10.COM":
+                teamManagement.selectAUser(nameOfUser);
+                break;
+            case "DANNY.LARGE@TEN10.COM":
                 teamManagement.selectAUser(nameOfUser);
                 break;
             default:
@@ -69,14 +77,9 @@ public class ManagementUIStepDefs extends Page {
         }
     }
 
-    @Then("^the user \"([^\"]*)\" should be visible in the team list$")
-    public void assertThatUserIsVisibleInTeamList(String assertUser) {
-        switch (assertUser.toUpperCase()) {
-            case "EAMON.DROKO@TEN10.COM":
-                teamManagement.assertThatUserIsVisibleInTeamList();
-                break;
-            default:
-                pendingStep(assertUser + " is not defined within " + getMethodName());
-        }
+    @Then("^the user should be visible in the team list$")
+    public void assertThatUserIsVisibleInTeamList() {
+        teamManagement.assertThatUserIsVisibleInTeamList();
     }
 }
+

@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class TeamManagement extends Page {
@@ -34,6 +35,9 @@ public class TeamManagement extends Page {
     @FindBy(xpath = "//tbody[@class='govuk-table__body']")
     public WebElementFacade teamMemberTable;
 
+    @FindBy(xpath = "//div//p[@class='govuk-body']")
+    public WebElementFacade loadingPlaceholderText;
+
     public void assertTeamManagementPageTitle() {
         assertThat($("//h1").getText(), is("Team search"));
     }
@@ -53,11 +57,21 @@ public class TeamManagement extends Page {
         clickOn(addSelectedUsersButton);
     }
 
+    public void assertTeamName() {
+        assertThat(teamNameHeader.getText(), is("Team: " + sessionVariableCalled("teamName")));
+    }
+
     public void assertThatUserIsVisibleInTeamList() {
+        WebElementFacade membersInTeamTable = findAll("(//tr[@class='govuk-table__row'])[2]").get(0);
+
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
         String nameOfNewUser = sessionVariableCalled("nameOfUser").toString();
 
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        assertThat(teamMemberTable.getText(), containsText(nameOfNewUser));
+        assertThat(membersInTeamTable.getText(), containsText(nameOfNewUser));
+    }
+
+    public void assertLoadingTextIsShown(){
+        assertThat(loadingPlaceholderText.getText(), is("Loading..."));
     }
 }
