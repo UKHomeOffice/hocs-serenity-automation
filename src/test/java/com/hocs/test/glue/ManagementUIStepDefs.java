@@ -81,5 +81,15 @@ public class ManagementUIStepDefs extends Page {
     public void assertThatUserIsVisibleInTeamList() {
         teamManagement.assertThatUserIsVisibleInTeamList();
     }
+
+    @And("^I remove a user from the team$")
+    public void removeUserFromTeamAndStoreUserName() {
+        teamManagement.removeFirstUserInListAndStoreName();
+    }
+
+    @Then("^that user should no longer appear in the list of team members$")
+    public void assertThatUserHasBeenRemovedFromTeam() {
+        teamManagement.assertThatRemovedUserIsNoLongerVisibleInList();
+    }
 }
 

@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -32,11 +33,8 @@ public class TeamManagement extends Page {
     @FindBy(xpath = "//h2[@class='govuk-heading-l']")
     public WebElementFacade teamNameHeader;
 
-    @FindBy(xpath = "//tbody[@class='govuk-table__body']")
-    public WebElementFacade teamMemberTable;
-
-    @FindBy(xpath = "//div//p[@class='govuk-body']")
-    public WebElementFacade loadingPlaceholderText;
+    @FindBy(xpath = "(//td//a)[1]")
+    public WebElementFacade firstRemoveButtonInList;
 
     public void assertTeamManagementPageTitle() {
         assertThat($("//h1").getText(), is("Team search"));
@@ -71,7 +69,14 @@ public class TeamManagement extends Page {
         assertThat(membersInTeamTable.getText(), containsText(nameOfNewUser));
     }
 
-    public void assertLoadingTextIsShown(){
-        assertThat(loadingPlaceholderText.getText(), is("Loading..."));
+    public void removeFirstUserInListAndStoreName() {
+        WebElementFacade firstMemberInTeamTable = findAll("(//td[@class='govuk-table__cell'])[1]").get(0);
+        String nameOfFirstUser = firstMemberInTeamTable.getText();
+        setSessionVariable("userNameAndEmail").to(nameOfFirstUser);
+        clickOn(firstRemoveButtonInList);
+    }
+
+    public void assertThatRemovedUserIsNoLongerVisibleInList() {
+        String removedUser = sessionVariableCalled("userNameAndEmail").toString();
     }
 }

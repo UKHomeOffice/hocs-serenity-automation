@@ -26,7 +26,8 @@ Feature: User manages HOCS teams and units
     @HOCS-832
     Scenario: Users should no longer be visible in team page when removed
       And I navigate to the "TEAM" Management page
-      When I remove a user from the team
+      When I select the "Pursue Disruptions Unit" team from the dropdown
+      And I remove a user from the team
       Then that user should no longer appear in the list of team members
 
     @HOCS-832
