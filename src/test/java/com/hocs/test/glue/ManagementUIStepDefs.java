@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.managementUI.ChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
@@ -19,11 +20,16 @@ public class ManagementUIStepDefs extends Page {
 
     UnitManagement unitManagement;
 
+    ChildTopic childTopic;
+
     @When("^I navigate to the \"([^\"]*)\" Management page$")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
             case "TEAM":
                 clickOn(dashboard.addRemoveUsersButton);
+                break;
+            case "CHILD TOPIC":
+                clickOn(dashboard.addChildTopicButton);
                 break;
             case "UNIT":
                 clickOn(dashboard.addUnitButton);
@@ -38,6 +44,9 @@ public class ManagementUIStepDefs extends Page {
         switch (managementPage.toUpperCase()) {
             case "TEAM":
                 teamManagement.assertTeamManagementPageTitle();
+                break;
+            case "CHILD TOPIC":
+                childTopic.assertChildTopicPageTitle();
                 break;
             case "UNIT":
                 unitManagement.assertUnitManagementPageTitle();

@@ -10,6 +10,9 @@ public class Dashboard extends Page {
     @FindBy (xpath = "//a[@href='/team-search']")
     public WebElementFacade addRemoveUsersButton;
 
+    @FindBy(xpath = "//a[@href='/add-child-topic']")
+    public WebElementFacade addChildTopicButton;
+
     @FindBy(xpath = "//a[@href='/add-unit']")
     public WebElementFacade addUnitButton;
 

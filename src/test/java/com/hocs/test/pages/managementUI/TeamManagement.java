@@ -15,7 +15,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class TeamManagement extends Page {
 
-    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    @FindBy(xpath = "//input[@id='Teams-input']")
     public WebElementFacade teamSearchBar;
 
     @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
@@ -24,7 +24,7 @@ public class TeamManagement extends Page {
     @FindBy(xpath = "//button[@class='govuk-button add-team-members-button']")
     public WebElementFacade addTeamMembersButton;
 
-    @FindBy(xpath = "//input[@id='react-select-3-input']")
+    @FindBy(xpath = "//input[@id='users-input']")
     public WebElementFacade userSearchBar;
 
     @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
@@ -41,6 +41,7 @@ public class TeamManagement extends Page {
     }
 
     public void selectATeam(String teamName) {
+        waitABit(500);
         typeInto(teamSearchBar, teamName);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
@@ -51,6 +52,7 @@ public class TeamManagement extends Page {
         clickOn(addTeamMembersButton);
         typeInto(userSearchBar, nameOfUser);
         setSessionVariable("nameOfUser").to(nameOfUser);
+        waitABit(3000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
     }
@@ -77,6 +79,8 @@ public class TeamManagement extends Page {
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
+        waitABit(500);
         String removedUser = sessionVariableCalled("userNameAndEmail").toString();
+        assertThat($("//body").getText(), containsText(removedUser), is(false));
     }
 }

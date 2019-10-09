@@ -4,8 +4,8 @@ Feature: User manages HOCS teams and units
     Given that I have navigated to the Management UI as the user "EAMON"
 
     Scenario: User navigates to a management page
-      When I navigate to the "TEAM" Management page
-      Then I should be taken to the "TEAM" Management page
+      When I navigate to the "CHILD TOPIC" Management page
+      Then I should be taken to the "CHILD TOPIC" Management page
 
     @HOCS-832
     Scenario: User can see all users assigned to the team they have searched for
@@ -20,8 +20,10 @@ Feature: User manages HOCS teams and units
     Scenario: Adding a new user to a team displays that user in the team list
       And I navigate to the "TEAM" Management page
       When I select the "Pursue Disruptions Unit" team from the dropdown
-      And I add the user "danny.large@ten10.com" to the team
+      And I add the user "eamon.droko@ten10.com" to the team
       Then the user should be visible in the team list
+
+#    Write test for adding multiple users
 
     @HOCS-832
     Scenario: Users should no longer be visible in team page when removed
