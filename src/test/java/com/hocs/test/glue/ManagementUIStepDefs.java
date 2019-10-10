@@ -11,6 +11,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManagementUIStepDefs extends Page {
 
@@ -65,6 +66,9 @@ public class ManagementUIStepDefs extends Page {
             case "OSCT SECRETARIAT":
                 teamManagement.selectATeam(teamName);
                 break;
+            case "ANIMALS IN SCIENCE REGULATION UNIT":
+                teamManagement.selectATeam(teamName);
+                break;
             default:
                 pendingStep(teamName + " is not defined within " + getMethodName());
         }
@@ -99,6 +103,43 @@ public class ManagementUIStepDefs extends Page {
     @Then("^that user should no longer appear in the list of team members$")
     public void assertThatUserHasBeenRemovedFromTeam() {
         teamManagement.assertThatRemovedUserIsNoLongerVisibleInList();
+    }
+
+    @When("^I search for a team with no assigned users$")
+    public void navigateToTeamWithNoAssignedUsers() {
+        teamManagement.selectTeamWithNoUsers();
+    }
+
+    @Then("^no users should be shown in user list$")
+    public void assertTeamHasNoUsers() {
+        teamManagement.assertThatTeamContainsNoUsers();
+    }
+
+    @And("^I attempt to remove the user \"([^\"]*)\"$")
+    public void attemptRemoveUserFromTeamWithAssignedCases(String nameOfUserWithCases) {
+        setSessionVariable("nameOfUserWithCases").to(nameOfUserWithCases);
+        switch (nameOfUserWithCases.toUpperCase()) {
+            case "EAMON.DROKO@TEN10.COM":
+                teamManagement.removeUserFromTeamWithAssignedCases();
+                break;
+            default:
+                pendingStep(nameOfUserWithCases + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^an error message should be displayed as they have cases assigned in that team$")
+    public void assertThatCasesAssignedErrorMessageIsDisplayed() {
+        teamManagement.assertUserHasCasesErrorMessage();
+    }
+
+    @Then("^an error message should displayed as no team been selected$")
+    public void assertThatSelectTeamErrorMessageIsDisplayed() {
+        teamManagement.assertSelectATeamErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as they have not entered a display name and short code$")
+    public void assertThatDisplayNameAndShortCodeErrorMessagesAreDisplayed() {
+        unitManagement.assertDisplayNameAndShortCodeErrorMessages();
     }
 }
 

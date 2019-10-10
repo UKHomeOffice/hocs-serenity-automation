@@ -36,6 +36,9 @@ public class TeamManagement extends Page {
     @FindBy(xpath = "(//td//a)[1]")
     public WebElementFacade firstRemoveButtonInList;
 
+    @FindBy(xpath = "(//div//p)[2]")
+    public WebElementFacade errorMessage;
+
     public void assertTeamManagementPageTitle() {
         assertThat($("//h1").getText(), is("Team search"));
     }
@@ -48,6 +51,13 @@ public class TeamManagement extends Page {
         clickOn(viewTeamButton);
     }
 
+    public void selectTeamWithNoUsers() {
+        waitABit(500);
+        typeInto(teamSearchBar, "Data & Identity Unit");
+        teamSearchBar.sendKeys(Keys.ENTER);
+        clickOn(viewTeamButton);
+    }
+
     public void selectAUser(String nameOfUser) {
         clickOn(addTeamMembersButton);
         typeInto(userSearchBar, nameOfUser);
@@ -55,6 +65,14 @@ public class TeamManagement extends Page {
         waitABit(3000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
+    }
+
+    public void removeUserFromTeamWithAssignedCases() {
+        String nameOfUser = sessionVariableCalled("nameOfUserWithCases").toString();
+        WebElementFacade removeButtonOfUser = findAll("//td[@class='govuk-table__cell'][contains(text(), '" + nameOfUser +
+                "')]/."
+                + ".//td//a").get(0);
+        clickOn(removeButtonOfUser);
     }
 
     public void assertTeamName() {
@@ -82,5 +100,18 @@ public class TeamManagement extends Page {
         waitABit(500);
         String removedUser = sessionVariableCalled("userNameAndEmail").toString();
         assertThat($("//body").getText(), containsText(removedUser), is(false));
+    }
+
+    public void assertThatTeamContainsNoUsers() {
+        waitABit(500);
+        assertThat(isElementDisplayed(firstRemoveButtonInList), is(false));
+    }
+
+    public void assertUserHasCasesErrorMessage() {
+        assertThat(errorMessage.getText(), is("The user cannot be removed from the team as they have cases assigned"));
+    }
+
+    public void assertSelectATeamErrorMessage() {
+        assertThat(errorMessage.getText(), is("Please select a team before submitting."));
     }
 }

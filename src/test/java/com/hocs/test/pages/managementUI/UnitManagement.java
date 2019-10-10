@@ -15,8 +15,22 @@ public class UnitManagement extends Page {
     @FindBy(xpath = "//input[@id='shortCode']")
     public WebElementFacade shortCodeNameTextField;
 
+    @FindBy(xpath = "//input[@value='Submit']")
+    public WebElementFacade submitButton;
+
+    @FindBy(xpath = "//a[@href='#displayName-error']")
+    public WebElementFacade displayNameRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[@href='#shortCode-error']")
+    public WebElementFacade shortCodeRequiredErrorMessage;
+
     public void assertUnitManagementPageTitle() {
         assertThat($("//h1").getText(), is("Add Unit"));
+    }
+
+    public void assertDisplayNameAndShortCodeErrorMessages() {
+        assertThat(displayNameRequiredErrorMessage.getText(), is("A Display Name is required"));
+        assertThat(shortCodeRequiredErrorMessage.getText(), is("A Short Code is required"));
     }
 
 }

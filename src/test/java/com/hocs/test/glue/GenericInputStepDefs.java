@@ -12,6 +12,8 @@ import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.managementUI.TeamManagement;
+import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
@@ -64,6 +66,10 @@ public class GenericInputStepDefs extends Page {
     QAResponse qaResponse;
 
     Dispatch dispatch;
+
+    TeamManagement teamManagement;
+
+    UnitManagement unitManagement;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -350,6 +356,12 @@ public class GenericInputStepDefs extends Page {
                 break;
             case "ADD A TOPIC":
                 clickOn(addTopicButton);
+                break;
+            case "VIEW TEAM":
+                clickOn(teamManagement.viewTeamButton);
+                break;
+            case "SUBMIT":
+                clickOn(unitManagement.submitButton);
                 break;
             default:
                 pendingStep(button + " is not defined within " + getMethodName());

@@ -23,7 +23,7 @@ Feature: User manages HOCS teams and units
       And I add the user "eamon.droko@ten10.com" to the team
       Then the user should be visible in the team list
 
-#    Write test for adding multiple users
+    Scenario: User can add multiple users to a team
 
     @HOCS-832
     Scenario: Users should no longer be visible in team page when removed
@@ -35,6 +35,23 @@ Feature: User manages HOCS teams and units
     @HOCS-832
     Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
       And I navigate to the "TEAM" Management page
-      When I attempt to remove a user from a team they have assigned cases in
-      Then an error message should be displayed
-      And they should remain in the team
+      When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
+      And I attempt to remove the user "eamon.droko@ten10.com"
+      Then an error message should be displayed as they have cases assigned in that team
+
+    @Validation
+    Scenario: User must select a team from the dropdown on the team search page
+      And I navigate to the "TEAM" Management page
+      When I click the "VIEW TEAM" button
+      Then an error message should displayed as no team been selected
+
+    @Validation
+    Scenario: User must select at least one user on the add users page
+      And I navigate to the "TEAM" Management page
+      When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
+
+    @Validation
+    Scenario: User must enter a display name and short code on the add unit page
+      And I navigate to the "UNIT" Management page
+      When I click the "SUBMIT" button
+      Then an error message should be displayed as they have not entered a display name and short code
