@@ -19,6 +19,7 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import net.thucydides.core.annotations.Steps;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class DraftResponseStepDefs extends Page {
 
@@ -272,7 +273,34 @@ public class DraftResponseStepDefs extends Page {
     public void assertCaseTypeReturnedToStage(String caseType, String stage) {
         switch(caseType.toUpperCase()) {
             case "DCU MIN" :
-                assertCaseReturnedToStage(stage);
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "MARKUP":
+                        clickOn(homepage.centralDraftingTeam);
+                        break;
+                    case "INITIAL DRAFT":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "QA RESPONSE":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "MINISTERIAL SIGN OFF":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "DISPATCH":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "COPY TO NUMBER 10":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
                 break;
             case "DCU TRO" :
                 switch(stage.toUpperCase()){
@@ -280,21 +308,13 @@ public class DraftResponseStepDefs extends Page {
                         clickOn(homepage.performanceProcessTeam);
                         break;
                     case "MARKUP" :
-                        clickOn(homepage.transferN10Team);
-                        teamqueue.assertCaseStage(stage);
+                        clickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT" :
                         clickOn(homepage.animalsInScienceTeam);
-                        teamqueue.assertCaseStage(stage);
                         break;
                     case "QA RESPONSE" :
                         clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "PRIVATE OFFICE APPROVAL" :
-                        clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "MINISTERIAL SIGN OFF" :
-                        clickOn(homepage.ministerForLordsTeam);
                         break;
                     case "DISPATCH" :
                         clickOn(homepage.animalsInScienceTeam);
@@ -306,40 +326,32 @@ public class DraftResponseStepDefs extends Page {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "DCU N10" :
+                switch (stage.toUpperCase()) {
+                case "DATA INPUT":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                case "MARKUP":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                case "INITIAL DRAFT":
+                    clickOn(homepage.animalsInScienceTeam);
+                    break;
+                case "QA RESPONSE":
+                    clickOn(homepage.animalsInScienceTeam);
+                    break;
+                case "PRIVATE OFFICE APPROVAL":
+                    clickOn(homepage.ministerForLordsTeam);
+                    break;
+                case "DISPATCH":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                default:
+                    pendingStep(stage + " is not defined within " + getMethodName());
+            }
+            break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("^the case should be moved to the \"([^\"]*)\" stage$")
-    public void assertCaseReturnedToStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "DATA INPUT":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "MARKUP":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "INITIAL DRAFT":
-                clickOn(homepage.animalsInScienceTeam);
-                break;
-            case "QA RESPONSE":
-                clickOn(homepage.animalsInScienceTeam);
-                break;
-            case "PRIVATE OFFICE APPROVAL":
-                clickOn(homepage.ministerForLordsTeam);
-                break;
-            case "MINISTERIAL SIGN OFF":
-                clickOn(homepage.ministerForLordsTeam);
-                break;
-            case "DISPATCH":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "COPY TO NUMBER 10":
-                clickOn(homepage.transferN10Team);
-                break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
         }
         teamqueue.assertCaseStage(stage);
     }

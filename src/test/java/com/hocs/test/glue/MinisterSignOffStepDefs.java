@@ -45,6 +45,8 @@ public class MinisterSignOffStepDefs extends Page {
             case "DCU TRO" :
                 homepage.goHome();
                 break;
+            case "DCU N10" :
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }

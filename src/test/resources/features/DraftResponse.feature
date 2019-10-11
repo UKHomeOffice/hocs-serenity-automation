@@ -8,7 +8,7 @@ Feature: HOCS User is able to draft a response
   Scenario: User decides the case is not for them, and completes a rejection note
     When I select a case "should not" answered by my team
     And I "complete" the rejection note
-    Then the case should be moved to the "Markup" stage
+    Then the "DCU MIN" case should be moved to the "Markup" stage
     And the "initial draft reject"email is sent to the "Mark Up user" and "Nominated Person in the "Markup Team"
     And I return to the home page
 
@@ -33,7 +33,7 @@ Feature: HOCS User is able to draft a response
     Then I see an error message instructing me to enter call notes
 
   @HOCS-296, @HOCS-239
-  Scenario: A user selects not to offline a 
+  Scenario: A user selects not to offline QA
     Given I click the "no" to offline button
     Then the case will progress to the QA stage
     And the nominated person of the team that own the case receives an email
