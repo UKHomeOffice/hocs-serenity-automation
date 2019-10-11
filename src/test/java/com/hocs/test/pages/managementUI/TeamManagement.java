@@ -62,7 +62,7 @@ public class TeamManagement extends Page {
         clickOn(addTeamMembersButton);
         typeInto(userSearchBar, nameOfUser);
         setSessionVariable("nameOfUser").to(nameOfUser);
-        waitABit(3000);
+        waitABit(4000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
     }
@@ -113,5 +113,13 @@ public class TeamManagement extends Page {
 
     public void assertSelectATeamErrorMessage() {
         assertThat(errorMessage.getText(), is("Please select a team before submitting."));
+    }
+
+    public void assertMultipleUsersAddedToTeam() {
+        String firstAddedUser = sessionVariableCalled("firstUser").toString();
+        String secondAddedUser = sessionVariableCalled("secondUser").toString();
+
+        assertThat($("//tbody[@class='govuk-table__body']").getText(), containsText(firstAddedUser));
+        assertThat($("//tbody[@class='govuk-table__body']").getText(), containsText(secondAddedUser));
     }
 }

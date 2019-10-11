@@ -141,5 +141,33 @@ public class ManagementUIStepDefs extends Page {
     public void assertThatDisplayNameAndShortCodeErrorMessagesAreDisplayed() {
         unitManagement.assertDisplayNameAndShortCodeErrorMessages();
     }
+
+    @And("^I add the users \"([^\"]*)\" and \"([^\"]*)\" to the team$")
+    public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
+        waitABit(500);
+        teamManagement.assertTeamName();
+        switch (firstUser.toUpperCase()) {
+            case "EAMON.DROKO@TEN10.COM":
+                setSessionVariable("firstUser").to(firstUser);
+                teamManagement.selectAUser(firstUser);
+                break;
+            default:
+                pendingStep(firstUser + " is not defined within " + getMethodName());
+        }
+
+        switch (secondUser.toUpperCase()) {
+            case "DANNY.LARGE@TEN10.COM":
+                setSessionVariable("secondUser").to(secondUser);
+                teamManagement.selectAUser(secondUser);
+                break;
+            default:
+                pendingStep(secondUser + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^the users should visible in the team list$")
+    public void assertThatUsersAreBothVisibleInTeamList() {
+        teamManagement.assertMultipleUsersAddedToTeam();
+    }
 }
 

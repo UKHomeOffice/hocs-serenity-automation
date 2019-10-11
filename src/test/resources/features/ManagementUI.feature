@@ -8,9 +8,6 @@ Feature: User manages HOCS teams and units
       Then I should be taken to the "CHILD TOPIC" Management page
 
     @HOCS-832
-    Scenario: User can see all users assigned to the team they have searched for
-
-    @HOCS-832
     Scenario: User can not see any assigned users if team does not have any
       And I navigate to the "TEAM" Management page
       When I search for a team with no assigned users
@@ -24,6 +21,10 @@ Feature: User manages HOCS teams and units
       Then the user should be visible in the team list
 
     Scenario: User can add multiple users to a team
+      And I navigate to the "TEAM" Management page
+      When I select the "OSCT Secretariat" team from the dropdown
+      And I add the users "eamon.droko@ten10.com" and "danny.large@ten10.com" to the team
+      Then the users should visible in the team list
 
     @HOCS-832
     Scenario: Users should no longer be visible in team page when removed
