@@ -103,7 +103,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the dispatch stage
     Then the case should no longer be visible in the teamqueue
 
-  @EndToEnd @Critical @SmokeTest
+  @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single case "DCU N10"
     And the Data Input Stage is completed for "DCU N10" caseType
