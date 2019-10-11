@@ -47,6 +47,10 @@ public class PrivateOfficeSignOffStepDefs extends Page {
             case "DCU TRO" :
                 break;
             case "DCU N10" :
+                homepage.getCurrentCase();
+                clickOn(workstacks.allocateToMeButton);
+                clickOn(privateOffice.privateOfficeAcceptRadioButton);
+                clickOn(privateOffice.continueButton);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
