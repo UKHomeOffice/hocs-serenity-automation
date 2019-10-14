@@ -171,6 +171,11 @@ public class CreateCase extends Page {
         completeSingleCaseCreation();
     }
 
+    public void createCaseWithoutSelectingCorrespondenceType() {
+        clickOn(homepage.createSingleCase);
+        clickOn(nextButton);
+    }
+
     public void createDCUMinSingleCaseWithID() {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);

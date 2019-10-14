@@ -55,6 +55,12 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
+    @When ("I do not select a type of correspondence when creating a case")
+    public void doNotSelectCorrespondenceWhenCreatingCase() {
+        createCase.createCaseWithoutSelectingCorrespondenceType();
+    }
+
+
     @Given("^I create a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
@@ -265,12 +271,6 @@ public class CreateCaseStepDefs extends Page {
             case "DCU TEN":
                 clickOn(createCase.dcuDtenRadioButton);
                 clickOn(createCase.nextButton);
-                addDocuments.enterDispatchDeadlineDay(10);
-                addDocuments.enterDispatchDeadlineMonth(10);
-                addDocuments.enterDispatchDeadlineYear(10);
-                addDocuments.enterDraftDeadlineDay(10);
-                addDocuments.enterDraftDeadlineMonth(10);
-                addDocuments.enterDraftDeadlineYear(10);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -293,6 +293,11 @@ public class CreateCaseStepDefs extends Page {
     public void aCaseIsCreatedSuccessfully() {
         successfulCaseCreation.assertCaseCreatedSuccess();
         successfulCaseCreation.getCaseReference();
+    }
+
+    @Then("^bulk cases are created successfully$")
+    public void BulkCasesAreCreatedSuccessfully() {
+        successfulCaseCreation.assertBulkCasesCreatedSuccess();
     }
 
     @Then("^an error message should be displayed as I have not selected the case type$")
