@@ -73,6 +73,10 @@ public class SuccessfulCaseCreation extends Page {
         clickOn(workstacks.allocateToMeButton);
     }
 
+    public void goToCaseFromSuccessfulCreationScreen() {
+        clickOn(newCaseReference);
+    }
+
     public void selectCaseReferenceNumberViaLinkText() {
         String caseReferenceNumber
                 = sessionVariableCalled("caseReference").toString();

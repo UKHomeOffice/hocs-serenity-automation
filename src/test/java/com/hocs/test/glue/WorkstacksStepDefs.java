@@ -9,6 +9,7 @@ import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -36,6 +37,11 @@ public class WorkstacksStepDefs extends Page {
     Workstacks workstacks;
 
     SuccessfulCaseCreation successfulCaseCreation;
+
+    @Given("^I allocate the case to myself$")
+    public void allocateCaseToMyself() {
+        clickOn(workstacks.allocateToMeButton);
+    }
 
     @When("^I unallocate the case from myself$")
     public void unallocateCase() {

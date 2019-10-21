@@ -12,7 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 public class DataInput extends Page {
 
@@ -433,7 +435,7 @@ public class DataInput extends Page {
         setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
 
         clickOn(shouldResponseBeCopiedN10NoRadioButton);
-        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getValue();
+        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getAttribute("for").substring(14);
         setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
 
         clickOn(continueButton);

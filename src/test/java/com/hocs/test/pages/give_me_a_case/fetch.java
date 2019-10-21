@@ -14,7 +14,6 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.markup.MarkupFull;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
@@ -33,8 +32,6 @@ public class fetch extends Page {
     DataInput dataInput;
 
     MarkupFull markupFullFlow;
-
-    DraftingTeamDecision draftingTeamDecision;
 
     Draft draft;
 
@@ -572,7 +569,7 @@ public class fetch extends Page {
                             + "case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
+                    draft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -596,7 +593,7 @@ public class fetch extends Page {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveCaseFromInitialDraftToQaResponse();
+                    draft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -608,7 +605,7 @@ public class fetch extends Page {
                             + "case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveTROCaseFromInitialDraftToQaResponse();
+                    draft.moveTROCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -631,7 +628,7 @@ public class fetch extends Page {
                     System.out.println("Animals in Science Regulation Unit - Searching for an Initial Draft case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveTROCaseFromInitialDraftToQaResponse();
+                    draft.moveTROCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -643,7 +640,7 @@ public class fetch extends Page {
                             + "case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveDTENCaseFromInitialDraftToQaResponse();
+                    draft.moveDTENCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -667,7 +664,7 @@ public class fetch extends Page {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
                     clickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    draftingTeamDecision.moveDTENCaseFromInitialDraftToQaResponse();
+                    draft.moveDTENCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;

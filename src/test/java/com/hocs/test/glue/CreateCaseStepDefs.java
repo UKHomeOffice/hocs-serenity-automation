@@ -42,8 +42,6 @@ public class CreateCaseStepDefs extends Page {
 
     Workstacks workstacks;
 
-    MarkUpDecision markUpDecision;
-
     @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
@@ -55,7 +53,7 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When ("I do not select a type of correspondence when creating a case")
+    @When("I do not select a type of correspondence when creating a case")
     public void doNotSelectCorrespondenceWhenCreatingCase() {
         createCase.createCaseWithoutSelectingCorrespondenceType();
     }
@@ -158,6 +156,11 @@ public class CreateCaseStepDefs extends Page {
     @When("^I allocate the case to myself via the successful case creation screen$")
     public void allocateToMe() {
         successfulCaseCreation.allocateToMeViaSuccessfulCreationScreen();
+    }
+
+    @When("^I go to the case from the successful case creation screen$")
+    public void goToSuccessfullyCreatedCase() {
+        successfulCaseCreation.goToCaseFromSuccessfulCreationScreen();
     }
 
     @Then("^the case should be visible in my workstack$")
@@ -385,49 +388,6 @@ public class CreateCaseStepDefs extends Page {
         dataInput.enterDayOfCorrespondenceReceived("29");
         dataInput.enterMonthOfCorrespondenceReceived("02");
         dataInput.enterYearOfCorrespondenceReceived("2019");
-    }
-
-    @When("^I select the Data Input button on the accordion at the case allocation screen$")
-    public void selectDataInputAccordionOfNewCase(){
-        clickOn(successfulCaseCreation.newCaseReference);
-        clickOn(dataInputAccordionButton);
-    }
-
-    @Then("^the correspondence received date should be same as the create a case screen$")
-    public void assertDataInputAccordionCorrespondenceReceivedDate() {
-        dataInput.assertAccordionCorrespondenceReceivedDate();
-    }
-
-    @When("^I select the Data Input button of the accordion at the Markup Stage$")
-    public void selectDataInputButtonAccordionAtMarkupStage() {
-        clickOn(dataInputAccordionButton);
-    }
-
-    @Then("^the information shown should match what I entered at the Data Input stage$")
-    public void assertMarkupStageDataInputAccordionFields() {
-        markUpDecision.assertAccordionDataInputFields();
-    }
-
-    @When("^I move that case to the \"([^\"]*)\" stage$")
-    public void moveCaseToNextStage(String stage){
-        String caseReference = sessionVariableCalled("caseReference");
-
-        switch (stage.toUpperCase()){
-            case "MARKUP":
-                dataInput.completeDataInputStageAndStoreEnteredInformation();
-                typeInto(homepage.caseReferenceSearchBar, caseReference);
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-            break;
-            case "INITIAL DRAFT":
-                dataInput.completeDataInputStageAndStoreEnteredInformation();
-                typeInto(homepage.caseReferenceSearchBar, caseReference);
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                markUpDecision.completeMarkupStageAndStoreEnteredInformation();
-                topics.enterRealTopic();
-            break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
-        }
     }
 }
 
