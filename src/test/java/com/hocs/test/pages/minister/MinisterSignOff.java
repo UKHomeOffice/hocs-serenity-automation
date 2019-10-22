@@ -3,13 +3,15 @@ package com.hocs.test.pages.minister;
 import com.hocs.test.pages.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MinisterSignOff extends Page {
 
     @FindBy(css = "label[for='MinisterSignOffDecision-ACCEPT']")
-    public WebElementFacade minsterSignOffAcceptRadioButton;
+    public WebElementFacade ministerSignOffAcceptRadioButton;
 
     @FindBy(css = "label[for='MinisterSignOffDecision-REJECT']")
     public WebElementFacade ministerSignOffRejectRadioButton;
@@ -48,7 +50,15 @@ public class MinisterSignOff extends Page {
     }
 
     public void moveCaseFromMinisterToDispatch() {
-        clickOn(minsterSignOffAcceptRadioButton);
+        clickOn(ministerSignOffAcceptRadioButton);
         clickOn(continueButton);
+    }
+
+    public void completeMinisterialSignOffStageAndStoreEnteredInformation() {
+        clickOn(ministerSignOffAcceptRadioButton);
+        String ministerialSignOffDecision = ministerSignOffAcceptRadioButton.getAttribute("for").substring(24);
+        setSessionVariable("ministerialSignOffDecision").to(ministerialSignOffDecision);
+        clickOn(continueButton);
+
     }
 }

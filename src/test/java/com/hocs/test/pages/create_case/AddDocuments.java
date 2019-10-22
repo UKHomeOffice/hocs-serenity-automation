@@ -9,7 +9,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AddDocuments extends Page {
 
-    @FindBy(id = "DTENDispatchDeadline-day")
+    @FindBy(id = "DCU_DTEN_DISPATCH_DEADLINE-day")
     private WebElementFacade dispatchDeadlineDay;
 
     @FindBy(id = "DTENDispatchDeadline-month")
@@ -45,14 +45,17 @@ public class AddDocuments extends Page {
     }
 
     public void bulkUploadDocuments(int documents) {
-        String pathf1 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
-                + "\\documents\\test1.docx";
-        String pathf2 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
-                + "\\documents\\test2.docx";
-        String pathf3 = "C:\\Users\\eamon.droko\\dev\\home-office\\hocs-serenity-automation\\src\\test\\resources"
-                + "\\documents\\test3.docx";
-        String allF = pathf1 + " \n " + pathf2 + " \n " + pathf3;
-        addDocument.sendKeys(allF);
+        String allFiles = "";
+        for (int i = 1; i <= documents; i++) {
+            String workingDir = System.getProperty("user.dir");
+            String filePath = workingDir + "\\src\\test\\resources\\documents\\test" + i + ".docx";
+            if (i != documents) {
+                allFiles += filePath + "\n";
+            } else {
+                allFiles += filePath;
+            }
+        }
+        addDocument.sendKeys(allFiles);
     }
 
     public void enterDispatchDeadlineDay(int days) {
@@ -80,7 +83,7 @@ public class AddDocuments extends Page {
     }
 
     public void assertDocumentTypeIsRequiredErrorMessage() {
-        assertThat(documentTypeIsRequiredErrorMessage.getText(), is ("Document type is required"));
+        assertThat(documentTypeIsRequiredErrorMessage.getText(), is("Document type is required"));
     }
 
     public void assertDocumentIsRequiredErrorMessage() {

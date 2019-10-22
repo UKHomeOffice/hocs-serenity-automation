@@ -5,8 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.CreateCase;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.dispatch.Dispatch;
@@ -16,7 +14,6 @@ import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
-import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
@@ -29,9 +26,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 
 public class GenericInputStepDefs extends Page {
@@ -42,8 +37,6 @@ public class GenericInputStepDefs extends Page {
     DataInput dataInput;
 
     Homepage homepage;
-
-    DraftingTeamDecision draftingTeamDecision;
 
     Workstacks workstacks;
 
@@ -195,8 +188,8 @@ public class GenericInputStepDefs extends Page {
         clickOn(finishButton);
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
-        draftingTeamDecision.acceptAndDraftALetter();
-        draftingTeamDecision.uploadDraftResponse();
+        draft.acceptAndDraftALetter();
+        draft.uploadDraftResponse();
         qa.dontQAOffline();
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -209,7 +202,7 @@ public class GenericInputStepDefs extends Page {
         clickOn(continueButton);
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
-        clickOn(minister.minsterSignOffAcceptRadioButton);
+        clickOn(minister.ministerSignOffAcceptRadioButton);
         clickOn(continueButton);
     }
 

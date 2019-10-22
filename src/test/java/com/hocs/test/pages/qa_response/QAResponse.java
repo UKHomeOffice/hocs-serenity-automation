@@ -94,4 +94,11 @@ public class QAResponse extends Page{
         clickOn(continueButton);
     }
 
+    public void completeQAResponseStageAndStoreEnteredInformation() {
+        clickOn(QAAcceptRadioButton);
+        String chosenQAResponse = QAAcceptRadioButton.getAttribute("for").substring(19);
+        setSessionVariable("chosenQAResponse").to(chosenQAResponse);
+        clickOn(continueButton);
+    }
+
 }

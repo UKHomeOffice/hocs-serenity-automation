@@ -47,6 +47,11 @@ public class SuccessfulCaseCreation extends Page {
         assertThat(panelTitle.getText(), is("Success"));
     }
 
+    public void assertBulkCasesCreatedSuccess() {
+        waitABit(3000);
+        assertThat(panelTitle.getText(), is("Success"));
+    }
+
     public String getCaseReference() {
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
@@ -66,6 +71,10 @@ public class SuccessfulCaseCreation extends Page {
     public void allocateToMeViaSuccessfulCreationScreen() {
         clickOn(newCaseReference);
         clickOn(workstacks.allocateToMeButton);
+    }
+
+    public void goToCaseFromSuccessfulCreationScreen() {
+        clickOn(newCaseReference);
     }
 
     public void selectCaseReferenceNumberViaLinkText() {

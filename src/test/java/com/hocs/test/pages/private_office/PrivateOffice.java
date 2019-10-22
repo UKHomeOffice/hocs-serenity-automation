@@ -74,4 +74,11 @@ public class PrivateOffice extends Page {
         clickOn(privateOfficeAcceptRadioButton);
         clickOn(continueButton);
     }
+
+    public void completePrivateOfficeApprovalStageAndStoreEnteredInformation() {
+        clickOn(privateOfficeAcceptRadioButton);
+        String privateOfficeAcceptanceDecision = privateOfficeAcceptRadioButton.getAttribute("for").substring(22);
+        setSessionVariable("privateOfficeAcceptanceDecision").to(privateOfficeAcceptanceDecision);
+        clickOn(continueButton);
+    }
 }

@@ -29,6 +29,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 
 public class Page extends PageObject {
 
@@ -235,9 +236,6 @@ public class Page extends PageObject {
 
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
-
-    @FindBy(xpath = "//button[@id='accordion-default-heading-0']")
-    public WebElementFacade dataInputAccordionButton;
 
     public void sleep(int milliseconds) {
         try {
