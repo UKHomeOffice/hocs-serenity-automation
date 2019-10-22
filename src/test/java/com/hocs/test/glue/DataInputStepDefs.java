@@ -2,13 +2,17 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.accordion.CaseDetailsAccordion;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.workstacks.Workstacks;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,6 +32,8 @@ public class DataInputStepDefs extends Page {
     RecordCorrespondentDetails recordCorrespondentDetails;
 
     Workstacks workstacks;
+
+    CaseDetailsAccordion caseDetailsAccordion;
 
     @When("^I complete the Data Input stage$")
     public void completeDataInputStage() {
@@ -58,12 +64,9 @@ public class DataInputStepDefs extends Page {
 
     @When("^I add an additional correspondent$")
     public void iAddAnAdditionalCorrespondent() {
-        clickOn(recordCorrespondentDetails.additionalCorrespondentYesRadioButton);
-        clickOn(dataInput.continueButton);
-        clickOn(dataInput.correspondentMemberNoRadioButton);
-        clickOn(continueButton);
-        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
-        clickOn(continueButton);
+        addACorrespondentThatIsOrIsNotAnMP("Is not");
+        recordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        dataInput.clickAddButton();
     }
 
     @When("^I select a Data Input QA decision of \"([^\"]*)\"$")
@@ -108,8 +111,8 @@ public class DataInputStepDefs extends Page {
 
     @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
+        waitABit(2000);
         dataInput.selectAddACorrespondentLink();
-
         if (isOrIsNot.toUpperCase().equals("IS")) {
             dataInput.selectCorrespondentIsAMemberRadioButton();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
@@ -199,5 +202,79 @@ public class DataInputStepDefs extends Page {
             default:
                 pendingStep(field + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
+    public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
+        switch (ordinal.toUpperCase()) {
+            case "PRIMARY":
+                recordCorrespondentDetails.assertPrimaryCorrespondent();
+                break;
+            case "SECONDARY":
+                recordCorrespondentDetails.assertSecondaryCorrespondent();
+                break;
+            default:
+                pendingStep(ordinal + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("^a case has a \"([^\"]*)\" correspondent$")
+    public void aCaseHasACorrespondent(String ordinal) {
+        switch (ordinal.toUpperCase()) {
+            case "PRIMARY":
+                setSessionVariable("caseReference").to(getHeaderText().substring(10));
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                genericInputStepDefs.clickTheButton("Continue");
+                addACorrespondentThatIsOrIsNotAnMP("Is not");
+                recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                dataInput.clickAddButton();
+                recordCorrespondentDetails.assertPrimaryCorrespondent();
+                break;
+            case "SECONDARY":
+                aCaseHasACorrespondent("PRIMARY");
+                iAddAnAdditionalCorrespondent();
+                recordCorrespondentDetails.assertSecondaryCorrespondent();
+                break;
+            default:
+                pendingStep(ordinal + " is not defined within " + getMethodName());
+        }
+    }
+
+    @When("^I enter an invalid date$")
+    public void enterAnInvalidDate() {
+        dataInput.enterDayOfCorrespondenceReceived("29");
+        dataInput.enterMonthOfCorrespondenceReceived("02");
+        dataInput.enterYearOfCorrespondenceReceived("2019");
+    }
+
+    @When("^they do not enter a date into the date received text boxes$")
+    public void deleteDefaultDateFromTextBoxes() {
+        dataInput.clearDateCorrespondenceReceived();
+    }
+
+    @When("^they enter an invalid date into the date received text boxes$")
+    public void enterInvalidDateIntoTextBoxes() {
+        dataInput.enterDayOfCorrespondenceReceived("29");
+        dataInput.enterMonthOfCorrespondenceReceived("02");
+        dataInput.enterYearOfCorrespondenceReceived("2019");
+    }
+
+    @Then("^both correspondents are listed$")
+    public void bothCorrespondentsAreListed() {
+        recordCorrespondentDetails.assertPrimaryCorrespondent();
+        recordCorrespondentDetails.assertSecondaryCorrespondent();
+    }
+
+    @When("^I select the primary correspondent radio button for a different correspondent$")
+    public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
+        recordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
+    }
+
+    @Then("^the correct correspondent is recorded as the \"([^\"]*)\" correspondent$")
+    public void theCorrectCorrespondentIsRecordedAsTheCorrespondent(String arg0) throws Throwable {
+        homepage.getCurrentCase();
+        caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
+
+
     }
 }

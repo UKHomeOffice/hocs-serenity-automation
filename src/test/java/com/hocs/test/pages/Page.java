@@ -485,7 +485,7 @@ public class Page extends PageObject {
     }
 
 
-    private String getHeaderText() {
+    protected String getHeaderText() {
         return pageTitle.getText();
     }
 

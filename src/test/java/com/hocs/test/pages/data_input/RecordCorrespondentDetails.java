@@ -12,6 +12,9 @@ import org.openqa.selenium.Keys;
 
 public class RecordCorrespondentDetails extends Page {
 
+    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
+    public WebElementFacade additionalCorrespondentYesRadioButton;
+
     @FindBy(className = "govuk-typeahead__control")
     private WebElementFacade memberDropdownInitialize;
 
@@ -54,14 +57,14 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(css = "input[name='Correspondents']")
     private WebElementFacade selectPrimaryCorrespondentRadioButton;
 
-    @FindBy(className = "govuk-radios__label")
+    @FindBy(xpath = "//input[@name='Correspondents'][@checked]/following-sibling::label")
     private WebElementFacade primaryCorrespondentName;
+
+    @FindBy(xpath = "//input[@name='Correspondents'][not(@checked)]/following-sibling::label")
+    private WebElementFacade secondaryCorrespondentName;
 
     @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
     private WebElementFacade additionalCorrespondentNoRadioButton;
-
-    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
-    public WebElementFacade additionalCorrespondentYesRadioButton;
 
     @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentNotMPRadioButton;
@@ -76,6 +79,15 @@ public class RecordCorrespondentDetails extends Page {
     public void assertPrimaryCorrespondent() {
         String expectedPrimaryCorrespondent = sessionVariableCalled("fullName");
         assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
+    }
+
+    public void assertSecondaryCorrespondent() {
+        String expectedSecondaryCorrespondent = sessionVariableCalled("secondCorrespondentFullName");
+        assertThat(getSecondaryCorrespondent(), is(expectedSecondaryCorrespondent));
+    }
+
+    public void setSecondCorrespondentAsPrimaryCorrespondent() {
+        clickOn(secondaryCorrespondentName);
     }
 
     public void clickAdditionalCorrespondentYes() {
@@ -93,6 +105,11 @@ public class RecordCorrespondentDetails extends Page {
     public void enterCorrespondentFullName(String fullName) {
         typeInto(correspondentFullNameField, fullName);
         setSessionVariable("fullName").to(fullName);
+    }
+
+    public void enterSecondaryCorrespondentFullName(String fullName) {
+        typeInto(correspondentFullNameField, fullName);
+        setSessionVariable("secondCorrespondentFullName").to(fullName);
     }
 
     public void enterCorrespondentBuilding(String building) {
@@ -127,6 +144,10 @@ public class RecordCorrespondentDetails extends Page {
         return primaryCorrespondentName.getText();
     }
 
+    public String getSecondaryCorrespondent() {
+        return secondaryCorrespondentName.getText();
+    }
+
     public void addAMemberOfParliamentCorrespondent(String member) {
         memberDropdownInitialize.click();
         typeInto(memberDropdown, member);
@@ -147,7 +168,14 @@ public class RecordCorrespondentDetails extends Page {
 
     public void fillMandatoryCorrespondentFields() {
         selectCorrespondentTypeFromDropdown("Correspondent");
-        enterCorrespondentFullName("Test Testing-" + generateRandomString());
+        enterCorrespondentFullName("First Correspondent-" + generateRandomString());
+        enterCorrespondentBuilding("1");
+        enterCorrespondentPostcode("S1 1AA");
+    }
+
+    public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
+        selectCorrespondentTypeFromDropdown("Correspondent");
+        enterSecondaryCorrespondentFullName("Second Correspondent-" + generateRandomString());
         enterCorrespondentBuilding("1");
         enterCorrespondentPostcode("S1 1AA");
     }

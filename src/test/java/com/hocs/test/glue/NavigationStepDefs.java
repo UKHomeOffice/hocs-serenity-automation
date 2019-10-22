@@ -186,7 +186,7 @@ public class NavigationStepDefs extends Page {
             case "RECORD CORRESPONDENT DETAILS":
                 recordCorrespondentDetails.assertPageTitle();
                 break;
-            case "RECORD CORRESPONDENCE DETAILS":
+            case "DATA INPUT":
                 dataInput.assertPageTitle();
                 break;
             default:
