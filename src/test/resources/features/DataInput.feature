@@ -62,13 +62,13 @@ Feature: HOCS User is able to add data to a case
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then they should be added to the list of correspondents
 
-  @HOCS-394, @HOCS-238 @FixMe
+  @HOCS-394, @HOCS-238
   Scenario: User adds more than one correspondent
     Given a case has a "primary" correspondent
     When I add an additional correspondent
     Then both correspondents are listed
 
-  @HOCS-394, @HOCS-238 @manual @FixMe
+  @HOCS-394, @HOCS-238 @manual
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent

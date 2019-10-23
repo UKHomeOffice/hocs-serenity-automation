@@ -284,7 +284,7 @@ public class Page extends PageObject {
     }
 
     public void clickAddButton() {
-        addButton.click();
+        clickOn(addButton);
     }
 
     public void clickCancelButton() {
