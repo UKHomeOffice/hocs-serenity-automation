@@ -4,8 +4,8 @@ Feature: User manages HOCS teams and units
     Given that I have navigated to the Management UI as the user "EAMON"
 
   Scenario: User navigates to a management page
-    When I navigate to the "CHILD TOPIC" Management page
-    Then I should be taken to the "CHILD TOPIC" Management page
+    When I navigate to the "STANDARD LINE" Management page
+    Then I should be taken to the "STANDARD LINE" Management page
 
   @HOCS-832
   Scenario: User can not see any assigned users if team does not have any
@@ -39,6 +39,12 @@ Feature: User manages HOCS teams and units
     When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
     And I attempt to remove the user "eamon.droko@ten10.com"
     Then an error message should be displayed as they have cases assigned in that team
+
+  @Validation
+  Scenario: User must select a topic, add a document and enter an expiration date when creating a Standard Line
+    And I navigate to the "STANDARD LINE" Management page
+    When I click the "SUBMIT" button
+    Then an error message should be displayed as all Standard Line information has not been added
 
   @Validation
   Scenario: User must select a team from the dropdown on the team search page

@@ -5,6 +5,7 @@ import com.hocs.test.pages.managementUI.ChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
+import com.hocs.test.pages.standard_line.StandardLine;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -22,6 +23,8 @@ public class ManagementUIStepDefs extends Page {
     UnitManagement unitManagement;
 
     ChildTopic childTopic;
+
+    StandardLine standardLine;
 
     @When("^I navigate to the \"([^\"]*)\" Management page$")
     public void navigateToSelectedManagementPage(String managementPage) {
@@ -46,6 +49,9 @@ public class ManagementUIStepDefs extends Page {
     @Then("^I should be taken to the \"([^\"]*)\" Management page$")
     public void assertThatTheUserIsTakenToTheSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
+            case "STANDARD LINE":
+                standardLine.assertAddStandardLinePageTitle();
+                break;
             case "TEAM":
                 teamManagement.assertTeamManagementPageTitle();
                 break;
@@ -181,6 +187,13 @@ public class ManagementUIStepDefs extends Page {
     @Then("^an error message should be displayed as no users have been selected$")
     public void assertThatUserShouldBeDisplayedErrorMessageIsDisplayed() {
         teamManagement.assertSelectSomeUsersErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as all Standard Line information has not been added$")
+    public void assertThatAllStandardLineErrorMessagesAreDisplayed() {
+        standardLine.assertStandardLineIsRequiredErrorMessage();
+        standardLine.assertExpiryDateIsRequiredErrorMessage();
+        standardLine.assertTopicIsRequiredErrorMessage();
     }
 }
 
