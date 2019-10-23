@@ -144,15 +144,32 @@ public class DataInput extends Page {
     }
 
     public void selectAddACorrespondentLink() {
-        clickOn(addCorrespondentLink);
+        addCorrespondentLink.waitUntilClickable();
+        try {
+            clickOn(addCorrespondentLink);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(addCorrespondentLink);
+        }
     }
 
     public void selectCorrespondentIsAMemberRadioButton() {
-        clickOn(correspondentMemberYesRadioButton);
+        addCorrespondentLink.waitUntilClickable();
+        try {
+            clickOn(correspondentMemberYesRadioButton);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(correspondentMemberYesRadioButton);
+        }
     }
 
     public void selectCorrespondentIsNotAMemberRadioButton() {
-        clickOn(correspondentMemberNoRadioButton);
+        try {
+            clickOn(correspondentMemberNoRadioButton);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(correspondentMemberNoRadioButton);
+        }
     }
 
     // Multi Step Methods
@@ -458,7 +475,7 @@ public class DataInput extends Page {
     // Assertions
 
     public void assertPageTitle() {
-        assertTitle("Record Correspondence Details");
+        assertTitle("Data Input");
     }
 
     public void addACorrespondentLinkIsDisplayed() {

@@ -203,44 +203,6 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
-    public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                recordCorrespondentDetails.assertPrimaryCorrespondent();
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
-    @And("^a case has a \"([^\"]*)\" correspondent$")
-    public void aCaseHasACorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("^the member is the \"([^\"]*)\" correspondent$")
-    public void theMemberIsTheCorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
     public void bulkCreateCases(int cases, String caseType) {
         clickOn(homepage.createBulkCases);
@@ -308,18 +270,6 @@ public class CreateCaseStepDefs extends Page {
         createCase.assertCaseTypeErrorMessage();
     }
 
-    @When("^they do not enter a date into the date received text boxes$")
-    public void deleteDefaultDateFromTextBoxes() {
-        dataInput.clearDateCorrespondenceReceived();
-    }
-
-    @When("^they enter an invalid date into the date received text boxes$")
-    public void enterInvalidDateIntoTextBoxes() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
-    }
-
     @When("^they select the case type")
     public void userClicksCaseRadioButtonAndClicksNextButton() {
         clickOn(createCase.dcuMinRadioButton);
@@ -383,11 +333,5 @@ public class CreateCaseStepDefs extends Page {
         createCase.enterNoDate();
     }
 
-    @When("^I enter an invalid date$")
-    public void enterAnInvalidDate() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
-    }
 }
 

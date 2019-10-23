@@ -1,4 +1,4 @@
-Feature: HOCS User is add data to a case
+Feature: HOCS User is able to add data to a case
 
   Background:
     Given I am user "EAMON"
@@ -29,7 +29,7 @@ Feature: HOCS User is add data to a case
     When I fill all mandatory fields on the "Data Input" page with valid data
     But I enter an invalid "<field>" date
     And I click the "Continue" button
-    Then I am taken to the "Record Correspondence Details" page
+    Then I am taken to the "Data Input" page
     Examples:
       | field                   |
       | Correspondence Sent     |
@@ -62,17 +62,18 @@ Feature: HOCS User is add data to a case
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then they should be added to the list of correspondents
 
-  @HOCS-394, @HOCS-238 @FixMe
+  @HOCS-394, @HOCS-238
   Scenario: User adds more than one correspondent
     Given a case has a "primary" correspondent
     When I add an additional correspondent
-    Then I need to choose a "primary" correspondent
+    Then both correspondents are listed
 
-  @HOCS-394, @HOCS-238 @manual @FixMe
+  @HOCS-394, @HOCS-238 @manual
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
-    Then the correspondence type is the "primary" correspondent
+    And I click the "FINISH" button
+    Then the correct correspondent is recorded as the "primary" correspondent
 
   @Validation
   Scenario Outline: User must complete all mandatory inputs on the Data Input form

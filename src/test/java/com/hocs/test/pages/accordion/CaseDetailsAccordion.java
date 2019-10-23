@@ -150,4 +150,9 @@ public class CaseDetailsAccordion extends PageObject {
         assertThat(howDoYouIntendToRespond.getText(), containsText(chosenResponseMethod));
         assertThat(areYouAbleToDispatchThis.getText(), containsText(dispatchAbleDecision));
     }
+
+    public void assertThePrimaryContactName(String fullName) {
+        clickOn(dataInputAccordionButton);
+        assertThat(whichIsThePrimaryCorrespondent.getText(), containsText(fullName));
+    }
 }
