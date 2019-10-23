@@ -67,6 +67,11 @@ public class TeamManagement extends Page {
         clickOn(addSelectedUsersButton);
     }
 
+    public void clickAddSelectedUsers() {
+        clickOn(addTeamMembersButton);
+        clickOn(addSelectedUsersButton);
+    }
+
     public void removeUserFromTeamWithAssignedCases() {
         String nameOfUser = sessionVariableCalled("nameOfUserWithCases").toString();
         WebElementFacade removeButtonOfUser = findAll("//td[@class='govuk-table__cell'][contains(text(), '" + nameOfUser +
@@ -116,10 +121,15 @@ public class TeamManagement extends Page {
     }
 
     public void assertMultipleUsersAddedToTeam() {
+        waitABit(500);
         String firstAddedUser = sessionVariableCalled("firstUser").toString();
         String secondAddedUser = sessionVariableCalled("secondUser").toString();
 
-        assertThat($("//tbody[@class='govuk-table__body']").getText(), containsText(firstAddedUser));
-        assertThat($("//tbody[@class='govuk-table__body']").getText(), containsText(secondAddedUser));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(firstAddedUser));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(secondAddedUser));
+    }
+
+    public void assertSelectSomeUsersErrorMessage() {
+        assertThat(errorMessage.getText(), is("Please select some users before submitting."));
     }
 }

@@ -26,6 +26,9 @@ public class ManagementUIStepDefs extends Page {
     @When("^I navigate to the \"([^\"]*)\" Management page$")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
+            case "STANDARD LINE":
+                clickOn(dashboard.addStandardLineButton);
+                break;
             case "TEAM":
                 clickOn(dashboard.addRemoveUsersButton);
                 break;
@@ -168,6 +171,16 @@ public class ManagementUIStepDefs extends Page {
     @Then("^the users should visible in the team list$")
     public void assertThatUsersAreBothVisibleInTeamList() {
         teamManagement.assertMultipleUsersAddedToTeam();
+    }
+
+    @And("^I click the Add Selected Users button$")
+    public void clickTheAddSelectedUsersButtonWithoutSelectingUser() {
+        teamManagement.clickAddSelectedUsers();
+    }
+
+    @Then("^an error message should be displayed as no users have been selected$")
+    public void assertThatUserShouldBeDisplayedErrorMessageIsDisplayed() {
+        teamManagement.assertSelectSomeUsersErrorMessage();
     }
 }
 
