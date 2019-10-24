@@ -39,6 +39,13 @@ Feature: User manages HOCS teams and units
     When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
     And I attempt to remove the user "eamon.droko@ten10.com"
     Then an error message should be displayed as they have cases assigned in that team
+    
+  @HOCS-1178
+  Scenario: User can add a new Standard Line
+    And I navigate to the "STANDARD LINE" Management page
+    When I add a new Standard Line
+#    Then the Standard Line should be added to the selected topic
+
 
   @Validation
   Scenario: User must select a topic, add a document and enter an expiration date when creating a Standard Line

@@ -197,5 +197,13 @@ public class ManagementUIStepDefs extends Page {
         standardLine.assertExpiryDateIsRequiredErrorMessage();
         standardLine.assertTopicIsRequiredErrorMessage();
     }
+
+    @When("^I add a new Standard Line$")
+    public void userAddsANewStandardLine() {
+        standardLine.enterStandardLineTopic();
+        standardLine.addStandardLineDocument();
+        standardLine.enterStandardLineExpirationDate();
+        clickOn(submitButton);
+    }
 }
 

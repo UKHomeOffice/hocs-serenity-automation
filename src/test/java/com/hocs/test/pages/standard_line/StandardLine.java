@@ -26,8 +26,11 @@ public class StandardLine extends Page {
     @FindBy(xpath = "//a[@href='#topic-error']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//div[@class='govuk-typeahead__input']")
+    @FindBy(xpath = "//input[@id='topics-input']")
     public WebElementFacade topicTypeahead;
+
+    @FindBy(xpath = "//input[@class='govuk-file-upload']")
+    public WebElementFacade standardLineDocumentButton;
 
     @FindBy(xpath = "//input[@id='expiryDate-day']")
     public WebElementFacade expirationDateDayTextBox;
@@ -45,6 +48,21 @@ public class StandardLine extends Page {
         expirationDateDayTextBox.sendKeys("06");
         expirationDateMonthTextBox.sendKeys("03");
         expirationDateYearTextBox.sendKeys("2019");
+    }
+
+    public void enterStandardLineTopic() {
+        typeInto(topicTypeahead, "Cardiff University Kittens");
+        topicTypeahead.sendKeys(Keys.ENTER);
+    }
+
+    public void addStandardLineDocument() {
+        upload("src/test/resources/documents/test1.docx").to(standardLineDocumentButton);
+    }
+
+    public void enterStandardLineExpirationDate() {
+        typeInto(expirationDateDayTextBox, "12");
+        typeInto(expirationDateMonthTextBox, "12");
+        typeInto(expirationDateYearTextBox, "2020");
     }
 
     public void assertAddStandardLinePageTitle() {
