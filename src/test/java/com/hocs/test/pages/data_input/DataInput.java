@@ -12,7 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 public class DataInput extends Page {
 
@@ -142,15 +144,32 @@ public class DataInput extends Page {
     }
 
     public void selectAddACorrespondentLink() {
-        clickOn(addCorrespondentLink);
+        addCorrespondentLink.waitUntilClickable();
+        try {
+            clickOn(addCorrespondentLink);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(addCorrespondentLink);
+        }
     }
 
     public void selectCorrespondentIsAMemberRadioButton() {
-        clickOn(correspondentMemberYesRadioButton);
+        addCorrespondentLink.waitUntilClickable();
+        try {
+            clickOn(correspondentMemberYesRadioButton);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(correspondentMemberYesRadioButton);
+        }
     }
 
     public void selectCorrespondentIsNotAMemberRadioButton() {
-        clickOn(correspondentMemberNoRadioButton);
+        try {
+            clickOn(correspondentMemberNoRadioButton);
+        } catch (Exception e) {
+            waitABit(2000);
+            clickOn(correspondentMemberNoRadioButton);
+        }
     }
 
     // Multi Step Methods
@@ -433,7 +452,7 @@ public class DataInput extends Page {
         setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
 
         clickOn(shouldResponseBeCopiedN10NoRadioButton);
-        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getValue();
+        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getAttribute("for").substring(14);
         setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
 
         clickOn(continueButton);
@@ -456,7 +475,7 @@ public class DataInput extends Page {
     // Assertions
 
     public void assertPageTitle() {
-        assertTitle("Record Correspondence Details");
+        assertTitle("Data Input");
     }
 
     public void addACorrespondentLinkIsDisplayed() {

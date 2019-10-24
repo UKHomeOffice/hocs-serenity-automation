@@ -29,7 +29,7 @@ public class MinisterSignOffStepDefs extends Page {
     public void completeTheMinisterSignOffStage(){
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
-        clickOn(minister.minsterSignOffAcceptRadioButton);
+        clickOn(minister.ministerSignOffAcceptRadioButton);
         clickOn(minister.continueButton);
     }
 
@@ -39,11 +39,13 @@ public class MinisterSignOffStepDefs extends Page {
             case "DCU MIN" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
-                clickOn(minister.minsterSignOffAcceptRadioButton);
+                clickOn(minister.ministerSignOffAcceptRadioButton);
                 clickOn(minister.continueButton);
                 break;
             case "DCU TRO" :
                 homepage.goHome();
+                break;
+            case "DCU N10" :
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

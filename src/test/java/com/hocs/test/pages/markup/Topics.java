@@ -27,11 +27,8 @@ public class Topics extends Page {
 
     // Explore @findAll during test so Topic is not hardcoded
 
-    @FindBy(id = "react-select-2-input")
+    @FindBy(css = "[id^=react-select")
     private WebElementFacade topicsTextField;
-
-    @FindBy(id = "react-select-2-input")
-    private WebElementFacade focusedTopicsTextField;
 
     @FindBy(id = "DraftingTeamName")
     public WebElementFacade autoAssignedDraftTeam;
@@ -81,7 +78,7 @@ public class Topics extends Page {
     public void enterATopic(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        typeInto(focusedTopicsTextField, topic);
+        typeInto(topicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
@@ -91,7 +88,7 @@ public class Topics extends Page {
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        typeInto(focusedTopicsTextField, topic);
+        typeInto(topicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
@@ -101,8 +98,8 @@ public class Topics extends Page {
 
     public void enterRealTopic() {
         clickOn(topicsTextField);
-        typeInto(focusedTopicsTextField, "Cardiff University Kittens");
-        focusedTopicsTextField.sendKeys(Keys.RETURN);
+        typeInto(topicsTextField, "Cardiff University Kittens");
+        hitReturnToSendTopic();
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
         sleep(1000);
@@ -155,7 +152,6 @@ public class Topics extends Page {
         waitABit(2000);
         String testTopic = sessionVariableCalled("topic").toString();
         String thisTopic = topicInTimeline.getText().toUpperCase();
-        System.out.println(thisTopic);
         System.out.println(thisTopic);
         assertThat(thisTopic, is("NAME: " + testTopic));
     }

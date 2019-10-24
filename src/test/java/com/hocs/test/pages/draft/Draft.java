@@ -1,5 +1,7 @@
 package com.hocs.test.pages.draft;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -8,12 +10,19 @@ import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends Page {
 
     AddDocuments addDocuments;
+
+    Homepage homepage;
+
+    Workstacks workstacks;
+
+    SuccessfulCaseCreation successfulCaseCreation;
 
     Qa qa;
 
@@ -59,7 +68,7 @@ public class Draft extends Page {
     @FindBy(id = "")
     public WebElementFacade rejectNoteField;
 
-    @FindBy(id = "")
+    @FindBy(id = "label[for=ResponseChannel-EMAIL]")
     public WebElementFacade emailReplyRadioButton;
 
     @FindBy(css = "label[for=ResponseChannel-LETTER]")
@@ -107,7 +116,7 @@ public class Draft extends Page {
     @FindBy(xpath = "//textarea[@name='CaseNote_RejectionNote']")
     public WebElementFacade whyShouldThisNotBeAnsweredTextBox;
 
-    // Basic Methods
+    //Basic Methods
 
     public void clickAddDocumentsButton() {
         draftStageAddDocumentsButton.click();
@@ -138,7 +147,7 @@ public class Draft extends Page {
     }
 
     public void enterTextInSummariseCallTextbox() {
-        typeInto(summariseCallTextBox, " ");
+        typeInto(summariseCallTextBox, generateRandomString());
     }
 
     public void enterTextInWhyShouldThisBeAnsweredTextbox() {
@@ -261,7 +270,87 @@ public class Draft extends Page {
         clickOn(finishButton);
     }
 
+    public void acceptAndDraftALetter() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        clickOn(continueButton);
+    }
+
+    public void dtenAcceptAndDraftALetter() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        clickOn(continueButton);
+    }
+
+
+    public void uploadDraftResponse() {
+        clickOn(draftStageAddDocumentsButton);
+        selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        clickOn(addButton);
+    }
+
+    public void initialDraftFullFlow() {
+        sleep(3500);
+        WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
+                + "']").get(0);
+        thisDraftTeam.click();
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        clickOn(workstacks.allocateToMeButton);
+        clickOn(homepage.home);
+        clickOn(homepage.myCases);
+        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.dontQAOffline();
+    }
+
+    public void moveCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        qa.dontQAOffline();
+    }
+
+    public void moveTROCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        clickOn(continueButton);
+    }
+
+    public void moveDTENCaseFromInitialDraftToQaResponse() {
+        dtenAcceptAndDraftALetter();
+        uploadDraftResponse();
+        qa.sleep(500);
+        qa.dontQAOffline();
+    }
+
+    public void completeInitialDraftStageAndStoreEnteredInformation() {
+        clickOn(answeredByMyTeamYesRadioButton);
+        setSessionVariable("selectedCanMyTeamAnswerRadioButton").to("ACCEPT");
+        clickOn(continueButton);
+        clickOn(letterReplyRadioButton);
+        String typeOfResponseRadioButton = letterReplyRadioButton.getText();
+        setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
+        clickOn(continueButton);
+        clickOn(draftStageAddDocumentsButton);
+        selectDocumentTypeByIndex(2);
+        addDocuments.uploadDocument();
+        clickOn(addDocuments.addButton);
+        setSessionVariable("uploadedDocumentTitle").to("test1.docx");
+        clickOn(continueButton);
+        clickOn(qa.offlineQaNoRadioButton);
+        String responseToQAOfflineRadioButton = qa.offlineQaNoRadioButton.getAttribute("for").substring(10);
+        setSessionVariable("selectedResponseToQAOfflineRadioButton").to(responseToQAOfflineRadioButton);
+        clickOn(continueButton);
+    }
+
     // Assertions
+
+    public void draftingDeadlineIsDisplayed() {
+        assertThat(isElementDisplayed(draftingDeadline), is(true));
+    }
 
     public void assertEnterCallNotesError() {
         assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
@@ -307,9 +396,5 @@ public class Draft extends Page {
     public void assertWhoHasDoneOfflineQAErrorMessage() {
         assertThat(whoHadDoneTheOfflineQAErrorMessage.getText(),
                 is("Who has done the Offline QA for this case? is required"));
-    }
-
-    public void draftingDeadlineIsDisplayed() {
-        assertThat(isElementDisplayed(draftingDeadline), is(true));
     }
 }

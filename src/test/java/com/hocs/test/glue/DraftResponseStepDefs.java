@@ -7,18 +7,13 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.draft.DraftingTeamDecision;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import net.thucydides.core.annotations.Steps;
-
-import static net.serenitybdd.core.Serenity.pendingStep;
 
 public class DraftResponseStepDefs extends Page {
 
@@ -26,8 +21,6 @@ public class DraftResponseStepDefs extends Page {
     Draft draft;
 
     Homepage homepage;
-
-    DraftingTeamDecision draftingTeamDecision;
 
     Qa qa;
 
@@ -42,12 +35,12 @@ public class DraftResponseStepDefs extends Page {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            draftingTeamDecision.dtenAcceptAndDraftALetter();
-            draftingTeamDecision.uploadDraftResponse();
+            draft.dtenAcceptAndDraftALetter();
+            draft.uploadDraftResponse();
             qa.dontQAOffline();
         } else {
-            draftingTeamDecision.acceptAndDraftALetter();
-            draftingTeamDecision.uploadDraftResponse();
+            draft.acceptAndDraftALetter();
+            draft.uploadDraftResponse();
             qa.dontQAOffline();
         }
     }
@@ -58,22 +51,22 @@ public class DraftResponseStepDefs extends Page {
             case "DCU MIN" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
-                draftingTeamDecision.acceptAndDraftALetter();
-                draftingTeamDecision.uploadDraftResponse();
+                draft.acceptAndDraftALetter();
+                draft.uploadDraftResponse();
                 qa.dontQAOffline();
                 break;
             case "DCU TRO" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
-                draftingTeamDecision.acceptAndDraftALetter();
-                draftingTeamDecision.uploadDraftResponse();
+                draft.acceptAndDraftALetter();
+                draft.uploadDraftResponse();
                 qa.dontQAOffline();
                 break;
             case "DCU N10" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
-                draftingTeamDecision.dtenAcceptAndDraftALetter();
-                draftingTeamDecision.uploadDraftResponse();
+                draft.dtenAcceptAndDraftALetter();
+                draft.uploadDraftResponse();
                 qa.dontQAOffline();
                 break;
             default:
@@ -242,10 +235,10 @@ public class DraftResponseStepDefs extends Page {
         getCaseId();
         switch (decision.toUpperCase()) {
             case "SHOULD":
-                clickOn(draftingTeamDecision.initialDraftingDecisionAccept);
+                clickOn(draft.answeredByMyTeamYesRadioButton);
                 break;
             case "SHOULD NOT":
-                clickOn(draftingTeamDecision.initialDraftingDecisionReject);
+                clickOn(draft.answeredByMyTeamNoRadioButton);
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
@@ -257,7 +250,7 @@ public class DraftResponseStepDefs extends Page {
     public void iTheCallDetails(String callDetails) {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
-                draftingTeamDecision.enterPhoneCallSummaryNote();
+                draft.enterTextInSummariseCallTextbox();
                 clickOn(draft.finishButton);
                 break;
             case "DO NOT COMPLETE":
@@ -272,7 +265,34 @@ public class DraftResponseStepDefs extends Page {
     public void assertCaseTypeReturnedToStage(String caseType, String stage) {
         switch(caseType.toUpperCase()) {
             case "DCU MIN" :
-                assertCaseReturnedToStage(stage);
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "MARKUP":
+                        clickOn(homepage.centralDraftingTeam);
+                        break;
+                    case "INITIAL DRAFT":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "QA RESPONSE":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "MINISTERIAL SIGN OFF":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "DISPATCH":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "COPY TO NUMBER 10":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
                 break;
             case "DCU TRO" :
                 switch(stage.toUpperCase()){
@@ -280,21 +300,13 @@ public class DraftResponseStepDefs extends Page {
                         clickOn(homepage.performanceProcessTeam);
                         break;
                     case "MARKUP" :
-                        clickOn(homepage.transferN10Team);
-                        teamqueue.assertCaseStage(stage);
+                        clickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT" :
                         clickOn(homepage.animalsInScienceTeam);
-                        teamqueue.assertCaseStage(stage);
                         break;
                     case "QA RESPONSE" :
                         clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "PRIVATE OFFICE APPROVAL" :
-                        clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "MINISTERIAL SIGN OFF" :
-                        clickOn(homepage.ministerForLordsTeam);
                         break;
                     case "DISPATCH" :
                         clickOn(homepage.animalsInScienceTeam);
@@ -306,40 +318,32 @@ public class DraftResponseStepDefs extends Page {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "DCU N10" :
+                switch (stage.toUpperCase()) {
+                case "DATA INPUT":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                case "MARKUP":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                case "INITIAL DRAFT":
+                    clickOn(homepage.animalsInScienceTeam);
+                    break;
+                case "QA RESPONSE":
+                    clickOn(homepage.animalsInScienceTeam);
+                    break;
+                case "PRIVATE OFFICE APPROVAL":
+                    clickOn(homepage.ministerForLordsTeam);
+                    break;
+                case "DISPATCH":
+                    clickOn(homepage.transferN10Team);
+                    break;
+                default:
+                    pendingStep(stage + " is not defined within " + getMethodName());
+            }
+            break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("^the case should be moved to the \"([^\"]*)\" stage$")
-    public void assertCaseReturnedToStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "DATA INPUT":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "MARKUP":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "INITIAL DRAFT":
-                clickOn(homepage.animalsInScienceTeam);
-                break;
-            case "QA RESPONSE":
-                clickOn(homepage.animalsInScienceTeam);
-                break;
-            case "PRIVATE OFFICE APPROVAL":
-                clickOn(homepage.ministerForLordsTeam);
-                break;
-            case "MINISTERIAL SIGN OFF":
-                clickOn(homepage.ministerForLordsTeam);
-                break;
-            case "DISPATCH":
-                clickOn(homepage.performanceProcessTeam);
-                break;
-            case "COPY TO NUMBER 10":
-                clickOn(homepage.transferN10Team);
-                break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
         }
         teamqueue.assertCaseStage(stage);
     }

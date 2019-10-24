@@ -9,7 +9,7 @@ Feature:  HOCS User is able to Dispatch a Response
     When I "reject" the case
     And I enter "someString" in the "Reject Reason" field
     And I click the "FINISH" button
-    Then the case should be moved to the "Private Office Approval" stage
+    Then the "DCU N10" case should be moved to the "Private Office Approval" stage
 
   @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason

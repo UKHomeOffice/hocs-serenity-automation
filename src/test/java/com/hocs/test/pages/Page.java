@@ -29,7 +29,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.JavascriptExecutor;
-import org.yecht.Data.Str;
+import org.openqa.selenium.interactions.Actions;
 
 public class Page extends PageObject {
 
@@ -237,9 +237,6 @@ public class Page extends PageObject {
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
 
-    @FindBy(xpath = "//button[@id='accordion-default-heading-0']")
-    public WebElementFacade dataInputAccordionButton;
-
     public void sleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -287,7 +284,7 @@ public class Page extends PageObject {
     }
 
     public void clickAddButton() {
-        addButton.click();
+        clickOn(addButton);
     }
 
     public void clickCancelButton() {
@@ -488,7 +485,7 @@ public class Page extends PageObject {
     }
 
 
-    private String getHeaderText() {
+    protected String getHeaderText() {
         return pageTitle.getText();
     }
 

@@ -171,13 +171,18 @@ public class CreateCase extends Page {
         completeSingleCaseCreation();
     }
 
+    public void createCaseWithoutSelectingCorrespondenceType() {
+        clickOn(homepage.createSingleCase);
+        clickOn(nextButton);
+    }
+
     public void createDCUMinSingleCaseWithID() {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);
-        successfulCaseCreation.getThisCaseId();
+        successfulCaseCreation.getCaseReference();
     }
 
     public void createDCUTENSingleCaseWithID() {
@@ -186,7 +191,7 @@ public class CreateCase extends Page {
         clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);
-        successfulCaseCreation.getThisCaseId();
+        successfulCaseCreation.getCaseReference();
     }
 
     public void createDCUTROSingleCaseWithID() {
@@ -195,7 +200,7 @@ public class CreateCase extends Page {
         clickOn(nextButton);
         addDocuments.uploadDocument();
         clickOn(submitButton);
-        successfulCaseCreation.getThisCaseId();
+        successfulCaseCreation.getCaseReference();
     }
 
     public void createDCU10SingleCase() {

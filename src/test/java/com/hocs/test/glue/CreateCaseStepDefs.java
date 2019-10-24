@@ -42,8 +42,6 @@ public class CreateCaseStepDefs extends Page {
 
     Workstacks workstacks;
 
-    MarkUpDecision markUpDecision;
-
     @Given("^I am presented with \"([^\"]*)\"$")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
@@ -54,6 +52,12 @@ public class CreateCaseStepDefs extends Page {
                 pendingStep(userView + " is not defined within " + getMethodName());
         }
     }
+
+    @When("I do not select a type of correspondence when creating a case")
+    public void doNotSelectCorrespondenceWhenCreatingCase() {
+        createCase.createCaseWithoutSelectingCorrespondenceType();
+    }
+
 
     @Given("^I create a single case \"([^\"]*)\"$")
     public void createACaseTypeSpecificCase(String caseType) {
@@ -154,6 +158,11 @@ public class CreateCaseStepDefs extends Page {
         successfulCaseCreation.allocateToMeViaSuccessfulCreationScreen();
     }
 
+    @When("^I go to the case from the successful case creation screen$")
+    public void goToSuccessfullyCreatedCase() {
+        successfulCaseCreation.goToCaseFromSuccessfulCreationScreen();
+    }
+
     @Then("^the case should be visible in my workstack$")
     public void assertThatCaseIsAddedToMyWorkstack() {
         clickOn(homepage.home);
@@ -194,44 +203,6 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
-    public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                recordCorrespondentDetails.assertPrimaryCorrespondent();
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
-    @And("^a case has a \"([^\"]*)\" correspondent$")
-    public void aCaseHasACorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("^the member is the \"([^\"]*)\" correspondent$")
-    public void theMemberIsTheCorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-
-                break;
-            case "SECONDARY":
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
-    }
-
     @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
     public void bulkCreateCases(int cases, String caseType) {
         clickOn(homepage.createBulkCases);
@@ -265,12 +236,6 @@ public class CreateCaseStepDefs extends Page {
             case "DCU TEN":
                 clickOn(createCase.dcuDtenRadioButton);
                 clickOn(createCase.nextButton);
-                addDocuments.enterDispatchDeadlineDay(10);
-                addDocuments.enterDispatchDeadlineMonth(10);
-                addDocuments.enterDispatchDeadlineYear(10);
-                addDocuments.enterDraftDeadlineDay(10);
-                addDocuments.enterDraftDeadlineMonth(10);
-                addDocuments.enterDraftDeadlineYear(10);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -295,21 +260,14 @@ public class CreateCaseStepDefs extends Page {
         successfulCaseCreation.getCaseReference();
     }
 
+    @Then("^bulk cases are created successfully$")
+    public void BulkCasesAreCreatedSuccessfully() {
+        successfulCaseCreation.assertBulkCasesCreatedSuccess();
+    }
+
     @Then("^an error message should be displayed as I have not selected the case type$")
     public void assertThatCaseTypeErrorMessageIsDisplayed() {
         createCase.assertCaseTypeErrorMessage();
-    }
-
-    @When("^they do not enter a date into the date received text boxes$")
-    public void deleteDefaultDateFromTextBoxes() {
-        dataInput.clearDateCorrespondenceReceived();
-    }
-
-    @When("^they enter an invalid date into the date received text boxes$")
-    public void enterInvalidDateIntoTextBoxes() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
     }
 
     @When("^they select the case type")
@@ -375,54 +333,5 @@ public class CreateCaseStepDefs extends Page {
         createCase.enterNoDate();
     }
 
-    @When("^I enter an invalid date$")
-    public void enterAnInvalidDate() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
-    }
-
-    @When("^I select the Data Input button on the accordion at the case allocation screen$")
-    public void selectDataInputAccordionOfNewCase(){
-        clickOn(successfulCaseCreation.newCaseReference);
-        clickOn(dataInputAccordionButton);
-    }
-
-    @Then("^the correspondence received date should be same as the create a case screen$")
-    public void assertDataInputAccordionCorrespondenceReceivedDate() {
-        dataInput.assertAccordionCorrespondenceReceivedDate();
-    }
-
-    @When("^I select the Data Input button of the accordion at the Markup Stage$")
-    public void selectDataInputButtonAccordionAtMarkupStage() {
-        clickOn(dataInputAccordionButton);
-    }
-
-    @Then("^the information shown should match what I entered at the Data Input stage$")
-    public void assertMarkupStageDataInputAccordionFields() {
-        markUpDecision.assertAccordionDataInputFields();
-    }
-
-    @When("^I move that case to the \"([^\"]*)\" stage$")
-    public void moveCaseToNextStage(String stage){
-        String caseReference = sessionVariableCalled("caseReference");
-
-        switch (stage.toUpperCase()){
-            case "MARKUP":
-                dataInput.completeDataInputStageAndStoreEnteredInformation();
-                typeInto(homepage.caseReferenceSearchBar, caseReference);
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-            break;
-            case "INITIAL DRAFT":
-                dataInput.completeDataInputStageAndStoreEnteredInformation();
-                typeInto(homepage.caseReferenceSearchBar, caseReference);
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                markUpDecision.completeMarkupStageAndStoreEnteredInformation();
-                topics.enterRealTopic();
-            break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
-        }
-    }
 }
 

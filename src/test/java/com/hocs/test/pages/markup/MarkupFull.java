@@ -1,4 +1,7 @@
 package com.hocs.test.pages.markup;
+
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
@@ -38,4 +41,14 @@ public class MarkupFull extends Page {
         clickOn(finishButton);
     }
 
+    public void completeMarkupStageAndStoreEnteredInformation() {
+        markUpDecision.chooseResponseTypeAndRecordDecision();
+        clickOn(continueButton);
+        topics.clickAddTopicButton();
+        topics.enterRealTopic();
+        clickOn(topics.addButton);
+        clickOn(continueButton);
+        markUpDecision.recordSelectedDraftingAndPrivateOfficeTeams();
+        clickOn(finishButton);
+    }
 }

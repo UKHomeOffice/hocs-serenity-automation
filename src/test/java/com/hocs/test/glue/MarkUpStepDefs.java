@@ -14,14 +14,11 @@ import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.draft.DraftingTeamDecision;
 import com.hocs.test.pages.draft.Draft;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import static net.serenitybdd.core.Serenity.pendingStep;
 
 public class MarkUpStepDefs extends Page {
 
@@ -37,13 +34,13 @@ public class MarkUpStepDefs extends Page {
 
     ReferToOGD refer;
 
+    Draft draft;
+
     NoResponseNeeded noResponseNeeded;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
     QAResponse qaResponse;
-
-    DraftingTeamDecision draftingTeamDecision;
 
     @When("^I complete the markup stage$")
     public void completeTheMarkupStage() {
@@ -122,7 +119,7 @@ public class MarkUpStepDefs extends Page {
                 topics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(topics.autoAssignedDraftTeam.getValue());
                 clickOn(finishButton);
-                draftingTeamDecision.initialDraftFullFlow();
+                draft.initialDraftFullFlow();
                 qaResponse.qaResponseFullFlow();
                 break;
             default:
