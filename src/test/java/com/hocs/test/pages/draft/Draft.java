@@ -380,6 +380,7 @@ public class Draft extends Page {
     }
 
     public void assertPleaseSummariseYourCallErrorMessage() {
+        waitABit(500);
         assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
     }
 
