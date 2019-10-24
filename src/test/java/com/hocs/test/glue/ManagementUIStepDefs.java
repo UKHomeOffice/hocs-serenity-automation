@@ -41,6 +41,8 @@ public class ManagementUIStepDefs extends Page {
             case "UNIT":
                 clickOn(dashboard.addUnitButton);
                 break;
+            case "LINK TOPIC TO TEAM":
+                clickOn(dashboard.linkTopicToTeamButton);
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
         }

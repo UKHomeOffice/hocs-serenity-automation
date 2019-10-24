@@ -64,3 +64,44 @@ Feature: User manages HOCS teams and units
     And I navigate to the "UNIT" Management page
     When I click the "SUBMIT" button
     Then an error message should be displayed as they have not entered a display name and short code
+
+  Scenario: User can choose and submit teams to link to a new topic
+    And I navigate to the "LINK TOPIC TO TEAM" Management page
+    And I select a topic that "DOES NOT" have linked teams
+    And I click the "SUBMIT" button
+    And I select a "INITIAL DRAFT AND QA RESONSE STAGES" team
+    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I click the "SUBMIT" button
+    Then the summary should detail the teams chosen to link to the topic
+
+  Scenario: User can choose and submit teams to amend the links of a topic
+    And I select a topic that "DOES" have linked teams
+    And I click the "SUBMIT" button
+    And I select a "INITIAL DRAFT AND QA RESONSE STAGES" team
+    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I click the "SUBMIT" button
+    Then the summary should detail the teams chosen to link to the topic
+
+  @Validation
+  Scenario: User must select a topic on the topic search page for linking team to topic
+    And I navigate to the "LINK TOPIC TO TEAM" Management page
+    When I click the "SUBMIT" button
+    Then an error message should be displayed as no team has been selected
+
+  @Validation
+  Scenario: User must select a 'Initial Draft and QA response stages' team to assign topic to
+    And I navigate to the "LINK TOPIC TO TEAM" Management page
+    And I select a topic
+    And I click the "SUBMIT" button
+    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    When I click the "SUBMIT" button
+    Then an error message should be displayed as no "INITIAL DRAFT AND QA RESONSE STAGES" team has been selected
+
+  @Validation
+  Scenario: User must select a 'Private Office/Minister sign off stages' team to assign topic to
+    And I navigate to the "LINK TOPIC TO TEAM" Management page
+    And I select a topic
+    And I click the "SUBMIT" button
+    And I select a "INITIAL DRAFT AND QA RESONSE STAGES" team
+    When I click the "SUBMIT" button
+    Then an error message should be displayed as no "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team has been selected
