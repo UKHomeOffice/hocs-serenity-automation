@@ -95,10 +95,17 @@ public class TeamManagement extends Page {
     }
 
     public void removeFirstUserInListAndStoreName() {
-        WebElementFacade firstMemberInTeamTable = findAll("(//td[@class='govuk-table__cell'])[1]").get(0);
-        String nameOfFirstUser = firstMemberInTeamTable.getText();
-        setSessionVariable("userNameAndEmail").to(nameOfFirstUser);
+        WebElementFacade firstMemberInTeamTable = findBy("(//td[@class='govuk-table__cell'])[1]");
+        String nameAndEmailOfFirstUser = firstMemberInTeamTable.getText();
+        setSessionVariable("userNameAndEmail").to(nameAndEmailOfFirstUser);
         clickOn(firstRemoveButtonInList);
+    }
+
+    public void clearTeamMembers() {
+        WebElementFacade removeButton = $("//td//a");
+        if (isElementDisplayed($(removeButton))) {
+            clickOn(removeButton);
+        }
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {

@@ -155,6 +155,8 @@ public class ManagementUIStepDefs extends Page {
     public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
         waitABit(500);
         teamManagement.assertTeamName();
+        teamManagement.clearTeamMembers();
+        teamManagement.clearTeamMembers();
         switch (firstUser.toUpperCase()) {
             case "EAMON.DROKO@TEN10.COM":
                 setSessionVariable("firstUser").to(firstUser);
