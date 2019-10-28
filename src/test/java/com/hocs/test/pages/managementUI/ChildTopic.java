@@ -16,7 +16,7 @@ public class ChildTopic extends Page {
     public WebElementFacade displayNameTextField;
 
     public void assertChildTopicPageTitle() {
-        assertThat($("//h1").getText(), is("Add Child Topic"));
+        assertThat(managementUIPageTitle.getText(), is("Add Child Topic"));
     }
 
 }

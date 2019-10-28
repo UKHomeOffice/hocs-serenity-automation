@@ -1,20 +1,27 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.ChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
+import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.standard_line.StandardLine;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManagementUIStepDefs extends Page {
+
+    GenericInputStepDefs genericInputStepDefs;
 
     Dashboard dashboard;
 
@@ -22,9 +29,11 @@ public class ManagementUIStepDefs extends Page {
 
     UnitManagement unitManagement;
 
-    ChildTopic childTopic;
+    AddChildTopic addChildTopic;
 
     StandardLine standardLine;
+
+    LinkTopicToTeam linkTopicToTeam;
 
     @When("^I navigate to the \"([^\"]*)\" Management page$")
     public void navigateToSelectedManagementPage(String managementPage) {
@@ -35,14 +44,18 @@ public class ManagementUIStepDefs extends Page {
             case "TEAM":
                 clickOn(dashboard.addRemoveUsersButton);
                 break;
-            case "CHILD TOPIC":
+            case "ADD CHILD TOPIC":
                 clickOn(dashboard.addChildTopicButton);
                 break;
-            case "UNIT":
+            case "ADD A UNIT":
                 clickOn(dashboard.addUnitButton);
+                break;
+            case "VIEW UNITS":
+                clickOn(dashboard.viewUnitsButton);
                 break;
             case "LINK TOPIC TO TEAM":
                 clickOn(dashboard.linkTopicToTeamButton);
+                break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
         }
@@ -58,10 +71,13 @@ public class ManagementUIStepDefs extends Page {
                 teamManagement.assertTeamManagementPageTitle();
                 break;
             case "CHILD TOPIC":
-                childTopic.assertChildTopicPageTitle();
+                addChildTopic.assertAddChildTopicPageTitle();
                 break;
             case "UNIT":
                 unitManagement.assertUnitManagementPageTitle();
+                break;
+            case "LINK TOPIC TO TEAM":
+                linkTopicToTeam.assertLinkTopicToTeamPageTitle();
                 break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
@@ -198,6 +214,67 @@ public class ManagementUIStepDefs extends Page {
         standardLine.assertStandardLineIsRequiredErrorMessage();
         standardLine.assertExpiryDateIsRequiredErrorMessage();
         standardLine.assertTopicIsRequiredErrorMessage();
+    }
+
+    @And("^I select a topic that \"([^\"]*)\" have linked teams$")
+    public void iSelectATopicThatHaveLinkedTeams(String topicState) {
+        switch (topicState.toUpperCase()) {
+            case "DOES":
+                linkTopicToTeam.selectATopic("Register of faith leaders");
+                break;
+            case "DOES NOT":
+                linkTopicToTeam.selectATopic(sessionVariableCalled("newChildTopic").toString());
+                break;
+            default:
+                pendingStep(topicState + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^an error message should be displayed as no topic has been selected$")
+    public void anErrorMessageShouldBeDisplayedAsNoTopicHasBeenSelected() {
+        linkTopicToTeam.assertTopicIsRequiredErrorMessage();
+    }
+
+    @Given("^I have created a new child topic$")
+    public void iHaveCreatedANewChildTopic() {
+        navigateToSelectedManagementPage("ADD CHILD TOPIC");
+        addChildTopic.selectAParentTopic("Police Website");
+        addChildTopic.inputNewChildTopic();
+        genericInputStepDefs.clickTheButton("SUBMIT");
+    }
+
+    @And("^I select a \"([^\"]*)\" team$")
+    public void iSelectATeam(String typeOfTeam) {
+        switch (typeOfTeam.toUpperCase()) {
+            case "INITIAL DRAFT AND QA RESPONSE STAGES":
+                linkTopicToTeam.selectADraftAndQATeam("Advice Team");
+                break;
+            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+                linkTopicToTeam.selectAPrivateAndMinisterTeam("Accounting and Finance Unit");
+                break;
+            default:
+                pendingStep(typeOfTeam + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^an error message should be displayed as no \"([^\"]*)\" team has been selected$")
+    public void anErrorMessageShouldBeDisplayedAsNoTeamHasBeenSelected(String typeOfTeam) {
+        switch (typeOfTeam.toUpperCase()) {
+            case "INITIAL DRAFT AND QA RESPONSE STAGES":
+                linkTopicToTeam.assertTeamIsRequiredErrorMessage();
+                break;
+            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+                linkTopicToTeam.assertTeamIsRequiredErrorMessage();
+                break;
+            default:
+                pendingStep(typeOfTeam + " is not defined within " + getMethodName());
+        }
+
+    }
+
+    @Then("^the summary should correctly detail the topic and the teams chosen to link to it$")
+    public void theSummaryShouldCorrectlyDetailTheTopicAndTheTeamsChosenToLinkToIt() {
+        linkTopicToTeam.assertSummaryDisplaysSelectedTopicAndTeams();
     }
 }
 

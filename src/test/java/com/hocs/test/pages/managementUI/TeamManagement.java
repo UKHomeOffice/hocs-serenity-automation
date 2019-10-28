@@ -40,7 +40,7 @@ public class TeamManagement extends Page {
     public WebElementFacade errorMessage;
 
     public void assertTeamManagementPageTitle() {
-        assertThat($("//h1").getText(), is("Team search"));
+        assertThat(managementUIPageTitle.getText(), is("Team search"));
     }
 
     public void selectATeam(String teamName) {

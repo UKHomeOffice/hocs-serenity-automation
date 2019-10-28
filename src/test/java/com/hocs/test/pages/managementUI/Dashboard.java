@@ -16,6 +16,9 @@ public class Dashboard extends Page {
     @FindBy(xpath = "//a[@href='/add-unit']")
     public WebElementFacade addUnitButton;
 
+    @FindBy(xpath = "//a[@href='/unit-search']")
+    public WebElementFacade viewUnitsButton;
+
     @FindBy(xpath = "//a[@href='/add-standard-line']")
     public WebElementFacade addStandardLineButton;
 
