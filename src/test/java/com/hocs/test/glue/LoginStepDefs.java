@@ -212,7 +212,7 @@ public class LoginStepDefs extends Page {
         loginPage.enterPassword(password.getPassword());
     }
 
-    private void navigateToHocs() {
+    protected void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
@@ -236,10 +236,10 @@ public class LoginStepDefs extends Page {
                     pendingStep(env + " is not defined within " + getMethodName());
             }
         }
-        driver.get(baseUrl);
+        getDriver().get(baseUrl);
     }
 
-    private void navigateToManagementUI() {
+    protected void navigateToManagementUI() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
@@ -249,6 +249,6 @@ public class LoginStepDefs extends Page {
         } else {
             baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
         }
-        driver.get(baseUrl);
+        getDriver().get(baseUrl);
     }
 }

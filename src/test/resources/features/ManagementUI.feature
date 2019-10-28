@@ -1,4 +1,4 @@
-Feature: User manages HOCS teams and units
+Feature: User manages HOCS teams, topics and units
 
   Background:
     Given that I have navigated to the Management UI as the user "EAMON"
@@ -117,4 +117,32 @@ Feature: User manages HOCS teams and units
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     When I click the "SUBMIT" button
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team has been selected
+
+  Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
+    Given I have linked teams to a new child topic in Management UI
+    And I navigate to "HOCS"
+    And I create a single case "DCU MIN"
+    And the Data Input Stage is completed for "DCU MIN" caseType
+    When I assign the Topic "NEW CHILD TOPIC"
+    Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
+    And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
+
+  Scenario: A topic with existing team links can have those links amended in Management UI
+    Given I navigate to "HOCS"
+    And I discover the current default team links for a topic
+    And I navigate to "Management UI"
+    And I select to amend the team links for the topic
+    And I select a different "INITIAL DRAFT AND QA RESPONSE STAGES" team
+    And I select a different "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I click the "SUBMIT" button
+    And I click the "SUBMIT" button
+    When I check the default team links in HOCS again
+    Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
+    And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
+
+
+
+
+
+
 

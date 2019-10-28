@@ -1,12 +1,14 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.give_me_a_case.Fetch;
 import com.hocs.test.pages.managementUI.AddChildTopic;
-import com.hocs.test.pages.managementUI.ChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
+import com.hocs.test.pages.markup.MarkUpDecision;
+import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.standard_line.StandardLine;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -22,6 +24,14 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 public class ManagementUIStepDefs extends Page {
 
     GenericInputStepDefs genericInputStepDefs;
+
+    LoginStepDefs loginStepDefs;
+
+    Fetch fetch;
+
+    MarkUpDecision markUpDecision;
+
+    Topics topics;
 
     Dashboard dashboard;
 
@@ -250,7 +260,7 @@ public class ManagementUIStepDefs extends Page {
                 linkTopicToTeam.selectADraftAndQATeam("Advice Team");
                 break;
             case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
-                linkTopicToTeam.selectAPrivateAndMinisterTeam("Accounting and Finance Unit");
+                linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");
                 break;
             default:
                 pendingStep(typeOfTeam + " is not defined within " + getMethodName());
@@ -275,6 +285,91 @@ public class ManagementUIStepDefs extends Page {
     @Then("^the summary should correctly detail the topic and the teams chosen to link to it$")
     public void theSummaryShouldCorrectlyDetailTheTopicAndTheTeamsChosenToLinkToIt() {
         linkTopicToTeam.assertSummaryDisplaysSelectedTopicAndTeams();
+    }
+
+    @Given("^I have linked teams to a new child topic in Management UI$")
+    public void iHaveLinkedTeamsToANewChildTopicInManagementUI() {
+        iHaveCreatedANewChildTopic();
+        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectATopicThatHaveLinkedTeams("DOES NOT");
+        genericInputStepDefs.clickTheButton("SUBMIT");
+        iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
+        iSelectATeam("PRIVATE OFFICE/MINISTER SIGN OFF STAGES");
+        genericInputStepDefs.clickTheButton("SUBMIT");
+        genericInputStepDefs.clickTheButton("SUBMIT");
+    }
+
+    @And("^I navigate to \"([^\"]*)\"$")
+    public void iNavigateTo(String site) {
+        switch (site.toUpperCase()) {
+            case "HOCS":
+                loginStepDefs.navigateToHocs();
+                break;
+            case "MANAGEMENT UI":
+                loginStepDefs.navigateToManagementUI();
+                break;
+            default:
+                pendingStep(site + " is not defined within " + getMethodName());
+        }
+
+    }
+
+
+    @And("^I discover the current default team links for a topic$")
+    public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
+        fetch.giveMeACase("DCU MIN", "MARKUP");
+        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+        topics.enterATopic("Register of faith leaders");
+        topics.getCurrentDefaultTeamsForTopic();
+    }
+
+    @And("^I select to amend the team links for the topic$")
+    public void iSelectToAmendTheTeamLinksForTheTopic() {
+        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectATopicThatHaveLinkedTeams("DOES");
+        genericInputStepDefs.clickTheButton("SUBMIT");
+    }
+
+    @And("^I select a different \"([^\"]*)\" team$")
+    public void iSelectADifferentTeam(String typeOfTeam) {
+        switch (typeOfTeam.toUpperCase()) {
+            case "INITIAL DRAFT AND QA RESPONSE STAGES":
+                switch (sessionVariableCalled("defaultDraftTeam").toString()) {
+                    case "Advice Team":
+                        linkTopicToTeam.selectADraftAndQATeam("North Region");
+                        break;
+                    case "North Region":
+                        linkTopicToTeam.selectADraftAndQATeam("Advice Team");
+                        break;
+                    default:
+                        pendingStep(sessionVariableCalled("defaultDraftTeam").toString() + " is not defined within "
+                                + getMethodName());
+                }
+                break;
+            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+                switch (sessionVariableCalled("defaultPrivateOfficeTeam").toString()) {
+                    case "Minister for Lords":
+                        linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");
+                        break;
+                    case "Permanent Secretary":
+                        linkTopicToTeam.selectAPrivateAndMinisterTeam("Minister for Lords");
+                        break;
+                    default:
+                        pendingStep(sessionVariableCalled("defaultPrivateOfficeTeam") + " is not defined within "
+                                + getMethodName());
+                }
+                break;
+            default:
+                pendingStep(typeOfTeam + " is not defined within " + getMethodName());
+        }
+    }
+
+    @When("^I check the default team links in HOCS again$")
+    public void iCheckTheDefaultTeamLinksInHOCSAgain() {
+        iNavigateTo("HOCS");
+        fetch.giveMeACase("DCU MIN", "MARKUP");
+        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+        topics.enterATopic("Register of faith leaders");
     }
 }
 
