@@ -72,8 +72,8 @@ Feature: User manages HOCS teams, topics and units
     And I navigate to the "ADD A UNIT" Management page
     When I click the "SUBMIT" button
     Then an error message should be displayed as they have not entered a display name and short code
-
-
+    
+  @HOCS-1130 @LinkTopicToTeam
   Scenario: User can choose and submit teams to link to a new topic
     Given I have created a new child topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
@@ -84,6 +84,7 @@ Feature: User manages HOCS teams, topics and units
     And I click the "SUBMIT" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
+  @HOCS-1130 @LinkTopicToTeam
   Scenario: User can choose and submit teams to amend the links of a topic
     Given I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
@@ -93,13 +94,13 @@ Feature: User manages HOCS teams, topics and units
     And I click the "SUBMIT" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
-  @Validation
+  @HOCS-1130 @LinkTopicToTeam @Validation
   Scenario: User must select a topic on the topic search page for linking team to topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     When I click the "SUBMIT" button
     Then an error message should be displayed as no topic has been selected
 
-  @Validation
+  @HOCS-1130 @LinkTopicToTeam @Validation
   Scenario: User must select a 'Initial Draft and QA response stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
@@ -108,7 +109,7 @@ Feature: User manages HOCS teams, topics and units
     When I click the "SUBMIT" button
     Then an error message should be displayed as no "INITIAL DRAFT AND QA RESPONSE STAGES" team has been selected
 
-  @Validation
+  @HOCS-1130 @LinkTopicToTeam @Validation
 #    Currently has incorrect error message, test will need updating when correct error message implemented
   Scenario: User must select a 'Private Office/Minister sign off stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
@@ -118,6 +119,7 @@ Feature: User manages HOCS teams, topics and units
     When I click the "SUBMIT" button
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team has been selected
 
+  @HOCS-1130 @LinkTopicToTeam
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
     Given I have linked teams to a new child topic in Management UI
     And I navigate to "HOCS"
@@ -127,6 +129,7 @@ Feature: User manages HOCS teams, topics and units
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
+  @HOCS-1130 @LinkTopicToTeam
   Scenario: A topic with existing team links can have those links amended in Management UI
     Given I navigate to "HOCS"
     And I discover the current default team links for a topic
