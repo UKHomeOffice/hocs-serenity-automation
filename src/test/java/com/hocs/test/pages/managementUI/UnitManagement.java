@@ -29,8 +29,8 @@ public class UnitManagement extends Page {
     }
 
     public void assertDisplayNameAndShortCodeErrorMessages() {
-        assertThat(displayNameRequiredErrorMessage.getText(), is("A Display Name is required"));
-        assertThat(shortCodeRequiredErrorMessage.getText(), is("A Short Code is required"));
+        assertThat(displayNameRequiredErrorMessage.getText(), is("The Display Name is required"));
+        assertThat(shortCodeRequiredErrorMessage.getText(), is("The Short Code is required"));
     }
 
 }

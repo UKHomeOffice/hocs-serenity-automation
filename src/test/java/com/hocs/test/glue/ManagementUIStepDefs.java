@@ -80,11 +80,11 @@ public class ManagementUIStepDefs extends Page {
             case "TEAM":
                 teamManagement.assertTeamManagementPageTitle();
                 break;
-            case "CHILD TOPIC":
-                addChildTopic.assertAddChildTopicPageTitle();
-                break;
             case "UNIT":
                 unitManagement.assertUnitManagementPageTitle();
+                break;
+            case "ADD CHILD TOPIC":
+                addChildTopic.assertAddChildTopicPageTitle();
                 break;
             case "LINK TOPIC TO TEAM":
                 linkTopicToTeam.assertLinkTopicToTeamPageTitle();

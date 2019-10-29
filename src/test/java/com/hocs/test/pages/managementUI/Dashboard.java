@@ -25,4 +25,11 @@ public class Dashboard extends Page {
     @FindBy(xpath = "//a[@href='/topic-to-team']")
     public WebElementFacade linkTopicToTeamButton;
 
+    @FindBy(linkText = "Correspondence System Management")
+    public WebElementFacade dashboardLink;
+
+    public void goToDashboard() {
+        dashboardLink.click();
+    }
+
 }
