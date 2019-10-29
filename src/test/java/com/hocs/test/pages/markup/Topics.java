@@ -91,7 +91,8 @@ public class Topics extends Page {
         typeInto(topicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
-        clickOn(addButton);
+        if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage))
+            clickOn(addButton);
     }
 
     // Multi Step Methods

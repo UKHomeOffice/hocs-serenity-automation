@@ -21,6 +21,12 @@ public class AddChildTopic extends Page {
     @FindBy(xpath = "//input[@id='parent-topics-input']")
     public WebElementFacade parentTopicSearchBar;
 
+    @FindBy(css = "ul.govuk-error-summary__list a")
+    public WebElementFacade errorMessageLink;
+
+    @FindBy(css = ".govuk-error-summary__body")
+    public WebElementFacade errorMessageContents;
+
     @FindBy(xpath = "//input[@id='displayName']")
     public WebElementFacade childTopicDisplayNameInputBar;
 
@@ -42,8 +48,20 @@ public class AddChildTopic extends Page {
 
     public void inputNewChildTopic() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String childTopic = "Child " + formatter.format(LocalDateTime.now());
+        String childTopic = "CHILD " + formatter.format(LocalDateTime.now());
         setSessionVariable("newChildTopic").to(childTopic);
         inputAChildTopicDisplayName(childTopic);
+    }
+
+    public void assertParentTopicIsRequiredErrorMessage() {
+        assertThat(errorMessageLink.getText(), is("The Parent Topic is required"));
+    }
+
+    public void assertDisplayNameIsRequiredErrorMessage() {
+        assertThat(errorMessageLink.getText(), is("The Display Name is required"));
+    }
+
+    public void assertDuplicateTopicErrorMessage() {
+        assertThat(errorMessageContents.getText(), is("A child topic with that name already exists"));
     }
 }

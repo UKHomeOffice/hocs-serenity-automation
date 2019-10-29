@@ -287,9 +287,8 @@ public class ManagementUIStepDefs extends Page {
         linkTopicToTeam.assertSummaryDisplaysSelectedTopicAndTeams();
     }
 
-    @Given("^I have linked teams to a new child topic in Management UI$")
-    public void iHaveLinkedTeamsToANewChildTopicInManagementUI() {
-        iHaveCreatedANewChildTopic();
+    @Given("^I have linked teams to the new child topic$")
+    public void iHaveLinkedTeamsToTheNewChildTopic() {
         navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         genericInputStepDefs.clickTheButton("SUBMIT");
@@ -370,6 +369,63 @@ public class ManagementUIStepDefs extends Page {
         fetch.giveMeACase("DCU MIN", "MARKUP");
         markUpDecision.getToMarkupAddATopicScreenPrerequisites();
         topics.enterATopic("Register of faith leaders");
+    }
+
+    @When("^I enter a display name$")
+    public void iEnterADisplayName() {
+        addChildTopic.inputNewChildTopic();
+    }
+
+    @When("^I select a parent topic$")
+    public void iSelectAParentTopic() {
+        addChildTopic.selectAParentTopic("Specific Cases");
+    }
+
+    @Then("^I am returned to the dashboard screen$")
+    public void iAmReturnedToTheDashboardScreen() {
+        dashboard.assertElementIsDisplayed(dashboard.subheading);
+    }
+
+    @Then("^an error message should be displayed as no parent topic has been selected$")
+    public void anErrorMessageShouldBeDisplayedAsNoParentTopicHasBeenSelected() {
+        addChildTopic.assertParentTopicIsRequiredErrorMessage();
+    }
+
+    @Then("^an error message should be displayed as no display name has been entered$")
+    public void anErrorMessageShouldBeDisplayedAsNoDisplayNameHasBeenEntered() {
+        addChildTopic.assertDisplayNameIsRequiredErrorMessage();
+    }
+
+    @Then("^an error message should be displayed stating that topic already exists$")
+    public void anErrorMessageShouldBeDisplayedStatingThatTopicAlreadyExists() {
+        addChildTopic.assertDuplicateTopicErrorMessage();
+    }
+
+    @And("^I enter a parent topic and display name that duplicate an existing child topic$")
+    public void iEnterAParentTopicAndDisplayNameThatDuplicateAnExistingChildTopic() {
+        addChildTopic.selectAParentTopic("Biometrics");
+        addChildTopic.inputAChildTopicDisplayName("TEST TOPIC");
+    }
+
+    @And("^I select a different parent topic$")
+    public void iSelectADifferentParentTopic() {
+        addChildTopic.selectAParentTopic("Biometrics");
+    }
+
+    @And("^I enter the same display name$")
+    public void iEnterTheSameDisplayName() {
+        addChildTopic.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
+    }
+
+    @And("^I get a case and progress to the point of adding a topic$")
+    public void iCreateACaseAndProgressToThePointOfAddingATopic() {
+        fetch.giveMeACase("DCU MIN", "MARKUP");
+        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+    }
+
+    @Then("^an error message should be displayed as the topic was not recognised as a valid topic$")
+    public void anErrorMessageShouldBeDisplayedAsTheTopicWasNotRecognisedAsAValidTopic() {
+        markUpDecision.assertTopicIsRequiredErrorMessage();
     }
 }
 

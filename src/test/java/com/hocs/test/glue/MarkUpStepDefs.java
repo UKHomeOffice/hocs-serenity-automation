@@ -107,6 +107,10 @@ public class MarkUpStepDefs extends Page {
             case "EXTREMISTS LEAFLETING THE PUBLIC":
                 topics.enterATopicWithoutContinuingToTheDraftStage(topic);
                 break;
+            case "NEW CHILD TOPIC":
+                topics.enterATopicWithoutContinuingToTheDraftStage(sessionVariableCalled("newChildTopic").toString());
+                setSessionVariable("topic").to(sessionVariableCalled("newChildTopic").toString());
+                break;
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
         }
