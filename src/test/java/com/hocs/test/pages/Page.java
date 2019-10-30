@@ -171,6 +171,9 @@ public class Page extends PageObject {
     @FindBy(className = "govuk-heading-l")
     protected WebElementFacade pageTitle;
 
+    @FindBy(xpath = "//h1")
+    protected WebElementFacade managementUIPageTitle;
+
     @FindBy(xpath = "//h1/span")
     protected WebElementFacade pageCaption;
 

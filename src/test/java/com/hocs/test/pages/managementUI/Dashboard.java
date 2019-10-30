@@ -16,8 +16,20 @@ public class Dashboard extends Page {
     @FindBy(xpath = "//a[@href='/add-unit']")
     public WebElementFacade addUnitButton;
 
+    @FindBy(xpath = "//a[@href='/unit-search']")
+    public WebElementFacade viewUnitsButton;
+
     @FindBy(xpath = "//a[@href='/add-standard-line']")
     public WebElementFacade addStandardLineButton;
 
+    @FindBy(xpath = "//a[@href='/topic-to-team']")
+    public WebElementFacade linkTopicToTeamButton;
+
+    @FindBy(linkText = "Correspondence System Management")
+    public WebElementFacade dashboardLink;
+
+    public void goToDashboard() {
+        dashboardLink.click();
+    }
 
 }

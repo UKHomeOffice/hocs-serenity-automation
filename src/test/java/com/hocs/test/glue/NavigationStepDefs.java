@@ -5,9 +5,8 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
-import com.hocs.test.pages.give_me_a_case.fetch;
+import com.hocs.test.pages.give_me_a_case.Fetch;
 import config.Environments;
 import config.Services;
 
@@ -33,7 +32,7 @@ public class NavigationStepDefs extends Page {
 
     Homepage homepage;
 
-    fetch fetch;
+    Fetch fetch;
 
     Workstacks workstacks;
 

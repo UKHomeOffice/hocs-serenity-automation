@@ -155,4 +155,10 @@ public class Topics extends Page {
         System.out.println(thisTopic);
         assertThat(thisTopic, is("NAME: " + testTopic));
     }
+
+    public void getCurrentDefaultTeamsForTopic() {
+        waitABit(2000);
+        setSessionVariable("defaultDraftTeam").to(autoAssignedDraftTeam.getValue());
+        setSessionVariable("defaultPrivateOfficeTeam").to(autoAssignedPrivateOfficeTeam.getValue());
+    }
 }

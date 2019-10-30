@@ -25,12 +25,12 @@ public class UnitManagement extends Page {
     public WebElementFacade shortCodeRequiredErrorMessage;
 
     public void assertUnitManagementPageTitle() {
-        assertThat($("//h1").getText(), is("Add Unit"));
+        assertThat(managementUIPageTitle.getText(), is("Add Unit"));
     }
 
     public void assertDisplayNameAndShortCodeErrorMessages() {
-        assertThat(displayNameRequiredErrorMessage.getText(), is("A Display Name is required"));
-        assertThat(shortCodeRequiredErrorMessage.getText(), is("A Short Code is required"));
+        assertThat(displayNameRequiredErrorMessage.getText(), is("The Display Name is required"));
+        assertThat(shortCodeRequiredErrorMessage.getText(), is("The Short Code is required"));
     }
 
 }
