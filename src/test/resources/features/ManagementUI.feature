@@ -72,7 +72,62 @@ Feature: User manages HOCS teams, topics and units
     And I navigate to the "ADD A UNIT" Management page
     When I click the "SUBMIT" button
     Then an error message should be displayed as they have not entered a display name and short code
-    
+
+  @HOCS-1094 @AddChildTopic @Validation
+  Scenario: User must select a parent topic on the Add Child Topic page
+    And I navigate to the "ADD CHILD TOPIC" Management page
+    When I enter a display name
+    And I click the "SUBMIT" button
+    Then an error message should be displayed as no parent topic has been selected
+
+  @HOCS-1094 @AddChildTopic @Validation
+  Scenario: User must enter a display name on the Add Child Topic page
+    And I navigate to the "ADD CHILD TOPIC" Management page
+    When I select a parent topic
+    And I click the "SUBMIT" button
+    Then an error message should be displayed as no display name has been entered
+
+  @HOCS-1094 @AddChildTopic
+  Scenario: User can submit a new child topic
+    And I navigate to the "ADD CHILD TOPIC" Management page
+    And I select a parent topic
+    And I enter a display name
+    When I click the "SUBMIT" button
+    Then I am returned to the dashboard screen
+
+  @HOCS-1094 @AddChildTopic @Validation
+  Scenario: User cannot create a child topic with the same parent topic and display name as one that already exists
+    And I navigate to the "ADD CHILD TOPIC" Management page
+    And I enter a parent topic and display name that duplicate an existing child topic
+    When I click the "SUBMIT" button
+    Then an error message should be displayed stating that topic already exists
+
+  @HOCS-1094 @AddChildTopic
+  Scenario: User can use the same display name for two different child topics if the parent topics are different
+    And I have created a new child topic
+    And I navigate to the "ADD CHILD TOPIC" Management page
+    And I select a different parent topic
+    And I enter the same display name
+    When I click the "SUBMIT" button
+    Then I am returned to the dashboard screen
+
+  @HOCS-1094 @AddChildTopic
+  Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
+    And I have created a new child topic
+    And I have linked teams to the new child topic
+    And I navigate to "HOCS"
+    And I get a case and progress to the point of adding a topic
+    When I add the topic "NEW CHILD TOPIC"
+    Then the topic should be added to the case
+
+  @HOCS-1094 @AddChildTopic @Validation
+  Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
+    And I have created a new child topic
+    And I navigate to "HOCS"
+    And I get a case and progress to the point of adding a topic
+    When I add the topic "NEW CHILD TOPIC"
+    Then an error message should be displayed as the topic was not recognised as a valid topic
+
   @HOCS-1130 @LinkTopicToTeam
   Scenario: User can choose and submit teams to link to a new topic
     Given I have created a new child topic
@@ -121,7 +176,8 @@ Feature: User manages HOCS teams, topics and units
 
   @HOCS-1130 @LinkTopicToTeam
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
-    Given I have linked teams to a new child topic in Management UI
+    And I have created a new child topic
+    And I have linked teams to the new child topic
     And I navigate to "HOCS"
     And I create a single case "DCU MIN"
     And the Data Input Stage is completed for "DCU MIN" caseType

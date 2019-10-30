@@ -28,6 +28,9 @@ public class Dashboard extends Page {
     @FindBy(linkText = "Correspondence System Management")
     public WebElementFacade dashboardLink;
 
+    @FindBy(xpath = ".//h1[contains(text(), 'Choose an area to manage')]")
+    public WebElementFacade subheading;
+
     public void goToDashboard() {
         dashboardLink.click();
     }
