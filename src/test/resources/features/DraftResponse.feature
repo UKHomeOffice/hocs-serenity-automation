@@ -9,8 +9,8 @@ Feature: HOCS User is able to draft a response
     When I select a case "should not" answered by my team
     And I "complete" the rejection note
     Then the "DCU MIN" case should be moved to the "Markup" stage
-    And the "initial draft reject"email is sent to the "Mark Up user" and "Nominated Person in the "Markup Team"
-    And I return to the home page
+    And the "initial draft reject"email is sent to the "Mark Up user" and the "Nominated Person in the Markup Team"
+    And I am returned to my home screen
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, does not complete a rejection note
@@ -24,7 +24,7 @@ Feature: HOCS User is able to draft a response
     When I "complete" the call details
     Then I am taken to the "home" page
     And the case is completed
-    And I return to the home page
+    And I am returned to my home screen
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
@@ -37,7 +37,7 @@ Feature: HOCS User is able to draft a response
     Given I click the "no" to offline button
     Then the case will progress to the QA stage
     And the nominated person of the team that own the case receives an email
-    And I return to the home page
+    And I am returned to my home screen
 
   @HOCS-297, @HOCS-298, @HOCS-239
   Scenario: User selects offline QA
@@ -46,7 +46,7 @@ Feature: HOCS User is able to draft a response
     When I progress the case
     Then the Quality Assurer will receive a notification to say they have QA’d that case
     And the case will progress to the "Private Office" stage
-    And I am taken to the home page
+    And I am returned to my home screen
 
   @Navigation
   Scenario: Clicking the cancel button on the allocate case screen at the Draft stage should take the user back to the

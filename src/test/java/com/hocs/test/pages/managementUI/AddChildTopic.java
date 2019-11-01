@@ -33,7 +33,7 @@ public class AddChildTopic extends Page {
     public void selectAParentTopic(String parentTopic) {
         waitABit(1000);
         clickOn(parentTopicSearchBar);
-        typeInto(parentTopicSearchBar, parentTopic);
+        parentTopicSearchBar.sendKeys(parentTopic);
         setSessionVariable("parentTopic").to(parentTopic);
         parentTopicSearchBar.sendKeys(Keys.ENTER);
     }

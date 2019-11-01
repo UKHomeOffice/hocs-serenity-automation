@@ -271,10 +271,10 @@ public class ManagementUIStepDefs extends Page {
     public void anErrorMessageShouldBeDisplayedAsNoTeamHasBeenSelected(String typeOfTeam) {
         switch (typeOfTeam.toUpperCase()) {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
-                linkTopicToTeam.assertTeamIsRequiredErrorMessage();
+                linkTopicToTeam.assertDraftandQATeamIsRequiredErrorMessage();
                 break;
             case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
-                linkTopicToTeam.assertTeamIsRequiredErrorMessage();
+                linkTopicToTeam.assertPrivateAndMinisterTeamIsRequiredErrorMessage();
                 break;
             default:
                 pendingStep(typeOfTeam + " is not defined within " + getMethodName());
@@ -426,6 +426,11 @@ public class ManagementUIStepDefs extends Page {
     @Then("^an error message should be displayed as the topic was not recognised as a valid topic$")
     public void anErrorMessageShouldBeDisplayedAsTheTopicWasNotRecognisedAsAValidTopic() {
         markUpDecision.assertTopicIsRequiredErrorMessage();
+    }
+
+    @And("^a success message is displayed$")
+    public void aSuccessMessageIsDisplayed() {
+        dashboard.assertSuccessMessageDisplayed();
     }
 }
 

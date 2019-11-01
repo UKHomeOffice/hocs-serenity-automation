@@ -45,7 +45,7 @@ public class LinkTopicToTeam extends Page {
     public void selectADraftAndQATeam(String team) {
         waitABit(1000);
         clickOn(draftAndQATeamSearchBar);
-        typeInto(draftAndQATeamSearchBar, team);
+        draftAndQATeamSearchBar.sendKeys(team);
         setSessionVariable("chosenDraftAndQATeam").to(team);
         waitABit(1000);
         draftAndQATeamSearchBar.sendKeys(Keys.ENTER);
@@ -54,7 +54,7 @@ public class LinkTopicToTeam extends Page {
     public void selectAPrivateAndMinisterTeam(String team) {
         waitABit(1000);
         clickOn(privateAndMinisterTeamSearchBar);
-        typeInto(privateAndMinisterTeamSearchBar, team);
+        privateAndMinisterTeamSearchBar.sendKeys(team);
         setSessionVariable("chosenPrivateAndMinisterTeam").to(team);
         waitABit(1000);
         privateAndMinisterTeamSearchBar.sendKeys(Keys.ENTER);
@@ -74,10 +74,15 @@ public class LinkTopicToTeam extends Page {
     }
 
     public void assertTopicIsRequiredErrorMessage() {
-        assertThat(errorMessageContents.getText(), is("Please select a topic before submitting."));
+        assertThat(errorMessageContents.getText(), is("Select a topic before submitting."));
     }
 
-    public void assertTeamIsRequiredErrorMessage() {
-        assertThat(errorMessageContents.getText(), is("Please select a topic before submitting."));
+    public void assertDraftandQATeamIsRequiredErrorMessage() {
+        assertThat(errorMessageContents.getText(), is("The team for Initial Draft and QA response stages is required"));
+    }
+
+    public void assertPrivateAndMinisterTeamIsRequiredErrorMessage() {
+        assertThat(errorMessageContents.getText(),
+                is("The team for Private Office and Minister sign off stages is required"));
     }
 }

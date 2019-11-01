@@ -94,6 +94,7 @@ Feature: User manages HOCS teams, topics and units
     And I enter a display name
     When I click the "SUBMIT" button
     Then I am returned to the dashboard screen
+    And a success message is displayed
 
   @HOCS-1094 @AddChildTopic @Validation
   Scenario: User cannot create a child topic with the same parent topic and display name as one that already exists
@@ -110,6 +111,7 @@ Feature: User manages HOCS teams, topics and units
     And I enter the same display name
     When I click the "SUBMIT" button
     Then I am returned to the dashboard screen
+    And a success message is displayed
 
   @HOCS-1094 @AddChildTopic
   Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
@@ -129,14 +131,14 @@ Feature: User manages HOCS teams, topics and units
     Then an error message should be displayed as the topic was not recognised as a valid topic
 
   @HOCS-1130 @LinkTopicToTeam
-  Scenario: User can choose and submit teams to link to a new topic
+  Scenario: User can view a summary of the topic and teams before final submission
     Given I have created a new child topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES NOT" have linked teams
     And I click the "SUBMIT" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
-    And I click the "SUBMIT" button
+    When I click the "SUBMIT" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
   @HOCS-1130 @LinkTopicToTeam
@@ -146,8 +148,10 @@ Feature: User manages HOCS teams, topics and units
     And I click the "SUBMIT" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    When I click the "SUBMIT" button
     And I click the "SUBMIT" button
-    Then the summary should correctly detail the topic and the teams chosen to link to it
+    Then I am returned to the dashboard screen
+    And a success message is displayed
 
   @HOCS-1130 @LinkTopicToTeam @Validation
   Scenario: User must select a topic on the topic search page for linking team to topic
@@ -165,7 +169,6 @@ Feature: User manages HOCS teams, topics and units
     Then an error message should be displayed as no "INITIAL DRAFT AND QA RESPONSE STAGES" team has been selected
 
   @HOCS-1130 @LinkTopicToTeam @Validation
-#    Currently has incorrect error message, test will need updating when correct error message implemented
   Scenario: User must select a 'Private Office/Minister sign off stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams

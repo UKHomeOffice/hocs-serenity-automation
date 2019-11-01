@@ -31,8 +31,15 @@ public class Dashboard extends Page {
     @FindBy(xpath = ".//h1[contains(text(), 'Choose an area to manage')]")
     public WebElementFacade subheading;
 
+    @FindBy(xpath = ".//h2[contains(text(), 'Success')]")
+    public WebElementFacade successMessage;
+
     public void goToDashboard() {
         dashboardLink.click();
+    }
+
+    public void assertSuccessMessageDisplayed() {
+        assertElementIsDisplayed(successMessage);
     }
 
 }
