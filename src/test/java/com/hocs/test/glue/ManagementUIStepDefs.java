@@ -69,7 +69,7 @@ public class ManagementUIStepDefs extends Page {
     @When("^I select the \"([^\"]*)\" team from the dropdown$")
     public void selectTeamFromDropdown(String teamName) {
         switch (teamName.toUpperCase()) {
-            case "PURSUE DISRUPTIONS UNIT":
+            case "UK CENTRAL AUTHORITY":
                 teamManagement.selectATeam(teamName);
                 break;
             case "OSCT SECRETARIAT":
@@ -203,7 +203,25 @@ public class ManagementUIStepDefs extends Page {
         standardLine.enterStandardLineTopic();
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();
-        clickOn(submitButton);
+        clickOn(unitManagement.submitButton);
+    }
+
+    @Then("^the Standard Line should be added to the selected topic$")
+    public void assertThatStandardLineHasBeenAdded() {
+        standardLine.assertStandardLineSuccessMessage();
+    }
+
+    @When("^I enter a Standard Line expiration date in the past$")
+    public void enterPastStandardLineExpirationDate() {
+        standardLine.enterStandardLineTopic();
+        standardLine.addStandardLineDocument();
+        standardLine.enterPastStandardLineExpirationDate();
+        clickOn(unitManagement.submitButton);
+    }
+
+    @Then("^an error message should be displayed as the expiration date must be in the future$")
+    public void assertThatExpirationDateMustBeInFutureErrorMessageIsDisplayed() {
+        standardLine.assertDateMustBeInFutureErrorMessage();
     }
 }
 

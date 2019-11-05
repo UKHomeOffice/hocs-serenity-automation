@@ -44,25 +44,32 @@ public class StandardLine extends Page {
     @FindBy(xpath = "//td[@class='govuk-table__cell'][text()='testtesttest.docx']")
     public WebElementFacade standardLineDocumentAssert;
 
-    public void enterExpirationDate() {
-        expirationDateDayTextBox.sendKeys("06");
-        expirationDateMonthTextBox.sendKeys("03");
-        expirationDateYearTextBox.sendKeys("2019");
-    }
+    @FindBy(xpath = "//a[@href='#expiryDate-error']")
+    public WebElementFacade pastExpirationDateErrorMessage;
+
+    @FindBy(xpath = "//p[@class='govuk-body']")
+    public WebElementFacade standardLineCreationSuccessMessage;
 
     public void enterStandardLineTopic() {
-        typeInto(topicTypeahead, "Cardiff University Kittens");
+        waitABit(500);
+        topicTypeahead.sendKeys("Cardiff University Kittens");
         topicTypeahead.sendKeys(Keys.ENTER);
     }
 
     public void addStandardLineDocument() {
-        upload("src/test/resources/documents/test1.docx").to(standardLineDocumentButton);
+        upload("src/test/resources/documents/test12.docx").to(standardLineDocumentButton);
     }
 
     public void enterStandardLineExpirationDate() {
         typeInto(expirationDateDayTextBox, "12");
         typeInto(expirationDateMonthTextBox, "12");
         typeInto(expirationDateYearTextBox, "2020");
+    }
+
+    public void enterPastStandardLineExpirationDate() {
+        typeInto(expirationDateDayTextBox, "01");
+        typeInto(expirationDateMonthTextBox, "05");
+        typeInto(expirationDateYearTextBox, "2018");
     }
 
     public void assertAddStandardLinePageTitle() {
@@ -83,5 +90,13 @@ public class StandardLine extends Page {
 
     public void assertStandardLineDocumentHasBeenAddedToTopic() {
         assertThat(standardLineDocumentAssert.getText(), is("testtesttest.docx"));
+    }
+
+    public void assertDateMustBeInFutureErrorMessage() {
+        assertThat(pastExpirationDateErrorMessage.getText(), is("The Expiry Date must be in the future"));
+    }
+
+    public void assertStandardLineSuccessMessage(){
+        assertThat(standardLineCreationSuccessMessage.getText(), is("The standard line was created successfully"));
     }
 }

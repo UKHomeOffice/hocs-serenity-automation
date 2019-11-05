@@ -60,7 +60,7 @@ public class TeamManagement extends Page {
 
     public void selectAUser(String nameOfUser) {
         clickOn(addTeamMembersButton);
-        typeInto(userSearchBar, nameOfUser);
+        userSearchBar.sendKeys(nameOfUser);
         setSessionVariable("nameOfUser").to(nameOfUser);
         waitABit(4000);
         userSearchBar.sendKeys(Keys.ENTER);
