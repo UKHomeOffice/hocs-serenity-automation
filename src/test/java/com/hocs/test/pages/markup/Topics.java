@@ -91,7 +91,8 @@ public class Topics extends Page {
         typeInto(topicsTextField, topic);
         sleep(1000);
         hitReturnToSendTopic();
-        clickOn(addButton);
+        if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage))
+            clickOn(addButton);
     }
 
     // Multi Step Methods
@@ -154,5 +155,11 @@ public class Topics extends Page {
         String thisTopic = topicInTimeline.getText().toUpperCase();
         System.out.println(thisTopic);
         assertThat(thisTopic, is("NAME: " + testTopic));
+    }
+
+    public void getCurrentDefaultTeamsForTopic() {
+        waitABit(2000);
+        setSessionVariable("defaultDraftTeam").to(autoAssignedDraftTeam.getValue());
+        setSessionVariable("defaultPrivateOfficeTeam").to(autoAssignedPrivateOfficeTeam.getValue());
     }
 }

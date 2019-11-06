@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.homepage.Homepage;
@@ -88,6 +89,9 @@ public class MarkUpStepDefs extends Page {
             case "CLASSIFICATION OF CANNABIS":
                 topics.enterATopic(topic);
                 break;
+            case "NEW CHILD TOPIC":
+                topics.enterATopic(sessionVariableCalled("newChildTopic").toString());
+                break;
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
         }
@@ -102,6 +106,10 @@ public class MarkUpStepDefs extends Page {
                 break;
             case "EXTREMISTS LEAFLETING THE PUBLIC":
                 topics.enterATopicWithoutContinuingToTheDraftStage(topic);
+                break;
+            case "NEW CHILD TOPIC":
+                topics.enterATopicWithoutContinuingToTheDraftStage(sessionVariableCalled("newChildTopic").toString());
+                setSessionVariable("topic").to(sessionVariableCalled("newChildTopic").toString());
                 break;
             default:
                 pendingStep(topic + " is not defined within " + getMethodName());
@@ -202,6 +210,10 @@ public class MarkUpStepDefs extends Page {
             case "DRUGS & ALCOHOL UNIT":
                 topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
+            case "NEW DRAFTING AND QA TEAM":
+                topics.assertElementTextIs(topics.autoAssignedDraftTeam,
+                        sessionVariableCalled("chosenDraftAndQATeam").toString());
+                break;
             default:
                 pendingStep(draftingTeam + " is not defined within " + getMethodName());
         }
@@ -227,15 +239,13 @@ public class MarkUpStepDefs extends Page {
             case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
                 topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
                 break;
+            case "NEW PRIVATE AND MINISTERIAL TEAM":
+                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
+                        sessionVariableCalled("chosenPrivateAndMinisterTeam").toString());
+                break;
             default:
                 pendingStep(privateOfficeTeam + " is not defined within " + getMethodName());
         }
-    }
-
-    @When("^I select a primary topic$")
-    public void iSelectAPrimaryTopic() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
     }
 
     @Then("^the case should be found in the \"([^\"]*)\" team$")

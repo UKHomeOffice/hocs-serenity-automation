@@ -12,7 +12,7 @@ Feature: HOCS User is able to login
   Scenario: User is able to log out from one user and login as another
     And I enter my login credentials "EAMON DROKO" and click the login button
     When I logout as the initial user
-    And I enter the login credentials of another user "DANNY LARGE" and click the login button
+    And I enter the login credentials of another user "DCU" and click the login button
     Then I should be logged in as the new user
 
   @Validation

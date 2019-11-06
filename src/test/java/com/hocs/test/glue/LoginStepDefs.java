@@ -1,5 +1,6 @@
 package com.hocs.test.glue;
 
+import com.hocs.test.pages.managementUI.Dashboard;
 import config.*;
 
 import static config.Users.*;
@@ -28,6 +29,8 @@ public class LoginStepDefs extends Page {
     WebDriver driver;
 
     Homepage homepage;
+
+    Dashboard dashboard;
 
     LoginPage loginPage;
 
@@ -69,23 +72,29 @@ public class LoginStepDefs extends Page {
     public void iHaveNavigatedToTheManagementUI(String user) {
         navigateToManagementUI();
         setSessionVariable("user").to(user);
-        switch (user.toUpperCase()) {
-            case "DCU":
-                enterHocsLoginDetails(DCU);
-                break;
-            case "TEST":
-                enterHocsLoginDetails(TEST);
-                break;
-            case "DANNY":
-                enterHocsLoginDetails(DANNY);
-                break;
-            case "EAMON":
-                enterHocsLoginDetails(EAMON);
-                break;
-            default:
-                pendingStep(user + " is not defined within " + getMethodName());
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("On fresh browser, beginning test..");
+            switch (user.toUpperCase()) {
+                case "DCU":
+                    enterHocsLoginDetails(DCU);
+                    break;
+                case "TEST":
+                    enterHocsLoginDetails(TEST);
+                    break;
+                case "DANNY":
+                    enterHocsLoginDetails(DANNY);
+                    break;
+                case "EAMON":
+                    enterHocsLoginDetails(EAMON);
+                    break;
+                default:
+                    pendingStep(user + " is not defined within " + getMethodName());
+            }
+            clickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Browser not closed down correctly, attempting to continue test");
+            dashboard.goToDashboard();
         }
-        clickOn(loginPage.continueButton);
     }
 
     @Given("^I am on the Home Office Correspondence Login Page")
@@ -211,7 +220,7 @@ public class LoginStepDefs extends Page {
         loginPage.enterPassword(password.getPassword());
     }
 
-    private void navigateToHocs() {
+    protected void navigateToHocs() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
@@ -235,10 +244,10 @@ public class LoginStepDefs extends Page {
                     pendingStep(env + " is not defined within " + getMethodName());
             }
         }
-        driver.get(baseUrl);
+        getDriver().get(baseUrl);
     }
 
-    private void navigateToManagementUI() {
+    protected void navigateToManagementUI() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
@@ -248,6 +257,6 @@ public class LoginStepDefs extends Page {
         } else {
             baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
         }
-        driver.get(baseUrl);
+        getDriver().get(baseUrl);
     }
 }

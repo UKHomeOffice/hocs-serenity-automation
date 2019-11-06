@@ -25,7 +25,7 @@ public class UnitManagement extends Page {
     public WebElementFacade shortCodeRequiredErrorMessage;
 
     public void assertUnitManagementPageTitle() {
-        assertThat($("//h1").getText(), is("Add Unit"));
+        assertThat(managementUIPageTitle.getText(), is("Add Unit"));
     }
 
     public void assertDisplayNameAndShortCodeErrorMessages() {
