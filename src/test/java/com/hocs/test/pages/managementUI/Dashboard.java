@@ -42,4 +42,6 @@ public class Dashboard extends Page {
         assertElementIsDisplayed(successMessage);
     }
 
+    @FindBy(xpath = "//p[@class='govuk-body']")
+    public WebElementFacade creationSuccessMessage;
 }
