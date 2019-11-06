@@ -22,6 +22,10 @@ public class Dashboard extends Page {
     @FindBy(xpath = "//a[@href='/add-standard-line']")
     public WebElementFacade addStandardLineButton;
 
+
+    @FindBy(xpath = "//p[@class='govuk-body']")
+    public WebElementFacade creationSuccessMessage;
+
     @FindBy(xpath = "//a[@href='/topic-to-team']")
     public WebElementFacade linkTopicToTeamButton;
 
@@ -42,6 +46,5 @@ public class Dashboard extends Page {
         assertElementIsDisplayed(successMessage);
     }
 
-    @FindBy(xpath = "//p[@class='govuk-body']")
-    public WebElementFacade creationSuccessMessage;
+
 }

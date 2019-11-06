@@ -226,6 +226,32 @@ public class ManagementUIStepDefs extends Page {
         standardLine.assertTopicIsRequiredErrorMessage();
     }
 
+
+    @When("^I add a new Standard Line$")
+    public void userAddsANewStandardLine() {
+        standardLine.enterStandardLineTopic();
+        standardLine.addStandardLineDocument();
+        standardLine.enterStandardLineExpirationDate();
+        clickOn(unitManagement.submitButton);
+    }
+
+    @Then("^the Standard Line should be added to the selected topic$")
+    public void assertThatStandardLineHasBeenAdded() {
+        standardLine.assertStandardLineSuccessMessage();
+    }
+
+    @When("^I enter a Standard Line expiration date in the past$")
+    public void enterPastStandardLineExpirationDate() {
+        standardLine.enterStandardLineTopic();
+        standardLine.addStandardLineDocument();
+        standardLine.enterPastStandardLineExpirationDate();
+        clickOn(unitManagement.submitButton);
+    }
+
+    @Then("^an error message should be displayed as the expiration date must be in the future$")
+    public void assertThatExpirationDateMustBeInFutureErrorMessageIsDisplayed() {
+        standardLine.assertDateMustBeInFutureErrorMessage();
+=======
     @And("^I select a topic that \"([^\"]*)\" have linked teams$")
     public void iSelectATopicThatHaveLinkedTeams(String topicState) {
         switch (topicState.toUpperCase()) {
@@ -441,9 +467,6 @@ public class ManagementUIStepDefs extends Page {
         clickOn(unitManagement.submitButton);
     }
 
-    @Then("^the Standard Line should be added to the selected topic$")
-    public void assertThatStandardLineHasBeenAdded() {
-        standardLine.assertStandardLineSuccessMessage();
     }
 
     @When("^I enter a Standard Line expiration date in the past$")
