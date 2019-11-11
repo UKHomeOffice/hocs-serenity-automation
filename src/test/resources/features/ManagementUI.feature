@@ -33,7 +33,7 @@ Feature: User manages HOCS teams, topics and units
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
     And I add the users "eamon.droko@ten10.com" and "danny.large@ten10.com" to the team
-    Then the users should visible in the team list
+    Then the users should be visible in the team list
 
   @HOCS-832 @ManagementUI
   Scenario: Users should no longer be visible in team page when removed

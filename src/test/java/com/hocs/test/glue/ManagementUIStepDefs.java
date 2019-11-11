@@ -80,8 +80,11 @@ public class ManagementUIStepDefs extends Page {
             case "TEAM":
                 teamManagement.assertTeamManagementPageTitle();
                 break;
-            case "UNIT":
-                unitManagement.assertUnitManagementPageTitle();
+            case "ADD A UNIT":
+                unitManagement.assertAddUnitPageTitle();
+                break;
+            case "VIEW UNITS":
+                unitManagement.assertViewUnitPageTitle();
                 break;
             case "ADD CHILD TOPIC":
                 addChildTopic.assertAddChildTopicPageTitle();
@@ -184,7 +187,6 @@ public class ManagementUIStepDefs extends Page {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        teamManagement.clearTeamMembers();
         switch (firstUser.toUpperCase()) {
             case "EAMON.DROKO@TEN10.COM":
                 setSessionVariable("firstUser").to(firstUser);
@@ -204,7 +206,7 @@ public class ManagementUIStepDefs extends Page {
         }
     }
 
-    @Then("^the users should visible in the team list$")
+    @Then("^the users should be visible in the team list$")
     public void assertThatUsersAreBothVisibleInTeamList() {
         teamManagement.assertMultipleUsersAddedToTeam();
     }

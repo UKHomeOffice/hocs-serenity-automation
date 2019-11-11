@@ -24,8 +24,12 @@ public class UnitManagement extends Page {
     @FindBy(xpath = "//a[@href='#shortCode-error']")
     public WebElementFacade shortCodeRequiredErrorMessage;
 
-    public void assertUnitManagementPageTitle() {
+    public void assertAddUnitPageTitle() {
         assertThat(managementUIPageTitle.getText(), is("Add Unit"));
+    }
+
+    public void assertViewUnitPageTitle() {
+        assertThat(managementUIPageTitle.getText(), is("Unit List"));
     }
 
     public void assertDisplayNameAndShortCodeErrorMessages() {
