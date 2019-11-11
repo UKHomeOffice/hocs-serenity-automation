@@ -12,8 +12,8 @@ Feature: User manages HOCS teams, topics and units
       | TEAM               |
       | ADD CHILD TOPIC    |
       | LINK TOPIC TO TEAM |
-#      | ADD A UNIT         |
-#      | VIEW UNITS         |
+      | ADD A UNIT         |
+      | VIEW UNITS         |
 
   @HOCS-832 @ManagementUI
   Scenario: User can not see any assigned users if team does not have any
