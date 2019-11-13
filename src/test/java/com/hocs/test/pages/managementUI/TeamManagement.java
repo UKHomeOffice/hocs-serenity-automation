@@ -21,7 +21,7 @@ public class TeamManagement extends Page {
     @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
     public WebElementFacade viewTeamButton;
 
-    @FindBy(xpath = "//button[@class='govuk-button add-team-members-button']")
+    @FindBy(css = "button[type='submit']:nth-of-type(1)")
     public WebElementFacade addTeamMembersButton;
 
     @FindBy(xpath = "//input[@id='users-input']")
@@ -65,6 +65,7 @@ public class TeamManagement extends Page {
         waitABit(4000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
+        waitABit(2000);
     }
 
     public void clickAddSelectedUsers() {
@@ -102,9 +103,9 @@ public class TeamManagement extends Page {
     }
 
     public void clearTeamMembers() {
-        WebElementFacade removeButton = $("//td//a");
-        if (isElementDisplayed($(removeButton))) {
-            clickOn(removeButton);
+        while (isElementDisplayed($("//td//a"))) {
+            clickOn($("//td//a"));
+            waitABit(1000);
         }
     }
 

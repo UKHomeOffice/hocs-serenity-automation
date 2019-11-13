@@ -80,8 +80,11 @@ public class ManagementUIStepDefs extends Page {
             case "TEAM":
                 teamManagement.assertTeamManagementPageTitle();
                 break;
-            case "UNIT":
-                unitManagement.assertUnitManagementPageTitle();
+            case "ADD A UNIT":
+                unitManagement.assertAddUnitPageTitle();
+                break;
+            case "VIEW UNITS":
+                unitManagement.assertViewUnitPageTitle();
                 break;
             case "ADD CHILD TOPIC":
                 addChildTopic.assertAddChildTopicPageTitle();
@@ -184,7 +187,6 @@ public class ManagementUIStepDefs extends Page {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        teamManagement.clearTeamMembers();
         switch (firstUser.toUpperCase()) {
             case "EAMON.DROKO@TEN10.COM":
                 setSessionVariable("firstUser").to(firstUser);
@@ -204,7 +206,7 @@ public class ManagementUIStepDefs extends Page {
         }
     }
 
-    @Then("^the users should visible in the team list$")
+    @Then("^the users should be visible in the team list$")
     public void assertThatUsersAreBothVisibleInTeamList() {
         teamManagement.assertMultipleUsersAddedToTeam();
     }
@@ -457,6 +459,49 @@ public class ManagementUIStepDefs extends Page {
     @Then("^an error message should be displayed as the expiration date must be in the future$")
     public void assertThatExpirationDateMustBeInFutureErrorMessageIsDisplayed() {
         standardLine.assertDateMustBeInFutureErrorMessage();
+    }
+
+    @And("^I enter a \"([^\"]*)\" Display Name$")
+    public void iEnterADisplayName(String displayNameType) {
+        switch (displayNameType.toUpperCase()) {
+            case "NEW":
+                unitManagement.inputNewUnitDisplayName();
+                break;
+            case "DUPLICATE":
+                unitManagement.inputUnitDisplayName(sessionVariableCalled("unitDisplayName"));
+                break;
+            default:
+                pendingStep(displayNameType + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("^I enter a \"([^\"]*)\" Short Code$")
+    public void iEnterAShortCode(String shortCodeType) {
+        switch (shortCodeType.toUpperCase()) {
+            case "NEW":
+                unitManagement.inputNewUnitShortCode();
+                break;
+            case "DUPLICATE":
+                unitManagement.inputUnitShortCode(sessionVariableCalled("unitShortCode"));
+                break;
+            default:
+                pendingStep(shortCodeType + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("^an error message should be displayed a unit with those details already exists$")
+    public void anErrorMessageShouldBeDisplayedAUnitWithThoseDetailsAlreadyExists() {
+        unitManagement.assertUnitAlreadyExistsErrorMessage();
+    }
+
+    @Then("^a list of units should be displayed$")
+    public void aListOfUnitsShouldBeDisplayed() {
+        unitManagement.assertListOfUnitsVisible();
+    }
+
+    @Then("^the previously created unit should be listed$")
+    public void thePreviouslyCreatedUnitShouldBeListed() {
+        unitManagement.assertListContainsCreatedUnit();
     }
 }
 
