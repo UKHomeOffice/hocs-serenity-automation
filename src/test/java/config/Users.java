@@ -4,7 +4,7 @@ public enum Users {
 
     DCU("smoke_test_user_dcu", "Password1"),
     TEST("",""),
-    DANNY("danny.large@ten10.com", "Password1!"),
+    CASEY("casey.prosser@ten10.com", "Password1!"),
     EAMON("eamon.droko@ten10.com", "Password1!"), //Just Eamon
     FAKE("FakeUser", "FAKE1!");
    /* NoTEAM("NoTEAM@placeholder.com", "Password1!"),
