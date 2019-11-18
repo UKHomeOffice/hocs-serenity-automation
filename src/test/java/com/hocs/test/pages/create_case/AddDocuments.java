@@ -9,29 +9,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AddDocuments extends Page {
 
-    @FindBy(id = "DCU_DTEN_DISPATCH_DEADLINE-day")
-    private WebElementFacade dispatchDeadlineDay;
-
-    @FindBy(id = "DTENDispatchDeadline-month")
-    private WebElementFacade dispatchDeadlineMonth;
-
-    @FindBy(id = "DTENDispatchDeadline-year")
-    private WebElementFacade dispatchDeadlineYear;
-
-    @FindBy(id = "DTENDraftDeadline-day")
-    private WebElementFacade draftDeadlineDay;
-
-    @FindBy(id = "DTENDraftDeadline-month")
-    private WebElementFacade draftDeadlineMonth;
-
-    @FindBy(id = "DTENDraftDeadline-year")
-    private WebElementFacade draftDeadlineYear;
-
     @FindBy(id = "add_document")
     private WebElementFacade addDocument;
-
-    @FindBy(xpath = "//input[@id='document']")
-    private WebElementFacade addStandardLineDocument;
 
     @FindBy(xpath = "//a[text()='Document type is required']")
     private WebElementFacade documentTypeIsRequiredErrorMessage;
@@ -39,10 +18,11 @@ public class AddDocuments extends Page {
     @FindBy(xpath = "//a[text()='Document is required']")
     private WebElementFacade documentIsRequiredErrorMessage;
 
-    public void pageTitleIsDisplayed() {
-        waitFor(pageTitle);
-        pageTitle.containsText("Add documents");
-    }
+    @FindBy(xpath = "//a[text()='document']")
+    public WebElementFacade addDocumentsButton;
+
+    @FindBy(id = "document_type")
+    public WebElementFacade documentTypeDropDown;
 
     public void bulkUploadDocuments(int documents) {
         String allFiles = "";
@@ -58,30 +38,6 @@ public class AddDocuments extends Page {
         addDocument.sendKeys(allFiles);
     }
 
-    public void enterDispatchDeadlineDay(int days) {
-        typeInto(dispatchDeadlineDay, todayPlusNDaysGetDay(days));
-    }
-
-    public void enterDispatchDeadlineMonth(int months) {
-        typeInto(dispatchDeadlineMonth, todayPlusNDaysGetMonth(months));
-    }
-
-    public void enterDispatchDeadlineYear(int years) {
-        typeInto(dispatchDeadlineYear, todayPlusNDaysGetYear(years));
-    }
-
-    public void enterDraftDeadlineDay(int days) {
-        typeInto(draftDeadlineDay, todayPlusNDaysGetDay(days));
-    }
-
-    public void enterDraftDeadlineMonth(int months) {
-        typeInto(draftDeadlineMonth, todayPlusNDaysGetMonth(months));
-    }
-
-    public void enterDraftDeadlineYear(int years) {
-        typeInto(draftDeadlineYear, todayPlusNDaysGetYear(years));
-    }
-
     public void assertDocumentTypeIsRequiredErrorMessage() {
         assertThat(documentTypeIsRequiredErrorMessage.getText(), is("Document type is required"));
     }
@@ -94,8 +50,29 @@ public class AddDocuments extends Page {
         upload("src/test/resources/documents/test1.docx").to(addDocument);
     }
 
-    public void uploadStandardLineDocument() {
-        upload("src/test/resources/documents/test1.docx").to(addStandardLineDocument);
+    public void selectDocumentTypeByIndex(int index) {
+        documentTypeDropDown.selectByIndex(index);
+    }
+
+    public void addAOriginalDocument() {
+        clickOn(addDocumentsButton);
+        selectDocumentTypeByIndex(3);
+        uploadDocument();
+        clickOn(addButton);
+    }
+
+    public void addADraftDocument() {
+        clickOn(addDocumentsButton);
+        selectDocumentTypeByIndex(2);
+        uploadDocument();
+        clickOn(addButton);
+    }
+
+    public void addAFinalDocument() {
+        clickOn(addDocumentsButton);
+        selectDocumentTypeByIndex(3);
+        uploadDocument();
+        clickOn(addButton);
     }
 }
 

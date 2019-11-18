@@ -125,6 +125,7 @@ public class NavigationStepDefs extends Page {
     @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
     public void getMeACase(String caseType, String stage) {
         fetch.giveMeACase(caseType, stage);
+        getCaseId();
     }
 
     @When("^I click the back to dashboard button$")

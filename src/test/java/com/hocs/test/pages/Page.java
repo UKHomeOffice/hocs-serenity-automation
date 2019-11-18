@@ -189,7 +189,7 @@ public class Page extends PageObject {
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
 
-    @FindBy(id = "RejectionNote")
+    @FindBy(id = "CaseNote_RejectionNote")
     protected WebElementFacade rejectReasonTextField;
 
     @FindBy(css = "[value = 'Refresh']")

@@ -52,8 +52,8 @@ public class LoginStepDefs extends Page {
                 case "TEST":
                     enterHocsLoginDetails(TEST);
                     break;
-                case "DANNY":
-                    enterHocsLoginDetails(DANNY);
+                case "CASEY":
+                    enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
@@ -81,8 +81,8 @@ public class LoginStepDefs extends Page {
                 case "TEST":
                     enterHocsLoginDetails(TEST);
                     break;
-                case "DANNY":
-                    enterHocsLoginDetails(DANNY);
+                case "CASEY":
+                    enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
@@ -107,9 +107,9 @@ public class LoginStepDefs extends Page {
     public void enterCredentialsAndClickLogin(String credentials) {
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
-            case "DANNY LARGE":
-                enterHocsUsername(DANNYLARGE);
-                enterHocsPassword(DANNYPASS);
+            case "CASEY PROSSER":
+                enterHocsUsername(CASEYPROSSER);
+                enterHocsPassword(CASEYPASS);
                 break;
             case "DCU":
                 enterHocsUsername(DCUSER);
@@ -133,8 +133,8 @@ public class LoginStepDefs extends Page {
     public void enterHocsPassword(String password) {
         setSessionVariable("password").to(password);
         switch (password) {
-            case "DANNY PASS":
-                enterHocsPassword(DANNYPASS);
+            case "CASEY PASS":
+                enterHocsPassword(CASEYPASS);
                 break;
             case "DCU PASS":
                 enterHocsPassword(DCUPASS);
@@ -181,9 +181,9 @@ public class LoginStepDefs extends Page {
         navigateToHocs();
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
-            case "DANNY LARGE":
-                enterHocsUsername(DANNYLARGE);
-                enterHocsPassword(DANNYPASS);
+            case "CASEY PROSSER":
+                enterHocsUsername(CASEYPROSSER);
+                enterHocsPassword(CASEYPASS);
                 break;
             case "DCU":
                 enterHocsUsername(DCUSER);

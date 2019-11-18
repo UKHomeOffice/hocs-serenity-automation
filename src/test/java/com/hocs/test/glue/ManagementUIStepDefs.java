@@ -122,7 +122,7 @@ public class ManagementUIStepDefs extends Page {
             case "EAMON.DROKO@TEN10.COM":
                 teamManagement.selectAUser(nameOfUser);
                 break;
-            case "DANNY.LARGE@TEN10.COM":
+            case "CASEY.PROSSER@TEN10.COM":
                 teamManagement.selectAUser(nameOfUser);
                 break;
             default:
@@ -197,7 +197,7 @@ public class ManagementUIStepDefs extends Page {
         }
 
         switch (secondUser.toUpperCase()) {
-            case "DANNY.LARGE@TEN10.COM":
+            case "CASEY.PROSSER@TEN10.COM":
                 setSessionVariable("secondUser").to(secondUser);
                 teamManagement.selectAUser(secondUser);
                 break;
@@ -503,5 +503,6 @@ public class ManagementUIStepDefs extends Page {
     public void thePreviouslyCreatedUnitShouldBeListed() {
         unitManagement.assertListContainsCreatedUnit();
     }
+
 }
 

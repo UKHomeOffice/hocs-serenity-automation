@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.dispatch.Dispatch;
@@ -49,6 +50,8 @@ public class GenericInputStepDefs extends Page {
     Topics topics;
 
     Draft draft;
+
+    AddDocuments addDocuments;
 
     MinisterSignOff minister;
 
@@ -150,6 +153,24 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
+    @And("I upload a \"([^\"]*)\" document")
+    public void IUploadADocument(String docType) {
+        switch (docType.toUpperCase()) {
+            case "ORIGINAL":
+                addDocuments.addAOriginalDocument();
+                break;
+            case "DRAFT":
+                addDocuments.addADraftDocument();
+                break;
+            case "FINAL":
+                addDocuments.addAFinalDocument();
+                break;
+            default:
+                pendingStep(docType + " is not defined within " + getMethodName());
+        }
+        clickOn(continueButton);
+    }
+
     @Then("^\"([^\"]*)\" error message is displayed$")
     public void errorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
@@ -195,7 +216,7 @@ public class GenericInputStepDefs extends Page {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
         draft.acceptAndDraftALetter();
-        draft.uploadDraftResponse();
+        addDocuments.addADraftDocument();
         qa.dontQAOffline();
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);

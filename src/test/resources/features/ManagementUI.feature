@@ -33,7 +33,7 @@ Feature: User manages HOCS teams, topics and units
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
-    And I add the users "eamon.droko@ten10.com" and "danny.large@ten10.com" to the team
+    And I add the users "eamon.droko@ten10.com" and "casey.prosser@ten10.com" to the team
     Then the users should be visible in the team list
 
   @HOCS-832 @ManagementUI @TeamManagement

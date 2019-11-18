@@ -461,7 +461,7 @@ public class DataInput extends Page {
         clickOn(correspondentMemberYesRadioButton);
         clickOn(continueButton);
 
-        typeInto(addMemberOfParliamentSearchField, "Valerie Vaz MP");
+        typeInto(addMemberOfParliamentSearchField, "Nicola Sturgeon MSP");
         addMemberOfParliamentSearchField.sendKeys(Keys.ENTER);
         String memberOfParliament = memberOfParliamentName.getText();
         setSessionVariable("memberOfParliamentName").to(memberOfParliament);

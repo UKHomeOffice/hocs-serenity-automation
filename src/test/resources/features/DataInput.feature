@@ -51,7 +51,7 @@ Feature: HOCS User is able to add data to a case
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "CONTINUE" button
     And I select to add a correspondent that "IS" a member of parliament
-    And I enter "Rt Hon John Bercow MP" in the "ADD A MEMBER OF PARLIAMENT" field
+    And I enter "Nicola Sturgeon MSP" in the "ADD A MEMBER OF PARLIAMENT" field
     Then they should be added to the list of correspondents
 
   @HOCS-277, @HOCS-238

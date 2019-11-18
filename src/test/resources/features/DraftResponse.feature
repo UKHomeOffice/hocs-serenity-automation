@@ -6,53 +6,51 @@ Feature: HOCS User is able to draft a response
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, and completes a rejection note
-    When I select a case "should not" answered by my team
+    When I select a case "should not" be answered by my team
     And I "complete" the rejection note
     Then the "DCU MIN" case should be moved to the "Markup" stage
-    And the "initial draft reject"email is sent to the "Mark Up user" and the "Nominated Person in the Markup Team"
     And I am returned to my home screen
 
   @HOCS-287, @HOCS-239
   Scenario: User decides the case is not for them, does not complete a rejection note
-    When I select a case "should not" answered by my team
+    When I select a case "should not" be answered by my team
     And I "do not complete" the rejection note
     Then an error message appears instructing me to add rejection reasons
 
   @HOCS-288, @HOCS-239
   Scenario: User responds by Phone and fills out call details to complete the stage
-    Given I select to reply by "phone"
+    Given I select a case "should" be answered by my team
+    And I select to reply by "phone"
     When I "complete" the call details
-    Then I am taken to the "home" page
+    And I select "no" to choosing another Response Type
+    Then I am returned to my home screen
     And the case is completed
-    And I am returned to my home screen
 
   @HOCS-288, @HOCS-239
   Scenario: Phone response does not have info in free text field
-    Given I select to reply by "phone"
+    Given I select a case "should" be answered by my team
+    And I select to reply by "phone"
     And I "do not complete" the call details
     Then I see an error message instructing me to enter call notes
 
   @HOCS-296, @HOCS-239
   Scenario: A user selects not to offline QA
-    Given I click the "no" to offline button
-    Then the case will progress to the QA stage
-    And the nominated person of the team that own the case receives an email
-    And I am returned to my home screen
+    Given I select a case "should" be answered by my team
+    And I select to reply by "email"
+    And I upload a "draft" document
+    And I select "no" to QA offline
+    Then I am returned to my home screen
+    And the "DCU MIN" case should be moved to the "QA RESPONSE" stage
 
   @HOCS-297, @HOCS-298, @HOCS-239
   Scenario: User selects offline QA
-    Given I click the "offline QA" button
-    And I select an "offline" Quality Assurer from a list of members of the team that own the case
-    When I progress the case
-    Then the Quality Assurer will receive a notification to say they have QA’d that case
-    And the case will progress to the "Private Office" stage
-    And I am returned to my home screen
-
-  @Navigation
-  Scenario: Clicking the cancel button on the allocate case screen at the Draft stage should take the user back to the
-  dashboard
-    And I click the cancel button
-    Then I should be taken to the homepage
+    Given I select a case "should" be answered by my team
+    And I select to reply by "email"
+    And I upload a "draft" document
+    And I select "yes" to QA offline
+    And I select "Eamon" as the offline QA
+    Then I am returned to my home screen
+    And the "DCU MIN" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
 
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
