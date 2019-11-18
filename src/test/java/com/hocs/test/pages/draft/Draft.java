@@ -32,8 +32,11 @@ public class Draft extends Page {
     @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
     public WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(xpath = "//a[text()='document']")
-    public WebElementFacade draftStageAddDocumentsButton;
+    @FindBy(css = "label[for=ReturnToResponseChannelDecision-REJECT]")
+    public WebElementFacade chooseAnotherResponseTypeNoButton;
+
+    @FindBy(css = "label[for=ReturnToResponseChannelDecision-ACCEPT")
+    public WebElementFacade chooseAnotherResponseTypeYesButton;
 
     @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
     public WebElementFacade correspondenceAnsweredErrorMessage;
@@ -56,19 +59,10 @@ public class Draft extends Page {
     @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
     public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
 
-    @FindBy(id = "document_type")
-    public WebElementFacade documentTypeDropDown;
-
-    @FindBy(css = ".govuk-heading-l")
-    public WebElementFacade draftAResponseHeader;
-
     @FindBy(id = "")
     public WebElementFacade draftingDeadline;
 
-    @FindBy(id = "")
-    public WebElementFacade rejectNoteField;
-
-    @FindBy(id = "label[for=ResponseChannel-EMAIL]")
+    @FindBy(css = "label[for=ResponseChannel-EMAIL]")
     public WebElementFacade emailReplyRadioButton;
 
     @FindBy(css = "label[for=ResponseChannel-LETTER]")
@@ -77,81 +71,19 @@ public class Draft extends Page {
     @FindBy(css = "label[for=ResponseChannel-PHONE]")
     public WebElementFacade phoneReplyRadioButton;
 
-    @FindBy(id = "")
-    public WebElementFacade allocationNoteFreeTextField;
+    @FindBy(xpath = "//caption[contains(text(), 'Available Template')]/parent::table/descendant::a")
+    public WebElementFacade downloadStandardLineLink;
 
-    @FindBy(id = "")
+    @FindBy(xpath = "//caption[contains(text(), 'Available Template')]/parent::table/descendant::a")
     public WebElementFacade downloadTemplateLink;
-
-    @FindBy(id = "")
-    public WebElementFacade addResponseButton;
-
-    @FindBy(id = "")
-    public WebElementFacade supportingDocumentsNoRadioButton;
-
-    @FindBy(id = "")
-    public WebElementFacade supportingDocumentsYesRadioButton;
-
-    @FindBy(id = "")
-    public WebElementFacade addSupportingDocumentsButton;
-
-    @FindBy(id = "")
-    public WebElementFacade standardLine;
-
-    @FindBy(css = "label[for=OfflineQA-TRUE]")
-    public WebElementFacade offlineQaRadioButton;
-
-    @FindBy(css = "label[for=OfflineQA-FALSE]")
-    public WebElementFacade onlineQaRadioButton;
-
-    @FindBy(id = "OfflineQaUser")
-    public WebElementFacade allocateToOfflineQaDropdown;
-
-    @FindBy(id = "")
-    public WebElementFacade allocateToOnlineQaDropdown;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
     public WebElementFacade summariseCallTextBox;
 
-    @FindBy(xpath = "//textarea[@name='CaseNote_RejectionNote']")
-    public WebElementFacade whyShouldThisNotBeAnsweredTextBox;
-
     //Basic Methods
-
-    public void clickAddDocumentsButton() {
-        draftStageAddDocumentsButton.click();
-    }
-
-    public void clearAllocationNoteField() {
-        allocationNoteFreeTextField.clear();
-    }
-
-    public void selectDocumentTypeByIndex(int index) {
-        documentTypeDropDown.selectByIndex(index);
-    }
-
-    public void enterAllocationNoteField() {
-        typeInto(allocationNoteFreeTextField, generateRandomString());
-    }
-
-    public String getDraftingDeadline() {
-        return draftingDeadline.getText();
-    }
-
-    public void selectOfflineQualityAssurer(String userName) {
-        allocateToOfflineQaDropdown.selectByVisibleText(userName);
-    }
-
-    public void selectOnlineQualityAssurer() {
-        allocateToOnlineQaDropdown.selectByVisibleText("");
-    }
 
     public void enterTextInSummariseCallTextbox() {
         typeInto(summariseCallTextBox, generateRandomString());
-    }
-
-    public void enterTextInWhyShouldThisBeAnsweredTextbox() {
-        typeInto(whyShouldThisNotBeAnsweredTextBox, " ");
     }
 
     // Multi Step Methods
@@ -192,13 +124,13 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            clickOn(draftStageAddDocumentsButton);
+            clickOn(addDocuments.addDocumentsButton);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            clickOn(draftStageAddDocumentsButton);
+            clickOn(addDocuments.addDocumentsButton);
         }
     }
 
@@ -207,10 +139,7 @@ public class Draft extends Page {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
 //            sleep(500);
-            clickOn(draftStageAddDocumentsButton);
-            selectDocumentTypeByIndex(2);
-            addDocuments.uploadDocument();
-            clickOn(addDocuments.addButton);
+            addDocuments.addADraftDocument();
             clickOn(continueButton);
             sleep(500);
         } else {
@@ -218,10 +147,7 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            clickOn(draftStageAddDocumentsButton);
-            selectDocumentTypeByIndex(2);
-            addDocuments.uploadDocument();
-            clickOn(addDocuments.addButton);
+            addDocuments.addADraftDocument();
             clickOn(continueButton);
             sleep(500);
         }
@@ -232,10 +158,7 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            clickOn(draftStageAddDocumentsButton);
-            selectDocumentTypeByIndex(2);
-            addDocuments.uploadDocument();
-            clickOn(addDocuments.addButton);
+            addDocuments.addADraftDocument();
             clickOn(continueButton);
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
@@ -245,10 +168,7 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            clickOn(draftStageAddDocumentsButton);
-            selectDocumentTypeByIndex(2);
-            addDocuments.uploadDocument();
-            clickOn(addDocuments.addButton);
+            addDocuments.addADraftDocument();
             clickOn(continueButton);
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
@@ -259,14 +179,11 @@ public class Draft extends Page {
     public void moveDTENCaseFromDraftToPrivateOffice() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
-        clickOn(draftStageAddDocumentsButton);
-        selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addDocuments.addButton);
+        addDocuments.addADraftDocument();
         clickOn(continueButton);
         clickOn(qa.offlineQaYesRadioButton);
         clickOn(continueButton);
-        selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+        qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
         clickOn(finishButton);
     }
 
@@ -282,14 +199,6 @@ public class Draft extends Page {
         clickOn(continueButton);
     }
 
-
-    public void uploadDraftResponse() {
-        clickOn(draftStageAddDocumentsButton);
-        selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addButton);
-    }
-
     public void initialDraftFullFlow() {
         sleep(3500);
         WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
@@ -301,27 +210,27 @@ public class Draft extends Page {
         clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         acceptAndDraftALetter();
-        uploadDraftResponse();
+        addDocuments.addADraftDocument();
         qa.dontQAOffline();
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        uploadDraftResponse();
+        addDocuments.addADraftDocument();
         qa.sleep(500);
         qa.dontQAOffline();
     }
 
     public void moveTROCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        uploadDraftResponse();
+        addDocuments.addADraftDocument();
         qa.sleep(500);
         clickOn(continueButton);
     }
 
     public void moveDTENCaseFromInitialDraftToQaResponse() {
         dtenAcceptAndDraftALetter();
-        uploadDraftResponse();
+        addDocuments.addADraftDocument();
         qa.sleep(500);
         qa.dontQAOffline();
     }
@@ -334,10 +243,7 @@ public class Draft extends Page {
         String typeOfResponseRadioButton = letterReplyRadioButton.getText();
         setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
         clickOn(continueButton);
-        clickOn(draftStageAddDocumentsButton);
-        selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addDocuments.addButton);
+        addDocuments.addADraftDocument();
         setSessionVariable("uploadedDocumentTitle").to("test1.docx");
         clickOn(continueButton);
         clickOn(qa.offlineQaNoRadioButton);
@@ -361,7 +267,7 @@ public class Draft extends Page {
     }
 
     public void assertEnterRejectionReasonsError() {
-        assertThat(shouldBeAnsweredErrorMessage.getText(), is("Why should this should not be answered by your team? is required"));
+        assertThat(shouldBeAnsweredErrorMessage.getText(), is("Why should this not be answered by your team? is required"));
     }
 
     public void assertCorrespondenceAnsweredErrorMessage() {
@@ -380,8 +286,14 @@ public class Draft extends Page {
     }
 
     public void assertPleaseSummariseYourCallErrorMessage() {
-        waitABit(500);
-        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
+        try {
+            assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(),
+                    is("Please summarise your call. is required"));
+        } catch (Exception e) {
+            clickOn(continueButton);
+            assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(),
+                    is("Please summarise your call. is required"));
+        }
     }
 
     public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {

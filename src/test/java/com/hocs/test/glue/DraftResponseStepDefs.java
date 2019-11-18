@@ -10,6 +10,7 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,11 +37,11 @@ public class DraftResponseStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             draft.dtenAcceptAndDraftALetter();
-            draft.uploadDraftResponse();
+            addDocuments.addADraftDocument();
             qa.dontQAOffline();
         } else {
             draft.acceptAndDraftALetter();
-            draft.uploadDraftResponse();
+            addDocuments.addADraftDocument();
             qa.dontQAOffline();
         }
     }
@@ -52,21 +53,21 @@ public class DraftResponseStepDefs extends Page {
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
-                draft.uploadDraftResponse();
+                addDocuments.addADraftDocument();
                 qa.dontQAOffline();
                 break;
             case "DCU TRO" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
-                draft.uploadDraftResponse();
+                addDocuments.addADraftDocument();
                 qa.dontQAOffline();
                 break;
             case "DCU N10" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();
-                draft.uploadDraftResponse();
+                addDocuments.addADraftDocument();
                 qa.dontQAOffline();
                 break;
             default:
@@ -116,10 +117,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
         clickOn(draft.letterReplyRadioButton);
         clickOn(draft.continueButton);
-        clickOn(draft.draftStageAddDocumentsButton);
-        draft.selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addDocuments.addButton);
+        addDocuments.addADraftDocument();
         clickOn(draft.continueButton);
         draft.sleep(500);
         clickOn(draft.continueButton);
@@ -136,10 +134,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
         clickOn(draft.letterReplyRadioButton);
         clickOn(draft.continueButton);
-        clickOn(draft.draftStageAddDocumentsButton);
-        draft.selectDocumentTypeByIndex(2);
-        addDocuments.uploadDocument();
-        clickOn(addDocuments.addButton);
+        addDocuments.addADraftDocument();
         clickOn(draft.continueButton);
         clickOn(qa.offlineQaYesRadioButton);
         clickOn(draft.continueButton);
@@ -153,8 +148,6 @@ public class DraftResponseStepDefs extends Page {
 
     @When("^I select to reply by \"([^\"]*)\"$")
     public void iClickToAnswerBy(String method) {
-        clickOn(draft.answeredByMyTeamYesRadioButton);
-        clickOn(draft.continueButton);
         switch (method.toUpperCase()) {
             case "EMAIL":
                 clickOn(draft.emailReplyRadioButton);
@@ -181,16 +174,6 @@ public class DraftResponseStepDefs extends Page {
 
     }
 
-    @And("^I enter call notes$")
-    public void iEnterCallNotes() {
-        draft.enterAllocationNoteField();
-    }
-
-    @And("^I do not enter call notes$")
-    public void iDoNotEnterCallNotes() {
-        draft.clearAllocationNoteField();
-    }
-
     @Then("^an error message appears instructing me to add rejection reasons$")
     public void anErrorMessageAppearsInstructingMeToAddRejectionReasons() {
         draft.assertEnterRejectionReasonsError();
@@ -208,7 +191,12 @@ public class DraftResponseStepDefs extends Page {
 
     @And("^I download the standard line for the case$")
     public void iDownloadTheStandardLineForTheCase() {
-        clickOn(draft.standardLine);
+        clickOn(draft.downloadStandardLineLink);
+    }
+
+    @And("^I download the template for the case$")
+    public void iDownloadTheTemplateForTheCase() {
+        clickOn(draft.downloadTemplateLink);
     }
 
     @And("^I select an \"([^\"]*)\" Quality Assurer$")
@@ -230,7 +218,7 @@ public class DraftResponseStepDefs extends Page {
         draft.enterRejectionNotes();
     }
 
-    @When("^I select a case \"([^\"]*)\" answered by my team$")
+    @When("^I select a case \"([^\"]*)\" be answered by my team$")
     public void iSelectACaseAnsweredByMyTeam(String decision) {
         getCaseId();
         switch (decision.toUpperCase()) {
@@ -251,10 +239,10 @@ public class DraftResponseStepDefs extends Page {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
                 draft.enterTextInSummariseCallTextbox();
-                clickOn(draft.finishButton);
+                clickOn(draft.continueButton);
                 break;
             case "DO NOT COMPLETE":
-                clickOn(draft.finishButton);
+                clickOn(draft.continueButton);
                 break;
             default:
                 pendingStep(callDetails + " is not defined within " + getMethodName());
@@ -346,5 +334,41 @@ public class DraftResponseStepDefs extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         teamqueue.assertCaseStage(stage);
+    }
+
+    @And("^I select \"([^\"]*)\" to choosing another Response Type$")
+    public void iSelectToChoosingAnotherResponseType(String decision) {
+        switch (decision.toUpperCase()) {
+            case "YES":
+                clickOn(draft.chooseAnotherResponseTypeYesButton);
+                break;
+            case "NO":
+                clickOn(draft.chooseAnotherResponseTypeNoButton);
+                break;
+            default:
+                pendingStep(decision + " is not defined within " + getMethodName());
+        }
+        clickOn(draft.finishButton);
+    }
+
+    @And("^I select \"([^\"]*)\" to QA offline$")
+    public void iSelectToQAOffline(String decision) {
+        switch (decision.toUpperCase()) {
+            case "YES":
+                clickOn(qa.offlineQaYesRadioButton);
+                break;
+            case "NO":
+                clickOn(qa.offlineQaNoRadioButton);
+                break;
+            default:
+                pendingStep(decision + " is not defined within " + getMethodName());
+        }
+        clickOn(continueButton);
+    }
+
+    @And("^I select \"([^\"]*)\" as the offline QA$")
+    public void iSelectAsTheOfflineQA(String arg0) throws Throwable {
+        qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+        clickOn(finishButton);
     }
 }

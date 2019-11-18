@@ -503,5 +503,6 @@ public class ManagementUIStepDefs extends Page {
     public void thePreviouslyCreatedUnitShouldBeListed() {
         unitManagement.assertListContainsCreatedUnit();
     }
+
 }
 

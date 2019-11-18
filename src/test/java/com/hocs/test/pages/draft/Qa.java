@@ -13,13 +13,8 @@ public class Qa extends Page {
     @FindBy(css = "label[for='OfflineQA-FALSE']")
     public WebElementFacade offlineQaNoRadioButton;
 
-    private void clickOfflineQAYesRadioButton(){
-        offlineQaYesRadioButton.click();
-    }
-
-    private void clickOfflineQANoRadioButton() {
-        offlineQaNoRadioButton.click();
-    }
+    @FindBy(id = "OfflineQaUser")
+    public WebElementFacade allocateToOfflineQaDropdown;
 
     // Multi Step Methods
 
@@ -32,6 +27,11 @@ public class Qa extends Page {
     public void qaOffline() {
         clickOn(continueButton);
         clickOn(offlineQaYesRadioButton);
+        selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
         clickOn(continueButton);
+    }
+
+    public void selectOfflineQualityAssurer(String userName) {
+        allocateToOfflineQaDropdown.selectByVisibleText(userName);
     }
 }
