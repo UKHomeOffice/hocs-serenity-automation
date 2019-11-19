@@ -100,6 +100,12 @@ pipeline:
         - success
         - failure
 
+  bot-review:
+    image: peterdavehello/drone-github-status-report-bot:latest
+    when:
+      event: pull_request
+      status: [ success, failure ]
+
 services:
   selenium:
     image: selenium/hub
