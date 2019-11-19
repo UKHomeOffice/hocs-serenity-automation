@@ -7,7 +7,7 @@ public enum Usernames {
     TESTER(""),
     EAMONDROKO("eamon.droko@ten10.com"),
     FAKEUSER("FakeUser"),
-    PROD("");
+    PRODUSER("");
 
     private final String username;
 

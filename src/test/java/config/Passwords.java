@@ -7,7 +7,7 @@ public enum Passwords {
     TESTERPASS(""),
     EAMONPASS("Password1!"),
     FAKEPASS("FAKE1!"),
-    PROD("");
+    PRODPASS("");
 
     private final String password;
 
