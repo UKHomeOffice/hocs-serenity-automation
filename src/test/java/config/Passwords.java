@@ -6,7 +6,8 @@ public enum Passwords {
     DCUPASS("Password1"),
     TESTERPASS(""),
     EAMONPASS("Password1!"),
-    FAKEPASS("FAKE1!");
+    FAKEPASS("FAKE1!"),
+    PROD("");
 
     private final String password;
 

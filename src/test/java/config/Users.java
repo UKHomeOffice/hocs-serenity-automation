@@ -6,7 +6,8 @@ public enum Users {
     TEST("",""),
     CASEY("casey.prosser@ten10.com", "Password1!"),
     EAMON("eamon.droko@ten10.com", "Password1!"), //Just Eamon
-    FAKE("FakeUser", "FAKE1!");
+    FAKE("FakeUser", "FAKE1!"),
+    PROD("", "");
    /* NoTEAM("NoTEAM@placeholder.com", "Password1!"),
     // Initial Drafting Team Users
     PressOffice("eamon.droko+pressoffice@ten10.com", "Password1!"),
