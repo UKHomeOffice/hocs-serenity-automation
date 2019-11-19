@@ -1,7 +1,7 @@
 Feature: If the response is rejected the case is returned to certain stages in the flow
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
 
   @RejectFlow @QAResponse @Critical @Workflow @SmokeTests @DCUMIN
     Scenario: DCU MIN Case returned to Initial Draft stage when rejected by QA Response Team

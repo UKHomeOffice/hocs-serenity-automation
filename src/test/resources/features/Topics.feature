@@ -1,7 +1,7 @@
 Feature: HOCS Topics are assigned to the correct Team
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
 
   @Topics @TopicsDefaultTeams
   Scenario Outline: Topics are assigned to the correct team

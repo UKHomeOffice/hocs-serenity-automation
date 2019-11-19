@@ -1,7 +1,7 @@
 Feature: HOCS User is able to draft a response
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
     And I get a "DCU MIN" case at "INITIAL DRAFT" stage
 
   @HOCS-287, @HOCS-239

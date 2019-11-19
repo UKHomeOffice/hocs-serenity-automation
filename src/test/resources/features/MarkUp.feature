@@ -1,7 +1,7 @@
 Feature: DCU user decides how a case should be handled
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
     When I get a "DCU N10" case at "MARKUP" stage
 
   @HOCS-266, @HOCS-237

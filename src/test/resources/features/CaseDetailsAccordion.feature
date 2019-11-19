@@ -1,7 +1,7 @@
 Feature: User can view correct case details at all stages
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
 
   @Accordion
   Scenario: Data Input accordion should contain the same information entered at the Case Creation stage
