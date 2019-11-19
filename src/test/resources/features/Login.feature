@@ -2,6 +2,7 @@ Feature: HOCS User is able to login
 
   Background:
     Given I am on the Home Office Correspondence Login Page
+    And I am prompted to log in
 
   @Login @critical
   Scenario: I can login to the Home Office Correspondence System
@@ -13,7 +14,7 @@ Feature: HOCS User is able to login
     And I enter my login credentials "EAMON DROKO" and click the login button
     When I logout as the initial user
     And I enter the login credentials of another user "DCU" and click the login button
-    Then I should be logged in as the new user
+    Then I should be logged in as the "DCU" user
 
   @Validation
   Scenario: User must enter valid login credentials on the login screen

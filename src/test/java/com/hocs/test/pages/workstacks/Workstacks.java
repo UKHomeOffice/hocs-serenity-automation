@@ -111,6 +111,9 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//a[@class='govuk-back-link']")
     public WebElementFacade allocateScreenCancelButton;
 
+    @FindBy(xpath = "//tbody/tr/td[4]")
+    public WebElementFacade displayedOwner;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -268,5 +271,9 @@ public class Workstacks extends Page {
         String thisAllocatedUserIs = eamonAllocated.getText();
         System.out.println(thisAllocatedUserIs);
         assertThat(thisAllocatedUserIs, is("eamon.droko@ten10.com"));
+    }
+
+    public void assertOwnerIs(String owner) {
+        assertThat(displayedOwner.getText(), is(owner));
     }
 }

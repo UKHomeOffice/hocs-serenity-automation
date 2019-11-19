@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.managementUI.Dashboard;
+import com.hocs.test.pages.workstacks.Workstacks;
 import config.*;
 
 import static config.Users.*;
@@ -15,6 +16,7 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -33,6 +35,8 @@ public class LoginStepDefs extends Page {
     Dashboard dashboard;
 
     LoginPage loginPage;
+
+    Workstacks workstacks;
 
     @Then("^An invalid username or password error is displayed$")
     public void invalidUsernamePasswordErrorDisplayed() {
@@ -203,10 +207,6 @@ public class LoginStepDefs extends Page {
         clickOn(loginPage.continueButton);
     }
 
-    @Then("^I should be logged in as the new user$")
-    public void assertThatSystemIsLoggedInAsNewUser() {
-    }
-
     private void enterHocsLoginDetails(Users user) {
         loginPage.enterUsername(user.getUsername());
         loginPage.enterPassword(user.getPassword());
@@ -258,5 +258,34 @@ public class LoginStepDefs extends Page {
             baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
         }
         getDriver().get(baseUrl);
+    }
+
+    @And("^I am prompted to log in$")
+    public void iAmPromptedToLogIn() {
+        if (!isElementDisplayed($(loginPage.usernameField))) {
+            clickOn(homepage.logoutButton);
+            navigateToHocs();
+        }
+    }
+
+    @Then("^I should be logged in as the \"([^\"]*)\" user$")
+    public void iShouldBeLoggedInAsTheUser(String owner) {
+        homepage.selectMyCases();
+        switch (owner.toUpperCase()) {
+            case "CASEY PROSSER":
+                workstacks.assertOwnerIs(CASEYPROSSER.getUsername());
+                break;
+            case "DCU":
+                workstacks.assertOwnerIs(DCU.getUsername());
+                break;
+            case "TESTER":
+                workstacks.assertOwnerIs(TESTER.getUsername());
+                break;
+            case "EAMON DROKO":
+                workstacks.assertOwnerIs(EAMONDROKO.getUsername());
+                break;
+            default:
+                pendingStep(owner + " is not defined within " + getMethodName());
+        }
     }
 }
