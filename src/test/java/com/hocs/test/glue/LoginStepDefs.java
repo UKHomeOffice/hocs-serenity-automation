@@ -62,6 +62,9 @@ public class LoginStepDefs extends Page {
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
                     break;
+                case "PROD":
+                    enterHocsLoginDetails(PROD);
+                    break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
             }
@@ -98,6 +101,9 @@ public class LoginStepDefs extends Page {
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
                     break;
+                case "PROD":
+                    enterHocsLoginDetails(PROD);
+                    break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
             }
@@ -126,6 +132,9 @@ public class LoginStepDefs extends Page {
                     break;
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
+                    break;
+                case "PROD":
+                    enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
@@ -163,6 +172,9 @@ public class LoginStepDefs extends Page {
                     break;
                 case "EAMON":
                     enterHocsLoginDetails(EAMON);
+                    break;
+                case "PROD":
+                    enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
