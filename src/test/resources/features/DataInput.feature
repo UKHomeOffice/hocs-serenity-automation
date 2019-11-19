@@ -1,7 +1,7 @@
 Feature: HOCS User is able to add data to a case
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
     And I get a "DCU MIN" case at "DATA INPUT" stage
 
   @HOCS-274 @HOCS-238
