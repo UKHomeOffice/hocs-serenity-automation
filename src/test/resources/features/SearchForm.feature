@@ -1,7 +1,7 @@
 Feature: Search should be available for all users of the application
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
 #    When I am on the "SEARCH" page
 
   @SearchForm @Validation

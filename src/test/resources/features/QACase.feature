@@ -1,8 +1,8 @@
 Feature: QA Case #this test can be reused for both the private office and minister sign off stages
 
     Background:
-    Given I am user "EAMON"
-    And I get a "DCU N10" case at "QA RESPONSE" stage
+      Given I log in as the designated user
+      And I get a "DCU N10" case at "QA RESPONSE" stage
  
     @HOCS-310
     Scenario: User reviews draft, rejects it and provides a rejection reason

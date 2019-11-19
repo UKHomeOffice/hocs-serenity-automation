@@ -72,10 +72,83 @@ public class LoginStepDefs extends Page {
         }
     }
 
+    @Given("^I log in as the designated user$")
+    public void iLogInAsTheDesignatedUser() {
+        String user = System.getProperty("user");
+
+        if (user == null) {
+            System.out.println("User parameter not set. Defaulting to 'EAMON'");
+            user = "EAMON";
+        }
+
+        navigateToHocs();
+
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("On fresh browser, beginning test..");
+            switch (user.toUpperCase()) {
+                case "DCU":
+                    enterHocsLoginDetails(DCU);
+                    break;
+                case "TEST":
+                    enterHocsLoginDetails(TEST);
+                    break;
+                case "CASEY":
+                    enterHocsLoginDetails(CASEY);
+                    break;
+                case "EAMON":
+                    enterHocsLoginDetails(EAMON);
+                    break;
+                default:
+                    pendingStep(user + " is not defined within " + getMethodName());
+            }
+            clickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Browser not closed down correctly, attempting to continue test");
+            homepage.goHome();
+        }
+    }
+
     @Given("^that I have navigated to the Management UI as the user \"([^\"]*)\"$")
     public void iHaveNavigatedToTheManagementUI(String user) {
         navigateToManagementUI();
         setSessionVariable("user").to(user);
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("On fresh browser, beginning test..");
+            switch (user.toUpperCase()) {
+                case "DCU":
+                    enterHocsLoginDetails(DCU);
+                    break;
+                case "TEST":
+                    enterHocsLoginDetails(TEST);
+                    break;
+                case "CASEY":
+                    enterHocsLoginDetails(CASEY);
+                    break;
+                case "EAMON":
+                    enterHocsLoginDetails(EAMON);
+                    break;
+                default:
+                    pendingStep(user + " is not defined within " + getMethodName());
+            }
+            clickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Browser not closed down correctly, attempting to continue test");
+            dashboard.goToDashboard();
+        }
+    }
+
+    @Given("^that I have navigated to the Management UI as the designated user$")
+    public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
+
+        String user = System.getProperty("user");
+
+        if (user == null) {
+            System.out.println("User parameter not set. Defaulting to 'EAMON'");
+            user = "EAMON";
+        }
+
+        navigateToManagementUI();
+
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             switch (user.toUpperCase()) {

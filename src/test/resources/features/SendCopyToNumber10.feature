@@ -1,7 +1,7 @@
 Feature: Send Copy to Number 10
 
   Background:
-    Given I am user "<string>"
+    Given I log in as the designated user
     And I am at the "QA" stage
 
   @HOCS-471

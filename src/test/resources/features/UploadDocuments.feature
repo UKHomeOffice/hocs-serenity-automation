@@ -1,6 +1,6 @@
 Feature: A user can upload documents to a case #this test can be run at any stage
 
-  Given I am 'user'
+Given I log in as the designated user
   And I am working on 'stage'
   
   @HOCS-273, @HOCS-238

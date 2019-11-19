@@ -1,7 +1,7 @@
 Feature: User decides how cases should be handled at Private Office Sign Off stage
 
-  Background: 
-    Given I am user "EAMON"
+  Background:
+    Given I log in as the designated user
     When I get a "DCU MIN" case at "PRIVATE OFFICE APPROVAL" stage
 
   @Navigation

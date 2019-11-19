@@ -1,7 +1,7 @@
 Feature:  HOCS User is able to Dispatch a Response
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
     And I get a "DCU N10" case at "DISPATCH" stage
 
   @HOCS-542

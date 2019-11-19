@@ -1,7 +1,7 @@
 Feature: User is able to add Standard Lines
 
   Background:
-    Given I am user "EAMON"
+    Given I log in as the designated user
     When I navigate to the "ADD STANDARD LINE" page
 
 

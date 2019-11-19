@@ -1,7 +1,7 @@
 Feature: User manages HOCS teams, topics and units
 
   Background:
-    Given that I have navigated to the Management UI as the user "EAMON"
+    Given that I have navigated to the Management UI as the designated user
 
   @ManagementUI
   Scenario Outline: User navigates to a management page
