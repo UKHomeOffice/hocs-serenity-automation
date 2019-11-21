@@ -8,9 +8,9 @@ pipeline:
       - docker build -t hocs_serenity_automation .
       - docker run hocs_serenity_automation
     when:
-      event:
-        include:
-          - push
+      branch:
+        - master
+        event:
           - pull_request
 
   image_to_quay:
@@ -25,9 +25,9 @@ pipeline:
       - build-${DRONE_BUILD_NUMBER}
       - latest
     when:
-      event:
-        include:
-          - push
+      branch:
+        - master
+        event:
           - pull_request
 
   tag-docker-image-with-git-tag:
@@ -51,9 +51,9 @@ pipeline:
     commands:
       - sh bin/smoke-tests.sh
     when:
-      event:
-        include:
-          - push
+      branch:
+        - master
+        event:
           - pull_request
 
   upload-serenity-report:
@@ -67,9 +67,10 @@ pipeline:
     target: /reports/$${DRONE_BUILD_NUMBER}/
     when:
       event:
-        include:
-          - push
-          - pull_requesth
+        branch:
+          - master
+          event:
+            - pull_request
       status:
         - success
         - failure
@@ -93,9 +94,10 @@ pipeline:
       {{/success}}
     when:
       event:
-        include:
-          - push
-          - pull_request
+        branch:
+          - master
+          event:
+            - push
       status:
         - success
         - failure
