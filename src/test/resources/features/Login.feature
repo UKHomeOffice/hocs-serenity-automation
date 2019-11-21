@@ -9,7 +9,7 @@ Feature: HOCS User is able to login
     When I enter my login credentials "EAMON DROKO" and click the login button
     Then I should be taken to the homepage
 
-  @Login @casey
+  @Login
   Scenario: User is able to log out from one user and login as another
     And I enter my login credentials "EAMON DROKO" and click the login button
     When I logout as the initial user
