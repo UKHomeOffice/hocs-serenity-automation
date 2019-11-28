@@ -80,7 +80,7 @@ public class MarkUpDecision extends Page {
     public void getToMarkupAddATopicScreenPrerequisites() {
         clickOn(policyResponseRadioButton);
         clickOn(continueButton);
-        sleep(500);
+        waitABit(500);
     }
 
     public void getToMarkupEnterANewTopicScreenPrerequisites() {
@@ -110,15 +110,15 @@ public class MarkUpDecision extends Page {
     }
 
     public void assertNRNTextBoxIsDisplayed() {
-        Assert.assertThat(isElementDisplayed(noResponseNeededTextField), is(true));
+        assertThat(isElementDisplayed(noResponseNeededTextField), is(true));
     }
 
     public void assertRejectTextBoxIsDisplayed() {
-        Assert.assertThat(isElementDisplayed(rejectToDataInputTextField), is(true));
+        assertThat(isElementDisplayed(rejectToDataInputTextField), is(true));
     }
 
     public void assertOGDTitleTextBoxIsDisplayed() {
-        Assert.assertThat(isElementDisplayed(OGDTitleTextBox), is(true));
+        assertThat(isElementDisplayed(OGDTitleTextBox), is(true));
     }
 
 }

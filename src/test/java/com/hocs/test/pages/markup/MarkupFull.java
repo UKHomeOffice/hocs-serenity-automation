@@ -21,11 +21,11 @@ public class MarkupFull extends Page {
         clickOn(continueButton);
         clickOn(addTopicButton);
         topics.enterRealTopic();
-//        sleep(1000);
+//        waitABit(1000);
         clickOn(addButton);
-//        sleep(1000);
+//        waitABit(1000);
         clickOn(continueButton);
-//        sleep(1000);
+//        waitABit(1000);
         clickOn(finishButton);
     }
 

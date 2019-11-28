@@ -96,7 +96,7 @@ public class Draft extends Page {
     public void getToHowDoYouIntendToRespondScreenPrerequisites() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
-        sleep(500);
+        waitABit(500);
     }
 
     public void getToSummariseYouCallScreenPrerequisites() {
@@ -111,7 +111,7 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
@@ -138,10 +138,10 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-//            sleep(500);
+//            waitABit(500);
             addDocuments.addADraftDocument();
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
@@ -149,7 +149,7 @@ public class Draft extends Page {
             clickOn(continueButton);
             addDocuments.addADraftDocument();
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
         }
     }
 
@@ -200,7 +200,7 @@ public class Draft extends Page {
     }
 
     public void initialDraftFullFlow() {
-        sleep(3500);
+        waitABit(3500);
         WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
                 + "']").get(0);
         thisDraftTeam.click();
@@ -217,21 +217,21 @@ public class Draft extends Page {
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
         addDocuments.addADraftDocument();
-        qa.sleep(500);
+        qa.waitABit(500);
         qa.dontQAOffline();
     }
 
     public void moveTROCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
         addDocuments.addADraftDocument();
-        qa.sleep(500);
+        qa.waitABit(500);
         clickOn(continueButton);
     }
 
     public void moveDTENCaseFromInitialDraftToQaResponse() {
         dtenAcceptAndDraftALetter();
         addDocuments.addADraftDocument();
-        qa.sleep(500);
+        qa.waitABit(500);
         qa.dontQAOffline();
     }
 

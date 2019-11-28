@@ -78,7 +78,7 @@ public class SuccessfulCaseCreation extends Page {
         Actions actions = new Actions (getDriver());
         actions.moveToElement(thisReference);
         actions.perform();
-        sleep(1000);
+        waitABit(1000);
         thisReference.click();
     }
 
@@ -96,7 +96,6 @@ public class SuccessfulCaseCreation extends Page {
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
-//        sleep(500);
         System.out.println(referenceElement);
         referenceElement.click();
         referenceElement.click();
@@ -106,7 +105,7 @@ public class SuccessfulCaseCreation extends Page {
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();
-        sleep(500);
+        waitABit(500);
         javascriptScrollToElem(referenceElement);
         System.out.println(referenceElement);
         setSessionVariable("assertCase").to(referenceElement);

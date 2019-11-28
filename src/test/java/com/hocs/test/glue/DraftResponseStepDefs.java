@@ -119,7 +119,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
         addDocuments.addADraftDocument();
         clickOn(draft.continueButton);
-        draft.sleep(500);
+        draft.waitABit(500);
         clickOn(draft.continueButton);
     }
 

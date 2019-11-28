@@ -92,7 +92,7 @@ public class Topics extends Page {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
         typeInto(topicsTextField, topic);
-        sleep(1000);
+        waitABit(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
         clickOn(continueButton);
@@ -102,7 +102,7 @@ public class Topics extends Page {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
         typeInto(topicsTextField, topic);
-        sleep(1000);
+        waitABit(1000);
         hitReturnToSendTopic();
         if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage)) {
             clickOn(addButton);
@@ -115,7 +115,7 @@ public class Topics extends Page {
         hitReturnToSendTopic();
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
-        sleep(1000);
+        waitABit(1000);
     }
 
     public void fromMarkupStartSelectATopic (String topic) {
