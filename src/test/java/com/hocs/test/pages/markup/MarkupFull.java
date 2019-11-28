@@ -48,7 +48,7 @@ public class MarkupFull extends Page {
         topics.enterRealTopic();
         clickOn(topics.addButton);
         clickOn(continueButton);
-        markUpDecision.recordSelectedDraftingAndPrivateOfficeTeams();
+        topics.recordSelectedDraftingAndPrivateOfficeTeams();
         clickOn(finishButton);
     }
 }

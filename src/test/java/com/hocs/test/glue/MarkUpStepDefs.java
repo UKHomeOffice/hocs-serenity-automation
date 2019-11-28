@@ -9,8 +9,6 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.MarkupFull;
-import com.hocs.test.pages.markup.ReferToOGD;
-import com.hocs.test.pages.markup.NoResponseNeeded;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -18,6 +16,7 @@ import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.draft.Draft;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -33,11 +32,7 @@ public class MarkUpStepDefs extends Page {
 
     MarkupFull markup;
 
-    ReferToOGD refer;
-
     Draft draft;
-
-    NoResponseNeeded noResponseNeeded;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -176,42 +171,42 @@ public class MarkUpStepDefs extends Page {
     public void theCaseShouldBeAssignedToTheDraftTeam(String draftingTeam) {
         switch (draftingTeam.toUpperCase()) {
             case "ANIMALS IN SCIENCE REGULATION UNIT":
-                topics.assertElementTextIs(
+                assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "PUBLIC PROTECTION UNIT":
-                topics.assertElementTextIs(
+                assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "DOMESTIC VIOLENCE PROTECTION ORDERS":
-                topics.assertElementTextIs(
+                assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "TACKLING EXPLOITATION AND ABUSE UNIT":
-                topics.assertElementTextIs(
+                assertElementTextIs(
                         topics.autoAssignedDraftTeam, draftingTeam
                 );
                 break;
             case "ACCOUNTING AND FINANCE UNIT":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "CENTRAL ANALYSIS AND INSIGHT TEAM":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "DOMESTIC ASYLUM POLICY":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "EFFICIENCY AND RESOURCES UNIT":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "INTERNATIONAL CRIMINALITY UNIT":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "DRUGS & ALCOHOL UNIT":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
+                assertElementTextIs(topics.autoAssignedDraftTeam, draftingTeam);
                 break;
             case "NEW DRAFTING AND QA TEAM":
-                topics.assertElementTextIs(topics.autoAssignedDraftTeam,
+                assertElementTextIs(topics.autoAssignedDraftTeam,
                         sessionVariableCalled("chosenDraftAndQATeam").toString());
                 break;
             default:
@@ -223,24 +218,24 @@ public class MarkUpStepDefs extends Page {
     public void theCaseShouldBeAssignedToThePrivateOfficeTeam(String privateOfficeTeam) {
         switch (privateOfficeTeam.toUpperCase()) {
             case "MINISTER FOR LORDS":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
                 break;
             case "UNDER SECRETARY OF STATE FOR CRIME, SAFEGUARDING AND VULNERABILITY":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         privateOfficeTeam);
                 break;
             case "PERMANENT SECRETARY":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
                 break;
             case "MINISTER OF STATE FOR IMMIGRATION":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
                  break;
             case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
                 break;
             case "NEW PRIVATE AND MINISTERIAL TEAM":
-                topics.assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
+                assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
                         sessionVariableCalled("chosenPrivateAndMinisterTeam").toString());
                 break;
             default:
@@ -317,12 +312,21 @@ public class MarkUpStepDefs extends Page {
 
     @Then("^the Other Government Department name free text field is displayed$")
     public void assertOtherGvmtDepTBIsDisplayed() {
-        refer.assertOGDTitleTextBoxIsDisplayed();
+        markUpDecision.assertOGDTitleTextBoxIsDisplayed();
     }
 
     @Then("^the No Response Needed casenote field is displayed$")
     public void assertNoResponseNeededTextBox() {
-        noResponseNeeded.assertNRNTextBoxIsDisplayed();
+        markUpDecision.assertNRNTextBoxIsDisplayed();
     }
 
+    @Then("^the reason for rejection casenote field is displayed$")
+    public void assertRejectionReasonTextBox() {
+        markUpDecision.assertRejectTextBoxIsDisplayed();
+    }
+
+    @And("^I enter \"([^\"]*)\" as the reason for rejecting the case$")
+    public void iEnterAsTheReasonForRejectingTheCase(String reason) {
+        typeInto(markUpDecision.rejectToDataInputTextField, reason);
+    }
 }

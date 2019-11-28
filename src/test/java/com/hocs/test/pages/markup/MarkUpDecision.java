@@ -7,6 +7,7 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -24,38 +25,14 @@ public class MarkUpDecision extends Page {
     @FindBy(css = "label[for='MarkupDecision-NRN']")
     public WebElementFacade noReplyNeededRadioButton;
 
-    @FindBy(id = "")
-    public WebElementFacade dateReceivedField;
+    @FindBy(css = "label[for='MarkupDecision-REJ']")
+    public WebElementFacade rejectToDataInputRadioButton;
 
-    @FindBy(id = "")
-    public WebElementFacade draftingDeadlineField;
-
-    @FindBy(id = "")
-    public WebElementFacade finalDeadlineField;
+    @FindBy(id = "OGDDept")
+    public WebElementFacade OGDTitleTextBox;
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addATopicButton;
-
-    @FindBy(id = "")
-    public WebElementFacade primaryTopicRadioButton;
-
-    @FindBy(id = "")
-    public WebElementFacade answeringUnitDropdown;
-
-    @FindBy(id = "")
-    public WebElementFacade answeringUnitTypeFunction;
-
-    @FindBy(id = "")
-    public WebElementFacade answeringTeamTypeFunction;
-
-    @FindBy(id = "")
-    public WebElementFacade answeringTeamDropdown;
-
-    @FindBy(id = "SignOffMinister")
-    public WebElementFacade signOffMinisterDropdown;
-
-    @FindBy(id = "")
-    public WebElementFacade signOffMinisterTypeFunction;
 
     @FindBy(xpath = "//a[text()='What sort of response is required? is required']")
     public WebElementFacade whatSortOfResponseErrorMessage;
@@ -66,11 +43,13 @@ public class MarkUpDecision extends Page {
     @FindBy(xpath = "//a[text()='Topic is required']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
-    @FindBy(id = "DraftingTeamName")
-    public WebElementFacade selectedDraftingTeamName;
+    @FindBy(id = "CaseNote_NRN")
+    public WebElementFacade noResponseNeededTextField;
 
-    @FindBy(id = "POTeamName")
-    public WebElementFacade selectedPrivateOfficeTeamName;
+    @FindBy(id = "CaseNote_REJ")
+    public WebElementFacade rejectToDataInputTextField;
+
+    //Basic Methods
 
     public void selectFAQRadioButton() {
         clickOn(faqRadioButton);
@@ -88,69 +67,15 @@ public class MarkUpDecision extends Page {
         clickOn(referToOgdRadioButton);
     }
 
+    public void selectRejectToDataInput() {
+        clickOn(rejectToDataInputRadioButton);
+    }
+
     public void clickPolicyResponseRadioButton() {
         policyResponseRadioButton.click();
     }
 
-    public void enterAnsweringTeamTypeFunction(String team) {
-        typeInto(answeringTeamTypeFunction, team);
-    }
-
-    public void enterAnsweringUnitTypeFunction(String unit) {
-        typeInto(answeringUnitTypeFunction, unit);
-    }
-
-    public void enterDateReceived() {
-        typeInto(dateReceivedField, getCurrentDay());
-    }
-
-    public void enterDraftingDeadline() {
-        draftingDeadlineField.sendKeys();
-    }
-
-    public void enterFinalDeadline() {
-        finalDeadlineField.sendKeys();
-    }
-
-    public void enterSignOffMinisterTypeFunction(String minister) {
-        typeInto(signOffMinisterTypeFunction, minister);
-    }
-
-    public void selectAnsweringTeamFromDropdownByText(String team) {
-        answeringTeamDropdown.selectByVisibleText(team);
-    }
-
-    public void selectAnsweringUnitFromDropdownByText(String unit) {
-        answeringUnitDropdown.selectByVisibleText(unit);
-    }
-
-    public void selectSignOffMinisterFromDropdownByText(String minister) {
-        signOffMinisterDropdown.selectByVisibleText(minister);
-    }
-
-    public void selectSecondAnsweringTeamFromDropdown() {
-        answeringTeamDropdown.selectByIndex(1);
-    }
-
-    public void selectSecondAnsweringUnitFromDropdown() {
-        answeringUnitDropdown.selectByIndex(1);
-    }
-
-    public void selectFirstSignOffMinisterFromDropdown() {
-        signOffMinisterDropdown.selectByIndex(1);
-    }
-
-    public void assertSortOfResponseErrorMessage() {
-        assertThat(whatSortOfResponseErrorMessage.getText(), is("What sort of response is required? is required"));
-    }
-
-    public void assertAddATopicErrorMessage() {
-        assertThat(whichIsThePrimaryTopicErrorMessage.getText(), is("Which is the primary topic? is required"));
-    }
-
-    public void assertTopicIsRequiredErrorMessage() {
-        assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
-    }
+    //Multi Step Methods
 
     public void getToMarkupAddATopicScreenPrerequisites() {
         clickOn(policyResponseRadioButton);
@@ -170,10 +95,30 @@ public class MarkUpDecision extends Page {
         setSessionVariable("selectedWhatSortOfResponseRadioButton").to(whatSortOfResponseRadioButton);
     }
 
-    public void recordSelectedDraftingAndPrivateOfficeTeams() {
-        String selectedInitialDraftingTeamName = selectedDraftingTeamName.getValue();
-        setSessionVariable("selectedDraftingTeamName").to(selectedInitialDraftingTeamName);
-        String selectedPOTeamName = selectedPrivateOfficeTeamName.getValue();
-        setSessionVariable("selectedPrivateOfficeTeamName").to(selectedPOTeamName);
+    //Assertions
+
+    public void assertSortOfResponseErrorMessage() {
+        assertThat(whatSortOfResponseErrorMessage.getText(), is("What sort of response is required? is required"));
     }
+
+    public void assertAddATopicErrorMessage() {
+        assertThat(whichIsThePrimaryTopicErrorMessage.getText(), is("Which is the primary topic? is required"));
+    }
+
+    public void assertTopicIsRequiredErrorMessage() {
+        assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
+    }
+
+    public void assertNRNTextBoxIsDisplayed() {
+        Assert.assertThat(isElementDisplayed(noResponseNeededTextField), is(true));
+    }
+
+    public void assertRejectTextBoxIsDisplayed() {
+        Assert.assertThat(isElementDisplayed(rejectToDataInputTextField), is(true));
+    }
+
+    public void assertOGDTitleTextBoxIsDisplayed() {
+        Assert.assertThat(isElementDisplayed(OGDTitleTextBox), is(true));
+    }
+
 }

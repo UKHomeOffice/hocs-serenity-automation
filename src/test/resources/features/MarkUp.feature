@@ -36,6 +36,11 @@ Feature: DCU user decides how a case should be handled
     But I do not enter an "Other Government Department"
     Then an error message is displayed
 
+  Scenario: User selects an initial decision of Reject to Data Input
+    When I select an initial decision of "REJECT TO DATA INPUT"
+    And I click the "CONTINUE" button
+    Then the reason for rejection casenote field is displayed
+
   @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
     When I select an initial decision of "NO RESPONSE NEEDED"
@@ -43,18 +48,31 @@ Feature: DCU user decides how a case should be handled
     But I do not enter a "REASON FOR NO RESPONSE NEEDED"
     Then an error message is displayed
 
+  Scenario: User does not enter reason for rejecting case to Data Input
+    When I select an initial decision of "REJECT TO DATA INPUT"
+    And I click the "CONTINUE" button
+    But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
+    Then an error message is displayed
+
+  Scenario: User rejects case to Data Input
+    When I select an initial decision of "REJECT TO DATA INPUT"
+    And I click the "CONTINUE" button
+    And I enter "Test for rejecting case back to Data Input" as the reason for rejecting the case
+    And I click the "FINISH" button
+    Then the "DCU N10" case should be moved to the "DATA INPUT" stage
+
   @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
     And I click the "CONTINUE" button
     And I add the topic "CARDIFF UNIVERSITY KITTENS"
     Then the topic should be added to the case
-    
-  @Navigation
-  Scenario: Clicking the cancel button on the allocate case screen at the Markup stage should take the user back to the
-  dashboard
-    And I click the "CANCEL" button
-    Then I should be taken to the homepage
+
+  Scenario: User can select a topic for a FAQ response
+    When I select an initial decision of "FAQ"
+    And I click the "CONTINUE" button
+    And I add the topic "CARDIFF UNIVERSITY KITTENS"
+    Then the topic should be added to the case
 
   @Validation
   Scenario: User must select a response on the first Markup Stage screen
