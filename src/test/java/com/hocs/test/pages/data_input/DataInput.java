@@ -325,7 +325,7 @@ public class DataInput extends Page {
             enterYearOfCorrespondenceSent("2019");
             clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
             clickOn(correspondentMemberYesRadioButton);
             clickOn(continueButton);
@@ -336,7 +336,7 @@ public class DataInput extends Page {
             clickOn(emailOriginalChannelRadioButton);
             clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
             clickOn(correspondentMemberYesRadioButton);
             clickOn(continueButton);
@@ -357,7 +357,7 @@ public class DataInput extends Page {
             enterYearOfCorrespondenceSent("2019");
             clickOn(emailOriginalChannelRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
         } else {
             enterDayOfCorrespondenceSent("01");
@@ -366,7 +366,7 @@ public class DataInput extends Page {
             clickOn(emailOriginalChannelRadioButton);
             clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
         }
     }
@@ -385,7 +385,7 @@ public class DataInput extends Page {
             enterYearOfCorrespondenceSent("2019");
             emailOriginalChannelRadioButton.click();
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
             clickOn(correspondentMemberNoRadioButton);
             clickOn(continueButton);
@@ -396,7 +396,7 @@ public class DataInput extends Page {
             clickOn(emailOriginalChannelRadioButton);
             clickOn(shouldResponseBeCopiedN10NoRadioButton);
             clickOn(continueButton);
-            sleep(500);
+            waitABit(500);
             clickOn(addCorrespondentLink);
             clickOn(correspondentMemberNoRadioButton);
             clickOn(continueButton);
@@ -456,7 +456,7 @@ public class DataInput extends Page {
         setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
 
         clickOn(continueButton);
-        sleep(500);
+        waitABit(500);
         clickOn(addCorrespondentLink);
         clickOn(correspondentMemberYesRadioButton);
         clickOn(continueButton);
@@ -465,9 +465,9 @@ public class DataInput extends Page {
         addMemberOfParliamentSearchField.sendKeys(Keys.ENTER);
         String memberOfParliament = memberOfParliamentName.getText();
         setSessionVariable("memberOfParliamentName").to(memberOfParliament);
-        sleep(500);
+        waitABit(500);
         clickOn(addButton);
-        sleep(500);
+        waitABit(500);
         clickOn(addButton);
         clickOn(finishButton);
     }

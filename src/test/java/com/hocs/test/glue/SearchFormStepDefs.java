@@ -38,7 +38,7 @@ public class SearchFormStepDefs extends Page {
 
     @Then("^I should be taken directly to the case$")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
-        workstacks.sleep(500);
+        workstacks.waitABit(500);
 
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             workstacks.assertCaseReferenceBeforeAllocation();
@@ -72,7 +72,7 @@ public class SearchFormStepDefs extends Page {
     @When("^I search by the case type \"([^\"]*)\"$")
     public void selectCaseTypeCheckbox(String caseType) {
         clickOn(homepage.searchPage);
-//        searchForm.sleep(500);
+//        searchForm.waitABit(500);
         switch (caseType.toUpperCase()) {
             case "MIN":
                 clickOn(searchForm.searchMINCheckbox);

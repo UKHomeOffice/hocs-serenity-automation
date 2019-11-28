@@ -4,12 +4,6 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
     Given I log in as the designated user
     When I get a "DCU MIN" case at "PRIVATE OFFICE APPROVAL" stage
 
-  @Navigation
-  Scenario: Clicking the cancel button on the allocate case screen at the PO Sign Off stage should take the user back to the
-  dashboard
-    And I click the cancel button
-    Then I should be taken to the homepage
-
   @Validation
   Scenario: User must select a radio button when asked whether they approve the Private Office response
     And I click the "CONTINUE" button

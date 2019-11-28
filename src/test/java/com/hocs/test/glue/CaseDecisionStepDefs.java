@@ -161,7 +161,8 @@ public class CaseDecisionStepDefs extends Page {
             case "REFER TO OGD":
                 markUpDecision.selectReferToOGDRadioButton();
                 break;
-            case "TRANSFER TO OGD":
+            case "REJECT TO DATA INPUT":
+                markUpDecision.selectRejectToDataInput();
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());

@@ -240,7 +240,7 @@ public class Page extends PageObject {
     @FindBy(xpath = "//a[@href='mailto:HOCS@homeoffice.gov.uk']")
     private WebElementFacade emailFeedbackButton;
 
-    public void sleep(int milliseconds) {
+    public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {

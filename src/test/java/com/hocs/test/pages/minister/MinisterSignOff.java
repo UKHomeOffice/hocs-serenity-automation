@@ -38,7 +38,7 @@ public class MinisterSignOff extends Page {
     public void getToMinisterFeedbackResponseScreenPrerequisites() {
         clickOn(ministerSignOffRejectRadioButton);
         clickOn(continueButton);
-        sleep(500);
+        waitABit(500);
     }
 
     public void assertDoYouApproveTheResponseErrorMessage() {

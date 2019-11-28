@@ -234,7 +234,7 @@ public class Workstacks extends Page {
 
 
     public void assertCaseReferenceIsNotVisible() {
-        sleep(1000);
+        waitABit(1000);
 
         String caseReferenceNumber
                 = sessionVariableCalled("caseReference").toString();

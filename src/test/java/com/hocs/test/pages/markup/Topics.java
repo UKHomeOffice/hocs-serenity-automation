@@ -25,25 +25,11 @@ public class Topics extends Page {
     @FindBy(xpath = "//li[1]/p[3]")
     public WebElementFacade topicInTimeline;
 
-    // Explore @findAll during test so Topic is not hardcoded
-
     @FindBy(css = "[id^=react-select")
     private WebElementFacade topicsTextField;
 
-    @FindBy(id = "DraftingTeamName")
-    public WebElementFacade autoAssignedDraftTeam;
-
-    @FindBy(id = "POTeamName")
-    public WebElementFacade autoAssignedPrivateOfficeTeam;
-
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicButton;
-
-    @FindBy(id = "OverrideDraftingTeamUUID")
-    public WebElementFacade overrideInitialDraftTeamDropdown;
-
-    @FindBy(id = "OverridePOTeamUUID")
-    public WebElementFacade overridePrivateOfficeTeamDropdown;
 
     @FindBy(xpath = "//label")
     public WebElementFacade assignedTopic;
@@ -51,6 +37,23 @@ public class Topics extends Page {
     @FindBy(xpath = "//div[@class='css-xp4uvy govuk-typeahead__single-value']")
     public WebElementFacade selectedTopicName;
 
+    @FindBy(id = "DraftingTeamName")
+    public WebElementFacade autoAssignedDraftTeam;
+
+    @FindBy(id = "POTeamName")
+    public WebElementFacade autoAssignedPrivateOfficeTeam;
+
+    @FindBy(id = "DraftingTeamName")
+    public WebElementFacade selectedDraftingTeamName;
+
+    @FindBy(id = "POTeamName")
+    public WebElementFacade selectedPrivateOfficeTeamName;
+
+    @FindBy(id = "OverrideDraftingTeamUUID")
+    public WebElementFacade overrideInitialDraftTeamDropdown;
+
+    @FindBy(id = "OverridePOTeamUUID")
+    public WebElementFacade overridePrivateOfficeTeamDropdown;
 
     // Basic Methods
 
@@ -75,11 +78,21 @@ public class Topics extends Page {
         topicsTextField.sendKeys(Keys.RETURN);
     }
 
+    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateTeam) {
+        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateTeam);
+    }
+
+    public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {
+        overrideInitialDraftTeamDropdown.selectByVisibleText(newInitialDraftTeam);
+    }
+
+    // Multi Step Methods
+
     public void enterATopic(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
         typeInto(topicsTextField, topic);
-        sleep(1000);
+        waitABit(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
         clickOn(continueButton);
@@ -89,13 +102,12 @@ public class Topics extends Page {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
         typeInto(topicsTextField, topic);
-        sleep(1000);
+        waitABit(1000);
         hitReturnToSendTopic();
-        if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage))
+        if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage)) {
             clickOn(addButton);
+        }
     }
-
-    // Multi Step Methods
 
     public void enterRealTopic() {
         clickOn(topicsTextField);
@@ -103,7 +115,7 @@ public class Topics extends Page {
         hitReturnToSendTopic();
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
-        sleep(1000);
+        waitABit(1000);
     }
 
     public void fromMarkupStartSelectATopic (String topic) {
@@ -130,18 +142,23 @@ public class Topics extends Page {
         enterATopicWithoutContinuingToTheDraftStage(topic);
     }
 
+    public void recordSelectedDraftingAndPrivateOfficeTeams() {
+        String selectedInitialDraftingTeamName = selectedDraftingTeamName.getValue();
+        setSessionVariable("selectedDraftingTeamName").to(selectedInitialDraftingTeamName);
+        String selectedPOTeamName = selectedPrivateOfficeTeamName.getValue();
+        setSessionVariable("selectedPrivateOfficeTeamName").to(selectedPOTeamName);
+    }
+
+    public void getCurrentDefaultTeamsForTopic() {
+        waitABit(2000);
+        setSessionVariable("defaultDraftTeam").to(autoAssignedDraftTeam.getValue());
+        setSessionVariable("defaultPrivateOfficeTeam").to(autoAssignedPrivateOfficeTeam.getValue());
+    }
+
     // Assertions
 
     public void assertTopicsTextFieldDisplayed() {
         isElementDisplayed(topicsTextField);
-    }
-
-    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateTeam) {
-        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateTeam);
-    }
-
-    public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {
-        overrideInitialDraftTeamDropdown.selectByVisibleText(newInitialDraftTeam);
     }
 
     public void assertTopicsAssigned() {
@@ -157,9 +174,4 @@ public class Topics extends Page {
         assertThat(thisTopic, is("NAME: " + testTopic));
     }
 
-    public void getCurrentDefaultTeamsForTopic() {
-        waitABit(2000);
-        setSessionVariable("defaultDraftTeam").to(autoAssignedDraftTeam.getValue());
-        setSessionVariable("defaultPrivateOfficeTeam").to(autoAssignedPrivateOfficeTeam.getValue());
-    }
 }

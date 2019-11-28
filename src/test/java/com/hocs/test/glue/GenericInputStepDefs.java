@@ -434,6 +434,9 @@ public class GenericInputStepDefs extends Page {
             case "REASON FOR NO RESPONSE NEEDED":
                 clickOn(finishButton);
                 break;
+            case "REASON FOR REJECTING TO DATA INPUT":
+                clickOn(finishButton);
+                break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
         }
