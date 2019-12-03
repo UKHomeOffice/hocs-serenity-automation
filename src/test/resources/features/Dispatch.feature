@@ -5,13 +5,6 @@ Feature:  HOCS User is able to Dispatch a Response
     And I get a "DCU N10" case at "DISPATCH" stage
 
   @Dispatch @HOCS-542
-  Scenario: User has a hard copy of a case to dispatch, they decide to reject it and fill in a rejection reason
-    When I "reject" the case
-    And I enter "someString" in the "Reject Reason" field
-    And I click the "FINISH" button
-    Then the "DCU N10" case should be moved to the "Private Office Approval" stage
-
-  @Dispatch @HOCS-542
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
     When I attempt to reject the "DISPATCH" case without reason
     Then an error message is displayed

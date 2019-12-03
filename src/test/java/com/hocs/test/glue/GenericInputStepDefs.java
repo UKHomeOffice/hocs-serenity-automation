@@ -394,9 +394,14 @@ public class GenericInputStepDefs extends Page {
                     clickOn(nextButton);
                 }
                 break;
+            case "QA RESPONSE":
+                qaResponse.rejectCaseWithoutReason();
+                break;
             case "DISPATCH":
                 dispatch.rejectCaseWithoutReason();
                 break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
@@ -594,7 +599,7 @@ public class GenericInputStepDefs extends Page {
             case "QA RESPONSE":
                 clickOn(qaResponse.QARejectRadioButton);
                 clickOn(qaResponse.continueButton);
-                qaResponse.enterDraftDecision();
+                qaResponse.enterQARejectionNote();
                 clickOn(qaResponse.finishButton);
                 break;
             case "PRIVATE OFFICE APPROVAL":

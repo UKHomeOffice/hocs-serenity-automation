@@ -4,13 +4,6 @@ Feature: User decides how cases should be handled at Minister Sign Off stage
     Given I log in as the designated user
     And I get a "DCU MIN" case at "MINISTERIAL SIGN OFF" stage
 
-  @MinSignOff
-  Scenario: User does not approve response at Ministerial Sign Off
-    When I reject the response at Ministerial Sign Off stage
-    And I enter feedback about the response
-    And I click the "Continue" button
-    Then the "DCU MIN" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
-
   @MinSignOff @Validation
   Scenario: User must select a radio button when asked whether or not they approve the response at the Minister Sign Off stage
     When I click the "CONTINUE" button

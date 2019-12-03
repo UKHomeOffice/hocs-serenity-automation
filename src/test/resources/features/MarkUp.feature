@@ -56,14 +56,6 @@ Feature: DCU user decides how a case should be handled
     But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
     Then an error message is displayed
 
-  @Markup
-  Scenario: User rejects case to Data Input
-    When I select an initial decision of "REJECT TO DATA INPUT"
-    And I click the "CONTINUE" button
-    And I enter "Test for rejecting case back to Data Input" as the reason for rejecting the case
-    And I click the "FINISH" button
-    Then the "DCU N10" case should be moved to the "DATA INPUT" stage
-
   @Markup @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"

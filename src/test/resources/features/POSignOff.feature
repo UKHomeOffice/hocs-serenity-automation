@@ -25,7 +25,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
 
   @POSignOff
-  Scenario:
+  Scenario: User can change the minister for the case
     When I select to change minister
     And I select "Home Secretary" as the new Private Office team
     And I enter "TEST OVERRIDE PO TEAM" as the reason for changing Private Office team
