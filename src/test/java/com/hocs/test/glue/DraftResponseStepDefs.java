@@ -8,9 +8,7 @@ import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.Qa;
-import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -73,11 +71,6 @@ public class DraftResponseStepDefs extends Page {
         }
     }
 
-    @When("^I click the continue button on the correspondence answer screen$")
-    public void clickContinueButtonOnCorrespondenceAnswerScreen() {
-        clickOn(draft.continueButton);
-    }
-
     @Then("^an error message should be displayed as I have not selected radio buttons on this screen$")
     public void assertThatCorrespondenceCanBeAnsweredErrorMessageIsShown() {
         draft.assertCorrespondenceAnsweredErrorMessage();
@@ -109,34 +102,9 @@ public class DraftResponseStepDefs extends Page {
         addDocuments.assertDocumentIsRequiredErrorMessage();
     }
 
-    @When("^I click the continue button on the do you want QA this offline screen$")
-    public void clickContinueButtonOnDoYouWantToQAOfflineScreen() {
-        clickOn(draft.answeredByMyTeamYesRadioButton);
-        clickOn(draft.continueButton);
-        clickOn(draft.letterReplyRadioButton);
-        clickOn(draft.continueButton);
-        addDocuments.addADraftDocument();
-        clickOn(draft.continueButton);
-        draft.waitABit(500);
-        clickOn(draft.continueButton);
-    }
-
     @Then("^an error message should be displayed as I have not selected whether the case should be QA offline or not$")
     public void assertThatQAOfflineErrorMessageIsShown() {
         draft.assertDoYouWantToQAThisOfflineErrorMessage();
-    }
-
-    @When("^I click the finish button on the who has done the offline QA screen$")
-    public void clickFinishButtonOnWhoHasDoneTheOfflineQAScreen() {
-        clickOn(draft.answeredByMyTeamYesRadioButton);
-        clickOn(draft.continueButton);
-        clickOn(draft.letterReplyRadioButton);
-        clickOn(draft.continueButton);
-        addDocuments.addADraftDocument();
-        clickOn(draft.continueButton);
-        clickOn(qa.offlineQaYesRadioButton);
-        clickOn(draft.continueButton);
-        clickOn(draft.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not selected the user that did the offline QA$")
@@ -162,16 +130,6 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
     }
 
-    @Then("^I can see the drafting deadline for a case$")
-    public void iCanSeeTheDraftingDeadlineForACase() {
-        draft.draftingDeadlineIsDisplayed();
-    }
-
-    @When("^a case has gone beyond the drafting deadline$")
-    public void aCaseHasGoneBeyondTheDraftingDeadline() {
-
-    }
-
     @Then("^an error message appears instructing me to add rejection reasons$")
     public void anErrorMessageAppearsInstructingMeToAddRejectionReasons() {
         draft.assertEnterRejectionReasonsError();
@@ -180,40 +138,6 @@ public class DraftResponseStepDefs extends Page {
     @Then("^I see an error message instructing me to enter call notes$")
     public void iSeeAnErrorMessageInstructingMeToEnterCallNotes() {
         draft.assertEnterCallNotesError();
-    }
-
-    @Then("^I can see an error message instructing me to select either ‘online QA’ or ‘offline QA’$")
-    public void iCanSeeAnErrorMessageInstructingMeToSelectEitherOnlineQAOrOfflineQA() {
-        draft.assertEnterQaMethodError();
-    }
-
-    @And("^I download the standard line for the case$")
-    public void iDownloadTheStandardLineForTheCase() {
-        clickOn(draft.downloadStandardLineLink);
-    }
-
-    @And("^I download the template for the case$")
-    public void iDownloadTheTemplateForTheCase() {
-        clickOn(draft.downloadTemplateLink);
-    }
-
-    @And("^I select an \"([^\"]*)\" Quality Assurer$")
-    public void iSelectAQualityAssurer(String qa) {
-        switch (qa.toUpperCase()) {
-            case "OFFLINE":
-                break;
-            case "ONLINE":
-                break;
-            default:
-                pendingStep(qa + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("^a case is not answered by my team$")
-    public void aCaseIsNotAnsweredByMyTeam() {
-        clickOn(draft.answeredByMyTeamNoRadioButton);
-        clickOn(draft.continueButton);
-        draft.enterRejectionNotes();
     }
 
     @When("^I select a case \"([^\"]*)\" be answered by my team$")
