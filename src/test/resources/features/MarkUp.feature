@@ -4,7 +4,7 @@ Feature: DCU user decides how a case should be handled
     Given I log in as the designated user
     When I get a "DCU N10" case at "MARKUP" stage
 
-  @HOCS-266, @HOCS-237
+  @Markup @HOCS-266, @HOCS-237
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
     And I click the "CONTINUE" button
@@ -17,43 +17,46 @@ Feature: DCU user decides how a case should be handled
     | FAQ             |
 
 
-  @HOCS-266, @HOCS-237
+  @Markup @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "REFER TO OGD"
     And I click the "CONTINUE" button
     Then the Other Government Department name free text field is displayed
 
-  @HOCS-266, @HOCS-237
+  @Markup @HOCS-266, @HOCS-237
   Scenario: User selects an initial decision of No Response Needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "CONTINUE" button
     Then the No Response Needed casenote field is displayed
 
-  @HOCS-259, @HOCS-237
+  @Markup @Validation @HOCS-259, @HOCS-237
   Scenario: User does not enter department in free text field
     When I select an initial decision of "Refer to OGD"
     And I click the "CONTINUE" button
     But I do not enter an "Other Government Department"
     Then an error message is displayed
 
+  @Markup
   Scenario: User selects an initial decision of Reject to Data Input
     When I select an initial decision of "REJECT TO DATA INPUT"
     And I click the "CONTINUE" button
     Then the reason for rejection casenote field is displayed
 
-  @HOCS-257, @HOCS-237
+  @Markup @Validation @HOCS-257, @HOCS-237
   Scenario: User does not enter reasons for no reply needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "CONTINUE" button
     But I do not enter a "REASON FOR NO RESPONSE NEEDED"
     Then an error message is displayed
 
+  @Markup @Validation
   Scenario: User does not enter reason for rejecting case to Data Input
     When I select an initial decision of "REJECT TO DATA INPUT"
     And I click the "CONTINUE" button
     But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
     Then an error message is displayed
 
+  @Markup
   Scenario: User rejects case to Data Input
     When I select an initial decision of "REJECT TO DATA INPUT"
     And I click the "CONTINUE" button
@@ -61,35 +64,36 @@ Feature: DCU user decides how a case should be handled
     And I click the "FINISH" button
     Then the "DCU N10" case should be moved to the "DATA INPUT" stage
 
-  @HOCS-258, @HOCS-262, @HOCS-237
+  @Markup @HOCS-258, @HOCS-262, @HOCS-237
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
     And I click the "CONTINUE" button
     And I add the topic "CARDIFF UNIVERSITY KITTENS"
     Then the topic should be added to the case
 
+  @Markup
   Scenario: User can select a topic for a FAQ response
     When I select an initial decision of "FAQ"
     And I click the "CONTINUE" button
     And I add the topic "CARDIFF UNIVERSITY KITTENS"
     Then the topic should be added to the case
 
-  @Validation
+  @Markup @Validation
   Scenario: User must select a response on the first Markup Stage screen
     And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected a response
 
-  @Validation
+  @Markup @Validation
   Scenario: User must add a topic at the Markup Stage
     And I click the "CONTINUE" button on the "ADD A TOPIC" page
     Then an error message should be displayed as I have not added a topic
 
-  @Validation
+  @Markup @Validation
   Scenario: User must select a topic from the dropdown box at the Markup Stage
     And I click the "ADD" button on the "ENTER A NEW TOPIC" page
     Then an error message should be displayed as I have not selected a topic
 
-  @Validation
+  @Markup @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"

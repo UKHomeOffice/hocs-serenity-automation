@@ -27,16 +27,6 @@ public class QAResponseStepDefs extends Page {
         clickOn(qaResponse.continueButton);
     }
 
-    @When("^I reject the case at the QA Response stage$")
-    public void rejectAtQaResponse() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(qaResponse.QARejectRadioButton);
-        clickOn(qaResponse.continueButton);
-        qaResponse.enterDraftDecision();
-        clickOn(qaResponse.finishButton);
-    }
-
     @When("^I click the continue button on the do you approve the QA response screen$")
     public void clickContinueButtonOnApproveResponseScreen() {
         clickOn(qaResponse.continueButton);

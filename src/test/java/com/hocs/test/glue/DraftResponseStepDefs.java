@@ -25,8 +25,6 @@ public class DraftResponseStepDefs extends Page {
 
     Qa qa;
 
-    Teamqueue teamqueue;
-
     AddDocuments addDocuments;
 
     Workstacks workstacks;
@@ -247,93 +245,6 @@ public class DraftResponseStepDefs extends Page {
             default:
                 pendingStep(callDetails + " is not defined within " + getMethodName());
         }
-    }
-
-    @Then("^the \"([^\"]*)\" case should be moved to the \"([^\"]*)\" stage$")
-    public void assertCaseTypeReturnedToStage(String caseType, String stage) {
-        switch(caseType.toUpperCase()) {
-            case "DCU MIN" :
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                        clickOn(homepage.performanceProcessTeam);
-                        break;
-                    case "MARKUP":
-                        clickOn(homepage.centralDraftingTeam);
-                        break;
-                    case "INITIAL DRAFT":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "QA RESPONSE":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                        clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "MINISTERIAL SIGN OFF":
-                        clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "DISPATCH":
-                        clickOn(homepage.performanceProcessTeam);
-                        break;
-                    case "COPY TO NUMBER 10":
-                        clickOn(homepage.transferN10Team);
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                break;
-            case "DCU TRO" :
-                switch(stage.toUpperCase()){
-                    case "DATA INPUT" :
-                        clickOn(homepage.performanceProcessTeam);
-                        break;
-                    case "MARKUP" :
-                        clickOn(homepage.centralDraftingTeam);
-                        break;
-                    case "INITIAL DRAFT" :
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "QA RESPONSE" :
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "DISPATCH" :
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
-                    case "COPY TO NUMBER 10" :
-                        clickOn(homepage.transferN10Team);
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                break;
-            case "DCU N10" :
-                switch (stage.toUpperCase()) {
-                case "DATA INPUT":
-                    clickOn(homepage.transferN10Team);
-                    break;
-                case "MARKUP":
-                    clickOn(homepage.transferN10Team);
-                    break;
-                case "INITIAL DRAFT":
-                    clickOn(homepage.animalsInScienceTeam);
-                    break;
-                case "QA RESPONSE":
-                    clickOn(homepage.animalsInScienceTeam);
-                    break;
-                case "PRIVATE OFFICE APPROVAL":
-                    clickOn(homepage.ministerForLordsTeam);
-                    break;
-                case "DISPATCH":
-                    clickOn(homepage.transferN10Team);
-                    break;
-                default:
-                    pendingStep(stage + " is not defined within " + getMethodName());
-            }
-            break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        teamqueue.assertCaseStage(stage);
     }
 
     @And("^I select \"([^\"]*)\" to choosing another Response Type$")
