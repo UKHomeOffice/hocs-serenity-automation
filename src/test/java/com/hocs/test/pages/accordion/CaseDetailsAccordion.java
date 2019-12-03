@@ -77,6 +77,12 @@ public class CaseDetailsAccordion extends PageObject {
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Are you able to dispatch this?']/parent::span")
     public WebElementFacade areYouAbleToDispatchThis;
 
+    @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Override Private Office Team']/parent::span")
+    public WebElementFacade OverridePrivateOfficeTeam;
+
+    @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Why should this be approved by this team instead?']/parent::span")
+    public WebElementFacade whyShouldThisBeApprovedByThisTeamInstead;
+
     //assertions
 
     public void assertAccordionCorrespondenceReceivedDate() {
@@ -154,5 +160,14 @@ public class CaseDetailsAccordion extends PageObject {
     public void assertThePrimaryContactName(String fullName) {
         clickOn(dataInputAccordionButton);
         assertThat(whichIsThePrimaryCorrespondent.getText(), containsText(fullName));
+    }
+
+    public void assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange() {
+        String chosenPOTeam = sessionVariableCalled("chosenPOTeam");
+        String reasonForOverridePOTeam = sessionVariableCalled("reasonForOverridePOTeam");
+
+        assertThat(doYouApproveTheResponse.getText(), containsText("CHANGE"));
+        assertThat(OverridePrivateOfficeTeam.getText(), containsText(chosenPOTeam));
+        assertThat(whyShouldThisBeApprovedByThisTeamInstead.getText(), containsText(reasonForOverridePOTeam));
     }
 }

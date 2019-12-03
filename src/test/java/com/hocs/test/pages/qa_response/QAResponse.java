@@ -7,7 +7,6 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
-import org.openqa.selenium.WebDriver;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +14,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class QAResponse extends Page{
 
     @Managed
-    WebDriver driver;
 
     Homepage homepage;
 
@@ -29,11 +27,8 @@ public class QAResponse extends Page{
     @FindBy(css = "label[for='QAResponseDecision-REJECT']")
     public WebElementFacade QARejectRadioButton;
 
-    @FindBy(id = "CaseNote_RejectionNote")
-    public WebElementFacade draftDecisionNoteField;
-
     @FindBy(id ="CaseNote_QA")
-    public WebElementFacade draftDecisionNoteFieldTheSecond;
+    public WebElementFacade QARejectionNoteField;
 
     @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
     public WebElementFacade QADoYouApproveTheReponseErrorMessage;
@@ -46,20 +41,26 @@ public class QAResponse extends Page{
 
     public void clickQAResponseAcceptRadioButton() {
         QAAcceptRadioButton.click();
+        System.out.println("Response accepted");
     }
 
     public void clickQAResponseRejectRadioButton() {
         QARejectRadioButton.click();
-        System.out.println("Case rejected, entering decision note");
+        System.out.println("Response rejected");
     }
-
 
     // Multi Step Methods
 
-    public void enterDraftDecision() {
-        String draftDecisionNote = generateRandomString();
-        typeInto(draftDecisionNoteFieldTheSecond, draftDecisionNote);
-        setSessionVariable("draftDecisionNote").to(draftDecisionNote);
+    public void rejectCaseWithoutReason() {
+        clickQAResponseRejectRadioButton();
+        clickOn(continueButton);
+        clickOn(finishButton);
+    }
+
+    public void enterQARejectionNote() {
+        String QARejectionNote = generateRandomString();
+        typeInto(QARejectionNoteField, QARejectionNote);
+        setSessionVariable("QARejectionNote").to(QARejectionNote);
     }
 
     public void qaResponseFullFlow() {
@@ -81,14 +82,6 @@ public class QAResponse extends Page{
         clickOn(continueButton);
     }
 
-    public void assertQADoYouApproveErrorMessage() {
-        assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
-    }
-
-    public void assertQAWhatIsYourFeedbackErrorMessage() {
-        assertThat(QAWhatIsYourFeedbackAboutTheResponseErrorMessage.getText(), is("What is your feedback about the response? is required"));
-    }
-
     public void moveCaseFromQaResponseToPrivateOfficeApproval() {
         clickOn(QAAcceptRadioButton);
         clickOn(continueButton);
@@ -99,6 +92,17 @@ public class QAResponse extends Page{
         String chosenQAResponse = QAAcceptRadioButton.getAttribute("for").substring(19);
         setSessionVariable("chosenQAResponse").to(chosenQAResponse);
         clickOn(continueButton);
+    }
+
+    //Assertions
+
+    public void assertQADoYouApproveErrorMessage() {
+        assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
+    }
+
+    public void assertQAWhatIsYourFeedbackErrorMessage() {
+        assertThat(QAWhatIsYourFeedbackAboutTheResponseErrorMessage.getText(),
+                is("What is your feedback about the response? is required"));
     }
 
 }

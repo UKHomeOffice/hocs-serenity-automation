@@ -22,6 +22,9 @@ public class PrivateOffice extends Page {
     @FindBy(id = "CaseNote_PrivateOfficeReject")
     public WebElementFacade privateOfficeRejectNoteField;
 
+    @FindBy(id = "CaseNote_PrivateOfficeOverride")
+    public WebElementFacade privateOfficeOverrideNoteField;
+
     @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
     public WebElementFacade doYouApproveTheResponseErrorMessage;
 
@@ -33,6 +36,9 @@ public class PrivateOffice extends Page {
 
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
     public WebElementFacade whatIsYourFeedbackResponseErrorMessage;
+
+    @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
+    public WebElementFacade privateOfficeTeamDropdown;
 
     public void enterPORejectNotes() {
         waitFor(privateOfficeRejectNoteField);
@@ -80,5 +86,15 @@ public class PrivateOffice extends Page {
         String privateOfficeAcceptanceDecision = privateOfficeAcceptRadioButton.getAttribute("for").substring(22);
         setSessionVariable("privateOfficeAcceptanceDecision").to(privateOfficeAcceptanceDecision);
         clickOn(continueButton);
+    }
+
+    public void selectNewPrivateOfficeTeamFromDropdown(String newPOTeam) {
+        privateOfficeTeamDropdown.selectByVisibleText(newPOTeam);
+        setSessionVariable("chosenPOTeam").to(newPOTeam);
+    }
+
+    public void enterAReasonForChangingPOTeam(String reason) {
+        privateOfficeOverrideNoteField.sendKeys(reason);
+        setSessionVariable("reasonForOverridePOTeam").to(reason);
     }
 }

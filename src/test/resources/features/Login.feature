@@ -16,7 +16,7 @@ Feature: HOCS User is able to login
     And I enter the login credentials of another user "DCU" and click the login button
     Then I should be logged in as the "DCU" user
 
-  @Validation
+  @Login @Validation
   Scenario: User must enter valid login credentials on the login screen
     When I enter invalid login credentials on the login screen
     Then an error message should be displayed as the credentials are invalid

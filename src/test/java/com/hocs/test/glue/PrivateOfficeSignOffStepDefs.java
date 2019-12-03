@@ -3,12 +3,15 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.accordion.CaseDetailsAccordion;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.workstacks.Workstacks;
 
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Managed;
@@ -26,6 +29,8 @@ public class PrivateOfficeSignOffStepDefs extends Page {
     PrivateOffice privateOffice;
 
     Workstacks workstacks;
+
+    CaseDetailsAccordion caseDetailsAccordion;
 
     @When("^I complete the Private Office stage$")
     public void completePrivateOfficeStage() {
@@ -55,16 +60,6 @@ public class PrivateOfficeSignOffStepDefs extends Page {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-    }
-
-    @When("^the case is rejected at the Private Office stage$")
-    public void rejectAtPrivateOffice() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(privateOffice.privateOfficeRejectRadioButton);
-        clickOn(privateOffice.continueButton);
-        privateOffice.enterPORejectNotes();
-        clickOn(privateOffice.finishButton);
     }
 
     @When("^I click the continue button on PO approve response screen$")
@@ -101,4 +96,23 @@ public class PrivateOfficeSignOffStepDefs extends Page {
         privateOffice.assertWhatIsYourFeedbackResponse();
     }
 
+    @And("^I select to change minister$")
+    public void iSelectToChangeMinister() {
+        privateOffice.getToChangeMinisterScreenPrerequisites();
+    }
+
+    @And("^I select \"([^\"]*)\" as the new Private Office team$")
+    public void iSelectAsTheNewMinister(String newPOTeam) {
+        privateOffice.selectNewPrivateOfficeTeamFromDropdown(newPOTeam);
+    }
+
+    @And("^I enter \"([^\"]*)\" as the reason for changing Private Office team$")
+    public void iEnterAsTheReasonForChangingPrivateOfficeTeam(String reason) {
+        privateOffice.enterAReasonForChangingPOTeam(reason);
+    }
+
+    @Then("^the information shown should match what I entered on the change Private Office Team page$")
+    public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
+        caseDetailsAccordion.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
+    }
 }

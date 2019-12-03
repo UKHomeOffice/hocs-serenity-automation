@@ -18,6 +18,7 @@ import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
 
@@ -66,6 +67,8 @@ public class GenericInputStepDefs extends Page {
     TeamManagement teamManagement;
 
     UnitManagement unitManagement;
+
+    Teamqueue teamqueue;
 
     @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
     public void dropdownDefaultsTo(String dropdown, String expectedText) {
@@ -391,9 +394,14 @@ public class GenericInputStepDefs extends Page {
                     clickOn(nextButton);
                 }
                 break;
+            case "QA RESPONSE":
+                qaResponse.rejectCaseWithoutReason();
+                break;
             case "DISPATCH":
                 dispatch.rejectCaseWithoutReason();
                 break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
@@ -490,6 +498,132 @@ public class GenericInputStepDefs extends Page {
         clickOn(workstacks.caseTimelineTab);
         clickOn(workstacks.addCaseNoteButton);
         clickOn(workstacks.addButton);
+    }
+
+    @Then("^the \"([^\"]*)\" case should be moved to the \"([^\"]*)\" stage$")
+    public void assertCaseTypeReturnedToStage(String caseType, String stage) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "MARKUP":
+                        clickOn(homepage.centralDraftingTeam);
+                        break;
+                    case "INITIAL DRAFT":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "QA RESPONSE":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "MINISTERIAL SIGN OFF":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "DISPATCH":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "COPY TO NUMBER 10":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "DCU TRO":
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        clickOn(homepage.performanceProcessTeam);
+                        break;
+                    case "MARKUP":
+                        clickOn(homepage.centralDraftingTeam);
+                        break;
+                    case "INITIAL DRAFT":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "QA RESPONSE":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "DISPATCH":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "COPY TO NUMBER 10":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "DCU N10":
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    case "MARKUP":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    case "INITIAL DRAFT":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "QA RESPONSE":
+                        clickOn(homepage.animalsInScienceTeam);
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        clickOn(homepage.ministerForLordsTeam);
+                        break;
+                    case "DISPATCH":
+                        clickOn(homepage.transferN10Team);
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        teamqueue.assertCaseStage(stage);
+    }
+
+    @And("^I reject the case at the \"([^\"]*)\" stage$")
+    public void iRejectTheCaseAtTheStage(String stage) {
+        switch (stage.toUpperCase()) {
+            case "INITIAL DRAFT":
+                clickOn(draft.answeredByMyTeamNoRadioButton);
+                clickOn(draft.continueButton);
+                draft.enterRejectionNotes();
+                clickOn(draft.finishButton);
+                break;
+            case "QA RESPONSE":
+                clickOn(qaResponse.QARejectRadioButton);
+                clickOn(qaResponse.continueButton);
+                qaResponse.enterQARejectionNote();
+                clickOn(qaResponse.finishButton);
+                break;
+            case "PRIVATE OFFICE APPROVAL":
+                clickOn(privateOffice.privateOfficeRejectRadioButton);
+                clickOn(privateOffice.continueButton);
+                privateOffice.enterPORejectNotes();
+                clickOn(privateOffice.finishButton);
+                break;
+            case "MINISTERIAL SIGN OFF":
+                clickOn(minister.ministerSignOffRejectRadioButton);
+                clickOn(minister.continueButton);
+                minister.enterMinisterRejectionNote();
+                clickOn(minister.continueButton);
+                break;
+            case "DISPATCH":
+                clickOn(dispatch.dispatchRejectRadioButton);
+                clickOn(continueButton);
+                dispatch.enterDispatchRejectionNotes();
+                clickOn(finishButton);
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+
     }
 }
 

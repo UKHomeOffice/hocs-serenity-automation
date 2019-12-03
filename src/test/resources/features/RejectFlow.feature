@@ -3,83 +3,64 @@ Feature: If the response is rejected the case is returned to certain stages in t
   Background:
     Given I log in as the designated user
 
-  @RejectFlow @QAResponse @Critical @Workflow @SmokeTests @DCUMIN
-    Scenario: DCU MIN Case returned to Initial Draft stage when rejected by QA Response Team
-      When I create a single case "DCU MIN"
-      And the Data Input Stage is completed for "DCU MIN" caseType
-      And I complete the markup stage
-      And I complete the Initial Draft stage
-      And I reject the case at the QA Response stage
-      Then the "DCU MIN" case should be moved to the "INITIAL DRAFT" stage
+  @RejectFlow @QAResponse @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Markup stage when rejected by Initial Draft Team
+    And I get a "<caseType>" case at "Initial Draft" stage
+    And I reject the case at the "Initial Draft" stage
+    Then the "<caseType>" case should be moved to the "Markup" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
+      | DCU TRO  |
+      | DCU N10  |
 
-  @RejectFlow @QAResponse @Workflow @SmokeTests
-  Scenario: DCU TRO Case returned to Initial Draft stage when rejected by QA Response team
-    When I create a single case "DCU TRO"
-    And the Data Input Stage is completed for "DCU TRO" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage for "DCU TRO"
-    And I reject the case at the QA Response stage
-    Then the "DCU TRO" case should be moved to the "INITIAL DRAFT" stage
+  @RejectFlow @QAResponse @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by QA Response Team
+    And I get a "<caseType>" case at "QA Response" stage
+    And I reject the case at the "QA Response" stage
+    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
+      | DCU TRO  |
+      | DCU N10  |
 
-  @RejectFlow @QAResponse @Workflow @DCUMIN @SmokeTests
-  Scenario: DCU N10 Case returned to Initial Draft stage when rejected by QA Response team
-    When I create a single case "DCU N10"
-    And the Data Input Stage is completed for "DCU N10" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I reject the case at the QA Response stage
-    Then the "DCU N10" case should be moved to the "INITIAL DRAFT" stage
+  @RejectFlow @QAResponse @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by QA Response Team
+    And I get a "<caseType>" case at "QA Response" stage
+    And I reject the case at the "QA Response" stage
+    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
+      | DCU TRO  |
+      | DCU N10  |
 
-  @RejectFlow @PrivateOffice @Workflow @DCUMIN @SmokeTests
-  Scenario: DCU MIN Case returned to Initial Draft stage when rejected by Private Office Team
-    When I create a single case "DCU MIN"
-    And the Data Input Stage is completed for "DCU MIN" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And the case is rejected at the Private Office stage
-    Then the "DCU MIN" case should be moved to the "INITIAL DRAFT" stage
+  @RejectFlow @PrivateOffice @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Private Office Approval Team
+    And I get a "<caseType>" case at "Private Office Approval" stage
+    And I reject the case at the "Private Office Approval" stage
+    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
+      | DCU N10  |
 
-  @RejectFlow @PrivateOffice @Workflow @DCUMIN @SmokeTests
-  Scenario: DCU N10 Case returned to Initial Draft stage when rejected by Private Office Team
-    When I create a single case "DCU N10"
-    And the Data Input Stage is completed for "DCU N10" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And the case is rejected at the Private Office stage
-    Then the "DCU N10" case should be moved to the "INITIAL DRAFT" stage
+  @RejectFlow @MinisterSignOff @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Private Office Approval Team
+    And I get a "<caseType>" case at "Ministerial Sign Off" stage
+    And I reject the case at the "Ministerial Sign Off" stage
+    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
 
-  @RejectFlow @MinisterSignOff @Workflow @SmokeTests @DCUMIN
-  Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister
-    When I create a single case "DCU MIN"
-    And the Data Input Stage is completed for "DCU MIN" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And the case is rejected by the Minister
-    Then the "DCU MIN" case should be moved to the "INITIAL DRAFT" stage
-
-  @RejectFlow @Dispatch @Workflow @SmokeTests @DCUMIN
-  Scenario: DCU MIN Case returned to Private Office Stage when rejected at Dispatch stage
-    When I create a single case "DCU MIN"
-    And the Data Input Stage is completed for "DCU MIN" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the minister sign off stage
-    And the case is rejected at the Dispatch stage
-    Then the "DCU MIN" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
-
-  @RejectFlow @Dispatch @Workflow @SmokeTests @DCUMIN
-  Scenario: DCU N10 Case returned to Private Office Stage when rejected at Dispatch stage
-    When I create a single case "DCU N10"
-    And the Data Input Stage is completed for "DCU N10" caseType
-    And I complete the markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And the case is rejected at the Dispatch stage
-    Then the "DCU N10" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
+  @RejectFlow @Dispatch @Critical @Workflow @SmokeTests
+  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Dispatch Team
+    And I get a "<caseType>" case at "Dispatch" stage
+    And I reject the case at the "Dispatch" stage
+    Then the "<caseType>" case should be moved to the "Private Office Approval" stage
+    Examples:
+      | caseType |
+      | DCU MIN  |
+      | DCU N10  |
