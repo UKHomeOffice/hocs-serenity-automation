@@ -5,16 +5,13 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.dispatch.Dispatch;
-import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.markup.MarkUpDecision;
-import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
@@ -22,21 +19,12 @@ import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.But;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Managed;
-
-import org.openqa.selenium.WebDriver;
-
 
 public class GenericInputStepDefs extends Page {
-
-    @Managed
-    WebDriver driver;
 
     DataInput dataInput;
 
@@ -48,15 +36,9 @@ public class GenericInputStepDefs extends Page {
 
     MarkUpDecision markUpDecision;
 
-    Topics topics;
-
     Draft draft;
 
-    AddDocuments addDocuments;
-
     MinisterSignOff minister;
-
-    Qa qa;
 
     PrivateOffice privateOffice;
 
@@ -69,36 +51,6 @@ public class GenericInputStepDefs extends Page {
     UnitManagement unitManagement;
 
     Teamqueue teamqueue;
-
-    @Then("^\"([^\"]*)\" dropdown defaults to \"([^\"]*)\"$")
-    public void dropdownDefaultsTo(String dropdown, String expectedText) {
-        switch (dropdown.toUpperCase()) {
-            case "":
-                break;
-            default:
-                pendingStep(expectedText + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("^I click the \"([^\"]*)\" link")
-    public void clickLink(String name) {
-        switch (name.toUpperCase()) {
-            case "UPDATE":
-                clickOn(updateLink);
-                break;
-            case "NEW":
-                clickOn(newLink);
-                break;
-            case "DELETE":
-                clickOn(deleteLink);
-                break;
-            case "VIEW":
-                clickOn(viewLink);
-                break;
-            default:
-                pendingStep(name + " is not defined within " + getMethodName());
-        }
-    }
 
     @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
     public void iEnterTextIntoTheNominatedField(String input, String element) {
@@ -133,45 +85,6 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
-//        waitABit(4000);
-    }
-
-
-    @Then("^The page title is \"([^\"]*)\"$")
-    public void pageTitleIs(String title) {
-        assertTitle(title);
-    }
-
-    @Then("^I should see the \"([^\"]*)\" message$")
-    public void iSeeTheMessage(String message) {
-        switch (message.toUpperCase()) {
-            case "DOCUMENT PENDING":
-                break;
-            case "DOCUMENT UPLOAD FAILED":
-                break;
-            case "NO DOCUMENTS":
-                break;
-            default:
-                pendingStep(message + " is not defined within " + getMethodName());
-        }
-    }
-
-    @And("I upload a \"([^\"]*)\" document")
-    public void IUploadADocument(String docType) {
-        switch (docType.toUpperCase()) {
-            case "ORIGINAL":
-                addDocuments.addAOriginalDocument();
-                break;
-            case "DRAFT":
-                addDocuments.addADraftDocument();
-                break;
-            case "FINAL":
-                addDocuments.addAFinalDocument();
-                break;
-            default:
-                pendingStep(docType + " is not defined within " + getMethodName());
-        }
-        clickOn(continueButton);
     }
 
     @Then("^\"([^\"]*)\" error message is displayed$")
@@ -205,79 +118,9 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I take the case up to the DISPATCH stage$")
-    public void moveFromDataInputToDispatch() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(markUpDecision.policyResponseRadioButton);
-        clickOn(markUpDecision.continueButton);
-        clickOn(topics.addTopicButton);
-        topics.enterRealTopic();
-        clickOn(markUpDecision.addButton);
-        clickOn(continueButton);
-        clickOn(finishButton);
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        draft.acceptAndDraftALetter();
-        addDocuments.addADraftDocument();
-        qa.dontQAOffline();
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(qaResponse.QAAcceptRadioButton);
-        System.out.println("Finished QA Response, returning to home page.");
-        clickOn(continueButton);
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(privateOffice.privateOfficeAcceptRadioButton);
-        clickOn(continueButton);
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
-        clickOn(minister.ministerSignOffAcceptRadioButton);
-        clickOn(continueButton);
-    }
-
-    @When("^I set the date to \"([^\"]*)\"$")
-    public void iSetTheDate(String date) {
-        switch (date.toUpperCase()) {
-            case "TODAY":
-                getCurrentDay();
-                getCurrentMonth();
-                getCurrentYear();
-                break;
-            case "TOMORROW":
-                break;
-            case "YESTERDAY":
-                break;
-            default:
-                pendingStep(date + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("I set a date of (\\d+) days time in the \"([^\"]*)\" field")
-    public void iSetADateOfNDaysTimeInTheField(int days, String field) {
-        String day = todayPlusNDaysGetDay(days);
-        String month = todayPlusNDaysGetMonth(days);
-        String year = todayPlusNDaysGetYear(days);
-    }
-
-    @When("^I set a deadline of -1 days$")
-    public void setDeadlineToDaysDays(int days) {
-        dataInput.setDateMinusOneDay();
-    }
-
     @Then("^an error message is displayed$")
     public void anErrorMessageIsDisplayed() {
         errorMessageIsDisplayed();
-    }
-
-    @Then("^the file is downloaded$")
-    public void theFileIsDownloaded() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @Then("^I cannot exit the case$")
-    public void iCannotClickToExitTheCase() {
     }
 
     @When("^I click the \"([^\"]*)\" button on the \"([^\"]*)\" page$")
@@ -413,8 +256,6 @@ public class GenericInputStepDefs extends Page {
                 clickOn(acceptButton);
                 clickOn(continueButton);
                 break;
-            case "ALLOCATE":
-                break;
             case "DISPATCH":
                 dispatch.dispatchTheCase();
                 break;
@@ -478,18 +319,6 @@ public class GenericInputStepDefs extends Page {
                 break;
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Given("^I add (\\d+) \"([^\"]*)\" to a case$")
-    public void iAddToACase(int number, String addition) throws Throwable {
-        for (int i = 0; i < number; i++) {
-            switch (addition.toUpperCase()) {
-                case "TOPICS":
-                    break;
-                default:
-                    pendingStep(addition + " is not defined within " + getMethodName());
-            }
         }
     }
 

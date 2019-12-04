@@ -128,8 +128,12 @@ Feature: HOCS is able to move cases through the entire flow
   Scenario: Dispatch a case with Copy to Number Ten selected
     Given I create a single case "DCU MIN"
     And I complete the Data Input stage and send a copy to Number Ten
-    And I take the case up to the DISPATCH stage
-    When I complete the dispatch stage
+    And I complete the markup stage
+    And I complete the Initial Draft stage for "DCU MIN"
+    And I complete the QA response stage
+    And I complete the Private Office stage
+    And I complete the minister sign off stage
+    And I complete the dispatch stage
     Then the "DCU MIN" case should be moved to the "COPY TO NUMBER 10" stage
 
 

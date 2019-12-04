@@ -35,4 +35,5 @@ public class DispatchStepDefs extends Page {
     public void assertThatWhyAreYouUnableToDispatchErrorMessageIsShown() {
         dispatch.assertWhyAreYouUnableToDispatchErrorMessageIsShown();
     }
+
 }

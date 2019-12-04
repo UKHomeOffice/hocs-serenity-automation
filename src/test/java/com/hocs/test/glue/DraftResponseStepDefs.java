@@ -44,22 +44,22 @@ public class DraftResponseStepDefs extends Page {
 
     @When("^I complete the Initial Draft stage for \"([^\"]*)\"$")
     public void initialDraftFullFlowPerCaseType(String caseType) {
-        switch(caseType.toUpperCase()) {
-            case "DCU MIN" :
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
                 addDocuments.addADraftDocument();
                 qa.dontQAOffline();
                 break;
-            case "DCU TRO" :
+            case "DCU TRO":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
                 addDocuments.addADraftDocument();
                 qa.dontQAOffline();
                 break;
-            case "DCU N10" :
+            case "DCU N10":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();

@@ -7,9 +7,11 @@ import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
+
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
