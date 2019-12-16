@@ -25,6 +25,8 @@ public class LoginPage extends Page {
     @FindBy(xpath = "//li[text()='Invalid username or password.']")
     private WebElementFacade invalidUsernameOrPasswordErrorMessage;
 
+    //Basic methods
+
     public void enterUsername(String username) {
         typeInto(usernameField, username);
     }
@@ -33,21 +35,19 @@ public class LoginPage extends Page {
         typeInto(passwordField, password);
     }
 
-    public void assertLoginErrorMessage() {
-        assertThat(invalidUsernameOrPasswordErrorMessage.getText(), is("Invalid username or password.") );
-    }
-
-    public void enterHocsLoginDetails(Users user) {
-        enterUsername(user.getUsername());
-        enterPassword(user.getPassword());
-    }
-
     public void enterHocsUsername(Usernames username) {
         enterUsername(username.getUsername());
     }
 
     public void enterHocsPassword(Passwords password) {
         enterPassword(password.getPassword());
+    }
+
+    //Multi Step Methods
+
+    public void enterHocsLoginDetails(Users user) {
+        enterUsername(user.getUsername());
+        enterPassword(user.getPassword());
     }
 
     public void navigateToHocs() {
@@ -88,5 +88,11 @@ public class LoginPage extends Page {
             baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
         }
         getDriver().get(baseUrl);
+    }
+
+    // Assertions
+
+    public void assertLoginErrorMessage() {
+        assertThat(invalidUsernameOrPasswordErrorMessage.getText(), is("Invalid username or password."));
     }
 }

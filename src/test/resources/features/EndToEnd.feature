@@ -101,7 +101,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the Private Office stage
     And I complete the minister sign off stage
     And I complete the dispatch stage
-    Then the case should no longer be visible in the teamqueue
+    Then the case should no longer be visible in the workstack
 
   @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
@@ -112,7 +112,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the QA response stage
     And I complete the Private Office stage
     And I complete the dispatch stage
-    Then the case should no longer be visible in the teamqueue
+    Then the case should no longer be visible in the workstack
 
   @EndToEnd @Critical @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
@@ -122,7 +122,7 @@ Feature: HOCS is able to move cases through the entire flow
     And I complete the Initial Draft stage for "DCU TRO"
     And I complete the QA response stage
     And I complete the dispatch stage
-    Then the case should no longer be visible in the "DCU TRO" teamqueue
+    Then the case should no longer be visible in the "DCU TRO" workstack
 
   @Workflow @SmokeTests @Dispatch
   Scenario: Dispatch a case with Copy to Number Ten selected

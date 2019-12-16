@@ -114,6 +114,9 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade displayedOwner;
 
+    @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
+    public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -138,6 +141,11 @@ public class Workstacks extends Page {
 
     public void selectSummaryTab() {
         clickOn(caseSummaryTab);
+    }
+
+    public String getCorrespondenceReceivedDateFromSummary() {
+        selectSummaryTab();
+        return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 
     public void clickCheckboxRelevantToCaseReference() {
@@ -256,13 +264,13 @@ public class Workstacks extends Page {
     }
 
     public void assertCaseReferenceBeforeAllocation(){
-        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
+        String searchCaseReference = sessionVariableCalled("caseReference").toString();
         assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
 
     }
 
     public void assertCaseReferenceAfterAllocation() {
-        String searchCaseReference = sessionVariableCalled("searchByCaseReferenceQuery").toString();
+        String searchCaseReference = sessionVariableCalled("caseReference").toString();
         assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
 
@@ -275,5 +283,32 @@ public class Workstacks extends Page {
 
     public void assertOwnerIs(String owner) {
         assertThat(displayedOwner.getText(), is(owner));
+    }
+
+    private String getStageFromWorkstacksTable() {
+        WebElement caseReferenceStage = getDriver().findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[1]"));
+        System.out.println(caseReferenceStage);
+
+        return caseReferenceStage.getText();
+    }
+
+    public void assertCaseStage(String stage) {
+        assertThat(getStageFromWorkstacksTable().toUpperCase(), Is.is(stage.toUpperCase()));
+    }
+
+    public void assertCaseIsNotVisible() {
+        String assertElement
+                = sessionVariableCalled("assertCase").toString();
+        element(assertElement).shouldNotBePresent();
+    }
+
+    public String getAllocatedUserFromWorkstacksTable() {
+        WebElement caseReferenceStage = getDriver().findElement(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[2]"));
+
+        return caseReferenceStage.getText();
     }
 }

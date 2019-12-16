@@ -12,11 +12,9 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Steps;
 
 public class DraftResponseStepDefs extends Page {
 
-    @Steps(shared = true)
     Draft draft;
 
     Homepage homepage;
@@ -46,12 +44,6 @@ public class DraftResponseStepDefs extends Page {
     public void initialDraftFullFlowPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
-                homepage.getCurrentCase();
-                clickOn(workstacks.allocateToMeButton);
-                draft.acceptAndDraftALetter();
-                addDocuments.addADraftDocument();
-                qa.dontQAOffline();
-                break;
             case "DCU TRO":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
@@ -202,8 +194,18 @@ public class DraftResponseStepDefs extends Page {
     }
 
     @And("^I select \"([^\"]*)\" as the offline QA$")
-    public void iSelectAsTheOfflineQA(String arg0) throws Throwable {
-        qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
-        clickOn(finishButton);
+    public void iSelectAsTheOfflineQA(String teamMember) {
+        switch (teamMember.toUpperCase()) {
+            case "EAMON":
+                qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+                clickOn(finishButton);
+                break;
+            case "CASEY":
+                qa.selectOfflineQualityAssurer("Casey Prosser (casey.prosser@ten10.com");
+                clickOn(finishButton);
+                break;
+            default:
+                pendingStep(teamMember + " is not defined within " + getMethodName());
+        }
     }
 }

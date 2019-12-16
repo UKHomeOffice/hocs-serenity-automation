@@ -8,17 +8,10 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import net.thucydides.core.annotations.Managed;
-
-import org.openqa.selenium.WebDriver;
 
 public class MinisterSignOffStepDefs extends Page {
-
-    @Managed
-    WebDriver driver;
 
     Homepage homepage;
 
@@ -53,22 +46,9 @@ public class MinisterSignOffStepDefs extends Page {
         }
     }
 
-    @When("^I click the continue button on the approve response screen$")
-    public void clickContinueButtonOnApproveResponseScreen() {
-        clickOn(minister.continueButton);
-    }
-
     @Then("^an error message should be displayed as I have not selected a radio button on the approve response screen$")
     public void assertThatApproveResponseErrorMessageIsShown() {
         minister.assertDoYouApproveTheResponseErrorMessage();
-    }
-
-    @When("^I click the continue button on the minister sign off feedback response screen$")
-    public void clickContinueButtonOnFeedbackResponseMinisterSignOffScreen() {
-        clickOn(minister.ministerSignOffRejectRadioButton);
-        clickOn(minister.continueButton);
-        waitABit(500);
-        clickOn(minister.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback in the text box$")
@@ -76,14 +56,4 @@ public class MinisterSignOffStepDefs extends Page {
         minister.assertFeedbackResponseMinisterSignOffErrorMessage();
     }
 
-    @When("^I reject the response at Ministerial Sign Off stage$")
-    public void iRejectTheResponseAtMinisterialSignOffStage() {
-        clickOn(minister.ministerSignOffRejectRadioButton);
-        clickOn(minister.continueButton);
-    }
-
-    @And("^I enter feedback about the response$")
-    public void iEnterFeedbackAboutTheResponse() {
-        minister.enterMinisterRejectionNote();
-    }
 }

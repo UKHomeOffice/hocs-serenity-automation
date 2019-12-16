@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
@@ -13,24 +12,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
-import org.openqa.selenium.WebDriver;
-
-import static net.serenitybdd.core.Serenity.pendingStep;
-
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 public class WorkstacksStepDefs extends Page {
-
-    @Managed
-    private
-    WebDriver driver;
-
-    @Steps(shared = true)
-    NavigationStepDefs navigationStepDefs;
-
-    private LoginPage loginpage;
 
     Homepage homepage;
 
@@ -52,6 +34,11 @@ public class WorkstacksStepDefs extends Page {
         clickOn(homepage.myCases);
         workstacks.clickCheckboxRelevantToCaseReference();
         clickOn(workstacks.unallocateFromMeButton);
+    }
+
+    @When("^I click the back to dashboard button$")
+    public void clickBackToDashboardButton() {
+        clickOn(workstacks.backToDashboardButton);
     }
 
     @Then("^the case should not be visible in my workstack$")
@@ -142,31 +129,7 @@ public class WorkstacksStepDefs extends Page {
     @When("^I enter the current stage \"([^\"]*)\" into the filter$")
     public void enterCurrentStage(String currentStage) {
         clickOn(workstacks.selectWorkstackFilter);
-        switch (currentStage.toUpperCase()) {
-            case "DATA INPUT":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "MARK UP":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "INPUT DRAFT":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "QA RESPONSE":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "PRIVATE OFFICE APPROVAL":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "MINISTERIAL SIGN OFF":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            case "DISPATCH":
-                typeInto(workstacks.selectWorkstackFilter, currentStage);
-                break;
-            default:
-                pendingStep(currentStage + " is not defined within " + getMethodName());
-        }
+        typeInto(workstacks.selectWorkstackFilter, currentStage.toUpperCase());
     }
 
     @When("^I click the dashboard breadcrumb$")
@@ -205,6 +168,30 @@ public class WorkstacksStepDefs extends Page {
     @Then("^all cases should be allocated to that user$")
     public void assertAllCasesAssignedToAllocatedUser() {
         workstacks.assertAllAllocatedUsers();
+    }
+
+    @Then("^the case should no longer be visible in the workstack$")
+    public void assertThatCaseInSessionVariableIsNotVisible() {
+        if (isElementDisplayed(homepage.performanceProcessTeam)) {
+            homepage.selectPerformanceProcessTeam();
+            workstacks.assertCaseIsNotVisible();
+        } else {
+            workstacks.assertCaseIsNotVisible();
+        }
+    }
+
+    @Then("^the case should no longer be visible in the \"([^\"]*)\" workstack$")
+    public void assertThatCaseHasBeenDispatchedPerCaseType(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                break;
+            case "DCU TRO":
+                clickOn(homepage.animalsInScienceTeam);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        workstacks.assertCaseIsNotVisible();
     }
 
 }

@@ -48,9 +48,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
 
-    @FindBy(xpath = "//input[@value='Find']")
-    public WebElementFacade caseReferenceFindButton;
-
     @FindBy(xpath = "//span[text()='Case reference is required']")
     public WebElementFacade caseReferenceIsRequiredErrorMessage;
 
@@ -120,12 +117,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     public WebElementFacade createBulkCases;
 
-    @FindBy(linkText = "View test form")
-    public WebElementFacade testFormLink;
-
-    @FindBy(className = "card__body")
-    public WebElementFacade myWorkstacks;
-
     @FindBy(className = "govuk-table")
     public WebElementFacade workstackTable;
 
@@ -134,11 +125,15 @@ public class Homepage extends Page {
 
     // Basic Methods
 
-    public void selectCaseReferenceSearchBar() {
+    public void enterCaseReferenceIntoSearchBar(String caseReference) {
+        typeInto(caseReferenceSearchBar, caseReference);
+    }
+
+    public void getValidCaseReferenceAndEnterIntoSearchBar() {
         clickOn(performanceProcessTeam);
         String getFirstCaseReferenceForSearch = findBy("(//td[following-sibling::td[1][contains(text(), 'Data "
                 + "Input')]])[1]").getText();
-        setSessionVariable("searchByCaseReferenceQuery").to(getFirstCaseReferenceForSearch);
+        setSessionVariable("caseReference").to(getFirstCaseReferenceForSearch);
         clickOn(home);
         typeInto(caseReferenceSearchBar, getFirstCaseReferenceForSearch);
     }

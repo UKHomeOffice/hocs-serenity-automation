@@ -201,8 +201,8 @@ public class DataInputStepDefs extends Page {
         recordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
-    @Then("^the correct correspondent is recorded as the \"([^\"]*)\" correspondent$")
-    public void theCorrectCorrespondentIsRecordedAsTheCorrespondent(String arg0) throws Throwable {
+    @Then("^the correct correspondent is recorded as the primary correspondent$")
+    public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
         caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
 

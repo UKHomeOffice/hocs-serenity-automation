@@ -15,7 +15,6 @@ import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.teamqueue.Teamqueue;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.draft.Draft;
 
@@ -49,8 +48,6 @@ public class GenericInputStepDefs extends Page {
     TeamManagement teamManagement;
 
     UnitManagement unitManagement;
-
-    Teamqueue teamqueue;
 
     @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
     public void iEnterTextIntoTheNominatedField(String input, String element) {
@@ -278,11 +275,7 @@ public class GenericInputStepDefs extends Page {
                 dataInput.clearDateCorrespondenceSent();
                 break;
             case "OTHER GOVERNMENT DEPARTMENT":
-                clickOn(finishButton);
-                break;
             case "REASON FOR NO RESPONSE NEEDED":
-                clickOn(finishButton);
-                break;
             case "REASON FOR REJECTING TO DATA INPUT":
                 clickOn(finishButton);
                 break;
@@ -335,25 +328,19 @@ public class GenericInputStepDefs extends Page {
             case "DCU MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
+                    case "DISPATCH":
                         clickOn(homepage.performanceProcessTeam);
                         break;
                     case "MARKUP":
                         clickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
                     case "QA RESPONSE":
                         clickOn(homepage.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        clickOn(homepage.ministerForLordsTeam);
-                        break;
                     case "MINISTERIAL SIGN OFF":
                         clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "DISPATCH":
-                        clickOn(homepage.performanceProcessTeam);
                         break;
                     case "COPY TO NUMBER 10":
                         clickOn(homepage.transferN10Team);
@@ -371,11 +358,7 @@ public class GenericInputStepDefs extends Page {
                         clickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
                     case "QA RESPONSE":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
                     case "DISPATCH":
                         clickOn(homepage.animalsInScienceTeam);
                         break;
@@ -389,22 +372,16 @@ public class GenericInputStepDefs extends Page {
             case "DCU N10":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        clickOn(homepage.transferN10Team);
-                        break;
                     case "MARKUP":
+                    case "DISPATCH":
                         clickOn(homepage.transferN10Team);
                         break;
                     case "INITIAL DRAFT":
-                        clickOn(homepage.animalsInScienceTeam);
-                        break;
                     case "QA RESPONSE":
                         clickOn(homepage.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
                         clickOn(homepage.ministerForLordsTeam);
-                        break;
-                    case "DISPATCH":
-                        clickOn(homepage.transferN10Team);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -413,7 +390,7 @@ public class GenericInputStepDefs extends Page {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        teamqueue.assertCaseStage(stage);
+        workstacks.assertCaseStage(stage);
     }
 
     @And("^I reject the case at the \"([^\"]*)\" stage$")

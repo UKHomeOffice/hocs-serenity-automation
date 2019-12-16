@@ -78,7 +78,7 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\"$")
+    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" as the primary topic$")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
