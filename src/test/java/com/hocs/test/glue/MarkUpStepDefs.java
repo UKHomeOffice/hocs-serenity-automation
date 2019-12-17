@@ -15,6 +15,8 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.draft.Draft;
 
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -210,4 +212,49 @@ public class MarkUpStepDefs extends Page {
         markUpDecision.assertRejectTextBoxIsDisplayed();
     }
 
+
+    //here
+    @Then("^a mandatory \"([^\"]*)\" free text field is displayed$")
+    public void aMandatoryFreeTextFieldIsAvailable() {
+        topics.assertTopicsTextFieldDisplayed();
+    }
+
+    @When("^I close the case with a decision of \"([^\"]*)\"$")
+    public void iCloseTheCaseWithADecisionOf(String status) {
+        markUpDecision.getCaseId();
+        switch (status.toUpperCase()) {
+            case "REFER TO OGD":
+                clickOn(markUpDecision.referToOgdRadioButton);
+                break;
+            case "NO REPLY NEEDED":
+                clickOn(markUpDecision.noReplyNeededRadioButton);
+                break;
+            default:
+                pendingStep(status + " is not defined within " + getMethodName());
+        }
+        clickOn(markUpDecision.continueButton);
+        clickOn(markUpDecision.finishButton);
+    }
+
+    @When("^I select an initial decision of \"([^\"]*)\"$")
+    public void iSelectAnInitialDecisionOf(String decision) {
+        switch (decision.toUpperCase()) {
+            case "FAQ":
+                markUpDecision.selectFAQRadioButton();
+                break;
+            case "NO RESPONSE NEEDED":
+                markUpDecision.selectNoReplyNeededRadioButton();
+                break;
+            case "POLICY RESPONSE":
+                markUpDecision.selectPolicyResponseRadioButton();
+                break;
+            case "REFER TO OGD":
+                markUpDecision.selectReferToOGDRadioButton();
+                break;
+            case "TRANSFER TO OGD":
+                break;
+            default:
+                pendingStep(decision + " is not defined within " + getMethodName());
+        }
+    }
 }
