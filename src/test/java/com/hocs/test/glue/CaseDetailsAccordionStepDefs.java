@@ -2,33 +2,21 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.accordion.CaseDetailsAccordion;
-import com.hocs.test.pages.create_case.AddDocuments;
-import com.hocs.test.pages.create_case.CreateCase;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.MarkupFull;
-import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.apache.maven.doxia.markup.Markup;
-import org.openqa.selenium.Keys;
 
 public class CaseDetailsAccordionStepDefs extends Page {
-
-    SuccessfulCaseCreation successfulCaseCreation;
 
     Homepage homepage;
 

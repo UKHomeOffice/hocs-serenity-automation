@@ -12,7 +12,6 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -27,18 +26,11 @@ public class DataInputStepDefs extends Page {
 
     Homepage homepage;
 
-    DataInputQADecision dataInputQADecision;
-
     RecordCorrespondentDetails recordCorrespondentDetails;
 
     Workstacks workstacks;
 
     CaseDetailsAccordion caseDetailsAccordion;
-
-    @When("^I complete the Data Input stage$")
-    public void completeDataInputStage() {
-        dataInput.dataInputFullFlow();
-    }
 
     @When("^I complete the Data Input stage and send a copy to Number Ten$")
     public void completeDataInputStageWCopyToN10() {
@@ -67,26 +59,6 @@ public class DataInputStepDefs extends Page {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
         recordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
         dataInput.clickAddButton();
-    }
-
-    @When("^I select a Data Input QA decision of \"([^\"]*)\"$")
-    public void iSelectADataInputQADecisionOf(String decision) {
-        switch (decision.toUpperCase()) {
-            case "ACCEPT":
-                dataInputQADecision.acceptDataInputQa();
-                break;
-            case "REJECT":
-                dataInputQADecision.rejectDataInputQa();
-                break;
-            default:
-                pendingStep(decision + " is not defined within " + getMethodName());
-        }
-        clickOn(dataInput.finishButton);
-    }
-
-    @When("^I do not select a Data Input QA response$")
-    public void iDoNotSelectADataInputQAResponse() {
-        clickOn(dataInput.finishButton);
     }
 
     @And("^I set the correspondence channel to \"([^\"]*)\"$")
@@ -121,11 +93,6 @@ public class DataInputStepDefs extends Page {
         clickOn(dataInput.continueButton);
     }
 
-    @When("^they complete the first data input screen$")
-    public void completeFirstDataInputScreen() {
-        dataInput.completeTheFirstDataInputFields();
-    }
-
     @Then("^an error message should be displayed as I have not \"([^\"]*)\"$")
     public void assertReasonForErrorMessage(String reason) {
         switch (reason.toUpperCase()) {
@@ -150,11 +117,6 @@ public class DataInputStepDefs extends Page {
             default:
                 pendingStep(reason + " is not defined within " + getMethodName());
         }
-    }
-
-    @Then("^an error message should be displayed as I have not added any text into the case note text box$")
-    public void assertThatCaseNoteMustNotBeBlankErrorMessageIsShown() {
-        workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
     }
 
     @Then("^an error message should be displayed as I have not entered text in the full name field")
@@ -182,11 +144,6 @@ public class DataInputStepDefs extends Page {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 
-    @Then("^an error message should be displayed as I have not added a primary correspondent$")
-    public void assertThatWhichIsPrimaryCorrespondentErrorMessageIsDisplayed() {
-        dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
-    }
-
     @Then("^an error message should be displayed as I have not entered a \"([^\"]*)\"$")
     public void assertValidationMessagesOnDataInputForm(String field) {
         switch (field.toUpperCase()) {
@@ -201,20 +158,6 @@ public class DataInputStepDefs extends Page {
                 break;
             default:
                 pendingStep(field + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("^the correspondence type is the \"([^\"]*)\" correspondent$")
-    public void theCorrespondenceTypeIsTheCorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                recordCorrespondentDetails.assertPrimaryCorrespondent();
-                break;
-            case "SECONDARY":
-                recordCorrespondentDetails.assertSecondaryCorrespondent();
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
         }
     }
 
@@ -247,18 +190,6 @@ public class DataInputStepDefs extends Page {
         dataInput.enterYearOfCorrespondenceReceived("2019");
     }
 
-    @When("^they do not enter a date into the date received text boxes$")
-    public void deleteDefaultDateFromTextBoxes() {
-        dataInput.clearDateCorrespondenceReceived();
-    }
-
-    @When("^they enter an invalid date into the date received text boxes$")
-    public void enterInvalidDateIntoTextBoxes() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
-    }
-
     @Then("^both correspondents are listed$")
     public void bothCorrespondentsAreListed() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
@@ -270,8 +201,8 @@ public class DataInputStepDefs extends Page {
         recordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
-    @Then("^the correct correspondent is recorded as the \"([^\"]*)\" correspondent$")
-    public void theCorrectCorrespondentIsRecordedAsTheCorrespondent(String arg0) throws Throwable {
+    @Then("^the correct correspondent is recorded as the primary correspondent$")
+    public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
         caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
 

@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.give_me_a_case.Fetch;
+import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
@@ -10,7 +11,6 @@ import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.standard_line.StandardLine;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,7 +25,7 @@ public class ManagementUIStepDefs extends Page {
 
     GenericInputStepDefs genericInputStepDefs;
 
-    LoginStepDefs loginStepDefs;
+    LoginPage loginPage;
 
     Fetch fetch;
 
@@ -99,35 +99,14 @@ public class ManagementUIStepDefs extends Page {
 
     @When("^I select the \"([^\"]*)\" team from the dropdown$")
     public void selectTeamFromDropdown(String teamName) {
-        switch (teamName.toUpperCase()) {
-            case "UK CENTRAL AUTHORITY":
-                teamManagement.selectATeam(teamName);
-                break;
-            case "OSCT SECRETARIAT":
-                teamManagement.selectATeam(teamName);
-                break;
-            case "ANIMALS IN SCIENCE REGULATION UNIT":
-                teamManagement.selectATeam(teamName);
-                break;
-            default:
-                pendingStep(teamName + " is not defined within " + getMethodName());
-        }
+        teamManagement.selectATeam(teamName);
     }
 
     @And("^I add the user \"([^\"]*)\" to the team$")
     public void addUserToSelectedTeam(String nameOfUser) {
         waitABit(500);
         teamManagement.assertTeamName();
-        switch (nameOfUser.toUpperCase()) {
-            case "EAMON.DROKO@TEN10.COM":
-                teamManagement.selectAUser(nameOfUser);
-                break;
-            case "CASEY.PROSSER@TEN10.COM":
-                teamManagement.selectAUser(nameOfUser);
-                break;
-            default:
-                pendingStep(nameOfUser + " is not defined within " + getMethodName());
-        }
+        teamManagement.selectAUser(nameOfUser);
     }
 
     @Then("^the user should be visible in the team list$")
@@ -157,14 +136,7 @@ public class ManagementUIStepDefs extends Page {
 
     @And("^I attempt to remove the user \"([^\"]*)\"$")
     public void attemptRemoveUserFromTeamWithAssignedCases(String nameOfUserWithCases) {
-        setSessionVariable("nameOfUserWithCases").to(nameOfUserWithCases);
-        switch (nameOfUserWithCases.toUpperCase()) {
-            case "EAMON.DROKO@TEN10.COM":
-                teamManagement.removeUserFromTeamWithAssignedCases();
-                break;
-            default:
-                pendingStep(nameOfUserWithCases + " is not defined within " + getMethodName());
-        }
+        teamManagement.removeUserFromTeamWithAssignedCases(nameOfUserWithCases);
     }
 
     @Then("^an error message should be displayed as they have cases assigned in that team$")
@@ -187,23 +159,10 @@ public class ManagementUIStepDefs extends Page {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        switch (firstUser.toUpperCase()) {
-            case "EAMON.DROKO@TEN10.COM":
-                setSessionVariable("firstUser").to(firstUser);
-                teamManagement.selectAUser(firstUser);
-                break;
-            default:
-                pendingStep(firstUser + " is not defined within " + getMethodName());
-        }
-
-        switch (secondUser.toUpperCase()) {
-            case "CASEY.PROSSER@TEN10.COM":
-                setSessionVariable("secondUser").to(secondUser);
-                teamManagement.selectAUser(secondUser);
-                break;
-            default:
-                pendingStep(secondUser + " is not defined within " + getMethodName());
-        }
+        setSessionVariable("firstUser").to(firstUser);
+        teamManagement.selectAUser(firstUser);
+        setSessionVariable("secondUser").to(secondUser);
+        teamManagement.selectAUser(secondUser);
     }
 
     @Then("^the users should be visible in the team list$")
@@ -309,10 +268,10 @@ public class ManagementUIStepDefs extends Page {
     public void iNavigateTo(String site) {
         switch (site.toUpperCase()) {
             case "HOCS":
-                loginStepDefs.navigateToHocs();
+                loginPage.navigateToHocs();
                 break;
             case "MANAGEMENT UI":
-                loginStepDefs.navigateToManagementUI();
+                loginPage.navigateToManagementUI();
                 break;
             default:
                 pendingStep(site + " is not defined within " + getMethodName());

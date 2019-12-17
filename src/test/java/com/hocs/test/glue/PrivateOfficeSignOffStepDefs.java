@@ -4,25 +4,15 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.accordion.CaseDetailsAccordion;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import net.thucydides.core.annotations.Managed;
-
-import org.openqa.selenium.WebDriver;
-
 
 public class PrivateOfficeSignOffStepDefs extends Page {
-
-    @Managed
-    WebDriver driver;
 
     Homepage homepage;
 
@@ -44,6 +34,7 @@ public class PrivateOfficeSignOffStepDefs extends Page {
     public void completePrivateOfficeStagePerCaseType(String caseType) {
         switch(caseType.toUpperCase()) {
             case "DCU MIN" :
+            case "DCU N10":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 clickOn(privateOffice.privateOfficeAcceptRadioButton);
@@ -51,20 +42,9 @@ public class PrivateOfficeSignOffStepDefs extends Page {
                 break;
             case "DCU TRO" :
                 break;
-            case "DCU N10" :
-                homepage.getCurrentCase();
-                clickOn(workstacks.allocateToMeButton);
-                clickOn(privateOffice.privateOfficeAcceptRadioButton);
-                clickOn(privateOffice.continueButton);
-                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-    }
-
-    @When("^I click the continue button on PO approve response screen$")
-    public void clickContinueButtonOnPOApproveResponseScreen() {
-        clickOn(privateOffice.continueButton);
     }
 
     @Then("^an error message should be displayed as I have not selected whether I approve the response$")
@@ -72,23 +52,9 @@ public class PrivateOfficeSignOffStepDefs extends Page {
         privateOffice.assertDoYouApproveTheResponseErrorMessage();
     }
 
-    @When("^I click the finish button on the change minister screen$")
-    public void clickFinishButtonOnChangeMinisterScreen() {
-        clickOn(privateOffice.privateOfficeChangeMinisterRadioButton);
-        clickOn(privateOffice.continueButton);
-        clickOn(privateOffice.finishButton);
-    }
-
     @Then("^error messages should be displayed as I have not selected an override team or entered change reasoning$")
     public void assertThatChangeMinisterErrorMessagesAreShown() {
         privateOffice.assertChangeMinisterErrorMessages();
-    }
-
-    @When("^I click the finish button on the what is your feedback response screen$")
-    public void clickFinishButtonOnWhatIsFeedbackResponseScreen() {
-        clickOn(privateOffice.privateOfficeRejectRadioButton);
-        clickOn(privateOffice.continueButton);
-        clickOn(privateOffice.finishButton);
     }
 
     @Then("^an error message should be displayed as I have not entered feedback into the text box")

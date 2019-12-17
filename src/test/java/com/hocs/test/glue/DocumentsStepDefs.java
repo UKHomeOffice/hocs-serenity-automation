@@ -4,13 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.create_case.AddDocuments;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
-
 public class DocumentsStepDefs extends Page {
+
+    AddDocuments addDocuments;
 
     @And("^a document \"([^\"]*)\" previewable$")
     public void documentPreview(String preview) {
@@ -126,5 +127,37 @@ public class DocumentsStepDefs extends Page {
     @And("^valid files are uploaded$")
     public void validFilesAreUploaded() {
 
+    }
+
+    @Then("^I should see the \"([^\"]*)\" message$")
+    public void iSeeTheMessage(String message) {
+        switch (message.toUpperCase()) {
+            case "DOCUMENT PENDING":
+                break;
+            case "DOCUMENT UPLOAD FAILED":
+                break;
+            case "NO DOCUMENTS":
+                break;
+            default:
+                pendingStep(message + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I upload a \"([^\"]*)\" document")
+    public void IUploadADocument(String docType) {
+        switch (docType.toUpperCase()) {
+            case "ORIGINAL":
+                addDocuments.addAOriginalDocument();
+                break;
+            case "DRAFT":
+                addDocuments.addADraftDocument();
+                break;
+            case "FINAL":
+                addDocuments.addAFinalDocument();
+                break;
+            default:
+                pendingStep(docType + " is not defined within " + getMethodName());
+        }
+        clickOn(continueButton);
     }
 }

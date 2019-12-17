@@ -24,6 +24,9 @@ public class AddDocuments extends Page {
     @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
+    @FindBy(xpath = "//caption[contains(text(), 'Available Standard line')]")
+    public WebElementFacade availableStandardLineHeader;
+
     public void bulkUploadDocuments(int documents) {
         String allFiles = "";
         for (int i = 1; i <= documents; i++) {
@@ -55,6 +58,7 @@ public class AddDocuments extends Page {
     }
 
     public void addAOriginalDocument() {
+        waitFor(availableStandardLineHeader).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(3);
         uploadDocument();
@@ -62,6 +66,7 @@ public class AddDocuments extends Page {
     }
 
     public void addADraftDocument() {
+        waitFor(availableStandardLineHeader).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocument();
@@ -69,6 +74,7 @@ public class AddDocuments extends Page {
     }
 
     public void addAFinalDocument() {
+        waitFor(availableStandardLineHeader).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(3);
         uploadDocument();

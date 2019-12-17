@@ -45,27 +45,25 @@ public class Fetch extends Page {
 
     Workstacks workstacks;
 
-    WebDriver driver;
-
     private void getFirstUnallocatedMINCaseDataInputStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Data "
                         + "Input')]][following-sibling::td[2]"
-                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                        + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseDataInputStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedDTENCaseDataInputStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
@@ -74,21 +72,21 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCaseMarkupStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Markup')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseMarkupStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedDTENCaseMarkupStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
@@ -97,14 +95,14 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCaseInitialDraftStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Initial Draft')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseInitialDraftStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial "
-                + "Draft')]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')"
+                + "Draft')]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')"
                 + "]]").get(0);
         clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
@@ -112,7 +110,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedDTENCaseInitialDraftStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'Initial Draft')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
@@ -121,21 +119,21 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCaseQAResponseStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'QA Response')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedTROCaseQAResponse() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
     }
 
     private void getFirstUnallocatedDTENCaseQAResponseStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]")
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
@@ -144,7 +142,7 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCasePrivateOfficeStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office Approval')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
@@ -152,7 +150,7 @@ public class Fetch extends Page {
     private void getFirstUnallocatedDTENCasePrivateOfficeStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Private Office')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'DTEN')]]").get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
     }
@@ -160,7 +158,7 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCaseMinisterialSignOffStage() {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Ministerial Sign off')]][following-sibling::td[2]"
-                + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
     }
@@ -168,7 +166,7 @@ public class Fetch extends Page {
     private void getFirstUnallocatedMINCaseDispatchStage() {
         WebElementFacade firstUnallocatedMINCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
-                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'MIN')]]").get(0);
+                        + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         clickOn(firstUnallocatedMINCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
@@ -176,7 +174,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedTROCaseDispatchStage() {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Dispatch')"
-                + "]][following-sibling::td[2][not(contains(text(), '@'))]][descendant::a[contains(text(), 'TRO')]]").get(0);
+                + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         clickOn(firstUnallocatedTROCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
@@ -185,7 +183,7 @@ public class Fetch extends Page {
     private void getFirstUnallocatedDTENCaseDispatchStage() {
         WebElementFacade firstUnallocatedDTENCase = findAll(
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
-                        + "[not(contains(text(), '@'))]][descendant::a[contains(text(), 'DTEN')]]").get(0);
+                        + "[not(text())]][descendant::a[contains(text(), 'DTEN')]]").get(0);
         clickOn(firstUnallocatedDTENCase);
         clickOn(workstacks.allocateToMeButton);
         getCaseId();
@@ -802,7 +800,6 @@ public class Fetch extends Page {
                 }
                 break;
             case "DCU TRO":
-                break;
             case "DCU N10":
                 break;
             default:

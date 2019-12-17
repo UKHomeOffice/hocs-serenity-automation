@@ -10,25 +10,17 @@ import static config.Passwords.*;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Managed;
-
-import org.openqa.selenium.WebDriver;
 
 public class LoginStepDefs extends Page {
-
-    @Managed
-    WebDriver driver;
 
     Homepage homepage;
 
@@ -38,32 +30,27 @@ public class LoginStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @Then("^An invalid username or password error is displayed$")
-    public void invalidUsernamePasswordErrorDisplayed() {
-        loginPage.assertInvalidUsernamePassword();
-    }
-
     @Given("^I am user \"([^\"]*)\"")
     public void iLoginAs(String user) {
-        navigateToHocs();
+        loginPage.navigateToHocs();
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             switch (user.toUpperCase()) {
                 case "DCU":
-                    enterHocsLoginDetails(DCU);
+                    loginPage.enterHocsLoginDetails(DCU);
                     break;
                 case "TEST":
-                    enterHocsLoginDetails(TEST);
+                    loginPage.enterHocsLoginDetails(TEST);
                     break;
                 case "CASEY":
-                    enterHocsLoginDetails(CASEY);
+                    loginPage.enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
-                    enterHocsLoginDetails(EAMON);
+                    loginPage.enterHocsLoginDetails(EAMON);
                     break;
                 case "PROD":
-                    enterHocsLoginDetails(PROD);
+                    loginPage.enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
@@ -84,25 +71,25 @@ public class LoginStepDefs extends Page {
             user = "EAMON";
         }
 
-        navigateToHocs();
+        loginPage.navigateToHocs();
 
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             switch (user.toUpperCase()) {
                 case "DCU":
-                    enterHocsLoginDetails(DCU);
+                    loginPage.enterHocsLoginDetails(DCU);
                     break;
                 case "TEST":
-                    enterHocsLoginDetails(TEST);
+                    loginPage.enterHocsLoginDetails(TEST);
                     break;
                 case "CASEY":
-                    enterHocsLoginDetails(CASEY);
+                    loginPage.enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
-                    enterHocsLoginDetails(EAMON);
+                    loginPage.enterHocsLoginDetails(EAMON);
                     break;
                 case "PROD":
-                    enterHocsLoginDetails(PROD);
+                    loginPage.enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
@@ -116,25 +103,25 @@ public class LoginStepDefs extends Page {
 
     @Given("^that I have navigated to the Management UI as the user \"([^\"]*)\"$")
     public void iHaveNavigatedToTheManagementUI(String user) {
-        navigateToManagementUI();
+        loginPage.navigateToManagementUI();
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             switch (user.toUpperCase()) {
                 case "DCU":
-                    enterHocsLoginDetails(DCU);
+                    loginPage.enterHocsLoginDetails(DCU);
                     break;
                 case "TEST":
-                    enterHocsLoginDetails(TEST);
+                    loginPage.enterHocsLoginDetails(TEST);
                     break;
                 case "CASEY":
-                    enterHocsLoginDetails(CASEY);
+                    loginPage.enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
-                    enterHocsLoginDetails(EAMON);
+                    loginPage.enterHocsLoginDetails(EAMON);
                     break;
                 case "PROD":
-                    enterHocsLoginDetails(PROD);
+                    loginPage.enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
@@ -156,25 +143,25 @@ public class LoginStepDefs extends Page {
             user = "EAMON";
         }
 
-        navigateToManagementUI();
+        loginPage.navigateToManagementUI();
 
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             switch (user.toUpperCase()) {
                 case "DCU":
-                    enterHocsLoginDetails(DCU);
+                    loginPage.enterHocsLoginDetails(DCU);
                     break;
                 case "TEST":
-                    enterHocsLoginDetails(TEST);
+                    loginPage.enterHocsLoginDetails(TEST);
                     break;
                 case "CASEY":
-                    enterHocsLoginDetails(CASEY);
+                    loginPage.enterHocsLoginDetails(CASEY);
                     break;
                 case "EAMON":
-                    enterHocsLoginDetails(EAMON);
+                    loginPage.enterHocsLoginDetails(EAMON);
                     break;
                 case "PROD":
-                    enterHocsLoginDetails(PROD);
+                    loginPage.enterHocsLoginDetails(PROD);
                     break;
                 default:
                     pendingStep(user + " is not defined within " + getMethodName());
@@ -188,7 +175,7 @@ public class LoginStepDefs extends Page {
 
     @Given("^I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
-        navigateToHocs();
+        loginPage.navigateToHocs();
     }
 
 
@@ -197,20 +184,20 @@ public class LoginStepDefs extends Page {
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
             case "CASEY PROSSER":
-                enterHocsUsername(CASEYPROSSER);
-                enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsUsername(CASEYPROSSER);
+                loginPage.enterHocsPassword(CASEYPASS);
                 break;
             case "DCU":
-                enterHocsUsername(DCUSER);
-                enterHocsPassword(DCUPASS);
+                loginPage.enterHocsUsername(DCUSER);
+                loginPage.enterHocsPassword(DCUPASS);
                 break;
             case "TESTER":
-                enterHocsUsername(TESTER);
-                enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsUsername(TESTER);
+                loginPage.enterHocsPassword(TESTERPASS);
                 break;
             case "EAMON DROKO":
-                enterHocsUsername(EAMONDROKO);
-                enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsUsername(EAMONDROKO);
+                loginPage.enterHocsPassword(EAMONPASS);
                 break;
             default:
                 pendingStep(credentials + " is not defined within " + getMethodName());
@@ -219,20 +206,20 @@ public class LoginStepDefs extends Page {
     }
 
     @And("^I enter my password \"([^\"]*)\" in the password field$")
-    public void enterHocsPassword(String password) {
+    public void IEnterMyHocsPassword(String password) {
         setSessionVariable("password").to(password);
         switch (password) {
             case "CASEY PASS":
-                enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsPassword(CASEYPASS);
                 break;
             case "DCU PASS":
-                enterHocsPassword(DCUPASS);
+                loginPage.enterHocsPassword(DCUPASS);
                 break;
             case "TESTER PASS":
-                enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsPassword(TESTERPASS);
                 break;
             case "EAMON PASS":
-                enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsPassword(EAMONPASS);
                 break;
             default:
                 pendingStep(password + " is not defined within " + getMethodName());
@@ -241,18 +228,13 @@ public class LoginStepDefs extends Page {
 
     @When("^I enter invalid login credentials on the login screen$")
     public void enterInvalidLoginCredentials() {
-        enterHocsLoginDetails(FAKE);
+        loginPage.enterHocsLoginDetails(FAKE);
         clickOn(homepage.continueButton);
     }
 
     @Then("^an error message should be displayed as the credentials are invalid$")
     public void assertThatInvalidCredentialsErrorMessageIsShown() {
         loginPage.assertLoginErrorMessage();
-    }
-
-    @And("^Select the login button$")
-    public void selectLoginButton() {
-        clickOn(loginPage.continueButton);
     }
 
     @Then("^I should be taken to the homepage$")
@@ -267,24 +249,24 @@ public class LoginStepDefs extends Page {
 
     @When("^I enter the login credentials of another user \"([^\"]*)\" and click the login button$")
     public void loginAsDifferentUserAfterLogout(String credentials) {
-        navigateToHocs();
+        loginPage.navigateToHocs();
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
             case "CASEY PROSSER":
-                enterHocsUsername(CASEYPROSSER);
-                enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsUsername(CASEYPROSSER);
+                loginPage.enterHocsPassword(CASEYPASS);
                 break;
             case "DCU":
-                enterHocsUsername(DCUSER);
-                enterHocsPassword(DCUPASS);
+                loginPage.enterHocsUsername(DCUSER);
+                loginPage.enterHocsPassword(DCUPASS);
                 break;
             case "TESTER":
-                enterHocsUsername(TESTER);
-                enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsUsername(TESTER);
+                loginPage.enterHocsPassword(TESTERPASS);
                 break;
             case "EAMON DROKO":
-                enterHocsUsername(EAMONDROKO);
-                enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsUsername(EAMONDROKO);
+                loginPage.enterHocsPassword(EAMONPASS);
                 break;
             default:
                 pendingStep(credentials + " is not defined within " + getMethodName());
@@ -292,64 +274,11 @@ public class LoginStepDefs extends Page {
         clickOn(loginPage.continueButton);
     }
 
-    private void enterHocsLoginDetails(Users user) {
-        loginPage.enterUsername(user.getUsername());
-        loginPage.enterPassword(user.getPassword());
-    }
-
-    private void enterHocsUsername(Usernames username) {
-        loginPage.enterUsername(username.getUsername());
-    }
-
-    private void enterHocsPassword(Passwords password) {
-        loginPage.enterPassword(password.getPassword());
-    }
-
-    protected void navigateToHocs() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environments.QA.getEnvironmentURL();
-        } else {
-            switch (env.toUpperCase()) {
-                case "DEV":
-                    baseUrl = Environments.DEV.getEnvironmentURL();
-                    break;
-                case "LOCAL":
-                    baseUrl = Environments.LOCAL.getEnvironmentURL() + Services.HOCS.getPort();
-                    break;
-                case "QA":
-                    baseUrl = Environments.QA.getEnvironmentURL();
-                    break;
-                case "DEMO":
-                    baseUrl = Environments.DEMO.getEnvironmentURL();
-                default:
-                    pendingStep(env + " is not defined within " + getMethodName());
-            }
-        }
-        getDriver().get(baseUrl);
-    }
-
-    protected void navigateToManagementUI() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environments.MANAGEMENTUIQA.getEnvironmentURL();
-        } else {
-            baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
-        }
-        getDriver().get(baseUrl);
-    }
-
     @And("^I am prompted to log in$")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             clickOn(homepage.logoutButton);
-            navigateToHocs();
+            loginPage.navigateToHocs();
         }
     }
 

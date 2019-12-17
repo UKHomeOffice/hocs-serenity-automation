@@ -72,7 +72,7 @@ Feature: HOCS User is able to add data to a case
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "FINISH" button
-    Then the correct correspondent is recorded as the "primary" correspondent
+    Then the correct correspondent is recorded as the primary correspondent
 
   @DataInput @Validation
   Scenario Outline: User must complete all mandatory inputs on the Data Input form

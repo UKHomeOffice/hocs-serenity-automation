@@ -2,7 +2,7 @@ Feature: HOCS User is able to create a case
 
   Background:
     Given I log in as the designated user
-    When I am on the "CREATE SINGLE CASE" page
+    When I navigate to the "CREATE SINGLE CASE" page
 
   @CreateCase @DCUMIN @HOCS-341 @HOCS-491 @HOCS-236
   Scenario: I must select a type of correspondence

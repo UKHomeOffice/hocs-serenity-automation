@@ -73,8 +73,7 @@ public class TeamManagement extends Page {
         clickOn(addSelectedUsersButton);
     }
 
-    public void removeUserFromTeamWithAssignedCases() {
-        String nameOfUser = sessionVariableCalled("nameOfUserWithCases").toString();
+    public void removeUserFromTeamWithAssignedCases(String nameOfUser) {
         WebElementFacade removeButtonOfUser = findAll("//td[@class='govuk-table__cell'][contains(text(), '" + nameOfUser +
                 "')]/."
                 + ".//td//a").get(0);

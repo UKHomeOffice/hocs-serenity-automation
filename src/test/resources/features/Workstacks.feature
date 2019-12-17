@@ -35,19 +35,19 @@ Feature: Team members can allocate work
 
   @Navigation
   Scenario: User is able to navigate back to the homepage using breadcrumbs in the team workstack
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
     And I click the dashboard breadcrumb
     Then I should be taken back to the homepage
 
   @Navigation
   Scenario: User is able to navigate back to the team page from the workflow page in the team workstack
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
     And I click the team breadcrumb
     Then I should be taken to the team page of the team workstack
 
   @Navigation
   Scenario: User is able to navigate back to the workflow page from the stage page in the team workstack
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
     And I click the workflow breadcrumb
     Then I should be taken to workflow page of the team workstack
 
@@ -59,7 +59,7 @@ Feature: Team members can allocate work
 
   @Filtering @DCUMIN
   Scenario: Cases are filtered by Case Reference type in Team Workstacks
-    When I navigate to the "PERFORMANCE AND PROCESS TEAM" team page
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" page
     And I enter the Case Reference type "MIN" into the filter
     Then the cases should be filtered by the "MIN" Case Reference
 

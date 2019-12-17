@@ -25,7 +25,7 @@ Feature: HOCS Topics are assigned to the correct Team
 
   @Topics @Overrides @DroneTest
   Scenario Outline: The user overrides the "<defaultTeam>" Team
-    When I create a "<caseType>" case with "<Topic>"
+    When I create a "<caseType>" case with "<Topic>" as the primary topic
     And I override the "<defaultTeam>" team to "<overrideTeam>"
     Then the case should be found in the "<overrideTeam>" team
     # Permissions removed from users so just running one example currently.
