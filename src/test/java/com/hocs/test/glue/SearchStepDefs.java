@@ -4,7 +4,6 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.search.Search;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -127,8 +126,8 @@ public class SearchStepDefs extends Page {
         }
 
         switch (anotherParameter.toUpperCase()) {
-            case "BOB CORRESPONDENT":
-                search.enterSearchCorrespondent("Bob");
+            case "PERMANENT SECRETARY SIGNOFF TEAM":
+                search.selectSignOffTeam("Permanent Secretary");
                 break;
             case "KITTENS TOPIC":
                 search.enterSearchTopic("Cardiff University Kittens");
@@ -161,9 +160,8 @@ public class SearchStepDefs extends Page {
         }
 
         switch (anotherParameter.toUpperCase()) {
-            case "BOB CORRESPONDENT":
-                search.viewFirstSearchResultCaseSummary();
-                search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+            case "PERMANENT SECRETARY SIGNOFF TEAM":
+                search.assertFirstAndLastSearchResultsMatchSignOffTeam();
                 break;
             case "KITTENS TOPIC":
                 search.viewFirstSearchResultCaseSummary();
@@ -200,19 +198,19 @@ public class SearchStepDefs extends Page {
 
     @When("^I search for cases received on or after \"([^\"]*)\"/\"([^\"]*)\"/\"([^\"]*)\"$")
     public void iSearchForCasesReceivedOnOrAfter(String dd, String mm, String yyyy) {
-        search.enterRecievedOnOrAfterDate(dd, mm, yyyy);
+        search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
         clickOn(search.searchButton);
     }
 
     @When("^I search for cases received on or before \"([^\"]*)\"/\"([^\"]*)\"/\"([^\"]*)\"$")
     public void iSearchForCasesReceivedOnOrBefore(String dd, String mm, String yyyy) {
-        search.enterRecievedOnOrBeforeDate(dd, mm, yyyy);
+        search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
         clickOn(search.searchButton);
     }
 
     @Then("^cases received on or \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void casesReceivedOnOrShouldBeDisplayed(String beforeOrAfter, String date) {
-        search.assertFirstAndLastSearchResultsMatchSearchCriteria(beforeOrAfter, date);
+        search.assertFirstAndLastSearchResultsMatchDateSearchCriteria(beforeOrAfter, date);
     }
 
     @Then("^(\\d+) cases should be displayed$")
@@ -239,6 +237,28 @@ public class SearchStepDefs extends Page {
     }
 
 
+    @And("^I select active cases$")
+    public void iSelectActiveCases() {
+        clickOn(search.caseStatusActiveCheckbox);
+    }
+
+    @Then("^Only active cases will be returned in the search results$")
+    public void onlyActiveCasesWillBeReturnedInTheSearchResults() {
+        search.assertActiveCaseVisibleIs(true);
+        search.assertClosedCaseVisibleIs(false);
+    }
+
+    @When("^I search by the Sign-off Team \"([^\"]*)\"$")
+    public void iSearchByTheSignOffTeam(String signOffTeam) {
+        search.selectSignOffTeam(signOffTeam);
+        clickOn(search.searchButton);
+    }
+
+
+    @Then("^cases with the queried Sign-off Team should be displayed in the results list$")
+    public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
+        search.assertFirstAndLastSearchResultsMatchSignOffTeam();
+    }
 }
 
 

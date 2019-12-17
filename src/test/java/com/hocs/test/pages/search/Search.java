@@ -1,6 +1,7 @@
 package com.hocs.test.pages.search;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.accordion.CaseDetailsAccordion;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.summary.CaseSummaryPage;
 import com.hocs.test.pages.workstacks.Workstacks;
@@ -11,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.jruby.RubyBoolean.True;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,6 +28,8 @@ public class Search extends Page {
     Homepage homepage;
 
     CaseSummaryPage caseSummaryPage;
+
+    CaseDetailsAccordion caseDetailsAccordion;
 
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
@@ -63,9 +65,9 @@ public class Search extends Page {
     public WebElementFacade searchTopicTextbox;
 
     @FindBy(xpath = "//select[@id='signOffMinister']")
-    public WebElementFacade searchSignOffMinisterDropdown;
+    public WebElementFacade searchSignOffTeamDropdown;
 
-    @FindBy(xpath = "//input[@id='caseStatus_active']")
+    @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
     @FindBy(xpath = "//a[contains(text(), 'MIN')]")
@@ -86,6 +88,8 @@ public class Search extends Page {
     @FindBy(css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
+    //Methods
+
     public void enterSearchCorrespondent(String correspondentNameQuery) {
         searchCorrespondentTextbox.click();
         typeInto(searchCorrespondentTextbox, correspondentNameQuery);
@@ -98,8 +102,21 @@ public class Search extends Page {
         setSessionVariable("topicQuery").to(topicQuery);
     }
 
-    public void enterSearchSignOffMinister(String signOffMinisterName) {
-        typeInto(searchSignOffMinisterDropdown, signOffMinisterName);
+    public void selectSignOffTeam(String team) {
+        searchSignOffTeamDropdown.selectByVisibleText(team);
+        setSessionVariable("searchedSignOffTeam").to(team);
+    }
+
+    public void enterReceivedOnOrAfterDate(String dd, String mm, String yyyy) {
+        typeInto(receivedAfterDayTextbox, dd);
+        typeInto(receivedAfterMonthTextbox, mm);
+        typeInto(receivedAfterYearTextbox, yyyy);
+    }
+
+    public void enterReceivedOnOrBeforeDate(String dd, String mm, String yyyy) {
+        typeInto(receivedBeforeDayTextbox, dd);
+        typeInto(receivedBeforeMonthTextbox, mm);
+        typeInto(receivedBeforeYearTextbox, yyyy);
     }
 
     public void viewFirstSearchResultCaseSummary() {
@@ -109,8 +126,45 @@ public class Search extends Page {
             clickOn(workstacks.allocateToMeButton);
         }
         caseSummaryPage.selectSummaryTab();
-
     }
+
+    public void getCaseReferenceOfFirstAndLastSearchResults() {
+        List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
+        setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
+        setSessionVariable("lastSearchResultCaseReference")
+                .to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
+    }
+
+    private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
+
+        goHome();
+        homepage.enterCaseReferenceIntoSearchBar(caseRef);
+        homepage.hitEnterCaseReferenceSearchBar();
+        Date searchDate = null;
+        Date caseDate = null;
+        try {
+            searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+        } catch (ParseException pE) {
+            System.out.println("Could not parse dates");
+        }
+        assert caseDate != null;
+        if (beforeOrAfter.toUpperCase().equals("BEFORE")) {
+            return (caseDate.before(searchDate) || caseDate.equals(searchDate));
+        } else {
+            return (caseDate.after(searchDate) || caseDate.equals(searchDate));
+        }
+    }
+
+    public boolean checkSignOffTeam(String caseRef, String signOffTeam) {
+        goHome();
+        homepage.enterCaseReferenceIntoSearchBar(caseRef);
+        homepage.hitEnterCaseReferenceSearchBar();
+        clickOn(caseDetailsAccordion.markupAccordionButton);
+        return (caseDetailsAccordion.privateOfficeTeam.getText().contains(signOffTeam));
+    }
+
+    //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
         assertThat(isElementDisplayed(searchResultsMINCases), is(false));
@@ -151,47 +205,7 @@ public class Search extends Page {
         assertThat(tableHeadersContent.contains("Deadline"), is(true));
     }
 
-    public void enterRecievedOnOrAfterDate(String dd, String mm, String yyyy) {
-        typeInto(receivedAfterDayTextbox, dd);
-        typeInto(receivedAfterMonthTextbox, mm);
-        typeInto(receivedAfterYearTextbox, yyyy);
-    }
-
-    public void enterRecievedOnOrBeforeDate(String dd, String mm, String yyyy) {
-        typeInto(receivedBeforeDayTextbox, dd);
-        typeInto(receivedBeforeMonthTextbox, mm);
-        typeInto(receivedBeforeYearTextbox, yyyy);
-    }
-
-    public void getCaseReferenceOfFirstAndLastSearchResults() {
-        List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
-        setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
-        setSessionVariable("lastSearchResultCaseReference")
-                .to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
-    }
-
-    private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
-
-        goHome();
-        homepage.enterCaseReferenceIntoSearchBar(caseRef);
-        homepage.hitEnterCaseReferenceSearchBar();
-        Date searchDate = null;
-        Date caseDate = null;
-        try {
-            searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
-        } catch (ParseException pE) {
-            System.out.println("Could not parse dates");
-        }
-        assert caseDate != null;
-        if (beforeOrAfter.toUpperCase().equals("BEFORE")) {
-            return (caseDate.before(searchDate) || caseDate.equals(searchDate));
-        } else {
-            return (caseDate.after(searchDate) || caseDate.equals(searchDate));
-        }
-    }
-
-    public void assertFirstAndLastSearchResultsMatchSearchCriteria(String beforeOrAfter, String date) {
+    public void assertFirstAndLastSearchResultsMatchDateSearchCriteria(String beforeOrAfter, String date) {
         getCaseReferenceOfFirstAndLastSearchResults();
         assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("firstSearchResultCaseReference"),
                 date), is(true));
@@ -205,12 +219,19 @@ public class Search extends Page {
     }
 
     public void assertClosedCaseVisibleIs(Boolean condition) {
-        WebElementFacade closedCase = findAll("//td[2][not(.//text())]").get(0);
-        assertThat(closedCase.isVisible(), is(condition));
+        List closedCases = findAll("//td[2][not(.//text())]");
+        assertThat(!closedCases.isEmpty(), is(condition));
     }
 
     public void assertActiveCaseVisibleIs(Boolean condition) {
-        WebElementFacade activeCase = findAll("//td[2][.//text()]").get(0);
-        assertThat(activeCase.isVisible(), is(condition));
+        List activeCases = findAll("//td[2][.//text()]");
+        assertThat(!activeCases.isEmpty(), is(condition));
+    }
+
+    public void assertFirstAndLastSearchResultsMatchSignOffTeam() {
+        getCaseReferenceOfFirstAndLastSearchResults();
+        String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
+        assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
+        assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
     }
 }

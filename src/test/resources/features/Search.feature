@@ -49,8 +49,8 @@ Feature: Search should be available for all users of the application
     When I search by the case type "Min"
     Then the search results should contain the expected information
 
-  @Search @SearchByCaseType
-  Scenario: User should be able to search by Case Type and another parameter
+  @Search @SearchByCaseType @SearchByTopic
+  Scenario: User should be able to search by multiple parameters
     And I search by the case type "MIN" and another parameter "KITTENS TOPIC"
     Then cases that are "MIN" case type that also contain another parameter "KITTENS TOPIC" should be displayed in the results list
 
@@ -99,57 +99,28 @@ Feature: Search should be available for all users of the application
     Then 0 cases should be displayed
 
 
-  @Search @SearchByActiveClosed
+  @Search @SearchByActiveOnly
   Scenario: Both active and closed cases should be displayed when searchnig without selecting that the results should only include active cases
     And I navigate to the "search" page
-    When I search by the case type "DCU MIN"
+    When I search by the case type "MIN"
     Then both active and closed cases will be returned in the search results
 
-  @Search @SearchByActiveClosed
+  @Search @SearchByActiveOnly
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases
-    When I search by the case type "DCU MIN"
-    Then Onlny active cases will be returned in the search results
+    When I search by the case type "MIN"
+    Then Only active cases will be returned in the search results
 
-  @Search @SearchByActiveClosed
-  Scenario: Only closed cases should be displayed when the user searches for a case and specifies that the case should be closed
-    And I search for any other parameter
-    When I specify closed in the search query
-    Then all closed cases matching this parameter will be displayed in the search results
+  @Search @SearchBySignOffTeam
+  Scenario: User should be able to search for a case by Sign-off Team
+    And I navigate to the "search" page
+    When I search by the Sign-off Team "Minister for Lords"
+    Then cases with the queried Sign-off Team should be displayed in the results list
 
-  @Search @SearchBySignOffMinister
-  Scenario: Users in the private office should be able to search by sign off minister
-    And I am a user in the private office
-    When I search by <signOffMinister>
-    Then no cases with the <signOffMinister> should be displayed in the results list
-
-  @Search @SearchBySignOffMinister
-  Scenario: No cases should be shown if the user searches for a sign off minister that has not been assigned to any cases
-    And I am a user in the private office
-    When I search by <signOffMinister>
-    Then no cases should be displayed in the results list if there are no cases with <signOffMinister>
-
-  @Search @SearchBySignOffMinister
-  Scenario: User should be able to click on the case link when cases are displayed in the results list after search by sign off minister
-    When I search by the <signOffMinister>
-    And I click the link of a case in the results list
-    Then I should be taken to the screen of the selected case
-
-  @Search @SearchBySignOffMinister
-  Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by sign off minister
-    When I search by the <signOffMinister>
-    Then the search results should contain the expected information
-
-  @Search @SearchBySignOffMinister
+  @Search @SearchBySignOffMinister @searchByCaseType
   Scenario: User should be able to search by sign off minister and another parameter
-    When I search by the <signOffMinister> and <anotherParameter>
-    Then cases that are <signOffMinister> that also contain <anotherParameter> should be displayed in the results list
-
-  @Search @SearchBySignOffMinister
-  Scenario: No cases should be displayed if the user searches by sign off minister and another parameter when a case does not exist with both parameters
-    When I search by the <signOffMinister> and <anotherParameter>
-    Then there should be no cases displayed in the results list if no cases match the search parameters
-
+    When I search by the case type "DTEN" and another parameter "Permanent Secretary Signoff Team"
+    Then cases that are "DTEN" case type that also contain another parameter "Permanent Secretary Signoff Team" should be displayed in the results list
 
 
