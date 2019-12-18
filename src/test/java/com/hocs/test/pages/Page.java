@@ -28,8 +28,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.interactions.Actions;
 
 public class Page extends PageObject {
 
@@ -73,7 +71,7 @@ public class Page extends PageObject {
     private WebElementFacade caseId;
 
     @FindBy(xpath = "//a[@class='govuk-back-link']")
-    public WebElementFacade cancelButton;
+    public WebElementFacade backButton;
 
     @FindBy(css = "[value='Close']")
     private WebElementFacade closeButton;
@@ -290,8 +288,8 @@ public class Page extends PageObject {
         clickOn(addButton);
     }
 
-    public void clickCancelButton() {
-        cancelButton.click();
+    public void clickBackButton() {
+        backButton.click();
     }
 
     public void clickContinueButton() {

@@ -109,7 +109,7 @@ public class Workstacks extends Page {
     public WebElementFacade primaryTopicName;
 
     @FindBy(xpath = "//a[@class='govuk-back-link']")
-    public WebElementFacade allocateScreenCancelButton;
+    public WebElementFacade allocateScreenBackButton;
 
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade displayedOwner;

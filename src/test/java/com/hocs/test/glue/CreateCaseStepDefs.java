@@ -1,7 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
@@ -19,7 +19,7 @@ import cucumber.api.java.en.When;
 
 public class CreateCaseStepDefs extends Page {
 
-    AddDocuments addDocuments;
+    Documents documents;
 
     CreateCase createCase;
 
@@ -180,7 +180,7 @@ public class CreateCaseStepDefs extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         clickOn(createCase.nextButton);
-        addDocuments.bulkUploadDocuments(cases);
+        documents.bulkUploadDocuments(cases);
         clickOn(createCase.finishButton);
     }
 
@@ -206,7 +206,7 @@ public class CreateCaseStepDefs extends Page {
 
         switch (document.toUpperCase()) {
             case "WITH":
-                addDocuments.uploadDocument();
+                documents.uploadDocxDocument();
                 clickOn(createCase.finishButton);
                 break;
             case "WITHOUT":
