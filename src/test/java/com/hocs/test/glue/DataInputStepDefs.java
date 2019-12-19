@@ -9,7 +9,6 @@ import com.hocs.test.pages.Page;
 import com.hocs.test.pages.accordion.CaseDetailsAccordion;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.data_input.DataInputQADecision;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.workstacks.Workstacks;
 import cucumber.api.java.en.And;

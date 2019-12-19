@@ -1,24 +1,22 @@
 package com.hocs.test.pages.create_case;
 
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.Page;
+import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.homepage.Homepage;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.workstacks.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
-import org.yecht.Data.Str;
 
 public class CreateCase extends Page {
 
-    AddDocuments addDocuments;
+    Documents addDocuments;
 
     SuccessfulCaseCreation successfulCaseCreation;
 
@@ -180,7 +178,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocument();
+        addDocuments.uploadDocxDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -189,7 +187,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuDtenRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocument();
+        addDocuments.uploadDocxDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -198,7 +196,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuTroRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocument();
+        addDocuments.uploadDocxDocument();
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -217,7 +215,7 @@ public class CreateCase extends Page {
 
     public void completeSingleCaseCreation() {
         clickOn(nextButton);
-        addDocuments.uploadDocument();
+        addDocuments.uploadDocxDocument();
         storeCorrespondenceReceivedDay();
         storeCorrespondenceReceivedMonth();
         storeCorrespondenceReceivedYear();
@@ -236,9 +234,9 @@ public class CreateCase extends Page {
         waitABit(100);
     }
 
-    public void cancelAtWhatTypeOfCor() {
+    public void backAtWhatTypeOfCor() {
         openACase();
-        clickOn(cancelButton);
+        clickOn(backButton);
     }
 
     public void storeCorrespondenceReceivedDay() {

@@ -208,8 +208,8 @@ public class GenericInputStepDefs extends Page {
             case "NEXT":
                 clickOn(nextButton);
                 break;
-            case "CANCEL":
-                clickOn(cancelButton);
+            case "BACK":
+                clickOn(backButton);
                 break;
             case "ADD A TOPIC":
                 clickOn(addTopicButton);

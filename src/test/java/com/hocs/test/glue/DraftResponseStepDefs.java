@@ -4,7 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.Qa;
@@ -21,7 +21,7 @@ public class DraftResponseStepDefs extends Page {
 
     Qa qa;
 
-    AddDocuments addDocuments;
+    Documents documents;
 
     Workstacks workstacks;
 
@@ -31,11 +31,11 @@ public class DraftResponseStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             draft.dtenAcceptAndDraftALetter();
-            addDocuments.addADraftDocument();
+            documents.addADraftDocument();
             qa.dontQAOffline();
         } else {
             draft.acceptAndDraftALetter();
-            addDocuments.addADraftDocument();
+            documents.addADraftDocument();
             qa.dontQAOffline();
         }
     }
@@ -48,14 +48,14 @@ public class DraftResponseStepDefs extends Page {
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
-                addDocuments.addADraftDocument();
+                documents.addADraftDocument();
                 qa.dontQAOffline();
                 break;
             case "DCU N10":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();
-                addDocuments.addADraftDocument();
+                documents.addADraftDocument();
                 qa.dontQAOffline();
                 break;
             default:
@@ -90,8 +90,8 @@ public class DraftResponseStepDefs extends Page {
 
     @Then("^an error message should be displayed as I have not selected a document type and added a document$")
     public void assertThatAddDocumentErrorMessagesAreShown() {
-        addDocuments.assertDocumentTypeIsRequiredErrorMessage();
-        addDocuments.assertDocumentIsRequiredErrorMessage();
+        documents.assertDocumentTypeIsRequiredErrorMessage();
+        documents.assertDocumentIsRequiredErrorMessage();
     }
 
     @Then("^an error message should be displayed as I have not selected whether the case should be QA offline or not$")

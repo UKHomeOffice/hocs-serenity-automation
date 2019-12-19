@@ -45,19 +45,20 @@ Feature: HOCS User is able to create a case
     Then the case should be visible in the Performance and Process Team workstack
 
   @CreateCase @Navigation
-  Scenario: User should be taken back to the dashboard when they click the cancel button on the what type of correspondence page
-    And I click the "CANCEL" button
+  Scenario: User should be taken back to the dashboard when they click the back button on the what type of correspondence
+  page
+    And I click the "BACK" button
     Then I should be taken to the homepage
 
   @CreateCase @Navigation
-  Scenario: User should be taken back to the dashboard when they click the cancel button on the when was the
+  Scenario: User should be taken back to the dashboard when they click the back button on the when was the
   correspondence received page
     And I move to the When Was Correspondence Received Page
-    And I click the "CANCEL" button
+    And I click the "BACK" button
     Then I should be taken to the homepage
 
   @CreateCase @Validation
-  Scenario: Create Single Case correspondence selection is validated
+  Scenario: When creating a Single Case case type selection is required
     And I click the "NEXT" button
     Then an error message should be displayed as I have not selected the case type
 

@@ -1,11 +1,9 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.Page;
-import com.hocs.test.pages.create_case.AddDocuments;
+import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.standard_line.StandardLine;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 
 public class StandardLineStepDefs extends Page {
 
@@ -13,7 +11,7 @@ public class StandardLineStepDefs extends Page {
 
     StandardLine standardLine;
 
-    AddDocuments addDocuments;
+    Documents documents;
 
 //    @When("^I click the add button on the create standard line screen$")
 //    public void clickAddButtonOnStandardLineScreen() {
