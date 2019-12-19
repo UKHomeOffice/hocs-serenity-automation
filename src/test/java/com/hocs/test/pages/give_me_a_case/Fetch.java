@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.draft.Draft;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -19,7 +19,6 @@ import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.create_case.CreateCase;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

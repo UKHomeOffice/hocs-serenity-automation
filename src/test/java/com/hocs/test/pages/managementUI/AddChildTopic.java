@@ -4,10 +4,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import jxl.write.DateTime;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;

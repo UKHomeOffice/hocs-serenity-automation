@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
@@ -31,11 +31,11 @@ public class DraftResponseStepDefs extends Page {
         clickOn(workstacks.allocateToMeButton);
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             draft.dtenAcceptAndDraftALetter();
-            documents.addADraftDocument();
+            documents.addADraftDocumentAtDraftStage();
             qa.dontQAOffline();
         } else {
             draft.acceptAndDraftALetter();
-            documents.addADraftDocument();
+            documents.addADraftDocumentAtDraftStage();
             qa.dontQAOffline();
         }
     }
@@ -48,14 +48,14 @@ public class DraftResponseStepDefs extends Page {
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
-                documents.addADraftDocument();
+                documents.addADraftDocumentAtDraftStage();
                 qa.dontQAOffline();
                 break;
             case "DCU N10":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();
-                documents.addADraftDocument();
+                documents.addADraftDocumentAtDraftStage();
                 qa.dontQAOffline();
                 break;
             default:

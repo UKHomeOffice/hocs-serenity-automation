@@ -1,4 +1,4 @@
-package com.hocs.test.pages;
+package com.hocs.test.pages.base_page;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -43,14 +43,8 @@ public class Page extends PageObject {
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
-    @Managed
-    WebDriver driver;
-
     @FindBy(linkText = "Logout")
     public WebElementFacade logoutButton;
-
-    @FindBy(css = "[value='Accept All']")
-    private WebElementFacade acceptAllButton;
 
     @FindBy(css = "[value='Accept']")
     public WebElementFacade acceptButton;
@@ -58,26 +52,14 @@ public class Page extends PageObject {
     @FindBy(css = "[value = 'Add']")
     public WebElementFacade addButton;
 
-    @FindBy(css = "[value='Add/Update']")
-    private WebElementFacade addUpdateButton;
-
     @FindBy(id = "CaseNote_AllocationNote")
     private WebElementFacade allocationNoteField;
-
-    @FindBy(css = "[id*=documentTable]")
-    private WebElementFacade associatedDocumentTable;
 
     @FindBy(className = "govuk-caption-l")
     private WebElementFacade caseId;
 
     @FindBy(xpath = "//a[@class='govuk-back-link']")
     public WebElementFacade backButton;
-
-    @FindBy(css = "[value='Close']")
-    private WebElementFacade closeButton;
-
-    @FindBy(css = "[value = 'Confirm']")
-    private WebElementFacade confirmButton;
 
     @FindBy(css = "[value='Continue']")
     public WebElementFacade continueButton;
@@ -94,15 +76,6 @@ public class Page extends PageObject {
     @FindBy(id = "date-year")
     protected WebElementFacade dateYearField;
 
-    @FindBy(id = "DateOfLetter-day")
-    protected WebElementFacade dateOfLetterDay;
-
-    @FindBy(id = "DateOfLetter-month")
-    protected WebElementFacade dateOfLetterMonth;
-
-    @FindBy(id = "DateOfLetter-year")
-    protected WebElementFacade dateOfLetterYear;
-
     @FindBy(id = "DateReceived-day")
     protected WebElementFacade dateReceivedDay;
 
@@ -114,15 +87,6 @@ public class Page extends PageObject {
 
     @FindBy(linkText = "delete")
     public WebElementFacade deleteLink;
-
-    @FindBy(css = "[value = 'Document']")
-    private WebElementFacade documentButton;
-
-    @FindBy(css = "[value='Edit']")
-    protected WebElementFacade editButton;
-
-    @FindBy(id = "")
-    protected WebElementFacade emailAddressField;
 
     @FindBy(css = "[id*=EndDate]")
     private WebElementFacade endDate;
@@ -139,20 +103,8 @@ public class Page extends PageObject {
     @FindBy(css = "[value='Finish']")
     public WebElementFacade finishButton;
 
-    @FindBy(linkText = "First")
-    private WebElementFacade firstButton;
-
-    @FindBy(linkText = "Last")
-    private WebElementFacade lastButton;
-
     @FindBy(name = "go")
     private WebElementFacade lookupButton;
-
-    @FindBy(css = "input[type='submit'][value='More']")
-    private WebElementFacade moreButton;
-
-    @FindBy(id = "name")
-    protected WebElementFacade nameField;
 
     @FindBy(linkText = "new")
     public WebElementFacade newLink;
@@ -175,26 +127,11 @@ public class Page extends PageObject {
     @FindBy(xpath = "//h1/span")
     protected WebElementFacade pageCaption;
 
-    @FindBy(id = "")
-    protected WebElementFacade postCodeField;
-
-    @FindBy(linkText = "Previous")
-    private WebElementFacade previousButton;
-
-    @FindBy(linkText = "Print")
-    protected WebElementFacade printButton;
-
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
 
     @FindBy(id = "CaseNote_RejectionNote")
     protected WebElementFacade rejectReasonTextField;
-
-    @FindBy(css = "[value = 'Refresh']")
-    private WebElementFacade refreshButton;
-
-    @FindBy(css = "[value = 'Save']")
-    private WebElementFacade saveButton;
 
     @FindBy(css = "[value = 'Search']")
     public WebElementFacade searchButton;
@@ -207,18 +144,6 @@ public class Page extends PageObject {
 
     @FindBy(css = "[value = 'Finish']")
     public WebElementFacade submitButton;
-
-    @FindBy(id = "surname")
-    protected WebElementFacade surnameField;
-
-    @FindBy(id = "")
-    protected WebElementFacade telephoneNumberField;
-
-    @FindBy(id = "")
-    protected WebElementFacade titleDropdown;
-
-    @FindBy(id = "")
-    protected WebElementFacade townField;
 
     @FindBy(css = "[value = 'Update']")
     private WebElementFacade updateButton;
@@ -250,15 +175,6 @@ public class Page extends PageObject {
         assertThat(getErrorMessageText(), containsString(text));
     }
 
-    public void assertCaption(String caption) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertThat(getCaptionText(), containsString(caption));
-    }
-
     public void assertTitle(String title) {
         try {
             Thread.sleep(500);
@@ -266,14 +182,6 @@ public class Page extends PageObject {
             e.printStackTrace();
         }
         assertThat(getHeaderText(), containsString(title));
-    }
-
-    public void associatedDocumentsIsDisplayed() {
-        associatedDocumentTable.isDisplayed();
-    }
-
-    public void associatedDocumentsIsNotDisplayed() {
-        associatedDocumentTable.shouldNotBeVisible();
     }
 
     public void clearCookies(WebDriver driver) {

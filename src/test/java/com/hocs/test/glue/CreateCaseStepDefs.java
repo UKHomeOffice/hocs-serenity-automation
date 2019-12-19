@@ -1,6 +1,6 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.CreateCase;

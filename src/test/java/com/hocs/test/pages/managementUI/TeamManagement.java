@@ -4,12 +4,10 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.Page;
-import cucumber.api.java.en.When;
+import com.hocs.test.pages.base_page.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 

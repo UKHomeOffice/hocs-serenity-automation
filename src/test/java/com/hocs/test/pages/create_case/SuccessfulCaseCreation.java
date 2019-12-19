@@ -1,6 +1,6 @@
 package com.hocs.test.pages.create_case;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 

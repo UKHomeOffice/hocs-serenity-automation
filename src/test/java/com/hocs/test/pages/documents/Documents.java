@@ -3,7 +3,8 @@ package com.hocs.test.pages.documents;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.JavascriptExecutor;
@@ -90,6 +91,14 @@ public class Documents extends Page {
         upload("src/test/resources/documents/5MB.docx").to(addDocument);
     }
 
+    public void uploadTiffDocument() {
+        upload("src/test/resources/documents/test.tiff").to(addDocument);
+    }
+
+    public void uploadTIFFDocument() {
+        upload("src/test/resources/documents/testTIFF.TIFF").to(addDocument);
+    }
+
     //Multi-step methods
 
     public void uploadDocxAndTxtDocuments() {
@@ -114,15 +123,14 @@ public class Documents extends Page {
     }
 
     public void addAOriginalDocument() {
-        waitFor(availableStandardLineHeader).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(1);
         uploadDocxDocument();
         clickOn(addButton);
     }
 
-    public void addADraftDocument() {
-        waitFor(availableStandardLineHeader).waitUntilVisible();
+    public void addADraftDocumentAtDraftStage() {
+        availableStandardLineHeader.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocxDocument();
@@ -130,7 +138,6 @@ public class Documents extends Page {
     }
 
     public void addAFinalDocument() {
-        waitFor(availableStandardLineHeader).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(3);
         uploadDocxDocument();

@@ -5,11 +5,12 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -57,9 +58,6 @@ public class Draft extends Page {
 
     @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
     public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
-
-    @FindBy(id = "")
-    public WebElementFacade draftingDeadline;
 
     @FindBy(css = "label[for=ResponseChannel-EMAIL]")
     public WebElementFacade emailReplyRadioButton;
@@ -129,7 +127,7 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            clickOn(addDocuments.addDocumentsButton);
+            addDocuments.addDocumentsButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
         }
     }
 
@@ -137,17 +135,16 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-//            waitABit(500);
-            addDocuments.addADraftDocument();
-            clickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
             waitABit(500);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            addDocuments.addADraftDocument();
-            clickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
             waitABit(500);
         }
     }
@@ -157,8 +154,8 @@ public class Draft extends Page {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
-            addDocuments.addADraftDocument();
-            clickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
             clickOn(finishButton);
@@ -167,8 +164,8 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            addDocuments.addADraftDocument();
-            clickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
             clickOn(finishButton);
@@ -178,7 +175,7 @@ public class Draft extends Page {
     public void moveDTENCaseFromDraftToPrivateOffice() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         clickOn(continueButton);
         clickOn(qa.offlineQaYesRadioButton);
         clickOn(continueButton);
@@ -209,27 +206,27 @@ public class Draft extends Page {
         clickOn(homepage.myCases);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
         acceptAndDraftALetter();
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         qa.dontQAOffline();
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         qa.waitABit(500);
         qa.dontQAOffline();
     }
 
     public void moveTROCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         qa.waitABit(500);
         clickOn(continueButton);
     }
 
     public void moveDTENCaseFromInitialDraftToQaResponse() {
         dtenAcceptAndDraftALetter();
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         qa.waitABit(500);
         qa.dontQAOffline();
     }
@@ -242,7 +239,7 @@ public class Draft extends Page {
         String typeOfResponseRadioButton = letterReplyRadioButton.getText();
         setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
         clickOn(continueButton);
-        addDocuments.addADraftDocument();
+        addDocuments.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test1.docx");
         clickOn(continueButton);
         clickOn(qa.offlineQaNoRadioButton);
@@ -253,16 +250,8 @@ public class Draft extends Page {
 
     // Assertions
 
-    public void draftingDeadlineIsDisplayed() {
-        assertThat(isElementDisplayed(draftingDeadline), is(true));
-    }
-
     public void assertEnterCallNotesError() {
         assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
-    }
-
-    public void assertEnterQaMethodError() {
-        assertThat(getErrorDetails(), is("Text to be confirmed"));
     }
 
     public void assertEnterRejectionReasonsError() {

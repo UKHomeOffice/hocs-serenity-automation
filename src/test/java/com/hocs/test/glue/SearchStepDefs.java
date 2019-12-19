@@ -1,6 +1,6 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.search.Search;
 import com.hocs.test.pages.workstacks.Workstacks;
