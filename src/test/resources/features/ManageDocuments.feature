@@ -17,6 +17,8 @@ Feature: A user can upload documents to a case #this test can be run at any stag
       | docx     |
       | txt      |
       | pdf      |
+      | tiff     |
+      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |

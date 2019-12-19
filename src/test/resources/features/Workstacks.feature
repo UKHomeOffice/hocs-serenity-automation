@@ -3,6 +3,27 @@ Feature: Team members can allocate work
   Background:
     Given I log in as the designated user
 
+  Scenario: all cases in my workstack belong to me
+
+  Scenario: Unallocate a case from my own workstack
+
+  Scenario: unallocate multiple cases from my own workstack
+
+  Scenario: Case filter shows just one case for full ref
+
+  Scenario: case filter for just case type
+
+  //Teams workstack
+
+  Scenario: All cases belong to team
+
+  Scenario: Can narrow by case type
+
+  Scenario: Can narrow further by stage
+
+
+
+
   @Unallocate @DCUMIN
   Scenario: A single case is unallocated from the current user
     When I create a single case "DCU MIN"

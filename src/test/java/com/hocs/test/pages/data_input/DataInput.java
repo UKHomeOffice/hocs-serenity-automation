@@ -1,6 +1,6 @@
 package com.hocs.test.pages.data_input;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
@@ -12,9 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 
 public class DataInput extends Page {
 

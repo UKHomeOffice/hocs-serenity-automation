@@ -2,7 +2,7 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.accordion.CaseDetailsAccordion;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.homepage.Homepage;

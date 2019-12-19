@@ -1,7 +1,6 @@
 package com.hocs.test.pages.managementUI;
 
-import com.hocs.test.pages.Page;
-import java.util.WeakHashMap;
+import com.hocs.test.pages.base_page.Page;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

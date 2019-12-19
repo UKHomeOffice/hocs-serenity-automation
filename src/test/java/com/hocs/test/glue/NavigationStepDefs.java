@@ -1,11 +1,10 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.create_case.CreateCase;
 import com.hocs.test.pages.data_input.DataInput;
 import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.give_me_a_case.Fetch;
 
 import cucumber.api.java.en.Given;

@@ -1,6 +1,6 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.give_me_a_case.Fetch;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;

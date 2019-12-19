@@ -2,16 +2,13 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.workstacks.Workstacks;
-import config.*;
 
 import static config.Users.*;
-import static config.Usernames.*;
-import static config.Passwords.*;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 
@@ -184,20 +181,20 @@ public class LoginStepDefs extends Page {
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
             case "CASEY PROSSER":
-                loginPage.enterHocsUsername(CASEYPROSSER);
-                loginPage.enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsUsername(CASEY.getUsername());
+                loginPage.enterHocsPassword(CASEY.getPassword());
                 break;
             case "DCU":
-                loginPage.enterHocsUsername(DCUSER);
-                loginPage.enterHocsPassword(DCUPASS);
+                loginPage.enterHocsUsername(DCU.getUsername());
+                loginPage.enterHocsPassword(DCU.getPassword());
                 break;
             case "TESTER":
-                loginPage.enterHocsUsername(TESTER);
-                loginPage.enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsUsername(TEST.getUsername());
+                loginPage.enterHocsPassword(TEST.getPassword());
                 break;
             case "EAMON DROKO":
-                loginPage.enterHocsUsername(EAMONDROKO);
-                loginPage.enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsUsername(EAMON.getUsername());
+                loginPage.enterHocsPassword(EAMON.getPassword());
                 break;
             default:
                 pendingStep(credentials + " is not defined within " + getMethodName());
@@ -210,16 +207,16 @@ public class LoginStepDefs extends Page {
         setSessionVariable("password").to(password);
         switch (password) {
             case "CASEY PASS":
-                loginPage.enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsPassword(CASEY.getPassword());
                 break;
             case "DCU PASS":
-                loginPage.enterHocsPassword(DCUPASS);
+                loginPage.enterHocsPassword(DCU.getPassword());
                 break;
             case "TESTER PASS":
-                loginPage.enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsPassword(TEST.getPassword());
                 break;
             case "EAMON PASS":
-                loginPage.enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsPassword(EAMON.getPassword());
                 break;
             default:
                 pendingStep(password + " is not defined within " + getMethodName());
@@ -253,20 +250,20 @@ public class LoginStepDefs extends Page {
         setSessionVariable("credentials").to(credentials);
         switch (credentials.toUpperCase()) {
             case "CASEY PROSSER":
-                loginPage.enterHocsUsername(CASEYPROSSER);
-                loginPage.enterHocsPassword(CASEYPASS);
+                loginPage.enterHocsUsername(CASEY.getUsername());
+                loginPage.enterHocsPassword(CASEY.getPassword());
                 break;
             case "DCU":
-                loginPage.enterHocsUsername(DCUSER);
-                loginPage.enterHocsPassword(DCUPASS);
+                loginPage.enterHocsUsername(DCU.getUsername());
+                loginPage.enterHocsPassword(DCU.getPassword());
                 break;
             case "TESTER":
-                loginPage.enterHocsUsername(TESTER);
-                loginPage.enterHocsPassword(TESTERPASS);
+                loginPage.enterHocsUsername(TEST.getUsername());
+                loginPage.enterHocsPassword(TEST.getPassword());
                 break;
             case "EAMON DROKO":
-                loginPage.enterHocsUsername(EAMONDROKO);
-                loginPage.enterHocsPassword(EAMONPASS);
+                loginPage.enterHocsUsername(EAMON.getUsername());
+                loginPage.enterHocsPassword(EAMON.getPassword());
                 break;
             default:
                 pendingStep(credentials + " is not defined within " + getMethodName());
@@ -287,16 +284,16 @@ public class LoginStepDefs extends Page {
         homepage.selectMyCases();
         switch (owner.toUpperCase()) {
             case "CASEY PROSSER":
-                workstacks.assertOwnerIs(CASEYPROSSER.getUsername());
+                workstacks.assertOwnerIs(CASEY.getUsername());
                 break;
             case "DCU":
                 workstacks.assertOwnerIs(DCU.getUsername());
                 break;
             case "TESTER":
-                workstacks.assertOwnerIs(TESTER.getUsername());
+                workstacks.assertOwnerIs(TEST.getUsername());
                 break;
             case "EAMON DROKO":
-                workstacks.assertOwnerIs(EAMONDROKO.getUsername());
+                workstacks.assertOwnerIs(EAMON.getUsername());
                 break;
             default:
                 pendingStep(owner + " is not defined within " + getMethodName());

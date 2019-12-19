@@ -5,11 +5,9 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import config.Environments;
-import config.Passwords;
 import config.Services;
-import config.Usernames;
 import config.Users;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -35,12 +33,12 @@ public class LoginPage extends Page {
         typeInto(passwordField, password);
     }
 
-    public void enterHocsUsername(Usernames username) {
-        enterUsername(username.getUsername());
+    public void enterHocsUsername(String username) {
+        enterUsername(username);
     }
 
-    public void enterHocsPassword(Passwords password) {
-        enterPassword(password.getPassword());
+    public void enterHocsPassword(String password) {
+        enterPassword(password);
     }
 
     //Multi Step Methods

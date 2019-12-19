@@ -1,8 +1,6 @@
 package com.hocs.test.pages.markup;
 
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
-import com.hocs.test.pages.Page;
+import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.homepage.Homepage;
 
