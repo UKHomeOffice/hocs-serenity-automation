@@ -136,8 +136,8 @@ public class DocumentsStepDefs extends Page {
     @And("^I select a file that is (\\d+)MB in size$")
     public void iSelectAFileThatIsLargerThanMB(String fileSize) {
         switch (fileSize.toUpperCase()) {
-            case "11":
-                documents.upload11MBDocument();
+            case "51":
+                documents.upload51MBDocument();
                 break;
             case "5":
                 documents.upload5MBDocument();

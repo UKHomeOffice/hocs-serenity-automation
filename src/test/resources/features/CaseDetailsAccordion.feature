@@ -56,7 +56,7 @@ Feature: User can view correct case details at all stages
     Then the information shown should match what I entered at the "Private Office Approval" stage
 
   @Accordion
-  Scenario: Transfer to No10 accordion should contain the same information entered at the Initial Draft stage
+  Scenario: Transfer to No10 accordion should contain the same information entered at the Ministerial Sign Off stage
     Given I create a single "DCU MIN" case
     And I allocate the case to myself via the successful case creation screen
     And I move that case to the "Transfer to No10" stage

@@ -4,7 +4,7 @@ Feature: DCU user decides how a case should be handled
     Given I log in as the designated user
     When I get a "DCU N10" case at "MARKUP" stage
 
-  @Markup @HOCS-266, @HOCS-237
+  @Markup @SmokeTests
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
     And I click the "CONTINUE" button
@@ -12,24 +12,24 @@ Feature: DCU user decides how a case should be handled
     Then a mandatory "TOPIC" free text field is displayed
 
     Examples:
-    | radioButton |
-    | Policy Response |
-    | FAQ             |
+      | radioButton     |
+      | Policy Response |
+      | FAQ             |
 
 
-  @Markup @HOCS-266, @HOCS-237
+  @Markup
   Scenario: User selects an initial decision of Transfer to OGD
     When I select an initial decision of "REFER TO OGD"
     And I click the "CONTINUE" button
     Then the Other Government Department name free text field is displayed
 
-  @Markup @HOCS-266, @HOCS-237
+  @Markup
   Scenario: User selects an initial decision of No Response Needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "CONTINUE" button
     Then the No Response Needed casenote field is displayed
 
-  @Markup @Validation @HOCS-259, @HOCS-237
+  @Markup @Validation
   Scenario: User does not enter department in free text field
     When I select an initial decision of "Refer to OGD"
     And I click the "CONTINUE" button
@@ -42,7 +42,7 @@ Feature: DCU user decides how a case should be handled
     And I click the "CONTINUE" button
     Then the reason for rejection casenote field is displayed
 
-  @Markup @Validation @HOCS-257, @HOCS-237
+  @Markup @Validation
   Scenario: User does not enter reasons for no reply needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "CONTINUE" button
@@ -56,7 +56,7 @@ Feature: DCU user decides how a case should be handled
     But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
     Then an error message is displayed
 
-  @Markup @HOCS-258, @HOCS-262, @HOCS-237
+  @Markup @SmokeTests
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
     And I click the "CONTINUE" button
@@ -89,6 +89,14 @@ Feature: DCU user decides how a case should be handled
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+
+  @Markup @Workflow @SmokeTests
+  Scenario: Case is returned to Data Input stage when rejected at Markup stage
+    When I select an initial decision of "REJECT TO DATA INPUT"
+    And I click the "CONTINUE" button
+    When  I enter a reason for rejecting the case
+    And I click the "Finish" button
+    Then the "DCU N10" case should be moved to the "DATA INPUT" stage
 
 
 

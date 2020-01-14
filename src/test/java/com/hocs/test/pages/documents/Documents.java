@@ -76,15 +76,15 @@ public class Documents extends Page {
     }
 
     public void uploadXLSXDocument() {
-        upload("src/test/resources/documents/testXSLX.XLSX").to(addDocument);
+        upload("src/test/resources/documents/testXLSX.XLSX").to(addDocument);
     }
 
     public void uploadCsvDocument() {
         upload("src/test/resources/documents/test.csv").to(addDocument);
     }
 
-    public void upload11MBDocument() {
-        upload("src/test/resources/documents/11MB.docx").to(addDocument);
+    public void upload51MBDocument() {
+        upload("src/test/resources/documents/51MB.docx").to(addDocument);
     }
 
     public void upload5MBDocument() {

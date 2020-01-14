@@ -327,7 +327,6 @@ public class Page extends PageObject {
 
     public void enterRejectionNotes() {
         waitFor(rejectReasonTextField);
-
         String rejectionReason = "Rejection Reason: " + generateRandomString();
         typeInto(rejectReasonTextField, rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
@@ -607,13 +606,5 @@ public class Page extends PageObject {
     public void assertElementTextNotValue(WebElementFacade elem, String thisElementsText) {
         System.out.println(thisElementsText);
         assertThat(elem.getText(), is(thisElementsText));
-    }
-
-    public void prepareCaseIdAssertion() {
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference") + "']").get(0);
-        waitFor(referenceElement).waitUntilClickable();
-        System.out.println(referenceElement);
-        setSessionVariable("assertCase").to(referenceElement);
-        goHome();
     }
 }

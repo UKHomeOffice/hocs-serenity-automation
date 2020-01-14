@@ -3,9 +3,22 @@ Feature: Team members can allocate work
   Background:
     Given I log in as the designated user
 
+  @CreateCase @Allocate
+  Scenario: A single case is allocated to the current user using checkboxes
+    And I navigate to the "CREATE SINGLE CASE" page
+    And I create a single "DCU MIN" case
+    When I navigate to the "PERFORMANCE AND PROCESS TEAM" and select the check box against the newly created case and allocate it to myself
+    Then the case should be visible in my workstack
+
   Scenario: all cases in my workstack belong to me
+    When I navigate to the "My cases" page
+    Then all visible cases are assigned to me
 
   Scenario: Unallocate a case from my own workstack
+    When I navigate to the "My cases" page
+    And I unallocate the case from myself
+    And I select a case and unallocate it from myself
+    Then the case should not be visible in the workstack
 
   Scenario: unallocate multiple cases from my own workstack
 
@@ -28,7 +41,6 @@ Feature: Team members can allocate work
   Scenario: A single case is unallocated from the current user
     When I create a single case "DCU MIN"
     And I unallocate the case from myself
-    Then the case should not be visible in my workstack
 
   @Unallocate
   Scenario: All cases are unallocated from the current user

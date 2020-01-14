@@ -117,4 +117,10 @@ public class MarkUpDecision extends Page {
         assertThat(isElementDisplayed(OGDTitleTextBox), is(true));
     }
 
+    public void enterRejectToDataInputReasonIntoTextBox() {
+        waitFor(rejectToDataInputTextField);
+        String rejectionReason = "Rejection Reason: " + generateRandomString();
+        typeInto(rejectToDataInputTextField, rejectionReason);
+        setSessionVariable("rejectionReason").to(rejectionReason);
+    }
 }

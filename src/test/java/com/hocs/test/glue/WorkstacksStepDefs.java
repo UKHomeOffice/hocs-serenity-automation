@@ -8,6 +8,8 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
+import config.Users;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -39,11 +41,6 @@ public class WorkstacksStepDefs extends Page {
     @When("^I click the back to dashboard button$")
     public void clickBackToDashboardButton() {
         clickOn(workstacks.backToDashboardButton);
-    }
-
-    @Then("^the case should not be visible in my workstack$")
-    public void assertThatCaseHasBeenUnallocatedFromMe() {
-        workstacks.assertCaseReferenceIsNotVisible();
     }
 
     @When("^I unallocate all the cases from myself$")
@@ -167,31 +164,13 @@ public class WorkstacksStepDefs extends Page {
 
     @Then("^all cases should be allocated to that user$")
     public void assertAllCasesAssignedToAllocatedUser() {
-        workstacks.assertAllAllocatedUsers();
+        workstacks.assertAllAllocatedUsersAre(Users.EAMON);
     }
 
-    @Then("^the case should no longer be visible in the workstack$")
-    public void assertThatCaseInSessionVariableIsNotVisible() {
-        if (isElementDisplayed(homepage.performanceProcessTeam)) {
-            homepage.selectPerformanceProcessTeam();
-            workstacks.assertCaseIsNotVisible();
-        } else {
-            workstacks.assertCaseIsNotVisible();
-        }
-    }
+    @And("^I select a case and unallocate it from myself$")
+    public void iSelectACaseAndUnallocateItFromMyself() {
 
-    @Then("^the case should no longer be visible in the \"([^\"]*)\" workstack$")
-    public void assertThatCaseHasBeenDispatchedPerCaseType(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "DCU MIN":
-                break;
-            case "DCU TRO":
-                clickOn(homepage.animalsInScienceTeam);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        workstacks.assertCaseIsNotVisible();
+        workstacks.clickCheckboxRelevantToCaseReference();
+        clickOn(workstacks.unallocateFromMeButton);
     }
-
 }

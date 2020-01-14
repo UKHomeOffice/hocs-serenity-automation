@@ -279,7 +279,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Then("^I should be logged in as the \"([^\"]*)\" user$")
+    @Then("^I should be logged in as the user \"([^\"]*)\"$")
     public void iShouldBeLoggedInAsTheUser(String owner) {
         homepage.selectMyCases();
         switch (owner.toUpperCase()) {
