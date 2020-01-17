@@ -56,22 +56,16 @@ public class CreateCaseStepDefs extends Page {
                 createCase.createDCUMinSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
-                clickOn(homepage.performanceProcessTeam);
-                prepareCaseIdAssertion();
                 break;
             case "DCU N10":
                 createCase.createDCUTENSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
-                clickOn(homepage.transferN10Team);
-                prepareCaseIdAssertion();
                 break;
             case "DCU TRO":
                 createCase.createDCUTROSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
-                clickOn(homepage.performanceProcessTeam);
-                prepareCaseIdAssertion();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

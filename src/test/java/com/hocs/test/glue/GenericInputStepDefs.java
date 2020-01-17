@@ -88,7 +88,7 @@ public class GenericInputStepDefs extends Page {
     public void errorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "INVALID DATE":
-                assertErrorMessageText("");
+                assertErrorMessageText("must be a date in the past");
                 break;
             case "CORRESPONDENCE RECEIVED":
                 assertErrorMessageText("When was the correspondence received? is required");
@@ -424,6 +424,12 @@ public class GenericInputStepDefs extends Page {
                 clickOn(dispatch.dispatchRejectRadioButton);
                 clickOn(continueButton);
                 dispatch.enterDispatchRejectionNotes();
+                clickOn(finishButton);
+                break;
+            case "MARKUP":
+                markUpDecision.selectRejectToDataInput();
+                clickOn(continueButton);
+                markUpDecision.enterRejectToDataInputReasonIntoTextBox();
                 clickOn(finishButton);
                 break;
             default:

@@ -10,7 +10,7 @@ import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
-import com.hocs.test.pages.standard_line.StandardLine;
+import com.hocs.test.pages.managementUI.StandardLine;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

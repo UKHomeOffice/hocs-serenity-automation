@@ -15,6 +15,7 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.draft.Draft;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -210,9 +211,7 @@ public class MarkUpStepDefs extends Page {
         markUpDecision.assertRejectTextBoxIsDisplayed();
     }
 
-
-    //here
-    @Then("^a mandatory \"([^\"]*)\" free text field is displayed$")
+    @Then("^a mandatory Topic free text field is displayed$")
     public void aMandatoryFreeTextFieldIsAvailable() {
         topics.assertTopicsTextFieldDisplayed();
     }
@@ -249,7 +248,8 @@ public class MarkUpStepDefs extends Page {
             case "REFER TO OGD":
                 markUpDecision.selectReferToOGDRadioButton();
                 break;
-            case "TRANSFER TO OGD":
+            case "REJECT TO DATA INPUT":
+                markUpDecision.selectRejectToDataInput();
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());

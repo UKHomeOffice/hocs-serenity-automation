@@ -24,11 +24,6 @@ import org.openqa.selenium.WebDriver;
 
 public class Homepage extends Page {
 
-    @Managed
-    WebDriver driver;
-
-    SuccessfulCaseCreation successfulCaseCreation;
-
     Workstacks workstacks;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
@@ -184,41 +179,7 @@ public class Homepage extends Page {
         centralDraftingTeam.click();
     }
 
-    // Multi Step Methods
-
-    public void firstStageFindMyCase() {
-        String thisCaseType =
-                sessionVariableCalled("caseType").toString();
-        switch (thisCaseType.toUpperCase()) {
-            case "DCU MIN":
-                selectPerformanceProcessTeam();
-                successfulCaseCreation
-                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
-                break;
-            case "DCU TRO":
-                selectPerformanceProcessTeam();
-                System.out.println("THIS IS A TRO TEST");
-                successfulCaseCreation
-                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
-                break;
-            case "DCU N10":
-                selectTransfersN10Team();
-                successfulCaseCreation
-                        .selectCaseReferenceNumberViaXpathStoreResultingElement();
-                break;
-            default:
-                pendingStep(thisCaseType + " is not defined within " + getMethodName());
-        }
-    }
-
     // Assertions
-
-    public void assertCaseIsComplete() {
-        WebElementFacade caseReference = (WebElementFacade) driver.findElement(
-                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseReference")
-                        + "')]"));
-        assertThat(isWebElementFacadePresent(caseReference), is(false));
-    }
 
     public void assertCaseIsCompleteViaSearch() {
         caseReferenceSearchBar.clear();
@@ -235,8 +196,8 @@ public class Homepage extends Page {
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
     }
 
-    public void assertCaseStageInWorkstacks(String expectedStage, WebDriver driver) {
-        String actualStage = driver.findElement(
+    public void assertCaseStageInWorkstacks(String expectedStage) {
+        String actualStage = getDriver().findElement(
                 By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseReference")
                         + "')]/following-sibling::td[1]")).getText();
         System.out.println("Case is at " + actualStage + " stage");

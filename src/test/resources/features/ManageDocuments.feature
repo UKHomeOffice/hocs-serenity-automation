@@ -1,4 +1,4 @@
-Feature: A user can upload documents to a case #this test can be run at any stage
+Feature: A user can manage documents associated to a case
 
   Background:
     Given I log in as the designated user
@@ -18,14 +18,15 @@ Feature: A user can upload documents to a case #this test can be run at any stag
       | txt      |
       | pdf      |
       | tiff     |
-      | TIFF     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |
 #      | TXT      |
 #      | XLSX     |
 
-  @ManageDocuments
+#  Check file types here -> Kubernetic under Config, hocs-converter, supported_types
+  @ManageDocuments @SmokeTests
   Scenario Outline: : User can select document type when uploading documents
     And I click add documents
     When I choose the document type "<docType>"
@@ -59,14 +60,14 @@ Feature: A user can upload documents to a case #this test can be run at any stag
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
 
-# FAILS, Doesnt trigger the javascript for validation error, not sure how to fix atm
-#  @ManageDocuments @Validation
+# FAILS, currently receives 'Something went wrong' message
+#  @ManageDocuments @Validation @Broken
 #  Scenario: Document exceeds the file size limit
 #    And I click add documents
 #    When I choose the document type "Draft"
-#    And I select a file that is 11MB in size
+#    And I select a file that is 51MB in size
 #    Then an error message should be displayed as I have selected a file which is larger than the allowed limit
-#    And I cannot see the "11MB" file in the uploaded document list
+#    And I cannot see the "51MB" file in the uploaded document list
 
   @ManageDocuments
   Scenario: A document has the pending tag whilst it is being converted
@@ -84,13 +85,15 @@ Feature: A user can upload documents to a case #this test can be run at any stag
       | docx     |
       | txt      |
       | pdf      |
+      | tiff     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |
 #      | TXT      |
 #      | XLSX     |
 
-  @ManageDocuments
+  @ManageDocuments @SmokeTests
   Scenario: User can select which document to preview
     And I click add documents
     When I choose the document type "Draft"
@@ -110,6 +113,8 @@ Feature: A user can upload documents to a case #this test can be run at any stag
       | docx     |
       | txt      |
       | pdf      |
+      | tiff     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |

@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.workstacks.Workstacks;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -53,6 +54,7 @@ public class SuccessfulCaseCreation extends Page {
     }
 
     public String getCaseReference() {
+        newCaseReference.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
         setSessionVariable("caseReference").to(caseReference);
@@ -89,26 +91,6 @@ public class SuccessfulCaseCreation extends Page {
         waitFor(referenceElement).waitUntilClickable();
         javascriptScrollToElem(referenceElement);
         System.out.println(referenceElement);
-        referenceElement.click();
-    }
-
-    public void selectCaseReferenceNumberViaXpathDoubleClick() {
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
-                + "']").get(0);
-        waitFor(referenceElement).waitUntilClickable();
-        System.out.println(referenceElement);
-        referenceElement.click();
-        referenceElement.click();
-    }
-
-    public void selectCaseReferenceNumberViaXpathStoreResultingElement(){
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
-                + "']").get(0);
-        waitFor(referenceElement).waitUntilClickable();
-        waitABit(500);
-        javascriptScrollToElem(referenceElement);
-        System.out.println(referenceElement);
-        setSessionVariable("assertCase").to(referenceElement);
         referenceElement.click();
     }
 }

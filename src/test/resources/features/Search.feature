@@ -24,7 +24,7 @@ Feature: Search should be available for all users of the application
     When I click the search button on the search page
     Then an error message should be displayed as I have not entered any search criteria
 
-  @Search @SearchByCaseType
+  @Search @SearchByCaseType @SmokeTests
   Scenario Outline: User should be able to search for a case by Case Type
     And I navigate to the "search" page
     When I search by the case type "<caseType>"
@@ -43,8 +43,7 @@ Feature: Search should be available for all users of the application
     Then I should be taken directly to the case
 
   @Search @SearchByCaseType
-  Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when
-  searching by Case Type
+  Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by Case Type
     And I navigate to the "search" page
     When I search by the case type "Min"
     Then the search results should contain the expected information
@@ -54,13 +53,13 @@ Feature: Search should be available for all users of the application
     And I search by the case type "MIN" and another parameter "KITTENS TOPIC"
     Then cases that are "MIN" case type that also contain another parameter "KITTENS TOPIC" should be displayed in the results list
 
-  @Search @SearchByDateReceived
+  @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
     And I navigate to the "search" page
     When I search for cases received on or after "01"/"11"/"2019"
     Then cases received on or "after" "01/11/2019" should be displayed
 
-  @Search @SearchByDateReceived
+  @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or before a certain date
     And I navigate to the "search" page
     When I search for cases received on or before "01"/"11"/"2019"
@@ -72,7 +71,7 @@ Feature: Search should be available for all users of the application
     When I search for cases received on or before "01"/"01"/"1901"
     Then 0 cases should be displayed
 
-  @Search @SearchByCorrespondent
+  @Search @SearchByCorrespondent @SmokeTests
   Scenario: User should be able to search by correspondent by entering their name
     And I navigate to the "search" page
     When I search by the correspondent name "NICOLA"
@@ -84,7 +83,7 @@ Feature: Search should be available for all users of the application
     When I search by the correspondent name "HUMPTY DUMPTY"
     Then 0 cases should be displayed
 
-  @Search @SearchByTopic
+  @Search @SearchByTopic @SmokeTests
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
     And I create a "DCU MIN" case with "Biometrics - general queries" as the primary topic
     And I click the "finish" button
@@ -100,19 +99,20 @@ Feature: Search should be available for all users of the application
 
 
   @Search @SearchByActiveOnly
-  Scenario: Both active and closed cases should be displayed when searchnig without selecting that the results should only include active cases
+  Scenario: Both active and closed cases should be displayed when searching without selecting that the results should only
+  include active cases
     And I navigate to the "search" page
     When I search by the case type "MIN"
     Then both active and closed cases will be returned in the search results
 
-  @Search @SearchByActiveOnly
+  @Search @SearchByActiveOnly @SmokeTests
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases
     When I search by the case type "MIN"
     Then Only active cases will be returned in the search results
 
-  @Search @SearchBySignOffTeam
+  @Search @SearchBySignOffTeam @SmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
     And I navigate to the "search" page
     When I search by the Sign-off Team "Minister for Lords"

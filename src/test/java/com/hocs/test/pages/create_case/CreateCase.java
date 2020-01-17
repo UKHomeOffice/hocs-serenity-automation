@@ -22,8 +22,6 @@ public class CreateCase extends Page {
 
     Homepage homepage;
 
-    WebDriver driver;
-
     // Elements
 
     @FindBy(className = "govuk-radios")

@@ -1,5 +1,6 @@
 package com.hocs.test.pages.workstacks;
 
+import config.Users;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -239,25 +240,6 @@ public class Workstacks extends Page {
         assertThat(isElementDisplayed(thisReference), is(true));
     }
 
-
-    public void assertCaseReferenceIsNotVisible() {
-        waitABit(1000);
-
-        String caseReferenceNumber
-                = sessionVariableCalled("caseReference").toString();
-        System.out.println(caseReferenceNumber);
-        WebDriver driver = getDriver();
-        WebElement element = null;
-
-        try {
-            element = driver.findElement(By.linkText(caseReferenceNumber));
-        } catch (NoSuchElementException e) {
-            // we expect this exception to be caught
-        }
-
-        assertThat(isElementDisplayed(element), is(false));
-    }
-
     public void assertThatThereAreNoCasesInWorkstack() {
         assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
     }
@@ -273,11 +255,10 @@ public class Workstacks extends Page {
         assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
     }
 
-    public void assertAllAllocatedUsers() {
-        WebElementFacade eamonAllocated = findAll("//td[contains(text(), 'eamon')]").get(0);
-        String thisAllocatedUserIs = eamonAllocated.getText();
-        System.out.println(thisAllocatedUserIs);
-        assertThat(thisAllocatedUserIs, is("eamon.droko@ten10.com"));
+    public void assertAllAllocatedUsersAre(Users user) {
+        List<WebElementFacade> eamonAllocated = findAll("//td[contains(text(), '" + user.getUsername() + "')]");
+        int totalNumberOfCases = getTotalOfCases();
+        assertThat(eamonAllocated.size() == totalNumberOfCases, is(true));
     }
 
     public void assertOwnerIs(String owner) {
@@ -297,17 +278,20 @@ public class Workstacks extends Page {
         assertThat(getStageFromWorkstacksTable().toUpperCase(), Is.is(stage.toUpperCase()));
     }
 
-    public void assertCaseIsNotVisible() {
-        String assertElement
-                = sessionVariableCalled("assertCase").toString();
-        element(assertElement).shouldNotBePresent();
-    }
-
     public String getAllocatedUserFromWorkstacksTable() {
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[2]"));
 
         return caseReferenceStage.getText();
+    }
+
+    public void selectCurrentCaseAndAllocateToMe() {
+        clickCheckboxRelevantToCaseReference();
+        clickOn(allocateCheckboxCaseToMeButton);
+    }
+
+    public void filterByCurrentCaseReference() {
+        typeInto(selectWorkstackFilter, sessionVariableCalled("caseReference"));
     }
 }

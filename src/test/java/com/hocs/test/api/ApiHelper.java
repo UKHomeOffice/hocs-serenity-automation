@@ -14,7 +14,9 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import io.restassured.response.Response;
+import java.io.File;
 import net.serenitybdd.core.pages.PageObject;
+import org.apache.commons.io.FileUtils;
 
 public class ApiHelper extends PageObject {
 

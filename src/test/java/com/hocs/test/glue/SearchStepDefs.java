@@ -254,7 +254,6 @@ public class SearchStepDefs extends Page {
         clickOn(search.searchButton);
     }
 
-
     @Then("^cases with the queried Sign-off Team should be displayed in the results list$")
     public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
         search.assertFirstAndLastSearchResultsMatchSignOffTeam();

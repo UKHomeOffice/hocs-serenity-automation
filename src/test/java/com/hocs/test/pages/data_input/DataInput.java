@@ -402,15 +402,15 @@ public class DataInput extends Page {
     }
 
     public void invalidCorrespondenceReceivedDate() {
-        enterDayOfCorrespondenceReceived("32");
-        enterMonthOfCorrespondenceReceived(getCurrentMonth());
-        enterYearOfCorrespondenceReceived(getCurrentYear());
+        enterDayOfCorrespondenceReceived(tomorrowsDay());
+        enterMonthOfCorrespondenceReceived(tomorrowsMonth());
+        enterYearOfCorrespondenceReceived(tomorrowsYear());
     }
 
     public void invalidCorrespondenceSentDate() {
-        enterDayOfCorrespondenceSent("32");
-        enterMonthOfCorrespondenceSent(getCurrentMonth());
-        enterYearOfCorrespondenceSent(getCurrentYear());
+        enterDayOfCorrespondenceSent(tomorrowsDay());
+        enterMonthOfCorrespondenceSent(tomorrowsMonth());
+        enterYearOfCorrespondenceSent(tomorrowsYear());
     }
 
     public void addAnAdditionalCorrespondent() {
