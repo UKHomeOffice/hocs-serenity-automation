@@ -290,4 +290,8 @@ public class Workstacks extends Page {
         clickCheckboxRelevantToCaseReference();
         clickOn(allocateCheckboxCaseToMeButton);
     }
+
+    public void filterByCurrentCaseReference() {
+        typeInto(selectWorkstackFilter, sessionVariableCalled("caseReference"));
+    }
 }

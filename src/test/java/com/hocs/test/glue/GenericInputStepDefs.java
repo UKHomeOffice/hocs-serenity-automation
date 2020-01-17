@@ -426,6 +426,12 @@ public class GenericInputStepDefs extends Page {
                 dispatch.enterDispatchRejectionNotes();
                 clickOn(finishButton);
                 break;
+            case "MARKUP":
+                markUpDecision.selectRejectToDataInput();
+                clickOn(continueButton);
+                markUpDecision.enterRejectToDataInputReasonIntoTextBox();
+                clickOn(finishButton);
+                break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }

@@ -211,9 +211,7 @@ public class MarkUpStepDefs extends Page {
         markUpDecision.assertRejectTextBoxIsDisplayed();
     }
 
-
-    //here
-    @Then("^a mandatory \"([^\"]*)\" free text field is displayed$")
+    @Then("^a mandatory Topic free text field is displayed$")
     public void aMandatoryFreeTextFieldIsAvailable() {
         topics.assertTopicsTextFieldDisplayed();
     }
@@ -256,10 +254,5 @@ public class MarkUpStepDefs extends Page {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-    }
-
-    @And("^I enter a reason for rejecting the case$")
-    public void iEnterAReasonForRejectingTheCase() {
-        markUpDecision.enterRejectToDataInputReasonIntoTextBox();
     }
 }

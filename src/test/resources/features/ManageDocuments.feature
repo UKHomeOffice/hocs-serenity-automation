@@ -18,7 +18,7 @@ Feature: A user can manage documents associated to a case
       | txt      |
       | pdf      |
       | tiff     |
-      | TIFF     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |
@@ -86,7 +86,7 @@ Feature: A user can manage documents associated to a case
       | txt      |
       | pdf      |
       | tiff     |
-      | TIFF     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |
@@ -114,7 +114,7 @@ Feature: A user can manage documents associated to a case
       | txt      |
       | pdf      |
       | tiff     |
-      | TIFF     |
+#      | TIFF     |
 #      | xlsx     |
 #      | PDF      |
 #      | DOCX     |

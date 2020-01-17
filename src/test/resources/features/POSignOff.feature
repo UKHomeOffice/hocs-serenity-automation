@@ -27,7 +27,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
 
-  @POSignOff
+  @POSignOff @SmokeTests
   Scenario: User can change the minister for the case
     When I get a "DCU MIN" case at "PRIVATE OFFICE APPROVAL" stage
     When I select to change minister
@@ -37,7 +37,7 @@ Feature: User decides how cases should be handled at Private Office Sign Off sta
     And I select the "Private Office Approval" button of the accordion
     Then the information shown should match what I entered on the change Private Office Team page
 
-  @POSignOff @SmokeTests @RejectFlow
+  @POSignOff @Workflow @SmokeTests
   Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Private Office Approval Team
     And I get a "<caseType>" case at "Private Office Approval" stage
     And I reject the case at the "Private Office Approval" stage

@@ -215,7 +215,8 @@ public class Search extends Page {
 
     public void assertNumberOfCasesDisplayed(int number) {
         String numberOfCasesDisplayed = numberOfSearchResults.getText().split("\\s+")[0];
-        System.out.println(numberOfCasesDisplayed);
+        System.out.println("There are " + numberOfCasesDisplayed + " search results");
+        assertThat(number == Integer.parseInt(numberOfCasesDisplayed), is(true));
     }
 
     public void assertClosedCaseVisibleIs(Boolean condition) {

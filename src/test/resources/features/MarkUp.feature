@@ -9,8 +9,7 @@ Feature: DCU user decides how a case should be handled
     When I select an initial decision of "<radioButton>"
     And I click the "CONTINUE" button
     And I click the "ADD A TOPIC" button
-    Then a mandatory "TOPIC" free text field is displayed
-
+    Then a mandatory Topic free text field is displayed
     Examples:
       | radioButton     |
       | Policy Response |
@@ -92,10 +91,7 @@ Feature: DCU user decides how a case should be handled
 
   @Markup @Workflow @SmokeTests
   Scenario: Case is returned to Data Input stage when rejected at Markup stage
-    When I select an initial decision of "REJECT TO DATA INPUT"
-    And I click the "CONTINUE" button
-    When  I enter a reason for rejecting the case
-    And I click the "Finish" button
+    And I reject the case at the "MARKUP" stage
     Then the "DCU N10" case should be moved to the "DATA INPUT" stage
 
 
