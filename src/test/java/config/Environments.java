@@ -11,8 +11,8 @@ public enum Environments {
 
     private final String hostname;
 
-    Environments(String hostname) {
-        this.hostname = hostname;
+    Environments(String host) {
+        this.hostname = host;
     }
 
     public String getEnvironmentURL() {
