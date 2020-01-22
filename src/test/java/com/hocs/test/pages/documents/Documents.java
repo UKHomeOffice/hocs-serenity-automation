@@ -35,7 +35,7 @@ public class Documents extends Page {
     @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
-    @FindBy(xpath = "//caption[contains(text(), 'Available Standard line')]")
+    @FindBy(xpath = "//h2[contains(text(), 'Available Standard line')]")
     public WebElementFacade availableStandardLineHeader;
 
     @FindBy(css = "[value='Remove']")
@@ -133,7 +133,7 @@ public class Documents extends Page {
     }
 
     public void addADraftDocumentAtDraftStage() {
-        availableStandardLineHeader.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible();
+        availableStandardLineHeader.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocxDocument();
