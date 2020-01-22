@@ -10,6 +10,7 @@ import com.hocs.test.pages.homepage.Homepage;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;

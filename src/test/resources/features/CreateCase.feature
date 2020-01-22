@@ -28,7 +28,7 @@ Feature: HOCS User is able to create a case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
-  @CreateCases @Workflow @SmokeTests
+  @CreateCase @Workflow @SmokeTests
   Scenario: I can bulk upload cases
     When I bulk create 40 "DCU MIN" cases
     Then bulk cases are created successfully
