@@ -90,6 +90,7 @@ public class SearchStepDefs extends Page {
 
     @Then("^only the chosen \"([^\"]*)\" case type results should be displayed in the results list$")
     public void assertThatOnlySelectedCaseTypeResultsAreDisplayed(String caseType) {
+        search.assertOnSearchPage();
         switch (caseType.toUpperCase()) {
             case "MIN":
                 search.assertThatDTENCaseIsNotVisible();

@@ -235,4 +235,9 @@ public class Search extends Page {
         assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
         assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
     }
+
+    public void assertOnSearchPage() {
+        waitFor(searchButton);
+        assertThat(getHeaderText().equals("Search"), is(true));
+    }
 }
