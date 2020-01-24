@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -175,13 +176,14 @@ public class Page extends PageObject {
         assertThat(getErrorMessageText(), containsString(text));
     }
 
-    public void assertTitle(String title) {
+    public void assertPageTitle(String title) {
+        pageTitle.withTimeoutOf(5, TimeUnit.SECONDS).waitUntilVisible();
         try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            assertThat(getHeaderText(), containsString(title));
+        } catch (AssertionError e) {
+            waitABit(2000);
+            assertThat(getHeaderText(), containsString(title));
         }
-        assertThat(getHeaderText(), containsString(title));
     }
 
     public void clearCookies(WebDriver driver) {

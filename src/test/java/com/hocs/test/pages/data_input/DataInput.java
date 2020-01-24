@@ -473,7 +473,7 @@ public class DataInput extends Page {
     // Assertions
 
     public void assertPageTitle() {
-        assertTitle("Data Input");
+        assertPageTitle("Data Input");
     }
 
     public void addACorrespondentLinkIsDisplayed() {

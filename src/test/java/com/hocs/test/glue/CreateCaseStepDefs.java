@@ -82,6 +82,7 @@ public class CreateCaseStepDefs extends Page {
                 clickOn(homepage.performanceProcessTeam);
                 dataInput.dataInputFullFlow();
                 topics.fromMarkupStartSelectATopic(topic);
+                setSessionVariable("searchTopic").to(topic);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

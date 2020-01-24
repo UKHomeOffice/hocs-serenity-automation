@@ -259,7 +259,7 @@ public class CreateCase extends Page {
     //Assertions
 
     public void assertPageTitle() {
-        assertTitle("Create case");
+        assertPageTitle("Create case");
     }
 
     public void radioButtonsAreDisplayed() {
