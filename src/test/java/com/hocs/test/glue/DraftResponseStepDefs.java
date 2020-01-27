@@ -9,6 +9,7 @@ import com.hocs.test.pages.draft.Draft;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.draft.Qa;
 import com.hocs.test.pages.workstacks.Workstacks;
+import config.Users;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -197,11 +198,11 @@ public class DraftResponseStepDefs extends Page {
     public void iSelectAsTheOfflineQA(String teamMember) {
         switch (teamMember.toUpperCase()) {
             case "EAMON":
-                qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+                qa.selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
                 clickOn(finishButton);
                 break;
             case "CASEY":
-                qa.selectOfflineQualityAssurer("Casey Prosser (casey.prosser@ten10.com");
+                qa.selectOfflineQualityAssurer(Users.CASEY.getAllocationText());
                 clickOn(finishButton);
                 break;
             default:

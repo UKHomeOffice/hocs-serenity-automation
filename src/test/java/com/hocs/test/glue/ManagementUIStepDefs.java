@@ -11,6 +11,7 @@ import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.managementUI.StandardLine;
+import config.Users;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -103,10 +104,10 @@ public class ManagementUIStepDefs extends Page {
     }
 
     @And("^I add the user \"([^\"]*)\" to the team$")
-    public void addUserToSelectedTeam(String nameOfUser) {
+    public void addUserToSelectedTeam(Users user) {
         waitABit(500);
         teamManagement.assertTeamName();
-        teamManagement.selectAUser(nameOfUser);
+        teamManagement.selectAUser(user.getUsername());
     }
 
     @Then("^the user should be visible in the team list$")
@@ -135,8 +136,8 @@ public class ManagementUIStepDefs extends Page {
     }
 
     @And("^I attempt to remove the user \"([^\"]*)\"$")
-    public void attemptRemoveUserFromTeamWithAssignedCases(String nameOfUserWithCases) {
-        teamManagement.removeUserFromTeamWithAssignedCases(nameOfUserWithCases);
+    public void attemptRemoveUserFromTeamWithAssignedCases(Users user) {
+        teamManagement.removeUserFromTeamWithAssignedCases(user.getUsername());
     }
 
     @Then("^an error message should be displayed as they have cases assigned in that team$")
@@ -155,14 +156,14 @@ public class ManagementUIStepDefs extends Page {
     }
 
     @And("^I add the users \"([^\"]*)\" and \"([^\"]*)\" to the team$")
-    public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
+    public void addTwoUsersToSelectedTeam(Users firstUser, Users secondUser) {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
         setSessionVariable("firstUser").to(firstUser);
-        teamManagement.selectAUser(firstUser);
+        teamManagement.selectAUser(firstUser.getUsername());
         setSessionVariable("secondUser").to(secondUser);
-        teamManagement.selectAUser(secondUser);
+        teamManagement.selectAUser(secondUser.getUsername());
     }
 
     @Then("^the users should be visible in the team list$")

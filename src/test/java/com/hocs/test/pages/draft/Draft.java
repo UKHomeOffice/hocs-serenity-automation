@@ -10,9 +10,11 @@ import com.hocs.test.pages.documents.Documents;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
+import config.Users;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.seleniumhq.jetty9.server.Authentication.User;
 
 public class Draft extends Page {
 
@@ -179,7 +181,7 @@ public class Draft extends Page {
         clickOn(continueButton);
         clickOn(qa.offlineQaYesRadioButton);
         clickOn(continueButton);
-        qa.selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+        qa.selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
         clickOn(finishButton);
     }
 
