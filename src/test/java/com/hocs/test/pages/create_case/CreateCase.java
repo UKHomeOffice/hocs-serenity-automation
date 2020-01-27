@@ -222,20 +222,11 @@ public class CreateCase extends Page {
         successfulCaseCreation.getCaseReference();
    }
 
-    public void openACase() {
-        homepage.clickCreateSingleCase();
-    }
-
     public void getToWhenWasCorReceived() {
         //openACase();
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
         waitABit(100);
-    }
-
-    public void backAtWhatTypeOfCor() {
-        openACase();
-        clickOn(backButton);
     }
 
     public void storeCorrespondenceReceivedDay() {
