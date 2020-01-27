@@ -20,7 +20,7 @@ public class Qa extends Page {
     // Multi Step Methods
 
     public void dontQAOffline() {
-        continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible();
+        continueButton.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
         clickOn(continueButton);
         clickOn(offlineQaNoRadioButton);
         clickOn(continueButton);
