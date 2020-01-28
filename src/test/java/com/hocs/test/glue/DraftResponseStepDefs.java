@@ -41,7 +41,7 @@ public class DraftResponseStepDefs extends Page {
         }
     }
 
-    @When("^I complete the Initial Draft stage for \"([^\"]*)\"$")
+    @When("^I complete the Initial Draft stage for \"([^\"]*)\" case type$")
     public void initialDraftFullFlowPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
