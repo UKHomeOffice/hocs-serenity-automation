@@ -22,7 +22,7 @@ public class Topics extends Page {
 
     Workstacks workstacks;
 
-    @FindBy(xpath = "//li[1]/p[3]")
+    @FindBy(xpath = "//li[1]/p[2]")
     public WebElementFacade topicInTimeline;
 
     @FindBy(css = "[id^=react-select")
@@ -162,10 +162,6 @@ public class Topics extends Page {
     }
 
     public void assertTopicsAssigned() {
-        workstacks.selectTimeLineTab();
-        waitABit(2000);
-        workstacks.selectSummaryTab();
-        waitABit(2000);
         workstacks.selectTimeLineTab();
         waitABit(2000);
         String testTopic = sessionVariableCalled("topic").toString();

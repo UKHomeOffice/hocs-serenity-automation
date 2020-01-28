@@ -73,7 +73,7 @@ public class RecordCorrespondentDetails extends Page {
     private WebElementFacade correspondentIsMPRadioButton;
 
     public void assertPageTitle() {
-        assertTitle("Record Correspondent Details");
+        assertPageTitle("Record Correspondent Details");
     }
 
     public void assertPrimaryCorrespondent() {

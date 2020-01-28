@@ -1,5 +1,6 @@
 package com.hocs.test.pages.draft;
 
+import config.Users;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -20,7 +21,7 @@ public class Qa extends Page {
     // Multi Step Methods
 
     public void dontQAOffline() {
-        continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible();
+        continueButton.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
         clickOn(continueButton);
         clickOn(offlineQaNoRadioButton);
         clickOn(continueButton);
@@ -29,7 +30,7 @@ public class Qa extends Page {
     public void qaOffline() {
         clickOn(continueButton);
         clickOn(offlineQaYesRadioButton);
-        selectOfflineQualityAssurer("Eamon Droko (eamon.droko@homeoffice.gov.uk)");
+        selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
         clickOn(continueButton);
     }
 

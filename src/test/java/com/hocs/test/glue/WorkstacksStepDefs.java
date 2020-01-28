@@ -123,6 +123,6 @@ public class WorkstacksStepDefs extends Page {
 
     @Then("^the case should be allocated to me$")
     public void theCaseShouldBeAllocatedToMe() {
-        workstacks.assertOwnerIs("eamon.droko@ten10.com");
+        workstacks.assertOwnerIs(Users.EAMON);
     }
 }

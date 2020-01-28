@@ -10,6 +10,7 @@ import com.hocs.test.pages.homepage.Homepage;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
@@ -221,20 +222,11 @@ public class CreateCase extends Page {
         successfulCaseCreation.getCaseReference();
    }
 
-    public void openACase() {
-        homepage.clickCreateSingleCase();
-    }
-
     public void getToWhenWasCorReceived() {
         //openACase();
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
         waitABit(100);
-    }
-
-    public void backAtWhatTypeOfCor() {
-        openACase();
-        clickOn(backButton);
     }
 
     public void storeCorrespondenceReceivedDay() {
@@ -258,7 +250,7 @@ public class CreateCase extends Page {
     //Assertions
 
     public void assertPageTitle() {
-        assertTitle("Create case");
+        assertPageTitle("Create case");
     }
 
     public void radioButtonsAreDisplayed() {

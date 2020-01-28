@@ -88,13 +88,13 @@ Feature: Search should be available for all users of the application
     And I create a "DCU MIN" case with "Biometrics - general queries" as the primary topic
     And I click the "finish" button
     And I navigate to the "search" page
-    When I search for the topic "Biometrics - general queries"
+    When I search for the topic
     Then the created case should be visible in the search results
 
   @Search @SearchByTopic
   Scenario: No cases should be displayed in the results list if there are no cases with the specified topic
     And I navigate to the "search" page
-    When I search for the topic "Made up topic"
+    When I search for a made up topic
     Then 0 cases should be displayed
 
 
@@ -102,14 +102,14 @@ Feature: Search should be available for all users of the application
   Scenario: Both active and closed cases should be displayed when searching without selecting that the results should only
   include active cases
     And I navigate to the "search" page
-    When I search by the case type "MIN"
+    When I search by the Sign-off Team "Minister for Lords"
     Then both active and closed cases will be returned in the search results
 
   @Search @SearchByActiveOnly @SmokeTests
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases
-    When I search by the case type "MIN"
+    When I search by the Sign-off Team "Minister for Lords"
     Then Only active cases will be returned in the search results
 
   @Search @SearchBySignOffTeam @SmokeTests

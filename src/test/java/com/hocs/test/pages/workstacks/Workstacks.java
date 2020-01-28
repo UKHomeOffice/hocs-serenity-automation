@@ -256,13 +256,13 @@ public class Workstacks extends Page {
     }
 
     public void assertAllAllocatedUsersAre(Users user) {
-        List<WebElementFacade> eamonAllocated = findAll("//td[contains(text(), '" + user.getUsername() + "')]");
+        List<WebElementFacade> userAllocated = findAll("//td[contains(text(), '" + user.getUsername() + "')]");
         int totalNumberOfCases = getTotalOfCases();
-        assertThat(eamonAllocated.size() == totalNumberOfCases, is(true));
+        assertThat(userAllocated.size() == totalNumberOfCases, is(true));
     }
 
-    public void assertOwnerIs(String owner) {
-        assertThat(displayedOwner.getText(), is(owner));
+    public void assertOwnerIs(Users owner) {
+        assertThat(displayedOwner.getText(), is(owner.getUsername()));
     }
 
     private String getStageFromWorkstacksTable() {

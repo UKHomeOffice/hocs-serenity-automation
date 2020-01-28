@@ -10,6 +10,7 @@ import cucumber.api.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 
@@ -90,6 +91,7 @@ public class SearchStepDefs extends Page {
 
     @Then("^only the chosen \"([^\"]*)\" case type results should be displayed in the results list$")
     public void assertThatOnlySelectedCaseTypeResultsAreDisplayed(String caseType) {
+        search.assertOnSearchPage();
         switch (caseType.toUpperCase()) {
             case "MIN":
                 search.assertThatDTENCaseIsNotVisible();
@@ -218,16 +220,23 @@ public class SearchStepDefs extends Page {
         search.assertNumberOfCasesDisplayed(number);
     }
 
-    @When("^I search for the topic \"([^\"]*)\"$")
-    public void iSearchForTheTopic(String topic) {
+    @When("^I search for the topic$")
+    public void iSearchForTheTopic() {
         waitABit(2000);
-        search.enterSearchTopic(topic);
+        search.enterSearchTopic(sessionVariableCalled("searchTopic"));
         clickOn(search.searchButton);
     }
 
     @Then("^the created case should be visible in the search results$")
     public void theCreatedCaseShouldBeIncludedInTheSearchResults() {
-        workstacks.assertCaseReferenceIsVisible();
+        try {
+            workstacks.assertCaseReferenceIsVisible();
+        } catch (AssertionError a) {
+            waitABit(3000);
+            clickOn(homepage.searchPage);
+            iSearchForTheTopic();
+            workstacks.assertCaseReferenceIsVisible();
+        }
     }
 
     @Then("^both active and closed cases will be returned in the search results$")
@@ -257,6 +266,13 @@ public class SearchStepDefs extends Page {
     @Then("^cases with the queried Sign-off Team should be displayed in the results list$")
     public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
         search.assertFirstAndLastSearchResultsMatchSignOffTeam();
+    }
+
+    @When("^I search for a made up topic$")
+    public void iSearchForAMadeUpTopic() {
+        waitABit(2000);
+        search.enterSearchTopic("Made up topic");
+        clickOn(search.searchButton);
     }
 }
 

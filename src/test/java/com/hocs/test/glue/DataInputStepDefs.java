@@ -36,7 +36,7 @@ public class DataInputStepDefs extends Page {
         dataInput.dataInputFullFlowWithCopyToN10();
     }
 
-    @When("^the Data Input Stage is completed for \"([^\"]*)\" caseType$")
+    @When("^I complete the Data Input Stage for \"([^\"]*)\" case type$")
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -206,5 +206,10 @@ public class DataInputStepDefs extends Page {
         caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
 
 
+    }
+
+    @And("^I complete the Data Input stage of the displayed case$")
+    public void iCompleteTheDataInputStageOfTheDisplayedCase() {
+        dataInput.moveCaseFromDataInputToMarkup();
     }
 }

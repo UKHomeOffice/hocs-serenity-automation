@@ -26,14 +26,14 @@ Feature: User manages HOCS teams, topics and units
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "eamon.droko@ten10.com" to the team
+    And I add the user "EAMON" to the team
     Then the user should be visible in the team list
 
   @ManagementUI @TeamManagement
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
-    And I add the users "eamon.droko@ten10.com" and "casey.prosser@ten10.com" to the team
+    And I add the users "EAMON" and "CASEY" to the team
     Then the users should be visible in the team list
 
   @ManagementUI @TeamManagement
@@ -47,7 +47,7 @@ Feature: User manages HOCS teams, topics and units
   Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
     And I navigate to the "TEAM" Management page
     When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
-    And I attempt to remove the user "eamon.droko@ten10.com"
+    And I attempt to remove the user "EAMON"
     Then an error message should be displayed as they have cases assigned in that team
 
   @ManagementUI @TeamManagement @Validation

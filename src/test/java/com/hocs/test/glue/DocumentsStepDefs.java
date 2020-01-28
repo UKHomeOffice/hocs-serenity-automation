@@ -5,7 +5,9 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.documents.Documents;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.concurrent.TimeUnit;
@@ -155,7 +157,15 @@ public class DocumentsStepDefs extends Page {
 
     @And("^I upload a docx and a txt file$")
     public void iUploadADocxAndATxtFile() {
-        documents.uploadDocxAndTxtDocuments();
+        iClickAddDocuments();
+        iChooseTheDocumentType("Draft");
+        documents.uploadDocxDocument();
+        genericInputStepDefs.clickTheButton("add");
+        documents.waitForFileToUpload();
+        iClickManageDocuments();
+        iClickAddDocuments();
+        iChooseTheDocumentType("Draft");
+        documents.uploadTxtDocument();
         genericInputStepDefs.clickTheButton("add");
     }
 
@@ -183,4 +193,13 @@ public class DocumentsStepDefs extends Page {
         documents.clickRemoveButton();
     }
 
+    @Then("^the document should have the Pending tag$")
+    public void theDocumentShouldHaveThePendingTag() {
+        documents.assertPendingTagVisible();
+    }
+
+    @Then("^the document should be under the \"([^\"]*)\" header$")
+    public void theDocumentShouldBeUnderTheHeader(String header) {
+        documents.assertDocumentIsUnderHeader(header.toUpperCase());
+    }
 }

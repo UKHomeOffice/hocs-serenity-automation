@@ -12,6 +12,7 @@ import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.homepage.Homepage;
 
+import config.Users;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -176,51 +177,17 @@ public class LoginStepDefs extends Page {
     }
 
 
-    @When("^I enter my login credentials \"([^\"]*)\" and click the login button$")
-    public void enterCredentialsAndClickLogin(String credentials) {
-        setSessionVariable("credentials").to(credentials);
-        switch (credentials.toUpperCase()) {
-            case "CASEY PROSSER":
-                loginPage.enterHocsUsername(CASEY.getUsername());
-                loginPage.enterHocsPassword(CASEY.getPassword());
-                break;
-            case "DCU":
-                loginPage.enterHocsUsername(DCU.getUsername());
-                loginPage.enterHocsPassword(DCU.getPassword());
-                break;
-            case "TESTER":
-                loginPage.enterHocsUsername(TEST.getUsername());
-                loginPage.enterHocsPassword(TEST.getPassword());
-                break;
-            case "EAMON DROKO":
-                loginPage.enterHocsUsername(EAMON.getUsername());
-                loginPage.enterHocsPassword(EAMON.getPassword());
-                break;
-            default:
-                pendingStep(credentials + " is not defined within " + getMethodName());
-        }
+    @When("^I enter the login credentials for user \"([^\"]*)\" and click the login button$")
+    public void enterCredentialsAndClickLogin(Users user) {
+        setSessionVariable("user").to(user);
+        loginPage.enterHocsUsername(user.getUsername());
+        loginPage.enterHocsPassword(user.getPassword());
         clickOn(loginPage.continueButton);
     }
 
-    @And("^I enter my password \"([^\"]*)\" in the password field$")
-    public void IEnterMyHocsPassword(String password) {
-        setSessionVariable("password").to(password);
-        switch (password) {
-            case "CASEY PASS":
-                loginPage.enterHocsPassword(CASEY.getPassword());
-                break;
-            case "DCU PASS":
-                loginPage.enterHocsPassword(DCU.getPassword());
-                break;
-            case "TESTER PASS":
-                loginPage.enterHocsPassword(TEST.getPassword());
-                break;
-            case "EAMON PASS":
-                loginPage.enterHocsPassword(EAMON.getPassword());
-                break;
-            default:
-                pendingStep(password + " is not defined within " + getMethodName());
-        }
+    @And("^I enter the password of user \"([^\"]*)\" in the password field$")
+    public void IEnterMyHocsPassword(Users user) {
+        loginPage.enterHocsPassword(user.getPassword());
     }
 
     @When("^I enter invalid login credentials on the login screen$")
@@ -245,29 +212,10 @@ public class LoginStepDefs extends Page {
     }
 
     @When("^I enter the login credentials of another user \"([^\"]*)\" and click the login button$")
-    public void loginAsDifferentUserAfterLogout(String credentials) {
+    public void loginAsDifferentUserAfterLogout(Users user) {
         loginPage.navigateToHocs();
-        setSessionVariable("credentials").to(credentials);
-        switch (credentials.toUpperCase()) {
-            case "CASEY PROSSER":
-                loginPage.enterHocsUsername(CASEY.getUsername());
-                loginPage.enterHocsPassword(CASEY.getPassword());
-                break;
-            case "DCU":
-                loginPage.enterHocsUsername(DCU.getUsername());
-                loginPage.enterHocsPassword(DCU.getPassword());
-                break;
-            case "TESTER":
-                loginPage.enterHocsUsername(TEST.getUsername());
-                loginPage.enterHocsPassword(TEST.getPassword());
-                break;
-            case "EAMON DROKO":
-                loginPage.enterHocsUsername(EAMON.getUsername());
-                loginPage.enterHocsPassword(EAMON.getPassword());
-                break;
-            default:
-                pendingStep(credentials + " is not defined within " + getMethodName());
-        }
+        loginPage.enterHocsUsername(user.getUsername());
+        loginPage.enterHocsPassword(user.getPassword());
         clickOn(loginPage.continueButton);
     }
 
@@ -280,23 +228,8 @@ public class LoginStepDefs extends Page {
     }
 
     @Then("^I should be logged in as the user \"([^\"]*)\"$")
-    public void iShouldBeLoggedInAsTheUser(String owner) {
+    public void iShouldBeLoggedInAsTheUser(Users user) {
         homepage.selectMyCases();
-        switch (owner.toUpperCase()) {
-            case "CASEY PROSSER":
-                workstacks.assertOwnerIs(CASEY.getUsername());
-                break;
-            case "DCU":
-                workstacks.assertOwnerIs(DCU.getUsername());
-                break;
-            case "TESTER":
-                workstacks.assertOwnerIs(TEST.getUsername());
-                break;
-            case "EAMON DROKO":
-                workstacks.assertOwnerIs(EAMON.getUsername());
-                break;
-            default:
-                pendingStep(owner + " is not defined within " + getMethodName());
-        }
+        workstacks.assertOwnerIs(user);
     }
 }

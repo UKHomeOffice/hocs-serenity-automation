@@ -35,11 +35,14 @@ public class Documents extends Page {
     @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
-    @FindBy(xpath = "//caption[contains(text(), 'Available Standard line')]")
+    @FindBy(xpath = "//h2[contains(text(), 'Available Standard line')]")
     public WebElementFacade availableStandardLineHeader;
 
     @FindBy(css = "[value='Remove']")
     public WebElementFacade removeButton;
+
+    @FindBy(xpath = "//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), 'PENDING')]")
+    public WebElementFacade pendingTag;
 
     //Simple methods
 
@@ -130,7 +133,7 @@ public class Documents extends Page {
     }
 
     public void addADraftDocumentAtDraftStage() {
-        availableStandardLineHeader.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible();
+        availableStandardLineHeader.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocxDocument();
@@ -181,7 +184,7 @@ public class Documents extends Page {
 
     public void assertFileIsVisible(String fileType) {
         WebElementFacade uploadedFile = findBy(
-                "//caption[text() = 'Documents']/parent::table//td[contains(text(), '." + fileType + "')]");
+                "//table//td[contains(text(), '." + fileType + "')]");
         assertThat(uploadedFile.isVisible(), is(true));
     }
 
@@ -216,8 +219,21 @@ public class Documents extends Page {
                 .executeScript("return document.getElementsByTagName(\"embed\")[0].getAttribute(\"src\");");
         assertThat(src.contains(documentID), is(true));
     }
+
+    public void assertDocumentIsUnderHeader(String header) {
+        pendingTag.waitUntilVisible();
+        WebElementFacade documentUnderHeader =
+                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//strong[text()='PENDING']");
+        assertThat(documentUnderHeader.isVisible(), is(true));
+    }
+
+    public void assertPendingTagVisible() {
+        waitFor(pendingTag);
+        assertThat(pendingTag.isVisible(), is(true));
+    }
+
+    public void waitForFileToUpload() {
+        pendingTag.waitUntilVisible();
+        pendingTag.withTimeoutOf(20, TimeUnit.SECONDS).waitUntilNotVisible();
+    }
 }
-
-
-
-

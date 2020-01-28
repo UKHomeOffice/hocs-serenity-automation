@@ -9,7 +9,7 @@ Feature: A user can manage documents associated to a case
   @ManageDocuments @SmokeTests
   Scenario Outline: User can upload a file of allowed file types
     And I click add documents
-    When I choose the document type "draft"
+    When I choose the document type "Draft"
     And I upload a file of type "<fileType>"
     Then I can see the "<fileType>" file in the uploaded document list
     Examples:
@@ -31,7 +31,7 @@ Feature: A user can manage documents associated to a case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
-    Then the document should have the "<docType>" tag
+    Then the document should be under the "<docType>" header
     Examples:
       | docType  |
       | Original |
@@ -74,7 +74,7 @@ Feature: A user can manage documents associated to a case
     And I click add documents
     When I choose the document type "Draft"
     And I select a file that is 5MB in size
-    Then the document should have the "Pending" tag
+    Then the document should have the Pending tag
 
   @ManageDocuments @SmokeTests
   Scenario Outline: User can preview all allowed document types
@@ -95,8 +95,6 @@ Feature: A user can manage documents associated to a case
 
   @ManageDocuments @SmokeTests
   Scenario: User can select which document to preview
-    And I click add documents
-    When I choose the document type "Draft"
     And I upload a docx and a txt file
     And the "docx" document should be displayed in the preview pane
     And I click the preview button of the "txt" file
@@ -120,5 +118,3 @@ Feature: A user can manage documents associated to a case
 #      | DOCX     |
 #      | TXT      |
 #      | XLSX     |
-
-

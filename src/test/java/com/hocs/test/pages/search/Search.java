@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -220,12 +221,12 @@ public class Search extends Page {
     }
 
     public void assertClosedCaseVisibleIs(Boolean condition) {
-        List closedCases = findAll("//td[2][not(.//text())]");
+        List closedCases = findAll("//td[2][text() = 'Closed']");
         assertThat(!closedCases.isEmpty(), is(condition));
     }
 
     public void assertActiveCaseVisibleIs(Boolean condition) {
-        List activeCases = findAll("//td[2][.//text()]");
+        List activeCases = findAll("//td[2][not(text() = 'Closed')]");
         assertThat(!activeCases.isEmpty(), is(condition));
     }
 
@@ -234,5 +235,10 @@ public class Search extends Page {
         String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
         assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
         assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
+    }
+
+    public void assertOnSearchPage() {
+        topSearchResultCaseReference.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
+        assertPageTitle("Search Results");
     }
 }
