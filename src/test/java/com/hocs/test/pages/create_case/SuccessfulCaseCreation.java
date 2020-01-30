@@ -58,7 +58,6 @@ public class SuccessfulCaseCreation extends Page {
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
         setSessionVariable("caseReference").to(caseReference);
-
         return caseReference;
     }
 
