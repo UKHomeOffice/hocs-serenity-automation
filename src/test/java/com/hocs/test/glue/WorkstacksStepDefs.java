@@ -14,6 +14,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import java.util.concurrent.TimeUnit;
+import org.seleniumhq.jetty9.server.Authentication.User;
 
 public class WorkstacksStepDefs extends Page {
 
@@ -23,6 +25,8 @@ public class WorkstacksStepDefs extends Page {
 
     CreateCase createCase;
 
+    SuccessfulCaseCreation successfulCaseCreation;
+
     @Given("^I allocate the case to myself$")
     public void allocateCaseToMyself() {
         clickOn(workstacks.allocateCheckboxCaseToMeButton);
@@ -30,7 +34,7 @@ public class WorkstacksStepDefs extends Page {
 
     @When("^I unallocate the case from myself$")
     public void unallocateCase() {
-        clickOn(workstacks.unallocateFromMeButton);
+        clickOn(workstacks.unallocateButton);
     }
 
     @When("^I select the check box against the case and allocate it to myself$")
@@ -105,7 +109,7 @@ public class WorkstacksStepDefs extends Page {
     @And("^I select a case and unallocate it from myself$")
     public void iSelectACaseAndUnallocateItFromMyself() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        clickOn(workstacks.unallocateFromMeButton);
+        clickOn(workstacks.unallocateButton);
     }
 
     @And("^I filter the workstack using the current cases reference$")
@@ -124,5 +128,74 @@ public class WorkstacksStepDefs extends Page {
     @Then("^the case should be allocated to me$")
     public void theCaseShouldBeAllocatedToMe() {
         workstacks.assertOwnerIs(Users.EAMON);
+    }
+
+    @When("^I assign the current case number to \"([^\"]*)\"$")
+    public void iAssignTheCurrentCaseNumberToAnotherUser(Users user) {
+        workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.selectAllocationUserByVisibleText(user.getAllocationText());
+    }
+
+    @Then("^the owner field should display \"([^\"]*)\"$")
+    public void theOwnerFieldShouldDisplayTheSelectedUser(Users user) {
+        workstacks.assertAssignedUser(user);
+    }
+
+    @When("I create three cases, and view them in performance and process workstack")
+    public void createThreeCasesAndReassign() {
+        createCase.createDCUMinSingleCase();
+        homepage.goHome();
+        waitABit(500);
+        createCase.createDCUMinSingleCase();
+        homepage.goHome();
+        waitABit(500);
+        createCase.createDCUMinSingleCase();
+        homepage.goHome();
+        waitABit(500);
+        clickOn(homepage.performanceProcessTeam);
+    }
+
+    @Then("I assign these three cases to \"([^\"]*)\"$")
+    public void assignThreeCasesToUser(Users user) {
+        workstacks.allocateThreeCasesCreated(user);
+    }
+
+    @Then("^I check that the three cases created have been correctly assigned to \"([^\"]*)\"$")
+    public void checkThreeCasesProperlyReassigned(Users user) {
+        workstacks.assertAssignedUserOnThreeCases(user);
+    }
+
+    @When("^I create three cases, and assign them to \"([^\"]*)\"$")
+    public void iCreateThreeCasesAndAssignToUser(Users user) {
+        createCase.createDCUMinSingleCase();
+        successfulCaseCreation.newCaseReference.click();
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        homepage.goHome();
+        createCase.createDCUMinSingleCase();
+        successfulCaseCreation.newCaseReference.click();
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        homepage.goHome();
+        createCase.createDCUMinSingleCase();
+        successfulCaseCreation.newCaseReference.click();
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        homepage.goHome();
+    }
+
+    @Then("^I view these cases in Performance and Process workstack, and unallocate from \"([^\"]*)\"$")
+    public void iUnallocateThreeCasesCreated(Users user) {
+        clickOn(homepage.performanceProcessTeam);
+        workstacks.unallocateThreeCasesFromSelectedUser(user);
+    }
+
+    @Then("^I then check whether the correct cases have been unallocated$")
+    public void checkWhetherCorrectCasesUnallocated() {
+        workstacks.assertThatThreeCasesHaveBeenUnassigned();
+    }
+
+    @When("^I assign this case to me, and check if it has been correctly allocated$")
+    public void iAssignTheCurrentCaseNumberToMe() {
+        workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.clickAllocateToMeButton();
+        workstacks.assertCaseIsAssignedToMe();
     }
 }
