@@ -1,7 +1,9 @@
 package com.hocs.test.pages.workstacks;
 
+import com.ibm.icu.impl.USerializedSet;
 import config.Users;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.base_page.Page;
@@ -9,13 +11,17 @@ import org.hamcrest.core.Is;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
+import java.sql.*;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.server.handler.FindElement;
+import org.seleniumhq.jetty9.server.Authentication.User;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -24,14 +30,14 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
 
-    @FindBy(linkText = "Allocate to me")
+    @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[3]/div/form/fieldset/div[2]/div/ul/li[1]/button")
     public WebElementFacade allocateToMeButton;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateCheckboxCaseToMeButton;
 
     @FindBy(xpath = "//button[text()='Unallocate selected']")
-    public WebElementFacade unallocateFromMeButton;
+    public WebElementFacade unallocateButton;
 
     @FindBy(id = "workstack-filter")
     public WebElementFacade selectWorkstackFilter;
@@ -117,6 +123,13 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
     public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
 
+    @FindBy(xpath = "//*[@id=\"user-id\"]")
+    public WebElementFacade caseDetailsAllocateDropdown;
+
+    @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[1]/form/input")
+    public WebElementFacade caseDetailsAllocateButton;
+
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -124,9 +137,15 @@ public class Workstacks extends Page {
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
+        allocateDropdown.click();
         allocateDropdown.selectByVisibleText(allocationUser);
         allocateButton.click();
+    }
 
+    public void caseDetailsSelectAllocationUserByVisibleText(String allocationUser) {
+        caseDetailsAllocateDropdown.click();
+        caseDetailsAllocateDropdown.selectByVisibleText(allocationUser);
+        caseDetailsAllocateButton.click();
     }
 
     public int getTotalOfCases() {
@@ -166,9 +185,49 @@ public class Workstacks extends Page {
         }
     }
 
+    public void refineWorkstackSearchResults(String workstackInput) {
+        selectWorkstackFilter.click();
+        selectWorkstackFilter.sendKeys(workstackInput);
+    }
+
+    public void allocateThreeCasesCreated(Users user) {
+        refineWorkstackSearchResults("MIN");
+        int totalCaseNumber = getTotalOfCases();
+        WebElementFacade caseOne = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        caseOne.click();
+
+        WebElementFacade caseTwo = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        caseTwo.click();
+
+        WebElementFacade caseThree = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber) + ") > td > div > div > input");
+        caseThree.click();
+
+        selectAllocationUserByVisibleText(user.getAllocationText());
+    }
+
+    public void unallocateThreeCasesFromSelectedUser(Users user) {
+        refineWorkstackSearchResults("MIN");
+        int totalCaseNumber = getTotalOfCases();
+        WebElementFacade caseOne = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        caseOne.click();
+
+        WebElementFacade caseTwo = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        caseTwo.click();
+        WebElementFacade caseThree = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
+                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber) + ") > td > div > div > input");
+        caseThree.click();
+
+        unallocateButton.click();
+    }
+
     public void unallocatedAllCases() {
         clickAllWorkstackCheckboxes();
-        clickOn(unallocateFromMeButton);
+        clickOn(unallocateButton);
     }
 
     // Assertions
@@ -279,11 +338,11 @@ public class Workstacks extends Page {
     }
 
     public String getAllocatedUserFromWorkstacksTable() {
-        WebElement caseReferenceStage = getDriver().findElement(
+        WebElement caseOwner = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[2]"));
 
-        return caseReferenceStage.getText();
+        return caseOwner.getText();
     }
 
     public void selectCurrentCaseAndAllocateToMe() {
@@ -293,5 +352,51 @@ public class Workstacks extends Page {
 
     public void filterByCurrentCaseReference() {
         typeInto(selectWorkstackFilter, sessionVariableCalled("caseReference"));
+    }
+
+    public void assertAssignedUser(Users user) {
+       waitABit(500);
+        assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
+    }
+
+    public void assertAssignedUserOnThreeCases(Users user) {
+        int totalCaseNumber = getTotalOfCases();
+        WebElement caseOwnerOne = getDriver()
+                .findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)"));
+
+        WebElement caseOwnerTwo = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 1) + ") > "
+                + "td:nth-child(4)"));
+
+        WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
+
+        waitABit(500);
+        assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
+        assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
+        assertThat(caseOwnerTwo.getText().equals(user.getUsername()), is(true));
+    }
+
+    public void assertThatThreeCasesHaveBeenUnassigned() {
+        int totalCaseNumber = getTotalOfCases();
+        WebElement caseOwnerOne = getDriver()
+                .findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)"));
+
+        WebElement caseOwnerTwo = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 1) + ") > "
+                + "td:nth-child(4)"));
+
+        WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
+
+        waitABit(500);
+        assertThat(caseOwnerOne.getText().equals(""), is(true));
+        assertThat(caseOwnerOne.getText().equals(""), is(true));
+        assertThat(caseOwnerTwo.getText().equals(""), is(true));
+    }
+
+    public void assertCaseIsAssignedToMe() {
+        int totalCases = getTotalOfCases();
+        WebElement caseOwner = getDriver().findElement(By.cssSelector("#main-content > div > div:nth-child(5) > div > form"
+                + " > fieldset > div:nth-child(1) > div > div > table > tbody > tr:nth-child(" + totalCases + ") > "
+                + "td:nth-child(4)"));
+
+        assertThat(caseOwner.getText().equals(Users.EAMON.getUsername()), is(true));
     }
 }
