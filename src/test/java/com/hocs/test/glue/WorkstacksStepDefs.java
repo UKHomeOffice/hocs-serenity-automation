@@ -10,6 +10,7 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
 import config.Users;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -197,5 +198,27 @@ public class WorkstacksStepDefs extends Page {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateToMeButton();
         workstacks.assertCaseIsAssignedToMe();
+    }
+
+    @Then("^I view this \"([^\"]*)\" case in it's respective Performance and Process workstack$")
+    public void iViewThisCaseInItSRespectiveWorkstack(String caseType) {
+        homepage.selectPerformanceProcessTeam();
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                workstacks.clickDCUMINFilterCard();
+                workstacks.assertThatDCUMINisOnlyVisibleCaseType();
+                break;
+            case "DCU TEN":
+                workstacks.clickDCUTENFilterCard();
+                workstacks.assertThatDCUTENisOnlyVisibleCaseType();
+                break;
+            case "DCU TRO":
+                workstacks.clickDCUTROFilterCard();
+                workstacks.assertThatDCUTROisOnlyVisibleCaseType();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+                break;
+        }
     }
 }

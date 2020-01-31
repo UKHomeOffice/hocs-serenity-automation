@@ -99,12 +99,15 @@ public class CreateCaseStepDefs extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
+                homepage.goHome();
                 break;
             case "DCU DTEN":
                 createCase.createDCU10SingleCase();
+                homepage.goHome();
                 break;
             case "DCU TRO":
                 createCase.createDCUTROSingleCase();
+                homepage.goHome();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
