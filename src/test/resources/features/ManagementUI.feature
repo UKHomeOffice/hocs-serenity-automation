@@ -168,6 +168,7 @@ Feature: User manages HOCS teams, topics and units
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
+    And I enter the login credentials of another user "EAMON" and click the login button
     And I get a case and progress to the point of adding a topic
     When I add the topic "NEW CHILD TOPIC"
     Then the topic should be added to the case
@@ -176,6 +177,7 @@ Feature: User manages HOCS teams, topics and units
   Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
     And I have created a new child topic
     And I navigate to "HOCS"
+    And I enter the login credentials of another user "EAMON" and click the login button
     And I get a case and progress to the point of adding a topic
     When I add the topic "NEW CHILD TOPIC"
     Then an error message should be displayed as the topic was not recognised as a valid topic
@@ -232,8 +234,9 @@ Feature: User manages HOCS teams, topics and units
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
+    And I enter the login credentials of another user "EAMON" and click the login button
     And I create a single case "DCU MIN"
-    And the Data Input Stage is completed for "DCU MIN" caseType
+    And I complete the Data Input Stage for "DCU MIN" case type
     When I assign the Topic "NEW CHILD TOPIC"
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
@@ -241,6 +244,7 @@ Feature: User manages HOCS teams, topics and units
   @ManagementUI @LinkTopicToTeam
   Scenario: A topic with existing team links can have those links amended in Management UI
     Given I navigate to "HOCS"
+    And I enter the login credentials of another user "EAMON" and click the login button
     And I discover the current default team links for a topic
     And I navigate to "Management UI"
     And I select to amend the team links for the topic

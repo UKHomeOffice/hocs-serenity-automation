@@ -243,7 +243,7 @@ public class Draft extends Page {
         clickOn(continueButton);
         addDocuments.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test.docx");
-        continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+        continueButton.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible().click();
         clickOn(qa.offlineQaNoRadioButton);
         String responseToQAOfflineRadioButton = qa.offlineQaNoRadioButton.getAttribute("for").substring(10);
         setSessionVariable("selectedResponseToQAOfflineRadioButton").to(responseToQAOfflineRadioButton);

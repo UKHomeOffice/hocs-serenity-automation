@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.base_page.Page;
+import config.Users;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -127,8 +128,8 @@ public class TeamManagement extends Page {
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        String firstAddedUser = sessionVariableCalled("firstUser").toString();
-        String secondAddedUser = sessionVariableCalled("secondUser").toString();
+        String firstAddedUser = Users.EAMON.getUsername();
+        String secondAddedUser = Users.CASEY.getUsername();
 
         assertThat($("//table[@class='govuk-table']").getText(), containsText(firstAddedUser));
         assertThat($("//table[@class='govuk-table']").getText(), containsText(secondAddedUser));

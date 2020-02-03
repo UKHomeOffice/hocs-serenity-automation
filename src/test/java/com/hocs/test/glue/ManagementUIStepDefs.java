@@ -160,9 +160,7 @@ public class ManagementUIStepDefs extends Page {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        setSessionVariable("firstUser").to(firstUser);
         teamManagement.selectAUser(firstUser.getUsername());
-        setSessionVariable("secondUser").to(secondUser);
         teamManagement.selectAUser(secondUser.getUsername());
     }
 
@@ -365,6 +363,7 @@ public class ManagementUIStepDefs extends Page {
 
     @Then("^an error message should be displayed stating that topic already exists$")
     public void anErrorMessageShouldBeDisplayedStatingThatTopicAlreadyExists() {
+        waitABit(1500);
         addChildTopic.assertDuplicateTopicErrorMessage();
     }
 

@@ -50,6 +50,7 @@ public class AddChildTopic extends Page {
         String childTopic = "CHILD " + formatter.format(LocalDateTime.now());
         setSessionVariable("newChildTopic").to(childTopic);
         inputAChildTopicDisplayName(childTopic);
+        waitABit(1000);
     }
 
     public void assertParentTopicIsRequiredErrorMessage() {
@@ -61,6 +62,6 @@ public class AddChildTopic extends Page {
     }
 
     public void assertDuplicateTopicErrorMessage() {
-        assertThat(errorMessageContents.getText(), is("A child topic with that name already exists"));
+        assertThat(errorMessageContents.isVisible(), is(true));
     }
 }

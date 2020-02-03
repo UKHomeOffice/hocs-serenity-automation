@@ -196,7 +196,7 @@ public class WorkstacksStepDefs extends Page {
     @When("^I assign this case to me, and check if it has been correctly allocated$")
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.clickAllocateToMeButton();
+        workstacks.clickAllocateSelectedToMeButton();
         workstacks.assertCaseIsAssignedToMe();
     }
 
