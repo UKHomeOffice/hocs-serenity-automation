@@ -106,7 +106,7 @@ Feature: HOCS is able to move cases through the entire flow
   @EndToEnd @EndToEnd @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single case "DCU MIN"
-    And I complete the Data Input Stage for "<caseType>" case type
+    And I complete the Data Input Stage for "DCU MIN" case type
     And I complete the markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -118,7 +118,7 @@ Feature: HOCS is able to move cases through the entire flow
   @EndToEnd @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single case "DCU N10"
-    And I complete the Data Input Stage for "<caseType>" case type
+    And I complete the Data Input Stage for "DCU N10" case type
     And I complete the markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -129,7 +129,7 @@ Feature: HOCS is able to move cases through the entire flow
   @EndToEnd @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single case "DCU TRO"
-    And I complete the Data Input Stage for "<caseType>" case type
+    And I complete the Data Input Stage for "DCU TRO" case type
     And I complete the markup stage
     And I complete the Initial Draft stage for "DCU TRO" case type
     And I complete the QA response stage

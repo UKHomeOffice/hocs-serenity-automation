@@ -4,6 +4,8 @@ import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -143,6 +145,7 @@ public class Topics extends Page {
     }
 
     public void recordSelectedDraftingAndPrivateOfficeTeams() {
+        selectedDraftingTeamName.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
         String selectedInitialDraftingTeamName = selectedDraftingTeamName.getValue();
         setSessionVariable("selectedDraftingTeamName").to(selectedInitialDraftingTeamName);
         String selectedPOTeamName = selectedPrivateOfficeTeamName.getValue();

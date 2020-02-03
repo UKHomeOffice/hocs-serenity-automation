@@ -54,7 +54,6 @@ Feature: User can view correct case details at all stages
     And I load the current case
     When I select the "Private Office Approval" button of the accordion
     Then the information shown should match what I entered at the "Private Office Approval" stage
-    Given I do a "think"
 
   @Accordion
   Scenario: Transfer to No10 accordion should contain the same information entered at the Ministerial Sign Off stage
