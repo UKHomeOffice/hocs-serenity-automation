@@ -190,10 +190,10 @@ public class Homepage extends Page {
     }
 
     public void getCurrentCase() {
-        caseReferenceSearchBar.clear();
         String currentCase = sessionVariableCalled("caseReference").toString();
+        caseReferenceSearchBar.click();
         typeInto(caseReferenceSearchBar, currentCase);
-        caseReferenceSearchBar.sendKeys(Keys.RETURN);
+        caseReferenceSearchBar.sendKeys(Keys.ENTER);
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage) {
