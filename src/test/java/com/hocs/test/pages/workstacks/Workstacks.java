@@ -8,6 +8,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.base_page.Page;
 import org.hamcrest.core.Is;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -230,6 +231,18 @@ public class Workstacks extends Page {
         clickOn(unallocateButton);
     }
 
+    public void clickDCUMINFilterCard() {
+        dcuMINFilterCard.click();
+    }
+
+    public void clickDCUTENFilterCard() {
+        dcuN10FilterCard.click();
+    }
+
+    public void clickDCUTROFilterCard() {
+        dcuTROFilterCard.click();
+    }
+
     // Assertions
 
     public void assertThatDCUMinFilterCardIsVisible() {
@@ -399,4 +412,50 @@ public class Workstacks extends Page {
 
         assertThat(caseOwner.getText().equals(Users.EAMON.getUsername()), is(true));
     }
+
+    public void assertThatDCUMINisOnlyVisibleCaseType() {
+        int totalCases = getTotalOfCases();
+        refineWorkstackSearchResults("MIN");
+        assertThat(totalCases != 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("DTEN");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("TRO");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+    }
+
+    public void assertThatDCUTENisOnlyVisibleCaseType() {
+        int totalCases = getTotalOfCases();
+        refineWorkstackSearchResults("DTEN");
+        assertThat(totalCases != 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("MIN");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("TRO");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+    }
+
+    public void assertThatDCUTROisOnlyVisibleCaseType() {
+        int totalCases = getTotalOfCases();
+        refineWorkstackSearchResults("TRO");
+        assertThat(totalCases != 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("MIN");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
+        refineWorkstackSearchResults("DTEN");
+        totalCases = getTotalOfCases();
+        assertThat(totalCases == 0, is(true));
+    }
+
+
+
+
 }

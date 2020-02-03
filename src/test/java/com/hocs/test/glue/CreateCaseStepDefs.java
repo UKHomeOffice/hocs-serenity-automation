@@ -256,5 +256,25 @@ public class CreateCaseStepDefs extends Page {
         createCase.enterNoDate();
     }
 
+    @When("^I create a new \"([^\"]*)\" case and go home$")
+    public void createNewCaseGoHome(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                homepage.goHome();
+                break;
+            case "DCU DTEN":
+                createCase.createDCU10SingleCase();
+                homepage.goHome();
+                break;
+            case "DCU TRO":
+                createCase.createDCUTROSingleCase();
+                homepage.goHome();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
+
 }
 
