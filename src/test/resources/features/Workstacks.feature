@@ -3,7 +3,6 @@ Feature: Team members can allocate work
   Background:
     Given I am user "EAMON"
 
-
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
     When I assign the current case number to "CASEY"

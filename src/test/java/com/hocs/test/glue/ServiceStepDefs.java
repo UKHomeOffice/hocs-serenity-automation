@@ -4,8 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.api.ApiHelper;
 import com.hocs.test.api.workflowService.WorkflowService;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 

@@ -8,8 +8,8 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.When;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
 
 public class MinisterSignOffStepDefs extends Page {
 

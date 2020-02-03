@@ -6,10 +6,11 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.documents.Documents;
 import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class DocumentsStepDefs extends Page {
@@ -33,7 +34,7 @@ public class DocumentsStepDefs extends Page {
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
         }
-        continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+        continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
     }
 
     @And("^I click manage documents$")

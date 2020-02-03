@@ -4,8 +4,8 @@ import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.dispatch.Dispatch;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Managed;
 
 public class DispatchStepDefs extends Page {

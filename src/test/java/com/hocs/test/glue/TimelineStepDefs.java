@@ -5,8 +5,8 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.timeline.TimelineTab;
 import config.Users;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 
 public class TimelineStepDefs extends Page {
 
