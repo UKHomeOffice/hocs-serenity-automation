@@ -13,7 +13,6 @@ Feature: Team members can allocate work
     And I create a new case and view it in the Performance and Process team workstack
     When I assign this case to me, and check if it has been correctly allocated
 
-
   Scenario: User creates 3 cases and allocates these cases to another User
     And I create three cases, and view them in performance and process workstack
     Then I assign these three cases to "CASEY"
