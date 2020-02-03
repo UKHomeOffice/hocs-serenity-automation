@@ -99,15 +99,12 @@ public class CreateCaseStepDefs extends Page {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
                 createCase.createDCUMinSingleCase();
-                homepage.goHome();
                 break;
             case "DCU DTEN":
                 createCase.createDCU10SingleCase();
-                homepage.goHome();
                 break;
             case "DCU TRO":
                 createCase.createDCUTROSingleCase();
-                homepage.goHome();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -257,6 +254,26 @@ public class CreateCaseStepDefs extends Page {
     @When("^I enter a blank date$")
     public void enterInvalidDateOnCaseCreateScreen() {
         createCase.enterNoDate();
+    }
+
+    @When("^I create a new \"([^\"]*)\" case and go home$")
+    public void createNewCaseGoHome(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "DCU MIN":
+                createCase.createDCUMinSingleCase();
+                homepage.goHome();
+                break;
+            case "DCU DTEN":
+                createCase.createDCU10SingleCase();
+                homepage.goHome();
+                break;
+            case "DCU TRO":
+                createCase.createDCUTROSingleCase();
+                homepage.goHome();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
 }
