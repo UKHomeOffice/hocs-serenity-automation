@@ -11,10 +11,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.9.36</serenity.version>
-        <serenity.cucumber.version>1.9.15</serenity.cucumber.version>
-        <environment/>
+      <serenity.version>2.1.2</serenity.version>
+      <cucumber.version>4.8.0</cucumber.version>
+      <encoding>UTF-8</encoding>
     </properties>
+
     <repositories>
         <repository>
             <snapshots>
@@ -25,6 +26,7 @@
             <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <snapshots>
@@ -35,35 +37,43 @@
             <url>https://jcenter.bintray.com</url>
         </pluginRepository>
     </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
             <version>${serenity.version}</version>
             <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>io.cucumber</groupId>
+              <artifactId>cucumber-core</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber</artifactId>
-            <version>${serenity.cucumber.version}</version>
+          <artifactId>serenity-cucumber4</artifactId>
+          <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+          <groupId>net.serenity-bdd</groupId>
+          <artifactId>serenity-junit</artifactId>
+          <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+          <groupId>net.serenity-bdd</groupId>
+          <artifactId>serenity-rest-assured</artifactId>
+          <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-jira-requirements-provider</artifactId>
-            <version>1.9.0</version>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>1.7.26</version>
+          <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.noraui</groupId>
@@ -71,36 +81,9 @@
             <version>12.2.0.1</version>
         </dependency>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>3.1.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180130</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.1</version>
-        </dependency>
-        <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.deque</groupId>
-            <artifactId>axe-selenium</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>2.4.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -108,18 +91,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+              <version>2.22.1</version>
                 <configuration>
                     <skip>true</skip>
-                    <systemPropertyVariables>
-                        <env>${environment}</env>
-                    </systemPropertyVariables>
-                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M1</version>
+              <version>3.0.0-M3</version>
                 <configuration>
                     <includes>
                         <include>**/*.java</include>
@@ -141,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+              <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -150,7 +129,17 @@
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
-                <version>1.9.28</version>
+              <version>${serenity.version}</version>
+              <dependencies>
+                <dependency>
+                  <groupId>net.serenity-bdd</groupId>
+                  <artifactId>serenity-single-page-report</artifactId>
+                  <version>${serenity.version}</version>
+                </dependency>
+              </dependencies>
+              <configuration>
+                <reports>single-page-html</reports>
+              </configuration>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
@@ -176,59 +165,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <!--  implementation is needed only for Maven 2  -->
-                                <rule implementation="org.jacoco.maven.RuleConfiguration">
-                                    <element>BUNDLE</element>
-                                    <limits>
-                                        <!--  implementation is needed only for Maven 2  -->
-                                        <limit implementation="org.jacoco.report.check.Limit">
-                                            <counter>COMPLEXITY</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.60</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>artifactory</id>
-            <name>libs-release-local</name>
-            <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>artifactory</id>
-            <name>libs-snapshot-local</name>
-            <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

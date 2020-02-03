@@ -8,9 +8,9 @@ import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.When;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
 
 public class PrivateOfficeSignOffStepDefs extends Page {
 

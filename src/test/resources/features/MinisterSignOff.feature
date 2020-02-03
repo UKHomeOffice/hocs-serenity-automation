@@ -19,7 +19,7 @@ Feature: User decides how cases should be handled at Minister Sign Off stage
     When I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
 
-  @MinSignOff @Workflow @SmokeTests
+  @MinSignOff @Workflow @SmokesTests
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister
     And I reject the case at the "MINISTERIAL SIGN OFF" stage
     Then the "DCU MIN" case should be moved to the "INITIAL DRAFT" stage

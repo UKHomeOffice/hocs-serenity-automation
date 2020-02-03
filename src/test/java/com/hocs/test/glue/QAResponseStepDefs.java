@@ -5,8 +5,8 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
 
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 
 public class QAResponseStepDefs extends Page {

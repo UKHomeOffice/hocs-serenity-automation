@@ -14,8 +14,8 @@ import com.hocs.test.pages.minister.MinisterSignOff;
 import com.hocs.test.pages.private_office.PrivateOffice;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class CaseDetailsAccordionStepDefs extends Page {
 

@@ -4,9 +4,9 @@ import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.search.Search;
 import com.hocs.test.pages.workstacks.Workstacks;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;

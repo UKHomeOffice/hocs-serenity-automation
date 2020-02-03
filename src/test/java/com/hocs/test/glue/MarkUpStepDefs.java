@@ -15,9 +15,9 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.draft.Draft;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class MarkUpStepDefs extends Page {
 
