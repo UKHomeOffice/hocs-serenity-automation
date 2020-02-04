@@ -119,6 +119,7 @@ public class TeamManagement extends Page {
     }
 
     public void assertUserHasCasesErrorMessage() {
+        waitForAnyTextToAppear("The user cannot be removed from the team as they have cases assigned");
         assertThat(errorMessage.getText(), is("The user cannot be removed from the team as they have cases assigned"));
     }
 

@@ -62,6 +62,6 @@ public class AddChildTopic extends Page {
     }
 
     public void assertDuplicateTopicErrorMessage() {
-        assertThat(errorMessageContents.isVisible(), is(true));
+        waitForAnyTextToAppear("A child topic with that name already exists");
     }
 }

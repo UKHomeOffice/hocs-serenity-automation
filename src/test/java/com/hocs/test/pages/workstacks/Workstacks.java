@@ -34,11 +34,9 @@ public class Workstacks extends Page {
     @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeButton;
 
-    @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[3]/div/form/fieldset/div[2]/div/ul/li[1]/button")
+    @FindBy(xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateSelectedToMe;
 
-    @FindBy(xpath = "//button[text()='Allocate selected to me']")
-    public WebElementFacade allocateCheckboxCaseToMeButton;
 
     @FindBy(xpath = "//button[text()='Unallocate selected']")
     public WebElementFacade unallocateButton;
@@ -368,7 +366,7 @@ public class Workstacks extends Page {
 
     public void selectCurrentCaseAndAllocateToMe() {
         clickCheckboxRelevantToCaseReference();
-        clickOn(allocateCheckboxCaseToMeButton);
+        clickOn(allocateSelectedToMe);
     }
 
     public void filterByCurrentCaseReference() {
