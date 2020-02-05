@@ -322,7 +322,7 @@ public class Fetch extends Page {
                     clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available -  Searching for a Data Input case");
-                    clickOn(homepage.home);
+                    homepage.goHome();
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
