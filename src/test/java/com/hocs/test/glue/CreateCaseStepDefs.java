@@ -280,9 +280,8 @@ public class CreateCaseStepDefs extends Page {
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createDCUMinSingleCase();
-        clickOn(homepage.home);
-        homepage.waitForPerformanceProcessTeam();
-        clickOn(homepage.performanceProcessTeam);
+        successfulCaseCreation.goToCaseFromSuccessfulCreationScreen();
+        workstacks.clickAllocateToMeButton();
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
     }
 }
