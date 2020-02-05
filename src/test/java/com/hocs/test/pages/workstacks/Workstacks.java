@@ -1,28 +1,20 @@
 package com.hocs.test.pages.workstacks;
 
-import com.ibm.icu.impl.USerializedSet;
 import config.Users;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.base_page.Page;
 import org.hamcrest.core.Is;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
-import java.sql.*;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.server.handler.FindElement;
-import org.seleniumhq.jetty9.server.Authentication.User;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -35,7 +27,7 @@ public class Workstacks extends Page {
     public WebElementFacade allocateToMeButton;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
-    public WebElementFacade allocateCheckboxCaseToMeButton;
+    public WebElementFacade allocateSelectedToMeButton;
 
     @FindBy(xpath = "//button[text()='Unallocate selected']")
     public WebElementFacade unallocateButton;
@@ -135,6 +127,10 @@ public class Workstacks extends Page {
 
     public void clickAllocateToMeButton() {
         allocateToMeButton.click();
+    }
+
+    public void clickAllocateSelectedToMeButton() {
+        allocateSelectedToMeButton.click();
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
@@ -360,7 +356,7 @@ public class Workstacks extends Page {
 
     public void selectCurrentCaseAndAllocateToMe() {
         clickCheckboxRelevantToCaseReference();
-        clickOn(allocateCheckboxCaseToMeButton);
+        clickOn(allocateSelectedToMeButton);
     }
 
     public void filterByCurrentCaseReference() {
@@ -368,7 +364,9 @@ public class Workstacks extends Page {
     }
 
     public void assertAssignedUser(Users user) {
-       waitABit(500);
+        String caseOne = getAllocatedUserFromWorkstacksTable();
+        String caseTwo = user.getUsername();
+        waitABit(500);
         assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
     }
 
@@ -382,7 +380,7 @@ public class Workstacks extends Page {
 
         WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
 
-        waitABit(500);
+        waitABit(750);
         assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
         assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
         assertThat(caseOwnerTwo.getText().equals(user.getUsername()), is(true));
@@ -398,7 +396,7 @@ public class Workstacks extends Page {
 
         WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
 
-        waitABit(500);
+        waitABit(750);
         assertThat(caseOwnerOne.getText().equals(""), is(true));
         assertThat(caseOwnerOne.getText().equals(""), is(true));
         assertThat(caseOwnerTwo.getText().equals(""), is(true));

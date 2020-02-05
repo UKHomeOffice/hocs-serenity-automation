@@ -114,6 +114,7 @@ public class MarkUpStepDefs extends Page {
 
     @Then("^the topic should be added to the case$")
     public void assertTopicOnCase() {
+        markup.clickContinueButton();
         topics.assertTopicsAssigned();
     }
 
