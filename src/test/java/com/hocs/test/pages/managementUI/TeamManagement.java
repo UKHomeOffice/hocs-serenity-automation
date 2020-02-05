@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.base_page.Page;
+import config.Users;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -56,11 +57,10 @@ public class TeamManagement extends Page {
         clickOn(viewTeamButton);
     }
 
-    public void selectAUser(String nameOfUser) {
+    public void selectAUser(Users user) {
         clickOn(addTeamMembersButton);
-        userSearchBar.sendKeys(nameOfUser);
-        setSessionVariable("nameOfUser").to(nameOfUser);
-        waitABit(4000);
+        userSearchBar.sendKeys(user.getAllocationText());
+        waitABit(6000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
         waitABit(2000);
@@ -86,10 +86,9 @@ public class TeamManagement extends Page {
         WebElementFacade membersInTeamTable = findAll("(//tr[@class='govuk-table__row'])[2]").get(0);
 
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-        String nameOfNewUser = sessionVariableCalled("nameOfUser").toString();
 
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        assertThat(membersInTeamTable.getText(), containsText(nameOfNewUser));
+        assertThat(membersInTeamTable.getText(), containsText(Users.EAMON.getAllocationText()));
     }
 
     public void removeFirstUserInListAndStoreName() {
@@ -118,20 +117,19 @@ public class TeamManagement extends Page {
     }
 
     public void assertUserHasCasesErrorMessage() {
+        waitForAnyTextToAppear("The user cannot be removed from the team as they have cases assigned");
         assertThat(errorMessage.getText(), is("The user cannot be removed from the team as they have cases assigned"));
     }
 
     public void assertSelectATeamErrorMessage() {
+        waitForAnyTextToAppear("Please select a team before submitting.");
         assertThat(errorMessage.getText(), is("Please select a team before submitting."));
     }
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        String firstAddedUser = sessionVariableCalled("firstUser").toString();
-        String secondAddedUser = sessionVariableCalled("secondUser").toString();
-
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(firstAddedUser));
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(secondAddedUser));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.EAMON.getAllocationText()));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.CASEY.getAllocationText()));
     }
 
     public void assertSelectSomeUsersErrorMessage() {

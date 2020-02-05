@@ -147,14 +147,14 @@ public class CreateCaseStepDefs extends Page {
                 clickOn(homepage.home);
                 clickOn(homepage.performanceProcessTeam);
                 workstacks.clickCheckboxRelevantToCaseReference();
-                clickOn(workstacks.allocateCheckboxCaseToMeButton);
+                clickOn(workstacks.allocateSelectedToMeButton);
                 clickOn(workstacks.home);
                 break;
             case "TRANSFERS AND N10 TEAM":
                 clickOn(homepage.home);
                 clickOn(homepage.transferN10Team);
                 workstacks.clickCheckboxRelevantToCaseReference();
-                clickOn(workstacks.allocateCheckboxCaseToMeButton);
+                clickOn(workstacks.allocateSelectedToMeButton);
                 clickOn(workstacks.home);
                 break;
             default:

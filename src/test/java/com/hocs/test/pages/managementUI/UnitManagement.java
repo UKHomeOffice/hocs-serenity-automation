@@ -70,6 +70,7 @@ public class UnitManagement extends Page {
     }
 
     public void assertUnitAlreadyExistsErrorMessage() {
+        waitForAnyTextToAppear("A unit with those details already exists");
         assertThat(errorMessageContents.getText(), is("A unit with those details already exists"));
     }
 

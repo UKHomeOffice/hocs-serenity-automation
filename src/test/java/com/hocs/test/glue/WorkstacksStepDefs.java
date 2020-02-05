@@ -11,10 +11,10 @@ import com.hocs.test.pages.workstacks.Workstacks;
 
 import config.Users;
 import cucumber.api.PendingException;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import java.util.concurrent.TimeUnit;
 import org.seleniumhq.jetty9.server.Authentication.User;
 
@@ -30,7 +30,7 @@ public class WorkstacksStepDefs extends Page {
 
     @Given("^I allocate the case to myself$")
     public void allocateCaseToMyself() {
-        clickOn(workstacks.allocateCheckboxCaseToMeButton);
+        clickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @When("^I unallocate the case from myself$")
@@ -41,7 +41,7 @@ public class WorkstacksStepDefs extends Page {
     @When("^I select the check box against the case and allocate it to myself$")
     public void allocateCaseUsingCheckbox() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        clickOn(workstacks.allocateCheckboxCaseToMeButton);
+        clickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @Then("^the case should be added to my workstack$")
@@ -196,7 +196,7 @@ public class WorkstacksStepDefs extends Page {
     @When("^I assign this case to me, and check if it has been correctly allocated$")
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.clickAllocateToMeButton();
+        workstacks.clickAllocateSelectedToMeButton();
         workstacks.assertCaseIsAssignedToMe();
     }
 
