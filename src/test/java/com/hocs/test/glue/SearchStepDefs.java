@@ -89,7 +89,7 @@ public class SearchStepDefs extends Page {
         clickOn(search.searchButton);
     }
 
-    @Then("^only the chosen \"([^\"]*)\" case type results should be displayed in the results list$")
+    @Then("^only DCU \"([^\"]*)\" results should be displayed in the results list$")
     public void assertThatOnlySelectedCaseTypeResultsAreDisplayed(String caseType) {
         search.assertOnSearchPage();
         switch (caseType.toUpperCase()) {
@@ -131,7 +131,7 @@ public class SearchStepDefs extends Page {
             case "PERMANENT SECRETARY SIGNOFF TEAM":
                 search.selectSignOffTeam("Permanent Secretary");
                 break;
-            case "KITTENS TOPIC":
+            case "CARDIFF UNIVERSITY KITTENS TOPIC":
                 search.enterSearchTopic("Cardiff University Kittens");
                 break;
             default:
@@ -165,7 +165,7 @@ public class SearchStepDefs extends Page {
             case "PERMANENT SECRETARY SIGNOFF TEAM":
                 search.assertFirstAndLastSearchResultsMatchSignOffTeam();
                 break;
-            case "KITTENS TOPIC":
+            case "CARDIFF UNIVERSITY KITTENS TOPIC":
                 search.viewFirstSearchResultCaseSummary();
                 search.assertThatSearchedTopicNameIsShownInCaseSummary();
                 break;

@@ -13,6 +13,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.workstacks.Workstacks;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -276,5 +277,12 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
+    @And("I create a {string} case with {string} as the correspondent")
+    public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
+        createCase.createDCUMinSingleCase();
+        successfulCaseCreation.goToCaseFromSuccessfulCreationScreen();
+        workstacks.clickAllocateToMeButton();
+        dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
+    }
 }
 
