@@ -42,11 +42,11 @@ public class MinisterSignOff extends Page {
     }
 
     public void assertDoYouApproveTheResponseErrorMessage() {
-        assertThat(doYouApproveTheResponseErrorMessage.getText(), is("Do you approve the response? is required"));
+        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
     }
 
     public void assertFeedbackResponseMinisterSignOffErrorMessage() {
-        assertThat(whatIsYourFeedbackMinisterSignOffErrorMessage.getText(), is("What is your feedback about the response? is required"));
+        whatIsYourFeedbackMinisterSignOffErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 
     public void moveCaseFromMinisterToDispatch() {

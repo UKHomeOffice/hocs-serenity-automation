@@ -19,7 +19,7 @@ public class DocumentsStepDefs extends Page {
 
     GenericInputStepDefs genericInputStepDefs;
 
-    @And("I upload a \"([^\"]*)\" document")
+    @And("I upload a {string} document")
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
@@ -37,17 +37,17 @@ public class DocumentsStepDefs extends Page {
         continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
     }
 
-    @And("^I click manage documents$")
+    @And("I click manage documents")
     public void iClickManageDocuments() {
         clickOn(documents.manageDocumentsLink);
     }
 
-    @When("^I click add documents$")
+    @When("I click add documents")
     public void iClickAddDocuments() {
         clickOn(documents.addDocumentLink);
     }
 
-    @And("^I choose the document type \"([^\"]*)\"$")
+    @And("I choose the document type {string}")
     public void iChooseTheDocumentType(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
@@ -64,7 +64,7 @@ public class DocumentsStepDefs extends Page {
         }
     }
 
-    @And("^I upload a file of type \"([^\"]*)\"$")
+    @And("I upload a file of type {string}")
     public void iUploadAFileOfType(String fileType) {
         switch (fileType) {
             case "docx":
@@ -106,43 +106,43 @@ public class DocumentsStepDefs extends Page {
         clickAddButton();
     }
 
-    @Then("^I can see the \"([^\"]*)\" file in the uploaded document list$")
+    @Then("I can see the {string} file in the uploaded document list")
     public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
         documents.assertFileIsVisible(fileType);
     }
 
-    @Then("^the document should have the \"([^\"]*)\" tag$")
+    @Then("the document should have the {string} tag")
     public void theDocumentShouldHaveTheTag(String Tag) {
         documents.assertDocumentHasTag(Tag.toUpperCase());
     }
 
-    @Then("^an error message should be displayed as I have not selected a document type$")
+    @Then("an error message should be displayed as I have not selected a document type")
     public void anErrorMessageShouldBeDisplayedAsIHaveNotSelectedADocumentType() {
         documents.assertDocumentTypeIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected a file to upload$")
+    @Then("an error message should be displayed as I have not selected a file to upload")
     public void anErrorMessageShouldBeDisplayedAsIHaveNotSelectedAFileToUpload() {
         documents.assertDocumentIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have selected a file type which is not allowed$")
+    @Then("an error message should be displayed as I have selected a file type which is not allowed")
     public void anErrorMessageShouldBeDisplayedAsIHaveSelectedAFileTypeWhichIsNotAllowed() {
         documents.assertFileTypeIsNotAllowedErrorMessage();
     }
 
-    @And("^I cannot see the \"([^\"]*)\" file in the uploaded document list$")
+    @And("I cannot see the {string} file in the uploaded document list")
     public void iCannotSeeTheFileInTheUploadedDocumentList(String fileIdentifier) {
         documents.assertFileIsNotVisible(fileIdentifier);
     }
 
-    @And("^I select a file that is (\\d+)MB in size$")
-    public void iSelectAFileThatIsLargerThanMB(String fileSize) {
-        switch (fileSize.toUpperCase()) {
-            case "51":
+    @And("I select a file that is {int}MB in size")
+    public void iSelectAFileThatIsLargerThanMB(int fileSize) {
+        switch (fileSize) {
+            case 51:
                 documents.upload51MBDocument();
                 break;
-            case "5":
+            case 5:
                 documents.upload5MBDocument();
                 break;
             default:
@@ -151,12 +151,12 @@ public class DocumentsStepDefs extends Page {
         genericInputStepDefs.clickTheButton("add");
     }
 
-    @Then("^an error message should be displayed as I have selected a file which is larger than the allowed limit$")
+    @Then("an error message should be displayed as I have selected a file which is larger than the allowed limit")
     public void anErrorMessageShouldBeDisplayedAsIHaveSelectedAFileWhichIsLargerThanTheAllowedLimit() {
         documents.assertFileTooLargeErrorMessage();
     }
 
-    @And("^I upload a docx and a txt file$")
+    @And("I upload a docx and a txt file")
     public void iUploadADocxAndATxtFile() {
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
@@ -170,17 +170,17 @@ public class DocumentsStepDefs extends Page {
         genericInputStepDefs.clickTheButton("add");
     }
 
-    @Then("^the \"([^\"]*)\" document should be displayed in the preview pane$")
+    @Then("the {string} document should be displayed in the preview pane")
     public void theFileShouldBeDisplayedInThePreviewPane(String fileIdentifier) {
         documents.assertDocumentIsDisplayedInPreviewPane(fileIdentifier);
     }
 
-    @And("^I click the preview button of the \"([^\"]*)\" file$")
+    @And("I click the preview button of the {string} file")
     public void iClickThePreviewButtonOfTheFile(String fileIdentifier) {
         documents.clickPreviewButtonForFile(fileIdentifier);
     }
 
-    @And("^I add a \"([^\"]*)\" document to the case$")
+    @And("I add a {string} document to the case")
     public void iAddADocumentToTheCase(String fileIdentifier) {
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
@@ -188,18 +188,18 @@ public class DocumentsStepDefs extends Page {
         iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
     }
 
-    @And("^I select to remove the \"([^\"]*)\" document$")
+    @And("I select to remove the {string} document")
     public void iClickTheRemoveLinkForTheFile(String fileIdentifier) {
         documents.clickRemoveLinkForFile(fileIdentifier);
         documents.clickRemoveButton();
     }
 
-    @Then("^the document should have the Pending tag$")
+    @Then("the document should have the Pending tag")
     public void theDocumentShouldHaveThePendingTag() {
         documents.assertPendingTagVisible();
     }
 
-    @Then("^the document should be under the \"([^\"]*)\" header$")
+    @Then("the document should be under the {string} header")
     public void theDocumentShouldBeUnderTheHeader(String header) {
         documents.assertDocumentIsUnderHeader(header.toUpperCase());
     }

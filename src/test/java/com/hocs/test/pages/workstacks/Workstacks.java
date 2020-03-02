@@ -126,23 +126,23 @@ public class Workstacks extends Page {
     // Basic Methods
 
     public void clickAllocateToMeButton() {
-        allocateToMeButton.click();
+        clickOn(allocateToMeButton);
     }
 
     public void clickAllocateSelectedToMeButton() {
-        allocateSelectedToMeButton.click();
+        clickOn(allocateSelectedToMeButton);
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
-        allocateDropdown.click();
+        clickOn(allocateDropdown);
         allocateDropdown.selectByVisibleText(allocationUser);
-        allocateButton.click();
+        clickOn(allocateButton);
     }
 
     public void caseDetailsSelectAllocationUserByVisibleText(String allocationUser) {
-        caseDetailsAllocateDropdown.click();
+        clickOn(caseDetailsAllocateDropdown);
         caseDetailsAllocateDropdown.selectByVisibleText(allocationUser);
-        caseDetailsAllocateButton.click();
+        clickOn(caseDetailsAllocateButton);
     }
 
     public int getTotalOfCases() {
@@ -183,24 +183,21 @@ public class Workstacks extends Page {
     }
 
     public void refineWorkstackSearchResults(String workstackInput) {
-        selectWorkstackFilter.click();
-        selectWorkstackFilter.sendKeys(workstackInput);
+        clickOn(selectWorkstackFilter);
+        typeInto(selectWorkstackFilter, workstackInput);
     }
 
     public void allocateThreeCasesCreated(Users user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
-        caseOne.click();
+        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        clickOn(caseOne);
 
-        WebElementFacade caseTwo = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
-        caseTwo.click();
+        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        clickOn(caseTwo);
 
-        WebElementFacade caseThree = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber) + ") > td > div > div > input");
-        caseThree.click();
+        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div > input");
+        clickOn(caseThree);
 
         selectAllocationUserByVisibleText(user.getAllocationText());
     }
@@ -208,18 +205,14 @@ public class Workstacks extends Page {
     public void unallocateThreeCasesFromSelectedUser(Users user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
-        caseOne.click();
+        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        clickOn(caseOne);
+        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        clickOn(caseTwo);
+        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div > input");
+        clickOn(caseThree);
 
-        WebElementFacade caseTwo = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
-        caseTwo.click();
-        WebElementFacade caseThree = findBy("#main-content > div > div:nth-child(6) > div > form > fieldset > div:nth-child"
-                + "(1) > div > div > table > tbody > tr:nth-child(" + (totalCaseNumber) + ") > td > div > div > input");
-        caseThree.click();
-
-        unallocateButton.click();
+        clickOn(unallocateButton);
     }
 
     public void unallocatedAllCases() {
@@ -228,25 +221,25 @@ public class Workstacks extends Page {
     }
 
     public void clickDCUMINFilterCard() {
-        dcuMINFilterCard.click();
+        clickOn(dcuMINFilterCard);
     }
 
     public void clickDCUTENFilterCard() {
-        dcuN10FilterCard.click();
+        clickOn(dcuN10FilterCard);
     }
 
     public void clickDCUTROFilterCard() {
-        dcuTROFilterCard.click();
+        clickOn(dcuTROFilterCard);
     }
 
     // Assertions
 
     public void assertThatDCUMinFilterCardIsVisible() {
-        assertThat(dcuMINFilterCard.getText(), is("DCU Ministerial"));
+        dcuMINFilterCard.shouldContainText("DCU Ministerial");
     }
 
     public void assertThatDataInputFilterCardIsVisible() {
-        assertThat(dataInputFilterCard.getText(), is("Data Input"));
+        dataInputFilterCard.shouldContainText("Data Input");
     }
 
     public void assertCasesAreFilteredByRef(String caseReference) {
@@ -259,7 +252,7 @@ public class Workstacks extends Page {
     }
 
     public void assertCaseNoteMustNotBeBlankErrorMessage() {
-        assertThat(caseNoteMustNotBeBlankErrorMessage.getText(), is("Case note must not be blank"));
+        caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
     public void assertCasesAreFilteredByStage(String currentStage) {
@@ -309,18 +302,18 @@ public class Workstacks extends Page {
     }
 
     public void assertThatThereAreNoCasesInWorkstack() {
-        assertThat(zeroItemsInWorkstackCount.getText(), is("0 Items"));
+        zeroItemsInWorkstackCount.shouldContainText("0 Items");
     }
 
     public void assertCaseReferenceBeforeAllocation(){
         String searchCaseReference = sessionVariableCalled("caseReference").toString();
-        assertThat(caseReferenceOnAllocationScreen.getText(), is(searchCaseReference));
+        caseReferenceOnAllocationScreen.shouldContainText(searchCaseReference);
 
     }
 
     public void assertCaseReferenceAfterAllocation() {
         String searchCaseReference = sessionVariableCalled("caseReference").toString();
-        assertThat(caseReferenceOnAlreadyAllocatedCase.getText(), is(searchCaseReference));
+        caseReferenceOnAlreadyAllocatedCase.shouldContainText(searchCaseReference);
     }
 
     public void assertAllAllocatedUsersAre(Users user) {
@@ -330,7 +323,7 @@ public class Workstacks extends Page {
     }
 
     public void assertOwnerIs(Users owner) {
-        assertThat(displayedOwner.getText(), is(owner.getUsername()));
+        displayedOwner.shouldContainText(owner.getUsername());
     }
 
     private String getStageFromWorkstacksTable() {
@@ -364,49 +357,41 @@ public class Workstacks extends Page {
     }
 
     public void assertAssignedUser(Users user) {
-        String caseOne = getAllocatedUserFromWorkstacksTable();
-        String caseTwo = user.getUsername();
         waitABit(500);
         assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
     }
 
     public void assertAssignedUserOnThreeCases(Users user) {
         int totalCaseNumber = getTotalOfCases();
-        WebElement caseOwnerOne = getDriver()
-                .findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)"));
+        WebElementFacade caseOwnerOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)");
 
-        WebElement caseOwnerTwo = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 1) + ") > "
-                + "td:nth-child(4)"));
+        WebElementFacade caseOwnerTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td:nth-child(4)");
 
-        WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
+        WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
 
         waitABit(750);
-        assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
-        assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
-        assertThat(caseOwnerTwo.getText().equals(user.getUsername()), is(true));
+        caseOwnerOne.shouldContainText(user.getUsername());
+        caseOwnerTwo.shouldContainText(user.getUsername());
+        caseOwnerThree.shouldContainText(user.getUsername());
     }
 
     public void assertThatThreeCasesHaveBeenUnassigned() {
         int totalCaseNumber = getTotalOfCases();
-        WebElement caseOwnerOne = getDriver()
-                .findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)"));
+        WebElementFacade caseOwnerOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)");
 
-        WebElement caseOwnerTwo = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber - 1) + ") > "
-                + "td:nth-child(4)"));
+        WebElementFacade caseOwnerTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td:nth-child(4)");
 
-        WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
+        WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
 
         waitABit(750);
-        assertThat(caseOwnerOne.getText().equals(""), is(true));
-        assertThat(caseOwnerOne.getText().equals(""), is(true));
-        assertThat(caseOwnerTwo.getText().equals(""), is(true));
+        caseOwnerOne.shouldContainText("");
+        caseOwnerTwo.shouldContainText("");
+        caseOwnerThree.shouldContainText("");
     }
 
     public void assertCaseIsAssignedToMe() {
         int totalCases = getTotalOfCases();
-        WebElement caseOwner = getDriver().findElement(By.cssSelector("#main-content > div > div:nth-child(5) > div > form"
-                + " > fieldset > div:nth-child(1) > div > div > table > tbody > tr:nth-child(" + totalCases + ") > "
-                + "td:nth-child(4)"));
+        WebElement caseOwner = findBy("tr:nth-child(" + totalCases + ") > td:nth-child(4)");
 
         assertThat(caseOwner.getText().equals(Users.EAMON.getUsername()), is(true));
     }

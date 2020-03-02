@@ -61,28 +61,25 @@ public class LinkTopicToTeam extends Page {
     }
 
     public void assertSummaryDisplaysSelectedTopicAndTeams() {
-
         waitABit(2000);
-        assertThat(topicInSummary.getText(), containsText(sessionVariableCalled("chosenTopic").toString()));
-        assertThat(draftQaTeamAssignment.getText(), is(sessionVariableCalled("chosenDraftAndQATeam").toString()));
-        assertThat(privateMinisterTeamAssignment.getText(),
-                is(sessionVariableCalled("chosenPrivateAndMinisterTeam").toString()));
+        topicInSummary.shouldContainText(sessionVariableCalled("chosenTopic").toString());
+        draftQaTeamAssignment.shouldContainText(sessionVariableCalled("chosenDraftAndQATeam").toString());
+        privateMinisterTeamAssignment.shouldContainText(sessionVariableCalled("chosenPrivateAndMinisterTeam").toString());
     }
 
     public void assertLinkTopicToTeamPageTitle() {
-        assertThat(managementUIPageTitle.getText(), is("Topic search"));
+        managementUIPageTitle.shouldContainText("Topic search");
     }
 
     public void assertTopicIsRequiredErrorMessage() {
-        assertThat(errorMessageContents.getText(), is("Select a topic before submitting."));
+        errorMessageContents.shouldContainText("Select a topic before submitting.");
     }
 
     public void assertDraftandQATeamIsRequiredErrorMessage() {
-        assertThat(errorMessageContents.getText(), is("The team for Initial Draft and QA response stages is required"));
+        errorMessageContents.shouldContainText("The team for Initial Draft and QA response stages is required");
     }
 
     public void assertPrivateAndMinisterTeamIsRequiredErrorMessage() {
-        assertThat(errorMessageContents.getText(),
-                is("The team for Private Office and Minister sign off stages is required"));
+        errorMessageContents.shouldContainText("The team for Private Office and Minister sign off stages is required");
     }
 }

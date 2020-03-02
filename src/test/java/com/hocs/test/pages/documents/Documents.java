@@ -108,7 +108,7 @@ public class Documents extends Page {
         String workingDir = System.getProperty("user.dir");
         String filePath = workingDir + "\\src\\test\\resources\\documents\\test.docx" + "\n" + workingDir + "\\src\\test"
                 + "\\resources\\documents\\test.txt";
-        addDocument.sendKeys(filePath);
+        typeInto(addDocument, filePath);
     }
 
     public void bulkUploadDocuments(int documents) {
@@ -122,7 +122,7 @@ public class Documents extends Page {
                 allFiles += filePath;
             }
         }
-        addDocument.sendKeys(allFiles);
+        typeInto(addDocument, allFiles);
     }
 
     public void addAOriginalDocument() {
@@ -150,7 +150,7 @@ public class Documents extends Page {
     public void clickPreviewButtonForFile(String fileIdentifier) {
         WebElementFacade previewButton = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
                 + "[contains(text(), 'Preview')]");
-        previewButton.click();
+        clickOn(previewButton);
     }
 
     public String getDocumentIDforFile(String fileIdentifier) {
@@ -164,22 +164,22 @@ public class Documents extends Page {
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
-        removeLink.click();
+        clickOn(removeLink);
     }
 
     public void clickRemoveButton() {
-        removeButton.click();
+        clickOn(removeButton);
         manageDocumentsLink.waitUntilVisible();
     }
 
     //Assertions
 
     public void assertDocumentTypeIsRequiredErrorMessage() {
-        assertThat(documentTypeIsRequiredErrorMessage.getText(), is("Document type is required"));
+        documentTypeIsRequiredErrorMessage.shouldContainText("Document type is required");
     }
 
     public void assertDocumentIsRequiredErrorMessage() {
-        assertThat(documentIsRequiredErrorMessage.getText(), is("Document is required"));
+        documentIsRequiredErrorMessage.shouldContainText("Document is required");
     }
 
     public void assertFileIsVisible(String fileType) {
@@ -205,12 +205,12 @@ public class Documents extends Page {
     }
 
     public void assertFileTypeIsNotAllowedErrorMessage() {
-        assertThat(addDocumentErrorMessage.getText().contains("file which is not allowed"), is(true));
+        addDocumentErrorMessage.shouldContainText("file which is not allowed");
     }
 
     public void assertFileTooLargeErrorMessage() {
-        assertThat(addDocumentErrorMessage.getText(), is("The total file size is too large.  If you are uploading multiple "
-                + "files. Please try smaller batches."));
+        addDocumentErrorMessage.shouldContainText("The total file size is too large.  If you are uploading multiple "
+                + "files. Please try smaller batches.");
     }
 
     public void assertDocumentIsDisplayedInPreviewPane(String fileIdentifier) {

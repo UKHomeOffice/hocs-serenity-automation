@@ -18,7 +18,7 @@ public class DispatchStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @When("^I complete the dispatch stage$")
+    @When("I complete the dispatch stage")
     public void completeTheDispatchStage() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -26,12 +26,12 @@ public class DispatchStepDefs extends Page {
         clickOn(dispatch.continueButton);
     }
 
-    @Then("^an error message should be displayed as I have selected whether the case can be dispatched$")
+    @Then("an error message should be displayed as I have selected whether the case can be dispatched")
     public void assertThatAreYouAbleToDispatchErrorMessage() {
         dispatch.assertAreYouAbleToDispatchErrorMessageIsShown();
     }
 
-    @Then("^an error message should be displayed as I have not entered a reason for not dispatching in the text box$")
+    @Then("an error message should be displayed as I have not entered a reason for not dispatching in the text box")
     public void assertThatWhyAreYouUnableToDispatchErrorMessageIsShown() {
         dispatch.assertWhyAreYouUnableToDispatchErrorMessageIsShown();
     }

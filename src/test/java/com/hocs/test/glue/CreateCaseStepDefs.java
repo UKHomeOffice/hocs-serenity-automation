@@ -33,7 +33,7 @@ public class CreateCaseStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @Given("^I am presented with \"([^\"]*)\"$")
+    @Given("I am presented with {string}")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
             case "NO CASE TYPES":
@@ -49,7 +49,7 @@ public class CreateCaseStepDefs extends Page {
         createCase.createCaseWithoutSelectingCorrespondenceType();
     }
 
-    @Given("^I create a single case \"([^\"]*)\"$")
+    @Given("I create a single case {string}")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -72,7 +72,7 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I create a \"([^\"]*)\" case with \"([^\"]*)\" as the primary topic$")
+    @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -94,7 +94,7 @@ public class CreateCaseStepDefs extends Page {
         createCase.createDCUMinSingleCase();
     }
 
-    @When("^I create a single \"([^\"]*)\" case$")
+    @When("I create a single {string} case")
     public void createNewCase(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -111,32 +111,32 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I allocate the case to myself via the successful case creation screen$")
+    @When("I allocate the case to myself via the successful case creation screen")
     public void allocateToMe() {
         successfulCaseCreation.allocateToMeViaSuccessfulCreationScreen();
     }
 
-    @When("^I go to the case from the successful case creation screen$")
+    @When("I go to the case from the successful case creation screen")
     public void goToSuccessfullyCreatedCase() {
         successfulCaseCreation.goToCaseFromSuccessfulCreationScreen();
     }
 
-    @Then("^the case should be visible in my workstack$")
+    @Then("the case should be visible in my workstack")
     public void assertThatCaseIsAddedToMyWorkstack() {
         clickOn(homepage.home);
         clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @Then("^the case should be visible in the Performance and Process Team workstack$")
+    @Then("the case should be visible in the Performance and Process Team workstack")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
         clickOn(homepage.home);
         clickOn(homepage.performanceProcessTeam);
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @When("^I navigate to the \"([^\"]*)\" and select the check box against the newly created"
-            + " case and allocate it to myself$")
+    @When("I navigate to the {string} and select the check box against the newly created"
+            + " case and allocate it to myself")
     public void allocateCaseUsingCheckbox(String workstack) {
         clickOn(createCase.$("//input[@id='submit']"));
         String newCaseReference = workstacks.$("//h1").getText();
@@ -161,7 +161,7 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I bulk create (\\d+) \"([^\"]*)\" cases$")
+    @When("I bulk create {int} {string} cases")
     public void bulkCreateCases(int cases, String caseType) {
         clickOn(homepage.createBulkCases);
         switch (caseType.toUpperCase()) {
@@ -179,7 +179,7 @@ public class CreateCaseStepDefs extends Page {
         clickOn(createCase.finishButton);
     }
 
-    @When("^I create a \"([^\"]*)\" case \"([^\"]*)\" a document$")
+    @When("I create a {string} case {string} a document")
     public void createCaseWithDocument(String caseType, String document) {
         clickOn(homepage.createSingleCase);
         switch (caseType.toUpperCase()) {
@@ -212,51 +212,51 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @Then("^A case is created successfully$")
+    @Then("A case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
         successfulCaseCreation.assertCaseCreatedSuccess();
         successfulCaseCreation.getCaseReference();
     }
 
-    @Then("^bulk cases are created successfully$")
+    @Then("bulk cases are created successfully")
     public void BulkCasesAreCreatedSuccessfully() {
         successfulCaseCreation.assertBulkCasesCreatedSuccess();
     }
 
-    @Then("^an error message should be displayed as I have not selected the case type$")
+    @Then("an error message should be displayed as I have not selected the case type")
     public void assertThatCaseTypeErrorMessageIsDisplayed() {
         createCase.assertCaseTypeErrorMessage();
     }
 
-    @When("^they create the bulk cases without adding a document$")
+    @When("they create the bulk cases without adding a document")
     public void userCreatesBulkCasesWithoutAddingADocument() {
         clickOn(createCase.dcuMinRadioButton);
         clickOn(createCase.nextButton);
         clickOn(createCase.finishButton);
     }
 
-    @Then("^an error message should be displayed as I have not entered the correspondence received date")
+    @Then("an error message should be displayed as I have not entered the correspondence received date")
     public void assertThatDateReceivedErrorMessageIsShown() {
         createCase.assertDateReceivedNotEnteredErrorMessage();
 
     }
 
-    @Then("^an error message should be displayed as I have entered an invalid date$")
+    @Then("an error message should be displayed as I have entered an invalid date")
     public void assertThatDateReceivedIsInvalidErrorMessageIsShown() {
         createCase.assertDateReceivedIsInvalidErrorMessage();
     }
 
-    @When("^I move to the When Was Correspondence Received Page$")
+    @When("I move to the When Was Correspondence Received Page")
     public void getToWhenWasCorrespondenceReceivedPage() {
         createCase.getToWhenWasCorReceived();
     }
 
-    @When("^I enter a blank date$")
+    @When("I enter a blank date")
     public void enterInvalidDateOnCaseCreateScreen() {
         createCase.enterNoDate();
     }
 
-    @When("^I create a new \"([^\"]*)\" case and go home$")
+    @When("I create a new {string} case and go home")
     public void createNewCaseGoHome(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":

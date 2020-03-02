@@ -40,9 +40,8 @@ public class CaseDetailsAccordionStepDefs extends Page {
     Dispatch dispatch;
 
 
-    @When("^I move that case to the \"([^\"]*)\" stage$")
+    @When("I move that case to the {string} stage")
     public void moveCaseToNextStage(String stage) {
-
         switch (stage) {
             case "Markup":
                 dataInput.completeDataInputStageAndStoreEnteredInformation();
@@ -88,7 +87,7 @@ public class CaseDetailsAccordionStepDefs extends Page {
         }
     }
 
-    @When("^I select the \"([^\"]*)\" button of the accordion$")
+    @When("I select the {string} button of the accordion")
     public void selectAccordionButton(String stage) {
         switch (stage) {
             case "Data Input":
@@ -117,7 +116,7 @@ public class CaseDetailsAccordionStepDefs extends Page {
         }
     }
 
-    @Then("^the information shown should match what I entered at the \"([^\"]*)\" stage$")
+    @Then("the information shown should match what I entered at the {string} stage")
     public void assertAccordionFieldsMatchInformationEnteredAt(String stage) {
         switch (stage) {
             case "Case Creation":

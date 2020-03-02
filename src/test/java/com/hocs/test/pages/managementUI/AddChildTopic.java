@@ -54,16 +54,16 @@ public class AddChildTopic extends Page {
 
     public void assertParentTopicIsRequiredErrorMessage() {
         waitForAnyTextToAppear("The Parent Topic is required");
-        assertThat(errorMessageLink.getText(), is("The Parent Topic is required"));
+        errorMessageLink.shouldContainText("The Parent Topic is required");
     }
 
     public void assertDisplayNameIsRequiredErrorMessage() {
         waitForAnyTextToAppear("The Display Name is required");
-        assertThat(errorMessageLink.getText(), is("The Display Name is required"));
+        errorMessageLink.shouldContainText("The Display Name is required");
     }
 
     public void assertDuplicateTopicErrorMessage() {
         waitForAnyTextToAppear("A child topic with that name already exists");
-        assertThat(errorMessageContents.getText(), is("A child topic with that name already exists"));
+        errorMessageContents.shouldContainText("A child topic with that name already exists");
     }
 }

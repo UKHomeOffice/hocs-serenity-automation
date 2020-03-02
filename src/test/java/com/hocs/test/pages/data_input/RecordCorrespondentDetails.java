@@ -91,15 +91,15 @@ public class RecordCorrespondentDetails extends Page {
     }
 
     public void clickAdditionalCorrespondentYes() {
-        additionalCorrespondentYesRadioButton.click();
+        clickOn(additionalCorrespondentYesRadioButton);
     }
 
     public void selectAddACorrespondent() {
-        addACorrespondentButton.click();
+        clickOn(addACorrespondentButton);
     }
 
     public void selectNotMPRadioButton() {
-        correspondentNotMPRadioButton.click();
+        clickOn(correspondentNotMPRadioButton);
     }
 
     public void enterCorrespondentFullName(String fullName) {
@@ -149,7 +149,7 @@ public class RecordCorrespondentDetails extends Page {
     }
 
     public void addAMemberOfParliamentCorrespondent(String member) {
-        memberDropdownInitialize.click();
+        clickOn(memberDropdownInitialize);
         typeInto(memberDropdown, member);
         waitABit(500);
         memberDropdown.sendKeys(Keys.RETURN);

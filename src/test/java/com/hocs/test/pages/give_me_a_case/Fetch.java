@@ -333,10 +333,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedMINCaseMarkupStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Markup']").getText(),
-                                is("Markup"));
-                        assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
-                                + "response is required?"));
+                        $("//caption[text()='Markup']").shouldContainText("Markup");
+                        $("//span[text()='What sort of response is required?']").shouldContainText("What sort of "
+                                + "response is required?");
                         System.out.println("Markup is active stage - Continuing test");
                     } catch (org.openqa.selenium.NoSuchElementException e) {
                         System.out.println("Markup 'What sort of response is required?' element not found - Searching for a"
@@ -368,9 +367,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedTROCaseMarkupStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Markup']").getText(), is("Markup"));
-                        assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
-                                + "response is required?"));
+                        $("//caption[text()='Markup']").shouldContainText("Markup");
+                        $("//span[text()='What sort of response is required?']").shouldContainText("What sort of "
+                                + "response is required?");
                         System.out.println("Markup is active stage - Continuing test");
                     } catch (NoSuchElementException e) {
                         System.out.println("Markup case not found - Searching for a Data Input case");
@@ -401,10 +400,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedDTENCaseMarkupStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Markup']").getText(),
-                                is("Markup"));
-                        assertThat($("//span[text()='What sort of response is required?']").getText(), is("What sort of "
-                                + "response is required?"));
+                        $("//caption[text()='Markup']").shouldContainText("Markup");
+                        $("//span[text()='What sort of response is required?']").shouldContainText("What sort of "
+                                + "response is required?");
                         System.out.println("Markup is active stage - Continuing test");
                     } catch (NoSuchElementException e) {
                         System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
@@ -448,11 +446,9 @@ public class Fetch extends Page {
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             clickOn(workstacks.caseSummaryTab);
-                            assertThat($("//caption[text()='Initial Draft']").getText(),
-                                    is("Initial Draft"));
-                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                    is("Can this "
-                                            + "correspondence be answered by your team?"));
+                            $("//caption[text()='Initial Draft']").shouldContainText("Initial Draft");
+                            $("//span[text()='Can this correspondence be answered by your team?']").shouldContainText("Can this "
+                                            + "correspondence be answered by your team?");
                             System.out.println("Initial Draft is active stage - Continuing Test");
                         }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
@@ -490,10 +486,9 @@ public class Fetch extends Page {
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             clickOn(workstacks.caseSummaryTab);
-                            assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
-                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                    is("Can "
-                                            + "this correspondence be answered by your team?"));
+                            $("//caption[text()='Initial Draft']").shouldContainText("Initial Draft");
+                            $("//span[text()='Can this correspondence be answered by your team?']").shouldContainText("Can "
+                                            + "this correspondence be answered by your team?");
                             System.out.println("Initial Draft is active stage - Continuing Test");
                         }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
@@ -531,10 +526,9 @@ public class Fetch extends Page {
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             clickOn(workstacks.caseSummaryTab);
-                            assertThat($("//caption[text()='Initial Draft']").getText(), is("Initial Draft"));
-                            assertThat($("//span[text()='Can this correspondence be answered by your team?']").getText(),
-                                    is("Can this "
-                                            + "correspondence be answered by your team?"));
+                            $("//caption[text()='Initial Draft']").shouldContainText("Initial Draft");
+                            $("//span[text()='Can this correspondence be answered by your team?']").shouldContainText("Can this "
+                                            + "correspondence be answered by your team?");
                             System.out.println("Initial Draft is active stage - Continuing Test");
                         }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
@@ -575,10 +569,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedMINCaseQAResponseStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='QA Response']").getText(),
-                                is("QA Response"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
-                                + "response?"));
+                        $("//caption[text()='QA Response']").shouldContainText("QA Response");
+                        $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the "
+                                + "response?");
                         System.out.println("QA Response is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
@@ -611,9 +604,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedTROCaseQAResponse();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='QA Response']").getText(), is("QA Response"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
-                                + "response?"));
+                        $("//caption[text()='QA Response']").shouldContainText("QA Response");
+                        $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the "
+                                + "response?");
                         System.out.println("QA Response is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
@@ -646,10 +639,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedDTENCaseQAResponseStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='QA Response']").getText(),
-                                is("QA Response"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(), is("Do you approve the "
-                                + "response?"));
+                        $("//caption[text()='QA Response']").shouldContainText("QA Response");
+                        $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the "
+                                + "response?");
                         System.out.println("QA Response is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found = Searching for a"
@@ -693,10 +685,8 @@ public class Fetch extends Page {
                             getFirstUnallocatedPrivateOfficeCase(caseType);
                         } else {
                             clickOn(workstacks.caseSummaryTab);
-                            assertThat($("//caption[text()='Private Office Approval']").getText(),
-                                    is("Private Office Approval"));
-                            assertThat($("//span[text()='Do you approve the response?']").getText(),
-                                    is("Do you approve the response?"));
+                            $("//caption[text()='Private Office Approval']").shouldContainText("Private Office Approval");
+                            $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the response?");
                             System.out.println("Private Office Approval is active stage - Continuing Test");
                         }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
@@ -736,10 +726,8 @@ public class Fetch extends Page {
                             getFirstUnallocatedPrivateOfficeCase(caseType);
                         } else {
                             clickOn(workstacks.caseSummaryTab);
-                            assertThat($("//caption[text()='Private Office Approval']").getText(),
-                                    is("Private Office Approval"));
-                            assertThat($("//span[text()='Do you approve the response?']").getText(),
-                                    is("Do you approve the response?"));
+                            $("//caption[text()='Private Office Approval']").shouldContainText("Private Office Approval");
+                            $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the response?");
                             System.out.println("Private Office is active stage - Continuing Test");
                         }
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
@@ -780,9 +768,8 @@ public class Fetch extends Page {
                     getFirstUnallocatedMINCaseMinisterialSignOffStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Ministerial Sign off']").getText(), is("Ministerial Sign off"));
-                        assertThat($("//span[text()='Do you approve the response?']").getText(),
-                                is("Do you approve the response?"));
+                        $("//caption[text()='Ministerial Sign off']").shouldContainText("Ministerial Sign off");
+                        $("//span[text()='Do you approve the response?']").shouldContainText("Do you approve the response?");
                         System.out.println("Ministerial Sign Off is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Ministerial Sign Off case 'Do you approve the response?' element not found - "
@@ -825,9 +812,8 @@ public class Fetch extends Page {
                     getFirstUnallocatedMINCaseDispatchStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
-                        assertThat($("//label[text()='How do you intend to respond?']").getText(),
-                                is("How do you intend to respond?"));
+                        $("//caption[text()='Dispatch']").shouldContainText("Dispatch");
+                        $("//label[text()='How do you intend to respond?']").shouldContainText("How do you intend to respond?");
                         System.out.println("Dispatch is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
@@ -859,9 +845,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedTROCaseDispatchStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
-                        assertThat($("//label[text()='How do you intend to respond?']").getText(), is("How do you intend "
-                                + "to respond?"));
+                        $("//caption[text()='Dispatch']").shouldContainText("Dispatch");
+                        $("//label[text()='How do you intend to respond?']").shouldContainText("How do you intend "
+                                + "to respond?");
                         System.out.println("Dispatch is active stage - Continuing Test");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
@@ -894,10 +880,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedDTENCaseDispatchStage();
                     try {
                         clickOn(workstacks.caseSummaryTab);
-                        assertThat($("//caption[text()='Dispatch']").getText(), is("Dispatch"));
+                        $("//caption[text()='Dispatch']").shouldContainText("Dispatch");
                         System.out.println("Dispatch is active stage - Continuing Test");
-                        assertThat($("//span[text()='Are you able to dispatch this?']").getText(),
-                                is("Are you able to dispatch this?"));
+                        $("//span[text()='Are you able to dispatch this?']").shouldContainText("Are you able to dispatch this?");
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'Are you able to dispatch this?' element not found - Searching for a "
                                 + "fresh Dispatch case");

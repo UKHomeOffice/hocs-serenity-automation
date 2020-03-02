@@ -253,50 +253,43 @@ public class Draft extends Page {
     // Assertions
 
     public void assertEnterCallNotesError() {
-        assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(), is("Please summarise your call. is required"));
+        pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
     }
 
     public void assertEnterRejectionReasonsError() {
-        assertThat(shouldBeAnsweredErrorMessage.getText(), is("Why should this not be answered by your team? is required"));
+        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
     }
 
     public void assertCorrespondenceAnsweredErrorMessage() {
-        assertThat(correspondenceAnsweredErrorMessage.getText(),
-                is("Can this correspondence be answered by your team? is required"));
+        correspondenceAnsweredErrorMessage.shouldContainText("Can this correspondence be answered by your team? is required");
     }
 
     public void assertShouldBeAnsweredErrorMessage() {
-        assertThat(shouldBeAnsweredErrorMessage.getText(),
-                is("Why should this not be answered by your team? is required"));
+        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
     }
 
     public void assertHowDoYouIntendToRespondErrorMessage() {
-        assertThat(howDoYouIntendToRespondErrorMessage.getText(),
-                is("How do you intend to respond? is required"));
+       howDoYouIntendToRespondErrorMessage.shouldContainText("How do you intend to respond? is required");
     }
 
     public void assertPleaseSummariseYourCallErrorMessage() {
         try {
-            assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(),
-                    is("Please summarise your call. is required"));
+            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
         } catch (Exception e) {
             clickOn(continueButton);
-            assertThat(pleaseSummariseYourCallIsRequiredErrorMessage.getText(),
-                    is("Please summarise your call. is required"));
+            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
         }
     }
 
     public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
-        assertThat(whichIsThePrimaryDraftDocumentErrorMessage.getText(),
-                is("Which is the primary draft document? is required"));
+        whichIsThePrimaryDraftDocumentErrorMessage.shouldContainText("Which is the primary draft document? is required");
     }
 
     public void assertDoYouWantToQAThisOfflineErrorMessage() {
-        assertThat(doYouWantToQAThisOfflineErrorMessage.getText(), is("Do you want to QA this offline? is required"));
+        doYouWantToQAThisOfflineErrorMessage.shouldContainText("Do you want to QA this offline? is required");
     }
 
     public void assertWhoHasDoneOfflineQAErrorMessage() {
-        assertThat(whoHadDoneTheOfflineQAErrorMessage.getText(),
-                is("Who has done the Offline QA for this case? is required"));
+        whoHadDoneTheOfflineQAErrorMessage.shouldContainText("Who has done the Offline QA for this case? is required");
     }
 }

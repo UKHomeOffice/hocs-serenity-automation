@@ -71,10 +71,10 @@ public class Dispatch extends Page {
     //assertions
 
     public void assertAreYouAbleToDispatchErrorMessageIsShown() {
-        assertThat(areYouAbleToDispatchErrorMessage.getText(), is("Are you able to dispatch this? is required"));
+        areYouAbleToDispatchErrorMessage.shouldContainText("Are you able to dispatch this? is required");
     }
 
     public void assertWhyAreYouUnableToDispatchErrorMessageIsShown() {
-        assertThat(whyAreYouUnableToDispatchErrorMessage.getText(), is("Why are you unable to dispatch this? is required"));
+        whyAreYouUnableToDispatchErrorMessage.shouldContainText("Why are you unable to dispatch this? is required");
     }
 }

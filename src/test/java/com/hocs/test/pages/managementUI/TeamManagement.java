@@ -39,7 +39,7 @@ public class TeamManagement extends Page {
     public WebElementFacade errorMessage;
 
     public void assertTeamManagementPageTitle() {
-        assertThat(managementUIPageTitle.getText(), is("Team search"));
+        managementUIPageTitle.shouldContainText("Team search");
     }
 
     public void selectATeam(String teamName) {
@@ -79,7 +79,7 @@ public class TeamManagement extends Page {
     }
 
     public void assertTeamName() {
-        assertThat(teamNameHeader.getText(), is("Team: " + sessionVariableCalled("teamName")));
+        teamNameHeader.shouldContainText("Team: " + sessionVariableCalled("teamName"));
     }
 
     public void assertThatUserIsVisibleInTeamList() {
@@ -87,8 +87,8 @@ public class TeamManagement extends Page {
 
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
 
-        assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        assertThat(membersInTeamTable.getText(), containsText(Users.EAMON.getAllocationText()));
+        teamNameHeader.shouldContainText(nameOfTeamInHeader);
+        membersInTeamTable.shouldContainText(Users.EAMON.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {
@@ -108,7 +108,7 @@ public class TeamManagement extends Page {
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
         waitABit(500);
         String removedUser = sessionVariableCalled("userNameAndEmail").toString();
-        assertThat($("//body").getText(), containsText(removedUser), is(false));
+        $("//body").shouldNotContainText(removedUser);
     }
 
     public void assertThatTeamContainsNoUsers() {
@@ -118,21 +118,21 @@ public class TeamManagement extends Page {
 
     public void assertUserHasCasesErrorMessage() {
         waitForAnyTextToAppear("The user cannot be removed from the team as they have cases assigned");
-        assertThat(errorMessage.getText(), is("The user cannot be removed from the team as they have cases assigned"));
+        errorMessage.shouldContainText("The user cannot be removed from the team as they have cases assigned");
     }
 
     public void assertSelectATeamErrorMessage() {
         waitForAnyTextToAppear("Please select a team before submitting.");
-        assertThat(errorMessage.getText(), is("Please select a team before submitting."));
+        errorMessage.shouldContainText("Please select a team before submitting.");
     }
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.EAMON.getAllocationText()));
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.CASEY.getAllocationText()));
+        $("//table[@class='govuk-table']").shouldContainText(Users.EAMON.getAllocationText());
+        $("//table[@class='govuk-table']").shouldContainText(Users.CASEY.getAllocationText());
     }
 
     public void assertSelectSomeUsersErrorMessage() {
-        assertThat(errorMessage.getText(), is("Please select some users before submitting."));
+        errorMessage.shouldContainText("Please select some users before submitting.");
     }
 }

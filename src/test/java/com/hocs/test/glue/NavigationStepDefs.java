@@ -26,7 +26,7 @@ public class NavigationStepDefs extends Page {
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
-    @When("^I navigate to the \"([^\"]*)\" page$")
+    @When("I navigate to the {string} page")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":
@@ -97,23 +97,23 @@ public class NavigationStepDefs extends Page {
         }
     }
 
-    @Given("^I load the current case")
+    @Given("I load the current case")
     public void loadCase() {
         homepage.getCurrentCase();
     }
 
-    @Then("^I am returned to my home screen$")
+    @Then("I am returned to my home screen")
     public void returnedToHomeScreen() {
         homepage.assertElementIsDisplayed(homepage.createSingleCase);
     }
 
-    @When("^I get a \"([^\"]*)\" case at \"([^\"]*)\" stage$")
+    @When("I get a {string} case at {string} stage")
     public void getMeACase(String caseType, String stage) {
         fetch.giveMeACase(caseType, stage);
         getCaseId();
     }
 
-    @Then("^I am taken to the \"([^\"]*)\" page$")
+    @Then("I am taken to the {string} page")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
             case "CREATE SINGLE CASE":

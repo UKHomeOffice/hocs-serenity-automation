@@ -59,16 +59,16 @@ public class PrivateOffice extends Page {
     }
 
     public void assertDoYouApproveTheResponseErrorMessage() {
-        assertThat(doYouApproveTheResponseErrorMessage.getText(), is("Do you approve the response? is required"));
+        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
     }
 
     public void assertChangeMinisterErrorMessages() {
-        assertThat(overridePrivateOfficeTeamIsRequiredErrorMessage.getText(), is ("Override Private Office Team is required"));
-        assertThat(whyShouldThisBeApprovedErrorMessage.getText(), is("Why should this be approved by this team instead? is required"));
+        overridePrivateOfficeTeamIsRequiredErrorMessage.shouldContainText("Override Private Office Team is required");
+        whyShouldThisBeApprovedErrorMessage.shouldContainText("Why should this be approved by this team instead? is required");
     }
 
     public void assertWhatIsYourFeedbackResponse() {
-        assertThat(whatIsYourFeedbackResponseErrorMessage.getText(), is("What is your feedback about the response? is required"));
+        whatIsYourFeedbackResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 
     public void moveCaseFromPrivateOfficeToMinisterSignOff() {

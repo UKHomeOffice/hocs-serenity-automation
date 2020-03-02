@@ -68,7 +68,7 @@ public class Topics extends Page {
     }
 
     public void clickAddTopicButton() {
-        addTopicButton.click();
+        clickOn(addTopicButton);
     }
 
     public void enterTopic() {
@@ -76,7 +76,7 @@ public class Topics extends Page {
     }
 
     public void clickTopicsTextField() {
-        topicsTextField.click();
+        clickOn(topicsTextField);
     }
 
     public void hitReturnToSendTopic() {

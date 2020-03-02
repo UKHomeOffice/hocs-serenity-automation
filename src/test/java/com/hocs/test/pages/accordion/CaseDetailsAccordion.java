@@ -104,10 +104,10 @@ public class CaseDetailsAccordion extends PageObject {
 
         String memberOfParliamentName = sessionVariableCalled("memberOfParliamentName");
 
-        assertThat(whenWasTheCorrespondenceSent.getText(), containsText(correspondenceSentDate));
-        assertThat(howWasTheCorrespondenceReceived.getText(), containsText(correspondenceReceivedRadioButtonSelection));
-        assertThat(shouldTheResponseBeCopiedToNumber10.getText(), containsText(copiedToN10RadioButtonSelection));
-        assertThat(whichIsThePrimaryCorrespondent.getText(), containsText(memberOfParliamentName));
+        whenWasTheCorrespondenceSent.shouldContainText(correspondenceSentDate);
+        howWasTheCorrespondenceReceived.shouldContainText(correspondenceReceivedRadioButtonSelection);
+        shouldTheResponseBeCopiedToNumber10.shouldContainText(copiedToN10RadioButtonSelection);
+        whichIsThePrimaryCorrespondent.shouldContainText(memberOfParliamentName);
     }
 
     public void assertAccordionMarkupFields() {
@@ -116,10 +116,10 @@ public class CaseDetailsAccordion extends PageObject {
         String selectedDraftingTeamName = sessionVariableCalled("selectedDraftingTeamName");
         String selectedPrivateOfficeTeamName = sessionVariableCalled("selectedPrivateOfficeTeamName");
 
-        assertThat(whatSortOfResponseIsRequired.getText(), containsText(selectedWhatSortOfResponseRadioButton));
-        assertThat(whichIsThePrimaryTopic.getText(), containsText(selectedTopicName));
-        assertThat(initialDraftTeam.getText(), containsText(selectedDraftingTeamName));
-        assertThat(privateOfficeTeam.getText(), containsText(selectedPrivateOfficeTeamName));
+        whatSortOfResponseIsRequired.shouldContainText(selectedWhatSortOfResponseRadioButton);
+        whichIsThePrimaryTopic.shouldContainText(selectedTopicName);
+        initialDraftTeam.shouldContainText(selectedDraftingTeamName);
+        privateOfficeTeam.shouldContainText(selectedPrivateOfficeTeamName);
 
     }
 
@@ -129,45 +129,45 @@ public class CaseDetailsAccordion extends PageObject {
         String uploadedDocumentTitle = sessionVariableCalled("uploadedDocumentTitle");
         String selectedResponseToQAOfflineRadioButton = sessionVariableCalled("selectedResponseToQAOfflineRadioButton");
 
-        assertThat(canThisCorrespondenceBeAnsweredByYourTeam.getText(), containsText(selectedCanMyTeamAnswerRadioButton));
-        assertThat(howDoYouIntendToRespond.getText(), containsText(selectedTypeOfResponseRadioButton.toUpperCase()));
-        assertThat(whichIsThePrimaryDraftDocument.getText(), containsText(uploadedDocumentTitle));
-        assertThat(doYouWantToQAThisOffline.getText(), containsText(selectedResponseToQAOfflineRadioButton));
+        canThisCorrespondenceBeAnsweredByYourTeam.shouldContainText(selectedCanMyTeamAnswerRadioButton);
+        howDoYouIntendToRespond.shouldContainText(selectedTypeOfResponseRadioButton.toUpperCase());
+        whichIsThePrimaryDraftDocument.shouldContainText(uploadedDocumentTitle);
+        doYouWantToQAThisOffline.shouldContainText(selectedResponseToQAOfflineRadioButton);
     }
 
     public void assertAccordionQAResponseFields() {
         String chosenQAResponse = sessionVariableCalled("chosenQAResponse");
-        assertThat(doYouApproveTheResponse.getText(), containsText(chosenQAResponse));
+        doYouApproveTheResponse.shouldContainText(chosenQAResponse);
     }
 
     public void assertAccordionPrivateOfficeApprovalFields() {
         String privateOfficeAcceptanceDecision = sessionVariableCalled("privateOfficeAcceptanceDecision");
-        assertThat(doYouApproveTheResponse.getText(), containsText(privateOfficeAcceptanceDecision));
+        doYouApproveTheResponse.shouldContainText(privateOfficeAcceptanceDecision);
     }
 
     public void assertAccordionMinisterialSignOffFields() {
         String ministerialSignOffDecision = sessionVariableCalled("ministerialSignOffDecision");
-        assertThat(doYouApproveTheResponse.getText(), containsText(ministerialSignOffDecision));
+        doYouApproveTheResponse.shouldContainText(ministerialSignOffDecision);
     }
 
     public void assertAccordionDispatchFields() {
         String chosenResponseMethod = sessionVariableCalled("chosenResponseMethod");
         String dispatchAbleDecision = sessionVariableCalled("dispatchAbleDecision");
-        assertThat(howDoYouIntendToRespond.getText(), containsText(chosenResponseMethod));
-        assertThat(areYouAbleToDispatchThis.getText(), containsText(dispatchAbleDecision));
+        howDoYouIntendToRespond.shouldContainText(chosenResponseMethod);
+        areYouAbleToDispatchThis.shouldContainText(dispatchAbleDecision);
     }
 
     public void assertThePrimaryContactName(String fullName) {
         clickOn(dataInputAccordionButton);
-        assertThat(whichIsThePrimaryCorrespondent.getText(), containsText(fullName));
+        whichIsThePrimaryCorrespondent.shouldContainText(fullName);
     }
 
     public void assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange() {
         String chosenPOTeam = sessionVariableCalled("chosenPOTeam");
         String reasonForOverridePOTeam = sessionVariableCalled("reasonForOverridePOTeam");
 
-        assertThat(doYouApproveTheResponse.getText(), containsText("CHANGE"));
-        assertThat(OverridePrivateOfficeTeam.getText(), containsText(chosenPOTeam));
-        assertThat(whyShouldThisBeApprovedByThisTeamInstead.getText(), containsText(reasonForOverridePOTeam));
+        doYouApproveTheResponse.shouldContainText("CHANGE");
+        OverridePrivateOfficeTeam.shouldContainText(chosenPOTeam);
+        whyShouldThisBeApprovedByThisTeamInstead.shouldContainText(reasonForOverridePOTeam);
     }
 }

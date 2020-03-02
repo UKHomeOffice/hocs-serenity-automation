@@ -19,7 +19,7 @@ public class MinisterSignOffStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @When("^I complete the minister sign off stage$")
+    @When("I complete the minister sign off stage")
     public void completeTheMinisterSignOffStage(){
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -27,7 +27,7 @@ public class MinisterSignOffStepDefs extends Page {
         clickOn(minister.continueButton);
     }
 
-    @When("^I complete the minister sign off stage for \"([^\"]*)\"$")
+    @When("I complete the minister sign off stage for {string}")
     public void completeTheMinisterSignOffStagePerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN" :
@@ -46,12 +46,12 @@ public class MinisterSignOffStepDefs extends Page {
         }
     }
 
-    @Then("^an error message should be displayed as I have not selected a radio button on the approve response screen$")
+    @Then("an error message should be displayed as I have not selected a radio button on the approve response screen")
     public void assertThatApproveResponseErrorMessageIsShown() {
         minister.assertDoYouApproveTheResponseErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not entered feedback in the text box$")
+    @Then("an error message should be displayed as I have not entered feedback in the text box")
     public void assertThatFeedbackResponseMinisterSignOffErrorMessageIsShown() {
         minister.assertFeedbackResponseMinisterSignOffErrorMessage();
     }

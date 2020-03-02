@@ -28,7 +28,7 @@ public class LoginStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @Given("^I am user \"([^\"]*)\"")
+    @Given("I am user {string}")
     public void iLoginAs(String user) {
         loginPage.navigateToHocs();
         setSessionVariable("user").to(user);
@@ -60,7 +60,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("^I log in as the designated user$")
+    @Given("I log in as the designated user")
     public void iLogInAsTheDesignatedUser() {
         String user = System.getProperty("user");
 
@@ -99,7 +99,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("^that I have navigated to the Management UI as the user \"([^\"]*)\"$")
+    @Given("that I have navigated to the Management UI as the user {string}")
     public void iHaveNavigatedToTheManagementUI(String user) {
         loginPage.navigateToManagementUI();
         setSessionVariable("user").to(user);
@@ -131,7 +131,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("^that I have navigated to the Management UI as the designated user$")
+    @Given("that I have navigated to the Management UI as the designated user")
     public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
 
         String user = System.getProperty("user");
@@ -171,7 +171,7 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Given("^I am on the Home Office Correspondence Login Page")
+    @Given("I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
         loginPage.navigateToHocs();
     }
@@ -190,23 +190,23 @@ public class LoginStepDefs extends Page {
         loginPage.enterHocsPassword(user.getPassword());
     }
 
-    @When("^I enter invalid login credentials on the login screen$")
+    @When("I enter invalid login credentials on the login screen")
     public void enterInvalidLoginCredentials() {
         loginPage.enterHocsLoginDetails(FAKE);
         clickOn(homepage.continueButton);
     }
 
-    @Then("^an error message should be displayed as the credentials are invalid$")
+    @Then("an error message should be displayed as the credentials are invalid")
     public void assertThatInvalidCredentialsErrorMessageIsShown() {
         loginPage.assertLoginErrorMessage();
     }
 
-    @Then("^I should be taken to the homepage$")
+    @Then("I should be taken to the homepage")
     public void assertHomePage() {
         homepage.assertHomePageTitle();
     }
 
-    @When("^I logout as the initial user$")
+    @When("I logout as the initial user")
     public void selectLogoutButton() {
         clickOn(homepage.logoutButton);
     }
@@ -219,7 +219,7 @@ public class LoginStepDefs extends Page {
         clickOn(loginPage.continueButton);
     }
 
-    @And("^I am prompted to log in$")
+    @And("I am prompted to log in")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             clickOn(homepage.logoutButton);

@@ -92,13 +92,13 @@ public class Search extends Page {
     //Methods
 
     public void enterSearchCorrespondent(String correspondentNameQuery) {
-        searchCorrespondentTextbox.click();
+        clickOn(searchCorrespondentTextbox);
         typeInto(searchCorrespondentTextbox, correspondentNameQuery);
         setSessionVariable("correspondentNameQuery").to(correspondentNameQuery);
     }
 
     public void enterSearchTopic(String topicQuery) {
-        searchTopicTextbox.click();
+        clickOn(searchTopicTextbox);
         typeInto(searchTopicTextbox, topicQuery);
         setSessionVariable("topicQuery").to(topicQuery);
     }
@@ -122,7 +122,7 @@ public class Search extends Page {
 
     public void viewFirstSearchResultCaseSummary() {
         WebElementFacade firstSearchResult = findAll("//td//a").get(0);
-        firstSearchResult.click();
+        clickOn(firstSearchResult);
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             clickOn(workstacks.allocateToMeButton);
         }
@@ -137,7 +137,6 @@ public class Search extends Page {
     }
 
     private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
-
         goHome();
         homepage.enterCaseReferenceIntoSearchBar(caseRef);
         homepage.hitEnterCaseReferenceSearchBar();
@@ -186,11 +185,11 @@ public class Search extends Page {
 
     public void assertThatSearchedTopicNameIsShownInCaseSummary() {
         String topicNameInSummary = sessionVariableCalled("topicQuery").toString();
-        assertThat(workstacks.primaryTopicName.getText(), is(topicNameInSummary));
+        workstacks.primaryTopicName.shouldContainText(topicNameInSummary);
     }
 
     public void assertNoSearchCriteriaErrorMessage() {
-        assertThat(noSearchCriteriaErrorMessage.getText(), is("No search criteria specified"));
+        noSearchCriteriaErrorMessage.shouldContainText("No search criteria specified");
     }
 
     public void assertExpectedTablesHeadersPresent() {

@@ -191,7 +191,7 @@ public class Page extends PageObject {
     }
 
     public void clickAcceptButton() {
-        acceptButton.click();
+        clickOn(acceptButton);
     }
 
     public void clickAddButton() {
@@ -199,56 +199,52 @@ public class Page extends PageObject {
     }
 
     public void clickBackButton() {
-        backButton.click();
+        clickOn(backButton);
     }
 
     public void clickContinueButton() {
-        continueButton.click();
-    }
-
-    public void waitForContinueButton() {
         waitFor(continueButton).waitUntilClickable();
-        continueButton.click();
+        clickOn(continueButton);
     }
 
     public void clickDeleteLink() {
-        deleteLink.click();
+        clickOn(deleteLink);
     }
 
     public void goHome() {
-        home.click();
+        clickOn(home);
     }
 
     public void clickFinishButton() {
-        finishButton.click();
+        clickOn(finishButton);
     }
 
     public void clickNextButton() {
-        nextButton.click();
+        clickOn(nextButton);
     }
 
     public void clickNewLink() {
-        newLink.click();
+        clickOn(newLink);
     }
 
     public void clickRejectButton() {
-        rejectButton.click();
+        clickOn(rejectButton);
     }
 
     public void clickSearchButton() {
-        searchButton.click();
+        clickOn(searchButton);
     }
 
     public void clickSubmitButton() {
-        submitButton.click();
+        clickOn(submitButton);
     }
 
     public void clickUpdateLink() {
-        updateLink.click();
+        clickOn(updateLink);
     }
 
     public void clickViewLink() {
-        viewLink.click();
+        clickOn(viewLink);
     }
 
     //This returns date as 01-JAN-18, only needed for searching in Oracle DB
@@ -446,7 +442,7 @@ public class Page extends PageObject {
     }
 
     public void lookupTerms() {
-        lookupButton.click();
+        clickOn(lookupButton);
     }
 
     public void modifyHeadersAndNavigateTo(String page) {
