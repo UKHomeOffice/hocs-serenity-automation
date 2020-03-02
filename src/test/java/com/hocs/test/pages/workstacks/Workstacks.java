@@ -364,9 +364,7 @@ public class Workstacks extends Page {
     }
 
     public void assertAssignedUser(Users user) {
-        String caseOne = getAllocatedUserFromWorkstacksTable();
-        String caseTwo = user.getUsername();
-        waitABit(500);
+       waitABit(500);
         assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
     }
 
@@ -380,7 +378,7 @@ public class Workstacks extends Page {
 
         WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
 
-        waitABit(750);
+        waitABit(500);
         assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
         assertThat(caseOwnerOne.getText().equals(user.getUsername()), is(true));
         assertThat(caseOwnerTwo.getText().equals(user.getUsername()), is(true));
@@ -396,7 +394,7 @@ public class Workstacks extends Page {
 
         WebElement caseOwnerThree = getDriver().findElement(By.cssSelector("tr:nth-child(" + (totalCaseNumber) + ") > td:nth-child(4)"));
 
-        waitABit(750);
+        waitABit(500);
         assertThat(caseOwnerOne.getText().equals(""), is(true));
         assertThat(caseOwnerOne.getText().equals(""), is(true));
         assertThat(caseOwnerTwo.getText().equals(""), is(true));

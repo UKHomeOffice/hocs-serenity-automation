@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.base_page.Page;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -133,7 +134,7 @@ public class Documents extends Page {
     }
 
     public void addADraftDocumentAtDraftStage() {
-        availableStandardLineHeader.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
+        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocxDocument();
@@ -234,6 +235,6 @@ public class Documents extends Page {
 
     public void waitForFileToUpload() {
         pendingTag.waitUntilVisible();
-        pendingTag.withTimeoutOf(20, TimeUnit.SECONDS).waitUntilNotVisible();
+        pendingTag.withTimeoutOf(Duration.ofSeconds(20)).waitUntilNotVisible();
     }
 }

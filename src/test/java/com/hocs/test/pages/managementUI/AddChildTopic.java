@@ -50,6 +50,7 @@ public class AddChildTopic extends Page {
         String childTopic = "CHILD " + formatter.format(LocalDateTime.now());
         setSessionVariable("newChildTopic").to(childTopic);
         inputAChildTopicDisplayName(childTopic);
+        waitABit(1000);
     }
 
     public void assertParentTopicIsRequiredErrorMessage() {
