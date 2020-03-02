@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.base_page.Page;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -41,49 +42,16 @@ public class Documents extends Page {
     @FindBy(css = "[value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(xpath = "//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), 'PENDING')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
+
+    @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
+    public WebElementFacade uploadedTag;
 
     //Simple methods
 
     public void selectDocumentTypeByIndex(int index) {
         documentTypeDropDown.selectByIndex(index);
-    }
-
-    public void uploadDocxDocument() {
-        upload("src/test/resources/documents/test.docx").to(addDocument);
-    }
-
-    public void uploadDOCXDocument() {
-        upload("src/test/resources/documents/testDOCX.DOCX").to(addDocument);
-    }
-
-    public void uploadTxtDocument() {
-        upload("src/test/resources/documents/test.txt").to(addDocument);
-    }
-
-    public void uploadTXTDocument() {
-        upload("src/test/resources/documents/testTXT.TXT").to(addDocument);
-    }
-
-    public void uploadPdfDocument() {
-        upload("src/test/resources/documents/test.pdf").to(addDocument);
-    }
-
-    public void uploadPDFDocument() {
-        upload("src/test/resources/documents/testPDF.PDF").to(addDocument);
-    }
-
-    public void uploadXlsxDocument() {
-        upload("src/test/resources/documents/test.xlsx").to(addDocument);
-    }
-
-    public void uploadXLSXDocument() {
-        upload("src/test/resources/documents/testXLSX.XLSX").to(addDocument);
-    }
-
-    public void uploadCsvDocument() {
-        upload("src/test/resources/documents/test.csv").to(addDocument);
     }
 
     public void upload51MBDocument() {
@@ -94,13 +62,10 @@ public class Documents extends Page {
         upload("src/test/resources/documents/5MB.docx").to(addDocument);
     }
 
-    public void uploadTiffDocument() {
-        upload("src/test/resources/documents/test.tiff").to(addDocument);
+    public void uploadDocumentOfType(String type) {
+        upload("src/test/resources/documents/test." + type).to(addDocument);
     }
 
-    public void uploadTIFFDocument() {
-        upload("src/test/resources/documents/testTIFF.TIFF").to(addDocument);
-    }
 
     //Multi-step methods
 
@@ -128,7 +93,7 @@ public class Documents extends Page {
     public void addAOriginalDocument() {
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(1);
-        uploadDocxDocument();
+        uploadDocumentOfType("docx");
         clickOn(addButton);
     }
 
@@ -136,14 +101,14 @@ public class Documents extends Page {
         availableStandardLineHeader.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
-        uploadDocxDocument();
+        uploadDocumentOfType("docx");
         clickOn(addButton);
     }
 
     public void addAFinalDocument() {
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(3);
-        uploadDocxDocument();
+        uploadDocumentOfType("docx");
         clickOn(addButton);
     }
 
@@ -221,9 +186,8 @@ public class Documents extends Page {
     }
 
     public void assertDocumentIsUnderHeader(String header) {
-        pendingTag.waitUntilVisible();
         WebElementFacade documentUnderHeader =
-                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//strong[text()='PENDING']");
+                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//strong[text()='UPLOADED']");
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
@@ -233,7 +197,6 @@ public class Documents extends Page {
     }
 
     public void waitForFileToUpload() {
-        pendingTag.waitUntilVisible();
-        pendingTag.withTimeoutOf(20, TimeUnit.SECONDS).waitUntilNotVisible();
+        uploadedTag.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 }
