@@ -6,7 +6,7 @@ Feature: HOCS Topics are assigned to the correct Team
   @Topics
   Scenario Outline: Topics are assigned to the correct team
     When I create a single case "DCU MIN"
-    And the Data Input Stage is completed for "DCU MIN" caseType
+    And I complete the Data Input Stage for "DCU MIN" case type
     And I assign the Topic "<Topic>"
     Then the case should be assigned to the "<draftingTeam>" for drafting
     And the case should be assigned to the "<privateOfficeTeam>" for approval

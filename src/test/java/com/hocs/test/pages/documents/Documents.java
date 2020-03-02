@@ -98,7 +98,7 @@ public class Documents extends Page {
     }
 
     public void addADraftDocumentAtDraftStage() {
-        availableStandardLineHeader.withTimeoutOf(1, TimeUnit.MINUTES).waitUntilVisible();
+        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
         clickOn(addDocumentsButton);
         selectDocumentTypeByIndex(2);
         uploadDocumentOfType("docx");
