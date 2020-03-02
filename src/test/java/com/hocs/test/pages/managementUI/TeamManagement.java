@@ -57,11 +57,10 @@ public class TeamManagement extends Page {
         clickOn(viewTeamButton);
     }
 
-    public void selectAUser(String nameOfUser) {
+    public void selectAUser(Users user) {
         clickOn(addTeamMembersButton);
-        userSearchBar.sendKeys(nameOfUser);
-        setSessionVariable("nameOfUser").to(nameOfUser);
-        waitABit(4000);
+        userSearchBar.sendKeys(user.getAllocationText());
+        waitABit(6000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
         waitABit(2000);
@@ -87,10 +86,9 @@ public class TeamManagement extends Page {
         WebElementFacade membersInTeamTable = findAll("(//tr[@class='govuk-table__row'])[2]").get(0);
 
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-        String nameOfNewUser = sessionVariableCalled("nameOfUser").toString();
 
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        assertThat(membersInTeamTable.getText(), containsText(nameOfNewUser));
+        assertThat(membersInTeamTable.getText(), containsText(Users.EAMON.getAllocationText()));
     }
 
     public void removeFirstUserInListAndStoreName() {
@@ -124,16 +122,14 @@ public class TeamManagement extends Page {
     }
 
     public void assertSelectATeamErrorMessage() {
+        waitForAnyTextToAppear("Please select a team before submitting.");
         assertThat(errorMessage.getText(), is("Please select a team before submitting."));
     }
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        String firstAddedUser = Users.EAMON.getUsername();
-        String secondAddedUser = Users.CASEY.getUsername();
-
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(firstAddedUser));
-        assertThat($("//table[@class='govuk-table']").getText(), containsText(secondAddedUser));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.EAMON.getAllocationText()));
+        assertThat($("//table[@class='govuk-table']").getText(), containsText(Users.CASEY.getAllocationText()));
     }
 
     public void assertSelectSomeUsersErrorMessage() {

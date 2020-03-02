@@ -27,6 +27,9 @@ public class Topics extends Page {
     @FindBy(xpath = "//li[1]/p[2]")
     public WebElementFacade topicInTimeline;
 
+    @FindBy(css = "table:nth-child(3) > tbody > tr:nth-child(3) > td")
+    public WebElementFacade primaryTopicInSummary;
+
     @FindBy(css = "[id^=react-select")
     private WebElementFacade topicsTextField;
 
@@ -165,12 +168,12 @@ public class Topics extends Page {
     }
 
     public void assertTopicsAssigned() {
-        workstacks.selectTimeLineTab();
+        workstacks.selectSummaryTab();
         waitABit(2000);
         String testTopic = sessionVariableCalled("topic").toString();
-        String thisTopic = topicInTimeline.getText().toUpperCase();
+        String thisTopic = primaryTopicInSummary.getText().toUpperCase();
         System.out.println(thisTopic);
-        assertThat(thisTopic, is("NAME: " + testTopic));
+        assertThat(thisTopic.equals(testTopic), is(true));
     }
 
 }

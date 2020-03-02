@@ -30,7 +30,7 @@ public class WorkstacksStepDefs extends Page {
 
     @Given("^I allocate the case to myself$")
     public void allocateCaseToMyself() {
-        clickOn(workstacks.allocateSelectedToMe);
+        clickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @When("^I unallocate the case from myself$")
@@ -41,7 +41,7 @@ public class WorkstacksStepDefs extends Page {
     @When("^I select the check box against the case and allocate it to myself$")
     public void allocateCaseUsingCheckbox() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        clickOn(workstacks.allocateSelectedToMe);
+        clickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @Then("^the case should be added to my workstack$")

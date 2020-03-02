@@ -107,7 +107,7 @@ public class ManagementUIStepDefs extends Page {
     public void addUserToSelectedTeam(Users user) {
         waitABit(500);
         teamManagement.assertTeamName();
-        teamManagement.selectAUser(user.getUsername());
+        teamManagement.selectAUser(user);
     }
 
     @Then("^the user should be visible in the team list$")
@@ -160,8 +160,10 @@ public class ManagementUIStepDefs extends Page {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        teamManagement.selectAUser(firstUser.getUsername());
-        teamManagement.selectAUser(secondUser.getUsername());
+        setSessionVariable("firstUser").to(firstUser);
+        teamManagement.selectAUser(Users.EAMON);
+        setSessionVariable("secondUser").to(secondUser);
+        teamManagement.selectAUser(Users.CASEY);
     }
 
     @Then("^the users should be visible in the team list$")
@@ -363,7 +365,6 @@ public class ManagementUIStepDefs extends Page {
 
     @Then("^an error message should be displayed stating that topic already exists$")
     public void anErrorMessageShouldBeDisplayedStatingThatTopicAlreadyExists() {
-        waitABit(1500);
         addChildTopic.assertDuplicateTopicErrorMessage();
     }
 
