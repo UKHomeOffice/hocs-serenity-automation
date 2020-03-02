@@ -64,50 +64,15 @@ public class DocumentsStepDefs extends Page {
         }
     }
 
-    @And("^I upload a file of type \"([^\"]*)\"$")
+    @And("I upload a file of type {string}")
     public void iUploadAFileOfType(String fileType) {
-        switch (fileType) {
-            case "docx":
-                documents.uploadDocxDocument();
-                break;
-            case "DOCX":
-                documents.uploadDOCXDocument();
-                break;
-            case "txt":
-                documents.uploadTxtDocument();
-                break;
-            case "TXT":
-                documents.uploadTXTDocument();
-                break;
-            case "pdf":
-                documents.uploadPdfDocument();
-                break;
-            case "PDF":
-                documents.uploadPDFDocument();
-                break;
-            case "xlsx":
-                documents.uploadXlsxDocument();
-                break;
-            case "XLSX":
-                documents.uploadXLSXDocument();
-                break;
-            case "csv":
-                documents.uploadCsvDocument();
-                break;
-            case "tiff":
-                documents.uploadTiffDocument();
-                break;
-            case "TIFF":
-                documents.uploadTIFFDocument();
-                break;
-            default:
-                pendingStep(fileType + " is not defined within " + getMethodName());
-        }
+        documents.uploadDocumentOfType(fileType);
         clickAddButton();
     }
 
     @Then("^I can see the \"([^\"]*)\" file in the uploaded document list$")
     public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
+        documents.waitForFileToUpload();
         documents.assertFileIsVisible(fileType);
     }
 
@@ -137,12 +102,12 @@ public class DocumentsStepDefs extends Page {
     }
 
     @And("^I select a file that is (\\d+)MB in size$")
-    public void iSelectAFileThatIsLargerThanMB(String fileSize) {
-        switch (fileSize.toUpperCase()) {
-            case "51":
+    public void iSelectAFileThatIsLargerThanMB(int fileSize) {
+        switch (fileSize)  {
+            case 51:
                 documents.upload51MBDocument();
                 break;
-            case "5":
+            case 5:
                 documents.upload5MBDocument();
                 break;
             default:
@@ -160,17 +125,17 @@ public class DocumentsStepDefs extends Page {
     public void iUploadADocxAndATxtFile() {
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
-        documents.uploadDocxDocument();
+        documents.uploadDocumentOfType("docx");
         genericInputStepDefs.clickTheButton("add");
         documents.waitForFileToUpload();
         iClickManageDocuments();
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
-        documents.uploadTxtDocument();
+        documents.uploadDocumentOfType("txt");
         genericInputStepDefs.clickTheButton("add");
     }
 
-    @Then("^the \"([^\"]*)\" document should be displayed in the preview pane$")
+    @Then("^the \"([^\"]*)\" document should be select to be displayed in the preview pane$")
     public void theFileShouldBeDisplayedInThePreviewPane(String fileIdentifier) {
         documents.assertDocumentIsDisplayedInPreviewPane(fileIdentifier);
     }
@@ -201,6 +166,7 @@ public class DocumentsStepDefs extends Page {
 
     @Then("^the document should be under the \"([^\"]*)\" header$")
     public void theDocumentShouldBeUnderTheHeader(String header) {
+        documents.waitForFileToUpload();
         documents.assertDocumentIsUnderHeader(header.toUpperCase());
     }
 }

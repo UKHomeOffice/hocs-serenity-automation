@@ -177,7 +177,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuMinRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocxDocument();
+        addDocuments.uploadDocumentOfType("docx");
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -186,7 +186,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuDtenRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocxDocument();
+        addDocuments.uploadDocumentOfType("docx");
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -195,7 +195,7 @@ public class CreateCase extends Page {
         clickOn(homepage.createSingleCase);
         clickOn(dcuTroRadioButton);
         clickOn(nextButton);
-        addDocuments.uploadDocxDocument();
+        addDocuments.uploadDocumentOfType("docx");
         clickOn(submitButton);
         successfulCaseCreation.getCaseReference();
     }
@@ -214,7 +214,7 @@ public class CreateCase extends Page {
 
     public void completeSingleCaseCreation() {
         clickOn(nextButton);
-        addDocuments.uploadDocxDocument();
+        addDocuments.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDay();
         storeCorrespondenceReceivedMonth();
         storeCorrespondenceReceivedYear();
