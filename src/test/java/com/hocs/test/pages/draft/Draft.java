@@ -11,6 +11,7 @@ import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.workstacks.Workstacks;
 import config.Users;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -129,7 +130,7 @@ public class Draft extends Page {
             clickOn(continueButton);
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
-            addDocuments.addDocumentsButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+            addDocuments.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
         }
     }
 
@@ -138,7 +139,7 @@ public class Draft extends Page {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
             addDocuments.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             waitABit(500);
         } else {
             clickOn(answeredByMyTeamYesRadioButton);
@@ -146,7 +147,7 @@ public class Draft extends Page {
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
             addDocuments.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             waitABit(500);
         }
     }
@@ -157,7 +158,7 @@ public class Draft extends Page {
             clickOn(answeredByMyTeamYesRadioButton);
             clickOn(continueButton);
             addDocuments.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
             clickOn(finishButton);
@@ -167,7 +168,7 @@ public class Draft extends Page {
             clickOn(letterReplyRadioButton);
             clickOn(continueButton);
             addDocuments.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             clickOn(qa.offlineQaYesRadioButton);
             clickOn(continueButton);
             clickOn(finishButton);
@@ -243,7 +244,7 @@ public class Draft extends Page {
         clickOn(continueButton);
         addDocuments.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test.docx");
-        continueButton.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+        continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
         clickOn(qa.offlineQaNoRadioButton);
         String responseToQAOfflineRadioButton = qa.offlineQaNoRadioButton.getAttribute("for").substring(10);
         setSessionVariable("selectedResponseToQAOfflineRadioButton").to(responseToQAOfflineRadioButton);

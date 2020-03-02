@@ -180,8 +180,10 @@ public class LoginStepDefs extends Page {
     @When("^I enter the login credentials for user \"([^\"]*)\" and click the login button$")
     public void enterCredentialsAndClickLogin(Users user) {
         setSessionVariable("user").to(user);
+
         loginPage.enterHocsUsername(user.getUsername());
         loginPage.enterHocsPassword(user.getPassword());
+
         clickOn(loginPage.continueButton);
     }
 

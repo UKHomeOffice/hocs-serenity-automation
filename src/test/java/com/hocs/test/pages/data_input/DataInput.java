@@ -432,6 +432,12 @@ public class DataInput extends Page {
         clickOn(finishButton);
     }
 
+    public void completeDataInputStageWithMPCorrespondent(String correspondent) {
+        getToAddMemberOfParliamentPrerequisites();
+        recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(correspondent);
+        clickOn(finishButton);
+    }
+
     public void completeDataInputStageAndStoreEnteredInformation() {
         enterDayOfCorrespondenceSent(getCurrentDay());
         String currentDay = dateCorrespondenceSentDayField.getValue();

@@ -369,7 +369,7 @@ public class Workstacks extends Page {
 
         WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
 
-        waitABit(750);
+        waitABit(500);
         caseOwnerOne.shouldContainText(user.getUsername());
         caseOwnerTwo.shouldContainText(user.getUsername());
         caseOwnerThree.shouldContainText(user.getUsername());
@@ -383,7 +383,7 @@ public class Workstacks extends Page {
 
         WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
 
-        waitABit(750);
+        waitABit(500);
         caseOwnerOne.shouldContainText("");
         caseOwnerTwo.shouldContainText("");
         caseOwnerThree.shouldContainText("");
