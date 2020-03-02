@@ -26,44 +26,48 @@ Feature: Search should be available for all users of the application
 
   @Search @SearchByCaseType @SmokeTests
   Scenario Outline: User should be able to search for a case by Case Type
+    And I create a single "<caseType>" case
     And I navigate to the "search" page
     When I search by the case type "<caseType>"
-    Then only the chosen "<caseType>" case type results should be displayed in the results list
+    Then only DCU "<caseType>" results should be displayed in the results list
     Examples:
       | caseType |
-      | Min      |
+      | MIN      |
       | TRO      |
       | DTEN     |
 
   @Search @SearchByCaseType
   Scenario: User should be able to click on the case link when cases are displayed in the results list
+    And I create a single "MIN" case
     And I navigate to the "search" page
-    When I search by the case type "Min"
+    When I search by the case type "MIN"
     And I click the case reference link of the first case in the results list
     Then I should be taken directly to the case
 
   @Search @SearchByCaseType
   Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by Case Type
+    And I create a single "MIN" case
     And I navigate to the "search" page
-    When I search by the case type "Min"
+    When I search by the case type "MIN"
     Then the search results should contain the expected information
 
   @Search @SearchByCaseType @SearchByTopic
   Scenario: User should be able to search by multiple parameters
-    And I search by the case type "MIN" and another parameter "KITTENS TOPIC"
-    Then cases that are "MIN" case type that also contain another parameter "KITTENS TOPIC" should be displayed in the results list
+    And I create a "MIN" case with "Cardiff University Kittens" as the primary topic
+    And I search by the case type "MIN" and another parameter "Cardiff University Kittens Topic"
+    Then cases that are "MIN" case type that also contain another parameter "Cardiff University Kittens Topic" should be displayed in the results list
 
   @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
     And I navigate to the "search" page
-    When I search for cases received on or after "01"/"11"/"2019"
-    Then cases received on or "after" "01/11/2019" should be displayed
+    When I search for cases received on or after "03"/"02"/"2019"
+    Then cases received on or "after" "03/02/2019" should be displayed
 
   @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or before a certain date
     And I navigate to the "search" page
-    When I search for cases received on or before "01"/"11"/"2019"
-    Then cases received on or "before" "01/11/2019" should be displayed
+    When I search for cases received on or before "03"/"02"/"2019"
+    Then cases received on or "before" "03/02/2019" should be displayed
 
   @Search @SearchByDateReceived
   Scenario: No cases should be displayed if a user searches for a date range that contains no cases
@@ -73,8 +77,9 @@ Feature: Search should be available for all users of the application
 
   @Search @SearchByCorrespondent @SmokeTests
   Scenario: User should be able to search by correspondent by entering their name
+    And I create a "MIN" case with "Nicola Sturgeon" as the correspondent
     And I navigate to the "search" page
-    When I search by the correspondent name "NICOLA"
+    When I search by the correspondent name "Nicola Sturgeon"
     Then cases with the queried correspondent name should be displayed in the results list
 
   @Search @SearchByCorrespondent
@@ -114,6 +119,7 @@ Feature: Search should be available for all users of the application
 
   @Search @SearchBySignOffTeam @SmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
+    And I create a "MIN" case with "Cardiff University Kittens" as the primary topic
     And I navigate to the "search" page
     When I search by the Sign-off Team "Minister for Lords"
     Then cases with the queried Sign-off Team should be displayed in the results list
