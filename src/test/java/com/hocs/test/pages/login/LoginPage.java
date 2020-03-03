@@ -91,6 +91,6 @@ public class LoginPage extends Page {
     // Assertions
 
     public void assertLoginErrorMessage() {
-        assertThat(invalidUsernameOrPasswordErrorMessage.getText(), is("Invalid username or password."));
+        invalidUsernameOrPasswordErrorMessage.shouldContainText("Invalid username or password.");
     }
 }

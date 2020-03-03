@@ -61,7 +61,7 @@ public class TimelineTab extends Page {
     }
 
     public void assertTopNoteContainsEnteredText(String text) {
-        assertThat(topNoteContents.getText().equals(text), is(true));
+        topNoteContents.shouldContainText(text);
     }
 
     public void assertCaseNoteAtTopOfTimeline() {
@@ -73,11 +73,11 @@ public class TimelineTab extends Page {
     }
 
     public void assertTopNoteSignatureContainsCreator(Users user) {
-        assertThat((topNoteSignature.getText().contains(user.getUsername())), is(true));
+        topNoteSignature.shouldContainText(user.getUsername());
     }
 
     public void assertCaseNoteMustNotBeBlankErrorMessage() {
-        assertThat(caseNoteMustNotBeBlankErrorMessage.getText(), is("Case note must not be blank"));
+        caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
     public void assertAllocationLogVisible(Users user, String stage) {
@@ -125,6 +125,6 @@ public class TimelineTab extends Page {
     }
 
     public void assertSecondNoteContainsEnteredText(String text) {
-        assertThat(secondNoteContents.getText().equals(text), is(true));
+        secondNoteContents.shouldContainText(text);
     }
 }

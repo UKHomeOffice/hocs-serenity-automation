@@ -97,12 +97,11 @@ public class QAResponse extends Page{
     //Assertions
 
     public void assertQADoYouApproveErrorMessage() {
-        assertThat(QADoYouApproveTheReponseErrorMessage.getText(), is("Do you approve the response? is required"));
+        QADoYouApproveTheReponseErrorMessage.shouldContainText("Do you approve the response? is required");
     }
 
     public void assertQAWhatIsYourFeedbackErrorMessage() {
-        assertThat(QAWhatIsYourFeedbackAboutTheResponseErrorMessage.getText(),
-                is("What is your feedback about the response? is required"));
+        QAWhatIsYourFeedbackAboutTheResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 
 }

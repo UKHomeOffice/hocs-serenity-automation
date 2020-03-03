@@ -28,29 +28,29 @@ public class WorkstacksStepDefs extends Page {
 
     SuccessfulCaseCreation successfulCaseCreation;
 
-    @Given("^I allocate the case to myself$")
+    @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
         clickOn(workstacks.allocateSelectedToMeButton);
     }
 
-    @When("^I unallocate the case from myself$")
+    @When("I unallocate the case from myself")
     public void unallocateCase() {
         clickOn(workstacks.unallocateButton);
     }
 
-    @When("^I select the check box against the case and allocate it to myself$")
+    @When("I select the check box against the case and allocate it to myself")
     public void allocateCaseUsingCheckbox() {
         workstacks.clickCheckboxRelevantToCaseReference();
         clickOn(workstacks.allocateSelectedToMeButton);
     }
 
-    @Then("^the case should be added to my workstack$")
+    @Then("the case should be added to my workstack")
     public void assertThatCaseHasBeenAddedToMyWorkstack() {
         clickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
-    @When("^I enter the Case Reference type \"([^\"]*)\" into the filter$")
+    @When("I enter the Case Reference type {string} into the filter")
     public void enterCaseReferenceType(String caseReferenceType) {
         clickOn(workstacks.selectWorkstackFilter);
         switch (caseReferenceType.toUpperCase()) {
@@ -68,12 +68,12 @@ public class WorkstacksStepDefs extends Page {
         }
     }
 
-    @Then("^the cases should be filtered by the \"([^\"]*)\" Case Reference$")
+    @Then("the cases should be filtered by the {string} Case Reference")
     public void assertCasesAreFilteredByCaseReference(String caseReference) {
         workstacks.assertCasesAreFilteredByRef(caseReference);
     }
 
-    @When("^I click the \"([^\"]*)\" case type filter card$")
+    @When("I click the {string} case type filter card")
     public void clickCaseTypeFilterCard(String caseTypeCard) {
         clickOn(homepage.performanceProcessTeam);
         switch (caseTypeCard.toUpperCase()) {
@@ -91,34 +91,34 @@ public class WorkstacksStepDefs extends Page {
         }
     }
 
-    @Then("^the cases should be filtered by the \"([^\"]*)\" Current Stage")
+    @Then("the cases should be filtered by the {string} Current Stage")
     public void assertCasesAreFilteredByCurrentStage(String currentStage) {
         workstacks.assertCasesAreFilteredByStage(currentStage);
     }
 
-    @When("^I enter the current stage \"([^\"]*)\" into the filter$")
+    @When("I enter the current stage {string} into the filter")
     public void enterCurrentStage(String currentStage) {
         clickOn(workstacks.selectWorkstackFilter);
         typeInto(workstacks.selectWorkstackFilter, currentStage.toUpperCase());
     }
 
-    @Then("^all cases should be allocated to the user \"([^\"]*)\"$")
+    @Then("all cases should be allocated to the user {string}")
     public void assertAllCasesAssignedToAllocatedUser(Users user) {
         workstacks.assertAllAllocatedUsersAre(user);
     }
 
-    @And("^I select a case and unallocate it from myself$")
+    @And("I select a case and unallocate it from myself")
     public void iSelectACaseAndUnallocateItFromMyself() {
         workstacks.clickCheckboxRelevantToCaseReference();
         clickOn(workstacks.unallocateButton);
     }
 
-    @And("^I filter the workstack using the current cases reference$")
+    @And("I filter the workstack using the current cases reference")
     public void iFilterTheWorkstackUsingTheCurrentCasesReference() {
         workstacks.filterByCurrentCaseReference();
     }
 
-    @And("^I create a new case and view it in the Performance and Process team workstack$")
+    @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createDCUMinSingleCase();
         homepage.goHome();
@@ -126,7 +126,7 @@ public class WorkstacksStepDefs extends Page {
         workstacks.filterByCurrentCaseReference();
     }
 
-    @Then("^the case should be allocated to me$")
+    @Then("the case should be allocated to me")
     public void theCaseShouldBeAllocatedToMe() {
         workstacks.assertOwnerIs(Users.EAMON);
     }
@@ -188,19 +188,19 @@ public class WorkstacksStepDefs extends Page {
         workstacks.unallocateThreeCasesFromSelectedUser(user);
     }
 
-    @Then("^I then check whether the correct cases have been unallocated$")
+    @Then("I then check whether the correct cases have been unallocated")
     public void checkWhetherCorrectCasesUnallocated() {
         workstacks.assertThatThreeCasesHaveBeenUnassigned();
     }
 
-    @When("^I assign this case to me, and check if it has been correctly allocated$")
+    @When("I assign this case to me, and check if it has been correctly allocated")
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
         workstacks.assertCaseIsAssignedToMe();
     }
 
-    @Then("^I view this \"([^\"]*)\" case in it's respective Performance and Process workstack$")
+    @Then("I view this {string} case in it's respective Performance and Process workstack")
     public void iViewThisCaseInItSRespectiveWorkstack(String caseType) {
         homepage.selectPerformanceProcessTeam();
         switch (caseType.toUpperCase()) {

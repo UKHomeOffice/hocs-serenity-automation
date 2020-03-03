@@ -26,7 +26,7 @@ public class DraftResponseStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @When("^I complete the Initial Draft stage$")
+    @When("I complete the Initial Draft stage")
     public void initialDraftFullFlow() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -41,7 +41,7 @@ public class DraftResponseStepDefs extends Page {
         }
     }
 
-    @When("^I complete the Initial Draft stage for \"([^\"]*)\" case type$")
+    @When("I complete the Initial Draft stage for {string} case type")
     public void initialDraftFullFlowPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -64,48 +64,48 @@ public class DraftResponseStepDefs extends Page {
         }
     }
 
-    @Then("^an error message should be displayed as I have not selected radio buttons on this screen$")
+    @Then("an error message should be displayed as I have not selected radio buttons on this screen")
     public void assertThatCorrespondenceCanBeAnsweredErrorMessageIsShown() {
         draft.assertCorrespondenceAnsweredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not entered a reason in the text box$")
+    @Then("an error message should be displayed as I have not entered a reason in the text box")
     public void assertThatShouldBeAnsweredErrorMessageIsShown() {
         draft.assertShouldBeAnsweredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected a response on this screen$")
+    @Then("an error message should be displayed as I have not selected a response on this screen")
     public void assertThatHowDoYouIntendToRespondScreenIsShown() {
         draft.assertHowDoYouIntendToRespondErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not summarised the call$")
+    @Then("an error message should be displayed as I have not summarised the call")
     public void assertThatSummariseYourCallErrorMessageIsShown() {
         draft.assertPleaseSummariseYourCallErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not added a primary draft document$")
-    public void assertThatWhichIsThePrimaryDraftDocumentErrorMesasgeIsShown() {
+    @Then("an error message should be displayed as I have not added a primary draft document")
+    public void assertThatWhichIsThePrimaryDraftDocumentErrorMessageIsShown() {
         draft.assertWhichIsThePrimaryDraftDocumentErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected a document type and added a document$")
+    @Then("an error message should be displayed as I have not selected a document type and added a document")
     public void assertThatAddDocumentErrorMessagesAreShown() {
         documents.assertDocumentTypeIsRequiredErrorMessage();
         documents.assertDocumentIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected whether the case should be QA offline or not$")
+    @Then("an error message should be displayed as I have not selected whether the case should be QA offline or not")
     public void assertThatQAOfflineErrorMessageIsShown() {
         draft.assertDoYouWantToQAThisOfflineErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected the user that did the offline QA$")
+    @Then("an error message should be displayed as I have not selected the user that did the offline QA")
     public void assertThatWhoHasDoneTheOfflineQAErrorMessageIsShown() {
         draft.assertWhoHasDoneOfflineQAErrorMessage();
     }
 
-    @When("^I select to reply by \"([^\"]*)\"$")
+    @When("I select to reply by {string}")
     public void iClickToAnswerBy(String method) {
         switch (method.toUpperCase()) {
             case "EMAIL":
@@ -123,17 +123,17 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
     }
 
-    @Then("^an error message appears instructing me to add rejection reasons$")
+    @Then("an error message appears instructing me to add rejection reasons")
     public void anErrorMessageAppearsInstructingMeToAddRejectionReasons() {
         draft.assertEnterRejectionReasonsError();
     }
 
-    @Then("^I see an error message instructing me to enter call notes$")
+    @Then("I see an error message instructing me to enter call notes")
     public void iSeeAnErrorMessageInstructingMeToEnterCallNotes() {
         draft.assertEnterCallNotesError();
     }
 
-    @When("^I select a case \"([^\"]*)\" be answered by my team$")
+    @When("I select a case {string} be answered by my team")
     public void iSelectACaseAnsweredByMyTeam(String decision) {
         getCaseId();
         switch (decision.toUpperCase()) {
@@ -149,7 +149,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.continueButton);
     }
 
-    @When("^I \"([^\"]*)\" the call details$")
+    @When("I {string} the call details")
     public void iTheCallDetails(String callDetails) {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
@@ -164,7 +164,7 @@ public class DraftResponseStepDefs extends Page {
         }
     }
 
-    @And("^I select \"([^\"]*)\" to choosing another Response Type$")
+    @And("I select {string} to choosing another Response Type")
     public void iSelectToChoosingAnotherResponseType(String decision) {
         switch (decision.toUpperCase()) {
             case "YES":
@@ -179,7 +179,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(draft.finishButton);
     }
 
-    @And("^I select \"([^\"]*)\" to QA offline$")
+    @And("I select {string} to QA offline")
     public void iSelectToQAOffline(String decision) {
         switch (decision.toUpperCase()) {
             case "YES":
@@ -194,7 +194,7 @@ public class DraftResponseStepDefs extends Page {
         clickOn(continueButton);
     }
 
-    @And("^I select \"([^\"]*)\" as the offline QA$")
+    @And("I select {string} as the offline QA")
     public void iSelectAsTheOfflineQA(String teamMember) {
         switch (teamMember.toUpperCase()) {
             case "EAMON":

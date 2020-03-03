@@ -136,15 +136,15 @@ public class Homepage extends Page {
     }
 
     public void assertCaseReferenceIsRequiredErrorMessage() {
-        assertThat(caseReferenceIsRequiredErrorMessage.getText(), is("Case reference is required"));
+        caseReferenceIsRequiredErrorMessage.shouldContainText("Case reference is required");
     }
 
     public void assertCaseReferenceIsInvalidFormatErrorMessage() {
-        assertThat(caseReferenceIsInvalidFormatErrorMessage.getText(), is("Case reference is invalid format"));
+        caseReferenceIsInvalidFormatErrorMessage.shouldContainText("Case reference is invalid format");
     }
 
     public void assertNoActiveWorkflowsForCaseErrorMessage() {
-        assertThat(noActiveWorkflowsForCaseErrorMessage.getText(), is("No active workflows for case"));
+        noActiveWorkflowsForCaseErrorMessage.shouldContainText("No active workflows for case");
     }
 
     public void waitForPerformanceProcessTeam() {
@@ -156,7 +156,7 @@ public class Homepage extends Page {
     }
 
     public void selectMyCases() {
-        myCases.click();
+        clickOn(myCases);
     }
 
     public void selectPerformanceProcessTeam() {
@@ -172,11 +172,11 @@ public class Homepage extends Page {
     }
 
     public void selectTransfersN10Team() {
-        transferN10Team.click();
+        clickOn(transferN10Team);
     }
 
     public void selectCentralDraftingTeam() {
-        centralDraftingTeam.click();
+        clickOn(centralDraftingTeam);
     }
 
     // Assertions
@@ -214,11 +214,11 @@ public class Homepage extends Page {
     }
 
     public void clickCreateSingleCase() {
-        createSingleCase.click();
+        clickOn(createSingleCase);
     }
 
     public void selectSearchPage() {
-        searchPage.click();
+        clickOn(searchPage);
     }
 
     private List<Map<Object, String>> getWorktackTableContents() {
@@ -226,6 +226,6 @@ public class Homepage extends Page {
     }
 
     public void assertHomePageTitle() {
-        assertThat(homePageMyCasesAssertion.getText(), is("My Cases"));
+        homePageMyCasesAssertion.shouldContainText("My Cases");
     }
 }

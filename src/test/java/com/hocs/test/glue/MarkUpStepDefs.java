@@ -37,12 +37,12 @@ public class MarkUpStepDefs extends Page {
 
     QAResponse qaResponse;
 
-    @When("^I complete the markup stage$")
+    @When("I complete the markup stage")
     public void completeTheMarkupStage() {
         markup.markupStageFullFlow();
     }
 
-    @When("^I assign the Topic \"([^\"]*)\"$")
+    @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
         clickOn(homepage.centralDraftingTeam);
         successfulCaseCreation.selectCaseReferenceNumberViaXpath();
@@ -59,7 +59,7 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @When("^I add the topic \"([^\"]*)\"$")
+    @When("I add the topic {string}")
     public void enterTheTopic(String topic) {
         switch (topic.toUpperCase()) {
             case "CARDIFF UNIVERSITY KITTENS":
@@ -78,7 +78,7 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @When("^I override the \"([^\"]*)\" team to \"([^\"]*)\"$")
+    @When("I override the {string} team to {string}")
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
@@ -97,28 +97,28 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @Then("^an error message should be displayed as I have not selected a topic$")
+    @Then("an error message should be displayed as I have not selected a topic")
     public void assertThatTopicIsRequiredErrorMessageIsShown() {
         markUpDecision.assertTopicIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected a response$")
+    @Then("an error message should be displayed as I have not selected a response")
     public void assertThatMarkupResponseErrorMessageIsShown() {
         markUpDecision.assertSortOfResponseErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not added a topic$")
+    @Then("an error message should be displayed as I have not added a topic")
     public void assertThatAddATopicErrorMessageIsShown() {
         markUpDecision.assertAddATopicErrorMessage();
     }
 
-    @Then("^the topic should be added to the case$")
+    @Then("the topic should be added to the case")
     public void assertTopicOnCase() {
         markup.clickContinueButton();
         topics.assertTopicsAssigned();
     }
 
-    @Then("^the case should be assigned to the \"([^\"]*)\" for drafting$")
+    @Then("the case should be assigned to the {string} for drafting")
     public void theCaseShouldBeAssignedToTheDraftTeam(String draftingTeam) {
         if (draftingTeam.toUpperCase().equals("NEW DRAFTING AND QA TEAM")) {
             assertElementTextIs(topics.autoAssignedDraftTeam, sessionVariableCalled("chosenDraftAndQATeam").toString());
@@ -127,7 +127,7 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @Then("^the case should be assigned to the \"([^\"]*)\" for approval$")
+    @Then("the case should be assigned to the {string} for approval")
     public void theCaseShouldBeAssignedToThePrivateOfficeTeam(String privateOfficeTeam) {
         if (privateOfficeTeam.toUpperCase().equals("NEW PRIVATE AND MINISTERIAL TEAM")) {
             assertElementTextIs(topics.autoAssignedPrivateOfficeTeam,
@@ -137,7 +137,7 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @Then("^the case should be found in the \"([^\"]*)\" team$")
+    @Then("the case should be found in the {string} team")
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
         homepage.goHome();
         switch (team.toUpperCase()) {
@@ -197,27 +197,27 @@ public class MarkUpStepDefs extends Page {
         }
     }
 
-    @Then("^the Other Government Department name free text field is displayed$")
+    @Then("the Other Government Department name free text field is displayed")
     public void assertOtherGvmtDepTBIsDisplayed() {
         markUpDecision.assertOGDTitleTextBoxIsDisplayed();
     }
 
-    @Then("^the No Response Needed casenote field is displayed$")
+    @Then("the No Response Needed casenote field is displayed")
     public void assertNoResponseNeededTextBox() {
         markUpDecision.assertNRNTextBoxIsDisplayed();
     }
 
-    @Then("^the reason for rejection casenote field is displayed$")
+    @Then("the reason for rejection casenote field is displayed")
     public void assertRejectionReasonTextBox() {
         markUpDecision.assertRejectTextBoxIsDisplayed();
     }
 
-    @Then("^a mandatory Topic free text field is displayed$")
+    @Then("a mandatory Topic free text field is displayed")
     public void aMandatoryFreeTextFieldIsAvailable() {
         topics.assertTopicsTextFieldDisplayed();
     }
 
-    @When("^I close the case with a decision of \"([^\"]*)\"$")
+    @When("I close the case with a decision of {string}")
     public void iCloseTheCaseWithADecisionOf(String status) {
         markUpDecision.getCaseId();
         switch (status.toUpperCase()) {
@@ -234,7 +234,7 @@ public class MarkUpStepDefs extends Page {
         clickOn(markUpDecision.finishButton);
     }
 
-    @When("^I select an initial decision of \"([^\"]*)\"$")
+    @When("I select an initial decision of {string}")
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
             case "FAQ":

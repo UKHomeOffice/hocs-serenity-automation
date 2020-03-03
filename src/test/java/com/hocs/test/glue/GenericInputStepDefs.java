@@ -49,7 +49,7 @@ public class GenericInputStepDefs extends Page {
 
     UnitManagement unitManagement;
 
-    @When("^I enter \"([^\"]*)\" in the \"([^\"]*)\" field")
+    @When("I enter {string} in the {string} field")
     public void iEnterTextIntoTheNominatedField(String input, String element) {
         switch (element.toUpperCase()) {
             case "ADD A MEMBER OF PARLIAMENT":
@@ -69,7 +69,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I fill all mandatory fields on the \"([^\"]*)\" page with valid data$")
+    @When("I fill all mandatory fields on the {string} page with valid data")
     public void fillMandatoryFields(String pageName) {
         switch (pageName.toUpperCase()) {
             case "DATA INPUT":
@@ -84,7 +84,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @Then("^\"([^\"]*)\" error message is displayed$")
+    @Then("{string} error message is displayed")
     public void errorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "INVALID DATE":
@@ -101,7 +101,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I enter an invalid \"([^\"]*)\" date$")
+    @When("I enter an invalid {string} date")
     public void iEnterAnInvalidDate(String dateField) {
         switch (dateField.toUpperCase()) {
             case "CORRESPONDENCE RECEIVED":
@@ -115,12 +115,12 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @Then("^an error message is displayed$")
+    @Then("an error message is displayed")
     public void anErrorMessageIsDisplayed() {
         errorMessageIsDisplayed();
     }
 
-    @When("^I click the \"([^\"]*)\" button on the \"([^\"]*)\" page$")
+    @When("I click the {string} button on the {string} page")
     public void selectGenericButtonFromSpecificPage(String button, String page) {
         switch (page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP":
@@ -193,7 +193,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I click the \"([^\"]*)\" button$")
+    @When("I click the {string} button")
     public void clickTheButton(String button) {
         switch (button.toUpperCase()) {
             case "CONTINUE":
@@ -225,7 +225,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I attempt to reject the \"([^\"]*)\" case without reason$")
+    @When("I attempt to reject the {string} case without reason")
     public void iAttemptToRejectACaseWithoutReason(String caseType) {
         switch (caseType.toUpperCase()) {
             case "INITIAL DRAFT":
@@ -245,7 +245,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I \"([^\"]*)\" the case$")
+    @When("I {string} the case")
     public void iActionTheCase(String action) {
         setSessionVariable("caseReference").to(getCaseId());
         switch (action.toUpperCase()) {
@@ -265,7 +265,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @But("^I do not enter (?:a|an) \"([^\"]*)\"$")
+    @But("I do not enter (?:a|an) {string}")
     public void iDoNotEnterA(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "CORRESPONDENCE RECEIVED DATE":
@@ -284,12 +284,12 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @Then("^the case is completed$")
+    @Then("the case is completed")
     public void theCaseIsCompleted() {
         homepage.assertCaseIsCompleteViaSearch();
     }
 
-    @Then("^\"([^\"]*)\" link is displayed$")
+    @Then("{string} link is displayed")
     public void linkIsDisplayed(String linkText) {
         switch (linkText.toUpperCase()) {
             case "ADD A CORRESPONDENT":
@@ -300,7 +300,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @And("^I \"([^\"]*)\" the rejection note$")
+    @And("I {string} the rejection note")
     public void iTheRejectionNote(String rejection) {
         switch (rejection.toUpperCase()) {
             case "COMPLETE":
@@ -315,14 +315,14 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @When("^I click the add button when creating a case note$")
+    @When("I click the add button when creating a case note")
     public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
         clickOn(workstacks.caseTimelineTab);
         clickOn(workstacks.addCaseNoteButton);
         clickOn(workstacks.addButton);
     }
 
-    @Then("^the \"([^\"]*)\" case should be moved to the \"([^\"]*)\" stage$")
+    @Then("the {string} case should be moved to the {string} stage")
     public void assertCaseTypeReturnedToStage(String caseType, String stage) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -393,7 +393,7 @@ public class GenericInputStepDefs extends Page {
         workstacks.assertCaseStage(stage);
     }
 
-    @And("^I reject the case at the \"([^\"]*)\" stage$")
+    @And("I reject the case at the {string} stage")
     public void iRejectTheCaseAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
             case "INITIAL DRAFT":

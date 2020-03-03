@@ -21,7 +21,6 @@ public class Dashboard extends Page {
     @FindBy(xpath = "//a[@href='/add-standard-line']")
     public WebElementFacade addStandardLineButton;
 
-
     @FindBy(xpath = "//p[@class='govuk-body']")
     public WebElementFacade creationSuccessMessage;
 
@@ -38,7 +37,7 @@ public class Dashboard extends Page {
     public WebElementFacade successMessage;
 
     public void goToDashboard() {
-        dashboardLink.click();
+        clickOn(dashboardLink);
     }
 
     public void assertSuccessMessageDisplayed() {

@@ -51,7 +51,7 @@ public class StandardLine extends Page {
 
     public void enterStandardLineTopic() {
         waitABit(500);
-        topicTypeahead.sendKeys("Cardiff University Kittens");
+        typeInto(topicTypeahead, "Cardiff University Kittens");
         topicTypeahead.sendKeys(Keys.ENTER);
     }
 
@@ -76,26 +76,26 @@ public class StandardLine extends Page {
     }
 
     public void assertStandardLineIsRequiredErrorMessage(){
-        assertThat(standardLineIsRequiredErrorMessage.getText(), is("The Standard Line is required"));
+        standardLineIsRequiredErrorMessage.shouldContainText("The Standard Line is required");
     }
 
     public void assertExpiryDateIsRequiredErrorMessage() {
-        assertThat(expiryDateIsRequiredErrorMessage.getText(), is("The Expiry Date is invalid"));
+        expiryDateIsRequiredErrorMessage.shouldContainText("The Expiry Date is invalid");
     }
 
     public void assertTopicIsRequiredErrorMessage() {
-        assertThat(topicIsRequiredErrorMessage.getText(), is("The Topic is required"));
+        topicIsRequiredErrorMessage.shouldContainText("The Topic is required");
     }
 
     public void assertStandardLineDocumentHasBeenAddedToTopic() {
-        assertThat(standardLineDocumentAssert.getText(), is("testtesttest.docx"));
+        standardLineDocumentAssert.shouldContainText("testtesttest.docx");
     }
 
     public void assertDateMustBeInFutureErrorMessage() {
-        assertThat(pastExpirationDateErrorMessage.getText(), is("The Expiry Date must be in the future"));
+        pastExpirationDateErrorMessage.shouldContainText("The Expiry Date must be in the future");
     }
 
     public void assertStandardLineSuccessMessage(){
-        assertThat(standardLineCreationSuccessMessage.getText(), is("The standard line was created successfully"));
+        standardLineCreationSuccessMessage.shouldContainText("The standard line was created successfully");
     }
 }

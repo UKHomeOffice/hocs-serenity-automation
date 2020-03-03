@@ -15,7 +15,7 @@ public class ServiceStepDefs {
 
     private WorkflowService workflowService;
 
-    @When("^I request \"([^\"]*)\" info$")
+    @When("I request {string} info")
     public void whenIRequestServiceInfo(String service) {
         switch (service.toUpperCase()) {
             case "CASE SERVICE":
@@ -29,22 +29,22 @@ public class ServiceStepDefs {
         }
     }
 
-    @Then("^service returns a (\\d+) response$")
+    @Then("service returns a {int} response")
     public void apiWillReturnASuccessfulResponse(int statusCode) {
         apiHelper.assertResponse(statusCode);
     }
 
-    @Then("^the response body has the correct contents$")
+    @Then("the response body has the correct contents")
     public void theResponseBodyHasTheCorrectContents() {
         workflowService.assertResponseBody();
     }
 
-    @Then("^the response body contains \"([^\"]*)\" $")
+    @Then("the response body contains {string}")
     public void theResponseBodyContains(String content) {
         apiHelper.assertResponseBodyContains(content);
     }
 
-    @Then("^\"([^\"]*)\" is equal to \"([^\"]*)\"$")
+    @Then("{string} is equal to {string}")
     public void objectIsEqualTo(String object, String value) {
         apiHelper.assertResponseBodyJsonObject(object, value);
     }

@@ -22,7 +22,7 @@ public class PrivateOfficeSignOffStepDefs extends Page {
 
     CaseDetailsAccordion caseDetailsAccordion;
 
-    @When("^I complete the Private Office stage$")
+    @When("I complete the Private Office stage")
     public void completePrivateOfficeStage() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -30,7 +30,7 @@ public class PrivateOfficeSignOffStepDefs extends Page {
         clickOn(privateOffice.continueButton);
     }
 
-    @When("^I complete the Private Office stage for \"([^\"]*)\"$")
+    @When("I complete the Private Office stage for {string}")
     public void completePrivateOfficeStagePerCaseType(String caseType) {
         switch(caseType.toUpperCase()) {
             case "DCU MIN" :
@@ -47,37 +47,37 @@ public class PrivateOfficeSignOffStepDefs extends Page {
         }
     }
 
-    @Then("^an error message should be displayed as I have not selected whether I approve the response$")
+    @Then("an error message should be displayed as I have not selected whether I approve the response")
     public void assertThatApprovedResponseErrorMessageIsShown() {
         privateOffice.assertDoYouApproveTheResponseErrorMessage();
     }
 
-    @Then("^error messages should be displayed as I have not selected an override team or entered change reasoning$")
+    @Then("error messages should be displayed as I have not selected an override team or entered change reasoning")
     public void assertThatChangeMinisterErrorMessagesAreShown() {
         privateOffice.assertChangeMinisterErrorMessages();
     }
 
-    @Then("^an error message should be displayed as I have not entered feedback into the text box")
+    @Then("an error message should be displayed as I have not entered feedback into the text box")
     public void assertThatFeedbackResponseErrorMessageIsShown() {
         privateOffice.assertWhatIsYourFeedbackResponse();
     }
 
-    @And("^I select to change minister$")
+    @And("I select to change minister")
     public void iSelectToChangeMinister() {
         privateOffice.getToChangeMinisterScreenPrerequisites();
     }
 
-    @And("^I select \"([^\"]*)\" as the new Private Office team$")
+    @And("I select {string} as the new Private Office team")
     public void iSelectAsTheNewMinister(String newPOTeam) {
         privateOffice.selectNewPrivateOfficeTeamFromDropdown(newPOTeam);
     }
 
-    @And("^I enter \"([^\"]*)\" as the reason for changing Private Office team$")
+    @And("I enter {string} as the reason for changing Private Office team")
     public void iEnterAsTheReasonForChangingPrivateOfficeTeam(String reason) {
         privateOffice.enterAReasonForChangingPOTeam(reason);
     }
 
-    @Then("^the information shown should match what I entered on the change Private Office Team page$")
+    @Then("the information shown should match what I entered on the change Private Office Team page")
     public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
         caseDetailsAccordion.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
     }

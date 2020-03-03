@@ -68,7 +68,7 @@ public class MarkUpDecision extends Page {
     }
 
     public void clickPolicyResponseRadioButton() {
-        policyResponseRadioButton.click();
+        clickOn(policyResponseRadioButton);
     }
 
     //Multi Step Methods
@@ -94,15 +94,15 @@ public class MarkUpDecision extends Page {
     //Assertions
 
     public void assertSortOfResponseErrorMessage() {
-        assertThat(whatSortOfResponseErrorMessage.getText(), is("What sort of response is required? is required"));
+        whatSortOfResponseErrorMessage.shouldContainText("What sort of response is required? is required");
     }
 
     public void assertAddATopicErrorMessage() {
-        assertThat(whichIsThePrimaryTopicErrorMessage.getText(), is("Which is the primary topic? is required"));
+        whichIsThePrimaryTopicErrorMessage.shouldContainText("Which is the primary topic? is required");
     }
 
     public void assertTopicIsRequiredErrorMessage() {
-        assertThat(topicIsRequiredErrorMessage.getText(), is("Topic is required"));
+        topicIsRequiredErrorMessage.shouldContainText("Topic is required");
     }
 
     public void assertNRNTextBoxIsDisplayed() {

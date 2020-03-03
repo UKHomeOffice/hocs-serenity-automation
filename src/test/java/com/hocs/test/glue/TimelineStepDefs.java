@@ -12,22 +12,22 @@ public class TimelineStepDefs extends Page {
 
     TimelineTab timelineTab;
 
-    @And("^I select the Timeline tab$")
+    @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
         timelineTab.selectTimelineTab();
     }
 
-    @And("^I create a case note with random content$")
+    @And("I create a case note with random content")
     public void iCreateACaseNoteWithRandomContent() {
         timelineTab.createACaseNote();
     }
 
-    @Then("^a note should be created at the top of the timeline$")
+    @Then("a note should be created at the top of the timeline")
     public void aNoteShouldBeCreatedAtTheTopOfTheTimeline() {
         timelineTab.assertCaseNoteAtTopOfTimeline();
     }
 
-    @And("^it should have the same content$")
+    @And("it should have the same content")
     public void itShouldHaveTheSameContent() {
         timelineTab.assertTopNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
@@ -37,7 +37,7 @@ public class TimelineStepDefs extends Page {
         timelineTab.assertTopNoteSignatureContainsCreator(user);
     }
 
-    @Then("^a log should be at the top of the timeline$")
+    @Then("a log should be at the top of the timeline")
     public void aLogShouldBeAtTheTopOfTheTimeline() {
         timelineTab.assertLogAtTopOfTimeline();
     }
@@ -47,38 +47,38 @@ public class TimelineStepDefs extends Page {
         timelineTab.assertAllocationLogVisible(user, stage);
     }
 
-    @And("^a log should be visible for completing the \"([^\"]*)\" stage$")
+    @And("a log should be visible for completing the {string} stage")
     public void aLogShouldBeVisibleForCompletingTheStage(String stage) {
         timelineTab.assertStageCompletionLogVisible(stage);
     }
 
-    @And("^a log should be visible for starting the \"([^\"]*)\" stage$")
+    @And("a log should be visible for starting the {string} stage")
     public void aLogShouldBeVisibleForStartingTheStage(String stage) {
         timelineTab.assertStageStartedLogVisible(stage);
     }
 
-    @And("^I attempt to add an empty case note$")
+    @And("I attempt to add an empty case note")
     public void iAttemptToAddAnEmptyCaseNote() {
         timelineTab.clickAddCaseNote();
         clickAddButton();
     }
 
-    @Then("^an error message is displayed as I have not entered text content for the case note$")
+    @Then("an error message is displayed as I have not entered text content for the case note")
     public void anErrorMessageIsDisplayedAsIHaveNotEnteredTextContentForTheCaseNote() {
         timelineTab.assertCaseNoteMustNotBeBlankErrorMessage();
     }
 
-    @And("^I create another case note with random content$")
+    @And("I create another case note with random content")
     public void iCreateAnotherCaseNoteWithRandomContent() {
         timelineTab.createAnotherCaseNote();
     }
 
-    @Then("^the top note in the timeline should be the second note created$")
+    @Then("the top note in the timeline should be the second note created")
     public void theTopNoteInTheTimelineShouldBeTheSecondNoteCreated() {
         timelineTab.assertTopNoteContainsEnteredText(sessionVariableCalled("secondNoteContents"));
     }
 
-    @And("^the one below it should be the first note created$")
+    @And("the one below it should be the first note created")
     public void theOneBelowItShouldBeTheFirstNoteCreated() {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }

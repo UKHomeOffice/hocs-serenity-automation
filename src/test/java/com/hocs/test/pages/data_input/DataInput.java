@@ -137,7 +137,7 @@ public class DataInput extends Page {
     // Basic Methods
 
     public void selectAddAnMPField() {
-        addMemberOfParliamentSearchField.click();
+        clickOn(addMemberOfParliamentSearchField);
         typeInto(addMemberOfParliamentSearchField, "example");
     }
 
@@ -487,44 +487,41 @@ public class DataInput extends Page {
     }
 
     public void assertCorrespondenceDateErrorMessage() {
-        assertThat(correspondenceDateErrorMessage.getText(), is("When was the correspondence sent? is required"));
+        correspondenceDateErrorMessage.shouldContainText("When was the correspondence sent? is required");
     }
 
     public void assertHowWasCorrespondenceReceivedErrorMessage() {
-        assertThat(howWasCorrespondenceReceivedErrorMessage.getText(),
-                is("How was the correspondence received? is required"));
+        howWasCorrespondenceReceivedErrorMessage.shouldContainText("How was the correspondence received? is required");
     }
 
     public void assertWhichIsThePrimaryCorrespondentErrorMessage() {
-        assertThat(whichIsThePrimaryCorrespondentErrorMessage.getText(),
-                is("Which is the primary correspondent? is required"));
+        whichIsThePrimaryCorrespondentErrorMessage.shouldContainText("Which is the primary correspondent? is required");
     }
 
     public void assertCorrespondentTypeMustBeSelectedErrorMessage() {
-        assertThat(correspondentTypeMustBeProvidedErrorMessage.getText(), is("The correspondent type must be provided"));
+        correspondentTypeMustBeProvidedErrorMessage.shouldContainText("The correspondent type must be provided");
     }
 
     public void assertMemberIsRequiredErrorMessage() {
-        assertThat(memberIsRequiredErrorMessage.getText(), is("Member is required"));
+        memberIsRequiredErrorMessage.shouldContainText("Member is required");
     }
 
     public void assertCorrespondentTypeDropDownErrorMessage() {
-        assertThat(correspondentMustHaveATypeErrorMessage.getText(), is("The correspondent must have a type"));
+        correspondentMustHaveATypeErrorMessage.shouldContainText("The correspondent must have a type");
     }
 
     public void assertCorrespondentFullNameErrorMessage() {
-        assertThat(correspondentNameMustBeEnteredErrorMessage.getText(), is("The correspondent's full name is required"));
+        correspondentNameMustBeEnteredErrorMessage.shouldContainText("The correspondent's full name is required");
     }
 
     public void assertShouldResponseBeCopiedN10ErrorMessage() {
-        assertThat(shouldTheResponseBeCopiedN10ErrorMessage.getText(),
-                is("Should the response be copied to Number 10? is required"));
+        shouldTheResponseBeCopiedN10ErrorMessage.shouldContainText("Should the response be copied to Number 10? is required");
     }
 
     public void assertAccordionCorrespondenceReceivedDate() {
         String dataInputCorrespondenceReceivedDate =
                 sessionVariableCalled("correspondenceReceivedDay") + "/" + sessionVariableCalled(
                         "correspondenceReceivedMonth") + "/" + sessionVariableCalled("correspondenceReceivedYear");
-        assertThat(dataInputAccordionCorrespondenceReceived.getText(), containsText(dataInputCorrespondenceReceivedDate));
+        dataInputAccordionCorrespondenceReceived.shouldContainText(dataInputCorrespondenceReceivedDate);
     }
 }

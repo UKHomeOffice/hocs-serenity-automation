@@ -41,16 +41,16 @@ public class SuccessfulCaseCreation extends Page {
     public WebElementFacade newCaseReference;
 
     public void clickSuccessfulCaseBackButton() {
-        successBackButton.click();
+        clickOn(successBackButton);
     }
 
     public void assertCaseCreatedSuccess() {
-        assertThat(panelTitle.getText(), is("Success"));
+        panelTitle.shouldContainText("Success");
     }
 
     public void assertBulkCasesCreatedSuccess() {
         waitABit(3000);
-        assertThat(panelTitle.getText(), is("Success"));
+        panelTitle.shouldContainText("Success");
     }
 
     public String getCaseReference() {

@@ -35,16 +35,16 @@ public class UnitManagement extends Page {
     public WebElementFacade listOfUnits;
 
     public void assertAddUnitPageTitle() {
-        assertThat(managementUIPageTitle.getText(), is("Add Unit"));
+        managementUIPageTitle.shouldContainText("Add Unit");
     }
 
     public void assertViewUnitPageTitle() {
-        assertThat(managementUIPageTitle.getText(), is("Unit List"));
+        managementUIPageTitle.shouldContainText("Unit List");
     }
 
     public void assertDisplayNameAndShortCodeErrorMessages() {
-        assertThat(displayNameRequiredErrorMessage.getText(), is("The Display Name is required"));
-        assertThat(shortCodeRequiredErrorMessage.getText(), is("The Short Code is required"));
+        displayNameRequiredErrorMessage.shouldContainText("The Display Name is required");
+        shortCodeRequiredErrorMessage.shouldContainText("The Short Code is required");
     }
 
     public void inputUnitDisplayName(String unitDisplayName) {
@@ -71,7 +71,7 @@ public class UnitManagement extends Page {
 
     public void assertUnitAlreadyExistsErrorMessage() {
         waitForAnyTextToAppear("A unit with those details already exists");
-        assertThat(errorMessageContents.getText(), is("A unit with those details already exists"));
+        errorMessageContents.shouldContainText("A unit with those details already exists");
     }
 
     public void assertListOfUnitsVisible() {

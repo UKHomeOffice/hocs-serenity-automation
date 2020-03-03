@@ -17,7 +17,7 @@ public class QAResponseStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @When("^I complete the QA response stage$")
+    @When("I complete the QA response stage")
     public void completeQAResponseStage() {
         homepage.getCurrentCase();
         clickOn(workstacks.allocateToMeButton);
@@ -26,12 +26,12 @@ public class QAResponseStepDefs extends Page {
         clickOn(qaResponse.continueButton);
     }
 
-    @Then("^an error message should be displayed as I have not selected a radio button on the QA approve response screen$")
+    @Then("an error message should be displayed as I have not selected a radio button on the QA approve response screen")
     public void assertThatQAApproveResponseErrorMessageIsShown() {
         qaResponse.assertQADoYouApproveErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response$")
+    @Then("an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response")
     public void assertThatQAResponseFeedbackErrorMessageIsShown() {
         qaResponse.assertQAWhatIsYourFeedbackErrorMessage();
     }

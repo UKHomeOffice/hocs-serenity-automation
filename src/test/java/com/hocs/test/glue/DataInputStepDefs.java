@@ -31,12 +31,12 @@ public class DataInputStepDefs extends Page {
 
     CaseDetailsAccordion caseDetailsAccordion;
 
-    @When("^I complete the Data Input stage and send a copy to Number Ten$")
+    @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
         dataInput.dataInputFullFlowWithCopyToN10();
     }
 
-    @When("^I complete the Data Input Stage for \"([^\"]*)\" case type$")
+    @When("I complete the Data Input Stage for {string} case type")
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "DCU MIN":
@@ -53,14 +53,14 @@ public class DataInputStepDefs extends Page {
         }
     }
 
-    @When("^I add an additional correspondent$")
+    @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
         recordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
         dataInput.clickAddButton();
     }
 
-    @And("^I set the correspondence channel to \"([^\"]*)\"$")
+    @And("I set the correspondence channel to {string}")
     public void iSetTheCorrespondenceChannelTo(String channel) {
         switch (channel.toUpperCase()) {
             case "EMAIL":
@@ -80,7 +80,7 @@ public class DataInputStepDefs extends Page {
         }
     }
 
-    @When("^I select to add a correspondent that \"([^\"]*)\" a member of parliament$")
+    @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
         dataInput.selectAddACorrespondentLink();
@@ -92,7 +92,7 @@ public class DataInputStepDefs extends Page {
         clickOn(dataInput.continueButton);
     }
 
-    @Then("^an error message should be displayed as I have not \"([^\"]*)\"$")
+    @Then("an error message should be displayed as I have not {string}")
     public void assertReasonForErrorMessage(String reason) {
         switch (reason.toUpperCase()) {
             case "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX":
@@ -118,32 +118,32 @@ public class DataInputStepDefs extends Page {
         }
     }
 
-    @Then("^an error message should be displayed as I have not entered text in the full name field")
+    @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
         dataInput.assertCorrespondentFullNameErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I have not selected the correspondent type$")
+    @Then("an error message should be displayed as I have not selected the correspondent type")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeDropDownErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I must select a member of parliament from the drop down$")
+    @Then("an error message should be displayed as I must select a member of parliament from the drop down")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
         dataInput.assertMemberIsRequiredErrorMessage();
     }
 
-    @Then("^an error message should be displayed as I must select a correspondent type on this screen$")
+    @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
-    @Then("^they should be added to the list of correspondents$")
+    @Then("they should be added to the list of correspondents")
     public void theyShouldBeAddedToTheListOfCorrespondents() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 
-    @Then("^an error message should be displayed as I have not entered a \"([^\"]*)\"$")
+    @Then("an error message should be displayed as I have not entered a {string}")
     public void assertValidationMessagesOnDataInputForm(String field) {
         switch (field.toUpperCase()) {
             case "CORRESPONDENCE DATE":
@@ -160,7 +160,7 @@ public class DataInputStepDefs extends Page {
         }
     }
 
-    @And("^a case has a \"([^\"]*)\" correspondent$")
+    @And("a case has a {string} correspondent")
     public void aCaseHasACorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
@@ -182,25 +182,25 @@ public class DataInputStepDefs extends Page {
         }
     }
 
-    @When("^I enter an invalid date$")
+    @When("I enter an invalid date")
     public void enterAnInvalidDate() {
         dataInput.enterDayOfCorrespondenceReceived("29");
         dataInput.enterMonthOfCorrespondenceReceived("02");
         dataInput.enterYearOfCorrespondenceReceived("2019");
     }
 
-    @Then("^both correspondents are listed$")
+    @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
         recordCorrespondentDetails.assertPrimaryCorrespondent();
         recordCorrespondentDetails.assertSecondaryCorrespondent();
     }
 
-    @When("^I select the primary correspondent radio button for a different correspondent$")
+    @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
         recordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
-    @Then("^the correct correspondent is recorded as the primary correspondent$")
+    @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
         caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
@@ -208,7 +208,7 @@ public class DataInputStepDefs extends Page {
 
     }
 
-    @And("^I complete the Data Input stage of the displayed case$")
+    @And("I complete the Data Input stage of the displayed case")
     public void iCompleteTheDataInputStageOfTheDisplayedCase() {
         dataInput.moveCaseFromDataInputToMarkup();
     }

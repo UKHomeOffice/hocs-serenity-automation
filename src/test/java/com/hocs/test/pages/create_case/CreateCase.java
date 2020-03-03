@@ -97,7 +97,7 @@ public class CreateCase extends Page {
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
-        assertThat(allRadioButtons.getText(), is("No options available"));
+        allRadioButtons.shouldContainText("No options available");
     }
 
     public void capturedCaseReferenceTest() {
@@ -106,15 +106,15 @@ public class CreateCase extends Page {
     }
 
     public void clickDcuMinRadioButton() {
-        dcuMinRadioButton.click();
+        clickOn(dcuMinRadioButton);
     }
 
     public void clickDcuTroRadioButton() {
-        dcuTroRadioButton.click();
+        clickOn(dcuTroRadioButton);
     }
 
     public void clickDcuDtenRadioButton() {
-        dcuDtenRadioButton.click();
+        clickOn(dcuDtenRadioButton);
     }
 
     public void enterCaseDetailsFreeText() {
@@ -262,18 +262,18 @@ public class CreateCase extends Page {
     }
 
     public void assertCaseTypeErrorMessage() {
-        assertThat(caseTypeIsRequiredErrorMessage.getText(), is("Case type is required"));
+        caseTypeIsRequiredErrorMessage.shouldContainText("Case type is required");
     }
 
     public void assertDateReceivedNotEnteredErrorMessage() {
-        assertThat(dateReceivedIsRequiredErrorMessage.getText(), is("Date received is required"));
+        dateReceivedIsRequiredErrorMessage.shouldContainText("Date received is required");
     }
 
     public void assertDocumentsAreMandatoryErrorMessage() {
-        assertThat(documentsAreMandatoryErrorMessage.getText(), is("Documents are mandatory when bulk creating a case"));
+        documentsAreMandatoryErrorMessage.shouldContainText("Documents are mandatory when bulk creating a case");
     }
 
     public void assertDateReceivedIsInvalidErrorMessage() {
-        assertThat(dateReceivedIsInvalidErrorMessage.getText(), is("Date received must be a valid date"));
+        dateReceivedIsInvalidErrorMessage.shouldContainText("Date received must be a valid date");
     }
 }
