@@ -32,7 +32,7 @@ Feature: DCU user decides how a case should be handled
   Scenario: User does not enter department in free text field
     When I select an initial decision of "Refer to OGD"
     And I click the "CONTINUE" button
-    But I do not enter an "Other Government Department"
+    But I do not enter a "Other Government Department"
     Then an error message is displayed
 
   @Markup
