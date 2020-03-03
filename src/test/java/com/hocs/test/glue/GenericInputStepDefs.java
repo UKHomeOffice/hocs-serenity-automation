@@ -265,7 +265,7 @@ public class GenericInputStepDefs extends Page {
         }
     }
 
-    @But("I do not enter (?:a|an) {string}")
+    @But("I do not enter a {string}")
     public void iDoNotEnterA(String fieldName) {
         switch (fieldName.toUpperCase()) {
             case "CORRESPONDENCE RECEIVED DATE":

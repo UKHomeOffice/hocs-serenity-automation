@@ -177,7 +177,7 @@ public class Page extends PageObject {
     }
 
     public void assertPageTitle(String title) {
-        pageTitle.withTimeoutOf(5, TimeUnit.SECONDS).waitUntilVisible();
+        pageTitle.waitUntilVisible();
         try {
             assertThat(getHeaderText(), containsString(title));
         } catch (AssertionError e) {
