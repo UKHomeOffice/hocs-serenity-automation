@@ -202,7 +202,7 @@ public class CreateCaseStepDefs extends Page {
 
         switch (document.toUpperCase()) {
             case "WITH":
-                documents.uploadDocxDocument();
+                documents.uploadDocumentOfType("docx");
                 clickOn(createCase.finishButton);
                 break;
             case "WITHOUT":

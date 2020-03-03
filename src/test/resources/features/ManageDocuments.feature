@@ -1,3 +1,4 @@
+@ManageDocuments
 Feature: A user can manage documents associated to a case
 
   Background:
@@ -6,27 +7,27 @@ Feature: A user can manage documents associated to a case
     And I go to the case from the successful case creation screen
     And I click manage documents
 
-  @ManageDocuments @SmokeTests
-  Scenario Outline: User can upload a file of allowed file types
+  @SmokeTests
+  Scenario Outline: User can upload and preview a file of allowed file types
     And I click add documents
-    When I choose the document type "Draft"
+    When I choose the document type "ORIGINAL"
     And I upload a file of type "<fileType>"
     Then I can see the "<fileType>" file in the uploaded document list
+    And the "<fileType>" document should be select to be displayed in the preview pane
     Examples:
       | fileType |
       | docx     |
       | txt      |
       | pdf      |
       | tiff     |
-#      | TIFF     |
-#      | xlsx     |
-#      | PDF      |
-#      | DOCX     |
-#      | TXT      |
-#      | XLSX     |
+      | xlsx     |
+      | gif      |
+      | html     |
+      | jpg      |
+      | png      |
+      | bmp      |
 
-#  Check file types here -> Kubernetic under Config, hocs-converter, supported_types
-  @ManageDocuments @SmokeTests
+  @SmokeTests
   Scenario Outline: : User can select document type when uploading documents
     And I click add documents
     When I choose the document type "<docType>"
@@ -38,13 +39,13 @@ Feature: A user can manage documents associated to a case
       | Draft    |
       | Final    |
 
-  @ManageDocuments @Validation
+  @Validation
   Scenario: User must select a document type when uploading a document
     And I click add documents
     When I upload a file of type "docx"
     Then an error message should be displayed as I have not selected a document type
 
-  @ManageDocuments @Validation
+  @Validation
   Scenario: User must select a file when uploading a document
     And I click add documents
     When I choose the document type "Draft"
@@ -52,55 +53,36 @@ Feature: A user can manage documents associated to a case
     Then an error message should be displayed as I have not selected a file to upload
 
 
-  @ManageDocuments @Validation
+  @Validation
   Scenario: User cannot upload a document that has a file type that is not on the whitelist
     And I click add documents
     When I choose the document type "Draft"
     And I upload a file of type "csv"
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
+    
+  @Validation @Ignore
+  Scenario: Document exceeds the file size limit
+    And I click add documents
+    When I choose the document type "Draft"
+    And I select a file that is 51MB in size
+    Then an error message should be displayed as I have selected a file which is larger than the allowed limit
+    And I cannot see the "51MB" file in the uploaded document list
 
-# FAILS, currently receives 'Something went wrong' message
-#  @ManageDocuments @Validation @Broken
-#  Scenario: Document exceeds the file size limit
-#    And I click add documents
-#    When I choose the document type "Draft"
-#    And I select a file that is 51MB in size
-#    Then an error message should be displayed as I have selected a file which is larger than the allowed limit
-#    And I cannot see the "51MB" file in the uploaded document list
-
-  @ManageDocuments
   Scenario: A document has the pending tag whilst it is being converted
     And I click add documents
     When I choose the document type "Draft"
     And I select a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @ManageDocuments @SmokeTests
-  Scenario Outline: User can preview all allowed document types
-    And I add a "<fileType>" document to the case
-    Then the "<fileType>" document should be displayed in the preview pane
-    Examples:
-      | fileType |
-      | docx     |
-      | txt      |
-      | pdf      |
-      | tiff     |
-#      | TIFF     |
-#      | xlsx     |
-#      | PDF      |
-#      | DOCX     |
-#      | TXT      |
-#      | XLSX     |
-
-  @ManageDocuments @SmokeTests
+  @SmokeTests
   Scenario: User can select which document to preview
     And I upload a docx and a txt file
-    And the "docx" document should be displayed in the preview pane
+    And the "docx" document should be select to be displayed in the preview pane
     And I click the preview button of the "txt" file
-    Then the "txt" document should be displayed in the preview pane
+    Then the "txt" document should be select to be displayed in the preview pane
 
-  @ManageDocuments @SmokeTests
+  @SmokeTests
   Scenario Outline: User can remove any document
     And I add a "<fileType>" document to the case
     And I click manage documents
@@ -112,9 +94,9 @@ Feature: A user can manage documents associated to a case
       | txt      |
       | pdf      |
       | tiff     |
-#      | TIFF     |
-#      | xlsx     |
-#      | PDF      |
-#      | DOCX     |
-#      | TXT      |
-#      | XLSX     |
+      | xlsx     |
+      | gif      |
+      | html     |
+      | jpg      |
+      | png      |
+      | bmp      |
