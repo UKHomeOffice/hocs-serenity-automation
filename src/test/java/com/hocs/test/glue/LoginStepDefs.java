@@ -34,27 +34,14 @@ public class LoginStepDefs extends Page {
         loginPage.navigateToHocs();
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
+            if (isElementDisplayed($(loginPage.usernameField))) {
+                System.out.println("On fresh browser, beginning test..");
+                loginPage.enterHocsLoginDetails(Users.valueOf(user));
+                clickOn(loginPage.continueButton);
+            } else {
+                System.out.println("Session still active, continuing test from homepage");
+                homepage.goHome();
             }
-            clickOn(loginPage.continueButton);
         } else {
             System.out.println("Browser not closed down correctly, attempting to continue test");
             homepage.goHome();
@@ -69,34 +56,16 @@ public class LoginStepDefs extends Page {
             System.out.println("User parameter not set. Defaulting to 'EAMON'");
             user = "EAMON";
         }
-
         loginPage.navigateToHocs();
-
         if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
+            if (isElementDisplayed($(loginPage.usernameField))) {
+                System.out.println("On fresh browser, beginning test..");
+                loginPage.enterHocsLoginDetails(Users.valueOf(user));
+                clickOn(loginPage.continueButton);
+            } else {
+                System.out.println("Session still active, continuing test from homepage");
+                homepage.goHome();
             }
-            clickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
-            homepage.goHome();
         }
     }
 
@@ -106,68 +75,28 @@ public class LoginStepDefs extends Page {
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
-            }
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
             clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
         }
     }
 
     @Given("that I have navigated to the Management UI as the designated user")
     public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
-
         String user = System.getProperty("user");
-
         if (user == null) {
             System.out.println("User parameter not set. Defaulting to 'EAMON'");
             user = "EAMON";
         }
-
         loginPage.navigateToManagementUI();
-
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
-            }
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
             clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
         }
     }
