@@ -39,13 +39,13 @@ public class DataInputStepDefs extends Page {
     @When("I complete the Data Input Stage for {string} case type")
     public void completeDataInputPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 dataInput.dataInputFullFlowMIN();
                 break;
-            case "DCU N10":
+            case "DTEN":
                 dataInput.dataInputFullFlowDTEN();
                 break;
-            case "DCU TRO":
+            case "TRO":
                 dataInput.dataInputFullFlowTRO();
                 break;
             default:

@@ -30,16 +30,16 @@ public class MinisterSignOffStepDefs extends Page {
     @When("I complete the minister sign off stage for {string}")
     public void completeTheMinisterSignOffStagePerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN" :
+            case "MIN" :
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 clickOn(minister.ministerSignOffAcceptRadioButton);
                 clickOn(minister.continueButton);
                 break;
-            case "DCU TRO" :
+            case "TRO" :
                 homepage.goHome();
                 break;
-            case "DCU N10" :
+            case "DTEN" :
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

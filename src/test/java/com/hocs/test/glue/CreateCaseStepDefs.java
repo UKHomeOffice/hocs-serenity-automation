@@ -53,17 +53,17 @@ public class CreateCaseStepDefs extends Page {
     @Given("I create a single case {string}")
     public void createACaseTypeSpecificCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 createCase.createDCUMinSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
                 break;
-            case "DCU N10":
+            case "DTEN":
                 createCase.createDCUTENSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
                 break;
-            case "DCU TRO":
+            case "TRO":
                 createCase.createDCUTROSingleCaseWithID();
                 setSessionVariable("caseType").to(caseType);
                 clickOn(homepage.home);
@@ -76,11 +76,22 @@ public class CreateCaseStepDefs extends Page {
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 createCase.createDCUMinSingleCase();
                 clickOn(homepage.home);
                 homepage.waitForPerformanceProcessTeam();
                 clickOn(homepage.performanceProcessTeam);
+                workstacks.clickDCUMINFilterCard();
+                dataInput.dataInputFullFlow();
+                topics.fromMarkupStartSelectATopic(topic);
+                setSessionVariable("searchTopic").to(topic);
+                break;
+            case "DTEN":
+                createCase.createDCU10SingleCase();
+                clickOn(homepage.home);
+                homepage.waitForPerformanceProcessTeam();
+                clickOn(homepage.performanceProcessTeam);
+                workstacks.clickDCUTENFilterCard();
                 dataInput.dataInputFullFlow();
                 topics.fromMarkupStartSelectATopic(topic);
                 setSessionVariable("searchTopic").to(topic);
@@ -90,7 +101,7 @@ public class CreateCaseStepDefs extends Page {
         }
     }
 
-    @When("^I create a single MIN case$")
+    @When("I create a single MIN case")
     public void createNewMinCase() {
         createCase.createDCUMinSingleCase();
     }
@@ -98,13 +109,13 @@ public class CreateCaseStepDefs extends Page {
     @When("I create a single {string} case")
     public void createNewCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 createCase.createDCUMinSingleCase();
                 break;
-            case "DCU DTEN":
+            case "DTEN":
                 createCase.createDCU10SingleCase();
                 break;
-            case "DCU TRO":
+            case "TRO":
                 createCase.createDCUTROSingleCase();
                 break;
             default:
@@ -166,10 +177,10 @@ public class CreateCaseStepDefs extends Page {
     public void bulkCreateCases(int cases, String caseType) {
         clickOn(homepage.createBulkCases);
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 clickOn(createCase.dcuMinRadioButton);
                 break;
-            case "DCU TRO":
+            case "TRO":
                 clickOn(createCase.dcuTroRadioButton);
                 break;
             default:
@@ -184,15 +195,15 @@ public class CreateCaseStepDefs extends Page {
     public void createCaseWithDocument(String caseType, String document) {
         clickOn(homepage.createSingleCase);
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 clickOn(createCase.dcuMinRadioButton);
                 clickOn(createCase.nextButton);
                 break;
-            case "DCU TRO":
+            case "TRO":
                 clickOn(createCase.dcuTroRadioButton);
                 clickOn(createCase.nextButton);
                 break;
-            case "DCU TEN":
+            case "DTEN":
                 clickOn(createCase.dcuDtenRadioButton);
                 clickOn(createCase.nextButton);
                 break;
@@ -260,15 +271,15 @@ public class CreateCaseStepDefs extends Page {
     @When("I create a new {string} case and go home")
     public void createNewCaseGoHome(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 createCase.createDCUMinSingleCase();
                 homepage.goHome();
                 break;
-            case "DCU DTEN":
+            case "DTEN":
                 createCase.createDCU10SingleCase();
                 homepage.goHome();
                 break;
-            case "DCU TRO":
+            case "TRO":
                 createCase.createDCUTROSingleCase();
                 homepage.goHome();
                 break;
@@ -284,5 +295,24 @@ public class CreateCaseStepDefs extends Page {
         workstacks.clickAllocateToMeButton();
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
     }
+
+    @And("I create a single {string} case with the correspondence received date as: {string}-{string}-{string}")
+    public void iCreateACaseWithCorrespondenceDate(String caseType, String day, String month, String year) {
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                createCase.createDCUMinSingleCaseWithCorrespondenceReceivedDate(day, month, year);
+                break;
+            case "TRO":
+                createCase.createDCUTROSingleCaseWithCorrespondenceReceivedDate(day, month, year);
+                break;
+            case "DTEN":
+                createCase.createDCUDTenSingleCaseWithCorrespondenceReceivedDate(day, month, year);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
+
+
 }
 

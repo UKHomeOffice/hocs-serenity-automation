@@ -2,7 +2,7 @@ Feature: User can view correct case details at all stages
 
   Background:
     Given I log in as the designated user
-    And I create a single "DCU MIN" case
+    And I create a single "MIN" case
 
   @Accordion
   Scenario: Data Input accordion should contain the same information entered at the Case Creation stage

@@ -161,6 +161,7 @@ public class Workstacks extends Page {
 
     public String getCorrespondenceReceivedDateFromSummary() {
         selectSummaryTab();
+        String text = summaryWhenWasTheCorrespondenceReceived.getText();
         return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 

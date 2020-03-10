@@ -44,15 +44,15 @@ public class DraftResponseStepDefs extends Page {
     @When("I complete the Initial Draft stage for {string} case type")
     public void initialDraftFullFlowPerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
-            case "DCU TRO":
+            case "MIN":
+            case "TRO":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
                 documents.addADraftDocumentAtDraftStage();
                 qa.dontQAOffline();
                 break;
-            case "DCU N10":
+            case "DTEN":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();

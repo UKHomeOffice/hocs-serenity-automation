@@ -2,7 +2,7 @@ Feature: User can add notes and view logs in the timeline
 
   Background:
     Given I am user "Eamon"
-    And I get a "DCU MIN" case at "DATA INPUT" stage
+    And I get a "MIN" case at "DATA INPUT" stage
     And I select the Timeline tab
 
   @Timeline @SmokeTests

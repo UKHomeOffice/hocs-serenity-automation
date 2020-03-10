@@ -27,7 +27,7 @@ public class Topics extends Page {
     @FindBy(xpath = "//li[1]/p[2]")
     public WebElementFacade topicInTimeline;
 
-    @FindBy(css = "table:nth-child(3) > tbody > tr:nth-child(3) > td")
+    @FindBy(xpath = "//th[contains(text(),'Primary topic')]/following-sibling::td")
     public WebElementFacade primaryTopicInSummary;
 
     @FindBy(css = "[id^=react-select")
@@ -101,6 +101,7 @@ public class Topics extends Page {
         hitReturnToSendTopic();
         clickOn(addButton);
         clickOn(continueButton);
+        clickOn(finishButton);
     }
 
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {

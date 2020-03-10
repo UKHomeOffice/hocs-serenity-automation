@@ -15,22 +15,22 @@ Feature: HOCS User is able to create a case
     Then A case is created successfully
     Examples:
       | case    | with / without |
-      | DCU min | with           |
-      | DCU min | without        |
-      | DCU TRO | with           |
-      | DCU TRO | without        |
-      | DCU TEN | with           |
-      | DCU TEN | without        |
+      | MIN | with           |
+      | MIN | without        |
+      | TRO | with           |
+      | TRO | without        |
+      | DTEN | with           |
+      | DTEN | without        |
 
   @CreateCase @Allocation
   Scenario: A single case is allocated to the current user
-    And I create a single "DCU MIN" case
+    And I create a single "MIN" case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
-  @CreateCase @Workflow @SmokeTests
+  @CreateCase @Workflow @SmokeTests @Ignore
   Scenario: I can bulk upload cases
-    When I bulk create 40 "DCU MIN" cases
+    When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
 
   @CreateCase @Workflow

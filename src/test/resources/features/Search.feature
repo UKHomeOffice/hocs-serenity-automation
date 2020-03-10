@@ -29,7 +29,7 @@ Feature: Search should be available for all users of the application
     And I create a single "<caseType>" case
     And I navigate to the "search" page
     When I search by the case type "<caseType>"
-    Then only DCU "<caseType>" results should be displayed in the results list
+    Then only DCU "<caseType>" case type results should be displayed in the results list
     Examples:
       | caseType |
       | MIN      |
@@ -59,20 +59,23 @@ Feature: Search should be available for all users of the application
 
   @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
+    And I create a single "DTEN" case with the correspondence received date as: "01"-"01"-"2019"
     And I navigate to the "search" page
-    When I search for cases received on or after "03"/"02"/"2019"
-    Then cases received on or "after" "03/02/2019" should be displayed
+    When I search for a "DTEN" case received on or after "01"-"01"-"2019"
+    And I look for the current case that was received on or after the date searched
+
 
   @Search @SearchByDateReceived @SmokeTests
   Scenario: User should be able to search for cases received on or before a certain date
+    And I create a single "DTEN" case with the correspondence received date as: "01"-"01"-"2019"
     And I navigate to the "search" page
-    When I search for cases received on or before "03"/"02"/"2019"
-    Then cases received on or "before" "03/02/2019" should be displayed
+    When I search for a "DTEN" case received on or before "01"-"01"-"2019"
+    And I look for the current case that was received on or before the date searched
 
   @Search @SearchByDateReceived
   Scenario: No cases should be displayed if a user searches for a date range that contains no cases
     And I navigate to the "search" page
-    When I search for cases received on or before "01"/"01"/"1901"
+    When I search for cases received on or before "01"-"01"-"1901"
     Then 0 cases should be displayed
 
   @Search @SearchByCorrespondent @SmokeTests
@@ -90,8 +93,7 @@ Feature: Search should be available for all users of the application
 
   @Search @SearchByTopic @SmokeTests
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
-    And I create a "DCU MIN" case with "Biometrics - general queries" as the primary topic
-    And I click the "finish" button
+    And I create a "MIN" case with "Biometrics - general queries" as the primary topic
     And I navigate to the "search" page
     When I search for the topic
     Then the created case should be visible in the search results
@@ -107,21 +109,21 @@ Feature: Search should be available for all users of the application
   Scenario: Both active and closed cases should be displayed when searching without selecting that the results should only
   include active cases
     And I navigate to the "search" page
-    When I search by the Sign-off Team "Minister for Lords"
+    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
     Then both active and closed cases will be returned in the search results
 
-  @Search @SearchByActiveOnly @SmokeTests
+  @Search @SearchByActiveOnly @SmokeTests @Ignore
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases
-    When I search by the Sign-off Team "Minister for Lords"
+    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
     Then Only active cases will be returned in the search results
 
   @Search @SearchBySignOffTeam @SmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
-    And I create a "MIN" case with "Cardiff University Kittens" as the primary topic
+    And I create a "MIN" case with "Cats and Dogs" as the primary topic
     And I navigate to the "search" page
-    When I search by the Sign-off Team "Minister for Lords"
+    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
     Then cases with the queried Sign-off Team should be displayed in the results list
 
   @Search @SearchBySignOffMinister @searchByCaseType

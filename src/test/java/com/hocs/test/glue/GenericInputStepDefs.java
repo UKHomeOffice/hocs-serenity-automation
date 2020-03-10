@@ -325,7 +325,7 @@ public class GenericInputStepDefs extends Page {
     @Then("the {string} case should be moved to the {string} stage")
     public void assertCaseTypeReturnedToStage(String caseType, String stage) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "DISPATCH":
@@ -349,7 +349,7 @@ public class GenericInputStepDefs extends Page {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         clickOn(homepage.performanceProcessTeam);
@@ -369,7 +369,7 @@ public class GenericInputStepDefs extends Page {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "MARKUP":
