@@ -1,7 +1,7 @@
 Feature: HOCS User is able to create a case
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
     When I navigate to the "CREATE SINGLE CASE" page
 
   @CreateCase @Validation

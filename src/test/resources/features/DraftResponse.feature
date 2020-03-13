@@ -1,11 +1,12 @@
 Feature: HOCS User is able to draft a response
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
 
   @InitialDraft @Validation
   Scenario: User decides the case is not for them, does not complete a rejection note
-    And I get a "MIN" case at "INITIAL DRAFT" stage
+    And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
+    And I load and claim the current case
     When I select a case "should not" be answered by my team
     And I "do not complete" the rejection note
     Then an error message appears instructing me to add rejection reasons
@@ -45,7 +46,7 @@ Feature: HOCS User is able to draft a response
     And I select to reply by "email"
     And I upload a "draft" document
     And I select "yes" to QA offline
-    And I select "Eamon" as the offline QA
+    And I select "AUTOMATION_USER" as the offline QA
     Then I am returned to my home screen
     And the "MIN" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
 

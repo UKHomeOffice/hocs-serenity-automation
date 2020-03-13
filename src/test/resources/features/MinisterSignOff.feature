@@ -1,8 +1,9 @@
 Feature: User decides how cases should be handled at Minister Sign Off stage
 
   Background:
-    Given I log in as the designated user
-    And I get a "MIN" case at "MINISTERIAL SIGN OFF" stage
+    Given I am user "AUTOMATION_USER"
+    And I create a "MIN" case and move it to the "MINISTER SIGN OFF" stage
+    And I load and claim the current case
 
   @MinSignOff @Validation
   Scenario: User must select a radio button when asked whether or not they approve the response at the Minister Sign Off stage

@@ -2,6 +2,7 @@ package com.hocs.test.pages.accordion;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -82,6 +83,9 @@ public class CaseDetailsAccordion extends PageObject {
 
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Why should this be approved by this team instead?']/parent::span")
     public WebElementFacade whyShouldThisBeApprovedByThisTeamInstead;
+
+    @FindBy(xpath = "//a[text()='Allocate to me']")
+    public WebElementFacade allocateToMeLinkText;
 
     //assertions
 
@@ -169,5 +173,9 @@ public class CaseDetailsAccordion extends PageObject {
         doYouApproveTheResponse.shouldContainText("CHANGE");
         OverridePrivateOfficeTeam.shouldContainText(chosenPOTeam);
         whyShouldThisBeApprovedByThisTeamInstead.shouldContainText(reasonForOverridePOTeam);
+    }
+
+    public void assertThatAllocateToMeNotVisible() {
+        assertThat(allocateToMeLinkText.isVisible(), is(false));
     }
 }

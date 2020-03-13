@@ -8,6 +8,7 @@ import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.give_me_a_case.Fetch;
 
 import com.hocs.test.pages.search.Search;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -104,6 +105,11 @@ public class NavigationStepDefs extends Page {
     @Given("I load the current case")
     public void loadCase() {
         homepage.getCurrentCase();
+    }
+
+    @And("I load and claim the current case")
+    public void loadAndClaimCase() {
+        homepage.getAndClaimCurrentCase();
     }
 
     @Then("I am returned to my home screen")

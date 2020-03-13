@@ -88,7 +88,7 @@ public class TeamManagement extends Page {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
 
         teamNameHeader.shouldContainText(nameOfTeamInHeader);
-        membersInTeamTable.shouldContainText(Users.EAMON.getAllocationText());
+        membersInTeamTable.shouldContainText(Users.AUTOMATION_USER.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {

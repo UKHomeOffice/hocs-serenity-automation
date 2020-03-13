@@ -1,7 +1,7 @@
 Feature:  HOCS User is able to Dispatch a Response
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
 
   @Dispatch @Validation
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
@@ -23,7 +23,8 @@ Feature:  HOCS User is able to Dispatch a Response
 
   @Dispatch @Validation
   Scenario: User must enter their reason for not being able to dispatch case in the text box at the Dispatch Stage
-    And I get a "DTEN" case at "DISPATCH" stage
+    And I create a "DTEN" case and move it to the "DISPATCH" stage
+    And I load and claim the current case
     And I click the "FINISH" button on the "UNABLE TO DISPATCH" page
     Then an error message should be displayed as I have not entered a reason for not dispatching in the text box
 

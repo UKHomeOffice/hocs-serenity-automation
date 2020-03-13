@@ -1,7 +1,7 @@
 Feature: Search should be available for all users of the application
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
 
   @Search @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
@@ -18,7 +18,7 @@ Feature: Search should be available for all users of the application
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
-  @Search @Validation
+  @Search @Validation @Ignore
   Scenario: User must enter search criteria when using the search form
     And I navigate to the "search" page
     When I click the search button on the search page

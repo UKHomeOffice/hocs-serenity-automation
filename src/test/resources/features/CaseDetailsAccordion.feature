@@ -1,7 +1,7 @@
 Feature: User can view correct case details at all stages
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
     And I create a single "MIN" case
 
   @Accordion

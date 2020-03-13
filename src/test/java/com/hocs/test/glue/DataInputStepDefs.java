@@ -164,7 +164,6 @@ public class DataInputStepDefs extends Page {
     public void aCaseHasACorrespondent(String ordinal) {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
-                setSessionVariable("caseReference").to(getHeaderText().substring(10));
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 genericInputStepDefs.clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");

@@ -191,12 +191,11 @@ public class Workstacks extends Page {
     public void allocateThreeCasesCreated(Users user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
+
         WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
         clickOn(caseOne);
-
         WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
         clickOn(caseTwo);
-
         WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div > input");
         clickOn(caseThree);
 
@@ -206,11 +205,11 @@ public class Workstacks extends Page {
     public void unallocateThreeCasesFromSelectedUser(Users user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div");
         clickOn(caseOne);
-        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div");
         clickOn(caseTwo);
-        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div > input");
+        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div");
         clickOn(caseThree);
 
         clickOn(unallocateButton);
@@ -392,9 +391,8 @@ public class Workstacks extends Page {
 
     public void assertCaseIsAssignedToMe() {
         int totalCases = getTotalOfCases();
-        WebElement caseOwner = findBy("tr:nth-child(" + totalCases + ") > td:nth-child(4)");
-
-        assertThat(caseOwner.getText().equals(Users.EAMON.getUsername()), is(true));
+        WebElement caseOwner = find(By.cssSelector("tr:nth-child(" + totalCases + ") > td:nth-child(4)"));
+        assertThat(caseOwner.getText().equals(Users.AUTOMATION_USER.getUsername()), is(true));
     }
 
     public void assertThatDCUMINisOnlyVisibleCaseType() {

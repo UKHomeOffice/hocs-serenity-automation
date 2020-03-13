@@ -124,6 +124,7 @@ public class WorkstacksStepDefs extends Page {
         homepage.goHome();
         clickOn(homepage.performanceProcessTeam);
         workstacks.filterByCurrentCaseReference();
+        waitABit(500);
     }
 
     @Then("the case should be allocated to me")
@@ -197,6 +198,7 @@ public class WorkstacksStepDefs extends Page {
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
+        waitABit(1000);
         workstacks.assertCaseIsAssignedToMe();
     }
 

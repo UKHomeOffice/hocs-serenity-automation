@@ -32,20 +32,15 @@ public class LoginStepDefs extends Page {
     @Given("I am user {string}")
     public void iLoginAs(String user) {
         loginPage.navigateToHocs();
-        setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
-            if (isElementDisplayed($(loginPage.usernameField))) {
-                System.out.println("On fresh browser, beginning test..");
-                loginPage.enterHocsLoginDetails(Users.valueOf(user));
-                clickOn(loginPage.continueButton);
-            } else {
-                System.out.println("Session still active, continuing test from homepage");
-                homepage.goHome();
-            }
+            System.out.println("On fresh browser, beginning test..");
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
+            clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             homepage.goHome();
         }
+        setSessionVariable("activeUser").to(user);
     }
 
     @Given("I log in as the designated user")
@@ -87,8 +82,8 @@ public class LoginStepDefs extends Page {
     public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
         String user = System.getProperty("user");
         if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'EAMON'");
-            user = "EAMON";
+            System.out.println("User parameter not set. Defaulting to 'Automation User'");
+            user = "AUTOMATION_USER";
         }
         loginPage.navigateToManagementUI();
         if (isElementDisplayed($(loginPage.usernameField))) {

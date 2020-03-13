@@ -1,7 +1,7 @@
 Feature: HOCS User is able to add data to a case
 
   Background:
-    Given I log in as the designated user
+    Given I am user "AUTOMATION_USER"
     And I get a "MIN" case at "DATA INPUT" stage
 
   @DataInput @Navigation @SmokeTests

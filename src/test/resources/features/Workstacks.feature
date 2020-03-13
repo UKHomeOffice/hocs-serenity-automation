@@ -1,7 +1,7 @@
 Feature: Team members can allocate work
 
   Background:
-    Given I am user "EAMON"
+    Given I am user "AUTOMATION_USER"
 
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack

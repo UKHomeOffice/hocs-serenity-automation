@@ -26,7 +26,7 @@ Feature: User manages HOCS teams, topics and units
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "EAMON" to the team
+    And I add the user "AUTOMATION_USER" to the team
     Then the user should be visible in the team list
 
   @ManagementUI @TeamManagement

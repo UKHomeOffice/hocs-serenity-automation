@@ -205,6 +205,10 @@ public class DraftResponseStepDefs extends Page {
                 qa.selectOfflineQualityAssurer(Users.CASEY.getAllocationText());
                 clickOn(finishButton);
                 break;
+            case "AUTOMATION_USER":
+                qa.selectOfflineQualityAssurer(Users.AUTOMATION_USER.getAllocationText());
+                clickOn(finishButton);
+                break;
             default:
                 pendingStep(teamMember + " is not defined within " + getMethodName());
         }
