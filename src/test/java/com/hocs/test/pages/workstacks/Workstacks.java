@@ -192,11 +192,11 @@ public class Workstacks extends Page {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
 
-        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div > input");
+        WebElementFacade caseOne = findBy("//tr[" +(totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
-        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div > input");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
         clickOn(caseTwo);
-        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div > input");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
 
         selectAllocationUserByVisibleText(user.getAllocationText());
@@ -205,11 +205,11 @@ public class Workstacks extends Page {
     public void unallocateThreeCasesFromSelectedUser(Users user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td > div > div");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
-        WebElementFacade caseTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td > div > div");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
         clickOn(caseTwo);
-        WebElementFacade caseThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td > div > div");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
 
         clickOn(unallocateButton);
@@ -340,9 +340,8 @@ public class Workstacks extends Page {
     }
 
     public String getAllocatedUserFromWorkstacksTable() {
-        WebElement caseOwner = getDriver().findElement(
-                By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
-                        + "']/../following-sibling::td[2]"));
+        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference")
+                        + "']/../following-sibling::td[2]");
 
         return caseOwner.getText();
     }
@@ -357,19 +356,21 @@ public class Workstacks extends Page {
     }
 
     public void assertAssignedUser(Users user) {
-        waitABit(500);
+        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference")
+                + "']/../following-sibling::td[2]");
+        waitForAnyTextToAppear(caseOwner, user.getUsername());
         assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
     }
 
     public void assertAssignedUserOnThreeCases(Users user) {
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
 
-        WebElementFacade caseOwnerTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
 
-        WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
 
-        waitABit(500);
+        waitForAnyTextToAppear(caseOwnerOne, user.getUsername());
         caseOwnerOne.shouldContainText(user.getUsername());
         caseOwnerTwo.shouldContainText(user.getUsername());
         caseOwnerThree.shouldContainText(user.getUsername());
@@ -377,13 +378,13 @@ public class Workstacks extends Page {
 
     public void assertThatThreeCasesHaveBeenUnassigned() {
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("tr:nth-child(" + (totalCaseNumber - 2) + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
 
-        WebElementFacade caseOwnerTwo = findBy("tr:nth-child(" + (totalCaseNumber - 1) + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
 
-        WebElementFacade caseOwnerThree = findBy("tr:nth-child(" + totalCaseNumber + ") > td:nth-child(4)");
+        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
 
-        waitABit(500);
+        waitForAnyTextToAppear(caseOwnerOne, "");
         caseOwnerOne.shouldContainText("");
         caseOwnerTwo.shouldContainText("");
         caseOwnerThree.shouldContainText("");
@@ -391,8 +392,8 @@ public class Workstacks extends Page {
 
     public void assertCaseIsAssignedToMe() {
         int totalCases = getTotalOfCases();
-        WebElement caseOwner = find(By.cssSelector("tr:nth-child(" + totalCases + ") > td:nth-child(4)"));
-        assertThat(caseOwner.getText().equals(Users.AUTOMATION_USER.getUsername()), is(true));
+        WebElementFacade caseOwner = findBy("//tr[" + totalCases + "]/td[4]");
+        caseOwner.shouldContainText(Users.AUTOMATION_USER.getUsername());
     }
 
     public void assertThatDCUMINisOnlyVisibleCaseType() {

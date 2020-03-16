@@ -210,10 +210,6 @@ public class WorkstacksStepDefs extends Page {
                 workstacks.clickDCUMINFilterCard();
                 workstacks.assertThatDCUMINisOnlyVisibleCaseType();
                 break;
-            case "DTEN":
-                workstacks.clickDCUTENFilterCard();
-                workstacks.assertThatDCUTENisOnlyVisibleCaseType();
-                break;
             case "TRO":
                 workstacks.clickDCUTROFilterCard();
                 workstacks.assertThatDCUTROisOnlyVisibleCaseType();
@@ -222,5 +218,12 @@ public class WorkstacksStepDefs extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
                 break;
         }
+    }
+
+    @And("I view this DTEN case in the Transfers and NoTen team workstack")
+    public void iViewThisDTENCaseInTransfersAndNoTen() {
+        clickOn(homepage.transferN10Team);
+        workstacks.clickDCUTENFilterCard();
+        workstacks.assertThatDCUTENisOnlyVisibleCaseType();
     }
 }

@@ -28,7 +28,7 @@ Feature: Team members can allocate work
 
   Scenario: User creates a Number 10 case and view it in the Number 10 Performance and Process workstack
     And I create a new "DTEN" case and go home
-    Then I view this "DTEN" case in it's respective Performance and Process workstack
+    Then I view this DTEN case in the Transfers and NoTen team workstack
 
   Scenario: User creates a Treat Official case and view it in the Treat Official Performance and Process workstack
     And I create a new "TRO" case and go home
