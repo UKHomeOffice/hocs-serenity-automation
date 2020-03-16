@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -132,8 +133,9 @@ public class Search extends Page {
     public void getCaseReferenceOfFirstAndLastSearchResults() {
         List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
         setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
-        setSessionVariable("lastSearchResultCaseReference")
-                .to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
+        String firstCaseDate = sessionVariableCalled("firstSearchResultCaseReference");
+        setSessionVariable("lastSearchResultCaseReference").to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
+        String lastCaseDate = sessionVariableCalled("lastSearchResultCaseReference");
     }
 
     private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
@@ -207,6 +209,8 @@ public class Search extends Page {
 
     public void assertFirstAndLastSearchResultsMatchDateSearchCriteria(String beforeOrAfter, String date) {
         getCaseReferenceOfFirstAndLastSearchResults();
+        String caseOne = beforeOrAfter;
+        String caseTwo = date;
         assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("firstSearchResultCaseReference"),
                 date), is(true));
         assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("lastSearchResultCaseReference"),
@@ -239,5 +243,10 @@ public class Search extends Page {
     public void assertOnSearchPage() {
         topSearchResultCaseReference.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
         assertPageTitle("Search Results");
+    }
+
+    public void assertCurrentCaseIsDisplayedInSearchResults() {
+        WebElementFacade currentCase = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
+        assertThat(currentCase.isVisible(), is(true));
     }
 }

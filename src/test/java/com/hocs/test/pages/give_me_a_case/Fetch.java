@@ -220,7 +220,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedDataInputCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -250,7 +250,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedMINCaseDataInputStage();
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 try {
                     clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -280,7 +280,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedTROCaseDataInputStage();
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
@@ -317,7 +317,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedMarkupCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -351,7 +351,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedMarkupCase(caseType);
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 try {
                     clickOn(homepage.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -384,7 +384,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedMarkupCase(caseType);
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
@@ -425,7 +425,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedInitialDraftCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -465,7 +465,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedInitialDraftCase(caseType);
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -505,7 +505,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedInitialDraftCase(caseType);
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -552,7 +552,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedQaResponseCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -587,7 +587,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -622,7 +622,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -664,7 +664,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedPrivateOfficeCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -703,9 +703,9 @@ public class Fetch extends Page {
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -751,7 +751,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedMinisterialSignOffCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -785,8 +785,8 @@ public class Fetch extends Page {
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                 }
                 break;
-            case "DCU TRO":
-            case "DCU N10":
+            case "TRO":
+            case "DTEN":
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -795,7 +795,7 @@ public class Fetch extends Page {
 
     private void getFirstUnallocatedDispatchCase(String caseType) {
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 try {
                     clickOn(homepage.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -829,7 +829,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedDispatchCase(caseType);
                 }
                 break;
-            case "DCU TRO":
+            case "TRO":
                 try {
                     clickOn(homepage.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
@@ -864,7 +864,7 @@ public class Fetch extends Page {
                     getFirstUnallocatedDispatchCase(caseType);
                 }
                 break;
-            case "DCU N10":
+            case "DTEN":
                 try {
                     clickOn(homepage.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {

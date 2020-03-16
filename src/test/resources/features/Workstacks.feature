@@ -1,7 +1,7 @@
 Feature: Team members can allocate work
 
   Background:
-    Given I am user "EAMON"
+    Given I am user "AUTOMATION_USER"
 
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
@@ -23,14 +23,14 @@ Feature: Team members can allocate work
     And I then check whether the correct cases have been unallocated
 
   Scenario: User creates a Ministerial case and view it in the Ministerial Performance and Process workstack
-    And I create a new "DCU MIN" case and go home
-    Then I view this "DCU MIN" case in it's respective Performance and Process workstack
+    And I create a new "MIN" case and go home
+    Then I view this "MIN" case in it's respective Performance and Process workstack
 
   Scenario: User creates a Number 10 case and view it in the Number 10 Performance and Process workstack
-    And I create a new "DCU DTEN" case and go home
-    Then I view this "DCU TEN" case in it's respective Performance and Process workstack
+    And I create a new "DTEN" case and go home
+    Then I view this DTEN case in the Transfers and NoTen team workstack
 
   Scenario: User creates a Treat Official case and view it in the Treat Official Performance and Process workstack
-    And I create a new "DCU TRO" case and go home
-    Then I view this "DCU TRO" case in it's respective Performance and Process workstack
+    And I create a new "TRO" case and go home
+    Then I view this "TRO" case in it's respective Performance and Process workstack
 

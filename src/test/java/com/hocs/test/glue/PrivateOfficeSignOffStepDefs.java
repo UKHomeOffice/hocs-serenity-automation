@@ -33,14 +33,14 @@ public class PrivateOfficeSignOffStepDefs extends Page {
     @When("I complete the Private Office stage for {string}")
     public void completePrivateOfficeStagePerCaseType(String caseType) {
         switch(caseType.toUpperCase()) {
-            case "DCU MIN" :
-            case "DCU N10":
+            case "MIN" :
+            case "DTEN":
                 homepage.getCurrentCase();
                 clickOn(workstacks.allocateToMeButton);
                 clickOn(privateOffice.privateOfficeAcceptRadioButton);
                 clickOn(privateOffice.continueButton);
                 break;
-            case "DCU TRO" :
+            case "TRO" :
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

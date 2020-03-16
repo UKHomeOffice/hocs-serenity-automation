@@ -81,15 +81,10 @@ public class TimelineTab extends Page {
     }
 
     public void assertAllocationLogVisible(Users user, String stage) {
-        WebElementFacade allocationLog = findBy("//strong[text()='Allocated to " + user.getUsername() +
-                "']/parent::p/following-sibling::p[text()='" + stage + "']");
-        try {
-            assertThat(allocationLog.isVisible(), is(true));
-        } catch (AssertionError e) {
-            workstacks.selectSummaryTab();
-            selectTimelineTab();
-            assertThat(allocationLog.isVisible(), is(true));
-        }
+        WebElementFacade logAllocatedUser = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(1)");
+        WebElementFacade logCaseStage = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(2)");
+        logAllocatedUser.shouldContainText("Allocated to " + user.getUsername());
+        logCaseStage.shouldContainText("Stage: " + stage);
     }
 
     public void assertStageCompletionLogVisible(String stage) {

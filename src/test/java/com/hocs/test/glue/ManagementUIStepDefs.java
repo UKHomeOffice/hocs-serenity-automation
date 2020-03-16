@@ -103,11 +103,11 @@ public class ManagementUIStepDefs extends Page {
         teamManagement.selectATeam(teamName);
     }
 
-    @And("^I add the user \"([^\"]*)\" to the team$")
-    public void addUserToSelectedTeam(Users user) {
+    @And("I add the user {string} to the team")
+    public void addUserToSelectedTeam(String user) {
         waitABit(500);
         teamManagement.assertTeamName();
-        teamManagement.selectAUser(user);
+        teamManagement.selectAUser(Users.valueOf(user));
     }
 
     @Then("the user should be visible in the team list")
@@ -135,9 +135,9 @@ public class ManagementUIStepDefs extends Page {
         teamManagement.assertThatTeamContainsNoUsers();
     }
 
-    @And("^I attempt to remove the user \"([^\"]*)\"$")
-    public void attemptRemoveUserFromTeamWithAssignedCases(Users user) {
-        teamManagement.removeUserFromTeamWithAssignedCases(user.getUsername());
+    @And("I attempt to remove the user {string}")
+    public void attemptRemoveUserFromTeamWithAssignedCases(String user) {
+        teamManagement.removeUserFromTeamWithAssignedCases(Users.valueOf(user).getUsername());
     }
 
     @Then("an error message should be displayed as they have cases assigned in that team")
@@ -155,14 +155,14 @@ public class ManagementUIStepDefs extends Page {
         unitManagement.assertDisplayNameAndShortCodeErrorMessages();
     }
 
-    @And("^I add the users \"([^\"]*)\" and \"([^\"]*)\" to the team$")
-    public void addTwoUsersToSelectedTeam(Users firstUser, Users secondUser) {
+    @And("I add the users {string} and {string} to the team")
+    public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
         waitABit(500);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMembers();
-        setSessionVariable("firstUser").to(firstUser);
+        setSessionVariable("firstUser").to(Users.valueOf(firstUser));
         teamManagement.selectAUser(Users.EAMON);
-        setSessionVariable("secondUser").to(secondUser);
+        setSessionVariable("secondUser").to(Users.valueOf(secondUser));
         teamManagement.selectAUser(Users.CASEY);
     }
 
@@ -283,7 +283,7 @@ public class ManagementUIStepDefs extends Page {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        fetch.giveMeACase("DCU MIN", "MARKUP");
+        fetch.giveMeACase("MIN", "MARKUP");
         markUpDecision.getToMarkupAddATopicScreenPrerequisites();
         topics.enterATopic("Register of faith leaders");
         topics.getCurrentDefaultTeamsForTopic();
@@ -333,7 +333,7 @@ public class ManagementUIStepDefs extends Page {
     @When("I check the default team links in HOCS again")
     public void iCheckTheDefaultTeamLinksInHOCSAgain() {
         iNavigateTo("HOCS");
-        fetch.giveMeACase("DCU MIN", "MARKUP");
+        fetch.giveMeACase("MIN", "MARKUP");
         markUpDecision.getToMarkupAddATopicScreenPrerequisites();
         topics.enterATopic("Register of faith leaders");
     }
@@ -386,7 +386,7 @@ public class ManagementUIStepDefs extends Page {
 
     @And("I get a case and progress to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
-        fetch.giveMeACase("DCU MIN", "MARKUP");
+        fetch.giveMeACase("MIN", "MARKUP");
         markUpDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 

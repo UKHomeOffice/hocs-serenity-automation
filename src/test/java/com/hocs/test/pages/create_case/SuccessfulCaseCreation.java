@@ -54,7 +54,7 @@ public class SuccessfulCaseCreation extends Page {
     }
 
     public String getCaseReference() {
-        newCaseReference.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
+        newCaseReference.waitUntilVisible();
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
         setSessionVariable("caseReference").to(caseReference);
@@ -84,7 +84,6 @@ public class SuccessfulCaseCreation extends Page {
     }
 
     public void selectCaseReferenceNumberViaXpath() {
-
         WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']").get(0);
         waitFor(referenceElement).waitUntilClickable();

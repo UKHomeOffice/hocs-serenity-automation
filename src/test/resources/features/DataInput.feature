@@ -1,8 +1,8 @@
 Feature: HOCS User is able to add data to a case
 
   Background:
-    Given I log in as the designated user
-    And I get a "DCU MIN" case at "DATA INPUT" stage
+    Given I am user "AUTOMATION_USER"
+    And I get a "MIN" case at "DATA INPUT" stage
 
   @DataInput @Navigation @SmokeTests
   Scenario: DCU data entry user selects correspondence channel and date of correspondence

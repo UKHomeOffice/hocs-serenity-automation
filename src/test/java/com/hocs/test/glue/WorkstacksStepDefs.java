@@ -124,6 +124,7 @@ public class WorkstacksStepDefs extends Page {
         homepage.goHome();
         clickOn(homepage.performanceProcessTeam);
         workstacks.filterByCurrentCaseReference();
+        waitABit(500);
     }
 
     @Then("the case should be allocated to me")
@@ -131,15 +132,15 @@ public class WorkstacksStepDefs extends Page {
         workstacks.assertOwnerIs(Users.EAMON);
     }
 
-    @When("^I assign the current case number to \"([^\"]*)\"$")
-    public void iAssignTheCurrentCaseNumberToAnotherUser(Users user) {
+    @When("I assign the current case number to {string}")
+    public void iAssignTheCurrentCaseNumberToAnotherUser(String user) {
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.selectAllocationUserByVisibleText(user.getAllocationText());
+        workstacks.selectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
     }
 
-    @Then("^the owner field should display \"([^\"]*)\"$")
-    public void theOwnerFieldShouldDisplayTheSelectedUser(Users user) {
-        workstacks.assertAssignedUser(user);
+    @Then("the owner field should display {string}")
+    public void theOwnerFieldShouldDisplayTheSelectedUser(String user) {
+        workstacks.assertAssignedUser(Users.valueOf(user));
     }
 
     @When("I create three cases, and view them in performance and process workstack")
@@ -156,36 +157,36 @@ public class WorkstacksStepDefs extends Page {
         clickOn(homepage.performanceProcessTeam);
     }
 
-    @Then("I assign these three cases to \"([^\"]*)\"$")
-    public void assignThreeCasesToUser(Users user) {
-        workstacks.allocateThreeCasesCreated(user);
+    @Then("I assign these three cases to {string}")
+    public void assignThreeCasesToUser(String user) {
+        workstacks.allocateThreeCasesCreated(Users.valueOf(user));
     }
 
-    @Then("^I check that the three cases created have been correctly assigned to \"([^\"]*)\"$")
-    public void checkThreeCasesProperlyReassigned(Users user) {
-        workstacks.assertAssignedUserOnThreeCases(user);
+    @Then("I check that the three cases created have been correctly assigned to {string}")
+    public void checkThreeCasesProperlyReassigned(String user) {
+        workstacks.assertAssignedUserOnThreeCases(Users.valueOf(user));
     }
 
-    @When("^I create three cases, and assign them to \"([^\"]*)\"$")
-    public void iCreateThreeCasesAndAssignToUser(Users user) {
+    @When("I create three cases, and assign them to {string}")
+    public void iCreateThreeCasesAndAssignToUser(String user) {
         createCase.createDCUMinSingleCase();
         successfulCaseCreation.newCaseReference.click();
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
         successfulCaseCreation.newCaseReference.click();
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
         successfulCaseCreation.newCaseReference.click();
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(user.getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
     }
 
-    @Then("^I view these cases in Performance and Process workstack, and unallocate from \"([^\"]*)\"$")
-    public void iUnallocateThreeCasesCreated(Users user) {
+    @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
+    public void iUnallocateThreeCasesCreated(String user) {
         clickOn(homepage.performanceProcessTeam);
-        workstacks.unallocateThreeCasesFromSelectedUser(user);
+        workstacks.unallocateThreeCasesFromSelectedUser(Users.valueOf(user));
     }
 
     @Then("I then check whether the correct cases have been unallocated")
@@ -197,6 +198,7 @@ public class WorkstacksStepDefs extends Page {
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
+        waitABit(1000);
         workstacks.assertCaseIsAssignedToMe();
     }
 
@@ -204,15 +206,11 @@ public class WorkstacksStepDefs extends Page {
     public void iViewThisCaseInItSRespectiveWorkstack(String caseType) {
         homepage.selectPerformanceProcessTeam();
         switch (caseType.toUpperCase()) {
-            case "DCU MIN":
+            case "MIN":
                 workstacks.clickDCUMINFilterCard();
                 workstacks.assertThatDCUMINisOnlyVisibleCaseType();
                 break;
-            case "DCU TEN":
-                workstacks.clickDCUTENFilterCard();
-                workstacks.assertThatDCUTENisOnlyVisibleCaseType();
-                break;
-            case "DCU TRO":
+            case "TRO":
                 workstacks.clickDCUTROFilterCard();
                 workstacks.assertThatDCUTROisOnlyVisibleCaseType();
                 break;
@@ -220,5 +218,12 @@ public class WorkstacksStepDefs extends Page {
                 pendingStep(caseType + " is not defined within " + getMethodName());
                 break;
         }
+    }
+
+    @And("I view this DTEN case in the Transfers and NoTen team workstack")
+    public void iViewThisDTENCaseInTransfersAndNoTen() {
+        clickOn(homepage.transferN10Team);
+        workstacks.clickDCUTENFilterCard();
+        workstacks.assertThatDCUTENisOnlyVisibleCaseType();
     }
 }

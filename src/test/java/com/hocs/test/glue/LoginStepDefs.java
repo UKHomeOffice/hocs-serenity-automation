@@ -17,6 +17,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.seleniumhq.jetty9.server.Authentication.User;
 
 public class LoginStepDefs extends Page {
 
@@ -31,33 +32,15 @@ public class LoginStepDefs extends Page {
     @Given("I am user {string}")
     public void iLoginAs(String user) {
         loginPage.navigateToHocs();
-        setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
-            }
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
             clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             homepage.goHome();
         }
+        setSessionVariable("activeUser").to(user);
     }
 
     @Given("I log in as the designated user")
@@ -68,34 +51,16 @@ public class LoginStepDefs extends Page {
             System.out.println("User parameter not set. Defaulting to 'EAMON'");
             user = "EAMON";
         }
-
         loginPage.navigateToHocs();
-
         if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
+            if (isElementDisplayed($(loginPage.usernameField))) {
+                System.out.println("On fresh browser, beginning test..");
+                loginPage.enterHocsLoginDetails(Users.valueOf(user));
+                clickOn(loginPage.continueButton);
+            } else {
+                System.out.println("Session still active, continuing test from homepage");
+                homepage.goHome();
             }
-            clickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
-            homepage.goHome();
         }
     }
 
@@ -105,68 +70,28 @@ public class LoginStepDefs extends Page {
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
-            }
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
             clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
         }
     }
 
     @Given("that I have navigated to the Management UI as the designated user")
     public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
-
         String user = System.getProperty("user");
-
         if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'EAMON'");
-            user = "EAMON";
+            System.out.println("User parameter not set. Defaulting to 'Automation User'");
+            user = "AUTOMATION_USER";
         }
-
         loginPage.navigateToManagementUI();
-
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            switch (user.toUpperCase()) {
-                case "DCU":
-                    loginPage.enterHocsLoginDetails(DCU);
-                    break;
-                case "TEST":
-                    loginPage.enterHocsLoginDetails(TEST);
-                    break;
-                case "CASEY":
-                    loginPage.enterHocsLoginDetails(CASEY);
-                    break;
-                case "EAMON":
-                    loginPage.enterHocsLoginDetails(EAMON);
-                    break;
-                case "PROD":
-                    loginPage.enterHocsLoginDetails(PROD);
-                    break;
-                default:
-                    pendingStep(user + " is not defined within " + getMethodName());
-            }
+            loginPage.enterHocsLoginDetails(Users.valueOf(user));
             clickOn(loginPage.continueButton);
         } else {
-            System.out.println("Browser not closed down correctly, attempting to continue test");
+            System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
         }
     }
@@ -177,19 +102,19 @@ public class LoginStepDefs extends Page {
     }
 
 
-    @When("^I enter the login credentials for user \"([^\"]*)\" and click the login button$")
-    public void enterCredentialsAndClickLogin(Users user) {
-        setSessionVariable("user").to(user);
+    @When("I enter the login credentials for user {string} and click the login button")
+    public void enterCredentialsAndClickLogin(String user) {
+        setSessionVariable("user").to(Users.valueOf(user));
 
-        loginPage.enterHocsUsername(user.getUsername());
-        loginPage.enterHocsPassword(user.getPassword());
+        loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
+        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
 
         clickOn(loginPage.continueButton);
     }
 
-    @And("^I enter the password of user \"([^\"]*)\" in the password field$")
-    public void IEnterMyHocsPassword(Users user) {
-        loginPage.enterHocsPassword(user.getPassword());
+    @And("I enter the password of user {string} in the password field")
+    public void IEnterMyHocsPassword(String user) {
+        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
     }
 
     @When("I enter invalid login credentials on the login screen")
@@ -213,11 +138,11 @@ public class LoginStepDefs extends Page {
         clickOn(homepage.logoutButton);
     }
 
-    @When("^I enter the login credentials of another user \"([^\"]*)\" and click the login button$")
-    public void loginAsDifferentUserAfterLogout(Users user) {
+    @When("I enter the login credentials of another user {string} and click the login button")
+    public void loginAsDifferentUserAfterLogout(String user) {
         loginPage.navigateToHocs();
-        loginPage.enterHocsUsername(user.getUsername());
-        loginPage.enterHocsPassword(user.getPassword());
+        loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
+        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
         clickOn(loginPage.continueButton);
     }
 
@@ -229,9 +154,9 @@ public class LoginStepDefs extends Page {
         }
     }
 
-    @Then("^I should be logged in as the user \"([^\"]*)\"$")
-    public void iShouldBeLoggedInAsTheUser(Users user) {
+    @Then("I should be logged in as the user {string}")
+    public void iShouldBeLoggedInAsTheUser(String user) {
         homepage.selectMyCases();
-        workstacks.assertOwnerIs(user);
+        workstacks.assertOwnerIs(Users.valueOf(user));
     }
 }

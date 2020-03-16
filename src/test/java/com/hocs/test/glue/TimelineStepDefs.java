@@ -14,6 +14,7 @@ public class TimelineStepDefs extends Page {
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
+        waitABit(5000);
         timelineTab.selectTimelineTab();
     }
 
@@ -32,9 +33,9 @@ public class TimelineStepDefs extends Page {
         timelineTab.assertTopNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
 
-    @And("^it should state that user \"([^\"]*)\" created it$")
-    public void itShouldStateThatUserCreatedIt(Users user) {
-        timelineTab.assertTopNoteSignatureContainsCreator(user);
+    @And("it should state that user {string} created it")
+    public void itShouldStateThatUserCreatedIt(String user) {
+        timelineTab.assertTopNoteSignatureContainsCreator(Users.valueOf(user));
     }
 
     @Then("a log should be at the top of the timeline")
@@ -42,9 +43,9 @@ public class TimelineStepDefs extends Page {
         timelineTab.assertLogAtTopOfTimeline();
     }
 
-    @Then("^there should be a log showing the case was allocated to user \"([^\"]*)\" at stage \"([^\"]*)\"$")
-    public void thereShouldBeALogShowingTheCaseWasAllocatedToUserAtStage(Users user, String stage) {
-        timelineTab.assertAllocationLogVisible(user, stage);
+    @Then("there should be a log showing the case was allocated to user {string} at stage {string}")
+    public void thereShouldBeALogShowingTheCaseWasAllocatedToUserAtStage(String user, String stage) {
+        timelineTab.assertAllocationLogVisible(Users.valueOf(user), stage);
     }
 
     @And("a log should be visible for completing the {string} stage")

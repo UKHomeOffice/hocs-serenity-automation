@@ -2,8 +2,8 @@
 Feature: A user can manage documents associated to a case
 
   Background:
-    Given I log in as the designated user
-    And I create a "DCU MIN" case "without" a document
+    Given I am user "AUTOMATION_USER"
+    And I create a "MIN" case "without" a document
     And I go to the case from the successful case creation screen
     And I click manage documents
 

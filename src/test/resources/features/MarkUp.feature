@@ -1,8 +1,9 @@
 Feature: DCU user decides how a case should be handled
 
   Background:
-    Given I log in as the designated user
-    When I get a "DCU N10" case at "MARKUP" stage
+    Given I am user "AUTOMATION_USER"
+    When I create a "DTEN" case and move it to the "MARKUP" stage
+    And I load and claim the current case
 
   @Markup @SmokeTests
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -92,7 +93,7 @@ Feature: DCU user decides how a case should be handled
   @Markup @Workflow @SmokeTests
   Scenario: Case is returned to Data Input stage when rejected at Markup stage
     And I reject the case at the "MARKUP" stage
-    Then the "DCU N10" case should be moved to the "DATA INPUT" stage
+    Then the "DTEN" case should be moved to the "DATA INPUT" stage
 
 
 

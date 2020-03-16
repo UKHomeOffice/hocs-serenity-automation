@@ -2,8 +2,7 @@ package config;
 
 public enum Users {
 
-    DCU("smoke_test_user_dcu", "Password1", ""),
-    TEST("", "", ""),
+    AUTOMATION_USER("automation.user", "Password1!", "Automation User (automation.user@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
     EAMON("eamon.droko@ten10.com", "Password1!", "Eamon Droko (eamon.droko@ten10.com)"), //Just Eamon
     FAKE("FakeUser", "FAKE1!", ""),

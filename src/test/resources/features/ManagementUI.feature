@@ -26,7 +26,7 @@ Feature: User manages HOCS teams, topics and units
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "EAMON" to the team
+    And I add the user "AUTOMATION_USER" to the team
     Then the user should be visible in the team list
 
   @ManagementUI @TeamManagement
@@ -235,8 +235,8 @@ Feature: User manages HOCS teams, topics and units
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
     And I enter the login credentials for user "EAMON" and click the login button
-    And I create a single case "DCU MIN"
-    And I complete the Data Input Stage for "DCU MIN" case type
+    And I create a single case "MIN"
+    And I complete the Data Input Stage for "MIN" case type
     When I assign the Topic "NEW CHILD TOPIC"
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval

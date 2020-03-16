@@ -1,8 +1,9 @@
 Feature: User can add notes and view logs in the timeline
 
   Background:
-    Given I am user "Eamon"
-    And I get a "DCU MIN" case at "DATA INPUT" stage
+    Given I am user "AUTOMATION_USER"
+    And I create a "MIN" case and move it to the "DATA INPUT" stage
+    And I load and claim the current case
     And I select the Timeline tab
 
   @Timeline @SmokeTests
@@ -10,7 +11,7 @@ Feature: User can add notes and view logs in the timeline
     When I create a case note with random content
     Then a note should be created at the top of the timeline
     And it should have the same content
-    And it should state that user "EAMON" created it
+    And it should state that user "AUTOMATION_USER" created it
 
   @Timeline @Validation
   Scenario: User must enter text when creating a case note
@@ -26,7 +27,7 @@ Feature: User can add notes and view logs in the timeline
 
   @Timeline @SmokeTests
   Scenario: User can view logs for when a case has been allocated
-    Then there should be a log showing the case was allocated to user "EAMON" at stage "Data Input"
+    Then there should be a log showing the case was allocated to user "AUTOMATION_USER" at stage "Data Input"
 
   @Timeline @SmokeTests
   Scenario: User can view logs for completing one stage and starting another

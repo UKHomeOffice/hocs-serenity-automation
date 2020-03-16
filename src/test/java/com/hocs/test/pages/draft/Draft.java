@@ -189,6 +189,7 @@ public class Draft extends Page {
     public void acceptAndDraftALetter() {
         clickOn(answeredByMyTeamYesRadioButton);
         clickOn(continueButton);
+        waitFor(letterReplyRadioButton);
         clickOn(letterReplyRadioButton);
         clickOn(continueButton);
     }

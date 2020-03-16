@@ -7,6 +7,8 @@ import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
 import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.give_me_a_case.Fetch;
 
+import com.hocs.test.pages.search.Search;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -26,6 +28,8 @@ public class NavigationStepDefs extends Page {
 
     RecordCorrespondentDetails recordCorrespondentDetails;
 
+    Search search;
+
     @When("I navigate to the {string} page")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
@@ -40,6 +44,7 @@ public class NavigationStepDefs extends Page {
                 break;
             case "SEARCH":
                 clickOn(homepage.searchPage);
+                waitFor(search.searchTopicTextbox);
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 clickOn(homepage.animalsInScienceTeam);
@@ -100,6 +105,11 @@ public class NavigationStepDefs extends Page {
     @Given("I load the current case")
     public void loadCase() {
         homepage.getCurrentCase();
+    }
+
+    @And("I load and claim the current case")
+    public void loadAndClaimCase() {
+        homepage.getAndClaimCurrentCase();
     }
 
     @Then("I am returned to my home screen")

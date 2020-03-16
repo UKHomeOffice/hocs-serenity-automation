@@ -68,6 +68,11 @@ public class Dispatch extends Page {
         clickOn(continueButton);
     }
 
+    public void completeDispatchStageAndMoveToCaseClosed() {
+        clickOn(dispatchAcceptRadioButton);
+        clickOn(continueButton);
+    }
+
     //assertions
 
     public void assertAreYouAbleToDispatchErrorMessageIsShown() {

@@ -124,8 +124,7 @@ public class Homepage extends Page {
 
     public void getValidCaseReferenceAndEnterIntoSearchBar() {
         clickOn(performanceProcessTeam);
-        String getFirstCaseReferenceForSearch = findBy("(//td[following-sibling::td[1][contains(text(), 'Data "
-                + "Input')]])[1]").getText();
+        String getFirstCaseReferenceForSearch = find(By.cssSelector("tr:nth-child(1) > td:nth-child(2)")).getText();
         setSessionVariable("caseReference").to(getFirstCaseReferenceForSearch);
         clickOn(home);
         typeInto(caseReferenceSearchBar, getFirstCaseReferenceForSearch);
@@ -194,6 +193,15 @@ public class Homepage extends Page {
         caseReferenceSearchBar.click();
         typeInto(caseReferenceSearchBar, currentCase);
         caseReferenceSearchBar.sendKeys(Keys.ENTER);
+    }
+
+    public void getAndClaimCurrentCase() {
+        String currentCase = sessionVariableCalled("caseReference").toString();
+        WebElementFacade allocateToMe = findBy("//a[text()='Allocate to me']");
+        clickOn(caseReferenceSearchBar);
+        typeInto(caseReferenceSearchBar, currentCase);
+        caseReferenceSearchBar.sendKeys(Keys.ENTER);
+        clickOn(allocateToMe);
     }
 
     public void assertCaseStageInWorkstacks(String expectedStage) {

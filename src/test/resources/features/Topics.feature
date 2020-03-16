@@ -5,8 +5,8 @@ Feature: HOCS Topics are assigned to the correct Team
 
   @Topics
   Scenario Outline: Topics are assigned to the correct team
-    When I create a single case "DCU MIN"
-    And I complete the Data Input Stage for "DCU MIN" case type
+    When I create a single case "MIN"
+    And I complete the Data Input Stage for "MIN" case type
     And I assign the Topic "<Topic>"
     Then the case should be assigned to the "<draftingTeam>" for drafting
     And the case should be assigned to the "<privateOfficeTeam>" for approval
@@ -30,7 +30,7 @@ Feature: HOCS Topics are assigned to the correct Team
     Then the case should be found in the "<overrideTeam>" team
     Examples:
       | caseType | Topic                         | defaultTeam   | overrideTeam                        |
-      | DCU MIN  | Cyber Stalking And Harassment | Initial Draft | Extremism Analysis Unit             |
-      | DCU MIN  | Cyber Stalking And Harassment | Initial Draft | Press Office                        |
-      | DCU MIN  | Cyber Stalking And Harassment | Initial Draft | Finance                             |
-      | DCU MIN  | Cyber Stalking And Harassment | Initial Draft | Criminal & Financial Investigations |
+      | MIN  | Cyber Stalking And Harassment | Initial Draft | Extremism Analysis Unit             |
+      | MIN  | Cyber Stalking And Harassment | Initial Draft | Press Office                        |
+      | MIN  | Cyber Stalking And Harassment | Initial Draft | Finance                             |
+      | MIN  | Cyber Stalking And Harassment | Initial Draft | Criminal & Financial Investigations |

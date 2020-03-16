@@ -168,6 +168,62 @@ public class CreateCase extends Page {
         completeSingleCaseCreation();
     }
 
+    public void createDCUMinSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuMinRadioButton);
+        clickOn(nextButton);
+        correspondenceReceivedDayField.clear();
+        typeInto(correspondenceReceivedDayField, dd);
+        correspondenceReceivedMonthField.clear();
+        typeInto(correspondenceReceivedMonthField, mm);
+        correspondenceReceivedYearField.clear();
+        typeInto(correspondenceReceivedYearField, yyyy);
+        addDocuments.uploadDocumentOfType("docx");
+        storeCorrespondenceReceivedDay();
+        storeCorrespondenceReceivedMonth();
+        storeCorrespondenceReceivedYear();
+        clickOn(submitButton);
+        successfulCaseCreation.getCaseReference();
+    }
+
+    public void createDCUTROSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuTroRadioButton);
+        clickOn(nextButton);
+        correspondenceReceivedDayField.clear();
+        typeInto(correspondenceReceivedDayField, dd);
+        correspondenceReceivedMonthField.clear();
+        typeInto(correspondenceReceivedMonthField, mm);
+        correspondenceReceivedYearField.clear();
+        typeInto(correspondenceReceivedYearField, yyyy);
+        addDocuments.uploadDocumentOfType("docx");
+        storeCorrespondenceReceivedDay();
+        storeCorrespondenceReceivedMonth();
+        storeCorrespondenceReceivedYear();
+        clickOn(submitButton);
+        successfulCaseCreation.getCaseReference();
+    }
+
+    public void createDCUDTenSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
+        clickOn(homepage.createSingleCase);
+        clickOn(dcuDtenRadioButton);
+        clickOn(nextButton);
+        correspondenceReceivedDayField.clear();
+        typeInto(correspondenceReceivedDayField, dd);
+        correspondenceReceivedMonthField.clear();
+        typeInto(correspondenceReceivedMonthField, mm);
+        correspondenceReceivedYearField.clear();
+        typeInto(correspondenceReceivedYearField, yyyy);
+        addDocuments.uploadDocumentOfType("docx");
+        storeCorrespondenceReceivedDay();
+        storeCorrespondenceReceivedMonth();
+        storeCorrespondenceReceivedYear();
+        clickOn(submitButton);
+        successfulCaseCreation.getCaseReference();
+    }
+
+
+
     public void createCaseWithoutSelectingCorrespondenceType() {
         clickOn(homepage.createSingleCase);
         clickOn(nextButton);

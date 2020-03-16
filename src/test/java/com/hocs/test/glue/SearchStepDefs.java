@@ -7,6 +7,9 @@ import com.hocs.test.pages.workstacks.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.NoSuchElementException;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
@@ -198,13 +201,13 @@ public class SearchStepDefs extends Page {
 
     }
 
-    @When("I search for cases received on or after {string} {string} {string}")
+    @When("I search for cases received on or after {string}-{string}-{string}")
     public void iSearchForCasesReceivedOnOrAfter(String dd, String mm, String yyyy) {
         search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
         clickOn(search.searchButton);
     }
 
-    @When("I search for cases received on or before {string} {string} {string}")
+    @When("I search for cases received on or before {string}-{string}-{string}")
     public void iSearchForCasesReceivedOnOrBefore(String dd, String mm, String yyyy) {
         search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
         clickOn(search.searchButton);
@@ -222,21 +225,27 @@ public class SearchStepDefs extends Page {
 
     @When("I search for the topic")
     public void iSearchForTheTopic() {
-        waitABit(2000);
+        waitABit(5000);
         search.enterSearchTopic(sessionVariableCalled("searchTopic"));
         clickOn(search.searchButton);
     }
 
     @Then("the created case should be visible in the search results")
     public void theCreatedCaseShouldBeIncludedInTheSearchResults() {
-        try {
-            workstacks.assertCaseReferenceIsVisible();
-        } catch (AssertionError a) {
-            waitABit(3000);
-            clickOn(homepage.searchPage);
-            iSearchForTheTopic();
-            workstacks.assertCaseReferenceIsVisible();
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                clickOn(homepage.searchPage);
+                waitABit(7500);
+                iSearchForTheTopic();
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+            }
         }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
     }
 
     @Then("both active and closed cases will be returned in the search results")
@@ -257,15 +266,41 @@ public class SearchStepDefs extends Page {
         search.assertClosedCaseVisibleIs(false);
     }
 
-    @When("I search by the Sign-off Team {string}")
-    public void iSearchByTheSignOffTeam(String signOffTeam) {
+    @When("I search for a {string} case by the Sign-off Team {string}")
+    public void iSearchByTheSignOffTeam(String caseType, String signOffTeam) {
         search.selectSignOffTeam(signOffTeam);
+        setSessionVariable("signOffTeam").to(signOffTeam);
+        switch (caseType) {
+            case "MIN":
+                clickOn(search.searchMINCheckbox);
+                break;
+            case "TRO":
+                clickOn(search.searchTROCheckbox);
+                break;
+            case "DTEN":
+                clickOn(search.searchDTENCheckbox);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
         clickOn(search.searchButton);
     }
 
     @Then("cases with the queried Sign-off Team should be displayed in the results list")
     public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
-        search.assertFirstAndLastSearchResultsMatchSignOffTeam();
+        int retry = 0;
+        while (retry < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                break;
+            } catch (AssertionError e) {
+                waitABit(7500);
+                retry++;
+                clickOn(homepage.searchPage);
+                iSearchByTheSignOffTeam("MIN", sessionVariableCalled("signOffTeam"));
+            }
+        }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
     }
 
     @When("I search for a made up topic")
@@ -273,6 +308,109 @@ public class SearchStepDefs extends Page {
         waitABit(2000);
         search.enterSearchTopic("Made up topic");
         clickOn(search.searchButton);
+    }
+
+    @And("I search for a {string} case received on or before {string}-{string}-{string}")
+    public void iSearchForTheCurrentCaseReceivedBefore(String caseType, String dd, String mm, String yyyy) {
+        setSessionVariable("beforeReceivedCaseType").to(caseType);
+        search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                clickOn(search.searchMINCheckbox);
+                break;
+            case "TRO":
+                clickOn(search.searchTROCheckbox);
+                break;
+            case "DTEN":
+                clickOn(search.searchDTENCheckbox);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        waitABit(10000);
+        search.clickOn(searchButton);
+    }
+
+    @And("I search for a {string} case received on or after {string}-{string}-{string}")
+    public void iSearchForTheCurrentCaseReceivedAfter(String caseType, String dd, String mm, String yyyy) {
+        setSessionVariable("afterReceivedCaseType").to(caseType);
+        search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                clickOn(search.searchMINCheckbox);
+                break;
+            case "TRO":
+                clickOn(search.searchTROCheckbox);
+                break;
+            case "DTEN":
+                clickOn(search.searchDTENCheckbox);
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        waitABit(10000);
+        search.clickOn(searchButton);
+    }
+
+    @And("I look for the current case that was received on or before the date searched")
+    public void lookForTheCurrentCaseInTheSearchResultsBeforeDate() {
+        int retry = 0;
+        String beforeDateCaseType = sessionVariableCalled("beforeReceivedCaseType");
+        while (retry < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                break;
+            } catch (AssertionError aE) {
+                waitABit(7500);
+                retry++;
+                clickOn(homepage.searchPage);
+                switch (beforeDateCaseType) {
+                    case "MIN":
+                        clickOn(search.searchMINCheckbox);
+                        break;
+                    case "DTEN":
+                        clickOn(search.searchDTENCheckbox);
+                        break;
+                    case "TRO":
+                        clickOn(search.searchTROCheckbox);
+                        break;
+                    default:
+                        pendingStep(beforeDateCaseType + " is not defined within " + getMethodName());
+                }
+                iSearchForCasesReceivedOnOrBefore("01", "01", "2019");
+            }
+        }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
+    }
+    @And("I look for the current case that was received on or after the date searched")
+    public void lookForTheCurrentCaseInTheSearchResultsAfterDate() {
+        int retry = 0;
+        String afterDateCaseType = sessionVariableCalled("afterReceivedCaseType");
+        while (retry < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                break;
+            } catch (AssertionError aE) {
+                waitABit(10000);
+                retry++;
+                clickOn(homepage.searchPage);
+                switch (afterDateCaseType) {
+                    case "MIN":
+                        clickOn(search.searchMINCheckbox);
+                        break;
+                    case "DTEN":
+                        clickOn(search.searchDTENCheckbox);
+                        break;
+                    case "TRO":
+                        clickOn(search.searchTROCheckbox);
+                        break;
+                    default:
+                        pendingStep(afterDateCaseType + " is not defined within " + getMethodName());
+                }
+                iSearchForCasesReceivedOnOrAfter("01", "01", "2019");
+            }
+        }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
     }
 }
 
