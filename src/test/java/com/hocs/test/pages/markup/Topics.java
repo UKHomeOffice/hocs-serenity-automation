@@ -2,6 +2,7 @@ package com.hocs.test.pages.markup;
 
 import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.timeline.TimelineTab;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
 import java.time.Duration;
@@ -23,6 +24,8 @@ public class Topics extends Page {
     MarkUpDecision markUpDecision;
 
     Workstacks workstacks;
+
+    TimelineTab timelineTab;
 
     @FindBy(xpath = "//li[1]/p[2]")
     public WebElementFacade topicInTimeline;
@@ -104,6 +107,16 @@ public class Topics extends Page {
         clickOn(finishButton);
     }
 
+    public void enterATopicWithoutHittingFinish(String topic) {
+        clickOn(addTopicButton);
+        clickOn(topicsTextField);
+        typeInto(topicsTextField, topic);
+        waitABit(1000);
+        hitReturnToSendTopic();
+        clickOn(addButton);
+        clickOn(continueButton);
+    }
+
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
@@ -177,4 +190,11 @@ public class Topics extends Page {
         assertThat(thisTopic.equals(testTopic), is(true));
     }
 
+    public void assertTopicIsAssignedThroughTimeline() {
+        clickOn(workstacks.caseTimelineTab);
+        waitABit(1000);
+        String testTopic = sessionVariableCalled("topic").toString();
+        String thisTopic = timelineTab.topCaseNoteOrLog.getText().substring(7, 27);
+        assertThat(thisTopic.equals(testTopic), is(true));
+    }
 }

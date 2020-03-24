@@ -11,6 +11,8 @@ import com.hocs.test.pages.markup.MarkUpDecision;
 import com.hocs.test.pages.markup.MarkupFull;
 import com.hocs.test.pages.markup.Topics;
 import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
+import com.hocs.test.pages.summary.CaseSummaryPage;
+import com.hocs.test.pages.timeline.TimelineTab;
 import com.hocs.test.pages.workstacks.Workstacks;
 import com.hocs.test.pages.qa_response.QAResponse;
 import com.hocs.test.pages.draft.Draft;
@@ -36,6 +38,8 @@ public class MarkUpStepDefs extends Page {
     SuccessfulCaseCreation successfulCaseCreation;
 
     QAResponse qaResponse;
+
+    TimelineTab timelineTab;
 
     @When("I complete the markup stage")
     public void completeTheMarkupStage() {
@@ -116,6 +120,12 @@ public class MarkUpStepDefs extends Page {
     public void assertTopicOnCase() {
         markup.clickContinueButton();
         topics.assertTopicsAssigned();
+    }
+
+    @Then("the topic can be viewed in the case timeline")
+    public void assertTopicIsInTimelines() {
+        markup.clickContinueButton();
+        topics.assertTopicIsAssignedThroughTimeline();
     }
 
     @Then("the case should be assigned to the {string} for drafting")
