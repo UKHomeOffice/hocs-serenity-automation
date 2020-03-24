@@ -79,6 +79,7 @@ public class TeamManagement extends Page {
     }
 
     public void assertTeamName() {
+        String header = teamNameHeader.getText();
         teamNameHeader.shouldContainText("Team: " + sessionVariableCalled("teamName"));
     }
 

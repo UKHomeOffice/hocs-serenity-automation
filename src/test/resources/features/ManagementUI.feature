@@ -142,7 +142,6 @@ Feature: User manages HOCS teams, topics and units
     And I navigate to the "ADD CHILD TOPIC" Management page
     And I select a parent topic
     And I enter a display name
-    When I click the "SUBMIT" button
     Then I am returned to the dashboard screen
     And a success message is displayed
 
@@ -159,7 +158,6 @@ Feature: User manages HOCS teams, topics and units
     And I navigate to the "ADD CHILD TOPIC" Management page
     And I select a different parent topic
     And I enter the same display name
-    When I click the "SUBMIT" button
     Then I am returned to the dashboard screen
     And a success message is displayed
 
@@ -168,16 +166,14 @@ Feature: User manages HOCS teams, topics and units
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
-    And I enter the login credentials for user "EAMON" and click the login button
     And I get a case and progress to the point of adding a topic
     When I add the topic "NEW CHILD TOPIC"
-    Then the topic should be added to the case
+    Then the topic can be viewed in the case timeline
 
   @ManagementUI @AddChildTopic @Validation
-  Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
+  Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI 4
     And I have created a new child topic
     And I navigate to "HOCS"
-    And I enter the login credentials for user "EAMON" and click the login button
     And I get a case and progress to the point of adding a topic
     When I add the topic "NEW CHILD TOPIC"
     Then an error message should be displayed as the topic was not recognised as a valid topic
@@ -230,11 +226,10 @@ Feature: User manages HOCS teams, topics and units
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team has been selected
 
   @ManagementUI @LinkTopicToTeam
-  Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
+  Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic 5
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
-    And I enter the login credentials for user "EAMON" and click the login button
     And I create a single case "MIN"
     And I complete the Data Input Stage for "MIN" case type
     When I assign the Topic "NEW CHILD TOPIC"
@@ -242,9 +237,8 @@ Feature: User manages HOCS teams, topics and units
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
   @ManagementUI @LinkTopicToTeam
-  Scenario: A topic with existing team links can have those links amended in Management UI
+  Scenario: A topic with existing team links can have those links amended in Management UI 6
     Given I navigate to "HOCS"
-    And I enter the login credentials for user "EAMON" and click the login button
     And I discover the current default team links for a topic
     And I navigate to "Management UI"
     And I select to amend the team links for the topic

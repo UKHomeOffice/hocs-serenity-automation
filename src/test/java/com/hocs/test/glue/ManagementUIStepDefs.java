@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.base_page.Page;
 import com.hocs.test.pages.give_me_a_case.Fetch;
+import com.hocs.test.pages.homepage.Homepage;
 import com.hocs.test.pages.login.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
@@ -23,6 +24,8 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManagementUIStepDefs extends Page {
+
+    Homepage homepage;
 
     GenericInputStepDefs genericInputStepDefs;
 
@@ -217,7 +220,6 @@ public class ManagementUIStepDefs extends Page {
         navigateToSelectedManagementPage("ADD CHILD TOPIC");
         addChildTopic.selectAParentTopic("Police Website");
         addChildTopic.inputNewChildTopic();
-        genericInputStepDefs.clickTheButton("SUBMIT");
     }
 
     @And("I select a {string} team")
@@ -285,7 +287,7 @@ public class ManagementUIStepDefs extends Page {
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
         fetch.giveMeACase("MIN", "MARKUP");
         markUpDecision.getToMarkupAddATopicScreenPrerequisites();
-        topics.enterATopic("Register of faith leaders");
+        topics.enterATopicWithoutHittingFinish("Register of faith leaders");
         topics.getCurrentDefaultTeamsForTopic();
     }
 

@@ -51,7 +51,8 @@ public class StandardLine extends Page {
 
     public void enterStandardLineTopic() {
         waitABit(500);
-        typeInto(topicTypeahead, "Cardiff University Kittens");
+        clickOn(topicTypeahead);
+        topicTypeahead.sendKeys("Cardiff University Kittens");
         topicTypeahead.sendKeys(Keys.ENTER);
     }
 
