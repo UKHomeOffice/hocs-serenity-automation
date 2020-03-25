@@ -77,11 +77,9 @@ pipeline:
     icon_emoji: ":heavy_check_mark:"
     template: >
       {{#success build.status}}
-        build {{build.number}} succeeded and tests have executed successfully, you can always ask Slackbot for the HOCS
-        Test Report to view your results in more depth.
+        build {{build.number}} succeeded and tests have executed successfully.
       {{else}}
-        build {{build.number}} unfortunately has some test failures, time for some investigating!  Ask Slackbot for the
-        HOCS Test Report
+        build {{build.number}} unfortunately has some test failures, time for some investigating!
       {{/success}}
     when:
       branch: master
