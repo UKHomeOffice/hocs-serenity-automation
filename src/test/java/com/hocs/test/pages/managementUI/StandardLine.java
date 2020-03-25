@@ -25,7 +25,7 @@ public class StandardLine extends Page {
     @FindBy(xpath = "//a[@href='#topic-error']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
-    @FindBy(id = "topics-input")
+    @FindBy(xpath = "//input[@id='topics-input']")
     public WebElementFacade topicTypeahead;
 
     @FindBy(xpath = "//input[@class='govuk-file-upload']")

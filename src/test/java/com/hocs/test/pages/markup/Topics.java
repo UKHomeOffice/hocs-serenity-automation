@@ -104,7 +104,6 @@ public class Topics extends Page {
         hitReturnToSendTopic();
         clickOn(addButton);
         clickOn(continueButton);
-        clickOn(finishButton);
     }
 
     public void enterATopicWithoutHittingFinish(String topic) {
