@@ -21,18 +21,10 @@ public class SuccessfulCaseCreation extends Page {
 
     @Managed
 
-    WebDriver driver;
-
     Workstacks workstacks;
-
-    @FindBy(className = "govuk-panel--confirmation")
-    private WebElementFacade confirmationPanel;
 
     @FindBy(className = "govuk-panel__title")
     private WebElementFacade panelTitle;
-
-    @FindBy(className = "govuk-panel__body")
-    private WebElementFacade createdCaseMessage;
 
     @FindBy(className = "govuk-back-link")
     private WebElementFacade successBackButton;
@@ -68,19 +60,6 @@ public class SuccessfulCaseCreation extends Page {
 
     public void goToCaseFromSuccessfulCreationScreen() {
         clickOn(newCaseReference);
-    }
-
-    public void selectCaseReferenceNumberViaLinkText() {
-        String caseReferenceNumber
-                = sessionVariableCalled("caseReference").toString();
-        System.out.println(caseReferenceNumber);
-        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
-        System.out.println(thisReference);
-        Actions actions = new Actions (getDriver());
-        actions.moveToElement(thisReference);
-        actions.perform();
-        waitABit(1000);
-        thisReference.click();
     }
 
     public void selectCaseReferenceNumberViaXpath() {

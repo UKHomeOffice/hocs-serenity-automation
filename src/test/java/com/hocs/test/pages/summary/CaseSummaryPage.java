@@ -43,43 +43,7 @@ public class CaseSummaryPage extends Page {
         clickOn(summaryTab);
     }
 
-    public String getDeadline() {
-        return deadline.getText();
-    }
-
-    public String getPrimaryTopic() {
-        return primaryTopic.getText();
-    }
-
     public String getPrimaryCorrespondent() {
         return primaryCorrespondent.getText();
-    }
-
-    public String getHowCorrespondenceReceived() {
-        return howCorrespondenceReceived.getText();
-    }
-
-    public String getShouldResponseCopyToN10() {
-        return shouldResponseCopyToN10.getText();
-    }
-
-    public String getWhenCorrespondenceReceived() {
-        return whenCorrespondenceReceived.getText();
-    }
-
-    public String getWhenCorrespondenceSent() {
-        return whenCorrespondenceSent.getText();
-    }
-
-    public String getActiveStage() {
-        return activeStage.getText();
-    }
-
-    public String getCurrentTeam() {
-        return currentTeam.getText();
-    }
-
-    public String getAssignedUser() {
-        return assignedUser.getText();
     }
 }

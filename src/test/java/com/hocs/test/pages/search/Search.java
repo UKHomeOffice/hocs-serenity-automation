@@ -209,8 +209,6 @@ public class Search extends Page {
 
     public void assertFirstAndLastSearchResultsMatchDateSearchCriteria(String beforeOrAfter, String date) {
         getCaseReferenceOfFirstAndLastSearchResults();
-        String caseOne = beforeOrAfter;
-        String caseTwo = date;
         assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("firstSearchResultCaseReference"),
                 date), is(true));
         assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("lastSearchResultCaseReference"),

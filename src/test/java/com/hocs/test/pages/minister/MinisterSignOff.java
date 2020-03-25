@@ -27,10 +27,6 @@ public class MinisterSignOff extends Page {
 
     // Basic Methods
 
-    public void clearRejectionNoteField() {
-        ministerRejectionNote.clear();
-    }
-
     public void enterMinisterRejectionNote() {
         typeInto(ministerRejectionNote, generateRandomString());
     }

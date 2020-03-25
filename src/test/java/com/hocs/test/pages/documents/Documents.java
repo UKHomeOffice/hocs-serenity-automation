@@ -69,13 +69,6 @@ public class Documents extends Page {
 
     //Multi-step methods
 
-    public void uploadDocxAndTxtDocuments() {
-        String workingDir = System.getProperty("user.dir");
-        String filePath = workingDir + "\\src\\test\\resources\\documents\\test.docx" + "\n" + workingDir + "\\src\\test"
-                + "\\resources\\documents\\test.txt";
-        typeInto(addDocument, filePath);
-    }
-
     public void bulkUploadDocuments(int documents) {
         String allFiles = "";
         for (int i = 1; i <= documents; i++) {

@@ -35,9 +35,6 @@ public class Homepage extends Page {
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
 
-    @FindBy(xpath = "//a[text()='Logout']")
-    public WebElementFacade logoutPage;
-
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
 
@@ -138,10 +135,6 @@ public class Homepage extends Page {
         caseReferenceIsRequiredErrorMessage.shouldContainText("Case reference is required");
     }
 
-    public void assertCaseReferenceIsInvalidFormatErrorMessage() {
-        caseReferenceIsInvalidFormatErrorMessage.shouldContainText("Case reference is invalid format");
-    }
-
     public void assertNoActiveWorkflowsForCaseErrorMessage() {
         noActiveWorkflowsForCaseErrorMessage.shouldContainText("No active workflows for case");
     }
@@ -150,28 +143,12 @@ public class Homepage extends Page {
         performanceProcessTeam.waitUntilEnabled();
     }
 
-    public void waitForMyCases() {
-        myCases.waitUntilEnabled();
-    }
-
     public void selectMyCases() {
         clickOn(myCases);
     }
 
     public void selectPerformanceProcessTeam() {
         clickOn(performanceProcessTeam);
-    }
-
-    public void selectPublicProtectionUnit() {
-        clickOn(publicProtectionUnit);
-    }
-
-    public void waitForProcessTeam() {
-        performanceProcessTeam.waitUntilVisible();
-    }
-
-    public void selectTransfersN10Team() {
-        clickOn(transferN10Team);
     }
 
     public void selectCentralDraftingTeam() {
@@ -202,35 +179,6 @@ public class Homepage extends Page {
         typeInto(caseReferenceSearchBar, currentCase);
         caseReferenceSearchBar.sendKeys(Keys.ENTER);
         clickOn(allocateToMe);
-    }
-
-    public void assertCaseStageInWorkstacks(String expectedStage) {
-        String actualStage = getDriver().findElement(
-                By.xpath("//td[contains(text(), '" + sessionVariableCalled("caseReference")
-                        + "')]/following-sibling::td[1]")).getText();
-        System.out.println("Case is at " + actualStage + " stage");
-        assertThat(actualStage.toUpperCase(), is(expectedStage.toUpperCase()));
-    }
-
-    public void assertWorkstackTableContainsCaseReference() {
-        assertThat(getWorktackTableContents(),
-                hasItem(containsString(sessionVariableCalled("caseReference"))));
-    }
-
-    public void assertCreateSingleCaseIsDisplayed() {
-        assertThat(isElementDisplayed(createSingleCase), is(true));
-    }
-
-    public void clickCreateSingleCase() {
-        clickOn(createSingleCase);
-    }
-
-    public void selectSearchPage() {
-        clickOn(searchPage);
-    }
-
-    private List<Map<Object, String>> getWorktackTableContents() {
-        return rowsFrom(workstackTable);
     }
 
     public void assertHomePageTitle() {

@@ -72,15 +72,6 @@ public class DataInput extends Page {
     public WebElementFacade addMemberOfParliamentSearchField;
 
     @FindBy(css = "label[for='CopyNumberTen-TRUE']")
-    public WebElementFacade sendCopyToNumberTenTickBox;
-
-    @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
-    public WebElementFacade addCorrespondentNoRadioButton;
-
-    @FindBy(css = "label[for='AdditionalCorrespondent-TRUE']")
-    public WebElementFacade addCorrespondentYesRadioButton;
-
-    @FindBy(css = "label[for='CopyNumberTen-TRUE']")
     public WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
 
     @FindBy(css = "label[for='CopyNumberTen-FALSE']")
@@ -224,12 +215,6 @@ public class DataInput extends Page {
         clickOn(finishButton);
     }
 
-    public void setDateMinusOneDay() {
-        enterDayOfCorrespondenceReceived(todayPlusNDaysGetDay(-1));
-        enterMonthOfCorrespondenceReceived(getCurrentMonth());
-        enterYearOfCorrespondenceReceived(getCurrentYear());
-    }
-
     public void clearDateCorrespondenceReceived() {
         dateCorrespondenceReceivedDayField.clear();
         dateCorrespondenceReceivedMonthField.clear();
@@ -264,10 +249,6 @@ public class DataInput extends Page {
 
     public void enterYearOfCorrespondenceSent(String year) {
         typeInto(dateCorrespondenceSentYearField, year);
-    }
-
-    public void enterReferenceText() {
-        typeInto(referenceTextField, " ");
     }
 
     public void fillAllMandatoryCorrespondenceFields() {
@@ -413,25 +394,6 @@ public class DataInput extends Page {
         enterYearOfCorrespondenceSent(tomorrowsYear());
     }
 
-    public void addAnAdditionalCorrespondent() {
-        recordCorrespondentDetails.clickAdditionalCorrespondentYes();
-        clickOn(continueButton);
-        clickOn(correspondentMemberNoRadioButton);
-        clickOn(continueButton);
-        recordCorrespondentDetails.fillMandatoryCorrespondentFields();
-        clickOn(continueButton);
-    }
-
-    public void completeTheFirstDataInputFields() {
-        enterDayOfCorrespondenceSent("01");
-        enterMonthOfCorrespondenceSent("01");
-        enterYearOfCorrespondenceSent("2019");
-        clickOn(emailOriginalChannelRadioButton);
-        clickOn(continueButton);
-        clickOn(continueButton);
-        clickOn(finishButton);
-    }
-
     public void completeDataInputStageWithMPCorrespondent(String correspondent) {
         getToAddMemberOfParliamentPrerequisites();
         recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(correspondent);
@@ -516,12 +478,5 @@ public class DataInput extends Page {
 
     public void assertShouldResponseBeCopiedN10ErrorMessage() {
         shouldTheResponseBeCopiedN10ErrorMessage.shouldContainText("Should the response be copied to Number 10? is required");
-    }
-
-    public void assertAccordionCorrespondenceReceivedDate() {
-        String dataInputCorrespondenceReceivedDate =
-                sessionVariableCalled("correspondenceReceivedDay") + "/" + sessionVariableCalled(
-                        "correspondenceReceivedMonth") + "/" + sessionVariableCalled("correspondenceReceivedYear");
-        dataInputAccordionCorrespondenceReceived.shouldContainText(dataInputCorrespondenceReceivedDate);
     }
 }

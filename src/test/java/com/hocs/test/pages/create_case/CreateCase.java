@@ -100,11 +100,6 @@ public class CreateCase extends Page {
         allRadioButtons.shouldContainText("No options available");
     }
 
-    public void capturedCaseReferenceTest() {
-        String thisSessionVar = sessionVariableCalled("caseReference");
-        System.out.println(thisSessionVar);
-    }
-
     public void clickDcuMinRadioButton() {
         clickOn(dcuMinRadioButton);
     }
@@ -119,21 +114,6 @@ public class CreateCase extends Page {
 
     public void enterCaseDetailsFreeText() {
         typeInto(caseDetailsFreeTextField, generateRandomString());
-    }
-
-   /* public void enterDispatchDeadline(int days){
-        enterDispatchDeadlineDay(todayPlusNDaysGetDay(days));
-        enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(days));
-        enterDispatchDeadlineYear(todayPlusNDaysGetYear(days));
-    } */
-
-    public void fillMandatoryDateFields() {
-        enterDispatchDeadlineDay(todayPlusNDaysGetDay(+365));
-        enterDispatchDeadlineMonth(todayPlusNDaysGetMonth(+365));
-        enterDispatchDeadlineYear(todayPlusNDaysGetYear(+365));
-        enterDraftDeadlineDay(todayPlusNDaysGetDay(+360));
-        enterDraftDeadlineMonth(todayPlusNDaysGetMonth(+360));
-        enterDraftDeadlineYear(todayPlusNDaysGetYear(+360));
     }
 
     private void enterDispatchDeadlineDay(String day) {
@@ -222,7 +202,11 @@ public class CreateCase extends Page {
         successfulCaseCreation.getCaseReference();
     }
 
-
+    public void enterNoDate() {
+        typeInto(correspondenceReceivedDayField, "");
+        typeInto(correspondenceReceivedMonthField, "");
+        typeInto(correspondenceReceivedYearField, "");
+    }
 
     public void createCaseWithoutSelectingCorrespondenceType() {
         clickOn(homepage.createSingleCase);
@@ -309,24 +293,12 @@ public class CreateCase extends Page {
         assertPageTitle("Create case");
     }
 
-    public void radioButtonsAreDisplayed() {
-        assertThat(isElementDisplayed(allRadioButtons), is(true));
-    }
-
-    public void radioButtonsNotDisplayed() {
-        assertThat(isElementDisplayed(allRadioButtons), is(false));
-    }
-
     public void assertCaseTypeErrorMessage() {
         caseTypeIsRequiredErrorMessage.shouldContainText("Case type is required");
     }
 
     public void assertDateReceivedNotEnteredErrorMessage() {
         dateReceivedIsRequiredErrorMessage.shouldContainText("Date received is required");
-    }
-
-    public void assertDocumentsAreMandatoryErrorMessage() {
-        documentsAreMandatoryErrorMessage.shouldContainText("Documents are mandatory when bulk creating a case");
     }
 
     public void assertDateReceivedIsInvalidErrorMessage() {

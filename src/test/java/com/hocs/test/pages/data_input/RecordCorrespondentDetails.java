@@ -54,23 +54,14 @@ public class RecordCorrespondentDetails extends Page {
     @FindBy(linkText = "Add a correspondent")
     private WebElementFacade addACorrespondentButton;
 
-    @FindBy(css = "input[name='Correspondents']")
-    private WebElementFacade selectPrimaryCorrespondentRadioButton;
-
     @FindBy(xpath = "//input[@name='Correspondents'][@checked]/following-sibling::label")
     private WebElementFacade primaryCorrespondentName;
 
     @FindBy(xpath = "//input[@name='Correspondents'][not(@checked)]/following-sibling::label")
     private WebElementFacade secondaryCorrespondentName;
 
-    @FindBy(css = "label[for='AdditionalCorrespondent-FALSE']")
-    private WebElementFacade additionalCorrespondentNoRadioButton;
-
     @FindBy(css = "label[for='isMember-false']")
     private WebElementFacade correspondentNotMPRadioButton;
-
-    @FindBy(css = "label[for='isMember-true']")
-    private WebElementFacade correspondentIsMPRadioButton;
 
     public void assertPageTitle() {
         assertPageTitle("Record Correspondent Details");

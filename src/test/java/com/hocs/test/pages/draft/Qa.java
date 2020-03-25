@@ -27,13 +27,6 @@ public class Qa extends Page {
         clickOn(continueButton);
     }
 
-    public void qaOffline() {
-        clickOn(continueButton);
-        clickOn(offlineQaYesRadioButton);
-        selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
-        clickOn(continueButton);
-    }
-
     public void selectOfflineQualityAssurer(String userName) {
         allocateToOfflineQaDropdown.selectByVisibleText(userName);
     }
