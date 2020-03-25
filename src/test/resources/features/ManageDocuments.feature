@@ -1,5 +1,5 @@
 @ManageDocuments
-Feature: A user can manage documents associated to a case
+Feature: Manage Documents
 
   Background:
     Given I am user "AUTOMATION_USER"

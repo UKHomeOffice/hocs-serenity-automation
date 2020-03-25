@@ -202,17 +202,15 @@ public class WorkstacksStepDefs extends Page {
         workstacks.assertCaseIsAssignedToMe();
     }
 
-    @Then("I view this {string} case in it's respective Performance and Process workstack")
-    public void iViewThisCaseInItSRespectiveWorkstack(String caseType) {
+    @When("I enter the Performance and Process team workstack and narrow down the visible cases using the {string} filter card")
+    public void iNarrowDownTheVisibleCasesInThePerformanceAndProcessTeamWorkstackUsingTheFilterCard(String caseType) {
         homepage.selectPerformanceProcessTeam();
         switch (caseType.toUpperCase()) {
             case "MIN":
                 workstacks.clickDCUMINFilterCard();
-                workstacks.assertThatDCUMINisOnlyVisibleCaseType();
                 break;
             case "TRO":
                 workstacks.clickDCUTROFilterCard();
-                workstacks.assertThatDCUTROisOnlyVisibleCaseType();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -220,10 +218,32 @@ public class WorkstacksStepDefs extends Page {
         }
     }
 
-    @And("I view this DTEN case in the Transfers and NoTen team workstack")
-    public void iViewThisDTENCaseInTransfersAndNoTen() {
+    @When("I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card")
+    public void iNarrowDownTheVisibleCasesInTheTransfersAndNoTeamWorkstackUsingTheFilterCard() {
         clickOn(homepage.transferN10Team);
         workstacks.clickDCUTENFilterCard();
-        workstacks.assertThatDCUTENisOnlyVisibleCaseType();
+    }
+
+    @Then("the created case should be visible in the workstack")
+    public void theCreatedCaseShouldBeVisibleInTheWorkstack() {
+        workstacks.assertCaseReferenceIsVisible();
+    }
+
+    @Then("only {string} cases should be visible")
+    public void onlyCasesShouldBeVisible(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                workstacks.assertThatDCUMINisOnlyVisibleCaseType();
+                break;
+            case "DTEN":
+                workstacks.assertThatDCUTENisOnlyVisibleCaseType();
+                break;
+            case "TRO":
+                workstacks.assertThatDCUTROisOnlyVisibleCaseType();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+                break;
+        }
     }
 }

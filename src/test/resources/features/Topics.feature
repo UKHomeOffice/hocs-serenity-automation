@@ -1,9 +1,9 @@
-Feature: HOCS Topics are assigned to the correct Team
+@Topics
+Feature: Topics
 
   Background:
     Given I log in as the designated user
 
-  @Topics
   Scenario Outline: Topics are assigned to the correct team
     When I create a single case "MIN"
     And I complete the Data Input Stage for "MIN" case type
@@ -23,7 +23,6 @@ Feature: HOCS Topics are assigned to the correct Team
       | Criminal Records                    | International Criminality Unit       | Minister of State for Policing and Fire Service                    |
       | Classification of Cannabis          | Drugs & Alcohol Unit                 | Minister of State for Policing and Fire Service                    |
 
-  @Topics
   Scenario Outline: The user overrides the "<defaultTeam>" Team
     When I create a "<caseType>" case with "<Topic>" as the primary topic
     And I override the "<defaultTeam>" team to "<overrideTeam>"
