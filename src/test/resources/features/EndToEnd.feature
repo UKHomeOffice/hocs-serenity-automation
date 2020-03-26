@@ -1,4 +1,4 @@
-Feature: HOCS is able to move cases through the entire flow
+Feature: End To End
 
   Background:
     Given I am user "AUTOMATION_USER"

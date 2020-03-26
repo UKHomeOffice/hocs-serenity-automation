@@ -243,6 +243,10 @@ public class Workstacks extends Page {
         assertThat(isElementDisplayed(thisReference), is(true));
     }
 
+    public void assertThatThereAreNoCasesInWorkstack() {
+        zeroItemsInWorkstackCount.shouldContainText("0 Items");
+    }
+
     public void assertCaseReferenceBeforeAllocation(){
         String searchCaseReference = sessionVariableCalled("caseReference").toString();
         caseReferenceOnAllocationScreen.shouldContainText(searchCaseReference);
@@ -341,6 +345,7 @@ public class Workstacks extends Page {
         refineWorkstackSearchResults("TRO");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
     }
 
     public void assertThatDCUTENisOnlyVisibleCaseType() {
@@ -355,6 +360,7 @@ public class Workstacks extends Page {
         refineWorkstackSearchResults("TRO");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
     }
 
     public void assertThatDCUTROisOnlyVisibleCaseType() {
@@ -369,6 +375,7 @@ public class Workstacks extends Page {
         refineWorkstackSearchResults("DTEN");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
+        selectWorkstackFilter.clear();
     }
 
 

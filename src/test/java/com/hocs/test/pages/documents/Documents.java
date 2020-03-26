@@ -80,7 +80,7 @@ public class Documents extends Page {
                 allFiles += filePath;
             }
         }
-        typeInto(addDocument, allFiles);
+        addDocument.sendKeys(allFiles);
     }
 
     public void addAOriginalDocument() {
@@ -122,6 +122,7 @@ public class Documents extends Page {
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
+        removeLink.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(10));
         clickOn(removeLink);
     }
 
