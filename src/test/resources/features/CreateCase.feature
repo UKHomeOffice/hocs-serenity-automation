@@ -29,7 +29,7 @@ Feature: Create case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
-  @Workflow @SmokeTests @Ignore
+  @Workflow @SmokeTests
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
