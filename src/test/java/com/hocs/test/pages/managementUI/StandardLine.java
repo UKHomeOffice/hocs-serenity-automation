@@ -13,9 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StandardLine extends Page {
 
-    @Managed
-    WebDriver driver;
-
     @FindBy(xpath = "//a[@href='#files-error']")
     public WebElementFacade standardLineIsRequiredErrorMessage;
 
@@ -86,10 +83,6 @@ public class StandardLine extends Page {
 
     public void assertTopicIsRequiredErrorMessage() {
         topicIsRequiredErrorMessage.shouldContainText("The Topic is required");
-    }
-
-    public void assertStandardLineDocumentHasBeenAddedToTopic() {
-        standardLineDocumentAssert.shouldContainText("testtesttest.docx");
     }
 
     public void assertDateMustBeInFutureErrorMessage() {

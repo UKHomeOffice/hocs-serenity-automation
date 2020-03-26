@@ -27,9 +27,6 @@ public class Topics extends Page {
 
     TimelineTab timelineTab;
 
-    @FindBy(xpath = "//li[1]/p[2]")
-    public WebElementFacade topicInTimeline;
-
     @FindBy(xpath = "//th[contains(text(),'Primary topic')]/following-sibling::td")
     public WebElementFacade primaryTopicInSummary;
 
@@ -146,18 +143,6 @@ public class Topics extends Page {
         markUpDecision.clickPolicyResponseRadioButton();
         clickContinueButton();
         enterATopic(topic);
-    }
-
-    public void fromMarkupStartSelectATopicAndStayOnPrimaryTopicsPage (String topic) {
-        homepage.selectCentralDraftingTeam();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
-        successfulCaseCreation.selectCaseReferenceNumberViaXpath();
-        markUpDecision.clickPolicyResponseRadioButton();
-        clickContinueButton();
-        enterATopicWithoutContinuingToTheDraftStage(topic);
     }
 
     public void recordSelectedDraftingAndPrivateOfficeTeams() {

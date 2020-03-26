@@ -35,26 +35,11 @@ public class Workstacks extends Page {
     @FindBy(id = "workstack-filter")
     public WebElementFacade selectWorkstackFilter;
 
-    @FindBy(xpath = "//span[text()='DCU Ministerial']/preceding-sibling::span")
-    public WebElementFacade dcuMINCardNumber;
-
-    @FindBy(xpath = "//tbody[@class='govuk-table__body']")
-    public WebElementFacade caseResultsTable;
-
     @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
 
     @FindBy(id = "selected_user")
     public WebElementFacade allocateDropdown;
-
-    @FindBy(xpath = "//a[@class='govuk-breadcrumbs__link']")
-    public WebElementFacade dashboardBreadcrumb;
-
-    @FindBy(xpath = "//a[@class='govuk-breadcrumbs__link'][text()='Team']")
-    public WebElementFacade teamBreadcrumb;
-
-    @FindBy(xpath = "//a[@class='govuk-breadcrumbs__link'][text()='Workflow']")
-    public WebElementFacade workflowBreadcrumb;
 
     @FindBy(xpath = "//span[text()='DCU Ministerial']")
     public WebElementFacade dcuMINFilterCard;
@@ -68,15 +53,6 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "///span[text()='Dispatch']")
-    public WebElementFacade dispatchInputFilterCard;
-
-    @FindBy(xpath = "//span[text()='QA Response']")
-    public WebElementFacade qaResponseFilterCard;
-
-    @FindBy(xpath = "//a[@class='tab'][text()='Documents']")
-    public WebElementFacade caseDocumentsTab;
-
     @FindBy(xpath = "//a[@class='tab'][text()='Summary']")
     public WebElementFacade caseSummaryTab;
 
@@ -89,9 +65,6 @@ public class Workstacks extends Page {
     @FindBy(xpath = "//span[@id='case-note-error']")
     public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
 
-    @FindBy(xpath = "//a[@class='govuk-back-link'][text()='Back to dashboard']")
-    public WebElementFacade backToDashboardButton;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
@@ -102,13 +75,7 @@ public class Workstacks extends Page {
     public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
 
     @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
-    public WebElementFacade primaryCorrespondentName;
-
-    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
     public WebElementFacade primaryTopicName;
-
-    @FindBy(xpath = "//a[@class='govuk-back-link']")
-    public WebElementFacade allocateScreenBackButton;
 
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade displayedOwner;
@@ -149,10 +116,6 @@ public class Workstacks extends Page {
         String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
 
         return Integer.parseInt(tempNumberOfItems);
-    }
-
-    public void selectTimeLineTab() {
-        clickOn(caseTimelineTab);
     }
 
     public void selectSummaryTab() {
@@ -215,11 +178,6 @@ public class Workstacks extends Page {
         clickOn(unallocateButton);
     }
 
-    public void unallocatedAllCases() {
-        clickAllWorkstackCheckboxes();
-        clickOn(unallocateButton);
-    }
-
     public void clickDCUMINFilterCard() {
         clickOn(dcuMINFilterCard);
     }
@@ -234,13 +192,6 @@ public class Workstacks extends Page {
 
     // Assertions
 
-    public void assertThatDCUMinFilterCardIsVisible() {
-        dcuMINFilterCard.shouldContainText("DCU Ministerial");
-    }
-
-    public void assertThatDataInputFilterCardIsVisible() {
-        dataInputFilterCard.shouldContainText("Data Input");
-    }
 
     public void assertCasesAreFilteredByRef(String caseReference) {
         int totalNumberOfCases = getTotalOfCases();
@@ -335,11 +286,6 @@ public class Workstacks extends Page {
                         + "']/../following-sibling::td[2]");
 
         return caseOwner.getText();
-    }
-
-    public void selectCurrentCaseAndAllocateToMe() {
-        clickCheckboxRelevantToCaseReference();
-        clickOn(allocateSelectedToMeButton);
     }
 
     public void filterByCurrentCaseReference() {

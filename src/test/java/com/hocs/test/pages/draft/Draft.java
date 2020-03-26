@@ -71,12 +71,6 @@ public class Draft extends Page {
     @FindBy(css = "label[for=ResponseChannel-PHONE]")
     public WebElementFacade phoneReplyRadioButton;
 
-    @FindBy(xpath = "//caption[contains(text(), 'Available Template')]/parent::table/descendant::a")
-    public WebElementFacade downloadStandardLineLink;
-
-    @FindBy(xpath = "//caption[contains(text(), 'Available Template')]/parent::table/descendant::a")
-    public WebElementFacade downloadTemplateLink;
-
     @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
     public WebElementFacade summariseCallTextBox;
 
