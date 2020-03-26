@@ -7,6 +7,7 @@ import com.hocs.test.pages.summary.CaseSummaryPage;
 import com.hocs.test.pages.workstacks.Workstacks;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -239,7 +240,7 @@ public class Search extends Page {
     }
 
     public void assertOnSearchPage() {
-        topSearchResultCaseReference.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
+        topSearchResultCaseReference.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assertPageTitle("Search Results");
     }
 

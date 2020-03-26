@@ -146,7 +146,7 @@ public class Topics extends Page {
     }
 
     public void recordSelectedDraftingAndPrivateOfficeTeams() {
-        selectedDraftingTeamName.withTimeoutOf(10, TimeUnit.SECONDS).waitUntilVisible();
+        selectedDraftingTeamName.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         String selectedInitialDraftingTeamName = selectedDraftingTeamName.getValue();
         setSessionVariable("selectedDraftingTeamName").to(selectedInitialDraftingTeamName);
         String selectedPOTeamName = selectedPrivateOfficeTeamName.getValue();
