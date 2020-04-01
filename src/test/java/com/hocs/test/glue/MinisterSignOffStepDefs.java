@@ -21,8 +21,10 @@ public class MinisterSignOffStepDefs extends Page {
 
     @When("I complete the minister sign off stage")
     public void completeTheMinisterSignOffStage(){
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         clickOn(minister.ministerSignOffAcceptRadioButton);
         clickOn(minister.continueButton);
     }

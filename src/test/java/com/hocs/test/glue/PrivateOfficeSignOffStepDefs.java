@@ -24,8 +24,10 @@ public class PrivateOfficeSignOffStepDefs extends Page {
 
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStage() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         clickOn(privateOffice.privateOfficeAcceptRadioButton);
         clickOn(privateOffice.continueButton);
     }

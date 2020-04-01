@@ -20,8 +20,10 @@ public class DispatchStepDefs extends Page {
 
     @When("I complete the dispatch stage")
     public void completeTheDispatchStage() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         clickOn(dispatch.dispatchAcceptRadioButton);
         clickOn(dispatch.continueButton);
     }

@@ -40,37 +40,32 @@ public class EndToEndStepDefs extends Page {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
+        if (homepage.myCases.isVisible()) {
+            homepage.getAndClaimCurrentCase();
+        }
         switch (stage.toUpperCase()) {
             case "DATA INPUT":
-                homepage.getAndClaimCurrentCase();
                 dataInput.moveCaseFromDataInputToMarkup();
                 break;
             case "MARKUP":
-                homepage.getAndClaimCurrentCase();
                 markupFull.moveCaseFromMarkupToInitialDraft();
                 break;
             case "INITIAL DRAFT":
-                homepage.getAndClaimCurrentCase();
                 draft.moveCaseFromInitialDraftToQaResponse();
                 break;
             case "DTEN INITIAL DRAFT":
-                homepage.getAndClaimCurrentCase();
                 draft.moveDTENCaseFromInitialDraftToQaResponse();
                 break;
             case "QA RESPONSE":
-                homepage.getAndClaimCurrentCase();
                 qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
                 break;
             case "PO SIGN OFF":
-                homepage.getAndClaimCurrentCase();
                 privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
                 break;
             case "MINISTER SIGN OFF":
-                homepage.getAndClaimCurrentCase();
                 ministerSignOff.moveCaseFromMinisterToDispatch();
                 break;
             case "DISPATCH":
-                homepage.getAndClaimCurrentCase();
                 dispatch.completeDispatchStageAndMoveToCaseClosed();
                 break;
             default:
