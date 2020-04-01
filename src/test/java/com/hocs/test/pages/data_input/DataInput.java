@@ -173,8 +173,6 @@ public class DataInput extends Page {
     }
 
     public void dataInputFullFlowMIN() {
-        homepage.getCurrentCase();
-        workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFields();
         clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
@@ -182,8 +180,6 @@ public class DataInput extends Page {
     }
 
     public void dataInputFullFlowTRO() {
-        homepage.getCurrentCase();
-        workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFields();
         clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
@@ -200,8 +196,6 @@ public class DataInput extends Page {
     }
 
     public void dataInputFullFlowDTEN() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
         fillAllMandatoryCorrespondenceFields();
         clickOn(continueButton);
         recordCorrespondentDetails.addAMemberOfPublicCorrespondent();
