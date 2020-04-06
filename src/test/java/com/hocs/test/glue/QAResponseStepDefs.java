@@ -19,8 +19,10 @@ public class QAResponseStepDefs extends Page {
 
     @When("I complete the QA response stage")
     public void completeQAResponseStage() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         clickOn(qaResponse.QAAcceptRadioButton);
         System.out.println("Finished QA Response, returning to home page.");
         clickOn(qaResponse.continueButton);

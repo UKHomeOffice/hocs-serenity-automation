@@ -25,8 +25,6 @@ public class MarkupFull extends Page {
     }
 
     public void markupStageFullFlow() {
-        homepage.getCurrentCase();
-        clickOn(workstacks.allocateToMeButton);
         clickOn(markUpDecision.policyResponseRadioButton);
         clickOn(continueButton);
         clickOn(topics.addTopicButton);

@@ -39,10 +39,12 @@ public class MarkUpStepDefs extends Page {
 
     QAResponse qaResponse;
 
-    TimelineTab timelineTab;
-
     @When("I complete the markup stage")
     public void completeTheMarkupStage() {
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         markup.markupStageFullFlow();
     }
 

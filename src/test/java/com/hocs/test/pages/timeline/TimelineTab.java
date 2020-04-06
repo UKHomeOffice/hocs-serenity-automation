@@ -38,6 +38,12 @@ public class TimelineTab extends Page {
     @FindBy(xpath = "//div[@class='timeline']//li[2]/p[1]")
     public WebElementFacade secondNoteContents;
 
+    @FindBy(xpath = "//a[text()='Edit'][1]")
+    public WebElementFacade editButton;
+
+    @FindBy(css = "input[value='Save']")
+    public WebElementFacade saveButton;
+
     public void selectTimelineTab() {
         clickOn(timelineTab);
     }
@@ -49,6 +55,15 @@ public class TimelineTab extends Page {
     public void enterTextIntoCaseNote(String text) {
         clickOn(caseNoteTextbox);
         typeInto(caseNoteTextbox, text);
+    }
+
+    public void editACase(String input) {
+        clickOn(editButton);
+        WebElementFacade editTextBox = findBy("//div[@class='timeline']//textarea");
+        editTextBox.clear();
+        typeInto(editTextBox, input);
+        clickOn(saveButton);
+        setSessionVariable("createdNoteContents").to(input);
     }
 
     public void createACaseNote() {
@@ -121,5 +136,19 @@ public class TimelineTab extends Page {
 
     public void assertSecondNoteContainsEnteredText(String text) {
         secondNoteContents.shouldContainText(text);
+    }
+
+    public void assertEditedCaseNoteAppearInCorrectStage(String stage) {
+        String words[] = stage.split("\\s");
+        String capitalise = "";
+        for (String w:words) {
+            String first = w.substring(0,1);
+            String afterFirst = w.substring(1);
+            capitalise += first.toUpperCase() + afterFirst.toLowerCase() + "";
+        }
+        String formatStage = capitalise.trim();
+        WebElementFacade caseNote = findBy("//li/p[text()='Data Input']/parent::li/preceding-sibling::li[1]/p[1]");
+        String fullCaseNote = caseNote.getText();
+        assertThat(fullCaseNote.contains("Case note "), is(true));
     }
 }

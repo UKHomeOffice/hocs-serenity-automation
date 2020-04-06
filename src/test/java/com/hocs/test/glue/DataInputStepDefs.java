@@ -38,6 +38,10 @@ public class DataInputStepDefs extends Page {
 
     @When("I complete the Data Input Stage for {string} case type")
     public void completeDataInputPerCaseType(String caseType) {
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            workstacks.clickAllocateToMeButton();
+        }
         switch (caseType.toUpperCase()) {
             case "MIN":
                 dataInput.dataInputFullFlowMIN();

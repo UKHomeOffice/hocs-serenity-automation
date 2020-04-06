@@ -83,4 +83,19 @@ public class TimelineStepDefs extends Page {
     public void theOneBelowItShouldBeTheFirstNoteCreated() {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
+
+    @And("I edit the top case note")
+    public void iEditTopCaseNote() {
+        timelineTab.editACase("Test 1");
+    }
+
+    @And("the case note should appear between the {string} logs")
+    public void editedCaseNoteDisplaysCorrectValue(String stage) {
+        timelineTab.assertEditedCaseNoteAppearInCorrectStage(stage);
+    }
+
+    @And("the case note should contain the edited content")
+    public void itShouldHaveEditedContent() {
+        timelineTab.assertTopNoteContainsEnteredText("Case note 1." + sessionVariableCalled("createdNoteContents"));
+    }
 }
