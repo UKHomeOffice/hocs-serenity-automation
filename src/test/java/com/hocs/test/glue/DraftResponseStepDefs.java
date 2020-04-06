@@ -43,18 +43,18 @@ public class DraftResponseStepDefs extends Page {
 
     @When("I complete the Initial Draft stage for {string} case type")
     public void initialDraftFullFlowPerCaseType(String caseType) {
+        if (homepage.myCases.isVisible()) {
+            homepage.getCurrentCase();
+            clickOn(workstacks.allocateToMeButton);
+        }
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "TRO":
-                homepage.getCurrentCase();
-                clickOn(workstacks.allocateToMeButton);
                 draft.acceptAndDraftALetter();
                 documents.addADraftDocumentAtDraftStage();
                 qa.dontQAOffline();
                 break;
             case "DTEN":
-                homepage.getCurrentCase();
-                clickOn(workstacks.allocateToMeButton);
                 draft.dtenAcceptAndDraftALetter();
                 documents.addADraftDocumentAtDraftStage();
                 qa.dontQAOffline();

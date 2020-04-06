@@ -136,11 +136,10 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case is completed
 
-  Scenario: User creates a MIN case and completes the workflow
-    And I create a "MIN" case and move it to the "CASE CLOSED" stage
-
-  Scenario: User creates a TRO case and completes the workflow
-    And I create a "TRO" case and move it to the "CASE CLOSED" stage
-
-  Scenario: User creates a DTEN case and completes the workflow
-    And I create a "DTEN" case and move it to the "CASE CLOSED" stage
+  Scenario Outline: User creates a case of each type and completes the workflow
+    And I create a "<caseType>" case and move it to the "CASE CLOSED" stage
+    Examples:
+      | caseType|
+      | MIN |
+      | TRO |
+      | DTEN |
