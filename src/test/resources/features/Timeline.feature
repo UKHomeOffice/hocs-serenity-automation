@@ -38,3 +38,18 @@ Feature: Timeline
     Then a log should be at the top of the timeline
     And a log should be visible for completing the "Data Input" stage
     And a log should be visible for starting the "Markup" stage
+
+  @SmokeTests
+  Scenario: User can add a case note and can then edit this case note
+    And I create a case note with random content
+    And I edit the top case note
+    Then the case note should contain the edited content
+
+  @SmokeTests
+  Scenario: User can add a case note progress the case and the case note should stay in its place in the timeline
+    And I create a case note with random content
+    And I complete the Data Input Stage for "MIN" case type
+    And I load and claim the current case
+    And I select the Timeline tab
+    And I edit the top case note
+    Then the case note should appear between the "DATA INPUT" logs
