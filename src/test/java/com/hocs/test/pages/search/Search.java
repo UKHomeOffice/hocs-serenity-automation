@@ -93,6 +93,12 @@ public class Search extends Page {
 
     //Methods
 
+    public int getNumberOfSearchResults() {
+        String numberOfResults = numberOfSearchResults.getText().substring(0,1);
+        int n = Integer.parseInt(numberOfResults);
+        return n;
+    }
+
     public void enterSearchCorrespondent(String correspondentNameQuery) {
         clickOn(searchCorrespondentTextbox);
         typeInto(searchCorrespondentTextbox, correspondentNameQuery);

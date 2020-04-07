@@ -262,7 +262,9 @@ public class SearchStepDefs extends Page {
 
     @Then("Only active cases will be returned in the search results")
     public void onlyActiveCasesWillBeReturnedInTheSearchResults() {
-        search.assertActiveCaseVisibleIs(true);
+        if (search.getNumberOfSearchResults() != 0) {
+            search.assertActiveCaseVisibleIs(true);
+        }
         search.assertClosedCaseVisibleIs(false);
     }
 

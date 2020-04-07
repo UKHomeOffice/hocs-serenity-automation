@@ -113,7 +113,7 @@ Feature: Search
     When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
     Then both active and closed cases will be returned in the search results
 
-  @SearchByActiveOnly @SmokeTests @Ignore
+  @SearchByActiveOnly @SmokeTests
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases
@@ -131,5 +131,3 @@ Feature: Search
   Scenario: User should be able to search by sign off minister and another parameter
     When I search by the case type "DTEN" and another parameter "Permanent Secretary Signoff Team"
     Then cases that are "DTEN" case type that also contain another parameter "Permanent Secretary Signoff Team" should be displayed in the results list
-
-
