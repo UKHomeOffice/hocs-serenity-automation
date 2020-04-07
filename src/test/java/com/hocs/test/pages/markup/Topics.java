@@ -39,7 +39,7 @@ public class Topics extends Page {
     @FindBy(xpath = "//label")
     public WebElementFacade assignedTopic;
 
-    @FindBy(xpath = "//div[@class='css-xp4uvy govuk-typeahead__single-value']")
+    @FindBy(xpath = "//div[contains(@class, 'govuk-typeahead__single-value')]")
     public WebElementFacade selectedTopicName;
 
     @FindBy(id = "DraftingTeamName")
@@ -116,7 +116,7 @@ public class Topics extends Page {
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        typeInto(topicsTextField, topic);
+        topicsTextField.sendKeys(topic);
         waitABit(1000);
         hitReturnToSendTopic();
         if (!isElementDisplayed(markUpDecision.topicIsRequiredErrorMessage)) {
@@ -126,7 +126,7 @@ public class Topics extends Page {
 
     public void enterRealTopic() {
         clickOn(topicsTextField);
-        typeInto(topicsTextField, "Cardiff University Kittens");
+        topicsTextField.sendKeys("Cardiff University Kittens");
         hitReturnToSendTopic();
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
