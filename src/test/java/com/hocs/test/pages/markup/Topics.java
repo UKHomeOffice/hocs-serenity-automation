@@ -30,7 +30,7 @@ public class Topics extends Page {
     @FindBy(xpath = "//th[contains(text(),'Primary topic')]/following-sibling::td")
     public WebElementFacade primaryTopicInSummary;
 
-    @FindBy(css = "[id^=react-select")
+    @FindBy(id = "react-select-2-input")
     private WebElementFacade topicsTextField;
 
     @FindBy(xpath = "//a[text()='Add a ']")
@@ -95,8 +95,8 @@ public class Topics extends Page {
 
     public void enterATopic(String topic) {
         clickOn(addTopicButton);
-        clickOn(topicsTextField);
-        typeInto(topicsTextField, topic);
+        topicsTextField.click();
+        topicsTextField.sendKeys(topic);
         waitABit(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
