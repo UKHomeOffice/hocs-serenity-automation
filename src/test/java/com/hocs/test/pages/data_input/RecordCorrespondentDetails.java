@@ -141,7 +141,7 @@ public class RecordCorrespondentDetails extends Page {
 
     public void addAMemberOfParliamentCorrespondent(String member) {
         clickOn(memberDropdownInitialize);
-        typeInto(memberDropdown, member);
+        memberDropdown.sendKeys(member);
         waitABit(500);
         memberDropdown.sendKeys(Keys.RETURN);
         clickAddButton();
