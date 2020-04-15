@@ -106,7 +106,7 @@ public class Topics extends Page {
     public void enterATopicWithoutHittingFinish(String topic) {
         clickOn(addTopicButton);
         clickOn(topicsTextField);
-        typeInto(topicsTextField, topic);
+        topicsTextField.sendKeys(topic);
         waitABit(1000);
         hitReturnToSendTopic();
         clickOn(addButton);
