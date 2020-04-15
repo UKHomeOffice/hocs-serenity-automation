@@ -26,7 +26,7 @@ Feature: ManagementUI
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "AUTOMATION_USER" to the team
+    And I add the user "EAMON" to the team
     Then the user should be visible in the team list
 
   @TeamManagement
@@ -40,14 +40,14 @@ Feature: ManagementUI
   Scenario: Users should no longer be visible in team page when removed
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I remove a user from the team
+    And I remove the user "EAMON" from the team
     Then that user should no longer appear in the list of team members
 
   @TeamManagement
   Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
     And I navigate to the "TEAM" Management page
     When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
-    And I attempt to remove the user "EAMON"
+    And I attempt to remove the user "AUTOMATION_USER"
     Then an error message should be displayed as they have cases assigned in that team
 
   @TeamManagement @Validation
