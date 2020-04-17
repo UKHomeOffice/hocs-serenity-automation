@@ -185,7 +185,7 @@ Feature: ManagementUI
     And I select a topic that "DOES NOT" have linked teams
     And I click the "SUBMIT" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
-    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     When I click the "SUBMIT" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
@@ -195,7 +195,7 @@ Feature: ManagementUI
     And I select a topic that "DOES" have linked teams
     And I click the "SUBMIT" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
-    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     When I click the "SUBMIT" button
     And I click the "SUBMIT" button
     Then I am returned to the dashboard screen
@@ -212,18 +212,18 @@ Feature: ManagementUI
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
     And I click the "SUBMIT" button
-    And I select a "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     When I click the "SUBMIT" button
     Then an error message should be displayed as no "INITIAL DRAFT AND QA RESPONSE STAGES" team has been selected
 
   @LinkTopicToTeam @Validation
-  Scenario: User must select a 'Private Office/Minister sign off stages' team to assign topic to
+  Scenario: User must select a 'Private Office/MINISTERIAL SIGN OFF stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
     And I click the "SUBMIT" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     When I click the "SUBMIT" button
-    Then an error message should be displayed as no "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team has been selected
+    Then an error message should be displayed as no "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team has been selected
 
   @LinkTopicToTeam
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic 5
@@ -243,7 +243,7 @@ Feature: ManagementUI
     And I navigate to "Management UI"
     And I select to amend the team links for the topic
     And I select a different "INITIAL DRAFT AND QA RESPONSE STAGES" team
-    And I select a different "PRIVATE OFFICE/MINISTER SIGN OFF STAGES" team
+    And I select a different "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     And I click the "SUBMIT" button
     And I click the "SUBMIT" button
     When I check the default team links in HOCS again

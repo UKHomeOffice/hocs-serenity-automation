@@ -823,7 +823,7 @@ public class Fetch extends Page {
                     }
                 } catch (IndexOutOfBoundsException e) {
                     clickOn(homepage.home);
-                    System.out.println("Dispatch case not found - Searching for a Minister Sign Off case");
+                    System.out.println("Dispatch case not found - Searching for a MINISTERIAL SIGN OFF case");
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
                     getFirstUnallocatedDispatchCase(caseType);
