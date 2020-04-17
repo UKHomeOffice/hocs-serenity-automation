@@ -19,7 +19,7 @@ public class MinisterSignOffStepDefs extends Page {
 
     Workstacks workstacks;
 
-    @When("I complete the minister sign off stage")
+    @When("I complete the Ministerial Sign Off stage")
     public void completeTheMinisterSignOffStage(){
         if (homepage.myCases.isVisible()) {
             homepage.getCurrentCase();
@@ -29,7 +29,7 @@ public class MinisterSignOffStepDefs extends Page {
         clickOn(minister.continueButton);
     }
 
-    @When("I complete the minister sign off stage for {string}")
+    @When("I complete the Ministerial Sign Off stage for {string}")
     public void completeTheMinisterSignOffStagePerCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
             case "MIN" :

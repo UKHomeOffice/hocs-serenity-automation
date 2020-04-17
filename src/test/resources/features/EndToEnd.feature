@@ -64,7 +64,7 @@ Feature: End To End
       | DTEN     |
 
   @Workflow
-  Scenario Outline: New case moves to Minister Sign Off stage
+  Scenario Outline: New case moves to Ministerial Sign Off stage
     When I create a single case "<caseType>"
     And I complete the Data Input Stage for "<caseType>" case type
     And I complete the markup stage
@@ -84,7 +84,7 @@ Feature: End To End
     And I complete the Initial Draft stage for "<caseType>" case type
     And I complete the QA response stage
     And I complete the Private Office stage for "<caseType>"
-    And I complete the minister sign off stage for "<caseType>"
+    And I complete the Ministerial Sign Off stage for "<caseType>"
     Then the "<caseType>" case should be moved to the "DISPATCH" stage
     Examples:
       | caseType |
@@ -100,7 +100,7 @@ Feature: End To End
     And I complete the Initial Draft stage for "MIN" case type
     And I complete the QA response stage
     And I complete the Private Office stage
-    And I complete the minister sign off stage
+    And I complete the Ministerial Sign Off stage
     And I complete the dispatch stage
     Then the "MIN" case should be moved to the "COPY TO NUMBER 10" stage
 
@@ -112,7 +112,7 @@ Feature: End To End
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
-    And I complete the minister sign off stage
+    And I complete the Ministerial Sign Off stage
     And I complete the dispatch stage
     Then the case is completed
 
@@ -140,24 +140,24 @@ Feature: End To End
   @Workflow
   Scenario Outline: User creates a case of each type and progresses the case through the workflow
     And I create a "<caseType>" case and move it to the "<stage>" stage
+    Then the "<caseType>" case should be moved to the "<stage>" stage
     Examples:
-      | caseType | stage                |
-      | MIN      | Data Input           |
-      | TRO      | Data Input           |
-      | DTEN     | Data Input           |
-      | MIN      | Markup               |
-      | TRO      | Markup               |
-      | DTEN     | Markup               |
-      | MIN      | Initial Draft        |
-      | TRO      | Initial Draft        |
-      | DTEN     | Initial Draft        |
-      | MIN      | QA Response          |
-      | TRO      | QA Response          |
-      | DTEN     | QA Response          |
-      | MIN      | Private Office       |
-      | DTEN     | Private Office       |
-      | MIN      | Ministerial Sign Off |
-      | MIN      | Dispatch             |
-      | TRO      | Dispatch             |
-      | DTEN     | Dispatch             |
-
+      | caseType | stage                   |
+      | MIN      | Data Input              |
+      | TRO      | Data Input              |
+      | DTEN     | Data Input              |
+      | MIN      | Markup                  |
+      | TRO      | Markup                  |
+      | DTEN     | Markup                  |
+      | MIN      | Initial Draft           |
+      | TRO      | Initial Draft           |
+      | DTEN     | Initial Draft           |
+      | MIN      | QA Response             |
+      | TRO      | QA Response             |
+      | DTEN     | QA Response             |
+      | MIN      | Private Office Approval |
+      | DTEN     | Private Office Approval |
+      | MIN      | Ministerial Sign off    |
+      | MIN      | Dispatch                |
+      | TRO      | Dispatch                |
+      | DTEN     | Dispatch                |
