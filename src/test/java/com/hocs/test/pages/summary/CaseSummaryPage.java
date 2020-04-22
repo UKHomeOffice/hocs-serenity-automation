@@ -1,6 +1,7 @@
 package com.hocs.test.pages.summary;
 
 import com.hocs.test.pages.base_page.Page;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -44,6 +45,6 @@ public class CaseSummaryPage extends Page {
     }
 
     public String getPrimaryCorrespondent() {
-        return primaryCorrespondent.getText();
+        return primaryCorrespondent.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
     }
 }
