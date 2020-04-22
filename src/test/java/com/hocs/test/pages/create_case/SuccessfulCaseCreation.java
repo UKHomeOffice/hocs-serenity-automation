@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.workstacks.Workstacks;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -26,22 +27,17 @@ public class SuccessfulCaseCreation extends Page {
     @FindBy(className = "govuk-panel__title")
     private WebElementFacade panelTitle;
 
-    @FindBy(className = "govuk-back-link")
-    private WebElementFacade successBackButton;
-
     @FindBy(className = "govuk-button-panel--link")
     public WebElementFacade newCaseReference;
 
-    public void clickSuccessfulCaseBackButton() {
-        clickOn(successBackButton);
-    }
-
     public void assertCaseCreatedSuccess() {
+        panelTitle.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         panelTitle.shouldContainText("Success");
+        newCaseReference.shouldBeCurrentlyVisible();
     }
 
     public void assertBulkCasesCreatedSuccess() {
-        waitABit(3000);
+        panelTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         panelTitle.shouldContainText("Success");
     }
 

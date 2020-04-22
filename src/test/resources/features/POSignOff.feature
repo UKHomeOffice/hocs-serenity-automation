@@ -44,7 +44,7 @@ Feature: PO Sign-Off
     Then the information shown should match what I entered on the change Private Office Team page
 
   @Workflow @SmokeTests
-  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Private Office Approval Team
+  Scenario Outline: Case is returned to Initial Draft stage when rejected by Private Office Approval Team
     And I create a "<caseType>" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I reject the case at the "Private Office Approval" stage
