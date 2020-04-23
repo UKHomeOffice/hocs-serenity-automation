@@ -59,10 +59,10 @@ public class EndToEndStepDefs extends Page {
             case "QA RESPONSE":
                 qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
                 break;
-            case "PO SIGN OFF":
+            case "PRIVATE OFFICE APPROVAL":
                 privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
                 break;
-            case "MINISTER SIGN OFF":
+            case "MINISTERIAL SIGN OFF":
                 ministerSignOff.moveCaseFromMinisterToDispatch();
                 break;
             case "DISPATCH":
@@ -94,17 +94,17 @@ public class EndToEndStepDefs extends Page {
                         iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
                         iCompleteTheStage("INITIAL DRAFT");
                         break;
-                    case "PO SIGN OFF":
+                    case "PRIVATE OFFICE APPROVAL":
                         iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
                         iCompleteTheStage("QA RESPONSE");
                         break;
-                    case "MINISTER SIGN OFF":
-                        iCreateACaseAndMoveItToAStage(caseType, "PO SIGN OFF");
-                        iCompleteTheStage("PO SIGN OFF");
+                    case "MINISTERIAL SIGN OFF":
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE APPROVAL");
+                        iCompleteTheStage("PRIVATE OFFICE APPROVAL");
                         break;
                     case "DISPATCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "MINISTER SIGN OFF");
-                        iCompleteTheStage("MINISTER SIGN OFF");
+                        iCreateACaseAndMoveItToAStage(caseType, "MINISTERIAL SIGN OFF");
+                        iCompleteTheStage("MINISTERIAL SIGN OFF");
                         break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
@@ -166,13 +166,13 @@ public class EndToEndStepDefs extends Page {
                         iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
                         iCompleteTheStage("DTEN INITIAL DRAFT");
                         break;
-                    case "PO SIGN OFF":
+                    case "PRIVATE OFFICE APPROVAL":
                         iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
                         iCompleteTheStage("QA RESPONSE");
                         break;
                     case "DISPATCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "PO SIGN OFF");
-                        iCompleteTheStage("PO SIGN OFF");
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE APPROVAL");
+                        iCompleteTheStage("PRIVATE OFFICE APPROVAL");
                         break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");

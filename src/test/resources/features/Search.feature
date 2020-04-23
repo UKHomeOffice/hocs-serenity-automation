@@ -114,7 +114,7 @@ Feature: Search
     When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
     Then both active and closed cases will be returned in the search results
 
-  @SearchByActiveOnly @SmokeTests @Ignore
+  @SearchByActiveOnly @SmokeTests
   Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
     And I navigate to the "search" page
     And I select active cases

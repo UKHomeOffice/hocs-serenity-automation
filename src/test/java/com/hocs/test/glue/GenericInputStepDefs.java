@@ -168,7 +168,7 @@ public class GenericInputStepDefs extends Page {
             case "PO FEEDBACK RESPONSE":
                 privateOffice.getToPOFeedbackResponseScreenPrerequisites();
                 break;
-            case "MINISTER SIGN OFF FEEDBACK RESPONSE":
+            case "MINISTERIAL SIGN OFF FEEDBACK RESPONSE":
                 minister.getToMinisterFeedbackResponseScreenPrerequisites();
                 break;
             case "UNABLE TO DISPATCH":

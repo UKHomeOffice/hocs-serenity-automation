@@ -118,9 +118,10 @@ public class ManagementUIStepDefs extends Page {
         teamManagement.assertThatUserIsVisibleInTeamList();
     }
 
-    @And("I remove a user from the team")
-    public void removeUserFromTeamAndStoreUserName() {
-        teamManagement.removeFirstUserInListAndStoreName();
+    @And("I remove the user {string} from the team")
+    public void removeUserFromTeamAndStoreUserName(String user) {
+        teamManagement.clearTeamMember(user);
+        setSessionVariable("user").to(user);
     }
 
     @Then("that user should no longer appear in the list of team members")
@@ -162,7 +163,8 @@ public class ManagementUIStepDefs extends Page {
     public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
         waitABit(500);
         teamManagement.assertTeamName();
-        teamManagement.clearTeamMembers();
+        teamManagement.clearTeamMember(firstUser);
+        teamManagement.clearTeamMember(secondUser);
         setSessionVariable("firstUser").to(Users.valueOf(firstUser));
         teamManagement.selectAUser(Users.EAMON);
         setSessionVariable("secondUser").to(Users.valueOf(secondUser));
@@ -228,7 +230,7 @@ public class ManagementUIStepDefs extends Page {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
                 linkTopicToTeam.selectADraftAndQATeam("Advice Team");
                 break;
-            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+            case "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES":
                 linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");
                 break;
             default:
@@ -242,7 +244,7 @@ public class ManagementUIStepDefs extends Page {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
                 linkTopicToTeam.assertDraftandQATeamIsRequiredErrorMessage();
                 break;
-            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+            case "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES":
                 linkTopicToTeam.assertPrivateAndMinisterTeamIsRequiredErrorMessage();
                 break;
             default:
@@ -262,7 +264,7 @@ public class ManagementUIStepDefs extends Page {
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         genericInputStepDefs.clickTheButton("SUBMIT");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
-        iSelectATeam("PRIVATE OFFICE/MINISTER SIGN OFF STAGES");
+        iSelectATeam("PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES");
         genericInputStepDefs.clickTheButton("SUBMIT");
         genericInputStepDefs.clickTheButton("SUBMIT");
     }
@@ -314,7 +316,7 @@ public class ManagementUIStepDefs extends Page {
                                 + getMethodName());
                 }
                 break;
-            case "PRIVATE OFFICE/MINISTER SIGN OFF STAGES":
+            case "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES":
                 switch (sessionVariableCalled("defaultPrivateOfficeTeam").toString()) {
                     case "Minister for Lords":
                         linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");

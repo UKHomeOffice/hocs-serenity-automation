@@ -119,6 +119,7 @@ public class Documents extends Page {
     }
 
     public void clickRemoveLinkForFile(String fileIdentifier) {
+        addDocumentLink.waitUntilVisible();
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");

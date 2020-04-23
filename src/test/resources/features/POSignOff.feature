@@ -6,35 +6,35 @@ Feature: PO Sign-Off
 
   @Validation
   Scenario: User must select a radio button when asked whether they approve the Private Office response
-    When I create a "MIN" case and move it to the "PO SIGN OFF" stage
+    When I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the "CONTINUE" button
     Then an error message should be displayed as I have not selected whether I approve the response
 
   @Validation
   Scenario: If the user decides to change the case minister they must select an override team and enter their reasoning in the text box
-    When I create a "MIN" case and move it to the "PO SIGN OFF" stage
+    When I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the "FINISH" button on the "CHANGE MINISTER" page
     Then error messages should be displayed as I have not selected an override team or entered change reasoning
 
   @Validation
   Scenario: User must enter their feedback in the text box if they do not approve the Private Office response
-    And I create a "MIN" case and move it to the "PO SIGN OFF" stage
+    And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the "FINISH" button on the "PO FEEDBACK RESPONSE" page
     Then an error message should be displayed as I have not entered feedback into the text box
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Private Office response stage
-    And I create a "MIN" case and move it to the "PO SIGN OFF" stage
+    And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
 
   @SmokeTests
   Scenario: User can change the minister for the case
-    And I create a "MIN" case and move it to the "PO SIGN OFF" stage
+    And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     When I select to change minister
     And I select "Home Secretary" as the new Private Office team
@@ -44,8 +44,8 @@ Feature: PO Sign-Off
     Then the information shown should match what I entered on the change Private Office Team page
 
   @Workflow @SmokeTests
-  Scenario Outline: "<caseType>" Case returned to Initial Draft stage when rejected by Private Office Approval Team
-    And I create a "<caseType>" case and move it to the "PO SIGN OFF" stage
+  Scenario Outline: Case is returned to Initial Draft stage when rejected by Private Office Approval Team
+    And I create a "<caseType>" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I reject the case at the "Private Office Approval" stage
     Then the "<caseType>" case should be moved to the "Initial Draft" stage

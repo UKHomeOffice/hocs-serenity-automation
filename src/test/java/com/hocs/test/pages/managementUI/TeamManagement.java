@@ -6,6 +6,7 @@ import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.base_page.Page;
 import config.Users;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -58,8 +59,8 @@ public class TeamManagement extends Page {
     }
 
     public void selectAUser(Users user) {
-        clickOn(addTeamMembersButton);
-        userSearchBar.sendKeys(user.getAllocationText());
+        addTeamMembersButton.waitUntilClickable().click();
+        userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
         waitABit(6000);
         userSearchBar.sendKeys(Keys.ENTER);
         clickOn(addSelectedUsersButton);
@@ -99,16 +100,16 @@ public class TeamManagement extends Page {
         clickOn(firstRemoveButtonInList);
     }
 
-    public void clearTeamMembers() {
-        while (isElementDisplayed($("//td//a"))) {
-            clickOn($("//td//a"));
-            waitABit(1000);
+    public void clearTeamMember(String name) {
+        WebElementFacade removeButton = $("//td[contains (text(), '" + name + "')]/parent::tr//a[text() = 'Remove']");
+        if (isElementDisplayed($(removeButton))) {
+            clickOn(removeButton);
         }
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
         waitABit(500);
-        String removedUser = sessionVariableCalled("userNameAndEmail").toString();
+        String removedUser = sessionVariableCalled("user").toString();
         $("//body").shouldNotContainText(removedUser);
     }
 
