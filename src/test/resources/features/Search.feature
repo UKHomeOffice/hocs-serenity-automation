@@ -82,6 +82,7 @@ Feature: Search
   @SearchByCorrespondent @SmokeTests
   Scenario: User should be able to search by correspondent by entering their name
     And I create a "MIN" case with "Nicola Sturgeon" as the correspondent
+    And I load and claim the current case
     And I navigate to the "search" page
     When I search by the correspondent name "Nicola Sturgeon"
     Then cases with the queried correspondent name should be displayed in the results list

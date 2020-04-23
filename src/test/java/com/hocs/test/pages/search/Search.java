@@ -131,6 +131,15 @@ public class Search extends Page {
         caseSummaryPage.selectSummaryTab();
     }
 
+    public void viewSummaryOfFirstSearchResultAdvancedPastDataInput() {
+        WebElementFacade firstSearchResult = findAll("//td[2][not(contains(text(),'Data Input'))]/preceding-sibling::td/a").get(0);
+        clickOn(firstSearchResult);
+        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
+            clickOn(workstacks.allocateToMeButton);
+        }
+        caseSummaryPage.selectSummaryTab();
+    }
+
     public void getCaseReferenceOfFirstAndLastSearchResults() {
         List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
         setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
