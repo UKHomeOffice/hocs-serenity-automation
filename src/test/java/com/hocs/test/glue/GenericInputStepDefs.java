@@ -4,26 +4,26 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.dispatch.Dispatch;
-import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
+import com.hocs.test.pages.DCU_Workflow.Dispatch;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
-import com.hocs.test.pages.markup.MarkUpDecision;
-import com.hocs.test.pages.minister.MinisterSignOff;
-import com.hocs.test.pages.private_office.PrivateOffice;
-import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.workstacks.Workstacks;
-import com.hocs.test.pages.draft.Draft;
+import com.hocs.test.pages.DCU_Workflow.Markup_Decision;
+import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
+import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
+import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class GenericInputStepDefs extends Page {
+public class GenericInputStepDefs extends BasePage {
 
     DataInput dataInput;
 
@@ -31,15 +31,15 @@ public class GenericInputStepDefs extends Page {
 
     Workstacks workstacks;
 
-    RecordCorrespondentDetails recordCorrespondentDetails;
+    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
 
-    MarkUpDecision markUpDecision;
+    Markup_Decision markupDecision;
 
-    Draft draft;
+    InitialDraft initialDraft;
 
-    MinisterSignOff minister;
+    MinisterialSignOff minister;
 
-    PrivateOffice privateOffice;
+    PrivateOfficeApproval privateOfficeApproval;
 
     QAResponse qaResponse;
 
@@ -54,11 +54,11 @@ public class GenericInputStepDefs extends Page {
         switch (element.toUpperCase()) {
             case "ADD A MEMBER OF PARLIAMENT":
                 setSessionVariable("fullName").to(input);
-                recordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
+                initialDraftRecordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
                 break;
             case "FULL NAME":
                 setSessionVariable("fullName").to(input);
-                recordCorrespondentDetails.enterCorrespondentFullName(input);
+                initialDraftRecordCorrespondentDetails.enterCorrespondentFullName(input);
                 break;
             case "REJECT REASON":
                 setSessionVariable("fullName").to(input);
@@ -76,7 +76,7 @@ public class GenericInputStepDefs extends Page {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
             case "CORRESPONDENT DETAILS":
-                recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:
@@ -133,40 +133,40 @@ public class GenericInputStepDefs extends Page {
                 dataInput.getToRecordCorrespondentDetailsPrerequisites();
                 break;
             case "ADD A TOPIC":
-                markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+                markupDecision.getToMarkupAddATopicScreenPrerequisites();
                 break;
             case "ENTER A NEW TOPIC":
-                markUpDecision.getToMarkupEnterANewTopicScreenPrerequisites();
+                markupDecision.getToMarkupEnterANewTopicScreenPrerequisites();
                 break;
             case "CASE REJECTION":
-                draft.getToDraftCaseRejectionScreenPrerequisites();
+                initialDraft.getToDraftCaseRejectionScreenPrerequisites();
                 break;
             case "HOW DO YOU INTEND TO RESPOND":
-                draft.getToHowDoYouIntendToRespondScreenPrerequisites();
+                initialDraft.getToHowDoYouIntendToRespondScreenPrerequisites();
                 break;
             case "SUMMARISE YOUR CALL":
-                draft.getToSummariseYouCallScreenPrerequisites();
+                initialDraft.getToSummariseYouCallScreenPrerequisites();
                 break;
             case "PRIMARY DRAFT DOCUMENT":
-                draft.getToPrimaryDraftDocumentScreenPrerequisites();
+                initialDraft.getToPrimaryDraftDocumentScreenPrerequisites();
                 break;
             case "ADD DOCUMENT":
-                draft.getToAddDocumentScreenPrerequisites();
+                initialDraft.getToAddDocumentScreenPrerequisites();
                 break;
             case "DO YOU WANT TO QA OFFLINE":
-                draft.getToDoYouWantToQAOfflineScreenPrerequisites();
+                initialDraft.getToDoYouWantToQAOfflineScreenPrerequisites();
                 break;
             case "WHO HAS DONE THE QA OFFLINE":
-                draft.getToWhoDidTheQAOfflineScreenPrerequisites();
+                initialDraft.getToWhoDidTheQAOfflineScreenPrerequisites();
                 break;
             case "QA RESPONSE FEEDBACK":
                 qaResponse.getToQAResponseFeedbackScreenPrerequisites();
                 break;
             case "CHANGE MINISTER":
-                privateOffice.getToChangeMinisterScreenPrerequisites();
+                privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
                 break;
             case "PO FEEDBACK RESPONSE":
-                privateOffice.getToPOFeedbackResponseScreenPrerequisites();
+                privateOfficeApproval.getToPOFeedbackResponseScreenPrerequisites();
                 break;
             case "MINISTERIAL SIGN OFF FEEDBACK RESPONSE":
                 minister.getToMinisterFeedbackResponseScreenPrerequisites();
@@ -180,13 +180,13 @@ public class GenericInputStepDefs extends Page {
 
         switch (button.toUpperCase()) {
             case "CONTINUE":
-                clickOn(continueButton);
+                safeClickOn(continueButton);
                 break;
             case "FINISH":
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             case "ADD":
-                clickOn(addButton);
+                safeClickOn(addButton);
                 break;
             default:
                 pendingStep(button + " is not defined within " + getMethodName());
@@ -197,28 +197,28 @@ public class GenericInputStepDefs extends Page {
     public void clickTheButton(String button) {
         switch (button.toUpperCase()) {
             case "CONTINUE":
-                clickOn(continueButton);
+                safeClickOn(continueButton);
                 break;
             case "FINISH":
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             case "ADD":
-                clickOn(addButton);
+                safeClickOn(addButton);
                 break;
             case "NEXT":
-                clickOn(nextButton);
+                safeClickOn(nextButton);
                 break;
             case "BACK":
-                clickOn(backButton);
+                safeClickOn(backButton);
                 break;
             case "ADD A TOPIC":
-                clickOn(addTopicButton);
+                safeClickOn(addTopicButton);
                 break;
             case "VIEW TEAM":
-                clickOn(teamManagement.viewTeamButton);
+                safeClickOn(teamManagement.viewTeamButton);
                 break;
             case "SUBMIT":
-                clickOn(unitManagement.submitButton);
+                safeClickOn(unitManagement.submitButton);
                 break;
             default:
                 pendingStep(button + " is not defined within " + getMethodName());
@@ -231,7 +231,7 @@ public class GenericInputStepDefs extends Page {
             case "INITIAL DRAFT":
                 clickRejectButton();
                 while (isElementDisplayed(nextButton)) {
-                    clickOn(nextButton);
+                    safeClickOn(nextButton);
                 }
                 break;
             case "QA RESPONSE":
@@ -247,11 +247,11 @@ public class GenericInputStepDefs extends Page {
 
     @When("I {string} the case")
     public void iActionTheCase(String action) {
-        setSessionVariable("caseReference").to(getCaseId());
+        setCaseReferenceFromUnassignedCase();
         switch (action.toUpperCase()) {
             case "ACCEPT":
-                clickOn(acceptButton);
-                clickOn(continueButton);
+                safeClickOn(acceptButton);
+                safeClickOn(continueButton);
                 break;
             case "DISPATCH":
                 dispatch.dispatchTheCase();
@@ -277,7 +277,7 @@ public class GenericInputStepDefs extends Page {
             case "OTHER GOVERNMENT DEPARTMENT":
             case "REASON FOR NO RESPONSE NEEDED":
             case "REASON FOR REJECTING TO DATA INPUT":
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
@@ -305,10 +305,10 @@ public class GenericInputStepDefs extends Page {
         switch (rejection.toUpperCase()) {
             case "COMPLETE":
                 enterRejectionNotes();
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             case "DO NOT COMPLETE":
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());
@@ -317,9 +317,9 @@ public class GenericInputStepDefs extends Page {
 
     @When("I click the add button when creating a case note")
     public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        clickOn(workstacks.caseTimelineTab);
-        clickOn(workstacks.addCaseNoteButton);
-        clickOn(workstacks.addButton);
+        safeClickOn(workstacks.caseTimelineTab);
+        safeClickOn(workstacks.addCaseNoteButton);
+        safeClickOn(workstacks.addButton);
     }
 
     @Then("the {string} case should be moved to the {string} stage")
@@ -329,21 +329,21 @@ public class GenericInputStepDefs extends Page {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "DISPATCH":
-                        clickOn(homepage.performanceProcessTeam);
+                        safeClickOn(homepage.performanceProcessTeam);
                         break;
                     case "MARKUP":
-                        clickOn(homepage.centralDraftingTeam);
+                        safeClickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
-                        clickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(homepage.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
                     case "MINISTERIAL SIGN OFF":
-                        clickOn(homepage.ministerForLordsTeam);
+                        safeClickOn(homepage.ministerForLordsTeam);
                         break;
                     case "COPY TO NUMBER 10":
-                        clickOn(homepage.transferN10Team);
+                        safeClickOn(homepage.transferN10Team);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -352,18 +352,18 @@ public class GenericInputStepDefs extends Page {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        clickOn(homepage.performanceProcessTeam);
+                        safeClickOn(homepage.performanceProcessTeam);
                         break;
                     case "MARKUP":
-                        clickOn(homepage.centralDraftingTeam);
+                        safeClickOn(homepage.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
                     case "DISPATCH":
-                        clickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(homepage.animalsInScienceTeam);
                         break;
                     case "COPY TO NUMBER 10":
-                        clickOn(homepage.transferN10Team);
+                        safeClickOn(homepage.transferN10Team);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -374,14 +374,14 @@ public class GenericInputStepDefs extends Page {
                     case "DATA INPUT":
                     case "MARKUP":
                     case "DISPATCH":
-                        clickOn(homepage.transferN10Team);
+                        safeClickOn(homepage.transferN10Team);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
-                        clickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(homepage.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        clickOn(homepage.ministerForLordsTeam);
+                        safeClickOn(homepage.ministerForLordsTeam);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -397,40 +397,40 @@ public class GenericInputStepDefs extends Page {
     public void iRejectTheCaseAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
             case "INITIAL DRAFT":
-                clickOn(draft.answeredByMyTeamNoRadioButton);
-                clickOn(draft.continueButton);
-                draft.enterRejectionNotes();
-                clickOn(draft.finishButton);
+                safeClickOn(initialDraft.answeredByMyTeamNoRadioButton);
+                safeClickOn(initialDraft.continueButton);
+                initialDraft.enterRejectionNotes();
+                safeClickOn(initialDraft.finishButton);
                 break;
             case "QA RESPONSE":
-                clickOn(qaResponse.QARejectRadioButton);
-                clickOn(qaResponse.continueButton);
+                safeClickOn(qaResponse.QARejectRadioButton);
+                safeClickOn(qaResponse.continueButton);
                 qaResponse.enterQARejectionNote();
-                clickOn(qaResponse.finishButton);
+                safeClickOn(qaResponse.finishButton);
                 break;
             case "PRIVATE OFFICE APPROVAL":
-                clickOn(privateOffice.privateOfficeRejectRadioButton);
-                clickOn(privateOffice.continueButton);
-                privateOffice.enterPORejectNotes();
-                clickOn(privateOffice.finishButton);
+                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
+                safeClickOn(privateOfficeApproval.continueButton);
+                privateOfficeApproval.enterPORejectNotes();
+                safeClickOn(privateOfficeApproval.finishButton);
                 break;
             case "MINISTERIAL SIGN OFF":
-                clickOn(minister.ministerSignOffRejectRadioButton);
-                clickOn(minister.continueButton);
+                safeClickOn(minister.ministerSignOffRejectRadioButton);
+                safeClickOn(minister.continueButton);
                 minister.enterMinisterRejectionNote();
-                clickOn(minister.continueButton);
+                safeClickOn(minister.continueButton);
                 break;
             case "DISPATCH":
-                clickOn(dispatch.dispatchRejectRadioButton);
-                clickOn(continueButton);
+                safeClickOn(dispatch.dispatchRejectRadioButton);
+                safeClickOn(continueButton);
                 dispatch.enterDispatchRejectionNotes();
-                clickOn(finishButton);
+                safeClickOn(finishButton);
                 break;
             case "MARKUP":
-                markUpDecision.selectRejectToDataInput();
-                clickOn(continueButton);
-                markUpDecision.enterRejectToDataInputReasonIntoTextBox();
-                clickOn(finishButton);
+                markupDecision.selectRejectToDataInput();
+                safeClickOn(continueButton);
+                markupDecision.enterRejectToDataInputReasonIntoTextBox();
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

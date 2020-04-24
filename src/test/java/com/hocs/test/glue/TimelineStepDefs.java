@@ -2,13 +2,13 @@ package com.hocs.test.glue;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.timeline.TimelineTab;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.TimelineTab;
 import config.Users;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
-public class TimelineStepDefs extends Page {
+public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 

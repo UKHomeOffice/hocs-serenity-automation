@@ -5,13 +5,13 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class UnitManagement extends Page {
+public class UnitManagement extends BasePage {
 
     @FindBy(xpath = "//input[@id='displayName']")
     public WebElementFacade displayNameTextField;

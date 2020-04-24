@@ -1,22 +1,23 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.create_case.CreateCase;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.give_me_a_case.Fetch;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Fetch;
 
-import com.hocs.test.pages.search.Search;
+import com.hocs.test.pages.Search;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.time.Duration;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-public class NavigationStepDefs extends Page {
+public class NavigationStepDefs extends BasePage {
 
     CreateCase createCase;
 
@@ -26,7 +27,7 @@ public class NavigationStepDefs extends Page {
 
     Fetch fetch;
 
-    RecordCorrespondentDetails recordCorrespondentDetails;
+    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
 
     Search search;
 
@@ -34,68 +35,68 @@ public class NavigationStepDefs extends Page {
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "HOME":
-                clickOn(homepage.home);
+                safeClickOn(homepage.home);
                 break;
             case "CREATE SINGLE CASE":
-                clickOn(homepage.createSingleCase);
+                safeClickOn(homepage.createSingleCase);
                 break;
             case "CREATE BULK CASES":
-                clickOn(homepage.createBulkCases);
+                safeClickOn(homepage.createBulkCases);
                 break;
             case "SEARCH":
-                clickOn(homepage.searchPage);
-                waitFor(search.searchTopicTextbox);
+                safeClickOn(homepage.searchPage);
+                search.waitUntilSearchPageLoaded();
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
-                clickOn(homepage.animalsInScienceTeam);
+                safeClickOn(homepage.animalsInScienceTeam);
                 break;
             case "PERFORMANCE AND PROCESS TEAM":
-                clickOn(homepage.performanceProcessTeam);
+                safeClickOn(homepage.performanceProcessTeam);
                 break;
             case "TRANSFERS AND NO10 TEAM":
-                clickOn(homepage.transferN10Team);
+                safeClickOn(homepage.transferN10Team);
                 break;
             case "CENTRAL DRAFTING TEAM":
-                clickOn(homepage.centralDraftingTeam);
+                safeClickOn(homepage.centralDraftingTeam);
                 break;
             case "MINISTER FOR LORDS":
-                clickOn(homepage.ministerForLordsTeam);
+                safeClickOn(homepage.ministerForLordsTeam);
                 break;
             case "EXTREMISM ANALYSIS UNIT":
-                clickOn(homepage.extremismAnalysisUnit);
+                safeClickOn(homepage.extremismAnalysisUnit);
                 break;
             case "MINSTER OF STATE FOR POLICING AND FIRE SERVICE":
-                clickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
+                safeClickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
-                clickOn(homepage.policeWorkforceProfessionalismUnit);
+                safeClickOn(homepage.policeWorkforceProfessionalismUnit);
                 break;
             case "UNDER SECRETARY OF STATE FOR CRIME SAFEGUARDING AND VULNERABILITY":
-                clickOn(homepage.underSecretaryCrimeSafeguardVulnerability);
+                safeClickOn(homepage.underSecretaryCrimeSafeguardVulnerability);
                 break;
             case "CRIMINAL AND FINANCIAL INVESTIGATIONS":
-                clickOn(homepage.criminalAndFinacialInvestigations);
+                safeClickOn(homepage.criminalAndFinacialInvestigations);
                 break;
             case "CHEMICAL BIOLOGICAL RADIOLOGICAL NUCLEAR EXPLOSIVES":
-                clickOn(homepage.chemBioRadioNuclearExplosives);
+                safeClickOn(homepage.chemBioRadioNuclearExplosives);
                 break;
             case "PRESS OFFICE":
-                clickOn(homepage.pressOffice);
+                safeClickOn(homepage.pressOffice);
                 break;
             case "COUNTER EXTREMISM UNIT":
-                clickOn(homepage.counterExtremismUnit);
+                safeClickOn(homepage.counterExtremismUnit);
                 break;
             case "FINANCE":
-                clickOn(homepage.financeTeam);
+                safeClickOn(homepage.financeTeam);
                 break;
             case "COUNTERTERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
-                clickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
+                safeClickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
                 break;
             case "MY CASES":
-                clickOn(homepage.myCases);
+                safeClickOn(homepage.myCases);
                 break;
             case "ADD STANDARD LINE":
-                clickOn(homepage.addStandardLine);
+                safeClickOn(homepage.addStandardLine);
                 break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
@@ -120,7 +121,7 @@ public class NavigationStepDefs extends Page {
     @When("I get a {string} case at {string} stage")
     public void getMeACase(String caseType, String stage) {
         fetch.giveMeACase(caseType, stage);
-        getCaseId();
+        setCaseReferenceFromAssignedCase();
     }
 
     @Then("I am taken to the {string} page")
@@ -133,7 +134,7 @@ public class NavigationStepDefs extends Page {
                 homepage.assertHomePageTitle();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                recordCorrespondentDetails.assertPageTitle();
+                initialDraftRecordCorrespondentDetails.assertPageTitle();
                 break;
             case "DATA INPUT":
                 dataInput.assertPageTitle();

@@ -3,20 +3,20 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.accordion.CaseDetailsAccordion;
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.create_case.CreateCase;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.dispatch.Dispatch;
-import com.hocs.test.pages.draft.Draft;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkupFull;
-import com.hocs.test.pages.minister.MinisterSignOff;
-import com.hocs.test.pages.private_office.PrivateOffice;
-import com.hocs.test.pages.qa_response.QAResponse;
+import com.hocs.test.pages.DCUCaseDetailsAccordion;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.DCU_Workflow.Dispatch;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.DCU_Workflow.Markup_FullFlow;
+import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
+import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
+import com.hocs.test.pages.DCU_Workflow.QAResponse;
 import io.cucumber.java.en.And;
 
-public class EndToEndStepDefs extends Page {
+public class EndToEndStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -24,19 +24,19 @@ public class EndToEndStepDefs extends Page {
 
     DataInput dataInput;
 
-    MarkupFull markupFull;
+    Markup_FullFlow markupFullFlow;
 
-    Draft draft;
+    InitialDraft initialDraft;
 
     QAResponse qaResponse;
 
-    PrivateOffice privateOffice;
+    PrivateOfficeApproval privateOfficeApproval;
 
-    MinisterSignOff ministerSignOff;
+    MinisterialSignOff ministerialSignOff;
 
     Dispatch dispatch;
 
-    CaseDetailsAccordion caseDetailsAccordion;
+    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -48,22 +48,22 @@ public class EndToEndStepDefs extends Page {
                 dataInput.moveCaseFromDataInputToMarkup();
                 break;
             case "MARKUP":
-                markupFull.moveCaseFromMarkupToInitialDraft();
+                markupFullFlow.moveCaseFromMarkupToInitialDraft();
                 break;
             case "INITIAL DRAFT":
-                draft.moveCaseFromInitialDraftToQaResponse();
+                initialDraft.moveCaseFromInitialDraftToQaResponse();
                 break;
             case "DTEN INITIAL DRAFT":
-                draft.moveDTENCaseFromInitialDraftToQaResponse();
+                initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
                 break;
             case "QA RESPONSE":
                 qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
                 break;
             case "PRIVATE OFFICE APPROVAL":
-                privateOffice.moveCaseFromPrivateOfficeToMinisterSignOff();
+                privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
                 break;
             case "MINISTERIAL SIGN OFF":
-                ministerSignOff.moveCaseFromMinisterToDispatch();
+                ministerialSignOff.moveCaseFromMinisterToDispatch();
                 break;
             case "DISPATCH":
                 dispatch.completeDispatchStageAndMoveToCaseClosed();
@@ -110,7 +110,7 @@ public class EndToEndStepDefs extends Page {
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
                         iCompleteTheStage("DISPATCH");
                         homepage.getCurrentCase();
-                        caseDetailsAccordion.assertThatAllocateToMeNotVisible();
+                        DCUCaseDetailsAccordion.assertThatAllocateToMeNotVisible();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -142,7 +142,7 @@ public class EndToEndStepDefs extends Page {
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
                         iCompleteTheStage("DISPATCH");
                         homepage.getCurrentCase();
-                        caseDetailsAccordion.assertThatAllocateToMeNotVisible();
+                        DCUCaseDetailsAccordion.assertThatAllocateToMeNotVisible();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -178,7 +178,7 @@ public class EndToEndStepDefs extends Page {
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
                         iCompleteTheStage("DISPATCH");
                         homepage.getCurrentCase();
-                        caseDetailsAccordion.assertThatAllocateToMeNotVisible();
+                        DCUCaseDetailsAccordion.assertThatAllocateToMeNotVisible();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());

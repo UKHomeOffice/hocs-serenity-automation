@@ -4,7 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import config.Users;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -13,7 +13,7 @@ import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class TeamManagement extends Page {
+public class TeamManagement extends BasePage {
 
     @FindBy(xpath = "//input[@id='Teams-input']")
     public WebElementFacade teamSearchBar;
@@ -48,14 +48,14 @@ public class TeamManagement extends Page {
         typeInto(teamSearchBar, teamName);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
-        clickOn(viewTeamButton);
+        safeClickOn(viewTeamButton);
     }
 
     public void selectTeamWithNoUsers() {
         waitABit(500);
         typeInto(teamSearchBar, "Data & Identity Unit");
         teamSearchBar.sendKeys(Keys.ENTER);
-        clickOn(viewTeamButton);
+        safeClickOn(viewTeamButton);
     }
 
     public void selectAUser(Users user) {
@@ -63,20 +63,20 @@ public class TeamManagement extends Page {
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
         waitABit(6000);
         userSearchBar.sendKeys(Keys.ENTER);
-        clickOn(addSelectedUsersButton);
+        safeClickOn(addSelectedUsersButton);
         waitABit(2000);
     }
 
     public void clickAddSelectedUsers() {
-        clickOn(addTeamMembersButton);
-        clickOn(addSelectedUsersButton);
+        safeClickOn(addTeamMembersButton);
+        safeClickOn(addSelectedUsersButton);
     }
 
     public void removeUserFromTeamWithAssignedCases(String nameOfUser) {
         WebElementFacade removeButtonOfUser = findAll("//td[@class='govuk-table__cell'][contains(text(), '" + nameOfUser +
                 "')]/."
                 + ".//td//a").get(0);
-        clickOn(removeButtonOfUser);
+        safeClickOn(removeButtonOfUser);
     }
 
     public void assertTeamName() {
@@ -97,13 +97,13 @@ public class TeamManagement extends Page {
         WebElementFacade firstMemberInTeamTable = findBy("(//td[@class='govuk-table__cell'])[1]");
         String nameAndEmailOfFirstUser = firstMemberInTeamTable.getText();
         setSessionVariable("userNameAndEmail").to(nameAndEmailOfFirstUser);
-        clickOn(firstRemoveButtonInList);
+        safeClickOn(firstRemoveButtonInList);
     }
 
     public void clearTeamMember(String name) {
         WebElementFacade removeButton = $("//td[contains (text(), '" + name + "')]/parent::tr//a[text() = 'Remove']");
         if (isElementDisplayed($(removeButton))) {
-            clickOn(removeButton);
+            safeClickOn(removeButton);
         }
     }
 

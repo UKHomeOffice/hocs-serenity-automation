@@ -1,15 +1,15 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.Workstacks;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 
-public class QAResponseStepDefs extends Page {
+public class QAResponseStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -21,11 +21,11 @@ public class QAResponseStepDefs extends Page {
     public void completeQAResponseStage() {
         if (homepage.myCases.isVisible()) {
             homepage.getCurrentCase();
-            clickOn(workstacks.allocateToMeButton);
+            safeClickOn(workstacks.allocateToMeButton);
         }
-        clickOn(qaResponse.QAAcceptRadioButton);
+        safeClickOn(qaResponse.QAAcceptRadioButton);
         System.out.println("Finished QA Response, returning to home page.");
-        clickOn(qaResponse.continueButton);
+        safeClickOn(qaResponse.continueButton);
     }
 
     @Then("an error message should be displayed as I have not selected a radio button on the QA approve response screen")

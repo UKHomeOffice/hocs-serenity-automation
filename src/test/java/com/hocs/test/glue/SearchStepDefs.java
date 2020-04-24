@@ -1,15 +1,12 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.search.Search;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Search;
+import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.NoSuchElementException;
-import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
@@ -17,7 +14,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 
-public class SearchStepDefs extends Page {
+public class SearchStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -27,7 +24,7 @@ public class SearchStepDefs extends Page {
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("an error message should be displayed as I have not entered any search criteria")
@@ -78,18 +75,18 @@ public class SearchStepDefs extends Page {
     public void selectCaseTypeCheckbox(String caseType) {
         switch (caseType.toUpperCase()) {
             case "MIN":
-                clickOn(search.searchMINCheckbox);
+                safeClickOn(search.searchMINCheckbox);
                 break;
             case "DTEN":
-                clickOn(search.searchDTENCheckbox);
+                safeClickOn(search.searchDTENCheckbox);
                 break;
             case "TRO":
-                clickOn(search.searchTROCheckbox);
+                safeClickOn(search.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("only DCU {string} case type results should be displayed in the results list")
@@ -115,16 +112,16 @@ public class SearchStepDefs extends Page {
 
     @When("I search by the case type {string} and another parameter {string}")
     public void searchByCaseTypeAndAnotherParameter(String caseType, String anotherParameter) {
-        clickOn(homepage.searchPage);
+        safeClickOn(homepage.searchPage);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                clickOn(search.searchMINCheckbox);
+                safeClickOn(search.searchMINCheckbox);
                 break;
             case "DTEN":
-                clickOn(search.searchDTENCheckbox);
+                safeClickOn(search.searchDTENCheckbox);
                 break;
             case "TRO":
-                clickOn(search.searchTROCheckbox);
+                safeClickOn(search.searchTROCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -140,7 +137,7 @@ public class SearchStepDefs extends Page {
             default:
                 pendingStep(anotherParameter + " is not defined within " + getMethodName());
         }
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("cases that are {string} case type that also contain another parameter {string} should be displayed in "
@@ -180,7 +177,7 @@ public class SearchStepDefs extends Page {
     @When("I search by the correspondent name {string}")
     public void enterCorrespondentNameSearchQuery(String correspondentName) {
         search.enterSearchCorrespondent(correspondentName);
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("cases with the queried correspondent name should be displayed in the results list")
@@ -192,7 +189,7 @@ public class SearchStepDefs extends Page {
     @And("I click the case reference link of the first case in the results list")
     public void iClickTheCaseReferenceLinkOfTheFirstCaseInTheResultsList() {
         setSessionVariable("caseReference").to(search.topSearchResultCaseReference.getText());
-        clickOn(search.topSearchResultCaseReference);
+        safeClickOn(search.topSearchResultCaseReference);
     }
 
     @Then("the search results should contain the expected information")
@@ -204,13 +201,13 @@ public class SearchStepDefs extends Page {
     @When("I search for cases received on or after {string}-{string}-{string}")
     public void iSearchForCasesReceivedOnOrAfter(String dd, String mm, String yyyy) {
         search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @When("I search for cases received on or before {string}-{string}-{string}")
     public void iSearchForCasesReceivedOnOrBefore(String dd, String mm, String yyyy) {
         search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("cases received on or {string} {string} should be displayed")
@@ -227,7 +224,7 @@ public class SearchStepDefs extends Page {
     public void iSearchForTheTopic() {
         waitABit(5000);
         search.enterSearchTopic(sessionVariableCalled("searchTopic"));
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("the created case should be visible in the search results")
@@ -239,7 +236,7 @@ public class SearchStepDefs extends Page {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                clickOn(homepage.searchPage);
+                safeClickOn(homepage.searchPage);
                 waitABit(7500);
                 iSearchForTheTopic();
                 search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -257,7 +254,7 @@ public class SearchStepDefs extends Page {
 
     @And("I select active cases")
     public void iSelectActiveCases() {
-        clickOn(search.caseStatusActiveCheckbox);
+        safeClickOn(search.caseStatusActiveCheckbox);
     }
 
     @Then("Only active cases will be returned in the search results")
@@ -272,18 +269,18 @@ public class SearchStepDefs extends Page {
         setSessionVariable("signOffTeam").to(signOffTeam);
         switch (caseType) {
             case "MIN":
-                clickOn(search.searchMINCheckbox);
+                safeClickOn(search.searchMINCheckbox);
                 break;
             case "TRO":
-                clickOn(search.searchTROCheckbox);
+                safeClickOn(search.searchTROCheckbox);
                 break;
             case "DTEN":
-                clickOn(search.searchDTENCheckbox);
+                safeClickOn(search.searchDTENCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @Then("cases with the queried Sign-off Team should be displayed in the results list")
@@ -296,7 +293,7 @@ public class SearchStepDefs extends Page {
             } catch (AssertionError e) {
                 waitABit(7500);
                 retry++;
-                clickOn(homepage.searchPage);
+                safeClickOn(homepage.searchPage);
                 iSearchByTheSignOffTeam("MIN", sessionVariableCalled("signOffTeam"));
             }
         }
@@ -307,7 +304,7 @@ public class SearchStepDefs extends Page {
     public void iSearchForAMadeUpTopic() {
         waitABit(2000);
         search.enterSearchTopic("Made up topic");
-        clickOn(search.searchButton);
+        safeClickOn(search.searchButton);
     }
 
     @And("I search for a {string} case received on or before {string}-{string}-{string}")
@@ -316,19 +313,19 @@ public class SearchStepDefs extends Page {
         search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                clickOn(search.searchMINCheckbox);
+                safeClickOn(search.searchMINCheckbox);
                 break;
             case "TRO":
-                clickOn(search.searchTROCheckbox);
+                safeClickOn(search.searchTROCheckbox);
                 break;
             case "DTEN":
-                clickOn(search.searchDTENCheckbox);
+                safeClickOn(search.searchDTENCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         waitABit(10000);
-        search.clickOn(searchButton);
+        search.safeClickOn(searchButton);
     }
 
     @And("I search for a {string} case received on or after {string}-{string}-{string}")
@@ -337,19 +334,19 @@ public class SearchStepDefs extends Page {
         search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                clickOn(search.searchMINCheckbox);
+                safeClickOn(search.searchMINCheckbox);
                 break;
             case "TRO":
-                clickOn(search.searchTROCheckbox);
+                safeClickOn(search.searchTROCheckbox);
                 break;
             case "DTEN":
-                clickOn(search.searchDTENCheckbox);
+                safeClickOn(search.searchDTENCheckbox);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         waitABit(10000);
-        search.clickOn(searchButton);
+        search.safeClickOn(searchButton);
     }
 
     @And("I look for the current case that was received on or before the date searched")
@@ -363,16 +360,16 @@ public class SearchStepDefs extends Page {
             } catch (AssertionError aE) {
                 waitABit(7500);
                 retry++;
-                clickOn(homepage.searchPage);
+                safeClickOn(homepage.searchPage);
                 switch (beforeDateCaseType) {
                     case "MIN":
-                        clickOn(search.searchMINCheckbox);
+                        safeClickOn(search.searchMINCheckbox);
                         break;
                     case "DTEN":
-                        clickOn(search.searchDTENCheckbox);
+                        safeClickOn(search.searchDTENCheckbox);
                         break;
                     case "TRO":
-                        clickOn(search.searchTROCheckbox);
+                        safeClickOn(search.searchTROCheckbox);
                         break;
                     default:
                         pendingStep(beforeDateCaseType + " is not defined within " + getMethodName());
@@ -393,16 +390,16 @@ public class SearchStepDefs extends Page {
             } catch (AssertionError aE) {
                 waitABit(10000);
                 retry++;
-                clickOn(homepage.searchPage);
+                safeClickOn(homepage.searchPage);
                 switch (afterDateCaseType) {
                     case "MIN":
-                        clickOn(search.searchMINCheckbox);
+                        safeClickOn(search.searchMINCheckbox);
                         break;
                     case "DTEN":
-                        clickOn(search.searchDTENCheckbox);
+                        safeClickOn(search.searchDTENCheckbox);
                         break;
                     case "TRO":
-                        clickOn(search.searchTROCheckbox);
+                        safeClickOn(search.searchTROCheckbox);
                         break;
                     default:
                         pendingStep(afterDateCaseType + " is not defined within " + getMethodName());

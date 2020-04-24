@@ -1,10 +1,10 @@
 package com.hocs.test.pages.managementUI;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class Dashboard extends Page {
+public class Dashboard extends BasePage {
 
     @FindBy (xpath = "//a[@href='/team-search']")
     public WebElementFacade addRemoveUsersButton;
@@ -34,7 +34,7 @@ public class Dashboard extends Page {
     public WebElementFacade successMessage;
 
     public void goToDashboard() {
-        clickOn(dashboardLink);
+        safeClickOn(dashboardLink);
     }
 
     public void assertSuccessMessageDisplayed() {

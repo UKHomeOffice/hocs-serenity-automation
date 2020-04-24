@@ -5,12 +5,12 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
-public class LinkTopicToTeam extends Page {
+public class LinkTopicToTeam extends BasePage {
 
     @FindBy(xpath = "//input[@id='topics-input']")
     public WebElementFacade topicsSearchBar;
@@ -35,7 +35,7 @@ public class LinkTopicToTeam extends Page {
 
     public void selectATopic(String topic) {
         waitABit(1000);
-        clickOn(topicsSearchBar);
+        safeClickOn(topicsSearchBar);
         typeInto(topicsSearchBar, topic);
         setSessionVariable("chosenTopic").to(topic);
         waitABit(1000);
@@ -44,7 +44,7 @@ public class LinkTopicToTeam extends Page {
 
     public void selectADraftAndQATeam(String team) {
         waitABit(1000);
-        clickOn(draftAndQATeamSearchBar);
+        safeClickOn(draftAndQATeamSearchBar);
         draftAndQATeamSearchBar.sendKeys(team);
         setSessionVariable("chosenDraftAndQATeam").to(team);
         waitABit(1000);
@@ -53,7 +53,7 @@ public class LinkTopicToTeam extends Page {
 
     public void selectAPrivateAndMinisterTeam(String team) {
         waitABit(1000);
-        clickOn(privateAndMinisterTeamSearchBar);
+        safeClickOn(privateAndMinisterTeamSearchBar);
         privateAndMinisterTeamSearchBar.sendKeys(team);
         setSessionVariable("chosenPrivateAndMinisterTeam").to(team);
         waitABit(1000);
