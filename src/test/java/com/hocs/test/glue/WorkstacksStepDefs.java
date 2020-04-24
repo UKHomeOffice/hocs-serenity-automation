@@ -170,15 +170,15 @@ public class WorkstacksStepDefs extends Page {
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
         createCase.createDCUMinSingleCase();
-        successfulCaseCreation.newCaseReference.click();
+        clickOn(successfulCaseCreation.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
-        successfulCaseCreation.newCaseReference.click();
+        clickOn(successfulCaseCreation.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
-        successfulCaseCreation.newCaseReference.click();
+        clickOn(successfulCaseCreation.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
     }
