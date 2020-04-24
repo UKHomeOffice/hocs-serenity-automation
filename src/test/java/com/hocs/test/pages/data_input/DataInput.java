@@ -439,6 +439,7 @@ public class DataInput extends Page {
     }
 
     public void addACorrespondentLinkIsDisplayed() {
+        waitFor(addCorrespondentLink);
         addCorrespondentLink.isDisplayed();
     }
 
