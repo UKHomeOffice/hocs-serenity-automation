@@ -438,6 +438,7 @@ public class DataInput extends BasePage {
     }
 
     public void addACorrespondentLinkIsDisplayed() {
+        waitFor(addCorrespondentLink);
         addCorrespondentLink.isDisplayed();
     }
 

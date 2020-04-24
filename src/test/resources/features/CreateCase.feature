@@ -23,7 +23,7 @@ Feature: Create case
       | DTEN | with           |
       | DTEN | without        |
 
-  @Allocation
+  @Allocation @WeeklyTests
   Scenario: A single case is allocated to the current user
     And I create a single "MIN" case
     When I allocate the case to myself via the successful case creation screen

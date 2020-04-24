@@ -182,7 +182,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("cases with the queried correspondent name should be displayed in the results list")
     public void assertThatFirstCaseInCorrespondentSearchResultMatchesSearchQuery() {
-        search.viewFirstSearchResultCaseSummary();
+        search.viewSummaryOfFirstSearchResultAdvancedPastDataInput();
         search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
     }
 
