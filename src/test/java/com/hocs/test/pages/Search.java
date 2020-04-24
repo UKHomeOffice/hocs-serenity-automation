@@ -128,17 +128,15 @@ public class Search extends BasePage {
         WebElementFacade firstSearchResult = findAll("//td[2][not(contains(text(),'Data Input'))]/preceding-sibling::td/a").get(0);
         clickOn(firstSearchResult);
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            clickOn(workstacks.allocateToMeButton);
+            safeClickOn(workstacks.allocateToMeButton);
         }
-        caseSummaryPage.selectSummaryTab();
+        summaryTab.selectSummaryTab();
     }
 
     public void getCaseReferenceOfFirstAndLastSearchResults() {
         List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
         setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
-        String firstCaseDate = sessionVariableCalled("firstSearchResultCaseReference");
         setSessionVariable("lastSearchResultCaseReference").to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
-        String lastCaseDate = sessionVariableCalled("lastSearchResultCaseReference");
     }
 
     private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
