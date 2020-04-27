@@ -37,7 +37,7 @@ public class GenericInputStepDefs extends BasePage {
 
     InitialDraft initialDraft;
 
-    MinisterialSignOff minister;
+    MinisterialSignOff ministerialSignOff;
 
     PrivateOfficeApproval privateOfficeApproval;
 
@@ -169,7 +169,7 @@ public class GenericInputStepDefs extends BasePage {
                 privateOfficeApproval.getToPOFeedbackResponseScreenPrerequisites();
                 break;
             case "MINISTERIAL SIGN OFF FEEDBACK RESPONSE":
-                minister.getToMinisterFeedbackResponseScreenPrerequisites();
+                ministerialSignOff.getToMinisterFeedbackResponseScreenPrerequisites();
                 break;
             case "UNABLE TO DISPATCH":
                 dispatch.getToUnableToDispatchScreenPrerequisites();
@@ -415,10 +415,10 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(privateOfficeApproval.finishButton);
                 break;
             case "MINISTERIAL SIGN OFF":
-                safeClickOn(minister.ministerSignOffRejectRadioButton);
-                safeClickOn(minister.continueButton);
-                minister.enterMinisterRejectionNote();
-                safeClickOn(minister.continueButton);
+                safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
+                safeClickOn(ministerialSignOff.continueButton);
+                ministerialSignOff.enterMinisterRejectionNote();
+                safeClickOn(ministerialSignOff.continueButton);
                 break;
             case "DISPATCH":
                 safeClickOn(dispatch.dispatchRejectRadioButton);
