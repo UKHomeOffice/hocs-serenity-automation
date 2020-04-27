@@ -237,9 +237,7 @@ public class SearchStepDefs extends BasePage {
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(homepage.searchPage);
-                waitABit(7500);
                 iSearchForTheTopic();
-                search.assertCurrentCaseIsDisplayedInSearchResults();
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();

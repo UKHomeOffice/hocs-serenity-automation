@@ -40,7 +40,7 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
     Dispatch dispatch;
 
 
-    @When("I move that case to the {string} stage")
+    @When("I move that case to the {string} stage and record all entered information")
     public void moveCaseToNextStage(String stage) {
         switch (stage) {
             case "Markup":

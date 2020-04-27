@@ -10,10 +10,6 @@ public class Markup_FullFlow extends BasePage {
 
     Markup_Decision markupDecision;
 
-    Workstacks workstacks;
-
-    Homepage homepage;
-
     public void moveCaseFromMarkupToInitialDraft() {
         safeClickOn(markupDecision.policyResponseRadioButton);
         safeClickOn(continueButton);
