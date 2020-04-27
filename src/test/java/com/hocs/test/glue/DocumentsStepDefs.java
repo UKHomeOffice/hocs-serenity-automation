@@ -3,17 +3,14 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.documents.Documents;
-import cucumber.api.PendingException;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Documents;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-public class DocumentsStepDefs extends Page {
+public class DocumentsStepDefs extends BasePage {
 
     Documents documents;
 
@@ -39,12 +36,12 @@ public class DocumentsStepDefs extends Page {
 
     @And("I click manage documents")
     public void iClickManageDocuments() {
-        clickOn(documents.manageDocumentsLink);
+        safeClickOn(documents.manageDocumentsLink);
     }
 
     @When("I click add documents")
     public void iClickAddDocuments() {
-        clickOn(documents.addDocumentLink);
+        safeClickOn(documents.addDocumentLink);
     }
 
     @And("I choose the document type {string}")

@@ -3,39 +3,39 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.accordion.CaseDetailsAccordion;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.dispatch.Dispatch;
-import com.hocs.test.pages.draft.Draft;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.markup.MarkupFull;
-import com.hocs.test.pages.minister.MinisterSignOff;
-import com.hocs.test.pages.private_office.PrivateOffice;
-import com.hocs.test.pages.qa_response.QAResponse;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.DCUCaseDetailsAccordion;
+import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.DCU_Workflow.Dispatch;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.DCU_Workflow.Markup_FullFlow;
+import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
+import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
+import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CaseDetailsAccordionStepDefs extends Page {
+public class CaseDetailsAccordionStepDefs extends BasePage {
 
     Homepage homepage;
 
     Workstacks workstacks;
 
-    CaseDetailsAccordion caseDetailsAccordion;
+    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
 
     DataInput dataInput;
 
-    MarkupFull markupFull;
+    Markup_FullFlow markupFullFlow;
 
-    Draft draft;
+    InitialDraft initialDraft;
 
     QAResponse qaResponse;
 
-    PrivateOffice privateOffice;
+    PrivateOfficeApproval privateOfficeApproval;
 
-    MinisterSignOff ministerSignOff;
+    MinisterialSignOff ministerialSignOff;
 
     Dispatch dispatch;
 
@@ -50,13 +50,13 @@ public class CaseDetailsAccordionStepDefs extends Page {
                 moveCaseToNextStage("Markup");
                 homepage.getCurrentCase();
                 workstacks.clickAllocateToMeButton();
-                markupFull.completeMarkupStageAndStoreEnteredInformation();
+                markupFullFlow.completeMarkupStageAndStoreEnteredInformation();
                 break;
             case "QA Response":
                 moveCaseToNextStage("Initial Draft");
                 homepage.getCurrentCase();
                 workstacks.clickAllocateToMeButton();
-                draft.completeInitialDraftStageAndStoreEnteredInformation();
+                initialDraft.completeInitialDraftStageAndStoreEnteredInformation();
                 break;
             case "Private Office Approval":
                 moveCaseToNextStage("QA Response");
@@ -68,13 +68,13 @@ public class CaseDetailsAccordionStepDefs extends Page {
                 moveCaseToNextStage("Private Office Approval");
                 homepage.getCurrentCase();
                 workstacks.clickAllocateToMeButton();
-                privateOffice.completePrivateOfficeApprovalStageAndStoreEnteredInformation();
+                privateOfficeApproval.completePrivateOfficeApprovalStageAndStoreEnteredInformation();
                 break;
             case "Dispatch":
                 moveCaseToNextStage("Ministerial Sign Off");
                 homepage.getCurrentCase();
                 workstacks.clickAllocateToMeButton();
-                ministerSignOff.completeMinisterialSignOffStageAndStoreEnteredInformation();
+                ministerialSignOff.completeMinisterialSignOffStageAndStoreEnteredInformation();
                 break;
             case "Transfer to No10":
                 moveCaseToNextStage("Dispatch");
@@ -91,25 +91,25 @@ public class CaseDetailsAccordionStepDefs extends Page {
     public void selectAccordionButton(String stage) {
         switch (stage) {
             case "Data Input":
-                clickOn(caseDetailsAccordion.dataInputAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.dataInputAccordionButton);
                 break;
             case "Markup":
-                clickOn(caseDetailsAccordion.markupAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.markupAccordionButton);
                 break;
             case "Initial Draft":
-                clickOn(caseDetailsAccordion.initialDraftAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.initialDraftAccordionButton);
                 break;
             case "QA Response":
-                clickOn(caseDetailsAccordion.qAResponseAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.qAResponseAccordionButton);
                 break;
             case "Private Office Approval":
-                clickOn(caseDetailsAccordion.privateOfficeApprovalAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.privateOfficeApprovalAccordionButton);
                 break;
             case "Ministerial Sign Off":
-                clickOn(caseDetailsAccordion.ministerialSignOffAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.ministerialSignOffAccordionButton);
                 break;
             case "Dispatch":
-                clickOn(caseDetailsAccordion.dispatchAccordionButton);
+                safeClickOn(DCUCaseDetailsAccordion.dispatchAccordionButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -120,28 +120,28 @@ public class CaseDetailsAccordionStepDefs extends Page {
     public void assertAccordionFieldsMatchInformationEnteredAt(String stage) {
         switch (stage) {
             case "Case Creation":
-                caseDetailsAccordion.assertAccordionCorrespondenceReceivedDate();
+                DCUCaseDetailsAccordion.assertAccordionCorrespondenceReceivedDate();
                 break;
             case "Data Input":
-                caseDetailsAccordion.assertAccordionDataInputFields();
+                DCUCaseDetailsAccordion.assertAccordionDataInputFields();
                 break;
             case "Markup":
-                caseDetailsAccordion.assertAccordionMarkupFields();
+                DCUCaseDetailsAccordion.assertAccordionMarkupFields();
                 break;
             case "Initial Draft":
-                caseDetailsAccordion.assertAccordionInitialDraftFields();
+                DCUCaseDetailsAccordion.assertAccordionInitialDraftFields();
                 break;
             case "QA Response":
-                caseDetailsAccordion.assertAccordionQAResponseFields();
+                DCUCaseDetailsAccordion.assertAccordionQAResponseFields();
                 break;
             case "Private Office Approval":
-                caseDetailsAccordion.assertAccordionPrivateOfficeApprovalFields();
+                DCUCaseDetailsAccordion.assertAccordionPrivateOfficeApprovalFields();
                 break;
             case "Ministerial Sign Off":
-                caseDetailsAccordion.assertAccordionMinisterialSignOffFields();
+                DCUCaseDetailsAccordion.assertAccordionMinisterialSignOffFields();
                 break;
             case "Dispatch":
-                caseDetailsAccordion.assertAccordionDispatchFields();
+                DCUCaseDetailsAccordion.assertAccordionDispatchFields();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

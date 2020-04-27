@@ -1,16 +1,16 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.give_me_a_case.Fetch;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.login.LoginPage;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Fetch;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
-import com.hocs.test.pages.markup.MarkUpDecision;
-import com.hocs.test.pages.markup.Topics;
+import com.hocs.test.pages.DCU_Workflow.Markup_Decision;
+import com.hocs.test.pages.DCU_Workflow.Markup_AddTopics;
 import com.hocs.test.pages.managementUI.StandardLine;
 import config.Users;
 import io.cucumber.java.en.And;
@@ -23,7 +23,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class ManagementUIStepDefs extends Page {
+public class ManagementUIStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -33,9 +33,9 @@ public class ManagementUIStepDefs extends Page {
 
     Fetch fetch;
 
-    MarkUpDecision markUpDecision;
+    Markup_Decision markupDecision;
 
-    Topics topics;
+    Markup_AddTopics markupAddTopics;
 
     Dashboard dashboard;
 
@@ -53,22 +53,22 @@ public class ManagementUIStepDefs extends Page {
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
             case "STANDARD LINE":
-                clickOn(dashboard.addStandardLineButton);
+                safeClickOn(dashboard.addStandardLineButton);
                 break;
             case "TEAM":
-                clickOn(dashboard.addRemoveUsersButton);
+                safeClickOn(dashboard.addRemoveUsersButton);
                 break;
             case "ADD CHILD TOPIC":
-                clickOn(dashboard.addChildTopicButton);
+                safeClickOn(dashboard.addChildTopicButton);
                 break;
             case "ADD A UNIT":
-                clickOn(dashboard.addUnitButton);
+                safeClickOn(dashboard.addUnitButton);
                 break;
             case "VIEW UNITS":
-                clickOn(dashboard.viewUnitsButton);
+                safeClickOn(dashboard.viewUnitsButton);
                 break;
             case "LINK TOPIC TO TEAM":
-                clickOn(dashboard.linkTopicToTeamButton);
+                safeClickOn(dashboard.linkTopicToTeamButton);
                 break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
@@ -288,9 +288,9 @@ public class ManagementUIStepDefs extends Page {
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
         fetch.giveMeACase("MIN", "MARKUP");
-        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
-        topics.enterATopicWithoutHittingFinish("Register of faith leaders");
-        topics.getCurrentDefaultTeamsForTopic();
+        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        markupAddTopics.enterATopicWithoutHittingFinish("Register of faith leaders");
+        markupAddTopics.getCurrentDefaultTeamsForTopic();
     }
 
     @And("I select to amend the team links for the topic")
@@ -338,8 +338,8 @@ public class ManagementUIStepDefs extends Page {
     public void iCheckTheDefaultTeamLinksInHOCSAgain() {
         iNavigateTo("HOCS");
         fetch.giveMeACase("MIN", "MARKUP");
-        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
-        topics.enterATopic("Register of faith leaders");
+        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        markupAddTopics.enterATopic("Register of faith leaders");
     }
 
     @When("I enter a display name")
@@ -391,12 +391,12 @@ public class ManagementUIStepDefs extends Page {
     @And("I get a case and progress to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         fetch.giveMeACase("MIN", "MARKUP");
-        markUpDecision.getToMarkupAddATopicScreenPrerequisites();
+        markupDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 
     @Then("an error message should be displayed as the topic was not recognised as a valid topic")
     public void anErrorMessageShouldBeDisplayedAsTheTopicWasNotRecognisedAsAValidTopic() {
-        markUpDecision.assertTopicIsRequiredErrorMessage();
+        markupDecision.assertTopicIsRequiredErrorMessage();
     }
 
     @And("a success message is displayed")
@@ -409,7 +409,7 @@ public class ManagementUIStepDefs extends Page {
         standardLine.enterStandardLineTopic();
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();
-        clickOn(unitManagement.submitButton);
+        safeClickOn(unitManagement.submitButton);
     }
 
     @When("I enter a Standard Line expiration date in the past")
@@ -417,7 +417,7 @@ public class ManagementUIStepDefs extends Page {
         standardLine.enterStandardLineTopic();
         standardLine.addStandardLineDocument();
         standardLine.enterPastStandardLineExpirationDate();
-        clickOn(unitManagement.submitButton);
+        safeClickOn(unitManagement.submitButton);
     }
 
     @Then("an error message should be displayed as the expiration date must be in the future")

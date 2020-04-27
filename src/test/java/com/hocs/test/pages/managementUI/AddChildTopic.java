@@ -4,14 +4,14 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
-public class AddChildTopic extends Page {
+public class AddChildTopic extends BasePage {
 
     public void assertAddChildTopicPageTitle() {
         assertThat(managementUIPageTitle.getText(), is("Add Child Topic"));
@@ -31,7 +31,7 @@ public class AddChildTopic extends Page {
 
     public void selectAParentTopic(String parentTopic) {
         waitABit(1000);
-        clickOn(parentTopicSearchBar);
+        safeClickOn(parentTopicSearchBar);
         parentTopicSearchBar.sendKeys(parentTopic);
         setSessionVariable("parentTopic").to(parentTopic);
         parentTopicSearchBar.sendKeys(Keys.ENTER);
@@ -39,7 +39,7 @@ public class AddChildTopic extends Page {
 
     public void inputAChildTopicDisplayName(String childTopic) {
         waitABit(1000);
-        clickOn(childTopicDisplayNameInputBar);
+        safeClickOn(childTopicDisplayNameInputBar);
         typeInto(childTopicDisplayNameInputBar, childTopic);
         setSessionVariable("childTopic").to(childTopic);
         childTopicDisplayNameInputBar.sendKeys(Keys.ENTER);

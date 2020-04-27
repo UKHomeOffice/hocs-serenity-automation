@@ -1,17 +1,15 @@
 package com.hocs.test.pages.managementUI;
 
-import com.hocs.test.pages.base_page.Page;
+import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.Managed;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class StandardLine extends Page {
+public class StandardLine extends BasePage {
 
     @FindBy(xpath = "//a[@href='#files-error']")
     public WebElementFacade standardLineIsRequiredErrorMessage;
@@ -48,7 +46,7 @@ public class StandardLine extends Page {
 
     public void enterStandardLineTopic() {
         waitABit(500);
-        clickOn(topicTypeahead);
+        safeClickOn(topicTypeahead);
         topicTypeahead.sendKeys("Cardiff University Kittens");
         topicTypeahead.sendKeys(Keys.ENTER);
     }

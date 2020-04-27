@@ -3,20 +3,19 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.accordion.CaseDetailsAccordion;
-import com.hocs.test.pages.data_input.DataInput;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.data_input.RecordCorrespondentDetails;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.DCUCaseDetailsAccordion;
+import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
+import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
-public class DataInputStepDefs extends Page {
+public class DataInputStepDefs extends BasePage {
 
     @Steps(shared = true)
     GenericInputStepDefs genericInputStepDefs;
@@ -25,11 +24,11 @@ public class DataInputStepDefs extends Page {
 
     Homepage homepage;
 
-    RecordCorrespondentDetails recordCorrespondentDetails;
+    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
 
     Workstacks workstacks;
 
-    CaseDetailsAccordion caseDetailsAccordion;
+    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
@@ -60,7 +59,7 @@ public class DataInputStepDefs extends Page {
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
-        recordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
         dataInput.clickAddButton();
     }
 
@@ -68,16 +67,16 @@ public class DataInputStepDefs extends Page {
     public void iSetTheCorrespondenceChannelTo(String channel) {
         switch (channel.toUpperCase()) {
             case "EMAIL":
-                clickOn(dataInput.emailOriginalChannelRadioButton);
+                safeClickOn(dataInput.emailOriginalChannelRadioButton);
                 break;
             case "POST":
-                clickOn(dataInput.postOriginalChannelRadioButton);
+                safeClickOn(dataInput.postOriginalChannelRadioButton);
                 break;
             case "PHONE":
-                clickOn(dataInput.phoneOriginalChannelRadioButton);
+                safeClickOn(dataInput.phoneOriginalChannelRadioButton);
                 break;
             case "NO. 10":
-                clickOn(dataInput.numberTenOriginalChannelRadioButton);
+                safeClickOn(dataInput.numberTenOriginalChannelRadioButton);
                 break;
             default:
                 pendingStep(channel + " is not defined within " + getMethodName());
@@ -93,7 +92,7 @@ public class DataInputStepDefs extends Page {
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
             dataInput.selectCorrespondentIsNotAMemberRadioButton();
         }
-        clickOn(dataInput.continueButton);
+        safeClickOn(dataInput.continueButton);
     }
 
     @Then("an error message should be displayed as I have not {string}")
@@ -144,7 +143,7 @@ public class DataInputStepDefs extends Page {
 
     @Then("they should be added to the list of correspondents")
     public void theyShouldBeAddedToTheListOfCorrespondents() {
-        recordCorrespondentDetails.assertPrimaryCorrespondent();
+        initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
     }
 
     @Then("an error message should be displayed as I have not entered a {string}")
@@ -171,14 +170,14 @@ public class DataInputStepDefs extends Page {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 genericInputStepDefs.clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                recordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFields();
                 dataInput.clickAddButton();
-                recordCorrespondentDetails.assertPrimaryCorrespondent();
+                initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 aCaseHasACorrespondent("PRIMARY");
                 iAddAnAdditionalCorrespondent();
-                recordCorrespondentDetails.assertSecondaryCorrespondent();
+                initialDraftRecordCorrespondentDetails.assertSecondaryCorrespondent();
                 break;
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
@@ -194,19 +193,19 @@ public class DataInputStepDefs extends Page {
 
     @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
-        recordCorrespondentDetails.assertPrimaryCorrespondent();
-        recordCorrespondentDetails.assertSecondaryCorrespondent();
+        initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
+        initialDraftRecordCorrespondentDetails.assertSecondaryCorrespondent();
     }
 
     @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        recordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
+        initialDraftRecordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
-        caseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
+        DCUCaseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
 
 
     }

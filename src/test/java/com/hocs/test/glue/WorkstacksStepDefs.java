@@ -3,22 +3,19 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.create_case.CreateCase;
-import com.hocs.test.pages.create_case.SuccessfulCaseCreation;
-import com.hocs.test.pages.homepage.Homepage;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.CreateCase_SuccessPage;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Workstacks;
 
 import config.Users;
-import cucumber.api.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.concurrent.TimeUnit;
-import org.seleniumhq.jetty9.server.Authentication.User;
 
-public class WorkstacksStepDefs extends Page {
+public class WorkstacksStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -26,33 +23,33 @@ public class WorkstacksStepDefs extends Page {
 
     CreateCase createCase;
 
-    SuccessfulCaseCreation successfulCaseCreation;
+    CreateCase_SuccessPage createCaseSuccessPage;
 
     @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
-        clickOn(workstacks.allocateSelectedToMeButton);
+        safeClickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @When("I unallocate the case from myself")
     public void unallocateCase() {
-        clickOn(workstacks.unallocateButton);
+        safeClickOn(workstacks.unallocateButton);
     }
 
     @When("I select the check box against the case and allocate it to myself")
     public void allocateCaseUsingCheckbox() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        clickOn(workstacks.allocateSelectedToMeButton);
+        safeClickOn(workstacks.allocateSelectedToMeButton);
     }
 
     @Then("the case should be added to my workstack")
     public void assertThatCaseHasBeenAddedToMyWorkstack() {
-        clickOn(homepage.myCases);
+        safeClickOn(homepage.myCases);
         workstacks.assertCaseReferenceIsVisible();
     }
 
     @When("I enter the Case Reference type {string} into the filter")
     public void enterCaseReferenceType(String caseReferenceType) {
-        clickOn(workstacks.selectWorkstackFilter);
+        safeClickOn(workstacks.selectWorkstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
                 typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
@@ -75,16 +72,16 @@ public class WorkstacksStepDefs extends Page {
 
     @When("I click the {string} case type filter card")
     public void clickCaseTypeFilterCard(String caseTypeCard) {
-        clickOn(homepage.performanceProcessTeam);
+        safeClickOn(homepage.performanceProcessTeam);
         switch (caseTypeCard.toUpperCase()) {
             case "MIN":
-                clickOn(workstacks.dcuMINFilterCard);
+                safeClickOn(workstacks.dcuMINFilterCard);
                 break;
             case "DTEN":
-                clickOn(workstacks.dcuN10FilterCard);
+                safeClickOn(workstacks.dcuN10FilterCard);
                 break;
             case "TRO":
-                clickOn(workstacks.dcuTROFilterCard);
+                safeClickOn(workstacks.dcuTROFilterCard);
                 break;
             default:
                 pendingStep(caseTypeCard + " is not defined within " + getMethodName());
@@ -98,7 +95,7 @@ public class WorkstacksStepDefs extends Page {
 
     @When("I enter the current stage {string} into the filter")
     public void enterCurrentStage(String currentStage) {
-        clickOn(workstacks.selectWorkstackFilter);
+        safeClickOn(workstacks.selectWorkstackFilter);
         typeInto(workstacks.selectWorkstackFilter, currentStage.toUpperCase());
     }
 
@@ -110,7 +107,7 @@ public class WorkstacksStepDefs extends Page {
     @And("I select a case and unallocate it from myself")
     public void iSelectACaseAndUnallocateItFromMyself() {
         workstacks.clickCheckboxRelevantToCaseReference();
-        clickOn(workstacks.unallocateButton);
+        safeClickOn(workstacks.unallocateButton);
     }
 
     @And("I filter the workstack using the current cases reference")
@@ -122,7 +119,7 @@ public class WorkstacksStepDefs extends Page {
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createDCUMinSingleCase();
         homepage.goHome();
-        clickOn(homepage.performanceProcessTeam);
+        safeClickOn(homepage.performanceProcessTeam);
         workstacks.filterByCurrentCaseReference();
         waitABit(500);
     }
@@ -154,7 +151,7 @@ public class WorkstacksStepDefs extends Page {
         createCase.createDCUMinSingleCase();
         homepage.goHome();
         waitABit(500);
-        clickOn(homepage.performanceProcessTeam);
+        safeClickOn(homepage.performanceProcessTeam);
     }
 
     @Then("I assign these three cases to {string}")
@@ -170,22 +167,22 @@ public class WorkstacksStepDefs extends Page {
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
         createCase.createDCUMinSingleCase();
-        clickOn(successfulCaseCreation.newCaseReference);
+        safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
-        clickOn(successfulCaseCreation.newCaseReference);
+        safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createDCUMinSingleCase();
-        clickOn(successfulCaseCreation.newCaseReference);
+        safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
     }
 
     @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
     public void iUnallocateThreeCasesCreated(String user) {
-        clickOn(homepage.performanceProcessTeam);
+        safeClickOn(homepage.performanceProcessTeam);
         workstacks.unallocateThreeCasesFromSelectedUser(Users.valueOf(user));
     }
 
@@ -220,7 +217,7 @@ public class WorkstacksStepDefs extends Page {
 
     @When("I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card")
     public void iNarrowDownTheVisibleCasesInTheTransfersAndNoTeamWorkstackUsingTheFilterCard() {
-        clickOn(homepage.transferN10Team);
+        safeClickOn(homepage.transferN10Team);
         workstacks.clickDCUTENFilterCard();
     }
 

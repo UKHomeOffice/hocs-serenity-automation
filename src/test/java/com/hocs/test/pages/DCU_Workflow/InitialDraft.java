@@ -1,0 +1,307 @@
+package com.hocs.test.pages.DCU_Workflow;
+
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.CreateCase_SuccessPage;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Workstacks;
+import config.Users;
+import java.time.Duration;
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class InitialDraft extends BasePage {
+
+    Documents addDocuments;
+
+    Homepage homepage;
+
+    Workstacks workstacks;
+
+    CreateCase_SuccessPage createCaseSuccessPage;
+
+    @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
+    public WebElementFacade answeredByMyTeamNoRadioButton;
+
+    @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
+    public WebElementFacade answeredByMyTeamYesRadioButton;
+
+    @FindBy(css = "label[for=ReturnToResponseChannelDecision-REJECT]")
+    public WebElementFacade chooseAnotherResponseTypeNoButton;
+
+    @FindBy(css = "label[for=ReturnToResponseChannelDecision-ACCEPT")
+    public WebElementFacade chooseAnotherResponseTypeYesButton;
+
+    @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
+    public WebElementFacade correspondenceAnsweredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Why should this not be answered by your team? is required']")
+    public WebElementFacade shouldBeAnsweredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='How do you intend to respond? is required']")
+    public WebElementFacade howDoYouIntendToRespondErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Please summarise your call. is required']")
+    public WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Which is the primary draft document? is required']")
+    public WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Do you want to QA this offline? is required']")
+    public WebElementFacade doYouWantToQAThisOfflineErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
+    public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
+
+    @FindBy(css = "label[for=ResponseChannel-EMAIL]")
+    public WebElementFacade emailReplyRadioButton;
+
+    @FindBy(css = "label[for=ResponseChannel-LETTER]")
+    public WebElementFacade letterReplyRadioButton;
+
+    @FindBy(css = "label[for=ResponseChannel-PHONE]")
+    public WebElementFacade phoneReplyRadioButton;
+
+    @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
+    public WebElementFacade summariseCallTextBox;
+
+    @FindBy(css = "label[for='OfflineQA-TRUE']")
+    public WebElementFacade offlineQaYesRadioButton;
+
+    @FindBy(css = "label[for='OfflineQA-FALSE']")
+    public WebElementFacade offlineQaNoRadioButton;
+
+    @FindBy(id = "OfflineQaUser")
+    public WebElementFacade allocateToOfflineQaDropdown;
+
+    //Basic Methods
+
+    public void enterTextInSummariseCallTextbox() {
+        typeInto(summariseCallTextBox, generateRandomString());
+    }
+
+    // Multi Step Methods
+
+    public void getToDraftCaseRejectionScreenPrerequisites() {
+        safeClickOn(answeredByMyTeamNoRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void getToHowDoYouIntendToRespondScreenPrerequisites() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        safeClickOn(continueButton);
+        waitABit(500);
+    }
+
+    public void getToSummariseYouCallScreenPrerequisites() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        safeClickOn(continueButton);
+        safeClickOn(phoneReplyRadioButton);
+        safeClickOn(continueButton);
+
+    }
+
+    public void dontQAOffline() {
+        continueButton.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
+        safeClickOn(continueButton);
+        safeClickOn(offlineQaNoRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void selectOfflineQualityAssurer(String userName) {
+        allocateToOfflineQaDropdown.selectByVisibleText(userName);
+    }
+
+    public void getToPrimaryDraftDocumentScreenPrerequisites() {
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            waitABit(500);
+        } else {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(letterReplyRadioButton);
+            safeClickOn(continueButton);
+        }
+    }
+
+    public void getToAddDocumentScreenPrerequisites() {
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(addDocuments.addDocumentsButton);
+        } else {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(letterReplyRadioButton);
+            safeClickOn(continueButton);
+            addDocuments.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+        }
+    }
+
+    public void getToDoYouWantToQAOfflineScreenPrerequisites() {
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            waitABit(500);
+        } else {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(letterReplyRadioButton);
+            safeClickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            waitABit(500);
+        }
+    }
+
+
+    public void getToWhoDidTheQAOfflineScreenPrerequisites() {
+        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            safeClickOn(offlineQaYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(finishButton);
+        } else {
+            safeClickOn(answeredByMyTeamYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(letterReplyRadioButton);
+            safeClickOn(continueButton);
+            addDocuments.addADraftDocumentAtDraftStage();
+            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            safeClickOn(offlineQaYesRadioButton);
+            safeClickOn(continueButton);
+            safeClickOn(finishButton);
+        }
+    }
+
+    public void moveDTENCaseFromDraftToPrivateOffice() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        safeClickOn(continueButton);
+        addDocuments.addADraftDocumentAtDraftStage();
+        safeClickOn(continueButton);
+        safeClickOn(offlineQaYesRadioButton);
+        safeClickOn(continueButton);
+        selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
+        safeClickOn(finishButton);
+    }
+
+    public void acceptAndDraftALetter() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        safeClickOn(continueButton);
+        waitFor(letterReplyRadioButton);
+        safeClickOn(letterReplyRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void dtenAcceptAndDraftALetter() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void initialDraftFullFlow() {
+        waitABit(3500);
+        WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
+                + "']").get(0);
+        thisDraftTeam.click();
+        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
+        safeClickOn(workstacks.allocateToMeButton);
+        safeClickOn(homepage.home);
+        safeClickOn(homepage.myCases);
+        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
+        acceptAndDraftALetter();
+        addDocuments.addADraftDocumentAtDraftStage();
+        dontQAOffline();
+    }
+
+    public void moveCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        addDocuments.addADraftDocumentAtDraftStage();
+        waitABit(500);
+        dontQAOffline();
+    }
+
+    public void moveTROCaseFromInitialDraftToQaResponse() {
+        acceptAndDraftALetter();
+        addDocuments.addADraftDocumentAtDraftStage();
+        waitABit(500);
+        safeClickOn(continueButton);
+    }
+
+    public void moveDTENCaseFromInitialDraftToQaResponse() {
+        dtenAcceptAndDraftALetter();
+        addDocuments.addADraftDocumentAtDraftStage();
+        waitABit(500);
+        dontQAOffline();
+    }
+
+    public void completeInitialDraftStageAndStoreEnteredInformation() {
+        safeClickOn(answeredByMyTeamYesRadioButton);
+        setSessionVariable("selectedCanMyTeamAnswerRadioButton").to("ACCEPT");
+        safeClickOn(continueButton);
+        safeClickOn(letterReplyRadioButton);
+        String typeOfResponseRadioButton = letterReplyRadioButton.getText();
+        setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
+        safeClickOn(continueButton);
+        addDocuments.addADraftDocumentAtDraftStage();
+        setSessionVariable("uploadedDocumentTitle").to("test.docx");
+        continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+        safeClickOn(offlineQaNoRadioButton);
+        String responseToQAOfflineRadioButton = offlineQaNoRadioButton.getAttribute("for").substring(10);
+        setSessionVariable("selectedResponseToQAOfflineRadioButton").to(responseToQAOfflineRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    // Assertions
+
+    public void assertEnterCallNotesError() {
+        pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
+    }
+
+    public void assertEnterRejectionReasonsError() {
+        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
+    }
+
+    public void assertCorrespondenceAnsweredErrorMessage() {
+        correspondenceAnsweredErrorMessage.shouldContainText("Can this correspondence be answered by your team? is required");
+    }
+
+    public void assertShouldBeAnsweredErrorMessage() {
+        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
+    }
+
+    public void assertHowDoYouIntendToRespondErrorMessage() {
+       howDoYouIntendToRespondErrorMessage.shouldContainText("How do you intend to respond? is required");
+    }
+
+    public void assertPleaseSummariseYourCallErrorMessage() {
+        try {
+            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
+        } catch (Exception e) {
+            safeClickOn(continueButton);
+            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
+        }
+    }
+
+    public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
+        whichIsThePrimaryDraftDocumentErrorMessage.shouldContainText("Which is the primary draft document? is required");
+    }
+
+    public void assertDoYouWantToQAThisOfflineErrorMessage() {
+        doYouWantToQAThisOfflineErrorMessage.shouldContainText("Do you want to QA this offline? is required");
+    }
+
+    public void assertWhoHasDoneOfflineQAErrorMessage() {
+        whoHadDoneTheOfflineQAErrorMessage.shouldContainText("Who has done the Offline QA for this case? is required");
+    }
+}

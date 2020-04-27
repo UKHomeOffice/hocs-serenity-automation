@@ -1,25 +1,22 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.managementUI.Dashboard;
-import com.hocs.test.pages.workstacks.Workstacks;
+import com.hocs.test.pages.Workstacks;
 
 import static config.Users.*;
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.base_page.Page;
-import com.hocs.test.pages.login.LoginPage;
-import com.hocs.test.pages.homepage.Homepage;
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.Homepage;
 
 import config.Users;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.seleniumhq.jetty9.server.Authentication.User;
 
-public class LoginStepDefs extends Page {
+public class LoginStepDefs extends BasePage {
 
     Homepage homepage;
 
@@ -35,7 +32,7 @@ public class LoginStepDefs extends Page {
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             loginPage.enterHocsLoginDetails(Users.valueOf(user));
-            clickOn(loginPage.continueButton);
+            safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from homepage");
             homepage.goHome();
@@ -56,7 +53,7 @@ public class LoginStepDefs extends Page {
             if (isElementDisplayed($(loginPage.usernameField))) {
                 System.out.println("On fresh browser, beginning test..");
                 loginPage.enterHocsLoginDetails(Users.valueOf(user));
-                clickOn(loginPage.continueButton);
+                safeClickOn(loginPage.continueButton);
             } else {
                 System.out.println("Session still active, continuing test from homepage");
                 homepage.goHome();
@@ -71,7 +68,7 @@ public class LoginStepDefs extends Page {
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             loginPage.enterHocsLoginDetails(Users.valueOf(user));
-            clickOn(loginPage.continueButton);
+            safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
@@ -89,7 +86,7 @@ public class LoginStepDefs extends Page {
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
             loginPage.enterHocsLoginDetails(Users.valueOf(user));
-            clickOn(loginPage.continueButton);
+            safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from homepage");
             dashboard.goToDashboard();
@@ -109,7 +106,7 @@ public class LoginStepDefs extends Page {
         loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
         loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
 
-        clickOn(loginPage.continueButton);
+        safeClickOn(loginPage.continueButton);
     }
 
     @And("I enter the password of user {string} in the password field")
@@ -120,7 +117,7 @@ public class LoginStepDefs extends Page {
     @When("I enter invalid login credentials on the login screen")
     public void enterInvalidLoginCredentials() {
         loginPage.enterHocsLoginDetails(FAKE);
-        clickOn(homepage.continueButton);
+        safeClickOn(homepage.continueButton);
     }
 
     @Then("an error message should be displayed as the credentials are invalid")
@@ -135,7 +132,7 @@ public class LoginStepDefs extends Page {
 
     @When("I logout as the initial user")
     public void selectLogoutButton() {
-        clickOn(homepage.logoutButton);
+        safeClickOn(homepage.logoutButton);
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")
@@ -143,13 +140,13 @@ public class LoginStepDefs extends Page {
         loginPage.navigateToHocs();
         loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
         loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
-        clickOn(loginPage.continueButton);
+        safeClickOn(loginPage.continueButton);
     }
 
     @And("I am prompted to log in")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
-            clickOn(homepage.logoutButton);
+            safeClickOn(homepage.logoutButton);
             loginPage.navigateToHocs();
         }
     }
