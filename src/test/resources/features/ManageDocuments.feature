@@ -32,7 +32,7 @@ Feature: Manage Documents
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
-    Then the document should be under the "<docType>" header
+    Then the "docx" document should be under the "<docType>" header
     Examples:
       | docType  |
       | Original |
@@ -65,22 +65,22 @@ Feature: Manage Documents
   Scenario: Document exceeds the file size limit
     And I click add documents
     When I choose the document type "Draft"
-    And I select a file that is 51MB in size
+    And I upload a file that is 51MB in size
     Then an error message should be displayed as I have selected a file which is larger than the allowed limit
     And I cannot see the "51MB" file in the uploaded document list
 
   Scenario: A document has the pending tag whilst it is being converted
     And I click add documents
     When I choose the document type "Draft"
-    And I select a file that is 5MB in size
+    And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
   @SmokeTests
   Scenario: User can select which document to preview
-    And I upload a docx and a txt file
-    And the "docx" document should be select to be displayed in the preview pane
-    And I click the preview button of the "txt" file
-    Then the "txt" document should be select to be displayed in the preview pane
+    And I upload a 5MB and a 10MB file
+    And the "5MB" document should be select to be displayed in the preview pane
+    And I click the preview button of the "10MB" file
+    Then the "10MB" document should be select to be displayed in the preview pane
 
   @SmokeTests
   Scenario Outline: User can remove any document

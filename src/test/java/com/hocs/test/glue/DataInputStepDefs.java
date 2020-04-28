@@ -35,12 +35,13 @@ public class DataInputStepDefs extends BasePage {
         dataInput.dataInputFullFlowWithCopyToN10();
     }
 
-    @When("I complete the Data Input Stage for {string} case type")
-    public void completeDataInputPerCaseType(String caseType) {
+    @When("I complete the Data Input Stage")
+    public void completeDataInputPerCaseType() {
         if (homepage.myCases.isVisible()) {
             homepage.getCurrentCase();
             workstacks.clickAllocateToMeButton();
         }
+        String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN":
                 dataInput.dataInputFullFlowMIN();

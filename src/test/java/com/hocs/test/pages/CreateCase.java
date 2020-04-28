@@ -1,5 +1,7 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +29,10 @@ public class CreateCase extends BasePage {
     public WebElementFacade dcuTroRadioButton;
 
     @FindBy(css = "label[for='case-type-DTEN']")
-    public WebElementFacade dcuDtenRadioButton;
+    public WebElementFacade dcuDTenRadioButton;
+
+    @FindBy(css = "label[for='case-type-UKVI']")
+    public WebElementFacade ukviRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -56,59 +61,61 @@ public class CreateCase extends BasePage {
         allRadioButtons.shouldContainText("No options available");
     }
 
-    public void clickDcuMinRadioButton() {
+    private void clickDcuMinRadioButton() {
         safeClickOn(dcuMinRadioButton);
     }
 
-    public void clickDcuTroRadioButton() {
+    private void clickDcuTroRadioButton() {
         safeClickOn(dcuTroRadioButton);
     }
 
-    public void clickDcuDtenRadioButton() {
-        safeClickOn(dcuDtenRadioButton);
+    private void clickDcuDtenRadioButton() {
+        safeClickOn(dcuDTenRadioButton);
+    }
+
+    private void clickUkviRadioButton() {
+        safeClickOn(ukviRadioButton);
+    }
+
+    public void selectCaseType(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                clickDcuMinRadioButton();
+                break;
+            case "TRO":
+                clickDcuTroRadioButton();
+                break;
+            case "DTEN":
+                clickDcuDtenRadioButton();
+                break;
+            case "UKVI":
+                clickUkviRadioButton();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 
     // Multi Step Methods
 
-    public void createDCUMinSingleCase() {
+    public void createCaseOfType(String caseType) {
         safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuMinRadioButton);
+        selectCaseType(caseType);
         completeSingleCaseCreation();
+        setSessionVariable("caseType").to(caseType);
     }
 
-    public void createDCU10SingleCase() {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuDtenRadioButton);
-        completeSingleCaseCreation();
-    }
-
-    public void createDCUTROSingleCase() {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuTroRadioButton);
-        completeSingleCaseCreation();
-    }
-
-    public void createDCUMinSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuMinRadioButton);
+    public void completeSingleCaseCreation() {
         safeClickOn(nextButton);
-        correspondenceReceivedDayField.clear();
-        typeInto(correspondenceReceivedDayField, dd);
-        correspondenceReceivedMonthField.clear();
-        typeInto(correspondenceReceivedMonthField, mm);
-        correspondenceReceivedYearField.clear();
-        typeInto(correspondenceReceivedYearField, yyyy);
         addDocuments.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDay();
-        storeCorrespondenceReceivedMonth();
-        storeCorrespondenceReceivedYear();
+        storeCorrespondenceReceivedDate();
         safeClickOn(submitButton);
         createCaseSuccessPage.getCaseReference();
     }
 
-    public void createDCUTROSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
+    public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String dd, String mm, String yyyy) {
         safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuTroRadioButton);
+        selectCaseType(caseType);
         safeClickOn(nextButton);
         correspondenceReceivedDayField.clear();
         typeInto(correspondenceReceivedDayField, dd);
@@ -117,27 +124,7 @@ public class CreateCase extends BasePage {
         correspondenceReceivedYearField.clear();
         typeInto(correspondenceReceivedYearField, yyyy);
         addDocuments.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDay();
-        storeCorrespondenceReceivedMonth();
-        storeCorrespondenceReceivedYear();
-        safeClickOn(submitButton);
-        createCaseSuccessPage.getCaseReference();
-    }
-
-    public void createDCUDTenSingleCaseWithCorrespondenceReceivedDate(String dd, String mm, String yyyy) {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuDtenRadioButton);
-        safeClickOn(nextButton);
-        correspondenceReceivedDayField.clear();
-        typeInto(correspondenceReceivedDayField, dd);
-        correspondenceReceivedMonthField.clear();
-        typeInto(correspondenceReceivedMonthField, mm);
-        correspondenceReceivedYearField.clear();
-        typeInto(correspondenceReceivedYearField, yyyy);
-        addDocuments.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDay();
-        storeCorrespondenceReceivedMonth();
-        storeCorrespondenceReceivedYear();
+        storeCorrespondenceReceivedDate();
         safeClickOn(submitButton);
         createCaseSuccessPage.getCaseReference();
     }
@@ -153,60 +140,17 @@ public class CreateCase extends BasePage {
         safeClickOn(nextButton);
     }
 
-    public void createDCUMinSingleCaseWithID() {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuMinRadioButton);
-        safeClickOn(nextButton);
-        addDocuments.uploadDocumentOfType("docx");
-        safeClickOn(submitButton);
-        createCaseSuccessPage.getCaseReference();
-    }
-
-    public void createDCUTENSingleCaseWithID() {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuDtenRadioButton);
-        safeClickOn(nextButton);
-        addDocuments.uploadDocumentOfType("docx");
-        safeClickOn(submitButton);
-        createCaseSuccessPage.getCaseReference();
-    }
-
-    public void createDCUTROSingleCaseWithID() {
-        safeClickOn(homepage.createSingleCase);
-        safeClickOn(dcuTroRadioButton);
-        safeClickOn(nextButton);
-        addDocuments.uploadDocumentOfType("docx");
-        safeClickOn(submitButton);
-        createCaseSuccessPage.getCaseReference();
-    }
-
-    public void completeSingleCaseCreation() {
-        safeClickOn(nextButton);
-        addDocuments.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDay();
-        storeCorrespondenceReceivedMonth();
-        storeCorrespondenceReceivedYear();
-        safeClickOn(submitButton);
-        createCaseSuccessPage.getCaseReference();
-   }
-
     public void getToWhenWasCorReceived() {
         safeClickOn(dcuMinRadioButton);
         safeClickOn(nextButton);
         waitABit(100);
     }
 
-    public void storeCorrespondenceReceivedDay() {
+    public void storeCorrespondenceReceivedDate() {
         String correspondenceDay = correspondenceReceivedDayField.getValue();
         setSessionVariable("correspondenceReceivedDay").to(correspondenceDay);
-    }
-
-    public void storeCorrespondenceReceivedMonth() {
         String correspondenceMonth = correspondenceReceivedMonthField.getValue();
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
-    }
-
-    public void storeCorrespondenceReceivedYear() {
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
     }

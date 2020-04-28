@@ -52,12 +52,8 @@ public class Documents extends BasePage {
         documentTypeDropDown.selectByIndex(index);
     }
 
-    public void upload51MBDocument() {
-        upload("src/test/resources/documents/51MB.docx").to(addDocument);
-    }
-
-    public void upload5MBDocument() {
-        upload("src/test/resources/documents/5MB.docx").to(addDocument);
+    public void uploadDocumentOfSize(int fileSize) {
+        upload("src/test/resources/documents/" + fileSize + "MB.docx").to(addDocument);
     }
 
     public void uploadDocumentOfType(String type) {
@@ -190,7 +186,9 @@ public class Documents extends BasePage {
         assertThat(pendingTag.isVisible(), is(true));
     }
 
-    public void waitForFileToUpload() {
-        uploadedTag.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+    public void waitForFileToUpload(Object fileIdentifier) {
+        WebElementFacade documentUploadedTag =
+                findBy("//td[contains(text(), '" + fileIdentifier +"')]/preceding-sibling::td/strong[contains(text(), 'UPLOADED')]");
+        documentUploadedTag.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
     }
 }

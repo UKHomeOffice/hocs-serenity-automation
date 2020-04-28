@@ -117,7 +117,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         homepage.goHome();
         safeClickOn(homepage.performanceProcessTeam);
         workstacks.filterByCurrentCaseReference();
@@ -142,13 +142,13 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         homepage.goHome();
         waitABit(500);
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         homepage.goHome();
         waitABit(500);
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         homepage.goHome();
         waitABit(500);
         safeClickOn(homepage.performanceProcessTeam);
@@ -166,15 +166,15 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
         homepage.goHome();

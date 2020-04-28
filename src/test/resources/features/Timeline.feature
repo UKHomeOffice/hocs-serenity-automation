@@ -48,7 +48,7 @@ Feature: Timeline
   @SmokeTests
   Scenario: User can add a case note progress the case and the case note should stay in its place in the timeline
     And I create a case note with random content
-    And I complete the Data Input Stage for "MIN" case type
+    And I complete the Data Input Stage
     And I load and claim the current case
     And I select the Timeline tab
     And I edit the top case note

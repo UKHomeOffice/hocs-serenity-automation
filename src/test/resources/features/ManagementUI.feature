@@ -230,8 +230,8 @@ Feature: ManagementUI
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
-    And I create a single case "MIN"
-    And I complete the Data Input Stage for "MIN" case type
+    And I create a single "MIN" case and return to the dashboard
+    And I complete the Data Input Stage
     When I assign the Topic "NEW CHILD TOPIC"
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval

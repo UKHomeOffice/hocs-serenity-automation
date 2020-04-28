@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
@@ -322,8 +323,9 @@ public class GenericInputStepDefs extends BasePage {
         safeClickOn(workstacks.addButton);
     }
 
-    @Then("the {string} case should be moved to the {string} stage")
-    public void assertCaseTypeReturnedToStage(String caseType, String stage) {
+    @Then("the case should be moved to the {string} stage")
+    public void assertCaseTypeReturnedToStage(String stage) {
+        String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN":
                 switch (stage.toUpperCase()) {

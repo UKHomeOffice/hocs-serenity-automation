@@ -5,8 +5,8 @@ Feature: Topics
     Given I log in as the designated user
 
   Scenario Outline: Topics are assigned to the correct team
-    When I create a single case "MIN"
-    And I complete the Data Input Stage for "MIN" case type
+    When I create a single "MIN" case and return to the dashboard
+    And I complete the Data Input Stage
     And I assign the Topic "<Topic>"
     Then the case should be assigned to the "<draftingTeam>" for drafting
     And the case should be assigned to the "<privateOfficeTeam>" for approval

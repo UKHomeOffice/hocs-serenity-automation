@@ -34,6 +34,44 @@ public class CreateCaseStepDefs extends BasePage {
 
     Workstacks workstacks;
 
+    @When("I create a single {string} case")
+    public void createNewCase(String caseType) {
+        createCase.createCaseOfType(caseType.toUpperCase());
+    }
+
+    @Given("I create a single {string} case and return to the dashboard")
+    public void createACaseTypeSpecificCase(String caseType) {
+        createCase.createCaseOfType(caseType.toUpperCase());
+        homepage.goHome();
+    }
+
+    @When("I create a {string} case {string} a document")
+    public void createCaseWithDocument(String caseType, String document) {
+        safeClickOn(homepage.createSingleCase);
+        createCase.selectCaseType(caseType);
+        safeClickOn(createCase.nextButton);
+        switch (document.toUpperCase()) {
+            case "WITH":
+                documents.uploadDocumentOfType("docx");
+                safeClickOn(createCase.finishButton);
+                break;
+            case "WITHOUT":
+                safeClickOn(createCase.finishButton);
+                break;
+            default:
+                pendingStep(document + " is not defined within " + getMethodName());
+        }
+    }
+
+    @When("I bulk create {int} {string} cases")
+    public void bulkCreateCases(int cases, String caseType) {
+        safeClickOn(homepage.createBulkCases);
+        createCase.selectCaseType(caseType);
+        safeClickOn(createCase.nextButton);
+        documents.bulkUploadDocuments(cases);
+        safeClickOn(createCase.finishButton);
+    }
+
     @Given("I am presented with {string}")
     public void iAmPresentedWith(String userView) {
         switch (userView.toUpperCase()) {
@@ -50,77 +88,15 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseWithoutSelectingCorrespondenceType();
     }
 
-    @Given("I create a single case {string}")
-    public void createACaseTypeSpecificCase(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                createCase.createDCUMinSingleCaseWithID();
-                setSessionVariable("caseType").to(caseType);
-                safeClickOn(homepage.home);
-                break;
-            case "DTEN":
-                createCase.createDCUTENSingleCaseWithID();
-                setSessionVariable("caseType").to(caseType);
-                safeClickOn(homepage.home);
-                break;
-            case "TRO":
-                createCase.createDCUTROSingleCaseWithID();
-                setSessionVariable("caseType").to(caseType);
-                safeClickOn(homepage.home);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                createCase.createDCUMinSingleCase();
+                createCase.createCaseOfType(caseType);
                 safeClickOn(homepage.home);
                 homepage.waitForPerformanceProcessTeam();
                 safeClickOn(homepage.performanceProcessTeam);
-                workstacks.clickDCUMINFilterCard();
                 dataInput.dataInputFullFlow();
                 markupAddTopics.fromMarkupStartSelectATopic(topic);
                 setSessionVariable("searchTopic").to(topic);
-                break;
-            case "DTEN":
-                createCase.createDCU10SingleCase();
-                safeClickOn(homepage.home);
-                homepage.waitForPerformanceProcessTeam();
-                safeClickOn(homepage.performanceProcessTeam);
-                workstacks.clickDCUTENFilterCard();
-                dataInput.dataInputFullFlow();
-                markupAddTopics.fromMarkupStartSelectATopic(topic);
-                setSessionVariable("searchTopic").to(topic);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("I create a single MIN case")
-    public void createNewMinCase() {
-        createCase.createDCUMinSingleCase();
-    }
-
-    @When("I create a single {string} case")
-    public void createNewCase(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                createCase.createDCUMinSingleCase();
-                break;
-            case "DTEN":
-                createCase.createDCU10SingleCase();
-                break;
-            case "TRO":
-                createCase.createDCUTROSingleCase();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
     }
 
     @When("I allocate the case to myself via the successful case creation screen")
@@ -173,57 +149,6 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
-    @When("I bulk create {int} {string} cases")
-    public void bulkCreateCases(int cases, String caseType) {
-        safeClickOn(homepage.createBulkCases);
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(createCase.dcuMinRadioButton);
-                break;
-            case "TRO":
-                safeClickOn(createCase.dcuTroRadioButton);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        safeClickOn(createCase.nextButton);
-        documents.bulkUploadDocuments(cases);
-        safeClickOn(createCase.finishButton);
-    }
-
-    @When("I create a {string} case {string} a document")
-    public void createCaseWithDocument(String caseType, String document) {
-        safeClickOn(homepage.createSingleCase);
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(createCase.dcuMinRadioButton);
-                safeClickOn(createCase.nextButton);
-                break;
-            case "TRO":
-                safeClickOn(createCase.dcuTroRadioButton);
-                safeClickOn(createCase.nextButton);
-                break;
-            case "DTEN":
-                safeClickOn(createCase.dcuDtenRadioButton);
-                safeClickOn(createCase.nextButton);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-
-        switch (document.toUpperCase()) {
-            case "WITH":
-                documents.uploadDocumentOfType("docx");
-                safeClickOn(createCase.finishButton);
-                break;
-            case "WITHOUT":
-                safeClickOn(createCase.finishButton);
-                break;
-            default:
-                pendingStep(document + " is not defined within " + getMethodName());
-        }
-    }
-
     @Then("A case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
         createCaseSuccessPage.assertCaseCreatedSuccess();
@@ -268,29 +193,9 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.enterNoDate();
     }
 
-    @When("I create a new {string} case and go home")
-    public void createNewCaseGoHome(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                createCase.createDCUMinSingleCase();
-                homepage.goHome();
-                break;
-            case "DTEN":
-                createCase.createDCU10SingleCase();
-                homepage.goHome();
-                break;
-            case "TRO":
-                createCase.createDCUTROSingleCase();
-                homepage.goHome();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
-        createCase.createDCUMinSingleCase();
+        createCase.createCaseOfType(caseType.toUpperCase());
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         workstacks.clickAllocateToMeButton();
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
@@ -298,21 +203,6 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a single {string} case with the correspondence received date as: {string}-{string}-{string}")
     public void iCreateACaseWithCorrespondenceDate(String caseType, String day, String month, String year) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                createCase.createDCUMinSingleCaseWithCorrespondenceReceivedDate(day, month, year);
-                break;
-            case "TRO":
-                createCase.createDCUTROSingleCaseWithCorrespondenceReceivedDate(day, month, year);
-                break;
-            case "DTEN":
-                createCase.createDCUDTenSingleCaseWithCorrespondenceReceivedDate(day, month, year);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
+        createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, day, month, year);
     }
-
-
 }
-
