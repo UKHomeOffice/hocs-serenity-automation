@@ -165,12 +165,11 @@ public class Markup_AddTopics extends BasePage {
     }
 
     public void assertTopicsAssigned() {
-        workstacks.selectSummaryTab();
         waitABit(2000);
+        workstacks.selectSummaryTab();
         String testTopic = sessionVariableCalled("topic").toString();
-        String thisTopic = primaryTopicInSummary.getText().toUpperCase();
-        System.out.println(thisTopic);
-        assertThat(thisTopic.equals(testTopic), is(true));
+        String summaryTopic = primaryTopicInSummary.waitUntilVisible().getText().toUpperCase();
+        assertThat(summaryTopic.equals(testTopic), is(true));
     }
 
     public void assertTopicIsAssignedThroughTimeline() {

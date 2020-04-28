@@ -199,19 +199,16 @@ public class CreateCase extends BasePage {
     public void storeCorrespondenceReceivedDay() {
         String correspondenceDay = correspondenceReceivedDayField.getValue();
         setSessionVariable("correspondenceReceivedDay").to(correspondenceDay);
-        System.out.println(correspondenceDay);
     }
 
     public void storeCorrespondenceReceivedMonth() {
         String correspondenceMonth = correspondenceReceivedMonthField.getValue();
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
-        System.out.println(correspondenceMonth);
     }
 
     public void storeCorrespondenceReceivedYear() {
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
-        System.out.println(correspondenceYear);
     }
 
     //Assertions
