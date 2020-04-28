@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
@@ -20,27 +21,18 @@ public class MinisterialSignOffStepDefs extends BasePage {
     Workstacks workstacks;
 
     @When("I complete the Ministerial Sign Off stage")
-    public void completeTheMinisterSignOffStage(){
-        if (homepage.myCases.isVisible()) {
-            homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
-        }
-        safeClickOn(minister.ministerSignOffAcceptRadioButton);
-        safeClickOn(minister.continueButton);
-    }
-
-    @When("I complete the Ministerial Sign Off stage for {string}")
-    public void completeTheMinisterSignOffStagePerCaseType(String caseType) {
+    public void completeTheMinisterSignOffStagePerCaseType() {
+        String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN" :
-                homepage.getCurrentCase();
-                safeClickOn(workstacks.allocateToMeButton);
+                if (homepage.myCases.isVisible()) {
+                    homepage.getCurrentCase();
+                    safeClickOn(workstacks.allocateToMeButton);
+                }
                 safeClickOn(minister.ministerSignOffAcceptRadioButton);
                 safeClickOn(minister.continueButton);
                 break;
             case "TRO" :
-                homepage.goHome();
-                break;
             case "DTEN" :
                 break;
             default:

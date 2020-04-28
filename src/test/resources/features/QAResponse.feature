@@ -30,7 +30,7 @@ Feature: QA Response
     And I create a "<caseType>" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case
     And I reject the case at the "QA Response" stage
-    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Then the case should be moved to the "Initial Draft" stage
     Examples:
       | caseType |
       | MIN  |

@@ -89,7 +89,7 @@ Feature: Markup
   @Workflow @SmokeTests
   Scenario: Case is returned to Data Input stage when rejected at Markup stage
     And I reject the case at the "MARKUP" stage
-    Then the "DTEN" case should be moved to the "DATA INPUT" stage
+    Then the case should be moved to the "DATA INPUT" stage
 
 
 

@@ -48,7 +48,7 @@ Feature: Private Office Approval
     And I create a "<caseType>" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I reject the case at the "Private Office Approval" stage
-    Then the "<caseType>" case should be moved to the "Initial Draft" stage
+    Then the case should be moved to the "Initial Draft" stage
     Examples:
       | caseType |
       | MIN  |

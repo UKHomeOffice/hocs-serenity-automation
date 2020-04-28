@@ -36,7 +36,7 @@ Feature: Create case
 
   @Workflow
   Scenario: Newly created MIN cases should be moved to the Performance and Process Team workstack
-    And I create a single MIN case
+    And I create a single "MIN" case
     Then the case should be visible in the Performance and Process Team workstack
 
   @Navigation

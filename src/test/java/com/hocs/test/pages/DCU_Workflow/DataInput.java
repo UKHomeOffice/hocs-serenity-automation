@@ -5,6 +5,7 @@ import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.Homepage;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -245,7 +246,8 @@ public class DataInput extends BasePage {
     }
 
     public void fillAllMandatoryCorrespondenceFields() {
-        if (isElementDisplayed(dtenDraftingDeadlineDayField)) {
+        String caseType = sessionVariableCalled("caseType");
+        if (caseType.equals("DTEN")) {
             typeInto(dtenDraftingDeadlineDayField, "01");
             typeInto(dtenDraftingDeadlineMonthField, "01");
             typeInto(dtenDraftingDeadlineYearField, "2019");

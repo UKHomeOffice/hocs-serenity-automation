@@ -231,7 +231,7 @@ public class Fetch extends BasePage {
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCUMinSingleCase();
+                    createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     safeClickOn(homepage.home);
@@ -249,7 +249,7 @@ public class Fetch extends BasePage {
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCUMinSingleCase();
+                    createCase.createCaseOfType(caseType);
                     safeClickOn(homepage.home);
                     safeClickOn(homepage.performanceProcessTeam);
                     getFirstUnallocatedMINCaseDataInputStage();
@@ -261,7 +261,7 @@ public class Fetch extends BasePage {
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCUTROSingleCase();
+                    createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     safeClickOn(homepage.home);
@@ -279,7 +279,7 @@ public class Fetch extends BasePage {
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCUTROSingleCase();
+                    createCase.createCaseOfType(caseType);
                     safeClickOn(homepage.home);
                     safeClickOn(homepage.performanceProcessTeam);
                     getFirstUnallocatedTROCaseDataInputStage();
@@ -291,7 +291,7 @@ public class Fetch extends BasePage {
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Transfers & N10 Team not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCU10SingleCase();
+                    createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     safeClickOn(homepage.home);
@@ -309,7 +309,7 @@ public class Fetch extends BasePage {
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
                     safeClickOn(homepage.home);
-                    createCase.createDCU10SingleCase();
+                    createCase.createCaseOfType(caseType);
                     safeClickOn(homepage.home);
                     safeClickOn(homepage.transferN10Team);
                     getFirstUnallocatedDTENCaseDataInputStage();

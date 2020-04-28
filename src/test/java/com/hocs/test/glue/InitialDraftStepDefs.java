@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Documents;
@@ -24,26 +25,12 @@ public class InitialDraftStepDefs extends BasePage {
     Workstacks workstacks;
 
     @When("I complete the Initial Draft stage")
-    public void initialDraftFullFlow() {
-        homepage.getCurrentCase();
-        safeClickOn(workstacks.allocateToMeButton);
-        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            initialDraft.dtenAcceptAndDraftALetter();
-            documents.addADraftDocumentAtDraftStage();
-            initialDraft.dontQAOffline();
-        } else {
-            initialDraft.acceptAndDraftALetter();
-            documents.addADraftDocumentAtDraftStage();
-            initialDraft.dontQAOffline();
-        }
-    }
-
-    @When("I complete the Initial Draft stage for {string} case type")
-    public void initialDraftFullFlowPerCaseType(String caseType) {
+    public void initialDraftFullFlowPerCaseType() {
         if (homepage.myCases.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }
+        String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "TRO":

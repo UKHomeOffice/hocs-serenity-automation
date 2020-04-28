@@ -39,7 +39,7 @@ Feature:  Dispatch
   Scenario Outline: Case is returned to Private Office Approval stage when rejected by Dispatch Team
     And I get a "<caseType>" case at "Dispatch" stage
     And I reject the case at the "Dispatch" stage
-    Then the "<caseType>" case should be moved to the "Private Office Approval" stage
+    Then the case should be moved to the "Private Office Approval" stage
     Examples:
       | caseType |
       | MIN  |

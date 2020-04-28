@@ -69,7 +69,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @Then("I can see the {string} file in the uploaded document list")
     public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
-        documents.waitForFileToUpload();
+        documents.waitForFileToUpload(fileType);
         documents.assertFileIsVisible(fileType);
     }
 
@@ -98,18 +98,9 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertFileIsNotVisible(fileIdentifier);
     }
 
-    @And("I select a file that is {int}MB in size")
-    public void iSelectAFileThatIsLargerThanMB(int fileSize) {
-        switch (fileSize) {
-            case 51:
-                documents.upload51MBDocument();
-                break;
-            case 5:
-                documents.upload5MBDocument();
-                break;
-            default:
-                pendingStep(fileSize + " is not defined within " + getMethodName());
-        }
+    @And("I upload a file that is {int}MB in size")
+    public void iUploadAFileThatIsMBInSize(int fileSize) {
+        documents.uploadDocumentOfSize(fileSize);
         genericInputStepDefs.clickTheButton("add");
     }
 
@@ -118,18 +109,17 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertFileTooLargeErrorMessage();
     }
 
-    @And("I upload a docx and a txt file")
-    public void iUploadADocxAndATxtFile() {
+    @And("I upload a {int}MB and a {int}MB file")
+    public void iUploadTwoFilesOfSizes(int fileSize1, int fileSize2) {
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
-        documents.uploadDocumentOfType("docx");
-        genericInputStepDefs.clickTheButton("add");
-        documents.waitForFileToUpload();
+        iUploadAFileThatIsMBInSize(fileSize1);
+        documents.waitForFileToUpload(fileSize1);
         iClickManageDocuments();
         iClickAddDocuments();
         iChooseTheDocumentType("Draft");
-        documents.uploadDocumentOfType("txt");
-        genericInputStepDefs.clickTheButton("add");
+        iUploadAFileThatIsMBInSize(fileSize2);
+        documents.waitForFileToUpload(fileSize2);
     }
 
     @Then("the {string} document should be select to be displayed in the preview pane")
@@ -161,9 +151,9 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertPendingTagVisible();
     }
 
-    @Then("the document should be under the {string} header")
-    public void theDocumentShouldBeUnderTheHeader(String header) {
-        documents.waitForFileToUpload();
+    @Then("the {string} document should be under the {string} header")
+    public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
+        documents.waitForFileToUpload(fileIdentifier);
         documents.assertDocumentIsUnderHeader(header.toUpperCase());
     }
 }

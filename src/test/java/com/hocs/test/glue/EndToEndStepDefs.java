@@ -79,7 +79,7 @@ public class EndToEndStepDefs extends BasePage {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDCUMinSingleCase();
+                        createCase.createCaseOfType(caseType);
                         homepage.goHome();
                         break;
                     case "MARKUP":
@@ -119,7 +119,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDCUTROSingleCase();
+                        createCase.createCaseOfType(caseType);
                         homepage.goHome();
                         break;
                     case "MARKUP":
@@ -151,7 +151,7 @@ public class EndToEndStepDefs extends BasePage {
             case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDCU10SingleCase();
+                        createCase.createCaseOfType(caseType);
                         homepage.goHome();
                         break;
                     case "MARKUP":

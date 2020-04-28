@@ -36,7 +36,7 @@ public class MarkupStepDefs extends BasePage {
 
     QAResponse qaResponse;
 
-    @When("I complete the markup stage")
+    @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
         if (homepage.myCases.isVisible()) {
             homepage.getCurrentCase();

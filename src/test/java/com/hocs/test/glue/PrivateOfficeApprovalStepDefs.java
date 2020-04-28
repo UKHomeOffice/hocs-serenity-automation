@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.DCUCaseDetailsAccordion;
@@ -23,22 +24,15 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
 
     @When("I complete the Private Office stage")
-    public void completePrivateOfficeStage() {
-        if (homepage.myCases.isVisible()) {
-            homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
-        }
-        safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
-        safeClickOn(privateOfficeApproval.continueButton);
-    }
-
-    @When("I complete the Private Office stage for {string}")
-    public void completePrivateOfficeStagePerCaseType(String caseType) {
+    public void completePrivateOfficeStagePerCaseType() {
+        String caseType = sessionVariableCalled("caseType");
         switch(caseType.toUpperCase()) {
             case "MIN" :
             case "DTEN":
-                homepage.getCurrentCase();
-                safeClickOn(workstacks.allocateToMeButton);
+                if (homepage.myCases.isVisible()) {
+                    homepage.getCurrentCase();
+                    safeClickOn(workstacks.allocateToMeButton);
+                }
                 safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
                 safeClickOn(privateOfficeApproval.continueButton);
                 break;

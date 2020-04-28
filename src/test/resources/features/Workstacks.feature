@@ -29,14 +29,14 @@ Feature: Workstacks
 
   @SmokeTests
   Scenario: User creates a Ministerial case and uses the MIN filter card to view it in the Performance and Process workstack
-    Given I create a new "MIN" case and go home
+    Given I create a single "MIN" case and return to the dashboard
     When I enter the Performance and Process team workstack and narrow down the visible cases using the "MIN" filter card
     Then only "MIN" cases should be visible
     And the created case should be visible in the workstack
 
   @SmokeTests
   Scenario: User creates a Number 10 case and uses the DTEN filter card to view it in the Transfers and No10 team workstack
-    Given I create a new "DTEN" case and go home
+    Given I create a single "DTEN" case and return to the dashboard
     When I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card
     Then only "DTEN" cases should be visible
     And the created case should be visible in the workstack
@@ -44,7 +44,7 @@ Feature: Workstacks
   @SmokeTests
   Scenario: User creates a Treat Official case and uses the TRO filter card to view it in the Performance and Process
   workstack
-    Given I create a new "TRO" case and go home
+    Given I create a single "TRO" case and return to the dashboard
     When I enter the Performance and Process team workstack and narrow down the visible cases using the "TRO" filter card
     Then only "TRO" cases should be visible
     And the created case should be visible in the workstack

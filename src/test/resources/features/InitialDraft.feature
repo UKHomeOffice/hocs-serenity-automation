@@ -38,7 +38,7 @@ Feature: Initial Draft
     And I upload a "draft" document
     And I select "no" to QA offline
     Then I am returned to my home screen
-    And the "MIN" case should be moved to the "QA RESPONSE" stage
+    And the case should be moved to the "QA RESPONSE" stage
 
   @Workflow @SmokeTests
   Scenario: User selects offline QA
@@ -49,7 +49,7 @@ Feature: Initial Draft
     And I select "yes" to QA offline
     And I select "AUTOMATION_USER" as the offline QA
     Then I am returned to my home screen
-    And the "MIN" case should be moved to the "PRIVATE OFFICE APPROVAL" stage
+    And the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
 
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
@@ -110,7 +110,7 @@ Feature: Initial Draft
   Scenario Outline: Case is returned to Markup stage when rejected at Initial Draft stage
     And I get a "<caseType>" case at "Initial Draft" stage
     And I reject the case at the "Initial Draft" stage
-    Then the "<caseType>" case should be moved to the "Markup" stage
+    Then the case should be moved to the "Markup" stage
     Examples:
       | caseType |
       | MIN  |

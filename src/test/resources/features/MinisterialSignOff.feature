@@ -24,4 +24,4 @@ Feature: Ministerial Sign-Off
   @Workflow @SmokesTests
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister
     And I reject the case at the "MINISTERIAL SIGN OFF" stage
-    Then the "MIN" case should be moved to the "INITIAL DRAFT" stage
+    Then the case should be moved to the "INITIAL DRAFT" stage
