@@ -1,11 +1,12 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.DCU_Workflow.Markup_AddTopics;
+import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.Homepage;
 
 import static jnr.posix.util.MethodName.getMethodName;
@@ -29,6 +30,8 @@ public class CreateCaseStepDefs extends BasePage {
     DataInput dataInput;
 
     Homepage homepage;
+
+    Markup markup;
 
     Markup_AddTopics markupAddTopics;
 
@@ -92,10 +95,11 @@ public class CreateCaseStepDefs extends BasePage {
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
                 createCase.createCaseOfType(caseType);
                 safeClickOn(homepage.home);
-                homepage.waitForPerformanceProcessTeam();
-                safeClickOn(homepage.performanceProcessTeam);
-                dataInput.dataInputFullFlow();
-                markupAddTopics.fromMarkupStartSelectATopic(topic);
+                homepage.getAndClaimCurrentCase();
+                dataInput.moveCaseFromDataInputToMarkup();
+                homepage.getAndClaimCurrentCase();
+                markup.getToMarkupAddATopicScreenPrerequisites();
+                markupAddTopics.enterATopic(topic);
                 setSessionVariable("searchTopic").to(topic);
     }
 
@@ -153,6 +157,19 @@ public class CreateCaseStepDefs extends BasePage {
     public void aCaseIsCreatedSuccessfully() {
         createCaseSuccessPage.assertCaseCreatedSuccess();
         createCaseSuccessPage.getCaseReference();
+    }
+
+    @Then("A case is created successfully {string} a document")
+    public void aCaseIsCreatedSuccessfullyWithWithoutADocument(String withWithout) {
+        createCaseSuccessPage.assertCaseCreatedSuccess();
+        createCaseSuccessPage.getCaseReference();
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        if (withWithout.equals("with")) {
+            documents.assertDocumentPresentIs(true);
+        }
+        else {
+            documents.assertDocumentPresentIs(false);
+        }
     }
 
     @Then("bulk cases are created successfully")

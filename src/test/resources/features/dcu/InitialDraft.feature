@@ -104,7 +104,7 @@ Feature: Initial Draft
   Scenario: User must enter text in the text box when creating a Case note at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @SmokeTests
   Scenario Outline: Case is returned to Markup stage when rejected at Initial Draft stage

@@ -1,4 +1,4 @@
-package com.hocs.test.pages.DCU_Workflow;
+package com.hocs.test.pages.dcu;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
@@ -8,8 +8,6 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Managed;
 import net.serenitybdd.core.pages.WebElementFacade;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QAResponse extends BasePage {
 

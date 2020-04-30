@@ -51,7 +51,7 @@ Feature: Data Input
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "CONTINUE" button
     And I select to add a correspondent that "IS" a member of parliament
-    And I enter "Nicola Sturgeon MSP" in the "ADD A MEMBER OF PARLIAMENT" field
+    And I add the member of parliament "Nicola Sturgeon MSP"
     Then they should be added to the list of correspondents
 
   @SmokeTests
@@ -107,4 +107,4 @@ Feature: Data Input
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box

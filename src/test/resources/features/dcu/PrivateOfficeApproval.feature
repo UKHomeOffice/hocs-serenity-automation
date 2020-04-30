@@ -30,7 +30,7 @@ Feature: Private Office Approval
     And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @SmokeTests
   Scenario: User can change the minister for the case

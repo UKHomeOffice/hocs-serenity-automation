@@ -1,10 +1,8 @@
-package com.hocs.test.pages.DCU_Workflow;
+package com.hocs.test.pages.dcu;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.CreateCase_SuccessPage;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -15,12 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class Markup_AddTopics extends BasePage {
-
-    Homepage homepage;
-
-    CreateCase_SuccessPage createCaseSuccessPage;
-
-    Markup_Decision markupDecision;
 
     Workstacks workstacks;
 
@@ -33,7 +25,7 @@ public class Markup_AddTopics extends BasePage {
     private WebElementFacade topicsTextField;
 
     @FindBy(xpath = "//a[text()='Add a ']")
-    public WebElementFacade addTopicButton;
+    public WebElementFacade addTopicLink;
 
     @FindBy(xpath = "//label")
     public WebElementFacade assignedTopic;
@@ -66,8 +58,8 @@ public class Markup_AddTopics extends BasePage {
         return thisTopic;
     }
 
-    public void clickAddTopicButton() {
-        safeClickOn(addTopicButton);
+    public void clickAddTopicLink() {
+        safeClickOn(addTopicLink);
     }
 
     public void enterTopic() {
@@ -93,7 +85,7 @@ public class Markup_AddTopics extends BasePage {
     // Multi Step Methods
 
     public void enterATopic(String topic) {
-        safeClickOn(addTopicButton);
+        safeClickOn(addTopicLink);
         topicsTextField.click();
         topicsTextField.sendKeys(topic);
         waitABit(1000);
@@ -103,7 +95,7 @@ public class Markup_AddTopics extends BasePage {
     }
 
     public void enterATopicWithoutHittingFinish(String topic) {
-        safeClickOn(addTopicButton);
+        safeClickOn(addTopicLink);
         safeClickOn(topicsTextField);
         topicsTextField.sendKeys(topic);
         waitABit(1000);
@@ -113,12 +105,12 @@ public class Markup_AddTopics extends BasePage {
     }
 
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
-        safeClickOn(addTopicButton);
+        safeClickOn(addTopicLink);
         safeClickOn(topicsTextField);
         topicsTextField.sendKeys(topic);
         waitABit(1000);
         hitReturnToSendTopic();
-        if (!isElementDisplayed(markupDecision.topicIsRequiredErrorMessage)) {
+        if (!isElementDisplayed(errorMessage)) {
             safeClickOn(addButton);
         }
     }
@@ -130,18 +122,6 @@ public class Markup_AddTopics extends BasePage {
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);
         waitABit(1000);
-    }
-
-    public void fromMarkupStartSelectATopic (String topic) {
-        homepage.selectCentralDraftingTeam();
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
-        homepage.goHome();
-        homepage.selectMyCases();
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        markupDecision.clickPolicyResponseRadioButton();
-        clickContinueButton();
-        enterATopic(topic);
     }
 
     public void recordSelectedDraftingAndPrivateOfficeTeams() {

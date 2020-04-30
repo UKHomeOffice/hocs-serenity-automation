@@ -7,14 +7,14 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.DCU_Workflow.Markup_Decision;
-import com.hocs.test.pages.DCU_Workflow.Markup_FullFlow;
-import com.hocs.test.pages.DCU_Workflow.Markup_AddTopics;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.DCU_Workflow.QAResponse;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.dcu.InitialDraft;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -26,9 +26,9 @@ public class MarkupStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    Markup_Decision markupDecision;
+    Markup markupDecision;
 
-    Markup_FullFlow markup;
+    Markup markup;
 
     InitialDraft initialDraft;
 
@@ -42,7 +42,7 @@ public class MarkupStepDefs extends BasePage {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }
-        markup.markupStageFullFlow();
+        markup.moveCaseFromMarkupToInitialDraft();
     }
 
     @When("I assign the Topic {string}")
@@ -263,5 +263,10 @@ public class MarkupStepDefs extends BasePage {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I click the 'Add a topic' link")
+    public void iClickTheAddATopicLink() {
+        markupAddTopics.clickAddTopicLink();
     }
 }

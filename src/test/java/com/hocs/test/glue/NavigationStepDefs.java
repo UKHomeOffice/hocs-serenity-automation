@@ -2,8 +2,8 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
+import com.hocs.test.pages.dcu.DataInput;
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Fetch;
 
@@ -12,7 +12,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.time.Duration;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -27,7 +26,7 @@ public class NavigationStepDefs extends BasePage {
 
     Fetch fetch;
 
-    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
+    AddCorrespondent initialDraftRecordCorrespondentDetails;
 
     Search search;
 
@@ -131,7 +130,7 @@ public class NavigationStepDefs extends BasePage {
                 createCase.assertPageTitle();
                 break;
             case "HOME":
-                homepage.assertHomePageTitle();
+                homepage.assertOnHomePage();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
                 initialDraftRecordCorrespondentDetails.assertPageTitle();

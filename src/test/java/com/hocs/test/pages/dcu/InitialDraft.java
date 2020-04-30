@@ -1,10 +1,7 @@
-package com.hocs.test.pages.DCU_Workflow;
+package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.CreateCase_SuccessPage;
@@ -17,7 +14,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class InitialDraft extends BasePage {
 
-    Documents addDocuments;
+    Documents documents;
 
     Homepage homepage;
 
@@ -134,13 +131,13 @@ public class InitialDraft extends BasePage {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             safeClickOn(answeredByMyTeamYesRadioButton);
             safeClickOn(continueButton);
-            safeClickOn(addDocuments.addDocumentsButton);
+            safeClickOn(documents.addDocumentsButton);
         } else {
             safeClickOn(answeredByMyTeamYesRadioButton);
             safeClickOn(continueButton);
             safeClickOn(letterReplyRadioButton);
             safeClickOn(continueButton);
-            addDocuments.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            documents.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
         }
     }
 
@@ -148,7 +145,7 @@ public class InitialDraft extends BasePage {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             safeClickOn(answeredByMyTeamYesRadioButton);
             safeClickOn(continueButton);
-            addDocuments.addADraftDocumentAtDraftStage();
+            documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             waitABit(500);
         } else {
@@ -156,7 +153,7 @@ public class InitialDraft extends BasePage {
             safeClickOn(continueButton);
             safeClickOn(letterReplyRadioButton);
             safeClickOn(continueButton);
-            addDocuments.addADraftDocumentAtDraftStage();
+            documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             waitABit(500);
         }
@@ -167,7 +164,7 @@ public class InitialDraft extends BasePage {
         if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
             safeClickOn(answeredByMyTeamYesRadioButton);
             safeClickOn(continueButton);
-            addDocuments.addADraftDocumentAtDraftStage();
+            documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             safeClickOn(offlineQaYesRadioButton);
             safeClickOn(continueButton);
@@ -177,7 +174,7 @@ public class InitialDraft extends BasePage {
             safeClickOn(continueButton);
             safeClickOn(letterReplyRadioButton);
             safeClickOn(continueButton);
-            addDocuments.addADraftDocumentAtDraftStage();
+            documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             safeClickOn(offlineQaYesRadioButton);
             safeClickOn(continueButton);
@@ -188,7 +185,7 @@ public class InitialDraft extends BasePage {
     public void moveDTENCaseFromDraftToPrivateOffice() {
         safeClickOn(answeredByMyTeamYesRadioButton);
         safeClickOn(continueButton);
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         safeClickOn(continueButton);
         safeClickOn(offlineQaYesRadioButton);
         safeClickOn(continueButton);
@@ -220,27 +217,27 @@ public class InitialDraft extends BasePage {
         safeClickOn(homepage.myCases);
         createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
         acceptAndDraftALetter();
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         dontQAOffline();
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         waitABit(500);
         dontQAOffline();
     }
 
     public void moveTROCaseFromInitialDraftToQaResponse() {
         acceptAndDraftALetter();
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         waitABit(500);
         safeClickOn(continueButton);
     }
 
     public void moveDTENCaseFromInitialDraftToQaResponse() {
         dtenAcceptAndDraftALetter();
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         waitABit(500);
         dontQAOffline();
     }
@@ -253,7 +250,7 @@ public class InitialDraft extends BasePage {
         String typeOfResponseRadioButton = letterReplyRadioButton.getText();
         setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
         safeClickOn(continueButton);
-        addDocuments.addADraftDocumentAtDraftStage();
+        documents.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test.docx");
         continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
         safeClickOn(offlineQaNoRadioButton);

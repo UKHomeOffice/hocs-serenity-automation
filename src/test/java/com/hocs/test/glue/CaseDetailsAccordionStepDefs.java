@@ -4,15 +4,15 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.DCUCaseDetailsAccordion;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
-import com.hocs.test.pages.DCU_Workflow.Dispatch;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.UnassignedCaseView;
+import com.hocs.test.pages.dcu.DataInput;
+import com.hocs.test.pages.dcu.Dispatch;
+import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.DCU_Workflow.Markup_FullFlow;
-import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
-import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
-import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.dcu.MinisterialSignOff;
+import com.hocs.test.pages.dcu.PrivateOfficeApproval;
+import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,11 +23,11 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
+    UnassignedCaseView UnassignedCaseView;
 
     DataInput dataInput;
 
-    Markup_FullFlow markupFullFlow;
+    Markup markup;
 
     InitialDraft initialDraft;
 
@@ -50,7 +50,7 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
                 moveCaseToNextStage("Markup");
                 homepage.getCurrentCase();
                 workstacks.clickAllocateToMeButton();
-                markupFullFlow.completeMarkupStageAndStoreEnteredInformation();
+                markup.completeMarkupStageAndStoreEnteredInformation();
                 break;
             case "QA Response":
                 moveCaseToNextStage("Initial Draft");
@@ -91,25 +91,25 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
     public void selectAccordionButton(String stage) {
         switch (stage) {
             case "Data Input":
-                safeClickOn(DCUCaseDetailsAccordion.dataInputAccordionButton);
+                safeClickOn(UnassignedCaseView.dataInputAccordionButton);
                 break;
             case "Markup":
-                safeClickOn(DCUCaseDetailsAccordion.markupAccordionButton);
+                safeClickOn(UnassignedCaseView.markupAccordionButton);
                 break;
             case "Initial Draft":
-                safeClickOn(DCUCaseDetailsAccordion.initialDraftAccordionButton);
+                safeClickOn(UnassignedCaseView.initialDraftAccordionButton);
                 break;
             case "QA Response":
-                safeClickOn(DCUCaseDetailsAccordion.qAResponseAccordionButton);
+                safeClickOn(UnassignedCaseView.qAResponseAccordionButton);
                 break;
             case "Private Office Approval":
-                safeClickOn(DCUCaseDetailsAccordion.privateOfficeApprovalAccordionButton);
+                safeClickOn(UnassignedCaseView.privateOfficeApprovalAccordionButton);
                 break;
             case "Ministerial Sign Off":
-                safeClickOn(DCUCaseDetailsAccordion.ministerialSignOffAccordionButton);
+                safeClickOn(UnassignedCaseView.ministerialSignOffAccordionButton);
                 break;
             case "Dispatch":
-                safeClickOn(DCUCaseDetailsAccordion.dispatchAccordionButton);
+                safeClickOn(UnassignedCaseView.dispatchAccordionButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -120,28 +120,28 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
     public void assertAccordionFieldsMatchInformationEnteredAt(String stage) {
         switch (stage) {
             case "Case Creation":
-                DCUCaseDetailsAccordion.assertAccordionCorrespondenceReceivedDate();
+                UnassignedCaseView.assertAccordionCorrespondenceReceivedDate();
                 break;
             case "Data Input":
-                DCUCaseDetailsAccordion.assertAccordionDataInputFields();
+                UnassignedCaseView.assertAccordionDataInputFields();
                 break;
             case "Markup":
-                DCUCaseDetailsAccordion.assertAccordionMarkupFields();
+                UnassignedCaseView.assertAccordionMarkupFields();
                 break;
             case "Initial Draft":
-                DCUCaseDetailsAccordion.assertAccordionInitialDraftFields();
+                UnassignedCaseView.assertAccordionInitialDraftFields();
                 break;
             case "QA Response":
-                DCUCaseDetailsAccordion.assertAccordionQAResponseFields();
+                UnassignedCaseView.assertAccordionQAResponseFields();
                 break;
             case "Private Office Approval":
-                DCUCaseDetailsAccordion.assertAccordionPrivateOfficeApprovalFields();
+                UnassignedCaseView.assertAccordionPrivateOfficeApprovalFields();
                 break;
             case "Ministerial Sign Off":
-                DCUCaseDetailsAccordion.assertAccordionMinisterialSignOffFields();
+                UnassignedCaseView.assertAccordionMinisterialSignOffFields();
                 break;
             case "Dispatch":
-                DCUCaseDetailsAccordion.assertAccordionDispatchFields();
+                UnassignedCaseView.assertAccordionDispatchFields();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

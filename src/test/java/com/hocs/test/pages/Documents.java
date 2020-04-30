@@ -191,4 +191,8 @@ public class Documents extends BasePage {
                 findBy("//td[contains(text(), '" + fileIdentifier +"')]/preceding-sibling::td/strong[contains(text(), 'UPLOADED')]");
         documentUploadedTag.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
     }
+
+    public void assertDocumentPresentIs(Boolean condition) {
+        assertThat(uploadedTag.isVisible(), is(condition));
+    }
 }

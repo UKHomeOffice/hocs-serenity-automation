@@ -25,7 +25,7 @@ public class Search extends BasePage {
 
     SummaryTab summaryTab;
 
-    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
+    UnassignedCaseView UnassignedCaseView;
 
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
@@ -163,8 +163,8 @@ public class Search extends BasePage {
         goHome();
         homepage.enterCaseReferenceIntoSearchBar(caseRef);
         homepage.hitEnterCaseReferenceSearchBar();
-        safeClickOn(DCUCaseDetailsAccordion.markupAccordionButton);
-        return (DCUCaseDetailsAccordion.privateOfficeTeam.getText().contains(signOffTeam));
+        safeClickOn(UnassignedCaseView.markupAccordionButton);
+        return (UnassignedCaseView.privateOfficeTeam.getText().contains(signOffTeam));
     }
 
     //Assertions

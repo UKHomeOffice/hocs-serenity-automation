@@ -13,15 +13,17 @@ Feature: Create case
   @Workflow @SmokeTests
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
-    Then A case is created successfully
+    Then A case is created successfully "<with / without>" a document
     Examples:
-      | case    | with / without |
-      | MIN | with           |
-      | MIN | without        |
-      | TRO | with           |
-      | TRO | without        |
+      | case | with / without |
+      | MIN  | with           |
+      | MIN  | without        |
+      | TRO  | with           |
+      | TRO  | without        |
       | DTEN | with           |
       | DTEN | without        |
+      | UKVI | with           |
+      | UKVI | without        |
 
   @Allocation @WeeklyTests
   Scenario: A single case is allocated to the current user
@@ -34,10 +36,20 @@ Feature: Create case
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
 
-  @Workflow
-  Scenario: Newly created MIN cases should be moved to the Performance and Process Team workstack
-    And I create a single "MIN" case
-    Then the case should be visible in the Performance and Process Team workstack
+  @Workflow @SmokeTests
+  Scenario Outline: Newly created DCU cases should move to the Data Input stage
+    And I create a single "<caseType>" case and return to the dashboard
+    Then the case should be moved to the "Data Input" stage
+    Examples:
+      | caseType |
+      | MIN      |
+      | DTEN     |
+      | TRO      |
+
+  @Workflow @SmokeTests
+  Scenario: Newly created UKVI cases should move to the Case Creation stage
+    And I create a single "UKVI" case and return to the dashboard
+    Then the case should be moved to the "Case Creation" stage
 
   @Navigation
   Scenario: User should be taken back to the dashboard when they click the back button on the what type of correspondence

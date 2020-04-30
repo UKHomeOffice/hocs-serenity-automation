@@ -2,7 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.DCU_Workflow.Dispatch;
+import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

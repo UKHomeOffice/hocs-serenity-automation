@@ -23,7 +23,7 @@ Feature: QA Response
     And I create a "DTEN" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Workflow @SmokeTests
   Scenario Outline: Case is returned to Initial Draft stage when rejected by QA Response Team

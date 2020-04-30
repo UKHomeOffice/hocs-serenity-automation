@@ -9,8 +9,8 @@ import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
-import com.hocs.test.pages.DCU_Workflow.Markup_Decision;
-import com.hocs.test.pages.DCU_Workflow.Markup_AddTopics;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.managementUI.StandardLine;
 import config.Users;
 import io.cucumber.java.en.And;
@@ -33,7 +33,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     Fetch fetch;
 
-    Markup_Decision markupDecision;
+    Markup markupDecision;
 
     Markup_AddTopics markupAddTopics;
 
