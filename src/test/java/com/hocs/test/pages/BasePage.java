@@ -102,6 +102,12 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value = 'Finish']")
     public WebElementFacade submitButton;
 
+    @FindBy(css = "[value = 'Remove']")
+    public WebElementFacade removeButton;
+
+    @FindBy(css = "[value = 'Save']")
+    public WebElementFacade saveButton;
+
     @FindBy(linkText = "update")
     public WebElementFacade updateLink;
 

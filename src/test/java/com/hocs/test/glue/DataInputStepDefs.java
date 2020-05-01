@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.UnassignedCaseView;
 import com.hocs.test.pages.dcu.DataInput;
@@ -198,5 +197,30 @@ public class DataInputStepDefs extends BasePage {
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I add a public correspondent")
+    public void iAddAPublicCorrespondent() {
+        dataInputAddCorrespondent.addAPublicCorrespondent();
+    }
+
+    @And("I remove the primary correspondent")
+    public void removePrimaryCorrespondent() {
+        dataInputAddCorrespondent.removePrimaryCorrespondent();
+    }
+
+    @Then("there shouldn't be a primary correspondent displayed")
+    public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
+        dataInputAddCorrespondent.assertNoPrimaryCorrespondentDisplayed();
+    }
+
+    @And("I edit the primary correspondents name")
+    public void iEditThePrimaryCorrespondent() {
+        dataInputAddCorrespondent.editPrimaryCorrespondent();
+    }
+
+    @Then("the correspondents name should be updated")
+    public void theCorrespondentsNameShouldBeUpdated() {
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
     }
 }
