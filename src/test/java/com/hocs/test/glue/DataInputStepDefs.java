@@ -199,4 +199,29 @@ public class DataInputStepDefs extends BasePage {
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
     }
+
+    @And("I add a public correspondent")
+    public void iAddAPublicCorrespondent() {
+        dataInputAddCorrespondent.addAPublicCorrespondent();
+    }
+
+    @And("I remove the primary correspondent")
+    public void removePrimaryCorrespondent() {
+        dataInputAddCorrespondent.removePrimaryCorrespondent();
+    }
+
+    @Then("there shouldn't be a primary correspondent displayed")
+    public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
+        dataInputAddCorrespondent.assertNoPrimaryCorrespondentDisplayed();
+    }
+
+    @And("I edit the primary correspondents name")
+    public void iEditThePrimaryCorrespondent() {
+        dataInputAddCorrespondent.editPrimaryCorrespondent();
+    }
+
+    @Then("the correspondents name should be updated")
+    public void theCorrespondentsNameShouldBeUpdated() {
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
+    }
 }

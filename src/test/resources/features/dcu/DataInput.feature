@@ -109,3 +109,20 @@ Feature: Data Input
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
+
+  Scenario: User removes a correspondent
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Nicola Sturgeon"
+    And I remove the primary correspondent
+    Then there shouldn't be a primary correspondent displayed
+
+
+  Scenario: User edits an existing correspondent
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Nicola Sturgeon"
+    And I edit the primary correspondents name
+    Then the correspondents name should be updated
