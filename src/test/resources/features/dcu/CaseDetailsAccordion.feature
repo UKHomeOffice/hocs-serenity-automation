@@ -1,4 +1,4 @@
-@Accordion
+@Accordion @WeeklyTests
 Feature: Case Details Accordion
 
   Background:

@@ -73,6 +73,12 @@ public class AddCorrespondent extends BasePage {
     @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
     public WebElementFacade correspondentNameMustBeEnteredErrorMessage;
 
+    @FindBy(xpath = "//a[text()='Remove']")
+    public WebElementFacade removeCorrespondentHyperText;
+
+    @FindBy(xpath = "//a[text()='Edit']")
+    public WebElementFacade editCorrespondentHyperText;
+
     private void selectAddACorrespondentLink() {
         safeClickOn(addACorrespondentLink);
     }
@@ -218,6 +224,19 @@ public class AddCorrespondent extends BasePage {
         clickAddButton();
     }
 
+    public void removePrimaryCorrespondent() {
+        safeClickOn(removeCorrespondentHyperText);
+        safeClickOn(removeButton);
+    }
+
+    public void editPrimaryCorrespondent() {
+        safeClickOn(editCorrespondentHyperText);
+        correspondentFullNameField.clear();
+        typeInto(correspondentFullNameField, "Test");
+        setSessionVariable("fullName").to("Test");
+        safeClickOn(saveButton);
+    }
+
     public void assertAddACorrespondentLinkIsDisplayed() {
         waitFor(addACorrespondentLink);
         assert(addACorrespondentLink.isDisplayed());
@@ -251,5 +270,9 @@ public class AddCorrespondent extends BasePage {
 
     public void assertCorrespondentFullNameErrorMessage() {
         correspondentNameMustBeEnteredErrorMessage.shouldContainText("The correspondent's full name is required");
+    }
+
+    public void assertNoPrimaryCorrespondentDisplayed() {
+        assertThat(removeCorrespondentHyperText.isVisible(), is(false));
     }
 }

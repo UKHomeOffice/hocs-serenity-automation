@@ -67,13 +67,14 @@ Feature: Data Input
     When I add an additional correspondent
     Then both correspondents are listed
 
+  @WeeklyTests
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "Finish" button
     Then the correct correspondent is recorded as the primary correspondent
 
-  @Validation
+  @Validation @WeeklyTests
   Scenario Outline: User must complete all mandatory inputs on the Data Input form
     When I click the "Continue" button
     Then an error message should be displayed as I have not entered a "<formDetail>"
@@ -108,3 +109,20 @@ Feature: Data Input
   Scenario: User must enter text in the text box when creating a Case note at the Data Input stage
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
+
+  Scenario: User removes a correspondent
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Nicola Sturgeon"
+    And I remove the primary correspondent
+    Then there shouldn't be a primary correspondent displayed
+
+
+  Scenario: User edits an existing correspondent
+    When I fill all mandatory fields on the "Data Input" page with valid data
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Nicola Sturgeon"
+    And I edit the primary correspondents name
+    Then the correspondents name should be updated

@@ -30,7 +30,7 @@ Feature: Initial Draft
     And I "do not complete" the call details
     Then I see an error message instructing me to enter call notes
 
-  @DCUWorkflow
+  @DCUWorkflow @SmokeTests
   Scenario: A user selects not to offline QA
     And I get a "MIN" case at "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
