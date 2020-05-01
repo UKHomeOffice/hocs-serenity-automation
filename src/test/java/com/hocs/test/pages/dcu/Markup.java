@@ -1,13 +1,15 @@
-package com.hocs.test.pages.DCU_Workflow;
+package com.hocs.test.pages.dcu;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class Markup_Decision extends BasePage {
+public class Markup extends BasePage {
+
+    Markup_AddTopics markupAddTopics;
 
     @FindBy(css = "label[for='MarkupDecision-PR']")
     public WebElementFacade policyResponseRadioButton;
@@ -122,5 +124,26 @@ public class Markup_Decision extends BasePage {
         String rejectionReason = "Rejection Reason: " + generateRandomString();
         typeInto(rejectToDataInputTextField, rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void moveCaseFromMarkupToInitialDraft() {
+        safeClickOn(policyResponseRadioButton);
+        safeClickOn(continueButton);
+        markupAddTopics.clickAddTopicLink();
+        markupAddTopics.enterRealTopic();
+        safeClickOn(addButton);
+        safeClickOn(continueButton);
+        safeClickOn(finishButton);
+    }
+
+    public void completeMarkupStageAndStoreEnteredInformation() {
+        chooseResponseTypeAndRecordDecision();
+        safeClickOn(continueButton);
+        markupAddTopics.clickAddTopicLink();
+        markupAddTopics.enterRealTopic();
+        safeClickOn(addButton);
+        safeClickOn(continueButton);
+        markupAddTopics.recordSelectedDraftingAndPrivateOfficeTeams();
+        safeClickOn(finishButton);
     }
 }

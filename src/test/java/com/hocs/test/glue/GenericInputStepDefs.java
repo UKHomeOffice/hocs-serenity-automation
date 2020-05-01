@@ -3,21 +3,20 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
-import com.hocs.test.pages.DCU_Workflow.Dispatch;
+import com.hocs.test.pages.dcu.DataInput;
+import com.hocs.test.pages.AddCorrespondent;
+import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
-import com.hocs.test.pages.DCU_Workflow.Markup_Decision;
-import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
-import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
-import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.dcu.MinisterialSignOff;
+import com.hocs.test.pages.dcu.PrivateOfficeApproval;
+import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.dcu.InitialDraft;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
@@ -32,9 +31,7 @@ public class GenericInputStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
-
-    Markup_Decision markupDecision;
+    Markup markupDecision;
 
     InitialDraft initialDraft;
 
@@ -50,39 +47,11 @@ public class GenericInputStepDefs extends BasePage {
 
     UnitManagement unitManagement;
 
-    @When("I enter {string} in the {string} field")
-    public void iEnterTextIntoTheNominatedField(String input, String element) {
-        switch (element.toUpperCase()) {
-            case "ADD A MEMBER OF PARLIAMENT":
-                setSessionVariable("fullName").to(input);
-                initialDraftRecordCorrespondentDetails.addAMemberOfParliamentCorrespondent(input);
-                break;
-            case "FULL NAME":
-                setSessionVariable("fullName").to(input);
-                initialDraftRecordCorrespondentDetails.enterCorrespondentFullName(input);
-                break;
-            case "REJECT REASON":
-                setSessionVariable("fullName").to(input);
-                dispatch.enterDispatchRejectionNotes();
-                break;
-            default:
-                pendingStep(element + " is not defined within " + getMethodName());
-        }
-    }
+    AddCorrespondent dataInputAddCorrespondent;
 
-    @When("I fill all mandatory fields on the {string} page with valid data")
-    public void fillMandatoryFields(String pageName) {
-        switch (pageName.toUpperCase()) {
-            case "DATA INPUT":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                break;
-            case "CORRESPONDENT DETAILS":
-                initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFields();
-                dataInput.clickAddButton();
-                break;
-            default:
-                pendingStep(pageName + " is not defined within " + getMethodName());
-        }
+    @Then("the {string} page should be displayed")
+    public void thePageShouldBeDisplayed(String pageTitle) {
+        assertPageTitle(pageTitle);
     }
 
     @Then("{string} error message is displayed")
@@ -125,13 +94,21 @@ public class GenericInputStepDefs extends BasePage {
     public void selectGenericButtonFromSpecificPage(String button, String page) {
         switch (page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP":
-                dataInput.getToIsCorrespondentAnMPPrerequisites();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                dataInput.clickContinueButton();
+                dataInputAddCorrespondent.selectToAddACorrespondent();
                 break;
             case "ADD MEMBER OF PARLIAMENT":
-                dataInput.getToAddMemberOfParliamentPrerequisites();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                dataInput.clickContinueButton();
+                dataInputAddCorrespondent.selectToAddACorrespondent();
+                dataInputAddCorrespondent.selectCorrespondentIsMP();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                dataInput.getToRecordCorrespondentDetailsPrerequisites();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                dataInput.clickContinueButton();
+                dataInputAddCorrespondent.selectToAddACorrespondent();
+                dataInputAddCorrespondent.selectCorrespondentIsNotMP();
                 break;
             case "ADD A TOPIC":
                 markupDecision.getToMarkupAddATopicScreenPrerequisites();
@@ -212,9 +189,6 @@ public class GenericInputStepDefs extends BasePage {
             case "BACK":
                 safeClickOn(backButton);
                 break;
-            case "ADD A TOPIC":
-                safeClickOn(addTopicButton);
-                break;
             case "VIEW TEAM":
                 safeClickOn(teamManagement.viewTeamButton);
                 break;
@@ -294,7 +268,7 @@ public class GenericInputStepDefs extends BasePage {
     public void linkIsDisplayed(String linkText) {
         switch (linkText.toUpperCase()) {
             case "ADD A CORRESPONDENT":
-                dataInput.addACorrespondentLinkIsDisplayed();
+                dataInputAddCorrespondent.assertAddACorrespondentLinkIsDisplayed();
                 break;
             default:
                 pendingStep(linkText + " is not defined within " + getMethodName());
@@ -389,6 +363,26 @@ public class GenericInputStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "UKVI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        safeClickOn(homepage.UKVICreationTeam);
+                        break;
+                    case "CASE TRIAGE":
+                        homepage.selectUKVITriageTeam();
+                        break;
+                    case "CASE DRAFT":
+                    case "CASE DISPATCH":
+                        homepage.selectUKVIDraftingTeam();
+                        break;
+                    case "CASE QA":
+                        homepage.selectUKVIQATeam();
+                        break;
+                    case "CASE PRIVATE OFFICE":
+                        homepage.selectUKVIPrivateOfficeTeam();
+                        break;
+                }
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -438,6 +432,11 @@ public class GenericInputStepDefs extends BasePage {
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
 
+    }
+
+    @Then("an error message should be displayed as I have not entered text in the Case Note text box")
+    public void anErrorMessageShouldBeDisplayedAsIHaveNotEnteredTextInTheCaseNoteTextbox() {
+        workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
     }
 }
 

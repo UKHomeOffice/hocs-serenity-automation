@@ -7,7 +7,7 @@ import static org.hamcrest.core.Is.is;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class DCUCaseDetailsAccordion extends BasePage {
+public class UnassignedCaseView extends BasePage {
 
     //Accordion extender buttons
     @FindBy(xpath = "//button[text()= 'Data Input']")
@@ -83,10 +83,24 @@ public class DCUCaseDetailsAccordion extends BasePage {
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Why should this be approved by this team instead?']/parent::span")
     public WebElementFacade whyShouldThisBeApprovedByThisTeamInstead;
 
-    @FindBy(xpath = "//a[text()='Allocate to me']")
-    public WebElementFacade allocateToMeLinkText;
+    @FindBy(linkText = "Allocate to me")
+    public WebElementFacade allocateToMeLink;
+
+    // Basic methods
+
+    public void clickAllocateToMeLink() {
+        safeClickOn(allocateToMeLink);
+    }
+
+    public boolean checkAllocateToMeLinkVisible() {
+        return allocateToMeLink.isVisible();
+    }
 
     //assertions
+
+    public void assertCaseCannotBeAssigned() {
+        assertThat(checkAllocateToMeLinkVisible(), is(false));
+    }
 
     public void assertAccordionCorrespondenceReceivedDate() {
         String dataInputCorrespondenceReceivedDate =
@@ -172,9 +186,5 @@ public class DCUCaseDetailsAccordion extends BasePage {
         doYouApproveTheResponse.shouldContainText("CHANGE");
         OverridePrivateOfficeTeam.shouldContainText(chosenPOTeam);
         whyShouldThisBeApprovedByThisTeamInstead.shouldContainText(reasonForOverridePOTeam);
-    }
-
-    public void assertThatAllocateToMeNotVisible() {
-        assertThat(allocateToMeLinkText.isVisible(), is(false));
     }
 }

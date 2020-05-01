@@ -127,7 +127,7 @@ public class LoginStepDefs extends BasePage {
 
     @Then("I should be taken to the homepage")
     public void assertHomePage() {
-        homepage.assertHomePageTitle();
+        homepage.assertOnHomePage();
     }
 
     @When("I logout as the initial user")

@@ -33,7 +33,7 @@ Feature:  Dispatch
   Scenario: User must enter text in the text box when creating a Case note at the Dispatch stage
     And I get a "DTEN" case at "DISPATCH" stage
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Workflow @SmokeTests
   Scenario Outline: Case is returned to Private Office Approval stage when rejected by Dispatch Team

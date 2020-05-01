@@ -19,7 +19,7 @@ Feature: Ministerial Sign-Off
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the MINISTERIAL SIGN OFF stage
     When I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Workflow @SmokesTests
   Scenario: DCU MIN Case returned to Initial Draft stage when rejected by the Minister

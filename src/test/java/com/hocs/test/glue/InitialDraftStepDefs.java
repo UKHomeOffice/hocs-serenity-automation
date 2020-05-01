@@ -6,7 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
 import config.Users;

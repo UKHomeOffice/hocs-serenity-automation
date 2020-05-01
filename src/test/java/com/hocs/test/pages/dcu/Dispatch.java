@@ -1,12 +1,9 @@
-package com.hocs.test.pages.DCU_Workflow;
+package com.hocs.test.pages.dcu;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.BasePage;
-
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 
 public class Dispatch extends BasePage {
 
@@ -27,10 +24,6 @@ public class Dispatch extends BasePage {
 
     @FindBy(css = "input[id='ResponseChannel']")
     public WebElementFacade responseTypeField;
-
-    public void enterTextInWhyAreYouUnableToDispatchTextbox() {
-        typeInto(whyAreYouUnableToDispatchErrorMessage, "");
-    }
 
     public void selectDispatchRejectButton() {
         safeClickOn(dispatchRejectRadioButton);
@@ -68,7 +61,7 @@ public class Dispatch extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void completeDispatchStageAndMoveToCaseClosed() {
+    public void moveCaseFromDispatchToCaseClosed() {
         safeClickOn(dispatchAcceptRadioButton);
         safeClickOn(continueButton);
     }

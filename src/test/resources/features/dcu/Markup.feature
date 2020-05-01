@@ -10,7 +10,7 @@ Feature: Markup
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
     And I click the "CONTINUE" button
-    And I click the "ADD A TOPIC" button
+    And I click the 'Add a topic' link
     Then a mandatory Topic free text field is displayed
     Examples:
       | radioButton     |
@@ -84,7 +84,7 @@ Feature: Markup
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
     And I click the add button when creating a case note
-    Then an error message should be displayed as I have not "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX"
+    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Workflow @SmokeTests
   Scenario: Case is returned to Data Input stage when rejected at Markup stage

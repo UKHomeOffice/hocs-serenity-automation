@@ -6,7 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
+import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.Workstacks;
 
 import io.cucumber.java.en.When;

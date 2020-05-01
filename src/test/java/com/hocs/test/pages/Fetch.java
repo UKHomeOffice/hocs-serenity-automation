@@ -4,13 +4,13 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft;
+import com.hocs.test.pages.dcu.InitialDraft;
+import com.hocs.test.pages.dcu.Markup;
 import net.serenitybdd.core.pages.WebElementFacade;
-import com.hocs.test.pages.DCU_Workflow.MinisterialSignOff;
-import com.hocs.test.pages.DCU_Workflow.PrivateOfficeApproval;
-import com.hocs.test.pages.DCU_Workflow.QAResponse;
-import com.hocs.test.pages.DCU_Workflow.Markup_FullFlow;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.dcu.MinisterialSignOff;
+import com.hocs.test.pages.dcu.PrivateOfficeApproval;
+import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.dcu.DataInput;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -20,7 +20,7 @@ public class Fetch extends BasePage {
 
     DataInput dataInput;
 
-    Markup_FullFlow markupFullFlowFlow;
+    Markup markup;
 
     InitialDraft initialDraft;
 
@@ -437,7 +437,7 @@ public class Fetch extends BasePage {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -466,7 +466,7 @@ public class Fetch extends BasePage {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
                 }
                 break;
@@ -477,7 +477,7 @@ public class Fetch extends BasePage {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -506,7 +506,7 @@ public class Fetch extends BasePage {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
                 }
                 break;
@@ -517,7 +517,7 @@ public class Fetch extends BasePage {
                     System.out.println("Central Drafting Team not available - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -546,7 +546,7 @@ public class Fetch extends BasePage {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedMarkupCase(caseType);
-                    markupFullFlowFlow.moveCaseFromMarkupToInitialDraft();
+                    markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
                 }
                 break;

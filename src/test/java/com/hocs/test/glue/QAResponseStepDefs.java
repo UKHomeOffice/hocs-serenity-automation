@@ -2,7 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.DCU_Workflow.QAResponse;
+import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 
 import io.cucumber.java.en.Then;

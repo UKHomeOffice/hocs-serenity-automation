@@ -17,8 +17,13 @@ public class Homepage extends BasePage {
 
     Workstacks workstacks;
 
+    UnassignedCaseView unassignedCaseView;
+
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
+
+    @FindBy(xpath = "//a[text()='Create Bulk Cases']")
+    public WebElementFacade createBulkCases;
 
     @FindBy(xpath = "//a[text()='Add Standard Line']")
     public WebElementFacade addStandardLine;
@@ -38,8 +43,10 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//span[text()='No active workflows for case']")
     public WebElementFacade noActiveWorkflowsForCaseErrorMessage;
 
-    @FindBy(xpath = "//h2[text()='My Cases']")
-    public WebElementFacade homePageMyCasesAssertion;
+    @FindBy(xpath = "//span[text()='Cases']")
+    public WebElementFacade myCases;
+
+    // DCU Teams
 
     @FindBy(xpath = "//span[text()='Performance and Process Team']")
     public WebElementFacade performanceProcessTeam;
@@ -95,17 +102,10 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//span[text()='Finance']")
     public WebElementFacade financeTeam;
 
-    @FindBy(xpath = "//a[text()='Create Bulk Cases']")
-    public WebElementFacade createBulkCases;
+    //UKVI Teams
 
-    @FindBy(className = "govuk-table")
-    public WebElementFacade workstackTable;
-
-    @FindBy(xpath = "//span[text()='Cases']")
-    public WebElementFacade myCases;
-
-    @FindBy(linkText = "Allocate to me")
-    public WebElementFacade allocateToMeButton;
+    @FindBy(xpath = "//span[text()='UKVI Creation']")
+    public WebElementFacade UKVICreationTeam;
 
     // Basic Methods
 
@@ -149,14 +149,42 @@ public class Homepage extends BasePage {
         safeClickOn(centralDraftingTeam);
     }
 
+    public void selectUKVITriageTeam() {
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+        safeClickOn(requiredTriageTeam);
+    }
+
+    public void selectUKVIDraftingTeam() {
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+        safeClickOn(requiredTriageTeam);
+    }
+
+    public void selectUKVIQATeam() {
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+        safeClickOn(requiredTriageTeam);
+    }
+
+    public void selectUKVIPrivateOfficeTeam() {
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("ukviRefType") +"))']"));
+        safeClickOn(requiredTriageTeam);
+    }
+
     // Assertions
+
+    public void assertOnHomePage() {
+        assertThat(myCases.isVisible(), is(true));
+    }
 
     public void assertCaseIsCompleteViaSearch() {
         caseReferenceSearchBar.clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
-        assertThat(isElementDisplayed(workstacks.allocateToMeButton), is(false));
+        unassignedCaseView.assertCaseCannotBeAssigned();
     }
 
     public void getCurrentCase() {
@@ -173,24 +201,20 @@ public class Homepage extends BasePage {
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
     }
 
-    public void clickAllocateToMeButton() {
+    public void claimCurrentCase() {
         int attempts = 0;
-        while (attempts < 3 && !allocateToMeButton.isVisible()) {
+        while (attempts < 3 && !unassignedCaseView.checkAllocateToMeLinkVisible()) {
             waitABit(2000);
             setCaseReferenceFromUnassignedCase();
             goHome();
             getCurrentCase();
             attempts++;
         }
-        safeClickOn(allocateToMeButton);
+        unassignedCaseView.clickAllocateToMeLink();
     }
 
     public void getAndClaimCurrentCase() {
         getCurrentCase();
-        clickAllocateToMeButton();
-    }
-
-    public void assertHomePageTitle() {
-        homePageMyCasesAssertion.shouldContainText("My Cases");
+        claimCurrentCase();
     }
 }

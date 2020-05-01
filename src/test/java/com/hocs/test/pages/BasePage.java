@@ -108,9 +108,6 @@ public class BasePage extends PageObject {
     @FindBy(linkText = "view")
     public WebElementFacade viewLink;
 
-    @FindBy(xpath = "//a[text()='Add a ']")
-    public WebElementFacade addTopicButton;
-
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

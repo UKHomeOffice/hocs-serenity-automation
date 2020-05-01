@@ -3,12 +3,13 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.DCUCaseDetailsAccordion;
-import com.hocs.test.pages.DCU_Workflow.DataInput;
+import com.hocs.test.pages.UnassignedCaseView;
+import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.DCU_Workflow.InitialDraft_RecordCorrespondentDetails;
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -22,13 +23,13 @@ public class DataInputStepDefs extends BasePage {
 
     DataInput dataInput;
 
-    Homepage homepage;
+    AddCorrespondent dataInputAddCorrespondent;
 
-    InitialDraft_RecordCorrespondentDetails initialDraftRecordCorrespondentDetails;
+    Homepage homepage;
 
     Workstacks workstacks;
 
-    DCUCaseDetailsAccordion DCUCaseDetailsAccordion;
+    UnassignedCaseView UnassignedCaseView;
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
@@ -41,26 +42,13 @@ public class DataInputStepDefs extends BasePage {
             homepage.getCurrentCase();
             workstacks.clickAllocateToMeButton();
         }
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                dataInput.dataInputFullFlowMIN();
-                break;
-            case "DTEN":
-                dataInput.dataInputFullFlowDTEN();
-                break;
-            case "TRO":
-                dataInput.dataInputFullFlowTRO();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
+        dataInput.moveCaseFromDataInputToMarkup();
     }
 
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
-        initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        dataInputAddCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
         dataInput.clickAddButton();
     }
 
@@ -87,64 +75,37 @@ public class DataInputStepDefs extends BasePage {
     @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
-        dataInput.selectAddACorrespondentLink();
+        dataInputAddCorrespondent.selectToAddACorrespondent();
         if (isOrIsNot.toUpperCase().equals("IS")) {
-            dataInput.selectCorrespondentIsAMemberRadioButton();
+            dataInputAddCorrespondent.selectCorrespondentIsMP();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
-            dataInput.selectCorrespondentIsNotAMemberRadioButton();
-        }
-        safeClickOn(dataInput.continueButton);
-    }
-
-    @Then("an error message should be displayed as I have not {string}")
-    public void assertReasonForErrorMessage(String reason) {
-        switch (reason.toUpperCase()) {
-            case "ADDED ANY TEXT INTO THE CASE NOTE TEXT BOX":
-                workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
-                break;
-            case "ENTERED TEXT INTO THE FULL NAME FIELD":
-                dataInput.assertCorrespondentFullNameErrorMessage();
-                break;
-            case "SELECTED THE CORRESPONDENCE TYPE":
-                dataInput.assertCorrespondentTypeDropDownErrorMessage();
-                break;
-            case "SELECTED A MEMBER OF PARLIAMENT":
-                dataInput.assertMemberIsRequiredErrorMessage();
-                break;
-            case "SELECTED THIS CORRESPONDENCE TYPE":
-                dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
-                break;
-            case "ADDED A PRIMARY CORRESPONDENT":
-                dataInput.assertWhichIsThePrimaryCorrespondentErrorMessage();
-                break;
-            default:
-                pendingStep(reason + " is not defined within " + getMethodName());
+            dataInputAddCorrespondent.selectCorrespondentIsNotMP();
         }
     }
 
     @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
-        dataInput.assertCorrespondentFullNameErrorMessage();
+        dataInputAddCorrespondent.assertCorrespondentFullNameErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not selected the correspondent type")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
-        dataInput.assertCorrespondentTypeDropDownErrorMessage();
+        dataInputAddCorrespondent.assertCorrespondentTypeDropDownErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a member of parliament from the drop down")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
-        dataInput.assertMemberIsRequiredErrorMessage();
+        dataInputAddCorrespondent.assertMemberIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
-        dataInput.assertCorrespondentTypeMustBeSelectedErrorMessage();
+        dataInputAddCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @Then("they should be added to the list of correspondents")
     public void theyShouldBeAddedToTheListOfCorrespondents() {
-        initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
     }
 
     @Then("an error message should be displayed as I have not entered a {string}")
@@ -171,14 +132,14 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 genericInputStepDefs.clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                initialDraftRecordCorrespondentDetails.fillMandatoryCorrespondentFields();
+                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
                 dataInput.clickAddButton();
-                initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
+                dataInputAddCorrespondent.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 aCaseHasACorrespondent("PRIMARY");
                 iAddAnAdditionalCorrespondent();
-                initialDraftRecordCorrespondentDetails.assertSecondaryCorrespondent();
+                dataInputAddCorrespondent.assertSecondaryCorrespondent();
                 break;
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
@@ -194,19 +155,19 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
-        initialDraftRecordCorrespondentDetails.assertPrimaryCorrespondent();
-        initialDraftRecordCorrespondentDetails.assertSecondaryCorrespondent();
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
+        dataInputAddCorrespondent.assertSecondaryCorrespondent();
     }
 
     @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        initialDraftRecordCorrespondentDetails.setSecondCorrespondentAsPrimaryCorrespondent();
+        dataInputAddCorrespondent.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
-        DCUCaseDetailsAccordion.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
+        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
 
 
     }
@@ -214,5 +175,28 @@ public class DataInputStepDefs extends BasePage {
     @And("I complete the Data Input stage of the displayed case")
     public void iCompleteTheDataInputStageOfTheDisplayedCase() {
         dataInput.moveCaseFromDataInputToMarkup();
+    }
+
+    @And("I add the member of parliament {string}")
+    public void iAddTheMemberOfParliament(String member) {
+        setSessionVariable("fullName").to(member);
+        dataInputAddCorrespondent.selectMemberOfParliament(member);
+        waitABit(2000);
+        dataInputAddCorrespondent.clickAddButton();
+    }
+
+    @When("I fill all mandatory fields on the {string} page with valid data")
+    public void fillMandatoryFields(String pageName) {
+        switch (pageName.toUpperCase()) {
+            case "DATA INPUT":
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                break;
+            case "CORRESPONDENT DETAILS":
+                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
+                dataInput.clickAddButton();
+                break;
+            default:
+                pendingStep(pageName + " is not defined within " + getMethodName());
+        }
     }
 }
