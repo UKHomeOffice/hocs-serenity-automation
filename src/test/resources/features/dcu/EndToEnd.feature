@@ -4,7 +4,7 @@ Feature: End To End
   Background:
     Given I am user "AUTOMATION_USER"
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Data Input stage
     When I create a single "<caseType>" case and return to the dashboard
     Then the case should be moved to the "DATA INPUT" stage
@@ -14,7 +14,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Markup stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -25,7 +25,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Initial Draft stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -37,7 +37,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to QA Response stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -50,7 +50,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Private Office stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -63,7 +63,7 @@ Feature: End To End
       | MIN      |
       | DTEN     |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Ministerial Sign Off stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -76,7 +76,7 @@ Feature: End To End
       | caseType |
       | MIN      |
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: New case moves to Dispatch stage
     When I create a single "<caseType>" case and return to the dashboard
     And I complete the Data Input Stage
@@ -92,7 +92,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: Dispatch a case with Copy to Number Ten selected
     Given I create a single "MIN" case and return to the dashboard
     And I complete the Data Input stage and send a copy to Number Ten
@@ -104,7 +104,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case should be moved to the "COPY TO NUMBER 10" stage
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single "MIN" case and return to the dashboard
     And I complete the Data Input Stage
@@ -116,7 +116,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case is completed
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single "DTEN" case and return to the dashboard
     And I complete the Data Input Stage
@@ -127,7 +127,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case is completed
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single "TRO" case and return to the dashboard
     And I complete the Data Input Stage
@@ -137,7 +137,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case is completed
 
-  @Workflow
+  @DCUWorkflow
   Scenario Outline: User creates a case of each type and progresses the case through the workflow
     And I create a "<caseType>" case and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage

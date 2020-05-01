@@ -276,8 +276,7 @@ public class Workstacks extends BasePage {
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
-        System.out.println(caseReferenceStage);
-
+        System.out.println("The case is at the " + caseReferenceStage.getText() + " stage");
         return caseReferenceStage.getText();
     }
 

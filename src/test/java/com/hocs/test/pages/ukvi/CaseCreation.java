@@ -4,11 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CaseCreation extends BasePage {
+
+    AddCorrespondent addCorrespondent;
 
     @FindBy(css = "label[for='BusArea-UKVI']")
     public WebElementFacade businessAreaUKVIRadioButton;
@@ -46,7 +49,7 @@ public class CaseCreation extends BasePage {
     @FindBy(css = "label[for='Priority-Immediate']")
     public WebElementFacade priorityImmediateRadioButton;
 
-    @FindBy(css = "label[for='Channnel-Email']")
+    @FindBy(css = "label[for='Channel-Email']")
     public WebElementFacade channelEmailRadioButton;
 
     @FindBy(css = "label[for='Channel-Phone']")
@@ -153,6 +156,7 @@ public class CaseCreation extends BasePage {
 
     public void moveCaseFromCaseCreationToCaseTriage() {
         completeRequiredQuestions();
-
+        addCorrespondent.addAPublicCorrespondent();
+        clickContinueButton();
     }
 }

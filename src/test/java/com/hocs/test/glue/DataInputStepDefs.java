@@ -103,11 +103,6 @@ public class DataInputStepDefs extends BasePage {
         dataInputAddCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
-    @Then("they should be added to the list of correspondents")
-    public void theyShouldBeAddedToTheListOfCorrespondents() {
-        dataInputAddCorrespondent.assertPrimaryCorrespondent();
-    }
-
     @Then("an error message should be displayed as I have not entered a {string}")
     public void assertValidationMessagesOnDataInputForm(String field) {
         switch (field.toUpperCase()) {
@@ -130,7 +125,7 @@ public class DataInputStepDefs extends BasePage {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
                 dataInput.fillAllMandatoryCorrespondenceFields();
-                genericInputStepDefs.clickTheButton("Continue");
+                clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
                 dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
                 dataInput.clickAddButton();
@@ -179,7 +174,7 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
-        setSessionVariable("fullName").to(member);
+        setSessionVariable("correspondentFullName").to(member);
         dataInputAddCorrespondent.selectMemberOfParliament(member);
         waitABit(2000);
         dataInputAddCorrespondent.clickAddButton();
@@ -198,5 +193,10 @@ public class DataInputStepDefs extends BasePage {
             default:
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("the submitted correspondent should be visible in the list of correspondents")
+    public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
     }
 }

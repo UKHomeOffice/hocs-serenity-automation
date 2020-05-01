@@ -22,6 +22,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 public class GenericInputStepDefs extends BasePage {
 
@@ -91,7 +93,7 @@ public class GenericInputStepDefs extends BasePage {
     }
 
     @When("I click the {string} button on the {string} page")
-    public void selectGenericButtonFromSpecificPage(String button, String page) {
+    public void selectGenericButtonFromSpecificPage(String buttonLabel, String page) {
         switch (page.toUpperCase()) {
             case "IS THE CORRESPONDENT AN MP":
                 dataInput.fillAllMandatoryCorrespondenceFields();
@@ -155,49 +157,23 @@ public class GenericInputStepDefs extends BasePage {
             default:
                 pendingStep(page + " is not defined within " + getMethodName());
         }
+        clickTheButton(buttonLabel);
+    }
 
-        switch (button.toUpperCase()) {
-            case "CONTINUE":
-                safeClickOn(continueButton);
-                break;
-            case "FINISH":
-                safeClickOn(finishButton);
-                break;
-            case "ADD":
-                safeClickOn(addButton);
+    @When("I click the {string} link")
+    public void clickTheLink(String link) {
+        switch (link.toUpperCase()) {
+            case "BACK":
+                safeClickOn(backButton);
                 break;
             default:
-                pendingStep(button + " is not defined within " + getMethodName());
+                pendingStep(link + " is not defined within " + getMethodName());
         }
     }
 
     @When("I click the {string} button")
-    public void clickTheButton(String button) {
-        switch (button.toUpperCase()) {
-            case "CONTINUE":
-                safeClickOn(continueButton);
-                break;
-            case "FINISH":
-                safeClickOn(finishButton);
-                break;
-            case "ADD":
-                safeClickOn(addButton);
-                break;
-            case "NEXT":
-                safeClickOn(nextButton);
-                break;
-            case "BACK":
-                safeClickOn(backButton);
-                break;
-            case "VIEW TEAM":
-                safeClickOn(teamManagement.viewTeamButton);
-                break;
-            case "SUBMIT":
-                safeClickOn(unitManagement.submitButton);
-                break;
-            default:
-                pendingStep(button + " is not defined within " + getMethodName());
-        }
+    public void iClickTheButton(String buttonLabel) {
+        clickTheButton(buttonLabel);
     }
 
     @When("I attempt to reject the {string} case without reason")

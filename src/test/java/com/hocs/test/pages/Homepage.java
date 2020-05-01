@@ -151,25 +151,25 @@ public class Homepage extends BasePage {
 
     public void selectUKVITriageTeam() {
         WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIDraftingTeam() {
         WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIQATeam() {
         WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIPrivateOfficeTeam() {
         WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("ukviRefType") +"))']"));
+                "businessArea") + " " + sessionVariableCalled("ukviRefType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 

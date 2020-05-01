@@ -53,7 +53,7 @@ Feature: ManagementUI
   @TeamManagement @Validation
   Scenario: User must select a team from the dropdown on the team search page
     And I navigate to the "TEAM" Management page
-    When I click the "VIEW TEAM" button
+    When I click the "View Team" button
     Then an error message should displayed as no team been selected
 
   @TeamManagement @Validation
@@ -78,13 +78,13 @@ Feature: ManagementUI
   @AddStandardLine @Validation
   Scenario: User must select a topic, add a document and enter an expiration date when creating a Standard Line
     And I navigate to the "STANDARD LINE" Management page
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed as all Standard Line information has not been added
 
   @UnitManagement @Validation
   Scenario: User must enter a display name and short code on the add unit page
     And I navigate to the "ADD A UNIT" Management page
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed as they have not entered a display name and short code
 
   @UnitManagement
@@ -92,7 +92,7 @@ Feature: ManagementUI
     And I navigate to the "ADD A UNIT" Management page
     And I enter a "NEW" Display Name
     And I enter a "NEW" Short Code
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then I am returned to the dashboard screen
     And a success message is displayed
 
@@ -101,11 +101,11 @@ Feature: ManagementUI
     And I navigate to the "ADD A UNIT" Management page
     And I enter a "NEW" Display Name
     And I enter a "NEW" Short Code
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     And I navigate to the "ADD A UNIT" Management page
     And I enter a "Duplicate" Display Name
     And I enter a "Duplicate" Short Code
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     Then an error message should be displayed a unit with those details already exists
 
   @UnitManagement
@@ -118,7 +118,7 @@ Feature: ManagementUI
     And I navigate to the "ADD A UNIT" Management page
     And I enter a "NEW" Display Name
     And I enter a "NEW" Short Code
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     When I navigate to the "VIEW UNITS" Management page
     Then the previously created unit should be listed
 
@@ -127,14 +127,14 @@ Feature: ManagementUI
   Scenario: User must select a parent topic on the Add Child Topic page
     And I navigate to the "ADD CHILD TOPIC" Management page
     When I enter a display name
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     Then an error message should be displayed as no parent topic has been selected
 
   @AddChildTopic @Validation
   Scenario: User must enter a display name on the Add Child Topic page
     And I navigate to the "ADD CHILD TOPIC" Management page
     When I select a parent topic
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     Then an error message should be displayed as no display name has been entered
 
   @AddChildTopic
@@ -149,7 +149,7 @@ Feature: ManagementUI
   Scenario: User cannot create a child topic with the same parent topic and display name as one that already exists
     And I navigate to the "ADD CHILD TOPIC" Management page
     And I enter a parent topic and display name that duplicate an existing child topic
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed stating that topic already exists
 
   @AddChildTopic
@@ -183,46 +183,46 @@ Feature: ManagementUI
     Given I have created a new child topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES NOT" have linked teams
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
   @LinkTopicToTeam
   Scenario: User can choose and submit teams to amend the links of a topic
     Given I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
-    When I click the "SUBMIT" button
-    And I click the "SUBMIT" button
+    When I click the "Submit" button
+    And I click the "Submit" button
     Then I am returned to the dashboard screen
     And a success message is displayed
 
   @LinkTopicToTeam @Validation
   Scenario: User must select a topic on the topic search page for linking team to topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed as no topic has been selected
 
   @LinkTopicToTeam @Validation
   Scenario: User must select a 'Initial Draft and QA response stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     And I select a "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed as no "INITIAL DRAFT AND QA RESPONSE STAGES" team has been selected
 
   @LinkTopicToTeam @Validation
   Scenario: User must select a 'Private Office/MINISTERIAL SIGN OFF stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
     And I select a "INITIAL DRAFT AND QA RESPONSE STAGES" team
-    When I click the "SUBMIT" button
+    When I click the "Submit" button
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team has been selected
 
   @LinkTopicToTeam
@@ -244,8 +244,8 @@ Feature: ManagementUI
     And I select to amend the team links for the topic
     And I select a different "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a different "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
-    And I click the "SUBMIT" button
-    And I click the "SUBMIT" button
+    And I click the "Submit" button
+    And I click the "Submit" button
     When I check the default team links in HOCS again
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval

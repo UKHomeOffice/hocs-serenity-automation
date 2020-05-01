@@ -63,12 +63,6 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Continue']")
     public WebElementFacade continueButton;
 
-    @FindBy(id = "Date")
-    private WebElementFacade dateField;
-
-    @FindBy(linkText = "delete")
-    public WebElementFacade deleteLink;
-
     @FindBy(className = "govuk-error-summary")
     protected WebElementFacade errorMessage;
 
@@ -77,9 +71,6 @@ public class BasePage extends PageObject {
 
     @FindBy(css = "[value='Finish']")
     public WebElementFacade finishButton;
-
-    @FindBy(linkText = "new")
-    public WebElementFacade newLink;
 
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
@@ -102,18 +93,17 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value = 'Finish']")
     public WebElementFacade submitButton;
 
-    @FindBy(linkText = "update")
-    public WebElementFacade updateLink;
-
-    @FindBy(linkText = "view")
-    public WebElementFacade viewLink;
-
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clickTheButton(String buttonLabel) {
+        WebElementFacade button = find(By.xpath("//input[@value='" + buttonLabel + "']"));
+        safeClickOn(button);
     }
 
     public void assertErrorMessageText(String text) {
@@ -130,14 +120,6 @@ public class BasePage extends PageObject {
         }
     }
 
-    public void clearCookies(WebDriver driver) {
-        driver.manage().deleteAllCookies();
-    }
-
-    public void clickAcceptButton() {
-        safeClickOn(acceptButton);
-    }
-
     public void clickAddButton() {
         safeClickOn(addButton);
     }
@@ -151,55 +133,12 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    public void clickDeleteLink() {
-        safeClickOn(deleteLink);
-    }
-
     public void goHome() {
         safeClickOn(home);
     }
 
-    public void clickFinishButton() {
-        safeClickOn(finishButton);
-    }
-
-    public void clickNextButton() {
-        safeClickOn(nextButton);
-    }
-
-    public void clickNewLink() {
-        safeClickOn(newLink);
-    }
-
     public void clickRejectButton() {
         safeClickOn(rejectButton);
-    }
-
-    public void clickSearchButton() {
-        safeClickOn(searchButton);
-    }
-
-    public void clickSubmitButton() {
-        safeClickOn(submitButton);
-    }
-
-    public void clickUpdateLink() {
-        safeClickOn(updateLink);
-    }
-
-    public void clickViewLink() {
-        safeClickOn(viewLink);
-    }
-
-    public void enterAllocationNote() {
-        String allocationNote = generateRandomString();
-        typeInto(allocationNoteField, allocationNote);
-        setSessionVariable("allocationNote").to(allocationNote);
-    }
-
-    public void enterDate(String date) {
-        typeInto(dateField, date);
-        setSessionVariable("date").to(date);
     }
 
     public void enterRejectionNotes() {

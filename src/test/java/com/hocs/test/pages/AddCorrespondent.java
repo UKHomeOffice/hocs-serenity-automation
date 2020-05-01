@@ -116,7 +116,7 @@ public class AddCorrespondent extends BasePage {
 
     public void enterCorrespondentFullName(String fullName) {
         typeInto(correspondentFullNameField, fullName);
-        setSessionVariable("fullName").to(fullName);
+        setSessionVariable("correspondentFullName").to(fullName);
     }
 
     public void enterSecondaryCorrespondentFullName(String fullName) {
@@ -165,7 +165,7 @@ public class AddCorrespondent extends BasePage {
     }
 
     public void fillMandatoryPublicCorrespondentFields() {
-        selectCorrespondentTypeFromDropdown("Correspondent");
+        selectCorrespondentTypeFromDropdown("Constituent");
         enterCorrespondentFullName("First Correspondent-" + generateRandomString());
         enterCorrespondentBuilding("1");
         enterCorrespondentPostcode("S1 1AA");
@@ -228,7 +228,7 @@ public class AddCorrespondent extends BasePage {
     }
 
     public void assertPrimaryCorrespondent() {
-        String expectedPrimaryCorrespondent = sessionVariableCalled("fullName");
+        String expectedPrimaryCorrespondent = sessionVariableCalled("correspondentFullName");
         assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
     }
 

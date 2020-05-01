@@ -101,7 +101,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I upload a file that is {int}MB in size")
     public void iUploadAFileThatIsMBInSize(int fileSize) {
         documents.uploadDocumentOfSize(fileSize);
-        genericInputStepDefs.clickTheButton("add");
+        clickTheButton("Add");
     }
 
     @Then("an error message should be displayed as I have selected a file which is larger than the allowed limit")

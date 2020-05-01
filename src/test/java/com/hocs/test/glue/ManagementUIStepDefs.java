@@ -262,11 +262,11 @@ public class ManagementUIStepDefs extends BasePage {
     public void iHaveLinkedTeamsToTheNewChildTopic() {
         navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
-        genericInputStepDefs.clickTheButton("SUBMIT");
+        clickTheButton("Submit");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
         iSelectATeam("PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES");
-        genericInputStepDefs.clickTheButton("SUBMIT");
-        genericInputStepDefs.clickTheButton("SUBMIT");
+        clickTheButton("Submit");
+        clickTheButton("Submit");
     }
 
     @And("I navigate to {string}")
@@ -297,7 +297,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iSelectToAmendTheTeamLinksForTheTopic() {
         navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
         iSelectATopicThatHaveLinkedTeams("DOES");
-        genericInputStepDefs.clickTheButton("SUBMIT");
+        clickTheButton("Submit");
     }
 
     @And("I select a different {string} team")
