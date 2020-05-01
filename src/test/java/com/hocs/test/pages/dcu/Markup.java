@@ -141,7 +141,7 @@ public class Markup extends BasePage {
         safeClickOn(continueButton);
         markupAddTopics.clickAddTopicLink();
         markupAddTopics.enterRealTopic();
-        safeClickOn(markupAddTopics.addButton);
+        safeClickOn(addButton);
         safeClickOn(continueButton);
         markupAddTopics.recordSelectedDraftingAndPrivateOfficeTeams();
         safeClickOn(finishButton);

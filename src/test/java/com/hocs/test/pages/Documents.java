@@ -193,6 +193,6 @@ public class Documents extends BasePage {
     }
 
     public void assertDocumentPresentIs(Boolean condition) {
-        assertThat(uploadedTag.isVisible(), is(condition));
+        assertThat(uploadedTag.isVisible()||pendingTag.isVisible(), is(condition));
     }
 }

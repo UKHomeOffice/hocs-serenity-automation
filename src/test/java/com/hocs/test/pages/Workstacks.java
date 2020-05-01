@@ -74,7 +74,7 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[@class='govuk-caption-l']")
     public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
 
-    @FindBy(xpath = "(//td[@class='govuk-table__cell'])[2]")
+    @FindBy(xpath = "//th[text() = 'Primary topic']/following-sibling::td")
     public WebElementFacade primaryTopicName;
 
     @FindBy(xpath = "//tbody/tr/td[4]")

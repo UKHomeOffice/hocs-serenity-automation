@@ -19,7 +19,7 @@ public class AddCorrespondent extends BasePage {
     @FindBy(css = "label[for='isMember-true']")
     public WebElementFacade correspondentMemberYesRadioButton;
 
-    @FindBy(className = "govuk-typeahead__control")
+    @FindBy(xpath = "//input[@id='react-select-2-input']")
     private WebElementFacade selectMPDropdown;
 
     @FindBy(id = "reference")
@@ -58,7 +58,7 @@ public class AddCorrespondent extends BasePage {
     @FindBy(xpath = "//input[@name='Correspondents'][not(@checked)]/following-sibling::label")
     private WebElementFacade secondaryCorrespondentName;
 
-    @FindBy(xpath = "//div[@class='css-xp4uvy govuk-typeahead__single-value']")
+    @FindBy(xpath = "//div[contains(@class,'govuk-typeahead__single-value')]")
     public WebElementFacade memberOfParliamentName;
 
     @FindBy(xpath = "//a[text()='The correspondent type must be provided']")

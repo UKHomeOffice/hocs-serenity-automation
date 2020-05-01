@@ -21,7 +21,7 @@ public class Markup_AddTopics extends BasePage {
     @FindBy(xpath = "//th[contains(text(),'Primary topic')]/following-sibling::td")
     public WebElementFacade primaryTopicInSummary;
 
-    @FindBy(id = "react-select-2-input")
+    @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
     private WebElementFacade topicsTextField;
 
     @FindBy(xpath = "//a[text()='Add a ']")
