@@ -4,7 +4,7 @@ Feature: Search
   Background:
     Given I am user "AUTOMATION_USER"
 
-  @SearchByCaseReferenceNumber
+  @SearchByCaseReferenceNumber @WeeklyTests
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
     When I enter a valid case reference into the load case search bar
     Then I should be taken directly to the case
@@ -52,7 +52,7 @@ Feature: Search
     When I search by the case type "MIN"
     Then the search results should contain the expected information
 
-  @SearchByCaseType @SearchByTopic
+  @SearchByCaseType @SearchByTopic @WeeklyTests
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Cardiff University Kittens" as the primary topic
     And I search by the case type "MIN" and another parameter "Cardiff University Kittens Topic"
