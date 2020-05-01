@@ -67,13 +67,14 @@ Feature: Data Input
     When I add an additional correspondent
     Then both correspondents are listed
 
+  @WeeklyTests
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "FINISH" button
     Then the correct correspondent is recorded as the primary correspondent
 
-  @Validation
+  @Validation @WeeklyTests
   Scenario Outline: User must complete all mandatory inputs on the Data Input form
     When I click the "CONTINUE" button
     Then an error message should be displayed as I have not entered a "<formDetail>"
