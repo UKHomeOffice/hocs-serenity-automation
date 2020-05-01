@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.UnassignedCaseView;
 import com.hocs.test.pages.dcu.DataInput;

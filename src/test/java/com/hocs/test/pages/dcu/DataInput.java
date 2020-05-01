@@ -8,8 +8,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DataInput extends BasePage {
 
@@ -223,7 +221,6 @@ public class DataInput extends BasePage {
         addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");
         safeClickOn(finishButton);
     }
-
 
     // Assertions
 
