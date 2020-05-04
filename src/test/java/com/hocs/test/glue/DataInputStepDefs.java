@@ -158,7 +158,7 @@ public class DataInputStepDefs extends BasePage {
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
-        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
+        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
 
 
     }
@@ -194,11 +194,6 @@ public class DataInputStepDefs extends BasePage {
     @Then("the submitted correspondent should be visible in the list of correspondents")
     public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
         dataInputAddCorrespondent.assertPrimaryCorrespondent();
-    }
-
-    @And("I add a public correspondent")
-    public void iAddAPublicCorrespondent() {
-        dataInputAddCorrespondent.addAPublicCorrespondent();
     }
 
     @And("I remove the primary correspondent")

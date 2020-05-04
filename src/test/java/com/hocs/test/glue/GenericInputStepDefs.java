@@ -9,8 +9,6 @@ import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.managementUI.TeamManagement;
-import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
@@ -22,8 +20,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 
 public class GenericInputStepDefs extends BasePage {
 
@@ -33,7 +29,7 @@ public class GenericInputStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    Markup markupDecision;
+    Markup markup;
 
     InitialDraft initialDraft;
 
@@ -45,11 +41,7 @@ public class GenericInputStepDefs extends BasePage {
 
     Dispatch dispatch;
 
-    TeamManagement teamManagement;
-
-    UnitManagement unitManagement;
-
-    AddCorrespondent dataInputAddCorrespondent;
+    AddCorrespondent addCorrespondent;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -98,25 +90,25 @@ public class GenericInputStepDefs extends BasePage {
             case "IS THE CORRESPONDENT AN MP":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                dataInputAddCorrespondent.selectToAddACorrespondent();
+                addCorrespondent.selectToAddACorrespondent();
                 break;
             case "ADD MEMBER OF PARLIAMENT":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                dataInputAddCorrespondent.selectToAddACorrespondent();
-                dataInputAddCorrespondent.selectCorrespondentIsMP();
+                addCorrespondent.selectToAddACorrespondent();
+                addCorrespondent.selectCorrespondentIsMP();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                dataInputAddCorrespondent.selectToAddACorrespondent();
-                dataInputAddCorrespondent.selectCorrespondentIsNotMP();
+                addCorrespondent.selectToAddACorrespondent();
+                addCorrespondent.selectCorrespondentIsNotMP();
                 break;
             case "ADD A TOPIC":
-                markupDecision.getToMarkupAddATopicScreenPrerequisites();
+                markup.getToMarkupAddATopicScreenPrerequisites();
                 break;
             case "ENTER A NEW TOPIC":
-                markupDecision.getToMarkupEnterANewTopicScreenPrerequisites();
+                markup.getToMarkupEnterANewTopicScreenPrerequisites();
                 break;
             case "CASE REJECTION":
                 initialDraft.getToDraftCaseRejectionScreenPrerequisites();
@@ -164,7 +156,7 @@ public class GenericInputStepDefs extends BasePage {
     public void clickTheLink(String link) {
         switch (link.toUpperCase()) {
             case "BACK":
-                safeClickOn(backButton);
+                safeClickOn(backLink);
                 break;
             default:
                 pendingStep(link + " is not defined within " + getMethodName());
@@ -174,6 +166,7 @@ public class GenericInputStepDefs extends BasePage {
     @When("I click the {string} button")
     public void iClickTheButton(String buttonLabel) {
         clickTheButton(buttonLabel);
+
     }
 
     @When("I attempt to reject the {string} case without reason")
@@ -244,7 +237,7 @@ public class GenericInputStepDefs extends BasePage {
     public void linkIsDisplayed(String linkText) {
         switch (linkText.toUpperCase()) {
             case "ADD A CORRESPONDENT":
-                dataInputAddCorrespondent.assertAddACorrespondentLinkIsDisplayed();
+                addCorrespondent.assertAddACorrespondentLinkIsDisplayed();
                 break;
             default:
                 pendingStep(linkText + " is not defined within " + getMethodName());
@@ -340,6 +333,7 @@ public class GenericInputStepDefs extends BasePage {
                 }
                 break;
             case "UKVI":
+                waitABit(2000);
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         safeClickOn(homepage.UKVICreationTeam);
@@ -399,9 +393,9 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(finishButton);
                 break;
             case "MARKUP":
-                markupDecision.selectRejectToDataInput();
+                markup.selectRejectToDataInput();
                 safeClickOn(continueButton);
-                markupDecision.enterRejectToDataInputReasonIntoTextBox();
+                markup.enterRejectToDataInputReasonIntoTextBox();
                 safeClickOn(finishButton);
                 break;
             default:

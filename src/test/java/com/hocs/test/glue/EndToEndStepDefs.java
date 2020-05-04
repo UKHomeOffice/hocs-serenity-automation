@@ -53,9 +53,6 @@ public class EndToEndStepDefs extends BasePage {
             case "INITIAL DRAFT":
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
                 break;
-            case "DTEN INITIAL DRAFT":
-                initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
-                break;
             case "QA RESPONSE":
                 qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
                 break;

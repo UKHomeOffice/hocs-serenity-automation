@@ -50,8 +50,7 @@ Feature: Data Input
   Scenario: User can add a Member of Parliament as a Correspondent
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
-    And I select to add a correspondent that "IS" a member of parliament
-    And I add the member of parliament "Nicola Sturgeon MSP"
+    And I add "Nicola Sturgeon" MP as a correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
   @SmokeTests
@@ -113,8 +112,7 @@ Feature: Data Input
   Scenario: User removes a correspondent
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    And I select to add a correspondent that "is" a member of parliament
-    And I add the member of parliament "Nicola Sturgeon"
+    And I add "Nicola Sturgeon" MP as a correspondent
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
@@ -122,7 +120,6 @@ Feature: Data Input
   Scenario: User edits an existing correspondent
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    And I select to add a correspondent that "is" a member of parliament
-    And I add the member of parliament "Nicola Sturgeon"
+    And I add "Nicola Sturgeon" MP as a correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated

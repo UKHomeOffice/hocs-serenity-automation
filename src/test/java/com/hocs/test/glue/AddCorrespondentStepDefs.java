@@ -8,7 +8,12 @@ public class AddCorrespondentStepDefs {
     AddCorrespondent addCorrespondent;
 
     @And("I add a public correspondent")
-    public void iAddACorrespondent() {
+    public void iAddAPublicCorrespondent() {
         addCorrespondent.addAPublicCorrespondent();
+    }
+
+    @And("I add {string} MP as a correspondent")
+    public void IAddMPCorrespondent(String name) {
+        addCorrespondent.addAMemberCorrespondent(name);
     }
 }

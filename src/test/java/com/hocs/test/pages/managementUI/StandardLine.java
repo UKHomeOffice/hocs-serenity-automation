@@ -35,9 +35,6 @@ public class StandardLine extends BasePage {
     @FindBy(xpath = "//input[@id='expiryDate-year']")
     public WebElementFacade expirationDateYearTextBox;
 
-    @FindBy(xpath = "//td[@class='govuk-table__cell'][text()='testtesttest.docx']")
-    public WebElementFacade standardLineDocumentAssert;
-
     @FindBy(xpath = "//a[@href='#expiryDate-error']")
     public WebElementFacade pastExpirationDateErrorMessage;
 

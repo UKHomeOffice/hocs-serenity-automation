@@ -4,4 +4,8 @@ import com.hocs.test.pages.BasePage;
 
 public class CaseDrafting extends BasePage {
 
+    public void moveCaseFromCaseCreationToCaseTriage() {
+
+    }
+
 }

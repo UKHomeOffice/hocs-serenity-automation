@@ -61,6 +61,18 @@ public class CaseCreation extends BasePage {
     @FindBy(css = "label[for='Channel-Outreach']")
     public WebElementFacade channelOutreachRadioButton;
 
+    @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
+    public WebElementFacade businessAreaIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#RefType-error')]")
+    public WebElementFacade referenceTypeIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#Priority-error')]")
+    public WebElementFacade priorityIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#Channel-error')]")
+    public WebElementFacade channelReceivedIsRequiredErrorMessage;
+
 
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
@@ -158,5 +170,12 @@ public class CaseCreation extends BasePage {
         completeRequiredQuestions();
         addCorrespondent.addAPublicCorrespondent();
         clickContinueButton();
+    }
+
+    public void assertCaseCreationRequiredQuestionErrorMessages() {
+        businessAreaIsRequiredErrorMessage.shouldContainText("Business Area is required");
+        referenceTypeIsRequiredErrorMessage.shouldContainText("Does this correspondence need a Ministerial response? is required");
+        priorityIsRequiredErrorMessage.shouldContainText("Priority is required");
+        channelReceivedIsRequiredErrorMessage.shouldContainText("Channel received is required");
     }
 }

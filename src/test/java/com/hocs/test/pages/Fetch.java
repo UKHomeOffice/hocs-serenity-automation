@@ -600,7 +600,7 @@ public class Fetch extends BasePage {
                             + "case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveTROCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -623,7 +623,7 @@ public class Fetch extends BasePage {
                     System.out.println("Animals in Science Regulation Unit - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveTROCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -635,7 +635,7 @@ public class Fetch extends BasePage {
                             + "case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -658,7 +658,7 @@ public class Fetch extends BasePage {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -717,7 +717,7 @@ public class Fetch extends BasePage {
                     System.out.println("Minister for Lords team not available - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
-                    initialDraft.moveDTENCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromDraftToPrivateOffice();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -745,7 +745,7 @@ public class Fetch extends BasePage {
                     safeClickOn(homepage.home);
                     System.out.println("Private Office case not found - Searching for an Initial Draft case");
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromDraftToPrivateOffice();
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                 }
                 break;

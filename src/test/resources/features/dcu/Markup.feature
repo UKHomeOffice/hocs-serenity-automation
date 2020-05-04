@@ -10,7 +10,7 @@ Feature: Markup
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
     And I click the "Continue" button
-    And I click the 'Add a topic' link
+    And I click the Add a topic link
     Then a mandatory Topic free text field is displayed
     Examples:
       | radioButton     |

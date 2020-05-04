@@ -83,6 +83,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
     public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
 
+    @FindBy(xpath = "//th[text()='Which is the primary correspondent?']/following-sibling::td")
+    public WebElementFacade summaryWhichIsThePrimaryCorrespondent;
+
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
 
@@ -123,7 +126,6 @@ public class Workstacks extends BasePage {
 
     public String getCorrespondenceReceivedDateFromSummary() {
         selectSummaryTab();
-        String text = summaryWhenWasTheCorrespondenceReceived.getText();
         return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 
@@ -379,5 +381,9 @@ public class Workstacks extends BasePage {
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
         selectWorkstackFilter.clear();
+    }
+
+    public void assertPrimaryCorrespondentIs(String name) {
+        summaryWhichIsThePrimaryCorrespondent.shouldContainText(name);
     }
 }
