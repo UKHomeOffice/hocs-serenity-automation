@@ -49,7 +49,7 @@ Feature: Manage Documents
   Scenario: User must select a file when uploading a document
     And I click add documents
     When I choose the document type "Draft"
-    And I click the "add" button
+    And I click the "Add" button
     Then an error message should be displayed as I have not selected a file to upload
 
 

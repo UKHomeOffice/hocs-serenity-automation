@@ -2,9 +2,9 @@ package com.hocs.test.pages.ukvi;
 
 import com.hocs.test.pages.BasePage;
 
-public class CaseQA extends BasePage {
+public class CasePrivateOffice extends BasePage {
 
-    public void moveCaseFromCaseQAToNextStage() {
+    public void moveCaseFromCasePrivateOfficeToCaseClosed() {
         clickTheButton("Confirm");
     }
 }

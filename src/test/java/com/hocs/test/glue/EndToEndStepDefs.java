@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.ukvi.CaseCreation;
@@ -14,7 +15,13 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.ukvi.CaseDispatching;
+import com.hocs.test.pages.ukvi.CaseDraft;
+import com.hocs.test.pages.ukvi.CasePrivateOffice;
+import com.hocs.test.pages.ukvi.CaseQA;
+import com.hocs.test.pages.ukvi.CaseTriage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 
 public class EndToEndStepDefs extends BasePage {
 
@@ -38,51 +45,78 @@ public class EndToEndStepDefs extends BasePage {
 
     CaseCreation caseCreation;
 
+    CaseTriage caseTriage;
+
+    CaseDraft caseDraft;
+
+    CaseQA caseQA;
+
+    CasePrivateOffice casePrivateOffice;
+
+    CaseDispatching caseDispatching;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
         if (homepage.myCases.isVisible()) {
             homepage.getAndClaimCurrentCase();
         }
-        switch (stage.toUpperCase()) {
-            case "DATA INPUT":
-                dataInput.moveCaseFromDataInputToMarkup();
+        String caseType = sessionVariableCalled("caseType");
+        switch (caseType) {
+            case "MIN":
+            case "DTEN":
+            case "TRO":
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        dataInput.moveCaseFromDataInputToMarkup();
+                        break;
+                    case "MARKUP":
+                        markup.moveCaseFromMarkupToInitialDraft();
+                        break;
+                    case "INITIAL DRAFT":
+                        initialDraft.moveCaseFromInitialDraftToQaResponse();
+                        break;
+                    case "QA RESPONSE":
+                        qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
+                        break;
+                    case "MINISTERIAL SIGN OFF":
+                        ministerialSignOff.moveCaseFromMinisterToDispatch();
+                        break;
+                    case "DISPATCH":
+                        dispatch.moveCaseFromDispatchToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "MARKUP":
-                markup.moveCaseFromMarkupToInitialDraft();
-                break;
-            case "INITIAL DRAFT":
-                initialDraft.moveCaseFromInitialDraftToQaResponse();
-                break;
-            case "DTEN INITIAL DRAFT":
-                initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
-                break;
-            case "QA RESPONSE":
-                qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
-                break;
-            case "PRIVATE OFFICE APPROVAL":
-                privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
-                break;
-            case "MINISTERIAL SIGN OFF":
-                ministerialSignOff.moveCaseFromMinisterToDispatch();
-                break;
-            case "DISPATCH":
-                dispatch.moveCaseFromDispatchToCaseClosed();
-                break;
-            case "CASE CREATION":
-                caseCreation.moveCaseFromCaseCreationToCaseTriage();
-                break;
-            case "CASE TRIAGE":
-                break;
-            case "CASE DRAFTING":
-                break;
-            case "CASE QA":
-                break;
-            case "CASE PRIVATE OFFICE":
-                break;
-            case "CASE DISPATCHING":
+            case "UKVI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        caseCreation.moveCaseFromCaseCreationToCaseTriage();
+                        break;
+                    case "CASE TRIAGE":
+                        caseTriage.moveCaseFromCaseTriageToCaseDraft();
+                        break;
+                    case "CASE DRAFT":
+                        caseDraft.moveCaseFromCaseCreationToCaseQA();
+                        break;
+                    case "CASE QA":
+                        caseQA.moveCaseFromCaseQAToNextStage();
+                        break;
+                    case "CASE PRIVATE OFFICE":
+                        casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
+                        break;
+                    case "CASE DISPATCHING":
+                        caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
                 break;
             default:
-                pendingStep(stage + " is not defined within " + getMethodName());
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
@@ -173,7 +207,7 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     case "QA RESPONSE":
                         iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
-                        iCompleteTheStage("DTEN INITIAL DRAFT");
+                        iCompleteTheStage("INITIAL DRAFT");
                         break;
                     case "PRIVATE OFFICE APPROVAL":
                         iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
@@ -201,13 +235,13 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
                         iCompleteTheStage("CASE CREATION");
                         break;
-                    case "CASE DRAFTING":
+                    case "CASE DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE TRIAGE");
                         iCompleteTheStage("CASE TRIAGE");
                         break;
                     case "CASE QA":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE DRAFTING");
-                        iCompleteTheStage("CASE DRAFTING");
+                        iCreateACaseAndMoveItToAStage(caseType, "CASE DRAFT");
+                        iCompleteTheStage("CASE DRAFT");
                         break;
                     case "CASE PRIVATE OFFICE":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE QA");
@@ -230,4 +264,30 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
+    @When("I create a UKVI case  with {string} as the Business Area and {string} as the Reference Type and move it to the {string} stage")
+    public void moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
+            String stage) {
+        switch (stage.toUpperCase()) {
+            case "CASE TRIAGE":
+                iCreateACaseAndMoveItToAStage("UKVI", "CASE CREATION");
+                homepage.getAndClaimCurrentCase();
+                caseCreation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
+                break;
+            case "CASE DRAFT":
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE TRIAGE");
+                iCompleteTheStage("CASE TRIAGE");
+                break;
+            case "CASE QA":
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE DRAFT");
+                iCompleteTheStage("CASE DRAFT");
+                break;
+            case "CASE PRIVATE OFFICE":
+            case "CASE DISPATCHING":
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE QA");
+                iCompleteTheStage("CASE QA");
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+    }
 }

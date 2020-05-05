@@ -13,8 +13,6 @@ import static org.hamcrest.core.Is.is;
 
 public class CreateCase_SuccessPage extends BasePage {
 
-    @Managed
-
     Workstacks workstacks;
 
     @FindBy(className = "govuk-panel__title")
@@ -49,14 +47,5 @@ public class CreateCase_SuccessPage extends BasePage {
 
     public void goToCaseFromSuccessfulCreationScreen() {
         safeClickOn(newCaseReference);
-    }
-
-    public void selectCaseReferenceNumberViaXpath() {
-        WebElementFacade referenceElement = findAll("//a[text()='" + sessionVariableCalled("caseReference")
-                + "']").get(0);
-        waitFor(referenceElement).waitUntilClickable();
-        javascriptScrollToElem(referenceElement);
-        System.out.println(referenceElement);
-        referenceElement.click();
     }
 }

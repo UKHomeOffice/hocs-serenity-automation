@@ -8,7 +8,7 @@ Feature: QA Response
   Scenario: User must select a radio button to indicate whether they approve the QA response
     And I create a "DTEN" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case
-    And I click the "CONTINUE" button
+    And I click the "Continue" button
     Then an error message should be displayed as I have not selected a radio button on the QA approve response screen
 
   @Validation
@@ -25,7 +25,7 @@ Feature: QA Response
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario Outline: Case is returned to Initial Draft stage when rejected by QA Response Team
     And I create a "<caseType>" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case

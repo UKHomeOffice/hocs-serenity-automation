@@ -115,76 +115,52 @@ public class InitialDraft extends BasePage {
     }
 
     public void getToPrimaryDraftDocumentScreenPrerequisites() {
-        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            waitABit(500);
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
         } else {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(letterReplyRadioButton);
-            safeClickOn(continueButton);
+            acceptAndDraftALetter();
         }
     }
 
     public void getToAddDocumentScreenPrerequisites() {
-        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(documents.addDocumentsButton);
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
         } else {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(letterReplyRadioButton);
-            safeClickOn(continueButton);
-            documents.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
+            acceptAndDraftALetter();
         }
+            documents.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
     }
 
     public void getToDoYouWantToQAOfflineScreenPrerequisites() {
-        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            documents.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-            waitABit(500);
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
         } else {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(letterReplyRadioButton);
-            safeClickOn(continueButton);
+            acceptAndDraftALetter();
+        }
             documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             waitABit(500);
-        }
     }
-
 
     public void getToWhoDidTheQAOfflineScreenPrerequisites() {
-        if (isElementDisplayed($("//span[contains(text(), 'DTEN')]"))) {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            documents.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-            safeClickOn(offlineQaYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(finishButton);
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
         } else {
-            safeClickOn(answeredByMyTeamYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(letterReplyRadioButton);
-            safeClickOn(continueButton);
+            acceptAndDraftALetter();
+        }
             documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
             safeClickOn(offlineQaYesRadioButton);
             safeClickOn(continueButton);
             safeClickOn(finishButton);
-        }
     }
 
-    public void moveDTENCaseFromDraftToPrivateOffice() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        safeClickOn(continueButton);
+    public void moveCaseFromDraftToPrivateOffice() {
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
+        } else {
+            acceptAndDraftALetter();
+        }
         documents.addADraftDocumentAtDraftStage();
         safeClickOn(continueButton);
         safeClickOn(offlineQaYesRadioButton);
@@ -206,37 +182,12 @@ public class InitialDraft extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void initialDraftFullFlow() {
-        waitABit(3500);
-        WebElementFacade thisDraftTeam = findAll("//span[text()='" + sessionVariableCalled("draftTeam")
-                + "']").get(0);
-        thisDraftTeam.click();
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        safeClickOn(workstacks.allocateToMeButton);
-        safeClickOn(homepage.home);
-        safeClickOn(homepage.myCases);
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        acceptAndDraftALetter();
-        documents.addADraftDocumentAtDraftStage();
-        dontQAOffline();
-    }
-
     public void moveCaseFromInitialDraftToQaResponse() {
-        acceptAndDraftALetter();
-        documents.addADraftDocumentAtDraftStage();
-        waitABit(500);
-        dontQAOffline();
-    }
-
-    public void moveTROCaseFromInitialDraftToQaResponse() {
-        acceptAndDraftALetter();
-        documents.addADraftDocumentAtDraftStage();
-        waitABit(500);
-        safeClickOn(continueButton);
-    }
-
-    public void moveDTENCaseFromInitialDraftToQaResponse() {
-        dtenAcceptAndDraftALetter();
+        if (sessionVariableCalled("caseType").equals("DTEN")) {
+            dtenAcceptAndDraftALetter();
+        } else {
+            acceptAndDraftALetter();
+        }
         documents.addADraftDocumentAtDraftStage();
         waitABit(500);
         dontQAOffline();

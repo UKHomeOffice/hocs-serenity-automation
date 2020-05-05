@@ -30,7 +30,7 @@ Feature: Initial Draft
     And I "do not complete" the call details
     Then I see an error message instructing me to enter call notes
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: A user selects not to offline QA
     And I get a "MIN" case at "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
@@ -40,7 +40,7 @@ Feature: Initial Draft
     Then I am returned to my home screen
     And the case should be moved to the "QA RESPONSE" stage
 
-  @Workflow @SmokeTests
+  @DCUWorkflow @SmokeTests
   Scenario: User selects offline QA
     And I get a "MIN" case at "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
@@ -54,50 +54,50 @@ Feature: Initial Draft
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "CONTINUE" button
+    And I click the "Continue" button
     Then an error message should be displayed as I have not selected radio buttons on this screen
 
   @Validation
   Scenario: User must enter the reason that their team cannot answer a case in the text box at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "FINISH" button on the "CASE REJECTION" page
+    And I click the "Finish " button on the "CASE REJECTION" page
     Then an error message should be displayed as I have not entered a reason in the text box
 
 
   @Validation
   Scenario: User must select a radio button when asked how they intend to respond at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "CONTINUE" button on the "HOW DO YOU INTEND TO RESPOND" page
+    And I click the "Continue" button on the "HOW DO YOU INTEND TO RESPOND" page
     Then an error message should be displayed as I have not selected a response on this screen
 
   @Validation
   Scenario: User must summarise their call in the text box at the Draft stage after selecting phone response
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "CONTINUE" button on the "SUMMARISE YOUR CALL" page
+    And I click the "Continue" button on the "SUMMARISE YOUR CALL" page
     Then an error message should be displayed as I have not summarised the call
 
   @Validation
   Scenario: User must add a primary draft document at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "CONTINUE" button on the "PRIMARY DRAFT DOCUMENT" page
+    And I click the "Continue" button on the "PRIMARY DRAFT DOCUMENT" page
     Then an error message should be displayed as I have not added a primary draft document
 
   @Validation
   Scenario: User must select the Draft document type and add a document on the add document screen at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "ADD" button on the "ADD DOCUMENT" page
+    And I click the "Add" button on the "ADD DOCUMENT" page
     Then an error message should be displayed as I have not selected a document type and added a document
 
   @Validation
   Scenario: User must select a radio button when asked whether they want to QA the case offline
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "CONTINUE" button on the "DO YOU WANT TO QA OFFLINE" page
+    And I click the "Continue" button on the "DO YOU WANT TO QA OFFLINE" page
     Then an error message should be displayed as I have not selected whether the case should be QA offline or not
 
   @Validation
   Scenario: User must select the user that has done the Offline QA from the drop down at the Draft stage
     And I get a "MIN" case at "INITIAL DRAFT" stage
-    And I click the "FINISH" button on the "WHO HAS DONE THE QA OFFLINE" page
+    And I click the "Finish" button on the "WHO HAS DONE THE QA OFFLINE" page
     Then an error message should be displayed as I have not selected the user that did the offline QA
 
   @Validation
