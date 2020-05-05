@@ -32,7 +32,7 @@ Feature: Timeline
 
   @SmokeTests
   Scenario: User can view logs for completing one stage and starting another
-    And I complete the Data Input stage of the displayed case
+    And I complete the "Data Input" stage
     And I load the current case
     And I select the Timeline tab
     Then a log should be at the top of the timeline

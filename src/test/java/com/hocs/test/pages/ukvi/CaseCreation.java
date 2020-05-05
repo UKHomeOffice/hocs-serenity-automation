@@ -114,6 +114,7 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(businessArea + " is not defined within " + getMethodName());
         }
+        System.out.println(businessArea + " is the business area");
     }
 
     public void selectRefType(String refType) {
@@ -129,6 +130,7 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(refType + " is not defined within " + getMethodName());
         }
+        System.out.println(refType + " is the reference type");
     }
 
     public void selectPriority(String priority) {
@@ -167,9 +169,18 @@ public class CaseCreation extends BasePage {
     }
 
     public void moveCaseFromCaseCreationToCaseTriage() {
-        completeRequiredQuestions();
         addCorrespondent.addAPublicCorrespondent();
-        clickContinueButton();
+        completeRequiredQuestions();
+        clickTheButton("Send to Triage");
+    }
+
+    public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
+        addCorrespondent.addAPublicCorrespondent();
+        selectBusinessArea(businessArea);
+        selectRefType(refType);
+        selectChannel("Email");
+        selectPriority("Standard");
+        clickTheButton("Send to Triage");
     }
 
     public void assertCaseCreationRequiredQuestionErrorMessages() {

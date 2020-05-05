@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.AddCorrespondent;
+import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.ukvi.CaseCreation;
@@ -10,7 +11,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CaseCreationStepDefs {
+public class CaseCreationStepDefs extends BasePage {
 
     Homepage homepage;
 

@@ -1,9 +1,14 @@
-package com.hocs.test.pages;
+package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -14,7 +19,7 @@ import com.hocs.test.pages.dcu.DataInput;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
 
-public class Fetch extends BasePage {
+public class fetchExistingDCUCases extends BasePage {
 
     CreateCase createCase;
 

@@ -1,7 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Fetch;
+import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
@@ -31,7 +31,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
 
-    Fetch fetch;
+    fetchExistingDCUCases fetchExistingDCUCases;
 
     Markup markupDecision;
 
@@ -287,7 +287,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        fetch.giveMeACase("MIN", "MARKUP");
+        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopicWithoutHittingFinish("Register of faith leaders");
         markupAddTopics.getCurrentDefaultTeamsForTopic();
@@ -337,7 +337,7 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I check the default team links in HOCS again")
     public void iCheckTheDefaultTeamLinksInHOCSAgain() {
         iNavigateTo("HOCS");
-        fetch.giveMeACase("MIN", "MARKUP");
+        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopic("Register of faith leaders");
     }
@@ -390,7 +390,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I get a case and progress to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
-        fetch.giveMeACase("MIN", "MARKUP");
+        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 

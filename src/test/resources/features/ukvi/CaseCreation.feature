@@ -10,8 +10,8 @@ Feature: CaseCreation
   Scenario: User should be on the UKVI Data Input Page
     Then the "UKVI Data Input" page should be displayed
 
-  @Workflow @SmokeTests
-  Scenario Outline: User completed case creation with specific Business Area and Reference Type
+  @Workflow
+  Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I add a public correspondent
     And I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Case Creation

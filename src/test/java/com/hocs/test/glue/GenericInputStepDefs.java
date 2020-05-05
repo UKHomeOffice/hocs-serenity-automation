@@ -333,7 +333,7 @@ public class GenericInputStepDefs extends BasePage {
                 }
                 break;
             case "UKVI":
-                waitABit(2000);
+                waitABit(3000);
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         safeClickOn(homepage.UKVICreationTeam);
@@ -346,10 +346,8 @@ public class GenericInputStepDefs extends BasePage {
                         homepage.selectUKVIDraftingTeam();
                         break;
                     case "CASE QA":
-                        homepage.selectUKVIQATeam();
-                        break;
                     case "CASE PRIVATE OFFICE":
-                        homepage.selectUKVIPrivateOfficeTeam();
+                        homepage.selectUKVIQATeam();
                         break;
                 }
                 break;

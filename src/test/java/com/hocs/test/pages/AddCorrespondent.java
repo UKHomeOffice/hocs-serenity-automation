@@ -201,7 +201,7 @@ public class AddCorrespondent extends BasePage {
         selectMPDropdown.sendKeys(member);
         waitABit(500);
         selectMPDropdown.sendKeys(Keys.RETURN);
-        setSessionVariable("memberOfParliamentName").to(memberOfParliamentName.getText());
+        setSessionVariable("correspondentFullName").to(memberOfParliamentName.getText());
         clickAddButton();
     }
 
