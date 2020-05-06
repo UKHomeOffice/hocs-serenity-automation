@@ -14,7 +14,7 @@ Feature:  Dispatch
   Scenario: User dispatches a case
     And I get a "DTEN" case at "DISPATCH" stage
     When I "DISPATCH" the case
-    Then the case is completed
+    Then the case should be closed
 
   @Validation
   Scenario: User must select a radio button when asked if they able to dispatch the case at the Dispatch Stage

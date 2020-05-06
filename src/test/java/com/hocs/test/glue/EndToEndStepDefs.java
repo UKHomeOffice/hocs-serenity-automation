@@ -108,7 +108,7 @@ public class EndToEndStepDefs extends BasePage {
                     case "CASE PRIVATE OFFICE":
                         casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
                         break;
-                    case "CASE DISPATCHING":
+                    case "CASE DISPATCH":
                         caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();
                         break;
                     default:
@@ -282,9 +282,20 @@ public class EndToEndStepDefs extends BasePage {
                 iCompleteTheStage("CASE DRAFT");
                 break;
             case "CASE PRIVATE OFFICE":
-            case "CASE DISPATCHING":
+            case "CASE DISPATCH":
                 moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE QA");
                 iCompleteTheStage("CASE QA");
+                break;
+            case "CASE CLOSED":
+                if (refType.toUpperCase().equals("M:REF")) {
+                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE PRIVATE "
+                            + "OFFICE");
+                    iCompleteTheStage("CASE PRIVATE OFFICE");
+                } else {
+                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE "
+                            + "DISPATCH");
+                    iCompleteTheStage("CASE DISPATCH");
+                }
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
