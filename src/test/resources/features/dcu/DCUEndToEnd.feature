@@ -114,7 +114,7 @@ Feature: End To End
     And I complete the Private Office stage
     And I complete the Ministerial Sign Off stage
     And I complete the dispatch stage
-    Then the case is completed
+    Then the case should be closed
 
   @DCUWorkflow @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
@@ -125,7 +125,7 @@ Feature: End To End
     And I complete the QA response stage
     And I complete the Private Office stage
     And I complete the dispatch stage
-    Then the case is completed
+    Then the case should be closed
 
   @DCUWorkflow @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
@@ -135,7 +135,7 @@ Feature: End To End
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the dispatch stage
-    Then the case is completed
+    Then the case should be closed
 
   @DCUWorkflow
   Scenario Outline: User creates a case of each type and progresses the case through the workflow

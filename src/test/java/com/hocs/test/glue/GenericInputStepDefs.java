@@ -228,9 +228,9 @@ public class GenericInputStepDefs extends BasePage {
         }
     }
 
-    @Then("the case is completed")
-    public void theCaseIsCompleted() {
-        homepage.assertCaseIsCompleteViaSearch();
+    @Then("the case should be closed")
+    public void theCaseShouldBeClosed() {
+        homepage.assertCaseIsClosedViaSearch();
     }
 
     @Then("{string} link is displayed")
@@ -405,6 +405,13 @@ public class GenericInputStepDefs extends BasePage {
     @Then("an error message should be displayed as I have not entered text in the Case Note text box")
     public void anErrorMessageShouldBeDisplayedAsIHaveNotEnteredTextInTheCaseNoteTextbox() {
         workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
+    }
+
+    @Then("I print the stage name")
+    public void iPrintTheStageName() {
+        homepage.getCurrentCase();
+        workstacks.selectSummaryTab();
+        workstacks.summaryPrintActiveStage();
     }
 }
 

@@ -20,7 +20,7 @@ Feature: Initial Draft
     When I "complete" the call details
     And I select "no" to choosing another Response Type
     Then I am returned to my home screen
-    And the case is completed
+    And the case should be closed
 
   @Validation
   Scenario: Phone response does not have info in free text field

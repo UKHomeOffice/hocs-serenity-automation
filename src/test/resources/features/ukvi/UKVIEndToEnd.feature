@@ -61,3 +61,46 @@ Feature: EndToEnd
       | EUSS         | B:Ref   | Case QA |
       | HMPO         | B:Ref   | Case QA |
       | Windrush     | B:Ref   | Case QA |
+
+  @Workflow
+  Scenario Outline: User completes Case QA stage for a case with specific Business Area and Reference Type
+    When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    Then the case should be moved to the "<stage>" stage
+    Examples:
+      | businessArea | refType | stage               |
+      | UKVI         | M:Ref   | Case Private Office |
+      | BF           | M:Ref   | Case Private Office |
+      | IE           | M:Ref   | Case Private Office |
+      | EUSS         | M:Ref   | Case Private Office |
+      | HMPO         | M:Ref   | Case Private Office |
+      | Windrush     | M:Ref   | Case Private Office |
+      | UKVI         | B:Ref   | Case Dispatch       |
+      | BF           | B:Ref   | Case Dispatch       |
+      | IE           | B:Ref   | Case Dispatch       |
+      | EUSS         | B:Ref   | Case Dispatch       |
+      | HMPO         | B:Ref   | Case Dispatch       |
+      | Windrush     | B:Ref   | Case Dispatch       |
+
+  Scenario Outline: User completes Case Private Office stage for a case with specific Business Area and Reference Type
+    When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    Then the case should be closed
+    Examples:
+      | businessArea | refType | stage       |
+      | UKVI         | M:Ref   | Case Closed |
+      | BF           | M:Ref   | Case Closed |
+      | IE           | M:Ref   | Case Closed |
+      | EUSS         | M:Ref   | Case Closed |
+      | HMPO         | M:Ref   | Case Closed |
+      | Windrush     | M:Ref   | Case Closed |
+
+  Scenario Outline: User completes Case Dispatch stage for a case with specific Business Area and Reference Type
+    When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    Then the case should be closed
+    Examples:
+      | businessArea | refType | stage       |
+      | UKVI         | B:Ref   | Case Closed |
+      | BF           | B:Ref   | Case Closed |
+      | IE           | B:Ref   | Case Closed |
+      | EUSS         | B:Ref   | Case Closed |
+      | HMPO         | B:Ref   | Case Closed |
+      | Windrush     | B:Ref   | Case Closed |

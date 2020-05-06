@@ -86,6 +86,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//th[text()='Which is the primary correspondent?']/following-sibling::td")
     public WebElementFacade summaryWhichIsThePrimaryCorrespondent;
 
+    @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
+    public WebElementFacade summaryActiveStage;
+
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
 
@@ -385,5 +388,9 @@ public class Workstacks extends BasePage {
 
     public void assertPrimaryCorrespondentIs(String name) {
         summaryWhichIsThePrimaryCorrespondent.shouldContainText(name);
+    }
+
+    public void summaryPrintActiveStage() {
+        System.out.println(summaryActiveStage.getText());
     }
 }

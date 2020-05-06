@@ -179,12 +179,13 @@ public class Homepage extends BasePage {
         assertThat(myCases.isVisible(), is(true));
     }
 
-    public void assertCaseIsCompleteViaSearch() {
+    public void assertCaseIsClosedViaSearch() {
         caseReferenceSearchBar.clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
         unassignedCaseView.assertCaseCannotBeAssigned();
+        System.out.println("The case is closed");
     }
 
     public void getCurrentCase() {
