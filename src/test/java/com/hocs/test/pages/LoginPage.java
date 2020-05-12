@@ -72,6 +72,7 @@ public class LoginPage extends BasePage {
             }
         }
         getDriver().get(baseUrl);
+        getDriver().manage().window().maximize();
     }
 
     public void navigateToManagementUI() {

@@ -151,25 +151,25 @@ public class Homepage extends BasePage {
 
     public void selectUKVITriageTeam() {
         WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIDraftingTeam() {
-        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Drafting " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIQATeam() {
-        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("refType") +"))']"));
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='QA: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("refType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
     public void selectUKVIPrivateOfficeTeam() {
-        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='Triage: " + sessionVariableCalled(
-                "businessArea") + " " + sessionVariableCalled("ukviRefType") +"))']"));
+        WebElementFacade requiredTriageTeam = find(By.xpath("//span[text()='PO: " + sessionVariableCalled(
+                "businessArea") + " " + sessionVariableCalled("ukviRefType") +"']"));
         safeClickOn(requiredTriageTeam);
     }
 
@@ -179,12 +179,13 @@ public class Homepage extends BasePage {
         assertThat(myCases.isVisible(), is(true));
     }
 
-    public void assertCaseIsCompleteViaSearch() {
+    public void assertCaseIsClosedViaSearch() {
         caseReferenceSearchBar.clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
         unassignedCaseView.assertCaseCannotBeAssigned();
+        System.out.println("The case is closed");
     }
 
     public void getCurrentCase() {

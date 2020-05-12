@@ -83,6 +83,12 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
     public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
 
+    @FindBy(xpath = "//th[text()='Which is the primary correspondent?']/following-sibling::td")
+    public WebElementFacade summaryWhichIsThePrimaryCorrespondent;
+
+    @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
+    public WebElementFacade summaryActiveStage;
+
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
 
@@ -123,7 +129,6 @@ public class Workstacks extends BasePage {
 
     public String getCorrespondenceReceivedDateFromSummary() {
         selectSummaryTab();
-        String text = summaryWhenWasTheCorrespondenceReceived.getText();
         return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 
@@ -276,8 +281,7 @@ public class Workstacks extends BasePage {
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
-        System.out.println(caseReferenceStage);
-
+        System.out.println("The case is at the " + caseReferenceStage.getText() + " stage");
         return caseReferenceStage.getText();
     }
 
@@ -380,5 +384,13 @@ public class Workstacks extends BasePage {
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
         selectWorkstackFilter.clear();
+    }
+
+    public void assertPrimaryCorrespondentIs(String name) {
+        summaryWhichIsThePrimaryCorrespondent.shouldContainText(name);
+    }
+
+    public void summaryPrintActiveStage() {
+        System.out.println(summaryActiveStage.getText());
     }
 }

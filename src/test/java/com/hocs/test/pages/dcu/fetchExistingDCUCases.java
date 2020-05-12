@@ -1,9 +1,14 @@
-package com.hocs.test.pages;
+package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -14,7 +19,7 @@ import com.hocs.test.pages.dcu.DataInput;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
 
-public class Fetch extends BasePage {
+public class fetchExistingDCUCases extends BasePage {
 
     CreateCase createCase;
 
@@ -600,7 +605,7 @@ public class Fetch extends BasePage {
                             + "case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveTROCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -623,7 +628,7 @@ public class Fetch extends BasePage {
                     System.out.println("Animals in Science Regulation Unit - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveTROCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -635,7 +640,7 @@ public class Fetch extends BasePage {
                             + "case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -658,7 +663,7 @@ public class Fetch extends BasePage {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromInitialDraftToQaResponse();
+                    initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
                 }
                 break;
@@ -717,7 +722,7 @@ public class Fetch extends BasePage {
                     System.out.println("Minister for Lords team not available - Searching for an Initial Draft case");
                     safeClickOn(homepage.home);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
-                    initialDraft.moveDTENCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromDraftToPrivateOffice();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -745,7 +750,7 @@ public class Fetch extends BasePage {
                     safeClickOn(homepage.home);
                     System.out.println("Private Office case not found - Searching for an Initial Draft case");
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveDTENCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromDraftToPrivateOffice();
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                 }
                 break;

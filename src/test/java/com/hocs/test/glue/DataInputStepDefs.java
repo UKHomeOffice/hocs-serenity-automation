@@ -17,9 +17,6 @@ import net.thucydides.core.annotations.Steps;
 
 public class DataInputStepDefs extends BasePage {
 
-    @Steps(shared = true)
-    GenericInputStepDefs genericInputStepDefs;
-
     DataInput dataInput;
 
     AddCorrespondent dataInputAddCorrespondent;
@@ -102,11 +99,6 @@ public class DataInputStepDefs extends BasePage {
         dataInputAddCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
-    @Then("they should be added to the list of correspondents")
-    public void theyShouldBeAddedToTheListOfCorrespondents() {
-        dataInputAddCorrespondent.assertPrimaryCorrespondent();
-    }
-
     @Then("an error message should be displayed as I have not entered a {string}")
     public void assertValidationMessagesOnDataInputForm(String field) {
         switch (field.toUpperCase()) {
@@ -129,7 +121,7 @@ public class DataInputStepDefs extends BasePage {
         switch (ordinal.toUpperCase()) {
             case "PRIMARY":
                 dataInput.fillAllMandatoryCorrespondenceFields();
-                genericInputStepDefs.clickTheButton("Continue");
+                clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
                 dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
                 dataInput.clickAddButton();
@@ -166,7 +158,7 @@ public class DataInputStepDefs extends BasePage {
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
-        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("secondCorrespondentFullName"));
+        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
 
 
     }
@@ -178,7 +170,7 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
-        setSessionVariable("fullName").to(member);
+        setSessionVariable("correspondentFullName").to(member);
         dataInputAddCorrespondent.selectMemberOfParliament(member);
         waitABit(2000);
         dataInputAddCorrespondent.clickAddButton();
@@ -199,9 +191,9 @@ public class DataInputStepDefs extends BasePage {
         }
     }
 
-    @And("I add a public correspondent")
-    public void iAddAPublicCorrespondent() {
-        dataInputAddCorrespondent.addAPublicCorrespondent();
+    @Then("the submitted correspondent should be visible in the list of correspondents")
+    public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
+        dataInputAddCorrespondent.assertPrimaryCorrespondent();
     }
 
     @And("I remove the primary correspondent")

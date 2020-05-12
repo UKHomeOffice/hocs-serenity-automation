@@ -47,12 +47,7 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
-        safeClickOn(homepage.centralDraftingTeam);
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        safeClickOn(workstacks.allocateToMeButton);
-        safeClickOn(homepage.home);
-        safeClickOn(homepage.myCases);
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
+        homepage.getAndClaimCurrentCase();
         safeClickOn(markupDecision.policyResponseRadioButton);
         safeClickOn(markupDecision.continueButton);
         if (topic.toUpperCase().equals("NEW CHILD TOPIC")) {
@@ -92,7 +87,8 @@ public class MarkupStepDefs extends BasePage {
                 markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
                 safeClickOn(finishButton);
-                initialDraft.initialDraftFullFlow();
+                homepage.getAndClaimCurrentCase();
+                initialDraft.moveCaseFromInitialDraftToQaResponse();
                 qaResponse.qaResponseFullFlow();
                 break;
             default:
@@ -265,7 +261,7 @@ public class MarkupStepDefs extends BasePage {
         }
     }
 
-    @And("I click the 'Add a topic' link")
+    @And("I click the Add a topic link")
     public void iClickTheAddATopicLink() {
         markupAddTopics.clickAddTopicLink();
     }

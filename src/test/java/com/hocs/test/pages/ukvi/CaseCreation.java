@@ -4,11 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CaseCreation extends BasePage {
+
+    AddCorrespondent addCorrespondent;
 
     @FindBy(css = "label[for='BusArea-UKVI']")
     public WebElementFacade businessAreaUKVIRadioButton;
@@ -46,7 +49,7 @@ public class CaseCreation extends BasePage {
     @FindBy(css = "label[for='Priority-Immediate']")
     public WebElementFacade priorityImmediateRadioButton;
 
-    @FindBy(css = "label[for='Channnel-Email']")
+    @FindBy(css = "label[for='Channel-Email']")
     public WebElementFacade channelEmailRadioButton;
 
     @FindBy(css = "label[for='Channel-Phone']")
@@ -57,6 +60,18 @@ public class CaseCreation extends BasePage {
 
     @FindBy(css = "label[for='Channel-Outreach']")
     public WebElementFacade channelOutreachRadioButton;
+
+    @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
+    public WebElementFacade businessAreaIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#RefType-error')]")
+    public WebElementFacade referenceTypeIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#Priority-error')]")
+    public WebElementFacade priorityIsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[contains(@href, '#Channel-error')]")
+    public WebElementFacade channelReceivedIsRequiredErrorMessage;
 
 
     public void completeRequiredQuestions() {
@@ -99,6 +114,7 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(businessArea + " is not defined within " + getMethodName());
         }
+        System.out.println(businessArea + " is the business area");
     }
 
     public void selectRefType(String refType) {
@@ -114,6 +130,7 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(refType + " is not defined within " + getMethodName());
         }
+        System.out.println(refType + " is the reference type");
     }
 
     public void selectPriority(String priority) {
@@ -152,7 +169,24 @@ public class CaseCreation extends BasePage {
     }
 
     public void moveCaseFromCaseCreationToCaseTriage() {
+        addCorrespondent.addAPublicCorrespondent();
         completeRequiredQuestions();
+        clickTheButton("Send to Triage");
+    }
 
+    public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
+        addCorrespondent.addAPublicCorrespondent();
+        selectBusinessArea(businessArea);
+        selectRefType(refType);
+        selectChannel("Email");
+        selectPriority("Standard");
+        clickTheButton("Send to Triage");
+    }
+
+    public void assertCaseCreationRequiredQuestionErrorMessages() {
+        businessAreaIsRequiredErrorMessage.shouldContainText("Business Area is required");
+        referenceTypeIsRequiredErrorMessage.shouldContainText("Does this correspondence need a Ministerial response? is required");
+        priorityIsRequiredErrorMessage.shouldContainText("Priority is required");
+        channelReceivedIsRequiredErrorMessage.shouldContainText("Channel received is required");
     }
 }

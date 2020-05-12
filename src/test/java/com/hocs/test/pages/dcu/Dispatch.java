@@ -25,6 +25,11 @@ public class Dispatch extends BasePage {
     @FindBy(css = "input[id='ResponseChannel']")
     public WebElementFacade responseTypeField;
 
+    public void moveCaseFromDispatchToCaseClosed() {
+        safeClickOn(dispatchAcceptRadioButton);
+        safeClickOn(continueButton);
+    }
+
     public void selectDispatchRejectButton() {
         safeClickOn(dispatchRejectRadioButton);
     }
@@ -58,11 +63,6 @@ public class Dispatch extends BasePage {
         safeClickOn(dispatchAcceptRadioButton);
         String dispatchAbleDecision = dispatchAcceptRadioButton.getAttribute("for").substring(17);
         setSessionVariable("dispatchAbleDecision").to(dispatchAbleDecision);
-        safeClickOn(continueButton);
-    }
-
-    public void moveCaseFromDispatchToCaseClosed() {
-        safeClickOn(dispatchAcceptRadioButton);
         safeClickOn(continueButton);
     }
 

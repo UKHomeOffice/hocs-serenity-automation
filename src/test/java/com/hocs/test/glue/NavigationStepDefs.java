@@ -5,7 +5,7 @@ import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.Fetch;
+import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 
 import com.hocs.test.pages.Search;
 import io.cucumber.java.en.And;
@@ -24,7 +24,7 @@ public class NavigationStepDefs extends BasePage {
 
     Homepage homepage;
 
-    Fetch fetch;
+    fetchExistingDCUCases fetchExistingDCUCases;
 
     AddCorrespondent initialDraftRecordCorrespondentDetails;
 
@@ -119,7 +119,7 @@ public class NavigationStepDefs extends BasePage {
 
     @When("I get a {string} case at {string} stage")
     public void getMeACase(String caseType, String stage) {
-        fetch.giveMeACase(caseType, stage);
+        fetchExistingDCUCases.giveMeACase(caseType, stage);
         setCaseReferenceFromAssignedCase();
     }
 

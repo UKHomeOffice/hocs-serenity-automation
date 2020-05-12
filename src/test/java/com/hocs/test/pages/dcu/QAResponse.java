@@ -62,9 +62,7 @@ public class QAResponse extends BasePage {
     }
 
     public void qaResponseFullFlow() {
-        homepage.selectPerformanceProcessTeam();
-        createCaseSuccessPage.selectCaseReferenceNumberViaXpath();
-        workstacks.clickAllocateToMeButton();
+        homepage.getAndClaimCurrentCase();
         clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");
         clickContinueButton();
