@@ -10,30 +10,30 @@ Feature: CaseCreation
   Scenario: User should be on the UKVI Data Input Page
     Then the "UKVI Data Input" page should be displayed
 
-#  @Workflow
-#  Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
-#    When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
-#    And I complete the other required fields for Creation stage
-#    And I click the "Send to Triage" button
-#    And I add a public correspondent
-#    And I click the "Add to Triage" button
-#    Then the case should be moved to the "Triage" stage
-#    Examples:
-#      | businessArea | refType |
-#      | UKVI         | M:Ref   |
-#      | BF           | M:Ref   |
-#      | IE           | M:Ref   |
-#      | EUSS         | M:Ref   |
-#      | HMPO         | M:Ref   |
-#      | Windrush     | M:Ref   |
-##      | Coronavirus  | M:Ref   |
-#      | UKVI         | B:Ref   |
-#      | BF           | B:Ref   |
-#      | IE           | B:Ref   |
-#      | EUSS         | B:Ref   |
-#      | HMPO         | B:Ref   |
-#      | Windrush     | B:Ref   |
-##      | Coronavirus  | B:Ref   |
+  @Workflow
+  Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
+    When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
+    And I complete the other required fields for Creation stage
+    And I click the "Send to Triage" button
+    And I add a public correspondent
+    And I click the "Add to Triage" button
+    Then the case should be moved to the "Triage" stage
+    Examples:
+      | businessArea | refType |
+      | UKVI         | M:Ref   |
+      | BF           | M:Ref   |
+      | IE           | M:Ref   |
+      | EUSS         | M:Ref   |
+      | HMPO         | M:Ref   |
+      | Windrush     | M:Ref   |
+#      | Coronavirus  | M:Ref   |
+      | UKVI         | B:Ref   |
+      | BF           | B:Ref   |
+      | IE           | B:Ref   |
+      | EUSS         | B:Ref   |
+      | HMPO         | B:Ref   |
+      | Windrush     | B:Ref   |
+#      | Coronavirus  | B:Ref   |
 
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
