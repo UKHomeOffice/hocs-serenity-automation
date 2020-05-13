@@ -3,7 +3,7 @@ Feature: CaseCreation
 
   Background:
     Given I am user "AUTOMATION_USER"
-    And I create a "UKVI" case and move it to the "Case Creation" stage
+    And I create a "UKVI" case and move it to the "Creation" stage
     And I load and claim the current case
 
   @Navigation
@@ -12,11 +12,12 @@ Feature: CaseCreation
 
   @Workflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
-    When I add a public correspondent
-    And I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
-    And I complete the other required fields for Case Creation
+    When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
+    And I complete the other required fields for Creation stage
     And I click the "Send to Triage" button
-    Then the case should be moved to the "Case Triage" stage
+    And I add a public correspondent
+    And I click the "Add to Triage" button
+    Then the case should be moved to the "Triage" stage
     Examples:
       | businessArea | refType |
       | UKVI         | M:Ref   |
@@ -35,41 +36,50 @@ Feature: CaseCreation
 #      | Coronavirus  | B:Ref   |
 
   Scenario: User adds an MP correspondent at Case Creation stage
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
     When I select to add a correspondent that "is" a member of parliament
     And I add the member of parliament "Nicola Sturgeon MSP"
     Then the submitted correspondent should be visible in the list of correspondents
 
   Scenario: User adds a member of public correspondent at Case Creation stage
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
     When I select to add a correspondent that "is not" a member of parliament
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
 
   Scenario: User removes the primary correspondent
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
     When I add a public correspondent
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
   Scenario: User edits an existing correspondent
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
     When I add a public correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
   Scenario: User adds a second correspondent and selects them as the primary correspondent
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
     When I add "Nicola Sturgeon" MP as a correspondent
     And I add a public correspondent
-    And I complete all required fields for Case Creation
     When I select the primary correspondent radio button for a different correspondent
-    And I click the "Send to Triage" button
+    And I click the "Add to Triage" button
     Then the case summary should list the correct primary correspondent
 
   @Validation
   Scenario: User attempts to progress without answering required questions
-    When I complete all required fields for Case Creation
+    When I complete all required fields for Creation stage
     And I click the "Send to Triage" button
-    Then an error message should be displayed as I must enter a Primary Correspondent at Case Creation stage
+    And I click the "Add to Triage" button
+    Then an error message should be displayed as I must enter a Primary Correspondent at Creation stage
 
   @Validation
   Scenario: User attempts to progress without adding a correspondent
-    When I add a public correspondent
     And I click the "Send to Triage" button
-    Then an error message should be displayed as I must complete all required questions at Case Creation stage
+    Then an error message should be displayed as I must complete all required questions at Creation stage

@@ -45,8 +45,8 @@ public class LoginStepDefs extends BasePage {
         String user = System.getProperty("user");
 
         if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'EAMON'");
-            user = "EAMON";
+            System.out.println("User parameter not set. Defaulting to 'AUTOMATION_USER'");
+            user = "AUTOMATION_USER";
         }
         loginPage.navigateToHocs();
         if (isElementDisplayed($(loginPage.usernameField))) {

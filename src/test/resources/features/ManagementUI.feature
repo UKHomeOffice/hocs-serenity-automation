@@ -27,21 +27,21 @@ Feature: ManagementUI
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "EAMON" to the team
+    And I add the user "CAMERON" to the team
     Then the user should be visible in the team list
 
   @TeamManagement @WeeklyTests
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
-    And I add the users "EAMON" and "CASEY" to the team
+    And I add the users "CAMERON" and "CASEY" to the team
     Then the users should be visible in the team list
 
   @TeamManagement @WeeklyTests
   Scenario: Users should no longer be visible in team page when removed
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I remove the user "EAMON" from the team
+    And I remove the user "CAMERON" from the team
     Then that user should no longer appear in the list of team members
 
   @TeamManagement @Validation

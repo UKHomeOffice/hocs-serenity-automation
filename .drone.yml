@@ -66,27 +66,27 @@ pipeline:
         - success
         - failure
 
-  slack-notification:
-    image: plugins/slack
-    secrets: [ slack_webhook, report_viewer_domain ]
-    environment:
-      - REPORT_URL=${REPORT_VIEWER_DOMAIN}
-    webhook: ${SLACK_WEBHOOK}
-    channel: hocs-dev
-    username: HOCS-SERENITY-AUTOMATOR
-    icon_emoji: ":heavy_check_mark:"
-    template: >
-      {{#success build.status}}
-        build {{build.number}} succeeded and tests have executed successfully.
-      {{else}}
-        build {{build.number}} unfortunately has some test failures, time for some investigating!
-      {{/success}}
-    when:
-      branch: master
-      event: push
-      status:
-        - success
-        - failure
+#  slack-notification:
+#    image: plugins/slack
+#    secrets: [ slack_webhook, report_viewer_domain ]
+#    environment:
+#      - REPORT_URL=${REPORT_VIEWER_DOMAIN}
+#    webhook: ${SLACK_WEBHOOK}
+#    channel: hocs-dev
+#    username: HOCS-SERENITY-AUTOMATOR
+#    icon_emoji: ":heavy_check_mark:"
+#    template: >
+#      {{#success build.status}}
+#        build {{build.number}} succeeded and tests have executed successfully.
+#      {{else}}
+#        build {{build.number}} unfortunately has some test failures, time for some investigating!
+#      {{/success}}
+#    when:
+#      branch: master
+#      event: push
+#      status:
+#        - success
+#        - failure
 
 services:
   selenium:

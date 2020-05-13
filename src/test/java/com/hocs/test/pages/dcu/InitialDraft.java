@@ -165,7 +165,7 @@ public class InitialDraft extends BasePage {
         safeClickOn(continueButton);
         safeClickOn(offlineQaYesRadioButton);
         safeClickOn(continueButton);
-        selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
+        selectOfflineQualityAssurer(Users.CAMERON.getAllocationText());
         safeClickOn(finishButton);
     }
 

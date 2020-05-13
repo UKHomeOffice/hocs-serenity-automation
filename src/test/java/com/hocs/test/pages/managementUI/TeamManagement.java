@@ -130,7 +130,7 @@ public class TeamManagement extends BasePage {
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        $("//table[@class='govuk-table']").shouldContainText(Users.EAMON.getAllocationText());
+        $("//table[@class='govuk-table']").shouldContainText(Users.CAMERON.getAllocationText());
         $("//table[@class='govuk-table']").shouldContainText(Users.CASEY.getAllocationText());
     }
 

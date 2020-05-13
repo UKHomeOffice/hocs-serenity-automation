@@ -1,5 +1,8 @@
 package com.hocs.test.pages;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -30,7 +33,7 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='When was the correspondence sent?']/following-sibling::td")
     private WebElementFacade whenCorrespondenceSent;
 
-    @FindBy(xpath = "//h2[text()='Active stages']/following-sibling::table/caption")
+    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption")
     private WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
@@ -45,5 +48,13 @@ public class SummaryTab extends BasePage {
 
     public String getPrimaryCorrespondent() {
         return primaryCorrespondent.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
+    }
+
+    public String getActiveStage() {
+        return activeStage.getText();
+    }
+
+    public void assertCaseStage(String stage) {
+        assertThat(getActiveStage().toUpperCase(), is(stage.toUpperCase()));
     }
 }

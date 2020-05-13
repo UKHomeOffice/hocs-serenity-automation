@@ -5,7 +5,6 @@ import java.time.Duration;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.hamcrest.core.Is;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 
@@ -83,8 +82,8 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
     public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
 
-    @FindBy(xpath = "//th[text()='Which is the primary correspondent?']/following-sibling::td")
-    public WebElementFacade summaryWhichIsThePrimaryCorrespondent;
+    @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
+    public WebElementFacade summaryPrimaryCorrespondent;
 
     @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
     public WebElementFacade summaryActiveStage;
@@ -256,7 +255,7 @@ public class Workstacks extends BasePage {
         zeroItemsInWorkstackCount.shouldContainText("0 Items");
     }
 
-    public void assertCaseReferenceBeforeAllocation(){
+    public void assertCaseReferenceBeforeAllocation() {
         String searchCaseReference = sessionVariableCalled("caseReference").toString();
         caseReferenceOnAllocationScreen.shouldContainText(searchCaseReference);
 
@@ -286,12 +285,12 @@ public class Workstacks extends BasePage {
     }
 
     public void assertCaseStage(String stage) {
-        assertThat(getStageFromWorkstacksTable().toUpperCase(), Is.is(stage.toUpperCase()));
+        assertThat(getStageFromWorkstacksTable().toUpperCase(), is(stage.toUpperCase()));
     }
 
     public String getAllocatedUserFromWorkstacksTable() {
         WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference")
-                        + "']/../following-sibling::td[2]");
+                + "']/../following-sibling::td[2]");
 
         return caseOwner.getText();
     }
@@ -387,7 +386,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertPrimaryCorrespondentIs(String name) {
-        summaryWhichIsThePrimaryCorrespondent.shouldContainText(name);
+        summaryPrimaryCorrespondent.shouldContainText(name);
     }
 
     public void summaryPrintActiveStage() {

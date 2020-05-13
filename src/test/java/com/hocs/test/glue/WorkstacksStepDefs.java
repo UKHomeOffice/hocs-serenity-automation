@@ -126,7 +126,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the case should be allocated to me")
     public void theCaseShouldBeAllocatedToMe() {
-        workstacks.assertOwnerIs(Users.EAMON);
+        workstacks.assertOwnerIs(Users.CAMERON);
     }
 
     @When("I assign the current case number to {string}")

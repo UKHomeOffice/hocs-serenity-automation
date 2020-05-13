@@ -21,7 +21,7 @@ public class CaseCreationStepDefs extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @When("I complete all required fields for Case Creation")
+    @When("I complete all required fields for Creation stage")
     public void iCompleteAllRequiredFieldsForCaseCreation() {
         caseCreation.completeRequiredQuestions();
     }
@@ -32,7 +32,7 @@ public class CaseCreationStepDefs extends BasePage {
         caseCreation.selectRefType(refType);
     }
 
-    @And("I complete the other required fields for Case Creation")
+    @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
         caseCreation.selectChannel("Email");
         caseCreation.selectPriority("Standard");
@@ -45,12 +45,12 @@ public class CaseCreationStepDefs extends BasePage {
         workstacks.assertPrimaryCorrespondentIs(sessionVariableCalled("primaryCorrespondent"));
     }
 
-    @Then("an error message should be displayed as I must complete all required questions at Case Creation stage")
+    @Then("an error message should be displayed as I must complete all required questions at Creation stage")
     public void anErrorMessageShouldBeDisplayedAsIMustCompleteAllRequiredQuestionsAtCaseCreationStage() {
         caseCreation.assertCaseCreationRequiredQuestionErrorMessages();
     }
 
-    @Then("an error message should be displayed as I must enter a Primary Correspondent at Case Creation stage")
+    @Then("an error message should be displayed as I must enter a Primary Correspondent at Creation stage")
     public void anErrorMessageShouldBeDisplayedAsIMustEnterAPrimaryCorrespondentAtCaseCreationStage() {
         addCorrespondent.assertWhichIsThePrimaryCorrespondentIsRequiredErrorMessage();
     }

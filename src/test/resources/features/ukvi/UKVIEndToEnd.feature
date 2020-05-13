@@ -4,25 +4,24 @@ Feature: EndToEnd
   Background:
     Given I am user "AUTOMATION_USER"
 
-
   @Workflow
   Scenario Outline: User completes Case Creation stage for a case with specific Business Area and Reference Type
     When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
     Examples:
       | businessArea | refType | stage       |
-      | UKVI         | M:Ref   | Case Triage |
-      | BF           | M:Ref   | Case Triage |
-      | IE           | M:Ref   | Case Triage |
-      | EUSS         | M:Ref   | Case Triage |
-      | HMPO         | M:Ref   | Case Triage |
-      | Windrush     | M:Ref   | Case Triage |
-      | UKVI         | B:Ref   | Case Triage |
-      | BF           | B:Ref   | Case Triage |
-      | IE           | B:Ref   | Case Triage |
-      | EUSS         | B:Ref   | Case Triage |
-      | HMPO         | B:Ref   | Case Triage |
-      | Windrush     | B:Ref   | Case Triage |
+      | UKVI         | M:Ref   | Triage |
+      | BF           | M:Ref   | Triage |
+      | IE           | M:Ref   | Triage |
+      | EUSS         | M:Ref   | Triage |
+      | HMPO         | M:Ref   | Triage |
+      | Windrush     | M:Ref   | Triage |
+      | UKVI         | B:Ref   | Triage |
+      | BF           | B:Ref   | Triage |
+      | IE           | B:Ref   | Triage |
+      | EUSS         | B:Ref   | Triage |
+      | HMPO         | B:Ref   | Triage |
+      | Windrush     | B:Ref   | Triage |
 
   @Workflow
   Scenario Outline: User completes Case Triage stage for a case with specific Business Area and Reference Type
@@ -30,18 +29,18 @@ Feature: EndToEnd
     Then the case should be moved to the "<stage>" stage
     Examples:
       | businessArea | refType | stage      |
-      | UKVI         | M:Ref   | Case Draft |
-      | BF           | M:Ref   | Case Draft |
-      | IE           | M:Ref   | Case Draft |
-      | EUSS         | M:Ref   | Case Draft |
-      | HMPO         | M:Ref   | Case Draft |
-      | Windrush     | M:Ref   | Case Draft |
-      | UKVI         | B:Ref   | Case Draft |
-      | BF           | B:Ref   | Case Draft |
-      | IE           | B:Ref   | Case Draft |
-      | EUSS         | B:Ref   | Case Draft |
-      | HMPO         | B:Ref   | Case Draft |
-      | Windrush     | B:Ref   | Case Draft |
+      | UKVI         | M:Ref   | Draft |
+      | BF           | M:Ref   | Draft |
+      | IE           | M:Ref   | Draft |
+      | EUSS         | M:Ref   | Draft |
+      | HMPO         | M:Ref   | Draft |
+      | Windrush     | M:Ref   | Draft |
+      | UKVI         | B:Ref   | Draft |
+      | BF           | B:Ref   | Draft |
+      | IE           | B:Ref   | Draft |
+      | EUSS         | B:Ref   | Draft |
+      | HMPO         | B:Ref   | Draft |
+      | Windrush     | B:Ref   | Draft |
 
   @Workflow
   Scenario Outline: User completes Case Draft stage for a case with specific Business Area and Reference Type
@@ -49,18 +48,18 @@ Feature: EndToEnd
     Then the case should be moved to the "<stage>" stage
     Examples:
       | businessArea | refType | stage   |
-      | UKVI         | M:Ref   | Case QA |
-      | BF           | M:Ref   | Case QA |
-      | IE           | M:Ref   | Case QA |
-      | EUSS         | M:Ref   | Case QA |
-      | HMPO         | M:Ref   | Case QA |
-      | Windrush     | M:Ref   | Case QA |
-      | UKVI         | B:Ref   | Case QA |
-      | BF           | B:Ref   | Case QA |
-      | IE           | B:Ref   | Case QA |
-      | EUSS         | B:Ref   | Case QA |
-      | HMPO         | B:Ref   | Case QA |
-      | Windrush     | B:Ref   | Case QA |
+      | UKVI         | M:Ref   | QA |
+      | BF           | M:Ref   | QA |
+      | IE           | M:Ref   | QA |
+      | EUSS         | M:Ref   | QA |
+      | HMPO         | M:Ref   | QA |
+      | Windrush     | M:Ref   | QA |
+      | UKVI         | B:Ref   | QA |
+      | BF           | B:Ref   | QA |
+      | IE           | B:Ref   | QA |
+      | EUSS         | B:Ref   | QA |
+      | HMPO         | B:Ref   | QA |
+      | Windrush     | B:Ref   | QA |
 
   @Workflow
   Scenario Outline: User completes Case QA stage for a case with specific Business Area and Reference Type
@@ -68,18 +67,18 @@ Feature: EndToEnd
     Then the case should be moved to the "<stage>" stage
     Examples:
       | businessArea | refType | stage               |
-      | UKVI         | M:Ref   | Case Private Office |
-      | BF           | M:Ref   | Case Private Office |
-      | IE           | M:Ref   | Case Private Office |
-      | EUSS         | M:Ref   | Case Private Office |
-      | HMPO         | M:Ref   | Case Private Office |
-      | Windrush     | M:Ref   | Case Private Office |
-      | UKVI         | B:Ref   | Case Dispatch       |
-      | BF           | B:Ref   | Case Dispatch       |
-      | IE           | B:Ref   | Case Dispatch       |
-      | EUSS         | B:Ref   | Case Dispatch       |
-      | HMPO         | B:Ref   | Case Dispatch       |
-      | Windrush     | B:Ref   | Case Dispatch       |
+      | UKVI         | M:Ref   | Private Office |
+      | BF           | M:Ref   | Private Office |
+      | IE           | M:Ref   | Private Office |
+      | EUSS         | M:Ref   | Private Office |
+      | HMPO         | M:Ref   | Private Office |
+      | Windrush     | M:Ref   | Private Office |
+      | UKVI         | B:Ref   | Dispatch       |
+      | BF           | B:Ref   | Dispatch       |
+      | IE           | B:Ref   | Dispatch       |
+      | EUSS         | B:Ref   | Dispatch       |
+      | HMPO         | B:Ref   | Dispatch       |
+      | Windrush     | B:Ref   | Dispatch       |
 
   Scenario Outline: User completes Case Private Office stage for a case with specific Business Area and Reference Type
     When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
