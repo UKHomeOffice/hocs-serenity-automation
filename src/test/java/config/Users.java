@@ -4,7 +4,7 @@ public enum Users {
 
     AUTOMATION_USER("automation.user", "Password1!", "Automation User (automation.user@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
-    EAMON("eamon.droko@ten10.com", "Password1!", "Eamon Droko (eamon.droko@ten10.com)"), //Just Eamon
+    CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),
     FAKE("FakeUser", "FAKE1!", ""),
     PROD("", "", "");
 

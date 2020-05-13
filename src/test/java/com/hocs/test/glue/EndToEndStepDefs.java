@@ -93,22 +93,22 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "UKVI":
                 switch (stage.toUpperCase()) {
-                    case "CASE CREATION":
+                    case "CREATION":
                         caseCreation.moveCaseFromCaseCreationToCaseTriage();
                         break;
-                    case "CASE TRIAGE":
+                    case "TRIAGE":
                         caseTriage.moveCaseFromCaseTriageToCaseDraft();
                         break;
-                    case "CASE DRAFT":
+                    case "DRAFT":
                         caseDraft.moveCaseFromCaseCreationToCaseQA();
                         break;
-                    case "CASE QA":
+                    case "QA":
                         caseQA.moveCaseFromCaseQAToNextStage();
                         break;
-                    case "CASE PRIVATE OFFICE":
+                    case "PRIVATE OFFICE":
                         casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
                         break;
-                    case "CASE DISPATCH":
+                    case "DISPATCH":
                         caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();
                         break;
                     default:
@@ -227,33 +227,33 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "UKVI":
                 switch (stage.toUpperCase()) {
-                    case "CASE CREATION":
+                    case "CREATION":
                         createCase.createCaseOfType(caseType);
                         homepage.goHome();
                         break;
-                    case "CASE TRIAGE":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
-                        iCompleteTheStage("CASE CREATION");
+                    case "TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "CREATION");
+                        iCompleteTheStage("CREATION");
                         break;
-                    case "CASE DRAFT":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE TRIAGE");
-                        iCompleteTheStage("CASE TRIAGE");
+                    case "DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "TRIAGE");
+                        iCompleteTheStage("TRIAGE");
                         break;
-                    case "CASE QA":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE DRAFT");
-                        iCompleteTheStage("CASE DRAFT");
+                    case "QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "DRAFT");
+                        iCompleteTheStage("DRAFT");
                         break;
-                    case "CASE PRIVATE OFFICE":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE QA");
-                        iCompleteTheStage("QA RESPONSE");
+                    case "PRIVATE OFFICE":
+                        iCreateACaseAndMoveItToAStage(caseType, "QA");
+                        iCompleteTheStage("QA");
                         break;
-                    case "CASE DISPATCHING":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE APPROVAL");
+                    case "DISPATCH":
+                        moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "B:REF","QA");
+                        iCompleteTheStage("QA");
                         break;
                     case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "CASE DISPATCHING");
-                        iCompleteTheStage("DISPATCH");
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -268,33 +268,31 @@ public class EndToEndStepDefs extends BasePage {
     public void moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
             String stage) {
         switch (stage.toUpperCase()) {
-            case "CASE TRIAGE":
-                iCreateACaseAndMoveItToAStage("UKVI", "CASE CREATION");
+            case "TRIAGE":
+                iCreateACaseAndMoveItToAStage("UKVI", "CREATION");
                 homepage.getAndClaimCurrentCase();
                 caseCreation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
                 break;
-            case "CASE DRAFT":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE TRIAGE");
-                iCompleteTheStage("CASE TRIAGE");
+            case "DRAFT":
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
+                iCompleteTheStage("TRIAGE");
                 break;
-            case "CASE QA":
+            case "QA":
                 moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE DRAFT");
                 iCompleteTheStage("CASE DRAFT");
                 break;
-            case "CASE PRIVATE OFFICE":
-            case "CASE DISPATCH":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE QA");
-                iCompleteTheStage("CASE QA");
+            case "PRIVATE OFFICE":
+            case "DISPATCH":
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "QA");
+                iCompleteTheStage("QA");
                 break;
             case "CASE CLOSED":
                 if (refType.toUpperCase().equals("M:REF")) {
-                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE PRIVATE "
-                            + "OFFICE");
-                    iCompleteTheStage("CASE PRIVATE OFFICE");
+                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
+                    iCompleteTheStage("PRIVATE OFFICE");
                 } else {
-                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE "
-                            + "DISPATCH");
-                    iCompleteTheStage("CASE DISPATCH");
+                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "DISPATCH");
+                    iCompleteTheStage("DISPATCH");
                 }
                 break;
             default:

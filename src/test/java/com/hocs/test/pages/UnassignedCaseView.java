@@ -9,6 +9,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class UnassignedCaseView extends BasePage {
 
+    @FindBy(linkText = "Allocate to me")
+    public WebElementFacade allocateToMeLink;
+
     //Accordion extender buttons
     @FindBy(xpath = "//button[text()= 'Data Input']")
     public WebElementFacade dataInputAccordionButton;
@@ -82,9 +85,6 @@ public class UnassignedCaseView extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Why should this be approved by this team instead?']/parent::span")
     public WebElementFacade whyShouldThisBeApprovedByThisTeamInstead;
-
-    @FindBy(linkText = "Allocate to me")
-    public WebElementFacade allocateToMeLink;
 
     // Basic methods
 

@@ -25,10 +25,6 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManagementUIStepDefs extends BasePage {
 
-    Homepage homepage;
-
-    GenericInputStepDefs genericInputStepDefs;
-
     LoginPage loginPage;
 
     fetchExistingDCUCases fetchExistingDCUCases;
@@ -166,7 +162,7 @@ public class ManagementUIStepDefs extends BasePage {
         teamManagement.clearTeamMember(firstUser);
         teamManagement.clearTeamMember(secondUser);
         setSessionVariable("firstUser").to(Users.valueOf(firstUser));
-        teamManagement.selectAUser(Users.EAMON);
+        teamManagement.selectAUser(Users.CAMERON);
         setSessionVariable("secondUser").to(Users.valueOf(secondUser));
         teamManagement.selectAUser(Users.CASEY);
     }

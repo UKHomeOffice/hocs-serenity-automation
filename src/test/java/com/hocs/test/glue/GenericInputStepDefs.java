@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.dcu.Dispatch;
@@ -42,6 +43,8 @@ public class GenericInputStepDefs extends BasePage {
     Dispatch dispatch;
 
     AddCorrespondent addCorrespondent;
+
+    SummaryTab summaryTab;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -293,6 +296,7 @@ public class GenericInputStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                workstacks.assertCaseStage(stage);
                 break;
             case "TRO":
                 switch (stage.toUpperCase()) {
@@ -313,6 +317,7 @@ public class GenericInputStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                workstacks.assertCaseStage(stage);
                 break;
             case "DTEN":
                 switch (stage.toUpperCase()) {
@@ -331,30 +336,16 @@ public class GenericInputStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                workstacks.assertCaseStage(stage);
                 break;
             case "UKVI":
-                waitABit(3000);
-                switch (stage.toUpperCase()) {
-                    case "CASE CREATION":
-                        safeClickOn(homepage.UKVICreationTeam);
-                        break;
-                    case "CASE TRIAGE":
-                        homepage.selectUKVITriageTeam();
-                        break;
-                    case "CASE DRAFT":
-                    case "CASE DISPATCH":
-                        homepage.selectUKVIDraftingTeam();
-                        break;
-                    case "CASE QA":
-                    case "CASE PRIVATE OFFICE":
-                        homepage.selectUKVIQATeam();
-                        break;
-                }
+                homepage.getCurrentCase();
+                summaryTab.selectSummaryTab();
+                summaryTab.assertCaseStage(stage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        workstacks.assertCaseStage(stage);
     }
 
     @And("I reject the case at the {string} stage")

@@ -180,8 +180,8 @@ public class InitialDraftStepDefs extends BasePage {
     @And("I select {string} as the offline QA")
     public void iSelectAsTheOfflineQA(String teamMember) {
         switch (teamMember.toUpperCase()) {
-            case "EAMON":
-                initialDraft.selectOfflineQualityAssurer(Users.EAMON.getAllocationText());
+            case "CAMERON":
+                initialDraft.selectOfflineQualityAssurer(Users.CAMERON.getAllocationText());
                 safeClickOn(finishButton);
                 break;
             case "CASEY":

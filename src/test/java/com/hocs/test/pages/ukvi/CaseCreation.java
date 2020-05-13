@@ -49,17 +49,23 @@ public class CaseCreation extends BasePage {
     @FindBy(css = "label[for='Priority-Immediate']")
     public WebElementFacade priorityImmediateRadioButton;
 
-    @FindBy(css = "label[for='Channel-Email']")
+    @FindBy(css = "label[for='ChannelIn-Email']")
     public WebElementFacade channelEmailRadioButton;
 
-    @FindBy(css = "label[for='Channel-Phone']")
-    public WebElementFacade channelPhoneRadioButton;
+    @FindBy(css = "label[for='ChannelIn-Phone-routed']")
+    public WebElementFacade channelPhoneRoutedRadioButton;
 
-    @FindBy(css = "label[for='Channel-Post']")
+    @FindBy(css = "label[for='ChannelIn-Phone-dealt-with']")
+    public WebElementFacade channelPhoneCompletedRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-Post']")
     public WebElementFacade channelPostRadioButton;
 
-    @FindBy(css = "label[for='Channel-Outreach']")
+    @FindBy(css = "label[for='ChannelIn-Outreach']")
     public WebElementFacade channelOutreachRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-PO']")
+    public WebElementFacade channelPrivateOfficeRadioButton;
 
     @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
     public WebElementFacade businessAreaIsRequiredErrorMessage;
@@ -70,7 +76,7 @@ public class CaseCreation extends BasePage {
     @FindBy(xpath = "//a[contains(@href, '#Priority-error')]")
     public WebElementFacade priorityIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[contains(@href, '#Channel-error')]")
+    @FindBy(xpath = "//a[contains(@href, '#ChannelIn-error')]")
     public WebElementFacade channelReceivedIsRequiredErrorMessage;
 
 
@@ -154,8 +160,11 @@ public class CaseCreation extends BasePage {
             case "EMAIL":
                 safeClickOn(channelEmailRadioButton);
                 break;
-            case "PHONE":
-                safeClickOn(channelPhoneRadioButton);
+            case "PHONE ROUTED":
+                safeClickOn(channelPhoneRoutedRadioButton);
+                break;
+            case "PHONE COMPLETED":
+                safeClickOn(channelPhoneCompletedRadioButton);
                 break;
             case "POST":
                 safeClickOn(channelPostRadioButton);
@@ -163,24 +172,29 @@ public class CaseCreation extends BasePage {
             case "OUTREACH":
                 safeClickOn(channelOutreachRadioButton);
                 break;
+            case "PRIVATE OFFICE":
+                safeClickOn(channelPrivateOfficeRadioButton);
+                break;
             default:
                 pendingStep(channel + " is not defined within " + getMethodName());
         }
     }
 
     public void moveCaseFromCaseCreationToCaseTriage() {
-        addCorrespondent.addAPublicCorrespondent();
         completeRequiredQuestions();
         clickTheButton("Send to Triage");
+        addCorrespondent.addAPublicCorrespondent();
+        clickTheButton("Add to Triage");
     }
 
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
-        addCorrespondent.addAPublicCorrespondent();
         selectBusinessArea(businessArea);
         selectRefType(refType);
         selectChannel("Email");
         selectPriority("Standard");
         clickTheButton("Send to Triage");
+        addCorrespondent.addAPublicCorrespondent();
+        clickTheButton("Add to Triage");
     }
 
     public void assertCaseCreationRequiredQuestionErrorMessages() {
