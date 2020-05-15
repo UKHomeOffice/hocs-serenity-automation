@@ -2,9 +2,9 @@ package com.hocs.test.pages.ukvi;
 
 import com.hocs.test.pages.BasePage;
 
-public class CaseDraft extends BasePage {
+public class Draft extends BasePage {
 
-    public void moveCaseFromCaseCreationToCaseQA() {
+    public void moveCaseFromDraftToQA() {
         clickTheButton("Confirm");
     }
 }

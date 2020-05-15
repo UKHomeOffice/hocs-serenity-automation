@@ -1,9 +1,9 @@
-@CaseTriage
-Feature: CaseTriage
+@Triage
+Feature: Triage
 
   Background:
     Given I am user "AUTOMATION_USER"
-    And I create a "UKVI" case and move it to the "Case Triage" stage
+    And I create a "UKVI" case and move it to the "Triage" stage
     And I load and claim the current case
 
   @Navigation
@@ -12,5 +12,5 @@ Feature: CaseTriage
 
   @Workflow
   Scenario: User completes the Triage stage
-    When I complete the "Case Triage" stage
-    Then the case should be moved to the "Case Draft" stage
+    When I complete the "Triage" stage
+    Then the case should be moved to the "Draft" stage

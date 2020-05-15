@@ -4,7 +4,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseDispatching extends BasePage {
+public class AwaitingDispatch extends BasePage {
 
     @FindBy(id = "DateDispatched-day")
     public WebElementFacade dispatchedDayTextField;
@@ -51,7 +51,7 @@ public class CaseDispatching extends BasePage {
         typeInto(dispatchedYearTextField, year);
     }
 
-    public void moveCaseFromCaseDispatchingToCaseClosed() {
+    public void moveCaseFromAwaitingDispatchToCaseClosed() {
         dispatchedDateInput(1, 1, 2001);
         safeClickOn(outboundChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButton);

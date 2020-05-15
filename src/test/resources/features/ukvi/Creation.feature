@@ -1,5 +1,5 @@
-@CaseCreation
-Feature: CaseCreation
+@Creation
+Feature: Creation
 
   Background:
     Given I am user "AUTOMATION_USER"
@@ -9,6 +9,12 @@ Feature: CaseCreation
   @Navigation
   Scenario: User should be on the UKVI Data Input Page
     Then the "UKVI Data Input" page should be displayed
+
+  @Navigation
+  Scenario: User should be on the UKVI Correspondents Details Page
+    When I complete all required fields for Creation stage
+    And I click the "Send to Triage" button
+    Then the "UKVI Correspondents Details" page should be displayed
 
   @Workflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type

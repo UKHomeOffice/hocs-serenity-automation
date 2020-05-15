@@ -9,7 +9,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseCreation extends BasePage {
+public class Creation extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
@@ -180,7 +180,7 @@ public class CaseCreation extends BasePage {
         }
     }
 
-    public void moveCaseFromCaseCreationToCaseTriage() {
+    public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
         clickTheButton("Send to Triage");
         addCorrespondent.addAPublicCorrespondent();

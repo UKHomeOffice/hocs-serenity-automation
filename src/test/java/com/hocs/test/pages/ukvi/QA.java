@@ -4,7 +4,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseQA extends BasePage {
+public class QA extends BasePage {
 
     //QA Elements
     @FindBy(xpath = "//label[text()='Approved at QA']")
@@ -46,7 +46,7 @@ public class CaseQA extends BasePage {
     public WebElementFacade takeOffHoldRadioButton;
 
     //QA Actions
-    public void moveCaseFromCaseQAToNextStage() {
+    public void moveCaseFromQAToNextStage() {
         safeClickOn(approvedAtQARadioButton);
         clickTheButton("Confirm");
     }

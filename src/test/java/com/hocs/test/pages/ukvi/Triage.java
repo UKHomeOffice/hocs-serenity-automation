@@ -5,7 +5,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 
-public class CaseTriage extends BasePage {
+public class Triage extends BasePage {
 
     @FindBy(xpath = "//label[text()='Ready to draft']")
     public WebElementFacade readyToDraftRadioButton;
@@ -29,7 +29,7 @@ public class CaseTriage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    public void moveCaseFromCaseTriageToCaseDraft() {
+    public void moveCaseFromTriageToDraft() {
         safeClickOn(readyToDraftRadioButton);
         clickTheButton("Confirm");
     }
