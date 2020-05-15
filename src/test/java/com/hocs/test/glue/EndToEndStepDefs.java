@@ -106,7 +106,7 @@ public class EndToEndStepDefs extends BasePage {
                         caseQA.moveCaseFromCaseQAToNextStage();
                         break;
                     case "PRIVATE OFFICE":
-                        casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
+                        casePrivateOffice.moveCaseFromCasePrivateOfficeToDispatch();
                         break;
                     case "DISPATCH":
                         caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();
@@ -278,11 +278,11 @@ public class EndToEndStepDefs extends BasePage {
                 iCompleteTheStage("TRIAGE");
                 break;
             case "QA":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "CASE DRAFT");
-                iCompleteTheStage("CASE DRAFT");
+                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "DRAFT");
+                iCompleteTheStage("DRAFT");
                 break;
             case "PRIVATE OFFICE":
-            case "DISPATCH":
+            case "AWAITING DISPATCH":
                 moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "QA");
                 iCompleteTheStage("QA");
                 break;
@@ -291,7 +291,8 @@ public class EndToEndStepDefs extends BasePage {
                     moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
                     iCompleteTheStage("PRIVATE OFFICE");
                 } else {
-                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "DISPATCH");
+                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
+                            "AWAITING DISPATCH");
                     iCompleteTheStage("DISPATCH");
                 }
                 break;

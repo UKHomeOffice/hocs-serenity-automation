@@ -73,12 +73,12 @@ Feature: EndToEnd
       | EUSS         | M:Ref   | Private Office |
       | HMPO         | M:Ref   | Private Office |
       | Windrush     | M:Ref   | Private Office |
-      | UKVI         | B:Ref   | Dispatch       |
-      | BF           | B:Ref   | Dispatch       |
-      | IE           | B:Ref   | Dispatch       |
-      | EUSS         | B:Ref   | Dispatch       |
-      | HMPO         | B:Ref   | Dispatch       |
-      | Windrush     | B:Ref   | Dispatch       |
+      | UKVI         | B:Ref   | Awaiting Dispatch       |
+      | BF           | B:Ref   | Awaiting Dispatch       |
+      | IE           | B:Ref   | Awaiting Dispatch       |
+      | EUSS         | B:Ref   | Awaiting Dispatch       |
+      | HMPO         | B:Ref   | Awaiting Dispatch       |
+      | Windrush     | B:Ref   | Awaiting Dispatch       |
 
   Scenario Outline: User completes Case Private Office stage for a case with specific Business Area and Reference Type
     When I create a UKVI case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
