@@ -106,7 +106,7 @@ public class EndToEndStepDefs extends BasePage {
                         caseQA.moveCaseFromCaseQAToNextStage();
                         break;
                     case "PRIVATE OFFICE":
-                        casePrivateOffice.moveCaseFromCasePrivateOfficeToDispatch();
+                        casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
                         break;
                     case "DISPATCH":
                         caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();

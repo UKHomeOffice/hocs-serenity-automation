@@ -46,7 +46,7 @@ public class CasePrivateOffice extends BasePage {
         typeInto(dispatchedDateYearTextField, year);
     }
 
-    public void moveCaseFromCasePrivateOfficeToDispatch() {
+    public void moveCaseFromCasePrivateOfficeToCaseClosed() {
         dispatchedDateInput(1,1,2001);
         safeClickOn(outboundChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButton);
