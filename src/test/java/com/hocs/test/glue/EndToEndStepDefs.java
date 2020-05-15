@@ -48,7 +48,7 @@ public class EndToEndStepDefs extends BasePage {
 
     Draft draft;
 
-    QA caseQA;
+    QA qa;
 
     PrivateOffice privateOffice;
 
@@ -102,7 +102,7 @@ public class EndToEndStepDefs extends BasePage {
                         draft.moveCaseFromDraftToQA();
                         break;
                     case "QA":
-                        caseQA.moveCaseFromQAToNextStage();
+                        qa.moveCaseFromQAToNextStage();
                         break;
                     case "PRIVATE OFFICE":
                         privateOffice.moveCaseFromPrivateOfficeToCaseClosed();

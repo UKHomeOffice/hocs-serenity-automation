@@ -1,9 +1,9 @@
-@CaseQA
-Feature: CaseQA
+@QA
+Feature: QA
 
   Background:
     Given I am user "AUTOMATION_USER"
-    And I create a "UKVI" case and move it to the "Case QA" stage
+    And I create a "UKVI" case and move it to the "QA" stage
     And I load and claim the current case
 
   @Navigation
@@ -12,5 +12,5 @@ Feature: CaseQA
 
   @Workflow
   Scenario: User completes the QA stage
-    When I complete the "Case QA" stage
-    Then the case should be moved to the "Case Private Office" stage
+    When I complete the "QA" stage
+    Then the case should be moved to the "Private Office" stage

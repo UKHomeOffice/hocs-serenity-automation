@@ -5,7 +5,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CasePrivateOffice extends BasePage {
+public class PrivateOffice extends BasePage {
 
     @FindBy(id = "DateDispatched-day")
     public WebElementFacade dispatchedDateDayTextField;
@@ -46,7 +46,7 @@ public class CasePrivateOffice extends BasePage {
         typeInto(dispatchedDateYearTextField, year);
     }
 
-    public void moveCaseFromCasePrivateOfficeToCaseClosed() {
+    public void moveCaseFromPrivateOfficeToCaseClosed() {
         dispatchedDateInput(1,1,2001);
         safeClickOn(outboundChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButton);
