@@ -146,17 +146,17 @@ public class DataInput extends BasePage {
             typeInto(dtenDispatchDeadlineMonthField, "01");
             typeInto(dtenDispatchDeadlineYearField, "2019");
             safeClickOn(continueButton);
-            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
         } else {
-            enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+            enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
@@ -166,9 +166,9 @@ public class DataInput extends BasePage {
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
-        enterDayOfCorrespondenceSent(todayPlusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusNDaysGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusNDaysGetYear(-2));
+        enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());

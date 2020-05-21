@@ -81,12 +81,12 @@ public class MarkupStepDefs extends BasePage {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
                 markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "PRIVATE OFFICE":
                 markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 homepage.getAndClaimCurrentCase();
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
                 qaResponse.qaResponseFullFlow();
@@ -235,7 +235,7 @@ public class MarkupStepDefs extends BasePage {
                 pendingStep(status + " is not defined within " + getMethodName());
         }
         safeClickOn(markupDecision.continueButton);
-        safeClickOn(markupDecision.finishButton);
+        safeClickOn(finishButton);;
     }
 
     @When("I select an initial decision of {string}")

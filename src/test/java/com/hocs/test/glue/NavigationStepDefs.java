@@ -112,6 +112,11 @@ public class NavigationStepDefs extends BasePage {
         homepage.getAndClaimCurrentCase();
     }
 
+    @And("I claim the current case")
+    public void claimCase() {
+        homepage.claimCurrentCase();
+    }
+
     @Then("I am returned to my home screen")
     public void returnedToHomeScreen() {
         homepage.assertElementIsDisplayed(homepage.createSingleCase);
@@ -143,5 +148,4 @@ public class NavigationStepDefs extends BasePage {
         }
         System.out.println("I have been taken to " + pageName);
     }
-
 }

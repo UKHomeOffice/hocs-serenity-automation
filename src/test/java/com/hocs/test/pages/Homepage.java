@@ -15,8 +15,6 @@ import org.openqa.selenium.NoSuchElementException;
 
 public class Homepage extends BasePage {
 
-    Workstacks workstacks;
-
     UnassignedCaseView unassignedCaseView;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")

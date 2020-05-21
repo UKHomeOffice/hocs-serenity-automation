@@ -243,4 +243,15 @@ public class WorkstacksStepDefs extends BasePage {
                 break;
         }
     }
+
+    @And("I view the case in the Triage workstack")
+    public void iViewTheCaseInTheTriageWorkstack() {
+        homepage.selectUKVITriageTeam();
+        workstacks.filterByCurrentCaseReference();
+    }
+
+    @Then("the case should be assigned {string} points")
+    public void theCaseShouldBeAssignedPoints(String expectedPoints) {
+        workstacks.assertPointsOfCurrentCaseEqual(expectedPoints);
+    }
 }

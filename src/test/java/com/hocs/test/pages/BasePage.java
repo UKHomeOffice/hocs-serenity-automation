@@ -57,9 +57,6 @@ public class BasePage extends PageObject {
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade home;
 
-    @FindBy(css = "[value='Finish']")
-    public WebElementFacade finishButton;
-
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
 
@@ -79,7 +76,7 @@ public class BasePage extends PageObject {
     public WebElementFacade searchButton;
 
     @FindBy(css = "[value = 'Finish']")
-    public WebElementFacade submitButton;
+    public WebElementFacade finishButton;
 
     public void waitABit(int milliseconds) {
         try {
@@ -210,21 +207,21 @@ public class BasePage extends PageObject {
         return yearFormat.format(cal.getTime());
     }
 
-    public String todayPlusNDaysGetDay(int days) {
+    public String todayPlusMinusNDaysGetDay(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return dayFormat.format(cal.getTime());
     }
 
-    public String todayPlusNDaysGetMonth(int days) {
+    public String todayPlusMinusNDaysGetMonth(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return monthFormat.format(cal.getTime());
     }
 
-    public String todayPlusNDaysGetYear(int days) {
+    public String todayPlusMinusNDaysGetYear(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
