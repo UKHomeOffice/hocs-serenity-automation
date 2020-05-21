@@ -7,16 +7,16 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseDispatching extends BasePage {
+public class PrivateOffice extends BasePage {
 
     @FindBy(id = "DateDispatched-day")
-    public WebElementFacade dispatchedDayTextField;
+    public WebElementFacade dispatchedDateDayTextField;
 
     @FindBy(id = "DateDispatched-month")
-    public WebElementFacade dispatchedMonthTextField;
+    public WebElementFacade dispatchedDateMonthTextField;
 
     @FindBy(id = "DateDispatched-year")
-    public WebElementFacade dispatchedYearTextField;
+    public WebElementFacade dispatchedDateYearTextField;
 
     @FindBy(css = "label[for='ChannelOut-Email']")
     public WebElementFacade responseChannelEmailRadioButton;
@@ -24,14 +24,8 @@ public class CaseDispatching extends BasePage {
     @FindBy(css = "label[for='ChannelOut-Letter']")
     public WebElementFacade responseChannelLetterRadioButton;
 
-    @FindBy(css = "label[for='ChannelOut-Phone']")
-    public WebElementFacade responseChannelPhoneRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Outreach']")
-    public WebElementFacade responseChannelOutreachRadioButton;
-
-    @FindBy(xpath = "//label[text()='Pending']")
-    public WebElementFacade pendingRadioButton;
+    @FindBy(xpath = "//label[text()='Reject Print for Signage']")
+    public WebElementFacade rejectPrintForSignageRadioButton;
 
     @FindBy(xpath = "//label[text()='Dispatched']")
     public WebElementFacade dispatchedRadioButton;
@@ -49,13 +43,13 @@ public class CaseDispatching extends BasePage {
         String day = Integer.toString(dd);
         String month = Integer.toString(mm);
         String year = Integer.toString(yyyy);
-        typeInto(dispatchedDayTextField, day);
-        typeInto(dispatchedMonthTextField, month);
-        typeInto(dispatchedYearTextField, year);
+        typeInto(dispatchedDateDayTextField, day);
+        typeInto(dispatchedDateMonthTextField, month);
+        typeInto(dispatchedDateYearTextField, year);
     }
 
-    public void moveCaseFromCaseDispatchingToCaseClosed() {
-        dispatchedDateInput(1, 1, 2001);
+    public void moveCaseFromPrivateOfficeToCaseClosed() {
+        dispatchedDateInput(1,1,2001);
         safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButton);
         clickTheButton("Confirm");

@@ -1,5 +1,5 @@
-@CaseDrafting
-Feature: CaseDrafting
+@Drafting
+Feature: Drafting
 
   Background:
     Given I am user "AUTOMATION_USER"

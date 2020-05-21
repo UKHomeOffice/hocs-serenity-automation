@@ -5,21 +5,20 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.ukvi.CaseCreation;
+import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.ukvi.CaseDispatching;
-import com.hocs.test.pages.ukvi.CaseDraft;
-import com.hocs.test.pages.ukvi.CasePrivateOffice;
-import com.hocs.test.pages.ukvi.CaseQA;
-import com.hocs.test.pages.ukvi.CaseTriage;
+import com.hocs.test.pages.ukvi.AwaitingDispatch;
+import com.hocs.test.pages.ukvi.Draft;
+import com.hocs.test.pages.ukvi.PrivateOffice;
+import com.hocs.test.pages.ukvi.QA;
+import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -41,19 +40,19 @@ public class EndToEndStepDefs extends BasePage {
 
     MinisterialSignOff ministerialSignOff;
 
-    Dispatch dispatch;
+    com.hocs.test.pages.dcu.Dispatch dispatch;
 
-    CaseCreation caseCreation;
+    Creation creation;
 
-    CaseTriage caseTriage;
+    Triage triage;
 
-    CaseDraft caseDraft;
+    Draft draft;
 
-    CaseQA caseQA;
+    QA qa;
 
-    CasePrivateOffice casePrivateOffice;
+    PrivateOffice privateOffice;
 
-    CaseDispatching caseDispatching;
+    AwaitingDispatch awaitingDispatch;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -85,7 +84,7 @@ public class EndToEndStepDefs extends BasePage {
                         ministerialSignOff.moveCaseFromMinisterToDispatch();
                         break;
                     case "DISPATCH":
-                        dispatch.moveCaseFromDispatchToCaseClosed();
+                        awaitingDispatch.moveCaseFromAwaitingDispatchToCaseClosed();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -94,22 +93,22 @@ public class EndToEndStepDefs extends BasePage {
             case "UKVI":
                 switch (stage.toUpperCase()) {
                     case "CREATION":
-                        caseCreation.moveCaseFromCaseCreationToCaseTriage();
+                        creation.moveCaseFromCreationToTriage();
                         break;
                     case "TRIAGE":
-                        caseTriage.moveCaseFromCaseTriageToCaseDraft();
+                        triage.moveCaseFromTriageToDraft();
                         break;
                     case "DRAFT":
-                        caseDraft.moveCaseFromCaseCreationToCaseQA();
+                        draft.moveCaseFromDraftToQA();
                         break;
                     case "QA":
-                        caseQA.moveCaseFromCaseQAToNextStage();
+                        qa.moveCaseFromQAToNextStage();
                         break;
                     case "PRIVATE OFFICE":
-                        casePrivateOffice.moveCaseFromCasePrivateOfficeToCaseClosed();
+                        privateOffice.moveCaseFromPrivateOfficeToCaseClosed();
                         break;
-                    case "DISPATCH":
-                        caseDispatching.moveCaseFromCaseDispatchingToCaseClosed();
+                    case "AWAITING DISPATCH":
+                        awaitingDispatch.moveCaseFromAwaitingDispatchToCaseClosed();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -247,7 +246,7 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "QA");
                         iCompleteTheStage("QA");
                         break;
-                    case "DISPATCH":
+                    case "AWAITING DISPATCH":
                         moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "B:REF","QA");
                         iCompleteTheStage("QA");
                         break;
@@ -271,7 +270,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("UKVI", "CREATION");
                 homepage.getAndClaimCurrentCase();
-                caseCreation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
+                creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
                 break;
             case "DRAFT":
                 moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
@@ -293,7 +292,7 @@ public class EndToEndStepDefs extends BasePage {
                 } else {
                     moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
                             "AWAITING DISPATCH");
-                    iCompleteTheStage("DISPATCH");
+                    iCompleteTheStage("AWAITING DISPATCH");
                 }
                 break;
             default:

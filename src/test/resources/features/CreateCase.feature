@@ -49,7 +49,7 @@ Feature: Create case
   @UKVIWorkflow @SmokeTests
   Scenario: Newly created UKVI cases should move to the Case Creation stage
     And I create a single "UKVI" case and return to the dashboard
-    Then the case should be moved to the "Case Creation" stage
+    Then the case should be moved to the "Creation" stage
 
   @Navigation
   Scenario: User should be taken back to the dashboard when they click the back button on the what type of correspondence
@@ -73,12 +73,12 @@ Feature: Create case
   Scenario: When creating a Single MIN Case date received is required
     And I move to the When Was Correspondence Received Page
     And I enter a blank date
-    And I click the "Finish" button
+    And I click the "Create case" button
     Then an error message should be displayed as I have not entered the correspondence received date
 
   @Validation
   Scenario: When creating a Single MIN case a valid date must be entered
     And I move to the When Was Correspondence Received Page
     And I enter an invalid date
-    And I click the "Finish" button
+    And I click the "Create case" button
     Then an error message should be displayed as I have entered an invalid date

@@ -4,7 +4,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseDraft extends BasePage {
+public class Draft extends BasePage {
 
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;

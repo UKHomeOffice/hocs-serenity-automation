@@ -1,5 +1,5 @@
-@CaseTriage
-Feature: CaseTriage
+@Triage
+Feature: Triage
 
   Background:
     Given I am user "AUTOMATION_USER"

@@ -56,10 +56,10 @@ public class CreateCaseStepDefs extends BasePage {
         switch (document.toUpperCase()) {
             case "WITH":
                 documents.uploadDocumentOfType("docx");
-                safeClickOn(createCase.finishButton);
+                createCase.clickCreateCaseButton();
                 break;
             case "WITHOUT":
-                safeClickOn(createCase.finishButton);
+                createCase.clickCreateCaseButton();
                 break;
             default:
                 pendingStep(document + " is not defined within " + getMethodName());
@@ -72,7 +72,7 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.selectCaseType(caseType);
         safeClickOn(createCase.nextButton);
         documents.bulkUploadDocuments(cases);
-        safeClickOn(createCase.finishButton);
+        createCase.clickCreateCaseButton();
     }
 
     @Given("I am presented with {string}")
@@ -186,7 +186,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void userCreatesBulkCasesWithoutAddingADocument() {
         safeClickOn(createCase.dcuMinRadioButton);
         safeClickOn(createCase.nextButton);
-        safeClickOn(createCase.finishButton);
+        createCase.clickCreateCaseButton();
     }
 
     @Then("an error message should be displayed as I have not entered the correspondence received date")
@@ -221,5 +221,10 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a single {string} case with the correspondence received date as: {string}-{string}-{string}")
     public void iCreateACaseWithCorrespondenceDate(String caseType, String day, String month, String year) {
         createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, day, month, year);
+    }
+
+    @And("I create a single {string} case with the correspondence received date set {int} days ago")
+    public void iCreateACaseReceivedNDaysAgo(String caseType, int days) {
+        createCase.createCaseReceivedNDaysAgo(caseType, days);
     }
 }

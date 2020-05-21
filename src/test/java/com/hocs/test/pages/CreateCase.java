@@ -55,6 +55,9 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//a[text()='Date received must be a valid date']")
     public WebElementFacade dateReceivedIsInvalidErrorMessage;
 
+    @FindBy(css = "[value = 'Create case']")
+    public WebElementFacade createCaseButton;
+
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
@@ -76,6 +79,8 @@ public class CreateCase extends BasePage {
     private void clickUkviRadioButton() {
         safeClickOn(ukviRadioButton);
     }
+
+    public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void selectCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
@@ -109,7 +114,7 @@ public class CreateCase extends BasePage {
         safeClickOn(nextButton);
         addDocuments.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
-        safeClickOn(submitButton);
+        clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
     }
 
@@ -125,7 +130,7 @@ public class CreateCase extends BasePage {
         typeInto(correspondenceReceivedYearField, yyyy);
         addDocuments.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
-        safeClickOn(submitButton);
+        clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
     }
 
@@ -171,5 +176,10 @@ public class CreateCase extends BasePage {
 
     public void assertDateReceivedIsInvalidErrorMessage() {
         dateReceivedIsInvalidErrorMessage.shouldContainText("Date received must be a valid date");
+    }
+
+    public void createCaseReceivedNDaysAgo(String caseType, int days) {
+        createCaseWithSetCorrespondenceReceivedDate(caseType, todayPlusMinusNDaysGetDay(-days), todayPlusMinusNDaysGetMonth(-days),
+                todayPlusMinusNDaysGetYear(-days));
     }
 }

@@ -48,8 +48,8 @@ public class Documents extends BasePage {
 
     //Simple methods
 
-    public void selectDocumentTypeByIndex(int index) {
-        documentTypeDropDown.selectByIndex(index);
+    public void selectDocumentTypeByText(String docType) {
+        documentTypeDropDown.selectByVisibleText(docType);
     }
 
     public void uploadDocumentOfSize(int fileSize) {
@@ -80,7 +80,7 @@ public class Documents extends BasePage {
 
     public void addAOriginalDocument() {
         safeClickOn(addDocumentsButton);
-        selectDocumentTypeByIndex(1);
+        selectDocumentTypeByText("ORIGINAL");
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
     }
@@ -88,14 +88,14 @@ public class Documents extends BasePage {
     public void addADraftDocumentAtDraftStage() {
         availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
         safeClickOn(addDocumentsButton);
-        selectDocumentTypeByIndex(2);
+        selectDocumentTypeByText("DRAFT");
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
     }
 
     public void addAFinalDocument() {
         safeClickOn(addDocumentsButton);
-        selectDocumentTypeByIndex(3);
+        selectDocumentTypeByText("FINAL");
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
     }

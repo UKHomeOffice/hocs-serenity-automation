@@ -9,7 +9,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class CaseCreation extends BasePage {
+public class Creation extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
@@ -84,7 +84,7 @@ public class CaseCreation extends BasePage {
         selectBusinessArea("UKVI");
         selectRefType("M:Ref");
         selectPriority("Standard");
-        selectChannel("Email");
+        selectInboundChannel("Email");
     }
 
     public void selectBusinessArea(String businessArea) {
@@ -127,15 +127,14 @@ public class CaseCreation extends BasePage {
         switch (refType.toUpperCase()) {
             case "M:REF":
                 safeClickOn(refTypeMRefRadioButton);
-                setSessionVariable("refType").to(refType);
                 break;
             case "B:REF":
                 safeClickOn(refTypeBRefRadioButton);
-                setSessionVariable("refType").to(refType);
                 break;
             default:
                 pendingStep(refType + " is not defined within " + getMethodName());
         }
+        setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
     }
 
@@ -153,9 +152,11 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(priority + " is not defined within " + getMethodName());
         }
+        setSessionVariable("priority").to(priority);
+        System.out.println(priority + " is the priority level");
     }
 
-    public void selectChannel(String channel) {
+    public void selectInboundChannel(String channel) {
         switch (channel.toUpperCase()) {
             case "EMAIL":
                 safeClickOn(channelEmailRadioButton);
@@ -178,9 +179,11 @@ public class CaseCreation extends BasePage {
             default:
                 pendingStep(channel + " is not defined within " + getMethodName());
         }
+        setSessionVariable("inboundChannel").to(channel);
+        System.out.println(channel + " is the inbound channel");
     }
 
-    public void moveCaseFromCaseCreationToCaseTriage() {
+    public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
@@ -190,7 +193,7 @@ public class CaseCreation extends BasePage {
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
         selectBusinessArea(businessArea);
         selectRefType(refType);
-        selectChannel("Email");
+        selectInboundChannel("Email");
         selectPriority("Standard");
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();

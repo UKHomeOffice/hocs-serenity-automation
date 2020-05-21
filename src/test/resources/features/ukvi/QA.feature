@@ -1,5 +1,5 @@
-@CaseQA
-Feature: CaseQA
+@QA
+Feature: QA
 
   Background:
     Given I am user "AUTOMATION_USER"
@@ -14,7 +14,7 @@ Feature: CaseQA
   Scenario: User completes the QA stage
     When I complete the "QA" stage
     Then the case should be moved to the "Private Office" stage
-    
+
   Scenario: User escalates the QA case to the workflow manager
     And I select the "Escalate to Workflow Manager" action at QA
     Then the case should be moved to the "QA (Escalated)" stage
@@ -30,7 +30,7 @@ Feature: CaseQA
   Scenario: User sends a case back to triage at the QA stage
     And I select the "Reject QA at Triage" action at QA
     Then the case should be moved to the "Triage" stage
-    
+
   Scenario: User escalates a QA case to workflow manager and takes the case off escalation
     And I select the "Escalate to Workflow Manager" action at QA
     Then the case should be moved to the "QA (Escalated)" stage

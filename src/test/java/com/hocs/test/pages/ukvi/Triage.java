@@ -5,7 +5,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 
-public class CaseTriage extends BasePage {
+public class Triage extends BasePage {
 
     @FindBy(xpath = "//a[contains(text(), 'enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;

@@ -224,7 +224,7 @@ public class GenericInputStepDefs extends BasePage {
             case "OTHER GOVERNMENT DEPARTMENT":
             case "REASON FOR NO RESPONSE NEEDED":
             case "REASON FOR REJECTING TO DATA INPUT":
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
@@ -252,10 +252,10 @@ public class GenericInputStepDefs extends BasePage {
         switch (rejection.toUpperCase()) {
             case "COMPLETE":
                 enterRejectionNotes();
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "DO NOT COMPLETE":
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());
@@ -355,19 +355,19 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(initialDraft.answeredByMyTeamNoRadioButton);
                 safeClickOn(initialDraft.continueButton);
                 initialDraft.enterRejectionNotes();
-                safeClickOn(initialDraft.finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "QA RESPONSE":
                 safeClickOn(qaResponse.QARejectRadioButton);
                 safeClickOn(qaResponse.continueButton);
                 qaResponse.enterQARejectionNote();
-                safeClickOn(qaResponse.finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "PRIVATE OFFICE APPROVAL":
                 safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
                 safeClickOn(privateOfficeApproval.continueButton);
                 privateOfficeApproval.enterPORejectNotes();
-                safeClickOn(privateOfficeApproval.finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "MINISTERIAL SIGN OFF":
                 safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
@@ -379,13 +379,13 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(dispatch.dispatchRejectRadioButton);
                 safeClickOn(continueButton);
                 dispatch.enterDispatchRejectionNotes();
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             case "MARKUP":
                 markup.selectRejectToDataInput();
                 safeClickOn(continueButton);
                 markup.enterRejectToDataInputReasonIntoTextBox();
-                safeClickOn(finishButton);
+                safeClickOn(finishButton);;
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
