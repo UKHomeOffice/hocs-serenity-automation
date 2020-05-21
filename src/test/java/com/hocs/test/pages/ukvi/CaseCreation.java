@@ -52,20 +52,20 @@ public class CaseCreation extends BasePage {
     @FindBy(css = "label[for='ChannelIn-Email']")
     public WebElementFacade channelEmailRadioButton;
 
-    @FindBy(css = "label[for='ChannelIn-Phone-routed']")
-    public WebElementFacade channelPhoneRoutedRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Phone-dealt-with']")
-    public WebElementFacade channelPhoneCompletedRadioButton;
-
     @FindBy(css = "label[for='ChannelIn-Post']")
     public WebElementFacade channelPostRadioButton;
 
-    @FindBy(css = "label[for='ChannelIn-Outreach']")
-    public WebElementFacade channelOutreachRadioButton;
+    @FindBy(css = "label[for='ChannelIn-Phone-replied']")
+    public WebElementFacade channelPhoneReplyGivenRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-Phone-required']")
+    public WebElementFacade channelPhoneResponseRequiredRadioButton;
 
     @FindBy(css = "label[for='ChannelIn-PO']")
     public WebElementFacade channelPrivateOfficeRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-Outreach']")
+    public WebElementFacade channelOutreachRadioButton;
 
     @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
     public WebElementFacade businessAreaIsRequiredErrorMessage;
@@ -161,10 +161,10 @@ public class CaseCreation extends BasePage {
                 safeClickOn(channelEmailRadioButton);
                 break;
             case "PHONE ROUTED":
-                safeClickOn(channelPhoneRoutedRadioButton);
+                safeClickOn(channelPhoneResponseRequiredRadioButton);
                 break;
             case "PHONE COMPLETED":
-                safeClickOn(channelPhoneCompletedRadioButton);
+                safeClickOn(channelPhoneReplyGivenRadioButton);
                 break;
             case "POST":
                 safeClickOn(channelPostRadioButton);
@@ -182,7 +182,7 @@ public class CaseCreation extends BasePage {
 
     public void moveCaseFromCaseCreationToCaseTriage() {
         completeRequiredQuestions();
-        clickTheButton("Send to Triage");
+        clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Add to Triage");
     }
@@ -192,7 +192,7 @@ public class CaseCreation extends BasePage {
         selectRefType(refType);
         selectChannel("Email");
         selectPriority("Standard");
-        clickTheButton("Send to Triage");
+        clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Add to Triage");
     }
