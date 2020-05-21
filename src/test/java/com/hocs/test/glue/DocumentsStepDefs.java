@@ -4,7 +4,10 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.Homepage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +17,21 @@ public class DocumentsStepDefs extends BasePage {
 
     Documents documents;
 
-    GenericInputStepDefs genericInputStepDefs;
+    Homepage homepage;
+
+    CreateCase createCase;
+
+    CreateCase_SuccessPage createCaseSuccessPage;
+
+    @And("I click to manage the documents of a new {string} case")
+    public void iClickToManageTheDocumentsOfANewCase(String caseType) {
+        safeClickOn(homepage.createSingleCase);
+        createCase.selectCaseType(caseType);
+        safeClickOn(createCase.nextButton);
+        createCase.clickCreateCaseButton();
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
 
     @And("I upload a {string} document")
     public void IUploadADocument(String docType) {
@@ -46,19 +63,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I choose the document type {string}")
     public void iChooseTheDocumentType(String docType) {
-        switch (docType.toUpperCase()) {
-            case "ORIGINAL":
-                documents.selectDocumentTypeByIndex(1);
-                break;
-            case "DRAFT":
-                documents.selectDocumentTypeByIndex(2);
-                break;
-            case "FINAL":
-                documents.selectDocumentTypeByIndex(3);
-                break;
-            default:
-                pendingStep(docType + " is not defined within " + getMethodName());
-        }
+                documents.selectDocumentTypeByText(docType);
     }
 
     @And("I upload a file of type {string}")
@@ -154,6 +159,6 @@ public class DocumentsStepDefs extends BasePage {
     @Then("the {string} document should be under the {string} header")
     public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
         documents.waitForFileToUpload(fileIdentifier);
-        documents.assertDocumentIsUnderHeader(header.toUpperCase());
+        documents.assertDocumentIsUnderHeader(header);
     }
 }

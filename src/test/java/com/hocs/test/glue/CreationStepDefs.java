@@ -27,15 +27,15 @@ public class CreationStepDefs extends BasePage {
     }
 
     @When("I select {string} as the Business Area and {string} as the Reference Type")
-    public void aCaseWithSpecificTopicIsCreated(String businessArea, String refType) {
+    public void selectSpecificBusinessAreaAndRefType(String businessArea, String refType) {
         creation.selectBusinessArea(businessArea);
         creation.selectRefType(refType);
     }
 
     @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
-        creation.selectChannel("Email");
         creation.selectPriority("Standard");
+        creation.selectInboundChannel("Email");
     }
 
     @Then("the case summary should list the correct primary correspondent")
@@ -53,5 +53,28 @@ public class CreationStepDefs extends BasePage {
     @Then("an error message should be displayed as I must enter a Primary Correspondent at Creation stage")
     public void anErrorMessageShouldBeDisplayedAsIMustEnterAPrimaryCorrespondentAtCaseCreationStage() {
         addCorrespondent.assertWhichIsThePrimaryCorrespondentIsRequiredErrorMessage();
+    }
+
+    @And("I calculate the date {int} days ago")
+    public void iCalculateTheDateDaysAgo(int days) {
+        System.out.println(todayPlusMinusNDaysGetDay(-days));
+        System.out.println(todayPlusMinusNDaysGetMonth(-days));
+        System.out.println(todayPlusMinusNDaysGetYear(-days));
+    }
+
+    @When("I select {string} as the Priority and {string} as the Reference Type")
+    public void selectSpecificPriorityAndReferenceType(String priority, String refType) {
+        creation.selectPriority(priority);
+        creation.selectRefType(refType);
+    }
+
+    @And("I complete Creation stage with {string} as the Priority and {string} as the Reference Type")
+    public void iCompleteCreationStageWithAsThePriorityAndAsTheReferenceType(String priority, String refType) {
+        selectSpecificPriorityAndReferenceType(priority, refType);
+        creation.selectBusinessArea("UKVI");
+        creation.selectInboundChannel("Email");
+        clickTheButton("Continue");
+        addCorrespondent.addAPublicCorrespondent();
+        clickTheButton("Add to Triage");
     }
 }

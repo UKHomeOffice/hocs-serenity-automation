@@ -94,6 +94,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[1]/form/input")
     public WebElementFacade caseDetailsAllocateButton;
 
+    @FindBy(xpath = "//tbody/tr[1]/td[8]")
+    public WebElementFacade topCasePoints;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -391,5 +394,15 @@ public class Workstacks extends BasePage {
 
     public void summaryPrintActiveStage() {
         System.out.println(summaryActiveStage.getText());
+    }
+
+    public double getPointsOfCurrentCase() {
+        WebElementFacade casePoints = find(By.xpath("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td"
+                + "/following-sibling::td[6]"));
+        return Double.parseDouble(casePoints.getText());
+    }
+
+    public void assertPointsOfCurrentCaseEqual(String expectedPoints) {
+        assertThat(getPointsOfCurrentCase(), is(Double.parseDouble(expectedPoints)));
     }
 }
