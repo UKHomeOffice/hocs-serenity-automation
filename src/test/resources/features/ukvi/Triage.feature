@@ -21,4 +21,10 @@ Feature: Triage
 
   @Validation
   Scenario: Actions required error message is displayed at triage
-    And the user should be able to display the "Actions Required" error message at triage
+    And the user triggers the "Actions Required" error message at triage
+    Then the "Actions Required" error message should be displayed at triage
+
+  @Validation
+  Scenario: Business unit required error message is displayed at triage
+    And the user triggers the "Business Unit" error message at triage
+    Then the "Business Unit" error message should be displayed at triage

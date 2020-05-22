@@ -27,14 +27,13 @@ public class UKVITriageStepDefs {
         }
     }
 
-    @And("the user should be able to display the {string} error message at triage")
+    @And("the user triggers the {string} error message at triage")
+    public void triggerErrorMessage(String error) {
+        triage.triggerErrorMessage(error);
+    }
+
+    @And("the {string} error message should be displayed at triage")
     public void theErrorMessageIsDisplayed(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                triage.assertActionsRequiredErrorMessageDisplayed();
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
+        triage.assertErrorMessageDisplayed(errorMessage);
     }
 }

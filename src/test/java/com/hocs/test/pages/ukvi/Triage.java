@@ -4,6 +4,11 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 
 public class Triage extends BasePage {
 
@@ -69,8 +74,31 @@ public class Triage extends BasePage {
         clickTheButton("Confirm");
     }
 
-    public void assertActionsRequiredErrorMessageDisplayed() {
-        clickTheButton("Confirm");
-        actionsRequiredErrorMessage.shouldContainText("Actions is required");
+    public void triggerErrorMessage(String error) {
+        switch (error.toUpperCase()) {
+            case "ACTIONS REQUIRED":
+                businessUnitDropdown.selectByIndex(1);
+                clickTheButton("Confirm");
+                break;
+            case "BUSINESS UNIT":
+                clickOn(readyToDraftRadioButton);
+                clickTheButton("Confirm");
+                break;
+            default:
+                pendingStep(error + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertErrorMessageDisplayed(String error) {
+        switch (error.toUpperCase()) {
+            case "ACTIONS REQUIRED":
+                actionsRequiredErrorMessage.shouldContainText("Actions is required");
+                break;
+            case "BUSINESS UNIT":
+                businessUnitRequiredErrorMessage.shouldContainText("Business unit is required");
+                break;
+            default:
+                pendingStep(error + " is not defined within " + getMethodName());
+        }
     }
 }
