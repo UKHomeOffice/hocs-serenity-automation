@@ -87,7 +87,7 @@ public class BasePage extends PageObject {
     }
 
     public void clickTheButton(String buttonLabel) {
-        WebElementFacade button = find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
+        WebElementFacade button = find(By.cssSelector("input[value='" + buttonLabel + "']"));
         safeClickOn(button);
     }
 

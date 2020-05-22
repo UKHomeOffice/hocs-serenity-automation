@@ -14,3 +14,11 @@ Feature: Triage
   Scenario: User completes the Triage stage
     When I complete the "Triage" stage
     Then the case should be moved to the "Draft" stage
+
+  Scenario: User puts the Triage case On Hold
+    When I send the Triage case to "On Hold"
+    Then the case should be moved to the "Triage (On Hold)" stage
+
+  @Validation
+  Scenario: Actions required error message is displayed at triage
+    And the user should be able to display the "Actions Required" error message at triage

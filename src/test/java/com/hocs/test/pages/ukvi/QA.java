@@ -7,19 +7,22 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class QA extends BasePage {
 
     //QA Elements
-    @FindBy(xpath = "//label[text()='Approved at QA']")
+    @FindBy(xpath = "//label[text()='Approve']")
     public WebElementFacade approvedAtQARadioButton;
 
-    @FindBy(xpath = "//label[text()='Reject QA at draft']")
+    @FindBy(xpath = "//label[text()='Rejected, move back to draft']")
     public WebElementFacade rejectQAAtDraftRadioButton;
 
-    @FindBy(xpath = "//label[text()='Reject QA at triage']")
+    @FindBy(xpath = "//label[text()='Rejected, move back to triage']")
     public WebElementFacade rejectQAAtTriageRadioButton;
 
-    @FindBy(xpath = "//label[text()='On Hold']")
+    @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(xpath = "//label[text()='Save changes']")
+    public WebElementFacade saveChangesRadioButton;
+
+    @FindBy(xpath = "//label[text()='Escalate to a workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
@@ -35,8 +38,8 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Keep escalated']")
     public WebElementFacade keepEscalatedRadioButton;
 
-    @FindBy(xpath = "//label[text()='Take off escalation']")
-    public WebElementFacade takeOffEscalationRadioButton;
+    @FindBy(xpath = "//label[text()='Escalation complete']")
+    public WebElementFacade escalationCompleteRadioButton;
 
     //QA (On Hold) Elements
     @FindBy(xpath = "//label[text()='Keep on hold']")
@@ -82,7 +85,7 @@ public class QA extends BasePage {
     }
 
     public void takeCaseOffEscalation() {
-        safeClickOn(takeOffEscalationRadioButton);
+        safeClickOn(escalationCompleteRadioButton);
         clickTheButton("Confirm");
     }
 

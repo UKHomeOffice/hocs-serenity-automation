@@ -52,20 +52,20 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='ChannelIn-Email']")
     public WebElementFacade channelEmailRadioButton;
 
-    @FindBy(css = "label[for='ChannelIn-Phone-routed']")
-    public WebElementFacade channelPhoneRoutedRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Phone-dealt-with']")
-    public WebElementFacade channelPhoneCompletedRadioButton;
-
     @FindBy(css = "label[for='ChannelIn-Post']")
     public WebElementFacade channelPostRadioButton;
 
-    @FindBy(css = "label[for='ChannelIn-Outreach']")
-    public WebElementFacade channelOutreachRadioButton;
+    @FindBy(css = "label[for='ChannelIn-Phone-replied']")
+    public WebElementFacade channelPhoneReplyGivenRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-Phone-required']")
+    public WebElementFacade channelPhoneResponseRequiredRadioButton;
 
     @FindBy(css = "label[for='ChannelIn-PO']")
     public WebElementFacade channelPrivateOfficeRadioButton;
+
+    @FindBy(css = "label[for='ChannelIn-Outreach']")
+    public WebElementFacade channelOutreachRadioButton;
 
     @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
     public WebElementFacade businessAreaIsRequiredErrorMessage;
@@ -162,10 +162,10 @@ public class Creation extends BasePage {
                 safeClickOn(channelEmailRadioButton);
                 break;
             case "PHONE ROUTED":
-                safeClickOn(channelPhoneRoutedRadioButton);
+                safeClickOn(channelPhoneResponseRequiredRadioButton);
                 break;
             case "PHONE COMPLETED":
-                safeClickOn(channelPhoneCompletedRadioButton);
+                safeClickOn(channelPhoneReplyGivenRadioButton);
                 break;
             case "POST":
                 safeClickOn(channelPostRadioButton);
@@ -185,9 +185,9 @@ public class Creation extends BasePage {
 
     public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
-        clickTheButton("Send to Triage");
+        clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Add to Triage");
+        clickTheButton("Move to Triage");
     }
 
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
@@ -195,9 +195,9 @@ public class Creation extends BasePage {
         selectRefType(refType);
         selectInboundChannel("Email");
         selectPriority("Standard");
-        clickTheButton("Send to Triage");
+        clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Add to Triage");
+        clickTheButton("Move to Triage");
     }
 
     public void assertCaseCreationRequiredQuestionErrorMessages() {
