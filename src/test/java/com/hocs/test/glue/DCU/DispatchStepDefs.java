@@ -1,4 +1,4 @@
-package com.hocs.test.glue;
+package com.hocs.test.glue.DCU;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;

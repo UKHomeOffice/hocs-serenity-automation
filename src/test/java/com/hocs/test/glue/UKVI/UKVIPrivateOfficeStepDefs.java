@@ -1,36 +1,34 @@
-package com.hocs.test.glue;
+package com.hocs.test.glue.UKVI;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-
-import com.hocs.test.pages.ukvi.AwaitingDispatch;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.ukvi.PrivateOffice;
 import io.cucumber.java.en.And;
 
-public class UKVIDispatchingStepDefs {
+public class UKVIPrivateOfficeStepDefs {
 
-    AwaitingDispatch awaitingDispatch;
+    PrivateOffice privateOffice;
 
-    @And("the user triggers the {string} error message at Dispatch by not entering the correct information")
+    @And("the user triggers the {string} error message at Private Office by not entering the correct information")
     public void triggerErrorMessage(String errorMessage) {
-        awaitingDispatch.triggerErrorMessage(errorMessage);
+        privateOffice.triggerErrorMessage(errorMessage);
     }
 
-    @And("then the {string} error message should be displayed at Dispatch")
+    @And("then the {string} error message should be displayed at Private Office")
     public void theErrorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "ACTIONS REQUIRED":
-                awaitingDispatch.assertActionsRequiredErrorMessageDisplayed();
+                privateOffice.assertActionsRequiredErrorMessageDisplayed();
                 break;
             case "RESPONSE CHANNEL":
-                awaitingDispatch.assertResponseChannelErrorMessageDisplayed();
+                privateOffice.assertResponseChannelErrorMessageDisplayed();
                 break;
             case "DISPATCHED DATE":
-                awaitingDispatch.assertDispatchedDateErrorMessageDisplayed();
+                privateOffice.assertDispatchedDateErrorMessageDisplayed();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
-
 }

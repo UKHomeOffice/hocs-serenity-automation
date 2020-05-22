@@ -244,9 +244,9 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @And("I view the case in the Triage workstack")
-    public void iViewTheCaseInTheTriageWorkstack() {
-        homepage.selectUKVITriageTeam();
+    @And("I view the case in the correct UKVI {string} workstack")
+    public void iViewTheCaseInTheTriageWorkstack(String stage) {
+        homepage.selectCorrectUKVITeamByStage(stage);
         workstacks.filterByCurrentCaseReference();
     }
 
