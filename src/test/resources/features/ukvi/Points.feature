@@ -8,11 +8,11 @@ Feature: Points
     When I create a single "UKVI" case with the correspondence received date set 0 days ago
     And I go to the case from the successful case creation screen
     And I claim the current case
-    And I complete Creation stage with "<priority>" as the Priority and "<refType>" as the Reference Type
-    And I view the case in the Triage workstack
+    And I complete Creation stage with "<urgency>" as the Urgency and "<refType>" as the Reference Type
+    And I view the case in the correct UKVI "Triage" workstack
     Then the case should be assigned "<expectedPoints>" points
     Examples:
-      | priority  | refType | expectedPoints |
+      | urgency  | refType | expectedPoints |
       | Standard  | B:Ref   | 0.0            |
       | Standard  | M:Ref   | 1.0            |
       | Priority  | B:Ref   | 7.0            |

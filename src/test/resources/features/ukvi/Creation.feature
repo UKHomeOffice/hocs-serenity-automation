@@ -22,7 +22,7 @@ Feature: Creation
     And I complete the other required fields for Creation stage
     And I click the "Continue" button
     And I add a public correspondent
-    And I click the "Add to Triage" button
+    And I click the "Move to Triage" button
     Then the case should be moved to the "Triage" stage
     Examples:
       | businessArea | refType |
@@ -75,14 +75,14 @@ Feature: Creation
     When I add "Nicola Sturgeon" MP as a correspondent
     And I add a public correspondent
     When I select the primary correspondent radio button for a different correspondent
-    And I click the "Add to Triage" button
+    And I click the "Move to Triage" button
     Then the case summary should list the correct primary correspondent
 
   @Validation
   Scenario: User attempts to progress without answering required questions
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    And I click the "Add to Triage" button
+    And I click the "Move to Triage" button
     Then an error message should be displayed as I must enter a Primary Correspondent at Creation stage
 
   @Validation

@@ -41,13 +41,13 @@ public class Creation extends BasePage {
     public WebElementFacade refTypeBRefRadioButton;
 
     @FindBy(css = "label[for='Priority-Standard']")
-    public WebElementFacade priorityStandardRadioButton;
+    public WebElementFacade urgencyStandardRadioButton;
 
     @FindBy(css = "label[for='Priority-Priority']")
-    public WebElementFacade priorityPriorityRadioButton;
+    public WebElementFacade urgencyPriorityRadioButton;
 
     @FindBy(css = "label[for='Priority-Immediate']")
-    public WebElementFacade priorityImmediateRadioButton;
+    public WebElementFacade urgencyImmediateRadioButton;
 
     @FindBy(css = "label[for='ChannelIn-Email']")
     public WebElementFacade channelEmailRadioButton;
@@ -74,7 +74,7 @@ public class Creation extends BasePage {
     public WebElementFacade referenceTypeIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[contains(@href, '#Priority-error')]")
-    public WebElementFacade priorityIsRequiredErrorMessage;
+    public WebElementFacade urgencyIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[contains(@href, '#ChannelIn-error')]")
     public WebElementFacade channelReceivedIsRequiredErrorMessage;
@@ -83,7 +83,7 @@ public class Creation extends BasePage {
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
         selectRefType("M:Ref");
-        selectPriority("Standard");
+        selectUrgency("Standard");
         selectInboundChannel("Email");
     }
 
@@ -91,35 +91,29 @@ public class Creation extends BasePage {
         switch (businessArea.toUpperCase()) {
             case "UKVI":
                 safeClickOn(businessAreaUKVIRadioButton);
-                setSessionVariable("businessArea").to("UKVI/BF/IE");
                 break;
             case "BF":
                 safeClickOn(businessAreaBFRadioButton);
-                setSessionVariable("businessArea").to("UKVI/BF/IE");
                 break;
             case "IE":
                 safeClickOn(businessAreaIERadioButton);
-                setSessionVariable("businessArea").to("UKVI/BF/IE");
                 break;
             case "EUSS":
                 safeClickOn(businessAreaEUSSRadioButton);
-                setSessionVariable("businessArea").to(businessArea);
                 break;
             case "HMPO":
                 safeClickOn(businessAreaHMPORadioButton);
-                setSessionVariable("businessArea").to(businessArea);
                 break;
             case "WINDRUSH":
                 safeClickOn(businessAreaWindrushRadioButton);
-                setSessionVariable("businessArea").to(businessArea);
                 break;
             case "CORONAVIRUS":
                 safeClickOn(businessAreaCoronavirusRadioButton);
-                setSessionVariable("businessArea").to(businessArea);
                 break;
             default:
                 pendingStep(businessArea + " is not defined within " + getMethodName());
         }
+        setSessionVariable("businessArea").to(businessArea);
         System.out.println(businessArea + " is the business area");
     }
 
@@ -138,22 +132,22 @@ public class Creation extends BasePage {
         System.out.println(refType + " is the reference type");
     }
 
-    public void selectPriority(String priority) {
-        switch (priority.toUpperCase()) {
+    public void selectUrgency(String urgency) {
+        switch (urgency.toUpperCase()) {
             case "STANDARD":
-                safeClickOn(priorityStandardRadioButton);
+                safeClickOn(urgencyStandardRadioButton);
                 break;
             case "PRIORITY":
-                safeClickOn(priorityPriorityRadioButton);
+                safeClickOn(urgencyPriorityRadioButton);
                 break;
             case "IMMEDIATE":
-                safeClickOn(priorityImmediateRadioButton);
+                safeClickOn(urgencyImmediateRadioButton);
                 break;
             default:
-                pendingStep(priority + " is not defined within " + getMethodName());
+                pendingStep(urgency + " is not defined within " + getMethodName());
         }
-        setSessionVariable("priority").to(priority);
-        System.out.println(priority + " is the priority level");
+        setSessionVariable("urgency").to(urgency);
+        System.out.println(urgency + " is the urgency level");
     }
 
     public void selectInboundChannel(String channel) {
@@ -194,7 +188,7 @@ public class Creation extends BasePage {
         selectBusinessArea(businessArea);
         selectRefType(refType);
         selectInboundChannel("Email");
-        selectPriority("Standard");
+        selectUrgency("Standard");
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Move to Triage");
@@ -203,7 +197,7 @@ public class Creation extends BasePage {
     public void assertCaseCreationRequiredQuestionErrorMessages() {
         businessAreaIsRequiredErrorMessage.shouldContainText("Business Area is required");
         referenceTypeIsRequiredErrorMessage.shouldContainText("Does this correspondence need a Ministerial response? is required");
-        priorityIsRequiredErrorMessage.shouldContainText("Priority is required");
+        urgencyIsRequiredErrorMessage.shouldContainText("Urgency is required");
         channelReceivedIsRequiredErrorMessage.shouldContainText("Channel received is required");
     }
 }
