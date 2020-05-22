@@ -1,4 +1,4 @@
-package com.hocs.test.glue;
+package com.hocs.test.glue.UKVI;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -34,7 +34,7 @@ public class CreationStepDefs extends BasePage {
 
     @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
-        creation.selectPriority("Standard");
+        creation.selectUrgency("Standard");
         creation.selectInboundChannel("Email");
     }
 
@@ -62,19 +62,19 @@ public class CreationStepDefs extends BasePage {
         System.out.println(todayPlusMinusNDaysGetYear(-days));
     }
 
-    @When("I select {string} as the Priority and {string} as the Reference Type")
-    public void selectSpecificPriorityAndReferenceType(String priority, String refType) {
-        creation.selectPriority(priority);
+    @When("I select {string} as the Urgency and {string} as the Reference Type")
+    public void selectSpecificUrgencyAndReferenceType(String urgency, String refType) {
+        creation.selectUrgency(urgency);
         creation.selectRefType(refType);
     }
 
-    @And("I complete Creation stage with {string} as the Priority and {string} as the Reference Type")
-    public void iCompleteCreationStageWithAsThePriorityAndAsTheReferenceType(String priority, String refType) {
-        selectSpecificPriorityAndReferenceType(priority, refType);
+    @And("I complete Creation stage with {string} as the Urgency and {string} as the Reference Type")
+    public void iCompleteCreationStageWithAsTheUrgencyAndAsTheReferenceType(String urgency, String refType) {
+        selectSpecificUrgencyAndReferenceType(urgency, refType);
         creation.selectBusinessArea("UKVI");
         creation.selectInboundChannel("Email");
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Add to Triage");
+        clickTheButton("Move to Triage");
     }
 }

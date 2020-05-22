@@ -1,4 +1,4 @@
-package com.hocs.test.glue;
+package com.hocs.test.glue.UKVI;
 
 import com.hocs.test.pages.BasePage;
 

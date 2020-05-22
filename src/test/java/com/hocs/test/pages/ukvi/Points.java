@@ -20,10 +20,10 @@ public class Points extends BasePage {
         }
     }
 
-    public int getPointsForPriority() {
-        String priority = sessionVariableCalled("priority");
+    public int getPointsForUrgency() {
+        String urgency = sessionVariableCalled("urgency");
         int points = 0;
-        switch (priority.toUpperCase()) {
+        switch (urgency.toUpperCase()) {
             case "STANDARD":
                 break;
             case "PRIORITY":
@@ -38,7 +38,7 @@ public class Points extends BasePage {
                 points = 30;
                 break;
             default:
-                pendingStep(priority + " is not defined within " + getMethodName());
+                pendingStep(urgency + " is not defined within " + getMethodName());
         }
         return points;
     }

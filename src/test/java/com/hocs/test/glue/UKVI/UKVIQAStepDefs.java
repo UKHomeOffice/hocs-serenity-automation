@@ -1,4 +1,4 @@
-package com.hocs.test.glue;
+package com.hocs.test.glue.UKVI;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
