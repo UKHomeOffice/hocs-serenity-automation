@@ -187,7 +187,7 @@ public class Creation extends BasePage {
         completeRequiredQuestions();
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Add to Triage");
+        clickTheButton("Move to Triage");
     }
 
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
@@ -197,7 +197,7 @@ public class Creation extends BasePage {
         selectPriority("Standard");
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Add to Triage");
+        clickTheButton("Move to Triage");
     }
 
     public void assertCaseCreationRequiredQuestionErrorMessages() {

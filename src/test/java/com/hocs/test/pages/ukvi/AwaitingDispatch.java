@@ -30,17 +30,17 @@ public class AwaitingDispatch extends BasePage {
     @FindBy(css = "label[for='ChannelOut-Outreach']")
     public WebElementFacade responseChannelOutreachRadioButton;
 
-    @FindBy(xpath = "//label[text()='Pending']")
-    public WebElementFacade pendingRadioButton;
+    @FindBy(xpath = "//label[text()='Save changes']")
+    public WebElementFacade saveChangesButton;
 
-    @FindBy(xpath = "//label[text()='Dispatched']")
+    @FindBy(xpath = "//label[text()='Dispatch, close case']")
     public WebElementFacade dispatchedRadioButton;
 
     @FindBy(xpath = "//a[text()='Dispatched date is required']")
     public WebElementFacade dispatchedDateRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Outbound Channel is required']")
-    public WebElementFacade outboundChannelRequiredErrorMessage;
+    @FindBy(xpath = "//a[text()='Response channel is required']")
+    public WebElementFacade responseChannelRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
@@ -68,7 +68,7 @@ public class AwaitingDispatch extends BasePage {
                 safeClickOn(dispatchedRadioButton);
                 clickTheButton("Confirm");
                 break;
-            case "OUTBOUND CHANNEL":
+            case "RESPONSE CHANNEL":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedRadioButton);
                 clickTheButton("Confirm");
@@ -87,8 +87,8 @@ public class AwaitingDispatch extends BasePage {
         dispatchedDateRequiredErrorMessage.shouldContainText("Dispatched date is required");
     }
 
-    public void assertOutboundChannelErrorMessageDisplayed() {
-        outboundChannelRequiredErrorMessage.shouldContainText("Outbound Channel is required");
+    public void assertResponseChannelErrorMessageDisplayed() {
+        responseChannelRequiredErrorMessage.shouldContainText("Response channel is required");
     }
 
     public void assertActionsRequiredErrorMessageDisplayed() {

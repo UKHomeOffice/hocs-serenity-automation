@@ -27,14 +27,14 @@ public class PrivateOffice extends BasePage {
     @FindBy(xpath = "//label[text()='Reject Print for Signage']")
     public WebElementFacade rejectPrintForSignageRadioButton;
 
-    @FindBy(xpath = "//label[text()='Dispatched']")
+    @FindBy(xpath = "//label[text()='Dispatch, close case']")
     public WebElementFacade dispatchedRadioButton;
 
     @FindBy(xpath = "//a[text()='Dispatched date is required']")
     public WebElementFacade dispatchedDateRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Outbound Channel is required']")
-    public WebElementFacade outboundChannelRequiredErrorMessage;
+    @FindBy(xpath = "//a[text()='Response channel is required']")
+    public WebElementFacade responseChannelRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
@@ -62,7 +62,7 @@ public class PrivateOffice extends BasePage {
                 safeClickOn(dispatchedRadioButton);
                 clickTheButton("Confirm");
                 break;
-            case "OUTBOUND CHANNEL":
+            case "RESPONSE CHANNEL":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedRadioButton);
                 clickTheButton("Confirm");
@@ -81,8 +81,8 @@ public class PrivateOffice extends BasePage {
         dispatchedDateRequiredErrorMessage.shouldContainText("Dispatched date is required");
     }
 
-    public void assertOutboundChannelErrorMessageDisplayed() {
-        outboundChannelRequiredErrorMessage.shouldContainText("Outbound Channel is required");
+    public void assertResponseChannelErrorMessageDisplayed() {
+        responseChannelRequiredErrorMessage.shouldContainText("Response channel is required");
     }
 
     public void assertActionsRequiredErrorMessageDisplayed() {

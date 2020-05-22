@@ -4,14 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.ukvi.CaseQA;
+import com.hocs.test.pages.ukvi.QA;
 import io.cucumber.java.en.And;
 
 public class UKVIQAStepDefs {
 
     Homepage homepage;
 
-    CaseQA qa;
+    QA qa;
 
        @And("I select the {string} action at QA")
     public void iSelectOptionAtQA(String action) {

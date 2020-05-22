@@ -21,7 +21,7 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    public void moveCaseFromCaseCreationToCaseQA() {
+    public void moveCaseFromDraftToQA() {
         safeClickOn(moveToQARadioButton);
         clickTheButton("Confirm");
     }

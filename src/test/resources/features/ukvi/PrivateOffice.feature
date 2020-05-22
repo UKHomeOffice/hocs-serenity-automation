@@ -11,6 +11,5 @@ Feature: PrivateOffice
     Then then the "<errorType>" error message should be displayed at Private Office
     Examples:
       |errorType       |
-      |Actions Required|
-      |Outbound Channel|
+      |Response Channel|
       |Dispatched Date |

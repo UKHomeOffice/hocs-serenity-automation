@@ -4,14 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.ukvi.CaseTriage;
+import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
 
 public class UKVITriageStepDefs {
 
     Homepage homepage;
 
-    CaseTriage triage;
+    Triage triage;
 
     @And("I send the Triage case to {string}")
     public void escalateToWorkflowManager(String stage) {

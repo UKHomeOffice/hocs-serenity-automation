@@ -38,10 +38,10 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    public void moveCaseFromCaseTriageToCaseDraft() {
+    public void moveCaseFromTriageToDraft() {
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
-        businessUnitDropdown.selectByIndex(0);
+        businessUnitDropdown.selectByIndex(1);
         safeClickOn(readyToDraftRadioButton);
         clickTheButton("Confirm");
     }

@@ -3,12 +3,12 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.ukvi.CasePrivateOffice;
+import com.hocs.test.pages.ukvi.PrivateOffice;
 import io.cucumber.java.en.And;
 
 public class UKVIPrivateOfficeStepDefs {
 
-    CasePrivateOffice privateOffice;
+    PrivateOffice privateOffice;
 
     @And("the user triggers the {string} error message at Private Office by not entering the correct information")
     public void triggerErrorMessage(String errorMessage) {
@@ -21,8 +21,8 @@ public class UKVIPrivateOfficeStepDefs {
             case "ACTIONS REQUIRED":
                 privateOffice.assertActionsRequiredErrorMessageDisplayed();
                 break;
-            case "OUTBOUND CHANNEL":
-                privateOffice.assertOutboundChannelErrorMessageDisplayed();
+            case "RESPONSE CHANNEL":
+                privateOffice.assertResponseChannelErrorMessageDisplayed();
                 break;
             case "DISPATCHED DATE":
                 privateOffice.assertDispatchedDateErrorMessageDisplayed();
