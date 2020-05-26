@@ -7,6 +7,7 @@ import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.JavascriptExecutor;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Documents extends BasePage {
 
@@ -49,6 +50,10 @@ public class Documents extends BasePage {
     //Simple methods
 
     public void selectDocumentTypeByText(String docType) {
+        String caseType = sessionVariableCalled("caseType");
+        if(!caseType.equals("UKVI")) {
+            docType = docType.toUpperCase();
+        }
         documentTypeDropDown.selectByVisibleText(docType);
     }
 

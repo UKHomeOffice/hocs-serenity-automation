@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import com.hocs.test.pages.dcu.AccordionDCU;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -25,7 +26,7 @@ public class Search extends BasePage {
 
     SummaryTab summaryTab;
 
-    UnassignedCaseView UnassignedCaseView;
+    AccordionDCU accordionDCU;
 
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
@@ -163,8 +164,8 @@ public class Search extends BasePage {
         goHome();
         homepage.enterCaseReferenceIntoSearchBar(caseRef);
         homepage.hitEnterCaseReferenceSearchBar();
-        safeClickOn(UnassignedCaseView.markupAccordionButton);
-        return (UnassignedCaseView.privateOfficeTeam.getText().contains(signOffTeam));
+        safeClickOn(accordionDCU.markupAccordionButton);
+        return (accordionDCU.privateOfficeTeam.getText().contains(signOffTeam));
     }
 
     //Assertions

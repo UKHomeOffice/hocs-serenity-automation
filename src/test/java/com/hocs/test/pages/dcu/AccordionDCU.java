@@ -1,18 +1,14 @@
-package com.hocs.test.pages;
+package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
+import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class UnassignedCaseView extends BasePage {
+public class AccordionDCU extends BasePage {
 
-    @FindBy(linkText = "Allocate to me")
-    public WebElementFacade allocateToMeLink;
-
-    //Accordion extender buttons
     @FindBy(xpath = "//button[text()= 'Data Input']")
     public WebElementFacade dataInputAccordionButton;
 
@@ -34,7 +30,6 @@ public class UnassignedCaseView extends BasePage {
     @FindBy(xpath = "//button[text()= 'Dispatch']")
     public WebElementFacade dispatchAccordionButton;
 
-    //Accordion information fields
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Which is the primary correspondent?']/parent::span")
     public WebElementFacade whichIsThePrimaryCorrespondent;
 
@@ -85,22 +80,6 @@ public class UnassignedCaseView extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Why should this be approved by this team instead?']/parent::span")
     public WebElementFacade whyShouldThisBeApprovedByThisTeamInstead;
-
-    // Basic methods
-
-    public void clickAllocateToMeLink() {
-        safeClickOn(allocateToMeLink);
-    }
-
-    public boolean checkAllocateToMeLinkVisible() {
-        return allocateToMeLink.isVisible();
-    }
-
-    //assertions
-
-    public void assertCaseCannotBeAssigned() {
-        assertThat(checkAllocateToMeLinkVisible(), is(false));
-    }
 
     public void assertAccordionCorrespondenceReceivedDate() {
         String dataInputCorrespondenceReceivedDate =
@@ -187,4 +166,5 @@ public class UnassignedCaseView extends BasePage {
         OverridePrivateOfficeTeam.shouldContainText(chosenPOTeam);
         whyShouldThisBeApprovedByThisTeamInstead.shouldContainText(reasonForOverridePOTeam);
     }
+
 }

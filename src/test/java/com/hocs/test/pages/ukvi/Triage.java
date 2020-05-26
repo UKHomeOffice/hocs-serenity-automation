@@ -1,9 +1,17 @@
 package com.hocs.test.pages.ukvi;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.BasePage;
+import java.util.List;
+import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
@@ -30,11 +38,23 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//a[text()='Actions is required']")
+    @FindBy(xpath = "//a[text()='Action menu - select one option is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Business unit is required']")
     public WebElementFacade businessUnitRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Enquiry subject is required']")
+    public WebElementFacade enquirySubjectRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Enquiry reason is required']")
+    public WebElementFacade enquiryReasonRequiredErrorMessage;
+
+    @FindBy(xpath = "//label[@id='EnquirySubject']")
+    public WebElementFacade setEnquirySubject;
+
+    @FindBy(xpath = "//label[@id='EnquiryReason']")
+    public WebElementFacade setEnquiryReason;
 
     //Triage (On Hold) Elements
     @FindBy(xpath = "//label[text()='Keep on hold']")
@@ -43,25 +63,31 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
+    @FindBy(css = "[value='Confirm']")
+    public WebElementFacade confirmButton;
+
+    private ArrayList<String> businessAreaOptions = new ArrayList<>();
+
     public void moveCaseFromTriageToDraft() {
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(readyToDraftRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void selectEnquirySubject(String subject) {
-        safeClickOn(setEnquiryHypertext);
         WebElementFacade enquirySubjectRadioButton = findBy("//label[text()='" + subject + "']");
         safeClickOn(enquirySubjectRadioButton);
-        clickTheButton("Continue");
+        setSessionVariable("enquirySubject").to(subject);
+        safeClickOn(continueButton);
     }
 
     public void selectEnquiryReason(String reason) {
         WebElementFacade enquiryReasonRadioButton = findBy("//label[text()='" + reason + "']");
         safeClickOn(enquiryReasonRadioButton);
-        clickTheButton("Continue");
+        setSessionVariable("enquiryReason").to(reason);
+        safeClickOn(continueButton);
     }
 
     public void setBusinessUnit() {
@@ -73,7 +99,12 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(onHoldRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
+    }
+
+    public void takeTriageCaseOffHold() {
+        safeClickOn(takeOffHoldRadioButton);
+        safeClickOn(confirmButton);
     }
 
     public void escalateTriageCaseToWorkflowManager() {
@@ -81,34 +112,52 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
-    public void triggerErrorMessage(String error) {
-        switch (error.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                businessUnitDropdown.selectByIndex(1);
-                clickTheButton("Confirm");
-                break;
-            case "BUSINESS UNIT":
-                clickOn(readyToDraftRadioButton);
-                clickTheButton("Confirm");
-                break;
-            default:
-                pendingStep(error + " is not defined within " + getMethodName());
+    public void assertActionsRequiredErrorMessageDisplayed() {
+        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertSetEnquirySubject(String enquirySubject) {
+        assertThat(setEnquirySubject.getText(), containsString(enquirySubject));
+    }
+
+    public void assertSetEnquiryReason(String enquiryReason) {
+        assertThat(setEnquiryReason.getText(), containsString(enquiryReason));
+    }
+
+    public void assertBusinessUnitRequiredErrorMessageDisplayed() {
+        assertThat(businessUnitRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertEnquirySubjectRequiredErrorMessageDisplayed() {
+        assertThat(enquirySubjectRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertEnquiryReasonRequiredErrorMessageDisplayed() {
+        assertThat(enquiryReasonRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void recordCurrentBusinessAreaOptions() {
+        List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
+        for (WebElementFacade option: businessAreaDropdownOptions) {
+            businessAreaOptions.add(option.getText());
+        }
+        for (String option: businessAreaOptions) {
+            System.out.println(option);
         }
     }
 
-    public void assertErrorMessageDisplayed(String error) {
-        switch (error.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                actionsRequiredErrorMessage.shouldContainText("Actions is required");
+    public void assertBusinessAreaOptionsChanged() {
+        Boolean changed = false;
+        List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
+        for (WebElementFacade option: businessAreaDropdownOptions) {
+            if (!businessAreaOptions.contains(option.getText())) {
+                changed = true;
                 break;
-            case "BUSINESS UNIT":
-                businessUnitRequiredErrorMessage.shouldContainText("Business unit is required");
-                break;
-            default:
-                pendingStep(error + " is not defined within " + getMethodName());
+            }
         }
+        assertThat(changed, is(true));
     }
 }

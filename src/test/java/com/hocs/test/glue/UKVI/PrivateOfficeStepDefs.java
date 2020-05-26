@@ -2,11 +2,14 @@ package com.hocs.test.glue.UKVI;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+
+import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.ukvi.PrivateOffice;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 
-public class UKVIPrivateOfficeStepDefs {
+public class PrivateOfficeStepDefs extends BasePage {
 
     PrivateOffice privateOffice;
 

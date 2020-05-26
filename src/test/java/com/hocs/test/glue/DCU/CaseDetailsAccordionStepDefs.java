@@ -4,8 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.UnassignedCaseView;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -23,7 +23,7 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    UnassignedCaseView UnassignedCaseView;
+    AccordionDCU accordionDCU;
 
     DataInput dataInput;
 
@@ -91,25 +91,25 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
     public void selectAccordionButton(String stage) {
         switch (stage) {
             case "Data Input":
-                safeClickOn(UnassignedCaseView.dataInputAccordionButton);
+                safeClickOn(accordionDCU.dataInputAccordionButton);
                 break;
             case "Markup":
-                safeClickOn(UnassignedCaseView.markupAccordionButton);
+                safeClickOn(accordionDCU.markupAccordionButton);
                 break;
             case "Initial Draft":
-                safeClickOn(UnassignedCaseView.initialDraftAccordionButton);
+                safeClickOn(accordionDCU.initialDraftAccordionButton);
                 break;
             case "QA Response":
-                safeClickOn(UnassignedCaseView.qAResponseAccordionButton);
+                safeClickOn(accordionDCU.qAResponseAccordionButton);
                 break;
             case "Private Office Approval":
-                safeClickOn(UnassignedCaseView.privateOfficeApprovalAccordionButton);
+                safeClickOn(accordionDCU.privateOfficeApprovalAccordionButton);
                 break;
             case "Ministerial Sign Off":
-                safeClickOn(UnassignedCaseView.ministerialSignOffAccordionButton);
+                safeClickOn(accordionDCU.ministerialSignOffAccordionButton);
                 break;
             case "Dispatch":
-                safeClickOn(UnassignedCaseView.dispatchAccordionButton);
+                safeClickOn(accordionDCU.dispatchAccordionButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -120,28 +120,28 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
     public void assertAccordionFieldsMatchInformationEnteredAt(String stage) {
         switch (stage) {
             case "Case Creation":
-                UnassignedCaseView.assertAccordionCorrespondenceReceivedDate();
+                accordionDCU.assertAccordionCorrespondenceReceivedDate();
                 break;
             case "Data Input":
-                UnassignedCaseView.assertAccordionDataInputFields();
+                accordionDCU.assertAccordionDataInputFields();
                 break;
             case "Markup":
-                UnassignedCaseView.assertAccordionMarkupFields();
+                accordionDCU.assertAccordionMarkupFields();
                 break;
             case "Initial Draft":
-                UnassignedCaseView.assertAccordionInitialDraftFields();
+                accordionDCU.assertAccordionInitialDraftFields();
                 break;
             case "QA Response":
-                UnassignedCaseView.assertAccordionQAResponseFields();
+                accordionDCU.assertAccordionQAResponseFields();
                 break;
             case "Private Office Approval":
-                UnassignedCaseView.assertAccordionPrivateOfficeApprovalFields();
+                accordionDCU.assertAccordionPrivateOfficeApprovalFields();
                 break;
             case "Ministerial Sign Off":
-                UnassignedCaseView.assertAccordionMinisterialSignOffFields();
+                accordionDCU.assertAccordionMinisterialSignOffFields();
                 break;
             case "Dispatch":
-                UnassignedCaseView.assertAccordionDispatchFields();
+                accordionDCU.assertAccordionDispatchFields();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
