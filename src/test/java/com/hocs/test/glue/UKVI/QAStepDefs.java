@@ -3,13 +3,12 @@ package com.hocs.test.glue.UKVI;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.ukvi.QA;
 import io.cucumber.java.en.And;
 
-public class UKVIQAStepDefs {
-
-    Homepage homepage;
+public class QAStepDefs extends BasePage {
 
     QA qa;
 

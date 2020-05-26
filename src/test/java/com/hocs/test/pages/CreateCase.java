@@ -58,6 +58,9 @@ public class CreateCase extends BasePage {
     @FindBy(css = "[value = 'Create case']")
     public WebElementFacade createCaseButton;
 
+    @FindBy(css = "[value = 'Create cases']")
+    public WebElementFacade createCasesButton;
+
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
@@ -81,6 +84,8 @@ public class CreateCase extends BasePage {
     }
 
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
+
+    public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
 
     public void selectCaseType(String caseType) {
         switch (caseType.toUpperCase()) {
@@ -107,6 +112,15 @@ public class CreateCase extends BasePage {
         safeClickOn(homepage.createSingleCase);
         selectCaseType(caseType);
         completeSingleCaseCreation();
+        setSessionVariable("caseType").to(caseType);
+    }
+
+    public void createCaseOfTypeWithoutDocument(String caseType) {
+        safeClickOn(homepage.createSingleCase);
+        selectCaseType(caseType);
+        safeClickOn(nextButton);
+        clickCreateCaseButton();
+        createCaseSuccessPage.getCaseReference();
         setSessionVariable("caseType").to(caseType);
     }
 

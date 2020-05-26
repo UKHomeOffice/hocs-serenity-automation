@@ -16,6 +16,27 @@ Feature: Creation
     And I click the "Continue" button
     Then the "UKVI Correspondents Details" page should be displayed
 
+  @Navigation
+  Scenario: User should be on the Add Correspondent Page
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    And I click the "Add a correspondent" link
+    Then the "Add Correspondent" page should be displayed
+
+  @Navigation
+  Scenario: User should be on the Add Member of Parliament Page
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    Then the "Add member of parliament" page should be displayed
+
+  @Navigation
+  Scenario: User should be on the Record Correspondent Details Page
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    And I select to add a correspondent that "is not" a member of parliament
+    Then the "Record Correspondent Details" page should be displayed
+
   @Workflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type

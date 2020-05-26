@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
@@ -17,18 +18,13 @@ public class DocumentsStepDefs extends BasePage {
 
     Documents documents;
 
-    Homepage homepage;
-
     CreateCase createCase;
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
-        safeClickOn(homepage.createSingleCase);
-        createCase.selectCaseType(caseType);
-        safeClickOn(createCase.nextButton);
-        createCase.clickCreateCaseButton();
+        createCase.createCaseOfTypeWithoutDocument(caseType);
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }

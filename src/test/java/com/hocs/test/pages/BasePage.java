@@ -60,7 +60,7 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
 
-    @FindBy(className = "govuk-heading-l")
+    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
     protected WebElementFacade pageTitle;
 
     @FindBy(xpath = "//h1")
@@ -96,13 +96,9 @@ public class BasePage extends PageObject {
     }
 
     public void assertPageTitle(String title) {
-        pageTitle.waitUntilVisible();
-        try {
-            assertThat(getHeaderText(), containsString(title));
-        } catch (AssertionError e) {
-            waitABit(2000);
-            assertThat(getHeaderText(), containsString(title));
-        }
+        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
+        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert(pageTitle.isVisible());
     }
 
     public void clickAddButton() {
