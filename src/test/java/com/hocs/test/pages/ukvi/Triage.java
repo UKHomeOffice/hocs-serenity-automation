@@ -46,7 +46,7 @@ public class Triage extends BasePage {
     public void moveCaseFromTriageToDraft() {
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
-        businessUnitDropdown.selectByIndex(1);
+        setBusinessUnit();
         safeClickOn(readyToDraftRadioButton);
         clickTheButton("Confirm");
     }
@@ -64,12 +64,22 @@ public class Triage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void setBusinessUnit() {
+        businessUnitDropdown.selectByIndex(1);
+    }
+
     public void putTriageCaseOnHold() {
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
         safeClickOn(onHoldRadioButton);
         clickTheButton("Confirm");
     }
 
     public void escalateTriageCaseToWorkflowManager() {
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
         clickTheButton("Confirm");
     }

@@ -10,7 +10,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Approve']")
     public WebElementFacade approvedAtQARadioButton;
 
-    @FindBy(xpath = "//label[text()='Rejected, move back to draft']")
+    @FindBy(xpath = "//label[text()='Rejected, move back to drafting']")
     public WebElementFacade rejectQAAtDraftRadioButton;
 
     @FindBy(xpath = "//label[text()='Rejected, move back to triage']")
@@ -22,7 +22,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Save changes']")
     public WebElementFacade saveChangesRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate to a workflow manager']")
+    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
