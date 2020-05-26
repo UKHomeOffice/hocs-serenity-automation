@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.UnassignedCaseView;
+import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.AddCorrespondent;
@@ -13,7 +13,6 @@ import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.thucydides.core.annotations.Steps;
 
 public class DataInputStepDefs extends BasePage {
 
@@ -25,7 +24,7 @@ public class DataInputStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    UnassignedCaseView UnassignedCaseView;
+    AccordionDCU accordionDCU;
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
@@ -158,7 +157,7 @@ public class DataInputStepDefs extends BasePage {
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
-        UnassignedCaseView.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
+        accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
 
 
     }

@@ -3,11 +3,12 @@ package com.hocs.test.glue.UKVI;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.ukvi.AwaitingDispatch;
 import com.hocs.test.pages.ukvi.PrivateOffice;
 import io.cucumber.java.en.And;
 
-public class UKVIAwaitingDispatchStepDefs {
+public class AwaitingDispatchStepDefs extends BasePage {
 
     AwaitingDispatch awaitingDispatch;
 

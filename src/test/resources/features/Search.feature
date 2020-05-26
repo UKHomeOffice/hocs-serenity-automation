@@ -123,9 +123,9 @@ Feature: Search
 
   @SearchBySignOffTeam @SmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
-    And I create a "MIN" case with "Cats and Dogs" as the primary topic
+    And I create a "MIN" case with "Hani Al Sibai" as the primary topic
     And I navigate to the "search" page
-    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
+    When I search for a "MIN" case by the Sign-off Team "Minister of State for Immigration"
     Then cases with the queried Sign-off Team should be displayed in the results list
 
   @SearchBySignOffMinister @searchByCaseType

@@ -4,7 +4,8 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.UnassignedCaseView;
+import com.hocs.test.pages.UnallocatedCaseView;
+import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
@@ -21,7 +22,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    UnassignedCaseView UnassignedCaseView;
+    AccordionDCU accordionDCU;
 
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStagePerCaseType() {
@@ -75,6 +76,6 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     @Then("the information shown should match what I entered on the change Private Office Team page")
     public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
-        UnassignedCaseView.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
+        accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
     }
 }

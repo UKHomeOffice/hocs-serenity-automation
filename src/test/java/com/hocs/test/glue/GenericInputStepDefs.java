@@ -17,6 +17,7 @@ import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 
+import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -45,6 +46,8 @@ public class GenericInputStepDefs extends BasePage {
     AddCorrespondent addCorrespondent;
 
     SummaryTab summaryTab;
+
+    Triage triage;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -160,6 +163,12 @@ public class GenericInputStepDefs extends BasePage {
         switch (link.toUpperCase()) {
             case "BACK":
                 safeClickOn(backLink);
+                break;
+            case "ADD A CORRESPONDENT":
+                addCorrespondent.selectToAddACorrespondent();
+                break;
+            case "SET ENQUIRY SUBJECT/REASON":
+                safeClickOn(triage.setEnquiryHypertext);
                 break;
             default:
                 pendingStep(link + " is not defined within " + getMethodName());

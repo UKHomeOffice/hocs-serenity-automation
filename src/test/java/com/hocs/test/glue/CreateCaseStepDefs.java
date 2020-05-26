@@ -72,7 +72,7 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.selectCaseType(caseType);
         safeClickOn(createCase.nextButton);
         documents.bulkUploadDocuments(cases);
-        createCase.clickCreateCaseButton();
+        createCase.clickCreateCasesButton();
     }
 
     @Given("I am presented with {string}")

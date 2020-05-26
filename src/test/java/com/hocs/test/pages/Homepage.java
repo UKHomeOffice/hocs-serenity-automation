@@ -15,7 +15,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 public class Homepage extends BasePage {
 
-    UnassignedCaseView unassignedCaseView;
+    UnallocatedCaseView unallocatedCaseView;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCase;
@@ -165,7 +165,7 @@ public class Homepage extends BasePage {
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
-        unassignedCaseView.assertCaseCannotBeAssigned();
+        unallocatedCaseView.assertCaseCannotBeAssigned();
         System.out.println("The case is closed");
     }
 
@@ -185,14 +185,14 @@ public class Homepage extends BasePage {
 
     public void claimCurrentCase() {
         int attempts = 0;
-        while (attempts < 3 && !unassignedCaseView.checkAllocateToMeLinkVisible()) {
+        while (attempts < 3 && !unallocatedCaseView.checkAllocateToMeLinkVisible()) {
             waitABit(2000);
             setCaseReferenceFromUnassignedCase();
             goHome();
             getCurrentCase();
             attempts++;
         }
-        unassignedCaseView.clickAllocateToMeLink();
+        unallocatedCaseView.clickAllocateToMeLink();
     }
 
     public void getAndClaimCurrentCase() {
