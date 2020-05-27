@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.CoreMatchers.containsString;
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 
 public class Triage extends BasePage {
 
-    @FindBy(xpath = "//a[contains(text(), 'enquiry subject')]")
+    @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
 
     @FindBy(id = "BusUnit")
@@ -56,16 +61,13 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(css = "[value='Confirm']")
-    public WebElementFacade confirmButton;
-
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
         safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
-        businessUnitDropdown.selectByIndex(1);
+        setBusinessUnit();
         safeClickOn(readyToDraftRadioButton);
         safeClickOn(confirmButton);
     }
@@ -84,7 +86,14 @@ public class Triage extends BasePage {
         safeClickOn(continueButton);
     }
 
+    public void setBusinessUnit() {
+        businessUnitDropdown.selectByIndex(1);
+    }
+
     public void putTriageCaseOnHold() {
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
         safeClickOn(onHoldRadioButton);
         safeClickOn(confirmButton);
     }
@@ -95,6 +104,9 @@ public class Triage extends BasePage {
     }
 
     public void escalateTriageCaseToWorkflowManager() {
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
