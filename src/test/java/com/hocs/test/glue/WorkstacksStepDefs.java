@@ -129,7 +129,7 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertOwnerIs(Users.CAMERON);
     }
 
-    @When("I assign the current case number to {string}")
+    @When("I allocate the current case to {string}")
     public void iAssignTheCurrentCaseNumberToAnotherUser(String user) {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.selectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());

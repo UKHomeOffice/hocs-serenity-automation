@@ -11,6 +11,12 @@ public class UnallocatedCaseView extends BasePage {
     @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeLink;
 
+    @FindBy(css = "[value = 'Allocate']")
+    public WebElementFacade allocateButton;
+
+    @FindBy(id = "user-id")
+    public WebElementFacade allocateDropdown;
+
     // Basic methods
 
     public void clickAllocateToMeLink() {
@@ -25,5 +31,11 @@ public class UnallocatedCaseView extends BasePage {
 
     public void assertCaseCannotBeAssigned() {
         assertThat(checkAllocateToMeLinkVisible(), is(false));
+    }
+
+    public void allocateToUserByVisibleText(String allocationUser) {
+        safeClickOn(allocateDropdown);
+        allocateDropdown.selectByVisibleText(allocationUser);
+        safeClickOn(allocateButton);
     }
 }

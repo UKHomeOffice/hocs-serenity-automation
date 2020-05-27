@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
@@ -14,6 +15,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Workstacks;
+import config.Users;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -36,6 +38,8 @@ public class CreateCaseStepDefs extends BasePage {
     Markup_AddTopics markupAddTopics;
 
     Workstacks workstacks;
+
+    UnallocatedCaseView unallocatedCaseView;
 
     @When("I create a single {string} case")
     public void createNewCase(String caseType) {
@@ -228,8 +232,8 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseReceivedNDaysAgo(caseType, days);
     }
 
-    @When("I allocate to another user on the case details accordion screen")
-    public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen() {
-
+    @When("I allocate the case to {string} on the case details accordion screen")
+    public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen(String user) {
+        unallocatedCaseView.allocateToUserByVisibleText(Users.valueOf(user).getAllocationText());
     }
 }

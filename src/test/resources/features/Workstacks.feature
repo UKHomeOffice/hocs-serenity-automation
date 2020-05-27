@@ -7,7 +7,7 @@ Feature: Workstacks
   @SmokeTests
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
-    When I assign the current case number to "CASEY"
+    When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
   @SmokeTests
