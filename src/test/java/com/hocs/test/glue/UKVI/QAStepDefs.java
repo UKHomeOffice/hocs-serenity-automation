@@ -50,13 +50,19 @@ public class QAStepDefs extends BasePage {
     public void triggerErrorMessage(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "ACTIONS REQUIRED":
-                qa.triggerActionsRequiredError();
+                safeClickOn(qa.confirmButton);
                 break;
             case "REJECT AT TRIAGE REASON REQUIRED":
-                qa.triggerRejectAtTriageReasonRequiredError();
+                safeClickOn(qa.rejectQAAtTriageRadioButton);
+                safeClickOn(confirmButton);
+                safeClickOn(qa.triageRejectionTextField);
+                safeClickOn(confirmButton);
                 break;
             case "REJECT AT DRAFT REASON REQUIRED":
-                qa.triggerRejectAtDraftReasonRequiredError();
+                safeClickOn(qa.rejectQAAtDraftRadioButton);
+                safeClickOn(confirmButton);
+                safeClickOn(qa.draftRejectionTextField);
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());

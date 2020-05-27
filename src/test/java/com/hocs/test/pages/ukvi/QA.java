@@ -86,24 +86,6 @@ public class QA extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void triggerActionsRequiredError() {
-        safeClickOn(confirmButton);
-    }
-
-    public void triggerRejectAtTriageReasonRequiredError() {
-        safeClickOn(rejectQAAtTriageRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(triageRejectionTextField);
-        safeClickOn(confirmButton);
-    }
-
-    public void triggerRejectAtDraftReasonRequiredError() {
-        safeClickOn(rejectQAAtDraftRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(draftRejectionTextField);
-        safeClickOn(confirmButton);
-    }
-
     //QA (Escalated) Actions
     public void keepCaseEscalated() {
         safeClickOn(keepEscalatedRadioButton);
