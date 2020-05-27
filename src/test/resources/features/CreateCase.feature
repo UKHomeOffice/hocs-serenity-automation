@@ -31,6 +31,13 @@ Feature: Create case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
+  @Allocation @WeeklyTests
+  Scenario: A single case is allocated to another user
+    And I create a single "UKVI" case
+    And I go to the case from the successful case creation screen
+    When I allocate to another user on the case details accordion screen
+    And I click to view the "UKVI Creation" workstack
+
   @Workflow @SmokeTests
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases

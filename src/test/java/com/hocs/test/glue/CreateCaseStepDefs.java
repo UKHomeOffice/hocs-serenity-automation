@@ -227,4 +227,9 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateACaseReceivedNDaysAgo(String caseType, int days) {
         createCase.createCaseReceivedNDaysAgo(caseType, days);
     }
+
+    @When("I allocate to another user on the case details accordion screen")
+    public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen() {
+
+    }
 }
