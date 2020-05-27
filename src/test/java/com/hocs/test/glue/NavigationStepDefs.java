@@ -46,6 +46,14 @@ public class NavigationStepDefs extends BasePage {
                 safeClickOn(homepage.searchPage);
                 search.waitUntilSearchPageLoaded();
                 break;
+            default:
+                pendingStep(hocsPage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And ("I click to view the {string} workstack")
+    public void iClickToViewTheWorkstack(String team) {
+        switch (team.toUpperCase()) {
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 safeClickOn(homepage.animalsInScienceTeam);
                 break;
@@ -94,11 +102,11 @@ public class NavigationStepDefs extends BasePage {
             case "MY CASES":
                 safeClickOn(homepage.myCases);
                 break;
-            case "ADD STANDARD LINE":
-                safeClickOn(homepage.addStandardLine);
+            case "UKVI Creation":
+                safeClickOn((homepage.UKVICreationTeam));
                 break;
             default:
-                pendingStep(hocsPage + " is not defined within " + getMethodName());
+                pendingStep(team + " is not defined within " + getMethodName());
         }
     }
 

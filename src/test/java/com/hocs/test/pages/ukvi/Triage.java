@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
-
 import static org.hamcrest.CoreMatchers.containsString;
 
 public class Triage extends BasePage {
@@ -61,7 +59,7 @@ public class Triage extends BasePage {
     @FindBy(css = "[value='Confirm']")
     public WebElementFacade confirmButton;
 
-    private ArrayList<String> businessAreaOptions = new ArrayList<>();
+    private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
         safeClickOn(setEnquiryHypertext);
@@ -128,22 +126,20 @@ public class Triage extends BasePage {
     public void recordCurrentBusinessAreaOptions() {
         List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessAreaDropdownOptions) {
-            businessAreaOptions.add(option.getText());
-        }
-        for (String option: businessAreaOptions) {
-            System.out.println(option);
+            recordedBusinessAreaOptions.add(option.getText());
         }
     }
 
     public void assertBusinessAreaOptionsChanged() {
-        Boolean changed = false;
+        List<String> currentBusinessAreaOptions = new ArrayList<>();
         List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessAreaDropdownOptions) {
-            if (!businessAreaOptions.contains(option.getText())) {
-                changed = true;
-                break;
-            }
+            currentBusinessAreaOptions.add(option.getText());
         }
-        assertThat(changed, is(true));
+        assertThat(checkIfBusinessAreaListsDiffer(currentBusinessAreaOptions, recordedBusinessAreaOptions), is(true));
+    }
+
+    public boolean checkIfBusinessAreaListsDiffer(List<String> listA, List<String> listB) {
+        return !(listA.size() == listB.size() && listA.containsAll(listB) && listB.containsAll(listA));
     }
 }
