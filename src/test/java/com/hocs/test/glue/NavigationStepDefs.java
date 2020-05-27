@@ -102,7 +102,7 @@ public class NavigationStepDefs extends BasePage {
             case "MY CASES":
                 safeClickOn(homepage.myCases);
                 break;
-            case "UKVI Creation":
+            case "UKVI CREATION":
                 safeClickOn((homepage.UKVICreationTeam));
                 break;
             default:

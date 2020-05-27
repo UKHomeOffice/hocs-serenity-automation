@@ -35,8 +35,9 @@ Feature: Create case
   Scenario: A single case is allocated to another user
     And I create a single "UKVI" case
     And I go to the case from the successful case creation screen
-    When I allocate to another user on the case details accordion screen
+    When I allocate the case to "CAMERON" on the case details accordion screen
     And I click to view the "UKVI Creation" workstack
+    Then the owner field should display "CAMERON"
 
   @Workflow @SmokeTests
   Scenario: I can bulk upload cases
