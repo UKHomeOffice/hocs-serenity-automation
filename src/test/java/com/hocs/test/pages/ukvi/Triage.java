@@ -61,9 +61,6 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(css = "[value='Confirm']")
-    public WebElementFacade confirmButton;
-
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {

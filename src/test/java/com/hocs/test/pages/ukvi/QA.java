@@ -3,6 +3,8 @@ package com.hocs.test.pages.ukvi;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QA extends BasePage {
 
@@ -25,7 +27,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//a[text()='Actions is required']")
+    @FindBy(xpath = "//a[text()='Action menu - select one option is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
     @FindBy(id = "CaseNote_RejectDraft")
@@ -33,6 +35,12 @@ public class QA extends BasePage {
 
     @FindBy(id = "CaseNote_RejectTriage")
     public WebElementFacade triageRejectionTextField;
+
+    @FindBy(xpath = "//a[text()='Explanation for reject at triage is required']")
+    public WebElementFacade explanationForRejectionAtTriageRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Explanation for reject at draft is required']")
+    public WebElementFacade explanationForRejectionAtDraftRequiredErrorMessage;
 
     //QA (Escalated) Elements
     @FindBy(xpath = "//label[text()='Keep escalated']")
@@ -51,58 +59,83 @@ public class QA extends BasePage {
     //QA Actions
     public void moveCaseFromQAToNextStage() {
         safeClickOn(approvedAtQARadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void putQACaseOnHold() {
         safeClickOn(onHoldRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void escalateQACaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void rejectQACaseAtDraft(String rejectionReason) {
         safeClickOn(rejectQAAtDraftRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
         typeInto(draftRejectionTextField, rejectionReason);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void rejectQACaseAtTriage(String rejectionReason) {
         safeClickOn(rejectQAAtTriageRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
         typeInto(triageRejectionTextField, rejectionReason);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
+    }
+
+    public void triggerActionsRequiredError() {
+        safeClickOn(confirmButton);
+    }
+
+    public void triggerRejectAtTriageReasonRequiredError() {
+        safeClickOn(rejectQAAtTriageRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(triageRejectionTextField);
+        safeClickOn(confirmButton);
+    }
+
+    public void triggerRejectAtDraftReasonRequiredError() {
+        safeClickOn(rejectQAAtDraftRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(draftRejectionTextField);
+        safeClickOn(confirmButton);
     }
 
     //QA (Escalated) Actions
     public void keepCaseEscalated() {
         safeClickOn(keepEscalatedRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void takeCaseOffEscalation() {
         safeClickOn(escalationCompleteRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     //QA (On Hold) Actions
     public void keepCaseOnHold() {
         safeClickOn(keepOnHoldRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     public void takeCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
     }
 
     //Assertions
     public void assertActionsRequiredErrorMessageDisplayed() {
-        clickTheButton("Confirm");
-        actionsRequiredErrorMessage.shouldContainText("Actions is required");
+        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertRejectAtTriageReasonRequiredErrorMessageDisplayed() {
+        assertThat(explanationForRejectionAtTriageRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertRejectAtDraftReasonRequiredErrorMessageDisplayed() {
+        assertThat(explanationForRejectionAtDraftRequiredErrorMessage.isVisible(), is(true));
     }
 }

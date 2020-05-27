@@ -78,6 +78,9 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value = 'Finish']")
     public WebElementFacade finishButton;
 
+    @FindBy(css = "[value='Confirm']")
+    public WebElementFacade confirmButton;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

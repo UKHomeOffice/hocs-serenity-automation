@@ -38,5 +38,11 @@ Feature: QA
     Then the case should be moved to the "QA" stage
 
   @Validation
-  Scenario: Actions required error message is displayed at QA
-    And the user should be able to display the "Actions Required" error message at QA
+  Scenario Outline: User triggers error message is displayed at QA
+    And the user triggers the "<errorType>" error message at QA
+    Then the "<errorType>" error message should be displayed at QA
+    Examples:
+    |errorType                        |
+    |Actions Required                 |
+    |Reject at Triage Reason Required |
+    |Reject at Draft Reason Required  |
