@@ -197,7 +197,7 @@ public class Homepage extends BasePage {
 
     public void getAndClaimCurrentCase() {
         getCurrentCase();
-        if (unassignedCaseView.allocateToMeLink.isVisible()) {
+        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             claimCurrentCase();
         }
     }

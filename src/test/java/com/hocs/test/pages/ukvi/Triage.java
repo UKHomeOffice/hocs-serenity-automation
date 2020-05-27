@@ -20,7 +20,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class Triage extends BasePage {
 
-    @FindBy(xpath = "//a[contains(text(), 'enquiry subject')]")
+    @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
 
     @FindBy(id = "BusUnit")
@@ -69,6 +69,7 @@ public class Triage extends BasePage {
     private ArrayList<String> businessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
+        safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
