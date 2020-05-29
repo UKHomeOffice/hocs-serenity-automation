@@ -5,7 +5,8 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import config.Users;
+
+import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -44,7 +45,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade currentTeam;
 
     @FindBy(xpath = "//th[text()='User']/following-sibling::td")
-    private WebElementFacade assignedUser;
+    private WebElementFacade allocatedUser;
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
@@ -74,5 +75,9 @@ public class SummaryTab extends BasePage {
         String owner = inputOwner.getUsername();
         String actualOwner = sessionVariableCalled("allocatedUser");
         assertThat(owner.equals(actualOwner), Is.is(true));
+    }
+
+    public void assertAllocatedUserIs(User user) {
+        allocatedUser.shouldContainText(user.getUsername());
     }
 }

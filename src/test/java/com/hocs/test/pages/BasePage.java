@@ -6,7 +6,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import config.Users;
+import config.CurrentUser;
+import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
@@ -276,5 +277,13 @@ public class BasePage extends PageObject {
 
     public void safeClickOn(WebElementFacade webElementFacade) {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible().waitUntilEnabled().click();
+    }
+
+    public void setCurrentUser(User user) {
+        CurrentUser.getInstance().setUser(user);
+    }
+
+    public User getCurrentUser() {
+        return CurrentUser.getInstance().getUser();
     }
 }

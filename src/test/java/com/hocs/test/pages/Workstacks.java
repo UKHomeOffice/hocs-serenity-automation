@@ -1,6 +1,6 @@
 package com.hocs.test.pages;
 
-import config.Users;
+import config.User;
 import java.time.Duration;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -157,7 +157,7 @@ public class Workstacks extends BasePage {
         typeInto(selectWorkstackFilter, workstackInput);
     }
 
-    public void allocateThreeCasesCreated(Users user) {
+    public void allocateThreeCasesCreated(User user) {
         refineWorkstackSearchResults("MIN");
         waitABit(500);
         int totalCaseNumber = getTotalOfCases();
@@ -172,7 +172,7 @@ public class Workstacks extends BasePage {
         selectAllocationUserByVisibleText(user.getAllocationText());
     }
 
-    public void unallocateThreeCasesFromSelectedUser(Users user) {
+    public void unallocateThreeCasesFromSelectedUser(User user) {
         refineWorkstackSearchResults("MIN");
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
@@ -269,13 +269,13 @@ public class Workstacks extends BasePage {
         caseReferenceOnAlreadyAllocatedCase.shouldContainText(searchCaseReference);
     }
 
-    public void assertAllAllocatedUsersAre(Users user) {
+    public void assertAllAllocatedUsersAre(User user) {
         List<WebElementFacade> userAllocated = findAll("//td[contains(text(), '" + user.getUsername() + "')]");
         int totalNumberOfCases = getTotalOfCases();
         assertThat(userAllocated.size() == totalNumberOfCases, is(true));
     }
 
-    public void assertOwnerIs(Users owner) {
+    public void assertOwnerIs(User owner) {
         displayedOwner.shouldContainText(owner.getUsername());
     }
 
@@ -302,14 +302,14 @@ public class Workstacks extends BasePage {
         typeInto(selectWorkstackFilter, sessionVariableCalled("caseReference"));
     }
 
-    public void assertAssignedUser(Users user) {
+    public void assertAssignedUser(User user) {
         WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference")
                 + "']/../following-sibling::td[2]");
         waitForAnyTextToAppear(caseOwner, user.getUsername());
         assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
     }
 
-    public void assertAssignedUserOnThreeCases(Users user) {
+    public void assertAssignedUserOnThreeCases(User user) {
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
 
@@ -340,7 +340,7 @@ public class Workstacks extends BasePage {
     public void assertCaseIsAssignedToMe() {
         int totalCases = getTotalOfCases();
         WebElementFacade caseOwner = findBy("//tr[" + totalCases + "]/td[4]");
-        caseOwner.shouldContainText(Users.AUTOMATION_USER.getUsername());
+        caseOwner.shouldContainText(User.AUTOMATION_USER.getUsername());
     }
 
     public void assertThatDCUMINisOnlyVisibleCaseType() {

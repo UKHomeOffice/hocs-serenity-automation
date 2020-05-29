@@ -2,7 +2,7 @@
 Feature: Points
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   Scenario Outline: User checks points for cases with different Priorities and Reference Types
     When I create a single "UKVI" case with the correspondence received date set 0 days ago

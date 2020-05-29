@@ -3,9 +3,9 @@ package com.hocs.test.pages;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import config.Environments;
-import config.Services;
-import config.Users;
+import config.Environment;
+import config.Service;
+import config.User;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
 
     //Multi Step Methods
 
-    public void enterHocsLoginDetails(Users user) {
+    public void enterHocsLoginDetails(User user) {
         enterUsername(user.getUsername());
         enterPassword(user.getPassword());
     }
@@ -51,20 +51,20 @@ public class LoginPage extends BasePage {
 
         if (env == null) {
             System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environments.QA.getEnvironmentURL();
+            baseUrl = Environment.QA.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
                 case "DEV":
-                    baseUrl = Environments.DEV.getEnvironmentURL();
+                    baseUrl = Environment.DEV.getEnvironmentURL();
                     break;
                 case "LOCAL":
-                    baseUrl = Environments.LOCAL.getEnvironmentURL() + Services.HOCS.getPort();
+                    baseUrl = Environment.LOCAL.getEnvironmentURL() + Service.HOCS.getPort();
                     break;
                 case "QA":
-                    baseUrl = Environments.QA.getEnvironmentURL();
+                    baseUrl = Environment.QA.getEnvironmentURL();
                     break;
                 case "DEMO":
-                    baseUrl = Environments.DEMO.getEnvironmentURL();
+                    baseUrl = Environment.DEMO.getEnvironmentURL();
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
             }
@@ -78,9 +78,9 @@ public class LoginPage extends BasePage {
 
         if (env == null) {
             System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environments.MANAGEMENTUIQA.getEnvironmentURL();
+            baseUrl = Environment.MANAGEMENTUIQA.getEnvironmentURL();
         } else {
-            baseUrl = Environments.MANAGEMENTUIDEV.getEnvironmentURL();
+            baseUrl = Environment.MANAGEMENTUIDEV.getEnvironmentURL();
         }
         getDriver().get(baseUrl);
     }

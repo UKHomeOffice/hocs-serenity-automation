@@ -2,7 +2,7 @@
 Feature: Markup
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
 

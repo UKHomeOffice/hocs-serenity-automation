@@ -4,7 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.TimelineTab;
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -35,7 +35,7 @@ public class TimelineStepDefs extends BasePage {
 
     @And("it should state that user {string} created it")
     public void itShouldStateThatUserCreatedIt(String user) {
-        timelineTab.assertTopNoteSignatureContainsCreator(Users.valueOf(user));
+        timelineTab.assertTopNoteSignatureContainsCreator(User.valueOf(user));
     }
 
     @Then("a log should be at the top of the timeline")
@@ -45,7 +45,7 @@ public class TimelineStepDefs extends BasePage {
 
     @Then("there should be a log showing the case was allocated to user {string} at stage {string}")
     public void thereShouldBeALogShowingTheCaseWasAllocatedToUserAtStage(String user, String stage) {
-        timelineTab.assertAllocationLogVisible(Users.valueOf(user), stage);
+        timelineTab.assertAllocationLogVisible(User.valueOf(user), stage);
     }
 
     @And("a log should be visible for completing the {string} stage")

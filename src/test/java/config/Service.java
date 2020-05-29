@@ -1,6 +1,6 @@
 package config;
 
-public enum Services {
+public enum Service {
 
     CASE(8082),
     HOCS(8080),
@@ -9,7 +9,7 @@ public enum Services {
 
     private final int port;
 
-    Services(int port) {
+    Service(int port) {
         this.port = port;
     }
 

@@ -2,7 +2,7 @@
 Feature: Ministerial Sign-Off
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     And I create a "MIN" case and move it to the "MINISTERIAL SIGN OFF" stage
     And I load and claim the current case
 

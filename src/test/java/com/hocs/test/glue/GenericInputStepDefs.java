@@ -19,7 +19,7 @@ import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 
 import com.hocs.test.pages.ukvi.Triage;
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -416,6 +416,11 @@ public class GenericInputStepDefs extends BasePage {
         homepage.getCurrentCase();
         workstacks.selectSummaryTab();
         workstacks.summaryPrintActiveStage();
+    }
+
+    @And("the case should be allocated to me in the summary")
+    public void theCaseShouldBeAllocatedToMeInTheSummary() {
+        summaryTab.assertAllocatedUserIs(getCurrentUser());
     }
 
     @Then("the case should be allocated to {string}")

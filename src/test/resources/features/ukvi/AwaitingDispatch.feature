@@ -1,7 +1,7 @@
 Feature: Dispatch
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     And I create a "UKVI" case and move it to the "Awaiting Dispatch" stage
     And I load the current case
 

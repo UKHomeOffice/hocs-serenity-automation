@@ -2,7 +2,7 @@
 Feature: Private Office Approval
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @Validation
   Scenario: User must select a radio button when asked whether they approve the Private Office response
