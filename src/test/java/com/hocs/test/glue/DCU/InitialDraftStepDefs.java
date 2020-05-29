@@ -9,7 +9,7 @@ import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -181,15 +181,15 @@ public class InitialDraftStepDefs extends BasePage {
     public void iSelectAsTheOfflineQA(String teamMember) {
         switch (teamMember.toUpperCase()) {
             case "CAMERON":
-                initialDraft.selectOfflineQualityAssurer(Users.CAMERON.getAllocationText());
+                initialDraft.selectOfflineQualityAssurer(User.CAMERON.getAllocationText());
                 safeClickOn(finishButton);
                 break;
             case "CASEY":
-                initialDraft.selectOfflineQualityAssurer(Users.CASEY.getAllocationText());
+                initialDraft.selectOfflineQualityAssurer(User.CASEY.getAllocationText());
                 safeClickOn(finishButton);
                 break;
             case "AUTOMATION_USER":
-                initialDraft.selectOfflineQualityAssurer(Users.AUTOMATION_USER.getAllocationText());
+                initialDraft.selectOfflineQualityAssurer(User.AUTOMATION_USER.getAllocationText());
                 safeClickOn(finishButton);
                 break;
             default:

@@ -91,6 +91,7 @@ public class Triage extends BasePage {
     }
 
     public void putTriageCaseOnHold() {
+        safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
@@ -104,6 +105,7 @@ public class Triage extends BasePage {
     }
 
     public void escalateTriageCaseToWorkflowManager() {
+        safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();

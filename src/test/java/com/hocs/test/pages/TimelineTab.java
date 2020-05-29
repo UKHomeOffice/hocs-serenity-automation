@@ -4,7 +4,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import config.Users;
+import config.User;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -85,7 +85,7 @@ public class TimelineTab extends BasePage {
         assertThat(topCaseNoteOrLog.getClass().equals("case-note"), is(false));
     }
 
-    public void assertTopNoteSignatureContainsCreator(Users user) {
+    public void assertTopNoteSignatureContainsCreator(User user) {
         topNoteSignature.shouldContainText(user.getUsername());
     }
 
@@ -93,7 +93,7 @@ public class TimelineTab extends BasePage {
         caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
-    public void assertAllocationLogVisible(Users user, String stage) {
+    public void assertAllocationLogVisible(User user, String stage) {
         WebElementFacade logAllocatedUser = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(1)");
         WebElementFacade logCaseStage = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(2)");
         logAllocatedUser.shouldContainText("Allocated to " + user.getUsername());

@@ -2,7 +2,7 @@
 Feature: Data Input
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     And I get a "MIN" case at "DATA INPUT" stage
 
   @Navigation @SmokeTests

@@ -1,6 +1,6 @@
 package config;
 
-public enum Environments {
+public enum Environment {
 
     LOCAL("http://localhost"),
     DEV("https://dev.cs-notprod.homeoffice.gov.uk/"),
@@ -11,7 +11,7 @@ public enum Environments {
 
     private final String hostname;
 
-    Environments(String hostname) {
+    Environment(String hostname) {
         this.hostname = hostname;
     }
 

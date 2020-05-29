@@ -2,7 +2,7 @@
 Feature: Initial Draft
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @Validation
   Scenario: User decides the case is not for them, does not complete a rejection note

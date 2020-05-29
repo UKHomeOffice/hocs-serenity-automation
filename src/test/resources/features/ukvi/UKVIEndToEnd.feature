@@ -2,7 +2,7 @@
 Feature: EndToEnd
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @Workflow
   Scenario Outline: User completes Creation stage for a case with specific Business Area and Reference Type

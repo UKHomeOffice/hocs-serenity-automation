@@ -2,7 +2,7 @@
 Feature: Manage Documents
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @SmokeTests
   Scenario Outline: User can upload and preview a file of allowed file types

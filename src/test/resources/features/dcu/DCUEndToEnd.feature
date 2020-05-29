@@ -2,7 +2,7 @@
 Feature: End To End
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @DCUWorkflow
   Scenario Outline: New case moves to Data Input stage

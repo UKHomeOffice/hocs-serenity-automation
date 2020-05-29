@@ -2,7 +2,7 @@
 Feature: QA Response
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @Validation
   Scenario: User must select a radio button to indicate whether they approve the QA response
