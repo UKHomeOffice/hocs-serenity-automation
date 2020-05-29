@@ -2,7 +2,7 @@
 Feature: Create case
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     When I navigate to the "CREATE SINGLE CASE" page
 
   @Validation

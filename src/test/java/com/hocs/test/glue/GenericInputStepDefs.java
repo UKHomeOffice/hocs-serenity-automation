@@ -413,5 +413,10 @@ public class GenericInputStepDefs extends BasePage {
         workstacks.selectSummaryTab();
         workstacks.summaryPrintActiveStage();
     }
+
+    @And("the case should be allocated to me in the summary")
+    public void theCaseShouldBeAllocatedToMeInTheSummary() {
+        summaryTab.assertAllocatedUserIs(getCurrentUser());
+    }
 }
 

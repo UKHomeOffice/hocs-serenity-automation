@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.BasePage;
-import config.Users;
+import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -58,7 +58,7 @@ public class TeamManagement extends BasePage {
         safeClickOn(viewTeamButton);
     }
 
-    public void selectAUser(Users user) {
+    public void selectAUser(User user) {
         addTeamMembersButton.waitUntilClickable().click();
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
         waitABit(6000);
@@ -90,7 +90,7 @@ public class TeamManagement extends BasePage {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
 
         teamNameHeader.shouldContainText(nameOfTeamInHeader);
-        membersInTeamTable.shouldContainText(Users.AUTOMATION_USER.getAllocationText());
+        membersInTeamTable.shouldContainText(User.AUTOMATION_USER.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {
@@ -130,8 +130,8 @@ public class TeamManagement extends BasePage {
 
     public void assertMultipleUsersAddedToTeam() {
         waitABit(500);
-        $("//table[@class='govuk-table']").shouldContainText(Users.CAMERON.getAllocationText());
-        $("//table[@class='govuk-table']").shouldContainText(Users.CASEY.getAllocationText());
+        $("//table[@class='govuk-table']").shouldContainText(User.CAMERON.getAllocationText());
+        $("//table[@class='govuk-table']").shouldContainText(User.CASEY.getAllocationText());
     }
 
     public void assertSelectSomeUsersErrorMessage() {

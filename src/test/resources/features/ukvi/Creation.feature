@@ -2,7 +2,7 @@
 Feature: Creation
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     And I create a "UKVI" case and move it to the "Creation" stage
     And I load and claim the current case
 

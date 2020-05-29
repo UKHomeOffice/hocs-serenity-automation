@@ -15,7 +15,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Workstacks;
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -234,6 +234,6 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I allocate the case to {string} on the case details accordion screen")
     public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen(String user) {
-        unallocatedCaseView.allocateToUserByVisibleText(Users.valueOf(user).getAllocationText());
+        unallocatedCaseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
     }
 }

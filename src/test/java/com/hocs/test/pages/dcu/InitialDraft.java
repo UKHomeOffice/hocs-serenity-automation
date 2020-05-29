@@ -7,7 +7,7 @@ import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
-import config.Users;
+import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -165,7 +165,7 @@ public class InitialDraft extends BasePage {
         safeClickOn(continueButton);
         safeClickOn(offlineQaYesRadioButton);
         safeClickOn(continueButton);
-        selectOfflineQualityAssurer(Users.CAMERON.getAllocationText());
+        selectOfflineQualityAssurer(User.CAMERON.getAllocationText());
         safeClickOn(finishButton);
     }
 

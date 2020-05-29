@@ -2,7 +2,6 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
-import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
@@ -12,7 +11,7 @@ import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.managementUI.StandardLine;
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -106,7 +105,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void addUserToSelectedTeam(String user) {
         waitABit(500);
         teamManagement.assertTeamName();
-        teamManagement.selectAUser(Users.valueOf(user));
+        teamManagement.selectAUser(User.valueOf(user));
     }
 
     @Then("the user should be visible in the team list")
@@ -137,7 +136,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I attempt to remove the user {string}")
     public void attemptRemoveUserFromTeamWithAssignedCases(String user) {
-        teamManagement.removeUserFromTeamWithAssignedCases(Users.valueOf(user).getUsername());
+        teamManagement.removeUserFromTeamWithAssignedCases(User.valueOf(user).getUsername());
     }
 
     @Then("an error message should be displayed as they have cases assigned in that team")
@@ -161,10 +160,10 @@ public class ManagementUIStepDefs extends BasePage {
         teamManagement.assertTeamName();
         teamManagement.clearTeamMember(firstUser);
         teamManagement.clearTeamMember(secondUser);
-        setSessionVariable("firstUser").to(Users.valueOf(firstUser));
-        teamManagement.selectAUser(Users.CAMERON);
-        setSessionVariable("secondUser").to(Users.valueOf(secondUser));
-        teamManagement.selectAUser(Users.CASEY);
+        setSessionVariable("firstUser").to(User.valueOf(firstUser));
+        teamManagement.selectAUser(User.CAMERON);
+        setSessionVariable("secondUser").to(User.valueOf(secondUser));
+        teamManagement.selectAUser(User.CASEY);
     }
 
     @Then("the users should be visible in the team list")

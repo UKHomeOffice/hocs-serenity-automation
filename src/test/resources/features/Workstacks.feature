@@ -2,7 +2,7 @@
 Feature: Workstacks
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @SmokeTests
   Scenario: User creates a case and allocates to another user

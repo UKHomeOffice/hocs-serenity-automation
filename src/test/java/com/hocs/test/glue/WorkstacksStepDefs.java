@@ -9,7 +9,7 @@ import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
 
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -100,7 +100,7 @@ public class WorkstacksStepDefs extends BasePage {
     }
 
     @Then("all cases should be allocated to the user {string}")
-    public void assertAllCasesAssignedToAllocatedUser(Users user) {
+    public void assertAllCasesAssignedToAllocatedUser(User user) {
         workstacks.assertAllAllocatedUsersAre(user);
     }
 
@@ -124,20 +124,20 @@ public class WorkstacksStepDefs extends BasePage {
         waitABit(500);
     }
 
-    @Then("the case should be allocated to me")
-    public void theCaseShouldBeAllocatedToMe() {
-        workstacks.assertOwnerIs(Users.CAMERON);
+    @Then("the case should be allocated to me in the workstack")
+    public void theCaseShouldBeAllocatedToMeInTheWorkstack() {
+        workstacks.assertOwnerIs(getCurrentUser());
     }
 
     @When("I allocate the current case to {string}")
     public void iAssignTheCurrentCaseNumberToAnotherUser(String user) {
         workstacks.clickCheckboxRelevantToCaseReference();
-        workstacks.selectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
+        workstacks.selectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
     }
 
     @Then("the owner field should display {string}")
     public void theOwnerFieldShouldDisplayTheSelectedUser(String user) {
-        workstacks.assertAssignedUser(Users.valueOf(user));
+        workstacks.assertAssignedUser(User.valueOf(user));
     }
 
     @When("I create three cases, and view them in performance and process workstack")
@@ -156,34 +156,34 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("I assign these three cases to {string}")
     public void assignThreeCasesToUser(String user) {
-        workstacks.allocateThreeCasesCreated(Users.valueOf(user));
+        workstacks.allocateThreeCasesCreated(User.valueOf(user));
     }
 
     @Then("I check that the three cases created have been correctly assigned to {string}")
     public void checkThreeCasesProperlyReassigned(String user) {
-        workstacks.assertAssignedUserOnThreeCases(Users.valueOf(user));
+        workstacks.assertAssignedUserOnThreeCases(User.valueOf(user));
     }
 
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
         homepage.goHome();
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(Users.valueOf(user).getAllocationText());
+        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
         homepage.goHome();
     }
 
     @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
     public void iUnallocateThreeCasesCreated(String user) {
         safeClickOn(homepage.performanceProcessTeam);
-        workstacks.unallocateThreeCasesFromSelectedUser(Users.valueOf(user));
+        workstacks.unallocateThreeCasesFromSelectedUser(User.valueOf(user));
     }
 
     @Then("I then check whether the correct cases have been unallocated")

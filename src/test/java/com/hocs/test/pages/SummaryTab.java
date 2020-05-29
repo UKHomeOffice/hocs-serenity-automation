@@ -3,6 +3,7 @@ package com.hocs.test.pages;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -40,7 +41,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade currentTeam;
 
     @FindBy(xpath = "//th[text()='User']/following-sibling::td")
-    private WebElementFacade assignedUser;
+    private WebElementFacade allocatedUser;
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
@@ -56,5 +57,9 @@ public class SummaryTab extends BasePage {
 
     public void assertCaseStage(String stage) {
         assertThat(getActiveStage().toUpperCase(), is(stage.toUpperCase()));
+    }
+
+    public void assertAllocatedUserIs(User user) {
+        allocatedUser.shouldContainText(user.getUsername());
     }
 }

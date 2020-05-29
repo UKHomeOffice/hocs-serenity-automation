@@ -1,10 +1,10 @@
 package com.hocs.test.api;
 
-import static config.Environments.DEV;
-import static config.Environments.LOCAL;
-import static config.Services.CASE;
-import static config.Services.INFO;
-import static config.Services.WORKFLOW;
+import static config.Environment.DEV;
+import static config.Environment.LOCAL;
+import static config.Service.CASE;
+import static config.Service.INFO;
+import static config.Service.WORKFLOW;
 import static io.restassured.RestAssured.basePath;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -14,9 +14,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import io.restassured.response.Response;
-import java.io.File;
 import net.serenitybdd.core.pages.PageObject;
-import org.apache.commons.io.FileUtils;
 
 public class ApiHelper extends PageObject {
 

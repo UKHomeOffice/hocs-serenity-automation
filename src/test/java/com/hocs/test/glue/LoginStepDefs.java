@@ -3,14 +3,14 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.Workstacks;
 
-import static config.Users.*;
+import static config.User.*;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.Homepage;
 
-import config.Users;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -26,39 +26,48 @@ public class LoginStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    @Given("I am user {string}")
+    @Given("I log in to DECS as user {string}")
     public void iLoginAs(String user) {
+        User targetUser = User.valueOf(user);
         loginPage.navigateToHocs();
         if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(Users.valueOf(user));
+            System.out.println("Logging in as user " + targetUser.getUsername());
+            loginPage.enterHocsLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
         } else {
-            System.out.println("Session still active, continuing test from homepage");
+            System.out.println("Session still active, checking active user matches target user");
             homepage.goHome();
+            homepage.selectMyCases();
+            try{
+            workstacks.assertOwnerIs(targetUser);
+                System.out.println("Active user matches target user, continuing test");
+            } catch (AssertionError ae) {
+                System.out.println("Active user does not match target user. Logging active user out of DECS");
+                selectLogoutButton();
+                iLoginAs(user);
+            }
         }
-        setSessionVariable("activeUser").to(user);
+        setCurrentUser(targetUser);
     }
 
-    @Given("I log in as the designated user")
-    public void iLogInAsTheDesignatedUser() {
+    @Given("I log in to DECS")
+    public void iLogInToDECS() {
         String user = System.getProperty("user");
-
         if (user == null) {
             System.out.println("User parameter not set. Defaulting to 'AUTOMATION_USER'");
             user = "AUTOMATION_USER";
         }
+        User targetUser = User.valueOf(user);
         loginPage.navigateToHocs();
-        if (isElementDisplayed($(loginPage.usernameField))) {
             if (isElementDisplayed($(loginPage.usernameField))) {
                 System.out.println("On fresh browser, beginning test..");
-                loginPage.enterHocsLoginDetails(Users.valueOf(user));
+                loginPage.enterHocsLoginDetails(targetUser);
                 safeClickOn(loginPage.continueButton);
             } else {
                 System.out.println("Session still active, continuing test from homepage");
                 homepage.goHome();
             }
-        }
+            setCurrentUser(targetUser);
     }
 
     @Given("that I have navigated to the Management UI as the user {string}")
@@ -67,7 +76,7 @@ public class LoginStepDefs extends BasePage {
         setSessionVariable("user").to(user);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(Users.valueOf(user));
+            loginPage.enterHocsLoginDetails(User.valueOf(user));
             safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from homepage");
@@ -85,7 +94,7 @@ public class LoginStepDefs extends BasePage {
         loginPage.navigateToManagementUI();
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(Users.valueOf(user));
+            loginPage.enterHocsLoginDetails(User.valueOf(user));
             safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from homepage");
@@ -101,17 +110,17 @@ public class LoginStepDefs extends BasePage {
 
     @When("I enter the login credentials for user {string} and click the login button")
     public void enterCredentialsAndClickLogin(String user) {
-        setSessionVariable("user").to(Users.valueOf(user));
+        setSessionVariable("user").to(User.valueOf(user));
 
-        loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
-        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
+        loginPage.enterHocsUsername(User.valueOf(user).getUsername());
+        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
 
         safeClickOn(loginPage.continueButton);
     }
 
     @And("I enter the password of user {string} in the password field")
     public void IEnterMyHocsPassword(String user) {
-        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
+        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
     }
 
     @When("I enter invalid login credentials on the login screen")
@@ -138,8 +147,8 @@ public class LoginStepDefs extends BasePage {
     @When("I enter the login credentials of another user {string} and click the login button")
     public void loginAsDifferentUserAfterLogout(String user) {
         loginPage.navigateToHocs();
-        loginPage.enterHocsUsername(Users.valueOf(user).getUsername());
-        loginPage.enterHocsPassword(Users.valueOf(user).getPassword());
+        loginPage.enterHocsUsername(User.valueOf(user).getUsername());
+        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
         safeClickOn(loginPage.continueButton);
     }
 
@@ -154,6 +163,6 @@ public class LoginStepDefs extends BasePage {
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
         homepage.selectMyCases();
-        workstacks.assertOwnerIs(Users.valueOf(user));
+        workstacks.assertOwnerIs(User.valueOf(user));
     }
 }

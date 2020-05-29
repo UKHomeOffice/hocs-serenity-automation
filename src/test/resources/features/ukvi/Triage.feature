@@ -2,7 +2,7 @@
 Feature: Triage
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
     And I create a "UKVI" case and move it to the "Triage" stage
     And I load and claim the current case
 
@@ -41,6 +41,7 @@ Feature: Triage
   Scenario: User puts the Triage case On Hold
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "Triage (On Hold)" stage
+    And the case should be allocated to me in the summary
 
   @Workflow
   Scenario: User takes a Triage On Hold case off hold
@@ -48,6 +49,7 @@ Feature: Triage
     And I load and claim the current case
     When I take the Triage (On Hold) case off hold
     Then the case should be moved to the "Triage" stage
+    And the case should be allocated to me in the summary
 
   @Validation
   Scenario Outline: User triggers error message to be displayed at Triage

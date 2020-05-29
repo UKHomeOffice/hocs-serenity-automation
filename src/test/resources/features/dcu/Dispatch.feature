@@ -2,7 +2,7 @@
 Feature:  Dispatch
 
   Background:
-    Given I am user "AUTOMATION_USER"
+    Given I log in to DECS
 
   @Validation
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason

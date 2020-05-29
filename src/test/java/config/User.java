@@ -1,6 +1,6 @@
 package config;
 
-public enum Users {
+public enum User {
 
     AUTOMATION_USER("automation.user", "Password1!", "Automation User (automation.user@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
@@ -14,7 +14,9 @@ public enum Users {
 
     private final String allocationText;
 
-    Users(String username, String password, String allocationText) {
+    private User currentUser;
+
+    User(String username, String password, String allocationText) {
         this.username = username;
         this.password = password;
         this.allocationText = allocationText;
@@ -30,5 +32,13 @@ public enum Users {
 
     public String getAllocationText() {
         return allocationText;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public User getCurrentUser() {
+        return this.currentUser;
     }
 }
