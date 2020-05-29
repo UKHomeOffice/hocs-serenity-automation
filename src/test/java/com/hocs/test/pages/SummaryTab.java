@@ -70,7 +70,7 @@ public class SummaryTab extends BasePage {
         setSessionVariable("allocatedUser").to(user);
     }
 
-    public void assertCaseOwnerIs(Users inputOwner) {
+    public void assertCaseOwnerIs(User inputOwner) {
         safeClickOn(summaryTab);
         String owner = inputOwner.getUsername();
         String actualOwner = sessionVariableCalled("allocatedUser");

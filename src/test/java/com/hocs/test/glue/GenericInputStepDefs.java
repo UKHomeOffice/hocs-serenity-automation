@@ -17,9 +17,9 @@ import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
+import config.User;
 
 import com.hocs.test.pages.ukvi.Triage;
-import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -428,14 +428,14 @@ public class GenericInputStepDefs extends BasePage {
         int retest = 0;
         while (retest < 5) {
             try {
-                summaryTab.assertCaseOwnerIs(Users.valueOf(allocatedUser));
+                summaryTab.assertCaseOwnerIs(User.valueOf(allocatedUser));
                 break;
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(timelineTab.timelineTab);
                 safeClickOn(summaryTab.summaryTab);
             }
-            summaryTab.assertCaseOwnerIs(Users.valueOf(allocatedUser));
+            summaryTab.assertCaseOwnerIs(User.valueOf(allocatedUser));
         }
     }
 }
