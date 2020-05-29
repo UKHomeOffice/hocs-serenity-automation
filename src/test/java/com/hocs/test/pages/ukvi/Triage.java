@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import java.util.List;
 import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -17,6 +18,8 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 
 public class Triage extends BasePage {
+
+    SummaryTab summary;
 
     @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
@@ -68,6 +71,7 @@ public class Triage extends BasePage {
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
+        summary.recordCaseOwner();
         safeClickOn(readyToDraftRadioButton);
         safeClickOn(confirmButton);
     }

@@ -172,15 +172,23 @@ public class Homepage extends BasePage {
     public void getCurrentCase() {
         try {
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-            caseReferenceSearchBar.clear();
         } catch (NoSuchElementException e) {
             goHome();
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-            caseReferenceSearchBar.clear();
         }
+        caseReferenceSearchBar.clear();
         String currentCase = sessionVariableCalled("caseReference").toString();
-        typeInto(caseReferenceSearchBar, currentCase);
-        caseReferenceSearchBar.sendKeys(Keys.RETURN);
+        try {
+            typeInto(caseReferenceSearchBar, currentCase);
+            String test = caseReferenceSearchBar.getValue();
+            assertThat(caseReferenceSearchBar.getValue().equals(currentCase), is(true));
+            caseReferenceSearchBar.sendKeys(Keys.RETURN);
+        } catch (AssertionError a) {
+            caseReferenceSearchBar.clear();
+            typeInto(caseReferenceSearchBar, currentCase);
+            String test2 = caseReferenceSearchBar.getValue();
+            caseReferenceSearchBar.sendKeys(Keys.RETURN);
+        }
     }
 
     public void claimCurrentCase() {

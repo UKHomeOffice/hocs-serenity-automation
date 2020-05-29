@@ -15,6 +15,10 @@ public class QAStepDefs extends BasePage {
        @And("I select the {string} action at QA")
     public void iSelectOptionAtQA(String action) {
         switch (action.toUpperCase()) {
+            case "APPROVE":
+                safeClickOn(qa.approvedAtQARadioButton);
+                safeClickOn(confirmButton);
+                break;
             case "REJECT QA AT DRAFT":
                 qa.rejectQACaseAtDraft("TEST");
                 break;
@@ -86,5 +90,4 @@ public class QAStepDefs extends BasePage {
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
-
 }

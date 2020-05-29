@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import config.Users;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
@@ -80,6 +81,9 @@ public class BasePage extends PageObject {
 
     @FindBy(css = "[value='Confirm']")
     public WebElementFacade confirmButton;
+
+    @FindBy(xpath = "//a[text()='Summary']")
+    public WebElementFacade summaryTab;
 
     public void waitABit(int milliseconds) {
         try {

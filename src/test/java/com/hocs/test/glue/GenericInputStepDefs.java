@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.dcu.Dispatch;
@@ -18,6 +19,7 @@ import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 
 import com.hocs.test.pages.ukvi.Triage;
+import config.Users;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -48,6 +50,8 @@ public class GenericInputStepDefs extends BasePage {
     SummaryTab summaryTab;
 
     Triage triage;
+
+    TimelineTab timelineTab;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -412,6 +416,22 @@ public class GenericInputStepDefs extends BasePage {
         homepage.getCurrentCase();
         workstacks.selectSummaryTab();
         workstacks.summaryPrintActiveStage();
+    }
+
+    @Then("the case should be allocated to {string}")
+    public void caseShouldBeAllocatedTo(String allocatedUser) {
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                summaryTab.assertCaseOwnerIs(Users.valueOf(allocatedUser));
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                safeClickOn(timelineTab.timelineTab);
+                safeClickOn(summaryTab.summaryTab);
+            }
+            summaryTab.assertCaseOwnerIs(Users.valueOf(allocatedUser));
+        }
     }
 }
 

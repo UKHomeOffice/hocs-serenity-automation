@@ -27,10 +27,10 @@ Feature: Triage
     And I select an enquiry reason and continue
     Then the set enquiry subject and reason should be displayed on the UKVI Triage page
 
-    Scenario: User views the Business Units for different Business Areas
-      And I record the current options for Business Area
-      When I change the Business Unit of the case to "Windrush"
-      Then the options for Business Area should change
+  Scenario: User views the Business Units for different Business Areas
+    And I record the current options for Business Area
+    When I change the Business Unit of the case to "Windrush"
+    Then the options for Business Area should change
 
   @Workflow
   Scenario: User completes the Triage stage
