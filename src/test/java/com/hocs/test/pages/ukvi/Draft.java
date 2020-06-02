@@ -6,6 +6,12 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends BasePage {
 
+    @FindBy(css = "label[for='ChannelOut-Email']")
+    public WebElementFacade responseChannelEmailRadioButton;
+
+    @FindBy(css = "label[for='ChannelOut-Letter']")
+    public WebElementFacade responseChannelLetterRadioButton;
+
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
 
@@ -22,6 +28,7 @@ public class Draft extends BasePage {
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
     public void moveCaseFromDraftToQA() {
+        safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(moveToQARadioButton);
         clickTheButton("Confirm");
     }

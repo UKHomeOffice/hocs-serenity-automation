@@ -27,7 +27,7 @@ public class PrivateOffice extends BasePage {
     @FindBy(xpath = "//label[text()='Reject Print for Signage']")
     public WebElementFacade rejectPrintForSignageRadioButton;
 
-    @FindBy(xpath = "//label[text()='Dispatch, close case']")
+    @FindBy(xpath = "//label[text()='Dispatched']")
     public WebElementFacade dispatchedRadioButton;
 
     @FindBy(xpath = "//a[text()='Dispatched date is required']")
@@ -39,6 +39,9 @@ public class PrivateOffice extends BasePage {
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
+    @FindBy(css = "input[value='Confirm and close case']")
+    public WebElementFacade confirmAndCloseCaseButton;
+
     public void dispatchedDateInput(int dd, int mm, int yyyy) {
         String day = Integer.toString(dd);
         String month = Integer.toString(mm);
@@ -49,10 +52,11 @@ public class PrivateOffice extends BasePage {
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
-        dispatchedDateInput(1,1,2001);
         safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
+        dispatchedDateInput(1,1,2001);
+        safeClickOn(confirmAndCloseCaseButton);
     }
 
     public void triggerErrorMessage(String message) {
