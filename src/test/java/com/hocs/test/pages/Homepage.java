@@ -180,13 +180,11 @@ public class Homepage extends BasePage {
         String currentCase = sessionVariableCalled("caseReference").toString();
         try {
             typeInto(caseReferenceSearchBar, currentCase);
-            String test = caseReferenceSearchBar.getValue();
             assertThat(caseReferenceSearchBar.getValue().equals(currentCase), is(true));
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         } catch (AssertionError a) {
             caseReferenceSearchBar.clear();
             typeInto(caseReferenceSearchBar, currentCase);
-            String test2 = caseReferenceSearchBar.getValue();
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         }
     }
