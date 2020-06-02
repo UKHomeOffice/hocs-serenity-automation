@@ -1,5 +1,6 @@
 package com.hocs.test.glue;
 
+import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.Workstacks;
 
@@ -25,6 +26,8 @@ public class LoginStepDefs extends BasePage {
     LoginPage loginPage;
 
     Workstacks workstacks;
+
+    CreateCase createCase;
 
     @Given("I log in to DECS as user {string}")
     public void iLoginAs(String user) {
@@ -111,10 +114,8 @@ public class LoginStepDefs extends BasePage {
     @When("I enter the login credentials for user {string} and click the login button")
     public void enterCredentialsAndClickLogin(String user) {
         setSessionVariable("user").to(User.valueOf(user));
-
         loginPage.enterHocsUsername(User.valueOf(user).getUsername());
         loginPage.enterHocsPassword(User.valueOf(user).getPassword());
-
         safeClickOn(loginPage.continueButton);
     }
 
@@ -163,6 +164,14 @@ public class LoginStepDefs extends BasePage {
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
         homepage.selectMyCases();
-        workstacks.assertOwnerIs(User.valueOf(user));
+        try {
+            workstacks.assertOwnerIs(User.valueOf(user));
+        } catch (AssertionError ae) {
+            createCase.createCaseOfType("MIN");
+            homepage.getAndClaimCurrentCase();
+            goHome();
+            homepage.selectMyCases();
+            workstacks.assertOwnerIs(User.valueOf(user));
+        }
     }
 }
