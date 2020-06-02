@@ -66,17 +66,17 @@ public class AwaitingDispatch extends BasePage {
             case "DISPATCHED DATE":
                 safeClickOn(responseChannelEmailRadioButton);
                 safeClickOn(dispatchedRadioButton);
-                clickTheButton("Confirm");
+                safeClickOn(confirmButton);
                 break;
             case "RESPONSE CHANNEL":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedRadioButton);
-                clickTheButton("Confirm");
+                safeClickOn(confirmButton);
                 break;
             case "ACTIONS REQUIRED":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(responseChannelLetterRadioButton);
-                clickTheButton("Confirm");
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(message + " is not defined within " + getMethodName());

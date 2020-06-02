@@ -83,6 +83,9 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Confirm']")
     public WebElementFacade confirmButton;
 
+    @FindBy(xpath = "//a[text()='Summary']")
+    public WebElementFacade summaryTab;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

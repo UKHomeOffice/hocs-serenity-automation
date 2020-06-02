@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.dcu.Dispatch;
@@ -16,6 +17,7 @@ import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
+import config.User;
 
 import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
@@ -48,6 +50,8 @@ public class GenericInputStepDefs extends BasePage {
     SummaryTab summaryTab;
 
     Triage triage;
+
+    TimelineTab timelineTab;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -417,6 +421,21 @@ public class GenericInputStepDefs extends BasePage {
     @And("the case should be allocated to me in the summary")
     public void theCaseShouldBeAllocatedToMeInTheSummary() {
         summaryTab.assertAllocatedUserIs(getCurrentUser());
+    }
+
+    @Then("the case should be allocated to {string}")
+    public void caseShouldBeAllocatedTo(String allocatedUser) {
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                summaryTab.assertCaseOwnerIs(User.valueOf(allocatedUser));
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                safeClickOn(timelineTab.timelineTab);
+                safeClickOn(summaryTab.summaryTab);
+            }
+        }
     }
 }
 
