@@ -50,7 +50,7 @@ Feature: QA
   @AutoAssignTests
   Scenario Outline: User tests the auto-assign functionality of different actions at QA
     And I logout as the initial user
-    And I am user "CAMERON"
+    And I log in to DECS as user "CAMERON"
     And I load and claim the current case
     And I select the "<actions>" action at QA
     And I load the current case

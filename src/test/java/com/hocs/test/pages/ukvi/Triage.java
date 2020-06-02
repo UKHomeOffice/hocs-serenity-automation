@@ -69,7 +69,7 @@ public class Triage extends BasePage {
     public void moveCaseFromTriageToDraft() {
         safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
+        selectEnquiryReason("Documentation");
         setBusinessUnit();
         summary.recordCaseOwner();
         safeClickOn(readyToDraftRadioButton);
@@ -81,6 +81,7 @@ public class Triage extends BasePage {
         safeClickOn(enquirySubjectRadioButton);
         setSessionVariable("enquirySubject").to(subject);
         safeClickOn(continueButton);
+        waitABit(2500);
     }
 
     public void selectEnquiryReason(String reason) {
