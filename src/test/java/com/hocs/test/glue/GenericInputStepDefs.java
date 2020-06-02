@@ -435,7 +435,6 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(timelineTab.timelineTab);
                 safeClickOn(summaryTab.summaryTab);
             }
-            summaryTab.assertCaseOwnerIs(User.valueOf(allocatedUser));
         }
     }
 }
