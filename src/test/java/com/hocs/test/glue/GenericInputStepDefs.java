@@ -303,6 +303,8 @@ public class GenericInputStepDefs extends BasePage {
                     case "MINISTERIAL SIGN OFF":
                         safeClickOn(homepage.ministerForLordsTeam);
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                    case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
                         safeClickOn(homepage.transferN10Team);
                         break;
@@ -324,6 +326,8 @@ public class GenericInputStepDefs extends BasePage {
                     case "DISPATCH":
                         safeClickOn(homepage.animalsInScienceTeam);
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                    case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
                         safeClickOn(homepage.transferN10Team);
                         break;
@@ -336,6 +340,8 @@ public class GenericInputStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "MARKUP":
+                    case "TRANSFER CONFIRMATION":
+                    case "NO RESPONSE NEEDED CONFIRMATION":
                     case "DISPATCH":
                         safeClickOn(homepage.transferN10Team);
                         break;

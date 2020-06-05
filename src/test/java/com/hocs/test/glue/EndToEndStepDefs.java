@@ -71,6 +71,12 @@ public class EndToEndStepDefs extends BasePage {
                     case "MARKUP":
                         markup.moveCaseFromMarkupToInitialDraft();
                         break;
+                    case "MARKUP TO NRN CONFIRMATION":
+                        markup.moveCaseFromMarkupToNRNConfirmation();
+                        break;
+                    case "MARKUP TO TRANSFER CONFIRMATION":
+                        markup.moveCaseFromMarkupToTransferConfirmation();
+                        break;
                     case "INITIAL DRAFT":
                         initialDraft.moveCaseFromInitialDraftToQaResponse();
                         break;
@@ -132,6 +138,14 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
                         iCompleteTheStage("DATA INPUT");
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
+                        break;
+                    case "TRANSFER CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
+                        break;
                     case "INITIAL DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
                         iCompleteTheStage("MARKUP");
@@ -170,6 +184,14 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
                         iCompleteTheStage("DATA INPUT");
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
+                        break;
+                    case "TRANSFER CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
+                        break;
                     case "INITIAL DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
                         iCompleteTheStage("MARKUP");
@@ -199,6 +221,14 @@ public class EndToEndStepDefs extends BasePage {
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
                         iCompleteTheStage("DATA INPUT");
+                        break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
+                        break;
+                    case "TRANSFER CONFIRMATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
+                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
                         break;
                     case "INITIAL DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "MARKUP");

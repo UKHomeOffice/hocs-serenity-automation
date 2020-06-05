@@ -204,7 +204,7 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the Other Government Department name free text field is displayed")
     public void assertOtherGvmtDepTBIsDisplayed() {
-        markupDecision.assertOGDTitleTextBoxIsDisplayed();
+        markupDecision.assertOGDDestinationTextBoxIsDisplayed();
     }
 
     @Then("the No Response Needed casenote field is displayed")
@@ -264,5 +264,15 @@ public class MarkupStepDefs extends BasePage {
     @And("I click the Add a topic link")
     public void iClickTheAddATopicLink() {
         markupAddTopics.clickAddTopicLink();
+    }
+
+    @And("I enter a transfer destination and transfer reason")
+    public void iEnterATransferDestinationAndTransferReason() {
+        markup.enterOGDDestinationAndReason();
+    }
+
+    @And("I enter a reason that no response is needed")
+    public void iEnterAReasonThatNoResponseIsNeeded() {
+        markup.enterNRNreason();
     }
 }

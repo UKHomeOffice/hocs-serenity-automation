@@ -17,18 +17,34 @@ Feature: Markup
       | Policy Response |
       | FAQ             |
 
-  Scenario: User selects an initial decision of Transfer to OGD
+  Scenario: User selects an initial decision of Refer to OGD
     When I select an initial decision of "REFER TO OGD"
     And I click the "Continue" button
     Then the Other Government Department name free text field is displayed
+
+  @DCUWorkflow @SmokeTests
+  Scenario: User selects Refer to OGD
+    When I select an initial decision of "REFER TO OGD"
+    And I click the "Continue" button
+    And I enter a transfer destination and transfer reason
+    And I click the "Finish" button
+    Then the case should be moved to the "Transfer Confirmation" stage
 
   Scenario: User selects an initial decision of No Response Needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "Continue" button
     Then the No Response Needed casenote field is displayed
 
+  @DCUWorkflow @SmokeTests
+  Scenario: User selects Refer to OGD
+    When I select an initial decision of "NO RESPONSE NEEDED"
+    And I click the "Continue" button
+    And I enter a reason that no response is needed
+    And I click the "Finish" button
+    Then the case should be moved to the "No Response Needed Confirmation" stage
+
   @Validation
-  Scenario: User does not enter department in free text field
+  Scenario: User does not enter other government department in free text field
     When I select an initial decision of "Refer to OGD"
     And I click the "Continue" button
     But I do not enter a "Other Government Department"
