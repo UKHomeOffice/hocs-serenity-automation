@@ -1,9 +1,9 @@
-package com.hocs.test.glue.UKVI;
+package com.hocs.test.glue.mpam;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.ukvi.Draft;
+import com.hocs.test.pages.mpam.Draft;
 import io.cucumber.java.en.And;
 
 public class DraftStepDefs {
