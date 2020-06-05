@@ -23,9 +23,6 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     public WebElementFacade createBulkCases;
 
-    @FindBy(xpath = "//a[text()='Add Standard Line']")
-    public WebElementFacade addStandardLine;
-
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
 
@@ -109,14 +106,6 @@ public class Homepage extends BasePage {
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
         typeInto(caseReferenceSearchBar, caseReference);
-    }
-
-    public void getValidCaseReferenceAndEnterIntoSearchBar() {
-        safeClickOn(performanceProcessTeam);
-        String getFirstCaseReferenceForSearch = find(By.cssSelector("tr:nth-child(1) > td:nth-child(2)")).getText();
-        setSessionVariable("caseReference").to(getFirstCaseReferenceForSearch);
-        safeClickOn(home);
-        typeInto(caseReferenceSearchBar, getFirstCaseReferenceForSearch);
     }
 
     public void hitEnterCaseReferenceSearchBar() {

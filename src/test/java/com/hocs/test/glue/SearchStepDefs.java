@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
@@ -22,6 +23,8 @@ public class SearchStepDefs extends BasePage {
 
     Search search;
 
+    CreateCase createCase;
+
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
         safeClickOn(search.searchButton);
@@ -34,7 +37,9 @@ public class SearchStepDefs extends BasePage {
 
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
-        homepage.getValidCaseReferenceAndEnterIntoSearchBar();
+        createCase.createCaseOfType("MIN");
+        goHome();
+        homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("caseReference"));
         homepage.hitEnterCaseReferenceSearchBar();
     }
 
