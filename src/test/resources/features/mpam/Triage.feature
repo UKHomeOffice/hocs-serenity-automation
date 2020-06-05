@@ -32,18 +32,18 @@ Feature: Triage
     When I change the Business Unit of the case to "Windrush"
     Then the options for Business Area should change
 
-  @Workflow
+  @MPAMWorkflow @SmokeTests
   Scenario: User completes the Triage stage
     When I complete the "Triage" stage
     Then the case should be moved to the "Draft" stage
 
-  @Workflow
+  @MPAMWorkflow @SmokeTests
   Scenario: User puts the Triage case On Hold
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "Triage (On Hold)" stage
     And the case should be allocated to me in the summary
 
-  @Workflow
+  @MPAMWorkflow @SmokeTests
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
     And I load and claim the current case
