@@ -10,7 +10,7 @@ Feature: Drafting
   Scenario: User should be on the MPAM Draft Page
     Then the "MPAM Draft" page should be displayed
 
-  @Workflow
+  @MPAMWorkflow @SmokeTests
   Scenario: User completes the Draft stage
     When I complete the "Draft" stage
     Then the case should be moved to the "QA" stage
