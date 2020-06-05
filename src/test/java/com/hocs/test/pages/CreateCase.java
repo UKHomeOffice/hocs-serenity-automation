@@ -31,7 +31,7 @@ public class CreateCase extends BasePage {
     @FindBy(css = "label[for='case-type-DTEN']")
     public WebElementFacade dcuDTenRadioButton;
 
-    @FindBy(xpath = "//label[text()='MPAM Case']")
+    @FindBy(css = "label[for='case-type-MPAM']")
     public WebElementFacade ukviRadioButton;
 
     @FindBy(id = "DateReceived-day")

@@ -3,7 +3,8 @@ Feature: Data Input
 
   Background:
     Given I log in to DECS
-    And I get a "MIN" case at "DATA INPUT" stage
+    And I create a "MIN" case and move it to the "Data Input" stage
+    And I load and claim the current case
 
   @Navigation @SmokeTests
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
