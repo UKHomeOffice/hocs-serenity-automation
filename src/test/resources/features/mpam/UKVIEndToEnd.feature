@@ -4,7 +4,7 @@ Feature: EndToEnd
   Background:
     Given I log in to DECS
 
-  @Workflow
+  @MPAMWorkflow
   Scenario Outline: User completes Creation stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
@@ -23,7 +23,7 @@ Feature: EndToEnd
       | HMPO         | B:Ref   | Triage |
       | Windrush     | B:Ref   | Triage |
 
-  @Workflow
+  @MPAMWorkflow
   Scenario Outline: User completes Triage stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
@@ -42,7 +42,7 @@ Feature: EndToEnd
       | HMPO         | B:Ref   | Draft |
       | Windrush     | B:Ref   | Draft |
 
-  @Workflow
+  @MPAMWorkflow
   Scenario Outline: User completes Draft stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
@@ -61,7 +61,7 @@ Feature: EndToEnd
       | HMPO         | B:Ref   | QA    |
       | Windrush     | B:Ref   | QA    |
 
-  @Workflow
+  @MPAMWorkflow
   Scenario Outline: User completes QA stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
@@ -80,6 +80,7 @@ Feature: EndToEnd
       | HMPO         | B:Ref   | Awaiting Dispatch |
       | Windrush     | B:Ref   | Awaiting Dispatch |
 
+  @MPAMWorkflow
   Scenario Outline: User completes Private Office stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
@@ -92,6 +93,7 @@ Feature: EndToEnd
       | HMPO         | M:Ref   | Case Closed |
       | Windrush     | M:Ref   | Case Closed |
 
+  @MPAMWorkflow
   Scenario Outline: User completes Awaiting Dispatch stage for a case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
