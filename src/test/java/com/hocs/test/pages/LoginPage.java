@@ -65,6 +65,7 @@ public class LoginPage extends BasePage {
                     break;
                 case "DEMO":
                     baseUrl = Environment.DEMO.getEnvironmentURL();
+                    break;
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
             }
