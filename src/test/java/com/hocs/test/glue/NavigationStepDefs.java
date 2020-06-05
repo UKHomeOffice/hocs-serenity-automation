@@ -102,8 +102,8 @@ public class NavigationStepDefs extends BasePage {
             case "MY CASES":
                 safeClickOn(homepage.myCases);
                 break;
-            case "UKVI CREATION":
-                safeClickOn((homepage.UKVICreationTeam));
+            case "MPAM CREATION":
+                safeClickOn((homepage.MPAMCreationTeam));
                 break;
             default:
                 pendingStep(team + " is not defined within " + getMethodName());

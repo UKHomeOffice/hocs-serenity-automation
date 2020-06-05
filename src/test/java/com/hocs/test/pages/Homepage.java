@@ -97,10 +97,10 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//span[text()='Finance']")
     public WebElementFacade financeTeam;
 
-    //UKVI Teams
+    //MPAM Teams
 
-    @FindBy(xpath = "//span[text()='UKVI Creation']")
-    public WebElementFacade UKVICreationTeam;
+    @FindBy(xpath = "//span[text()='MPAM Creation']")
+    public WebElementFacade MPAMCreationTeam;
 
     // Basic Methods
 
@@ -136,11 +136,11 @@ public class Homepage extends BasePage {
         safeClickOn(centralDraftingTeam);
     }
 
-    public void selectCorrectUKVITeamByStage(String stage) {
-        WebElementFacade requiredTriageTeam =
+    public void selectCorrectMPAMTeamByStage(String stage) {
+        WebElementFacade requiredTeam =
                 find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
                 "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") +"')]"));
-        safeClickOn(requiredTriageTeam);
+        safeClickOn(requiredTeam);
     }
 
     // Assertions

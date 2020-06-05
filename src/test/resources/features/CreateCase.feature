@@ -22,8 +22,8 @@ Feature: Create case
       | TRO  | without        |
       | DTEN | with           |
       | DTEN | without        |
-      | UKVI | with           |
-      | UKVI | without        |
+      | MPAM | with           |
+      | MPAM | without        |
 
   @Allocation @WeeklyTests
   Scenario: A single case is allocated to the current user
@@ -33,10 +33,10 @@ Feature: Create case
 
   @Allocation @WeeklyTests
   Scenario: A single case is allocated to another user
-    And I create a single "UKVI" case
+    And I create a single "MPAM" case
     And I go to the case from the successful case creation screen
     When I allocate the case to "CAMERON" on the case details accordion screen
-    And I click to view the "UKVI Creation" workstack
+    And I click to view the "MPAM Creation" workstack
     Then the owner field should display "CAMERON"
 
   @Workflow @SmokeTests
@@ -54,9 +54,9 @@ Feature: Create case
       | DTEN     |
       | TRO      |
 
-  @UKVIWorkflow @SmokeTests
-  Scenario: Newly created UKVI cases should move to the Case Creation stage
-    And I create a single "UKVI" case and return to the dashboard
+  @MPAMWorkflow @SmokeTests
+  Scenario: Newly created MPAM cases should move to the Creation stage
+    And I create a single "MPAM" case and return to the dashboard
     Then the case should be moved to the "Creation" stage
 
   @Navigation

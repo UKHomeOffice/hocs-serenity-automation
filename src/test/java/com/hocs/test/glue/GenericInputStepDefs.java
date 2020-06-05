@@ -19,7 +19,7 @@ import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import config.User;
 
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -351,7 +351,7 @@ public class GenericInputStepDefs extends BasePage {
                 }
                 workstacks.assertCaseStage(stage);
                 break;
-            case "UKVI":
+            case "MPAM":
                 homepage.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);
