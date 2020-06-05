@@ -44,6 +44,11 @@ Feature: Triage
     And the case should be allocated to me in the summary
 
   @Workflow
+    Scenario: User escalates the Triage case to the workflow manager
+    When I send the Triage case to "Workflow Manager"
+    Then the case should be moved to the "Triage (Escalated)" stage
+
+  @Workflow
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
     And I load and claim the current case

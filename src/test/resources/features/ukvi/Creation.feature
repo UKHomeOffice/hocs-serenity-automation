@@ -8,13 +8,13 @@ Feature: Creation
 
   @Navigation
   Scenario: User should be on the UKVI Data Input Page
-    Then the "UKVI Data Input" page should be displayed
+    Then the "MPAM Data Input" page should be displayed
 
   @Navigation
   Scenario: User should be on the UKVI Correspondents Details Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    Then the "UKVI Correspondents Details" page should be displayed
+    Then the "MPAM Correspondents Details" page should be displayed
 
   @Navigation
   Scenario: User should be on the Add Correspondent Page

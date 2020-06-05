@@ -30,6 +30,24 @@ public class Draft extends BasePage {
     public void moveCaseFromDraftToQA() {
         safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(moveToQARadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(confirmButton);
+    }
+
+    public void moveBRefCaseFromDraftToDispatch() {
+        safeClickOn(responseChannelEmailRadioButton);
+        safeClickOn(readyForDispatchBypassQARadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void escalateCaseToWorkflowManager() {
+        safeClickOn(responseChannelLetterRadioButton);
+        safeClickOn(escalateToWorkflowManagerRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void putCaseOnHold() {
+        safeClickOn(responseChannelLetterRadioButton);
+        safeClickOn(putOnHoldRadioButton);
+        safeClickOn(confirmButton);
     }
 }
