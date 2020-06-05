@@ -18,7 +18,7 @@ Feature: Drafting
     Then the case should be moved to the "QA" stage
 
   Scenario: User moves a draft case to dispatch bypassing QA
-    When I create a MPAM case  with "MPAM" as the Business Area and "B:Ref" as the Reference Type and move it to the "Draft" stage
+    When I create a MPAM case  with "UKVI" as the Business Area and "B:Ref" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a B:Ref case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
