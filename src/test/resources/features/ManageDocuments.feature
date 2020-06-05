@@ -40,8 +40,8 @@ Feature: Manage Documents
       | FINAL    |
 
   @SmokeTests
-  Scenario Outline: : User can select document type when uploading documents on a UKVI case
-    And I click to manage the documents of a new "UKVI" case
+  Scenario Outline: : User can select document type when uploading documents on a MPAM case
+    And I click to manage the documents of a new "MPAM" case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
