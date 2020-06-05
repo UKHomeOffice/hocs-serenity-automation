@@ -32,7 +32,7 @@ public class CreateCase extends BasePage {
     public WebElementFacade dcuDTenRadioButton;
 
     @FindBy(css = "label[for='case-type-MPAM']")
-    public WebElementFacade ukviRadioButton;
+    public WebElementFacade mpamRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -79,8 +79,8 @@ public class CreateCase extends BasePage {
         safeClickOn(dcuDTenRadioButton);
     }
 
-    private void clickUkviRadioButton() {
-        safeClickOn(ukviRadioButton);
+    private void clickMpamRadioButton() {
+        safeClickOn(mpamRadioButton);
     }
 
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
@@ -98,8 +98,8 @@ public class CreateCase extends BasePage {
             case "DTEN":
                 clickDcuDtenRadioButton();
                 break;
-            case "UKVI":
-                clickUkviRadioButton();
+            case "MPAM":
+                clickMpamRadioButton();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

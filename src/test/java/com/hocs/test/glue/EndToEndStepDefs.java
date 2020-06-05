@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.ukvi.Creation;
+import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.dcu.DataInput;
@@ -14,11 +14,11 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.ukvi.AwaitingDispatch;
-import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.PrivateOffice;
-import com.hocs.test.pages.ukvi.QA;
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.AwaitingDispatch;
+import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.PrivateOffice;
+import com.hocs.test.pages.mpam.QA;
+import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -96,7 +96,7 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "UKVI":
+            case "MPAM":
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         creation.moveCaseFromCreationToTriage();
@@ -254,7 +254,7 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "UKVI":
+            case "MPAM":
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         createCase.createCaseOfType(caseType);
@@ -277,7 +277,7 @@ public class EndToEndStepDefs extends BasePage {
                         iCompleteTheStage("QA");
                         break;
                     case "AWAITING DISPATCH":
-                        moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "B:REF","QA");
+                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "B:REF","QA");
                         iCompleteTheStage("QA");
                         break;
                     case "CASE CLOSED":
@@ -293,34 +293,35 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
-    @When("I create a UKVI case  with {string} as the Business Area and {string} as the Reference Type and move it to the {string} stage")
-    public void moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
+    @When("I create a MPAM case  with {string} as the Business Area and {string} as the Reference Type and move it to the "
+            + "{string} stage")
+    public void moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
             String stage) {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
-                iCreateACaseAndMoveItToAStage("UKVI", "CREATION");
+                iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 homepage.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
                 break;
             case "DRAFT":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
+                moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
                 iCompleteTheStage("TRIAGE");
                 break;
             case "QA":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "DRAFT");
+                moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "DRAFT");
                 iCompleteTheStage("DRAFT");
                 break;
             case "PRIVATE OFFICE":
             case "AWAITING DISPATCH":
-                moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "QA");
+                moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "QA");
                 iCompleteTheStage("QA");
                 break;
             case "CASE CLOSED":
                 if (refType.toUpperCase().equals("M:REF")) {
-                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
+                    moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
                     iCompleteTheStage("PRIVATE OFFICE");
                 } else {
-                    moveNewUKVICaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
+                    moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
                             "AWAITING DISPATCH");
                     iCompleteTheStage("AWAITING DISPATCH");
                 }
