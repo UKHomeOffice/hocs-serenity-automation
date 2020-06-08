@@ -5,6 +5,8 @@ public enum User {
     AUTOMATION_USER("automation.user", "Password1!", "Automation User (automation.user@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
     CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),
+    UKVI_ONLY("casey.prosser@digital.homeoffice.gov.uk", "Password1!", "Casey Prosser (casey.prosser@digital.homeoffice"
+            + ".gov.uk)"),
     FAKE("FakeUser", "FAKE1!", ""),
     PROD("", "", "");
 
