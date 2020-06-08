@@ -19,7 +19,7 @@ import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import config.User;
 
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -303,6 +303,8 @@ public class GenericInputStepDefs extends BasePage {
                     case "MINISTERIAL SIGN OFF":
                         safeClickOn(homepage.ministerForLordsTeam);
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                    case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
                         safeClickOn(homepage.transferN10Team);
                         break;
@@ -324,6 +326,8 @@ public class GenericInputStepDefs extends BasePage {
                     case "DISPATCH":
                         safeClickOn(homepage.animalsInScienceTeam);
                         break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                    case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
                         safeClickOn(homepage.transferN10Team);
                         break;
@@ -336,6 +340,8 @@ public class GenericInputStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "MARKUP":
+                    case "TRANSFER CONFIRMATION":
+                    case "NO RESPONSE NEEDED CONFIRMATION":
                     case "DISPATCH":
                         safeClickOn(homepage.transferN10Team);
                         break;
@@ -351,7 +357,7 @@ public class GenericInputStepDefs extends BasePage {
                 }
                 workstacks.assertCaseStage(stage);
                 break;
-            case "UKVI":
+            case "MPAM":
                 homepage.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);

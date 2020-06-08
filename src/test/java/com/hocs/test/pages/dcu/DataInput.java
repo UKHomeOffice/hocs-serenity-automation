@@ -13,10 +13,6 @@ public class DataInput extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    Workstacks workstacks;
-
-    Homepage homepage;
-
     // Elements
 
     @FindBy(css = "label[for='OriginalChannel-EMAIL']")
@@ -92,8 +88,6 @@ public class DataInput extends BasePage {
     }
 
     public void dataInputFullFlowWithCopyToN10() {
-        homepage.getCurrentCase();
-        workstacks.clickAllocateToMeButton();
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
         safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();

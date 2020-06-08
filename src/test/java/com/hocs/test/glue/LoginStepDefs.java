@@ -16,6 +16,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.NoSuchElementException;
 
 public class LoginStepDefs extends BasePage {
 
@@ -166,7 +167,7 @@ public class LoginStepDefs extends BasePage {
         homepage.selectMyCases();
         try {
             workstacks.assertOwnerIs(User.valueOf(user));
-        } catch (AssertionError ae) {
+        } catch (AssertionError | NoSuchElementException e) {
             createCase.createCaseOfType("MIN");
             homepage.getAndClaimCurrentCase();
             goHome();

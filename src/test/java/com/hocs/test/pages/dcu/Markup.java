@@ -27,7 +27,10 @@ public class Markup extends BasePage {
     public WebElementFacade rejectToDataInputRadioButton;
 
     @FindBy(id = "OGDDept")
-    public WebElementFacade OGDTitleTextBox;
+    public WebElementFacade OGDDestinationTextBox;
+
+    @FindBy(id = "CaseNote_OGD")
+    public WebElementFacade OGDReasonTextBox;
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addATopicButton;
@@ -115,8 +118,8 @@ public class Markup extends BasePage {
         assertThat(isElementDisplayed(rejectToDataInputTextField), is(true));
     }
 
-    public void assertOGDTitleTextBoxIsDisplayed() {
-        assertThat(isElementDisplayed(OGDTitleTextBox), is(true));
+    public void assertOGDDestinationTextBoxIsDisplayed() {
+        assertThat(isElementDisplayed(OGDDestinationTextBox), is(true));
     }
 
     public void enterRejectToDataInputReasonIntoTextBox() {
@@ -136,6 +139,20 @@ public class Markup extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void moveCaseFromMarkupToNRNConfirmation() {
+        safeClickOn(noReplyNeededRadioButton);
+        safeClickOn(continueButton);
+        noResponseNeededTextField.sendKeys("Test reason for NRN");
+        safeClickOn(finishButton);
+    }
+
+    public void moveCaseFromMarkupToTransferConfirmation() {
+        safeClickOn(referToOgdRadioButton);
+        safeClickOn(continueButton);
+        enterOGDDestinationAndReason();
+        safeClickOn(finishButton);
+    }
+
     public void completeMarkupStageAndStoreEnteredInformation() {
         chooseResponseTypeAndRecordDecision();
         safeClickOn(continueButton);
@@ -145,5 +162,14 @@ public class Markup extends BasePage {
         safeClickOn(continueButton);
         markupAddTopics.recordSelectedDraftingAndPrivateOfficeTeams();
         safeClickOn(finishButton);
+    }
+
+    public void enterOGDDestinationAndReason() {
+        OGDDestinationTextBox.sendKeys("Test other Dept.");
+        OGDReasonTextBox.sendKeys("Test reason for transfer");
+    }
+
+    public void enterNRNreason() {
+        noResponseNeededTextField.sendKeys("Test reason for NRN");
     }
 }
