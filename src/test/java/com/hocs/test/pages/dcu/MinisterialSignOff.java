@@ -49,8 +49,7 @@ public class MinisterialSignOff extends BasePage {
 
     public void completeMinisterialSignOffStageAndStoreEnteredInformation() {
         safeClickOn(ministerSignOffAcceptRadioButton);
-        String ministerialSignOffDecision = ministerSignOffAcceptRadioButton.getAttribute("for").substring(24);
-        setSessionVariable("ministerialSignOffDecision").to(ministerialSignOffDecision);
+        setSessionVariable("ministerialSignOffDecision").to(ministerSignOffAcceptRadioButton.getTextContent());
         safeClickOn(continueButton);
 
     }

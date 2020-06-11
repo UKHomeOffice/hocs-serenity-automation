@@ -98,7 +98,7 @@ public class AccordionDCU extends BasePage {
 
         String copiedToN10RadioButtonSelection = sessionVariableCalled("selectedCopiedN10NoRadioButton");
 
-        String memberOfParliamentName = sessionVariableCalled("memberOfParliamentName");
+        String memberOfParliamentName = sessionVariableCalled("correspondentFullName");
 
         whenWasTheCorrespondenceSent.shouldContainText(correspondenceSentDate);
         howWasTheCorrespondenceReceived.shouldContainText(correspondenceReceivedRadioButtonSelection);
@@ -126,7 +126,7 @@ public class AccordionDCU extends BasePage {
         String selectedResponseToQAOfflineRadioButton = sessionVariableCalled("selectedResponseToQAOfflineRadioButton");
 
         canThisCorrespondenceBeAnsweredByYourTeam.shouldContainText(selectedCanMyTeamAnswerRadioButton);
-        howDoYouIntendToRespond.shouldContainText(selectedTypeOfResponseRadioButton.toUpperCase());
+        howDoYouIntendToRespond.shouldContainText(selectedTypeOfResponseRadioButton);
         whichIsThePrimaryDraftDocument.shouldContainText(uploadedDocumentTitle);
         doYouWantToQAThisOffline.shouldContainText(selectedResponseToQAOfflineRadioButton);
     }
@@ -162,7 +162,7 @@ public class AccordionDCU extends BasePage {
         String chosenPOTeam = sessionVariableCalled("chosenPOTeam");
         String reasonForOverridePOTeam = sessionVariableCalled("reasonForOverridePOTeam");
 
-        doYouApproveTheResponse.shouldContainText("CHANGE");
+        doYouApproveTheResponse.shouldContainText("Change Minister");
         OverridePrivateOfficeTeam.shouldContainText(chosenPOTeam);
         whyShouldThisBeApprovedByThisTeamInstead.shouldContainText(reasonForOverridePOTeam);
     }

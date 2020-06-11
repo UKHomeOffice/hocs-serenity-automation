@@ -195,18 +195,16 @@ public class InitialDraft extends BasePage {
 
     public void completeInitialDraftStageAndStoreEnteredInformation() {
         safeClickOn(answeredByMyTeamYesRadioButton);
-        setSessionVariable("selectedCanMyTeamAnswerRadioButton").to("ACCEPT");
+        setSessionVariable("selectedCanMyTeamAnswerRadioButton").to(answeredByMyTeamYesRadioButton.getTextContent());
         safeClickOn(continueButton);
         safeClickOn(letterReplyRadioButton);
-        String typeOfResponseRadioButton = letterReplyRadioButton.getText();
-        setSessionVariable("selectedTypeOfResponseRadioButton").to(typeOfResponseRadioButton);
+        setSessionVariable("selectedTypeOfResponseRadioButton").to(letterReplyRadioButton.getTextContent());
         safeClickOn(continueButton);
         documents.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test.docx");
         continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
         safeClickOn(offlineQaNoRadioButton);
-        String responseToQAOfflineRadioButton = offlineQaNoRadioButton.getAttribute("for").substring(10);
-        setSessionVariable("selectedResponseToQAOfflineRadioButton").to(responseToQAOfflineRadioButton);
+        setSessionVariable("selectedResponseToQAOfflineRadioButton").to(offlineQaNoRadioButton.getTextContent());
         safeClickOn(continueButton);
     }
 

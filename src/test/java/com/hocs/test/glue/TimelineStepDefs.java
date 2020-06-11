@@ -7,6 +7,7 @@ import com.hocs.test.pages.TimelineTab;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class TimelineStepDefs extends BasePage {
 
@@ -82,6 +83,13 @@ public class TimelineStepDefs extends BasePage {
     @And("the one below it should be the first note created")
     public void theOneBelowItShouldBeTheFirstNoteCreated() {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
+    }
+
+    @When("I click the add button when creating a case note")
+    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
+        timelineTab.selectTimelineTab();
+        timelineTab.clickAddCaseNote();
+        timelineTab.clickAddButton();
     }
 
     @And("I edit the top case note")

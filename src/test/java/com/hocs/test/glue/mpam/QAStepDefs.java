@@ -18,13 +18,13 @@ public class QAStepDefs extends BasePage {
                 safeClickOn(qa.approvedAtQARadioButton);
                 safeClickOn(confirmButton);
                 break;
-            case "REJECT QA AT DRAFT":
-                qa.rejectQACaseAtDraft("TEST");
+            case "REJECTED, MOVE BACK TO DRAFTING":
+                qa.rejectQACaseToDraft("TEST");
                 break;
-            case "REJECT QA AT TRIAGE":
-                qa.rejectQACaseAtTriage("TEST");
+            case "REJECTED, MOVE BACK TO TRIAGE":
+                qa.rejectQACaseToTriage("TEST");
                 break;
-            case "ON HOLD":
+            case "PUT ON HOLD":
                 qa.putQACaseOnHold();
                 break;
             case "ESCALATE TO WORKFLOW MANAGER":
@@ -42,6 +42,20 @@ public class QAStepDefs extends BasePage {
                 qa.keepCaseOnHold();
                 break;
             case "TAKE OFF HOLD":
+                qa.takeCaseOffHold();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I select the {string} action at the QA (Escalated) stage")
+    public void iSelectOptionAtQAEscalated(String action) {
+        switch (action.toUpperCase()) {
+            case "KEEP ESCALATED":
+                qa.keepCaseEscalated();
+                break;
+            case "ESCALATION COMPLETE":
                 qa.takeCaseOffEscalation();
                 break;
             default:
@@ -56,13 +70,13 @@ public class QAStepDefs extends BasePage {
                 safeClickOn(qa.confirmButton);
                 break;
             case "REJECT AT TRIAGE REASON REQUIRED":
-                safeClickOn(qa.rejectQAAtTriageRadioButton);
+                safeClickOn(qa.rejectQAToTriageRadioButton);
                 safeClickOn(confirmButton);
                 safeClickOn(qa.triageRejectionTextField);
                 safeClickOn(confirmButton);
                 break;
             case "REJECT AT DRAFT REASON REQUIRED":
-                safeClickOn(qa.rejectQAAtDraftRadioButton);
+                safeClickOn(qa.rejectQAToDraftRadioButton);
                 safeClickOn(confirmButton);
                 safeClickOn(qa.draftRejectionTextField);
                 safeClickOn(confirmButton);

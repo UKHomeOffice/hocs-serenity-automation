@@ -13,10 +13,10 @@ public class QA extends BasePage {
     public WebElementFacade approvedAtQARadioButton;
 
     @FindBy(xpath = "//label[text()='Rejected, move back to drafting']")
-    public WebElementFacade rejectQAAtDraftRadioButton;
+    public WebElementFacade rejectQAToDraftRadioButton;
 
     @FindBy(xpath = "//label[text()='Rejected, move back to triage']")
-    public WebElementFacade rejectQAAtTriageRadioButton;
+    public WebElementFacade rejectQAToTriageRadioButton;
 
     @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
@@ -72,15 +72,15 @@ public class QA extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void rejectQACaseAtDraft(String rejectionReason) {
-        safeClickOn(rejectQAAtDraftRadioButton);
+    public void rejectQACaseToDraft(String rejectionReason) {
+        safeClickOn(rejectQAToDraftRadioButton);
         safeClickOn(confirmButton);
         typeInto(draftRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
     }
 
-    public void rejectQACaseAtTriage(String rejectionReason) {
-        safeClickOn(rejectQAAtTriageRadioButton);
+    public void rejectQACaseToTriage(String rejectionReason) {
+        safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
         typeInto(triageRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
