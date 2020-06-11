@@ -24,27 +24,27 @@ Feature: EndToEnd
       | HMPO         | B:Ref   | Triage |
       | Windrush     | B:Ref   | Triage |
 
-#  @MPAMWorkflow
-#  Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Triage stage
-#    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
-#    And I load and claim the current case
-#    When I send the Triage case to "On Hold"
-#    Then the case should be moved to the "<stage> (On Hold)" stage
-#    And should be in the expected MPAM "<stage>" team workstack
-#    Examples:
-#      | businessArea | refType | stage  |
-#      | UKVI         | M:Ref   | Triage |
-#      | BF           | M:Ref   | Triage |
-#      | IE           | M:Ref   | Triage |
-#      | EUSS         | M:Ref   | Triage |
-#      | HMPO         | M:Ref   | Triage |
-#      | Windrush     | M:Ref   | Triage |
-#      | UKVI         | B:Ref   | Triage |
-#      | BF           | B:Ref   | Triage |
-#      | IE           | B:Ref   | Triage |
-#      | EUSS         | B:Ref   | Triage |
-#      | HMPO         | B:Ref   | Triage |
-#      | Windrush     | B:Ref   | Triage |
+  @MPAMWorkflow
+  Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Triage stage
+    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I load and claim the current case
+    When I send the Triage case to "On Hold"
+    Then the case should be moved to the "<stage> (On Hold)" stage
+    And should be in the expected MPAM "<stage>" team workstack
+    Examples:
+      | businessArea | refType | stage  |
+      | UKVI         | M:Ref   | Triage |
+      | BF           | M:Ref   | Triage |
+      | IE           | M:Ref   | Triage |
+      | EUSS         | M:Ref   | Triage |
+      | HMPO         | M:Ref   | Triage |
+      | Windrush     | M:Ref   | Triage |
+      | UKVI         | B:Ref   | Triage |
+      | BF           | B:Ref   | Triage |
+      | IE           | B:Ref   | Triage |
+      | EUSS         | B:Ref   | Triage |
+      | HMPO         | B:Ref   | Triage |
+      | Windrush     | B:Ref   | Triage |
 
   @MPAMWorkflow
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at Triage stage
