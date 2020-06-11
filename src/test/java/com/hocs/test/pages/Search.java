@@ -94,7 +94,7 @@ public class Search extends BasePage {
     @FindBy(id = "RefType")
     public WebElementFacade mpamRefTypeDropdown;
 
-    @FindBy(xpath = "//div[text()='Search']/following-sibling::div//input")
+    @FindBy(xpath = "//input[@id='react-select-2-input']")
     public WebElementFacade memberOfParliamentSearchBox;
 
     @FindBy(id = "correspondentReference")
@@ -185,6 +185,10 @@ public class Search extends BasePage {
 
     //MPAM Methods
 
+    public void searchByCaseReference(String caseRef) {
+        typeInto(caseReferenceSearchBox, caseRef);
+    }
+
     public void searchByRefType(String refType) {
         switch (refType.toUpperCase()) {
             case "M:REF":
@@ -201,6 +205,7 @@ public class Search extends BasePage {
     public void searchByMemberOfParliament(String member) {
         safeClickOn(memberOfParliamentSearchBox);
         memberOfParliamentSearchBox.sendKeys(member);
+        waitABit(5000);
         memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
     }
 

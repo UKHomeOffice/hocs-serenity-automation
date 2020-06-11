@@ -489,6 +489,30 @@ public class SearchStepDefs extends BasePage {
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
     }
-}
 
+    @And("I search for a case by it's case reference")
+    public void searchForCaseByReference() {
+        String caseRef = sessionVariableCalled("caseReference");
+        search.searchByCaseReference(caseRef);
+        safeClickOn(searchButton);
+    }
+
+    @And("the one created case should be displayed")
+    public void createdCaseShouldBeDisplayed(){
+        int numberOfResults = workstacks.getTotalOfCases();
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                assertThat(numberOfResults == 1, is(true));
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                safeClickOn(homepage.searchPage);
+                search.searchByCaseReference(sessionVariableCalled("caseReference"));
+            }
+        }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
+    }
+}
 
