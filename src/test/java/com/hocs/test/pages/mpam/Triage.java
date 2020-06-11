@@ -60,6 +60,12 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
+    @FindBy(xpath = "//label[text()='Keep escalated']")
+    public WebElementFacade keepEscalatedRadioButton;
+
+    @FindBy(xpath = "//label[text()='Escalation complete']")
+    public WebElementFacade escalationCompleteRadioButton;
+
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
@@ -67,7 +73,6 @@ public class Triage extends BasePage {
         selectEnquirySubject("Person Specific");
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
-        summary.recordCaseOwner();
         safeClickOn(readyToDraftRadioButton);
         safeClickOn(confirmButton);
     }
@@ -155,5 +160,10 @@ public class Triage extends BasePage {
 
     public boolean checkIfBusinessAreaListsDiffer(List<String> listA, List<String> listB) {
         return !(listA.size() == listB.size() && listA.containsAll(listB) && listB.containsAll(listA));
+    }
+
+    public void deescalateTriageCase() {
+        safeClickOn(escalationCompleteRadioButton);
+        safeClickOn(confirmButton);
     }
 }

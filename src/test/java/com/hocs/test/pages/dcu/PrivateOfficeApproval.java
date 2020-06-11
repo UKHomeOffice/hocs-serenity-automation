@@ -80,8 +80,7 @@ public class PrivateOfficeApproval extends BasePage {
 
     public void completePrivateOfficeApprovalStageAndStoreEnteredInformation() {
         safeClickOn(privateOfficeAcceptRadioButton);
-        String privateOfficeAcceptanceDecision = privateOfficeAcceptRadioButton.getAttribute("for").substring(22);
-        setSessionVariable("privateOfficeAcceptanceDecision").to(privateOfficeAcceptanceDecision);
+        setSessionVariable("privateOfficeAcceptanceDecision").to(privateOfficeAcceptRadioButton.getTextContent());
         safeClickOn(continueButton);
     }
 

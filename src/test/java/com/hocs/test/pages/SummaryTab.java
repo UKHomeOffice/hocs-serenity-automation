@@ -10,6 +10,7 @@ import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.screenplay.actions.Switch;
 import org.hamcrest.core.Is;
 
 public class SummaryTab extends BasePage {
@@ -63,21 +64,24 @@ public class SummaryTab extends BasePage {
         assertThat(getActiveStage().toUpperCase(), is(stage.toUpperCase()));
     }
 
-    public void recordCaseOwner() {
-        safeClickOn(summaryTab);
-        WebElementFacade allocatedUser = findBy("//th[text()='User']/following-sibling::td");
-        String user = allocatedUser.getText();
-        setSessionVariable("allocatedUser").to(user);
-    }
-
-    public void assertCaseOwnerIs(User inputOwner) {
-        safeClickOn(summaryTab);
-        String owner = inputOwner.getUsername();
-        String actualOwner = sessionVariableCalled("allocatedUser");
-        assertThat(owner.equals(actualOwner), Is.is(true));
-    }
-
     public void assertAllocatedUserIs(User user) {
         allocatedUser.shouldContainText(user.getUsername());
+    }
+
+    public void assertAllocatedUKVITeam(String stage) {
+        String activeTeam = currentTeam.getText();
+        switch (stage) {
+            case "Private Office":
+                assertThat(activeTeam.contains("PO"), is(true));
+                break;
+            case "Awaiting Dispatch":
+                assertThat(activeTeam.contains("Draft"), is(true));
+                break;
+            default:
+                assertThat(activeTeam.contains(stage), is(true));
+        }
+        String businessArea = sessionVariableCalled("businessArea");
+        String refType = sessionVariableCalled("refType");
+        assertThat(activeTeam.contains(businessArea) && activeTeam.contains(refType), is(true));
     }
 }

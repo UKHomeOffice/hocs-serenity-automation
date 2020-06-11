@@ -203,11 +203,11 @@ public class DataInput extends BasePage {
         setSessionVariable("currentYear").to(currentYear);
 
         safeClickOn(emailOriginalChannelRadioButton);
-        String selectedCorrespondenceReceivedRadioButton = emailOriginalChannelRadioButton.getText().toUpperCase();
+        String selectedCorrespondenceReceivedRadioButton = emailOriginalChannelRadioButton.getText();
         setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
 
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getAttribute("for").substring(14);
+        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getTextContent();
         setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
 
         safeClickOn(continueButton);

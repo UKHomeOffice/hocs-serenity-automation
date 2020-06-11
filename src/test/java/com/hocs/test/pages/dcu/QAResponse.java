@@ -85,8 +85,7 @@ public class QAResponse extends BasePage {
 
     public void completeQAResponseStageAndStoreEnteredInformation() {
         safeClickOn(QAAcceptRadioButton);
-        String chosenQAResponse = QAAcceptRadioButton.getAttribute("for").substring(19);
-        setSessionVariable("chosenQAResponse").to(chosenQAResponse);
+        setSessionVariable("chosenQAResponse").to(QAAcceptRadioButton.getTextContent());
         safeClickOn(continueButton);
     }
 

@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.mpam.Draft;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 
 public class DraftStepDefs {
 
@@ -30,5 +31,15 @@ public class DraftStepDefs {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+    }
+
+    @When("I take the Draft \\(On Hold) case off hold")
+    public void iTakeTheDraftOnHoldCaseOffHold() {
+        draft.takeTriageCaseOffHold();
+    }
+
+    @When("I de-escalate the Draft \\(Escalated) case")
+    public void iDeEscalateTheDraftEscalatedCase() {
+        draft.deescalateTriageCase();
     }
 }

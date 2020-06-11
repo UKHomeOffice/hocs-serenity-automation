@@ -18,7 +18,7 @@ Feature: TransferConfirmation
     And I click the "Finish" button
     Then the case should be moved to the "Markup" stage
 
-  @Validation
-  Scenario: User must select whether the agree the case should be transferred
-    When I click the "Finish" button
-    Then an error message should be displayed as I have not selected a response on the Transfer Confirmation screen
+#  @Validation
+#  Scenario: User must select whether the agree the case should be transferred
+#    When I click the "Finish" button
+#    Then an error message should be displayed as I have not selected a response on the Transfer Confirmation screen

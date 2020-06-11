@@ -141,7 +141,7 @@ public class LoginStepDefs extends BasePage {
         homepage.assertOnHomePage();
     }
 
-    @When("I logout as the initial user")
+    @When("I logout of the application")
     public void selectLogoutButton() {
         safeClickOn(homepage.logoutButton);
     }
