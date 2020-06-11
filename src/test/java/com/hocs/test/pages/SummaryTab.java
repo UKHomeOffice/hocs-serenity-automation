@@ -74,7 +74,7 @@ public class SummaryTab extends BasePage {
         safeClickOn(summaryTab);
         String owner = inputOwner.getUsername();
         String actualOwner = sessionVariableCalled("allocatedUser");
-        assertThat(owner.equals(actualOwner), Is.is(true));
+        assertThat(owner.equals(actualOwner), is(true));
     }
 
     public void assertAllocatedUserIs(User user) {

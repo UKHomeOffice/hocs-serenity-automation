@@ -86,6 +86,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//a[text()='Summary']")
     public WebElementFacade summaryTab;
 
+    @FindBy(xpath = "//a[text()='People']")
+    public WebElementFacade peopleTab;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
