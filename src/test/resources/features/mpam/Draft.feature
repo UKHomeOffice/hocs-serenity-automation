@@ -40,16 +40,16 @@ Feature: Drafting
 
   @MPAMWorkflow @SmokeTests
   Scenario: User takes a Draft On Hold case off hold
-    And I send the Triage case to "On Hold"
+    And I send the Draft case to "On Hold"
     And I load and claim the current case
     When I take the Draft (On Hold) case off hold
-    Then the case should be moved to the "Triage" stage
+    Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
 
   @MPAMWorkflow @SmokeTests
   Scenario: User de-escalates a Draft (Escalated) case
-    When I send the Triage case to "Workflow Manager"
+    When I send the Draft case to "Workflow Manager"
     And I load and claim the current case
     When I de-escalate the Draft (Escalated) case
-    Then the case should be moved to the "Triage" stage
+    Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
