@@ -115,4 +115,9 @@ public class TriageStepDefs extends BasePage {
         safeClickOn(accordionMPAM.caseDetailsAccordionButton);
         creation.selectBusinessArea(businessArea);
     }
+
+    @When("I de-escalate the Triage \\(Escalated) case")
+    public void iDescalateTheTriageEscalatedCase() {
+        triage.deescalateTriageCase();
+    }
 }

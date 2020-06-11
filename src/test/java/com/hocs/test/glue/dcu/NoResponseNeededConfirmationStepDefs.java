@@ -1,4 +1,4 @@
-package com.hocs.test.glue.DCU;
+package com.hocs.test.glue.dcu;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.dcu.NoResponseNeededConfirmation;

@@ -92,7 +92,7 @@ public class Markup extends BasePage {
 
     public void chooseResponseTypeAndRecordDecision() {
         safeClickOn(policyResponseRadioButton);
-        String whatSortOfResponseRadioButton = policyResponseRadioButton.getAttribute("for").substring(15);
+        String whatSortOfResponseRadioButton = policyResponseRadioButton.getTextContent();
         setSessionVariable("selectedWhatSortOfResponseRadioButton").to(whatSortOfResponseRadioButton);
     }
 

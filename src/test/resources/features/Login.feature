@@ -14,7 +14,7 @@ Feature: Login
   @SmokeTests
   Scenario: User is able to log out from one user and login as another
     And I enter the login credentials for user "AUTOMATION_USER" and click the login button
-    When I logout as the initial user
+    When I logout of the application
     And I enter the login credentials of another user "CASEY" and click the login button
     Then I should be logged in as the user "CASEY"
 

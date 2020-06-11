@@ -53,6 +53,8 @@ public class GenericInputStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
+    User originalUser;
+
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
         assertPageTitle(pageTitle);
@@ -275,13 +277,6 @@ public class GenericInputStepDefs extends BasePage {
         }
     }
 
-    @When("I click the add button when creating a case note")
-    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        safeClickOn(workstacks.caseTimelineTab);
-        safeClickOn(workstacks.addCaseNoteButton);
-        safeClickOn(workstacks.addButton);
-    }
-
     @Then("the case should be moved to the {string} stage")
     public void assertCaseTypeReturnedToStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
@@ -429,12 +424,18 @@ public class GenericInputStepDefs extends BasePage {
         summaryTab.assertAllocatedUserIs(getCurrentUser());
     }
 
-    @Then("the case should be allocated to {string}")
-    public void caseShouldBeAllocatedTo(String allocatedUser) {
+    @And("I record the user who completed the previous stages")
+    public void iRecordTheUserWhoCompletedThePreviousStages() {
+        originalUser = getCurrentUser();
+    }
+
+    @Then("the case should be allocated to the original user")
+    public void caseShouldBeAllocatedTo() {
+        safeClickOn(summaryTab.summaryTab);
         int retest = 0;
         while (retest < 5) {
             try {
-                summaryTab.assertCaseOwnerIs(User.valueOf(allocatedUser));
+                summaryTab.assertAllocatedUserIs(originalUser);
                 break;
             } catch (AssertionError a) {
                 retest ++;
@@ -442,6 +443,11 @@ public class GenericInputStepDefs extends BasePage {
                 safeClickOn(summaryTab.summaryTab);
             }
         }
+    }
+
+    @And("should be in the expected MPAM {string} team workstack")
+    public void shouldBeInTheExpectedMPAMTeamsWorkstack(String stage) {
+        summaryTab.assertAllocatedUKVITeam(stage);
     }
 }
 

@@ -1,4 +1,4 @@
-@Accordion @WeeklyTests
+@AccordionDCU @WeeklyTests
 Feature: Case Details Accordion
 
   Background:

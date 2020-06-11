@@ -43,7 +43,7 @@ Feature: Triage
     Then the case should be moved to the "Triage (On Hold)" stage
     And the case should be allocated to me in the summary
 
-  @Workflow
+  @Workflow @SmokeTests
     Scenario: User escalates the Triage case to the workflow manager
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "Triage (Escalated)" stage
@@ -53,6 +53,14 @@ Feature: Triage
     And I send the Triage case to "On Hold"
     And I load and claim the current case
     When I take the Triage (On Hold) case off hold
+    Then the case should be moved to the "Triage" stage
+    And the case should be allocated to me in the summary
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User de-escalates a Triage (Escalated) case
+    When I send the Triage case to "Workflow Manager"
+    And I load and claim the current case
+    When I de-escalate the Triage (Escalated) case
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 

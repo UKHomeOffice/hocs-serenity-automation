@@ -27,6 +27,12 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
+    @FindBy(xpath = "//label[text()='Take off hold']")
+    public WebElementFacade takeOffHoldRadioButton;
+
+    @FindBy(xpath = "//label[text()='Escalation complete']")
+    public WebElementFacade escalationCompleteRadioButton;
+
     public void moveCaseFromDraftToQA() {
         safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(moveToQARadioButton);
@@ -48,6 +54,16 @@ public class Draft extends BasePage {
     public void putCaseOnHold() {
         safeClickOn(responseChannelLetterRadioButton);
         safeClickOn(putOnHoldRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void takeTriageCaseOffHold() {
+        safeClickOn(takeOffHoldRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void deescalateTriageCase() {
+        safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
     }
 }
