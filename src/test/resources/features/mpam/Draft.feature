@@ -40,6 +40,8 @@ Feature: Drafting
 
   @MPAMWorkflow @SmokeTests
   Scenario: User takes a Draft On Hold case off hold
+    When I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
     And I send the Draft case to "On Hold"
     And I load and claim the current case
     When I take the Draft (On Hold) case off hold
@@ -48,6 +50,8 @@ Feature: Drafting
 
   @MPAMWorkflow @SmokeTests
   Scenario: User de-escalates a Draft (Escalated) case
+    When I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
     And I load and claim the current case
     When I de-escalate the Draft (Escalated) case
