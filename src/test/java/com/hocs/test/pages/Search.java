@@ -10,8 +10,11 @@ import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -85,7 +88,19 @@ public class Search extends BasePage {
     @FindBy(css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
-    //Methods
+    @FindBy(id = "reference")
+    public WebElementFacade caseReferenceSearchBox;
+
+    @FindBy(id = "RefType")
+    public WebElementFacade mpamRefTypeDropdown;
+
+    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    public WebElementFacade memberOfParliamentSearchBox;
+
+    @FindBy(id = "correspondentReference")
+    public WebElementFacade correspondentReferenceNumber;
+
+    //DCU Methods
 
     public void enterSearchCorrespondent(String correspondentNameQuery) {
         safeClickOn(searchCorrespondentTextbox);
@@ -166,6 +181,36 @@ public class Search extends BasePage {
         homepage.hitEnterCaseReferenceSearchBar();
         safeClickOn(accordionDCU.markupAccordionButton);
         return (accordionDCU.privateOfficeTeam.getText().contains(signOffTeam));
+    }
+
+    //MPAM Methods
+
+    public void searchByCaseReference(String caseRef) {
+        typeInto(caseReferenceSearchBox, caseRef);
+    }
+
+    public void searchByRefType(String refType) {
+        switch (refType.toUpperCase()) {
+            case "M:REF":
+                mpamRefTypeDropdown.selectByIndex(1);
+                break;
+            case "B:REF":
+                mpamRefTypeDropdown.selectByIndex(2);
+                break;
+            default:
+                pendingStep(refType + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void searchByMemberOfParliament(String member) {
+        safeClickOn(memberOfParliamentSearchBox);
+        memberOfParliamentSearchBox.sendKeys(member);
+        waitABit(5000);
+        memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+    }
+
+    public void searchByCorrespondentRefNumber(String refNumber) {
+        typeInto(correspondentReferenceNumber, refNumber);
     }
 
     //Assertions
@@ -251,6 +296,6 @@ public class Search extends BasePage {
     }
 
     public void waitUntilSearchPageLoaded() {
-        searchTopicTextbox.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        receivedAfterDayTextbox.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 }

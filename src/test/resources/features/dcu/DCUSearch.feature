@@ -1,5 +1,5 @@
 @Search
-Feature: Search
+Feature: DCU Search
 
   Background:
     Given I log in to DECS

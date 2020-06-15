@@ -8,11 +8,15 @@ import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 
 public class SearchStepDefs extends BasePage {
@@ -412,6 +416,103 @@ public class SearchStepDefs extends BasePage {
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
     }
-}
 
+    @And("I search for an MPAM case with {string} as it's {string}")
+    public void searchForMPAMCaseWith(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "REFERENCE TYPE":
+                search.searchByRefType(infoValue);
+                setSessionVariable("infoValue").to(infoValue);
+                safeClickOn(searchButton);
+                break;
+            case "MEMBER OF PARLIAMENT NAME":
+                search.searchByMemberOfParliament(infoValue);
+                setSessionVariable("infoValue").to(infoValue);
+                safeClickOn(searchButton);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                search.searchByCorrespondentRefNumber(infoValue);
+                setSessionVariable("infoValue").to(infoValue);
+                safeClickOn(searchButton);
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I check that the MPAM search results have the correct {string}")
+    public void checkMPAMCaseHasCorrect(String infoType) {
+        WebElementFacade topSearchResult = findBy("//tr[1]/td/a[contains(text(), 'MPAM')]");
+        setSessionVariable("topSearchResult").to(topSearchResult.getText());
+        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a[contains(text(), 'MPAM')]");
+        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
+        switch (infoType.toUpperCase()) {
+            case "REFERENCE TYPE":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                WebElementFacade firstRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
+                firstRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                safeClickOn(summaryTab);
+                WebElementFacade secondRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
+                secondRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
+                break;
+            case "MEMBER OF PARLIAMENT NAME":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                WebElementFacade firstMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
+                        + "]/following-sibling::td/span[1]");
+                firstMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                safeClickOn(summaryTab);
+                WebElementFacade secondMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
+                        + "]/following-sibling::td/span[1]");
+                secondMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                safeClickOn(topSearchResult);
+                safeClickOn(peopleTab);
+                WebElementFacade firstCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                firstCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                safeClickOn(peopleTab);
+                WebElementFacade secondCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                secondCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I search for a case by it's case reference")
+    public void searchForCaseByReference() {
+        String caseRef = sessionVariableCalled("caseReference");
+        search.searchByCaseReference(caseRef);
+        safeClickOn(searchButton);
+    }
+
+    @And("the one created case should be displayed")
+    public void createdCaseShouldBeDisplayed(){
+        int numberOfResults = workstacks.getTotalOfCases();
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayedInSearchResults();
+                assertThat(numberOfResults == 1, is(true));
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                safeClickOn(homepage.searchPage);
+                search.searchByCaseReference(sessionVariableCalled("caseReference"));
+            }
+        }
+        search.assertCurrentCaseIsDisplayedInSearchResults();
+    }
+}
 
