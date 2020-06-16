@@ -53,14 +53,14 @@ Feature: Creation
       | EUSS         | M:Ref   |
       | HMPO         | M:Ref   |
       | Windrush     | M:Ref   |
-#      | Coronavirus  | M:Ref   |
+      | Coronavirus  | M:Ref   |
       | UKVI         | B:Ref   |
       | BF           | B:Ref   |
       | IE           | B:Ref   |
       | EUSS         | B:Ref   |
       | HMPO         | B:Ref   |
       | Windrush     | B:Ref   |
-#      | Coronavirus  | B:Ref   |
+      | Coronavirus  | B:Ref   |
 
   @SmokeTests
   Scenario: User adds an MP correspondent at Case Creation stage
