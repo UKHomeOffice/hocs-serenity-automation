@@ -172,6 +172,7 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
+        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
     }
 
     //Assertions
