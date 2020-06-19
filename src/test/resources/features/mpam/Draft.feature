@@ -40,20 +40,31 @@ Feature: Drafting
 
   @MPAMWorkflow @SmokeTests
   Scenario: User takes a Draft On Hold case off hold
-    When I create a "MPAM" case and move it to the "Draft" stage
+    And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "On Hold"
-    And I load and claim the current case
-    When I take the Draft (On Hold) case off hold
+    When I load and claim the current case
+    And I take the Draft (On Hold) case off hold
     Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
 
   @MPAMWorkflow @SmokeTests
   Scenario: User de-escalates a Draft (Escalated) case
-    When I create a "MPAM" case and move it to the "Draft" stage
+    And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
-    When I send the Draft case to "Workflow Manager"
-    And I load and claim the current case
-    When I de-escalate the Draft (Escalated) case
+    And I send the Draft case to "Workflow Manager"
+    When I load and claim the current case
+    And I de-escalate the Draft (Escalated) case
     Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User closes a Draft (Escalated) case
+    And I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I send the Draft case to "Workflow Manager"
+    When I load and claim the current case
+    And I select to close the Draft (Escalated) case
+    And I submit a reason to close the case at Draft (Escalated) stage
+    Then the case should be closed
+    And a closure note should be visible showing the reason for closing the case

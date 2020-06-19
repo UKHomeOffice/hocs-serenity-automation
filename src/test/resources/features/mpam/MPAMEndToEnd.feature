@@ -394,7 +394,7 @@ Feature: EndToEnd
       | Coronavirus  | B:Ref   | Awaiting Dispatch |
 
   @MPAMWorkflow
-  Scenario Outline: User closes an M:Ref case with specific Business Area and Reference Type
+  Scenario Outline: User closes a M:Ref case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
     Examples:

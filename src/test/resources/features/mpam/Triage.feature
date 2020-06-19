@@ -64,6 +64,15 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
+  @MPAMWorkflow @SmokeTests
+  Scenario: User closes a Triage (Escalated) case
+    And I send the Triage case to "Workflow Manager"
+    When I load and claim the current case
+    And I select to close the Triage (Escalated) case
+    And I submit a reason to close the case at Triage (Escalated) stage
+    Then the case should be closed
+    And a closure note should be visible showing the reason for closing the case
+
   @Validation
   Scenario Outline: User triggers error message to be displayed at Triage
     When the user triggers the "<errorType>" error message at Triage by not entering the correct information

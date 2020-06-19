@@ -83,6 +83,9 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Confirm']")
     public WebElementFacade confirmButton;
 
+    @FindBy(css = "[value='Close case']")
+    public WebElementFacade closeCaseButton;
+
     @FindBy(xpath = "//a[text()='Summary']")
     public WebElementFacade summaryTab;
 

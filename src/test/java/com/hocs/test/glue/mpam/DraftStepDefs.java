@@ -42,4 +42,14 @@ public class DraftStepDefs {
     public void iDeEscalateTheDraftEscalatedCase() {
         draft.deescalateTriageCase();
     }
+
+    @And("I select to close the Draft \\(Escalated) case")
+    public void iSelectToCloseTheDraftEscalatedCase() {
+        draft.selectToCloseEscalatedCase();
+    }
+
+    @And("I submit a reason to close the case at Draft \\(Escalated) stage")
+    public void iSubmitAReasonToCloseTheCaseAtDraftEscalatedStage() {
+        draft.submitReasonToCloseEscalatedCase("Test close case at Draft (Escalated) stage");
+    }
 }

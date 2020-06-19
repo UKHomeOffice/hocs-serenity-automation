@@ -3,6 +3,8 @@ package com.hocs.test.pages.mpam;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -27,7 +29,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//a[text()='Action menu - select one option is required']")
+    @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
     @FindBy(id = "CaseNote_RejectDraft")
@@ -36,11 +38,11 @@ public class QA extends BasePage {
     @FindBy(id = "CaseNote_RejectTriage")
     public WebElementFacade triageRejectionTextField;
 
-    @FindBy(xpath = "//a[text()='Explanation for reject at triage is required']")
-    public WebElementFacade explanationForRejectionAtTriageRequiredErrorMessage;
+    @FindBy(xpath = "//a[text()='Explanation for rejection, move back to triage is required']")
+    public WebElementFacade explanationForRejectionBacktoTriageRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Explanation for reject at draft is required']")
-    public WebElementFacade explanationForRejectionAtDraftRequiredErrorMessage;
+    @FindBy(xpath = "//a[text()='Explanation for rejection, move back to drafting is required']")
+    public WebElementFacade explanationForRejectionBackToDraftRequiredErrorMessage;
 
     //QA (Escalated) Elements
     @FindBy(xpath = "//label[text()='Keep escalated']")
@@ -55,6 +57,12 @@ public class QA extends BasePage {
 
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
+
+    @FindBy(xpath = "//label[text()='Close case']")
+    public WebElementFacade closeCaseRadioButton;
+
+    @FindBy(id = "CaseNote_QaClose")
+    public WebElementFacade closureReasonTextArea;
 
     //QA Actions
     public void moveCaseFromQAToNextStage() {
@@ -72,18 +80,26 @@ public class QA extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void rejectQACaseToDraft(String rejectionReason) {
+    public void selectToRejectCaseToDraft() {
         safeClickOn(rejectQAToDraftRadioButton);
-        safeClickOn(confirmButton);
-        typeInto(draftRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
     }
 
-    public void rejectQACaseToTriage(String rejectionReason) {
+    public void selectToRejectCaseToTriage() {
         safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToRejectToDraft(String rejectionReason) {
+        typeInto(draftRejectionTextField, rejectionReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void submitReasonToRejectToTriage(String rejectionReason) {
         typeInto(triageRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
+        setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     //QA (Escalated) Actions
@@ -95,6 +111,17 @@ public class QA extends BasePage {
     public void takeCaseOffEscalation() {
         safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void selectToCloseEscalatedCase() {
+        safeClickOn(closeCaseRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToCloseEscalatedCase(String closureReason) {
+        typeInto(closureReasonTextArea, closureReason);
+        safeClickOn(closeCaseButton);
+        setSessionVariable("closureReason").to(closureReason);
     }
 
     //QA (On Hold) Actions
@@ -113,11 +140,11 @@ public class QA extends BasePage {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
     }
 
-    public void assertRejectAtTriageReasonRequiredErrorMessageDisplayed() {
-        assertThat(explanationForRejectionAtTriageRequiredErrorMessage.isVisible(), is(true));
+    public void assertRejectBackToTriageReasonRequiredErrorMessageDisplayed() {
+        assertThat(explanationForRejectionBacktoTriageRequiredErrorMessage.isVisible(), is(true));
     }
 
-    public void assertRejectAtDraftReasonRequiredErrorMessageDisplayed() {
-        assertThat(explanationForRejectionAtDraftRequiredErrorMessage.isVisible(), is(true));
+    public void assertRejectBackToDraftReasonRequiredErrorMessageDisplayed() {
+        assertThat(explanationForRejectionBackToDraftRequiredErrorMessage.isVisible(), is(true));
     }
 }

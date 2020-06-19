@@ -28,12 +28,16 @@ Feature: QA
   @MPAMWorkflow @SmokeTests
   Scenario: User sends a case back to draft at the QA stage
     And I select the "Rejected, move back to drafting" action at QA
+    And I submit a reason to reject the case back to drafting
     Then the case should be moved to the "Draft" stage
+    And a rejection note should be visible showing the reason for rejection
 
   @MPAMWorkflow @SmokeTests
   Scenario: User sends a case back to triage at the QA stage
     And I select the "Rejected, move back to triage" action at QA
+    And I submit a reason to reject the case back to triage
     Then the case should be moved to the "Triage" stage
+    And a rejection note should be visible showing the reason for rejection
 
   @MPAMWorkflow @SmokeTests
   Scenario: User takes a QA (On Hold) case off hold
@@ -50,6 +54,15 @@ Feature: QA
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "QA" stage
     And the case should be allocated to me in the summary
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User closes a QA (Escalated) case
+    And I select the "Escalate to Workflow Manager" action at QA
+    When I load and claim the current case
+    And I select to close the QA (Escalated) case
+    And I submit a reason to close the case at QA (Escalated) stage
+    Then the case should be closed
+    And a closure note should be visible showing the reason for closing the case
 
   @Validation
   Scenario Outline: User triggers error message is displayed at QA

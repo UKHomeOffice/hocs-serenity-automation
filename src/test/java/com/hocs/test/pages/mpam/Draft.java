@@ -4,13 +4,24 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 public class Draft extends BasePage {
 
     @FindBy(css = "label[for='ChannelOut-Email']")
-    public WebElementFacade responseChannelEmailRadioButton;
+    private WebElementFacade responseChannelEmailRadioButton;
 
     @FindBy(css = "label[for='ChannelOut-Letter']")
-    public WebElementFacade responseChannelLetterRadioButton;
+    private WebElementFacade responseChannelLetterRadioButton;
+
+    @FindBy(css = "label[for='ChannelOut-Phone']")
+    private WebElementFacade responseChannelPhoneRadioButton;
+
+    @FindBy(css = "label[for='ChannelOut-Outreach']")
+    private WebElementFacade responseChannelOutreachRadioButton;
 
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
@@ -33,26 +44,51 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
+    @FindBy(xpath = "//label[text()='Close case']")
+    public WebElementFacade closeCaseRadioButton;
+
+    @FindBy(id = "CaseNote_DraftClose")
+    public WebElementFacade closureReasonTextArea;
+
     public void moveCaseFromDraftToQA() {
-        safeClickOn(responseChannelEmailRadioButton);
+        selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
         safeClickOn(confirmButton);
     }
 
     public void moveBRefCaseFromDraftToDispatch() {
-        safeClickOn(responseChannelEmailRadioButton);
+        selectResponseChannel("Letter");
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);
     }
 
+    public void selectResponseChannel(String responseChannel) {
+        switch (responseChannel.toUpperCase()) {
+            case "EMAIL":
+                safeClickOn(responseChannelEmailRadioButton);
+                break;
+            case "LETTER":
+                safeClickOn(responseChannelLetterRadioButton);
+                break;
+            case "PHONE":
+                safeClickOn(responseChannelPhoneRadioButton);
+                break;
+            case "OUTREACH":
+                safeClickOn(responseChannelOutreachRadioButton);
+                break;
+            default:pendingStep(responseChannel + " is not defined within " + getMethodName());
+        }
+        setSessionVariable("responseChannel").to(responseChannel);
+    }
+
     public void escalateCaseToWorkflowManager() {
-        safeClickOn(responseChannelLetterRadioButton);
+        selectResponseChannel("Email");
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
 
     public void putCaseOnHold() {
-        safeClickOn(responseChannelLetterRadioButton);
+        selectResponseChannel("Letter");
         safeClickOn(putOnHoldRadioButton);
         safeClickOn(confirmButton);
     }
@@ -65,5 +101,16 @@ public class Draft extends BasePage {
     public void deescalateTriageCase() {
         safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void selectToCloseEscalatedCase() {
+        safeClickOn(closeCaseRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToCloseEscalatedCase(String closureReason) {
+        typeInto(closureReasonTextArea, closureReason);
+        safeClickOn(closeCaseButton);
+        setSessionVariable("closureReason").to(closureReason);
     }
 }
