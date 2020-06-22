@@ -1,5 +1,8 @@
 package com.hocs.test.glue.mpam;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import com.hocs.test.pages.mpam.Creation;
@@ -34,19 +37,37 @@ public class MPAMCaseDetailsAccordionStepDefs {
         switch (accordion.toUpperCase()) {
             case "CREATION":
                 accordionMPAM.openCreationAccordion();
-                accordionMPAM.getQuestionResponse(responseType);
-                accordionMPAM.assertInputMatchesCaseDetailsResponse(responseType);
                 break;
             case "TRIAGE":
                 accordionMPAM.openTriageAccordion();
-                accordionMPAM.getQuestionResponse(responseType);
-                accordionMPAM.assertInputMatchesCaseDetailsResponse(responseType);
                 break;
             case "DRAFT":
                 accordionMPAM.openDraftAccordion();
-                accordionMPAM.getQuestionResponse(responseType);
-                accordionMPAM.assertInputMatchesCaseDetailsResponse(responseType);
+                break;
+            default:
+                pendingStep(accordion + " is not defined within " + getMethodName());
         }
+        accordionMPAM.getQuestionResponse(responseType);
+        accordionMPAM.assertInputMatchesCaseDetailsResponse(responseType);
     }
 
+    @And("the {string} accordion contains all of the correct information previously input")
+    public void accordionInCaseDetailsContainsAllCorrectInformation(String accordion) {
+        switch (accordion.toUpperCase()) {
+            case "CREATION":
+                accordionMPAM.openCreationAccordion();
+                accordionMPAM.assertAllCreationResponsesMatchInput();
+                break;
+            case "TRIAGE":
+                accordionMPAM.openTriageAccordion();
+                accordionMPAM.assertAllTriageResponsesMatchInput();
+                break;
+            case "DRAFT":
+                accordionMPAM.openDraftAccordion();
+                accordionMPAM.assertAllDraftResponsesMatchInput();
+                break;
+            default:
+                pendingStep(accordion + " is not defined within " + getMethodName());
+        }
+    }
 }

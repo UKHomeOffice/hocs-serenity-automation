@@ -1,8 +1,14 @@
 package com.hocs.test.pages;
 
 import config.User;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebElement;
@@ -10,6 +16,7 @@ import org.openqa.selenium.By;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -18,6 +25,8 @@ import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends BasePage {
+
+    Homepage homepage;
 
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
@@ -96,6 +105,24 @@ public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//tbody/tr[1]/td[8]")
     public WebElementFacade topCasePoints;
+
+    @FindBy(xpath = "//th[text()='Reference']")
+    public WebElementFacade referenceColumnHeader;
+
+    @FindBy(xpath = "//th[text()='Current Stage']")
+    public WebElementFacade currentStageColumnHeader;
+
+    @FindBy(xpath = "//th[text()='Owner']")
+    public WebElementFacade ownerColumnHeader;
+
+    @FindBy(xpath = "//th[text()='Owner']/following-sibling::th[1]")
+    public WebElementFacade deadlineColumnHeader;
+
+    @FindBy(xpath = "//th[text()='Urgency']")
+    public WebElementFacade urgencyColumnHeader;
+
+    @FindBy(xpath = "//th[text()='Days']")
+    public WebElementFacade daysColumnHeader;
 
     // Basic Methods
 
@@ -199,6 +226,46 @@ public class Workstacks extends BasePage {
 
     public void waitForWorkstackToLoad() {
         allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+    }
+
+    public void orderMPAMWorkstackColumn(String team, String column, String order) {
+        WebElementFacade selectedHeader = null;
+        homepage.selectCorrectMPAMTeamByStage(team);
+        switch (column.toUpperCase()) {
+            case "REFERENCE":
+                selectedHeader = referenceColumnHeader;
+                break;
+            case "CURRENT STAGE":
+                selectedHeader = currentStageColumnHeader;
+                break;
+            case "OWNER":
+                selectedHeader = ownerColumnHeader;
+                break;
+            case "DEADLINE":
+                selectedHeader = deadlineColumnHeader;
+                break;
+            case "URGENCY":
+                selectedHeader = urgencyColumnHeader;
+                break;
+            case "DAYS":
+                selectedHeader = daysColumnHeader;
+                break;
+            default:
+                pendingStep(column + " is not defined within " + getMethodName());
+        }
+        switch (order.toUpperCase()) {
+            case "LOWEST TO HIGHEST":
+                safeClickOn(selectedHeader);
+                break;
+            case "HIGHEST TO LOWEST":
+                safeClickOn(selectedHeader);
+                waitABit(1000);
+                safeClickOn(selectedHeader);
+                break;
+            default:
+                pendingStep(order + " is not defined within " + getMethodName());
+
+        }
     }
 
     // Assertions
@@ -404,5 +471,135 @@ public class Workstacks extends BasePage {
 
     public void assertPointsOfCurrentCaseEqual(String expectedPoints) {
         assertThat(getPointsOfCurrentCase(), is(Double.parseDouble(expectedPoints)));
+    }
+
+    public void assertColumnIsOrderedProperly(String column, String order) throws ParseException {
+        int currentCase = 2;
+        int totalCases = getTotalOfCases();
+        while (currentCase <= (totalCases - 1)) {
+            switch (column.toUpperCase()) {
+                case "REFERENCE":
+                    WebElement refNumberCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(2)"));
+                    WebElement refNumberCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(2)"));
+                    String refNumberOne = refNumberCellOne.getText();
+                    String refNumberTwo = refNumberCellTwo.getText();
+                    String numberAsStringOne = refNumberOne.substring(6, 11);
+                    String numberAsStringTwo = refNumberTwo.substring(6, 11);
+                    int numberOne = Integer.parseInt(numberAsStringOne);
+                    int numberTwo = Integer.parseInt(numberAsStringTwo);
+                    switch (order.toUpperCase()) {
+                        case "LOWEST TO HIGHEST":
+                            assertThat(numberOne <= numberTwo, is(true));
+                            break;
+                        case "HIGHEST TO LOWEST":
+                            assertThat(numberOne >= numberTwo, is(true));
+                            break;
+                        default:
+                            pendingStep(order + " is not defined within " + getMethodName());
+                    }
+                    currentCase += 1;
+                    break;
+                case "CURRENT STAGE":
+                    WebElement currentStageCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(3)"));
+                    WebElement currentStageCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(3)"));
+                    String currentStageOne = currentStageCellOne.getText();
+                    String currentStageTwo = currentStageCellTwo.getText();
+                    switch (order.toUpperCase()) {
+                        case "LOWEST TO HIGHEST":
+                            assertThat(currentStageOne.compareTo(currentStageTwo) <= 0, is(true));
+                            break;
+                        case "HIGHEST TO LOWEST":
+                            assertThat(currentStageOne.compareTo(currentStageTwo) >= 0, is(true));
+                            break;
+                        default:
+                            pendingStep(order + " is not defined within " + getMethodName());
+                    }
+                    currentCase += 1;
+                    break;
+                case "OWNER":
+                    WebElement ownerCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(4)"));
+                    WebElement ownerCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(4)"));
+                    String ownerOne = ownerCellOne.getText();
+                    String ownerTwo = ownerCellTwo.getText();
+                    switch (order.toUpperCase()) {
+                        case "LOWEST TO HIGHEST":
+                            assertThat(ownerOne.compareTo(ownerTwo) <= 0, is(true));
+                            break;
+                        case "HIGHEST TO LOWEST":
+                            assertThat(ownerOne.compareTo(ownerTwo) >= 0, is(true));
+                            break;
+                        default:
+                            pendingStep(order + " is not defined within " + getMethodName());
+                    }
+                    currentCase += 1;
+                    break;
+                case "DEADLINE":
+                     WebElement deadlineCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(5)"));
+                     WebElement deadlineCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(5)"));
+                     String deadlineOneString = deadlineCellOne.getText();
+                     String deadlineTwoString = deadlineCellTwo.getText();
+                     if (!deadlineOneString.equals("") && !deadlineTwoString.equals("")) {
+                         DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+                         Date deadlineOne = format.parse(deadlineOneString);
+                         Date deadlineTwo = format.parse(deadlineTwoString);
+                         switch (order.toUpperCase()) {
+                             case "LOWEST TO HIGHEST":
+                                 assertThat(deadlineOne.before(deadlineTwo)||deadlineOne.equals(deadlineTwo), is(true));
+                                 break;
+                             case "HIGHEST TO LOWEST":
+                                 assertThat(deadlineOne.after(deadlineTwo)||deadlineOne.equals(deadlineTwo), is(true));
+                                 break;
+                             default:
+                                 pendingStep(order + " is not defined within " + getMethodName());
+                         }
+                     }
+                     currentCase += 1;
+                     break;
+                case "URGENCY":
+                    Hashtable<String, Integer> urgencyDictionary = new Hashtable<String, Integer>();
+                    urgencyDictionary.put("Standard", 1);
+                    urgencyDictionary.put("Priority", 2);
+                    urgencyDictionary.put("Immediate", 3);
+                    WebElement urgencyCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(6)"));
+                    WebElement urgencyCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(6)"));
+                    String urgencyOneString = urgencyCellOne.getText();
+                    String urgencyTwoString = urgencyCellTwo.getText();
+                    int urgencyOne = urgencyDictionary.get(urgencyOneString);
+                    int urgencyTwo = urgencyDictionary.get(urgencyTwoString);
+                    switch (order.toUpperCase()) {
+                        case "LOWEST TO HIGHEST":
+                            assertThat(urgencyOne >= urgencyTwo, is(true));
+                            break;
+                        case "HIGHEST TO LOWEST":
+                            assertThat(urgencyOne <= urgencyTwo, is(true));
+                            break;
+                        default:
+                            pendingStep(order + " is not defined within " + getMethodName());
+                    }
+                    currentCase += 1;
+                    break;
+                case "DAYS":
+                    WebElement daysCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(7)"));
+                    WebElement daysCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(7)"));
+                    String daysOneString = daysCellOne.getText();
+                    String daysTwoString = daysCellTwo.getText();
+                    int daysOne = Integer.parseInt(daysOneString);
+                    int daysTwo = Integer.parseInt(daysTwoString);
+                    switch (order.toUpperCase()) {
+                        case "LOWEST TO HIGHEST":
+                            assertThat(daysOne <= daysTwo, is(true));
+                            break;
+                        case "HIGHEST TO LOWEST":
+                            assertThat(daysOne >= daysTwo, is(true));
+                            break;
+                        default:
+                            pendingStep(order + " is not defined within " + getMethodName());
+                    }
+                    currentCase += 1;
+                    break;
+                default:
+                    pendingStep(column + " is not defined within " + getMethodName());
+            }
+        }
     }
 }

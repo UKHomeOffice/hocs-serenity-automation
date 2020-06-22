@@ -156,4 +156,33 @@ public class AccordionMPAM extends BasePage {
         displayedResponse = sessionVariableCalled("response");
         assertThat(displayedResponse.contains(inputResponse), is(true));
     }
+
+    public void assertAllCreationResponsesMatchInput() {
+        getQuestionResponse("Business Area");
+        assertInputMatchesCaseDetailsResponse("Business Area");
+        getQuestionResponse("Reference Type");
+        assertInputMatchesCaseDetailsResponse("Reference Type");
+        getQuestionResponse("Urgency");
+        assertInputMatchesCaseDetailsResponse("Urgency");
+        getQuestionResponse("Channel Received");
+        assertInputMatchesCaseDetailsResponse("Channel Received");
+        getQuestionResponse("Primary Correspondent");
+        assertInputMatchesCaseDetailsResponse("Primary Correspondent");
+        getQuestionResponse("Received Date");
+        assertInputMatchesCaseDetailsResponse("Received Date");
+    }
+
+    public void assertAllTriageResponsesMatchInput() {
+        getQuestionResponse("Enquiry Subject");
+        assertInputMatchesCaseDetailsResponse("Enquiry Subject");
+        getQuestionResponse("Enquiry Reason");
+        assertInputMatchesCaseDetailsResponse("Enquiry Reason");
+        getQuestionResponse("Business Unit");
+        assertInputMatchesCaseDetailsResponse("Business Unit");
+    }
+
+    public void assertAllDraftResponsesMatchInput() {
+        getQuestionResponse("Response Channel");
+        assertInputMatchesCaseDetailsResponse("Response Channel");
+    }
 }

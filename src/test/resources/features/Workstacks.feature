@@ -49,3 +49,22 @@ Feature: Workstacks
     Then only "TRO" cases should be visible
     And the created case should be visible in the workstack
 
+  Scenario Outline: User is able to order MPAM workstack columns
+    Given I create a "MPAM" case and move it to the "Triage" stage
+    When I navigate to the "Triage" workstack and order the "<column>" column from "<order>"
+    Then the "<column>" column is ordered from "<order>"
+    Examples:
+    |column       |order            |
+    |Reference    |Lowest to Highest|
+    |Reference    |Highest to Lowest|
+    |Current Stage|Lowest to Highest|
+    |Current Stage|Highest to Lowest|
+    |Owner        |Lowest to Highest|
+    |Owner        |Highest to Lowest|
+    |Deadline     |Lowest to Highest|
+    |Deadline     |Highest to Lowest|
+    |Urgency      |Lowest to Highest|
+    |Urgency      |Highest to Lowest|
+    |Days         |Lowest to Highest|
+    |Days         |Highest to Lowest|
+
