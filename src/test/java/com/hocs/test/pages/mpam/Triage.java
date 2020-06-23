@@ -99,6 +99,7 @@ public class Triage extends BasePage {
 
     public void setBusinessUnit() {
         businessUnitDropdown.selectByIndex(1);
+        setSessionVariable("businessUnit").to(businessUnitDropdown.getValue());
     }
 
     public void putTriageCaseOnHold() {

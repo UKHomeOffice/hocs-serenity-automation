@@ -1,5 +1,9 @@
 package com.hocs.test.pages.mpam;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -57,32 +61,13 @@ public class Draft extends BasePage {
     }
 
     public void moveBRefCaseFromDraftToDispatch() {
-        selectResponseChannel("Letter");
+        selectResponseChannel("Email");
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);
     }
 
-    public void selectResponseChannel(String responseChannel) {
-        switch (responseChannel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(responseChannelEmailRadioButton);
-                break;
-            case "LETTER":
-                safeClickOn(responseChannelLetterRadioButton);
-                break;
-            case "PHONE":
-                safeClickOn(responseChannelPhoneRadioButton);
-                break;
-            case "OUTREACH":
-                safeClickOn(responseChannelOutreachRadioButton);
-                break;
-            default:pendingStep(responseChannel + " is not defined within " + getMethodName());
-        }
-        setSessionVariable("responseChannel").to(responseChannel);
-    }
-
     public void escalateCaseToWorkflowManager() {
-        selectResponseChannel("Email");
+        selectResponseChannel("Letter");
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
@@ -112,5 +97,25 @@ public class Draft extends BasePage {
         typeInto(closureReasonTextArea, closureReason);
         safeClickOn(closeCaseButton);
         setSessionVariable("closureReason").to(closureReason);
+    }
+
+    public void selectResponseChannel(String outboundChannel) {
+        switch (outboundChannel.toUpperCase()) {
+            case "EMAIL":
+                safeClickOn(responseChannelEmailRadioButton);
+                break;
+            case "LETTER":
+                safeClickOn(responseChannelLetterRadioButton);
+                break;
+            case "PHONE":
+                safeClickOn(responseChannelPhoneRadioButton);
+                break;
+            case "OUTREACH":
+                safeClickOn(responseChannelOutreachRadioButton);
+                break;
+            default:
+                pendingStep(outboundChannel + " is not defined within " + getMethodName());
+        }
+        setSessionVariable("responseChannel").to(outboundChannel);
     }
 }

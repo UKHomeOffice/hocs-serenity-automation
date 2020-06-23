@@ -14,6 +14,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.text.ParseException;
 
 public class WorkstacksStepDefs extends BasePage {
 
@@ -240,7 +241,6 @@ public class WorkstacksStepDefs extends BasePage {
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
-                break;
         }
     }
 
@@ -253,5 +253,15 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the case should be assigned {string} points")
     public void theCaseShouldBeAssignedPoints(String expectedPoints) {
         workstacks.assertPointsOfCurrentCaseEqual(expectedPoints);
+    }
+
+    @And("I navigate to the {string} workstack and order the {string} column from {string}")
+    public void orderWorkstackColumnBy(String stage, String column, String order) {
+        workstacks.orderMPAMWorkstackColumn(stage, column, order);
+    }
+
+    @And("the {string} column is ordered from {string}")
+    public void columnIsProperlyOrdered(String column, String order) throws ParseException {
+        workstacks.assertColumnIsOrderedProperly(column, order);
     }
 }
