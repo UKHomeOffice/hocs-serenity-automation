@@ -8,11 +8,6 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 public class Draft extends BasePage {
 
     @FindBy(css = "label[for='ChannelOut-Email']")
