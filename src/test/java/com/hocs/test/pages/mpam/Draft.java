@@ -1,5 +1,9 @@
 package com.hocs.test.pages.mpam;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -11,6 +15,12 @@ public class Draft extends BasePage {
 
     @FindBy(css = "label[for='ChannelOut-Letter']")
     public WebElementFacade responseChannelLetterRadioButton;
+
+    @FindBy(css = "label[for='ChannelOut-Phone']")
+    public WebElementFacade responseChannelPhoneRadioButton;
+
+    @FindBy(css = "label[for='ChannelOut-Outreach']")
+    public WebElementFacade responseChannelOutreachRadioButton;
 
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
@@ -34,25 +44,25 @@ public class Draft extends BasePage {
     public WebElementFacade escalationCompleteRadioButton;
 
     public void moveCaseFromDraftToQA() {
-        safeClickOn(responseChannelEmailRadioButton);
+        selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
         safeClickOn(confirmButton);
     }
 
     public void moveBRefCaseFromDraftToDispatch() {
-        safeClickOn(responseChannelEmailRadioButton);
+        selectResponseChannel("Email");
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);
     }
 
     public void escalateCaseToWorkflowManager() {
-        safeClickOn(responseChannelLetterRadioButton);
+        selectResponseChannel("Letter");
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
 
     public void putCaseOnHold() {
-        safeClickOn(responseChannelLetterRadioButton);
+        selectResponseChannel("Letter");
         safeClickOn(putOnHoldRadioButton);
         safeClickOn(confirmButton);
     }
@@ -65,5 +75,25 @@ public class Draft extends BasePage {
     public void deescalateTriageCase() {
         safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void selectResponseChannel(String outboundChannel) {
+        switch (outboundChannel.toUpperCase()) {
+            case "EMAIL":
+                safeClickOn(responseChannelEmailRadioButton);
+                break;
+            case "LETTER":
+                safeClickOn(responseChannelLetterRadioButton);
+                break;
+            case "PHONE":
+                safeClickOn(responseChannelPhoneRadioButton);
+                break;
+            case "OUTREACH":
+                safeClickOn(responseChannelOutreachRadioButton);
+                break;
+            default:
+                pendingStep(outboundChannel + " is not defined within " + getMethodName());
+        }
+        setSessionVariable("responseChannel").to(outboundChannel);
     }
 }
