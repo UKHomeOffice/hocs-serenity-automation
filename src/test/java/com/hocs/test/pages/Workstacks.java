@@ -476,7 +476,7 @@ public class Workstacks extends BasePage {
     public void assertColumnIsOrderedProperly(String column, String order) throws ParseException {
         int currentCase = 2;
         int totalCases = getTotalOfCases();
-        while (currentCase <= (totalCases - 1)) {
+        while (currentCase <= totalCases) {
             switch (column.toUpperCase()) {
                 case "REFERENCE":
                     WebElement refNumberCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(2)"));
@@ -497,7 +497,6 @@ public class Workstacks extends BasePage {
                         default:
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
-                    currentCase += 1;
                     break;
                 case "CURRENT STAGE":
                     WebElement currentStageCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(3)"));
@@ -514,7 +513,6 @@ public class Workstacks extends BasePage {
                         default:
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
-                    currentCase += 1;
                     break;
                 case "OWNER":
                     WebElement ownerCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(4)"));
@@ -531,7 +529,6 @@ public class Workstacks extends BasePage {
                         default:
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
-                    currentCase += 1;
                     break;
                 case "DEADLINE":
                      WebElement deadlineCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(5)"));
@@ -553,7 +550,6 @@ public class Workstacks extends BasePage {
                                  pendingStep(order + " is not defined within " + getMethodName());
                          }
                      }
-                     currentCase += 1;
                      break;
                 case "URGENCY":
                     Hashtable<String, Integer> urgencyDictionary = new Hashtable<String, Integer>();
@@ -576,7 +572,6 @@ public class Workstacks extends BasePage {
                         default:
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
-                    currentCase += 1;
                     break;
                 case "DAYS":
                     WebElement daysCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(7)"));
@@ -595,11 +590,11 @@ public class Workstacks extends BasePage {
                         default:
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
-                    currentCase += 1;
                     break;
                 default:
                     pendingStep(column + " is not defined within " + getMethodName());
             }
+            currentCase += 1;
         }
     }
 }
