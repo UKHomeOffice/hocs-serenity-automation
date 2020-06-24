@@ -1,6 +1,14 @@
 package com.hocs.test.pages.mpam;
 
 import com.hocs.test.pages.BasePage;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import org.jetbrains.annotations.NotNull;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -8,9 +16,13 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Points extends BasePage {
 
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+
+    private List<String> holidayDays = new ArrayList<>();
+
     public int getPointsForRefType() {
         String refType = sessionVariableCalled("refType");
-        if (refType.toUpperCase().equals("M:REF")) {
+        if (refType.toUpperCase().equals("Ministerial")) {
             return 1;
         } else {
             return 0;
@@ -25,7 +37,7 @@ public class Points extends BasePage {
                 break;
             case "PRIORITY":
                 String refType = sessionVariableCalled("refType");
-                if (refType.toUpperCase().equals("M:REF")) {
+                if (refType.toUpperCase().equals("MINISTERIAL")) {
                     points = 14;
                 } else {
                     points = 7;
@@ -38,6 +50,23 @@ public class Points extends BasePage {
                 pendingStep(urgency + " is not defined within " + getMethodName());
         }
         return points;
+    }
+
+    public String getDateANumberOfWorkDaysAgo(int numberOfWorkDays) {
+        int daysAgo = 0;
+        Calendar cal = Calendar.getInstance();
+        while (daysAgo < numberOfWorkDays) {
+            cal.add(Calendar.DATE, -1);
+            if (checkIfWeekday(cal)) {
+                daysAgo++;
+            }
+        }
+        return dateFormat.format(cal.getTime());
+    }
+
+    private boolean checkIfWeekday(Calendar date) {
+        boolean weekday = (date.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || date.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY);
+        return weekday;
     }
 
 //    public int getPointsForAge() {

@@ -191,10 +191,10 @@ public class Search extends BasePage {
 
     public void searchByRefType(String refType) {
         switch (refType.toUpperCase()) {
-            case "M:REF":
+            case "MINISTERIAL":
                 mpamRefTypeDropdown.selectByIndex(1);
                 break;
-            case "B:REF":
+            case "OFFICIAL":
                 mpamRefTypeDropdown.selectByIndex(2);
                 break;
             default:

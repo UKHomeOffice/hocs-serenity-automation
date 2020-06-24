@@ -82,7 +82,7 @@ public class Creation extends BasePage {
 
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
-        selectRefType("M:Ref");
+        selectRefType("Ministerial");
         selectUrgency("Standard");
         selectInboundChannel("Email");
     }
@@ -119,10 +119,10 @@ public class Creation extends BasePage {
 
     public void selectRefType(String refType) {
         switch (refType.toUpperCase()) {
-            case "M:REF":
+            case "MINISTERIAL":
                 safeClickOn(refTypeMRefRadioButton);
                 break;
-            case "B:REF":
+            case "OFFICIAL":
                 safeClickOn(refTypeBRefRadioButton);
                 break;
             default:

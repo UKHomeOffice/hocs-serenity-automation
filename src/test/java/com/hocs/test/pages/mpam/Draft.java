@@ -11,16 +11,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class Draft extends BasePage {
 
     @FindBy(css = "label[for='ChannelOut-Email']")
-    public WebElementFacade responseChannelEmailRadioButton;
+    private WebElementFacade responseChannelEmailRadioButton;
 
     @FindBy(css = "label[for='ChannelOut-Letter']")
-    public WebElementFacade responseChannelLetterRadioButton;
+    private WebElementFacade responseChannelLetterRadioButton;
 
     @FindBy(css = "label[for='ChannelOut-Phone']")
-    public WebElementFacade responseChannelPhoneRadioButton;
+    private WebElementFacade responseChannelPhoneRadioButton;
 
     @FindBy(css = "label[for='ChannelOut-Outreach']")
-    public WebElementFacade responseChannelOutreachRadioButton;
+    private WebElementFacade responseChannelOutreachRadioButton;
 
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
@@ -42,6 +42,12 @@ public class Draft extends BasePage {
 
     @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
+
+    @FindBy(xpath = "//label[text()='Close case']")
+    public WebElementFacade closeCaseRadioButton;
+
+    @FindBy(id = "CaseNote_DraftClose")
+    public WebElementFacade closureReasonTextArea;
 
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
@@ -75,6 +81,17 @@ public class Draft extends BasePage {
     public void deescalateTriageCase() {
         safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void selectToCloseEscalatedCase() {
+        safeClickOn(closeCaseRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToCloseEscalatedCase(String closureReason) {
+        typeInto(closureReasonTextArea, closureReason);
+        safeClickOn(closeCaseButton);
+        setSessionVariable("closureReason").to(closureReason);
     }
 
     public void selectResponseChannel(String outboundChannel) {
