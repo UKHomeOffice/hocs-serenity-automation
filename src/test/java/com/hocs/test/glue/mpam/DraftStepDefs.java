@@ -11,7 +11,7 @@ public class DraftStepDefs {
 
     Draft draft;
 
-    @And("I move a B:Ref case from Draft to Dispatch bypassing QA")
+    @And("I move a Official case from Draft to Dispatch bypassing QA")
     public void moveBRefCaseFromDraftToDispatch() {
         draft.moveBRefCaseFromDraftToDispatch();
     }
@@ -41,5 +41,15 @@ public class DraftStepDefs {
     @When("I de-escalate the Draft \\(Escalated) case")
     public void iDeEscalateTheDraftEscalatedCase() {
         draft.deescalateTriageCase();
+    }
+
+    @And("I select to close the Draft \\(Escalated) case")
+    public void iSelectToCloseTheDraftEscalatedCase() {
+        draft.selectToCloseEscalatedCase();
+    }
+
+    @And("I submit a reason to close the case at Draft \\(Escalated) stage")
+    public void iSubmitAReasonToCloseTheCaseAtDraftEscalatedStage() {
+        draft.submitReasonToCloseEscalatedCase("Test close case at Draft (Escalated) stage");
     }
 }

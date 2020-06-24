@@ -68,3 +68,6 @@ Feature: Workstacks
 #    |Days         |Lowest to Highest|
 #    |Days         |Highest to Lowest|
 
+    Scenario: User is able to see highlighted deadlines on MPAM cases that are approaching their deadline date
+      Given I create a single "MPAM" case with the correspondence received date set 5 days ago
+

@@ -277,7 +277,7 @@ public class EndToEndStepDefs extends BasePage {
                         iCompleteTheStage("QA");
                         break;
                     case "AWAITING DISPATCH":
-                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "B:REF","QA");
+                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "OFFICIAL","QA");
                         iCompleteTheStage("QA");
                         break;
                     case "CASE CLOSED":
@@ -317,7 +317,7 @@ public class EndToEndStepDefs extends BasePage {
                 iCompleteTheStage("QA");
                 break;
             case "CASE CLOSED":
-                if (refType.toUpperCase().equals("M:REF")) {
+                if (refType.toUpperCase().equals("MINISTERIAL")) {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
                     iCompleteTheStage("PRIVATE OFFICE");
                 } else {

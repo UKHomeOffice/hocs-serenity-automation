@@ -13,10 +13,10 @@ Feature: Points
     Then the case should be assigned "<expectedPoints>" points
     Examples:
       | urgency  | refType | expectedPoints |
-      | Standard  | B:Ref   | 0.0            |
-      | Standard  | M:Ref   | 1.0            |
-      | Priority  | B:Ref   | 7.0            |
-      | Priority  | M:Ref   | 15             |
-      | Immediate | B:Ref   | 30             |
-      | Immediate | M:Ref   | 31             |
+      | Standard  | Official   | 0.0            |
+      | Standard  | Ministerial   | 1.0            |
+      | Priority  | Official   | 7.0            |
+      | Priority  | Ministerial   | 15             |
+      | Immediate | Official   | 30             |
+      | Immediate | Ministerial   | 31             |
 

@@ -120,4 +120,14 @@ public class TriageStepDefs extends BasePage {
     public void iDescalateTheTriageEscalatedCase() {
         triage.deescalateTriageCase();
     }
+
+    @And("I select to close the Triage \\(Escalated) case")
+    public void iSelectToCloseTheTriageEscalatedCase() {
+        triage.selectToCloseEscalatedCase();
+    }
+
+    @And("I submit a reason to close the case at Triage \\(Escalated) stage")
+    public void iSubmitAReasonToCloseTheCaseAtTriageEscalatedStage() {
+        triage.submitReasonToCloseEscalatedCase("Test close case at Triage (Escalated) stage");
+    }
 }

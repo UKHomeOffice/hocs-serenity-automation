@@ -19,10 +19,10 @@ public class QAStepDefs extends BasePage {
                 safeClickOn(confirmButton);
                 break;
             case "REJECTED, MOVE BACK TO DRAFTING":
-                qa.rejectQACaseToDraft("TEST");
+                qa.selectToRejectCaseToDraft();
                 break;
             case "REJECTED, MOVE BACK TO TRIAGE":
-                qa.rejectQACaseToTriage("TEST");
+                qa.selectToRejectCaseToTriage();
                 break;
             case "PUT ON HOLD":
                 qa.putQACaseOnHold();
@@ -94,13 +94,33 @@ public class QAStepDefs extends BasePage {
                 qa.assertActionsRequiredErrorMessageDisplayed();
                 break;
             case "REJECT AT TRIAGE REASON REQUIRED":
-                qa.assertRejectAtTriageReasonRequiredErrorMessageDisplayed();
+                qa.assertRejectBackToTriageReasonRequiredErrorMessageDisplayed();
                 break;
             case "REJECT AT DRAFT REASON REQUIRED":
-                qa.assertRejectAtDraftReasonRequiredErrorMessageDisplayed();
+                qa.assertRejectBackToDraftReasonRequiredErrorMessageDisplayed();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I submit a reason to reject the case back to drafting")
+    public void iSubmitAReasonToRejectTheCaseBackToDrafting() {
+        qa.submitReasonToRejectToDraft("Test reject to draft at QA");
+    }
+
+    @And("I submit a reason to reject the case back to triage")
+    public void iSubmitAReasonToRejectTheCaseBackToTriage() {
+           qa.submitReasonToRejectToTriage("Test reject to triage at QA");
+    }
+
+    @And("I select to close the QA \\(Escalated) case")
+    public void iSelectToCloseTheQAEscalatedCase() {
+        qa.selectToCloseEscalatedCase();
+    }
+
+    @And("I submit a reason to close the case at QA \\(Escalated) stage")
+    public void iSubmitAReasonToCloseTheCaseAtQAEscalatedStage() {
+        qa.submitReasonToCloseEscalatedCase("Test close case at QA (Escalated) stage");
     }
 }

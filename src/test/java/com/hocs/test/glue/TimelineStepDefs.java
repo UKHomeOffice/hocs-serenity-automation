@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.TimelineTab;
 import config.User;
 import io.cucumber.java.en.And;
@@ -12,6 +13,8 @@ import io.cucumber.java.en.When;
 public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
+
+    Homepage homepage;
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
@@ -105,5 +108,17 @@ public class TimelineStepDefs extends BasePage {
     @And("the case note should contain the edited content")
     public void itShouldHaveEditedContent() {
         timelineTab.assertTopNoteContainsEnteredText("Case note 1." + sessionVariableCalled("createdNoteContents"));
+    }
+
+    @And("a rejection note should be visible showing the reason for rejection")
+    public void aRejectionNoteShouldBeVisibleShowingTheReasonForRejection() {
+        timelineTab.assertRejectionNoteVisible();
+    }
+
+    @And("a closure note should be visible showing the reason for closing the case")
+    public void aClosureNoteShouldBeVisibleShowingTheReasonForClosingTheCase() {
+        goHome();
+        homepage.getAndClaimCurrentCase();
+        timelineTab.assertClosureNoteVisible();
     }
 }

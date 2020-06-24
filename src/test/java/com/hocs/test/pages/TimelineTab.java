@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -41,6 +42,12 @@ public class TimelineTab extends BasePage {
 
     @FindBy(css = "input[value='Save']")
     public WebElementFacade saveButton;
+
+    @FindBy(xpath = "//li//span[text()='Rejection note']/ancestor::p")
+    public WebElementFacade rejectionNoteContents;
+
+    @FindBy(xpath = "//li//span[text()='Case closure note']/ancestor::p")
+    public WebElementFacade closureNoteContents;
 
     public void selectTimelineTab() {
         safeClickOn(timelineTab);
@@ -148,5 +155,18 @@ public class TimelineTab extends BasePage {
         WebElementFacade caseNote = findBy("//li/p[text()='Data Input']/parent::li/preceding-sibling::li[1]/p[1]");
         String fullCaseNote = caseNote.getText();
         assertThat(fullCaseNote.contains("Case note "), is(true));
+    }
+
+    public void assertRejectionNoteVisible() {
+        selectTimelineTab();
+        String rejectionReason = sessionVariableCalled("rejectionReason");
+        assertThat(rejectionNoteContents.getText().contains(rejectionReason), is(true));
+
+    }
+
+    public void assertClosureNoteVisible() {
+        selectTimelineTab();
+        String closureReason = sessionVariableCalled("closureReason");
+        assertThat(closureNoteContents.getText().contains(closureReason), is(true));
     }
 }
