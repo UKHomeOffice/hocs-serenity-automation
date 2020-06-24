@@ -47,20 +47,20 @@ Feature: Creation
     Then the case should be moved to the "Triage" stage
     Examples:
       | businessArea | refType |
-      | UKVI         | M:Ref   |
-      | BF           | M:Ref   |
-      | IE           | M:Ref   |
-      | EUSS         | M:Ref   |
-      | HMPO         | M:Ref   |
-      | Windrush     | M:Ref   |
-      | Coronavirus  | M:Ref   |
-      | UKVI         | B:Ref   |
-      | BF           | B:Ref   |
-      | IE           | B:Ref   |
-      | EUSS         | B:Ref   |
-      | HMPO         | B:Ref   |
-      | Windrush     | B:Ref   |
-      | Coronavirus  | B:Ref   |
+      | UKVI         | Ministerial   |
+      | BF           | Ministerial   |
+      | IE           | Ministerial   |
+      | EUSS         | Ministerial   |
+      | HMPO         | Ministerial   |
+      | Windrush     | Ministerial   |
+      | Coronavirus  | Ministerial   |
+      | UKVI         | Official   |
+      | BF           | Official   |
+      | IE           | Official   |
+      | EUSS         | Official   |
+      | HMPO         | Official   |
+      | Windrush     | Official   |
+      | Coronavirus  | Official   |
 
   @SmokeTests
   Scenario: User adds an MP correspondent at Case Creation stage

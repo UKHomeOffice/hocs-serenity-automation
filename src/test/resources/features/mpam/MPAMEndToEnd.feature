@@ -336,7 +336,7 @@ Feature: EndToEnd
       | EUSS         | Ministerial   | QA    |
       | HMPO         | Ministerial   | QA    |
       | Windrush     | Ministerial   | QA    |
-      | Coronavirus  | M:Ref   | QA    |
+      | Coronavirus  | Ministerial   | QA    |
       | UKVI         | Official   | QA    |
       | BF           | Official   | QA    |
       | IE           | Official   | QA    |
@@ -356,20 +356,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | QA    |
-      | BF           | M:Ref   | QA    |
-      | IE           | M:Ref   | QA    |
-      | EUSS         | M:Ref   | QA    |
-      | HMPO         | M:Ref   | QA    |
-      | Windrush     | M:Ref   | QA    |
-      | Coronavirus  | M:Ref   | QA    |
+      | UKVI         | Ministerial   | QA    |
+      | BF           | Ministerial   | QA    |
+      | IE           | Ministerial   | QA    |
+      | EUSS         | Ministerial   | QA    |
+      | HMPO         | Ministerial   | QA    |
+      | Windrush     | Ministerial   | QA    |
+      | Coronavirus  | Ministerial   | QA    |
       | UKVI         | Official   | QA    |
-      | BF           | B:Ref   | QA    |
-      | IE           | B:Ref   | QA    |
-      | EUSS         | B:Ref   | QA    |
-      | HMPO         | B:Ref   | QA    |
-      | Windrush     | B:Ref   | QA    |
-      | Coronavirus  | B:Ref   | QA    |
+      | BF           | Official   | QA    |
+      | IE           | Official   | QA    |
+      | EUSS         | Official   | QA    |
+      | HMPO         | Official   | QA    |
+      | Windrush     | Official   | QA    |
+      | Coronavirus  | Official   | QA    |
 
   @MPAMWorkflow
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to its appropriate dispatch stage
@@ -378,45 +378,45 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage             |
-      | UKVI         | M:Ref   | Private Office    |
-      | BF           | M:Ref   | Private Office    |
-      | IE           | M:Ref   | Private Office    |
-      | EUSS         | M:Ref   | Private Office    |
-      | HMPO         | M:Ref   | Private Office    |
-      | Windrush     | M:Ref   | Private Office    |
-      | Coronavirus  | M:Ref   | Private Office    |
-      | UKVI         | B:Ref   | Awaiting Dispatch |
-      | BF           | B:Ref   | Awaiting Dispatch |
-      | IE           | B:Ref   | Awaiting Dispatch |
-      | EUSS         | B:Ref   | Awaiting Dispatch |
-      | HMPO         | B:Ref   | Awaiting Dispatch |
-      | Windrush     | B:Ref   | Awaiting Dispatch |
-      | Coronavirus  | B:Ref   | Awaiting Dispatch |
+      | UKVI         | Ministerial   | Private Office    |
+      | BF           | Ministerial   | Private Office    |
+      | IE           | Ministerial   | Private Office    |
+      | EUSS         | Ministerial   | Private Office    |
+      | HMPO         | Ministerial   | Private Office    |
+      | Windrush     | Ministerial   | Private Office    |
+      | Coronavirus  | Ministerial   | Private Office    |
+      | UKVI         | Official   | Awaiting Dispatch |
+      | BF           | Official   | Awaiting Dispatch |
+      | IE           | Official   | Awaiting Dispatch |
+      | EUSS         | Official   | Awaiting Dispatch |
+      | HMPO         | Official   | Awaiting Dispatch |
+      | Windrush     | Official   | Awaiting Dispatch |
+      | Coronavirus  | Official   | Awaiting Dispatch |
 
   @MPAMWorkflow
-  Scenario Outline: User closes a M:Ref case with specific Business Area and Reference Type
+  Scenario Outline: User closes a Ministerial case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
     Examples:
       | businessArea | refType | stage       |
-      | UKVI         | M:Ref   | Case Closed |
-      | BF           | M:Ref   | Case Closed |
-      | IE           | M:Ref   | Case Closed |
-      | EUSS         | M:Ref   | Case Closed |
-      | HMPO         | M:Ref   | Case Closed |
-      | Windrush     | M:Ref   | Case Closed |
-      | Coronavirus  | M:Ref   | Case Closed |
+      | UKVI         | Ministerial   | Case Closed |
+      | BF           | Ministerial   | Case Closed |
+      | IE           | Ministerial   | Case Closed |
+      | EUSS         | Ministerial   | Case Closed |
+      | HMPO         | Ministerial   | Case Closed |
+      | Windrush     | Ministerial   | Case Closed |
+      | Coronavirus  | Ministerial   | Case Closed |
 
   @MPAMWorkflow
-  Scenario Outline: User closes a B:Ref case with specific Business Area and Reference Type
+  Scenario Outline: User closes a Official case with specific Business Area and Reference Type
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
     Examples:
       | businessArea | refType | stage       |
-      | UKVI         | B:Ref   | Case Closed |
-      | BF           | B:Ref   | Case Closed |
-      | IE           | B:Ref   | Case Closed |
-      | EUSS         | B:Ref   | Case Closed |
-      | HMPO         | B:Ref   | Case Closed |
-      | Windrush     | B:Ref   | Case Closed |
-      | Coronavirus  | B:Ref   | Case Closed |
+      | UKVI         | Official   | Case Closed |
+      | BF           | Official   | Case Closed |
+      | IE           | Official   | Case Closed |
+      | EUSS         | Official   | Case Closed |
+      | HMPO         | Official   | Case Closed |
+      | Windrush     | Official   | Case Closed |
+      | Coronavirus  | Official   | Case Closed |

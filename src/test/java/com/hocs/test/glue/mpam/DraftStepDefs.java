@@ -11,7 +11,7 @@ public class DraftStepDefs {
 
     Draft draft;
 
-    @And("I move a B:Ref case from Draft to Dispatch bypassing QA")
+    @And("I move a Official case from Draft to Dispatch bypassing QA")
     public void moveBRefCaseFromDraftToDispatch() {
         draft.moveBRefCaseFromDraftToDispatch();
     }

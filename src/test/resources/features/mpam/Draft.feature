@@ -19,9 +19,9 @@ Feature: Drafting
 
   @MPAMWorkflow @SmokeTests
   Scenario: User moves a draft case to dispatch bypassing QA
-    When I create a MPAM case  with "UKVI" as the Business Area and "B:Ref" as the Reference Type and move it to the "Draft" stage
+    When I create a MPAM case  with "UKVI" as the Business Area and "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
-    And I move a B:Ref case from Draft to Dispatch bypassing QA
+    And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
 
   @MPAMWorkflow @SmokeTests
