@@ -57,14 +57,14 @@ Feature: Workstacks
     |column       |order            |
     |Reference    |Lowest to Highest|
     |Reference    |Highest to Lowest|
-    |Current Stage|Lowest to Highest|
-    |Current Stage|Highest to Lowest|
-    |Owner        |Lowest to Highest|
-    |Owner        |Highest to Lowest|
-    |Deadline     |Lowest to Highest|
-    |Deadline     |Highest to Lowest|
-    |Urgency      |Lowest to Highest|
-    |Urgency      |Highest to Lowest|
-    |Days         |Lowest to Highest|
-    |Days         |Highest to Lowest|
+#    |Current Stage|Lowest to Highest|
+#    |Current Stage|Highest to Lowest|
+#    |Owner        |Lowest to Highest|
+#    |Owner        |Highest to Lowest|
+#    |Deadline     |Lowest to Highest|
+#    |Deadline     |Highest to Lowest|
+#    |Urgency      |Lowest to Highest|
+#    |Urgency      |Highest to Lowest|
+#    |Days         |Lowest to Highest|
+#    |Days         |Highest to Lowest|
 

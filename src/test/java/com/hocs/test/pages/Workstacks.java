@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -266,6 +267,9 @@ public class Workstacks extends BasePage {
                 pendingStep(order + " is not defined within " + getMethodName());
 
         }
+        List<WebElementFacade> listOfColumnHeaders = findAll("//thead/tr[1]");
+        int headerIndex = listOfColumnHeaders.indexOf(selectedHeader);
+        setSessionVariable("headerIndex").to(headerIndex);
     }
 
     // Assertions
@@ -479,8 +483,11 @@ public class Workstacks extends BasePage {
         while (currentCase <= totalCases) {
             switch (column.toUpperCase()) {
                 case "REFERENCE":
-                    WebElement refNumberCellOne = find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(2)"));
-                    WebElement refNumberCellTwo = find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(2)"));
+                    WebElement refNumberCellOne =
+                            find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(" + sessionVariableCalled(
+                                    "headerIndex") + ")"));
+                    WebElement refNumberCellTwo =
+                            find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(" + sessionVariableCalled("headerIndex") + ")"));
                     String refNumberOne = refNumberCellOne.getText();
                     String refNumberTwo = refNumberCellTwo.getText();
                     String numberAsStringOne = refNumberOne.substring(6, 11);
@@ -591,6 +598,9 @@ public class Workstacks extends BasePage {
                             pendingStep(order + " is not defined within " + getMethodName());
                     }
                     break;
+
+                case "REF TYPE":
+
                 default:
                     pendingStep(column + " is not defined within " + getMethodName());
             }
