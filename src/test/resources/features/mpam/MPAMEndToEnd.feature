@@ -11,20 +11,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
-      | UKVI         | M:Ref   | Triage |
-      | BF           | M:Ref   | Triage |
-      | IE           | M:Ref   | Triage |
-      | EUSS         | M:Ref   | Triage |
-      | HMPO         | M:Ref   | Triage |
-      | Windrush     | M:Ref   | Triage |
-      | Coronavirus  | M:Ref   | Triage |
-      | UKVI         | B:Ref   | Triage |
-      | BF           | B:Ref   | Triage |
-      | IE           | B:Ref   | Triage |
-      | EUSS         | B:Ref   | Triage |
-      | HMPO         | B:Ref   | Triage |
-      | Windrush     | B:Ref   | Triage |
-      | Coronavirus  | B:Ref   | Triage |
+      | UKVI         | Ministerial   | Triage |
+      | BF           | Ministerial   | Triage |
+      | IE           | Ministerial   | Triage |
+      | EUSS         | Ministerial   | Triage |
+      | HMPO         | Ministerial   | Triage |
+      | Windrush     | Ministerial   | Triage |
+      | Coronavirus  | Ministerial   | Triage |
+      | UKVI         | Official   | Triage |
+      | BF           | Official   | Triage |
+      | IE           | Official   | Triage |
+      | EUSS         | Official   | Triage |
+      | HMPO         | Official   | Triage |
+      | Windrush     | Official   | Triage |
+      | Coronavirus  | Official   | Triage |
 
   @MPAMWorkflow
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Triage stage
@@ -35,20 +35,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
-      | UKVI         | M:Ref   | Triage |
-      | BF           | M:Ref   | Triage |
-      | IE           | M:Ref   | Triage |
-      | EUSS         | M:Ref   | Triage |
-      | HMPO         | M:Ref   | Triage |
-      | Windrush     | M:Ref   | Triage |
-      | Coronavirus  | M:Ref   | Triage |
-      | UKVI         | B:Ref   | Triage |
-      | BF           | B:Ref   | Triage |
-      | IE           | B:Ref   | Triage |
-      | EUSS         | B:Ref   | Triage |
-      | HMPO         | B:Ref   | Triage |
-      | Windrush     | B:Ref   | Triage |
-      | Coronavirus  | B:Ref   | Triage |
+      | UKVI         | Ministerial   | Triage |
+      | BF           | Ministerial   | Triage |
+      | IE           | Ministerial   | Triage |
+      | EUSS         | Ministerial   | Triage |
+      | HMPO         | Ministerial   | Triage |
+      | Windrush     | Ministerial   | Triage |
+      | Coronavirus  | Ministerial   | Triage |
+      | UKVI         | Official   | Triage |
+      | BF           | Official   | Triage |
+      | IE           | Official   | Triage |
+      | EUSS         | Official   | Triage |
+      | HMPO         | Official   | Triage |
+      | Windrush     | Official   | Triage |
+      | Coronavirus  | Official   | Triage |
 
 
   @MPAMWorkflow
@@ -62,20 +62,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
-      | UKVI         | M:Ref   | Triage |
-      | BF           | M:Ref   | Triage |
-      | IE           | M:Ref   | Triage |
-      | EUSS         | M:Ref   | Triage |
-      | HMPO         | M:Ref   | Triage |
-      | Windrush     | M:Ref   | Triage |
-      | Coronavirus  | M:Ref   | Triage |
-      | UKVI         | B:Ref   | Triage |
-      | BF           | B:Ref   | Triage |
-      | IE           | B:Ref   | Triage |
-      | EUSS         | B:Ref   | Triage |
-      | HMPO         | B:Ref   | Triage |
-      | Windrush     | B:Ref   | Triage |
-      | Coronavirus  | B:Ref   | Triage |
+      | UKVI         | Ministerial   | Triage |
+      | BF           | Ministerial   | Triage |
+      | IE           | Ministerial   | Triage |
+      | EUSS         | Ministerial   | Triage |
+      | HMPO         | Ministerial   | Triage |
+      | Windrush     | Ministerial   | Triage |
+      | Coronavirus  | Ministerial   | Triage |
+      | UKVI         | Official   | Triage |
+      | BF           | Official   | Triage |
+      | IE           | Official   | Triage |
+      | EUSS         | Official   | Triage |
+      | HMPO         | Official   | Triage |
+      | Windrush     | Official   | Triage |
+      | Coronavirus  | Official   | Triage |
 
   @MPAMWorkflow
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Triage stage
@@ -86,20 +86,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
-      | UKVI         | M:Ref   | Triage |
-      | BF           | M:Ref   | Triage |
-      | IE           | M:Ref   | Triage |
-      | EUSS         | M:Ref   | Triage |
-      | HMPO         | M:Ref   | Triage |
-      | Windrush     | M:Ref   | Triage |
-      | Coronavirus  | M:Ref   | Triage |
-      | UKVI         | B:Ref   | Triage |
-      | BF           | B:Ref   | Triage |
-      | IE           | B:Ref   | Triage |
-      | EUSS         | B:Ref   | Triage |
-      | HMPO         | B:Ref   | Triage |
-      | Windrush     | B:Ref   | Triage |
-      | Coronavirus  | B:Ref   | Triage |
+      | UKVI         | Ministerial   | Triage |
+      | BF           | Ministerial   | Triage |
+      | IE           | Ministerial   | Triage |
+      | EUSS         | Ministerial   | Triage |
+      | HMPO         | Ministerial   | Triage |
+      | Windrush     | Ministerial   | Triage |
+      | Coronavirus  | Ministerial   | Triage |
+      | UKVI         | Official   | Triage |
+      | BF           | Official   | Triage |
+      | IE           | Official   | Triage |
+      | EUSS         | Official   | Triage |
+      | HMPO         | Official   | Triage |
+      | Windrush     | Official   | Triage |
+      | Coronavirus  | Official   | Triage |
 
   @MPAMWorkflow
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at Triage stage
@@ -112,20 +112,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
-      | UKVI         | M:Ref   | Triage |
-      | BF           | M:Ref   | Triage |
-      | IE           | M:Ref   | Triage |
-      | EUSS         | M:Ref   | Triage |
-      | HMPO         | M:Ref   | Triage |
-      | Windrush     | M:Ref   | Triage |
-      | Coronavirus  | M:Ref   | Triage |
-      | UKVI         | B:Ref   | Triage |
-      | BF           | B:Ref   | Triage |
-      | IE           | B:Ref   | Triage |
-      | EUSS         | B:Ref   | Triage |
-      | HMPO         | B:Ref   | Triage |
-      | Windrush     | B:Ref   | Triage |
-      | Coronavirus  | B:Ref   | Triage |
+      | UKVI         | Ministerial   | Triage |
+      | BF           | Ministerial   | Triage |
+      | IE           | Ministerial   | Triage |
+      | EUSS         | Ministerial   | Triage |
+      | HMPO         | Ministerial   | Triage |
+      | Windrush     | Ministerial   | Triage |
+      | Coronavirus  | Ministerial   | Triage |
+      | UKVI         | Official   | Triage |
+      | BF           | Official   | Triage |
+      | IE           | Official   | Triage |
+      | EUSS         | Official   | Triage |
+      | HMPO         | Official   | Triage |
+      | Windrush     | Official   | Triage |
+      | Coronavirus  | Official   | Triage |
 
   @MPAMWorkflow
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to Draft stage
@@ -134,20 +134,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | Draft |
-      | BF           | M:Ref   | Draft |
-      | IE           | M:Ref   | Draft |
-      | EUSS         | M:Ref   | Draft |
-      | HMPO         | M:Ref   | Draft |
-      | Windrush     | M:Ref   | Draft |
-      | Coronavirus  | M:Ref   | Draft |
-      | UKVI         | B:Ref   | Draft |
-      | BF           | B:Ref   | Draft |
-      | IE           | B:Ref   | Draft |
-      | EUSS         | B:Ref   | Draft |
-      | HMPO         | B:Ref   | Draft |
-      | Windrush     | B:Ref   | Draft |
-      | Coronavirus  | B:Ref   | Draft |
+      | UKVI         | Ministerial   | Draft |
+      | BF           | Ministerial   | Draft |
+      | IE           | Ministerial   | Draft |
+      | EUSS         | Ministerial   | Draft |
+      | HMPO         | Ministerial   | Draft |
+      | Windrush     | Ministerial   | Draft |
+      | Coronavirus  | Ministerial   | Draft |
+      | UKVI         | Official   | Draft |
+      | BF           | Official   | Draft |
+      | IE           | Official   | Draft |
+      | EUSS         | Official   | Draft |
+      | HMPO         | Official   | Draft |
+      | Windrush     | Official   | Draft |
+      | Coronavirus  | Official   | Draft |
 
   @MPAMWorkflow
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Draft stage
@@ -158,20 +158,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | Draft |
-      | BF           | M:Ref   | Draft |
-      | IE           | M:Ref   | Draft |
-      | EUSS         | M:Ref   | Draft |
-      | HMPO         | M:Ref   | Draft |
-      | Windrush     | M:Ref   | Draft |
-      | Coronavirus  | M:Ref   | Draft |
-      | UKVI         | B:Ref   | Draft |
-      | BF           | B:Ref   | Draft |
-      | IE           | B:Ref   | Draft |
-      | EUSS         | B:Ref   | Draft |
-      | HMPO         | B:Ref   | Draft |
-      | Windrush     | B:Ref   | Draft |
-      | Coronavirus  | B:Ref   | Draft |
+      | UKVI         | Ministerial   | Draft |
+      | BF           | Ministerial   | Draft |
+      | IE           | Ministerial   | Draft |
+      | EUSS         | Ministerial   | Draft |
+      | HMPO         | Ministerial   | Draft |
+      | Windrush     | Ministerial   | Draft |
+      | Coronavirus  | Ministerial   | Draft |
+      | UKVI         | Official   | Draft |
+      | BF           | Official   | Draft |
+      | IE           | Official   | Draft |
+      | EUSS         | Official   | Draft |
+      | HMPO         | Official   | Draft |
+      | Windrush     | Official   | Draft |
+      | Coronavirus  | Official   | Draft |
 
   @MPAMWorkflow
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at Draft stage
@@ -184,20 +184,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | Draft |
-      | BF           | M:Ref   | Draft |
-      | IE           | M:Ref   | Draft |
-      | EUSS         | M:Ref   | Draft |
-      | HMPO         | M:Ref   | Draft |
-      | Windrush     | M:Ref   | Draft |
-      | Coronavirus  | M:Ref   | Draft |
-      | UKVI         | B:Ref   | Draft |
-      | BF           | B:Ref   | Draft |
-      | IE           | B:Ref   | Draft |
-      | EUSS         | B:Ref   | Draft |
-      | HMPO         | B:Ref   | Draft |
-      | Windrush     | B:Ref   | Draft |
-      | Coronavirus  | B:Ref   | Draft |
+      | UKVI         | Ministerial   | Draft |
+      | BF           | Ministerial   | Draft |
+      | IE           | Ministerial   | Draft |
+      | EUSS         | Ministerial   | Draft |
+      | HMPO         | Ministerial   | Draft |
+      | Windrush     | Ministerial   | Draft |
+      | Coronavirus  | Ministerial   | Draft |
+      | UKVI         | Official   | Draft |
+      | BF           | Official   | Draft |
+      | IE           | Official   | Draft |
+      | EUSS         | Official   | Draft |
+      | HMPO         | Official   | Draft |
+      | Windrush     | Official   | Draft |
+      | Coronavirus  | Official   | Draft |
 
   @MPAMWorkflow
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Draft stage
@@ -208,20 +208,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | Draft |
-      | BF           | M:Ref   | Draft |
-      | IE           | M:Ref   | Draft |
-      | EUSS         | M:Ref   | Draft |
-      | HMPO         | M:Ref   | Draft |
-      | Windrush     | M:Ref   | Draft |
-      | Coronavirus  | M:Ref   | Draft |
-      | UKVI         | B:Ref   | Draft |
-      | BF           | B:Ref   | Draft |
-      | IE           | B:Ref   | Draft |
-      | EUSS         | B:Ref   | Draft |
-      | HMPO         | B:Ref   | Draft |
-      | Windrush     | B:Ref   | Draft |
-      | Coronavirus  | B:Ref   | Draft |
+      | UKVI         | Ministerial   | Draft |
+      | BF           | Ministerial   | Draft |
+      | IE           | Ministerial   | Draft |
+      | EUSS         | Ministerial   | Draft |
+      | HMPO         | Ministerial   | Draft |
+      | Windrush     | Ministerial   | Draft |
+      | Coronavirus  | Ministerial   | Draft |
+      | UKVI         | Official   | Draft |
+      | BF           | Official   | Draft |
+      | IE           | Official   | Draft |
+      | EUSS         | Official   | Draft |
+      | HMPO         | Official   | Draft |
+      | Windrush     | Official   | Draft |
+      | Coronavirus  | Official   | Draft |
 
   @MPAMWorkflow
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at Draft stage
@@ -234,20 +234,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | Draft |
-      | BF           | M:Ref   | Draft |
-      | IE           | M:Ref   | Draft |
-      | EUSS         | M:Ref   | Draft |
-      | HMPO         | M:Ref   | Draft |
-      | Windrush     | M:Ref   | Draft |
-      | Coronavirus  | M:Ref   | Draft |
-      | UKVI         | B:Ref   | Draft |
-      | BF           | B:Ref   | Draft |
-      | IE           | B:Ref   | Draft |
-      | EUSS         | B:Ref   | Draft |
-      | HMPO         | B:Ref   | Draft |
-      | Windrush     | B:Ref   | Draft |
-      | Coronavirus  | B:Ref   | Draft |
+      | UKVI         | Ministerial   | Draft |
+      | BF           | Ministerial   | Draft |
+      | IE           | Ministerial   | Draft |
+      | EUSS         | Ministerial   | Draft |
+      | HMPO         | Ministerial   | Draft |
+      | Windrush     | Ministerial   | Draft |
+      | Coronavirus  | Ministerial   | Draft |
+      | UKVI         | Official   | Draft |
+      | BF           | Official   | Draft |
+      | IE           | Official   | Draft |
+      | EUSS         | Official   | Draft |
+      | HMPO         | Official   | Draft |
+      | Windrush     | Official   | Draft |
+      | Coronavirus  | Official   | Draft |
 
   @MPAMWorkflow
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to QA stage
@@ -256,20 +256,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | QA    |
-      | BF           | M:Ref   | QA    |
-      | IE           | M:Ref   | QA    |
-      | EUSS         | M:Ref   | QA    |
-      | HMPO         | M:Ref   | QA    |
-      | Windrush     | M:Ref   | QA    |
-      | Coronavirus  | M:Ref   | QA    |
-      | UKVI         | B:Ref   | QA    |
-      | BF           | B:Ref   | QA    |
-      | IE           | B:Ref   | QA    |
-      | EUSS         | B:Ref   | QA    |
-      | HMPO         | B:Ref   | QA    |
-      | Windrush     | B:Ref   | QA    |
-      | Coronavirus  | B:Ref   | QA    |
+      | UKVI         | Ministerial   | QA    |
+      | BF           | Ministerial   | QA    |
+      | IE           | Ministerial   | QA    |
+      | EUSS         | Ministerial   | QA    |
+      | HMPO         | Ministerial   | QA    |
+      | Windrush     | Ministerial   | QA    |
+      | Coronavirus  | Ministerial   | QA    |
+      | UKVI         | Official   | QA    |
+      | BF           | Official   | QA    |
+      | IE           | Official   | QA    |
+      | EUSS         | Official   | QA    |
+      | HMPO         | Official   | QA    |
+      | Windrush     | Official   | QA    |
+      | Coronavirus  | Official   | QA    |
 
   @MPAMWorkflow
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at QA stage
@@ -280,20 +280,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | QA    |
-      | BF           | M:Ref   | QA    |
-      | IE           | M:Ref   | QA    |
-      | EUSS         | M:Ref   | QA    |
-      | HMPO         | M:Ref   | QA    |
-      | Windrush     | M:Ref   | QA    |
-      | Coronavirus  | M:Ref   | QA    |
-      | UKVI         | B:Ref   | QA    |
-      | BF           | B:Ref   | QA    |
-      | IE           | B:Ref   | QA    |
-      | EUSS         | B:Ref   | QA    |
-      | HMPO         | B:Ref   | QA    |
-      | Windrush     | B:Ref   | QA    |
-      | Coronavirus  | B:Ref   | QA    |
+      | UKVI         | Ministerial   | QA    |
+      | BF           | Ministerial   | QA    |
+      | IE           | Ministerial   | QA    |
+      | EUSS         | Ministerial   | QA    |
+      | HMPO         | Ministerial   | QA    |
+      | Windrush     | Ministerial   | QA    |
+      | Coronavirus  | Ministerial   | QA    |
+      | UKVI         | Official   | QA    |
+      | BF           | Official   | QA    |
+      | IE           | Official   | QA    |
+      | EUSS         | Official   | QA    |
+      | HMPO         | Official   | QA    |
+      | Windrush     | Official   | QA    |
+      | Coronavirus  | Official   | QA    |
 
   @MPAMWorkflow
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at QA stage
@@ -306,20 +306,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | QA    |
-      | BF           | M:Ref   | QA    |
-      | IE           | M:Ref   | QA    |
-      | EUSS         | M:Ref   | QA    |
-      | HMPO         | M:Ref   | QA    |
-      | Windrush     | M:Ref   | QA    |
-      | Coronavirus  | M:Ref   | QA    |
-      | UKVI         | B:Ref   | QA    |
-      | BF           | B:Ref   | QA    |
-      | IE           | B:Ref   | QA    |
-      | EUSS         | B:Ref   | QA    |
-      | HMPO         | B:Ref   | QA    |
-      | Windrush     | B:Ref   | QA    |
-      | Coronavirus  | B:Ref   | QA    |
+      | UKVI         | Ministerial   | QA    |
+      | BF           | Ministerial   | QA    |
+      | IE           | Ministerial   | QA    |
+      | EUSS         | Ministerial   | QA    |
+      | HMPO         | Ministerial   | QA    |
+      | Windrush     | Ministerial   | QA    |
+      | Coronavirus  | Ministerial   | QA    |
+      | UKVI         | Official   | QA    |
+      | BF           | Official   | QA    |
+      | IE           | Official   | QA    |
+      | EUSS         | Official   | QA    |
+      | HMPO         | Official   | QA    |
+      | Windrush     | Official   | QA    |
+      | Coronavirus  | Official   | QA    |
 
   @MPAMWorkflow
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at QA stage
@@ -330,20 +330,20 @@ Feature: EndToEnd
     And should be in the expected MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
-      | UKVI         | M:Ref   | QA    |
-      | BF           | M:Ref   | QA    |
-      | IE           | M:Ref   | QA    |
-      | EUSS         | M:Ref   | QA    |
-      | HMPO         | M:Ref   | QA    |
-      | Windrush     | M:Ref   | QA    |
+      | UKVI         | Ministerial   | QA    |
+      | BF           | Ministerial   | QA    |
+      | IE           | Ministerial   | QA    |
+      | EUSS         | Ministerial   | QA    |
+      | HMPO         | Ministerial   | QA    |
+      | Windrush     | Ministerial   | QA    |
       | Coronavirus  | M:Ref   | QA    |
-      | UKVI         | B:Ref   | QA    |
-      | BF           | B:Ref   | QA    |
-      | IE           | B:Ref   | QA    |
-      | EUSS         | B:Ref   | QA    |
-      | HMPO         | B:Ref   | QA    |
-      | Windrush     | B:Ref   | QA    |
-      | Coronavirus  | B:Ref   | QA    |
+      | UKVI         | Official   | QA    |
+      | BF           | Official   | QA    |
+      | IE           | Official   | QA    |
+      | EUSS         | Official   | QA    |
+      | HMPO         | Official   | QA    |
+      | Windrush     | Official   | QA    |
+      | Coronavirus  | Official   | QA    |
 
   @MPAMWorkflow
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at QA stage
@@ -363,7 +363,7 @@ Feature: EndToEnd
       | HMPO         | M:Ref   | QA    |
       | Windrush     | M:Ref   | QA    |
       | Coronavirus  | M:Ref   | QA    |
-      | UKVI         | B:Ref   | QA    |
+      | UKVI         | Official   | QA    |
       | BF           | B:Ref   | QA    |
       | IE           | B:Ref   | QA    |
       | EUSS         | B:Ref   | QA    |
