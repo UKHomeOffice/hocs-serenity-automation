@@ -100,6 +100,9 @@ public class Search extends BasePage {
     @FindBy(id = "correspondentReference")
     public WebElementFacade correspondentReferenceNumber;
 
+    @FindBy(xpath = "//label[text()='MPAM Case']")
+    public WebElementFacade mpamCaseCheckbox;
+
     //DCU Methods
 
     public void enterSearchCorrespondent(String correspondentNameQuery) {
