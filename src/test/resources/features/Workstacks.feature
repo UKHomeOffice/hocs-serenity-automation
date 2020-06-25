@@ -107,5 +107,5 @@ Feature: Workstacks
 
 
   Scenario: User is able to see highlighted deadlines on MPAM cases that are approaching their deadline date
-    Given I create a single "MPAM" case with the correspondence received date set 15 Workdays ago
+    Given I create a single "MPAM" case with the correspondence received date set 15 workdays ago
 
