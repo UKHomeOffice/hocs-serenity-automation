@@ -7,6 +7,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
 
 import config.User;
@@ -21,6 +22,8 @@ public class WorkstacksStepDefs extends BasePage {
     Homepage homepage;
 
     Workstacks workstacks;
+
+    Search search;
 
     CreateCase createCase;
 
@@ -257,7 +260,23 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I navigate to the {string} workstack and order the {string} column from {string}")
     public void orderWorkstackColumnBy(String stage, String column, String order) {
-        workstacks.orderMPAMWorkstackColumn(stage, column, order);
+        homepage.selectCorrectMPAMTeamByStage(stage);
+        workstacks.orderMPAMWorkstackColumn(column, order);
+    }
+
+    @And("I navigate to my cases and order the {string} column from {string}")
+    public void orderMyCasesColumns(String column, String order) {
+        homepage.selectMyCases();
+        workstacks.orderMPAMWorkstackColumn(column, order);
+    }
+
+    @And("I search for active MPAM cases and order the {string} column from {string}")
+    public void orderSearchResultColumns(String column, String order) {
+        safeClickOn(homepage.searchPage);
+        safeClickOn(search.mpamCaseCheckbox);
+        safeClickOn(search.caseStatusActiveCheckbox);
+        safeClickOn(searchButton);
+        workstacks.orderMPAMWorkstackColumn(column, order);
     }
 
     @And("the {string} column is ordered from {string}")
