@@ -68,6 +68,44 @@ Feature: Workstacks
     |Days         |Lowest to Highest|
     |Days         |Highest to Lowest|
 
-    Scenario: User is able to see highlighted deadlines on MPAM cases that are approaching their deadline date
-      Given I create a single "MPAM" case with the correspondence received date set 5 days ago
+  Scenario Outline: User is able to order columns in my cases
+    Given I navigate to my cases and order the "<column>" column from "<order>"
+    Then the "<column>" column is ordered from "<order>"
+    Examples:
+      |column       |order            |
+      |Reference    |Lowest to Highest|
+      |Reference    |Highest to Lowest|
+      |Ref Type     |Lowest to Highest|
+      |Ref Type     |Highest to Lowest|
+      |Business Area|Lowest to Highest|
+      |Business Area|Highest to Lowest|
+      |Current Stage|Lowest to Highest|
+      |Current Stage|Highest to Lowest|
+      |Deadline     |Lowest to Highest|
+      |Deadline     |Highest to Lowest|
+      |Urgency      |Lowest to Highest|
+      |Urgency      |Highest to Lowest|
+      |Days         |Lowest to Highest|
+      |Days         |Highest to Lowest|
+
+  Scenario Outline: User is able to order search results
+    Given I search for active MPAM cases and order the "<column>" column from "<order>"
+    Then the "<column>" column is ordered from "<order>"
+    Examples:
+      |column       |order            |
+      |Reference    |Lowest to Highest|
+      |Reference    |Highest to Lowest|
+      |Current Stage|Lowest to Highest|
+      |Current Stage|Highest to Lowest|
+      |Owner        |Lowest to Highest|
+      |Owner        |Highest to Lowest|
+      |Team         |Lowest to Highest|
+      |Team         |Highest to Lowest|
+      |Deadline     |Lowest to Highest|
+      |Deadline     |Highest to Lowest|
+
+
+
+  Scenario: User is able to see highlighted deadlines on MPAM cases that are approaching their deadline date
+    Given I create a single "MPAM" case with the correspondence received date set 5 days ago
 
