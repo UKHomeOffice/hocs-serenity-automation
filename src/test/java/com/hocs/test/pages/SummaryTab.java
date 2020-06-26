@@ -119,7 +119,7 @@ public class SummaryTab extends BasePage {
         return areDatesEqual && areDaysEqual;
     }
 
-    public void assertDeadlineDatesOfStage(String caseType, String team) {
+    public void assertDeadlineDateOfStage(String caseType, String team) {
         int expectedNumberOfDays = 0;
         String deadlineString = null;
         switch (caseType.toUpperCase()) {
