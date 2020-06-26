@@ -223,29 +223,29 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(summaryTab);
         switch (caseType.toUpperCase()) {
             case "MIN":
-                summary.assertDeadlineDatesOfStage(caseType, "Data Input");
-                summary.assertDeadlineDatesOfStage(caseType, "Markup");
-                summary.assertDeadlineDatesOfStage(caseType, "Initial Draft");
-                summary.assertDeadlineDatesOfStage(caseType, "QA Response");
-                summary.assertDeadlineDatesOfStage(caseType, "Private Office Approval");
-                summary.assertDeadlineDatesOfStage(caseType, "Ministerial Sign Off");
-                summary.assertDeadlineDatesOfStage(caseType, "Transfer Confirmation");
-                summary.assertDeadlineDatesOfStage(caseType, "No Response Needed Confirmation");
-                summary.assertDeadlineDatesOfStage(caseType, "Dispatch");
+                summary.assertDeadlineDateOfStage(caseType, "Data Input");
+                summary.assertDeadlineDateOfStage(caseType, "Markup");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "QA Response");
+                summary.assertDeadlineDateOfStage(caseType, "Private Office Approval");
+                summary.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
+                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
                 break;
             case "DTEN":
-                summary.assertDeadlineDatesOfStage(caseType, "Dispatch");
-                summary.assertDeadlineDatesOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
                 break;
             case "TRO":
-                summary.assertDeadlineDatesOfStage(caseType, "Data Input");
-                summary.assertDeadlineDatesOfStage(caseType, "Markup");
-                summary.assertDeadlineDatesOfStage(caseType, "Initial Draft");
-                summary.assertDeadlineDatesOfStage(caseType, "QA Response");
-                summary.assertDeadlineDatesOfStage(caseType, "Transfer Confirmation");
-                summary.assertDeadlineDatesOfStage(caseType, "No Response Needed Confirmation");
-                summary.assertDeadlineDatesOfStage(caseType, "Dispatch");
-                summary.assertDeadlineDatesOfStage(caseType, "Copy To Number 10");
+                summary.assertDeadlineDateOfStage(caseType, "Data Input");
+                summary.assertDeadlineDateOfStage(caseType, "Markup");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "QA Response");
+                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summary.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
