@@ -104,12 +104,12 @@ Feature: Workstacks
       |Deadline     |Lowest to Highest|
       |Deadline     |Highest to Lowest|
 
-  Scenario: User is able to see a heighlighted deadline on an MPAM case that is 5 days from its deadline datee
+  Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline datee
     Given I create a single "MPAM" case with the correspondence received date set 15 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should" be highlighted
 
-  Scenario: User is unable to see a heighlighted deadline on an MPAM case that is 6 days from its deadline date
+  Scenario: User is unable to see a highlighted deadline on an MPAM case that is 6 days from its deadline date
     Given I create a single "MPAM" case with the correspondence received date set 14 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
