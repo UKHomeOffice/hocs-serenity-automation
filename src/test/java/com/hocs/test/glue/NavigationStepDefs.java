@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.Homepage;

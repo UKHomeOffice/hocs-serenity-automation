@@ -2,6 +2,7 @@ package com.hocs.test.pages.mpam;
 
 import com.hocs.test.pages.BasePage;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -68,6 +69,21 @@ public class Points extends BasePage {
         boolean weekday = (date.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || date.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY);
         return weekday;
     }
+
+//    holidayDays
+//
+//        LocalDate receivedDate = LocalDate.parse();
+//        String deadlineString = null;
+//                LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString);
+//                LocalDate newDate = receivedDate;
+//                while (newDate != displayedDeadlineDate && workingDaysAfterReceived <= expectedNumberOfDays) {
+//                    newDate = receivedDate.plusDays(1);
+//                    Object dayOfWeek = newDate.getDayOfWeek().toString();
+//                    Boolean leapYear = newDate.isLeapYear();
+//                    if (dayOfWeek != "Saturday" && dayOfWeek != "Sunday" && !leapYear) {
+//                        workingDaysAfterReceived += 1;
+//                    }
+//                }
 
 //    public int getPointsForAge() {
 ////        int numberOfWorkdaysPast = getNumberOfWorkdays();

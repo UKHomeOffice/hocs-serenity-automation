@@ -247,12 +247,6 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @And("I view the case in the correct MPAM {string} workstack")
-    public void iViewTheCaseInTheCorrectMPAMWorkstack(String stage) {
-        homepage.selectCorrectMPAMTeamByStage(stage);
-        workstacks.filterByCurrentCaseReference();
-    }
-
     @Then("the case should be assigned {string} points")
     public void theCaseShouldBeAssignedPoints(String expectedPoints) {
         workstacks.assertPointsOfCurrentCaseEqual(expectedPoints);
@@ -282,5 +276,26 @@ public class WorkstacksStepDefs extends BasePage {
     @And("the {string} column is ordered from {string}")
     public void columnIsProperlyOrdered(String column, String order) throws ParseException {
         workstacks.assertColumnIsOrderedProperly(column, order);
+    }
+
+    @And("I view the MPAM case in the appropriate {string} stage workstack")
+    public void iViewTheCaseInTheWorkstack(String stage) {
+        homepage.goHome();
+        homepage.selectCorrectMPAMTeamByStage(stage);
+        workstacks.filterByCurrentCaseReference();
+    }
+
+    @Then("the case deadline {string} be highlighted")
+    public void theCaseDeadlineBeHighlighted(String shouldShouldNot) {
+        switch (shouldShouldNot.toUpperCase()) {
+            case "SHOULD":
+            workstacks.assertThatDeadlineHighlightedIs(true);
+            break;
+            case "SHOULD NOT":
+                workstacks.assertThatDeadlineHighlightedIs(false);
+                break;
+            default:
+                pendingStep(shouldShouldNot + " is not defined within " + getMethodName());
+        }
     }
 }

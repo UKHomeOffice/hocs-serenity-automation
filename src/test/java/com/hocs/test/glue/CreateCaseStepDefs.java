@@ -227,9 +227,9 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, day, month, year);
     }
 
-    @And("I create a single {string} case with the correspondence received date set {int} days ago")
-    public void iCreateACaseReceivedNDaysAgo(String caseType, int days) {
-        createCase.createCaseReceivedNDaysAgo(caseType, days);
+    @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
+    public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
+        createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
     }
 
     @When("I allocate the case to {string} on the case details accordion screen")

@@ -28,8 +28,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends BasePage {
 
-    Homepage homepage;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
 
@@ -609,5 +607,11 @@ public class Workstacks extends BasePage {
             }
             currentCase += 1;
         }
+    }
+
+    public void assertThatDeadlineHighlightedIs(boolean condition) {
+        WebElementFacade deadlineOfCurrentCase = find(By.xpath("//a[text()='"+ sessionVariableCalled("caseReference") + "']/../following-sibling::td"
+                + "[contains(@class,'date-warning')]"));
+        assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
 }

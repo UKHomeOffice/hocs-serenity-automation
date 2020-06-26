@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.time.LocalDate;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -16,6 +17,8 @@ public class CreateCase extends BasePage {
     CreateCase_SuccessPage createCaseSuccessPage;
 
     Homepage homepage;
+
+    Workdays workdays;
 
     // Elements
 
@@ -193,8 +196,9 @@ public class CreateCase extends BasePage {
         dateReceivedIsInvalidErrorMessage.shouldContainText("Date received must be a valid date");
     }
 
-    public void createCaseReceivedNDaysAgo(String caseType, int days) {
-        createCaseWithSetCorrespondenceReceivedDate(caseType, todayPlusMinusNDaysGetDay(-days), todayPlusMinusNDaysGetMonth(-days),
-                todayPlusMinusNDaysGetYear(-days));
+    public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
+        LocalDate targetDate = workdays.getDateXWorkdaysAgo(days);
+        createCaseWithSetCorrespondenceReceivedDate(caseType,String.valueOf(targetDate.getDayOfMonth()),String.valueOf(targetDate.getMonthValue()),
+                String.valueOf(targetDate.getYear()));
     }
 }
