@@ -11,8 +11,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import config.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -20,6 +22,8 @@ import net.serenitybdd.screenplay.actions.Switch;
 import org.hamcrest.core.Is;
 
 public class SummaryTab extends BasePage {
+
+    Workdays workdays;
 
     @FindBy(xpath = "//a[text()='Summary']")
     public WebElementFacade summaryTab;
@@ -99,8 +103,9 @@ public class SummaryTab extends BasePage {
     public void assertDeadlineDatesOfTeams(String caseType, String team) {
         int workingDaysAfterReceived = 0;
         int expectedNumberOfDays = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String receivedDateString  = sessionVariableCalled("correspondenceReceivedDate");
-        LocalDate receivedDate = LocalDate.parse(receivedDateString);
+        LocalDate receivedDate = LocalDate.parse(receivedDateString, formatter);
         String deadlineString = null;
         switch (caseType.toUpperCase()) {
             case "MIN":
@@ -144,17 +149,16 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(team + " is not defined within " + getMethodName());
                 }
-                LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString);
+                LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
                 LocalDate newDate = receivedDate;
                 assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-                while (newDate != displayedDeadlineDate && workingDaysAfterReceived <= expectedNumberOfDays) {
-                    Object dayOfWeek = newDate.getDayOfWeek().toString();
-                    if (dayOfWeek != "Saturday" && dayOfWeek != "Sunday") {
+                while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
+                    if (workdays.isWorkday(newDate)) {
                         workingDaysAfterReceived += 1;
                     }
-                    newDate = receivedDate.plusDays(1);
+                    newDate = newDate.plusDays(1);
                 }
-                assertThat(newDate == displayedDeadlineDate && workingDaysAfterReceived == expectedNumberOfDays, is(true));
+                assertThat(newDate.equals(displayedDeadlineDate) && workingDaysAfterReceived == expectedNumberOfDays, is(true));
                 break;
             case "DTEN":
                 String inputDeadline = null;
@@ -184,11 +188,11 @@ public class SummaryTab extends BasePage {
                         break;
                     case "INITIAL DRAFT":
                         deadlineString = initialDraftDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        expectedNumberOfDays = 20;
                         break;
                     case "QA RESPONSE":
                         deadlineString = qaResponseDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        expectedNumberOfDays = 20;
                         break;
                     case "TRANSFER CONFIRMATION":
                         deadlineString = transferConfirmationDeadlineDate.getText();
@@ -202,20 +206,23 @@ public class SummaryTab extends BasePage {
                         deadlineString = dispatchDeadlineDate.getText();
                         expectedNumberOfDays = 20;
                         break;
+                    case "COPY TO NUMBER 10":
+                        deadlineString = copyToNumber10DeadlineDate.getText();
+                        expectedNumberOfDays = 20;
+                        break;
                     default:
                         pendingStep(team + " is not defined within " + getMethodName());
                 }
-                displayedDeadlineDate = LocalDate.parse(deadlineString);
+                displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
                 newDate = receivedDate;
                 assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-                while (newDate != displayedDeadlineDate && workingDaysAfterReceived <= expectedNumberOfDays) {
-                    Object dayOfWeek = newDate.getDayOfWeek().toString();
-                    if (dayOfWeek != "Saturday" && dayOfWeek != "Sunday") {
+                while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
+                    if (workdays.isWorkday(newDate)) {
                         workingDaysAfterReceived += 1;
                     }
-                    newDate = receivedDate.plusDays(1);
+                    newDate = newDate.plusDays(1);
                 }
-                assertThat(newDate == displayedDeadlineDate && workingDaysAfterReceived == expectedNumberOfDays, is(true));
+                assertThat(newDate.equals(displayedDeadlineDate) && workingDaysAfterReceived == expectedNumberOfDays, is(true));
                 break;
         }
     }
