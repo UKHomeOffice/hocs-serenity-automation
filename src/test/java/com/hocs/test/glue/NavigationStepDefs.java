@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.Homepage;
@@ -54,6 +55,9 @@ public class NavigationStepDefs extends BasePage {
 
     @And ("I click to view the {string} workstack")
     public void iClickToViewTheWorkstack(String team) {
+        if (!homepage.myCases.isVisible()) {
+            homepage.goHome();
+        }
         switch (team.toUpperCase()) {
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 safeClickOn(homepage.animalsInScienceTeam);

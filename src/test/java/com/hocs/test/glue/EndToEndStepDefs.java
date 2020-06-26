@@ -301,7 +301,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 homepage.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(businessArea, refType);
+                creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
                 break;
             case "DRAFT":
                 moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");

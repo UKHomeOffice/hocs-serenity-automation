@@ -184,11 +184,21 @@ public class Creation extends BasePage {
         clickTheButton("Move to Triage");
     }
 
-    public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToCaseTriageStage(String businessArea, String refType) {
+    public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(String businessArea, String refType) {
         selectBusinessArea(businessArea);
         selectRefType(refType);
         selectInboundChannel("Email");
         selectUrgency("Standard");
+        clickTheButton("Continue");
+        addCorrespondent.addAPublicCorrespondent();
+        clickTheButton("Move to Triage");
+    }
+
+    public void moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(String urgency, String refType) {
+        selectBusinessArea("UKVI");
+        selectRefType(refType);
+        selectInboundChannel("Email");
+        selectUrgency(urgency);
         clickTheButton("Continue");
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Move to Triage");
