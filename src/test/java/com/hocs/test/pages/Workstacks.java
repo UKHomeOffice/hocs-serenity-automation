@@ -614,4 +614,22 @@ public class Workstacks extends BasePage {
                 + "[contains(@class,'date-warning')]"));
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
+
+    public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
+        String highPriorityReference = sessionVariableCalled(highPriorityCase);
+        String lowPriorityReference = sessionVariableCalled(lowPriorityCase);
+
+        List<WebElementFacade> caseReferenceElements = findAll(By.xpath("//tr/td[2]/a"));
+        Boolean highPriorityFirst = false;
+        Boolean lowPrioritySecond = false;
+        for(WebElementFacade caseReferenceElement: caseReferenceElements) {
+            if (caseReferenceElement.getText().equals(highPriorityReference)) {
+                highPriorityFirst = true;
+            }
+            if(caseReferenceElement.getText().equals(lowPriorityReference) && highPriorityFirst) {
+                lowPrioritySecond = true;
+            }
+        }
+        assertThat(highPriorityFirst && lowPrioritySecond, is(true));
+    }
 }

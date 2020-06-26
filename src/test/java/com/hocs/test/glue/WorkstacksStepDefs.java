@@ -282,7 +282,6 @@ public class WorkstacksStepDefs extends BasePage {
     public void iViewTheCaseInTheWorkstack(String stage) {
         homepage.goHome();
         homepage.selectCorrectMPAMTeamByStage(stage);
-        workstacks.filterByCurrentCaseReference();
     }
 
     @Then("the case deadline {string} be highlighted")
@@ -297,5 +296,10 @@ public class WorkstacksStepDefs extends BasePage {
             default:
                 pendingStep(shouldShouldNot + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("the {string} case should be higher up the workstack than the {string} case")
+    public void theCaseShouldBeHigherUpTheWorkstackThanTheCase(String highPriorityCase, String lowPriorityCase) {
+        workstacks.assertHigherPriorityCaseIsFirstInWorkstack(highPriorityCase, lowPriorityCase);
     }
 }

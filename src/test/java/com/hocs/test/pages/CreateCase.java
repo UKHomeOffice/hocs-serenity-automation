@@ -113,6 +113,9 @@ public class CreateCase extends BasePage {
 
     public void createCaseOfType(String caseType) {
         safeClickOn(homepage.createSingleCase);
+        if (!nextButton.isVisible()) {
+            safeClickOn(homepage.createSingleCase);
+        }
         selectCaseType(caseType);
         completeSingleCaseCreation();
         setSessionVariable("caseType").to(caseType);

@@ -55,6 +55,9 @@ public class NavigationStepDefs extends BasePage {
 
     @And ("I click to view the {string} workstack")
     public void iClickToViewTheWorkstack(String team) {
+        if (!homepage.myCases.isVisible()) {
+            homepage.goHome();
+        }
         switch (team.toUpperCase()) {
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 safeClickOn(homepage.animalsInScienceTeam);
