@@ -100,12 +100,27 @@ public class SummaryTab extends BasePage {
         return activeStage.getText();
     }
 
-    public void assertDeadlineDatesOfStage(String caseType, String team) {
+    public boolean checkCalculatedDeadline(String deadlineString, int expectedNumberOfDays) {
         int workingDaysAfterReceived = 0;
-        int expectedNumberOfDays = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String receivedDateString  = sessionVariableCalled("correspondenceReceivedDate");
         LocalDate receivedDate = LocalDate.parse(receivedDateString, formatter);
+        LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
+        LocalDate newDate = receivedDate;
+        assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
+        while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
+            if (workdays.isWorkday(newDate)) {
+                workingDaysAfterReceived += 1;
+            }
+            newDate = newDate.plusDays(1);
+        }
+        boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
+        boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
+        return areDatesEqual && areDaysEqual;
+    }
+
+    public void assertDeadlineDatesOfStage(String caseType, String team) {
+        int expectedNumberOfDays = 0;
         String deadlineString = null;
         switch (caseType.toUpperCase()) {
             case "MIN":
@@ -149,16 +164,7 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(team + " is not defined within " + getMethodName());
                 }
-                LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
-                LocalDate newDate = receivedDate;
-                assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-                while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
-                    if (workdays.isWorkday(newDate)) {
-                        workingDaysAfterReceived += 1;
-                    }
-                    newDate = newDate.plusDays(1);
-                }
-                assertThat(newDate.equals(displayedDeadlineDate) && workingDaysAfterReceived == expectedNumberOfDays, is(true));
+                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
             case "DTEN":
                 String inputDeadline = null;
@@ -213,16 +219,7 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(team + " is not defined within " + getMethodName());
                 }
-                displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
-                newDate = receivedDate;
-                assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-                while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
-                    if (workdays.isWorkday(newDate)) {
-                        workingDaysAfterReceived += 1;
-                    }
-                    newDate = newDate.plusDays(1);
-                }
-                assertThat(newDate.equals(displayedDeadlineDate) && workingDaysAfterReceived == expectedNumberOfDays, is(true));
+                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
         }
     }
