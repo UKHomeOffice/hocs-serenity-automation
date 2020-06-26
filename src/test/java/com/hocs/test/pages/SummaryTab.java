@@ -100,7 +100,7 @@ public class SummaryTab extends BasePage {
         return activeStage.getText();
     }
 
-    public void assertDeadlineDatesOfTeams(String caseType, String team) {
+    public void assertDeadlineDatesOfStage(String caseType, String team) {
         int workingDaysAfterReceived = 0;
         int expectedNumberOfDays = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
