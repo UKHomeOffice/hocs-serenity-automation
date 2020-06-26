@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.Homepage;
@@ -25,6 +26,8 @@ public class DataInputStepDefs extends BasePage {
     Workstacks workstacks;
 
     AccordionDCU accordionDCU;
+
+    SummaryTab summary;
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
@@ -213,5 +216,39 @@ public class DataInputStepDefs extends BasePage {
     @Then("the correspondents name should be updated")
     public void theCorrespondentsNameShouldBeUpdated() {
         dataInputAddCorrespondent.assertPrimaryCorrespondent();
+    }
+
+    @And("I check that the stage deadline dates for a {string} case are correct")
+    public void checkStageDeadlineDatesCorrect(String caseType) {
+        safeClickOn(summaryTab);
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                summary.assertDeadlineDateOfStage(caseType, "Data Input");
+                summary.assertDeadlineDateOfStage(caseType, "Markup");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "QA Response");
+                summary.assertDeadlineDateOfStage(caseType, "Private Office Approval");
+                summary.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
+                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                break;
+            case "DTEN":
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                break;
+            case "TRO":
+                summary.assertDeadlineDateOfStage(caseType, "Data Input");
+                summary.assertDeadlineDateOfStage(caseType, "Markup");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "QA Response");
+                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summary.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
     }
 }
