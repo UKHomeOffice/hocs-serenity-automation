@@ -117,10 +117,12 @@ Feature: Data Input
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
-
   Scenario: User edits an existing correspondent
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     And I add "Nicola Sturgeon" MP as a correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
+
+  Scenario: User creates a MIN case and checks that the stage deadlines are correct
+    And I check that the stage deadline dates for a "MIN" case are correct
