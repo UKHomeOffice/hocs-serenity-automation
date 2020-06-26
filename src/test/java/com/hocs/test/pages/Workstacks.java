@@ -283,7 +283,6 @@ public class Workstacks extends BasePage {
                 break;
             default:
                 pendingStep(order + " is not defined within " + getMethodName());
-
         }
         List<WebElementFacade> listOfColumnHeaderElements = findAll("//thead/tr[1]/th");
         int lengthOfElementList = listOfColumnHeaderElements.size();
