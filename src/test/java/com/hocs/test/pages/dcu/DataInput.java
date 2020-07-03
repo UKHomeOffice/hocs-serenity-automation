@@ -218,6 +218,24 @@ public class DataInput extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void completeDataInputStageWithThreeMPCorrespondents() {
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon");
+        addCorrespondent.addAMemberCorrespondent("Theresa May");
+        safeClickOn(finishButton);
+    }
+
+    public void completeDataInputWithThreePublicCorrespondents() {
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondent();
+        safeClickOn(finishButton);
+    }
+
     // Assertions
 
     public void assertPageTitle() {

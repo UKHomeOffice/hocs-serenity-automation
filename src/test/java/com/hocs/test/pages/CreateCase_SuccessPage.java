@@ -18,7 +18,7 @@ public class CreateCase_SuccessPage extends BasePage {
     @FindBy(className = "govuk-panel__title")
     private WebElementFacade panelTitle;
 
-    @FindBy(className = "govuk-button-panel--link")
+    @FindBy(id = "submit")
     public WebElementFacade newCaseReference;
 
     public void assertCaseCreatedSuccess() {

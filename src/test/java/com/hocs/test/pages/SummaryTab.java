@@ -88,6 +88,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Copy to Number 10']/following-sibling::td")
     private WebElementFacade copyToNumber10DeadlineDate;
 
+    @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
+    private WebElementFacade mpamDeadlineDate;
+
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
     }
@@ -108,23 +111,23 @@ public class SummaryTab extends BasePage {
         LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
         LocalDate newDate = receivedDate;
         assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-        while (newDate != displayedDeadlineDate && workingDaysAfterReceived < expectedNumberOfDays) {
+        while (newDate.isBefore(displayedDeadlineDate) && workingDaysAfterReceived <= expectedNumberOfDays) {
+            newDate = newDate.plusDays(1);
             if (workdays.isWorkday(newDate)) {
                 workingDaysAfterReceived += 1;
             }
-            newDate = newDate.plusDays(1);
         }
         boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
         boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
         return areDatesEqual && areDaysEqual;
     }
 
-    public void assertDeadlineDateOfStage(String caseType, String team) {
+    public void assertDeadlineDateOfStage(String caseType, String stage) {
         int expectedNumberOfDays = 0;
         String deadlineString = null;
         switch (caseType.toUpperCase()) {
             case "MIN":
-                switch (team.toUpperCase()) {
+                switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         deadlineString = dataInputDeadlineDate.getText();
                         expectedNumberOfDays = 2;
@@ -162,13 +165,13 @@ public class SummaryTab extends BasePage {
                         expectedNumberOfDays = 20;
                         break;
                     default:
-                        pendingStep(team + " is not defined within " + getMethodName());
+                        pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
             case "DTEN":
                 String inputDeadline = null;
-                switch (team.toUpperCase()) {
+                switch (stage.toUpperCase()) {
                     case "DISPATCH":
                         deadlineString = dispatchDeadlineDate.getText();
                         inputDeadline = sessionVariableCalled("dtenDispatchDeadline");
@@ -178,12 +181,12 @@ public class SummaryTab extends BasePage {
                         inputDeadline = sessionVariableCalled("dtenInitialDraftDeadline");
                         break;
                     default:
-                        pendingStep(team + " is not defined within " + getMethodName());
+                        pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 assertThat(deadlineString.equals(inputDeadline), is(true));
                 break;
             case "TRO":
-                switch (team.toUpperCase()) {
+                switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         deadlineString = dataInputDeadlineDate.getText();
                         expectedNumberOfDays = 2;
@@ -217,10 +220,17 @@ public class SummaryTab extends BasePage {
                         expectedNumberOfDays = 20;
                         break;
                     default:
-                        pendingStep(team + " is not defined within " + getMethodName());
+                        pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
+            case "MPAM":
+                deadlineString = mpamDeadlineDate.getText();
+                expectedNumberOfDays = 20;
+                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 

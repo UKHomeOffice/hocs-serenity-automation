@@ -105,8 +105,8 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[1]/form/input")
     public WebElementFacade caseDetailsAllocateButton;
 
-    @FindBy(xpath = "//tbody/tr[1]/td[8]")
-    public WebElementFacade topCasePoints;
+    @FindBy(xpath = "//tr[1]/td[2]/a")
+    public WebElementFacade topCaseReferenceHypertext;
 
     @FindBy(xpath = "//thead/tr[1]/th[text()='Reference']")
     public WebElementFacade referenceColumnHeader;
