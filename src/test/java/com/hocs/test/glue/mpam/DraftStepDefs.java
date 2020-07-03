@@ -3,11 +3,13 @@ package com.hocs.test.glue.mpam;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.mpam.Draft;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class DraftStepDefs {
+public class DraftStepDefs extends BasePage {
 
     Draft draft;
 
@@ -27,6 +29,13 @@ public class DraftStepDefs {
                 break;
             case "ON HOLD":
                 draft.putCaseOnHold();
+                break;
+            case "REQUESTED CONTRIBUTION":
+                draft.selectRequestContribution();
+                draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
+                draft.enterRequestDescription("test request contribution description");
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -51,5 +60,69 @@ public class DraftStepDefs {
     @And("I submit a reason to close the case at Draft \\(Escalated) stage")
     public void iSubmitAReasonToCloseTheCaseAtDraftEscalatedStage() {
         draft.submitReasonToCloseEscalatedCase("Test close case at Draft (Escalated) stage");
+    }
+
+    @When("I select the {string} action at Draft \\(Contribution Requested) stage")
+    public void iSelectTheActionAtDraftContributionRequestedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "ESCALATE TO WORKFLOW MANAGER":
+                safeClickOn(draft.escalateToWorkflowManagerRadioButton);
+                break;
+            case "CONTRIBUTIONS RECEIVED":
+                safeClickOn(draft.contributionsReceivedRadioButton);
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+        safeClickOn(confirmButton);
+    }
+
+    @When("the user triggers the {string} error message at Draft by not entering the correct information")
+    public void theUserTriggersTheErrorMessageAtDraftByNotEnteringTheCorrectInformation(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "ACTIONS REQUIRED":
+                draft.selectResponseChannel("Email");
+                safeClickOn(confirmButton);
+                break;
+            case "RESPONSE CHANNEL":
+                safeClickOn(draft.escalateToWorkflowManagerRadioButton);
+                safeClickOn(confirmButton);
+                break;
+            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
+                draft.selectResponseChannel("Email");
+                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(confirmButton);
+                draft.enterRequestDescription("Test");
+                safeClickOn(confirmButton);
+                break;
+            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
+                draft.selectResponseChannel("Email");
+                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(confirmButton);
+                draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
+                safeClickOn(confirmButton);
+                break;
+        }
+    }
+
+    @Then("the {string} error message should be displayed at Draft")
+    public void theErrorMessageShouldBeDisplayedAtDraft(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "ACTIONS REQUIRED":
+                draft.assertActionsRequiredErrorMessageDisplayed();
+                break;
+            case "RESPONSE CHANNEL REQUIRED":
+                draft.assertResponseChannelRequiredErrorMessageDisplayed();
+                break;
+            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
+                draft.assertContributionRequestDeadlineRequiredErrorMessageDisplayed();
+                break;
+            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
+                draft.assertContributionRequestDescriptionRequiredErrorMessageDisplayed();
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
     }
 }

@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.Triage;
@@ -20,14 +21,23 @@ public class TriageStepDefs extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
+    SummaryTab summaryTab;
+
     @And("I send the Triage case to {string}")
-    public void escalateToWorkflowManager(String stage) {
+    public void sendTheTriageCaseTo(String stage) {
         switch (stage.toUpperCase()) {
             case "WORKFLOW MANAGER":
                 triage.escalateTriageCaseToWorkflowManager();
                 break;
             case "ON HOLD":
                 triage.putTriageCaseOnHold();
+                break;
+            case "REQUESTED CONTRIBUTION":
+                triage.selectRequestContribution();
+                triage.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
+                triage.enterRequestDescription("test request contribution description");
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -75,6 +85,17 @@ public class TriageStepDefs extends BasePage {
                 triage.selectEnquirySubject("Other");
                 safeClickOn(continueButton);
                 break;
+            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
+                triage.selectRequestContribution();
+                triage.enterRequestDescription("test");
+                safeClickOn(confirmButton);
+                break;
+            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
+                triage.selectRequestContribution();
+                triage.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
+                safeClickOn(confirmButton);
+                break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
@@ -95,6 +116,12 @@ public class TriageStepDefs extends BasePage {
             case "ENQUIRY REASON REQUIRED":
                 triage.assertEnquiryReasonRequiredErrorMessageDisplayed();
                 break;
+            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
+                triage.assertContributionRequestDeadlineRequiredErrorMessageDisplayed();
+                break;
+            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
+                triage.assertContributionRequestDescriptionRequiredErrorMessageDisplayed();
+                break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
@@ -110,9 +137,8 @@ public class TriageStepDefs extends BasePage {
         triage.assertBusinessAreaOptionsChanged();
     }
 
-    @When("I change the Business Unit of the case to {string}")
+    @When("I change the Business Area of the case to {string}")
     public void iChangeTheBusinessUnitOfTheCase(String businessArea) {
-        safeClickOn(accordionMPAM.caseDetailsAccordionButton);
         creation.selectBusinessArea(businessArea);
     }
 
@@ -130,4 +156,31 @@ public class TriageStepDefs extends BasePage {
     public void iSubmitAReasonToCloseTheCaseAtTriageEscalatedStage() {
         triage.submitReasonToCloseEscalatedCase("Test close case at Triage (Escalated) stage");
     }
+
+    @And("the request contribution date should be visible in the summary")
+    public void theRequestContributionDateShouldBeVisibleInTheSummary() {
+        summaryTab.assertContributionRequestDeadlineVisible();
+    }
+
+    @When("I select the {string} action at Triage \\(Contribution Requested) stage")
+    public void iSelectTheActionAtTriageContributionRequestedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "ESCALATE TO WORKFLOW MANAGER":
+                safeClickOn(triage.escalateToWorkflowManagerRadioButton);
+                break;
+            case "CONTRIBUTIONS RECEIVED":
+                safeClickOn(triage.contributionsReceivedRadioButton);
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+        safeClickOn(confirmButton);
+    }
+
+    @And("I select to change the Business Area")
+    public void iSelectToChangeTheBusinessArea() {
+        safeClickOn(accordionMPAM.caseDetailsAccordionButton);
+        safeClickOn(triage.changeBusinessAreaLink);
+    }
 }
+

@@ -49,6 +49,9 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li//span[text()='Case closure note']/ancestor::p")
     public WebElementFacade closureNoteContents;
 
+    @FindBy(xpath = "//li//span[text()='Contribution request note']/ancestor::p")
+    public WebElementFacade contributionRequestNoteContents;
+
     public void selectTimelineTab() {
         safeClickOn(timelineTab);
     }
@@ -161,12 +164,17 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String rejectionReason = sessionVariableCalled("rejectionReason");
         assertThat(rejectionNoteContents.getText().contains(rejectionReason), is(true));
-
     }
 
     public void assertClosureNoteVisible() {
         selectTimelineTab();
         String closureReason = sessionVariableCalled("closureReason");
         assertThat(closureNoteContents.getText().contains(closureReason), is(true));
+    }
+
+    public void assertContributionRequestNoteVisible() {
+        selectTimelineTab();
+        String requestDescription = sessionVariableCalled("requestDescription");
+        assertThat(contributionRequestNoteContents.getText().contains(requestDescription), is(true));
     }
 }

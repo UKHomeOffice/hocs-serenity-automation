@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
@@ -301,5 +302,11 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the {string} case should be higher up the workstack than the {string} case")
     public void theCaseShouldBeHigherUpTheWorkstackThanTheCase(String highPriorityCase, String lowPriorityCase) {
         workstacks.assertHigherPriorityCaseIsFirstInWorkstack(highPriorityCase, lowPriorityCase);
+    }
+
+    @Then("the contribution request deadline should be visible in the {string} workstack")
+    public void theContributionRequestDeadlineShouldBeVisibleInTheWorkstack(String stage) {
+        homepage.selectCorrectMPAMTeamByStage(stage);
+        workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
     }
 }

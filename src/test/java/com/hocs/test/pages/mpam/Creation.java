@@ -34,10 +34,10 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='BusArea-Coronavirus']")
     public WebElementFacade businessAreaCoronavirusRadioButton;
 
-    @FindBy(css = "label[for='RefType-M-Ref']")
+    @FindBy(css = "label[for='RefType-Ministerial']")
     public WebElementFacade refTypeMRefRadioButton;
 
-    @FindBy(css = "label[for='RefType-B-Ref']")
+    @FindBy(css = "label[for='RefType-Official']")
     public WebElementFacade refTypeBRefRadioButton;
 
     @FindBy(css = "label[for='Priority-Standard']")

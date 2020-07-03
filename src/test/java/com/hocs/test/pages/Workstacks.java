@@ -631,4 +631,8 @@ public class Workstacks extends BasePage {
         }
         assertThat(highPriorityFirst && lowPrioritySecond, is(true));
     }
+
+    public void assertCaseStageContains(String contents) {
+            assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
+    }
 }

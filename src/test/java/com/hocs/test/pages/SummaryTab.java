@@ -88,6 +88,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Copy to Number 10']/following-sibling::td")
     private WebElementFacade copyToNumber10DeadlineDate;
 
+    @FindBy(xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
+    private WebElementFacade contributionRequestDeadline;
+
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
     }
@@ -247,5 +250,10 @@ public class SummaryTab extends BasePage {
         String businessArea = sessionVariableCalled("businessArea");
         String refType = sessionVariableCalled("refType");
         assertThat(activeTeam.contains(businessArea) && activeTeam.contains(refType), is(true));
+    }
+
+    public void assertContributionRequestDeadlineVisible() {
+        String deadline = sessionVariableCalled("requestDeadline");
+        assertThat(contributionRequestDeadline.getText().contains(deadline), is(true));
     }
 }

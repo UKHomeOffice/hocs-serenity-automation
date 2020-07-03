@@ -15,7 +15,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 public class Triage extends BasePage {
 
-    SummaryTab summary;
+    @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
+    public WebElementFacade changeBusinessAreaLink;
 
     @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
@@ -35,8 +36,20 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//a[text()='Action menu - select one option is required']")
+    @FindBy(xpath = "//label[text()='Requested contribution']")
+    public WebElementFacade requestedContributionRadioButton;
+
+    @FindBy(xpath = "//label[text()='Contributions received']")
+    public WebElementFacade contributionsReceivedRadioButton;
+
+    @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Deadline for contribution request is required']")
+    public WebElementFacade contributionRequestDeadlineRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='What you are requesting is required']")
+    public WebElementFacade contributionRequestDescriptionRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Business unit is required']")
     public WebElementFacade businessUnitRequiredErrorMessage;
@@ -71,6 +84,18 @@ public class Triage extends BasePage {
 
     @FindBy(id = "CaseNote_TriageClose")
     public WebElementFacade closureReasonTextArea;
+
+    @FindBy(id = "RequestContributionDeadline-day")
+    public WebElementFacade requestContributionDeadlineDayTextField;
+
+    @FindBy(id = "RequestContributionDeadline-month")
+    public WebElementFacade requestContributionDeadlineMonthTextField;
+
+    @FindBy(id = "RequestContributionDeadline-year")
+    public WebElementFacade requestContributionDeadlineYearTextField;
+
+    @FindBy(id = "CaseNote_TriageRequestContribution")
+    public WebElementFacade requestContributionTextArea;
 
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
@@ -183,5 +208,34 @@ public class Triage extends BasePage {
         typeInto(closureReasonTextArea, closureReason);
         safeClickOn(confirmButton);
         setSessionVariable("closureReason").to(closureReason);
+    }
+
+    public void enterRequestContributionDeadlineDate(String dd, String mm, String yyyy) {
+        typeInto(requestContributionDeadlineDayTextField, dd);
+        typeInto(requestContributionDeadlineMonthTextField, mm);
+        typeInto(requestContributionDeadlineYearTextField, yyyy);
+        setSessionVariable("requestDeadline").to(dd + "/" + mm + "/" + yyyy);
+    }
+
+    public void selectRequestContribution() {
+        safeClickOn(setEnquiryHypertext);
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
+        safeClickOn(requestedContributionRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void enterRequestDescription(String requestDescription) {
+        typeInto(requestContributionTextArea, requestDescription);
+        setSessionVariable("requestDescription").to(requestDescription);
+    }
+
+    public void assertContributionRequestDeadlineRequiredErrorMessageDisplayed()  {
+        assertThat(contributionRequestDeadlineRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
+        assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
     }
 }
