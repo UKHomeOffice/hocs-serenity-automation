@@ -105,10 +105,14 @@ public class PeopleTab extends BasePage {
         }
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int listSize = correspondentNames.size();
-        while (n <= (listSize - 1)) {
-            assertThat(correspondentNames.get(n).getText().contains(sessionVariableCalled("correspondentFullName")), is(true));
+        boolean isCorrespondentDisplayed = false;
+        while (n <= (listSize - 1) && !isCorrespondentDisplayed) {
+            if (correspondentNames.get(n).getText().contains(sessionVariableCalled("correspondentFullName"))) {
+                isCorrespondentDisplayed = true;
+            }
             n++;
         }
+        assertThat(isCorrespondentDisplayed, is(true));
     }
 
     public void assertNewPrimaryCorrespondent(String newPrimaryCorrespondent) {
