@@ -117,6 +117,7 @@ public class SummaryTab extends BasePage {
                 workingDaysAfterReceived += 1;
             }
         }
+        int test = workingDaysAfterReceived;
         boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
         boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
         return areDatesEqual && areDaysEqual;

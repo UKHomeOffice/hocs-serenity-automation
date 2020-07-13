@@ -136,7 +136,7 @@ public class DataInput extends BasePage {
             typeInto(dtenDraftingDeadlineDayField, "01");
             typeInto(dtenDraftingDeadlineMonthField, "01");
             typeInto(dtenDraftingDeadlineYearField, "2019");
-            setSessionVariable("dtenDraftingDeadline").to("01/01/2019");
+            setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
             typeInto(dtenDispatchDeadlineDayField, "01");
             typeInto(dtenDispatchDeadlineMonthField, "01");
             typeInto(dtenDispatchDeadlineYearField, "2019");

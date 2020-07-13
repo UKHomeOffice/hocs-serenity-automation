@@ -15,21 +15,22 @@ public class CreateCase_SuccessPage extends BasePage {
 
     Workstacks workstacks;
 
-    @FindBy(className = "govuk-panel__title")
-    private WebElementFacade panelTitle;
+    @FindBy(xpath = "//div[contains(text(), 'Created')]")
+    private WebElementFacade caseCreatedTitle;
 
     @FindBy(id = "submit")
     public WebElementFacade newCaseReference;
 
     public void assertCaseCreatedSuccess() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-        panelTitle.shouldContainText("Success");
+        caseCreatedTitle.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+        caseCreatedTitle.shouldContainText("Case Created");
         newCaseReference.shouldBeCurrentlyVisible();
     }
 
     public void assertBulkCasesCreatedSuccess() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        panelTitle.shouldContainText("Success");
+        int numberOfCases = sessionVariableCalled("bulkCaseNumber");
+        caseCreatedTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        caseCreatedTitle.shouldContainText("Created " + numberOfCases + " new case");
     }
 
     public String getCaseReference() {
