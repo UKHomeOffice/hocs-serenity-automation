@@ -30,9 +30,9 @@ public class DraftStepDefs extends BasePage {
             case "ON HOLD":
                 draft.putCaseOnHold();
                 break;
-            case "REQUESTED CONTRIBUTION":
-                draft.selectRequestContribution();
-                draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+            case "CONTRIBUTION REQUESTED":
+                draft.selectContributionRequested();
+                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
                 draft.enterRequestDescription("test request contribution description");
                 safeClickOn(confirmButton);
@@ -84,22 +84,22 @@ public class DraftStepDefs extends BasePage {
                 draft.selectResponseChannel("Email");
                 safeClickOn(confirmButton);
                 break;
-            case "RESPONSE CHANNEL":
+            case "RESPONSE CHANNEL REQUIRED":
                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
                 draft.selectResponseChannel("Email");
-                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(draft.contributionRequestedRadioButton);
                 safeClickOn(confirmButton);
                 draft.enterRequestDescription("Test");
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
                 draft.selectResponseChannel("Email");
-                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(draft.contributionRequestedRadioButton);
                 safeClickOn(confirmButton);
-                draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
                 safeClickOn(confirmButton);
                 break;

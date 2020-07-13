@@ -73,18 +73,18 @@ Feature: Drafting
   Scenario: User requests a contribution at Draft stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
-    When I send the Draft case to "Requested Contribution"
+    When I send the Draft case to "Contribution Requested"
     Then the contribution request deadline should be visible in the "Draft" workstack
-    And the case should be moved to the "Draft (Requested Contribution)" stage
+    And the case should be moved to the "Draft (Contribution Requested)" stage
     And the case should be allocated to me in the summary
-    And the request contribution date should be visible in the summary
-    And a request contribution note should be visible showing the description of the request
+    And the contribution request deadline should be visible in the summary
+    And a contribution request note should be visible showing the description of the request
 
   @MPAMWorkflow @SmokeTests
   Scenario: User selects that the contribution has been received at Draft (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
-    When I send the Draft case to "Requested Contribution"
+    When I send the Draft case to "Contribution Requested"
     And I load and claim the current case
     When I select the "Contributions received" action at Draft (Contribution Requested) stage
     Then the case should be moved to the "Draft" stage
@@ -94,7 +94,7 @@ Feature: Drafting
   Scenario: User escalates a case at Draft (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
-    When I send the Draft case to "Requested Contribution"
+    When I send the Draft case to "Contribution Requested"
     And I load and claim the current case
     When I select the "Escalate to Workflow Manager" action at Draft (Contribution Requested) stage
     Then the case should be moved to the "Draft (Escalated)" stage
@@ -108,7 +108,7 @@ Feature: Drafting
     Then  the "<errorType>" error message should be displayed at Draft
     Examples:
       | errorType                                 |
-      | Actions Required                          |
+#      | Actions Required                          |
       | Response Channel Required                 |
-      | Contribution Request Deadline Required    |
-      | Contribution Request Description Required |
+#      | Contribution Request Deadline Required    |
+#      | Contribution Request Description Required |
