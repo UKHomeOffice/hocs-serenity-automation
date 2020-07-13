@@ -55,6 +55,19 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//strong[contains(text(), 'Response channel')]/parent::span")
     public WebElementFacade draftAccordionResponseChannel;
 
+    @FindBy(xpath = "//a[text()='Change business area']")
+    public WebElementFacade changeBusinessAreaHypertext;
+
+    @FindBy(id = "BusUnit")
+    public WebElementFacade businessUnitDropdown;
+
+    @FindBy(xpath = "//label[text()='Confirm']")
+    public WebElementFacade confirmRadioButton;
+
+    public void openCaseDetailsAccordion() {
+        safeClickOn(caseDetailsAccordionButton);
+    }
+
     public void openCreationAccordion() {
         safeClickOn(creationAccordionButton);
     }
@@ -114,6 +127,26 @@ public class AccordionMPAM extends BasePage {
                 pendingStep(responseType + " is not defined within " + getMethodName());
         }
         setSessionVariable("response").to(response);
+    }
+
+    public void selectBusinessArea(String businessArea) {
+        WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]");
+        safeClickOn(businessAreaLabel);
+    }
+
+    public void changeBusinessAreaAndUnit(String businessArea) {
+        safeClickOn(changeBusinessAreaHypertext);
+        waitABit(500);
+        selectBusinessArea(businessArea);
+        businessUnitDropdown.selectByIndex(1);
+        safeClickOn(confirmRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void assertBusinessAreaHasChanged(String newBusinessArea) {
+        clickOn(summaryTab);
+        WebElementFacade summaryTabTeam = findBy("//th[text()='Team']/following-sibling::td");
+        assertThat(summaryTabTeam.getText().contains(newBusinessArea), is(true));
     }
 
     public void assertInputMatchesCaseDetailsResponse(String responseType) {

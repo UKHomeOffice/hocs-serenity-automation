@@ -112,3 +112,7 @@ Feature: Creation
   Scenario: User attempts to progress without adding a correspondent
     And I click the "Continue" button
     Then an error message should be displayed as I must complete all required questions at Creation stage
+
+  @SmokeTests
+  Scenario: User creates an MPAM case and checks the case deadline is correct
+    Then I check that the stage deadline dates for a "MPAM" case are correct

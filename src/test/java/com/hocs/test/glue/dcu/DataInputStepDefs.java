@@ -170,6 +170,16 @@ public class DataInputStepDefs extends BasePage {
         dataInput.moveCaseFromDataInputToMarkup();
     }
 
+    @And("I complete the Data Input stage adding 3 member correspondents")
+    public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
+        dataInput.completeDataInputStageWithThreeMPCorrespondents();
+    }
+
+    @And("I complete the Data Input stage adding 3 public correspondents")
+    public void iCompleteDataInputStageWithThreePublicCorrespondents() {
+        dataInput.completeDataInputWithThreePublicCorrespondents();
+    }
+
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
         setSessionVariable("correspondentFullName").to(member);
@@ -246,6 +256,9 @@ public class DataInputStepDefs extends BasePage {
                 summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
                 summary.assertDeadlineDateOfStage(caseType, "Dispatch");
                 summary.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
+                break;
+            case "MPAM":
+                summary.assertDeadlineDateOfStage(caseType, "GENERAL");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
