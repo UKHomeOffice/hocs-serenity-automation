@@ -172,8 +172,19 @@ public class LoginStepDefs extends BasePage {
         User inputUser = User.valueOf(user);
         homepage.goHome();
         safeClickOn(homepage.myCases);
-        safeClickOn(workstacks.topCaseReferenceHypertext);
-        safeClickOn(summaryTab);
-        summary.assertAllocatedUserIs(inputUser);
+        try {
+            safeClickOn(workstacks.topCaseReferenceHypertext);
+            safeClickOn(summaryTab);
+            summary.assertAllocatedUserIs(inputUser);
+        }
+        catch (AssertionError | NoSuchElementException e) {
+            createCase.createCaseOfType("MIN");
+            homepage.getAndClaimCurrentCase();
+            homepage.goHome();
+            safeClickOn(homepage.myCases);
+            safeClickOn(workstacks.topCaseReferenceHypertext);
+            safeClickOn(summaryTab);
+            summary.assertAllocatedUserIs(inputUser);
+        }
     }
 }
