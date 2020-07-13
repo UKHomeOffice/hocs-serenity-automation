@@ -28,8 +28,9 @@ Feature: Triage
     Then the set enquiry subject and reason should be displayed on the MPAM Triage page
 
   Scenario: User views the Business Units for different Business Areas
+    And I select to change the Business Area
     And I record the current options for Business Area
-    When I change the Business Unit of the case to "Windrush"
+    When I change the Business Area of the case to "Windrush"
     Then the options for Business Area should change
 
   @MPAMWorkflow @SmokeTests
@@ -44,7 +45,7 @@ Feature: Triage
     And the case should be allocated to me in the summary
 
   @Workflow @SmokeTests
-    Scenario: User escalates the Triage case to the workflow manager
+  Scenario: User escalates the Triage case to the workflow manager
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "Triage (Escalated)" stage
 
@@ -73,13 +74,39 @@ Feature: Triage
     Then the case should be closed
     And a closure note should be visible showing the reason for closing the case
 
+  @MPAMWorkflow @SmokeTests
+  Scenario: User requests a contribution at triage stage
+    When I send the Triage case to "Requested Contribution"
+    Then the contribution request deadline should be visible in the "Triage" workstack
+    And the case should be moved to the "Triage (Requested Contribution)" stage
+    And the case should be allocated to me in the summary
+    And the request contribution date should be visible in the summary
+    And a request contribution note should be visible showing the description of the request
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User selects that the contribution has been received at Triage (Contribution Requested) stage
+    When I send the Triage case to "Requested Contribution"
+    And I load and claim the current case
+    When I select the "Contributions received" action at Triage (Contribution Requested) stage
+    Then the case should be moved to the "Triage" stage
+    And the case should be allocated to me in the summary
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User escalates a case at Triage (Contribution Requested) stage
+    When I send the Triage case to "Requested Contribution"
+    And I load and claim the current case
+    When I select the "Escalate to Workflow Manager" action at Triage (Contribution Requested) stage
+    Then the case should be moved to the "Triage (Escalated)" stage
+    And the case should be allocated to me in the summary
+
   @Validation
   Scenario Outline: User triggers error message to be displayed at Triage
     When the user triggers the "<errorType>" error message at Triage by not entering the correct information
     Then  the "<errorType>" error message should be displayed at Triage
     Examples:
-      | errorType                |
-      | Actions Required         |
-      | Business Unit Required   |
-      | Enquiry Subject Required |
-      | Enquiry Reason Required  |
+      | errorType                                 |
+      | Actions Required                          |
+      | Business Unit Required                    |
+      | Enquiry Subject Required                  |
+      | Contribution Request Deadline Required    |
+      | Contribution Request Description Required |

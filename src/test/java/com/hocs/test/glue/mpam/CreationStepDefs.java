@@ -67,14 +67,4 @@ public class CreationStepDefs extends BasePage {
         creation.selectUrgency(urgency);
         creation.selectRefType(refType);
     }
-
-    @And("I complete Creation stage with {string} as the Urgency and {string} as the Reference Type")
-    public void iCompleteCreationStageWithAsTheUrgencyAndAsTheReferenceType(String urgency, String refType) {
-        selectSpecificUrgencyAndReferenceType(urgency, refType);
-        creation.selectBusinessArea("UKVI");
-        creation.selectInboundChannel("Email");
-        clickTheButton("Continue");
-        addCorrespondent.addAPublicCorrespondent();
-        clickTheButton("Move to Triage");
-    }
 }

@@ -3,6 +3,8 @@ package com.hocs.test.pages.mpam;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -37,6 +39,9 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
+    @FindBy(xpath = "//label[text()='Requested contribution']")
+    public WebElementFacade requestedContributionRadioButton;
+
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
@@ -48,6 +53,33 @@ public class Draft extends BasePage {
 
     @FindBy(id = "CaseNote_DraftClose")
     public WebElementFacade closureReasonTextArea;
+
+    @FindBy(id = "RequestContributionDeadline-day")
+    public WebElementFacade requestContributionDeadlineDayTextField;
+
+    @FindBy(id = "RequestContributionDeadline-month")
+    public WebElementFacade requestContributionDeadlineMonthTextField;
+
+    @FindBy(id = "RequestContributionDeadline-year")
+    public WebElementFacade requestContributionDeadlineYearTextField;
+
+    @FindBy(id = "CaseNote_DraftRequestContribution")
+    public WebElementFacade requestContributionTextArea;
+
+    @FindBy(xpath = "//label[text()='Contributions received']")
+    public WebElementFacade contributionsReceivedRadioButton;
+
+    @FindBy(xpath = "//a[text()='Actions is required']")
+    public WebElementFacade actionsRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Deadline for contribution request is required']")
+    public WebElementFacade contributionRequestDeadlineRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='What you are requesting is required']")
+    public WebElementFacade contributionRequestDescriptionRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Response channel is required']")
+    public WebElementFacade responseChannelRequiredErrorMessage;
 
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
@@ -112,5 +144,39 @@ public class Draft extends BasePage {
                 pendingStep(outboundChannel + " is not defined within " + getMethodName());
         }
         setSessionVariable("responseChannel").to(outboundChannel);
+    }
+
+    public void selectRequestContribution() {
+        selectResponseChannel("Email");
+        safeClickOn(requestedContributionRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void enterRequestContributionDeadlineDate(String dd, String mm, String yyyy) {
+        typeInto(requestContributionDeadlineDayTextField, dd);
+        typeInto(requestContributionDeadlineMonthTextField, mm);
+        typeInto(requestContributionDeadlineYearTextField, yyyy);
+        setSessionVariable("requestDeadline").to(dd + "/" + mm + "/" + yyyy);
+    }
+
+    public void enterRequestDescription(String requestDescription) {
+        typeInto(requestContributionTextArea, requestDescription);
+        setSessionVariable("requestDescription").to(requestDescription);
+    }
+
+    public void assertActionsRequiredErrorMessageDisplayed() {
+        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertContributionRequestDeadlineRequiredErrorMessageDisplayed()  {
+        assertThat(contributionRequestDeadlineRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
+        assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertResponseChannelRequiredErrorMessageDisplayed() {
+        assertThat(responseChannelRequiredErrorMessage.isVisible(), is(true));
     }
 }

@@ -15,6 +15,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.mpam.Creation;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -40,6 +41,8 @@ public class CreateCaseStepDefs extends BasePage {
     Workstacks workstacks;
 
     UnallocatedCaseView unallocatedCaseView;
+
+    Creation creation;
 
     @When("I create a single {string} case")
     public void createNewCase(String caseType) {
@@ -228,13 +231,27 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, day, month, year);
     }
 
-    @And("I create a single {string} case with the correspondence received date set {int} days ago")
-    public void iCreateACaseReceivedNDaysAgo(String caseType, int days) {
-        createCase.createCaseReceivedNDaysAgo(caseType, days);
+    @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
+    public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
+        createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
     }
 
     @When("I allocate the case to {string} on the case details accordion screen")
     public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen(String user) {
         unallocatedCaseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
+    }
+
+    @And("I create and claim a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
+    public void iCreateAndClaimAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
+        iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(urgency, refType);
+        homepage.getAndClaimCurrentCase();
+    }
+
+    @And("I create a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
+    public void iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
+        createCase.createCaseOfType("MPAM");
+        homepage.goHome();
+        homepage.getAndClaimCurrentCase();
+        creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
     }
 }

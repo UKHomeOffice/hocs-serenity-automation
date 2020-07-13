@@ -2,6 +2,7 @@ package com.hocs.test.glue;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
@@ -247,12 +248,6 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @And("I view the case in the correct MPAM {string} workstack")
-    public void iViewTheCaseInTheCorrectMPAMWorkstack(String stage) {
-        homepage.selectCorrectMPAMTeamByStage(stage);
-        workstacks.filterByCurrentCaseReference();
-    }
-
     @Then("the case should be assigned {string} points")
     public void theCaseShouldBeAssignedPoints(String expectedPoints) {
         workstacks.assertPointsOfCurrentCaseEqual(expectedPoints);
@@ -282,5 +277,36 @@ public class WorkstacksStepDefs extends BasePage {
     @And("the {string} column is ordered from {string}")
     public void columnIsProperlyOrdered(String column, String order) throws ParseException {
         workstacks.assertColumnIsOrderedProperly(column, order);
+    }
+
+    @And("I view the MPAM case in the appropriate {string} stage workstack")
+    public void iViewTheCaseInTheWorkstack(String stage) {
+        homepage.goHome();
+        homepage.selectCorrectMPAMTeamByStage(stage);
+    }
+
+    @Then("the case deadline {string} be highlighted")
+    public void theCaseDeadlineBeHighlighted(String shouldShouldNot) {
+        switch (shouldShouldNot.toUpperCase()) {
+            case "SHOULD":
+            workstacks.assertThatDeadlineHighlightedIs(true);
+            break;
+            case "SHOULD NOT":
+                workstacks.assertThatDeadlineHighlightedIs(false);
+                break;
+            default:
+                pendingStep(shouldShouldNot + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the {string} case should be higher up the workstack than the {string} case")
+    public void theCaseShouldBeHigherUpTheWorkstackThanTheCase(String highPriorityCase, String lowPriorityCase) {
+        workstacks.assertHigherPriorityCaseIsFirstInWorkstack(highPriorityCase, lowPriorityCase);
+    }
+
+    @Then("the contribution request deadline should be visible in the {string} workstack")
+    public void theContributionRequestDeadlineShouldBeVisibleInTheWorkstack(String stage) {
+        homepage.selectCorrectMPAMTeamByStage(stage);
+        workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
     }
 }

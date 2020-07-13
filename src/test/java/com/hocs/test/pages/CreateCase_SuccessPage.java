@@ -1,12 +1,10 @@
 package com.hocs.test.pages;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.Managed;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -15,22 +13,21 @@ public class CreateCase_SuccessPage extends BasePage {
 
     Workstacks workstacks;
 
-    @FindBy(xpath = "//div[contains(text(), 'Created')]")
-    private WebElementFacade caseCreatedTitle;
+    @FindBy(className = "govuk-panel__body")
+    private WebElementFacade panelBody;
 
-    @FindBy(id = "submit")
+    @FindBy(className = "govuk-button-panel--link")
     public WebElementFacade newCaseReference;
 
     public void assertCaseCreatedSuccess() {
-        caseCreatedTitle.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-        caseCreatedTitle.shouldContainText("Case Created");
+        panelBody.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+        panelBody.shouldContainText("Case Created");
         newCaseReference.shouldBeCurrentlyVisible();
     }
 
     public void assertBulkCasesCreatedSuccess() {
-        int numberOfCases = sessionVariableCalled("bulkCaseNumber");
-        caseCreatedTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        caseCreatedTitle.shouldContainText("Created " + numberOfCases + " new case");
+        panelBody.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        panelBody.shouldContainText("Case Created");
     }
 
     public String getCaseReference() {

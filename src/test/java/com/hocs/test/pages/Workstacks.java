@@ -28,8 +28,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Workstacks extends BasePage {
 
-    Homepage homepage;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
 
@@ -608,5 +606,33 @@ public class Workstacks extends BasePage {
             }
             currentCase += 1;
         }
+    }
+
+    public void assertThatDeadlineHighlightedIs(boolean condition) {
+        WebElementFacade deadlineOfCurrentCase = find(By.xpath("//a[text()='"+ sessionVariableCalled("caseReference") + "']/../following-sibling::td"
+                + "[contains(@class,'date-warning')]"));
+        assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
+    }
+
+    public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
+        String highPriorityReference = sessionVariableCalled(highPriorityCase);
+        String lowPriorityReference = sessionVariableCalled(lowPriorityCase);
+
+        List<WebElementFacade> caseReferenceElements = findAll(By.xpath("//tr/td[2]/a"));
+        Boolean highPriorityFirst = false;
+        Boolean lowPrioritySecond = false;
+        for(WebElementFacade caseReferenceElement: caseReferenceElements) {
+            if (caseReferenceElement.getText().equals(highPriorityReference)) {
+                highPriorityFirst = true;
+            }
+            if(caseReferenceElement.getText().equals(lowPriorityReference) && highPriorityFirst) {
+                lowPrioritySecond = true;
+            }
+        }
+        assertThat(highPriorityFirst && lowPrioritySecond, is(true));
+    }
+
+    public void assertCaseStageContains(String contents) {
+            assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
     }
 }

@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
@@ -25,7 +26,7 @@ import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class GenericInputStepDefs extends BasePage {
+public class BaseStepDefs extends BasePage {
 
     DataInput dataInput;
 
@@ -448,6 +449,11 @@ public class GenericInputStepDefs extends BasePage {
     @And("should be in the expected MPAM {string} team workstack")
     public void shouldBeInTheExpectedMPAMTeamsWorkstack(String stage) {
         summaryTab.assertAllocatedUKVITeam(stage);
+    }
+
+    @And("I record the case reference of this case as {string}")
+    public void iRecordTheCaseReferenceOfThisCaseAs(String sessionVariableName) {
+        setSessionVariable(sessionVariableName).to(sessionVariableCalled("caseReference"));
     }
 }
 
