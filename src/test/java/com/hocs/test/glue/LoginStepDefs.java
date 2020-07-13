@@ -1,6 +1,7 @@
 package com.hocs.test.glue;
 
 import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.Workstacks;
 
@@ -17,6 +18,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.NoSuchElementException;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LoginStepDefs extends BasePage {
 
@@ -29,6 +32,8 @@ public class LoginStepDefs extends BasePage {
     Workstacks workstacks;
 
     CreateCase createCase;
+
+    SummaryTab summary;
 
     @Given("I log in to DECS as user {string}")
     public void iLoginAs(String user) {
@@ -164,15 +169,22 @@ public class LoginStepDefs extends BasePage {
 
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
-        homepage.selectMyCases();
+        User inputUser = User.valueOf(user);
+        homepage.goHome();
+        safeClickOn(homepage.myCases);
         try {
-            workstacks.assertOwnerIs(User.valueOf(user));
-        } catch (AssertionError | NoSuchElementException e) {
+            safeClickOn(workstacks.topCaseReferenceHypertext);
+            safeClickOn(summaryTab);
+            summary.assertAllocatedUserIs(inputUser);
+        }
+        catch (AssertionError | NoSuchElementException e) {
             createCase.createCaseOfType("MIN");
             homepage.getAndClaimCurrentCase();
-            goHome();
-            homepage.selectMyCases();
-            workstacks.assertOwnerIs(User.valueOf(user));
+            homepage.goHome();
+            safeClickOn(homepage.myCases);
+            safeClickOn(workstacks.topCaseReferenceHypertext);
+            safeClickOn(summaryTab);
+            summary.assertAllocatedUserIs(inputUser);
         }
     }
 }

@@ -136,7 +136,7 @@ public class DataInput extends BasePage {
             typeInto(dtenDraftingDeadlineDayField, "01");
             typeInto(dtenDraftingDeadlineMonthField, "01");
             typeInto(dtenDraftingDeadlineYearField, "2019");
-            setSessionVariable("dtenDraftingDeadline").to("01/01/2019");
+            setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
             typeInto(dtenDispatchDeadlineDayField, "01");
             typeInto(dtenDispatchDeadlineMonthField, "01");
             typeInto(dtenDispatchDeadlineYearField, "2019");
@@ -215,6 +215,24 @@ public class DataInput extends BasePage {
         safeClickOn(continueButton);
         waitABit(500);
         addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");
+        safeClickOn(finishButton);
+    }
+
+    public void completeDataInputStageWithThreeMPCorrespondents() {
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon");
+        addCorrespondent.addAMemberCorrespondent("Theresa May");
+        safeClickOn(finishButton);
+    }
+
+    public void completeDataInputWithThreePublicCorrespondents() {
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondent();
         safeClickOn(finishButton);
     }
 

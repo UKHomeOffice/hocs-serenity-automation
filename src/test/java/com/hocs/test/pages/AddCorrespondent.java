@@ -19,7 +19,7 @@ public class AddCorrespondent extends BasePage {
     @FindBy(css = "label[for='isMember-true']")
     public WebElementFacade correspondentMemberYesRadioButton;
 
-    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    @FindBy(xpath = "//input[contains(@id,'react-select')]")
     private WebElementFacade selectMPDropdown;
 
     @FindBy(id = "reference")
@@ -29,28 +29,28 @@ public class AddCorrespondent extends BasePage {
     private WebElementFacade correspondentTypeDropdown;
 
     @FindBy(id = "fullname")
-    private WebElementFacade correspondentFullNameField;
+    public WebElementFacade correspondentFullNameField;
 
     @FindBy(id = "address1")
-    private WebElementFacade correspondentBuildingField;
+    public WebElementFacade correspondentBuildingField;
 
     @FindBy(id = "address2")
-    private WebElementFacade correspondentStreetField;
+    public WebElementFacade correspondentStreetField;
 
     @FindBy(id = "address3")
-    private WebElementFacade correspondentTownOrCityField;
+    public WebElementFacade correspondentTownOrCityField;
 
     @FindBy(id = "postcode")
-    private WebElementFacade correspondentPostcodeField;
+    public WebElementFacade correspondentPostcodeField;
 
     @FindBy(id = "country")
-    private WebElementFacade correspondentCountryDropdown;
+    public WebElementFacade correspondentCountryDropdown;
 
     @FindBy(id = "telephone")
-    private WebElementFacade correspondentTelephoneField;
+    public WebElementFacade correspondentTelephoneField;
 
     @FindBy(id = "email")
-    private WebElementFacade correspondentEmailField;
+    public WebElementFacade correspondentEmailField;
 
     @FindBy(xpath = "//input[@name='Correspondents'][@checked]/following-sibling::label")
     private WebElementFacade primaryCorrespondentName;
@@ -198,6 +198,7 @@ public class AddCorrespondent extends BasePage {
 
     public void selectMemberOfParliament(String member) {
         safeClickOn(selectMPDropdown);
+        waitABit(200);
         selectMPDropdown.sendKeys(member);
         waitABit(500);
         selectMPDropdown.sendKeys(Keys.RETURN);
