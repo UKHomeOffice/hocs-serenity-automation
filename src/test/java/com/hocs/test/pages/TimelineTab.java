@@ -158,7 +158,7 @@ public class TimelineTab extends BasePage {
         for (String w:words) {
             String first = w.substring(0,1);
             String afterFirst = w.substring(1);
-            capitalise += first.toUpperCase() + afterFirst.toLowerCase() + "";
+            capitalise += first.toUpperCase() + afterFirst.toLowerCase() + " ";
         }
         String formatStage = capitalise.trim();
         WebElementFacade caseNote = findBy("//li/p[text()='" + formatStage + "']/parent::li/preceding-sibling::li[1]/p[1]");
