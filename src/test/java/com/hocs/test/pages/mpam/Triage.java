@@ -36,7 +36,7 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Requested contribution']")
+    @FindBy(xpath = "//label[text()='Contribution requested']")
     public WebElementFacade requestedContributionRadioButton;
 
     @FindBy(xpath = "//label[text()='Contributions received']")
@@ -85,13 +85,13 @@ public class Triage extends BasePage {
     @FindBy(id = "CaseNote_TriageClose")
     public WebElementFacade closureReasonTextArea;
 
-    @FindBy(id = "RequestContributionDeadline-day")
+    @FindBy(id = "DueDate-day")
     public WebElementFacade requestContributionDeadlineDayTextField;
 
-    @FindBy(id = "RequestContributionDeadline-month")
+    @FindBy(id = "DueDate-month")
     public WebElementFacade requestContributionDeadlineMonthTextField;
 
-    @FindBy(id = "RequestContributionDeadline-year")
+    @FindBy(id = "DueDate-year")
     public WebElementFacade requestContributionDeadlineYearTextField;
 
     @FindBy(id = "CaseNote_TriageRequestContribution")

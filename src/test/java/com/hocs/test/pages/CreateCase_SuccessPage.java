@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.time.Duration;
@@ -26,8 +27,9 @@ public class CreateCase_SuccessPage extends BasePage {
     }
 
     public void assertBulkCasesCreatedSuccess() {
+        int numberOfCases = sessionVariableCalled("bulkCaseNumber");
         panelBody.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        panelBody.shouldContainText("Case Created");
+        panelBody.shouldContainText("Created " + numberOfCases + " new case");
     }
 
     public String getCaseReference() {

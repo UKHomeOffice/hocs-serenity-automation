@@ -15,7 +15,7 @@ Feature: PrivateOffice
   @Navigation
   Scenario: User selects the Draft rejected by Private Office action
     When I select the "Draft rejected by Private Office" action at Private Office stage
-    Then the "MPAM Reject Print for Signage" page should be displayed
+    Then the "MPAM Rejected by Private Office" page should be displayed
     And the rejection reason entry box should be visible
 
   @SmokeTests

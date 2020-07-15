@@ -32,7 +32,7 @@ public class TriageStepDefs extends BasePage {
             case "ON HOLD":
                 triage.putTriageCaseOnHold();
                 break;
-            case "REQUESTED CONTRIBUTION":
+            case "CONTRIBUTION REQUESTED":
                 triage.selectRequestContribution();
                 triage.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));

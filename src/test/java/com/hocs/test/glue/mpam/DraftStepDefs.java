@@ -30,7 +30,7 @@ public class DraftStepDefs extends BasePage {
             case "ON HOLD":
                 draft.putCaseOnHold();
                 break;
-            case "REQUESTED CONTRIBUTION":
+            case "CONTRIBUTION REQUESTED":
                 draft.selectRequestContribution();
                 draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
@@ -90,14 +90,14 @@ public class DraftStepDefs extends BasePage {
                 break;
             case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
                 draft.selectResponseChannel("Email");
-                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(draft.contributionRequestedRadioButton);
                 safeClickOn(confirmButton);
                 draft.enterRequestDescription("Test");
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
                 draft.selectResponseChannel("Email");
-                safeClickOn(draft.requestedContributionRadioButton);
+                safeClickOn(draft.contributionRequestedRadioButton);
                 safeClickOn(confirmButton);
                 draft.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
