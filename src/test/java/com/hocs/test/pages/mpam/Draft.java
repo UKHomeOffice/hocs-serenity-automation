@@ -146,13 +146,13 @@ public class Draft extends BasePage {
         setSessionVariable("responseChannel").to(outboundChannel);
     }
 
-    public void selectRequestContribution() {
+    public void selectContributionRequested() {
         selectResponseChannel("Email");
         safeClickOn(contributionRequestedRadioButton);
         safeClickOn(confirmButton);
     }
 
-    public void enterRequestContributionDeadlineDate(String dd, String mm, String yyyy) {
+    public void enterContributionRequestDeadlineDate(String dd, String mm, String yyyy) {
         typeInto(requestContributionDeadlineDayTextField, dd);
         typeInto(requestContributionDeadlineMonthTextField, mm);
         typeInto(requestContributionDeadlineYearTextField, yyyy);

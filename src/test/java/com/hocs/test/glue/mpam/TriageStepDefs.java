@@ -33,8 +33,8 @@ public class TriageStepDefs extends BasePage {
                 triage.putTriageCaseOnHold();
                 break;
             case "CONTRIBUTION REQUESTED":
-                triage.selectRequestContribution();
-                triage.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                triage.selectContributionRequested();
+                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
                 triage.enterRequestDescription("test request contribution description");
                 safeClickOn(confirmButton);
@@ -86,13 +86,13 @@ public class TriageStepDefs extends BasePage {
                 safeClickOn(continueButton);
                 break;
             case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
-                triage.selectRequestContribution();
+                triage.selectContributionRequested();
                 triage.enterRequestDescription("test");
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
-                triage.selectRequestContribution();
-                triage.enterRequestContributionDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                triage.selectContributionRequested();
+                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
                         todayPlusMinusNDaysGetYear(0));
                 safeClickOn(confirmButton);
                 break;
@@ -157,8 +157,8 @@ public class TriageStepDefs extends BasePage {
         triage.submitReasonToCloseEscalatedCase("Test close case at Triage (Escalated) stage");
     }
 
-    @And("the request contribution date should be visible in the summary")
-    public void theRequestContributionDateShouldBeVisibleInTheSummary() {
+    @And("the contribution request deadline should be visible in the summary")
+    public void theContributionRequestDeadlineShouldBeVisibleInTheSummary() {
         summaryTab.assertContributionRequestDeadlineVisible();
     }
 

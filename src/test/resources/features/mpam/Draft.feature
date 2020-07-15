@@ -77,8 +77,8 @@ Feature: Drafting
     Then the contribution request deadline should be visible in the "Draft" workstack
     And the case should be moved to the "Draft (Contribution Requested)" stage
     And the case should be allocated to me in the summary
-    And the request contribution date should be visible in the summary
-    And a request contribution note should be visible showing the description of the request
+    And the contribution request deadline should be visible in the summary
+    And a contribution request note should be visible showing the description of the request
 
   @MPAMWorkflow @SmokeTests
   Scenario: User selects that the contribution has been received at Draft (Contribution Requested) stage
