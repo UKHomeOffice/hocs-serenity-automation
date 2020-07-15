@@ -11,11 +11,10 @@ Feature: PrivateOffice
     When I select the "Dispatched" action at Private Office stage
     Then the "MPAM Private Office" page should be displayed
 
-
   @Navigation
   Scenario: User selects the Draft rejected by Private Office action
     When I select the "Draft rejected by Private Office" action at Private Office stage
-    Then the "MPAM Reject Print for Signage" page should be displayed
+    Then the "MPAM Rejected by Private Office" page should be displayed
     And the rejection reason entry box should be visible
 
   @SmokeTests
@@ -35,10 +34,48 @@ Feature: PrivateOffice
     And I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
+  @MPAMWorkflow @SmokeTests
+  Scenario: User selects that the case requires follow-up actions after being dispatched
+    When I select the "Dispatched (follow-up)" action at Private Office stage
+    And I enter a dispatched date
+    And I enter a follow-up date
+    And I enter follow-up details and confirm
+    Then the follow-up due date should be visible in the "Private Office" workstack
+    And the case should be moved to the "Dispatched (follow-up)" stage
+    And the case should be allocated to me in the summary
+    And the follow-up due date should be visible in the summary
+    And a details of follow-up note should be visible showing the entered details
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
+    When I select the "Dispatched (follow-up)" action at Private Office stage
+    And I enter a dispatched date
+    And I enter a follow-up date
+    And I enter follow-up details and confirm
+    And I load the current case
+    When I select the "Follow-up completed" action at Dispatched (follow-up) stage
+    Then the case should be closed
+
+  @MPAMWorkflow @SmokeTests
+  Scenario: User selects to close the case without completing follow-up action
+    When I select the "Dispatched (follow-up)" action at Private Office stage
+    And I enter a dispatched date
+    And I enter a follow-up date
+    And I enter follow-up details and confirm
+    And I load the current case
+    When I select the "Close Follow-up actioned not completed" action at Dispatched (follow-up) stage
+    And enter a reason for not completing the follow up action
+    Then the case should be closed
+    And a follow-up not completed note should be visible showing the entered reason
+
+  @Validation
   Scenario Outline: User triggers error message to be displayed at Private Office
     When the user triggers the "<errorType>" error message at Private Office by not entering the correct information
-    Then then the "<errorType>" error message should be displayed at Private Office
+    Then then the "<errorType>" error message should be displayed at a Dispatch stage
     Examples:
-      | errorType        |
-      | Actions Required |
-      | Dispatched Date  |
+      | errorType                               |
+      | Actions Required                        |
+      | Dispatched Date Required                |
+      | Follow-up Date Required                 |
+      | Follow-up Details Required              |
+      | Follow-up Not Completed Reason Required |

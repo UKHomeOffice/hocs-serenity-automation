@@ -309,4 +309,10 @@ public class WorkstacksStepDefs extends BasePage {
         homepage.selectCorrectMPAMTeamByStage(stage);
         workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
     }
+
+    @Then("the follow-up due date should be visible in the {string} workstack")
+    public void theFollowUpDueDateShouldBeVisibleInTheWorkstack(String stage) {
+        homepage.selectCorrectMPAMTeamByStage(stage);
+        workstacks.assertCaseStageContains(sessionVariableCalled("dueDate"));
+    }
 }
