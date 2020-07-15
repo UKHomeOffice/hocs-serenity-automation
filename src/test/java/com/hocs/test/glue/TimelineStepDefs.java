@@ -122,8 +122,8 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertClosureNoteVisible();
     }
 
-    @And("a request contribution note should be visible showing the description of the request")
-    public void aRequestContributionNoteShouldBeVisibleShowingTheDescriptionOfThRequest() {
+    @And("a contribution request note should be visible showing the description of the request")
+    public void aContributionRequestNoteShouldBeVisibleShowingTheDescriptionOfThRequest() {
         timelineTab.assertContributionRequestNoteVisible();
     }
 }

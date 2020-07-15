@@ -39,8 +39,8 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Requested contribution']")
-    public WebElementFacade requestedContributionRadioButton;
+    @FindBy(xpath = "//label[text()='Contribution requested']")
+    public WebElementFacade contributionRequestedRadioButton;
 
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
@@ -54,13 +54,13 @@ public class Draft extends BasePage {
     @FindBy(id = "CaseNote_DraftClose")
     public WebElementFacade closureReasonTextArea;
 
-    @FindBy(id = "RequestContributionDeadline-day")
+    @FindBy(id = "DueDate-day")
     public WebElementFacade requestContributionDeadlineDayTextField;
 
-    @FindBy(id = "RequestContributionDeadline-month")
+    @FindBy(id = "DueDate-month")
     public WebElementFacade requestContributionDeadlineMonthTextField;
 
-    @FindBy(id = "RequestContributionDeadline-year")
+    @FindBy(id = "DueDate-year")
     public WebElementFacade requestContributionDeadlineYearTextField;
 
     @FindBy(id = "CaseNote_DraftRequestContribution")
@@ -146,13 +146,13 @@ public class Draft extends BasePage {
         setSessionVariable("responseChannel").to(outboundChannel);
     }
 
-    public void selectRequestContribution() {
+    public void selectContributionRequested() {
         selectResponseChannel("Email");
-        safeClickOn(requestedContributionRadioButton);
+        safeClickOn(contributionRequestedRadioButton);
         safeClickOn(confirmButton);
     }
 
-    public void enterRequestContributionDeadlineDate(String dd, String mm, String yyyy) {
+    public void enterContributionRequestDeadlineDate(String dd, String mm, String yyyy) {
         typeInto(requestContributionDeadlineDayTextField, dd);
         typeInto(requestContributionDeadlineMonthTextField, mm);
         typeInto(requestContributionDeadlineYearTextField, yyyy);

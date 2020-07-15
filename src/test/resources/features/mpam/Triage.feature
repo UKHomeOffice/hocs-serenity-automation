@@ -76,16 +76,16 @@ Feature: Triage
 
   @MPAMWorkflow @SmokeTests
   Scenario: User requests a contribution at triage stage
-    When I send the Triage case to "Requested Contribution"
+    When I send the Triage case to "Contribution Requested"
     Then the contribution request deadline should be visible in the "Triage" workstack
-    And the case should be moved to the "Triage (Requested Contribution)" stage
+    And the case should be moved to the "Triage (Contribution Requested)" stage
     And the case should be allocated to me in the summary
-    And the request contribution date should be visible in the summary
-    And a request contribution note should be visible showing the description of the request
+    And the contribution request deadline should be visible in the summary
+    And a contribution request note should be visible showing the description of the request
 
   @MPAMWorkflow @SmokeTests
   Scenario: User selects that the contribution has been received at Triage (Contribution Requested) stage
-    When I send the Triage case to "Requested Contribution"
+    When I send the Triage case to "Contribution Requested"
     And I load and claim the current case
     When I select the "Contributions received" action at Triage (Contribution Requested) stage
     Then the case should be moved to the "Triage" stage
@@ -93,7 +93,7 @@ Feature: Triage
 
   @MPAMWorkflow @SmokeTests
   Scenario: User escalates a case at Triage (Contribution Requested) stage
-    When I send the Triage case to "Requested Contribution"
+    When I send the Triage case to "Contribution Requested"
     And I load and claim the current case
     When I select the "Escalate to Workflow Manager" action at Triage (Contribution Requested) stage
     Then the case should be moved to the "Triage (Escalated)" stage
