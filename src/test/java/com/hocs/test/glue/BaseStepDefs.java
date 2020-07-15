@@ -18,6 +18,7 @@ import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import config.User;
 
 import com.hocs.test.pages.mpam.Triage;
@@ -55,6 +56,8 @@ public class BaseStepDefs extends BasePage {
     TimelineTab timelineTab;
 
     User originalUser;
+
+    AccordionMPAM accordionMPAM;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {

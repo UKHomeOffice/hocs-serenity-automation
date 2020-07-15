@@ -57,3 +57,25 @@ Feature: MPAM Case Details Accordion
     |HMPO         |
     |Windrush     |
     |Coronavirus  |
+
+  Scenario Outline: User checks that the change business area hypertext is displayed at the correct stages
+    And I create a "MPAM" case and move it to the "<stage>" stage
+    And I load and claim the current case
+    Then the change business area hypertext "<is/isn't>" displayed at "<stage>"
+    Examples:
+    |stage            |is/isn't|
+    |Triage           |is      |
+    |Draft            |is      |
+    |QA               |isn't   |
+    |Private Office   |isn't   |
+    |Awaiting Dispatch|isn't   |
+
+  @Validation
+  Scenario Outline: User triggers an error message at the change business area screen
+    And I create a "MPAM" case and move it to the "Triage" stage
+    And I load and claim the current case
+    Then I trigger the "<errorMessage>" error message and it is displayed at the change business area screen
+    Examples:
+    |errorMessage          |
+    |Business Unit required|
+    |Actions required      |

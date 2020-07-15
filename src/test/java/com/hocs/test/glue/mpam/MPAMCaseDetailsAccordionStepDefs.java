@@ -68,4 +68,37 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
     public void assertBusinessAreaChange(String businessArea) {
         accordionMPAM.assertBusinessAreaHasChanged(businessArea);
     }
+
+    @And("I trigger the {string} error message and it is displayed at the change business area screen")
+    public void assertErrorMessageDisplayedAtChangeBusinessArea(String errorMessage) {
+        accordionMPAM.openCaseDetailsAccordion();
+        safeClickOn(accordionMPAM.changeBusinessAreaHypertext);
+        switch (errorMessage.toUpperCase()) {
+            case "BUSINESS UNIT REQUIRED":
+                safeClickOn(accordionMPAM.confirmRadioButton);
+                safeClickOn(continueButton);
+                break;
+            case "ACTIONS REQUIRED":
+                accordionMPAM.selectBusinessArea("UKVI");
+                accordionMPAM.businessUnitDropdown.selectByIndex(1);
+                safeClickOn(continueButton);
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the change business area hypertext {string} displayed at {string}")
+    public void assertChangeBusinessAreaVisibilityAtStage(String visibleOrNot, String stage) {
+        accordionMPAM.openCaseDetailsAccordion();
+        switch (visibleOrNot.toUpperCase()) {
+            case "IS":
+            case "ISN'T":
+                accordionMPAM.assertChangeBusinessAreaHyperTextIsAtStage(stage);
+                break;
+            default:
+                pendingStep(visibleOrNot + " is not defined within " + getMethodName());
+        }
+
+    }
 }
