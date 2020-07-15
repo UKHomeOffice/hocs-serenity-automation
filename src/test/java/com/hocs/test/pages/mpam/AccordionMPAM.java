@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -60,6 +61,12 @@ public class AccordionMPAM extends BasePage {
 
     @FindBy(id = "BusUnit")
     public WebElementFacade businessUnitDropdown;
+
+    @FindBy(xpath = "//a[text()='Business unit is required']")
+    public WebElementFacade businessUnitRequiredErrorMessage;
+
+    @FindBy(xpath = "//a[text()='Actions is required']")
+    public WebElementFacade actionsRequiredErrorMessage;
 
     @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
@@ -217,5 +224,36 @@ public class AccordionMPAM extends BasePage {
     public void assertAllDraftResponsesMatchInput() {
         getQuestionResponse("Response Channel");
         assertInputMatchesCaseDetailsResponse("Response Channel");
+    }
+
+    public void assertChangeBusinessAreaErrorMessageIsDisplayed(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "BUSINESS UNIT REQUIRED":
+                businessUnitRequiredErrorMessage.shouldContainText("Business unit is required");
+                break;
+            case "ACTIONS REQUIRED":
+                actionsRequiredErrorMessage.shouldContainText("Actions is required");
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertChangeBusinessAreaHyperTextIsAtStage(String stage) {
+        boolean isAtThisStage = false;
+        switch (stage.toUpperCase()) {
+            case "TRIAGE":
+            case "DRAFT":
+                isAtThisStage = true;
+                break;
+            case "QA":
+            case "PRIVATE OFFICE":
+            case "AWAITING DISPATCH":
+                isAtThisStage = false;
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        assertThat(changeBusinessAreaHypertext.isVisible(), is(isAtThisStage));
     }
 }
