@@ -108,7 +108,7 @@ Feature: Drafting
     Then  the "<errorType>" error message should be displayed at Draft
     Examples:
       | errorType                                 |
-#      | Actions Required                          |
+      | Actions Required                          |
       | Response Channel Required                 |
-#      | Contribution Request Deadline Required    |
-#      | Contribution Request Description Required |
+      | Contribution Request Deadline Required    |
+      | Contribution Request Description Required |
