@@ -126,4 +126,14 @@ public class TimelineStepDefs extends BasePage {
     public void aContributionRequestNoteShouldBeVisibleShowingTheDescriptionOfThRequest() {
         timelineTab.assertContributionRequestNoteVisible();
     }
+
+    @And("a details of follow-up note should be visible showing the entered details")
+    public void aDetailsOfFollowUpNoteShouldBeVisibleShowingTheEnteredDetails() {
+        timelineTab.assertDetailsOfFollowUpNoteVisible();
+    }
+
+    @And("a follow-up not completed note should be visible showing the entered reason")
+    public void aFollowUpNotCompletedNoteShouldBeVisibleShowingTheEnteredReason() {
+        timelineTab.assertFollowUpNotCompletedNoteVisible();
+    }
 }

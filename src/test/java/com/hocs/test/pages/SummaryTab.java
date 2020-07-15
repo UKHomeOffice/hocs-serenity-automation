@@ -94,6 +94,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
     private WebElementFacade contributionRequestDeadline;
 
+    @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
+    private WebElementFacade followUpDueDate;
+
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
     }
@@ -265,5 +268,10 @@ public class SummaryTab extends BasePage {
     public void assertContributionRequestDeadlineVisible() {
         String deadline = sessionVariableCalled("requestDeadline");
         assertThat(contributionRequestDeadline.getText().contains(deadline), is(true));
+    }
+
+    public void assertFollowUpDueDateVisible() {
+        String dueDate = sessionVariableCalled("dueDate");
+        assertThat(followUpDueDate.getText().contains(dueDate), is(true));
     }
 }

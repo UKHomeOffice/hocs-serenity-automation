@@ -252,7 +252,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case should be closed")
     public void theCaseShouldBeClosed() {
-        homepage.assertCaseIsClosedViaSearch();
+        homepage.assertCaseIsClosedViaLoadCase();
     }
 
     @Then("{string} link is displayed")
