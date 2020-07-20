@@ -57,8 +57,6 @@ public class BaseStepDefs extends BasePage {
 
     User originalUser;
 
-    AccordionMPAM accordionMPAM;
-
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
         assertPageTitle(pageTitle);

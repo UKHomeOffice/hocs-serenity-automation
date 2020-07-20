@@ -9,7 +9,6 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -26,13 +25,9 @@ public class MarkupStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    Markup markupDecision;
-
     Markup markup;
 
     InitialDraft initialDraft;
-
-    CreateCase_SuccessPage createCaseSuccessPage;
 
     QAResponse qaResponse;
 
@@ -48,8 +43,8 @@ public class MarkupStepDefs extends BasePage {
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
         homepage.getAndClaimCurrentCase();
-        safeClickOn(markupDecision.policyResponseRadioButton);
-        safeClickOn(markupDecision.continueButton);
+        safeClickOn(markup.policyResponseRadioButton);
+        safeClickOn(markup.continueButton);
         if (topic.toUpperCase().equals("NEW CHILD TOPIC")) {
             markupAddTopics.enterATopic(sessionVariableCalled("newChildTopic").toString());
         } else {
@@ -98,17 +93,17 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("an error message should be displayed as I have not selected a topic")
     public void assertThatTopicIsRequiredErrorMessageIsShown() {
-        markupDecision.assertTopicIsRequiredErrorMessage();
+        markup.assertTopicIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not selected a response")
     public void assertThatMarkupResponseErrorMessageIsShown() {
-        markupDecision.assertSortOfResponseErrorMessage();
+        markup.assertSortOfResponseErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not added a topic")
     public void assertThatAddATopicErrorMessageIsShown() {
-        markupDecision.assertAddATopicErrorMessage();
+        markup.assertAddATopicErrorMessage();
     }
 
     @Then("the topic should be added to the case")
@@ -204,17 +199,17 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the Other Government Department name free text field is displayed")
     public void assertOtherGvmtDepTBIsDisplayed() {
-        markupDecision.assertOGDDestinationTextBoxIsDisplayed();
+        markup.assertOGDDestinationTextBoxIsDisplayed();
     }
 
     @Then("the No Response Needed casenote field is displayed")
     public void assertNoResponseNeededTextBox() {
-        markupDecision.assertNRNTextBoxIsDisplayed();
+        markup.assertNRNTextBoxIsDisplayed();
     }
 
     @Then("the reason for rejection casenote field is displayed")
     public void assertRejectionReasonTextBox() {
-        markupDecision.assertRejectTextBoxIsDisplayed();
+        markup.assertRejectTextBoxIsDisplayed();
     }
 
     @Then("a mandatory Topic free text field is displayed")
@@ -226,15 +221,15 @@ public class MarkupStepDefs extends BasePage {
     public void iCloseTheCaseWithADecisionOf(String status) {
         switch (status.toUpperCase()) {
             case "REFER TO OGD":
-                safeClickOn(markupDecision.referToOgdRadioButton);
+                safeClickOn(markup.referToOgdRadioButton);
                 break;
             case "NO REPLY NEEDED":
-                safeClickOn(markupDecision.noReplyNeededRadioButton);
+                safeClickOn(markup.noReplyNeededRadioButton);
                 break;
             default:
                 pendingStep(status + " is not defined within " + getMethodName());
         }
-        safeClickOn(markupDecision.continueButton);
+        safeClickOn(markup.continueButton);
         safeClickOn(finishButton);;
     }
 
@@ -242,19 +237,19 @@ public class MarkupStepDefs extends BasePage {
     public void iSelectAnInitialDecisionOf(String decision) {
         switch (decision.toUpperCase()) {
             case "FAQ":
-                markupDecision.selectFAQRadioButton();
+                markup.selectFAQRadioButton();
                 break;
             case "NO RESPONSE NEEDED":
-                markupDecision.selectNoReplyNeededRadioButton();
+                markup.selectNoReplyNeededRadioButton();
                 break;
             case "POLICY RESPONSE":
-                markupDecision.selectPolicyResponseRadioButton();
+                markup.selectPolicyResponseRadioButton();
                 break;
             case "REFER TO OGD":
-                markupDecision.selectReferToOGDRadioButton();
+                markup.selectReferToOGDRadioButton();
                 break;
             case "REJECT TO DATA INPUT":
-                markupDecision.selectRejectToDataInput();
+                markup.selectRejectToDataInput();
                 break;
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
@@ -274,5 +269,15 @@ public class MarkupStepDefs extends BasePage {
     @And("I enter a reason that no response is needed")
     public void iEnterAReasonThatNoResponseIsNeeded() {
         markup.enterNRNreason();
+    }
+
+    @And("I complete Markup with {string} selected as the Private Office team")
+    public void iCompleteMarkupWithAsThePrivateOfficeTeam(String privateOfficeTeam) {
+        markup.getToMarkupEnterANewTopicScreenPrerequisites();
+        markupAddTopics.enterRealTopic();
+        safeClickOn(addButton);
+        safeClickOn(continueButton);
+        markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(privateOfficeTeam);
+        safeClickOn(finishButton);
     }
 }
