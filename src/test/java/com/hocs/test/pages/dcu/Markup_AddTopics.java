@@ -74,8 +74,8 @@ public class Markup_AddTopics extends BasePage {
         topicsTextField.sendKeys(Keys.RETURN);
     }
 
-    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateTeam) {
-        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateTeam);
+    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateOfficeTeam) {
+        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateOfficeTeam);
     }
 
     public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {

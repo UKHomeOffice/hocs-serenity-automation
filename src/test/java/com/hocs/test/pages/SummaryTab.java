@@ -235,6 +235,49 @@ public class SummaryTab extends BasePage {
                 expectedNumberOfDays = 20;
                 assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
+            case "HOME SECRETARY SIGN-OFF":
+                switch (stage.toUpperCase()) {
+                    case "DATA INPUT":
+                        deadlineString = dataInputDeadlineDate.getText();
+                        expectedNumberOfDays = 2;
+                        break;
+                    case "MARKUP":
+                        deadlineString = markupDeadlineDate.getText();
+                        expectedNumberOfDays = 2;
+                        break;
+                    case "INITIAL DRAFT":
+                        deadlineString = initialDraftDeadlineDate.getText();
+                        expectedNumberOfDays = 7;
+                        break;
+                    case "QA RESPONSE":
+                        deadlineString = qaResponseDeadlineDate.getText();
+                        expectedNumberOfDays = 7;
+                        break;
+                    case "PRIVATE OFFICE APPROVAL":
+                        deadlineString = privateOfficeApprovalDeadlineDate.getText();
+                        expectedNumberOfDays = 9;
+                        break;
+                    case "MINISTERIAL SIGN OFF":
+                        deadlineString = ministerialSignOffDeadlineDate.getText();
+                        expectedNumberOfDays = 9;
+                        break;
+                    case "TRANSFER CONFIRMATION":
+                        deadlineString = transferConfirmationDeadlineDate.getText();
+                        expectedNumberOfDays = 10;
+                        break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                        deadlineString = noResponseNeededConfirmationDeadlineDate.getText();
+                        expectedNumberOfDays = 10;
+                        break;
+                    case "DISPATCH":
+                        deadlineString = dispatchDeadlineDate.getText();
+                        expectedNumberOfDays = 10;
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }

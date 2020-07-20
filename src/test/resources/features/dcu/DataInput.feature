@@ -6,7 +6,7 @@ Feature: Data Input
     And I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
 
-  @Navigation @SmokeTests
+  @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
