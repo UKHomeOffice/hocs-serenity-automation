@@ -75,6 +75,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I bulk create {int} {string} cases")
     public void bulkCreateCases(int cases, String caseType) {
+        setSessionVariable("bulkCaseNumber").to(cases);
         safeClickOn(homepage.createBulkCases);
         createCase.selectCaseType(caseType);
         safeClickOn(createCase.nextButton);

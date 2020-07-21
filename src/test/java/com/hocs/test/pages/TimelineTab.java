@@ -52,6 +52,12 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li//span[text()='Contribution request note']/ancestor::p")
     public WebElementFacade contributionRequestNoteContents;
 
+    @FindBy(xpath = "//li//span[text()='Details of follow up']/ancestor::p")
+    public WebElementFacade detailsOfFollowUpNoteContents;
+
+    @FindBy(xpath = "//li//span[text()='Follow up not completed']/ancestor::p")
+    public WebElementFacade followUpNotCompletedReasonNoteContents;
+
     public void selectTimelineTab() {
         safeClickOn(timelineTab);
     }
@@ -152,10 +158,10 @@ public class TimelineTab extends BasePage {
         for (String w:words) {
             String first = w.substring(0,1);
             String afterFirst = w.substring(1);
-            capitalise += first.toUpperCase() + afterFirst.toLowerCase() + "";
+            capitalise += first.toUpperCase() + afterFirst.toLowerCase() + " ";
         }
         String formatStage = capitalise.trim();
-        WebElementFacade caseNote = findBy("//li/p[text()='Data Input']/parent::li/preceding-sibling::li[1]/p[1]");
+        WebElementFacade caseNote = findBy("//li/p[text()='" + formatStage + "']/parent::li/preceding-sibling::li[1]/p[1]");
         String fullCaseNote = caseNote.getText();
         assertThat(fullCaseNote.contains("Case note "), is(true));
     }
@@ -176,5 +182,17 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String requestDescription = sessionVariableCalled("requestDescription");
         assertThat(contributionRequestNoteContents.getText().contains(requestDescription), is(true));
+    }
+
+    public void assertDetailsOfFollowUpNoteVisible() {
+        selectTimelineTab();
+        String followUpDetails = sessionVariableCalled("followUpDetails");
+        assertThat(detailsOfFollowUpNoteContents.getText().contains(followUpDetails), is(true));
+    }
+
+    public void assertFollowUpNotCompletedNoteVisible() {
+        selectTimelineTab();
+        String followUpNotCompletedReason = sessionVariableCalled("followUpNotCompletedReason");
+        assertThat(followUpNotCompletedReasonNoteContents.getText().contains(followUpNotCompletedReason), is(true));
     }
 }

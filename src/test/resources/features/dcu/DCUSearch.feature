@@ -115,7 +115,7 @@ Feature: DCU Search
     Then both active and closed cases will be returned in the search results
 
   @SearchByActiveOnly @SmokeTests
-  Scenario: Only active cases should be displayed when the user searches for a case and specifies that the case should be active
+  Scenario: Only active cases should be displayed when the user specifies a search should return active cases only
     And I navigate to the "search" page
     And I select active cases
     When I search for a "MIN" case by the Sign-off Team "Minister for Lords"

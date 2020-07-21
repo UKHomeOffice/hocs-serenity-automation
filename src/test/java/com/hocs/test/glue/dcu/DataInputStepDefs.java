@@ -260,6 +260,17 @@ public class DataInputStepDefs extends BasePage {
             case "MPAM":
                 summary.assertDeadlineDateOfStage(caseType, "GENERAL");
                 break;
+            case "HOME SECRETARY SIGN-OFF":
+                summary.assertDeadlineDateOfStage(caseType, "Data Input");
+                summary.assertDeadlineDateOfStage(caseType, "Markup");
+                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summary.assertDeadlineDateOfStage(caseType, "QA Response");
+                summary.assertDeadlineDateOfStage(caseType, "Private Office Approval");
+                summary.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
+                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }

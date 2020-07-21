@@ -8,31 +8,16 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.Draft;
-import com.hocs.test.pages.mpam.PrivateOffice;
+import com.hocs.test.pages.mpam.DispatchStages;
 import com.hocs.test.pages.mpam.Triage;
 import com.hocs.test.pages.mpam.QA;
-import com.hocs.test.pages.mpam.AwaitingDispatch;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 
 public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
 
-    Homepage homepage;
-
     AccordionMPAM accordionMPAM;
-
-    Creation creation;
-
-    Triage triage;
-
-    Draft draft;
-
-    QA qa;
-
-    AwaitingDispatch awaitingDispatch;
-
-    PrivateOffice privateOffice;
 
     @And("the {string} accordion in case details should display the correct information for {string}")
     public void accordionInCaseDetailsDisplaysCorrectInformation(String accordion, String responseType) {
@@ -82,5 +67,38 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
     @Then("the case should have changed to the {string} business area")
     public void assertBusinessAreaChange(String businessArea) {
         accordionMPAM.assertBusinessAreaHasChanged(businessArea);
+    }
+
+    @And("I trigger the {string} error message and it is displayed at the change business area screen")
+    public void assertErrorMessageDisplayedAtChangeBusinessArea(String errorMessage) {
+        accordionMPAM.openCaseDetailsAccordion();
+        safeClickOn(accordionMPAM.changeBusinessAreaHypertext);
+        switch (errorMessage.toUpperCase()) {
+            case "BUSINESS UNIT REQUIRED":
+                safeClickOn(accordionMPAM.confirmRadioButton);
+                safeClickOn(continueButton);
+                break;
+            case "ACTIONS REQUIRED":
+                accordionMPAM.selectBusinessArea("UKVI");
+                accordionMPAM.businessUnitDropdown.selectByIndex(1);
+                safeClickOn(continueButton);
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the change business area hypertext {string} displayed at {string}")
+    public void assertChangeBusinessAreaVisibilityAtStage(String visibleOrNot, String stage) {
+        accordionMPAM.openCaseDetailsAccordion();
+        switch (visibleOrNot.toUpperCase()) {
+            case "IS":
+            case "ISN'T":
+                accordionMPAM.assertChangeBusinessAreaHyperTextIsAtStage(stage);
+                break;
+            default:
+                pendingStep(visibleOrNot + " is not defined within " + getMethodName());
+        }
+
     }
 }

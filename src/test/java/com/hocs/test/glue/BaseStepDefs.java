@@ -18,6 +18,7 @@ import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import config.User;
 
 import com.hocs.test.pages.mpam.Triage;
@@ -249,7 +250,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case should be closed")
     public void theCaseShouldBeClosed() {
-        homepage.assertCaseIsClosedViaSearch();
+        homepage.assertCaseIsClosedViaLoadCase();
     }
 
     @Then("{string} link is displayed")

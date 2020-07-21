@@ -14,9 +14,8 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.mpam.AwaitingDispatch;
 import com.hocs.test.pages.mpam.Draft;
-import com.hocs.test.pages.mpam.PrivateOffice;
+import com.hocs.test.pages.mpam.DispatchStages;
 import com.hocs.test.pages.mpam.QA;
 import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
@@ -50,9 +49,7 @@ public class EndToEndStepDefs extends BasePage {
 
     QA qa;
 
-    PrivateOffice privateOffice;
-
-    AwaitingDispatch awaitingDispatch;
+    DispatchStages dispatchStages;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -90,7 +87,7 @@ public class EndToEndStepDefs extends BasePage {
                         ministerialSignOff.moveCaseFromMinisterToDispatch();
                         break;
                     case "DISPATCH":
-                        awaitingDispatch.moveCaseFromAwaitingDispatchToCaseClosed();
+                        dispatch.moveCaseFromDispatchToCaseClosed();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -111,10 +108,10 @@ public class EndToEndStepDefs extends BasePage {
                         qa.moveCaseFromQAToNextStage();
                         break;
                     case "PRIVATE OFFICE":
-                        privateOffice.moveCaseFromPrivateOfficeToCaseClosed();
+                        dispatchStages.moveCaseFromPrivateOfficeToCaseClosed();
                         break;
                     case "AWAITING DISPATCH":
-                        awaitingDispatch.moveCaseFromAwaitingDispatchToCaseClosed();
+                        dispatchStages.moveCaseFromAwaitingDispatchToCaseClosed();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -277,7 +274,7 @@ public class EndToEndStepDefs extends BasePage {
                         iCompleteTheStage("QA");
                         break;
                     case "AWAITING DISPATCH":
-                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "OFFICIAL","QA");
+                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official","QA");
                         iCompleteTheStage("QA");
                         break;
                     case "CASE CLOSED":

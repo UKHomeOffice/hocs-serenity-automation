@@ -141,6 +141,9 @@ public class Homepage extends BasePage {
         if (stage.toUpperCase().equals("CREATION")) {
             requiredTeam = MPAMCreationTeam;
         } else {
+            if (stage.toUpperCase().equals("PRIVATE OFFICE")) {
+                stage = "PO";
+            }
             requiredTeam =
                     find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
@@ -154,7 +157,7 @@ public class Homepage extends BasePage {
         assertThat(myCases.isVisible(), is(true));
     }
 
-    public void assertCaseIsClosedViaSearch() {
+    public void assertCaseIsClosedViaLoadCase() {
         caseReferenceSearchBar.clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
