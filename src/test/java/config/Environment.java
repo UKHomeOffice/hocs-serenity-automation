@@ -3,9 +3,9 @@ package config;
 public enum Environment {
 
     LOCAL("http://localhost"),
-    DEV("https://dev.cs-notprod.homeoffice.gov.uk/"),
+    DEV("https://dev.internal.cs-notprod.homeoffice.gov.uk/"),
     DEMO("https://demo.cs-notprod.homeoffice.gov.uk/"),
-    QA("https://qa.cs-notprod.homeoffice.gov.uk/"),
+    QA("https://qa.internal.cs-notprod.homeoffice.gov.uk/"),
     MANAGEMENTUIQA("http://qa-management.cs-notprod.homeoffice.gov.uk/"),
     MANAGEMENTUIDEV("http://dev-management.cs-notprod.homeoffice.gov.uk/");
 
