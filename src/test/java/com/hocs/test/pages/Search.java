@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -216,6 +217,37 @@ public class Search extends BasePage {
         typeInto(correspondentReferenceNumber, refNumber);
     }
 
+
+    public void searchBySubstringOfCaseReference(String caseType) {
+        int n = 0;
+        String substring = null;
+        String firstCharOfSubstring = "";
+        String caseRef = sessionVariableCalled("caseReference");
+        String split = caseRef.split("/012")[1];
+        int randomStringLength = (int)(Math.random() * ((3 - 1) + 1)) + 1;
+        while (n <= randomStringLength) {
+            substring = split.substring(n, randomStringLength);
+            firstCharOfSubstring = String.valueOf(substring.charAt(0));
+            if (!firstCharOfSubstring.equals("0")) {
+                break;
+            }
+            n++;
+        }
+        int caseNumberUpperBound = Integer.parseInt(substring);
+        int randomCaseInteger = new Random().nextInt(caseNumberUpperBound);
+        String randomCaseIntToString = Integer.toString(randomCaseInteger);
+        if (randomCaseInteger < 100) {
+            randomCaseIntToString = "0" + randomCaseIntToString;
+        }
+        if (randomCaseInteger < 10) {
+            randomCaseIntToString = "0" + randomCaseIntToString;
+        }
+        String randomCaseRefString = caseType.toUpperCase() + "/012" + randomCaseIntToString;
+        setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
+        typeInto(caseReferenceSearchBox, randomCaseRefString);
+        safeClickOn(searchButton);
+    }
+
     //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
@@ -296,6 +328,17 @@ public class Search extends BasePage {
     public void assertCurrentCaseIsDisplayedInSearchResults() {
         WebElementFacade currentCase = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
         assertThat(currentCase.isVisible(), is(true));
+    }
+
+    public void assertAllDisplayedCaseRefsContainSubstring() {
+        List<WebElementFacade> listOfCaseRefs = findAll("//tr/td[1]");
+        String substringInput = sessionVariableCalled("caseReferenceSubstring");
+        int caseTotal = workstacks.getTotalOfCases();
+        int n = 0;
+        while (n < caseTotal) {
+            assertThat(listOfCaseRefs.get(n).getText().contains(substringInput), is(true));
+            n++;
+        }
     }
 
     public void waitUntilSearchPageLoaded() {

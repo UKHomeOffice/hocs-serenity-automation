@@ -133,4 +133,13 @@ Feature: DCU Search
     When I search by the case type "DTEN" and another parameter "Permanent Secretary Signoff Team"
     Then cases that are "DTEN" case type that also contain another parameter "Permanent Secretary Signoff Team" should be displayed in the results list
 
-
+  Scenario Outline: User searches for DCU cases using a substring of a case reference
+    And I create a single "<caseType>" case and return to the dashboard
+    And I navigate to the "Search" page
+    And I search for a "<caseType>" case using a substring of the case reference
+    Then the displayed cases all contain the input substring case reference
+    Examples:
+    |caseType|
+    |MIN     |
+    |DTEN    |
+    |TRO     |
