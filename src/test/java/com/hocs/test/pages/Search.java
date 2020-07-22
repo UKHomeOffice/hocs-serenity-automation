@@ -224,7 +224,7 @@ public class Search extends BasePage {
         String firstCharOfSubstring = "";
         String caseRef = sessionVariableCalled("caseReference");
         String split = caseRef.split("/012")[1];
-        int randomStringLength = (int)(Math.random() * ((3 - 1) + 1)) + 1;
+        int randomStringLength = (int)(Math.random() * ((4 - 1) + 1)) + 1;
         while (n <= randomStringLength) {
             substring = split.substring(n, randomStringLength);
             firstCharOfSubstring = String.valueOf(substring.charAt(0));
@@ -333,11 +333,8 @@ public class Search extends BasePage {
     public void assertAllDisplayedCaseRefsContainSubstring() {
         List<WebElementFacade> listOfCaseRefs = findAll("//tr/td[1]");
         String substringInput = sessionVariableCalled("caseReferenceSubstring");
-        int caseTotal = workstacks.getTotalOfCases();
-        int n = 0;
-        while (n < caseTotal) {
-            assertThat(listOfCaseRefs.get(n).getText().contains(substringInput), is(true));
-            n++;
+        for (WebElementFacade caseRef : listOfCaseRefs) {
+            caseRef.shouldContainText(substringInput);
         }
     }
 
