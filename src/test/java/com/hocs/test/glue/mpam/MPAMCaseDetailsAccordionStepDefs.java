@@ -86,6 +86,7 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
+        accordionMPAM.assertChangeBusinessAreaErrorMessageIsDisplayed(errorMessage);
     }
 
     @Then("the change business area hypertext {string} displayed at {string}")
@@ -99,6 +100,5 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
             default:
                 pendingStep(visibleOrNot + " is not defined within " + getMethodName());
         }
-
     }
 }

@@ -514,5 +514,15 @@ public class SearchStepDefs extends BasePage {
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
     }
+
+    @And("I search for a case using a random substring of a case reference")
+    public void searchForCaseBySubstringOfCaseReference() {
+        search.searchBySubstringOfCaseReference();
+    }
+
+    @Then("the displayed cases all contain the input substring case reference")
+    public void displayedCasesAllContainSubstringCaseRef() {
+        search.assertAllDisplayedCaseRefsContainSubstring();
+    }
 }
 
