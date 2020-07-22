@@ -136,7 +136,7 @@ Feature: DCU Search
   Scenario Outline: User searches for DCU cases using a substring of a case reference
     And I create a single "<caseType>" case and return to the dashboard
     And I navigate to the "Search" page
-    And I search for a "<caseType>" case using a substring of the case reference
+    And I search for a case using a substring of the case reference
     Then the displayed cases all contain the input substring case reference
     Examples:
     |caseType|

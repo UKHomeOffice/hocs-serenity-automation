@@ -218,7 +218,7 @@ public class Search extends BasePage {
     }
 
 
-    public void searchBySubstringOfCaseReference(String caseType) {
+    public void searchBySubstringOfCaseReference() {
         int n = 0;
         String substring = null;
         String firstCharOfSubstring = "";
@@ -242,7 +242,7 @@ public class Search extends BasePage {
         if (randomCaseInteger < 10) {
             randomCaseIntToString = "0" + randomCaseIntToString;
         }
-        String randomCaseRefString = caseType.toUpperCase() + "/012" + randomCaseIntToString;
+        String randomCaseRefString = "/012" + randomCaseIntToString;
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
         typeInto(caseReferenceSearchBox, randomCaseRefString);
         safeClickOn(searchButton);
