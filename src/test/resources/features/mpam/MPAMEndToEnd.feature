@@ -1,4 +1,4 @@
-@MPAMEndToEnd
+@MPAMEndToEnd @MPAMRegression
 Feature: EndToEnd
 
   Background:

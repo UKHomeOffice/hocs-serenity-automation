@@ -11,33 +11,33 @@ Feature: Creation
     Then the "MPAM Data Input" page should be displayed
 
   @Navigation
-  Scenario: User should be on the MPAM Correspondents Details Page
+  Scenario: User can navigate to the MPAM Correspondents Details Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     Then the "MPAM Correspondents Details" page should be displayed
 
   @Navigation
-  Scenario: User should be on the Add Correspondent Page
+  Scenario: User can navigate to the Add Correspondent Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     And I click the "Add a correspondent" link
     Then the "Add Correspondent" page should be displayed
 
   @Navigation
-  Scenario: User should be on the Add Member of Parliament Page
+  Scenario: User can navigate to the Add Member of Parliament Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     And I select to add a correspondent that "is" a member of parliament
     Then the "Add member of parliament" page should be displayed
 
   @Navigation
-  Scenario: User should be on the Record Correspondent Details Page
+  Scenario: User can navigate to the Record Correspondent Details Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     And I select to add a correspondent that "is not" a member of parliament
     Then the "Record Correspondent Details" page should be displayed
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @SmokeTests @MPAMRegression
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Creation stage
@@ -46,23 +46,23 @@ Feature: Creation
     And I click the "Move to Triage" button
     Then the case should be moved to the "Triage" stage
     Examples:
-      | businessArea | refType |
-      | UKVI         | Ministerial   |
-      | BF           | Ministerial   |
-      | IE           | Ministerial   |
-      | EUSS         | Ministerial   |
-      | HMPO         | Ministerial   |
-      | Windrush     | Ministerial   |
-      | Coronavirus  | Ministerial   |
-      | UKVI         | Official   |
-      | BF           | Official   |
-      | IE           | Official   |
-      | EUSS         | Official   |
-      | HMPO         | Official   |
-      | Windrush     | Official   |
-      | Coronavirus  | Official   |
+      | businessArea | refType     |
+      | UKVI         | Ministerial |
+      | BF           | Ministerial |
+      | IE           | Ministerial |
+      | EUSS         | Ministerial |
+      | HMPO         | Ministerial |
+      | Windrush     | Ministerial |
+      | Coronavirus  | Ministerial |
+      | UKVI         | Official    |
+      | BF           | Official    |
+      | IE           | Official    |
+      | EUSS         | Official    |
+      | HMPO         | Official    |
+      | Windrush     | Official    |
+      | Coronavirus  | Official    |
 
-  @SmokeTests
+  @SmokeTests @MPAMRegression
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -70,7 +70,7 @@ Feature: Creation
     And I add the member of parliament "Nicola Sturgeon MSP"
     Then the submitted correspondent should be visible in the list of correspondents
 
-    @SmokeTests
+  @SmokeTests @MPAMRegression
   Scenario: User adds a member of public correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -112,7 +112,3 @@ Feature: Creation
   Scenario: User attempts to progress without adding a correspondent
     And I click the "Continue" button
     Then an error message should be displayed as I must complete all required questions at Creation stage
-
-  @SmokeTests
-  Scenario: User creates an MPAM case and checks the case deadline is correct
-    Then I check that the stage deadline dates for a "MPAM" case are correct

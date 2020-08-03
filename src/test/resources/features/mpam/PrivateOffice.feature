@@ -1,4 +1,4 @@
-@CasePrivateOffice
+@PrivateOffice
 Feature: PrivateOffice
 
   Background:

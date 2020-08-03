@@ -125,4 +125,4 @@ Feature: Data Input
     Then the correspondents name should be updated
 
   Scenario: User creates a MIN case and checks that the stage deadlines are correct
-    And I check that the stage deadline dates for a "MIN" case are correct
+    And The stage deadline dates for a "MIN" case are correct
