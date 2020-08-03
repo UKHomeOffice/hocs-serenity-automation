@@ -32,8 +32,8 @@ public class DraftStepDefs extends BasePage {
                 break;
             case "CONTRIBUTION REQUESTED":
                 draft.selectContributionRequested();
-                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 draft.enterRequestDescription("test request contribution description");
                 safeClickOn(confirmButton);
                 break;
@@ -99,8 +99,8 @@ public class DraftStepDefs extends BasePage {
                 draft.selectResponseChannel("Email");
                 safeClickOn(draft.contributionRequestedRadioButton);
                 safeClickOn(confirmButton);
-                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                draft.enterContributionRequestDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 safeClickOn(confirmButton);
                 break;
         }

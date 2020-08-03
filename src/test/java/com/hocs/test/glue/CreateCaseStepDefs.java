@@ -12,6 +12,7 @@ import com.hocs.test.pages.Homepage;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Workstacks;
@@ -173,10 +174,10 @@ public class CreateCaseStepDefs extends BasePage {
         createCaseSuccessPage.getCaseReference();
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         if (withWithout.equals("with")) {
-            documents.assertDocumentPresentIs(true);
+            documents.assertFileIsVisible(sessionVariableCalled("docType"));
         }
         else {
-            documents.assertDocumentPresentIs(false);
+            documents.assertFileIsNotVisible(sessionVariableCalled("docType"));
         }
     }
 

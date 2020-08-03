@@ -43,8 +43,11 @@ public class DispatchStages extends BasePage {
     @FindBy(xpath = "//label[text()='Draft rejected by private office']")
     public WebElementFacade draftRejectedRadioButton;
 
+    @FindBy(xpath = "//label[text()='Dispatch, close case']")
+    public WebElementFacade dispatchedRadioButtonAtDispatch;
+
     @FindBy(xpath = "//label[text()='Dispatched']")
-    public WebElementFacade dispatchedRadioButton;
+    public WebElementFacade dispatchedRadioButtonAtPrivateOffice;
 
     @FindBy(xpath = "//label[text()='Dispatched (follow-up)']")
     public WebElementFacade dispatchedFollowUpRadioButton;
@@ -108,7 +111,7 @@ public class DispatchStages extends BasePage {
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
         safeClickOn(responseChannelEmailRadioButton);
-        safeClickOn(dispatchedRadioButton);
+        safeClickOn(dispatchedRadioButtonAtPrivateOffice);
         safeClickOn(confirmButton);
         dispatchedDateInput(1, 1, 2001);
         safeClickOn(confirmAndCloseCaseButton);
@@ -116,8 +119,8 @@ public class DispatchStages extends BasePage {
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {
         dispatchedDateInput(1, 1, 2001);
-        safeClickOn(dispatchedRadioButton);
-        clickTheButton("Confirm");
+        safeClickOn(dispatchedRadioButtonAtDispatch);
+        safeClickOn(confirmButton);
     }
 
     public void triggerAwaitingDispatchErrorMessage(String message) {
@@ -141,16 +144,16 @@ public class DispatchStages extends BasePage {
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();
@@ -166,7 +169,7 @@ public class DispatchStages extends BasePage {
     public void triggerPrivateOfficeErrorMessage(String message) {
         switch (message.toUpperCase()) {
             case "DISPATCHED DATE REQUIRED":
-                safeClickOn(dispatchedRadioButton);
+                safeClickOn(dispatchedRadioButtonAtPrivateOffice);
                 safeClickOn(confirmButton);
                 safeClickOn(confirmAndCloseCaseButton);
                 break;
@@ -184,16 +187,16 @@ public class DispatchStages extends BasePage {
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();

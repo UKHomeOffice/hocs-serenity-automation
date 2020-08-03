@@ -78,6 +78,12 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
+    @FindBy(css = "label[for='HomeSecInterest-TRUE']")
+    public WebElementFacade homeSecInterestYesRadioButton;
+
+    @FindBy(css = "label[for='HomeSecInterest-FALSE']")
+    public WebElementFacade homeSecInterestNoRadioButton;
+
     // Multi Step Methods
 
     public void moveCaseFromDataInputToMarkup() {
@@ -143,33 +149,35 @@ public class DataInput extends BasePage {
             setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
             safeClickOn(continueButton);
             enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
         } else {
             enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
+            safeClickOn(homeSecInterestYesRadioButton);
         }
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
         enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
+        safeClickOn(homeSecInterestYesRadioButton);
     }
 
     public void invalidCorrespondenceReceivedDate() {

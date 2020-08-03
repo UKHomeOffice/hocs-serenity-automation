@@ -34,8 +34,8 @@ public class TriageStepDefs extends BasePage {
                 break;
             case "CONTRIBUTION REQUESTED":
                 triage.selectContributionRequested();
-                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(1),
+                        todayPlusMinusNYearsGetYear(0));
                 triage.enterRequestDescription("test request contribution description");
                 safeClickOn(confirmButton);
                 break;
@@ -92,8 +92,8 @@ public class TriageStepDefs extends BasePage {
                 break;
             case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
                 triage.selectContributionRequested();
-                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                triage.enterContributionRequestedDeadlineDate(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
+                        todayPlusMinusNYearsGetYear(0));
                 safeClickOn(confirmButton);
                 break;
             default:
