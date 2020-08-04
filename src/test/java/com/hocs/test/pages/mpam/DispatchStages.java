@@ -144,16 +144,16 @@ public class DispatchStages extends BasePage {
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
-                        todayPlusMinusNYearsGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 dispatchedDateInput(1, 1, 2001);
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
-                        todayPlusMinusNYearsGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();
@@ -187,16 +187,16 @@ public class DispatchStages extends BasePage {
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
-                        todayPlusMinusNYearsGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
-                        todayPlusMinusNYearsGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                        todayPlusMinusNDaysGetYear(0));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();

@@ -58,8 +58,8 @@ public class CreationStepDefs extends BasePage {
     @And("I calculate the date {int} days ago")
     public void iCalculateTheDateDaysAgo(int days) {
         System.out.println(todayPlusMinusNDaysGetDay(-days));
-        System.out.println(todayPlusMinusNMonthsGetMonth(-days));
-        System.out.println(todayPlusMinusNYearsGetYear(-days));
+        System.out.println(todayPlusMinusNDaysGetMonth(-days));
+        System.out.println(todayPlusMinusNDaysGetYear(-days));
     }
 
     @When("I select {string} as the Urgency and {string} as the Reference Type")

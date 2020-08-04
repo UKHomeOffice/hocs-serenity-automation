@@ -227,16 +227,16 @@ public class BasePage extends PageObject {
         return dayFormat.format(cal.getTime());
     }
 
-    public String todayPlusMinusNMonthsGetMonth(int months) {
+    public String todayPlusMinusNDaysGetMonth(int days) {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, months);
+        cal.add(Calendar.DATE, days);
 
         return monthFormat.format(cal.getTime());
     }
 
-    public String todayPlusMinusNYearsGetYear(int years) {
+    public String todayPlusMinusNDaysGetYear(int days) {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, years);
+        cal.add(Calendar.DATE, days);
 
         return yearFormat.format(cal.getTime());
     }

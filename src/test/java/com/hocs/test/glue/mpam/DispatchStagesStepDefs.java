@@ -130,8 +130,8 @@ public class DispatchStagesStepDefs extends BasePage {
 
     @And("I enter a follow-up date")
     public void iEnterAFollowUpDate() {
-        dispatchStages.followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNMonthsGetMonth(0),
-                todayPlusMinusNYearsGetYear(0));
+        dispatchStages.followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
+                todayPlusMinusNDaysGetYear(0));
     }
 
     @And("I enter follow-up details and confirm")

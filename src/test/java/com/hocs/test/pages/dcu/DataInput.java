@@ -149,16 +149,16 @@ public class DataInput extends BasePage {
             setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
             safeClickOn(continueButton);
             enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
         } else {
             enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-            enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
-            enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
+            enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+            enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
             enterDayOfCorrespondenceReceived(getCurrentDay());
             enterMonthOfCorrespondenceReceived(getCurrentMonth());
             enterYearOfCorrespondenceReceived(getCurrentYear());
@@ -170,8 +170,8 @@ public class DataInput extends BasePage {
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
         enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
@@ -246,8 +246,8 @@ public class DataInput extends BasePage {
 
     public void completeDataInputStageWithHomeSecInterestNo() {
         enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
-        enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
-        enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
         enterDayOfCorrespondenceReceived(getCurrentDay());
         enterMonthOfCorrespondenceReceived(getCurrentMonth());
         enterYearOfCorrespondenceReceived(getCurrentYear());
