@@ -244,6 +244,21 @@ public class DataInput extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void completeDataInputStageWithHomeSecInterestNo() {
+        enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNMonthsGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNYearsGetYear(-2));
+        enterDayOfCorrespondenceReceived(getCurrentDay());
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
+        safeClickOn(emailOriginalChannelRadioButton);
+        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
+        safeClickOn(homeSecInterestNoRadioButton);
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondent();
+        safeClickOn(finishButton);
+    }
+
     // Assertions
 
     public void assertPageTitle() {

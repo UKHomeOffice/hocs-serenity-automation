@@ -126,3 +126,12 @@ Feature: Data Input
 
   Scenario: User creates a MIN case and checks that the stage deadlines are correct
     And I check that the stage deadline dates for a "MIN" case are correct
+
+  Scenario Outline: User checks that Home Secretary interest decision is properly displayed in summary tab
+    And I select "<homeSecInterest>" for Home Secretary interest and complete the data input stage
+    And I load the current case
+    Then the Home Secretary interest decision should match the one displayed in the summary tab
+    Examples:
+    |homeSecInterest|
+    |Yes            |
+    |No             |
