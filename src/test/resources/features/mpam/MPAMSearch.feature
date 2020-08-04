@@ -21,3 +21,9 @@ Feature: MPAM Search
     And I navigate to the "Search" page
     And I search for a case by it's case reference
     Then the one created case should be displayed
+
+  Scenario: User searches for MPAM cases using a substring of a case reference
+    And I create a single "MPAM" case and return to the dashboard
+    And I navigate to the "Search" page
+    And I search for a case using a random substring of a case reference
+    Then the displayed cases all contain the input substring case reference

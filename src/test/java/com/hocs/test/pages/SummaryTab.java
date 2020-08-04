@@ -97,6 +97,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
     private WebElementFacade followUpDueDate;
 
+    @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
+    private WebElementFacade homeSecInterest;
+
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
     }
@@ -316,5 +319,10 @@ public class SummaryTab extends BasePage {
     public void assertFollowUpDueDateVisible() {
         String dueDate = sessionVariableCalled("dueDate");
         assertThat(followUpDueDate.getText().contains(dueDate), is(true));
+    }
+
+    public void assertHomeSecInterestMatchesDecisionAtDataInput() {
+        String homeSecInterestInput = sessionVariableCalled("homeSecInterest");
+        assertThat(homeSecInterestInput.equals(homeSecInterest.getText()), is(true));
     }
 }
