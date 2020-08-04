@@ -15,6 +15,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
 public class DataInputStepDefs extends BasePage {
 
     DataInput dataInput;
@@ -233,6 +234,7 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(summaryTab);
         switch (caseType.toUpperCase()) {
             case "MIN":
+            case "HOME SECRETARY SIGN-OFF":
                 summary.assertDeadlineDateOfStage(caseType, "Data Input");
                 summary.assertDeadlineDateOfStage(caseType, "Markup");
                 summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
@@ -260,19 +262,29 @@ public class DataInputStepDefs extends BasePage {
             case "MPAM":
                 summary.assertDeadlineDateOfStage(caseType, "GENERAL");
                 break;
-            case "HOME SECRETARY SIGN-OFF":
-                summary.assertDeadlineDateOfStage(caseType, "Data Input");
-                summary.assertDeadlineDateOfStage(caseType, "Markup");
-                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                summary.assertDeadlineDateOfStage(caseType, "QA Response");
-                summary.assertDeadlineDateOfStage(caseType, "Private Office Approval");
-                summary.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
-                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
-                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I select {string} for Home Secretary interest and complete the data input stage")
+    public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
+        setSessionVariable("homeSecInterest").to(interest);
+        switch (interest.toUpperCase()) {
+            case "YES":
+                dataInput.moveCaseFromDataInputToMarkup();
+                break;
+            case "NO":
+                dataInput.completeDataInputStageWithHomeSecInterestNo();
+                break;
+            default:
+                pendingStep(interest + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the Home Secretary interest decision should match the one displayed in the summary tab")
+    public void assertHomeSecInterestInputMatchesSummaryTab() {
+        safeClickOn(summaryTab);
+        summary.assertHomeSecInterestMatchesDecisionAtDataInput();
     }
 }

@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -62,6 +63,7 @@ public class Documents extends BasePage {
     }
 
     public void uploadDocumentOfType(String type) {
+        setSessionVariable("docType").to(type);
         addDocument.withTimeoutOf(Duration.ofSeconds(5)).waitUntilPresent();
         upload("src/test/resources/documents/test." + type).to(addDocument);
     }
@@ -182,7 +184,7 @@ public class Documents extends BasePage {
 
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
-                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//strong[text()='UPLOADED']");
+                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
@@ -193,7 +195,7 @@ public class Documents extends BasePage {
 
     public void waitForFileToUpload(Object fileIdentifier) {
         WebElementFacade documentUploadedTag =
-                findBy("//td[contains(text(), '" + fileIdentifier +"')]/preceding-sibling::td/strong[contains(text(), 'UPLOADED')]");
+                findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a[@download]");
         documentUploadedTag.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
     }
 

@@ -68,7 +68,7 @@ public class DispatchStagesStepDefs extends BasePage {
     public void iSelectTheActionAtPrivateOfficeStage(String action) {
         switch (action.toUpperCase()) {
             case "DISPATCHED":
-                safeClickOn(dispatchStages.dispatchedRadioButton);
+                safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
                 break;
             case "DRAFT REJECTED BY PRIVATE OFFICE":
                 safeClickOn(dispatchStages.draftRejectedRadioButton);

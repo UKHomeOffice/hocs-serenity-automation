@@ -78,6 +78,12 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
+    @FindBy(css = "label[for='HomeSecInterest-TRUE']")
+    public WebElementFacade homeSecInterestYesRadioButton;
+
+    @FindBy(css = "label[for='HomeSecInterest-FALSE']")
+    public WebElementFacade homeSecInterestNoRadioButton;
+
     // Multi Step Methods
 
     public void moveCaseFromDataInputToMarkup() {
@@ -158,6 +164,7 @@ public class DataInput extends BasePage {
             enterYearOfCorrespondenceReceived(getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
+            safeClickOn(homeSecInterestYesRadioButton);
         }
     }
 
@@ -170,6 +177,7 @@ public class DataInput extends BasePage {
         enterYearOfCorrespondenceReceived(getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
+        safeClickOn(homeSecInterestYesRadioButton);
     }
 
     public void invalidCorrespondenceReceivedDate() {
@@ -232,6 +240,21 @@ public class DataInput extends BasePage {
         clickContinueButton();
         addCorrespondent.addAPublicCorrespondent();
         addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondent();
+        safeClickOn(finishButton);
+    }
+
+    public void completeDataInputStageWithHomeSecInterestNo() {
+        enterDayOfCorrespondenceSent(todayPlusMinusNDaysGetDay(-2));
+        enterMonthOfCorrespondenceSent(todayPlusMinusNDaysGetMonth(-2));
+        enterYearOfCorrespondenceSent(todayPlusMinusNDaysGetYear(-2));
+        enterDayOfCorrespondenceReceived(getCurrentDay());
+        enterMonthOfCorrespondenceReceived(getCurrentMonth());
+        enterYearOfCorrespondenceReceived(getCurrentYear());
+        safeClickOn(emailOriginalChannelRadioButton);
+        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
+        safeClickOn(homeSecInterestNoRadioButton);
+        safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();
         safeClickOn(finishButton);
     }
