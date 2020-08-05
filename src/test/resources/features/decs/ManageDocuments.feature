@@ -125,3 +125,8 @@ Feature: Manage Documents
       | png      |
       | bmp      |
       | doc      |
+
+  Scenario: User checks that the primary draft tag is visible after the initial draft stage
+    And I create a "MIN" case and move it to the "QA Response" stage
+    And I load and claim the current case
+    Then the primary draft tag is next to the primary draft document

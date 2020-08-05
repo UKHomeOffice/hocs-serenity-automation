@@ -48,6 +48,9 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
 
+    @FindBy(xpath = "//strong[text()='Primary Draft']")
+    public WebElementFacade primaryDraftDocumentTag;
+
     //Simple methods
 
     public void selectDocumentTypeByText(String docType) {
@@ -201,5 +204,9 @@ public class Documents extends BasePage {
 
     public void assertDocumentPresentIs(Boolean condition) {
         assertThat(uploadedTag.isVisible()||pendingTag.isVisible(), is(condition));
+    }
+
+    public void assertVisibilityOfPrimaryDraftDocumentTag() {
+        assertThat(primaryDraftDocumentTag.isVisible(), is(true));
     }
 }

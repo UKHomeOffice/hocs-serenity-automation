@@ -143,3 +143,8 @@ Feature: DCU Search
     |MIN     |
     |DTEN    |
     |TRO     |
+
+  Scenario: User searches for cases by Home Secretary Interest
+    And I navigate to the "Search" page
+    And I search for cases that are of interest to the Home Secretary
+    Then the first and last search results are of interest to the Home Secretary

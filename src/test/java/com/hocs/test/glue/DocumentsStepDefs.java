@@ -157,4 +157,9 @@ public class DocumentsStepDefs extends BasePage {
         documents.waitForFileToUpload(fileIdentifier);
         documents.assertDocumentIsUnderHeader(header);
     }
+
+    @Then("the primary draft tag is next to the primary draft document")
+    public void primaryDraftTagNextToPrimaryDraftDocument() {
+        documents.assertVisibilityOfPrimaryDraftDocumentTag();
+    }
 }

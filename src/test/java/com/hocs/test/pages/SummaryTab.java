@@ -98,7 +98,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade followUpDueDate;
 
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
-    private WebElementFacade homeSecInterest;
+    public WebElementFacade homeSecInterest;
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);

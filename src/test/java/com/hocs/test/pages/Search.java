@@ -104,6 +104,9 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
+    @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
+    public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;
+
     //DCU Methods
 
     public void enterSearchCorrespondent(String correspondentNameQuery) {
@@ -138,6 +141,16 @@ public class Search extends BasePage {
     public void viewFirstSearchResultCaseSummary() {
         WebElementFacade firstSearchResult = findAll("//td//a").get(0);
         safeClickOn(firstSearchResult);
+        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
+            safeClickOn(workstacks.allocateToMeButton);
+        }
+        summaryTab.selectSummaryTab();
+    }
+
+    public void viewLastSearchResultCaseSummary() {
+        int numberOfCases = Integer.parseInt(numberOfSearchResults.getText().split(" ")[0]);
+        WebElementFacade lastSearchResultReference = findAll("//td//a").get((numberOfCases - 1));
+        safeClickOn(lastSearchResultReference);
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             safeClickOn(workstacks.allocateToMeButton);
         }
@@ -248,6 +261,11 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
+    public void searchForHomeSecretaryInterestCases() {
+        safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
+        safeClickOn(searchButton);
+    }
+
     //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
@@ -336,6 +354,16 @@ public class Search extends BasePage {
         for (WebElementFacade caseRef : listOfCaseRefs) {
             caseRef.shouldContainText(substringInput);
         }
+    }
+
+    public void assertFirstAndLastSearchResultAreHomeSecInterest() {
+        viewFirstSearchResultCaseSummary();
+        assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+        goHome();
+        safeClickOn(homepage.searchPage);
+        searchForHomeSecretaryInterestCases();
+        viewLastSearchResultCaseSummary();
+        assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
     }
 
     public void waitUntilSearchPageLoaded() {
