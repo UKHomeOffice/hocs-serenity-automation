@@ -1,4 +1,4 @@
-@EndToEnd
+@DCUEndToEnd  @DCU
 Feature: End To End
 
   Background:
@@ -98,7 +98,7 @@ Feature: End To End
       | TRO      |
       | DTEN     |
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: Dispatch a case with Copy to Number Ten selected
     Given I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
@@ -111,7 +111,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case should be moved to the "COPY TO NUMBER 10" stage
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
@@ -124,7 +124,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case should be closed
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single "DTEN" case and return to the dashboard
     And I load and claim the current case
@@ -136,7 +136,7 @@ Feature: End To End
     And I complete the dispatch stage
     Then the case should be closed
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single "TRO" case and return to the dashboard
     And I load and claim the current case

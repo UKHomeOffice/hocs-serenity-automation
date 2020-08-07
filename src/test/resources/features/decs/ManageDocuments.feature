@@ -1,4 +1,4 @@
-@ManageDocuments
+@ManageDocuments @DECS
 Feature: Manage Documents
 
   Background:
@@ -26,9 +26,9 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @SmokeTests
+  @DCUSmokeTests
   Scenario Outline: : User can select document type when uploading documents on a DCU case
-    And I click to manage the documents of a new "MIN" case
+    And I click to manage the documents of a new "DCU" case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
@@ -39,7 +39,7 @@ Feature: Manage Documents
       | DRAFT    |
       | FINAL    |
 
-  @SmokeTests
+  @MPAMSmokeTests
   Scenario Outline: : User can select document type when uploading documents on a MPAM case
     And I click to manage the documents of a new "MPAM" case
     And I click add documents
@@ -90,6 +90,7 @@ Feature: Manage Documents
     Then an error message should be displayed as I have selected a file which is larger than the allowed limit
     And I cannot see the "51MB" file in the uploaded document list
 
+  @OtherTests
   Scenario: A document has the pending tag whilst it is being converted
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -107,7 +108,7 @@ Feature: Manage Documents
 
   @SmokeTests
   Scenario Outline: User can remove any document
-    And I click to manage the documents of a new "MIN" case
+    And I click to manage the documents of a new "MPAM" case
     And I add a "<fileType>" document to the case
     And I click manage documents
     And I select to remove the "<fileType>" document

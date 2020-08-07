@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SmokeTests" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="DCUSmokeTests" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.options=--tags @SmokeTests" />
+              <option value="-Dcucumber.options=--tags @DCUSmokeTests,@SmokeTests" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>

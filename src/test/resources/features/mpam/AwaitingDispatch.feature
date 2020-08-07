@@ -1,4 +1,4 @@
-@AwaitingDispatch
+@AwaitingDispatch @MPAM
 Feature: Awaiting Dispatch
 
   Background:
@@ -6,17 +6,17 @@ Feature: Awaiting Dispatch
     And I create a "MPAM" case and move it to the "Awaiting Dispatch" stage
     And I load the current case
 
-  @MPAMWorkflow @Smoketests @MPAMRegression
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User enters a date of dispatch and closes the case
     And I enter a dispatched date
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
 
-  @SmokeTests @MPAMRegression
+  @MPAMSmokeTests
   Scenario: User can see which response channel was selected at Draft stage
     Then I can see the previous selected response channel is still selected
 
-  @MPAMWorkflow @SmokeTests @MPAMRegression
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
@@ -28,7 +28,7 @@ Feature: Awaiting Dispatch
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @MPAMWorkflow @SmokeTests @MPAMRegression
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
@@ -38,7 +38,7 @@ Feature: Awaiting Dispatch
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @MPAMWorkflow @SmokeTests @MPAMRegression
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage

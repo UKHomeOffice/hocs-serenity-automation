@@ -1,4 +1,4 @@
-@QACase
+@QACase @DCU
 Feature: QA Response
 
   Background:
@@ -25,7 +25,7 @@ Feature: QA Response
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario Outline: Case is returned to Initial Draft stage when rejected by QA Response Team
     And I create a "<caseType>" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case
