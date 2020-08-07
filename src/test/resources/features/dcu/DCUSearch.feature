@@ -134,7 +134,13 @@ Feature: DCU Search
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
     Examples:
-      | caseType |
-      | MIN      |
-      | DTEN     |
-      | TRO      |
+    |caseType|
+    |MIN     |
+    |DTEN    |
+    |TRO     |
+
+  @SearchByHomeSecInterest @DCUSmokeTests
+  Scenario: User searches for cases by Home Secretary Interest
+    And I navigate to the "Search" page
+    And I search for cases that are of interest to the Home Secretary
+    Then the first and last search results are of interest to the Home Secretary

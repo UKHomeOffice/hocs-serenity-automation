@@ -524,5 +524,15 @@ public class SearchStepDefs extends BasePage {
     public void displayedCasesAllContainSubstringCaseRef() {
         search.assertAllDisplayedCaseRefsContainSubstring();
     }
+
+    @And("I search for cases that are of interest to the Home Secretary")
+    public void searchForHomeSecInterestCases() {
+        search.searchForHomeSecretaryInterestCases();
+    }
+
+    @Then("the first and last search results are of interest to the Home Secretary")
+    public void assertFirstAndLastSearchResultAreHomeSecInterest() {
+        search.assertFirstAndLastSearchResultAreHomeSecInterest();
+    }
 }
 
