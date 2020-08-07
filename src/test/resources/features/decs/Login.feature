@@ -1,4 +1,4 @@
-@Login
+@Login @DECS
 Feature: Login
 
   Background:
