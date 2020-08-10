@@ -11,6 +11,7 @@ import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.managementUI.StandardLine;
+import com.hocs.test.pages.managementUI.UserManagement;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -44,6 +45,8 @@ public class ManagementUIStepDefs extends BasePage {
 
     LinkTopicToTeam linkTopicToTeam;
 
+    UserManagement userManagement;
+
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
@@ -64,6 +67,9 @@ public class ManagementUIStepDefs extends BasePage {
                 break;
             case "LINK TOPIC TO TEAM":
                 safeClickOn(dashboard.linkTopicToTeamButton);
+                break;
+            case "USER MANAGEMENT":
+                safeClickOn(dashboard.userManagementHypertext);
                 break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
@@ -446,6 +452,41 @@ public class ManagementUIStepDefs extends BasePage {
             default:
                 pendingStep(shortCodeType + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I load the teams of which {string} is a member")
+    public void loadTeamsWithMember(String member) {
+        userManagement.searchForAUsersTeams(member);
+    }
+
+    @And("I add the user to the {string} team")
+    public void addUserToTeam(String team) {
+        userManagement.addUserToTeams(team);
+    }
+
+    @And("I remove the user from the {string} team")
+    public void iRemoveUserFromTeam(String team) {
+        userManagement.removeTeam(team);
+    }
+
+    @Then("the teams the user is a part of are displayed")
+    public void teamsUserIsInAreDisplayed() {
+        userManagement.assertCorrectUserTeamsAreDisplayed();
+    }
+
+    @Then("the team should be visible in the users list of teams")
+    public void teamIsAddedToListOfTeams() {
+        userManagement.assertNewTeamIsAddedToUserTeams();
+    }
+
+    @Then("the success ribbon should be displayed once the user is added")
+    public void successRibbonIsDisplayedUponsAddition() {
+        userManagement.assertSuccessfulAdditionToTeamBanner();
+    }
+
+    @Then("the team should be removed from the users list of teams")
+    public void teamShouldBeRemovedFromListOfTeams() {
+        userManagement.assertTeamHasBeenRemoved();
     }
 
     @Then("an error message should be displayed a unit with those details already exists")

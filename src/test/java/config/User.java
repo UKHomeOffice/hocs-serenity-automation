@@ -7,6 +7,7 @@ public enum User {
     CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),
     UKVI_ONLY("casey.prosser@digital.homeoffice.gov.uk", "Password1!", "Casey Prosser (casey.prosser@digital.homeoffice"
             + ".gov.uk)"),
+    CAMERON_HO("cameron.page3@homeoffice.gov.uk", "", "Cameron Page (cameron.page3@homeoffice.gov.uk)"),
     FAKE("FakeUser", "FAKE1!", ""),
     PROD("", "", "");
 
