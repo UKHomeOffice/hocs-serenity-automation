@@ -253,27 +253,27 @@ Feature: ManagementUI
   @UserManagement
   Scenario: A user can check the teams a user is in through User Management
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "MANAGEMENT_UI" is a member
+    And I load the teams of which "CAMERON_HO" is a member
     Then the teams the user is a part of are displayed
 
   @UserManagement
   Scenario: A user can be added to a team through User Management
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "MANAGEMENT_UI" is a member
+    And I load the teams of which "CAMERON_HO" is a member
     And I add the user to the "Animals in Science Regulation Unit" team
     Then the team should be visible in the users list of teams
 
   @UserManagement
   Scenario: The success ribbon should be displayed upon adding a user to a team
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "MANAGEMENT_UI" is a member
+    And I load the teams of which "CAMERON_HO" is a member
     And I add the user to the "Animals in Science Regulation Unit" team
     Then the success ribbon should be displayed once the user is added
 
   @UserManagement
   Scenario: A user can be removed from a team through User Management
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "MANAGEMENT_UI" is a member
+    And I load the teams of which "CAMERON_HO" is a member
     And I add the user to the "Animals in Science Regulation Unit" team
     And I remove the user from the "Animals in Science Regulation Unit" team
     Then the team should be removed from the users list of teams
