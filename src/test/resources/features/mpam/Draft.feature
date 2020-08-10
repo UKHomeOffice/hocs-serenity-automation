@@ -1,4 +1,4 @@
-@Drafting
+@Drafting @MPAM
 Feature: Drafting
 
   Background:
@@ -10,35 +10,37 @@ Feature: Drafting
     And I load and claim the current case
     Then the "MPAM Draft" page should be displayed
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User completes the Draft stage
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     When I complete the "Draft" stage
     Then the case should be moved to the "QA" stage
 
-  @MPAMWorkflow @SmokeTests
-  Scenario: User moves a draft case to dispatch bypassing QA
+  @MPAMWorkflow @MPAMSmokeTests
+  Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
     When I create a MPAM case  with "UKVI" as the Business Area and "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User escalates the draft case to workflow manager
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     Then the case should be moved to the "Draft (Escalated)" stage
+    And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User puts the draft case on hold
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "On Hold"
     Then the case should be moved to the "Draft (On Hold)" stage
+    And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User takes a Draft On Hold case off hold
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -48,7 +50,7 @@ Feature: Drafting
     Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User de-escalates a Draft (Escalated) case
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -58,7 +60,7 @@ Feature: Drafting
     Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User closes a Draft (Escalated) case
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -69,7 +71,7 @@ Feature: Drafting
     Then the case should be closed
     And a closure note should be visible showing the reason for closing the case
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User requests a contribution at Draft stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -80,7 +82,7 @@ Feature: Drafting
     And the contribution request deadline should be visible in the summary
     And a contribution request note should be visible showing the description of the request
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the contribution has been received at Draft (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -90,7 +92,7 @@ Feature: Drafting
     Then the case should be moved to the "Draft" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User escalates a case at Draft (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

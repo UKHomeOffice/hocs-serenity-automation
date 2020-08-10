@@ -1,4 +1,4 @@
-@Markup
+@Markup @DCU
 Feature: Markup
 
   Background:
@@ -6,7 +6,7 @@ Feature: Markup
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
 
-  @SmokeTests
+  @OtherTests
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I select an initial decision of "<radioButton>"
     And I click the "Continue" button
@@ -17,12 +17,13 @@ Feature: Markup
       | Policy Response |
       | FAQ             |
 
+  @OtherTests
   Scenario: User selects an initial decision of Refer to OGD
     When I select an initial decision of "REFER TO OGD"
     And I click the "Continue" button
     Then the Other Government Department name free text field is displayed
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: User selects Refer to OGD
     When I select an initial decision of "REFER TO OGD"
     And I click the "Continue" button
@@ -30,12 +31,13 @@ Feature: Markup
     And I click the "Finish" button
     Then the case should be moved to the "Transfer Confirmation" stage
 
+  @OtherTests
   Scenario: User selects an initial decision of No Response Needed
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "Continue" button
     Then the No Response Needed casenote field is displayed
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: User selects Refer to OGD
     When I select an initial decision of "NO RESPONSE NEEDED"
     And I click the "Continue" button
@@ -50,6 +52,7 @@ Feature: Markup
     But I do not enter a "Other Government Department"
     Then an error message is displayed
 
+  @OtherTests
   Scenario: User selects an initial decision of Reject to Data Input
     When I select an initial decision of "REJECT TO DATA INPUT"
     And I click the "Continue" button
@@ -69,13 +72,14 @@ Feature: Markup
     But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
     Then an error message is displayed
 
-  @SmokeTests
+  @OtherTests
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
     And I click the "Continue" button
     And I add the topic "CARDIFF UNIVERSITY KITTENS"
     Then the topic should be added to the case
 
+  @OtherTests
   Scenario: User can select a topic for a FAQ response
     When I select an initial decision of "FAQ"
     And I click the "Continue" button
@@ -102,7 +106,7 @@ Feature: Markup
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: Case is returned to Data Input stage when rejected at Markup stage
     And I reject the case at the "MARKUP" stage
     Then the case should be moved to the "DATA INPUT" stage

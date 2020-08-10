@@ -1,4 +1,4 @@
-@Timeline
+@Timeline @DECS
 Feature: Timeline
 
   Background:

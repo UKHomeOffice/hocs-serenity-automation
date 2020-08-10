@@ -1,21 +1,22 @@
-Feature: Dispatch
+@AwaitingDispatch @MPAM
+Feature: Awaiting Dispatch
 
   Background:
     Given I log in to DECS
     And I create a "MPAM" case and move it to the "Awaiting Dispatch" stage
     And I load the current case
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User enters a date of dispatch and closes the case
     And I enter a dispatched date
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
 
-  @SmokeTests
+  @MPAMSmokeTests
   Scenario: User can see which response channel was selected at Draft stage
     Then I can see the previous selected response channel is still selected
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
@@ -27,7 +28,7 @@ Feature: Dispatch
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
@@ -37,7 +38,7 @@ Feature: Dispatch
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
@@ -50,8 +51,8 @@ Feature: Dispatch
     And a follow-up not completed note should be visible showing the entered reason
 
   @Validation
-  Scenario Outline: User triggers error message to be displayed at Awaiting Dispatch
-    And the user triggers the "<errorType>" error message at Awaiting Dispatch by not entering the correct information
+  Scenario Outline: User triggers error message to be displayed at Awaiting Dispatch stage
+    And I trigger the "<errorType>" error message at Awaiting Dispatch stage by not entering the correct information
     Then then the "<errorType>" error message should be displayed at a Dispatch stage
     Examples:
       | errorType                               |

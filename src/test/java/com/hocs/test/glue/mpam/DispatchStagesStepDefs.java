@@ -16,7 +16,7 @@ public class DispatchStagesStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @And("the user triggers the {string} error message at Awaiting Dispatch by not entering the correct information")
+    @And("I trigger the {string} error message at Awaiting Dispatch stage by not entering the correct information")
     public void triggerAwaitingDispatchErrorMessage(String errorMessage) {
        dispatchStages.triggerAwaitingDispatchErrorMessage(errorMessage);
     }

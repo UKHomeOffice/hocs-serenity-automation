@@ -1,4 +1,4 @@
-@CasePrivateOffice
+@PrivateOffice @MPAM
 Feature: PrivateOffice
 
   Background:
@@ -17,24 +17,24 @@ Feature: PrivateOffice
     Then the "MPAM Rejected by Private Office" page should be displayed
     And the rejection reason entry box should be visible
 
-  @SmokeTests
+  @MPAMSmokeTests
   Scenario: User can see which response channel was selected at Draft stage
     Then I can see the previous selected response channel is still selected
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User rejects the case back to drafting
     When I select the "Draft rejected by Private Office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
     Then the case should be moved to the "Draft" stage
     And a rejection note should be visible showing the reason for rejection
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User enters a date of dispatch and closes the case
     When I select the "Dispatched" action at Private Office stage
     And I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the case requires follow-up actions after being dispatched
     When I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date
@@ -46,7 +46,7 @@ Feature: PrivateOffice
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     When I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date
@@ -56,7 +56,7 @@ Feature: PrivateOffice
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects to close the case without completing follow-up action
     When I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date

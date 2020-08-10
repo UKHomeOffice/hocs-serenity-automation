@@ -1,4 +1,4 @@
-@Triage
+@Triage @MPAM
 Feature: Triage
 
   Background:
@@ -21,35 +21,37 @@ Feature: Triage
     And I select an enquiry subject and continue
     Then the "Enquiry reason" page should be displayed
 
+  @MPAMSmokeTests
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     When I click the "Set enquiry subject/reason" link
     And I select an enquiry subject and continue
     And I select an enquiry reason and continue
     Then the set enquiry subject and reason should be displayed on the MPAM Triage page
 
+  @OtherTests
   Scenario: User views the Business Units for different Business Areas
     And I select to change the Business Area
     And I record the current options for Business Area
     When I change the Business Area of the case to "Windrush"
     Then the options for Business Area should change
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User completes the Triage stage
     When I complete the "Triage" stage
     Then the case should be moved to the "Draft" stage
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User puts the Triage case On Hold
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "Triage (On Hold)" stage
     And the case should be allocated to me in the summary
 
-  @Workflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User escalates the Triage case to the workflow manager
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "Triage (Escalated)" stage
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
     And I load and claim the current case
@@ -57,7 +59,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User de-escalates a Triage (Escalated) case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -65,7 +67,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User closes a Triage (Escalated) case
     And I send the Triage case to "Workflow Manager"
     When I load and claim the current case
@@ -74,7 +76,7 @@ Feature: Triage
     Then the case should be closed
     And a closure note should be visible showing the reason for closing the case
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User requests a contribution at triage stage
     When I send the Triage case to "Contribution Requested"
     Then the contribution request deadline should be visible in the "Triage" workstack
@@ -83,7 +85,7 @@ Feature: Triage
     And the contribution request deadline should be visible in the summary
     And a contribution request note should be visible showing the description of the request
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects that the contribution has been received at Triage (Contribution Requested) stage
     When I send the Triage case to "Contribution Requested"
     And I load and claim the current case
@@ -91,7 +93,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: User escalates a case at Triage (Contribution Requested) stage
     When I send the Triage case to "Contribution Requested"
     And I load and claim the current case

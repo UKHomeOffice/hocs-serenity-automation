@@ -1,4 +1,4 @@
-@CreateCase
+@CreateCase @DECS
 Feature: Create case
 
   Background:
@@ -25,13 +25,13 @@ Feature: Create case
       | MPAM | with           |
       | MPAM | without        |
 
-  @Allocation @WeeklyTests
+  @Allocation @OtherTests
   Scenario: A single case is allocated to the current user
     And I create a single "MIN" case
     When I allocate the case to myself via the successful case creation screen
     Then the case should be visible in my workstack
 
-  @Allocation @WeeklyTests
+  @Allocation @OtherTests
   Scenario: A single case is allocated to another user
     And I create a single "MPAM" case
     And I go to the case from the successful case creation screen
@@ -44,7 +44,7 @@ Feature: Create case
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario Outline: Newly created DCU cases should move to the Data Input stage
     And I create a single "<caseType>" case and return to the dashboard
     Then the case should be moved to the "Data Input" stage
@@ -54,7 +54,7 @@ Feature: Create case
       | DTEN     |
       | TRO      |
 
-  @MPAMWorkflow @SmokeTests
+  @MPAMWorkflow @MPAMSmokeTests
   Scenario: Newly created MPAM cases should move to the Creation stage
     And I create a single "MPAM" case and return to the dashboard
     Then the case should be moved to the "Creation" stage

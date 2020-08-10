@@ -1,4 +1,4 @@
-@DataInput
+@DataInput @DCU
 Feature: Data Input
 
   Background:
@@ -47,14 +47,14 @@ Feature: Data Input
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @SmokeTests
+  @DCUSmokeTests
   Scenario: User can add a Member of Parliament as a Correspondent
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
     And I add "Nicola Sturgeon" MP as a correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @SmokeTests
+  @DCUSmokeTests
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
@@ -62,19 +62,20 @@ Feature: Data Input
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
 
+  @OtherTests
   Scenario: User adds more than one correspondent
     Given a case has a "primary" correspondent
     When I add an additional correspondent
     Then both correspondents are listed
 
-  @WeeklyTests
+  @OtherTests
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     Given a case has a "Secondary" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "Finish" button
     Then the correct correspondent is recorded as the primary correspondent
 
-  @Validation @WeeklyTests
+  @Validation
   Scenario Outline: User must complete all mandatory inputs on the Data Input form
     When I click the "Continue" button
     Then an error message should be displayed as I have not entered a "<formDetail>"
@@ -110,6 +111,7 @@ Feature: Data Input
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
+  @OtherTests
   Scenario: User removes a correspondent
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
@@ -117,6 +119,7 @@ Feature: Data Input
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
+  @OtherTests
   Scenario: User edits an existing correspondent
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
@@ -124,9 +127,11 @@ Feature: Data Input
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
+  @DCUSmokeTests
   Scenario: User creates a MIN case and checks that the stage deadlines are correct
-    And I check that the stage deadline dates for a "MIN" case are correct
+    Then the stage deadline dates for a "MIN" case are correct
 
+  @DCUSmokeTests
   Scenario Outline: User checks that Home Secretary interest decision is properly displayed in summary tab
     And I select "<homeSecInterest>" for Home Secretary interest and complete the data input stage
     And I load the current case

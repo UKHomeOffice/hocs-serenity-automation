@@ -229,7 +229,7 @@ public class DataInputStepDefs extends BasePage {
         dataInputAddCorrespondent.assertPrimaryCorrespondent();
     }
 
-    @And("I check that the stage deadline dates for a {string} case are correct")
+    @And("the stage deadline dates for a {string} case are correct")
     public void checkStageDeadlineDatesCorrect(String caseType) {
         safeClickOn(summaryTab);
         switch (caseType.toUpperCase()) {

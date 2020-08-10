@@ -1,4 +1,4 @@
-@InitialDraft
+@InitialDraft @DCU
 Feature: Initial Draft
 
   Background:
@@ -12,7 +12,7 @@ Feature: Initial Draft
     And I "do not complete" the rejection note
     Then an error message appears instructing me to add rejection reasons
 
-  @SmokeTests
+  @DCUSmokeTests
   Scenario: User responds by Phone and fills out call details to complete the case
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
@@ -32,7 +32,7 @@ Feature: Initial Draft
     And I "do not complete" the call details
     Then I see an error message instructing me to enter call notes
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: A user selects not to offline QA
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
@@ -43,7 +43,7 @@ Feature: Initial Draft
     Then I am returned to my home screen
     And the case should be moved to the "QA RESPONSE" stage
 
-  @DCUWorkflow @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario: User selects offline QA
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
@@ -119,7 +119,7 @@ Feature: Initial Draft
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @SmokeTests
+  @DCUWorkflow @DCUSmokeTests
   Scenario Outline: Case is returned to Markup stage when rejected at Initial Draft stage
     And I create a "<caseType>" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
