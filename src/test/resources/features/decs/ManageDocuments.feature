@@ -28,7 +28,7 @@ Feature: Manage Documents
 
   @DCUSmokeTests
   Scenario Outline: : User can select document type when uploading documents on a DCU case
-    And I click to manage the documents of a new "DCU" case
+    And I click to manage the documents of a new "MIN" case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
