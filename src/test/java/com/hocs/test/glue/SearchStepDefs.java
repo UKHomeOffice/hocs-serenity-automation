@@ -419,6 +419,9 @@ public class SearchStepDefs extends BasePage {
 
     @And("I search for an MPAM case with {string} as it's {string}")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
+        if (search.mpamCaseCheckbox.isVisible()) {
+            safeClickOn(search.mpamCaseCheckbox);
+        }
         switch (infoType.toUpperCase()) {
             case "REFERENCE TYPE":
                 search.searchByRefType(infoValue);

@@ -30,8 +30,8 @@ Feature: Topics
     And I override the "<defaultTeam>" team to "<overrideTeam>"
     Then the case should be found in the "<overrideTeam>" team
     Examples:
-      | caseType | Topic                         | defaultTeam   | overrideTeam                        |
-      | MIN      | Cyber Stalking And Harassment | Initial Draft | Extremism Analysis Unit             |
-      | MIN      | Cyber Stalking And Harassment | Initial Draft | Press Office                        |
-      | MIN      | Cyber Stalking And Harassment | Initial Draft | Finance                             |
-      | MIN      | Cyber Stalking And Harassment | Initial Draft | Criminal & Financial Investigations |
+      | caseType | Topic                         | defaultTeam   | overrideTeam                                             |
+      | MIN      | Cyber Stalking And Harassment | Initial Draft | Extremism Analysis Unit                                  |
+      | MIN      | Cyber Stalking And Harassment | Initial Draft | Press Office                                             |
+      | MIN      | Cyber Stalking And Harassment | Initial Draft | Finance                                                  |
+      | MIN      | Cyber Stalking And Harassment | Initial Draft | Chemical, Biological, Radiological, Nuclear & Explosives |
