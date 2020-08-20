@@ -61,3 +61,9 @@ Feature: Awaiting Dispatch
       | Follow-up Date Required                 |
       | Follow-up Details Required              |
       | Follow-up Not Completed Reason Required |
+
+  @Campaigns
+  Scenario: User moves a case into a Campaign from the Awaiting Dispatch stage
+    When I move the case into a Campaign from the "Awaiting Dispatch" stage
+    And I load the current case
+    Then the case is added to the correct Campaign

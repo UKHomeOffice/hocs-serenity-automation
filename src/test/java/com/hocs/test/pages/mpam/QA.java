@@ -1,14 +1,18 @@
 package com.hocs.test.pages.mpam;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QA extends BasePage {
+
+    Homepage homepage;
 
     //QA Elements
     @FindBy(xpath = "//label[text()='Approve']")
@@ -64,6 +68,12 @@ public class QA extends BasePage {
     @FindBy(id = "CaseNote_QaClose")
     public WebElementFacade closureReasonTextArea;
 
+    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
+    public WebElementFacade putCaseIntoCampaignRadioButton;
+
+    @FindBy(xpath = "//div[@id='CampaignType']//input")
+    public WebElementFacade campaignSelectionTypeahead;
+
     //QA Actions
     public void moveCaseFromQAToNextStage() {
         safeClickOn(approvedAtQARadioButton);
@@ -100,6 +110,16 @@ public class QA extends BasePage {
         typeInto(triageRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void moveCaseFromAQAStageToCampaign() {
+        safeClickOn(putCaseIntoCampaignRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(campaignSelectionTypeahead);
+        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
+        setSessionVariable("campaign").to("Test Campaign 1");
+        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
+        safeClickOn(confirmButton);
     }
 
     //QA (Escalated) Actions

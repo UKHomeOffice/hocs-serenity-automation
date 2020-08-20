@@ -11,6 +11,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class DispatchStages extends BasePage {
 
@@ -99,6 +100,12 @@ public class DispatchStages extends BasePage {
 
     @FindBy(id = "CaseNote_DispatchFollowUpRequest")
     public WebElementFacade followUpDetailsTextArea;
+
+    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
+    public WebElementFacade putCaseIntoCampaignRadioButton;
+
+    @FindBy(xpath = "//div[@id='CampaignType']//input")
+    public WebElementFacade campaignSelectionTypeahead;
 
     public void dispatchedDateInput(int dd, int mm, int yyyy) {
         String day = Integer.toString(dd);
@@ -207,6 +214,16 @@ public class DispatchStages extends BasePage {
             default:
                 pendingStep(message + " is not defined within " + getMethodName());
         }
+    }
+
+    public void moveCaseFromADispatchStageToCampaign() {
+        safeClickOn(putCaseIntoCampaignRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(campaignSelectionTypeahead);
+        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
+        setSessionVariable("campaign").to("Test Campaign 1");
+        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
+        safeClickOn(confirmButton);
     }
 
     public void assertDispatchedDateRequiredErrorMessageDisplayed() {

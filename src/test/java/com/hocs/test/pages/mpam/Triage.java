@@ -1,19 +1,25 @@
 package com.hocs.test.pages.mpam;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.Homepage;
 import java.util.List;
 import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
+
 import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class Triage extends BasePage {
+
+    Homepage homepage;
 
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
@@ -97,6 +103,12 @@ public class Triage extends BasePage {
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
+    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
+    public WebElementFacade putCaseIntoCampaignRadioButton;
+
+    @FindBy(xpath = "//div[@id='CampaignType']//input")
+    public WebElementFacade campaignSelectionTypeahead;
+
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
@@ -147,6 +159,16 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        safeClickOn(confirmButton);
+    }
+
+    public void moveCaseFromTriageStageToCampaign() {
+        safeClickOn(putCaseIntoCampaignRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(campaignSelectionTypeahead);
+        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
+        setSessionVariable("campaign").to("Test Campaign 1");
+        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
         safeClickOn(confirmButton);
     }
 
@@ -210,13 +232,6 @@ public class Triage extends BasePage {
         setSessionVariable("closureReason").to(closureReason);
     }
 
-    public void enterContributionRequestedDeadlineDate(String dd, String mm, String yyyy) {
-        typeInto(requestContributionDeadlineDayTextField, dd);
-        typeInto(requestContributionDeadlineMonthTextField, mm);
-        typeInto(requestContributionDeadlineYearTextField, yyyy);
-        setSessionVariable("requestDeadline").to(dd + "/" + mm + "/" + yyyy);
-    }
-
     public void selectContributionRequested() {
         safeClickOn(setEnquiryHypertext);
         selectEnquirySubject("Person Specific");
@@ -224,6 +239,13 @@ public class Triage extends BasePage {
         setBusinessUnit();
         safeClickOn(requestedContributionRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void enterContributionRequestedDeadlineDate(String dd, String mm, String yyyy) {
+        typeInto(requestContributionDeadlineDayTextField, dd);
+        typeInto(requestContributionDeadlineMonthTextField, mm);
+        typeInto(requestContributionDeadlineYearTextField, yyyy);
+        setSessionVariable("requestDeadline").to(dd + "/" + mm + "/" + yyyy);
     }
 
     public void enterRequestDescription(String requestDescription) {

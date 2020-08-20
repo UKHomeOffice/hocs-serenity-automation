@@ -89,3 +89,21 @@ Feature: QA
       | Rejected, move back to triage   |
       | Rejected, move back to drafting |
       | Approve                         |
+
+  @Campaigns
+  Scenario: User moves a case into a Campaign from the QA stage
+    When I move the case into a Campaign from the "QA" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+
+  @Campaigns
+  Scenario Outline: User moves cases into Campaigns from the QA sub-stages
+    When I select the "<action>" action at QA
+    And I load the current case
+    And I move the case into a Campaign from the "<qaStage>" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+    Examples:
+    | action                        | qaStage       |
+    | Put On Hold                   | QA-On Hold    |
+    | Escalate To Workflow Manager  | QA-Escalated  |
