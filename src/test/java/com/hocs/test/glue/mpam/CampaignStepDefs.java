@@ -31,13 +31,13 @@ public class CampaignStepDefs extends BasePage {
             case "TRIAGE-ON HOLD":
             case "TRIAGE-ESCALATED":
             case "TRIAGE-CONTRIBUTION REQUESTED":
-                triage.moveCaseFromTriageStageToCampaign();
+                triage.moveCaseFromATriageStageToCampaign();
                 break;
             case "DRAFT":
             case "DRAFT-ON HOLD":
             case "DRAFT-ESCALATED":
             case "DRAFT-CONTRIBUTION REQUESTED":
-                draft.moveCaseFromDraftStageToCampaign();
+                draft.moveCaseFromADraftStageToCampaign();
                 break;
             case "QA":
             case "QA-ON HOLD":

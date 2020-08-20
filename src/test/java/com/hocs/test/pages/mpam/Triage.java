@@ -162,7 +162,7 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void moveCaseFromTriageStageToCampaign() {
+    public void moveCaseFromATriageStageToCampaign() {
         safeClickOn(putCaseIntoCampaignRadioButton);
         safeClickOn(confirmButton);
         safeClickOn(campaignSelectionTypeahead);

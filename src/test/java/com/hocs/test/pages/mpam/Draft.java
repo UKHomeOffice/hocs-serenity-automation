@@ -174,7 +174,7 @@ public class Draft extends BasePage {
         setSessionVariable("requestDescription").to(requestDescription);
     }
 
-    public void moveCaseFromDraftStageToCampaign() {
+    public void moveCaseFromADraftStageToCampaign() {
         safeClickOn(putCaseIntoCampaignRadioButton);
         safeClickOn(confirmButton);
         safeClickOn(campaignSelectionTypeahead);
