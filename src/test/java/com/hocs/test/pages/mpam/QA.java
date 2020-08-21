@@ -68,12 +68,6 @@ public class QA extends BasePage {
     @FindBy(id = "CaseNote_QaClose")
     public WebElementFacade closureReasonTextArea;
 
-    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
-    public WebElementFacade putCaseIntoCampaignRadioButton;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSelectionTypeahead;
-
     //QA Actions
     public void moveCaseFromQAToNextStage() {
         safeClickOn(approvedAtQARadioButton);
@@ -110,16 +104,6 @@ public class QA extends BasePage {
         typeInto(triageRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
-    }
-
-    public void moveCaseFromAQAStageToCampaign() {
-        safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
-        setSessionVariable("campaign").to("Test Campaign 1");
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
-        safeClickOn(confirmButton);
     }
 
     //QA (Escalated) Actions

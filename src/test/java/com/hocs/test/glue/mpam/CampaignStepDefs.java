@@ -14,14 +14,6 @@ import io.cucumber.java.en.Then;
 
 public class CampaignStepDefs extends BasePage {
 
-    Triage triage;
-
-    Draft draft;
-
-    QA qa;
-
-    DispatchStages dispatchStages;
-
     Campaign campaign;
 
     @And("I move the case into a Campaign from the {string} stage")
@@ -31,22 +23,16 @@ public class CampaignStepDefs extends BasePage {
             case "TRIAGE-ON HOLD":
             case "TRIAGE-ESCALATED":
             case "TRIAGE-CONTRIBUTION REQUESTED":
-                triage.moveCaseFromATriageStageToCampaign();
-                break;
             case "DRAFT":
             case "DRAFT-ON HOLD":
             case "DRAFT-ESCALATED":
             case "DRAFT-CONTRIBUTION REQUESTED":
-                draft.moveCaseFromADraftStageToCampaign();
-                break;
             case "QA":
             case "QA-ON HOLD":
             case "QA-ESCALATED":
-                qa.moveCaseFromAQAStageToCampaign();
-                break;
             case "PRIVATE OFFICE":
             case "AWAITING DISPATCH":
-                dispatchStages.moveCaseFromADispatchStageToCampaign();
+                campaign.moveCaseFromAStageToCampaign();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());

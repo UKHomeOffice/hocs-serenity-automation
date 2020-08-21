@@ -103,12 +103,6 @@ public class Triage extends BasePage {
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
-    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
-    public WebElementFacade putCaseIntoCampaignRadioButton;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSelectionTypeahead;
-
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
@@ -159,16 +153,6 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromATriageStageToCampaign() {
-        safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
-        setSessionVariable("campaign").to("Test Campaign 1");
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
         safeClickOn(confirmButton);
     }
 

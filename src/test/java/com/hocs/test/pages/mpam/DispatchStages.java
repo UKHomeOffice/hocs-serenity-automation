@@ -101,12 +101,6 @@ public class DispatchStages extends BasePage {
     @FindBy(id = "CaseNote_DispatchFollowUpRequest")
     public WebElementFacade followUpDetailsTextArea;
 
-    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
-    public WebElementFacade putCaseIntoCampaignRadioButton;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSelectionTypeahead;
-
     public void dispatchedDateInput(int dd, int mm, int yyyy) {
         String day = Integer.toString(dd);
         String month = Integer.toString(mm);
@@ -214,16 +208,6 @@ public class DispatchStages extends BasePage {
             default:
                 pendingStep(message + " is not defined within " + getMethodName());
         }
-    }
-
-    public void moveCaseFromADispatchStageToCampaign() {
-        safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
-        setSessionVariable("campaign").to("Test Campaign 1");
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
-        safeClickOn(confirmButton);
     }
 
     public void assertDispatchedDateRequiredErrorMessageDisplayed() {

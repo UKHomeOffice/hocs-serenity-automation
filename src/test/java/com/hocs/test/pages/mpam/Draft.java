@@ -85,12 +85,6 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//a[text()='Response channel is required']")
     public WebElementFacade responseChannelRequiredErrorMessage;
 
-    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
-    public WebElementFacade putCaseIntoCampaignRadioButton;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSelectionTypeahead;
-
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
@@ -172,16 +166,6 @@ public class Draft extends BasePage {
     public void enterRequestDescription(String requestDescription) {
         typeInto(requestContributionTextArea, requestDescription);
         setSessionVariable("requestDescription").to(requestDescription);
-    }
-
-    public void moveCaseFromADraftStageToCampaign() {
-        safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
-        setSessionVariable("campaign").to("Test Campaign 1");
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
-        safeClickOn(confirmButton);
     }
 
     public void assertActionsRequiredErrorMessageDisplayed() {
