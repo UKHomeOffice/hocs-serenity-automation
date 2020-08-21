@@ -7,10 +7,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class Draft extends BasePage {
+
+    Homepage homepage;
 
     @FindBy(css = "label[for='ChannelOut-Email']")
     private WebElementFacade responseChannelEmailRadioButton;

@@ -114,3 +114,26 @@ Feature: Drafting
       | Response Channel Required                 |
       | Contribution Request Deadline Required    |
       | Contribution Request Description Required |
+
+  @Campaigns
+  Scenario: User moves case into a Campaign from Draft
+    And I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I move the case into a Campaign from the "Draft" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+
+  @Campaigns
+  Scenario Outline: User moves cases into Campaigns from draft sub-stages
+    And I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I send the Draft case to "<moveTo>"
+    And I load the current case
+    And I move the case into a Campaign from the "<draftStage>" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+    Examples:
+    | moveTo                  | draftStage                    |
+    | On Hold                 | Draft-On Hold                 |
+    | Workflow Manager        | Draft-Escalated               |
+    | Contribution Requested  | Draft-Contribution Requested  |

@@ -65,6 +65,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//h1[@class='govuk-heading-l']")
     protected WebElementFacade pageTitle;
 
+    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
+    public WebElementFacade caseReference;
+
     @FindBy(xpath = "//h1")
     protected WebElementFacade managementUIPageTitle;
 
@@ -279,9 +282,9 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromUnassignedCase() {
-        waitFor(ExpectedConditions.textToBePresentInElement(pageTitle, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
-        setSessionVariable("caseReference").to(pageTitle.getText());
-        return pageTitle.getText();
+        waitFor(ExpectedConditions.textToBePresentInElement(caseReference, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
+        setSessionVariable("caseReference").to(caseReference.getText());
+        return caseReference.getText();
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {

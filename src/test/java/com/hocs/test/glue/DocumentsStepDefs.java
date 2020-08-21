@@ -59,7 +59,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I choose the document type {string}")
     public void iChooseTheDocumentType(String docType) {
-                documents.selectDocumentTypeByText(docType);
+        documents.selectDocumentTypeByText(docType);
     }
 
     @And("I upload a file of type {string}")
@@ -136,7 +136,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I add a {string} document to the case")
     public void iAddADocumentToTheCase(String fileIdentifier) {
         iClickAddDocuments();
-        iChooseTheDocumentType("Draft");
+        iChooseTheDocumentType("Original correspondence");
         iUploadAFileOfType(fileIdentifier);
         iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
     }

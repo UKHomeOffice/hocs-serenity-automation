@@ -112,3 +112,22 @@ Feature: Triage
       | Enquiry Subject Required                  |
       | Contribution Request Deadline Required    |
       | Contribution Request Description Required |
+
+  @Campaigns
+  Scenario: User moves a case into a Campaign from the Triage stage
+    When I move the case into a Campaign from the "Triage" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+
+  @Campaigns
+  Scenario Outline: User moves cases into Campaigns from the Triage sub-stages
+    When I send the Triage case to "<moveTo>"
+    And I load the current case
+    And I move the case into a Campaign from the "<triageStage>" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
+    Examples:
+    | moveTo                  | triageStage                   |
+    | On Hold                 | Triage-On Hold                |
+    | Workflow Manager        | Triage-Escalated              |
+    | Contribution Requested  | Triage-Contribution Requested |
