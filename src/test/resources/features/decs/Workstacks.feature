@@ -132,6 +132,7 @@ Feature: Workstacks
     And I load and claim the current case
     And I move the case into a Campaign from the "Triage" stage
     And I navigate to the "Campaign" workstack and order the "Campaign" column from "<order>"
+    Then the "Campaign" column is ordered from "<order>"
     Examples:
     | order             |
     | Lowest to Highest |
