@@ -97,6 +97,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
     private WebElementFacade followUpDueDate;
 
+    @FindBy(xpath = "//th[text()='Campaign']/following-sibling::td")
+    private WebElementFacade campaign;
+
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
 
@@ -129,6 +132,12 @@ public class SummaryTab extends BasePage {
         boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
         boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
         return areDatesEqual && areDaysEqual;
+    }
+
+    public void assertCampaignMatchesInputInSummaryTab() {
+        String inputCampaign = sessionVariableCalled("campaign");
+        String displayedCampaign = campaign.getText();
+        assertThat(inputCampaign.equals(displayedCampaign), is(true));
     }
 
     public void assertDeadlineDateOfStage(String caseType, String stage) {

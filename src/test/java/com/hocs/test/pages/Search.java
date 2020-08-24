@@ -32,6 +32,9 @@ public class Search extends BasePage {
 
     AccordionDCU accordionDCU;
 
+    @FindBy(xpath = "//h1[text()='Search']")
+    public WebElementFacade searchPageTitle;
+
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
 
@@ -106,6 +109,9 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
     public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;
+
+    @FindBy(xpath = "//div[@id='CampaignType']//input")
+    public WebElementFacade campaignSearchField;
 
     //DCU Methods
 
@@ -266,6 +272,12 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
+    public void searchByCampaign(String campaign) {
+        campaignSearchField.sendKeys(campaign);
+        campaignSearchField.sendKeys(Keys.RETURN);
+        safeClickOn(searchButton);
+    }
+
     //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
@@ -367,6 +379,6 @@ public class Search extends BasePage {
     }
 
     public void waitUntilSearchPageLoaded() {
-        receivedAfterDayTextbox.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        searchPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 }
