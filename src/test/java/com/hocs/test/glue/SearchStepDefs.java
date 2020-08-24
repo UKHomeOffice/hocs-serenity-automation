@@ -425,22 +425,21 @@ public class SearchStepDefs extends BasePage {
         switch (infoType.toUpperCase()) {
             case "REFERENCE TYPE":
                 search.searchByRefType(infoValue);
-                setSessionVariable("infoValue").to(infoValue);
-                safeClickOn(searchButton);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 search.searchByMemberOfParliament(infoValue);
-                setSessionVariable("infoValue").to(infoValue);
-                safeClickOn(searchButton);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 search.searchByCorrespondentRefNumber(infoValue);
-                setSessionVariable("infoValue").to(infoValue);
-                safeClickOn(searchButton);
+                break;
+            case "CAMPAIGN":
+                search.searchByCampaign(infoValue);
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+        setSessionVariable("infoValue").to(infoValue);
+        safeClickOn(searchButton);
     }
 
     @And("I check that the MPAM search results have the correct {string}")
@@ -488,6 +487,18 @@ public class SearchStepDefs extends BasePage {
                 WebElementFacade secondCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
                 secondCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
+            case "CAMPAIGN":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                WebElementFacade firstCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
+                firstCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                safeClickOn(summaryTab);
+                WebElementFacade secondCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
+                secondCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
@@ -513,6 +524,7 @@ public class SearchStepDefs extends BasePage {
                 retest ++;
                 safeClickOn(homepage.searchPage);
                 search.searchByCaseReference(sessionVariableCalled("caseReference"));
+                safeClickOn(searchButton);
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();

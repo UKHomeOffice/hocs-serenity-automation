@@ -119,3 +119,20 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
 
+  @MPAMSmokeTests
+  Scenario: User adds a case to a Campaign and can view the case in the correct workstack
+    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I move the case into a Campaign from the "Triage" stage
+    And I view the MPAM case in the appropriate "Campaign" stage workstack
+    Then the created case should be visible in the workstack
+
+  Scenario Outline: User is able to order the Campaign workstack column
+    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I move the case into a Campaign from the "Triage" stage
+    And I navigate to the "Campaign" workstack and order the "Campaign" column from "<order>"
+    Examples:
+    | order             |
+    | Lowest to Highest |
+    | Highest to Lowest |

@@ -15,7 +15,7 @@ Feature:  Dispatch
   Scenario: User dispatches a case
     And I create a "DTEN" case and move it to the "Dispatch" stage
     And I load and claim the current case
-    When I "Dispatch" the case
+    When I complete the dispatch stage
     Then the case should be closed
 
   @Validation

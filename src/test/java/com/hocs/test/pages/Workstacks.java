@@ -133,6 +133,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//thead/tr[1]/th[text()='Team']")
     public WebElementFacade teamColumnHeader;
 
+    @FindBy(xpath = "//thead/tr[1]/th[text()='Campaign']")
+    public WebElementFacade campaignColumnHeader;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -267,6 +270,9 @@ public class Workstacks extends BasePage {
             case "TEAM":
                 selectedHeader = teamColumnHeader;
                 break;
+            case "CAMPAIGN":
+                selectedHeader = campaignColumnHeader;
+                break;
             default:
                 pendingStep(column + " is not defined within " + getMethodName());
         }
@@ -297,6 +303,11 @@ public class Workstacks extends BasePage {
 
     // Assertions
 
+    public void assertCaseIsInTheCorrectCampaign() {
+        WebElementFacade campaignOfCurrentCase = findBy("//a[text()='" + sessionVariableCalled("caseReference")
+                + "']/../following-sibling::td[4]");
+        assertThat(campaignOfCurrentCase.getText().equals(sessionVariableCalled("campaign")), is(true));
+    }
 
     public void assertCasesAreFilteredByRef(String caseReference) {
         int totalNumberOfCases = getTotalOfCases();
@@ -532,6 +543,7 @@ public class Workstacks extends BasePage {
                 case "REF TYPE":
                 case "BUSINESS AREA":
                 case "TEAM":
+                case "CAMPAIGN":
                     String currentStageOne = cellOne.getText();
                     String currentStageTwo = cellTwo.getText();
                     switch (order.toUpperCase()) {
