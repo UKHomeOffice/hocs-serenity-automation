@@ -98,13 +98,11 @@ public class Draft extends BasePage {
     }
 
     public void escalateCaseToWorkflowManager() {
-        selectResponseChannel("Letter");
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
 
     public void putCaseOnHold() {
-        selectResponseChannel("Letter");
         safeClickOn(putOnHoldRadioButton);
         safeClickOn(confirmButton);
     }
@@ -151,7 +149,6 @@ public class Draft extends BasePage {
     }
 
     public void selectContributionRequested() {
-        selectResponseChannel("Email");
         safeClickOn(contributionRequestedRadioButton);
         safeClickOn(confirmButton);
     }
