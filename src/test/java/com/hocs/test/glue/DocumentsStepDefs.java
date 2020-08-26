@@ -38,13 +38,15 @@ public class DocumentsStepDefs extends BasePage {
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
+            case "SECOND DRAFT":
+                documents.addADraftDocumentAtQAStage();
+                break;
             case "FINAL":
                 documents.addAFinalDocument();
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
         }
-        continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
     }
 
     @And("I click manage documents")

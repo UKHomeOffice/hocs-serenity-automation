@@ -41,4 +41,6 @@ Feature: QA Response
     Scenario: User uploads a new primary draft at QA Response stage
       And I create a "DTEN" case and move it to the "QA RESPONSE" stage
       And I load and claim the current case
-      And I
+      And I select to modify the primary draft
+      And I upload a "different draft" document
+      And I select the other draft document as the primary draft

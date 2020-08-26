@@ -39,6 +39,7 @@ Feature: Initial Draft
     When I select a case "should" be answered by my team
     And I select to reply by "email"
     And I upload a "draft" document
+    And I select the "draft" document as the primary draft
     And I select "no" to QA offline
     Then I am returned to my home screen
     And the case should be moved to the "QA RESPONSE" stage
