@@ -9,7 +9,7 @@ Feature: Escalated
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "<stage> (Escalated)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -34,7 +34,7 @@ Feature: Escalated
     And I load and claim the current case
     When I select the "Escalate to Workflow Manager" action at Triage (Contribution Requested) stage
     Then the case should be moved to the "<stage> (Escalated)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -59,7 +59,7 @@ Feature: Escalated
     And I load and claim the current case
     When I de-escalate the Triage (Escalated) case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -82,7 +82,7 @@ Feature: Escalated
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
     Then the case should be moved to the "<stage> (Escalated)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -107,7 +107,7 @@ Feature: Escalated
     And I load and claim the current case
     When I select the "Escalate to Workflow Manager" action at Draft (Contribution Requested) stage
     Then the case should be moved to the "<stage> (Escalated)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -132,7 +132,7 @@ Feature: Escalated
     And I load and claim the current case
     When I de-escalate the Draft (Escalated) case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -155,7 +155,7 @@ Feature: Escalated
     And I load and claim the current case
     And I select the "Escalate to Workflow Manager" action at QA
     Then the case should be moved to the "<stage> (Escalated)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | QA    |
@@ -180,7 +180,7 @@ Feature: Escalated
     And I load and claim the current case
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | QA    |

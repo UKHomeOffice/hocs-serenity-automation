@@ -9,7 +9,7 @@ Feature: OnHold
     And I load and claim the current case
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "<stage> (On Hold)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -34,7 +34,7 @@ Feature: OnHold
     And I load and claim the current case
     When I take the Triage (On Hold) case off hold
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -57,7 +57,7 @@ Feature: OnHold
     And I load and claim the current case
     When I send the Draft case to "On Hold"
     Then the case should be moved to the "<stage> (On Hold)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -82,7 +82,7 @@ Feature: OnHold
     And I load and claim the current case
     When I take the Draft (On Hold) case off hold
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -105,7 +105,7 @@ Feature: OnHold
     And I load and claim the current case
     And I select the "Put on hold" action at QA
     Then the case should be moved to the "<stage> (On Hold)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | QA    |
@@ -130,7 +130,7 @@ Feature: OnHold
     And I load and claim the current case
     When I select the "Take off hold" action at the QA On Hold stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | QA    |

@@ -71,6 +71,9 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
+    @FindBy(xpath = "//input[@name='BusArea'][@checked]/following-sibling::label")
+    public WebElementFacade selectedBusinessArea;
+
     public void openCaseDetailsAccordion() {
         safeClickOn(caseDetailsAccordionButton);
     }
@@ -255,5 +258,9 @@ public class AccordionMPAM extends BasePage {
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
         assertThat(changeBusinessAreaHypertext.isVisible(), is(isAtThisStage));
+    }
+
+    public void assertCorrectBusinessAreaSelected() {
+        assertThat(selectedBusinessArea.getText().equals(sessionVariableCalled("businessArea")), is(true));
     }
 }

@@ -31,9 +31,16 @@ Feature: Triage
   @OtherTests
   Scenario: User views the Business Units for different Business Areas
     And I select to change the Business Area
-    And I record the current options for Business Area
+    And I record the current options for Business Unit
+    When I select "Windrush" as the new Business Area of the case
+    Then the options for Business Unit should change
+
+  @MPAMSmokeTests
+  Scenario: User changes the Business Area of the case
     When I change the Business Area of the case to "Windrush"
-    Then the options for Business Area should change
+    Then the new Business Area should be selected in the accordion
+    And the case should be in the correct MPAM "Triage" team workstack
+
 
   @MPAMWorkflow @MPAMSmokeTests
   Scenario: User completes the Triage stage
@@ -127,7 +134,7 @@ Feature: Triage
     And I load the current case
     Then the case is added to the correct Campaign
     Examples:
-    | moveTo                  | triageStage                   |
-    | On Hold                 | Triage-On Hold                |
-    | Workflow Manager        | Triage-Escalated              |
-    | Contribution Requested  | Triage-Contribution Requested |
+      | moveTo                 | triageStage                   |
+      | On Hold                | Triage-On Hold                |
+      | Workflow Manager       | Triage-Escalated              |
+      | Contribution Requested | Triage-Contribution Requested |

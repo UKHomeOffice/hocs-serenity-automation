@@ -10,7 +10,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
     Then the case should be moved to the "Campaign" stage
-    And should be in the expected MPAM "Campaign" team workstack
+    And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
       | businessArea | refType       | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -36,7 +36,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Triage-On Hold" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Triage  | Campaign |
@@ -62,7 +62,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Triage-Escalated" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Triage  | Campaign |
@@ -88,7 +88,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Triage-Contribution Requested" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Triage  | Campaign |
@@ -112,7 +112,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
     Then the case should be moved to the "Campaign" stage
-    And should be in the expected MPAM "Campaign" team workstack
+    And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
       | businessArea | refType       | stage |
       | UKVI         | Ministerial   | Draft |
@@ -138,7 +138,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Draft-On Hold" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Draft   | Campaign |
@@ -164,7 +164,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Draft-Escalated" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Draft   | Campaign |
@@ -190,7 +190,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "Draft-Contribution Requested" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | Draft   | Campaign |
@@ -214,7 +214,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
     Then the case should be moved to the "Campaign" stage
-    And should be in the expected MPAM "Campaign" team workstack
+    And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
       | businessArea | refType       | stage |
       | UKVI         | Ministerial   | QA    |
@@ -240,7 +240,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "QA-On Hold" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | QA      | Campaign |
@@ -266,7 +266,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "QA-Escalated" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType       | initial | stage    |
       | UKVI         | Ministerial   | QA      | Campaign |
@@ -290,7 +290,7 @@ Feature: Campaign
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
     Then the case should be moved to the "Campaign" stage
-    And should be in the expected MPAM "Campaign" team workstack
+    And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
       | businessArea | refType       | stage             |
       | UKVI         | Ministerial   | Private Office    |

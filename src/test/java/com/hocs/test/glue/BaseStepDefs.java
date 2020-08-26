@@ -447,8 +447,8 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @And("should be in the expected MPAM {string} team workstack")
-    public void shouldBeInTheExpectedMPAMTeamsWorkstack(String stage) {
+    @And("the case should be in the correct MPAM {string} team workstack")
+    public void theCaseShouldBeInTheCorrectMPAMTeamWorkstack(String stage) {
         summaryTab.assertAllocatedUKVITeam(stage);
     }
 

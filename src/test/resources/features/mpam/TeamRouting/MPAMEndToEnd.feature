@@ -7,7 +7,7 @@ Feature: EndToEnd
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to Triage stage
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -28,7 +28,7 @@ Feature: EndToEnd
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to Draft stage
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -49,7 +49,7 @@ Feature: EndToEnd
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to QA stage
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | QA    |
@@ -70,7 +70,7 @@ Feature: EndToEnd
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to its appropriate dispatch stage
     When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage             |
       | UKVI         | Ministerial   | Private Office    |
