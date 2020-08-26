@@ -127,18 +127,18 @@ public class TriageStepDefs extends BasePage {
         }
     }
 
-    @And("I record the current options for Business Area")
-    public void iRecordTheCurrentOptionsForBusinessArea() {
-        triage.recordCurrentBusinessAreaOptions();
+    @And("I record the current options for Business Unit")
+    public void iRecordTheCurrentOptionsForBusinessUnit() {
+        triage.recordCurrentBusinessUnitOptions();
     }
 
-    @Then("the options for Business Area should change")
-    public void theOptionsForBusinessAreaShouldChange() {
-        triage.assertBusinessAreaOptionsChanged();
+    @Then("the options for Business Unit should change")
+    public void theOptionsForBusinessUnitShouldChange() {
+        triage.assertBusinessUnitOptionsChanged();
     }
 
-    @When("I change the Business Area of the case to {string}")
-    public void iChangeTheBusinessUnitOfTheCase(String businessArea) {
+    @When("I select {string} as the new Business Area of the case")
+    public void iSelectAsTheNewBusinessAreaOfTheCase(String businessArea) {
         creation.selectBusinessArea(businessArea);
     }
 
@@ -179,8 +179,24 @@ public class TriageStepDefs extends BasePage {
 
     @And("I select to change the Business Area")
     public void iSelectToChangeTheBusinessArea() {
-        safeClickOn(accordionMPAM.caseDetailsAccordionButton);
+        accordionMPAM.openCaseDetailsAccordion();
         safeClickOn(triage.changeBusinessAreaLink);
+    }
+
+    @When("I change the Business Area of the case to {string}")
+    public void iChangeTheBusinessAreaOfTheCaseTo(String businessArea) {
+        iSelectToChangeTheBusinessArea();
+        waitABit(500);
+        creation.selectBusinessArea(businessArea);
+        triage.selectSaveChangesAction();
+        triage.setBusinessUnit();
+        clickContinueButton();
+    }
+
+    @Then("the new Business Area should be selected in the accordion")
+    public void theNewBusinessAreaShouldBeSelectedInTheAccordion() {
+        accordionMPAM.openCaseDetailsAccordion();
+        accordionMPAM.assertCorrectBusinessAreaSelected();
     }
 }
 

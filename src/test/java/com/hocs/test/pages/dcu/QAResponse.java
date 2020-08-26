@@ -25,6 +25,9 @@ public class QAResponse extends BasePage {
     @FindBy(css = "label[for='QAResponseDecision-REJECT']")
     public WebElementFacade QARejectRadioButton;
 
+    @FindBy(css = "label[for='QAResponseDecision-MODIFY']")
+    public WebElementFacade QAModifyRadioButton;
+
     @FindBy(id ="CaseNote_QA")
     public WebElementFacade QARejectionNoteField;
 
@@ -38,13 +41,18 @@ public class QAResponse extends BasePage {
     // Basic Methods
 
     public void clickQAResponseAcceptRadioButton() {
-        QAAcceptRadioButton.click();
+        safeClickOn(QAAcceptRadioButton);
         System.out.println("Response accepted");
     }
 
     public void clickQAResponseRejectRadioButton() {
-        QARejectRadioButton.click();
+        safeClickOn(QARejectRadioButton);
         System.out.println("Response rejected");
+    }
+
+    public void clickQAResponseModifyRadioButton() {
+        safeClickOn(QAModifyRadioButton);
+        System.out.println("Modifying Response");
     }
 
     // Multi Step Methods

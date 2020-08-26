@@ -11,6 +11,7 @@ import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 public class InitialDraft extends BasePage {
 
@@ -75,6 +76,9 @@ public class InitialDraft extends BasePage {
 
     @FindBy(id = "OfflineQaUser")
     public WebElementFacade allocateToOfflineQaDropdown;
+
+    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
+    public WebElementFacade primaryDraftDocumentName;
 
     //Basic Methods
 
@@ -249,5 +253,14 @@ public class InitialDraft extends BasePage {
 
     public void assertWhoHasDoneOfflineQAErrorMessage() {
         whoHadDoneTheOfflineQAErrorMessage.shouldContainText("Who has done the Offline QA for this case? is required");
+    }
+
+    public void selectPrimaryDraft(String fileIdentifier) {
+        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        safeClickOn(documentToSelect);
+    }
+
+    public void assertThatPrimaryDraftIs(String fileIdentifier) {
+        primaryDraftDocumentName.shouldContainText(fileIdentifier);
     }
 }
