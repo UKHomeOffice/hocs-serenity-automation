@@ -42,5 +42,8 @@ Feature: QA Response
       And I create a "DTEN" case and move it to the "QA RESPONSE" stage
       And I load and claim the current case
       And I select to modify the primary draft
-      And I upload a "different draft" document
-      And I select the other draft document as the primary draft
+      And I upload a "second draft" document
+      And I select the "second draft" document as the primary draft
+      And I click the "Approve primary draft" button
+      Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
+      And the "second draft" document should be tagged as the primary draft
