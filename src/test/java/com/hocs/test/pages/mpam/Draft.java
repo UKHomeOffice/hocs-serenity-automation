@@ -91,6 +91,9 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//input[@value='Correction']")
     public WebElementFacade correctionTickBox;
 
+    @FindBy(xpath = "//input[@name='RefType'][@checked]")
+    public WebElementFacade selectedRefType;
+
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);

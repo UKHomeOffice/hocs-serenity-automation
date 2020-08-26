@@ -103,6 +103,15 @@ public class Triage extends BasePage {
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
+    @FindBy(xpath = "//a[text()='Change reference type']")
+    public WebElementFacade changeReferenceTypeLink;
+
+    @FindBy(xpath = "//input[@value='Correction']")
+    public WebElementFacade correctionTickBox;
+
+    @FindBy(xpath = "//input[@name='RefType'][@checked]")
+    public WebElementFacade selectedRefType;
+
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
@@ -213,6 +222,10 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
+    public void selectToChangeReferenceType() {
+        safeClickOn(changeReferenceTypeLink);
+    }
+
     public void enterContributionRequestedDeadlineDate(String dd, String mm, String yyyy) {
         typeInto(requestContributionDeadlineDayTextField, dd);
         typeInto(requestContributionDeadlineMonthTextField, mm);
@@ -231,5 +244,13 @@ public class Triage extends BasePage {
 
     public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
         assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {
+        assertThat(pageTitle.getText().contains(ministerialOrOfficial), is(true));
+    }
+
+    public void assertCasesCurrentRefTypeIs(String ministerialOrOfficial) {
+        assertThat(selectedRefType.getValue().toUpperCase().equals(ministerialOrOfficial), is(true));
     }
 }
