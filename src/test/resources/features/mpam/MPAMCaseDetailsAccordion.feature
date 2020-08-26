@@ -96,4 +96,4 @@ Feature: MPAM Case Details Accordion
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
     And I change the reference type of the case to "Convert the Case"
-    Then should be in the expected MPAM "Triage" team workstack
+    Then the case should be in the correct MPAM "Triage" team workstack
