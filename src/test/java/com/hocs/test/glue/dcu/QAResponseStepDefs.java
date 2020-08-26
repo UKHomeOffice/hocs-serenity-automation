@@ -5,6 +5,7 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -38,4 +39,9 @@ public class QAResponseStepDefs extends BasePage {
         qaResponse.assertQAWhatIsYourFeedbackErrorMessage();
     }
 
+    @And("I select to modify the primary draft")
+    public void iSelectToModifyThePrimaryDraft() {
+        qaResponse.clickQAResponseModifyRadioButton();
+        safeClickOn(continueButton);
+    }
 }

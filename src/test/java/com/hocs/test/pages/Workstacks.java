@@ -152,6 +152,11 @@ public class Workstacks extends BasePage {
         safeClickOn(allocateButton);
     }
 
+    public void goToCurrentCaseFromWorkstack() {
+        WebElementFacade caseReference = find(By.xpath("//a[text()='"+ sessionVariableCalled("caseReference")+"']"));
+        safeClickOn(caseReference);
+    }
+
     public void caseDetailsSelectAllocationUserByVisibleText(String allocationUser) {
         safeClickOn(caseDetailsAllocateDropdown);
         caseDetailsAllocateDropdown.selectByVisibleText(allocationUser);

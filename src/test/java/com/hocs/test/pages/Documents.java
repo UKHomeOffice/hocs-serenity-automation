@@ -101,6 +101,16 @@ public class Documents extends BasePage {
         selectDocumentTypeByText("DRAFT");
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
+        setSessionVariable("draft").to("docx");
+    }
+
+    public void addADraftDocumentAtQAStage() {
+        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
+        safeClickOn(addDocumentsButton);
+        selectDocumentTypeByText("DRAFT");
+        uploadDocumentOfType("pdf");
+        safeClickOn(addButton);
+        setSessionVariable("second draft").to("pdf");
     }
 
     public void addAFinalDocument() {
