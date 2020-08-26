@@ -304,6 +304,9 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertAllocatedUKVITeam(String stage) {
+        if(!currentTeam.isVisible()) {
+            selectSummaryTab();
+        }
         String activeTeam = currentTeam.getText();
         switch (stage) {
             case "Private Office":
