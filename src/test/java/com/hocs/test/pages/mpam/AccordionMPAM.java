@@ -71,6 +71,16 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
+    @FindBy(xpath = "//a[text()='Change reference type']")
+    public WebElementFacade changeReferenceTypeLink;
+
+    @FindBy(xpath = "//label[contains(text(), 'Correcting an error')]")
+    public WebElementFacade correctionTickBox;
+
+    @FindBy(xpath = "//input[@value='Save Changes']")
+    public WebElementFacade saveChangesButton;
+
+
     public void openCaseDetailsAccordion() {
         safeClickOn(caseDetailsAccordionButton);
     }
@@ -148,6 +158,23 @@ public class AccordionMPAM extends BasePage {
         businessUnitDropdown.selectByIndex(1);
         safeClickOn(confirmRadioButton);
         safeClickOn(continueButton);
+    }
+
+    public void changeRefTypeConvertingACase() {
+        safeClickOn(changeReferenceTypeLink);
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change correspondence type')]");
+        String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
+        setSessionVariable("refType").to(newRefType);
+        safeClickOn(saveChangesButton);
+    }
+
+    public void changeRefTypeCorrectingAnError() {
+        safeClickOn(changeReferenceTypeLink);
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change correspondence type')]");
+        String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
+        setSessionVariable("refType").to(newRefType);
+        safeClickOn(correctionTickBox);
+        safeClickOn(saveChangesButton);
     }
 
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
@@ -237,6 +264,11 @@ public class AccordionMPAM extends BasePage {
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
+    }
+
+    public void assertRefTypeHasChanged() {
+        WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label");
+        checkedRefType.shouldContainText(sessionVariableCalled("refType"));
     }
 
     public void assertChangeBusinessAreaHyperTextIsAtStage(String stage) {
