@@ -85,6 +85,12 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//a[text()='Response channel is required']")
     public WebElementFacade responseChannelRequiredErrorMessage;
 
+    @FindBy(xpath = "//a[text()='Change reference type']")
+    public WebElementFacade changeReferenceTypeLink;
+
+    @FindBy(xpath = "//input[@value='Correction']")
+    public WebElementFacade correctionTickBox;
+
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
