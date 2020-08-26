@@ -40,9 +40,11 @@ Feature: Initial Draft
     And I select to reply by "email"
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
+    And I click the "continue" button
     And I select "no" to QA offline
     Then I am returned to my home screen
     And the case should be moved to the "QA RESPONSE" stage
+    And the "draft" document should be tagged as the primary draft
 
   @DCUWorkflow @DCUSmokeTests
   Scenario: User selects offline QA
@@ -51,10 +53,13 @@ Feature: Initial Draft
     When I select a case "should" be answered by my team
     And I select to reply by "email"
     And I upload a "draft" document
+    And I select the "draft" document as the primary draft
+    And I click the "continue" button
     And I select "yes" to QA offline
     And I select "AUTOMATION_USER" as the offline QA
     Then I am returned to my home screen
     And the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
+    And the "draft" document should be tagged as the primary draft
 
   @Validation
   Scenario: User must select a radio button when asked whether correspondence can be answered by their team at the Draft stage
