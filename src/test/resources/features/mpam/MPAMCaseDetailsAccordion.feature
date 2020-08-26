@@ -87,13 +87,8 @@ Feature: MPAM Case Details Accordion
     And I load and claim the current case
     And I change the reference type of the case to "<reason>"
     Then the reference type that is displayed is correct
+    And the case should be in the correct MPAM "Triage" team workstack
     Examples:
     | reason            |
     | Convert the Case  |
     | Correct an Error  |
-
-  Scenario: User can change the reference type of a case and check the case is allocated to the correct team
-    And I create a "MPAM" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I change the reference type of the case to "Convert the Case"
-    Then the case should be in the correct MPAM "Triage" team workstack
