@@ -269,9 +269,9 @@ public class AccordionMPAM extends BasePage {
         }
     }
 
-    public void assertRefTypeHasChanged() {
+    public void assertRefTypeHasChanged(String refType) {
         WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label");
-        checkedRefType.shouldContainText(sessionVariableCalled("refType"));
+        checkedRefType.shouldContainText(refType);
     }
 
     public void assertChangeBusinessAreaHyperTextIsAtStage(String stage) {

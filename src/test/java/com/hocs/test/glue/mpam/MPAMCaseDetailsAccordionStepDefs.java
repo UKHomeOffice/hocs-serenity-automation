@@ -117,9 +117,9 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
         }
     }
 
-    @Then("the reference type that is displayed is correct")
-    public void refTypeIsCorrect() {
+    @Then("the reference type that is displayed should be {string}")
+    public void refTypeIsCorrect(String refType) {
         accordionMPAM.openCaseDetailsAccordion();
-        accordionMPAM.assertRefTypeHasChanged();
+        accordionMPAM.assertRefTypeHasChanged(refType);
     }
 }
