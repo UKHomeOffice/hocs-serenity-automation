@@ -41,7 +41,7 @@ Feature: Awaiting Dispatch
   @MPAMWorkflow @MPAMSmokeTests
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
-    When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
+    And I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
     And I load the current case
@@ -49,6 +49,13 @@ Feature: Awaiting Dispatch
     And enter a reason for not completing the follow up action
     Then the case should be closed
     And a follow-up not completed note should be visible showing the entered reason
+
+  @MPAMWorkflow @MPAMSmokeTests
+  Scenario: User selects to return the case to the Draft stage
+    When I select the "Return to Draft" action at Awaiting Dispatch stage
+    And I submit a reason to reject the case back to the Draft stage
+    Then the case should be moved to the "Draft" stage
+    And a rejection note should be visible showing the reason for rejection
 
   @Validation
   Scenario Outline: User triggers error message to be displayed at Awaiting Dispatch stage
