@@ -41,17 +41,17 @@ public class QAResponse extends BasePage {
     // Basic Methods
 
     public void clickQAResponseAcceptRadioButton() {
-        QAAcceptRadioButton.click();
+        safeClickOn(QAAcceptRadioButton);
         System.out.println("Response accepted");
     }
 
     public void clickQAResponseRejectRadioButton() {
-        QARejectRadioButton.click();
+        safeClickOn(QARejectRadioButton);
         System.out.println("Response rejected");
     }
 
     public void clickQAResponseModifyRadioButton() {
-        QAModifyRadioButton.click();
+        safeClickOn(QAModifyRadioButton);
         System.out.println("Modifying Response");
     }
 

@@ -196,4 +196,15 @@ public class InitialDraftStepDefs extends BasePage {
                 pendingStep(teamMember + " is not defined within " + getMethodName());
         }
     }
+
+    @And("I select the {string} document as the primary draft")
+    public void iSelectTheDocumentAsThePrimaryDraft(String document) {
+        initialDraft.selectPrimaryDraft(sessionVariableCalled(document));
+    }
+
+    @And("the {string} document should be tagged as the primary draft")
+    public void theDocumentShouldBeTaggedAsThePrimaryDraft(String document) {
+        workstacks.goToCurrentCaseFromWorkstack();
+        initialDraft.assertThatPrimaryDraftIs(sessionVariableCalled(document));
+    }
 }

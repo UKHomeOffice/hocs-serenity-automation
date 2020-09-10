@@ -58,6 +58,9 @@ public class DispatchStagesStepDefs extends BasePage {
             case "DISPATCHED (FOLLOW-UP)":
                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
                 break;
+            case "RETURN TO DRAFT":
+                safeClickOn(dispatchStages.returnToDraftButton);
+                break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
@@ -144,5 +147,10 @@ public class DispatchStagesStepDefs extends BasePage {
     public void enterAReasonForNotCompletingTheFollowUpAction() {
         dispatchStages.enterReasonForNotCompletingFollowUp("test follow-up not completed reason");
         safeClickOn(dispatchStages.confirmAndCloseCaseButton);
+    }
+
+    @And("I submit a reason to reject the case back to the Draft stage")
+    public void iSubmitAReasonToRejectTheCaseBackToTheDraftStage() {
+        dispatchStages.submitReasonToReturnToDraft("Test return to draft at Awaiting Dispatch");
     }
 }

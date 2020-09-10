@@ -53,6 +53,9 @@ public class DispatchStages extends BasePage {
     @FindBy(xpath = "//label[text()='Dispatched (follow-up)']")
     public WebElementFacade dispatchedFollowUpRadioButton;
 
+    @FindBy(xpath = "//label[text()='Return to Draft']")
+    public WebElementFacade returnToDraftButton;
+
     @FindBy(xpath = "//label[text()='Follow-up completed']")
     public WebElementFacade followUpCompletedRadioButton;
 
@@ -82,6 +85,9 @@ public class DispatchStages extends BasePage {
 
     @FindBy(id = "CaseNote_RejectPfs")
     public WebElementFacade rejectionReasonTextArea;
+
+    @FindBy(id = "CaseNote_DispatchReturnToDraft")
+    public WebElementFacade returnReasonTextArea;
 
     @FindBy(id = "CaseNote_DispatchFollowUpNotCompleted")
     public WebElementFacade followUpNotCompletedReasonTextArea;
@@ -226,6 +232,12 @@ public class DispatchStages extends BasePage {
         typeInto(rejectionReasonTextArea, rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void submitReasonToReturnToDraft(String returnReason) {
+        typeInto(returnReasonTextArea, returnReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("rejectionReason").to(returnReason);
     }
 
     public void assertThatRejectionReasonTextAreaVisible() {

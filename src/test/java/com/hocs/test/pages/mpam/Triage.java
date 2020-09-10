@@ -1,7 +1,5 @@
 package com.hocs.test.pages.mpam;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,7 +10,6 @@ import java.util.List;
 import java.util.ArrayList;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -113,6 +110,7 @@ public class Triage extends BasePage {
     public WebElementFacade selectedRefType;
 
     private List<String> recordedBusinessAreaOptions = new ArrayList<>();
+    private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
         safeClickOn(setEnquiryHypertext);
@@ -181,20 +179,20 @@ public class Triage extends BasePage {
         assertThat(enquiryReasonRequiredErrorMessage.isVisible(), is(true));
     }
 
-    public void recordCurrentBusinessAreaOptions() {
-        List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
-        for (WebElementFacade option: businessAreaDropdownOptions) {
-            recordedBusinessAreaOptions.add(option.getText());
+    public void recordCurrentBusinessUnitOptions() {
+        List<WebElementFacade> businessUnitDropdownOptions = findAll("//select[@id='BusUnit']/option");
+        for (WebElementFacade option: businessUnitDropdownOptions) {
+            recordedBusinessUnitOptions.add(option.getText());
         }
     }
 
-    public void assertBusinessAreaOptionsChanged() {
+    public void assertBusinessUnitOptionsChanged() {
         List<String> currentBusinessAreaOptions = new ArrayList<>();
         List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessAreaDropdownOptions) {
             currentBusinessAreaOptions.add(option.getText());
         }
-        assertThat(checkIfBusinessAreaListsDiffer(currentBusinessAreaOptions, recordedBusinessAreaOptions), is(true));
+        assertThat(checkIfBusinessAreaListsDiffer(currentBusinessAreaOptions, recordedBusinessUnitOptions), is(true));
     }
 
     public boolean checkIfBusinessAreaListsDiffer(List<String> listA, List<String> listB) {
@@ -244,6 +242,10 @@ public class Triage extends BasePage {
 
     public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
         assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
+    }
+
+    public void selectSaveChangesAction() {
+        safeClickOn(saveChangesRadioButton);
     }
 
     public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {

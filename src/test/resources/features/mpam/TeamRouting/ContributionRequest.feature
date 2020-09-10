@@ -9,7 +9,7 @@ Feature: Contribution Request
     And I load and claim the current case
     When I send the Triage case to "Contribution Requested"
     Then the case should be moved to the "<stage> (Contirbution Requested)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -34,7 +34,7 @@ Feature: Contribution Request
     And I load and claim the current case
     When I select the "Contributions received" action at Triage (Contribution Requested) stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
       | UKVI         | Ministerial   | Triage |
@@ -57,7 +57,7 @@ Feature: Contribution Request
     And I load and claim the current case
     When I send the Draft case to "Contribution Requested"
     Then the case should be moved to the "<stage> (Contirbution Requested)" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
@@ -82,7 +82,7 @@ Feature: Contribution Request
     And I load and claim the current case
     When I select the "Contributions received" action at Draft (Contribution Requested) stage
     Then the case should be moved to the "<stage>" stage
-    And should be in the expected MPAM "<stage>" team workstack
+    And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |
       | UKVI         | Ministerial   | Draft |
