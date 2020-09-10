@@ -39,6 +39,16 @@ public class Campaign extends BasePage {
         safeClickOn(confirmButton);
     }
 
+    public void moveCaseFromAStageToSpecificCampaign() {
+        safeClickOn(putCaseIntoCampaignRadioButton);
+        safeClickOn(confirmButton);
+        safeClickOn(campaignSelectionTypeahead);
+        typeInto(campaignSelectionTypeahead, sessionVariableCalled("campaign"));
+        waitABit(500);
+        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
+        safeClickOn(confirmButton);
+    }
+
     public void moveCaseFromCampaignToStage(String stage) {
         switch (stage.toUpperCase()) {
             case "TRIAGE":

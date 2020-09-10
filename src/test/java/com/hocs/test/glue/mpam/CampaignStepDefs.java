@@ -38,6 +38,29 @@ public class CampaignStepDefs extends BasePage {
         }
     }
 
+    @And("I add the case to the new campaign from the {string} stage")
+    public void moveCaseFromStageToSpecificCampaign(String stage) {
+        switch (stage.toUpperCase()) {
+            case "TRIAGE":
+            case "TRIAGE-ON HOLD":
+            case "TRIAGE-ESCALATED":
+            case "TRIAGE-CONTRIBUTION REQUESTED":
+            case "DRAFT":
+            case "DRAFT-ON HOLD":
+            case "DRAFT-ESCALATED":
+            case "DRAFT-CONTRIBUTION REQUESTED":
+            case "QA":
+            case "QA-ON HOLD":
+            case "QA-ESCALATED":
+            case "PRIVATE OFFICE":
+            case "AWAITING DISPATCH":
+                campaign.moveCaseFromAStageToSpecificCampaign();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+    }
+
     @And("I move the case from Campaign to {string}")
     public void moveCaseFromCampaignToStage(String stage) {
         campaign.moveCaseFromCampaignToStage(stage);

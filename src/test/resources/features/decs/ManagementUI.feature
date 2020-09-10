@@ -277,3 +277,28 @@ Feature: ManagementUI
     And I add the user to the "Animals in Science Regulation Unit" team
     And I remove the user from the "Animals in Science Regulation Unit" team
     Then the team should be removed from the users list of teams
+
+  @CampaignManagement
+  Scenario: User is able to add a Campaign through Campaign management
+    Given I navigate to the "Campaign Management" Management page
+    And I add a Campaign with random name and campaign code
+    Then the new Campaign has been added to the list of Campaigns
+
+  @CampaignManagement
+  Scenario: User is able to amend the details of a Campaign through Campaign Management
+    Given I navigate to the "Campaign Management" Management page
+    And I add a Campaign with random name and campaign code
+    And I navigate to the "Campaign Management" Management page
+    And I edit a Campaign name
+    Then the Campaign name should have changed in the list of Campaigns
+
+  @CampaignManagement
+  Scenario: User can add a case to a new Campaign that was added through Campaign management
+    Given I navigate to the "Campaign Management" Management page
+    And I add a Campaign with random name and campaign code
+    And I navigate to "HOCS"
+    And I create a "MPAM" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I add the case to the new campaign from the "Triage" stage
+    And I load the current case
+    Then the case is added to the correct Campaign
