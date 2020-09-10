@@ -101,4 +101,25 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
                 pendingStep(visibleOrNot + " is not defined within " + getMethodName());
         }
     }
+
+    @And("I change the reference type of the case to {string}")
+    public void iChangeReferenceTypeOfCase(String reason) {
+        accordionMPAM.openCaseDetailsAccordion();
+        switch (reason.toUpperCase()) {
+            case "CONVERT THE CASE":
+                accordionMPAM.changeRefTypeConvertingACase();
+                break;
+            case "CORRECT AN ERROR":
+                accordionMPAM.changeRefTypeCorrectingAnError();
+                break;
+            default:
+                pendingStep(reason + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the reference type that is displayed should be {string}")
+    public void refTypeIsCorrect(String refType) {
+        accordionMPAM.openCaseDetailsAccordion();
+        accordionMPAM.assertRefTypeHasChanged(refType);
+    }
 }

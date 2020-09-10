@@ -81,3 +81,14 @@ Feature: MPAM Case Details Accordion
       | errorMessage           |
       | Business Unit required |
       | Actions required       |
+
+  Scenario Outline: User can change the reference type of a case
+    And I create a MPAM case  with "UKVI" as the Business Area and "<initial>" as the Reference Type and move it to the "Triage" stage
+    And I load and claim the current case
+    And I change the reference type of the case to "Convert the Case"
+    Then the reference type that is displayed should be "<final>"
+    And the case should be in the correct MPAM "Triage" team workstack
+    Examples:
+    | initial      |  final       |
+    | Ministerial  |  Official    |
+    | Official     |  Ministerial |
