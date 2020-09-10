@@ -131,10 +131,6 @@ public class Triage extends BasePage {
     }
 
     public void putTriageCaseOnHold() {
-        safeClickOn(setEnquiryHypertext);
-        selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
-        setBusinessUnit();
         safeClickOn(onHoldRadioButton);
         safeClickOn(confirmButton);
     }
@@ -145,10 +141,6 @@ public class Triage extends BasePage {
     }
 
     public void escalateTriageCaseToWorkflowManager() {
-        safeClickOn(setEnquiryHypertext);
-        selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
-        setBusinessUnit();
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
     }
@@ -214,10 +206,6 @@ public class Triage extends BasePage {
     }
 
     public void selectContributionRequested() {
-        safeClickOn(setEnquiryHypertext);
-        selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
-        setBusinessUnit();
         safeClickOn(requestedContributionRadioButton);
         safeClickOn(confirmButton);
     }
