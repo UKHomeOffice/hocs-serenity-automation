@@ -299,6 +299,6 @@ Feature: ManagementUI
     And I navigate to "HOCS"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
-    And I add the case to the new campaign from the "Triage" stage
+    And I add the case to the new campaign
     And I load the current case
     Then the case is added to the correct Campaign
