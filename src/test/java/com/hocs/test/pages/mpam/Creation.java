@@ -2,6 +2,7 @@ package com.hocs.test.pages.mpam;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.AddCorrespondent;
@@ -79,10 +80,14 @@ public class Creation extends BasePage {
     @FindBy(xpath = "//a[contains(@href, '#ChannelIn-error')]")
     public WebElementFacade channelReceivedIsRequiredErrorMessage;
 
+    @FindBy(id = "MinSignOffTeam")
+    public WebElementFacade ministerialSignOffTeamDropdown;
+
 
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
         selectRefType("Ministerial");
+        selectMinisterialSignOffTeam("Test Sign off team 1");
         selectUrgency("Standard");
         selectInboundChannel("Email");
     }
@@ -130,6 +135,13 @@ public class Creation extends BasePage {
         }
         setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
+    }
+
+    public void selectMinisterialSignOffTeam(String signOffTeam) {
+        if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
+            ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
+            setSessionVariable("signOffTeam").to(signOffTeam);
+        }
     }
 
     public void selectUrgency(String urgency) {
@@ -187,6 +199,7 @@ public class Creation extends BasePage {
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(String businessArea, String refType) {
         selectBusinessArea(businessArea);
         selectRefType(refType);
+        selectMinisterialSignOffTeam("Test Sign off team 1");
         selectInboundChannel("Email");
         selectUrgency("Standard");
         clickTheButton("Continue");
@@ -197,9 +210,21 @@ public class Creation extends BasePage {
     public void moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(String urgency, String refType) {
         selectBusinessArea("UKVI");
         selectRefType(refType);
+        selectMinisterialSignOffTeam("Test Sign off team 1");
         selectInboundChannel("Email");
         selectUrgency(urgency);
         clickTheButton("Continue");
+        addCorrespondent.addAPublicCorrespondent();
+        clickTheButton("Move to Triage");
+    }
+
+    public void moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(String signOffTeam) {
+        selectBusinessArea("UKVI");
+        selectRefType("Ministerial");
+        selectMinisterialSignOffTeam(signOffTeam);
+        selectInboundChannel("Email");
+        selectUrgency("Standard");
+        safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Move to Triage");
     }

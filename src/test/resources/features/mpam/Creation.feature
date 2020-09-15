@@ -115,3 +115,13 @@ Feature: Creation
   Scenario: User attempts to progress without adding a correspondent
     And I click the "Continue" button
     Then an error message should be displayed as I must complete all required questions at Creation stage
+
+  Scenario: User can select a Ministerial Sign off team for the case
+    And I select "Test Sign off team 1" as the Ministerial sign off team when completing the creation stage
+    And I load the current case
+    Then the "Creation" accordion in case details should display the correct information for "Ministerial Sign Off Team"
+
+  Scenario: User can select a Ministerial Sign Off team for a case and the selection is visible in a team workstack
+    And I select "Test Sign off team 1" as the Ministerial sign off team when completing the creation stage
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    Then the Minister sign off team is correctly displayed

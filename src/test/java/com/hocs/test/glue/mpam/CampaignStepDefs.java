@@ -38,6 +38,11 @@ public class CampaignStepDefs extends BasePage {
         }
     }
 
+    @And("I add the case to the new campaign")
+    public void moveCaseFromStageToSpecificCampaign() {
+        campaign.moveCaseFromAStageToSpecificCampaign();
+    }
+
     @And("I move the case from Campaign to {string}")
     public void moveCaseFromCampaignToStage(String stage) {
         campaign.moveCaseFromCampaignToStage(stage);

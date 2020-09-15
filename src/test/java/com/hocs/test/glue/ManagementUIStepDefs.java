@@ -6,6 +6,7 @@ import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
+import com.hocs.test.pages.managementUI.ListsManagement;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.dcu.Markup;
@@ -47,6 +48,8 @@ public class ManagementUIStepDefs extends BasePage {
 
     UserManagement userManagement;
 
+    ListsManagement listsManagement;
+
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
@@ -70,6 +73,9 @@ public class ManagementUIStepDefs extends BasePage {
                 break;
             case "USER MANAGEMENT":
                 safeClickOn(dashboard.userManagementHypertext);
+                break;
+            case "CAMPAIGN MANAGEMENT":
+                safeClickOn(dashboard.manageMPAMCampaignsHypertext);
                 break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
@@ -504,5 +510,24 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.assertListContainsCreatedUnit();
     }
 
+    @And("I add a Campaign with random name and campaign code")
+    public void addACampaignWithNameAndCode() {
+        listsManagement.addANewCampaign();
+    }
+
+    @Then("the new Campaign has been added to the list of Campaigns")
+    public void newCampaignHasBeenAddedToListOfCampaigns() {
+        listsManagement.assertCampaignAddedToCampaignTable();
+    }
+
+    @And("I edit a Campaign name")
+    public void editCampaignNameFrom() {
+        listsManagement.amendACampaign();
+    }
+
+    @Then("the Campaign name should have changed in the list of Campaigns")
+    public void campaignNameShouldHaveChangedInTheList() {
+        listsManagement.assertCampaignAddedToCampaignTable();
+    }
 }
 
