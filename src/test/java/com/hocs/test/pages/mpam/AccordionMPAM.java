@@ -32,6 +32,9 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//strong[contains(text(), 'Ministerial response')]/parent::span")
     public WebElementFacade creationAccordionMinisterialResponse;
 
+    @FindBy(xpath = "//strong[contains(text(), 'Ministerial sign off team')]/parent::span")
+    public WebElementFacade creationMinisterialSignOffTeam;
+
     @FindBy(xpath = "//strong[contains(text(), 'Urgency')]/parent::span")
     public WebElementFacade creationAccordionUrgency;
 
@@ -71,6 +74,9 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
+    @FindBy(id = "MinSignOffTeam")
+    public WebElementFacade ministerialSignOffTeamDropdown;
+
     @FindBy(xpath = "//a[text()='Change reference type']")
     public WebElementFacade changeReferenceTypeLink;
 
@@ -79,7 +85,6 @@ public class AccordionMPAM extends BasePage {
 
     @FindBy(xpath = "//input[@value='Save Changes']")
     public WebElementFacade saveChangesButton;
-
 
     @FindBy(xpath = "//input[@name='BusArea'][@checked]/following-sibling::label")
     public WebElementFacade selectedBusinessArea;
@@ -110,6 +115,10 @@ public class AccordionMPAM extends BasePage {
             case "REFERENCE TYPE":
                 String ministerialResponseFullLine = creationAccordionMinisterialResponse.getText();
                 response = ministerialResponseFullLine.split(": ")[1];
+                break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                String ministerialSignOffTeamFullLine = creationMinisterialSignOffTeam.getText();
+                response = ministerialSignOffTeamFullLine.split(": ")[1];
                 break;
             case "URGENCY":
                 String urgencyFullLine = creationAccordionUrgency.getText();
@@ -180,6 +189,10 @@ public class AccordionMPAM extends BasePage {
         safeClickOn(saveChangesButton);
     }
 
+    public void changeMinisterialSignOffTeam(String newSignOffTeam) {
+        ministerialSignOffTeamDropdown.selectByVisibleText(newSignOffTeam);
+    }
+
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
         clickOn(summaryTab);
         WebElementFacade summaryTabTeam = findBy("//th[text()='Team']/following-sibling::td");
@@ -195,6 +208,9 @@ public class AccordionMPAM extends BasePage {
                 break;
             case "REFERENCE TYPE":
                 inputResponse = sessionVariableCalled("refType");
+                break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                inputResponse = sessionVariableCalled("signOffTeam");
                 break;
             case "URGENCY":
                 inputResponse = sessionVariableCalled("urgency");

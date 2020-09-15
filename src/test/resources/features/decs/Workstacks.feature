@@ -55,19 +55,21 @@ Feature: Workstacks
     When I navigate to the "Triage" workstack and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
-      | column        | order             |
-      | Reference     | Lowest to Highest |
-      | Reference     | Highest to Lowest |
-      | Current Stage | Lowest to Highest |
-      | Current Stage | Highest to Lowest |
-      | Owner         | Lowest to Highest |
-      | Owner         | Highest to Lowest |
-      | Deadline      | Lowest to Highest |
-      | Deadline      | Highest to Lowest |
-      | Urgency       | Lowest to Highest |
-      | Urgency       | Highest to Lowest |
-      | Days          | Lowest to Highest |
-      | Days          | Highest to Lowest |
+      | column            | order             |
+      | Reference         | Lowest to Highest |
+      | Reference         | Highest to Lowest |
+      | Current Stage     | Lowest to Highest |
+      | Current Stage     | Highest to Lowest |
+      | Owner             | Lowest to Highest |
+      | Owner             | Highest to Lowest |
+      | Minister Sign Off | Lowest to Highest |
+      | Minister Sign Off | Highest to Lowest |
+      | Deadline          | Lowest to Highest |
+      | Deadline          | Highest to Lowest |
+      | Urgency           | Lowest to Highest |
+      | Urgency           | Highest to Lowest |
+      | Days              | Lowest to Highest |
+      | Days              | Highest to Lowest |
 
   @OtherTests
   Scenario Outline: User is able to order columns in my cases

@@ -136,6 +136,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//thead/tr[1]/th[text()='Campaign']")
     public WebElementFacade campaignColumnHeader;
 
+    @FindBy(xpath = "//thead/tr[1]/th[text()='Minister Sign Off']")
+    public WebElementFacade ministerSignOffHeader;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -277,6 +280,9 @@ public class Workstacks extends BasePage {
                 break;
             case "CAMPAIGN":
                 selectedHeader = campaignColumnHeader;
+                break;
+            case "MINISTER SIGN OFF":
+                selectedHeader = ministerSignOffHeader;
                 break;
             default:
                 pendingStep(column + " is not defined within " + getMethodName());
@@ -549,6 +555,7 @@ public class Workstacks extends BasePage {
                 case "BUSINESS AREA":
                 case "TEAM":
                 case "CAMPAIGN":
+                case "MINISTER SIGN OFF":
                     String currentStageOne = cellOne.getText();
                     String currentStageTwo = cellTwo.getText();
                     switch (order.toUpperCase()) {
@@ -651,5 +658,13 @@ public class Workstacks extends BasePage {
 
     public void assertCaseStageContains(String contents) {
             assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
+    }
+
+    public void assertMinisterSignOffTeam() {
+        String caseRef = sessionVariableCalled("caseReference");
+        String signOffTeam = sessionVariableCalled("signOffTeam");
+        WebElementFacade caseSignOffTeamField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[text()='" + signOffTeam +
+                "']");
+        caseSignOffTeamField.shouldBeVisible();
     }
 }
