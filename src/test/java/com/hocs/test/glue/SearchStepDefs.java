@@ -140,8 +140,8 @@ public class SearchStepDefs extends BasePage {
             case "PERMANENT SECRETARY SIGNOFF TEAM":
                 search.selectSignOffTeam("Permanent Secretary");
                 break;
-            case "CARDIFF UNIVERSITY KITTENS TOPIC":
-                search.enterSearchTopic("Cardiff University Kittens");
+            case "ANIMAL ALTERNATIVES TOPIC":
+                search.enterSearchTopic("Animal alternatives (3Rs)");
                 break;
             default:
                 pendingStep(anotherParameter + " is not defined within " + getMethodName());
@@ -174,7 +174,7 @@ public class SearchStepDefs extends BasePage {
             case "PERMANENT SECRETARY SIGNOFF TEAM":
                 search.assertFirstAndLastSearchResultsMatchSignOffTeam();
                 break;
-            case "CARDIFF UNIVERSITY KITTENS TOPIC":
+            case "ANIMAL ALTERNATIVES TOPIC":
                 search.viewFirstSearchResultCaseSummary();
                 search.assertThatSearchedTopicNameIsShownInCaseSummary();
                 break;

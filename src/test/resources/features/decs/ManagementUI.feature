@@ -167,6 +167,7 @@ Feature: ManagementUI
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
     And I get a case and progress to the point of adding a topic
+    When I add the new child topic
     When I add the topic "NEW CHILD TOPIC"
     Then the topic can be viewed in the case timeline
 

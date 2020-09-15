@@ -117,7 +117,7 @@ public class Markup_AddTopics extends BasePage {
 
     public void enterRealTopic() {
         safeClickOn(topicsTextField);
-        topicsTextField.sendKeys("Cardiff University Kittens");
+        topicsTextField.sendKeys("Animal alternatives (3Rs)");
         hitReturnToSendTopic();
         String topicName = selectedTopicName.getText();
         setSessionVariable("selectedTopicName").to(topicName);

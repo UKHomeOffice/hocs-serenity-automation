@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.options=--tags @DCUSmokeTests,@SmokeTests" />
+              <option value="-Dcucumber.options=--tags '@DCUSmokeTests or @SmokeTests'" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>

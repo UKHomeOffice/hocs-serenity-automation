@@ -16,8 +16,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 public class Triage extends BasePage {
 
-    Homepage homepage;
-
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
 
@@ -100,16 +98,9 @@ public class Triage extends BasePage {
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
-    @FindBy(xpath = "//a[text()='Change reference type']")
-    public WebElementFacade changeReferenceTypeLink;
-
-    @FindBy(xpath = "//input[@value='Correction']")
-    public WebElementFacade correctionTickBox;
-
     @FindBy(xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
-    private List<String> recordedBusinessAreaOptions = new ArrayList<>();
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
@@ -218,10 +209,6 @@ public class Triage extends BasePage {
     public void selectContributionRequested() {
         safeClickOn(requestedContributionRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void selectToChangeReferenceType() {
-        safeClickOn(changeReferenceTypeLink);
     }
 
     public void enterContributionRequestedDeadlineDate(String dd, String mm, String yyyy) {

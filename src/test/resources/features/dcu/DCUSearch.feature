@@ -48,9 +48,9 @@ Feature: DCU Search
 
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters
-    And I create a "MIN" case with "Cardiff University Kittens" as the primary topic
-    And I search by the case type "MIN" and another parameter "Cardiff University Kittens Topic"
-    Then cases that are "MIN" case type that also contain another parameter "Cardiff University Kittens Topic" should be displayed in the results list
+    And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
+    And I search by the case type "MIN" and another parameter "Animal alternatives topic"
+    Then cases that are "MIN" case type that also contain another parameter "Animal alternatives topic" should be displayed in the results list
 
   @SearchByDateReceived @DCUSmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
@@ -89,7 +89,7 @@ Feature: DCU Search
 
   @SearchByTopic @DCUSmokeTests
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
-    And I create a "MIN" case with "Biometrics - general queries" as the primary topic
+    And I create a "MIN" case with "Breeding of research animals" as the primary topic
     And I navigate to the "search" page
     When I search for the topic
     Then the created case should be visible in the search results
@@ -117,9 +117,9 @@ Feature: DCU Search
 
   @SearchBySignOffTeam @DCUSmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
-    And I create a "MIN" case with "Hani Al Sibai" as the primary topic
+    And I create a "MIN" case with "Amnesty on illegal immigrants" as the primary topic
     And I navigate to the "search" page
-    When I search for a "MIN" case by the Sign-off Team "Minister of State for Immigration"
+    When I search for a "MIN" case by the Sign-off Team "Minister for Immigration Compliance and the Courts"
     Then cases with the queried Sign-off Team should be displayed in the results list
 
   @SearchBySignOffMinister @searchByCaseType @OtherTests
@@ -134,10 +134,10 @@ Feature: DCU Search
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
     Examples:
-    |caseType|
-    |MIN     |
-    |DTEN    |
-    |TRO     |
+      | caseType |
+      | MIN      |
+      | DTEN     |
+      | TRO      |
 
   @SearchByHomeSecInterest @DCUSmokeTests
   Scenario: User searches for cases by Home Secretary Interest
