@@ -307,3 +307,17 @@ Feature: Campaign
       | HMPO         | Official      | Awaiting Dispatch |
       | Windrush     | Official      | Awaiting Dispatch |
       | Coronavirus  | Official      | Awaiting Dispatch |
+
+  Scenario Outline: User moves a case out of a Campaign
+    When I create a "MPAM" case and move it to the "<initialStage>" stage
+    And I load and claim the current case
+    And I move the case into a Campaign from the "<initialStage>" stage
+    And I load the current case
+    And I move the case from Campaign to "<finalStage>"
+    And I load the current case
+    Then the case should be moved to the "<finalStage>" stage
+    Examples:
+    | initialStage  | finalStage  |
+    | Triage        | Triage      |
+    | Draft         | Triage      |
+    | Draft         | Draft       |

@@ -255,4 +255,12 @@ public class CreateCaseStepDefs extends BasePage {
         homepage.getAndClaimCurrentCase();
         creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
     }
+
+    @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the Triage stage")
+    public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam) {
+        createCase.createCaseOfType("MPAM");
+        homepage.goHome();
+        homepage.getAndClaimCurrentCase();
+        creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+    }
 }

@@ -1,6 +1,7 @@
 package com.hocs.test.pages;
 
 import com.hocs.test.pages.dcu.AccordionDCU;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -31,6 +33,10 @@ public class Search extends BasePage {
     SummaryTab summaryTab;
 
     AccordionDCU accordionDCU;
+
+    UnallocatedCaseView unallocatedCaseView;
+
+    AccordionMPAM accordionMPAM;
 
     @FindBy(xpath = "//h1[text()='Search']")
     public WebElementFacade searchPageTitle;
@@ -112,6 +118,9 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//div[@id='CampaignType']//input")
     public WebElementFacade campaignSearchField;
+
+    @FindBy(id = "MinSignOffTeam")
+    public WebElementFacade ministerialSignOffDropdown;
 
     //DCU Methods
 
@@ -278,6 +287,12 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
+    public void searchByMinisterialSignOff(String signOff) {
+        ministerialSignOffDropdown.selectByVisibleText(signOff);
+        setSessionVariable("signOffTeam").to(signOff);
+        safeClickOn(searchButton);
+    }
+
     //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
@@ -343,13 +358,6 @@ public class Search extends BasePage {
         assertThat(!activeCases.isEmpty(), is(condition));
     }
 
-    public void assertFirstAndLastSearchResultsMatchSignOffTeam() {
-        getCaseReferenceOfFirstAndLastSearchResults();
-        String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
-        assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
-        assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
-    }
-
     public void assertOnSearchPage() {
         topSearchResultCaseReference.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assertPageTitle("Search Results");
@@ -368,17 +376,52 @@ public class Search extends BasePage {
         }
     }
 
-    public void assertFirstAndLastSearchResultAreHomeSecInterest() {
-        viewFirstSearchResultCaseSummary();
-        assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
-        goHome();
-        safeClickOn(homepage.searchPage);
-        searchForHomeSecretaryInterestCases();
-        viewLastSearchResultCaseSummary();
-        assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
-    }
-
     public void waitUntilSearchPageLoaded() {
         searchPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+    }
+
+    public void assertMinisterialSignOffTeamIsCorrect() {
+        String ministerialSignOffTeam = sessionVariableCalled("signOffTeam");
+        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+            accordionMPAM.openCreationAccordion();
+            accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
+            accordionMPAM.assertInputMatchesCaseDetailsResponse("Ministerial Sign Off Team");
+        }
+        else {
+            accordionMPAM.openCaseDetailsAccordion();
+            String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
+            assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
+        }
+    }
+
+    public void assertFirstAndLastResultOf(String criteria) {
+        switch (criteria.toUpperCase()) {
+            case "HOME SEC INTEREST":
+                viewFirstSearchResultCaseSummary();
+                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                goHome();
+                safeClickOn(homepage.searchPage);
+                searchForHomeSecretaryInterestCases();
+                viewLastSearchResultCaseSummary();
+                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                break;
+            case "SIGN OFF TEAM":
+                getCaseReferenceOfFirstAndLastSearchResults();
+                String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
+                assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
+                assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
+                break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                getCaseReferenceOfFirstAndLastSearchResults();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("firstSearchResultCaseReference"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                assertMinisterialSignOffTeamIsCorrect();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("lastSearchResultCaseReference"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                assertMinisterialSignOffTeamIsCorrect();
+                break;
+        }
     }
 }

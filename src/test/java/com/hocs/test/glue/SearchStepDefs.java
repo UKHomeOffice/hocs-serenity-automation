@@ -172,7 +172,7 @@ public class SearchStepDefs extends BasePage {
 
         switch (anotherParameter.toUpperCase()) {
             case "PERMANENT SECRETARY SIGNOFF TEAM":
-                search.assertFirstAndLastSearchResultsMatchSignOffTeam();
+                search.assertFirstAndLastResultOf("Sign Off Team");
                 break;
             case "ANIMAL ALTERNATIVES TOPIC":
                 search.viewFirstSearchResultCaseSummary();
@@ -435,6 +435,9 @@ public class SearchStepDefs extends BasePage {
             case "CAMPAIGN":
                 search.searchByCampaign(infoValue);
                 break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                search.searchByMinisterialSignOff(infoValue);
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
@@ -499,6 +502,9 @@ public class SearchStepDefs extends BasePage {
                 WebElementFacade secondCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
                 secondCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                search.assertFirstAndLastResultOf(infoType);
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
@@ -547,7 +553,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("the first and last search results are of interest to the Home Secretary")
     public void assertFirstAndLastSearchResultAreHomeSecInterest() {
-        search.assertFirstAndLastSearchResultAreHomeSecInterest();
+        search.assertFirstAndLastResultOf("Home Sec Interest");
     }
 }
 

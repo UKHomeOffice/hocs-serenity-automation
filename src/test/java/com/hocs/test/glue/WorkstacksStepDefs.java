@@ -315,4 +315,9 @@ public class WorkstacksStepDefs extends BasePage {
         homepage.selectCorrectMPAMTeamByStage(stage);
         workstacks.assertCaseStageContains(sessionVariableCalled("dueDate"));
     }
+
+    @Then("the Minister sign off team is correctly displayed")
+    public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
+        workstacks.assertMinisterSignOffTeam();
+    }
 }

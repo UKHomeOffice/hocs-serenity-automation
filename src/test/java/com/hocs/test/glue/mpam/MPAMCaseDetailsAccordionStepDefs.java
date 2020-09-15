@@ -64,6 +64,14 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
         accordionMPAM.changeBusinessAreaAndUnit(newBusinessArea);
     }
 
+    @And("I change the Ministerial sign off team of the case to {string}")
+    public void changeMinisterialSignOffTeamOfCase(String newSignOffTeam) {
+        if (!accordionMPAM.ministerialSignOffTeamDropdown.isVisible()) {
+            accordionMPAM.openCaseDetailsAccordion();
+        }
+        accordionMPAM.changeMinisterialSignOffTeam(newSignOffTeam);
+    }
+
     @Then("the case should have changed to the {string} business area")
     public void assertBusinessAreaChange(String businessArea) {
         accordionMPAM.assertBusinessAreaHasChanged(businessArea);

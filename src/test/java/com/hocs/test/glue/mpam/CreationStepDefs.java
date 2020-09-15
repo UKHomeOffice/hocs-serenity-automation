@@ -67,4 +67,9 @@ public class CreationStepDefs extends BasePage {
         creation.selectUrgency(urgency);
         creation.selectRefType(refType);
     }
+
+    @And("I select {string} as the Ministerial sign off team when completing the creation stage")
+    public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
+        creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+    }
 }
