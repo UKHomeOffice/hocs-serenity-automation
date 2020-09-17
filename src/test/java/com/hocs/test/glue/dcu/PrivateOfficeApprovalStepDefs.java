@@ -29,7 +29,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         switch(caseType.toUpperCase()) {
             case "MIN" :
             case "DTEN":
-                if (homepage.myCases.isVisible()) {
+                if (!privateOfficeApproval.privateOfficeAcceptRadioButton.isVisible()) {
                     homepage.getCurrentCase();
                     safeClickOn(workstacks.allocateToMeButton);
                 }

@@ -33,7 +33,7 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
-        if (homepage.myCases.isVisible()) {
+        if (!markup.policyResponseRadioButton.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }

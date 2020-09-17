@@ -158,7 +158,7 @@ public class Homepage extends BasePage {
     }
 
     public void assertCaseIsClosedViaLoadCase() {
-        caseReferenceSearchBar.clear();
+        caseReferenceSearchBar.waitUntilVisible().clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);

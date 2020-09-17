@@ -16,7 +16,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     Homepage homepage;
 
-    MinisterialSignOff minister;
+    MinisterialSignOff ministerialSignOff;
 
     Workstacks workstacks;
 
@@ -25,12 +25,12 @@ public class MinisterialSignOffStepDefs extends BasePage {
         String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN" :
-                if (homepage.myCases.isVisible()) {
+                if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
                     homepage.getCurrentCase();
                     safeClickOn(workstacks.allocateToMeButton);
                 }
-                safeClickOn(minister.ministerSignOffAcceptRadioButton);
-                safeClickOn(minister.continueButton);
+                safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
+                safeClickOn(ministerialSignOff.continueButton);
                 break;
             case "TRO" :
             case "DTEN" :
@@ -42,12 +42,12 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     @Then("an error message should be displayed as I have not selected a radio button on the approve response screen")
     public void assertThatApproveResponseErrorMessageIsShown() {
-        minister.assertDoYouApproveTheResponseErrorMessage();
+        ministerialSignOff.assertDoYouApproveTheResponseErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not entered feedback in the text box")
     public void assertThatFeedbackResponseMinisterSignOffErrorMessageIsShown() {
-        minister.assertFeedbackResponseMinisterSignOffErrorMessage();
+        ministerialSignOff.assertFeedbackResponseMinisterSignOffErrorMessage();
     }
 
 }

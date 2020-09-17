@@ -5,6 +5,7 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 
+import com.hocs.test.pages.mpam.QA;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,7 +21,7 @@ public class QAResponseStepDefs extends BasePage {
 
     @When("I complete the QA response stage")
     public void completeQAResponseStage() {
-        if (homepage.myCases.isVisible()) {
+        if (!qaResponse.QAAcceptRadioButton.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }
