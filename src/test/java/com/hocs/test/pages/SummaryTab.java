@@ -32,7 +32,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade deadline;
 
     @FindBy(xpath = "//th[text()='Primary topic']/following-sibling::td")
-    private WebElementFacade primaryTopic;
+    public WebElementFacade primaryTopic;
 
     @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
     private WebElementFacade primaryCorrespondent;

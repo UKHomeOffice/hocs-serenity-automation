@@ -20,6 +20,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.describedAs;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
@@ -30,7 +31,7 @@ public class Search extends BasePage {
 
     Homepage homepage;
 
-    SummaryTab summaryTab;
+    SummaryTab summary;
 
     AccordionDCU accordionDCU;
 
@@ -124,33 +125,68 @@ public class Search extends BasePage {
 
     //DCU Methods
 
-    public void enterSearchCorrespondent(String correspondentNameQuery) {
-        safeClickOn(searchCorrespondentTextbox);
-        typeInto(searchCorrespondentTextbox, correspondentNameQuery);
-        setSessionVariable("correspondentNameQuery").to(correspondentNameQuery);
-    }
-
-    public void enterSearchTopic(String topicQuery) {
-        safeClickOn(searchTopicTextbox);
-        typeInto(searchTopicTextbox, topicQuery);
-        setSessionVariable("topicQuery").to(topicQuery);
-    }
-
-    public void selectSignOffTeam(String team) {
-        searchSignOffTeamDropdown.selectByVisibleText(team);
-        setSessionVariable("searchedSignOffTeam").to(team);
-    }
-
-    public void enterReceivedOnOrAfterDate(String dd, String mm, String yyyy) {
-        typeInto(receivedAfterDayTextbox, dd);
-        typeInto(receivedAfterMonthTextbox, mm);
-        typeInto(receivedAfterYearTextbox, yyyy);
-    }
-
-    public void enterReceivedOnOrBeforeDate(String dd, String mm, String yyyy) {
-        typeInto(receivedBeforeDayTextbox, dd);
-        typeInto(receivedBeforeMonthTextbox, mm);
-        typeInto(receivedBeforeYearTextbox, yyyy);
+    public void enterDCUSearchCriteria(String criteria, String value) {
+        String dd;
+        String mm;
+        String yyyy;
+        switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                switch (value.toUpperCase()) {
+                    case "MIN":
+                        safeClickOn(searchMINCheckbox);
+                        break;
+                    case "DTEN":
+                        safeClickOn(searchDTENCheckbox);
+                        break;
+                    case "TRO":
+                        safeClickOn(searchTROCheckbox);
+                        break;
+                    default:
+                        pendingStep(value + " is not defined within " + getMethodName());
+                }
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                dd = value.split("/")[0];
+                mm = value.split("/")[1];
+                yyyy = value.split("/")[2];
+                typeInto(receivedAfterDayTextbox, dd);
+                typeInto(receivedAfterMonthTextbox, mm);
+                typeInto(receivedAfterYearTextbox, yyyy);
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                dd = value.split("/")[0];
+                mm = value.split("/")[1];
+                yyyy = value.split("/")[2];
+                typeInto(receivedBeforeDayTextbox, dd);
+                typeInto(receivedBeforeMonthTextbox, mm);
+                typeInto(receivedBeforeYearTextbox, yyyy);
+                break;
+            case "CORRESPONDENT NAME":
+                safeClickOn(searchCorrespondentTextbox);
+                typeInto(searchCorrespondentTextbox, value);
+                setSessionVariable("correspondentNameQuery").to(value);
+                break;
+            case "TOPIC":
+                safeClickOn(searchTopicTextbox);
+                typeInto(searchTopicTextbox, value);
+                setSessionVariable("topicQuery").to(value);
+                break;
+            case "SIGN OFF TEAM":
+                searchSignOffTeamDropdown.selectByVisibleText(value);
+                setSessionVariable("searchedSignOffTeam").to(value);
+                break;
+            case "ACTIVE CASES ONLY":
+                if (value.toUpperCase().equals("YES")) {
+                    safeClickOn(caseStatusActiveCheckbox);
+                }
+            case "HOME SECRETARY INTEREST":
+                if (value.toUpperCase().equals("YES")) {
+                    safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
+                }
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
     }
 
     public void viewFirstSearchResultCaseSummary() {
@@ -159,7 +195,7 @@ public class Search extends BasePage {
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             safeClickOn(workstacks.allocateToMeButton);
         }
-        summaryTab.selectSummaryTab();
+        summary.selectSummaryTab();
     }
 
     public void viewLastSearchResultCaseSummary() {
@@ -169,7 +205,7 @@ public class Search extends BasePage {
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             safeClickOn(workstacks.allocateToMeButton);
         }
-        summaryTab.selectSummaryTab();
+        summary.selectSummaryTab();
     }
 
     public void viewSummaryOfFirstSearchResultAdvancedPastDataInput() {
@@ -178,7 +214,7 @@ public class Search extends BasePage {
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             safeClickOn(workstacks.allocateToMeButton);
         }
-        summaryTab.selectSummaryTab();
+        summary.selectSummaryTab();
     }
 
     public void getCaseReferenceOfFirstAndLastSearchResults() {
@@ -217,34 +253,67 @@ public class Search extends BasePage {
 
     //MPAM Methods
 
-    public void searchByCaseReference(String caseRef) {
-        typeInto(caseReferenceSearchBox, caseRef);
-    }
-
-    public void searchByRefType(String refType) {
-        switch (refType.toUpperCase()) {
-            case "MINISTERIAL":
-                mpamRefTypeDropdown.selectByIndex(1);
+    public void enterMPAMSearchCriteria(String criteria, String value) {
+        String dd;
+        String mm;
+        String yyyy;
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                typeInto(caseReferenceSearchBox, value);
                 break;
-            case "OFFICIAL":
-                mpamRefTypeDropdown.selectByIndex(2);
+            case "REFERENCE TYPE":
+                switch (value.toUpperCase()) {
+                    case "MINISTERIAL":
+                        mpamRefTypeDropdown.selectByIndex(1);
+                        break;
+                    case "OFFICIAL":
+                        mpamRefTypeDropdown.selectByIndex(2);
+                        break;
+                    default:
+                        pendingStep(value + " is not defined within " + getMethodName());
+                }
                 break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                ministerialSignOffDropdown.selectByVisibleText(value);
+                setSessionVariable("signOffTeam").to(value);
+                break;
+            case "MEMBER OF PARLIAMENT NAME":
+                safeClickOn(memberOfParliamentSearchBox);
+                memberOfParliamentSearchBox.sendKeys(value);
+                waitABit(5000);
+                memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                typeInto(correspondentReferenceNumber, value);
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                dd = value.split("/")[0];
+                mm = value.split("/")[1];
+                yyyy = value.split("/")[2];
+                typeInto(receivedBeforeDayTextbox, dd);
+                typeInto(receivedBeforeMonthTextbox, mm);
+                typeInto(receivedBeforeYearTextbox, yyyy);
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                dd = value.split("/")[0];
+                mm = value.split("/")[1];
+                yyyy = value.split("/")[2];
+                typeInto(receivedAfterDayTextbox, dd);
+                typeInto(receivedAfterMonthTextbox, mm);
+                typeInto(receivedAfterYearTextbox, yyyy);
+                break;
+            case "CAMPAIGN":
+                campaignSearchField.sendKeys(value);
+                campaignSearchField.sendKeys(Keys.RETURN);
+                break;
+            case "ACTIVE CASES ONLY":
+                if (value.toUpperCase().equals("YES")) {
+                    safeClickOn(caseStatusActiveCheckbox);
+                }
             default:
-                pendingStep(refType + " is not defined within " + getMethodName());
+                pendingStep(criteria + " is not defined within " + getMethodName());
         }
     }
-
-    public void searchByMemberOfParliament(String member) {
-        safeClickOn(memberOfParliamentSearchBox);
-        memberOfParliamentSearchBox.sendKeys(member);
-        waitABit(5000);
-        memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
-    }
-
-    public void searchByCorrespondentRefNumber(String refNumber) {
-        typeInto(correspondentReferenceNumber, refNumber);
-    }
-
 
     public void searchBySubstringOfCaseReference() {
         int n = 0;
@@ -276,23 +345,6 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
-    public void searchForHomeSecretaryInterestCases() {
-        safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
-        safeClickOn(searchButton);
-    }
-
-    public void searchByCampaign(String campaign) {
-        campaignSearchField.sendKeys(campaign);
-        campaignSearchField.sendKeys(Keys.RETURN);
-        safeClickOn(searchButton);
-    }
-
-    public void searchByMinisterialSignOff(String signOff) {
-        ministerialSignOffDropdown.selectByVisibleText(signOff);
-        setSessionVariable("signOffTeam").to(signOff);
-        safeClickOn(searchButton);
-    }
-
     //Assertions
 
     public void assertThatMINCaseIsNotVisible() {
@@ -309,12 +361,12 @@ public class Search extends BasePage {
 
     public void assertThatSearchedCorrespondentNameIsShownInCaseSummary() {
         String correspondentName = sessionVariableCalled("correspondentNameQuery").toString().toUpperCase();
-        assertThat(summaryTab.getPrimaryCorrespondent().toUpperCase(), containsString(correspondentName));
+        assertThat(summary.getPrimaryCorrespondent().toUpperCase(), containsString(correspondentName));
     }
 
     public void assertThatSearchedTopicNameIsShownInCaseSummary() {
         String topicNameInSummary = sessionVariableCalled("topicQuery").toString();
-        workstacks.primaryTopicName.shouldContainText(topicNameInSummary);
+        summary.primaryTopic.shouldContainText(topicNameInSummary);
     }
 
     public void assertNoSearchCriteriaErrorMessage() {
@@ -380,7 +432,7 @@ public class Search extends BasePage {
         searchPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 
-    public void assertMinisterialSignOffTeamIsCorrect() {
+    private void assertMinisterialSignOffTeamIsCorrect() {
         String ministerialSignOffTeam = sessionVariableCalled("signOffTeam");
         if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             accordionMPAM.openCreationAccordion();
@@ -398,12 +450,13 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "HOME SEC INTEREST":
                 viewFirstSearchResultCaseSummary();
-                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
                 goHome();
                 safeClickOn(homepage.searchPage);
-                searchForHomeSecretaryInterestCases();
+                enterMPAMSearchCriteria("Home Secretary Interest", "");
+                safeClickOn(searchButton);
                 viewLastSearchResultCaseSummary();
-                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
                 break;
             case "SIGN OFF TEAM":
                 getCaseReferenceOfFirstAndLastSearchResults();

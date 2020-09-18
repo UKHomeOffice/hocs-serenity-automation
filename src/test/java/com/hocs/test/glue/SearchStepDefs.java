@@ -50,13 +50,11 @@ public class SearchStepDefs extends BasePage {
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
         workstacks.waitABit(500);
-
         if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
             workstacks.assertCaseReferenceBeforeAllocation();
         } else {
             workstacks.assertCaseReferenceAfterAllocation();
         }
-
     }
 
     @When("I enter a non-existent case reference")
@@ -80,22 +78,9 @@ public class SearchStepDefs extends BasePage {
         homepage.assertCaseReferenceIsRequiredErrorMessage();
     }
 
-    @When("I search by the case type {string}")
-    public void selectCaseTypeCheckbox(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(search.searchMINCheckbox);
-                break;
-            case "DTEN":
-                safeClickOn(search.searchDTENCheckbox);
-                break;
-            case "TRO":
-                safeClickOn(search.searchTROCheckbox);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        safeClickOn(search.searchButton);
+    @And("I enter {string} into the {string} search criteria for DCU")
+    public void enterIntoTheSearchCriteria(String value, String criteria) {
+        search.enterDCUSearchCriteria(criteria, value);
     }
 
     @Then("only DCU {string} case type results should be displayed in the results list")
@@ -119,74 +104,63 @@ public class SearchStepDefs extends BasePage {
         }
     }
 
-    @When("I search by the case type {string} and another parameter {string}")
-    public void searchByCaseTypeAndAnotherParameter(String caseType, String anotherParameter) {
-        safeClickOn(homepage.searchPage);
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(search.searchMINCheckbox);
+    @Then("the {string} of the search results should be {string}")
+    public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
+        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
+        setSessionVariable("topSearchResult").to(topSearchResult.getText());
+        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
+        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
+        switch (dataType.toUpperCase()) {
+            case "CASE TYPE":
+                switch (dataValue.toUpperCase()) {
+                    case "MIN":
+                        search.assertThatDTENCaseIsNotVisible();
+                        search.assertThatTROCaseIsNotVisible();
+                        break;
+                    case "DTEN":
+                        search.assertThatMINCaseIsNotVisible();
+                        search.assertThatTROCaseIsNotVisible();
+                        break;
+                    case "TRO":
+                        search.assertThatMINCaseIsNotVisible();
+                        search.assertThatDTENCaseIsNotVisible();
+                        break;
+                    default:
+                        pendingStep(dataValue + " is not defined within " + getMethodName());
+                }
                 break;
-            case "DTEN":
-                safeClickOn(search.searchDTENCheckbox);
+            case "RECEIVED ON OR BEFORE DATE":
+                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("Before", dataValue);
                 break;
-            case "TRO":
-                safeClickOn(search.searchTROCheckbox);
+            case "RECEIVED ON OR AFTER DATE":
+                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("After", dataValue);
                 break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-
-        switch (anotherParameter.toUpperCase()) {
-            case "PERMANENT SECRETARY SIGNOFF TEAM":
-                search.selectSignOffTeam("Permanent Secretary");
+            case "CORRESPONDENT NAME":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                safeClickOn(summaryTab);
+                search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
                 break;
-            case "CARDIFF UNIVERSITY KITTENS TOPIC":
-                search.enterSearchTopic("Cardiff University Kittens");
-                break;
-            default:
-                pendingStep(anotherParameter + " is not defined within " + getMethodName());
-        }
-        safeClickOn(search.searchButton);
-    }
-
-    @Then("cases that are {string} case type that also contain another parameter {string} should be displayed in "
-            + "the results "
-            + "list")
-    public void assertThatSearchResultsContainCaseTypeAndAnotherParameter(String caseType, String anotherParameter) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                search.assertThatDTENCaseIsNotVisible();
-                search.assertThatTROCaseIsNotVisible();
-                break;
-            case "DTEN":
-                search.assertThatMINCaseIsNotVisible();
-                search.assertThatTROCaseIsNotVisible();
-                break;
-            case "TRO":
-                search.assertThatMINCaseIsNotVisible();
-                search.assertThatDTENCaseIsNotVisible();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-
-        switch (anotherParameter.toUpperCase()) {
-            case "PERMANENT SECRETARY SIGNOFF TEAM":
-                search.assertFirstAndLastResultOf("Sign Off Team");
-                break;
-            case "CARDIFF UNIVERSITY KITTENS TOPIC":
-                search.viewFirstSearchResultCaseSummary();
+            case "TOPIC":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                search.assertThatSearchedTopicNameIsShownInCaseSummary();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                safeClickOn(summaryTab);
                 search.assertThatSearchedTopicNameIsShownInCaseSummary();
                 break;
-            default:
-                pendingStep(anotherParameter + " is not defined within " + getMethodName());
-        }
-    }
+            case "HOME SEC INTEREST":
+            case "SIGN OFF TEAM":
+            case "MINISTERIAL SIGN OFF TEAM":
+                search.assertFirstAndLastResultOf(dataType);
 
-    @When("I search by the correspondent name {string}")
-    public void enterCorrespondentNameSearchQuery(String correspondentName) {
-        search.enterSearchCorrespondent(correspondentName);
-        safeClickOn(search.searchButton);
+        }
     }
 
     @Then("cases with the queried correspondent name should be displayed in the results list")
@@ -207,18 +181,6 @@ public class SearchStepDefs extends BasePage {
 
     }
 
-    @When("I search for cases received on or after {string}-{string}-{string}")
-    public void iSearchForCasesReceivedOnOrAfter(String dd, String mm, String yyyy) {
-        search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
-        safeClickOn(search.searchButton);
-    }
-
-    @When("I search for cases received on or before {string}-{string}-{string}")
-    public void iSearchForCasesReceivedOnOrBefore(String dd, String mm, String yyyy) {
-        search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
-        safeClickOn(search.searchButton);
-    }
-
     @Then("cases received on or {string} {string} should be displayed")
     public void casesReceivedOnOrShouldBeDisplayed(String beforeOrAfter, String date) {
         search.assertFirstAndLastSearchResultsMatchDateSearchCriteria(beforeOrAfter, date);
@@ -227,13 +189,6 @@ public class SearchStepDefs extends BasePage {
     @Then("{int} cases should be displayed")
     public void casesShouldBeDisplayed(int number) {
         search.assertNumberOfCasesDisplayed(number);
-    }
-
-    @When("I search for the topic")
-    public void iSearchForTheTopic() {
-        waitABit(5000);
-        search.enterSearchTopic(sessionVariableCalled("searchTopic"));
-        safeClickOn(search.searchButton);
     }
 
     @Then("the created case should be visible in the search results")
@@ -246,7 +201,7 @@ public class SearchStepDefs extends BasePage {
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(homepage.searchPage);
-                iSearchForTheTopic();
+                search.enterDCUSearchCriteria("Topic", sessionVariableCalled("searchTopic"));
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -270,26 +225,6 @@ public class SearchStepDefs extends BasePage {
         search.assertClosedCaseVisibleIs(false);
     }
 
-    @When("I search for a {string} case by the Sign-off Team {string}")
-    public void iSearchByTheSignOffTeam(String caseType, String signOffTeam) {
-        search.selectSignOffTeam(signOffTeam);
-        setSessionVariable("signOffTeam").to(signOffTeam);
-        switch (caseType) {
-            case "MIN":
-                safeClickOn(search.searchMINCheckbox);
-                break;
-            case "TRO":
-                safeClickOn(search.searchTROCheckbox);
-                break;
-            case "DTEN":
-                safeClickOn(search.searchDTENCheckbox);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        safeClickOn(search.searchButton);
-    }
-
     @Then("cases with the queried Sign-off Team should be displayed in the results list")
     public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
         int retry = 0;
@@ -301,59 +236,11 @@ public class SearchStepDefs extends BasePage {
                 waitABit(7500);
                 retry++;
                 safeClickOn(homepage.searchPage);
-                iSearchByTheSignOffTeam("MIN", sessionVariableCalled("signOffTeam"));
+                enterIntoTheSearchCriteria("MIN", "Case Type");
+                enterIntoTheSearchCriteria(sessionVariableCalled("signOffTeam"), "Sign Off Team");
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
-    }
-
-    @When("I search for a made up topic")
-    public void iSearchForAMadeUpTopic() {
-        waitABit(2000);
-        search.enterSearchTopic("Made up topic");
-        safeClickOn(search.searchButton);
-    }
-
-    @And("I search for a {string} case received on or before {string}-{string}-{string}")
-    public void iSearchForTheCurrentCaseReceivedBefore(String caseType, String dd, String mm, String yyyy) {
-        setSessionVariable("beforeReceivedCaseType").to(caseType);
-        search.enterReceivedOnOrBeforeDate(dd, mm, yyyy);
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(search.searchMINCheckbox);
-                break;
-            case "TRO":
-                safeClickOn(search.searchTROCheckbox);
-                break;
-            case "DTEN":
-                safeClickOn(search.searchDTENCheckbox);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        waitABit(10000);
-        search.safeClickOn(searchButton);
-    }
-
-    @And("I search for a {string} case received on or after {string}-{string}-{string}")
-    public void iSearchForTheCurrentCaseReceivedAfter(String caseType, String dd, String mm, String yyyy) {
-        setSessionVariable("afterReceivedCaseType").to(caseType);
-        search.enterReceivedOnOrAfterDate(dd, mm, yyyy);
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                safeClickOn(search.searchMINCheckbox);
-                break;
-            case "TRO":
-                safeClickOn(search.searchTROCheckbox);
-                break;
-            case "DTEN":
-                safeClickOn(search.searchDTENCheckbox);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        waitABit(10000);
-        search.safeClickOn(searchButton);
     }
 
     @And("I look for the current case that was received on or before the date searched")
@@ -368,20 +255,8 @@ public class SearchStepDefs extends BasePage {
                 waitABit(7500);
                 retry++;
                 safeClickOn(homepage.searchPage);
-                switch (beforeDateCaseType) {
-                    case "MIN":
-                        safeClickOn(search.searchMINCheckbox);
-                        break;
-                    case "DTEN":
-                        safeClickOn(search.searchDTENCheckbox);
-                        break;
-                    case "TRO":
-                        safeClickOn(search.searchTROCheckbox);
-                        break;
-                    default:
-                        pendingStep(beforeDateCaseType + " is not defined within " + getMethodName());
-                }
-                iSearchForCasesReceivedOnOrBefore("01", "01", "2019");
+                enterIntoTheSearchCriteria(beforeDateCaseType, "Case Type");
+                enterIntoTheSearchCriteria("01/01/2019", "Received On Or Before Date");
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -398,20 +273,8 @@ public class SearchStepDefs extends BasePage {
                 waitABit(10000);
                 retry++;
                 safeClickOn(homepage.searchPage);
-                switch (afterDateCaseType) {
-                    case "MIN":
-                        safeClickOn(search.searchMINCheckbox);
-                        break;
-                    case "DTEN":
-                        safeClickOn(search.searchDTENCheckbox);
-                        break;
-                    case "TRO":
-                        safeClickOn(search.searchTROCheckbox);
-                        break;
-                    default:
-                        pendingStep(afterDateCaseType + " is not defined within " + getMethodName());
-                }
-                iSearchForCasesReceivedOnOrAfter("01", "01", "2019");
+                enterIntoTheSearchCriteria(afterDateCaseType, "Case Type");
+                enterIntoTheSearchCriteria("01/01/2019", "Received On Or After Date");
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -422,25 +285,7 @@ public class SearchStepDefs extends BasePage {
         if (search.mpamCaseCheckbox.isVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
         }
-        switch (infoType.toUpperCase()) {
-            case "REFERENCE TYPE":
-                search.searchByRefType(infoValue);
-                break;
-            case "MEMBER OF PARLIAMENT NAME":
-                search.searchByMemberOfParliament(infoValue);
-                break;
-            case "CORRESPONDENT REFERENCE NUMBER":
-                search.searchByCorrespondentRefNumber(infoValue);
-                break;
-            case "CAMPAIGN":
-                search.searchByCampaign(infoValue);
-                break;
-            case "MINISTERIAL SIGN OFF TEAM":
-                search.searchByMinisterialSignOff(infoValue);
-                break;
-            default:
-                pendingStep(infoType + " is not defined within " + getMethodName());
-        }
+        search.enterMPAMSearchCriteria(infoType, infoValue);
         setSessionVariable("infoValue").to(infoValue);
         safeClickOn(searchButton);
     }
@@ -513,7 +358,7 @@ public class SearchStepDefs extends BasePage {
     @And("I search for a case by it's case reference")
     public void searchForCaseByReference() {
         String caseRef = sessionVariableCalled("caseReference");
-        search.searchByCaseReference(caseRef);
+        searchForMPAMCaseWith(caseRef, "Case Reference");
         safeClickOn(searchButton);
     }
 
@@ -529,7 +374,7 @@ public class SearchStepDefs extends BasePage {
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(homepage.searchPage);
-                search.searchByCaseReference(sessionVariableCalled("caseReference"));
+                searchForMPAMCaseWith(sessionVariableCalled("caseReference"), "Case Reference");
                 safeClickOn(searchButton);
             }
         }
@@ -546,14 +391,8 @@ public class SearchStepDefs extends BasePage {
         search.assertAllDisplayedCaseRefsContainSubstring();
     }
 
-    @And("I search for cases that are of interest to the Home Secretary")
-    public void searchForHomeSecInterestCases() {
-        search.searchForHomeSecretaryInterestCases();
-    }
-
     @Then("the first and last search results are of interest to the Home Secretary")
     public void assertFirstAndLastSearchResultAreHomeSecInterest() {
         search.assertFirstAndLastResultOf("Home Sec Interest");
     }
 }
-
