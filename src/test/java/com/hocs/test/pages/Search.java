@@ -447,7 +447,31 @@ public class Search extends BasePage {
     }
 
     public void assertFirstAndLastResultOf(String criteria) {
+        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
+        setSessionVariable("topSearchResult").to(topSearchResult.getText());
+        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
+        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
         switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT NAME":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                safeClickOn(summaryTab);
+                assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+                break;
+            case "TOPIC":
+                safeClickOn(topSearchResult);
+                safeClickOn(summaryTab);
+                assertThatSearchedTopicNameIsShownInCaseSummary();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                safeClickOn(summaryTab);
+                assertThatSearchedTopicNameIsShownInCaseSummary();
+                break;
             case "HOME SEC INTEREST":
                 viewFirstSearchResultCaseSummary();
                 assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));

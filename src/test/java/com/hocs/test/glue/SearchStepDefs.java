@@ -136,25 +136,7 @@ public class SearchStepDefs extends BasePage {
                 search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("After", dataValue);
                 break;
             case "CORRESPONDENT NAME":
-                safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
-                search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                safeClickOn(summaryTab);
-                search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
-                break;
             case "TOPIC":
-                safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
-                search.assertThatSearchedTopicNameIsShownInCaseSummary();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                safeClickOn(summaryTab);
-                search.assertThatSearchedTopicNameIsShownInCaseSummary();
-                break;
             case "HOME SEC INTEREST":
             case "SIGN OFF TEAM":
             case "MINISTERIAL SIGN OFF TEAM":
