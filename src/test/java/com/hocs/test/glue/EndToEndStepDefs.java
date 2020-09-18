@@ -20,7 +20,6 @@ import com.hocs.test.pages.mpam.QA;
 import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import java.time.Duration;
 
 public class EndToEndStepDefs extends BasePage {
 
