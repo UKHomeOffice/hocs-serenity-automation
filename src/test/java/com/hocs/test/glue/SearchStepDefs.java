@@ -106,10 +106,6 @@ public class SearchStepDefs extends BasePage {
 
     @Then("the {string} of the search results should be {string}")
     public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
-        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
-        setSessionVariable("topSearchResult").to(topSearchResult.getText());
-        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
-        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
         switch (dataType.toUpperCase()) {
             case "CASE TYPE":
                 switch (dataValue.toUpperCase()) {
