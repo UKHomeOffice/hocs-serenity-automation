@@ -53,9 +53,7 @@ public class EndToEndStepDefs extends BasePage {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        if (homepage.myCases.isVisible()) {
-            homepage.getAndClaimCurrentCase();
-        }
+        homepage.getAndClaimCurrentCase();
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":

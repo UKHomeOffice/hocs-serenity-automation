@@ -44,7 +44,7 @@ public class StandardLine extends BasePage {
     public void enterStandardLineTopic() {
         waitABit(500);
         safeClickOn(topicTypeahead);
-        topicTypeahead.sendKeys("Cardiff University Kittens");
+        topicTypeahead.sendKeys("Animal alternatives (3Rs)");
         topicTypeahead.sendKeys(Keys.ENTER);
     }
 

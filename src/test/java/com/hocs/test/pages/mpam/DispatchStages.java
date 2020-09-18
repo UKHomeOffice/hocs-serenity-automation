@@ -59,7 +59,7 @@ public class DispatchStages extends BasePage {
     @FindBy(xpath = "//label[text()='Follow-up completed']")
     public WebElementFacade followUpCompletedRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close Follow-up actioned not completed']")
+    @FindBy(xpath = "//label[text()='Close, follow-up action not completed']")
     public WebElementFacade closeFollowUpNotCompletedRadioButton;
 
     @FindBy(xpath = "//a[text()='Dispatched date is required']")

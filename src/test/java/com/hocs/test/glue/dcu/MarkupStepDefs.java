@@ -33,7 +33,7 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
-        if (homepage.myCases.isVisible()) {
+        if (!markup.policyResponseRadioButton.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }
@@ -54,21 +54,14 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I add the topic {string}")
     public void enterTheTopic(String topic) {
-        switch (topic.toUpperCase()) {
-            case "CARDIFF UNIVERSITY KITTENS":
-                markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(topic);
-                setSessionVariable("topic").to(topic);
-                break;
-            case "EXTREMISTS LEAFLETING THE PUBLIC":
-                markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(topic);
-                break;
-            case "NEW CHILD TOPIC":
-                markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(sessionVariableCalled("newChildTopic").toString());
-                setSessionVariable("topic").to(sessionVariableCalled("newChildTopic").toString());
-                break;
-            default:
-                pendingStep(topic + " is not defined within " + getMethodName());
-        }
+        markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(topic);
+        setSessionVariable("topic").to(topic);
+
+    }
+
+    @When("I add the new child topic")
+    public void iAddTheNewChildTopic() {
+        enterTheTopic(sessionVariableCalled("newChildTopic").toString());
     }
 
     @When("I override the {string} team to {string}")
@@ -76,12 +69,12 @@ public class MarkupStepDefs extends BasePage {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
                 markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE":
                 markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 homepage.getAndClaimCurrentCase();
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
                 qaResponse.qaResponseFullFlow();
@@ -230,7 +223,7 @@ public class MarkupStepDefs extends BasePage {
                 pendingStep(status + " is not defined within " + getMethodName());
         }
         safeClickOn(markup.continueButton);
-        safeClickOn(finishButton);;
+        safeClickOn(finishButton);
     }
 
     @When("I select an initial decision of {string}")
