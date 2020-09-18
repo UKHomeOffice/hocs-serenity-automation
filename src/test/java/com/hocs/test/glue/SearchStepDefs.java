@@ -159,7 +159,9 @@ public class SearchStepDefs extends BasePage {
             case "SIGN OFF TEAM":
             case "MINISTERIAL SIGN OFF TEAM":
                 search.assertFirstAndLastResultOf(dataType);
-
+                break;
+            default:
+                pendingStep(dataType + " is not defined within " + getMethodName());
         }
     }
 

@@ -55,7 +55,8 @@ Feature: DCU Search
     And I enter "MIN" into the "Case Type" search criteria for DCU
     And I enter "Animal alternatives (3Rs)" into the "Topic" search criteria for DCU
     And I click the search button on the search page
-    Then cases that are "MIN" case type that also contain another parameter "Animal alternatives topic" should be displayed in the results list
+    Then the "Case Type" of the search results should be "MIN"
+    And the "Topic" of the search results should be "Animal alternatives (3Rs)"
 
   @SearchByDateReceived @DCUSmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
@@ -90,7 +91,7 @@ Feature: DCU Search
     And I navigate to the "search" page
     When I enter "Nicola Sturgeon" into the "Correspondent Name" search criteria for DCU
     And I click the search button on the search page
-    Then cases with the queried correspondent name should be displayed in the results list
+    Then the "Correspondent Name" of the search results should be "Nicola Sturgeon"
 
   @SearchByCorrespondent @OtherTests
   Scenario: No cases should be displayed in the results list if there are no cases with the specified correspondent name
@@ -147,7 +148,8 @@ Feature: DCU Search
     When I enter "DTEN" into the "Case Type" search criteria for DCU
     And I enter "Permanent Secretary Signoff Team" into the "Sign Off Team" search criteria for DCU
     And I click the search button on the search page
-    Then cases that are "DTEN" case type that also contain another parameter "Permanent Secretary Signoff Team" should be displayed in the results list
+    Then the "Case Type" of the search results should be "DTEN"
+    And the "Sign Off Team" of the search results should be "Permanent Secretary Signoff Team"
 
   @SearchByCaseReferenceNumber @DCUSmokeTests
   Scenario Outline: User searches for DCU cases using a substring of a case reference
@@ -165,4 +167,4 @@ Feature: DCU Search
   Scenario: User searches for cases by Home Secretary Interest
     And I navigate to the "Search" page
     And I enter "Yes" into the "Home Secretary Interest" search criteria for DCU
-    Then the first and last search results are of interest to the Home Secretary
+    Then the "Home Sec Interest" of the search results should be "Yes"

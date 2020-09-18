@@ -453,7 +453,7 @@ public class Search extends BasePage {
                 assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
                 goHome();
                 safeClickOn(homepage.searchPage);
-                enterMPAMSearchCriteria("Home Secretary Interest", "");
+                enterDCUSearchCriteria("Home Secretary Interest", "Yes");
                 safeClickOn(searchButton);
                 viewLastSearchResultCaseSummary();
                 assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
