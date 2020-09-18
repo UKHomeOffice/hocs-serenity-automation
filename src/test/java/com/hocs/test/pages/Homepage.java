@@ -58,7 +58,7 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
     public WebElementFacade animalsInScienceTeam;
 
-    @FindBy(xpath = "//span[text()='Central Drafting Team']")
+    @FindBy(xpath = "//span[text()='Direct Communications Unit Central Drafting Team']")
     public WebElementFacade centralDraftingTeam;
 
     @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
@@ -158,7 +158,7 @@ public class Homepage extends BasePage {
     }
 
     public void assertCaseIsClosedViaLoadCase() {
-        caseReferenceSearchBar.clear();
+        caseReferenceSearchBar.waitUntilVisible().clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
         typeInto(caseReferenceSearchBar, thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);

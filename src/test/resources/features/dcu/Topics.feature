@@ -13,7 +13,7 @@ Feature: Topics
     And the case should be assigned to the "<privateOfficeTeam>" for approval
     Examples:
       | Topic                               | draftingTeam                         | privateOfficeTeam                                                  |
-      | Cardiff University Kittens          | Animals in Science Regulation Unit   | Minister for Lords                                                 |
+      | Animal alternatives (3Rs)           | Animals in Science Regulation Unit   | Minister for Lords                                                 |
       | Cyber Stalking And Harassment       | Public Protection Unit               | Under Secretary of State for Crime, Safeguarding and Vulnerability |
       | Domestic Violence Protection Orders | Public Protection Unit               | Under Secretary of State for Crime, Safeguarding and Vulnerability |
       | Child Sexual Exploitation           | Tackling Exploitation and Abuse Unit | Under Secretary of State for Crime, Safeguarding and Vulnerability |

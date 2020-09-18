@@ -20,7 +20,7 @@ public class DispatchStepDefs extends BasePage {
 
     @When("I complete the dispatch stage")
     public void completeTheDispatchStage() {
-        if (homepage.myCases.isVisible()) {
+        if (!dispatch.dispatchAcceptRadioButton.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }

@@ -16,8 +16,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 public class Triage extends BasePage {
 
-    Homepage homepage;
-
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
 
@@ -99,6 +97,9 @@ public class Triage extends BasePage {
 
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
+
+    @FindBy(xpath = "//input[@name='RefType'][@checked]")
+    public WebElementFacade selectedRefType;
 
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
@@ -232,5 +233,13 @@ public class Triage extends BasePage {
 
     public void selectSaveChangesAction() {
         safeClickOn(saveChangesRadioButton);
+    }
+
+    public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {
+        assertThat(pageTitle.getText().contains(ministerialOrOfficial), is(true));
+    }
+
+    public void assertCasesCurrentRefTypeIs(String ministerialOrOfficial) {
+        assertThat(selectedRefType.getValue().toUpperCase().equals(ministerialOrOfficial), is(true));
     }
 }

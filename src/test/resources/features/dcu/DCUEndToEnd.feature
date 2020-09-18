@@ -1,5 +1,5 @@
 @DCUEndToEnd  @DCU
-Feature: End To End
+Feature: DCU End To End
 
   Background:
     Given I log in to DECS

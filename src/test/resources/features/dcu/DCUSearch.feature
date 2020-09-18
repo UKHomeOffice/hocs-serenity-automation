@@ -51,11 +51,11 @@ Feature: DCU Search
 
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters
-    And I create a "MIN" case with "Cosmetic testing on animals" as the primary topic
+    And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
     And I enter "MIN" into the "Case Type" search criteria for DCU
-    And I enter "Cardiff University Kittens" into the "Topic" search criteria for DCU
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search criteria for DCU
     And I click the search button on the search page
-    Then cases that are "MIN" case type that also contain another parameter "Cardiff University Kittens Topic" should be displayed in the results list
+    Then cases that are "MIN" case type that also contain another parameter "Animal alternatives topic" should be displayed in the results list
 
   @SearchByDateReceived @DCUSmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
@@ -101,7 +101,7 @@ Feature: DCU Search
 
   @SearchByTopic @DCUSmokeTests
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
-    And I create a "MIN" case with "Biometrics - general queries" as the primary topic
+    And I create a "MIN" case with "Breeding of research animals" as the primary topic
     And I navigate to the "search" page
     When I enter "Biometrics - general queries" into the "Topic" search criteria for DCU
     And I click the search button on the search page
@@ -135,10 +135,10 @@ Feature: DCU Search
 
   @SearchBySignOffTeam @DCUSmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
-    And I create a "MIN" case with "Hani Al Sibai" as the primary topic
+    And I create a "MIN" case with "Amnesty on illegal immigrants" as the primary topic
     And I navigate to the "search" page
     When I enter "MIN" into the "Case Type" search criteria for DCU
-    And I enter "Minister of State for Immigration" into the "Sign Off Team" search criteria for DCU
+    And I enter "Minister for Immigration Compliance and the Courts" into the "Sign Off Team" search criteria for DCU
     And I click the search button on the search page
     Then cases with the queried Sign-off Team should be displayed in the results list
 
@@ -156,10 +156,10 @@ Feature: DCU Search
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
     Examples:
-    |caseType|
-    |MIN     |
-    |DTEN    |
-    |TRO     |
+      | caseType |
+      | MIN      |
+      | DTEN     |
+      | TRO      |
 
   @SearchByHomeSecInterest @DCUSmokeTests
   Scenario: User searches for cases by Home Secretary Interest

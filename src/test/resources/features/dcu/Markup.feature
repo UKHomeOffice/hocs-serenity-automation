@@ -76,14 +76,14 @@ Feature: Markup
   Scenario: User selects topic
     When I select an initial decision of "POLICY RESPONSE"
     And I click the "Continue" button
-    And I add the topic "CARDIFF UNIVERSITY KITTENS"
+    And I add the topic "Animal alternatives (3Rs)"
     Then the topic should be added to the case
 
   @OtherTests
   Scenario: User can select a topic for a FAQ response
     When I select an initial decision of "FAQ"
     And I click the "Continue" button
-    And I add the topic "CARDIFF UNIVERSITY KITTENS"
+    And I add the topic "Animal alternatives (3Rs)"
     Then the topic should be added to the case
 
   @Validation

@@ -26,7 +26,7 @@ public class InitialDraftStepDefs extends BasePage {
 
     @When("I complete the Initial Draft stage")
     public void initialDraftFullFlowPerCaseType() {
-        if (homepage.myCases.isVisible()) {
+        if (!initialDraft.answeredByMyTeamYesRadioButton.isVisible()) {
             homepage.getCurrentCase();
             safeClickOn(workstacks.allocateToMeButton);
         }
