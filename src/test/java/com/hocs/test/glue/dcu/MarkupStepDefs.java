@@ -70,13 +70,11 @@ public class MarkupStepDefs extends BasePage {
             case "INITIAL DRAFT":
                 markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
                 safeClickOn(finishButton);
-                ;
                 break;
             case "PRIVATE OFFICE":
                 markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
                 safeClickOn(finishButton);
-                ;
                 homepage.getAndClaimCurrentCase();
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
                 qaResponse.qaResponseFullFlow();
@@ -226,7 +224,6 @@ public class MarkupStepDefs extends BasePage {
         }
         safeClickOn(markup.continueButton);
         safeClickOn(finishButton);
-        ;
     }
 
     @When("I select an initial decision of {string}")
