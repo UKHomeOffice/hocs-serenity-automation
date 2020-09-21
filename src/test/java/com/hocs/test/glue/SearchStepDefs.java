@@ -87,22 +87,7 @@ public class SearchStepDefs extends BasePage {
     public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
         switch (dataType.toUpperCase()) {
             case "CASE TYPE":
-                switch (dataValue.toUpperCase()) {
-                    case "MIN":
-                        search.assertCaseTypeIsNotVisible("DTEN");
-                        search.assertCaseTypeIsNotVisible("TRO");
-                        break;
-                    case "DTEN":
-                        search.assertCaseTypeIsNotVisible("MIN");
-                        search.assertCaseTypeIsNotVisible("TRO");
-                        break;
-                    case "TRO":
-                        search.assertCaseTypeIsNotVisible("MIN");
-                        search.assertCaseTypeIsNotVisible("DTEN");
-                        break;
-                    default:
-                        pendingStep(dataValue + " is not defined within " + getMethodName());
-                }
+                search.assertCaseTypeIsOnlyTypeVisible(dataValue);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("Before", dataValue);

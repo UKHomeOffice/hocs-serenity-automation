@@ -25,7 +25,7 @@ Feature: DCU Search
     And I navigate to the "search" page
     When I enter "<caseType>" into the "Case Type" search criteria for DCU
     And I click the search button on the search page
-    Then only DCU "<caseType>" case type results should be displayed in the results list
+    Then the "Case Type" of the search results should be "<caseType>"
     Examples:
       | caseType |
       | MIN      |

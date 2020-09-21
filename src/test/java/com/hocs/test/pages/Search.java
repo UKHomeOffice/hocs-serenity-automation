@@ -81,15 +81,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
-    @FindBy(xpath = "//a[contains(text(), 'MIN')]")
-    public WebElementFacade searchResultsMINCases;
-
-    @FindBy(xpath = "//a[contains(text(), 'TRO')]")
-    public WebElementFacade searchResultsTROCases;
-
-    @FindBy(xpath = "//a[contains(text(), 'DTEN')]")
-    public WebElementFacade searchResultsDTENCases;
-
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
@@ -347,22 +338,10 @@ public class Search extends BasePage {
 
     //Assertions
 
-    public void assertCaseTypeIsNotVisible(String caseType) {
-        WebElementFacade cases = null;
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                cases = searchResultsMINCases;
-                break;
-            case "DTEN":
-                cases = searchResultsDTENCases;
-                break;
-            case "TRO":
-                cases = searchResultsTROCases;
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        assertThat(isElementDisplayed(cases), is(false));
+    public void assertCaseTypeIsOnlyTypeVisible(String caseType) {
+        List<WebElementFacade> caseList = findAll("//a[contains(text(), '" + caseType + "')]");
+        int numberOfDisplayedCases = workstacks.getTotalOfCases();
+        assertThat(caseList.size() == numberOfDisplayedCases, is(true));
     }
 
     public void assertThatSearchedCorrespondentNameIsShownInCaseSummary() {
