@@ -83,43 +83,22 @@ public class SearchStepDefs extends BasePage {
         search.enterDCUSearchCriteria(criteria, value);
     }
 
-    @Then("only DCU {string} case type results should be displayed in the results list")
-    public void assertThatOnlySelectedCaseTypeResultsAreDisplayed(String caseType) {
-        search.assertOnSearchPage();
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                search.assertThatDTENCaseIsNotVisible();
-                search.assertThatTROCaseIsNotVisible();
-                break;
-            case "DTEN":
-                search.assertThatMINCaseIsNotVisible();
-                search.assertThatTROCaseIsNotVisible();
-                break;
-            case "TRO":
-                search.assertThatMINCaseIsNotVisible();
-                search.assertThatDTENCaseIsNotVisible();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
     @Then("the {string} of the search results should be {string}")
     public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
         switch (dataType.toUpperCase()) {
             case "CASE TYPE":
                 switch (dataValue.toUpperCase()) {
                     case "MIN":
-                        search.assertThatDTENCaseIsNotVisible();
-                        search.assertThatTROCaseIsNotVisible();
+                        search.assertCaseTypeIsNotVisible("DTEN");
+                        search.assertCaseTypeIsNotVisible("TRO");
                         break;
                     case "DTEN":
-                        search.assertThatMINCaseIsNotVisible();
-                        search.assertThatTROCaseIsNotVisible();
+                        search.assertCaseTypeIsNotVisible("MIN");
+                        search.assertCaseTypeIsNotVisible("TRO");
                         break;
                     case "TRO":
-                        search.assertThatMINCaseIsNotVisible();
-                        search.assertThatDTENCaseIsNotVisible();
+                        search.assertCaseTypeIsNotVisible("MIN");
+                        search.assertCaseTypeIsNotVisible("DTEN");
                         break;
                     default:
                         pendingStep(dataValue + " is not defined within " + getMethodName());

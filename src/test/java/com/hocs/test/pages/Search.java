@@ -347,16 +347,22 @@ public class Search extends BasePage {
 
     //Assertions
 
-    public void assertThatMINCaseIsNotVisible() {
-        assertThat(isElementDisplayed(searchResultsMINCases), is(false));
-    }
-
-    public void assertThatDTENCaseIsNotVisible() {
-        assertThat(isElementDisplayed(searchResultsDTENCases), is(false));
-    }
-
-    public void assertThatTROCaseIsNotVisible() {
-        assertThat(isElementDisplayed(searchResultsTROCases), is(false));
+    public void assertCaseTypeIsNotVisible(String caseType) {
+        WebElementFacade cases = null;
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                cases = searchResultsMINCases;
+                break;
+            case "DTEN":
+                cases = searchResultsDTENCases;
+                break;
+            case "TRO":
+                cases = searchResultsTROCases;
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        assertThat(isElementDisplayed(cases), is(false));
     }
 
     public void assertThatSearchedCorrespondentNameIsShownInCaseSummary() {
