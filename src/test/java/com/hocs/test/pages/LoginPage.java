@@ -76,12 +76,23 @@ public class LoginPage extends BasePage {
     public void navigateToManagementUI() {
         String env = System.getProperty("environment");
         String baseUrl = "";
-
         if (env == null) {
             System.out.println("Environment parameter not set. Defaulting to 'QA'");
             baseUrl = Environment.MANAGEMENTUIQA.getEnvironmentURL();
         } else {
-            baseUrl = Environment.MANAGEMENTUIDEV.getEnvironmentURL();
+            switch (env.toUpperCase()) {
+                case "DEV":
+                    baseUrl = Environment.MANAGEMENTUIDEV.getEnvironmentURL();
+                    break;
+                case "QA":
+                    baseUrl = Environment.MANAGEMENTUIQA.getEnvironmentURL();
+                    break;
+                case "DEMO":
+                    baseUrl = Environment.MANAGEMENTUIDEMO.getEnvironmentURL();
+                    break;
+                default:
+                    pendingStep(env + " is not defined within " + getMethodName());
+            }
         }
         getDriver().get(baseUrl);
     }

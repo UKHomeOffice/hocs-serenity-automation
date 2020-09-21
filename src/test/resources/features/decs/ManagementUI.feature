@@ -29,7 +29,7 @@ Feature: ManagementUI
     And I add the user "CAMERON" to the team
     Then the user should be visible in the team list
 
-  @TeamManagement @SmokeTests
+  @TeamManagement @SmokeTests @test
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
@@ -63,7 +63,7 @@ Feature: ManagementUI
     And I click the Add Selected Users button
     Then an error message should be displayed as no users have been selected
 
-  @AddStandardLine @SmokeTests
+  @AddStandardLine @DCUSmokeTests
   Scenario: User can add a new Standard Line
     And I navigate to the "STANDARD LINE" Management page
     When I add a new Standard Line
@@ -161,14 +161,13 @@ Feature: ManagementUI
     Then I am returned to the dashboard screen
     And a success message is displayed
 
-  @AddChildTopic @LinkTopicToTeam @SmokeTests
+  @AddChildTopic @LinkTopicToTeam @DCUSmokeTests
   Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
     And I get a case and progress to the point of adding a topic
     When I add the new child topic
-    When I add the topic "NEW CHILD TOPIC"
     Then the topic can be viewed in the case timeline
 
   @AddChildTopic @Validation
@@ -176,7 +175,7 @@ Feature: ManagementUI
     And I have created a new child topic
     And I navigate to "HOCS"
     And I get a case and progress to the point of adding a topic
-    When I add the topic "NEW CHILD TOPIC"
+    When I add the new child topic
     Then an error message should be displayed as the topic was not recognised as a valid topic
 
   @LinkTopicToTeam @OtherTests
@@ -226,7 +225,7 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team has been selected
 
-  @LinkTopicToTeam @SmokeTests
+  @LinkTopicToTeam @DCUSmokeTests
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
     And I have created a new child topic
     And I have linked teams to the new child topic
@@ -251,27 +250,21 @@ Feature: ManagementUI
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
-  @UserManagement
+  @UserManagement @OtherTests
   Scenario: A user can check the teams a user is in through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "CAMERON_HO" is a member
     Then the teams the user is a part of are displayed
 
-  @UserManagement
+  @UserManagement @SmokeTests
   Scenario: A user can be added to a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "CAMERON_HO" is a member
     And I add the user to the "Animals in Science Regulation Unit" team
-    Then the team should be visible in the users list of teams
-
-  @UserManagement
-  Scenario: The success ribbon should be displayed upon adding a user to a team
-    Given I navigate to the "User Management" Management page
-    And I load the teams of which "CAMERON_HO" is a member
-    And I add the user to the "Animals in Science Regulation Unit" team
     Then the success ribbon should be displayed once the user is added
+    And the team should be visible in the users list of teams
 
-  @UserManagement
+  @UserManagement @SmokeTests
   Scenario: A user can be removed from a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "CAMERON_HO" is a member
@@ -279,13 +272,13 @@ Feature: ManagementUI
     And I remove the user from the "Animals in Science Regulation Unit" team
     Then the team should be removed from the users list of teams
 
-  @CampaignManagement
+  @CampaignManagement @OtherTests
   Scenario: User is able to add a Campaign through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
     Then the new Campaign has been added to the list of Campaigns
 
-  @CampaignManagement
+  @CampaignManagement @MPAMSmokeTests
   Scenario: User is able to amend the details of a Campaign through Campaign Management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
@@ -293,7 +286,7 @@ Feature: ManagementUI
     And I edit a Campaign name
     Then the Campaign name should have changed in the list of Campaigns
 
-  @CampaignManagement
+  @CampaignManagement @MPAMSmokeTests
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
