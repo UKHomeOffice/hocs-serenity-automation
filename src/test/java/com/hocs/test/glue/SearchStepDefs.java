@@ -146,6 +146,7 @@ public class SearchStepDefs extends BasePage {
                 retest ++;
                 safeClickOn(homepage.searchPage);
                 search.enterDCUSearchCriteria("Topic", sessionVariableCalled("searchTopic"));
+                safeClickOn(searchButton);
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();

@@ -52,6 +52,7 @@ Feature: DCU Search
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
+    And I navigate to the "search" page
     And I enter "MIN" into the "Case Type" search criteria for DCU
     And I enter "Animal alternatives (3Rs)" into the "Topic" search criteria for DCU
     And I click the search button on the search page
@@ -104,7 +105,7 @@ Feature: DCU Search
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
     And I create a "MIN" case with "Breeding of research animals" as the primary topic
     And I navigate to the "search" page
-    When I enter "Biometrics - general queries" into the "Topic" search criteria for DCU
+    When I enter "Breeding of research animals" into the "Topic" search criteria for DCU
     And I click the search button on the search page
     Then the created case should be visible in the search results
 
@@ -145,11 +146,12 @@ Feature: DCU Search
 
   @SearchBySignOffMinister @searchByCaseType @OtherTests
   Scenario: User should be able to search by sign off minister and another parameter
-    When I enter "DTEN" into the "Case Type" search criteria for DCU
-    And I enter "Permanent Secretary Signoff Team" into the "Sign Off Team" search criteria for DCU
+    When I navigate to the "search" page
+    And I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Permanent Secretary" into the "Sign Off Team" search criteria for DCU
     And I click the search button on the search page
-    Then the "Case Type" of the search results should be "DTEN"
-    And the "Sign Off Team" of the search results should be "Permanent Secretary Signoff Team"
+    Then the "Case Type" of the search results should be "MIN"
+    And the "Sign Off Team" of the search results should be "Permanent Secretary"
 
   @SearchByCaseReferenceNumber @DCUSmokeTests
   Scenario Outline: User searches for DCU cases using a substring of a case reference
@@ -167,4 +169,5 @@ Feature: DCU Search
   Scenario: User searches for cases by Home Secretary Interest
     And I navigate to the "Search" page
     And I enter "Yes" into the "Home Secretary Interest" search criteria for DCU
+    And I click the search button on the search page
     Then the "Home Sec Interest" of the search results should be "Yes"

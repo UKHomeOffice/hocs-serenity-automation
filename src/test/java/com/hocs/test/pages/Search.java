@@ -1,6 +1,7 @@
 package com.hocs.test.pages;
 
 import com.hocs.test.pages.dcu.AccordionDCU;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.apache.xpath.operations.Bool;
 import org.jruby.RubyBoolean.False;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
@@ -39,6 +41,8 @@ public class Search extends BasePage {
     UnallocatedCaseView unallocatedCaseView;
 
     AccordionMPAM accordionMPAM;
+
+    Markup markup;
 
     @FindBy(xpath = "//h1[text()='Search']")
     public WebElementFacade searchPageTitle;
@@ -240,11 +244,26 @@ public class Search extends BasePage {
     }
 
     public boolean checkSignOffTeam(String caseRef, String signOffTeam) {
+       String checkSignOff;
         goHome();
         homepage.enterCaseReferenceIntoSearchBar(caseRef);
         homepage.hitEnterCaseReferenceSearchBar();
-        safeClickOn(accordionDCU.markupAccordionButton);
-        return (accordionDCU.privateOfficeTeam.getText().contains(signOffTeam));
+        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+            safeClickOn(accordionDCU.markupAccordionButton);
+            checkSignOff = accordionDCU.privateOfficeTeam.getText();
+        } else if (markup.privateOfficeTeamTextField.isVisible()) {
+            checkSignOff = markup.privateOfficeTeamTextField.getText();
+        } else {
+            goHome();
+            safeClickOn(homepage.myCases);
+            workstacks.unallocateSelectedCase(caseRef);
+            goHome();
+            homepage.enterCaseReferenceIntoSearchBar(caseRef);
+            homepage.hitEnterCaseReferenceSearchBar();
+            safeClickOn(accordionDCU.markupAccordionButton);
+            checkSignOff = accordionDCU.privateOfficeTeam.getText();
+        }
+        return checkSignOff.contains(signOffTeam);
     }
 
     //MPAM Methods
@@ -353,16 +372,17 @@ public class Search extends BasePage {
     public void assertCaseTypeIsOnlyTypeVisible(String caseType) {
         List<WebElementFacade> caseList = findAll("//a[contains(text(), '" + caseType + "')]");
         int numberOfDisplayedCases = workstacks.getTotalOfCases();
+        int test = caseList.size();
         assertThat(caseList.size() == numberOfDisplayedCases, is(true));
     }
 
     public void assertThatSearchedCorrespondentNameIsShownInCaseSummary() {
-        String correspondentName = sessionVariableCalled("correspondentNameQuery").toString().toUpperCase();
+        String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
         assertThat(summary.getPrimaryCorrespondent().toUpperCase(), containsString(correspondentName));
     }
 
     public void assertThatSearchedTopicNameIsShownInCaseSummary() {
-        String topicNameInSummary = sessionVariableCalled("topicQuery").toString();
+        String topicNameInSummary = sessionVariableCalled("searchTopic").toString();
         summary.primaryTopic.shouldContainText(topicNameInSummary);
     }
 
@@ -482,8 +502,9 @@ public class Search extends BasePage {
             case "SIGN OFF TEAM":
                 getCaseReferenceOfFirstAndLastSearchResults();
                 String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
-                assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), signOffTeam), is(true));
-                assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), signOffTeam), is(true));
+                assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")),
+                        is(true));
+                assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")), is(true));
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
                 getCaseReferenceOfFirstAndLastSearchResults();
@@ -497,20 +518,5 @@ public class Search extends BasePage {
                 assertMinisterialSignOffTeamIsCorrect();
                 break;
         }
-    }
-
-    public void assertFirstAndLastSearchResultDCU(String criteria) {
-        String summaryTabValue = null;
-        Boolean assertionInput = false;
-        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
-        setSessionVariable("topSearchResult").to(topSearchResult.getText());
-        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
-        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
-        switch (criteria.toUpperCase()) {
-            case "RECEIVED ON OR AFTER DATE":
-                summaryTabValue = summary.correspondenceReceivedDate.getText();
-
-        }
-
     }
 }
