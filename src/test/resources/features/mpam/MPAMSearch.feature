@@ -10,13 +10,13 @@ Feature: MPAM Search
     And I search for an MPAM case with "<infoValue>" as it's "<infoType>"
     Then I check that the MPAM search results have the correct "<infoType>"
     Examples:
-      | infoType                       | infoValue            |
-      | Reference Type                 | Ministerial          |
-      | Reference Type                 | Official             |
-      | Member of Parliament Name      | Boris Johnson        |
+      | infoType                  | infoValue            |
+      | Reference Type            | Ministerial          |
+      | Reference Type            | Official             |
+      | Member of Parliament Name | Boris Johnson        |
 #      | Correspondent Reference Number | TestRefNumber    |
-      | Campaign                       | Test Campaign 1      |
-      | Ministerial Sign Off Team      | Test Sign off team 1 |
+      | Campaign                  | Small boats          |
+      | Ministerial Sign Off Team | Test Sign off team 1 |
 
   @OtherTests
   Scenario: User searches by case reference from the search page

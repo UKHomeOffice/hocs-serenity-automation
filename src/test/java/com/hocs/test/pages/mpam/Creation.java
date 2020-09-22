@@ -126,7 +126,6 @@ public class Creation extends BasePage {
         switch (refType.toUpperCase()) {
             case "MINISTERIAL":
                 safeClickOn(refTypeMRefRadioButton);
-                selectMinisterialSignOffTeam("Test Sign off team 1");
                 break;
             case "OFFICIAL":
                 safeClickOn(refTypeBRefRadioButton);

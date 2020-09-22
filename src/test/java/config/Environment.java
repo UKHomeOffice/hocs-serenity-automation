@@ -7,7 +7,8 @@ public enum Environment {
     DEMO("https://demo.cs-notprod.homeoffice.gov.uk/"),
     QA("https://qa.internal.cs-notprod.homeoffice.gov.uk/"),
     MANAGEMENTUIQA("https://qa-management.internal.cs-notprod.homeoffice.gov.uk"),
-    MANAGEMENTUIDEV("http://dev-management.cs-notprod.homeoffice.gov.uk/");
+    MANAGEMENTUIDEV("http://dev-management.internal.cs-notprod.homeoffice.gov.uk/"),
+    MANAGEMENTUIDEMO("http://demo-management.cs-notprod.homeoffice.gov.uk/");
 
     private final String hostname;
 
