@@ -50,6 +50,9 @@ public class Markup extends BasePage {
     @FindBy(id = "CaseNote_REJ")
     public WebElementFacade rejectToDataInputTextField;
 
+    @FindBy(id = "POTeamName")
+    public WebElementFacade privateOfficeTeamTextField;
+
     //Basic Methods
 
     public void selectFAQRadioButton() {

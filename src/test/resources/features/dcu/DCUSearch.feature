@@ -23,8 +23,9 @@ Feature: DCU Search
   Scenario Outline: User should be able to search for a case by Case Type
     And I create a single "<caseType>" case
     And I navigate to the "search" page
-    When I search by the case type "<caseType>"
-    Then only DCU "<caseType>" case type results should be displayed in the results list
+    When I enter "<caseType>" into the "Case Type" search criteria for DCU
+    And I click the search button on the search page
+    Then the "Case Type" of the search results should be "<caseType>"
     Examples:
       | caseType |
       | MIN      |
@@ -35,7 +36,8 @@ Feature: DCU Search
   Scenario: User should be able to click on the case link when cases are displayed in the results list
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I search by the case type "MIN"
+    When I enter "MIN" into the "Case Type" search criteria for DCU
+    And I click the search button on the search page
     And I click the case reference link of the first case in the results list
     Then I should be taken directly to the case
 
@@ -43,20 +45,27 @@ Feature: DCU Search
   Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by Case Type
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I search by the case type "MIN"
+    When I enter "MIN" into the "Case Type" search criteria for DCU
+    And I click the search button on the search page
     Then the search results should contain the expected information
 
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
-    And I search by the case type "MIN" and another parameter "Animal alternatives topic"
-    Then cases that are "MIN" case type that also contain another parameter "Animal alternatives topic" should be displayed in the results list
+    And I navigate to the "search" page
+    And I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search criteria for DCU
+    And I click the search button on the search page
+    Then the "Case Type" of the search results should be "MIN"
+    And the "Topic" of the search results should be "Animal alternatives (3Rs)"
 
   @SearchByDateReceived @DCUSmokeTests
   Scenario: User should be able to search for cases received on or after a certain date
-    And I create a single "DTEN" case with the correspondence received date as: "01"-"01"-"2019"
+    And I create a single "DTEN" case with the correspondence received date as: "22"-"09"-"2020"
     And I navigate to the "search" page
-    When I search for a "DTEN" case received on or after "01"-"01"-"2019"
+    When I enter "DTEN" into the "Case Type" search criteria for DCU
+    And I enter "22/09/2020" into the "Received On Or After Date" search criteria for DCU
+    And I click the search button on the search page
     And I look for the current case that was received on or after the date searched
 
 
@@ -64,13 +73,16 @@ Feature: DCU Search
   Scenario: User should be able to search for cases received on or before a certain date
     And I create a single "DTEN" case with the correspondence received date as: "01"-"01"-"2019"
     And I navigate to the "search" page
-    When I search for a "DTEN" case received on or before "01"-"01"-"2019"
+    When I enter "DTEN" into the "Case Type" search criteria for DCU
+    And I enter "01/01/2019" into the "Received On Or Before Date" search criteria for DCU
+    And I click the search button on the search page
     And I look for the current case that was received on or before the date searched
 
   @SearchByDateReceived @OtherTests
   Scenario: No cases should be displayed if a user searches for a date range that contains no cases
     And I navigate to the "search" page
-    When I search for cases received on or before "01"-"01"-"1901"
+    When I enter "01/01/1901" into the "Received On Or Before" search criteria for DCU
+    And I click the search button on the search page
     Then 0 cases should be displayed
 
   @SearchByCorrespondent @DCUSmokeTests
@@ -78,26 +90,30 @@ Feature: DCU Search
     And I create a "MIN" case with "Nicola Sturgeon" as the correspondent
     And I load and claim the current case
     And I navigate to the "search" page
-    When I search by the correspondent name "Nicola Sturgeon"
-    Then cases with the queried correspondent name should be displayed in the results list
+    When I enter "Nicola Sturgeon" into the "Correspondent Name" search criteria for DCU
+    And I click the search button on the search page
+    Then the "Correspondent Name" of the search results should be "Nicola Sturgeon"
 
   @SearchByCorrespondent @OtherTests
   Scenario: No cases should be displayed in the results list if there are no cases with the specified correspondent name
     And I navigate to the "search" page
-    When I search by the correspondent name "HUMPTY DUMPTY"
+    When I enter "Humpty Dumpty" into the "Correspondent Name" search criteria for DCU
+    And I click the search button on the search page
     Then 0 cases should be displayed
 
   @SearchByTopic @DCUSmokeTests
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
     And I create a "MIN" case with "Breeding of research animals" as the primary topic
     And I navigate to the "search" page
-    When I search for the topic
+    When I enter "Breeding of research animals" into the "Topic" search criteria for DCU
+    And I click the search button on the search page
     Then the created case should be visible in the search results
 
   @SearchByTopic @OtherTests
   Scenario: No cases should be displayed in the results list if there are no cases with the specified topic
     And I navigate to the "search" page
-    When I search for a made up topic
+    When I enter "Made Up Topic" into the "Topic" search criteria for DCU
+    And I click the search button on the search page
     Then 0 cases should be displayed
 
 
@@ -105,27 +121,37 @@ Feature: DCU Search
   Scenario: Both active and closed cases should be displayed when searching without selecting that the results should only
   include active cases
     And I navigate to the "search" page
-    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
+    When I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Minister for Lords" into the "Sign Off Team" search criteria for DCU
+    And I click the search button on the search page
     Then both active and closed cases will be returned in the search results
 
   @SearchByActiveOnly @DCUSmokeTests
   Scenario: Only active cases should be displayed when the user specifies a search should return active cases only
     And I navigate to the "search" page
     And I select active cases
-    When I search for a "MIN" case by the Sign-off Team "Minister for Lords"
+    When I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Minister for Lords" into the "Sign Off Team" search criteria for DCU
+    And I click the search button on the search page
     Then Only active cases will be returned in the search results
 
   @SearchBySignOffTeam @DCUSmokeTests
   Scenario: User should be able to search for a case by Sign-off Team
     And I create a "MIN" case with "Amnesty on illegal immigrants" as the primary topic
     And I navigate to the "search" page
-    When I search for a "MIN" case by the Sign-off Team "Minister for Immigration Compliance and the Courts"
+    When I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Minister for Immigration Compliance and the Courts" into the "Sign Off Team" search criteria for DCU
+    And I click the search button on the search page
     Then cases with the queried Sign-off Team should be displayed in the results list
 
   @SearchBySignOffMinister @searchByCaseType @OtherTests
   Scenario: User should be able to search by sign off minister and another parameter
-    When I search by the case type "DTEN" and another parameter "Permanent Secretary Signoff Team"
-    Then cases that are "DTEN" case type that also contain another parameter "Permanent Secretary Signoff Team" should be displayed in the results list
+    When I navigate to the "search" page
+    And I enter "MIN" into the "Case Type" search criteria for DCU
+    And I enter "Permanent Secretary" into the "Sign Off Team" search criteria for DCU
+    And I click the search button on the search page
+    Then the "Case Type" of the search results should be "MIN"
+    And the "Sign Off Team" of the search results should be "Permanent Secretary"
 
   @SearchByCaseReferenceNumber @DCUSmokeTests
   Scenario Outline: User searches for DCU cases using a substring of a case reference
@@ -142,5 +168,6 @@ Feature: DCU Search
   @SearchByHomeSecInterest @DCUSmokeTests
   Scenario: User searches for cases by Home Secretary Interest
     And I navigate to the "Search" page
-    And I search for cases that are of interest to the Home Secretary
-    Then the first and last search results are of interest to the Home Secretary
+    And I enter "Yes" into the "Home Secretary Interest" search criteria for DCU
+    And I click the search button on the search page
+    Then the "Home Sec Interest" of the search results should be "Yes"
