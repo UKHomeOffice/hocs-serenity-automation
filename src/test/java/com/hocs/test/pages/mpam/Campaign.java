@@ -29,22 +29,12 @@ public class Campaign extends BasePage {
     @FindBy(id = "CampaignType")
     public WebElementFacade campaignTypeField;
 
-    public void moveCaseFromAStageToCampaign() {
+    public void moveCaseFromAStageToCampaign(String campaign) {
         safeClickOn(putCaseIntoCampaignRadioButton);
         safeClickOn(confirmButton);
         safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys("Test Campaign 1");
-        setSessionVariable("campaign").to("Test Campaign 1");
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromAStageToSpecificCampaign() {
-        safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        typeInto(campaignSelectionTypeahead, sessionVariableCalled("campaign"));
-        waitABit(500);
+        campaignSelectionTypeahead.sendKeys(campaign);
+        setSessionVariable("campaign").to(campaign);
         campaignSelectionTypeahead.sendKeys(Keys.RETURN);
         safeClickOn(confirmButton);
     }
