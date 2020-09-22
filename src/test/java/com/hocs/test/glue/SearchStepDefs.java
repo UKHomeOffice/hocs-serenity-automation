@@ -190,7 +190,7 @@ public class SearchStepDefs extends BasePage {
     @And("I look for the current case that was received on or before the date searched")
     public void lookForTheCurrentCaseInTheSearchResultsBeforeDate() {
         int retry = 0;
-        String beforeDateCaseType = sessionVariableCalled("beforeReceivedCaseType");
+        String caseType = sessionVariableCalled("searchCaseType");
         while (retry < 5) {
             try {
                 search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -199,7 +199,7 @@ public class SearchStepDefs extends BasePage {
                 waitABit(7500);
                 retry++;
                 safeClickOn(homepage.searchPage);
-                enterIntoTheSearchCriteria(beforeDateCaseType, "Case Type");
+                enterIntoTheSearchCriteria(caseType, "Case Type");
                 enterIntoTheSearchCriteria("01/01/2019", "Received On Or Before Date");
             }
         }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.jruby.RubyBoolean.False;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -135,6 +136,7 @@ public class Search extends BasePage {
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
+                setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
                 dd = value.split("/")[0];
@@ -143,6 +145,7 @@ public class Search extends BasePage {
                 typeInto(receivedAfterDayTextbox, dd);
                 typeInto(receivedAfterMonthTextbox, mm);
                 typeInto(receivedAfterYearTextbox, yyyy);
+                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 dd = value.split("/")[0];
@@ -151,25 +154,27 @@ public class Search extends BasePage {
                 typeInto(receivedBeforeDayTextbox, dd);
                 typeInto(receivedBeforeMonthTextbox, mm);
                 typeInto(receivedBeforeYearTextbox, yyyy);
+                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "CORRESPONDENT NAME":
                 safeClickOn(searchCorrespondentTextbox);
                 typeInto(searchCorrespondentTextbox, value);
-                setSessionVariable("correspondentNameQuery").to(value);
+                setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "TOPIC":
                 safeClickOn(searchTopicTextbox);
                 typeInto(searchTopicTextbox, value);
-                setSessionVariable("topicQuery").to(value);
+                setSessionVariable("searchTopic").to(value);
                 break;
             case "SIGN OFF TEAM":
                 searchSignOffTeamDropdown.selectByVisibleText(value);
-                setSessionVariable("searchedSignOffTeam").to(value);
+                setSessionVariable("searchSignOffTeam").to(value);
                 break;
             case "ACTIVE CASES ONLY":
                 if (value.toUpperCase().equals("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
+                break;
             case "HOME SECRETARY INTEREST":
                 if (value.toUpperCase().equals("YES")) {
                     safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
@@ -251,6 +256,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 typeInto(caseReferenceSearchBox, value);
+                setSessionVariable("searchCaseReference").to(value);
                 break;
             case "REFERENCE TYPE":
                 switch (value.toUpperCase()) {
@@ -263,19 +269,22 @@ public class Search extends BasePage {
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
+                setSessionVariable("searchReferenceType").to(value);
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
                 ministerialSignOffDropdown.selectByVisibleText(value);
-                setSessionVariable("signOffTeam").to(value);
+                setSessionVariable("searchMinisterialSignOffTeam").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(memberOfParliamentSearchBox);
                 memberOfParliamentSearchBox.sendKeys(value);
                 waitABit(5000);
                 memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 typeInto(correspondentReferenceNumber, value);
+                setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 dd = value.split("/")[0];
@@ -284,6 +293,7 @@ public class Search extends BasePage {
                 typeInto(receivedBeforeDayTextbox, dd);
                 typeInto(receivedBeforeMonthTextbox, mm);
                 typeInto(receivedBeforeYearTextbox, yyyy);
+                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
                 dd = value.split("/")[0];
@@ -292,10 +302,12 @@ public class Search extends BasePage {
                 typeInto(receivedAfterDayTextbox, dd);
                 typeInto(receivedAfterMonthTextbox, mm);
                 typeInto(receivedAfterYearTextbox, yyyy);
+                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "CAMPAIGN":
                 campaignSearchField.sendKeys(value);
                 campaignSearchField.sendKeys(Keys.RETURN);
+                setSessionVariable("searchCampaign").to(value);
                 break;
             case "ACTIVE CASES ONLY":
                 if (value.toUpperCase().equals("YES")) {
@@ -418,7 +430,7 @@ public class Search extends BasePage {
     }
 
     private void assertMinisterialSignOffTeamIsCorrect() {
-        String ministerialSignOffTeam = sessionVariableCalled("signOffTeam");
+        String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
         if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             accordionMPAM.openCreationAccordion();
             accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
@@ -485,5 +497,20 @@ public class Search extends BasePage {
                 assertMinisterialSignOffTeamIsCorrect();
                 break;
         }
+    }
+
+    public void assertFirstAndLastSearchResultDCU(String criteria) {
+        String summaryTabValue = null;
+        Boolean assertionInput = false;
+        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
+        setSessionVariable("topSearchResult").to(topSearchResult.getText());
+        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
+        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
+        switch (criteria.toUpperCase()) {
+            case "RECEIVED ON OR AFTER DATE":
+                summaryTabValue = summary.correspondenceReceivedDate.getText();
+
+        }
+
     }
 }
