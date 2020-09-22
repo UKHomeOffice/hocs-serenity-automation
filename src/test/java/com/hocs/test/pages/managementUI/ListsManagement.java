@@ -35,18 +35,18 @@ public class ListsManagement extends BasePage {
         String campaignCode = generateRandomString();
         safeClickOn(addNewCampaignButton);
         typeInto(campaignNameTextBox, campaignName);
-        setSessionVariable("campaign").to(campaignName);
+        setSessionVariable("newCampaign").to(campaignName);
         typeInto(campaignCodeTextBox, campaignCode);
         safeClickOn(submitButton);
     }
 
     public void amendACampaign() {
         String campaignName = generateRandomString();
-        WebElementFacade amendLink = findBy("//td[text()='" + sessionVariableCalled("campaign") + "']/following-sibling::td/a[text()='Amend']");
+        WebElementFacade amendLink = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']/following-sibling::td/a[text()='Amend']");
         safeClickOn(amendLink);
         newCampaignNameTextBox.clear();
         typeInto(newCampaignNameTextBox, campaignName);
-        setSessionVariable("campaign").to(campaignName);
+        setSessionVariable("newCampaign").to(campaignName);
         safeClickOn(submitButton);
     }
 
@@ -54,7 +54,7 @@ public class ListsManagement extends BasePage {
         if (!viewAndEditCampaignsHeader.isVisible()) {
             safeClickOn(dashboard.manageMPAMCampaignsHypertext);
         }
-        WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("campaign") + "']");
+        WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
         newCampaignInList.shouldBeVisible();
     }
 }

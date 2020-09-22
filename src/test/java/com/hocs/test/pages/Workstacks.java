@@ -312,6 +312,13 @@ public class Workstacks extends BasePage {
         setSessionVariable("headerIndex").to(headerIndex + 1);
     }
 
+    public void unallocateSelectedCase(String caseRef) {
+        WebElement selectedCaseCheckBox = getDriver().findElement(By.xpath("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//input"));
+        typeInto(selectWorkstackFilter, caseRef);
+        selectedCaseCheckBox.click();
+        safeClickOn(unallocateButton);
+    }
+
     // Assertions
 
     public void assertCaseIsInTheCorrectCampaign() {

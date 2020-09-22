@@ -32,7 +32,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade deadline;
 
     @FindBy(xpath = "//th[text()='Primary topic']/following-sibling::td")
-    private WebElementFacade primaryTopic;
+    public WebElementFacade primaryTopic;
 
     @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
     private WebElementFacade primaryCorrespondent;
@@ -44,7 +44,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade shouldResponseCopyToN10;
 
     @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
-    private WebElementFacade whenCorrespondenceReceived;
+    public WebElementFacade correspondenceReceivedDate;
 
     @FindBy(xpath = "//th[text()='When was the correspondence sent?']/following-sibling::td")
     private WebElementFacade whenCorrespondenceSent;
