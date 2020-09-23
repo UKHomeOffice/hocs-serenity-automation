@@ -210,7 +210,7 @@ public class AccordionMPAM extends BasePage {
                 inputResponse = sessionVariableCalled("refType");
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
-                inputResponse = sessionVariableCalled("signOffTeam");
+                inputResponse = sessionVariableCalled("ministerialSignOffTeam");
                 break;
             case "URGENCY":
                 inputResponse = sessionVariableCalled("urgency");

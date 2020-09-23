@@ -454,7 +454,8 @@ public class Search extends BasePage {
         if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             accordionMPAM.openCreationAccordion();
             accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
-            accordionMPAM.assertInputMatchesCaseDetailsResponse("Ministerial Sign Off Team");
+            String displayedResponse = sessionVariableCalled("response");
+            assertThat(displayedResponse.contains(ministerialSignOffTeam), is(true));
         }
         else {
             accordionMPAM.openCaseDetailsAccordion();
