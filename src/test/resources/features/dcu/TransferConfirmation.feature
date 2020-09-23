@@ -6,13 +6,13 @@ Feature: TransferConfirmation
     And I create a "MIN" case and move it to the "Transfer Confirmation" stage
     And I load and claim the current case
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario: User confirms the case does not require a response
     When I click the confirm transfer yes radio button
     And I click the "Finish" button
     Then the case should be closed
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario: User selects that they dont agree that the case requires no response
     When I click the confirm transfer no radio button
     And I click the "Finish" button

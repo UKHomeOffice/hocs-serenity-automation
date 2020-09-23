@@ -4,7 +4,7 @@ Feature: Manage Documents
   Background:
     Given I log in to DECS
 
-  @SmokeTests
+  @Regression
   Scenario Outline: User can upload and preview a file of allowed file types
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -26,7 +26,7 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario Outline: : User can select document type when uploading documents on a DCU case
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -39,7 +39,7 @@ Feature: Manage Documents
       | DRAFT    |
       | FINAL    |
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario Outline: : User can select document type when uploading documents on a MPAM case
     And I click to manage the documents of a new "MPAM" case
     And I click add documents
@@ -98,7 +98,7 @@ Feature: Manage Documents
     And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @SmokeTests
+  @Regression
   Scenario: User can select which document to preview
     And I click to manage the documents of a new "MIN" case
     And I upload a 5MB and a 10MB file
@@ -106,7 +106,7 @@ Feature: Manage Documents
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be select to be displayed in the preview pane
 
-  @SmokeTests
+  @Regression
   Scenario Outline: User can remove any document
     And I click to manage the documents of a new "MPAM" case
     And I add a "<fileType>" document to the case
@@ -127,7 +127,7 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario: User checks that the primary draft tag is visible after the initial draft stage
     And I create a "MIN" case and move it to the "QA Response" stage
     And I load and claim the current case

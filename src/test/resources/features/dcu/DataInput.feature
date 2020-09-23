@@ -47,14 +47,14 @@ Feature: Data Input
       | Correspondence Sent Date     | Correspondence Sent     |
       | Correspondence Received Date | Correspondence Received |
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario: User can add a Member of Parliament as a Correspondent
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
     And I add "Nicola Sturgeon" MP as a correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
@@ -127,11 +127,11 @@ Feature: Data Input
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario: User creates a MIN case and checks that the stage deadlines are correct
     Then the stage deadline dates for a "MIN" case are correct
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario Outline: User checks that Home Secretary interest decision is properly displayed in summary tab
     And I select "<homeSecInterest>" for Home Secretary interest and complete the data input stage
     And I load the current case

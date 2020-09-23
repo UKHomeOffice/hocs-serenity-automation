@@ -10,7 +10,7 @@ Feature: Create case
     When I do not select a type of correspondence when creating a case
     Then an error message is displayed
 
-  @SmokeTests
+  @Regression
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully "<with / without>" a document
@@ -39,12 +39,12 @@ Feature: Create case
     And I click to view the "MPAM Creation" workstack
     Then the owner field should display "CAMERON"
 
-  @Workflow @SmokeTests
+  @Workflow @Regression
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario Outline: Newly created DCU cases should move to the Data Input stage
     And I create a single "<caseType>" case and return to the dashboard
     Then the case should be moved to the "Data Input" stage
@@ -54,7 +54,7 @@ Feature: Create case
       | DTEN     |
       | TRO      |
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: Newly created MPAM cases should move to the Creation stage
     And I create a single "MPAM" case and return to the dashboard
     Then the case should be moved to the "Creation" stage

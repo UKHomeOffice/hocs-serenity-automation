@@ -29,14 +29,14 @@ Feature: ManagementUI
     And I add the user "CAMERON" to the team
     Then the user should be visible in the team list
 
-  @TeamManagement @SmokeTests @test
+  @TeamManagement @Regression @test
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "OSCT Secretariat" team from the dropdown
     And I add the users "CAMERON" and "CASEY" to the team
     Then the users should be visible in the team list
 
-  @TeamManagement @SmokeTests
+  @TeamManagement @Regression
   Scenario: Users should no longer be visible in team page when removed
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
@@ -63,7 +63,7 @@ Feature: ManagementUI
     And I click the Add Selected Users button
     Then an error message should be displayed as no users have been selected
 
-  @AddStandardLine @DCUSmokeTests
+  @AddStandardLine @DCURegression
   Scenario: User can add a new Standard Line
     And I navigate to the "STANDARD LINE" Management page
     When I add a new Standard Line
@@ -161,7 +161,7 @@ Feature: ManagementUI
     Then I am returned to the dashboard screen
     And a success message is displayed
 
-  @AddChildTopic @LinkTopicToTeam @DCUSmokeTests
+  @AddChildTopic @LinkTopicToTeam @DCURegression
   Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
     And I have created a new child topic
     And I have linked teams to the new child topic
@@ -225,7 +225,7 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then an error message should be displayed as no "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team has been selected
 
-  @LinkTopicToTeam @DCUSmokeTests
+  @LinkTopicToTeam @DCURegression
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
     And I have created a new child topic
     And I have linked teams to the new child topic
@@ -256,7 +256,7 @@ Feature: ManagementUI
     And I load the teams of which "CAMERON_HO" is a member
     Then the teams the user is a part of are displayed
 
-  @UserManagement @SmokeTests
+  @UserManagement @Regression
   Scenario: A user can be added to a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "CAMERON_HO" is a member
@@ -264,7 +264,7 @@ Feature: ManagementUI
     Then the success ribbon should be displayed once the user is added
     And the team should be visible in the users list of teams
 
-  @UserManagement @SmokeTests
+  @UserManagement @Regression
   Scenario: A user can be removed from a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "CAMERON_HO" is a member
@@ -278,7 +278,7 @@ Feature: ManagementUI
     And I add a Campaign with random name and campaign code
     Then the new Campaign has been added to the list of Campaigns
 
-  @CampaignManagement @MPAMSmokeTests
+  @CampaignManagement @MPAMRegression
   Scenario: User is able to amend the details of a Campaign through Campaign Management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
@@ -286,7 +286,7 @@ Feature: ManagementUI
     And I edit a Campaign name
     Then the Campaign name should have changed in the list of Campaigns
 
-  @CampaignManagement @MPAMSmokeTests
+  @CampaignManagement @MPAMRegression
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code

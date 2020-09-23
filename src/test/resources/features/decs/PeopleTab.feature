@@ -4,7 +4,7 @@ Feature: PeopleTab
   Background:
     Given I log in to DECS
 
-  @SmokeTests
+  @Regression
   Scenario Outline: User change the primary correspondent of the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
@@ -17,7 +17,7 @@ Feature: PeopleTab
       | Theresa May     |
       | Nicola Sturgeon |
 
-  @SmokeTests
+  @Regression
   Scenario Outline: User is able to remove a correspondent from the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
@@ -31,7 +31,7 @@ Feature: PeopleTab
       | Theresa May     |
       | Nicola Sturgeon |
 
-  @SmokeTests
+  @Regression
   Scenario Outline: User is able to add a correspondent to the case through the people tab
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
