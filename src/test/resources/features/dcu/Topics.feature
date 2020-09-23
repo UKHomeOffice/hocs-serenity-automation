@@ -24,7 +24,7 @@ Feature: Topics
       | Criminal Records                    | International Criminality Unit       | Minister of State for Policing and Fire Service                    |
       | Classification of Cannabis          | Drugs & Alcohol Unit                 | Minister of State for Policing and Fire Service                    |
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario Outline: The user overrides the "<defaultTeam>" Team
     When I create a "<caseType>" case with "<Topic>" as the primary topic
     And I override the "<defaultTeam>" team to "<overrideTeam>"

@@ -4,7 +4,7 @@ Feature: Deadlines
   Background:
     Given I log in to DECS
 
-  @Smoketests @DCUSmokeTests
+  @Regression @DCURegression
   Scenario Outline: User creates a case and checks that the stage deadlines are correct
     When I create a "<caseType>" case and move it to the "Markup" stage
     And I load and claim the current case
@@ -15,13 +15,13 @@ Feature: Deadlines
     |DTEN    |
     |TRO     |
 
-  @Smoketests @MPAMSmokeTests
+  @Regression @MPAMRegression
   Scenario: User creates an MPAM case and checks that the stage deadlines are correct
     When I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
     Then the stage deadline dates for a "MPAM" case are correct
 
-  @Smoketests @DCUSmokeTests
+  @Regression @DCURegression
   Scenario: User assigns a case to the Home Secretary team for sign-off and checks that the stage deadlines are correct
     When I create a "MIN" case and move it to the "Markup" stage
     And I load and claim the current case

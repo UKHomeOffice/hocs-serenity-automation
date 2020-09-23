@@ -5,13 +5,13 @@ Feature: Login
     Given I am on the Home Office Correspondence Login Page
     And I am prompted to log in
 
-  @SmokeTests
+  @Regression
   Scenario: I can login to the Home Office Correspondence System
     When I enter the login credentials for user "AUTOMATION_USER" and click the login button
     Then I should be taken to the homepage
     And I should be logged in as the user "AUTOMATION_USER"
 
-  @SmokeTests
+  @Regression
   Scenario: User is able to log out from one user and login as another
     And I enter the login credentials for user "AUTOMATION_USER" and click the login button
     When I logout of the application

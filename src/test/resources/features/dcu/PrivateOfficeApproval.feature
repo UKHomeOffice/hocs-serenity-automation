@@ -32,7 +32,7 @@ Feature: Private Office Approval
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @DCUSmokeTests
+  @DCURegression
   Scenario: User can change the minister for the case
     And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
@@ -43,7 +43,7 @@ Feature: Private Office Approval
     And I select the "Private Office Approval" button of the accordion
     Then the information shown should match what I entered on the change Private Office Team page
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Initial Draft stage when rejected by Private Office Approval Team
     And I create a "<caseType>" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case

@@ -21,7 +21,7 @@ Feature: Triage
     And I select an enquiry subject and continue
     Then the "Enquiry reason" page should be displayed
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     When I click the "Set enquiry subject/reason" link
     And I select an enquiry subject and continue
@@ -35,30 +35,30 @@ Feature: Triage
     When I select "Windrush" as the new Business Area of the case
     Then the options for Business Unit should change
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario: User changes the Business Area of the case
     When I change the Business Area of the case to "Windrush"
     Then the new Business Area should be selected in the accordion
     And the case should be in the correct MPAM "Triage" team workstack
 
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User completes the Triage stage
     When I complete the "Triage" stage
     Then the case should be moved to the "Draft" stage
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User puts the Triage case On Hold
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "Triage (On Hold)" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User escalates the Triage case to the workflow manager
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "Triage (Escalated)" stage
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
     And I load and claim the current case
@@ -66,7 +66,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User de-escalates a Triage (Escalated) case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -74,7 +74,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User closes a Triage (Escalated) case
     And I send the Triage case to "Workflow Manager"
     When I load and claim the current case
@@ -83,7 +83,7 @@ Feature: Triage
     Then the case should be closed
     And a closure note should be visible showing the reason for closing the case
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User requests a contribution at triage stage
     When I send the Triage case to "Contribution Requested"
     Then the contribution request deadline should be visible in the "Triage" workstack
@@ -92,7 +92,7 @@ Feature: Triage
     And the contribution request deadline should be visible in the summary
     And a contribution request note should be visible showing the description of the request
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User selects that the contribution has been received at Triage (Contribution Requested) stage
     When I send the Triage case to "Contribution Requested"
     And I load and claim the current case
@@ -100,7 +100,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMSmokeTests
+  @MPAMWorkflow @MPAMRegression
   Scenario: User escalates a case at Triage (Contribution Requested) stage
     When I send the Triage case to "Contribution Requested"
     And I load and claim the current case

@@ -11,7 +11,7 @@ Feature:  Dispatch
     When I attempt to reject the "Dispatch" case without reason
     Then an error message is displayed
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario: User dispatches a case
     And I create a "DTEN" case and move it to the "Dispatch" stage
     And I load and claim the current case
@@ -39,7 +39,7 @@ Feature:  Dispatch
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Private Office Approval stage when rejected by Dispatch Team
     And I create a "<caseType>" case and move it to the "Dispatch" stage
     And I load and claim the current case

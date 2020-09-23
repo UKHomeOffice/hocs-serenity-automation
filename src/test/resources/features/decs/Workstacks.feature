@@ -4,44 +4,44 @@ Feature: Workstacks
   Background:
     Given I log in to DECS
 
-  @SmokeTests
+  @Regression
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
-  @SmokeTests
+  @Regression
   Scenario: User creates a case and assigns it to themselves from the workstack
     And I create a new case and view it in the Performance and Process team workstack
     When I assign this case to me, and check if it has been correctly allocated
 
-  @SmokeTests
+  @Regression
   Scenario: User creates 3 cases and allocates these cases to another User
     And I create three cases, and view them in performance and process workstack
     Then I assign these three cases to "CASEY"
     And I check that the three cases created have been correctly assigned to "CASEY"
 
-  @SmokeTests
+  @Regression
   Scenario: User creates and allocates 3 cases to another User, then unallocates these cases
     And I create three cases, and assign them to "CASEY"
     Then I view these cases in Performance and Process workstack, and unallocate from "CASEY"
     And I then check whether the correct cases have been unallocated
 
-  @SmokeTests
+  @Regression
   Scenario: User creates a Ministerial case and uses the MIN filter card to view it in the Performance and Process workstack
     Given I create a single "MIN" case and return to the dashboard
     When I enter the Performance and Process team workstack and narrow down the visible cases using the "MIN" filter card
     Then only "MIN" cases should be visible
     And the created case should be visible in the workstack
 
-  @SmokeTests
+  @Regression
   Scenario: User creates a Number 10 case and uses the DTEN filter card to view it in the Transfers and No10 team workstack
     Given I create a single "DTEN" case and return to the dashboard
     When I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card
     Then only "DTEN" cases should be visible
     And the created case should be visible in the workstack
 
-  @SmokeTests
+  @Regression
   Scenario: User creates a Treat Official case and uses the TRO filter card to view it in the Performance and Process
   workstack
     Given I create a single "TRO" case and return to the dashboard
@@ -109,7 +109,7 @@ Feature: Workstacks
       | Deadline      | Lowest to Highest |
       | Deadline      | Highest to Lowest |
 
-  @SmokeTests
+  @Regression
   Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline datee
     Given I create a single "MPAM" case with the correspondence received date set 15 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
@@ -121,7 +121,7 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario: User adds a case to a Campaign and can view the case in the correct workstack
     Given I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
