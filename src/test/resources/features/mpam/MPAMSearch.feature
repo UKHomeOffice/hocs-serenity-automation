@@ -12,11 +12,17 @@ Feature: MPAM Search
     Examples:
       | infoType                  | infoValue            |
       | Reference Type            | Ministerial          |
-      | Reference Type            | Official             |
-      | Member of Parliament Name | Boris Johnson        |
+      | Reference Type            | Official       |
+      | Member of Parliament Name | Boris Johnson  |
 #      | Correspondent Reference Number | TestRefNumber    |
-      | Campaign                  | Small boats          |
-      | Ministerial Sign Off Team | Test Sign off team 1 |
+      | Campaign                  | Small boats    |
+      | Ministerial Sign Off Team | Home Secretary |
+
+  Scenario: User is able to search for a case by the Correspondent Reference Number
+    And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
+    And I navigate to the "search" page
+    And I search for an MPAM case with "TestRefNumber 1" as it's "Correspondent Reference Number"
+    Then I check that the MPAM search results have the correct "Correspondent Reference Number"
 
   @OtherTests
   Scenario: User searches by case reference from the search page

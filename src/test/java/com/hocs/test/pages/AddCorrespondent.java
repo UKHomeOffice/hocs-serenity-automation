@@ -229,6 +229,15 @@ public class AddCorrespondent extends BasePage {
         clickAddButton();
     }
 
+    public void addAPublicCorrespondentWithAReferenceNumber(String refNumber) {
+        setSessionVariable("correspondentReferenceNumber").to(refNumber);
+        selectToAddACorrespondent();
+        selectCorrespondentIsNotMP();
+        fillMandatoryPublicCorrespondentFields();
+        enterCorrespondenceReference(refNumber);
+        clickAddButton();
+    }
+
     public void removePrimaryCorrespondent() {
         safeClickOn(removeCorrespondentHyperText);
         clickTheButton("Remove");

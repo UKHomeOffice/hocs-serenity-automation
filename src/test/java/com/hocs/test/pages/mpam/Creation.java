@@ -87,7 +87,7 @@ public class Creation extends BasePage {
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
         selectRefType("Ministerial");
-        selectMinisterialSignOffTeam("Test Sign off team 1");
+        selectMinisterialSignOffTeam("Home Secretary");
         selectUrgency("Standard");
         selectInboundChannel("Email");
     }
@@ -140,7 +140,7 @@ public class Creation extends BasePage {
     public void selectMinisterialSignOffTeam(String signOffTeam) {
         if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
             ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
-            setSessionVariable("signOffTeam").to(signOffTeam);
+            setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
         }
     }
 
@@ -196,10 +196,17 @@ public class Creation extends BasePage {
         clickTheButton("Move to Triage");
     }
 
+    public void moveCaseWithCorrespondentReferenceNumber(String refNumber) {
+        completeRequiredQuestions();
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondentWithAReferenceNumber(refNumber);
+        clickTheButton("Move to Triage");
+    }
+
     public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(String businessArea, String refType) {
         selectBusinessArea(businessArea);
         selectRefType(refType);
-        selectMinisterialSignOffTeam("Test Sign off team 1");
+        selectMinisterialSignOffTeam("Home Secretary");
         selectInboundChannel("Email");
         selectUrgency("Standard");
         clickTheButton("Continue");
@@ -210,7 +217,7 @@ public class Creation extends BasePage {
     public void moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(String urgency, String refType) {
         selectBusinessArea("UKVI");
         selectRefType(refType);
-        selectMinisterialSignOffTeam("Test Sign off team 1");
+        selectMinisterialSignOffTeam("Home Secretary");
         selectInboundChannel("Email");
         selectUrgency(urgency);
         clickTheButton("Continue");

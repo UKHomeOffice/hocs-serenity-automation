@@ -94,9 +94,9 @@ Feature: MPAM Case Details Accordion
     | Official     |  Ministerial |
     
   Scenario: User can change the Ministerial sign off team of the case
-    And I create a Ministerial MPAM case with "Test Sign off team 1" as the Ministerial Sign Off Team and move it to the Triage stage
+    And I create a Ministerial MPAM case with "Home Secretary" as the Ministerial Sign Off Team and move it to the Triage stage
     And I load and claim the current case
-    And I change the Ministerial sign off team of the case to "Test Sign off team 2"
+    And I change the Ministerial sign off team of the case to "Paul Lincoln"
     And I complete the "Triage" stage
     And I load the current case
     Then the "Creation" accordion in case details should display the correct information for "Ministerial Sign Off Team"
