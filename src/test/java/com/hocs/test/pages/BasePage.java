@@ -119,7 +119,7 @@ public class BasePage extends PageObject {
     public void assertPageTitle(String title) {
         WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
         pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        assert (pageTitle.isVisible());
+        assert(pageTitle.isVisible());
     }
 
     public void clickAddButton() {
