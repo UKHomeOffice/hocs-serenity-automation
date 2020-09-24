@@ -9,12 +9,14 @@ Feature: Creation
   @Navigation
   Scenario: User should be on the MPAM Data Input Page
     Then the "MPAM Data Input" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User can navigate to the MPAM Correspondents Details Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     Then the "MPAM Correspondents Details" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User can navigate to the Add Correspondent Page
@@ -22,6 +24,7 @@ Feature: Creation
     And I click the "Continue" button
     And I click the "Add a correspondent" link
     Then the "Add Correspondent" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User can navigate to the Add Member of Parliament Page
@@ -29,6 +32,7 @@ Feature: Creation
     And I click the "Continue" button
     And I select to add a correspondent that "is" a member of parliament
     Then the "Add member of parliament" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User can navigate to the Record Correspondent Details Page
@@ -36,6 +40,7 @@ Feature: Creation
     And I click the "Continue" button
     And I select to add a correspondent that "is not" a member of parliament
     Then the "Record Correspondent Details" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @MPAMWorkflow @MPAMRegression
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type

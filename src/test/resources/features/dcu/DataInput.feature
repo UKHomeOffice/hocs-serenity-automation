@@ -11,6 +11,7 @@ Feature: Data Input
     When I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario Outline: DCU data entry user select different correspondence channels

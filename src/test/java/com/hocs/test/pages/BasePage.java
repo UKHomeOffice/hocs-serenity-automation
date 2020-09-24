@@ -11,6 +11,7 @@ import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -276,7 +277,8 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromAssignedCase() {
-        waitFor(ExpectedConditions.textToBePresentInElement(pageTitleCaption, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
+        waitFor(ExpectedConditions.textToBePresentInElement(pageTitleCaption, sessionVariableCalled("caseType")))
+                .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(pageTitleCaption.getText());
         return pageTitleCaption.getText();
     }
@@ -297,5 +299,17 @@ public class BasePage extends PageObject {
 
     public User getCurrentUser() {
         return CurrentUser.getInstance().getUser();
+    }
+
+    protected void checkOrderOfHeaderTagsOnCaseView() {
+        int n = 2;
+        String dom = getDriver().getPageSource();
+        while (n <= 6) {
+            if (dom.contains("<h" + n)) {
+                String pageSourceBeforeHTag = dom.split("<h" + (n - 1))[0];
+                assertThat(pageSourceBeforeHTag.contains("<h" + n), is(false));
+            }
+            n++;
+        }
     }
 }

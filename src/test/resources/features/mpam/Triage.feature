@@ -9,17 +9,20 @@ Feature: Triage
   @Navigation
   Scenario: User should be on the MPAM Triage Page
     Then the "MPAM Triage" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User should be on the Enquiry Subject Page
     When I click the "Set enquiry subject/reason" link
     Then the "Enquiry subject" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User should be on the Enquiry Reason Page
     When I click the "Set enquiry subject/reason" link
     And I select an enquiry subject and continue
     Then the "Enquiry reason" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @MPAMRegression
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page

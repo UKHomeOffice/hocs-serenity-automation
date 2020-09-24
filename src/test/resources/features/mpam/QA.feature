@@ -9,6 +9,7 @@ Feature: QA
   @Navigation
   Scenario: User should be on the MPAM QA Page
     Then the "MPAM QA" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @MPAMWorkflow @MPAMRegression
   Scenario: User completes the QA stage
