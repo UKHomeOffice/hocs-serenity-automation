@@ -9,6 +9,7 @@ Feature: Drafting
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     Then the "MPAM Draft" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @MPAMWorkflow @MPAMRegression
   Scenario: User completes the Draft stage

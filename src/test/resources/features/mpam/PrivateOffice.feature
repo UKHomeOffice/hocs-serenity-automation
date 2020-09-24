@@ -10,12 +10,14 @@ Feature: PrivateOffice
   Scenario: User selects the Dispatched action
     When I select the "Dispatched" action at Private Office stage
     Then the "MPAM Private Office" page should be displayed
+    And the header tags in the HTML of the page are properly structured
 
   @Navigation
   Scenario: User selects the Draft rejected by Private Office action
     When I select the "Draft rejected by Private Office" action at Private Office stage
     Then the "MPAM Rejected by Private Office" page should be displayed
     And the rejection reason entry box should be visible
+    And the header tags in the HTML of the page are properly structured
 
   @MPAMRegression
   Scenario: User can see which response channel was selected at Draft stage

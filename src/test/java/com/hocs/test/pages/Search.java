@@ -502,7 +502,6 @@ public class Search extends BasePage {
                 break;
             case "SIGN OFF TEAM":
                 getCaseReferenceOfFirstAndLastSearchResults();
-                String signOffTeam = sessionVariableCalled("searchedSignOffTeam");
                 assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")),
                         is(true));
                 assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")), is(true));
