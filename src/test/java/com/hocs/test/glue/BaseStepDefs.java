@@ -461,5 +461,10 @@ public class BaseStepDefs extends BasePage {
     public void theOrderOfHeaderTagsInHTMLOfThePageAreProperlyOrdered() {
         checkOrderOfHeaderTagsOnCaseView();
     }
+
+    @And("the accessibility statement link should be visible")
+    public void accessibilityStatementLinkShouldBeVisible() {
+        assertVisibilityOfAccessibilityLink();
+    }
 }
 

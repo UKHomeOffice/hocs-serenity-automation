@@ -99,6 +99,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//a[text()='People']")
     public WebElementFacade peopleTab;
 
+    @FindBy(xpath = "//a[text()='Accessibility']")
+    public WebElementFacade accessibilityLink;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -245,7 +248,6 @@ public class BasePage extends PageObject {
         return yearFormat.format(cal.getTime());
     }
 
-
     public String tomorrowsDay() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
@@ -311,5 +313,9 @@ public class BasePage extends PageObject {
             }
             n++;
         }
+    }
+
+    public void assertVisibilityOfAccessibilityLink() {
+        accessibilityLink.shouldBeVisible();
     }
 }
