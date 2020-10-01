@@ -12,6 +12,7 @@ Feature: Data Input
     And I click the "Continue" button
     Then "Add a correspondent" link is displayed
     And the header tags in the HTML of the page are properly structured
+    And the accessibility statement link should be visible
 
   @Navigation
   Scenario Outline: DCU data entry user select different correspondence channels

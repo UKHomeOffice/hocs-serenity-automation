@@ -10,6 +10,7 @@ Feature: QA
   Scenario: User should be on the MPAM QA Page
     Then the "MPAM QA" page should be displayed
     And the header tags in the HTML of the page are properly structured
+    And the accessibility statement link should be visible
 
   @MPAMWorkflow @MPAMRegression
   Scenario: User completes the QA stage

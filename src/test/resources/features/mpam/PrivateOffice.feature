@@ -11,6 +11,7 @@ Feature: PrivateOffice
     When I select the "Dispatched" action at Private Office stage
     Then the "MPAM Private Office" page should be displayed
     And the header tags in the HTML of the page are properly structured
+    And the accessibility statement link should be visible
 
   @Navigation
   Scenario: User selects the Draft rejected by Private Office action
@@ -18,6 +19,7 @@ Feature: PrivateOffice
     Then the "MPAM Rejected by Private Office" page should be displayed
     And the rejection reason entry box should be visible
     And the header tags in the HTML of the page are properly structured
+    And the accessibility statement link should be visible
 
   @MPAMRegression
   Scenario: User can see which response channel was selected at Draft stage
