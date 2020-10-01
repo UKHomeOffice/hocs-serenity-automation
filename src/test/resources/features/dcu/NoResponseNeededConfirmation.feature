@@ -6,13 +6,13 @@ Feature: No Response Needed Confirmation
     And I create a "MIN" case and move it to the "No Response Needed Confirmation" stage
     And I load and claim the current case
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario: User confirms the case does not require a response
     When I click the NRN yes radio button
     And I click the "Finish" button
     Then the case should be closed
 
-  @DCUWorkflow @DCUSmokeTests
+  @DCUWorkflow @DCURegression
   Scenario: User selects that they dont agree that the case requires no response
     When I click the NRN no radio button
     And I click the "Finish" button

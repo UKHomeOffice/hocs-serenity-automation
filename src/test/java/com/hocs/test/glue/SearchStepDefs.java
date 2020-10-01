@@ -182,7 +182,8 @@ public class SearchStepDefs extends BasePage {
                 retry++;
                 safeClickOn(homepage.searchPage);
                 enterIntoTheSearchCriteria("MIN", "Case Type");
-                enterIntoTheSearchCriteria(sessionVariableCalled("signOffTeam"), "Sign Off Team");
+                enterIntoTheSearchCriteria(sessionVariableCalled("searchSignOffTeam"), "Sign Off Team");
+                safeClickOn(searchButton);
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();

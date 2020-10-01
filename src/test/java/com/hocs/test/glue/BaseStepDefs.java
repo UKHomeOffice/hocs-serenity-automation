@@ -456,5 +456,15 @@ public class BaseStepDefs extends BasePage {
     public void iRecordTheCaseReferenceOfThisCaseAs(String sessionVariableName) {
         setSessionVariable(sessionVariableName).to(sessionVariableCalled("caseReference"));
     }
+
+    @Then("the header tags in the HTML of the page are properly structured")
+    public void theOrderOfHeaderTagsInHTMLOfThePageAreProperlyOrdered() {
+        checkOrderOfHeaderTagsOnCaseView();
+    }
+
+    @And("the accessibility statement link should be visible")
+    public void accessibilityStatementLinkShouldBeVisible() {
+        assertVisibilityOfAccessibilityLink();
+    }
 }
 

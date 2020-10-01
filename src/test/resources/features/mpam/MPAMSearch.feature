@@ -4,7 +4,7 @@ Feature: MPAM Search
   Background:
     Given I log in to DECS as user "UKVI_ONLY"
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario Outline: User tests search criteria
     And I navigate to the "Search" page
     And I search for an MPAM case with "<infoValue>" as it's "<infoType>"
@@ -31,7 +31,7 @@ Feature: MPAM Search
     And I search for a case by it's case reference
     Then the one created case should be displayed
 
-  @MPAMSmokeTests
+  @MPAMRegression
   Scenario: User searches for MPAM cases using a substring of a case reference
     And I create a single "MPAM" case and return to the dashboard
     And I navigate to the "Search" page

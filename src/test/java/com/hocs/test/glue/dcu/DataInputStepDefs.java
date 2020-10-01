@@ -37,7 +37,7 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I complete the Data Input Stage")
     public void completeDataInputPerCaseType() {
-        if (homepage.myCases.isVisible()) {
+        if (!dataInput.continueButton.isVisible()) {
             homepage.getCurrentCase();
             workstacks.clickAllocateToMeButton();
         }

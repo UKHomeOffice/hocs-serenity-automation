@@ -19,7 +19,7 @@ Feature: DCU Search
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
-  @SearchByCaseType @DCUSmokeTests
+  @SearchByCaseType @DCURegression
   Scenario Outline: User should be able to search for a case by Case Type
     And I create a single "<caseType>" case
     And I navigate to the "search" page
@@ -59,7 +59,7 @@ Feature: DCU Search
     Then the "Case Type" of the search results should be "MIN"
     And the "Topic" of the search results should be "Animal alternatives (3Rs)"
 
-  @SearchByDateReceived @DCUSmokeTests
+  @SearchByDateReceived @DCURegression
   Scenario: User should be able to search for cases received on or after a certain date
     And I create a single "DTEN" case with the correspondence received date as: "22"-"09"-"2020"
     And I navigate to the "search" page
@@ -69,7 +69,7 @@ Feature: DCU Search
     And I look for the current case that was received on or after the date searched
 
 
-  @SearchByDateReceived @DCUSmokeTests
+  @SearchByDateReceived @DCURegression
   Scenario: User should be able to search for cases received on or before a certain date
     And I create a single "DTEN" case with the correspondence received date as: "01"-"01"-"2019"
     And I navigate to the "search" page
@@ -85,7 +85,7 @@ Feature: DCU Search
     And I click the search button on the search page
     Then 0 cases should be displayed
 
-  @SearchByCorrespondent @DCUSmokeTests
+  @SearchByCorrespondent @DCURegression
   Scenario: User should be able to search by correspondent by entering their name
     And I create a "MIN" case with "Nicola Sturgeon" as the correspondent
     And I load and claim the current case
@@ -101,7 +101,7 @@ Feature: DCU Search
     And I click the search button on the search page
     Then 0 cases should be displayed
 
-  @SearchByTopic @DCUSmokeTests
+  @SearchByTopic @DCURegression
   Scenario: A case with a certain Primary Topic should be displayed in the search results when that topic is searched for
     And I create a "MIN" case with "Breeding of research animals" as the primary topic
     And I navigate to the "search" page
@@ -126,7 +126,7 @@ Feature: DCU Search
     And I click the search button on the search page
     Then both active and closed cases will be returned in the search results
 
-  @SearchByActiveOnly @DCUSmokeTests
+  @SearchByActiveOnly @DCURegression
   Scenario: Only active cases should be displayed when the user specifies a search should return active cases only
     And I navigate to the "search" page
     And I select active cases
@@ -135,7 +135,7 @@ Feature: DCU Search
     And I click the search button on the search page
     Then Only active cases will be returned in the search results
 
-  @SearchBySignOffTeam @DCUSmokeTests
+  @SearchBySignOffTeam @DCURegression
   Scenario: User should be able to search for a case by Sign-off Team
     And I create a "MIN" case with "Amnesty on illegal immigrants" as the primary topic
     And I navigate to the "search" page
@@ -153,7 +153,7 @@ Feature: DCU Search
     Then the "Case Type" of the search results should be "MIN"
     And the "Sign Off Team" of the search results should be "Permanent Secretary"
 
-  @SearchByCaseReferenceNumber @DCUSmokeTests
+  @SearchByCaseReferenceNumber @DCURegression
   Scenario Outline: User searches for DCU cases using a substring of a case reference
     And I create a single "<caseType>" case and return to the dashboard
     And I navigate to the "Search" page
@@ -165,7 +165,7 @@ Feature: DCU Search
       | DTEN     |
       | TRO      |
 
-  @SearchByHomeSecInterest @DCUSmokeTests
+  @SearchByHomeSecInterest @DCURegression
   Scenario: User searches for cases by Home Secretary Interest
     And I navigate to the "Search" page
     And I enter "Yes" into the "Home Secretary Interest" search criteria for DCU
