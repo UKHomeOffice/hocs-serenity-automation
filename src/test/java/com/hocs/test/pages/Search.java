@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.apache.xpath.operations.Bool;
-import org.jruby.RubyBoolean.False;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -23,7 +21,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.describedAs;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
@@ -34,7 +31,7 @@ public class Search extends BasePage {
 
     Homepage homepage;
 
-    SummaryTab summary;
+    SummaryTab summaryTab;
 
     AccordionDCU accordionDCU;
 
@@ -43,6 +40,8 @@ public class Search extends BasePage {
     AccordionMPAM accordionMPAM;
 
     Markup markup;
+
+    PeopleTab peopleTab;
 
     @FindBy(xpath = "//h1[text()='Search']")
     public WebElementFacade searchPageTitle;
@@ -119,6 +118,11 @@ public class Search extends BasePage {
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffDropdown;
 
+    public void performSearch() {
+        safeClickOn(searchButton);
+        assertOnSearchPage();
+    }
+
     //DCU Methods
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -189,34 +193,6 @@ public class Search extends BasePage {
         }
     }
 
-    public void viewFirstSearchResultCaseSummary() {
-        WebElementFacade firstSearchResult = findAll("//td//a").get(0);
-        safeClickOn(firstSearchResult);
-        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            safeClickOn(workstacks.allocateToMeButton);
-        }
-        summary.selectSummaryTab();
-    }
-
-    public void viewLastSearchResultCaseSummary() {
-        int numberOfCases = Integer.parseInt(numberOfSearchResults.getText().split(" ")[0]);
-        WebElementFacade lastSearchResultReference = findAll("//td//a").get((numberOfCases - 1));
-        safeClickOn(lastSearchResultReference);
-        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            safeClickOn(workstacks.allocateToMeButton);
-        }
-        summary.selectSummaryTab();
-    }
-
-    public void viewSummaryOfFirstSearchResultAdvancedPastDataInput() {
-        WebElementFacade firstSearchResult = findAll("//td[2][not(contains(text(),'Data Input'))]/preceding-sibling::td/a").get(0);
-        clickOn(firstSearchResult);
-        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
-            safeClickOn(workstacks.allocateToMeButton);
-        }
-        summary.selectSummaryTab();
-    }
-
     public void getCaseReferenceOfFirstAndLastSearchResults() {
         List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
         setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
@@ -252,7 +228,7 @@ public class Search extends BasePage {
             safeClickOn(accordionDCU.markupAccordionButton);
             checkSignOff = accordionDCU.privateOfficeTeam.getText();
         } else if (markup.privateOfficeTeamTextField.isVisible()) {
-            checkSignOff = markup.privateOfficeTeamTextField.getText();
+            checkSignOff = markup.privateOfficeTeamTextField.getValue();
         } else {
             goHome();
             safeClickOn(homepage.myCases);
@@ -376,14 +352,14 @@ public class Search extends BasePage {
         assertThat(caseList.size() == numberOfDisplayedCases, is(true));
     }
 
-    public void assertThatSearchedCorrespondentNameIsShownInCaseSummary() {
+    public void assertThatSearchedCorrespondentNameIsShownInPeopleTab() {
         String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
-        assertThat(summary.getPrimaryCorrespondent().toUpperCase(), containsString(correspondentName));
+        peopleTab.assertCorrespondentIsAttachedToCase(correspondentName);
     }
 
     public void assertThatSearchedTopicNameIsShownInCaseSummary() {
         String topicNameInSummary = sessionVariableCalled("searchTopic").toString();
-        summary.primaryTopic.shouldContainText(topicNameInSummary);
+        summaryTab.primaryTopic.shouldContainText(topicNameInSummary);
     }
 
     public void assertNoSearchCriteriaErrorMessage() {
@@ -428,7 +404,7 @@ public class Search extends BasePage {
     }
 
     public void assertOnSearchPage() {
-        topSearchResultCaseReference.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
         assertPageTitle("Search Results");
     }
 
@@ -472,33 +448,33 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CORRESPONDENT NAME":
                 safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
-                assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+                peopleTab.selectPeopleTab();
+                assertThatSearchedCorrespondentNameIsShownInPeopleTab();
                 goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.hitEnterCaseReferenceSearchBar();
-                safeClickOn(summaryTab);
-                assertThatSearchedCorrespondentNameIsShownInCaseSummary();
+                peopleTab.selectPeopleTab();
+                assertThatSearchedCorrespondentNameIsShownInPeopleTab();
                 break;
             case "TOPIC":
                 safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 assertThatSearchedTopicNameIsShownInCaseSummary();
                 goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.hitEnterCaseReferenceSearchBar();
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 assertThatSearchedTopicNameIsShownInCaseSummary();
                 break;
             case "HOME SEC INTEREST":
-                viewFirstSearchResultCaseSummary();
-                assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
+                safeClickOn(topSearchResult);
+                summaryTab.selectSummaryTab();
+                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
                 goHome();
-                safeClickOn(homepage.searchPage);
-                enterDCUSearchCriteria("Home Secretary Interest", "Yes");
-                safeClickOn(searchButton);
-                viewLastSearchResultCaseSummary();
-                assertThat(summary.homeSecInterest.getText().equals("Yes"), is(true));
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                summaryTab.selectSummaryTab();
+                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
                 break;
             case "SIGN OFF TEAM":
                 getCaseReferenceOfFirstAndLastSearchResults();
