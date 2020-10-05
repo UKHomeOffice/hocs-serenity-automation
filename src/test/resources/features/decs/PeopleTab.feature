@@ -18,18 +18,13 @@ Feature: PeopleTab
       | Nicola Sturgeon |
 
   @Regression
-  Scenario Outline: User is able to remove a correspondent from the case
+  Scenario: User is able to remove non-primary correspondents from the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
     And I complete the Data Input stage adding 3 member correspondents
     And I load and claim the current case
-    And I remove "<correspondent>" as a correspondent of the case
-    Then "<correspondent>" should be removed as a correspondent on the case
-    Examples:
-      | correspondent   |
-      | Boris Johnson   |
-      | Theresa May     |
-      | Nicola Sturgeon |
+    And I remove "Nicola Sturgeon" as a correspondent of the case
+    Then "Nicola Sturgeon" should be removed as a correspondent on the case
 
   @Regression
   Scenario Outline: User is able to add a correspondent to the case through the people tab

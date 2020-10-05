@@ -33,7 +33,7 @@ public class LoginStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    SummaryTab summary;
+    SummaryTab summaryTab;
 
     @Given("I log in to DECS as user {string}")
     public void iLoginAs(String user) {
@@ -174,8 +174,8 @@ public class LoginStepDefs extends BasePage {
         safeClickOn(homepage.myCases);
         try {
             safeClickOn(workstacks.topCaseReferenceHypertext);
-            safeClickOn(summaryTab);
-            summary.assertAllocatedUserIs(inputUser);
+            summaryTab.selectSummaryTab();
+            summaryTab.assertAllocatedUserIs(inputUser);
         }
         catch (AssertionError | NoSuchElementException e) {
             createCase.createCaseOfType("MIN");
@@ -183,8 +183,8 @@ public class LoginStepDefs extends BasePage {
             homepage.goHome();
             safeClickOn(homepage.myCases);
             safeClickOn(workstacks.topCaseReferenceHypertext);
-            safeClickOn(summaryTab);
-            summary.assertAllocatedUserIs(inputUser);
+            summaryTab.selectSummaryTab();
+            summaryTab.assertAllocatedUserIs(inputUser);
         }
     }
 }

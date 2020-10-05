@@ -53,7 +53,7 @@ public class SummaryTab extends BasePage {
     private WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
-    private WebElementFacade currentTeam;
+    public WebElementFacade currentTeam;
 
     @FindBy(xpath = "//th[text()='User']/following-sibling::td")
     private WebElementFacade allocatedUser;

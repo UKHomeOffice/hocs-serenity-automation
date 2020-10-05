@@ -1,5 +1,6 @@
 package com.hocs.test.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -33,6 +34,9 @@ public class PeopleTab extends BasePage {
     @FindBy(xpath = "//input[@value='Remove']")
     public WebElementFacade removeButton;
 
+    public void selectPeopleTab() {
+        safeClickOn(peopleTab);
+    }
 
     public void addAMemberCorrespondent(String newCorrespondent) {
         safeClickOn(managePeopleHypertext);
@@ -133,5 +137,16 @@ public class PeopleTab extends BasePage {
             assertThat(correspondentNames.get(n).getText().contains(correspondent), is(false));
             n++;
         }
+    }
+
+    public void assertCorrespondentIsAttachedToCase(String correspondentName) {
+        boolean correspondentPresent = false;
+        List<WebElementFacade> correspondentsNameElements = findAll("//th[text()='Name']/following-sibling::td");
+        for(WebElementFacade correspondentNameElement: correspondentsNameElements) {
+            if(correspondentNameElement.getText().toUpperCase().contains(correspondentName)){
+                correspondentPresent = true;
+            }
+        }
+        assertThat(correspondentPresent, is(true));
     }
 }
