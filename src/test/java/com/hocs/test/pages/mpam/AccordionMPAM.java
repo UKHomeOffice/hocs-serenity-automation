@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -13,6 +14,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AccordionMPAM extends BasePage {
+
+    SummaryTab summaryTab;
 
     @FindBy(xpath = "//button[text()='Case details']/parent::h2/following-sibling::span")
     public WebElementFacade caseDetailsAccordionButton;
@@ -194,9 +197,8 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
-        clickOn(summaryTab);
-        WebElementFacade summaryTabTeam = findBy("//th[text()='Team']/following-sibling::td");
-        assertThat(summaryTabTeam.getText().contains(newBusinessArea), is(true));
+        summaryTab.selectSummaryTab();
+        assertThat(summaryTab.currentTeam.getText().contains(newBusinessArea), is(true));
     }
 
     public void assertInputMatchesCaseDetailsResponse(String responseType) {

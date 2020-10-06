@@ -1,7 +1,5 @@
 package com.hocs.test.glue.mpam;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
@@ -14,7 +12,7 @@ public class CampaignStepDefs extends BasePage {
 
     Campaign campaign;
 
-    SummaryTab summary;
+    SummaryTab summaryTab;
 
     @And("I move the case into a Campaign from the {string} stage")
     public void moveCaseFromStageToCampaign(String stage) {
@@ -38,7 +36,7 @@ public class CampaignStepDefs extends BasePage {
 
     @Then("the correct Campaign is displayed in the summary tab")
     public void correctCampaignDisplayedInSummaryTab() {
-        safeClickOn(summaryTab);
-        summary.assertCampaignMatchesInputInSummaryTab();
+        summaryTab.selectSummaryTab();
+        summaryTab.assertCampaignMatchesInputInSummaryTab();
     }
 }

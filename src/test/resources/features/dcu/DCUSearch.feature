@@ -81,14 +81,13 @@ Feature: DCU Search
   @SearchByDateReceived @OtherTests
   Scenario: No cases should be displayed if a user searches for a date range that contains no cases
     And I navigate to the "search" page
-    When I enter "01/01/1901" into the "Received On Or Before" search criteria for DCU
+    When I enter "01/01/1901" into the "Received On Or Before Date" search criteria for DCU
     And I click the search button on the search page
     Then 0 cases should be displayed
 
   @SearchByCorrespondent @DCURegression
   Scenario: User should be able to search by correspondent by entering their name
     And I create a "MIN" case with "Nicola Sturgeon" as the correspondent
-    And I load and claim the current case
     And I navigate to the "search" page
     When I enter "Nicola Sturgeon" into the "Correspondent Name" search criteria for DCU
     And I click the search button on the search page

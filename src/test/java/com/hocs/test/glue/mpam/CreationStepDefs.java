@@ -35,6 +35,7 @@ public class CreationStepDefs extends BasePage {
     @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
         creation.selectMinisterialSignOffTeam("Home Secretary");
+        creation.selectAddressee("Home Secretary");
         creation.selectUrgency("Standard");
         creation.selectInboundChannel("Email");
     }

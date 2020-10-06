@@ -28,7 +28,7 @@ public class DataInputStepDefs extends BasePage {
 
     AccordionDCU accordionDCU;
 
-    SummaryTab summary;
+    SummaryTab summaryTab;
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
@@ -231,36 +231,36 @@ public class DataInputStepDefs extends BasePage {
 
     @And("the stage deadline dates for a {string} case are correct")
     public void checkStageDeadlineDatesCorrect(String caseType) {
-        safeClickOn(summaryTab);
+        summaryTab.selectSummaryTab();
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "HOME SECRETARY SIGN-OFF":
-                summary.assertDeadlineDateOfStage(caseType, "Data Input");
-                summary.assertDeadlineDateOfStage(caseType, "Markup");
-                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                summary.assertDeadlineDateOfStage(caseType, "QA Response");
-                summary.assertDeadlineDateOfStage(caseType, "Private Office Approval");
-                summary.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
-                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Data Input");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Markup");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summaryTab.assertDeadlineDateOfStage(caseType, "QA Response");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Private Office Approval");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summaryTab.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
                 break;
             case "DTEN":
-                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
-                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
                 break;
             case "TRO":
-                summary.assertDeadlineDateOfStage(caseType, "Data Input");
-                summary.assertDeadlineDateOfStage(caseType, "Markup");
-                summary.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                summary.assertDeadlineDateOfStage(caseType, "QA Response");
-                summary.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
-                summary.assertDeadlineDateOfStage(caseType, "Dispatch");
-                summary.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Data Input");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Markup");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
+                summaryTab.assertDeadlineDateOfStage(caseType, "QA Response");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
+                summaryTab.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
+                summaryTab.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
                 break;
             case "MPAM":
-                summary.assertDeadlineDateOfStage(caseType, "GENERAL");
+                summaryTab.assertDeadlineDateOfStage(caseType, "GENERAL");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -284,7 +284,7 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("the Home Secretary interest decision should match the one displayed in the summary tab")
     public void assertHomeSecInterestInputMatchesSummaryTab() {
-        safeClickOn(summaryTab);
-        summary.assertHomeSecInterestMatchesDecisionAtDataInput();
+        summaryTab.selectSummaryTab();
+        summaryTab.assertHomeSecInterestMatchesDecisionAtDataInput();
     }
 }

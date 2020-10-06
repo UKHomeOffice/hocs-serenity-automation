@@ -83,11 +83,15 @@ public class Creation extends BasePage {
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
 
+    @FindBy(id = "Addressee")
+    public WebElementFacade addresseeDropdown;
+
 
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
         selectRefType("Ministerial");
         selectMinisterialSignOffTeam("Home Secretary");
+        selectAddressee("Home Secretary");
         selectUrgency("Standard");
         selectInboundChannel("Email");
     }
@@ -141,6 +145,13 @@ public class Creation extends BasePage {
         if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
             ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
             setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
+        }
+    }
+
+    public void selectAddressee(String addressee) {
+        if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
+            addresseeDropdown.selectByVisibleText(addressee);
+            setSessionVariable("addressee").to(addressee);
         }
     }
 
@@ -207,6 +218,7 @@ public class Creation extends BasePage {
         selectBusinessArea(businessArea);
         selectRefType(refType);
         selectMinisterialSignOffTeam("Home Secretary");
+        selectAddressee("Home Secretary");
         selectInboundChannel("Email");
         selectUrgency("Standard");
         clickTheButton("Continue");
@@ -218,6 +230,7 @@ public class Creation extends BasePage {
         selectBusinessArea("UKVI");
         selectRefType(refType);
         selectMinisterialSignOffTeam("Home Secretary");
+        selectAddressee("Home Secretary");
         selectInboundChannel("Email");
         selectUrgency(urgency);
         clickTheButton("Continue");
@@ -229,6 +242,7 @@ public class Creation extends BasePage {
         selectBusinessArea("UKVI");
         selectRefType("Ministerial");
         selectMinisterialSignOffTeam(signOffTeam);
+        selectAddressee(signOffTeam);
         selectInboundChannel("Email");
         selectUrgency("Standard");
         safeClickOn(continueButton);

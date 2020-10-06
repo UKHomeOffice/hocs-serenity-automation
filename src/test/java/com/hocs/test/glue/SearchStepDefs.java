@@ -3,7 +3,9 @@ package com.hocs.test.glue;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.PeopleTab;
 import com.hocs.test.pages.Search;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -29,9 +31,13 @@ public class SearchStepDefs extends BasePage {
 
     CreateCase createCase;
 
+    SummaryTab summaryTab;
+
+    PeopleTab peopleTab;
+
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        safeClickOn(search.searchButton);
+        search.performSearch();
     }
 
     @Then("an error message should be displayed as I have not entered any search criteria")
@@ -107,12 +113,6 @@ public class SearchStepDefs extends BasePage {
         }
     }
 
-    @Then("cases with the queried correspondent name should be displayed in the results list")
-    public void assertThatFirstCaseInCorrespondentSearchResultMatchesSearchQuery() {
-        search.viewSummaryOfFirstSearchResultAdvancedPastDataInput();
-        search.assertThatSearchedCorrespondentNameIsShownInCaseSummary();
-    }
-
     @And("I click the case reference link of the first case in the results list")
     public void iClickTheCaseReferenceLinkOfTheFirstCaseInTheResultsList() {
         setSessionVariable("caseReference").to(search.topSearchResultCaseReference.getText());
@@ -183,7 +183,7 @@ public class SearchStepDefs extends BasePage {
                 safeClickOn(homepage.searchPage);
                 enterIntoTheSearchCriteria("MIN", "Case Type");
                 enterIntoTheSearchCriteria(sessionVariableCalled("searchSignOffTeam"), "Sign Off Team");
-                safeClickOn(searchButton);
+                search.performSearch();
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -203,6 +203,7 @@ public class SearchStepDefs extends BasePage {
                 safeClickOn(homepage.searchPage);
                 enterIntoTheSearchCriteria(caseType, "Case Type");
                 enterIntoTheSearchCriteria("01/01/2019", "Received On Or Before Date");
+                search.performSearch();
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -210,17 +211,18 @@ public class SearchStepDefs extends BasePage {
     @And("I look for the current case that was received on or after the date searched")
     public void lookForTheCurrentCaseInTheSearchResultsAfterDate() {
         int retry = 0;
-        String afterDateCaseType = sessionVariableCalled("afterReceivedCaseType");
+        String afterDateCaseType = sessionVariableCalled("searchCaseType");
         while (retry < 5) {
             try {
                 search.assertCurrentCaseIsDisplayedInSearchResults();
                 break;
             } catch (AssertionError aE) {
-                waitABit(10000);
+                waitABit(7500);
                 retry++;
                 safeClickOn(homepage.searchPage);
                 enterIntoTheSearchCriteria(afterDateCaseType, "Case Type");
-                enterIntoTheSearchCriteria("01/01/2019", "Received On Or After Date");
+                enterIntoTheSearchCriteria("22/09/2020", "Received On Or After Date");
+                search.performSearch();
             }
         }
         search.assertCurrentCaseIsDisplayedInSearchResults();
@@ -245,51 +247,51 @@ public class SearchStepDefs extends BasePage {
         switch (infoType.toUpperCase()) {
             case "REFERENCE TYPE":
                 safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade firstRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
                 firstRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
                 homepage.goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade secondRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
                 secondRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade firstMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
                         + "]/following-sibling::td/span[1]");
                 firstMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
                 homepage.goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade secondMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
                         + "]/following-sibling::td/span[1]");
                 secondMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 safeClickOn(topSearchResult);
-                safeClickOn(peopleTab);
+                peopleTab.selectPeopleTab();
                 WebElementFacade firstCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
                 firstCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
                 homepage.goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                safeClickOn(peopleTab);
+                peopleTab.selectPeopleTab();
                 WebElementFacade secondCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
                 secondCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
             case "CAMPAIGN":
                 safeClickOn(topSearchResult);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade firstCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
                 firstCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
                 homepage.goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
                 homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                safeClickOn(summaryTab);
+                summaryTab.selectSummaryTab();
                 WebElementFacade secondCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
                 secondCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
                 break;
