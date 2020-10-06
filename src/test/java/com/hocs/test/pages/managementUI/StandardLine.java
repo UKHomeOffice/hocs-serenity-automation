@@ -2,10 +2,12 @@ package com.hocs.test.pages.managementUI;
 
 import com.hocs.test.pages.BasePage;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import io.cucumber.java.et.Ja;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 
 import static jnr.posix.util.MethodName.getMethodName;
@@ -86,6 +88,9 @@ public class StandardLine extends BasePage {
     }
 
     public void selectActionForStandardLine(String topic, String action) {
+        if (action.toUpperCase().equals("EXPIRE")) {
+            setSessionVariable("standardLineExpiryDate").to(getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        }
         WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
         safeClickOn(hypertext);
         waitABit(1000);
@@ -105,7 +110,7 @@ public class StandardLine extends BasePage {
     }
 
     public void toggleExpiredStandardLinesCheckbox() {
-        safeClickOn(excludeExpiredCheckbox);
+        jsClickOn(excludeExpiredCheckbox);
     }
 
     public void enterIntoStandardLineFilter(String input) {

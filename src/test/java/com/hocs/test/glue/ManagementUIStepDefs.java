@@ -450,7 +450,7 @@ public class ManagementUIStepDefs extends BasePage {
         standardLine.toggleExpiredStandardLinesCheckbox();
     }
 
-    @Then("the standard line {string} visible")
+    @And("the standard line {string} visible")
     public void theStandardLineVisible(String input) {
         standardLine.assertCreatedStandardLineDisplayed(input);
     }

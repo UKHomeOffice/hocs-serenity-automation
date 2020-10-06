@@ -99,6 +99,14 @@ Feature: ManagementUI
     And I select the checkbox to include expired standard lines
     Then the standard line "isn't" visible
 
+    Scenario: User is able to expire a standard line
+      And I navigate to the "Add a Standard Line" Management page
+      And I add a new Standard Line with "101 non-emergency number (cost)" as the topic
+      When I select the "Expire" action for the "101 non-emergency number (cost)" standard line
+      And the standard line "isn't" visible
+      And I select the checkbox to include expired standard lines
+      Then the standard line "is" visible
+
   @UnitManagement @Validation
   Scenario: User must enter a display name and short code on the add unit page
     And I navigate to the "ADD A UNIT" Management page
