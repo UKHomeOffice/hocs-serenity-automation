@@ -289,6 +289,11 @@ public class BasePage extends PageObject {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible().waitUntilEnabled().click();
     }
 
+    public void jsClickOn(WebElementFacade webElementFacade) {
+        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        jse.executeScript("arguments[0].click()", webElementFacade);
+    }
+
     public void setCurrentUser(User user) {
         CurrentUser.getInstance().setUser(user);
     }

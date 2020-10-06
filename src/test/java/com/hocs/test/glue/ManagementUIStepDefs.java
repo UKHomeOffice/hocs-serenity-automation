@@ -53,8 +53,11 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
-            case "STANDARD LINE":
+            case "ADD A STANDARD LINE":
                 safeClickOn(dashboard.addStandardLineButton);
+                break;
+            case "MANAGE STANDARD LINES":
+                safeClickOn(dashboard.manageStandardLinesHypertext);
                 break;
             case "TEAM":
                 safeClickOn(dashboard.addRemoveUsersButton);
@@ -411,9 +414,9 @@ public class ManagementUIStepDefs extends BasePage {
         dashboard.assertSuccessMessageDisplayed();
     }
 
-    @When("I add a new Standard Line")
-    public void userAddsANewStandardLine() {
-        standardLine.enterStandardLineTopic();
+    @When("I add a new Standard Line with {string} as the topic")
+    public void userAddsANewStandardLine(String topic) {
+        standardLine.enterStandardLineTopic(topic);
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();
         safeClickOn(unitManagement.submitButton);
@@ -421,15 +424,50 @@ public class ManagementUIStepDefs extends BasePage {
 
     @When("I enter a Standard Line expiration date in the past")
     public void enterPastStandardLineExpirationDate() {
-        standardLine.enterStandardLineTopic();
+        standardLine.enterStandardLineTopic("Animal alternatives (3Rs)");
         standardLine.addStandardLineDocument();
         standardLine.enterPastStandardLineExpirationDate();
         safeClickOn(unitManagement.submitButton);
     }
 
+    @And("I select the {string} action for the {string} standard line")
+    public void iSelectTheActionForTheStandardLine(String action, String topic) {
+        standardLine.selectActionForStandardLine(topic, action);
+    }
+
+    @And("I amend the expiry date of the {string} standard line to {string}")
+    public void iAmendTheExpiryDateOfTheStandardLineTo(String topic, String date) {
+        standardLine.amendAStandardLine(topic, date);
+    }
+
+    @And("I enter {string} into the standard line filter")
+    public void iEnterIntoStandardLineFilter(String input) {
+        standardLine.enterIntoStandardLineFilter(input);
+    }
+
+    @And("I select the checkbox to include expired standard lines")
+    public void iSelectTheCheckboxToIncludeExpiredStandardLines() {
+        standardLine.toggleExpiredStandardLinesCheckbox();
+    }
+
+    @And("the standard line {string} visible")
+    public void theStandardLineVisible(String input) {
+        standardLine.assertCreatedStandardLineDisplayed(input);
+    }
+
+    @Then("the standard lines in the {string} column should contain {string}")
+    public void theStandardLinesShouldBeFilteredBy(String column, String contents) {
+        standardLine.assertStandardLinesAreFilteredBy(column, contents);
+    }
+
     @Then("an error message should be displayed as the expiration date must be in the future")
     public void assertThatExpirationDateMustBeInFutureErrorMessageIsDisplayed() {
         standardLine.assertDateMustBeInFutureErrorMessage();
+    }
+
+    @Then("the standard line expiry date has been correctly amended")
+    public void theStandardLineExpiryDateHasBeenCorrectlyAmended() {
+        standardLine.assertStandardLineExpiryDateIsUpdated();
     }
 
     @And("I enter a {string} Display Name")

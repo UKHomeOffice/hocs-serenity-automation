@@ -39,6 +39,9 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//a[text()='Manage MPAM campaigns ']")
     public WebElementFacade manageMPAMCampaignsHypertext;
 
+    @FindBy(xpath = "//a[text()='Manage standard lines ']")
+    public WebElementFacade manageStandardLinesHypertext;
+
     public void goToDashboard() {
         safeClickOn(dashboardLink);
     }
