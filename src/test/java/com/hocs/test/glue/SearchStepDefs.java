@@ -259,17 +259,13 @@ public class SearchStepDefs extends BasePage {
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(topSearchResult);
-                summaryTab.selectSummaryTab();
-                WebElementFacade firstMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
-                        + "]/following-sibling::td/span[1]");
-                firstMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
-                homepage.goHome();
+                peopleTab.selectPeopleTab();
+                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("infoValue"));
+                goHome();
                 homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                summaryTab.selectSummaryTab();
-                WebElementFacade secondMemberOfParliamentName = findBy("//th[contains(text(), 'Primary correspondent')"
-                        + "]/following-sibling::td/span[1]");
-                secondMemberOfParliamentName.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                peopleTab.selectPeopleTab();
+                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("infoValue"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 safeClickOn(topSearchResult);

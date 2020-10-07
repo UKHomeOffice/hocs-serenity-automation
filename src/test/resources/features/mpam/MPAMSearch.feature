@@ -14,7 +14,7 @@ Feature: MPAM Search
       | Reference Type            | Ministerial          |
       | Reference Type            | Official       |
       | Member of Parliament Name | Boris Johnson  |
-#      | Correspondent Reference Number | TestRefNumber    |
+      | Correspondent Reference Number | TestRefNumber 1   |
       | Campaign                  | Small boats    |
       | Ministerial Sign Off Team | Home Secretary |
 

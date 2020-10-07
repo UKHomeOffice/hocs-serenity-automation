@@ -318,7 +318,7 @@ public class Search extends BasePage {
         String substring = null;
         String firstCharOfSubstring = "";
         String caseRef = sessionVariableCalled("caseReference");
-        String split = caseRef.split("/012")[1];
+        String split = caseRef.split("/01.")[1];
         int randomStringLength = (int)(Math.random() * ((4 - 1) + 1)) + 1;
         while (n <= randomStringLength) {
             substring = split.substring(n, randomStringLength);

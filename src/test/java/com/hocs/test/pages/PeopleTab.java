@@ -143,7 +143,7 @@ public class PeopleTab extends BasePage {
         boolean correspondentPresent = false;
         List<WebElementFacade> correspondentsNameElements = findAll("//th[text()='Name']/following-sibling::td");
         for(WebElementFacade correspondentNameElement: correspondentsNameElements) {
-            if(correspondentNameElement.getText().toUpperCase().contains(correspondentName)){
+            if(correspondentNameElement.getText().toUpperCase().contains(correspondentName.toUpperCase())){
                 correspondentPresent = true;
             }
         }

@@ -18,7 +18,6 @@ import org.openqa.selenium.By;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -41,7 +40,7 @@ public class Workstacks extends BasePage {
     public WebElementFacade unallocateButton;
 
     @FindBy(id = "workstack-filter")
-    public WebElementFacade selectWorkstackFilter;
+    public WebElementFacade workstackFilter;
 
     @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
@@ -200,8 +199,8 @@ public class Workstacks extends BasePage {
     }
 
     public void refineWorkstackSearchResults(String workstackInput) {
-        safeClickOn(selectWorkstackFilter);
-        typeInto(selectWorkstackFilter, workstackInput);
+        safeClickOn(workstackFilter);
+        typeInto(workstackFilter, workstackInput);
     }
 
     public void allocateThreeCasesCreated(User user) {
@@ -314,7 +313,7 @@ public class Workstacks extends BasePage {
 
     public void unallocateSelectedCase(String caseRef) {
         WebElement selectedCaseCheckBox = getDriver().findElement(By.xpath("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//input"));
-        typeInto(selectWorkstackFilter, caseRef);
+        typeInto(workstackFilter, caseRef);
         selectedCaseCheckBox.click();
         safeClickOn(unallocateButton);
     }
@@ -422,7 +421,7 @@ public class Workstacks extends BasePage {
     }
 
     public void filterByCurrentCaseReference() {
-        typeInto(selectWorkstackFilter, sessionVariableCalled("caseReference"));
+        typeInto(workstackFilter, sessionVariableCalled("caseReference"));
     }
 
     public void assertAssignedUser(User user) {
@@ -470,45 +469,45 @@ public class Workstacks extends BasePage {
         int totalCases = getTotalOfCases();
         refineWorkstackSearchResults("MIN");
         assertThat(totalCases != 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("DTEN");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("TRO");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
     }
 
     public void assertThatDCUTENisOnlyVisibleCaseType() {
         int totalCases = getTotalOfCases();
         refineWorkstackSearchResults("DTEN");
         assertThat(totalCases != 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("MIN");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("TRO");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
     }
 
     public void assertThatDCUTROisOnlyVisibleCaseType() {
         int totalCases = getTotalOfCases();
         refineWorkstackSearchResults("TRO");
         assertThat(totalCases != 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("MIN");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
         refineWorkstackSearchResults("DTEN");
         totalCases = getTotalOfCases();
         assertThat(totalCases == 0, is(true));
-        selectWorkstackFilter.clear();
+        workstackFilter.clear();
     }
 
     public void assertPrimaryCorrespondentIs(String name) {
@@ -646,6 +645,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         String highPriorityReference = sessionVariableCalled(highPriorityCase);
         String lowPriorityReference = sessionVariableCalled(lowPriorityCase);
 
