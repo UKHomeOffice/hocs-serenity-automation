@@ -54,16 +54,16 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the Case Reference type {string} into the filter")
     public void enterCaseReferenceType(String caseReferenceType) {
-        safeClickOn(workstacks.selectWorkstackFilter);
+        safeClickOn(workstacks.workstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
-                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
+                typeInto(workstacks.workstackFilter, caseReferenceType);
                 break;
             case "DTEN":
-                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
+                typeInto(workstacks.workstackFilter, caseReferenceType);
                 break;
             case "TRO":
-                typeInto(workstacks.selectWorkstackFilter, caseReferenceType);
+                typeInto(workstacks.workstackFilter, caseReferenceType);
                 break;
             default:
                 pendingStep(caseReferenceType + " is not defined within " + getMethodName());
@@ -100,8 +100,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the current stage {string} into the filter")
     public void enterCurrentStage(String currentStage) {
-        safeClickOn(workstacks.selectWorkstackFilter);
-        typeInto(workstacks.selectWorkstackFilter, currentStage.toUpperCase());
+        safeClickOn(workstacks.workstackFilter);
+        typeInto(workstacks.workstackFilter, currentStage.toUpperCase());
     }
 
     @Then("all cases should be allocated to the user {string}")
