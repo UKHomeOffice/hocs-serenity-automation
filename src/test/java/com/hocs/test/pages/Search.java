@@ -331,6 +331,9 @@ public class Search extends BasePage {
         int caseNumberUpperBound = Integer.parseInt(substring);
         int randomCaseInteger = new Random().nextInt(caseNumberUpperBound);
         String randomCaseIntToString = Integer.toString(randomCaseInteger);
+        if (randomCaseInteger < 1000) {
+            randomCaseIntToString = "0" + randomCaseIntToString;
+        }
         if (randomCaseInteger < 100) {
             randomCaseIntToString = "0" + randomCaseIntToString;
         }
