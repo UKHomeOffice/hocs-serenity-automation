@@ -141,9 +141,7 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I enter an invalid date")
     public void enterAnInvalidDate() {
-        dataInput.enterDayOfCorrespondenceReceived("29");
-        dataInput.enterMonthOfCorrespondenceReceived("02");
-        dataInput.enterYearOfCorrespondenceReceived("2019");
+        dataInput.enterDateIntoFields("Correspondence Received", "29/02/2019");
     }
 
     @Then("both correspondents are listed")
@@ -161,8 +159,6 @@ public class DataInputStepDefs extends BasePage {
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         homepage.getCurrentCase();
         accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
-
-
     }
 
     @And("I complete the Data Input stage of the displayed case")

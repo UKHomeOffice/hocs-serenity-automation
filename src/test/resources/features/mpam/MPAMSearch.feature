@@ -10,13 +10,13 @@ Feature: MPAM Search
     And I search for an MPAM case with "<infoValue>" as it's "<infoType>"
     Then I check that the MPAM search results have the correct "<infoType>"
     Examples:
-      | infoType                  | infoValue            |
-      | Reference Type            | Ministerial          |
-      | Reference Type            | Official       |
-      | Member of Parliament Name | Boris Johnson  |
-      | Correspondent Reference Number | TestRefNumber 1   |
-      | Campaign                  | Small boats    |
-      | Ministerial Sign Off Team | Home Secretary |
+      | infoType                       | infoValue        |
+      | Reference Type                 | Ministerial      |
+      | Reference Type                 | Official         |
+      | Member of Parliament Name      | Boris Johnson    |
+      | Correspondent Reference Number | TestRefNumber 1  |
+      | Campaign                       | Small boats      |
+      | Ministerial Sign Off Team      | Home Secretary   |
 
   Scenario: User is able to search for a case by the Correspondent Reference Number
     And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
