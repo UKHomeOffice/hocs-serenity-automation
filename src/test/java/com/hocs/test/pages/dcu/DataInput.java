@@ -115,58 +115,24 @@ public class DataInput extends BasePage {
         dateCorrespondenceSentYearField.clear();
     }
 
-    public void enterDateIntoFields(String dateType, String dateInput) {
-        WebElementFacade ddInputField = null;
-        WebElementFacade mmInputField = null;
-        WebElementFacade yyyyInputField = null;
-        String dd = dateInput.split("/")[0];
-        String mm = dateInput.split("/")[1];
-        String yyyy = dateInput.split("/")[2];
-        switch (dateType.toUpperCase()) {
-            case "CORRESPONDENCE RECEIVED":
-                ddInputField = dateCorrespondenceReceivedDayField;
-                mmInputField = dateCorrespondenceReceivedMonthField;
-                yyyyInputField = dateCorrespondenceReceivedYearField;
-                break;
-            case "CORRESPONDENCE SENT":
-                ddInputField = dateCorrespondenceSentDayField;
-                mmInputField = dateCorrespondenceSentMonthField;
-                yyyyInputField = dateCorrespondenceSentYearField;
-                break;
-            case "DRAFTING DEADLINE":
-                ddInputField = dtenDraftingDeadlineDayField;
-                mmInputField = dtenDraftingDeadlineMonthField;
-                yyyyInputField = dtenDraftingDeadlineYearField;
-                break;
-            case "DISPATCH DEADLINE":
-                ddInputField = dtenDispatchDeadlineDayField;
-                mmInputField = dtenDispatchDeadlineMonthField;
-                yyyyInputField = dtenDispatchDeadlineYearField;
-                break;
-            default:
-                pendingStep(dateType + " is not defined within " + getMethodName());
-        }
-        typeInto(ddInputField, dd);
-        typeInto(mmInputField, mm);
-        typeInto(yyyyInputField, yyyy);
-    }
-
     public void fillAllMandatoryCorrespondenceFields() {
         String caseType = sessionVariableCalled("caseType");
         if (caseType.equals("DTEN")) {
-            enterDateIntoFields("Drafting Deadline", "01/01/2019");
+            typeIntoDateField(dtenDraftingDeadlineDayField, dtenDraftingDeadlineMonthField, dtenDraftingDeadlineYearField, "01/01/2019");
             setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
-            enterDateIntoFields("Dispatch Deadline", "01/01/2019");
+            typeIntoDateField(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField,"01/01/2019");
             setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
             safeClickOn(continueButton);
-            enterDateIntoFields("Correspondence Sent",
+            typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     todayPlusMinusNDaysGetDay(-2) + "/" + todayPlusMinusNDaysGetMonth(-2) + "/" + todayPlusMinusNDaysGetYear(-2));
-            enterDateIntoFields("Correspondence Received", getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+            typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
+                    getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
         } else {
-            enterDateIntoFields("Correspondence Sent",
+            typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     todayPlusMinusNDaysGetDay(-2) + "/" + todayPlusMinusNDaysGetMonth(-2) + "/" + todayPlusMinusNDaysGetYear(-2));
-            enterDateIntoFields("Correspondence Received", getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+            typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
+                    getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
             safeClickOn(homeSecInterestYesRadioButton);
@@ -174,20 +140,21 @@ public class DataInput extends BasePage {
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
-        enterDateIntoFields("Correspondence Sent",
+        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 todayPlusMinusNDaysGetDay(-2) + "/" + todayPlusMinusNDaysGetMonth(-2) + "/" + todayPlusMinusNDaysGetYear(-2));
-        enterDateIntoFields("Correspondence Received", getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
+                getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
         safeClickOn(homeSecInterestYesRadioButton);
     }
 
     public void invalidCorrespondenceReceivedDate() {
-        enterDateIntoFields("Correspondence Received", tomorrowsDay() + "/" + tomorrowsMonth() + "/" + tomorrowsYear());
+        typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField, tomorrowsDay() + "/" + tomorrowsMonth() + "/" + tomorrowsYear());
     }
 
     public void invalidCorrespondenceSentDate() {
-        enterDateIntoFields("Correspondence Sent", tomorrowsDay() + "/" + tomorrowsMonth() + "/" + tomorrowsYear());
+        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField, tomorrowsDay() + "/" + tomorrowsMonth() + "/" + tomorrowsYear());
     }
 
     public void completeDataInputStageWithMPCorrespondent(String correspondent) {
@@ -198,7 +165,8 @@ public class DataInput extends BasePage {
     }
 
     public void completeDataInputStageAndStoreEnteredInformation() {
-        enterDateIntoFields("Correspondence Sent", getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+                getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         String currentDay = dateCorrespondenceSentDayField.getValue();
         setSessionVariable("currentDay").to(currentDay);
         String currentMonth = dateCorrespondenceSentMonthField.getValue();
@@ -239,9 +207,9 @@ public class DataInput extends BasePage {
     }
 
     public void completeDataInputStageWithHomeSecInterestNo() {
-        enterDateIntoFields("Correspondence Sent",
+        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 todayPlusMinusNDaysGetDay(-2) + "/" + todayPlusMinusNDaysGetMonth(-2) + "/" + todayPlusMinusNDaysGetYear(-2));
-        enterDateIntoFields("Correspondence Received", getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField, getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
         safeClickOn(homeSecInterestNoRadioButton);

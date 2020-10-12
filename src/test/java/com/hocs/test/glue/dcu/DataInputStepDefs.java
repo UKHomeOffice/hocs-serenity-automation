@@ -141,7 +141,9 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I enter an invalid date")
     public void enterAnInvalidDate() {
-        dataInput.enterDateIntoFields("Correspondence Received", "29/02/2019");
+        dataInput.typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
+                dataInput.dateCorrespondenceReceivedYearField,
+                "29/02/2019");
     }
 
     @Then("both correspondents are listed")
