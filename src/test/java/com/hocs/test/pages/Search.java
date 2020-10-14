@@ -118,6 +118,9 @@ public class Search extends BasePage {
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffDropdown;
 
+    @FindBy(id = "correspondentNameNotMember")
+    public WebElementFacade applicantOrConstituentFullNameTextField;
+
     public void performSearch() {
         safeClickOn(searchButton);
         assertOnSearchPage();
@@ -303,6 +306,10 @@ public class Search extends BasePage {
                 campaignSearchField.sendKeys(value);
                 campaignSearchField.sendKeys(Keys.RETURN);
                 setSessionVariable("searchCampaign").to(value);
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+                typeInto(applicantOrConstituentFullNameTextField, value);
+                setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "ACTIVE CASES ONLY":
                 if (value.toUpperCase().equals("YES")) {

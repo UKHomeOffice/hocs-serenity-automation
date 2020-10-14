@@ -294,6 +294,16 @@ public class SearchStepDefs extends BasePage {
             case "MINISTERIAL SIGN OFF TEAM":
                 search.assertFirstAndLastResultOf(infoType);
                 break;
+            case "PUBLIC CORRESPONDENT NAME":
+                safeClickOn(topSearchResult);
+                peopleTab.selectPeopleTab();
+                search.assertThatSearchedCorrespondentNameIsShownInPeopleTab();
+                goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.hitEnterCaseReferenceSearchBar();
+                peopleTab.selectPeopleTab();
+                search.assertThatSearchedCorrespondentNameIsShownInPeopleTab();
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }

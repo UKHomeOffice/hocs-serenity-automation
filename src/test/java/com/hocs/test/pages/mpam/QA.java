@@ -33,6 +33,9 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade reasonForEscalationTextField;
+
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
@@ -81,6 +84,8 @@ public class QA extends BasePage {
 
     public void escalateQACaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        safeClickOn(confirmButton);
+        typeInto(reasonForEscalationTextField, "Test");
         safeClickOn(confirmButton);
     }
 
