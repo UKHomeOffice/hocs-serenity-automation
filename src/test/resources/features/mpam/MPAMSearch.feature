@@ -11,12 +11,12 @@ Feature: MPAM Search
     Then I check that the MPAM search results have the correct "<infoType>"
     Examples:
       | infoType                       | infoValue        |
-#      | Reference Type                 | Ministerial      |
-#      | Reference Type                 | Official         |
-#      | Member of Parliament Name      | Boris Johnson    |
-#      | Correspondent Reference Number | TestRefNumber 1  |
-#      | Campaign                       | Small boats      |
-#      | Ministerial Sign Off Team      | Home Secretary   |
+      | Reference Type                 | Ministerial      |
+      | Reference Type                 | Official         |
+      | Member of Parliament Name      | Boris Johnson    |
+      | Correspondent Reference Number | TestRefNumber 1  |
+      | Campaign                       | Small boats      |
+      | Ministerial Sign Off Team      | Home Secretary   |
       | Public Correspondent Name      | TestApplicant    |
 
   Scenario: User is able to search for a case by the Correspondent Reference Number
