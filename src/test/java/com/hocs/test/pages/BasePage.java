@@ -1,5 +1,7 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -102,6 +104,15 @@ public class BasePage extends PageObject {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void typeIntoDateField(WebElementFacade ddField, WebElementFacade mmField, WebElementFacade yyyyField, String date) {
+        String dd = date.split("/")[0];
+        String mm = date.split("/")[1];
+        String yyyy = date.split("/")[2];
+        typeInto(ddField, dd);
+        typeInto(mmField, mm);
+        typeInto(yyyyField, yyyy);
     }
 
     public void clickTheButton(String buttonLabel) {
