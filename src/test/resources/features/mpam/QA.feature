@@ -53,6 +53,7 @@ Feature: QA
   @MPAMWorkflow @MPAMRegression
   Scenario: User de-escalates a QA (Escalated) case
     And I select the "Escalate to Workflow Manager" action at QA
+    And I submit a reason to escalate the case at QA stage
     And I load and claim the current case
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "QA" stage
@@ -61,6 +62,7 @@ Feature: QA
   @MPAMWorkflow @MPAMRegression
   Scenario: User closes a QA (Escalated) case
     And I select the "Escalate to Workflow Manager" action at QA
+    And I submit a reason to escalate the case at QA stage
     When I load and claim the current case
     And I select to close the QA (Escalated) case
     And I submit a reason to close the case at QA (Escalated) stage
