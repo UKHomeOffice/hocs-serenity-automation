@@ -5,23 +5,21 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.TimelineTab;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.dcu.Dispatch;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.mpam.AccordionMPAM;
-import config.User;
-
 import com.hocs.test.pages.mpam.Triage;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
@@ -241,7 +239,7 @@ public class BaseStepDefs extends BasePage {
             case "OTHER GOVERNMENT DEPARTMENT":
             case "REASON FOR NO RESPONSE NEEDED":
             case "REASON FOR REJECTING TO DATA INPUT":
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
@@ -269,10 +267,10 @@ public class BaseStepDefs extends BasePage {
         switch (rejection.toUpperCase()) {
             case "COMPLETE":
                 enterRejectionNotes();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "DO NOT COMPLETE":
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(rejection + " is not defined within " + getMethodName());
@@ -371,19 +369,19 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(initialDraft.answeredByMyTeamNoRadioButton);
                 safeClickOn(initialDraft.continueButton);
                 initialDraft.enterRejectionNotes();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "QA RESPONSE":
                 safeClickOn(qaResponse.QARejectRadioButton);
                 safeClickOn(qaResponse.continueButton);
                 qaResponse.enterQARejectionNote();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE APPROVAL":
                 safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
                 safeClickOn(privateOfficeApproval.continueButton);
                 privateOfficeApproval.enterPORejectNotes();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "MINISTERIAL SIGN OFF":
                 safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
@@ -395,13 +393,13 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(dispatch.dispatchRejectRadioButton);
                 safeClickOn(continueButton);
                 dispatch.enterDispatchRejectionNotes();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             case "MARKUP":
                 markup.selectRejectToDataInput();
                 safeClickOn(continueButton);
                 markup.enterRejectToDataInputReasonIntoTextBox();
-                safeClickOn(finishButton);;
+                safeClickOn(finishButton);
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -445,6 +443,7 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(summaryTab.summaryTab);
             }
         }
+        summaryTab.assertAllocatedUserIs(originalUser);
     }
 
     @And("the case should be in the correct MPAM {string} team workstack")

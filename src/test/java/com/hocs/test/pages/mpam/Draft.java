@@ -10,7 +10,6 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 public class Draft extends BasePage {
 
@@ -94,6 +93,9 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade escalationReasonTextArea;
+
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
@@ -106,9 +108,15 @@ public class Draft extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void escalateCaseToWorkflowManager() {
+    public void selectToEscalateCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToEscalateCase(String escalationReason) {
+        typeInto(escalationReasonTextArea, escalationReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void putCaseOnHold() {

@@ -1,9 +1,7 @@
 package com.hocs.test.pages;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 
 import java.time.Duration;
@@ -96,6 +94,9 @@ public class Homepage extends BasePage {
 
     @FindBy(xpath = "//span[text()='Finance']")
     public WebElementFacade financeTeam;
+
+    @FindBy(xpath = "//a[text()='Documents']")
+    public WebElementFacade documentsTab;
 
     //MPAM Teams
 
@@ -200,6 +201,7 @@ public class Homepage extends BasePage {
 
     public void getAndClaimCurrentCase() {
         getCurrentCase();
+        waitFor(documentsTab);
         if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             claimCurrentCase();
         }

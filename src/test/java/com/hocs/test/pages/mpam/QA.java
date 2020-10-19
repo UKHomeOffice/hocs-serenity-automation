@@ -1,14 +1,13 @@
 package com.hocs.test.pages.mpam;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
-
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QA extends BasePage {
 
@@ -47,6 +46,9 @@ public class QA extends BasePage {
 
     @FindBy(xpath = "//a[text()='Explanation for rejection, move back to drafting is required']")
     public WebElementFacade explanationForRejectionBackToDraftRequiredErrorMessage;
+
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade escalationReasonTextArea;
 
     //QA (Escalated) Elements
     @FindBy(xpath = "//label[text()='Keep escalated']")
@@ -92,6 +94,12 @@ public class QA extends BasePage {
     public void selectToRejectCaseToTriage() {
         safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToEscalateCase(String escalationReason) {
+        typeInto(escalationReasonTextArea, escalationReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {

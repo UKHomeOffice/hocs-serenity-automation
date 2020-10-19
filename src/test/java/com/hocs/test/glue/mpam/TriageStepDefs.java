@@ -27,7 +27,8 @@ public class TriageStepDefs extends BasePage {
     public void sendTheTriageCaseTo(String stage) {
         switch (stage.toUpperCase()) {
             case "WORKFLOW MANAGER":
-                triage.escalateTriageCaseToWorkflowManager();
+                triage.selectToEscalateTriageCaseToWorkflowManager();
+                triage.submitReasonToEscalateCase("test reason to escalate case");
                 break;
             case "ON HOLD":
                 triage.putTriageCaseOnHold();

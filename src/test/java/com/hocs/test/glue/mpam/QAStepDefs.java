@@ -35,6 +35,33 @@ public class QAStepDefs extends BasePage {
         }
     }
 
+    @And("I complete the {string} action at QA")
+    public void iCompleteActionAtQA(String action) {
+        switch (action.toUpperCase()) {
+            case "APPROVE":
+                safeClickOn(qa.approvedAtQARadioButton);
+                safeClickOn(confirmButton);
+                break;
+            case "REJECTED, MOVE BACK TO DRAFTING":
+                qa.selectToRejectCaseToDraft();
+                iSubmitAReasonToRejectTheCaseBackToDrafting();
+                break;
+            case "REJECTED, MOVE BACK TO TRIAGE":
+                qa.selectToRejectCaseToTriage();
+                iSubmitAReasonToRejectTheCaseBackToTriage();
+                break;
+            case "PUT ON HOLD":
+                qa.putQACaseOnHold();
+                break;
+            case "ESCALATE TO WORKFLOW MANAGER":
+                qa.escalateQACaseToWorkflowManager();
+                iSubmitAReasonToEscalateTheCaseAtQAStage();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
     @And("I select the {string} action at the QA (On Hold) stage")
     public void iSelectOptionAtQAOnHold(String action) {
         switch (action.toUpperCase()) {
@@ -122,5 +149,10 @@ public class QAStepDefs extends BasePage {
     @And("I submit a reason to close the case at QA \\(Escalated) stage")
     public void iSubmitAReasonToCloseTheCaseAtQAEscalatedStage() {
         qa.submitReasonToCloseEscalatedCase("Test close case at QA (Escalated) stage");
+    }
+
+    @And("I submit a reason to escalate the case at QA stage")
+    public void iSubmitAReasonToEscalateTheCaseAtQAStage() {
+        qa.submitReasonToEscalateCase("test reason to escalate case");
     }
 }

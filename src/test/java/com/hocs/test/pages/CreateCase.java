@@ -3,8 +3,6 @@ package com.hocs.test.pages;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.time.LocalDate;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -142,6 +140,7 @@ public class CreateCase extends BasePage {
         safeClickOn(homepage.createSingleCase);
         selectCaseType(caseType);
         safeClickOn(nextButton);
+        waitFor(correspondenceReceivedDayField);
         correspondenceReceivedDayField.clear();
         typeInto(correspondenceReceivedDayField, dd);
         correspondenceReceivedMonthField.clear();

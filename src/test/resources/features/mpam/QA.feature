@@ -20,6 +20,7 @@ Feature: QA
   @MPAMWorkflow @MPAMRegression
   Scenario: User escalates the QA case to the workflow manager
     And I select the "Escalate to Workflow Manager" action at QA
+    And I submit a reason to escalate the case at QA stage
     Then the case should be moved to the "QA (Escalated)" stage
 
   @MPAMWorkflow @MPAMRegression
@@ -82,7 +83,7 @@ Feature: QA
     And I logout of the application
     And I log in to DECS as user "CAMERON"
     And I load and claim the current case
-    And I select the "<actions>" action at QA
+    And I complete the "<actions>" action at QA
     And I load the current case
     Then the case should be allocated to the original user
     And I logout of the application
@@ -90,7 +91,7 @@ Feature: QA
       | actions                         |
       | Rejected, move back to triage   |
       | Rejected, move back to drafting |
-      | Approve                         |
+#      | Approve                         |
 
   @Campaigns
   Scenario: User moves a case into a Campaign from the QA stage
@@ -100,7 +101,7 @@ Feature: QA
 
   @Campaigns
   Scenario Outline: User moves cases into Campaigns from the QA sub-stages
-    When I select the "<action>" action at QA
+    When I complete the "<action>" action at QA
     And I load the current case
     And I move the case into a Campaign from the "<qaStage>" stage
     And I load the current case
