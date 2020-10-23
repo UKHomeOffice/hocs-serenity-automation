@@ -17,6 +17,7 @@ Feature: MPAM Search
       | Correspondent Reference Number | TestRefNumber 1  |
       | Campaign                       | Small boats      |
       | Ministerial Sign Off Team      | Home Secretary   |
+      | Public Correspondent Name      | TestApplicant    |
 
   Scenario: User is able to search for a case by the Correspondent Reference Number
     And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
