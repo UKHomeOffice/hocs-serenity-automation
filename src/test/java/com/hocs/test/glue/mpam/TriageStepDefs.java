@@ -27,7 +27,8 @@ public class TriageStepDefs extends BasePage {
     public void sendTheTriageCaseTo(String stage) {
         switch (stage.toUpperCase()) {
             case "WORKFLOW MANAGER":
-                triage.escalateTriageCaseToWorkflowManager();
+                triage.selectEscalateTriageCaseToWorkflowManager();
+                triage.submitReasonToEscalateCase("test reason to escalate case");
                 break;
             case "ON HOLD":
                 triage.putTriageCaseOnHold();
@@ -150,11 +151,6 @@ public class TriageStepDefs extends BasePage {
     @And("I select to close the Triage \\(Escalated) case")
     public void iSelectToCloseTheTriageEscalatedCase() {
         triage.selectToCloseEscalatedCase();
-    }
-
-    @And("I submit a reason to close the case at Triage \\(Escalated) stage")
-    public void iSubmitAReasonToCloseTheCaseAtTriageEscalatedStage() {
-        triage.submitReasonToCloseEscalatedCase("Test close case at Triage (Escalated) stage");
     }
 
     @And("the contribution request deadline should be visible in the summary")

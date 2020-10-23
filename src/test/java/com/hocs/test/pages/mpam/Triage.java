@@ -1,17 +1,15 @@
 package com.hocs.test.pages.mpam;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-
-import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class Triage extends BasePage {
@@ -36,9 +34,6 @@ public class Triage extends BasePage {
 
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
-
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
-    public WebElementFacade reasonForEscalationTextField;
 
     @FindBy(xpath = "//label[text()='Contribution requested']")
     public WebElementFacade requestedContributionRadioButton;
@@ -83,11 +78,11 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(id = "CaseNote_TriageClose")
-    public WebElementFacade closureReasonTextArea;
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade escalationReasonTextArea;
 
     @FindBy(id = "DueDate-day")
     public WebElementFacade requestContributionDeadlineDayTextField;
@@ -144,12 +139,18 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void escalateTriageCaseToWorkflowManager() {
+    public void selectEscalateTriageCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
-        typeInto(reasonForEscalationTextField, "Test");
-        safeClickOn(confirmButton);
     }
+
+    public void submitReasonToEscalateCase(String escalationReason) {
+        typeInto(escalationReasonTextArea, escalationReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("escalationReason").to(escalationReason);
+    }
+
+
 
     public void assertActionsRequiredErrorMessageDisplayed() {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
@@ -203,12 +204,6 @@ public class Triage extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void submitReasonToCloseEscalatedCase(String closureReason) {
-        typeInto(closureReasonTextArea, closureReason);
-        safeClickOn(confirmButton);
-        setSessionVariable("closureReason").to(closureReason);
     }
 
     public void selectContributionRequested() {

@@ -115,13 +115,6 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertRejectionNoteVisible();
     }
 
-    @And("a closure note should be visible showing the reason for closing the case")
-    public void aClosureNoteShouldBeVisibleShowingTheReasonForClosingTheCase() {
-        goHome();
-        homepage.getAndClaimCurrentCase();
-        timelineTab.assertClosureNoteVisible();
-    }
-
     @And("a contribution request note should be visible showing the description of the request")
     public void aContributionRequestNoteShouldBeVisibleShowingTheDescriptionOfThRequest() {
         timelineTab.assertContributionRequestNoteVisible();

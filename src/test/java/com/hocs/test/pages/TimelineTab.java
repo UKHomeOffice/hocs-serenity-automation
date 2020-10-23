@@ -153,7 +153,7 @@ public class TimelineTab extends BasePage {
     }
 
     public void assertEditedCaseNoteAppearInCorrectStage(String stage) {
-        String words[] = stage.split("\\s");
+        String[] words = stage.split("\\s");
         String capitalise = "";
         for (String w:words) {
             String first = w.substring(0,1);
@@ -170,12 +170,6 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String rejectionReason = sessionVariableCalled("rejectionReason");
         assertThat(rejectionNoteContents.getText().contains(rejectionReason), is(true));
-    }
-
-    public void assertClosureNoteVisible() {
-        selectTimelineTab();
-        String closureReason = sessionVariableCalled("closureReason");
-        assertThat(closureNoteContents.getText().contains(closureReason), is(true));
     }
 
     public void assertContributionRequestNoteVisible() {

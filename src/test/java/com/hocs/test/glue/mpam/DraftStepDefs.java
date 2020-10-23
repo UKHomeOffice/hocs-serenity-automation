@@ -25,7 +25,8 @@ public class DraftStepDefs extends BasePage {
                 draft.moveCaseFromDraftToQA();
                 break;
             case "WORKFLOW MANAGER":
-                draft.escalateCaseToWorkflowManager();
+                draft.selectEscalateDraftCaseToWorkflowManager();
+                draft.submitReasonToEscalateCase("test reason to escalate case");
                 break;
             case "ON HOLD":
                 draft.putCaseOnHold();
@@ -55,11 +56,6 @@ public class DraftStepDefs extends BasePage {
     @And("I select to close the Draft \\(Escalated) case")
     public void iSelectToCloseTheDraftEscalatedCase() {
         draft.selectToCloseEscalatedCase();
-    }
-
-    @And("I submit a reason to close the case at Draft \\(Escalated) stage")
-    public void iSubmitAReasonToCloseTheCaseAtDraftEscalatedStage() {
-        draft.submitReasonToCloseEscalatedCase("Test close case at Draft (Escalated) stage");
     }
 
     @When("I select the {string} action at Draft \\(Contribution Requested) stage")

@@ -10,7 +10,6 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 public class Draft extends BasePage {
 
@@ -43,9 +42,6 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
-    public WebElementFacade reasonForEscalationTextField;
-
     @FindBy(xpath = "//label[text()='Contribution requested']")
     public WebElementFacade contributionRequestedRadioButton;
 
@@ -55,7 +51,7 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
     @FindBy(id = "CaseNote_DraftClose")
@@ -97,6 +93,9 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade escalationReasonTextArea;
+
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
@@ -109,11 +108,15 @@ public class Draft extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void escalateCaseToWorkflowManager() {
+    public void selectEscalateDraftCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
         safeClickOn(confirmButton);
-        typeInto(reasonForEscalationTextField, "Test");
+    }
+
+    public void submitReasonToEscalateCase(String escalationReason) {
+        typeInto(escalationReasonTextArea, escalationReason);
         safeClickOn(confirmButton);
+        setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void putCaseOnHold() {
@@ -134,12 +137,6 @@ public class Draft extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void submitReasonToCloseEscalatedCase(String closureReason) {
-        typeInto(closureReasonTextArea, closureReason);
-        safeClickOn(closeCaseButton);
-        setSessionVariable("closureReason").to(closureReason);
     }
 
     public void selectResponseChannel(String outboundChannel) {

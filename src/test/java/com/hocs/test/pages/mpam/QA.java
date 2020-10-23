@@ -1,14 +1,13 @@
 package com.hocs.test.pages.mpam;
 
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
-
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QA extends BasePage {
 
@@ -33,9 +32,6 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
-    public WebElementFacade reasonForEscalationTextField;
-
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
@@ -51,6 +47,9 @@ public class QA extends BasePage {
     @FindBy(xpath = "//a[text()='Explanation for rejection, move back to drafting is required']")
     public WebElementFacade explanationForRejectionBackToDraftRequiredErrorMessage;
 
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    public WebElementFacade escalationReasonTextArea;
+
     //QA (Escalated) Elements
     @FindBy(xpath = "//label[text()='Keep escalated']")
     public WebElementFacade keepEscalatedRadioButton;
@@ -65,7 +64,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
     @FindBy(id = "CaseNote_QaClose")
@@ -82,10 +81,8 @@ public class QA extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void escalateQACaseToWorkflowManager() {
+    public void selectEscalateQACaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        safeClickOn(confirmButton);
-        typeInto(reasonForEscalationTextField, "Test");
         safeClickOn(confirmButton);
     }
 
@@ -97,6 +94,12 @@ public class QA extends BasePage {
     public void selectToRejectCaseToTriage() {
         safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    public void submitReasonToEscalateCase(String escalationReason) {
+        typeInto(escalationReasonTextArea, escalationReason);
+        safeClickOn(confirmButton);
+        setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
@@ -125,12 +128,6 @@ public class QA extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void submitReasonToCloseEscalatedCase(String closureReason) {
-        typeInto(closureReasonTextArea, closureReason);
-        safeClickOn(closeCaseButton);
-        setSessionVariable("closureReason").to(closureReason);
     }
 
     //QA (On Hold) Actions
