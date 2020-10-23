@@ -11,7 +11,7 @@ public class QAStepDefs extends BasePage {
 
     QA qa;
 
-       @And("I select the {string} action at QA")
+    @And("I select the {string} action at QA")
     public void iSelectOptionAtQA(String action) {
         switch (action.toUpperCase()) {
             case "APPROVE":
@@ -28,7 +28,7 @@ public class QAStepDefs extends BasePage {
                 qa.putQACaseOnHold();
                 break;
             case "ESCALATE TO WORKFLOW MANAGER":
-                qa.escalateQACaseToWorkflowManager();
+                qa.selectEscalateQACaseToWorkflowManager();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -54,7 +54,7 @@ public class QAStepDefs extends BasePage {
                 qa.putQACaseOnHold();
                 break;
             case "ESCALATE TO WORKFLOW MANAGER":
-                qa.escalateQACaseToWorkflowManager();
+                qa.selectEscalateQACaseToWorkflowManager();
                 iSubmitAReasonToEscalateTheCaseAtQAStage();
                 break;
             default:

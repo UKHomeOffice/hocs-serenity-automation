@@ -35,9 +35,6 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
-    public WebElementFacade reasonForEscalationTextField;
-
     @FindBy(xpath = "//label[text()='Contribution requested']")
     public WebElementFacade requestedContributionRadioButton;
 
@@ -145,10 +142,8 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void selectToEscalateTriageCaseToWorkflowManager() {
+    public void selectEscalateTriageCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        safeClickOn(confirmButton);
-        typeInto(reasonForEscalationTextField, "Test");
         safeClickOn(confirmButton);
     }
 

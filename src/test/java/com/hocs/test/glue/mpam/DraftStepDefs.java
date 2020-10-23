@@ -25,7 +25,7 @@ public class DraftStepDefs extends BasePage {
                 draft.moveCaseFromDraftToQA();
                 break;
             case "WORKFLOW MANAGER":
-                draft.selectToEscalateCaseToWorkflowManager();
+                draft.selectEscalateDraftCaseToWorkflowManager();
                 draft.submitReasonToEscalateCase("test reason to escalate case");
                 break;
             case "ON HOLD":
