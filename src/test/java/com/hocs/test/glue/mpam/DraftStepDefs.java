@@ -58,11 +58,6 @@ public class DraftStepDefs extends BasePage {
         draft.selectToCloseEscalatedCase();
     }
 
-    @And("I submit a reason to close the case at Draft \\(Escalated) stage")
-    public void iSubmitAReasonToCloseTheCaseAtDraftEscalatedStage() {
-        draft.submitReasonToCloseEscalatedCase("Test close case at Draft (Escalated) stage");
-    }
-
     @When("I select the {string} action at Draft \\(Contribution Requested) stage")
     public void iSelectTheActionAtDraftContributionRequestedStage(String action) {
         switch (action.toUpperCase()) {

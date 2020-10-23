@@ -146,11 +146,6 @@ public class QAStepDefs extends BasePage {
         qa.selectToCloseEscalatedCase();
     }
 
-    @And("I submit a reason to close the case at QA \\(Escalated) stage")
-    public void iSubmitAReasonToCloseTheCaseAtQAEscalatedStage() {
-        qa.submitReasonToCloseEscalatedCase("Test close case at QA (Escalated) stage");
-    }
-
     @And("I submit a reason to escalate the case at QA stage")
     public void iSubmitAReasonToEscalateTheCaseAtQAStage() {
         qa.submitReasonToEscalateCase("test reason to escalate case");

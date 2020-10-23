@@ -64,7 +64,7 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
     @FindBy(id = "CaseNote_QaClose")
@@ -128,12 +128,6 @@ public class QA extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void submitReasonToCloseEscalatedCase(String closureReason) {
-        typeInto(closureReasonTextArea, closureReason);
-        safeClickOn(closeCaseButton);
-        setSessionVariable("closureReason").to(closureReason);
     }
 
     //QA (On Hold) Actions

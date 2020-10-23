@@ -78,11 +78,8 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
-
-    @FindBy(id = "CaseNote_TriageClose")
-    public WebElementFacade closureReasonTextArea;
 
     @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
@@ -207,12 +204,6 @@ public class Triage extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void submitReasonToCloseEscalatedCase(String closureReason) {
-        typeInto(closureReasonTextArea, closureReason);
-        safeClickOn(confirmButton);
-        setSessionVariable("closureReason").to(closureReason);
     }
 
     public void selectContributionRequested() {

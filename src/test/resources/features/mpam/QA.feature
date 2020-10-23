@@ -65,9 +65,8 @@ Feature: QA
     And I submit a reason to escalate the case at QA stage
     When I load and claim the current case
     And I select to close the QA (Escalated) case
-    And I submit a reason to close the case at QA (Escalated) stage
+    And I click the "Close case" button
     Then the case should be closed
-    And a closure note should be visible showing the reason for closing the case
 
   @Validation
   Scenario Outline: User triggers error message is displayed at QA

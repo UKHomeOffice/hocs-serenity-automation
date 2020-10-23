@@ -69,9 +69,8 @@ Feature: Drafting
     And I send the Draft case to "Workflow Manager"
     When I load and claim the current case
     And I select to close the Draft (Escalated) case
-    And I submit a reason to close the case at Draft (Escalated) stage
+    And I click the "Close case" button
     Then the case should be closed
-    And a closure note should be visible showing the reason for closing the case
 
   @MPAMWorkflow @MPAMRegression
   Scenario: User requests a contribution at Draft stage

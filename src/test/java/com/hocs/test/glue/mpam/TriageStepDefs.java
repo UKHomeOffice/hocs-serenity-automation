@@ -153,11 +153,6 @@ public class TriageStepDefs extends BasePage {
         triage.selectToCloseEscalatedCase();
     }
 
-    @And("I submit a reason to close the case at Triage \\(Escalated) stage")
-    public void iSubmitAReasonToCloseTheCaseAtTriageEscalatedStage() {
-        triage.submitReasonToCloseEscalatedCase("Test close case at Triage (Escalated) stage");
-    }
-
     @And("the contribution request deadline should be visible in the summary")
     public void theContributionRequestDeadlineShouldBeVisibleInTheSummary() {
         summaryTab.assertContributionRequestDeadlineVisible();
