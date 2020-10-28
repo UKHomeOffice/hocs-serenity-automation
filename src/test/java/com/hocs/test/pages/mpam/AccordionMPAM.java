@@ -4,14 +4,13 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AccordionMPAM extends BasePage {
 
@@ -91,6 +90,9 @@ public class AccordionMPAM extends BasePage {
 
     @FindBy(xpath = "//input[@name='BusArea'][@checked]/following-sibling::label")
     public WebElementFacade selectedBusinessArea;
+
+    @FindBy(xpath = "//textarea[@id='CaseNote_TriageChangeCaseType']")
+    public WebElementFacade changeReferenceTypeTextArea;
 
     public void openCaseDetailsAccordion() {
         safeClickOn(caseDetailsAccordionButton);
@@ -177,19 +179,27 @@ public class AccordionMPAM extends BasePage {
 
     public void changeRefTypeConvertingACase() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change correspondence type')]");
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
+        enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
         safeClickOn(saveChangesButton);
     }
 
     public void changeRefTypeCorrectingAnError() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change correspondence type')]");
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
+        enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
         safeClickOn(correctionTickBox);
         safeClickOn(saveChangesButton);
+    }
+
+    private void enterTextForConversionTo(String newRefType) {
+        String conversionNotes = "Test convert reference type from " + sessionVariableCalled("refType") + " to " + newRefType;
+        changeReferenceTypeTextArea.sendKeys(conversionNotes);
+        setSessionVariable("conversionNotes").to(conversionNotes);
     }
 
     public void changeMinisterialSignOffTeam(String newSignOffTeam) {

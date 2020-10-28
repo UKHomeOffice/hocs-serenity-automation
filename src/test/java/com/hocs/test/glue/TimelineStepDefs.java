@@ -129,4 +129,9 @@ public class TimelineStepDefs extends BasePage {
     public void aFollowUpNotCompletedNoteShouldBeVisibleShowingTheEnteredReason() {
         timelineTab.assertFollowUpNotCompletedNoteVisible();
     }
+
+    @And("a conversion note should be visible showing the entered notes on conversion")
+    public void aConversionNoteShouldBeVisibleShowingTheEnteredNotesOnConversion() {
+        timelineTab.assertConversionNoteVisible();
+    }
 }
