@@ -1,7 +1,5 @@
 package com.hocs.test.pages;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -13,9 +11,7 @@ import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
-
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -232,44 +228,27 @@ public class BasePage extends PageObject {
         return yearFormat.format(cal.getTime());
     }
 
-    public String todayPlusMinusNDaysGetDay(int days) {
+    public String getDatePlusMinusNDaysAgo(int days) {
+        return todayPlusMinusNDaysGetDay(days) + "/" + todayPlusMinusNDaysGetMonth(days) + "/" + todayPlusMinusNDaysGetYear(days);
+    }
+
+    private String todayPlusMinusNDaysGetDay(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return dayFormat.format(cal.getTime());
     }
 
-    public String todayPlusMinusNDaysGetMonth(int days) {
+    private String todayPlusMinusNDaysGetMonth(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
 
         return monthFormat.format(cal.getTime());
     }
 
-    public String todayPlusMinusNDaysGetYear(int days) {
+    private String todayPlusMinusNDaysGetYear(int days) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
-
-        return yearFormat.format(cal.getTime());
-    }
-
-    public String tomorrowsDay() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
-
-        return dayFormat.format(cal.getTime());
-    }
-
-    public String tomorrowsMonth() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
-
-        return monthFormat.format(cal.getTime());
-    }
-
-    public String tomorrowsYear() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
 
         return yearFormat.format(cal.getTime());
     }
