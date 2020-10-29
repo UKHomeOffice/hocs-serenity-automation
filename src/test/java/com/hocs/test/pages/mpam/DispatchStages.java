@@ -4,14 +4,13 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 public class DispatchStages extends BasePage {
 
@@ -107,25 +106,21 @@ public class DispatchStages extends BasePage {
     @FindBy(id = "CaseNote_DispatchFollowUpRequest")
     public WebElementFacade followUpDetailsTextArea;
 
-    public void dispatchedDateInput(int dd, int mm, int yyyy) {
-        String day = Integer.toString(dd);
-        String month = Integer.toString(mm);
-        String year = Integer.toString(yyyy);
-        typeInto(dispatchedDateDayTextField, day);
-        typeInto(dispatchedDateMonthTextField, month);
-        typeInto(dispatchedDateYearTextField, year);
+    public void inputValidDispatchedDate() {
+        typeIntoDateField(dispatchedDateDayTextField, dispatchedDateMonthTextField, dispatchedDateYearTextField,
+                todayPlusMinusNDaysGetDay(-1) + "/" + todayPlusMinusNDaysGetMonth(-1) + "/" + todayPlusMinusNDaysGetYear(-1));
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
         safeClickOn(responseChannelEmailRadioButton);
         safeClickOn(dispatchedRadioButtonAtPrivateOffice);
         safeClickOn(confirmButton);
-        dispatchedDateInput(1, 1, 2001);
+        inputValidDispatchedDate();
         safeClickOn(confirmAndCloseCaseButton);
     }
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {
-        dispatchedDateInput(1, 1, 2001);
+        inputValidDispatchedDate();
         safeClickOn(dispatchedRadioButtonAtDispatch);
         safeClickOn(confirmButton);
     }
@@ -137,30 +132,30 @@ public class DispatchStages extends BasePage {
                 safeClickOn(confirmButton);
                 break;
             case "ACTIONS REQUIRED":
-                dispatchedDateInput(1, 1, 2001);
+                inputValidDispatchedDate();
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP DATE REQUIRED":
-                dispatchedDateInput(1, 1, 2001);
+                inputValidDispatchedDate();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP DETAILS REQUIRED":
-                dispatchedDateInput(1, 1, 2001);
+                inputValidDispatchedDate();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(1),
+                        todayPlusMinusNDaysGetYear(1));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
-                dispatchedDateInput(1, 1, 2001);
+                inputValidDispatchedDate();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(1),
+                        todayPlusMinusNDaysGetYear(1));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();
@@ -186,24 +181,24 @@ public class DispatchStages extends BasePage {
             case "FOLLOW-UP DATE REQUIRED":
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                dispatchedDateInput(1, 1, 2001);
+                inputValidDispatchedDate();
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP DETAILS REQUIRED":
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                inputValidDispatchedDate();
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(1),
+                        todayPlusMinusNDaysGetYear(1));
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
-                dispatchedDateInput(1, 1, 2001);
-                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(0),
-                        todayPlusMinusNDaysGetYear(0));
+                inputValidDispatchedDate();
+                followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(1),
+                        todayPlusMinusNDaysGetYear(1));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
                 homepage.getCurrentCase();
