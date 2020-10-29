@@ -1,9 +1,10 @@
 package com.hocs.test.pages;
 
-import static net.serenitybdd.core.Serenity.*;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -176,16 +177,20 @@ public class AddCorrespondent extends BasePage {
 
     public void fillMandatoryPublicCorrespondentFields() {
         selectCorrespondentTypeFromDropdown("Constituent");
-        enterCorrespondentFullName("First Correspondent-" + generateRandomString());
-        enterCorrespondentBuilding("1");
-        enterCorrespondentPostcode("S1 1AA");
+        enterCorrespondentFullName("Sam McTester");
+        enterCorrespondentBuilding("1 Test House");
+        enterCorrespondentStreet("Test Road");
+        enterCorrespondentTownOrCity("Test Town");
+        enterCorrespondentPostcode("AB1 2CD");
     }
 
     public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
         selectCorrespondentTypeFromDropdown("Correspondent");
-        enterSecondaryCorrespondentFullName("Second Correspondent-" + generateRandomString());
-        enterCorrespondentBuilding("1");
-        enterCorrespondentPostcode("S1 1AA");
+        enterSecondaryCorrespondentFullName("Sam McTester");
+        enterCorrespondentBuilding("1 Test House");
+        enterCorrespondentStreet("Test Road");
+        enterCorrespondentTownOrCity("Test Town");
+        enterCorrespondentPostcode("AB1 2CD");
     }
 
     public void selectCorrespondentCountry(String country) {

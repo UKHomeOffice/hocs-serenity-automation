@@ -58,6 +58,9 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li//span[text()='Follow up not completed']/ancestor::p")
     public WebElementFacade followUpNotCompletedReasonNoteContents;
 
+    @FindBy(xpath = "//li//span[contains(text(),'Conversion note')]/ancestor::p")
+    public WebElementFacade conversionNoteContents;
+
     public void selectTimelineTab() {
         safeClickOn(timelineTab);
     }
@@ -188,5 +191,11 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String followUpNotCompletedReason = sessionVariableCalled("followUpNotCompletedReason");
         assertThat(followUpNotCompletedReasonNoteContents.getText().contains(followUpNotCompletedReason), is(true));
+    }
+
+    public void assertConversionNoteVisible() {
+        selectTimelineTab();
+        String conversionNotes = sessionVariableCalled("conversionNotes");
+        assertThat(conversionNoteContents.getText().contains(conversionNotes), is(true));
     }
 }

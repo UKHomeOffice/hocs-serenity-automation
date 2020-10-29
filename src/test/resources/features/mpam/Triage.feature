@@ -42,11 +42,17 @@ Feature: Triage
     Then the options for Business Unit should change
 
   @MPAMRegression
-  Scenario: User changes the Business Area of the case
+  Scenario: User can change the Business Area of the case
     When I change the Business Area of the case to "Windrush"
     Then the new Business Area should be selected in the accordion
     And the case should be in the correct MPAM "Triage" team workstack
 
+  @MPAMRegression
+  Scenario: User can change the reference type of the case
+    When I change the reference type of the case to "Correct an error"
+    Then the reference type that is displayed should be "Official"
+    And the case should be in the correct MPAM "Triage" team workstack
+    And a conversion note should be visible showing the entered notes on conversion
 
   @MPAMWorkflow @MPAMRegression
   Scenario: User completes the Triage stage
