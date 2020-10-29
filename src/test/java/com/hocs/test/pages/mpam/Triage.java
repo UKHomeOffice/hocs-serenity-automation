@@ -211,11 +211,10 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void enterContributionRequestedDeadlineDate(String dd, String mm, String yyyy) {
-        typeInto(requestContributionDeadlineDayTextField, dd);
-        typeInto(requestContributionDeadlineMonthTextField, mm);
-        typeInto(requestContributionDeadlineYearTextField, yyyy);
-        setSessionVariable("requestDeadline").to(dd + "/" + mm + "/" + yyyy);
+    public void enterContributionRequestedDeadlineDate(String date) {
+        typeIntoDateField(requestContributionDeadlineDayTextField, requestContributionDeadlineMonthTextField,
+                requestContributionDeadlineYearTextField, date);
+        setSessionVariable("requestDeadline").to(date);
     }
 
     public void enterRequestDescription(String requestDescription) {

@@ -112,7 +112,7 @@ public class DispatchStagesStepDefs extends BasePage {
 
     @And("I enter a date of dispatch and confirm to close the case")
     public void iEnterADispatchedDateAndConfirmToCloseTheCase() {
-        dispatchStages.inputValidDispatchedDate();
+        dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.confirmAndCloseCaseButton);
     }
 
@@ -128,13 +128,12 @@ public class DispatchStagesStepDefs extends BasePage {
 
     @And("I enter a dispatched date")
     public void iEnterADispatchedDate() {
-        dispatchStages.inputValidDispatchedDate();
+        dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
     }
 
     @And("I enter a follow-up date")
     public void iEnterAFollowUpDate() {
-        dispatchStages.followUpDateInput(todayPlusMinusNDaysGetDay(1), todayPlusMinusNDaysGetMonth(1),
-                todayPlusMinusNDaysGetYear(1));
+        dispatchStages.followUpDateInput(getDatePlusMinusNDaysAgo(1));
     }
 
     @And("I enter follow-up details and confirm")

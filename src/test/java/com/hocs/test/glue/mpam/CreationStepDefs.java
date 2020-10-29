@@ -57,13 +57,6 @@ public class CreationStepDefs extends BasePage {
         addCorrespondent.assertWhichIsThePrimaryCorrespondentIsRequiredErrorMessage();
     }
 
-    @And("I calculate the date {int} days ago")
-    public void iCalculateTheDateDaysAgo(int days) {
-        System.out.println(todayPlusMinusNDaysGetDay(-days));
-        System.out.println(todayPlusMinusNDaysGetMonth(-days));
-        System.out.println(todayPlusMinusNDaysGetYear(-days));
-    }
-
     @When("I select {string} as the Urgency and {string} as the Reference Type")
     public void selectSpecificUrgencyAndReferenceType(String urgency, String refType) {
         creation.selectUrgency(urgency);
