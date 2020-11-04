@@ -8,7 +8,7 @@ pipeline:
       - docker build -t hocs_serenity_automation .
       - docker run hocs_serenity_automation
     when:
-      branch: master
+      branch: testBranch
       event: push
 
   image_to_quay:
@@ -23,7 +23,7 @@ pipeline:
       - build-${DRONE_BUILD_NUMBER}
       - latest
     when:
-      branch: master
+      branch: testBranch
       event: push
 
   tag-docker-image-with-git-tag:
@@ -45,9 +45,9 @@ pipeline:
        - artifactory_username
        - artifactory_password
     commands:
-      - sh bin/smoke-tests.sh
+      - sh bin/FullRegression.sh
     when:
-      branch: master
+      branch: testBranch
       event: push
 
   upload-serenity-report:
@@ -60,7 +60,7 @@ pipeline:
     source: target/site/serenity/**/*
     target: /reports/$${DRONE_BUILD_NUMBER}/
     when:
-      branch: master
+      branch: testBranch
       event: push
       status:
         - success
@@ -82,7 +82,7 @@ pipeline:
 #        build {{build.number}} unfortunately has some test failures, time for some investigating!
 #      {{/success}}
 #    when:
-#      branch: master
+#      branch: testBranch
 #      event: push
 #      status:
 #        - success
