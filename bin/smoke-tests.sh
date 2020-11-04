@@ -1,4 +1,3 @@
 #!/bin/sh
 
-mvn clean verify -B "-Dcucumber.options=--tags @Regression" -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver
-.remote.driver=chrome
+mvn clean verify "-Dcucumber.options=--tags '@DCURegression or @MPAMRegression or @Regression'" -Dchrome.switches=--headless -Denvironment=QA
