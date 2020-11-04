@@ -99,7 +99,6 @@ Feature: Creation
   @MPAMRegression
   Scenario: User edits an existing correspondents name
     When I complete all required fields for Creation stage
-    And I click the "Continue" button
     When I add a public correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
