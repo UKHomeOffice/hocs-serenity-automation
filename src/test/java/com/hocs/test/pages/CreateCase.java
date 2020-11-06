@@ -35,6 +35,9 @@ public class CreateCase extends BasePage {
     @FindBy(css = "label[for='case-type-MPAM']")
     public WebElementFacade mpamRadioButton;
 
+    @FindBy(css = "label[for='case-type-MTS']")
+    public WebElementFacade mtsRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -84,6 +87,10 @@ public class CreateCase extends BasePage {
         safeClickOn(mpamRadioButton);
     }
 
+    private void clickMtsRadioButton() {
+        safeClickOn(mtsRadioButton);
+    }
+
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
@@ -101,6 +108,9 @@ public class CreateCase extends BasePage {
                 break;
             case "MPAM":
                 clickMpamRadioButton();
+                break;
+            case "MTS":
+                clickMtsRadioButton();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

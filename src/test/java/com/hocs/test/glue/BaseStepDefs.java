@@ -168,6 +168,7 @@ public class BaseStepDefs extends BasePage {
     public void clickTheLink(String link) {
         switch (link.toUpperCase()) {
             case "BACK":
+            case "CANCEL":
                 safeClickOn(backLink);
                 break;
             case "ADD A CORRESPONDENT":
@@ -353,6 +354,7 @@ public class BaseStepDefs extends BasePage {
                 workstacks.assertCaseStage(stage);
                 break;
             case "MPAM":
+            case "MTS":
                 homepage.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);

@@ -24,6 +24,8 @@ Feature: Create case
       | DTEN | without        |
       | MPAM | with           |
       | MPAM | without        |
+      | MTS  | with           |
+      | MTS  | without        |
 
   @Allocation @OtherTests
   Scenario: A single case is allocated to the current user
@@ -59,17 +61,20 @@ Feature: Create case
     And I create a single "MPAM" case and return to the dashboard
     Then the case should be moved to the "Creation" stage
 
+  @MPAMWorkflow @MPAMRegression
+  Scenario: Newly created MTS cases should move to the Data Input stage
+    And I create a single "MTS" case and return to the dashboard
+    Then the case should be moved to the "Data Input" stage
+
   @Navigation
-  Scenario: User should be taken back to the dashboard when they click the back button on the what type of correspondence
-  page
-    And I click the "BACK" link
+  Scenario: User should be taken back to the dashboard when they click the cancel link on the first 'Create Single Case' page
+    And I click the "Cancel" link
     Then I should be taken to the homepage
 
   @Navigation
-  Scenario: User should be taken back to the dashboard when they click the back button on the when was the
-  correspondence received page
+  Scenario: User should be taken back to the dashboard when they click the cancel link on second 'Create Single Case' page
     And I move to the When Was Correspondence Received Page
-    And I click the "BACK" link
+    And I click the "Cancel" link
     Then I should be taken to the homepage
 
   @Validation
