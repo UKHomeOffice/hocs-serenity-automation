@@ -4,18 +4,18 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.DispatchStages;
+import com.hocs.test.pages.mpam.Draft;
 import com.hocs.test.pages.mpam.QA;
 import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
@@ -272,7 +272,7 @@ public class EndToEndStepDefs extends BasePage {
                         iCompleteTheStage("QA");
                         break;
                     case "AWAITING DISPATCH":
-                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official","QA");
+                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official", "QA");
                         iCompleteTheStage("QA");
                         break;
                     case "CASE CLOSED":
@@ -283,6 +283,9 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "MTS":
+                createCase.createCaseOfType(caseType);
+                homepage.goHome();
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
