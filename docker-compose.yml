@@ -1,18 +1,26 @@
 selenium-hub:
   image: selenium/hub
   ports:
-  - 4444:4444
+    - 4444:4444
 
 chrome:
   image: selenium/node-chrome
   links:
-  - selenium-hub:hub
+    - selenium-hub:hub
   environment:
-     HUB_PORT_4444_TCP_ADDR: hub
+    HUB_PORT_4444_TCP_ADDR: hub
 
 firefox:
   image: selenium/node-firefox
   environment:
     HUB_PORT_4444_TCP_ADDR: hub
   links:
-  - selenium-hub:hub
+    - selenium-hub:hub
+
+test-execute-steps:
+  image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+  environment:
+    ARTIFACTORY_USERNAME:
+    ARTIFACTORY_PASSWORD:
+  command:
+    - sh bin/smoke-tests.sh
