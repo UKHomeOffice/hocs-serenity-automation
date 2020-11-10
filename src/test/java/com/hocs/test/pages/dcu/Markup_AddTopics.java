@@ -90,6 +90,7 @@ public class Markup_AddTopics extends BasePage {
         topicsTextField.sendKeys(topic);
         waitABit(1000);
         hitReturnToSendTopic();
+        waitABit(1000);
         safeClickOn(addButton);
         safeClickOn(continueButton);
     }

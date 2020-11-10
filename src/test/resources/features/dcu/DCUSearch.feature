@@ -61,10 +61,10 @@ Feature: DCU Search
 
   @SearchByDateReceived @DCURegression
   Scenario: User should be able to search for cases received on or after a certain date
-    And I create a single "DTEN" case with the correspondence received date as: "22"-"09"-"2020"
+    And I create a single "DTEN" case with the correspondence received date as: "15"-"10"-"2020"
     And I navigate to the "search" page
     When I enter "DTEN" into the "Case Type" search criteria for DCU
-    And I enter "22/09/2020" into the "Received On Or After Date" search criteria for DCU
+    And I enter "15/10/2020" into the "Received On Or After Date" search criteria for DCU
     And I click the search button on the search page
     And I look for the current case that was received on or after the date searched
 

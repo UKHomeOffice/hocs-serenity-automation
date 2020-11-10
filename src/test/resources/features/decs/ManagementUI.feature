@@ -148,7 +148,6 @@ Feature: ManagementUI
     When I navigate to the "VIEW UNITS" Management page
     Then the previously created unit should be listed
 
-
   @AddChildTopic @Validation
   Scenario: User must select a parent topic on the Add Child Topic page
     And I navigate to the "ADD CHILD TOPIC" Management page

@@ -8,7 +8,7 @@ Feature: Contribution Request
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "Contribution Requested"
-    Then the case should be moved to the "<stage> (Contirbution Requested)" stage
+    Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage  |
@@ -56,7 +56,7 @@ Feature: Contribution Request
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "Contribution Requested"
-    Then the case should be moved to the "<stage> (Contirbution Requested)" stage
+    Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
       | businessArea | refType | stage |

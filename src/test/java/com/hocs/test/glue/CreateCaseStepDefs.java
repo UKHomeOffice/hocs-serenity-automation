@@ -102,14 +102,14 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
-                createCase.createCaseOfType(caseType);
-                safeClickOn(homepage.home);
-                homepage.getAndClaimCurrentCase();
-                dataInput.moveCaseFromDataInputToMarkup();
-                homepage.getAndClaimCurrentCase();
-                markup.getToMarkupAddATopicScreenPrerequisites();
-                markupAddTopics.enterATopic(topic);
-                setSessionVariable("searchTopic").to(topic);
+        createCase.createCaseOfType(caseType);
+        safeClickOn(homepage.home);
+        homepage.getAndClaimCurrentCase();
+        dataInput.moveCaseFromDataInputToMarkup();
+        homepage.getAndClaimCurrentCase();
+        markup.getToMarkupAddATopicScreenPrerequisites();
+        markupAddTopics.enterATopic(topic);
+        setSessionVariable("searchTopic").to(topic);
     }
 
     @When("I allocate the case to myself via the successful case creation screen")
