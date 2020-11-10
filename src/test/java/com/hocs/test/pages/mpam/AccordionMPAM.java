@@ -192,7 +192,6 @@ public class AccordionMPAM extends BasePage {
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
         enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
-        enterTextForConversionTo(newRefType);
         safeClickOn(correctionTickBox);
         safeClickOn(saveChangesButton);
     }

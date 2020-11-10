@@ -10,7 +10,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class CaseDetails extends BasePage {
+public class DataInput extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
@@ -307,7 +307,6 @@ public class CaseDetails extends BasePage {
 
     public void assertErrorMessageIsDisplayed(String expectedMessage) {
         String expectedText = null;
-        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a");
         switch (expectedMessage.toUpperCase()) {
             case "PRIMARY CORRESPONDENT":
                 expectedText = "Which is the primary correspondent? is required";
@@ -336,6 +335,8 @@ public class CaseDetails extends BasePage {
             default:
                 pendingStep(expectedMessage + " is not defined within " + getMethodName());
         }
+        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedMessage +
+                "')]");
         errorMessage.shouldContainText(expectedText);
     }
 }
