@@ -37,7 +37,7 @@ Feature: QA Response
       | TRO  |
       | DTEN |
 
-    @DCUSmokeTets
+    @DCUSmokeTest
     Scenario: User uploads a new primary draft at QA Response stage
       And I create a "DTEN" case and move it to the "QA RESPONSE" stage
       And I load and claim the current case

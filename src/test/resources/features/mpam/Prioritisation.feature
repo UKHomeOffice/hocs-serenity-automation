@@ -48,5 +48,3 @@ Feature: Prioritisation
     And I record the case reference of this case as "Past SLA"
     When I view the MPAM case in the appropriate "Creation" stage workstack
     Then the "Approaching SLA" case should be higher up the workstack than the "Past SLA" case
-
-
