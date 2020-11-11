@@ -40,6 +40,8 @@ public class DataInputStepDefs extends BasePage {
         dataInput.assertErrorMessageIsDisplayed("Channel received");
         dataInput.assertErrorMessageIsDisplayed("Enquiry subject");
         dataInput.assertErrorMessageIsDisplayed("Enquiry reason");
+        dataInput.assertErrorMessageIsDisplayed("Your Business Area");
+        dataInput.assertErrorMessageIsDisplayed("Date of Surgery");
         dataInput.assertErrorMessageIsDisplayed("Actions");
     }
 

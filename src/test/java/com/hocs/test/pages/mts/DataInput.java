@@ -7,33 +7,31 @@ import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DataInput extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(xpath = "//label[text()='UKVI']")
+    @FindBy(xpath = "//input[@name='DateOfSurgery-day']")
+    public WebElementFacade dateOfSurgeryDayField;
+
+    @FindBy(xpath = "//input[@name='DateOfSurgery-month']")
+    public WebElementFacade dateOfSurgeryMonthField;
+
+    @FindBy(xpath = "//input[@name='DateOfSurgery-year']")
+    public WebElementFacade dateOfSurgeryYearField;
+
+    @FindBy(xpath = "//label[@for='BusArea-UKVI']")
     private WebElementFacade ukviBusinessAreaRadioButton;
 
-    @FindBy(xpath = "//label[text()='BF']")
+    @FindBy(xpath = "//label[@for='BusArea-BF']")
     private WebElementFacade bfBusinessAreaRadioButton;
 
-    @FindBy(xpath = "//label[text()='IE']")
+    @FindBy(xpath = "//label[@for='BusArea-IE']")
     private WebElementFacade ieBusinessAreaRadioButton;
 
-    @FindBy(xpath = "//label[text()='EUSS']")
+    @FindBy(xpath = "//label[@for='BusArea-EUSS']")
     private WebElementFacade eussBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[text()='HMPO']")
-    private WebElementFacade hmpoBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[text()='Windrush']")
-    private WebElementFacade windrushBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[contains(text(), 'Coronavirus')]")
-    private WebElementFacade coronavirusBusinessAreaRadioButton;
 
     @FindBy(id = "BusUnit")
     private WebElementFacade businessUnitDropdown;
@@ -88,6 +86,36 @@ public class DataInput extends BasePage {
 
     @FindBy(id = "EnquiryReason")
     private WebElementFacade enquiryReasonDropdown;
+
+    @FindBy(xpath = "//label[@for='BusArea-HMPO']")
+    private WebElementFacade hmpoBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='BusArea-Windrush']")
+    private WebElementFacade windrushBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='BusArea-Coronavirus']")
+    private WebElementFacade coronavirusBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-UKVI']")
+    private WebElementFacade ukviYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-BF']")
+    private WebElementFacade bfYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-IE']")
+    private WebElementFacade ieYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-EUSS']")
+    private WebElementFacade eussYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-HMPO']")
+    private WebElementFacade hmpoYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-Windrush']")
+    private WebElementFacade windrushYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='YourBusArea-Coronavirus']")
+    private WebElementFacade coronavirusYourBusinessAreaRadioButton;
 
     @FindBy(xpath = "//label[text()='Put on hold']")
     private WebElementFacade putOnHoldRadioButton;
@@ -200,6 +228,40 @@ public class DataInput extends BasePage {
         safeClickOn(radioButton);
     }
 
+    public void selectYourBusinessArea(String businessArea) {
+        WebElementFacade radioButton = null;
+        switch (businessArea.toUpperCase()) {
+            case "UKVI":
+                radioButton = ukviYourBusinessAreaRadioButton;
+                break;
+            case "BF":
+                radioButton = bfYourBusinessAreaRadioButton;
+                break;
+            case "IE":
+                radioButton = ieYourBusinessAreaRadioButton;
+                break;
+            case "EUSS":
+                radioButton = eussYourBusinessAreaRadioButton;
+                break;
+            case "HMPO":
+                radioButton = hmpoYourBusinessAreaRadioButton;
+                break;
+            case "WINDRUSH":
+                radioButton = windrushYourBusinessAreaRadioButton;
+                break;
+            case "CORONAVIRUS (COVID-19)":
+                radioButton = coronavirusYourBusinessAreaRadioButton;
+                break;
+            default:
+                pendingStep(businessArea + " is not defined within " + getMethodName());
+        }
+        safeClickOn(radioButton);
+    }
+
+    public void enterDateOfSurgery(String date) {
+        typeIntoDateField(dateOfSurgeryDayField, dateOfSurgeryMonthField, dateOfSurgeryYearField, date);
+    }
+
     public void triggerErrorMessage(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "PRIMARY CORRESPONDENT":
@@ -294,6 +356,8 @@ public class DataInput extends BasePage {
         selectChannelReceived("Phone - reply given");
         selectEnquirySubject("Person Specific");
         enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
+        selectYourBusinessArea("IE");
+        enterDateOfSurgery(getDatePlusMinusNDaysAgo(0));
         safeClickOn(completeAndCloseCaseRadioButton);
         safeClickOn(continueButton);
     }
@@ -328,6 +392,12 @@ public class DataInput extends BasePage {
                 break;
             case "ENQUIRY REASON":
                 expectedText = "Enquiry reason is required";
+                break;
+            case "YOUR BUSINESS AREA":
+                expectedText = "Your Business Area is required";
+                break;
+            case "DATE OF SURGERY":
+                expectedText = "Date of Surgery is required";
                 break;
             case "ACTIONS":
                 expectedText = "Actions is required";

@@ -30,4 +30,6 @@ Feature: Data Input
     | Channel Received      |
     | Enquiry Subject       |
     | Enquiry Reason        |
+    | Your Business Area    |
+    | Date of Surgery       |
     | Actions               |
