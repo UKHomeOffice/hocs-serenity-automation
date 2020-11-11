@@ -233,6 +233,9 @@ public class SearchStepDefs extends BasePage {
         if (search.mpamCaseCheckbox.isVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
         }
+        if (search.mtsCaseCheckbox.isVisible()) {
+            safeClickOn(search.mtsCaseCheckbox);
+        }
         search.enterMPAMSearchCriteria(infoType, infoValue);
         setSessionVariable("infoValue").to(infoValue);
         safeClickOn(searchButton);
