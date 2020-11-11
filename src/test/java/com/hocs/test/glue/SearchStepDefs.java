@@ -228,7 +228,7 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayedInSearchResults();
     }
 
-    @And("I search for an MPAM case with {string} as it's {string}")
+    @And("I search for an UKVI case with {string} as it's {string}")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
         if (search.mpamCaseCheckbox.isVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
@@ -238,7 +238,7 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("I check that the MPAM search results have the correct {string}")
+    @And("I check that the UKVI search results have the correct {string}")
     public void checkMPAMCaseHasCorrect(String infoType) {
         WebElementFacade topSearchResult = findBy("//tr[1]/td/a[contains(text(), 'MPAM') or contains(text(), 'MTS')]");
         setSessionVariable("topSearchResult").to(topSearchResult.getText());
