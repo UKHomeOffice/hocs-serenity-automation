@@ -30,16 +30,16 @@ public class DataInputStepDefs extends BasePage {
     @And("I check the validation at the MTS Data Input stage")
     public void iTriggerAllErrorMessagesAtTheMTSDataInputStage() {
         safeClickOn(continueButton);
-        dataInput.assertErrorMessageIsDisplayed("primary correspondent");
+        dataInput.assertErrorMessageIsDisplayed("Primary Correspondent");
         addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         safeClickOn(continueButton);
         safeClickOn(continueButton);
         dataInput.assertErrorMessageIsDisplayed("Business Area");
-        dataInput.assertErrorMessageIsDisplayed("Business unit");
+        dataInput.assertErrorMessageIsDisplayed("Business Unit");
         dataInput.assertErrorMessageIsDisplayed("Urgency");
-        dataInput.assertErrorMessageIsDisplayed("Channel received");
-        dataInput.assertErrorMessageIsDisplayed("Enquiry subject");
-        dataInput.assertErrorMessageIsDisplayed("Enquiry reason");
+        dataInput.assertErrorMessageIsDisplayed("Channel Received");
+        dataInput.assertErrorMessageIsDisplayed("Enquiry Subject");
+        dataInput.assertErrorMessageIsDisplayed("Enquiry Reason");
         dataInput.assertErrorMessageIsDisplayed("Actions");
     }
 

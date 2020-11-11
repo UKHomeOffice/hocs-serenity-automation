@@ -14,6 +14,7 @@ Feature: Data Input
     And I put the MTS case on hold
     Then the case should be moved to the "On Hold" stage
 
+  @Validation
   Scenario: User triggers all error messages at the MTS Data Input stage
     And I check the validation at the MTS Data Input stage
 

@@ -335,8 +335,8 @@ public class DataInput extends BasePage {
             default:
                 pendingStep(expectedMessage + " is not defined within " + getMethodName());
         }
-        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedMessage +
+        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedText +
                 "')]");
-        errorMessage.shouldContainText(expectedText);
+        errorMessage.shouldBeVisible();
     }
 }
