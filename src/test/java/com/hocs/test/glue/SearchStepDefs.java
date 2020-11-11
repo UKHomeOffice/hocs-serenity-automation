@@ -1,5 +1,12 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Homepage;
@@ -12,13 +19,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
-
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 
 
 public class SearchStepDefs extends BasePage {
@@ -240,9 +240,10 @@ public class SearchStepDefs extends BasePage {
 
     @And("I check that the MPAM search results have the correct {string}")
     public void checkMPAMCaseHasCorrect(String infoType) {
-        WebElementFacade topSearchResult = findBy("//tr[1]/td/a[contains(text(), 'MPAM')]");
+        WebElementFacade topSearchResult = findBy("//tr[1]/td/a[contains(text(), 'MPAM') or contains(text(), 'MTS')]");
         setSessionVariable("topSearchResult").to(topSearchResult.getText());
-        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a[contains(text(), 'MPAM')]");
+        WebElementFacade bottomSearchResult = findBy(
+                "//tr[" + workstacks.getTotalOfCases() + "]/td/a[contains(text(), 'MPAM') or contains(text(), 'MTS')]");
         setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
         switch (infoType.toUpperCase()) {
             case "REFERENCE TYPE":

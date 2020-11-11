@@ -1,5 +1,12 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,18 +19,9 @@ import java.util.List;
 import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
-
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import org.openqa.selenium.WebDriver;
-
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import org.openqa.selenium.WebElement;
 
 public class Workstacks extends BasePage {
 
@@ -402,6 +400,7 @@ public class Workstacks extends BasePage {
     }
 
     private String getStageFromWorkstacksTable() {
+        workstackFilter.waitUntilVisible();
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
