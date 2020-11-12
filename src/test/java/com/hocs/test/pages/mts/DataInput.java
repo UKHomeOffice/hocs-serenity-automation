@@ -12,15 +12,6 @@ public class DataInput extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(xpath = "//input[@name='DateOfSurgery-day']")
-    public WebElementFacade dateOfSurgeryDayField;
-
-    @FindBy(xpath = "//input[@name='DateOfSurgery-month']")
-    public WebElementFacade dateOfSurgeryMonthField;
-
-    @FindBy(xpath = "//input[@name='DateOfSurgery-year']")
-    public WebElementFacade dateOfSurgeryYearField;
-
     @FindBy(xpath = "//label[@for='BusArea-UKVI']")
     private WebElementFacade ukviBusinessAreaRadioButton;
 
@@ -32,6 +23,12 @@ public class DataInput extends BasePage {
 
     @FindBy(xpath = "//label[@for='BusArea-EUSS']")
     private WebElementFacade eussBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='BusArea-HMPO']")
+    private WebElementFacade hmpoBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//label[@for='BusArea-Windrush']")
+    private WebElementFacade windrushBusinessAreaRadioButton;
 
     @FindBy(id = "BusUnit")
     private WebElementFacade businessUnitDropdown;
@@ -87,12 +84,6 @@ public class DataInput extends BasePage {
     @FindBy(id = "EnquiryReason")
     private WebElementFacade enquiryReasonDropdown;
 
-    @FindBy(xpath = "//label[@for='BusArea-HMPO']")
-    private WebElementFacade hmpoBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-Windrush']")
-    private WebElementFacade windrushBusinessAreaRadioButton;
-
     @FindBy(xpath = "//label[@for='BusArea-Coronavirus']")
     private WebElementFacade coronavirusBusinessAreaRadioButton;
 
@@ -116,6 +107,21 @@ public class DataInput extends BasePage {
 
     @FindBy(xpath = "//label[@for='YourBusArea-Coronavirus']")
     private WebElementFacade coronavirusYourBusinessAreaRadioButton;
+
+    @FindBy(xpath = "//input[@name='DateOfSurgery-day']")
+    public WebElementFacade dateOfSurgeryDayField;
+
+    @FindBy(xpath = "//input[@name='DateOfSurgery-month']")
+    public WebElementFacade dateOfSurgeryMonthField;
+
+    @FindBy(xpath = "//input[@name='DateOfSurgery-year']")
+    public WebElementFacade dateOfSurgeryYearField;
+
+    @FindBy(xpath = "//label[text()='Yes']")
+    public WebElementFacade yesOfficialTelephoneEngagementRadioButton;
+
+    @FindBy(xpath = "//label[text()='No']")
+    public WebElementFacade noOfficialTelephoneEngagementRadioButton;
 
     @FindBy(xpath = "//label[text()='Put on hold']")
     private WebElementFacade putOnHoldRadioButton;
@@ -262,6 +268,14 @@ public class DataInput extends BasePage {
         typeIntoDateField(dateOfSurgeryDayField, dateOfSurgeryMonthField, dateOfSurgeryYearField, date);
     }
 
+    public void selectTelephoneSurgeryOfficialEngagement(String decision) {
+        if (decision.toUpperCase().equals("YES")) {
+            safeClickOn(yesOfficialTelephoneEngagementRadioButton);
+        } else if (decision.toUpperCase().equals("NO")) {
+            safeClickOn(noOfficialTelephoneEngagementRadioButton);
+        }
+    }
+
     public void triggerErrorMessage(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "PRIMARY CORRESPONDENT":
@@ -358,6 +372,7 @@ public class DataInput extends BasePage {
         enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
         selectYourBusinessArea("IE");
         enterDateOfSurgery(getDatePlusMinusNDaysAgo(0));
+        selectTelephoneSurgeryOfficialEngagement("Yes");
         safeClickOn(completeAndCloseCaseRadioButton);
         safeClickOn(continueButton);
     }
@@ -398,6 +413,9 @@ public class DataInput extends BasePage {
                 break;
             case "DATE OF SURGERY":
                 expectedText = "Date of Surgery is required";
+                break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                expectedText = "Telephone Surgery Official Engagement is required";
                 break;
             case "ACTIONS":
                 expectedText = "Actions is required";
