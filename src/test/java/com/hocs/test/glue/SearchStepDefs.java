@@ -305,6 +305,18 @@ public class SearchStepDefs extends BasePage {
                 peopleTab.selectPeopleTab();
                 search.assertThatSearchedCorrespondentNameIsShownInPeopleTab();
                 break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                safeClickOn(topSearchResult);
+                summaryTab.selectSummaryTab();
+                WebElementFacade firstCaseTelephoneSurgeryOfficialEngagement = findBy("//th[text()='Telephone Surgery Official Engagement']/following-sibling::td");
+                firstCaseTelephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("infoValue"));
+                homepage.goHome();
+                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
+                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
+                summaryTab.selectSummaryTab();
+                WebElementFacade secondCaseTelephoneSurgeryOfficialEngagement = findBy("//th[text()='Telephone Surgery Official Engagement']/following-sibling::td");
+                secondCaseTelephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("infoValue"));
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
