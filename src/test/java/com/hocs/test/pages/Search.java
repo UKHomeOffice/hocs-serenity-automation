@@ -121,6 +121,9 @@ public class Search extends BasePage {
     @FindBy(id = "correspondentNameNotMember")
     public WebElementFacade applicantOrConstituentFullNameTextField;
 
+    @FindBy(id = "OfficialEngagement")
+    public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
+
     public void performSearch() {
         safeClickOn(searchButton);
         assertOnSearchPage();
@@ -315,6 +318,11 @@ public class Search extends BasePage {
                 if (value.toUpperCase().equals("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
+                break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                telephoneSurgeryOfficialEngagementDropdown.selectByVisibleText(value);
+                setSessionVariable(value).to("searchTelephoneSurgeryOfficialEngagement");
+                break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
