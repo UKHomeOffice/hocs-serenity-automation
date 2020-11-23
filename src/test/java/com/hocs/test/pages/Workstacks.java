@@ -136,6 +136,12 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//thead/tr[1]/th[text()='Minister Sign Off']")
     public WebElementFacade ministerSignOffHeader;
 
+    @FindBy(xpath = "//thead/tr[1]/th[text()='Telephone Surgery Official Engagement']")
+    public WebElementFacade telephoneSurgeryOfficialEngagementHeader;
+
+    @FindBy(xpath = "//button[text()='Take next case']")
+    public WebElementFacade takeNextCaseButton;
+
     // Basic Methods
 
     public void clickAllocateToMeButton() {
@@ -199,6 +205,22 @@ public class Workstacks extends BasePage {
     public void refineWorkstackSearchResults(String workstackInput) {
         safeClickOn(workstackFilter);
         typeInto(workstackFilter, workstackInput);
+    }
+
+    public void selectTakeNextCase() {
+        int n = 1;
+        List<WebElementFacade> allocatedUsers = findAll("//th[text()='Owner']/ancestor::thead/following-sibling::tbody//td[4]");
+        boolean isCaseUnallocated = false;
+        while (n <= getTotalOfCases() && !isCaseUnallocated) {
+            if (allocatedUsers.get(n).getText().equals("")) {
+                WebElementFacade caseReference = findBy("//th[text()='Reference']/ancestor::thead/following-sibling::tbody/tr[" + (n + 1) + "]/td[2"
+                        + "]");
+                setSessionVariable("nextCaseCaseReference").to(caseReference.getText());
+                isCaseUnallocated = true;
+            }
+            n++;
+        }
+        safeClickOn(takeNextCaseButton);
     }
 
     public void allocateThreeCasesCreated(User user) {
@@ -281,6 +303,9 @@ public class Workstacks extends BasePage {
             case "MINISTER SIGN OFF":
                 selectedHeader = ministerSignOffHeader;
                 break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                selectedHeader = telephoneSurgeryOfficialEngagementHeader;
+                break;
             default:
                 pendingStep(column + " is not defined within " + getMethodName());
         }
@@ -317,6 +342,11 @@ public class Workstacks extends BasePage {
     }
 
     // Assertions
+
+    public void assertCorrectCaseIsTaken() {
+        waitFor(allocatedCaseReference);
+        assertThat(allocatedCaseReference.getText().equals(sessionVariableCalled("nextCaseCaseReference")), is(true));
+    }
 
     public void assertCaseIsInTheCorrectCampaign() {
         WebElementFacade campaignOfCurrentCase = findBy("//a[text()='" + sessionVariableCalled("caseReference")
@@ -561,6 +591,7 @@ public class Workstacks extends BasePage {
                 case "TEAM":
                 case "CAMPAIGN":
                 case "MINISTER SIGN OFF":
+                case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                     String currentStageOne = cellOne.getText();
                     String currentStageTwo = cellTwo.getText();
                     switch (order.toUpperCase()) {
