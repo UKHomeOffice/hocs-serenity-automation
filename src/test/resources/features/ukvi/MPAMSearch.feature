@@ -38,3 +38,8 @@ Feature: MPAM Search
     And I navigate to the "Search" page
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
+
+  Scenario: User is able to search for an MTS case that is and official engagement
+    And I navigate to the "Search" page
+    And I search for an MPAM case with "Yes" as it's "Telephone Surgery Official Engagement"
+    Then I check that the MPAM search results have the correct "Telephone Surgery Official Engagement"

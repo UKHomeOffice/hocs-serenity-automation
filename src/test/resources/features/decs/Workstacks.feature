@@ -55,21 +55,21 @@ Feature: Workstacks
     When I navigate to the "Triage" workstack and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
-      | column            | order             |
-      | Reference         | Lowest to Highest |
-      | Reference         | Highest to Lowest |
-      | Current Stage     | Lowest to Highest |
-      | Current Stage     | Highest to Lowest |
-      | Owner             | Lowest to Highest |
-      | Owner             | Highest to Lowest |
-      | Minister Sign Off | Lowest to Highest |
-      | Minister Sign Off | Highest to Lowest |
-      | Deadline          | Lowest to Highest |
-      | Deadline          | Highest to Lowest |
-      | Urgency           | Lowest to Highest |
-      | Urgency           | Highest to Lowest |
-      | Days              | Lowest to Highest |
-      | Days              | Highest to Lowest |
+      | column                                | order             |
+      | Reference                             | Lowest to Highest |
+      | Reference                             | Highest to Lowest |
+      | Current Stage                         | Lowest to Highest |
+      | Current Stage                         | Highest to Lowest |
+      | Owner                                 | Lowest to Highest |
+      | Owner                                 | Highest to Lowest |
+      | Minister Sign Off                     | Lowest to Highest |
+      | Minister Sign Off                     | Highest to Lowest |
+      | Deadline                              | Lowest to Highest |
+      | Deadline                              | Highest to Lowest |
+      | Urgency                               | Lowest to Highest |
+      | Urgency                               | Highest to Lowest |
+      | Days                                  | Lowest to Highest |
+      | Days                                  | Highest to Lowest |
 
   @OtherTests
   Scenario Outline: User is able to order columns in my cases
@@ -109,6 +109,14 @@ Feature: Workstacks
       | Deadline      | Lowest to Highest |
       | Deadline      | Highest to Lowest |
 
+  Scenario Outline: User is able to order Telephone Surgery Official engagement column
+    Given I navigate to the "MTS Team" workstack and order the "<column>" column from "<order>"
+    Then the "<column>" column is ordered from "<order>"
+    Examples:
+      | column                                | order             |
+      | Telephone Surgery Official Engagement | Lowest to Highest |
+      | Telephone Surgery Official Engagement | Highest to Lowest |
+
   @Regression
   Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline datee
     Given I create a single "MPAM" case with the correspondence received date set 15 workdays ago
@@ -139,3 +147,9 @@ Feature: Workstacks
     | order             |
     | Lowest to Highest |
     | Highest to Lowest |
+
+  Scenario: User can select to take the next unallocated case from the team workstack
+    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    And I choose to take the next unallocated case from the team workstack
+    Then the highest priority unallocated case is loaded and allocated to the user
