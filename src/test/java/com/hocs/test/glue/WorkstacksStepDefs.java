@@ -255,7 +255,11 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I navigate to the {string} workstack and order the {string} column from {string}")
     public void orderWorkstackColumnBy(String stage, String column, String order) {
-        homepage.selectCorrectMPAMTeamByStage(stage);
+        if (stage.toUpperCase().equals("MTS TEAM")) {
+            homepage.selectMTSTeam();
+        } else {
+            homepage.selectCorrectMPAMTeamByStage(stage);
+        }
         workstacks.orderMPAMWorkstackColumn(column, order);
     }
 
@@ -283,6 +287,16 @@ public class WorkstacksStepDefs extends BasePage {
     public void iViewTheCaseInTheWorkstack(String stage) {
         homepage.goHome();
         homepage.selectCorrectMPAMTeamByStage(stage);
+    }
+
+    @And("I choose to take the next unallocated case from the team workstack")
+    public void iChooseToTakeTheNextCaseFromTheTeamWorkstack() {
+        workstacks.selectTakeNextCase();
+    }
+
+    @Then("the highest priority unallocated case is loaded and allocated to the user")
+    public void theHighestPriorityUnallocatedCaseIsLoadedAndAllocatedToTheUser() {
+        workstacks.assertCorrectCaseIsTaken();
     }
 
     @Then("the case deadline {string} be highlighted")

@@ -67,6 +67,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//h1[@class='govuk-heading-l']")
     public WebElementFacade caseReference;
 
+    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    public WebElementFacade allocatedCaseReference;
+
     @FindBy(xpath = "//h1")
     protected WebElementFacade managementUIPageTitle;
 
