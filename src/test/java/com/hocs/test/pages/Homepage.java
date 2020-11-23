@@ -98,6 +98,9 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//a[text()='Documents']")
     public WebElementFacade documentsTab;
 
+    @FindBy(xpath = "//span[text()='MTS Team']")
+    public WebElementFacade mtsTeamWorkstack;
+
     //MPAM Teams
 
     @FindBy(xpath = "//span[text()='MPAM Creation']")
@@ -150,6 +153,10 @@ public class Homepage extends BasePage {
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
         }
         safeClickOn(requiredTeam);
+    }
+
+    public void selectMTSTeam() {
+        safeClickOn(mtsTeamWorkstack);
     }
 
     // Assertions
