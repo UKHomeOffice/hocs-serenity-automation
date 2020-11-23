@@ -1,5 +1,12 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
@@ -12,18 +19,10 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import org.openqa.selenium.support.ui.Select;
 
 public class Search extends BasePage {
 
@@ -108,6 +107,9 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
+
+    @FindBy(xpath = "//label[text()='MTS Case']")
+    public WebElementFacade mtsCaseCheckbox;
 
     @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
     public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;

@@ -7,8 +7,8 @@ Feature: MPAM Search
   @MPAMRegression
   Scenario Outline: User tests search criteria
     And I navigate to the "Search" page
-    And I search for an MPAM case with "<infoValue>" as it's "<infoType>"
-    Then I check that the MPAM search results have the correct "<infoType>"
+    And I search for an UKVI case with "<infoValue>" as it's "<infoType>"
+    Then I check that the UKVI search results have the correct "<infoType>"
     Examples:
       | infoType                       | infoValue        |
       | Reference Type                 | Ministerial      |
@@ -22,8 +22,8 @@ Feature: MPAM Search
   Scenario: User is able to search for a case by the Correspondent Reference Number
     And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
     And I navigate to the "search" page
-    And I search for an MPAM case with "TestRefNumber 1" as it's "Correspondent Reference Number"
-    Then I check that the MPAM search results have the correct "Correspondent Reference Number"
+    And I search for an UKVI case with "TestRefNumber 1" as it's "Correspondent Reference Number"
+    Then I check that the UKVI search results have the correct "Correspondent Reference Number"
 
   @OtherTests
   Scenario: User searches by case reference from the search page
