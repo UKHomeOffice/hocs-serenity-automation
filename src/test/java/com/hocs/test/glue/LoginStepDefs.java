@@ -1,25 +1,20 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.managementUI.Dashboard;
-import com.hocs.test.pages.Workstacks;
-
-import static config.User.*;
+import static config.User.FAKE;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Homepage;
-
+import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.managementUI.Dashboard;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.NoSuchElementException;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LoginStepDefs extends BasePage {
 
@@ -47,8 +42,14 @@ public class LoginStepDefs extends BasePage {
             System.out.println("Session still active, checking active user matches target user");
             homepage.goHome();
             homepage.selectMyCases();
-            try{
-            workstacks.assertOwnerIs(targetUser);
+            if (workstacks.getTotalOfCases() == 0) {
+                createCase.createCaseOfType("ANY");
+                homepage.getAndClaimCurrentCase();
+                homepage.goHome();
+                safeClickOn(homepage.myCases);
+            }
+            try {
+                workstacks.assertOwnerIs(targetUser);
                 System.out.println("Active user matches target user, continuing test");
             } catch (AssertionError ae) {
                 System.out.println("Active user does not match target user. Logging active user out of DECS");
@@ -68,15 +69,15 @@ public class LoginStepDefs extends BasePage {
         }
         User targetUser = User.valueOf(user);
         loginPage.navigateToHocs();
-            if (isElementDisplayed($(loginPage.usernameField))) {
-                System.out.println("On fresh browser, beginning test..");
-                loginPage.enterHocsLoginDetails(targetUser);
-                safeClickOn(loginPage.continueButton);
-            } else {
-                System.out.println("Session still active, continuing test from homepage");
-                homepage.goHome();
-            }
-            setCurrentUser(targetUser);
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("On fresh browser, beginning test..");
+            loginPage.enterHocsLoginDetails(targetUser);
+            safeClickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Session still active, continuing test from homepage");
+            homepage.goHome();
+        }
+        setCurrentUser(targetUser);
     }
 
     @Given("that I have navigated to the Management UI as the user {string}")
@@ -172,19 +173,14 @@ public class LoginStepDefs extends BasePage {
         User inputUser = User.valueOf(user);
         homepage.goHome();
         safeClickOn(homepage.myCases);
-        try {
-            safeClickOn(workstacks.topCaseReferenceHypertext);
-            summaryTab.selectSummaryTab();
-            summaryTab.assertAllocatedUserIs(inputUser);
-        }
-        catch (AssertionError | NoSuchElementException e) {
-            createCase.createCaseOfType("MIN");
+        if (workstacks.getTotalOfCases() == 0) {
+            createCase.createCaseOfType("ANY");
             homepage.getAndClaimCurrentCase();
             homepage.goHome();
             safeClickOn(homepage.myCases);
-            safeClickOn(workstacks.topCaseReferenceHypertext);
-            summaryTab.selectSummaryTab();
-            summaryTab.assertAllocatedUserIs(inputUser);
         }
+        safeClickOn(workstacks.topCaseReferenceHypertext);
+        summaryTab.selectSummaryTab();
+        summaryTab.assertAllocatedUserIs(inputUser);
     }
 }

@@ -38,6 +38,9 @@ public class CreateCase extends BasePage {
     @FindBy(css = "label[for='case-type-MTS']")
     public WebElementFacade mtsRadioButton;
 
+    @FindBy(xpath = "//label[contains(@for, 'case-type')]")
+    public WebElementFacade topCaseRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -91,6 +94,10 @@ public class CreateCase extends BasePage {
         safeClickOn(mtsRadioButton);
     }
 
+    private void clickTopCaseRadioButton() {
+        safeClickOn(topCaseRadioButton);
+    }
+
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
@@ -111,6 +118,9 @@ public class CreateCase extends BasePage {
                 break;
             case "MTS":
                 clickMtsRadioButton();
+                break;
+            case "ANY":
+                clickTopCaseRadioButton();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
