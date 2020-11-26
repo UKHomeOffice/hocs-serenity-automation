@@ -170,9 +170,9 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        String tempNumberOfItems = totalNumberOfItems.getText().split(" ")[0];
-
-        return Integer.parseInt(tempNumberOfItems);
+        waitFor(totalNumberOfItems);
+        String numberOfItems = totalNumberOfItems.getText().split(" ")[0];
+        return Integer.parseInt(numberOfItems);
     }
 
     public void selectSummaryTab() {
