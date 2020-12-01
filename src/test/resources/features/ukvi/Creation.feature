@@ -52,7 +52,8 @@ Feature: Creation
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Creation stage
     And I click the "Continue" button
-    And I add a public correspondent
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Boris Johnson"
     And I click the "Move to Triage" button
     Then the case should be moved to the "Triage" stage
     Examples:
@@ -135,3 +136,8 @@ Feature: Creation
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
     And I view the MPAM case in the appropriate "Triage" stage workstack
     Then the Minister sign off team is correctly displayed
+
+  @Validation
+  Scenario: User attempts to progress a case without adding an MP correspondent
+    And I try to advance a case with a public correspondent at Creation stage
+    Then the MP correspondent is mandatory screen is displayed
