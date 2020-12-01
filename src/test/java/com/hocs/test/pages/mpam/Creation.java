@@ -203,7 +203,7 @@ public class Creation extends BasePage {
     public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
         clickTheButton("Continue");
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -222,7 +222,7 @@ public class Creation extends BasePage {
         selectInboundChannel("Email");
         selectUrgency("Standard");
         clickTheButton("Continue");
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -234,7 +234,7 @@ public class Creation extends BasePage {
         selectInboundChannel("Email");
         selectUrgency(urgency);
         clickTheButton("Continue");
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -246,8 +246,23 @@ public class Creation extends BasePage {
         selectInboundChannel("Email");
         selectUrgency("Standard");
         safeClickOn(continueButton);
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        clickTheButton("Move to Triage");
+    }
+
+    public void triggerMPCorrespondentIsMandatoryScreen() {
+        selectBusinessArea("UKVI");
+        selectRefType("Official");
+        selectInboundChannel("Email");
+        selectUrgency("Standard");
+        safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Move to Triage");
+    }
+
+    public void assertMPCorrespondentIsRequiredScreenIsDisplayed() {
+        waitForAnyTextToAppear("A Member of Parliament is mandatory");
+        pageTitle.shouldContainText("A Member of Parliament is mandatory");
     }
 
     public void assertCaseCreationRequiredQuestionErrorMessages() {

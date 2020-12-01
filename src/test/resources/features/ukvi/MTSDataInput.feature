@@ -1,15 +1,17 @@
 @DataInput @MTS
-Feature: Data Input
+Feature: MTS Data Input
 
   Background:
     Given I log in to DECS
     And I create a single "MTS" case and return to the dashboard
     And I load and claim the current case
 
+  @MPAMRegression
   Scenario: The user is able to complete and close an MTS Case
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
 
+  @MPAMRegression
   Scenario: The user is able to put an MTS Case On Hold
     And I put the MTS case on hold
     Then the case should be moved to the "On Hold" stage

@@ -67,4 +67,14 @@ public class CreationStepDefs extends BasePage {
     public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
     }
+
+    @And("I try to advance a case with a public correspondent at Creation stage")
+    public void iTryToAdvanceACaseWithAPublicCorrespondentAtCreationStage() {
+        creation.triggerMPCorrespondentIsMandatoryScreen();
+    }
+
+    @Then("the MP correspondent is mandatory screen is displayed")
+    public void theMPCorrespondentIsMandatoryScreenIsDisplayed() {
+        creation.assertMPCorrespondentIsRequiredScreenIsDisplayed();
+    }
 }
