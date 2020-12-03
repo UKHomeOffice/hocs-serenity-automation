@@ -191,7 +191,8 @@ Feature: ManagementUI
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "HOCS"
-    And I get a case and progress to the point of adding a topic
+    And I create a "MIN" case and move it to the "Markup" stage
+    And I progress the case to the point of adding a topic
     When I add the new child topic
     Then the topic can be viewed in the case timeline
 
@@ -199,7 +200,8 @@ Feature: ManagementUI
   Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
     And I have created a new child topic
     And I navigate to "HOCS"
-    And I get a case and progress to the point of adding a topic
+    And I create a "MIN" case and move it to the "Markup" stage
+    And I progress the case to the point of adding a topic
     When I add the new child topic
     Then an error message should be displayed as the topic was not recognised as a valid topic
 
