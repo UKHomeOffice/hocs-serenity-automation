@@ -9,7 +9,7 @@ public class CSVExtractReader {
     @Test
     public void main() throws Exception {
         getHeaders();
-        getSpecificCase("MIN/0120834/20");
+       // getSpecificCase("MIN/0120834/20");
     }
 
     @SuppressWarnings("resource")
@@ -18,7 +18,7 @@ public class CSVExtractReader {
         //Read data.csv
         //Default seperator is comma
         //Default quote character is double quote
-        //Start reading from line number 2 (line numbers start from zero)
+        //Line value is starts from 0
         CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Cameron.Page\\IdeaProjects\\hocs-serenity-automation\\src\\test\\resources"
                 + "\\documents\\min-case_data-2020-11-11 (1).csv"), ',' , '"' , 0);
 
