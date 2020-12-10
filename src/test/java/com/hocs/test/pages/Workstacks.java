@@ -28,7 +28,7 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
     public WebElementFacade totalNumberOfItems;
 
-    @FindBy(linkText = "Allocate to me")
+    @FindBy(linkText = "Allocate selected to me")
     public WebElementFacade allocateToMeButton;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")

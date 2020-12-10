@@ -1,28 +1,29 @@
 package com.hocs.test.glue;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.dcu.Markup_AddTopics;
+import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
+import com.hocs.test.pages.managementUI.StandardLine;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.managementUI.StandardLine;
 import com.hocs.test.pages.managementUI.UserManagement;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManagementUIStepDefs extends BasePage {
 
@@ -49,6 +50,8 @@ public class ManagementUIStepDefs extends BasePage {
     UserManagement userManagement;
 
     ListsManagement listsManagement;
+
+    Homepage homepage;
 
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
@@ -398,9 +401,9 @@ public class ManagementUIStepDefs extends BasePage {
         addChildTopic.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
     }
 
-    @And("I get a case and progress to the point of adding a topic")
+    @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
+        homepage.getAndClaimCurrentCase();
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 
