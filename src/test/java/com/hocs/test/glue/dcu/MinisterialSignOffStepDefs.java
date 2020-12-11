@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.Workstacks;
 
@@ -18,7 +19,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     MinisterialSignOff ministerialSignOff;
 
-    Workstacks workstacks;
+    UnallocatedCaseView unallocatedCaseView;
 
     @When("I complete the Ministerial Sign Off stage")
     public void completeTheMinisterSignOffStagePerCaseType() {
@@ -27,7 +28,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
             case "MIN" :
                 if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
                     homepage.getCurrentCase();
-                    safeClickOn(workstacks.allocateToMeButton);
+                    safeClickOn(unallocatedCaseView.allocateToMeLink);
                 }
                 safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
                 safeClickOn(ministerialSignOff.continueButton);

@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.Workstacks;
@@ -31,11 +32,13 @@ public class MarkupStepDefs extends BasePage {
 
     QAResponse qaResponse;
 
+    UnallocatedCaseView unallocatedCaseView;
+
     @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
         if (!markup.policyResponseRadioButton.isVisible()) {
             homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         markup.moveCaseFromMarkupToInitialDraft();
     }

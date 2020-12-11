@@ -13,6 +13,7 @@ import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.PeopleTab;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -35,6 +36,8 @@ public class SearchStepDefs extends BasePage {
 
     PeopleTab peopleTab;
 
+    UnallocatedCaseView unallocatedCaseView;
+
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
         search.performSearch();
@@ -56,7 +59,7 @@ public class SearchStepDefs extends BasePage {
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
         workstacks.waitABit(500);
-        if (workstacks.isElementDisplayed(workstacks.allocateToMeButton)) {
+        if (workstacks.isElementDisplayed(unallocatedCaseView.allocateToMeLink)) {
             workstacks.assertCaseReferenceBeforeAllocation();
         } else {
             workstacks.assertCaseReferenceAfterAllocation();

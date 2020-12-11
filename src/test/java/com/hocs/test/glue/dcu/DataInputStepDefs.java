@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.Homepage;
@@ -23,7 +24,7 @@ public class DataInputStepDefs extends BasePage {
 
     Homepage homepage;
 
-    Workstacks workstacks;
+    UnallocatedCaseView unallocatedCaseView;
 
     AccordionDCU accordionDCU;
 
@@ -38,7 +39,7 @@ public class DataInputStepDefs extends BasePage {
     public void completeDataInputPerCaseType() {
         if (!dataInput.continueButton.isVisible()) {
             homepage.getCurrentCase();
-            workstacks.clickAllocateToMeButton();
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         dataInput.moveCaseFromDataInputToMarkup();
     }

@@ -2,6 +2,7 @@ package com.hocs.test.glue.dcu;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.Then;
@@ -16,13 +17,13 @@ public class DispatchStepDefs extends BasePage {
 
     Homepage homepage;
 
-    Workstacks workstacks;
+    UnallocatedCaseView unallocatedCaseView;
 
     @When("I complete the dispatch stage")
     public void completeTheDispatchStage() {
         if (!dispatch.dispatchAcceptRadioButton.isVisible()) {
             homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         safeClickOn(dispatch.dispatchAcceptRadioButton);
         safeClickOn(dispatch.continueButton);

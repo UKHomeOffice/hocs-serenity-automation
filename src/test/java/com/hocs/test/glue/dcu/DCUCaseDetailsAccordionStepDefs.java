@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.DataInput;
@@ -39,6 +40,8 @@ public class DCUCaseDetailsAccordionStepDefs extends BasePage {
 
     Dispatch dispatch;
 
+    UnallocatedCaseView unallocatedCaseView;
+
 
     @When("I move that case to the {string} stage and record all entered information")
     public void moveCaseToNextStage(String stage) {
@@ -49,37 +52,37 @@ public class DCUCaseDetailsAccordionStepDefs extends BasePage {
             case "Initial Draft":
                 moveCaseToNextStage("Markup");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 markup.completeMarkupStageAndStoreEnteredInformation();
                 break;
             case "QA Response":
                 moveCaseToNextStage("Initial Draft");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 initialDraft.completeInitialDraftStageAndStoreEnteredInformation();
                 break;
             case "Private Office Approval":
                 moveCaseToNextStage("QA Response");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 qaResponse.completeQAResponseStageAndStoreEnteredInformation();
                 break;
             case "Ministerial Sign Off":
                 moveCaseToNextStage("Private Office Approval");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 privateOfficeApproval.completePrivateOfficeApprovalStageAndStoreEnteredInformation();
                 break;
             case "Dispatch":
                 moveCaseToNextStage("Ministerial Sign Off");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 ministerialSignOff.completeMinisterialSignOffStageAndStoreEnteredInformation();
                 break;
             case "Transfer to No10":
                 moveCaseToNextStage("Dispatch");
                 homepage.getCurrentCase();
-                workstacks.clickAllocateToMeButton();
+                safeClickOn(unallocatedCaseView.allocateToMeLink);
                 dispatch.completeDispatchStageAndStoreEnteredInformation();
                 break;
             default:

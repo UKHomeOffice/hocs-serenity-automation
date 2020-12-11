@@ -241,7 +241,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iSelectATeam(String typeOfTeam) {
         switch (typeOfTeam.toUpperCase()) {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
-                linkTopicToTeam.selectADraftAndQATeam("Advice Team");
+                linkTopicToTeam.selectADraftAndQATeam("Animals in Science Regulation Unit");
                 break;
             case "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES":
                 linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");

@@ -223,7 +223,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createCaseOfType(caseType.toUpperCase());
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
-        workstacks.clickAllocateToMeButton();
+        safeClickOn(unallocatedCaseView.allocateToMeLink);
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
     }
 

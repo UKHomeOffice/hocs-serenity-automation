@@ -2,6 +2,7 @@ package com.hocs.test.glue.dcu;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
 
@@ -19,11 +20,13 @@ public class QAResponseStepDefs extends BasePage {
 
     Workstacks workstacks;
 
+    UnallocatedCaseView unallocatedCaseView;
+
     @When("I complete the QA response stage")
     public void completeQAResponseStage() {
         if (!qaResponse.QAAcceptRadioButton.isVisible()) {
             homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         safeClickOn(qaResponse.QAAcceptRadioButton);
         System.out.println("Finished QA Response, returning to home page.");
