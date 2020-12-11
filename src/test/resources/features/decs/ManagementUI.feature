@@ -32,7 +32,7 @@ Feature: ManagementUI
   @TeamManagement @Regression @test
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
-    When I select the "Armed Forces Policy" team from the dropdown
+    When I select the "Animals in Science Regulation Unit" team from the dropdown
     And I add the users "CAMERON" and "CASEY" to the team
     Then the users should be visible in the team list
 

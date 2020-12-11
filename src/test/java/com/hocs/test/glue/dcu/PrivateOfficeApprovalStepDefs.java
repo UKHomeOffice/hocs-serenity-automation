@@ -4,6 +4,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.Homepage;
@@ -23,6 +24,8 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     AccordionDCU accordionDCU;
 
+    UnallocatedCaseView unallocatedCaseView;
+
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStagePerCaseType() {
         String caseType = sessionVariableCalled("caseType");
@@ -31,7 +34,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
             case "DTEN":
                 if (!privateOfficeApproval.privateOfficeAcceptRadioButton.isVisible()) {
                     homepage.getCurrentCase();
-                    safeClickOn(workstacks.allocateToMeButton);
+                    safeClickOn(unallocatedCaseView.allocateToMeLink);
                 }
                 safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
                 safeClickOn(privateOfficeApproval.continueButton);

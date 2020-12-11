@@ -12,7 +12,7 @@ import static org.hamcrest.core.Is.is;
 
 public class CreateCase_SuccessPage extends BasePage {
 
-    Workstacks workstacks;
+    UnallocatedCaseView unallocatedCaseView;
 
     @FindBy(className = "govuk-panel__body")
     private WebElementFacade panelBody;
@@ -42,7 +42,7 @@ public class CreateCase_SuccessPage extends BasePage {
 
     public void allocateToMeViaSuccessfulCreationScreen() {
         safeClickOn(newCaseReference);
-        safeClickOn(workstacks.allocateToMeButton);
+        safeClickOn(unallocatedCaseView.allocateToMeLink);
     }
 
     public void goToCaseFromSuccessfulCreationScreen() {

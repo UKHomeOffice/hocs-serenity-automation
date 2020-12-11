@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Workstacks;
@@ -24,11 +25,13 @@ public class InitialDraftStepDefs extends BasePage {
 
     Workstacks workstacks;
 
+    UnallocatedCaseView unallocatedCaseView;
+
     @When("I complete the Initial Draft stage")
     public void initialDraftFullFlowPerCaseType() {
         if (!initialDraft.answeredByMyTeamYesRadioButton.isVisible()) {
             homepage.getCurrentCase();
-            safeClickOn(workstacks.allocateToMeButton);
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
