@@ -1,23 +1,24 @@
-@Search @MPAM
-Feature: MPAM Search
+@Search @UKVI
+Feature: UKVI Search
 
   Background:
     Given I log in to DECS as user "UKVI_ONLY"
 
-  @MPAMRegression
+  @UKVIRegression
   Scenario Outline: User tests search criteria
     And I navigate to the "Search" page
     And I search for an UKVI case with "<infoValue>" as it's "<infoType>"
     Then I check that the UKVI search results have the correct "<infoType>"
     Examples:
-      | infoType                       | infoValue        |
-      | Reference Type                 | Ministerial      |
-      | Reference Type                 | Official         |
-      | Member of Parliament Name      | Boris Johnson    |
-      | Correspondent Reference Number | TestRefNumber1   |
-      | Campaign                       | Small boats      |
-      | Ministerial Sign Off Team      | Home Secretary   |
-      | Public Correspondent Name      | TestApplicant    |
+      | infoType                              | infoValue      |
+      | Reference Type                        | Ministerial    |
+      | Reference Type                        | Official       |
+      | Member of Parliament Name             | Boris Johnson  |
+      | Correspondent Reference Number        | TestRefNumber1 |
+      | Campaign                              | Small boats    |
+      | Ministerial Sign Off Team             | Home Secretary |
+      | Public Correspondent Name             | TestApplicant  |
+      | Telephone Surgery Official Engagement | Yes            |
 
   Scenario: User is able to search for a case by the Correspondent Reference Number
     And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
@@ -32,7 +33,7 @@ Feature: MPAM Search
     And I search for a case by it's case reference
     Then the one created case should be displayed
 
-  @MPAMRegression
+  @UKVIRegression
   Scenario: User searches for MPAM cases using a substring of a case reference
     And I create a single "MPAM" case and return to the dashboard
     And I navigate to the "Search" page
@@ -41,5 +42,5 @@ Feature: MPAM Search
 
   Scenario: User is able to search for an MTS case that is and official engagement
     And I navigate to the "Search" page
-    And I search for an MPAM case with "Yes" as it's "Telephone Surgery Official Engagement"
-    Then I check that the MPAM search results have the correct "Telephone Surgery Official Engagement"
+    And I search for an UKVI case with "Yes" as it's "Telephone Surgery Official Engagement"
+    Then I check that the UKVI search results have the correct "Telephone Surgery Official Engagement"

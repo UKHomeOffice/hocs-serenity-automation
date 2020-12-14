@@ -1,5 +1,5 @@
-@DataInput @DCU
-Feature: Data Input
+@DCUDataInput @DCU
+Feature: DCU Data Input
 
   Background:
     Given I log in to DECS

@@ -1,4 +1,4 @@
-@QA @MPAM
+@QA @UKVI
 Feature: QA
 
   Background:
@@ -12,37 +12,37 @@ Feature: QA
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User completes the QA stage
     When I complete the "QA" stage
     Then the case should be moved to the "Private Office" stage
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User escalates the QA case to the workflow manager
     And I select the "Escalate to Workflow Manager" action at QA
     And I submit a reason to escalate the case at QA stage
     Then the case should be moved to the "QA (Escalated)" stage
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User puts a QA case on hold
     And I select the "Put on hold" action at QA
     Then the case should be moved to the "QA (On Hold)" stage
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User sends a case back to draft at the QA stage
     And I select the "Rejected, move back to drafting" action at QA
     And I submit a reason to reject the case back to drafting
     Then the case should be moved to the "Draft" stage
     And a rejection note should be visible showing the reason for rejection
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User sends a case back to triage at the QA stage
     And I select the "Rejected, move back to triage" action at QA
     And I submit a reason to reject the case back to triage
     Then the case should be moved to the "Triage" stage
     And a rejection note should be visible showing the reason for rejection
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User takes a QA (On Hold) case off hold
     And I select the "Put on hold" action at QA
     And I load and claim the current case
@@ -50,7 +50,7 @@ Feature: QA
     Then the case should be moved to the "QA" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User de-escalates a QA (Escalated) case
     And I select the "Escalate to Workflow Manager" action at QA
     And I submit a reason to escalate the case at QA stage
@@ -59,7 +59,7 @@ Feature: QA
     Then the case should be moved to the "QA" stage
     And the case should be allocated to me in the summary
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: User closes a QA (Escalated) case
     And I select the "Escalate to Workflow Manager" action at QA
     And I submit a reason to escalate the case at QA stage
@@ -78,7 +78,7 @@ Feature: QA
       | Reject at Triage Reason Required |
       | Reject at Draft Reason Required  |
 
-  @AutoAssignTests @MPAMRegression
+  @AutoAssignTests @UKVIRegression
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
     And I record the user who completed the previous stages
     And I logout of the application

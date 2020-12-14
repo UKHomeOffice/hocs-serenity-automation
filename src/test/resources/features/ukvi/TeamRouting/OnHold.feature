@@ -1,4 +1,4 @@
-@OnHold @TeamRouting @MPAM @MPAMWorkflow
+@OnHold @TeamRouting @UKVI @UKVIWorkflow
 Feature: OnHold
 
   Background:

@@ -39,7 +39,7 @@ Feature: Manage Documents
       | DRAFT    |
       | FINAL    |
 
-  @MPAMRegression
+  @UKVIRegression
   Scenario Outline: : User can select document type when uploading documents on a MPAM case
     And I click to manage the documents of a new "MPAM" case
     And I click add documents

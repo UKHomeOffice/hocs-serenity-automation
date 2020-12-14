@@ -1,4 +1,4 @@
-@Escalated @TeamRouting @MPAM @MPAMWorkflow
+@Escalated @TeamRouting @UKVI @UKVIWorkflow
 Feature: Escalated
 
   Background:

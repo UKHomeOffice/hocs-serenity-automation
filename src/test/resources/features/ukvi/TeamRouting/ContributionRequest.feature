@@ -1,4 +1,4 @@
-@ContributionRequest @TeamRouting @MPAM @MPAMWorkflow
+@ContributionRequest @TeamRouting @UKVI @UKVIWorkflow
 Feature: Contribution Request
 
   Background:

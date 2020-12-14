@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MPAM" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="AllUKVITests" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.options=--tags '@MPAM or @MPAMRegression or @Regression'" />
+              <option value="-Dcucumber.options=--tags '@UKVI or @UKVIRegression or @Regression'" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>
