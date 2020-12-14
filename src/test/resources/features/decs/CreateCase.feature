@@ -56,12 +56,12 @@ Feature: Create case
       | DTEN     |
       | TRO      |
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: Newly created MPAM cases should move to the Creation stage
     And I create a single "MPAM" case and return to the dashboard
     Then the case should be moved to the "Creation" stage
 
-  @MPAMWorkflow @MPAMRegression
+  @UKVIWorkflow @UKVIRegression
   Scenario: Newly created MTS cases should move to the Data Input stage
     And I create a single "MTS" case and return to the dashboard
     Then the case should be moved to the "Data Input" stage

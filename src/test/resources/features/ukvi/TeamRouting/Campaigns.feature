@@ -1,4 +1,4 @@
-@Campaign @TeamRouting @MPAM @MPAMWorkflow
+@Campaign @TeamRouting @UKVI @UKVIWorkflow
 Feature: Campaign
 
   Background:

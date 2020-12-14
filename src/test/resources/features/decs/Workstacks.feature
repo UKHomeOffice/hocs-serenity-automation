@@ -129,7 +129,7 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
 
-  @MPAMRegression
+  @UKVIRegression
   Scenario: User adds a case to a Campaign and can view the case in the correct workstack
     Given I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
