@@ -5,7 +5,7 @@ Feature: Login
     Given I am on the Home Office Correspondence Login Page
     And I am prompted to log in
 
-  @Regression
+  @Regression @test
   Scenario: I can login to the Home Office Correspondence System
     When I enter the login credentials for user "AUTOMATION_USER" and click the login button
     Then I should be taken to the homepage
