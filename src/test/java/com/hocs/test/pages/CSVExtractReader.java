@@ -1,12 +1,11 @@
 package com.hocs.test.pages;
+
+import au.com.bytecode.opencsv.CSVReader;
 import java.io.FileReader;
 import java.util.Arrays;
 
-import au.com.bytecode.opencsv.CSVReader;
-import org.junit.Test;
-
 public class CSVExtractReader {
-    @Test
+
     public void main() throws Exception {
         getHeaders();
        // getSpecificCase("MIN/0120834/20");
