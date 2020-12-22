@@ -88,7 +88,7 @@ Feature: ManagementUI
 
   Scenario: User is able to amend the expiry date of a standard line
     And I navigate to the "Manage Standard Lines" Management page
-    And I amend the expiry date of the "Animal alternatives (3Rs)" standard line to "31/12/2020"
+    And I amend the expiry date of the "Animal alternatives (3Rs)" standard line to 5 days from today
     Then the standard line expiry date has been correctly amended
 
   Scenario: User is able to delete a standard line

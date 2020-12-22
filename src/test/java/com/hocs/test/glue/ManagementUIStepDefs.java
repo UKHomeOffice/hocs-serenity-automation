@@ -438,9 +438,9 @@ public class ManagementUIStepDefs extends BasePage {
         standardLine.selectActionForStandardLine(topic, action);
     }
 
-    @And("I amend the expiry date of the {string} standard line to {string}")
-    public void iAmendTheExpiryDateOfTheStandardLineTo(String topic, String date) {
-        standardLine.amendAStandardLine(topic, date);
+    @And("I amend the expiry date of the {string} standard line to {int} days from today")
+    public void iAmendTheExpiryDateOfTheStandardLineTo(String topic, Integer days) {
+        standardLine.amendAStandardLine(topic, days);
     }
 
     @And("I enter {string} into the standard line filter")

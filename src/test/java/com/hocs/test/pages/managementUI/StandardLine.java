@@ -1,21 +1,18 @@
 package com.hocs.test.pages.managementUI;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.hocs.test.pages.BasePage;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import io.cucumber.java.et.Ja;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class StandardLine extends BasePage {
 
@@ -75,10 +72,9 @@ public class StandardLine extends BasePage {
     }
 
     public void enterStandardLineExpirationDate() {
-        typeInto(expirationDateDayTextBox, "12");
-        typeInto(expirationDateMonthTextBox, "12");
-        typeInto(expirationDateYearTextBox, "2020");
-        setSessionVariable("standardLineExpiryDate").to("12/12/2020");
+        String tomorrowsDate = getDatePlusMinusNDaysAgo(1);
+        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, tomorrowsDate);
+        setSessionVariable("standardLineExpiryDate").to(tomorrowsDate);
     }
 
     public void enterPastStandardLineExpirationDate() {
@@ -96,16 +92,12 @@ public class StandardLine extends BasePage {
         waitABit(1000);
     }
 
-    public void amendAStandardLine(String topic, String newDate) {
-        String dd = newDate.split("/")[0];
-        String mm = newDate.split("/")[1];
-        String yyyy = newDate.split("/")[2];
+    public void amendAStandardLine(String topic, Integer days) {
+        String newDate = getDatePlusMinusNDaysAgo(days);
         selectActionForStandardLine(topic, "Amend");
         setSessionVariable("standardLineTopic").to(topic);
         setSessionVariable("standardLineExpiryDate").to(newDate);
-        typeInto(expirationDateDayTextBox, dd);
-        typeInto(expirationDateMonthTextBox, mm);
-        typeInto(expirationDateYearTextBox, yyyy);
+        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, newDate);
         safeClickOn(submitButton);
     }
 
