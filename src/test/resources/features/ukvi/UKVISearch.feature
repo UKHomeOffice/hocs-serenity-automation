@@ -1,4 +1,4 @@
-@Search @UKVI
+@UKVISearch @UKVI
 Feature: UKVI Search
 
   Background:

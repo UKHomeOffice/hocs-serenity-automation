@@ -1,5 +1,5 @@
-@UKVIEndToEnd @UKVI @UKVIWorkflow
-Feature: EndToEnd
+@MPAMEndToEnd @UKVI @UKVIWorkflow
+Feature: MPAM End To End
 
   Background:
     Given I log in to DECS

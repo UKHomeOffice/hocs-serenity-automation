@@ -1,4 +1,4 @@
-@Search @DCU
+@DCUSearch @DCU
 Feature: DCU Search
 
   Background:
