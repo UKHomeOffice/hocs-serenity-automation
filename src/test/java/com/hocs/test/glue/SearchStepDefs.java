@@ -87,22 +87,22 @@ public class SearchStepDefs extends BasePage {
         homepage.assertCaseReferenceIsRequiredErrorMessage();
     }
 
-    @And("I enter {string} into the {string} search criteria for DCU")
+    @And("I search for a DCU case with {string} as its {string}")
     public void enterIntoTheSearchCriteria(String value, String criteria) {
         search.enterDCUSearchCriteria(criteria, value);
     }
 
-    @Then("the {string} of the search results should be {string}")
-    public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
+    @Then("I check that the DCU search results have the correct {string}")
+    public void assertThatSearchResultsContainCorrectValue(String dataType) {
         switch (dataType.toUpperCase()) {
             case "CASE TYPE":
-                search.assertCaseTypeIsOnlyTypeVisible(dataValue);
+                search.assertCaseTypeIsOnlyTypeVisible("MIN");
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("Before", dataValue);
+                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("Before", "12/12/2020");
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("After", dataValue);
+                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("After", "12/12/2020");
                 break;
             case "CORRESPONDENT NAME":
             case "TOPIC":
@@ -231,7 +231,7 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayedInSearchResults();
     }
 
-    @And("I search for an UKVI case with {string} as it's {string}")
+    @And("I search for a UKVI case with {string} as its {string}")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
         if (search.mpamCaseCheckbox.isVisible()) {
             safeClickOn(search.mpamCaseCheckbox);

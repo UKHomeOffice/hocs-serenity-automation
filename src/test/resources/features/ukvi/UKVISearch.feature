@@ -40,7 +40,7 @@ Feature: UKVI Search
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
 
-  Scenario: User is able to search for an MTS case that is and official engagement
+  Scenario: User is able to search for an MTS case that is an official engagement
     And I navigate to the "Search" page
     And I search for an UKVI case with "Yes" as it's "Telephone Surgery Official Engagement"
     Then I check that the UKVI search results have the correct "Telephone Surgery Official Engagement"

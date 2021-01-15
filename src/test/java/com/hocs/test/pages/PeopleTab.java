@@ -149,4 +149,35 @@ public class PeopleTab extends BasePage {
         }
         assertThat(correspondentPresent, is(true));
     }
+
+    public void assertMPCorrespondentIsAddedToTheCase(String mpName) {
+        boolean mpPresent = false;
+        int n = 0;
+        List<WebElementFacade> listOfMemberCorrespondents = findAll("//h2[contains(text(), 'Member')]/following-sibling::table//th[text()"
+                + "='Name']/following-sibling::td");
+        while (n <= listOfMemberCorrespondents.size()) {
+            if (listOfMemberCorrespondents.get(n).getText().toUpperCase().contains(mpName.toUpperCase())) {
+                mpPresent = true;
+                break;
+            }
+            n++;
+        }
+        assertThat(mpPresent, is(true));
+    }
+
+    public void assertPublicCorrespondentAddedToTheCase(String correspondentName) {
+        boolean correspondentPresent = false;
+        int n = 0;
+        List<WebElementFacade> listOfPublicCorrespondents = findAll("//h2[not(contains(text(), 'Member'))]/following-sibling::table//th[text()"
+                + "='Name']/following-sibling::td");
+        while (n <= listOfPublicCorrespondents.size()) {
+            if (listOfPublicCorrespondents.get(n).getText().toUpperCase().contains(correspondentName.toUpperCase())) {
+                correspondentPresent = true;
+                break;
+            }
+            n++;
+        }
+        assertThat(correspondentPresent, is(true));
+
+    }
 }

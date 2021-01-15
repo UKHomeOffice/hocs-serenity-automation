@@ -134,9 +134,6 @@ public class Search extends BasePage {
     //DCU Methods
 
     public void enterDCUSearchCriteria(String criteria, String value) {
-        String dd;
-        String mm;
-        String yyyy;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -155,21 +152,11 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedAfterDayTextbox, dd);
-                typeInto(receivedAfterMonthTextbox, mm);
-                typeInto(receivedAfterYearTextbox, yyyy);
+                typeIntoDateField(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedBeforeDayTextbox, dd);
-                typeInto(receivedBeforeMonthTextbox, mm);
-                typeInto(receivedBeforeYearTextbox, yyyy);
+                typeIntoDateField(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "CORRESPONDENT NAME":
@@ -253,9 +240,6 @@ public class Search extends BasePage {
     //MPAM Methods
 
     public void enterMPAMSearchCriteria(String criteria, String value) {
-        String dd;
-        String mm;
-        String yyyy;
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 typeInto(caseReferenceSearchBox, value);
@@ -290,21 +274,11 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedBeforeDayTextbox, dd);
-                typeInto(receivedBeforeMonthTextbox, mm);
-                typeInto(receivedBeforeYearTextbox, yyyy);
+                typeIntoDateField(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedAfterDayTextbox, dd);
-                typeInto(receivedAfterMonthTextbox, mm);
-                typeInto(receivedAfterYearTextbox, yyyy);
+                typeIntoDateField(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "CAMPAIGN":
@@ -368,7 +342,6 @@ public class Search extends BasePage {
     public void assertCaseTypeIsOnlyTypeVisible(String caseType) {
         List<WebElementFacade> caseList = findAll("//a[contains(text(), '" + caseType + "')]");
         int numberOfDisplayedCases = workstacks.getTotalOfCases();
-        int test = caseList.size();
         assertThat(caseList.size() == numberOfDisplayedCases, is(true));
     }
 
