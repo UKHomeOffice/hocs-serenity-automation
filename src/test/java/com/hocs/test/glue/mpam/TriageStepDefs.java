@@ -8,6 +8,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.MultipleContributions;
 import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -21,7 +22,7 @@ public class TriageStepDefs extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
-    SummaryTab summaryTab;
+    MultipleContributions multipleContributions;
 
     @And("I send the Triage case to {string}")
     public void sendTheTriageCaseTo(String stage) {
@@ -33,11 +34,12 @@ public class TriageStepDefs extends BasePage {
             case "ON HOLD":
                 triage.putTriageCaseOnHold();
                 break;
-            case "CONTRIBUTION REQUESTED":
-                triage.selectContributionRequested();
-                triage.enterContributionRequestedDeadlineDate(getDatePlusMinusNDaysAgo(1));
-                triage.enterRequestDescription("test request contribution description");
-                safeClickOn(confirmButton);
+            case "CONTRIBUTIONS REQUESTED":
+                safeClickOn(triage.setEnquiryHypertext);
+                triage.selectEnquirySubject("Person Specific");
+                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.setBusinessUnit();
+                multipleContributions.sendCaseToContributionRequest();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -55,7 +57,7 @@ public class TriageStepDefs extends BasePage {
     }
 
     @Then("the set enquiry subject and reason should be displayed on the MPAM Triage page")
-    public void theSelectedEquirySubjectAndReasonShouldBeDisplayedOnTheMPAMTriagePage() {
+    public void theSelectedEnquirySubjectAndReasonShouldBeDisplayedOnTheMPAMTriagePage() {
         triage.assertSetEnquirySubject(sessionVariableCalled("enquirySubject"));
         triage.assertSetEnquiryReason(sessionVariableCalled("enquiryReason"));
     }
@@ -85,16 +87,6 @@ public class TriageStepDefs extends BasePage {
                 triage.selectEnquirySubject("Other");
                 safeClickOn(continueButton);
                 break;
-            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
-                triage.selectContributionRequested();
-                triage.enterRequestDescription("test");
-                safeClickOn(confirmButton);
-                break;
-            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
-                triage.selectContributionRequested();
-                triage.enterContributionRequestedDeadlineDate(getDatePlusMinusNDaysAgo(1));
-                safeClickOn(confirmButton);
-                break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
@@ -114,12 +106,6 @@ public class TriageStepDefs extends BasePage {
                 break;
             case "ENQUIRY REASON REQUIRED":
                 triage.assertEnquiryReasonRequiredErrorMessageDisplayed();
-                break;
-            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
-                triage.assertContributionRequestDeadlineRequiredErrorMessageDisplayed();
-                break;
-            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
-                triage.assertContributionRequestDescriptionRequiredErrorMessageDisplayed();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -149,26 +135,6 @@ public class TriageStepDefs extends BasePage {
     @And("I select to close the Triage \\(Escalated) case")
     public void iSelectToCloseTheTriageEscalatedCase() {
         triage.selectToCloseEscalatedCase();
-    }
-
-    @And("the contribution request deadline should be visible in the summary")
-    public void theContributionRequestDeadlineShouldBeVisibleInTheSummary() {
-        summaryTab.assertContributionRequestDeadlineVisible();
-    }
-
-    @When("I select the {string} action at Triage \\(Contribution Requested) stage")
-    public void iSelectTheActionAtTriageContributionRequestedStage(String action) {
-        switch (action.toUpperCase()) {
-            case "ESCALATE TO WORKFLOW MANAGER":
-                safeClickOn(triage.escalateToWorkflowManagerRadioButton);
-                break;
-            case "CONTRIBUTIONS RECEIVED":
-                safeClickOn(triage.contributionsReceivedRadioButton);
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-        safeClickOn(confirmButton);
     }
 
     @And("I select to change the Business Area")

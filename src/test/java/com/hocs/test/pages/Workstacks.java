@@ -388,13 +388,17 @@ public class Workstacks extends BasePage {
 
     }
 
-    public void assertCaseReferenceIsVisible() {
+    public void assertVisibilityOfCaseReference(String input) {
+        boolean trueFalse = false;
+        if (input.toUpperCase().equals("IS")) {
+            trueFalse = true;
+        }
         String caseReferenceNumber
                 = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
-        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
+        WebElementFacade thisReference = findBy("//a[text()='" + caseReferenceNumber + "']");
         System.out.println(thisReference);
-        assertThat(isElementDisplayed(thisReference), is(true));
+        assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
     public void assertThatThereAreNoCasesInWorkstack() {
@@ -696,5 +700,13 @@ public class Workstacks extends BasePage {
         WebElementFacade caseSignOffTeamField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[text()='" + signOffTeam +
                 "']");
         caseSignOffTeamField.shouldBeVisible();
+    }
+
+    public void assertDueDateOfContributionRequest() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
+                + "Requested) due:')]");
+        String dueDate = caseWithDueDate.getText().split("due: ")[1];
+        assertThat(dueDate.equals(sessionVariableCalled("contributionDueDate")), is(true));
     }
 }

@@ -49,7 +49,14 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the case should be added to my workstack")
     public void assertThatCaseHasBeenAddedToMyWorkstack() {
         safeClickOn(homepage.myCases);
-        workstacks.assertCaseReferenceIsVisible();
+        workstacks.assertVisibilityOfCaseReference("is");
+    }
+
+    @Then("the case should not be visible in my workstack")
+    public void assertThatCaseIsNotInMyWorkstack() {
+        safeClickOn(homepage.home);
+        safeClickOn(homepage.myCases);
+        workstacks.assertVisibilityOfCaseReference("isn't");
     }
 
     @When("I enter the Case Reference type {string} into the filter")
@@ -57,11 +64,7 @@ public class WorkstacksStepDefs extends BasePage {
         safeClickOn(workstacks.workstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
-                typeInto(workstacks.workstackFilter, caseReferenceType);
-                break;
             case "DTEN":
-                typeInto(workstacks.workstackFilter, caseReferenceType);
-                break;
             case "TRO":
                 typeInto(workstacks.workstackFilter, caseReferenceType);
                 break;
@@ -228,7 +231,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the created case should be visible in the workstack")
     public void theCreatedCaseShouldBeVisibleInTheWorkstack() {
-        workstacks.assertCaseReferenceIsVisible();
+        workstacks.assertVisibilityOfCaseReference("is");
     }
 
     @Then("only {string} cases should be visible")
@@ -333,5 +336,13 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the Minister sign off team is correctly displayed")
     public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
         workstacks.assertMinisterSignOffTeam();
+    }
+
+    @Then("the earliest due date of the contribution requests is displayed in workstacks")
+    public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
+        goHome();
+        waitABit(500);
+        safeClickOn(homepage.myCases);
+        workstacks.assertDueDateOfContributionRequest();
     }
 }
