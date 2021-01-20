@@ -388,11 +388,7 @@ public class Workstacks extends BasePage {
 
     }
 
-    public void assertVisibilityOfCaseReference(String input) {
-        boolean trueFalse = false;
-        if (input.toUpperCase().equals("IS")) {
-            trueFalse = true;
-        }
+    public void assertVisibilityOfCaseReference(boolean trueFalse) {
         String caseReferenceNumber
                 = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);

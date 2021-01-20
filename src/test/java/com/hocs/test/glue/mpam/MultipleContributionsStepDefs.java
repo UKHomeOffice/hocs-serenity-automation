@@ -57,6 +57,9 @@ public class MultipleContributionsStepDefs extends BasePage {
                 multipleContributions.assertRequiredErrorMessageIsDisplayed("Contribution Received Date");
                 multipleContributions.assertRequiredErrorMessageIsDisplayed("Contribution Completion Notes");
                 break;
+            case "UNALLOCATE CASE":
+                multipleContributions.assertRequiredErrorMessageIsDisplayed("Case Actions");
+                break;
             default:
                 pendingStep(screen + " is not defined within " + getMethodName());
         }

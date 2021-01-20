@@ -193,10 +193,6 @@ public class MultipleContributions extends BasePage {
     }
 
     public void triggerValidationAtContributionRequestScreens(String screen) {
-        safeClickOn(triage.setEnquiryHypertext);
-        triage.selectEnquirySubject("Person Specific");
-        triage.selectEnquiryReason("Allowed appeal enquiry update");
-        triage.setBusinessUnit();
         switch (screen.toUpperCase()) {
             case "ADD CONTRIBUTION REQUEST":
                 safeClickOn(requestContributionsRadioButton);
@@ -218,6 +214,19 @@ public class MultipleContributions extends BasePage {
                 assertRequiredErrorMessageIsDisplayed("Contribution Cancellation reason");
                 safeClickOn(completeRadioButton);
                 safeClickOn(updateButton);
+                break;
+            case "UNALLOCATE CASE":
+                sendCaseToContributionRequest();
+                homepage.getAndClaimCurrentCase();
+                safeClickOn(editHypertext);
+                safeClickOn(completeRadioButton);
+                typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
+                        getDatePlusMinusNDaysAgo(-1));
+                typeInto(contributionReceivedDetailsTextField, "Test");
+                safeClickOn(updateButton);
+                safeClickOn(contributionsReceivedRadioButton);
+                safeClickOn(confirmButton);
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(screen + " is not defined within " + getMethodName());
@@ -264,6 +273,9 @@ public class MultipleContributions extends BasePage {
                 break;
             case "CONTRIBUTION CANCELLATION REASON":
                 errorText = "Contribution cancellation reason required";
+                break;
+            case "CASE ACTIONS":
+                errorText = "Case Actions is required";
                 break;
             default:
                 pendingStep(error + " is not defined within " + getMethodName());

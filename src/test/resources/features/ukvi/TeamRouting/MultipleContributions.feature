@@ -18,7 +18,7 @@ Feature: Multiple Contributions
     And I load and claim the current case
     Then the case should be moved to the "Draft (Contribution Requested)" stage
 
- Scenario Outline: User can mark a contribution as complete or cancelled at the Contributions Requested stage
+ Scenario Outline: User can mark a contribution as complete or cancelled at the Triage (Contributions Requested) stage
    And I create a "MPAM" case and move it to the "Triage" stage
    And I load and claim the current case
    And I send the Triage case to "Contributions Requested"
@@ -30,38 +30,47 @@ Feature: Multiple Contributions
      | Complete  |
      | Cancel    |
 
+  Scenario Outline: User can mark a contribution as complete or cancelled at the Draft (Contributions Requested) stage
+    And I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I send the Draft case to "Contributions Requested"
+    And I load and claim the current case
+    And I choose to "<action>" the contribution request at the multiple contribution stage
+    Then the contribution request should be displayed as "<action>"
+    Examples:
+      | action    |
+      | Complete  |
+      | Cancel    |
+
  @UKVIRegression
- Scenario Outline: User can select actions for contributions at the Triage - Contributions Requested stage
+ Scenario: User can complete the Triage (Contributions Requested) stage and move the case back to Triage
    And I create a "MPAM" case and move it to the "Triage" stage
    And I load and claim the current case
    And I send the Triage case to "Contributions Requested"
    And I load and claim the current case
-   And I choose to "<action>" the contribution request at the multiple contribution stage
+   And I choose to "Complete" the contribution request at the multiple contribution stage
    And I select the "Contributions Received" action at the contributions requested stage
    Then the case should be moved to the "Triage" stage
-   Examples:
-   | action    |
-   | Complete  |
-   | Cancel    |
 
  @UKVIRegression
- Scenario Outline: User can select actions for contributions at the Draft - Contributions Requested stage
+ Scenario Outline: User can complete the Draft (Contributions Requested) stage and select allocation actions upon completion
    And I create a "MPAM" case and move it to the "Draft" stage
    And I load and claim the current case
    And I send the Draft case to "Contributions Requested"
    And I load and claim the current case
-   And I choose to "<action>" the contribution request at the multiple contribution stage
+   And I choose to "Complete" the contribution request at the multiple contribution stage
    And I select the "Contributions Received" action at the contributions requested stage
-   And I select to "Retain" the case that has been completed at the Draft-Contribution Request stage
+   And I select to "<retention>" the case that has been completed at the Draft-Contribution Request stage
    Then the case should be moved to the "Draft" stage
+   And the case "<assertion>" be allocated to me in the summary
    Examples:
-     | action    |
-     | Complete  |
-     | Cancel    |
+     | retention  | assertion   |
+     | retain     | Should      |
+     | unallocate | Should not  |
 
  @Validation
  Scenario Outline: User tests the validation for the contribution request screens
-   And I create a "MPAM" case and move it to the "Triage" stage
+   And I create a "MPAM" case and move it to the "Draft" stage
    And I load and claim the current case
    Then I test the validation at the "<screen>" screen
    Examples:
@@ -69,6 +78,7 @@ Feature: Multiple Contributions
    | Add Contribution Request           |
    | Contributions Requested            |
    | Contribution Request Fulfillment   |
+   | Unallocate case                    |
 
  Scenario: User can add multiple contribution requests to a case
    And I create a "MPAM" case and move it to the "Draft" stage
@@ -140,28 +150,6 @@ Feature: Multiple Contributions
    And I choose to "Complete" the contribution request at the multiple contribution stage
    And I select the "Put Case into Campaign" action at the contributions requested stage
    Then the case should be moved to the "Campaign" stage
-
- @UKVIRegression
- Scenario: User can select to retain the case after completing the Draft (Contributions Requested) stage
-   And I create a "MPAM" case and move it to the "Draft" stage
-   And I load and claim the current case
-   And I send the Draft case to "Contributions Requested"
-   And I load and claim the current case
-   And I choose to "Complete" the contribution request at the multiple contribution stage
-   And I select the "Contributions Received" action at the contributions requested stage
-   And I select to "Retain" the case that has been completed at the Draft-Contribution Request stage
-   And the case should be visible in my workstack
-
- @UKVIRegression
- Scenario: User can select to unallocate the case after completing the Draft (Contributions Requested) stage
-   And I create a "MPAM" case and move it to the "Draft" stage
-   And I load and claim the current case
-   And I send the Draft case to "Contributions Requested"
-   And I load and claim the current case
-   And I choose to "Complete" the contribution request at the multiple contribution stage
-   And I select the "Contributions Received" action at the contributions requested stage
-   And I select to "Unallocate" the case that has been completed at the Draft-Contribution Request stage
-   And the case should not be visible in my workstack
 
  Scenario: The earliest contribution request due date updates in workstacks when amended
    And I create a "MPAM" case and move it to the "Draft" stage

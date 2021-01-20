@@ -178,7 +178,7 @@ public class MarkupStepDefs extends BasePage {
             default:
                 pendingStep(team + " is not defined within " + getMethodName());
         }
-        workstacks.assertVisibilityOfCaseReference("is");
+        workstacks.assertVisibilityOfCaseReference(true);
     }
 
     @Then("the Other Government Department name free text field is displayed")

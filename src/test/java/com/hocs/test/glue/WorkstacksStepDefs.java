@@ -46,17 +46,19 @@ public class WorkstacksStepDefs extends BasePage {
         safeClickOn(workstacks.allocateSelectedToMeButton);
     }
 
-    @Then("the case should be added to my workstack")
-    public void assertThatCaseHasBeenAddedToMyWorkstack() {
+    @Then("the case {string} be visible in my workstack")
+    public void theCaseBeVisibleInMyWorkstack(String input) {
         safeClickOn(homepage.myCases);
-        workstacks.assertVisibilityOfCaseReference("is");
-    }
-
-    @Then("the case should not be visible in my workstack")
-    public void assertThatCaseIsNotInMyWorkstack() {
-        safeClickOn(homepage.home);
-        safeClickOn(homepage.myCases);
-        workstacks.assertVisibilityOfCaseReference("isn't");
+        switch (input.toUpperCase()) {
+            case "SHOULD":
+                workstacks.assertVisibilityOfCaseReference(true);
+                break;
+            case "SHOULD NOT":
+                workstacks.assertVisibilityOfCaseReference(false);
+                break;
+            default:
+                pendingStep(input + " is not defined within " + getMethodName());
+        }
     }
 
     @When("I enter the Case Reference type {string} into the filter")
@@ -231,7 +233,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the created case should be visible in the workstack")
     public void theCreatedCaseShouldBeVisibleInTheWorkstack() {
-        workstacks.assertVisibilityOfCaseReference("is");
+        workstacks.assertVisibilityOfCaseReference(true);
     }
 
     @Then("only {string} cases should be visible")
@@ -306,8 +308,8 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineBeHighlighted(String shouldShouldNot) {
         switch (shouldShouldNot.toUpperCase()) {
             case "SHOULD":
-            workstacks.assertThatDeadlineHighlightedIs(true);
-            break;
+                workstacks.assertThatDeadlineHighlightedIs(true);
+                break;
             case "SHOULD NOT":
                 workstacks.assertThatDeadlineHighlightedIs(false);
                 break;
