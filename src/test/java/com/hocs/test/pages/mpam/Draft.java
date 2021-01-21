@@ -54,32 +54,11 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(id = "CaseNote_DraftClose")
-    public WebElementFacade closureReasonTextArea;
-
-    @FindBy(id = "DueDate-day")
-    public WebElementFacade requestContributionDeadlineDayTextField;
-
-    @FindBy(id = "DueDate-month")
-    public WebElementFacade requestContributionDeadlineMonthTextField;
-
-    @FindBy(id = "DueDate-year")
-    public WebElementFacade requestContributionDeadlineYearTextField;
-
-    @FindBy(id = "CaseNote_DraftRequestContribution")
-    public WebElementFacade requestContributionTextArea;
-
     @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Deadline for contribution request is required']")
-    public WebElementFacade contributionRequestDeadlineRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='What you are requesting is required']")
-    public WebElementFacade contributionRequestDescriptionRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Response channel is required']")
     public WebElementFacade responseChannelRequiredErrorMessage;
@@ -159,32 +138,8 @@ public class Draft extends BasePage {
         setSessionVariable("responseChannel").to(outboundChannel);
     }
 
-    public void selectContributionRequested() {
-        safeClickOn(contributionRequestedRadioButton);
-        safeClickOn(confirmButton);
-    }
-
-    public void enterContributionRequestDeadlineDate(String date) {
-        typeIntoDateField(requestContributionDeadlineDayTextField, requestContributionDeadlineMonthTextField,
-                requestContributionDeadlineYearTextField, date);
-        setSessionVariable("requestDeadline").to(date);
-    }
-
-    public void enterRequestDescription(String requestDescription) {
-        typeInto(requestContributionTextArea, requestDescription);
-        setSessionVariable("requestDescription").to(requestDescription);
-    }
-
     public void assertActionsRequiredErrorMessageDisplayed() {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertContributionRequestDeadlineRequiredErrorMessageDisplayed()  {
-        assertThat(contributionRequestDeadlineRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
-        assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
     }
 
     public void assertResponseChannelRequiredErrorMessageDisplayed() {

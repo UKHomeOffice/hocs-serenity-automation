@@ -122,18 +122,11 @@ public class CreateCaseStepDefs extends BasePage {
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
     }
 
-    @Then("the case should be visible in my workstack")
-    public void assertThatCaseIsAddedToMyWorkstack() {
-        safeClickOn(homepage.home);
-        safeClickOn(homepage.myCases);
-        workstacks.assertCaseReferenceIsVisible();
-    }
-
     @Then("the case should be visible in the Performance and Process Team workstack")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
         safeClickOn(homepage.home);
         safeClickOn(homepage.performanceProcessTeam);
-        workstacks.assertCaseReferenceIsVisible();
+        workstacks.assertVisibilityOfCaseReference(true);
     }
 
     @When("I navigate to the {string} and select the check box against the newly created"

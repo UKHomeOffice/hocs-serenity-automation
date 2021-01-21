@@ -303,6 +303,10 @@ public class SummaryTab extends BasePage {
         allocatedUser.shouldContainText(user.getUsername());
     }
 
+    public void assertAllocatedUserIsMe(boolean trueFalse) {
+        assertThat(allocatedUser.getText().contains(getCurrentUser().getUsername()), is(trueFalse));
+    }
+
     public void assertAllocatedUKVITeam(String stage) {
         if(!currentTeam.isVisible()) {
             selectSummaryTab();
