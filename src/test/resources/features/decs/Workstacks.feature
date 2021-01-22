@@ -155,37 +155,3 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Triage" stage workstack
     And I choose to take the next unallocated case from the team workstack
     Then the highest priority unallocated case is loaded and allocated to the user
-
-  Scenario: User can reject a case at draft and checks the team workstack rejected column updates
-    Given I create a "MPAM" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I send the Draft case to "Triage"
-    And I view the MPAM case in the appropriate "Triage" stage workstack
-    Then the stage that the case was rejected at should be displayed in the rejected workstack column
-
-  Scenario Outline: User can reject a case at QA and checks the team workstack rejected column updates
-    Given I create a "MPAM" case and move it to the "QA" stage
-    And I load and claim the current case
-    And I complete the "<action>" action at QA
-    And I view the MPAM case in the appropriate "<stage>" stage workstack
-    Then the stage that the case was rejected at should be displayed in the rejected workstack column
-    Examples:
-    | action                          | stage   |
-    | Rejected, move back to Triage   | Triage  |
-    | Rejected, move back to Drafting | Draft   |
-
-  Scenario: User rejects a case at the PO stage and checks the team workstack rejected column updates
-    Given I create a "MPAM" case and move it to the "Private Office" stage
-    And I load and claim the current case
-    And I select the "Draft rejected by Private Office" action at Private Office stage
-    And I submit a reason to reject the case back to Draft stage
-    And I view the MPAM case in the appropriate "Draft" stage workstack
-    Then the stage that the case was rejected at should be displayed in the rejected workstack column
-
-  Scenario: User rejects a case at the Awaiting Dispatch stage and checks the workstack rejected column updates
-    Given I create a "MPAM" case and move it to the "Awaiting Dispatch" stage
-    And I load and claim the current case
-    And I select the "Return to Draft" action at Awaiting Dispatch stage
-    And I submit a reason to reject the case back to the Draft stage
-    And I view the MPAM case in the appropriate "Draft" stage workstack
-    Then the stage that the case was rejected at should be displayed in the rejected workstack column

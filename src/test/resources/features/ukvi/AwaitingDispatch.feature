@@ -56,6 +56,9 @@ Feature: Awaiting Dispatch
     And I submit a reason to reject the case back to the Draft stage
     Then the case should be moved to the "Draft" stage
     And a rejection note should be visible showing the reason for rejection
+    And I navigate to the "home" page
+    And I view the MPAM case in the appropriate "Draft" stage workstack
+    Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
   @Validation
   Scenario Outline: User triggers error message to be displayed at Awaiting Dispatch stage
