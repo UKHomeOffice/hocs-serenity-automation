@@ -89,11 +89,13 @@ public class QA extends BasePage {
     public void selectToRejectCaseToDraft() {
         safeClickOn(rejectQAToDraftRadioButton);
         safeClickOn(confirmButton);
+        setSessionVariable("rejectionStage").to("QA");
     }
 
     public void selectToRejectCaseToTriage() {
         safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
+        setSessionVariable("rejectionStage").to("QA");
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {

@@ -70,6 +70,8 @@ Feature: Workstacks
       | Urgency                               | Highest to Lowest |
       | Days                                  | Lowest to Highest |
       | Days                                  | Highest to Lowest |
+      | Rejected                              | Lowest to Highest |
+      | Rejected                              | Highest to Lowest |
 
   @OtherTests
   Scenario Outline: User is able to order columns in my cases

@@ -139,6 +139,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//button[text()='Take next case']")
     public WebElementFacade takeNextCaseButton;
 
+    @FindBy(xpath = "//thead/tr[1]/th[text()='Rejected']")
+    public WebElementFacade rejectedHeader;
+
     // Basic Methods
 
     public void clickAllocateSelectedToMeButton() {
@@ -298,6 +301,9 @@ public class Workstacks extends BasePage {
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                 selectedHeader = telephoneSurgeryOfficialEngagementHeader;
+                break;
+            case "REJECTED":
+                selectedHeader = rejectedHeader;
                 break;
             default:
                 pendingStep(column + " is not defined within " + getMethodName());
@@ -585,6 +591,7 @@ public class Workstacks extends BasePage {
                 case "CAMPAIGN":
                 case "MINISTER SIGN OFF":
                 case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                case "REJECTED":
                     String currentStageOne = cellOne.getText();
                     String currentStageTwo = cellTwo.getText();
                     switch (order.toUpperCase()) {
@@ -704,5 +711,11 @@ public class Workstacks extends BasePage {
                 + "Requested) due:')]");
         String dueDate = caseWithDueDate.getText().split("due: ")[1];
         assertThat(dueDate.equals(sessionVariableCalled("contributionDueDate")), is(true));
+    }
+
+    public void assertRejectedFieldOfCurrentCase() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
+        assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
     }
 }

@@ -105,3 +105,14 @@ Feature: Drafting
     | On Hold                 | Draft-On Hold                 |
     | Workflow Manager        | Draft-Escalated               |
     | Contribution Requested  | Draft-Contribution Requested  |
+
+  @UKVIRegression
+  Scenario: User rejects a case at Draft back to Triage
+    Given I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I send the Draft case to "Triage"
+    Then the case should be moved to the "Triage" stage
+    And a rejection note should be visible showing the reason for rejection
+    And I navigate to the "home" page
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    Then the stage that the case was rejected at should be displayed in the rejected workstack column
