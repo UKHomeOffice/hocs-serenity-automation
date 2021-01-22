@@ -245,43 +245,43 @@ public class MultipleContributions extends BasePage {
         String errorText = null;
         switch (error.toUpperCase()) {
             case "BUSINESS AREA":
-                errorText = "Business area is required";
+                errorText = "BUSINESS AREA IS REQUIRED";
                 break;
             case "BUSINESS UNIT":
-                errorText = "Business unit is required";
+                errorText = "BUSINESS UNIT IS REQUIRED";
                 break;
             case "CONTRIBUTION REQUEST DATE":
-                errorText = "Contribution request date is required";
+                errorText = "CONTRIBUTION REQUEST DATE IS REQUIRED";
                 break;
             case "CONTRIBUTION DUE DATE":
-                errorText = "Contribution due date is required";
+                errorText = "CONTRIBUTION DUE DATE IS REQUIRED";
                 break;
             case "WHAT YOU ARE REQUESTING":
-                errorText = "What you are requesting is required";
+                errorText = "WHAT YOU ARE REQUESTING IS REQUIRED";
                 break;
             case "ACTIONS":
-                errorText = "Actions is required";
+                errorText = "ACTIONS IS REQUIRED";
                 break;
             case "CASE CONTRIBUTIONS MUST BE COMPLETED OR CANCELLED":
-                errorText = "Case contributions have to be completed or cancelled";
+                errorText = "CASE CONTRIBUTIONS HAVE TO BE COMPLETED OR CANCELLED";
                 break;
             case "CONTRIBUTION RECEIVED DATE":
-                errorText = "Contribution received date is required";
+                errorText = "CONTRIBUTION RECEIVED DATE IS REQUIRED";
                 break;
             case "CONTRIBUTION COMPLETION NOTES":
-                errorText = "Contribution completion notes reason required";
+                errorText = "CONTRIBUTION COMPLETION NOTES IS REQUIRED";
                 break;
             case "CONTRIBUTION CANCELLATION REASON":
-                errorText = "Contribution cancellation reason required";
+                errorText = "CONTRIBUTION CANCELLATION REASON IS REQUIRED";
                 break;
             case "CASE ACTIONS":
-                errorText = "Case Actions is required";
+                errorText = "CASE ACTIONS IS REQUIRED";
                 break;
             default:
                 pendingStep(error + " is not defined within " + getMethodName());
         }
         while (n < listOfErrorMessages.size()) {
-            if (listOfErrorMessages.get(n).getText().contains(errorText)) {
+            if (listOfErrorMessages.get(n).getText().toUpperCase().contains(errorText)) {
                 isItContained = true;
                 break;
             }
