@@ -37,6 +37,9 @@ public class DraftStepDefs extends BasePage {
             case "CONTRIBUTIONS REQUESTED":
                 multipleContributions.sendCaseToContributionRequest();
                 break;
+            case "TRIAGE":
+                draft.sendDraftCaseBackToTriage();
+                break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
@@ -44,12 +47,12 @@ public class DraftStepDefs extends BasePage {
 
     @When("I take the Draft \\(On Hold) case off hold")
     public void iTakeTheDraftOnHoldCaseOffHold() {
-        draft.takeTriageCaseOffHold();
+        draft.takeDraftCaseOffHold();
     }
 
     @When("I de-escalate the Draft \\(Escalated) case")
     public void iDeEscalateTheDraftEscalatedCase() {
-        draft.deescalateTriageCase();
+        draft.deescalateDraftCase();
     }
 
     @And("I select to close the Draft \\(Escalated) case")

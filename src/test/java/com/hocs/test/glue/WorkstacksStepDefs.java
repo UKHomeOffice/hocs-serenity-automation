@@ -347,4 +347,9 @@ public class WorkstacksStepDefs extends BasePage {
         safeClickOn(homepage.myCases);
         workstacks.assertDueDateOfContributionRequest();
     }
+
+    @Then("the stage that the case was rejected at should be displayed in the rejected workstack column")
+    public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
+        workstacks.assertRejectedFieldOfCurrentCase();
+    }
 }

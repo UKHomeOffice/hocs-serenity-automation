@@ -712,4 +712,10 @@ public class Workstacks extends BasePage {
         String dueDate = caseWithDueDate.getText().split("due: ")[1];
         assertThat(dueDate.equals(sessionVariableCalled("contributionDueDate")), is(true));
     }
+
+    public void assertRejectedFieldOfCurrentCase() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
+        assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
+    }
 }

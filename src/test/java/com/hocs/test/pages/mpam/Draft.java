@@ -42,9 +42,6 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Contribution requested']")
-    public WebElementFacade contributionRequestedRadioButton;
-
     @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
@@ -75,6 +72,12 @@ public class Draft extends BasePage {
     @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
 
+    @FindBy(xpath = "//label[text()='Return to Triage']")
+    public WebElementFacade returnToTriageRadioButton;
+
+    @FindBy(id = "CaseNote_DraftReturnToTriage")
+    public WebElementFacade returnToTriageReasonTextArea;
+
     public void moveCaseFromDraftToQA() {
         selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
@@ -103,12 +106,12 @@ public class Draft extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void takeTriageCaseOffHold() {
+    public void takeDraftCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
         safeClickOn(confirmButton);
     }
 
-    public void deescalateTriageCase() {
+    public void deescalateDraftCase() {
         safeClickOn(escalationCompleteRadioButton);
         safeClickOn(confirmButton);
     }
@@ -136,6 +139,15 @@ public class Draft extends BasePage {
                 pendingStep(outboundChannel + " is not defined within " + getMethodName());
         }
         setSessionVariable("responseChannel").to(outboundChannel);
+    }
+
+    public void sendDraftCaseBackToTriage() {
+        safeClickOn(returnToTriageRadioButton);
+        safeClickOn(confirmButton);
+        typeInto(returnToTriageReasonTextArea, "Test");
+        setSessionVariable("rejectionReason").to("Test");
+        setSessionVariable("rejectionStage").to("Draft");
+        safeClickOn(confirmButton);
     }
 
     public void assertActionsRequiredErrorMessageDisplayed() {
