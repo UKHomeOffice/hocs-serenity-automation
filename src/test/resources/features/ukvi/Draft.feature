@@ -32,7 +32,7 @@ Feature: Drafting
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     Then the case should be moved to the "Draft (Escalated)" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User puts the draft case on hold
@@ -40,7 +40,7 @@ Feature: Drafting
     And I load and claim the current case
     And I send the Draft case to "On Hold"
     Then the case should be moved to the "Draft (On Hold)" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User takes a Draft On Hold case off hold
@@ -50,7 +50,7 @@ Feature: Drafting
     When I load and claim the current case
     And I take the Draft (On Hold) case off hold
     Then the case should be moved to the "Draft" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User de-escalates a Draft (Escalated) case
@@ -82,10 +82,8 @@ Feature: Drafting
       | errorType                                 |
       | Actions Required                          |
       | Response Channel Required                 |
-      | Contribution Request Deadline Required    |
-      | Contribution Request Description Required |
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression
   Scenario: User moves case into a Campaign from Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -93,7 +91,7 @@ Feature: Drafting
     And I load the current case
     Then the case is added to the correct Campaign
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression
   Scenario Outline: User moves cases into Campaigns from draft sub-stages
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

@@ -54,7 +54,7 @@ Feature: QA
     And I load and claim the current case
     When I select the "Take off hold" action at the QA On Hold stage
     Then the case should be moved to the "QA" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User de-escalates a QA (Escalated) case
@@ -63,7 +63,7 @@ Feature: QA
     And I load and claim the current case
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "QA" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User closes a QA (Escalated) case
@@ -98,7 +98,7 @@ Feature: QA
       | actions                         |
       | Rejected, move back to triage   |
       | Rejected, move back to drafting |
-#      | Approve                         |
+      | Approve                         |
 
   @Campaigns
   Scenario: User moves a case into a Campaign from the QA stage

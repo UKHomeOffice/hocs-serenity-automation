@@ -26,7 +26,7 @@ import org.openqa.selenium.WebElement;
 public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
-    public WebElementFacade totalNumberOfItems;
+    public WebElementFacade totalNumberOfCases;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateSelectedToMeButton;
@@ -166,9 +166,9 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        waitFor(totalNumberOfItems);
-        String numberOfItems = totalNumberOfItems.getText().split(" ")[0];
-        return Integer.parseInt(numberOfItems);
+        waitFor(totalNumberOfCases);
+        String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
+        return Integer.parseInt(numberOfCases);
     }
 
     public void selectSummaryTab() {
