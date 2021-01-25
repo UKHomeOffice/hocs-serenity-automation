@@ -422,7 +422,10 @@ public class SearchOverhaul extends BasePage {
                 peopleTab.assertMPCorrespondentIsAddedToTheCase(sessionVariableCalled("searchMemberOfParliamentName"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                //use crn assertion probs
+                safeClickOn(randomSearchResult);
+                peopleTab.selectPeopleTab();
+                WebElementFacade correspondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                correspondentRefNumber.shouldContainText(sessionVariableCalled("searchCorrespondentReferenceNumber"));
                 break;
             case "RECEIVED ON OR BEFORE DATE":
             case "RECEIVED ON OR AFTER DATE":
@@ -443,7 +446,9 @@ public class SearchOverhaul extends BasePage {
                 assertThat(closedCases.isEmpty(), is(true));
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-
+                safeClickOn(randomSearchResult);
+                safeClickOn(summaryTab.summaryTab);
+                summaryTab.telephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("searchTelephoneSurgeryOfficialEngagement"));
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
