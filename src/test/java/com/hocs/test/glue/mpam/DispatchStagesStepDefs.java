@@ -2,6 +2,7 @@ package com.hocs.test.glue.mpam;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
@@ -60,6 +61,7 @@ public class DispatchStagesStepDefs extends BasePage {
                 break;
             case "RETURN TO DRAFT":
                 safeClickOn(dispatchStages.returnToDraftButton);
+                setSessionVariable("rejectionStage").to("Dispatch");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -75,6 +77,7 @@ public class DispatchStagesStepDefs extends BasePage {
                 break;
             case "DRAFT REJECTED BY PRIVATE OFFICE":
                 safeClickOn(dispatchStages.draftRejectedRadioButton);
+                setSessionVariable("rejectionStage").to("PO");
                 break;
             case "DISPATCHED (FOLLOW-UP)":
                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);

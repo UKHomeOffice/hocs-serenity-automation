@@ -421,9 +421,18 @@ public class BaseStepDefs extends BasePage {
         workstacks.summaryPrintActiveStage();
     }
 
-    @And("the case should be allocated to me in the summary")
-    public void theCaseShouldBeAllocatedToMeInTheSummary() {
-        summaryTab.assertAllocatedUserIs(getCurrentUser());
+    @And("the case {string} be allocated to me in the summary")
+    public void theCaseShouldBeAllocatedToMeInTheSummary(String input) {
+        switch (input.toUpperCase()) {
+            case "SHOULD":
+                summaryTab.assertAllocatedUserIsMe(true);
+                break;
+            case "SHOULD NOT":
+                summaryTab.assertAllocatedUserIsMe(false);
+                break;
+            default:
+                pendingStep(input + " is not defined within " + getMethodName());
+        }
     }
 
     @And("I record the user who completed the previous stages")

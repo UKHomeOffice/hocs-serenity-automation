@@ -26,7 +26,7 @@ import org.openqa.selenium.WebElement;
 public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//span[@class='govuk-hint'][1]")
-    public WebElementFacade totalNumberOfItems;
+    public WebElementFacade totalNumberOfCases;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateSelectedToMeButton;
@@ -139,6 +139,9 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//button[text()='Take next case']")
     public WebElementFacade takeNextCaseButton;
 
+    @FindBy(xpath = "//thead/tr[1]/th[text()='Rejected']")
+    public WebElementFacade rejectedHeader;
+
     // Basic Methods
 
     public void clickAllocateSelectedToMeButton() {
@@ -163,9 +166,9 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        waitFor(totalNumberOfItems);
-        String numberOfItems = totalNumberOfItems.getText().split(" ")[0];
-        return Integer.parseInt(numberOfItems);
+        waitFor(totalNumberOfCases);
+        String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
+        return Integer.parseInt(numberOfCases);
     }
 
     public void selectSummaryTab() {
@@ -299,6 +302,9 @@ public class Workstacks extends BasePage {
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                 selectedHeader = telephoneSurgeryOfficialEngagementHeader;
                 break;
+            case "REJECTED":
+                selectedHeader = rejectedHeader;
+                break;
             default:
                 pendingStep(column + " is not defined within " + getMethodName());
         }
@@ -388,13 +394,13 @@ public class Workstacks extends BasePage {
 
     }
 
-    public void assertCaseReferenceIsVisible() {
+    public void assertVisibilityOfCaseReference(boolean trueFalse) {
         String caseReferenceNumber
                 = sessionVariableCalled("caseReference").toString();
         System.out.println(caseReferenceNumber);
-        WebElement thisReference = getDriver().findElement(By.linkText(caseReferenceNumber));
+        WebElementFacade thisReference = findBy("//a[text()='" + caseReferenceNumber + "']");
         System.out.println(thisReference);
-        assertThat(isElementDisplayed(thisReference), is(true));
+        assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
     public void assertThatThereAreNoCasesInWorkstack() {
@@ -585,6 +591,7 @@ public class Workstacks extends BasePage {
                 case "CAMPAIGN":
                 case "MINISTER SIGN OFF":
                 case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                case "REJECTED":
                     String currentStageOne = cellOne.getText();
                     String currentStageTwo = cellTwo.getText();
                     switch (order.toUpperCase()) {
@@ -696,5 +703,19 @@ public class Workstacks extends BasePage {
         WebElementFacade caseSignOffTeamField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[text()='" + signOffTeam +
                 "']");
         caseSignOffTeamField.shouldBeVisible();
+    }
+
+    public void assertDueDateOfContributionRequest() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
+                + "Requested) due:')]");
+        String dueDate = caseWithDueDate.getText().split("due: ")[1];
+        assertThat(dueDate.equals(sessionVariableCalled("contributionDueDate")), is(true));
+    }
+
+    public void assertRejectedFieldOfCurrentCase() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
+        assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
     }
 }

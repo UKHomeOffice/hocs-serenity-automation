@@ -35,20 +35,11 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Contribution requested']")
-    public WebElementFacade requestedContributionRadioButton;
-
     @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
     @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Deadline for contribution request is required']")
-    public WebElementFacade contributionRequestDeadlineRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='What you are requesting is required']")
-    public WebElementFacade contributionRequestDescriptionRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Business unit is required']")
     public WebElementFacade businessUnitRequiredErrorMessage;
@@ -83,15 +74,6 @@ public class Triage extends BasePage {
 
     @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
-
-    @FindBy(id = "DueDate-day")
-    public WebElementFacade requestContributionDeadlineDayTextField;
-
-    @FindBy(id = "DueDate-month")
-    public WebElementFacade requestContributionDeadlineMonthTextField;
-
-    @FindBy(id = "DueDate-year")
-    public WebElementFacade requestContributionDeadlineYearTextField;
 
     @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
@@ -150,8 +132,6 @@ public class Triage extends BasePage {
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
-
-
     public void assertActionsRequiredErrorMessageDisplayed() {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
     }
@@ -206,28 +186,9 @@ public class Triage extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void selectContributionRequested() {
-        safeClickOn(requestedContributionRadioButton);
-        safeClickOn(confirmButton);
-    }
-
-    public void enterContributionRequestedDeadlineDate(String date) {
-        typeIntoDateField(requestContributionDeadlineDayTextField, requestContributionDeadlineMonthTextField,
-                requestContributionDeadlineYearTextField, date);
-        setSessionVariable("requestDeadline").to(date);
-    }
-
     public void enterRequestDescription(String requestDescription) {
         typeInto(requestContributionTextArea, requestDescription);
         setSessionVariable("requestDescription").to(requestDescription);
-    }
-
-    public void assertContributionRequestDeadlineRequiredErrorMessageDisplayed()  {
-        assertThat(contributionRequestDeadlineRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertContributionRequestDescriptionRequiredErrorMessageDisplayed()  {
-        assertThat(contributionRequestDescriptionRequiredErrorMessage.isVisible(), is(true));
     }
 
     public void selectSaveChangesAction() {

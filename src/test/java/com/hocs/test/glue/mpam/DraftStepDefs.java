@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.MultipleContributions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +13,8 @@ import io.cucumber.java.en.When;
 public class DraftStepDefs extends BasePage {
 
     Draft draft;
+
+    MultipleContributions multipleContributions;
 
     @And("I move a Official case from Draft to Dispatch bypassing QA")
     public void moveBRefCaseFromDraftToDispatch() {
@@ -31,11 +34,11 @@ public class DraftStepDefs extends BasePage {
             case "ON HOLD":
                 draft.putCaseOnHold();
                 break;
-            case "CONTRIBUTION REQUESTED":
-                draft.selectContributionRequested();
-                draft.enterContributionRequestDeadlineDate(getDatePlusMinusNDaysAgo(1));
-                draft.enterRequestDescription("test request contribution description");
-                safeClickOn(confirmButton);
+            case "CONTRIBUTIONS REQUESTED":
+                multipleContributions.sendCaseToContributionRequest();
+                break;
+            case "TRIAGE":
+                draft.sendDraftCaseBackToTriage();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -44,12 +47,12 @@ public class DraftStepDefs extends BasePage {
 
     @When("I take the Draft \\(On Hold) case off hold")
     public void iTakeTheDraftOnHoldCaseOffHold() {
-        draft.takeTriageCaseOffHold();
+        draft.takeDraftCaseOffHold();
     }
 
     @When("I de-escalate the Draft \\(Escalated) case")
     public void iDeEscalateTheDraftEscalatedCase() {
-        draft.deescalateTriageCase();
+        draft.deescalateDraftCase();
     }
 
     @And("I select to close the Draft \\(Escalated) case")
@@ -83,20 +86,8 @@ public class DraftStepDefs extends BasePage {
                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
                 safeClickOn(confirmButton);
                 break;
-            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
-                draft.selectResponseChannel("Email");
-                safeClickOn(draft.contributionRequestedRadioButton);
-                safeClickOn(confirmButton);
-                draft.enterRequestDescription("Test");
-                safeClickOn(confirmButton);
-                break;
-            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
-                draft.selectResponseChannel("Email");
-                safeClickOn(draft.contributionRequestedRadioButton);
-                safeClickOn(confirmButton);
-                draft.enterContributionRequestDeadlineDate(getDatePlusMinusNDaysAgo(1));
-                safeClickOn(confirmButton);
-                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
 
@@ -108,12 +99,6 @@ public class DraftStepDefs extends BasePage {
                 break;
             case "RESPONSE CHANNEL REQUIRED":
                 draft.assertResponseChannelRequiredErrorMessageDisplayed();
-                break;
-            case "CONTRIBUTION REQUEST DEADLINE REQUIRED":
-                draft.assertContributionRequestDeadlineRequiredErrorMessageDisplayed();
-                break;
-            case "CONTRIBUTION REQUEST DESCRIPTION REQUIRED":
-                draft.assertContributionRequestDescriptionRequiredErrorMessageDisplayed();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());

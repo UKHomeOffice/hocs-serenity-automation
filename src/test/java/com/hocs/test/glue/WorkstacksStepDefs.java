@@ -46,10 +46,19 @@ public class WorkstacksStepDefs extends BasePage {
         safeClickOn(workstacks.allocateSelectedToMeButton);
     }
 
-    @Then("the case should be added to my workstack")
-    public void assertThatCaseHasBeenAddedToMyWorkstack() {
+    @Then("the case {string} be visible in my workstack")
+    public void theCaseBeVisibleInMyWorkstack(String input) {
         safeClickOn(homepage.myCases);
-        workstacks.assertCaseReferenceIsVisible();
+        switch (input.toUpperCase()) {
+            case "SHOULD":
+                workstacks.assertVisibilityOfCaseReference(true);
+                break;
+            case "SHOULD NOT":
+                workstacks.assertVisibilityOfCaseReference(false);
+                break;
+            default:
+                pendingStep(input + " is not defined within " + getMethodName());
+        }
     }
 
     @When("I enter the Case Reference type {string} into the filter")
@@ -57,11 +66,7 @@ public class WorkstacksStepDefs extends BasePage {
         safeClickOn(workstacks.workstackFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
-                typeInto(workstacks.workstackFilter, caseReferenceType);
-                break;
             case "DTEN":
-                typeInto(workstacks.workstackFilter, caseReferenceType);
-                break;
             case "TRO":
                 typeInto(workstacks.workstackFilter, caseReferenceType);
                 break;
@@ -228,7 +233,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the created case should be visible in the workstack")
     public void theCreatedCaseShouldBeVisibleInTheWorkstack() {
-        workstacks.assertCaseReferenceIsVisible();
+        workstacks.assertVisibilityOfCaseReference(true);
     }
 
     @Then("only {string} cases should be visible")
@@ -303,8 +308,8 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineBeHighlighted(String shouldShouldNot) {
         switch (shouldShouldNot.toUpperCase()) {
             case "SHOULD":
-            workstacks.assertThatDeadlineHighlightedIs(true);
-            break;
+                workstacks.assertThatDeadlineHighlightedIs(true);
+                break;
             case "SHOULD NOT":
                 workstacks.assertThatDeadlineHighlightedIs(false);
                 break;
@@ -333,5 +338,18 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the Minister sign off team is correctly displayed")
     public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
         workstacks.assertMinisterSignOffTeam();
+    }
+
+    @Then("the earliest due date of the contribution requests is displayed in workstacks")
+    public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
+        goHome();
+        waitABit(500);
+        safeClickOn(homepage.myCases);
+        workstacks.assertDueDateOfContributionRequest();
+    }
+
+    @Then("the stage that the case was rejected at should be displayed in the rejected workstack column")
+    public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
+        workstacks.assertRejectedFieldOfCurrentCase();
     }
 }

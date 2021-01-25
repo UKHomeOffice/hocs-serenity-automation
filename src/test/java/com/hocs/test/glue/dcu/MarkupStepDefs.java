@@ -139,58 +139,46 @@ public class MarkupStepDefs extends BasePage {
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT":
                 safeClickOn(homepage.publicProtectionUnit);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
                 safeClickOn(homepage.animalsInScienceTeam);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
                 safeClickOn(homepage.policeWorkforceProfessionalismUnit);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER FOR LORDS":
                 safeClickOn(homepage.ministerForLordsTeam);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "EXTREMISM ANALYSIS UNIT":
                 safeClickOn(homepage.extremismAnalysisUnit);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "COUNTER EXTREMISM UNIT":
                 safeClickOn(homepage.counterExtremismUnit);
-                workstacks.assertCaseReferenceIsVisible();
             case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
                 safeClickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "PRESS OFFICE":
                 safeClickOn(homepage.pressOffice);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "FINANCE":
                 safeClickOn(homepage.financeTeam);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES":
                 safeClickOn(homepage.chemBioRadioNuclearExplosives);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR IMMIGRATION":
                 safeClickOn(homepage.ministerOfStateForImmigrationTeam);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME":
                 safeClickOn(homepage.ministerOfStateForSecurityAndEconomicCrime);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
                 safeClickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
-                workstacks.assertCaseReferenceIsVisible();
                 break;
             default:
                 pendingStep(team + " is not defined within " + getMethodName());
         }
+        workstacks.assertVisibilityOfCaseReference(true);
     }
 
     @Then("the Other Government Department name free text field is displayed")

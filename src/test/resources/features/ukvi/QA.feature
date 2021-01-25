@@ -34,6 +34,9 @@ Feature: QA
     And I submit a reason to reject the case back to drafting
     Then the case should be moved to the "Draft" stage
     And a rejection note should be visible showing the reason for rejection
+    And I navigate to the "home" page
+    And I view the MPAM case in the appropriate "Draft" stage workstack
+    Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User sends a case back to triage at the QA stage
@@ -41,6 +44,9 @@ Feature: QA
     And I submit a reason to reject the case back to triage
     Then the case should be moved to the "Triage" stage
     And a rejection note should be visible showing the reason for rejection
+    And I navigate to the "home" page
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User takes a QA (On Hold) case off hold
@@ -48,7 +54,7 @@ Feature: QA
     And I load and claim the current case
     When I select the "Take off hold" action at the QA On Hold stage
     Then the case should be moved to the "QA" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User de-escalates a QA (Escalated) case
@@ -57,7 +63,7 @@ Feature: QA
     And I load and claim the current case
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "QA" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User closes a QA (Escalated) case
@@ -92,7 +98,7 @@ Feature: QA
       | actions                         |
       | Rejected, move back to triage   |
       | Rejected, move back to drafting |
-#      | Approve                         |
+      | Approve                         |
 
   @Campaigns
   Scenario: User moves a case into a Campaign from the QA stage

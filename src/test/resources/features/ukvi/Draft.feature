@@ -32,7 +32,7 @@ Feature: Drafting
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     Then the case should be moved to the "Draft (Escalated)" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User puts the draft case on hold
@@ -40,7 +40,7 @@ Feature: Drafting
     And I load and claim the current case
     And I send the Draft case to "On Hold"
     Then the case should be moved to the "Draft (On Hold)" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User takes a Draft On Hold case off hold
@@ -50,7 +50,7 @@ Feature: Drafting
     When I load and claim the current case
     And I take the Draft (On Hold) case off hold
     Then the case should be moved to the "Draft" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User de-escalates a Draft (Escalated) case
@@ -60,7 +60,7 @@ Feature: Drafting
     When I load and claim the current case
     And I de-escalate the Draft (Escalated) case
     Then the case should be moved to the "Draft" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User closes a Draft (Escalated) case
@@ -72,37 +72,6 @@ Feature: Drafting
     And I click the "Close case" button
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression
-  Scenario: User requests a contribution at Draft stage
-    And I create a "MPAM" case and move it to the "Draft" stage
-    And I load and claim the current case
-    When I send the Draft case to "Contribution Requested"
-    Then the contribution request deadline should be visible in the "Draft" workstack
-    And the case should be moved to the "Draft (Contribution Requested)" stage
-    And the case should be allocated to me in the summary
-    And the contribution request deadline should be visible in the summary
-    And a contribution request note should be visible showing the description of the request
-
-  @UKVIWorkflow @UKVIRegression
-  Scenario: User selects that the contribution has been received at Draft (Contribution Requested) stage
-    And I create a "MPAM" case and move it to the "Draft" stage
-    And I load and claim the current case
-    When I send the Draft case to "Contribution Requested"
-    And I load and claim the current case
-    When I select the "Contributions received" action at Draft (Contribution Requested) stage
-    Then the case should be moved to the "Draft" stage
-    And the case should be allocated to me in the summary
-
-  @UKVIWorkflow @UKVIRegression
-  Scenario: User escalates a case at Draft (Contribution Requested) stage
-    And I create a "MPAM" case and move it to the "Draft" stage
-    And I load and claim the current case
-    When I send the Draft case to "Contribution Requested"
-    And I load and claim the current case
-    When I select the "Escalate to Workflow Manager" action at Draft (Contribution Requested) stage
-    Then the case should be moved to the "Draft (Escalated)" stage
-    And the case should be allocated to me in the summary
-
   @Validation
   Scenario Outline: User triggers error message to be displayed at Draft
     And I create a "MPAM" case and move it to the "Draft" stage
@@ -113,10 +82,8 @@ Feature: Drafting
       | errorType                                 |
       | Actions Required                          |
       | Response Channel Required                 |
-      | Contribution Request Deadline Required    |
-      | Contribution Request Description Required |
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression
   Scenario: User moves case into a Campaign from Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -124,7 +91,7 @@ Feature: Drafting
     And I load the current case
     Then the case is added to the correct Campaign
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression
   Scenario Outline: User moves cases into Campaigns from draft sub-stages
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -138,3 +105,14 @@ Feature: Drafting
     | On Hold                 | Draft-On Hold                 |
     | Workflow Manager        | Draft-Escalated               |
     | Contribution Requested  | Draft-Contribution Requested  |
+
+  @UKVIRegression
+  Scenario: User rejects a case at Draft back to Triage
+    Given I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I send the Draft case to "Triage"
+    Then the case should be moved to the "Triage" stage
+    And a rejection note should be visible showing the reason for rejection
+    And I navigate to the "home" page
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    Then the stage that the case was rejected at should be displayed in the rejected workstack column
