@@ -142,6 +142,8 @@ Feature: Multiple Contributions
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Put Case into Campaign" action at the contributions requested stage
     Then the case should be moved to the "Campaign" stage
+    And the case is added to the correct Campaign
+
 
   @UKVIRegression @UKVIWorkflow
   Scenario: User can add a case to a Campaign at the Draft-Contributions Requested stage
@@ -152,6 +154,7 @@ Feature: Multiple Contributions
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Put Case into Campaign" action at the contributions requested stage
     Then the case should be moved to the "Campaign" stage
+    And the case is added to the correct Campaign
 
   @UKVIRegression
   Scenario: The earliest contribution request due date updates in workstacks when amended
