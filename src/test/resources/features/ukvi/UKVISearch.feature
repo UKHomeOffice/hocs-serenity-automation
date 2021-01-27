@@ -5,9 +5,10 @@ Feature: UKVI Search
     Given I log in to DECS as user "UKVI_ONLY"
 
   @UKVIRegression
-  Scenario Outline: User tests search criteria
+  Scenario Outline: User tests UKVI search criteria
     And I navigate to the "Search" page
-    And I search for a UKVI case with "<infoValue>" as it's "<infoType>"
+    And I enter "<infoValue>" into the "<infoType>" UKVI search criteria
+    And I click the search button on the search page
     Then I check that the UKVI search results have the correct "<infoType>"
     Examples:
       | infoType                              | infoValue      |
@@ -23,7 +24,7 @@ Feature: UKVI Search
   Scenario: User is able to search for a case by the Correspondent Reference Number
     And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
     And I navigate to the "search" page
-    And I search for a UKVI case with "TestRefNumber 1" as it's "Correspondent Reference Number"
+    And I search for a UKVI case with "TestRefNumber 1" as its "Correspondent Reference Number"
     Then I check that the UKVI search results have the correct "Correspondent Reference Number"
 
   @OtherTests
@@ -31,7 +32,7 @@ Feature: UKVI Search
     And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I navigate to the "Search" page
     And I search for a case by it's case reference
-    Then the one created case should be displayed
+    Then the created MPAM case should be visible in the search results
 
   @UKVIRegression
   Scenario: User searches for MPAM cases using a substring of a case reference
@@ -42,5 +43,5 @@ Feature: UKVI Search
 
   Scenario: User is able to search for an MTS case that is an official engagement
     And I navigate to the "Search" page
-    And I search for an UKVI case with "Yes" as it's "Telephone Surgery Official Engagement"
+    And I search for a UKVI case with "Yes" as its "Telephone Surgery Official Engagement"
     Then I check that the UKVI search results have the correct "Telephone Surgery Official Engagement"

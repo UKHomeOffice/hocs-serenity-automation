@@ -4,6 +4,26 @@ Feature: DCU Search
   Background:
     Given I log in to DECS
 
+  @DCURegression
+  Scenario Outline: User tests DCU search criteria
+    When I create a DCU case with "<infoValue>" as its "<infoType>"
+    And I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" DCU search criteria
+    And I click the search button on the search page
+    Then I check that the DCU search results have the correct "<infoType>"
+    Examples:
+      | infoType                              | infoValue                  |
+      | Case Type                             | MIN                        |
+      | Case Type                             | TRO                        |
+      | Case Type                             | DTEN                       |
+      | Received on or Before date            | 01/01/2021                 |
+      | Received on or After date             | 01/01/2021                 |
+      | Correspondent Name                    | Boris Johnson              |
+      | Topic                                 | Animal alternatives (3Rs)  |
+      | Sign off team                         | Minister for Lords         |
+      | Home Secretary Interest               | Yes                        |
+      | Active Cases Only                     | Yes                        |
+
   @SearchByCaseReferenceNumber @OtherTests
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
     When I enter a valid case reference into the load case search bar
@@ -19,24 +39,11 @@ Feature: DCU Search
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
-  @SearchByCaseType @DCURegression
-  Scenario Outline: User should be able to search for a case by Case Type
-    And I create a single "<caseType>" case
-    And I navigate to the "search" page
-    When I enter "<caseType>" into the "Case Type" search criteria for DCU
-    And I click the search button on the search page
-    Then the "Case Type" of the search results should be "<caseType>"
-    Examples:
-      | caseType |
-      | MIN      |
-      | TRO      |
-      | DTEN     |
-
   @SearchByCaseType @OtherTests
   Scenario: User should be able to click on the case link when cases are displayed in the results list
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" search criteria for DCU
+    When I search for a DCU case with "MIN" as its "Case Type"
     And I click the search button on the search page
     And I click the case reference link of the first case in the results list
     Then I should be taken directly to the case
@@ -45,7 +52,7 @@ Feature: DCU Search
   Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by Case Type
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" search criteria for DCU
+    When I search for a DCU case with "MIN" as its "Case Type"
     And I click the search button on the search page
     Then the search results should contain the expected information
 

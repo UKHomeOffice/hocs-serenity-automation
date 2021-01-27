@@ -167,6 +167,13 @@ public class Markup extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
+        safeClickOn(policyResponseRadioButton);
+        safeClickOn(continueButton);
+        markupAddTopics.enterATopic(topic);
+        safeClickOn(finishButton);
+    }
+
     public void enterOGDDestinationAndReason() {
         OGDDestinationTextBox.sendKeys("Test other Dept.");
         OGDReasonTextBox.sendKeys("Test reason for transfer");

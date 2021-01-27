@@ -4,7 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import io.cucumber.java.ca.Cal;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -156,21 +163,31 @@ public class CreateCase extends BasePage {
         createCaseSuccessPage.getCaseReference();
     }
 
-    public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String dd, String mm, String yyyy) {
+    public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String date) {
         safeClickOn(homepage.createSingleCase);
         selectCaseType(caseType);
         safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
-        correspondenceReceivedDayField.clear();
-        typeInto(correspondenceReceivedDayField, dd);
-        correspondenceReceivedMonthField.clear();
-        typeInto(correspondenceReceivedMonthField, mm);
-        correspondenceReceivedYearField.clear();
-        typeInto(correspondenceReceivedYearField, yyyy);
+        typeIntoDateField(correspondenceReceivedDayField, correspondenceReceivedMonthField, correspondenceReceivedYearField, date);
         addDocuments.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
+    }
+
+    public void createCaseBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
+        DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        int numberOfDays = 0;
+        if (beforeAfter.toUpperCase().equals("BEFORE")) {
+            numberOfDays = (-5);
+        } else if (beforeAfter.toUpperCase().equals("AFTER")) {
+            numberOfDays = 5;
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(format.parse(inputDate));
+        c.add(Calendar.DAY_OF_WEEK, numberOfDays);
+        String date = format.format(c.getTime());
+        createCaseWithSetCorrespondenceReceivedDate(caseType, date);
     }
 
     public void enterNoDate() {
@@ -219,8 +236,6 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        LocalDate targetDate = workdays.getDateXWorkdaysAgo(days);
-        createCaseWithSetCorrespondenceReceivedDate(caseType,String.valueOf(targetDate.getDayOfMonth()),String.valueOf(targetDate.getMonthValue()),
-                String.valueOf(targetDate.getYear()));
+        createCaseWithSetCorrespondenceReceivedDate(caseType, getDatePlusMinusNDaysAgo(-days));
     }
 }

@@ -22,6 +22,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.text.ParseException;
 
 public class CreateCaseStepDefs extends BasePage {
 
@@ -220,9 +221,9 @@ public class CreateCaseStepDefs extends BasePage {
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
     }
 
-    @And("I create a single {string} case with the correspondence received date as: {string}-{string}-{string}")
-    public void iCreateACaseWithCorrespondenceDate(String caseType, String day, String month, String year) {
-        createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, day, month, year);
+    @And("I create a single {string} case with the correspondence received date as: {string}")
+    public void iCreateACaseWithCorrespondenceDate(String caseType, String date) {
+        createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, date);
     }
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
@@ -255,5 +256,57 @@ public class CreateCaseStepDefs extends BasePage {
         homepage.goHome();
         homepage.getAndClaimCurrentCase();
         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+    }
+
+    @And("I create a DCU case with {string} as its {string}")
+    public void iCreateACaseWithAsIts(String infoValue, String infoType) throws ParseException {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+                switch (infoValue.toUpperCase()) {
+                    case "MIN":
+                    case "DTEN":
+                    case "TRO":
+                        createCase.createCaseOfType(infoValue);
+                        break;
+                    default:
+                        pendingStep(infoValue + " is not defined within " + getMethodName());
+                }
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                createCase.createCaseBeforeOrAfterDate("MIN", "After", infoValue);
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                createCase.createCaseBeforeOrAfterDate("MIN", "Before", infoValue);
+                break;
+            case "CORRESPONDENT NAME":
+                createCase.createCaseOfType("MIN");
+                homepage.goHome();
+                homepage.getAndClaimCurrentCase();
+                dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
+                break;
+            case "TOPIC":
+                iCreateACaseWithAsIts("Boris Johnson", "Correspondent Name");
+                homepage.getAndClaimCurrentCase();
+                markup.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
+                break;
+            case "SIGN OFF TEAM":
+                iCreateACaseWithAsIts("Animal alternatives (3Rs)", "Topic");
+                break;
+            case "ACTIVE CASES ONLY":
+                createCase.createCaseOfType("MIN");
+                break;
+            case "HOME SECRETARY INTEREST":
+                createCase.createCaseOfType("MIN");
+                homepage.goHome();
+                homepage.getAndClaimCurrentCase();
+                if (infoValue.toUpperCase().equals("YES")) {
+                    dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
+                } else if (infoValue.toUpperCase().equals("NO")) {
+                    dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
+                }
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }
