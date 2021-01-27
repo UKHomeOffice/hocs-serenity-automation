@@ -1,19 +1,16 @@
 package com.hocs.test.pages.mpam;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
-import java.util.List;
-import java.util.Random;
-import net.serenitybdd.core.annotations.findby.FindBy;
-import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
-
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
+import java.util.List;
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
 
 public class MultipleContributions extends BasePage {
 
@@ -153,26 +150,20 @@ public class MultipleContributions extends BasePage {
     }
 
     public void selectActionAtContributionRequestedStage(String action) {
-        WebElementFacade radioButton = null;
         switch (action.toUpperCase()) {
             case "ESCALATE TO WORKFLOW MANAGER":
-                radioButton = escalateToWorkflowManagerRadioButton;
+                safeClickOn(escalateToWorkflowManagerRadioButton);
+                safeClickOn(confirmButton);
                 break;
             case "PUT CASE INTO CAMPAIGN":
-                radioButton = campaign.putCaseIntoCampaignRadioButton;
+                campaign.moveCaseFromAStageToCampaign("Jamaican charter flight");
                 break;
             case "CONTRIBUTIONS RECEIVED":
-                radioButton = contributionsReceivedRadioButton;
+                safeClickOn(contributionsReceivedRadioButton);
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
-        safeClickOn(confirmButton);
-        if (action.toUpperCase().equals("PUT CASE INTO CAMPAIGN")) {
-            campaign.campaignSelectionTypeahead.sendKeys( "Jamaican charter flight");
-            campaign.campaignSelectionTypeahead.sendKeys(Keys.RETURN);
-            safeClickOn(confirmButton);
         }
     }
 

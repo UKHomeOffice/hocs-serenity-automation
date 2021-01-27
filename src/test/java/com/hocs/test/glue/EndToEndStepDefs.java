@@ -328,4 +328,12 @@ public class EndToEndStepDefs extends BasePage {
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
     }
+
+    @When("I create a MPAM case  with {string} as the Reference Type and move it to the {string} stage")
+    public void moveNewMPAMCaseWithSpecifiedReferenceTypeToStage(String refType,
+            String stage) {
+        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", refType,
+                stage);
+
+    }
 }
