@@ -18,6 +18,7 @@ import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Random;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
@@ -161,6 +162,12 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
+    @And("I click the case reference of the case in search results")
+    public void iClickTheReferenceOfARandomSearchResult() {
+        WebElementFacade caseReference = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
+        safeClickOn(caseReference);
+    }
+
     @And("I search for a case using a random substring of a case reference")
     public void searchForCaseBySubstringOfCaseReference() {
         search.searchBySubstringOfCaseReference();
@@ -169,6 +176,12 @@ public class SearchStepDefs extends BasePage {
     @Then("the displayed cases all contain the input substring case reference")
     public void displayedCasesAllContainSubstringCaseRef() {
         search.assertAllDisplayedCaseRefsContainSubstring();
+    }
+
+    @Then("{int} cases should be displayed")
+    public void numberOfCasesShouldBeDisplayed(int number) {
+        int numberOfCasesDisplayed = Integer.parseInt(search.numberOfSearchResults.getText().split("\\s+")[0]);
+        assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
 }
