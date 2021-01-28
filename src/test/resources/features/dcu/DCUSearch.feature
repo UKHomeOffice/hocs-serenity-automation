@@ -7,6 +7,25 @@ Feature: DCU Search
   @DCURegression
   Scenario Outline: User tests DCU search criteria
     When I create a DCU case with "<infoValue>" as its "<infoType>"
+    And I navigate to the "Home" page
+    And I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" DCU search criteria
+    And I click the search button on the search page
+    Then I check that the DCU search results have the correct "<infoType>"
+    Examples:
+      | infoType                              | infoValue                  |
+      | Case Type                             | MIN                        |
+      | Received on or Before date            | 01/01/2021                 |
+      | Received on or After date             | 01/01/2021                 |
+      | Correspondent Name                    | Boris Johnson              |
+      | Topic                                 | Animal alternatives (3Rs)  |
+      | Sign off team                         | Minister for Lords         |
+      | Home Secretary Interest               | Yes                        |
+      | Active Cases Only                     | Yes                        |
+
+  Scenario Outline: User can search for DCU case types
+    When I create a DCU case with "<infoValue>" as its "<infoType>"
+    And I navigate to the "Home" page
     And I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" DCU search criteria
     And I click the search button on the search page
@@ -16,13 +35,6 @@ Feature: DCU Search
       | Case Type                             | MIN                        |
       | Case Type                             | TRO                        |
       | Case Type                             | DTEN                       |
-      | Received on or Before date            | 01/01/2021                 |
-      | Received on or After date             | 01/01/2021                 |
-      | Correspondent Name                    | Boris Johnson              |
-      | Topic                                 | Animal alternatives (3Rs)  |
-      | Sign off team                         | Minister for Lords         |
-      | Home Secretary Interest               | Yes                        |
-      | Active Cases Only                     | Yes                        |
 
   @SearchByCaseReferenceNumber @OtherTests
   Scenario: User should be be taken directly to a case when they search for the Case Reference number

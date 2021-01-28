@@ -122,7 +122,6 @@ public class Search extends BasePage {
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
-        searchMINCheckbox.waitUntilVisible();
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
