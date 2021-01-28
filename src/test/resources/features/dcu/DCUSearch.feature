@@ -1,4 +1,4 @@
-@Search @DCU @Test
+@Search @DCU
 Feature: DCU Search
 
   Background:
@@ -24,17 +24,17 @@ Feature: DCU Search
       | Active Cases Only                     | Yes                        |
 
   Scenario Outline: User can search for DCU case types
-    When I create a DCU case with "<infoValue>" as its "<infoType>"
+    When I create a DCU case with "<infoValue>" as its "Case Type"
     And I navigate to the "Home" page
     And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" DCU search criteria
+    And I enter "<infoValue>" into the "<Case Type" DCU search criteria
     And I click the search button on the search page
-    Then I check that the DCU search results have the correct "<infoType>"
+    Then I check that the DCU search results have the correct "Case Type"
     Examples:
-      | infoType                              | infoValue                  |
-      | Case Type                             | MIN                        |
-      | Case Type                             | TRO                        |
-      | Case Type                             | DTEN                       |
+      | infoValue |
+      | MIN       |
+      | TRO       |
+      | DTEN      |
 
   @SearchByCaseReferenceNumber @OtherTests
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
