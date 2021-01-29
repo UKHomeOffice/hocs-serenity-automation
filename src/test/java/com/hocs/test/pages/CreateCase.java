@@ -148,6 +148,12 @@ public class CreateCase extends BasePage {
         setSessionVariable("caseType").to(caseType);
     }
 
+    public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
+        LocalDate targetDate = workdays.getDateXWorkdaysAgo(days);
+        createCaseWithSetCorrespondenceReceivedDate(caseType, String.valueOf(targetDate.getDayOfMonth()), String.valueOf(targetDate.getMonthValue()),
+                String.valueOf(targetDate.getYear()));
+    }
+
     public void completeSingleCaseCreation() {
         safeClickOn(nextButton);
         addDocuments.uploadDocumentOfType("docx");
@@ -216,11 +222,5 @@ public class CreateCase extends BasePage {
 
     public void assertDateReceivedIsInvalidErrorMessage() {
         dateReceivedIsInvalidErrorMessage.shouldContainText("Date received must be a valid date");
-    }
-
-    public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        LocalDate targetDate = workdays.getDateXWorkdaysAgo(days);
-        createCaseWithSetCorrespondenceReceivedDate(caseType,String.valueOf(targetDate.getDayOfMonth()),String.valueOf(targetDate.getMonthValue()),
-                String.valueOf(targetDate.getYear()));
     }
 }

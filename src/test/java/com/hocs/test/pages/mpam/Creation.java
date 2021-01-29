@@ -170,7 +170,6 @@ public class Creation extends BasePage {
                 pendingStep(urgency + " is not defined within " + getMethodName());
         }
         setSessionVariable("urgency").to(urgency);
-        System.out.println(urgency + " is the urgency level");
     }
 
     public void selectInboundChannel(String channel) {
@@ -197,7 +196,6 @@ public class Creation extends BasePage {
                 pendingStep(channel + " is not defined within " + getMethodName());
         }
         setSessionVariable("inboundChannel").to(channel);
-        System.out.println(channel + " is the inbound channel");
     }
 
     public void moveCaseFromCreationToTriage() {

@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I log in to DECS as user "UKVI_ONLY"
+    Given I log in to DECS as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User tests search criteria
@@ -44,3 +44,10 @@ Feature: UKVI Search
     And I navigate to the "Search" page
     And I search for an UKVI case with "Yes" as it's "Telephone Surgery Official Engagement"
     Then I check that the UKVI search results have the correct "Telephone Surgery Official Engagement"
+
+  @SearchByCaseType @Workstacks @DCURegression
+  Scenario: MPAM Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
+    And I create a single "MPAM" case
+    And I navigate to the "search" page
+    And I click the search button on the search page
+    Then the search results should contain the expected information

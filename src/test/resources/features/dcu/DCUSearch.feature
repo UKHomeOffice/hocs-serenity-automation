@@ -41,8 +41,8 @@ Feature: DCU Search
     And I click the case reference link of the first case in the results list
     Then I should be taken directly to the case
 
-  @SearchByCaseType @OtherTests
-  Scenario: Results list should contain the Case Reference, Current Stage, Owner, Owning Team and Deadline when searching by Case Type
+  @SearchByCaseType @Workstacks @DCURegression
+  Scenario: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     And I create a single "MIN" case
     And I navigate to the "search" page
     When I enter "MIN" into the "Case Type" search criteria for DCU

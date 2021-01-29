@@ -39,23 +39,9 @@ public class LoginStepDefs extends BasePage {
             loginPage.enterHocsLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
         } else {
-            System.out.println("Session still active, checking active user matches target user");
-            homepage.goHome();
-            homepage.selectMyCases();
-            if (workstacks.getTotalOfCases() == 0) {
-                createCase.createCaseOfType("ANY");
-                homepage.getAndClaimCurrentCase();
-                homepage.goHome();
-                safeClickOn(homepage.myCases);
-            }
-            try {
-                workstacks.assertOwnerIs(targetUser);
-                System.out.println("Active user matches target user, continuing test");
-            } catch (AssertionError ae) {
-                System.out.println("Active user does not match target user. Logging active user out of DECS");
-                selectLogoutButton();
-                iLoginAs(user);
-            }
+            System.out.println("Session still active, logging out");
+            selectLogoutButton();
+            iLoginAs(user);
         }
         setCurrentUser(targetUser);
     }
@@ -64,8 +50,8 @@ public class LoginStepDefs extends BasePage {
     public void iLogInToDECS() {
         String user = System.getProperty("user");
         if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'AUTOMATION_USER'");
-            user = "AUTOMATION_USER";
+            System.out.println("User parameter not set. Defaulting to 'DECS_USER'");
+            user = "DECS_USER";
         }
         User targetUser = User.valueOf(user);
         loginPage.navigateToHocs();
@@ -99,7 +85,7 @@ public class LoginStepDefs extends BasePage {
         String user = System.getProperty("user");
         if (user == null) {
             System.out.println("User parameter not set. Defaulting to 'Automation User'");
-            user = "AUTOMATION_USER";
+            user = "DECS_USER";
         }
         loginPage.navigateToManagementUI();
         if (isElementDisplayed($(loginPage.usernameField))) {

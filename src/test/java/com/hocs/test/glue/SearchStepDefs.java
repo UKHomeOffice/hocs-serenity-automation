@@ -122,11 +122,6 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(search.topSearchResultCaseReference);
     }
 
-    @Then("the search results should contain the expected information")
-    public void theSearchResultsShouldContainTheExpectedInformation() {
-        search.assertExpectedTablesHeadersPresent();
-
-    }
 
     @Then("cases received on or {string} {string} should be displayed")
     public void casesReceivedOnOrShouldBeDisplayed(String beforeOrAfter, String date) {

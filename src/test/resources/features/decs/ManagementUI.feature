@@ -47,7 +47,7 @@ Feature: ManagementUI
   Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
     And I navigate to the "TEAM" Management page
     When I select the "ANIMALS IN SCIENCE REGULATION UNIT" team from the dropdown
-    And I attempt to remove the user "AUTOMATION_USER"
+    And I attempt to remove the user "DECS_USER"
     Then an error message should be displayed as they have cases assigned in that team
 
   @TeamManagement @Validation

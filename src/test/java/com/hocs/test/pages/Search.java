@@ -13,7 +13,6 @@ import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -53,6 +52,12 @@ public class Search extends BasePage {
 
     @FindBy(css = "label[for='caseTypes_TRO']")
     public WebElementFacade searchTROCheckbox;
+
+    @FindBy(css = "label[for='caseTypes_MPAM']")
+    public WebElementFacade searchMPAMCheckbox;
+
+    @FindBy(css = "label[for='caseTypes_MTS']")
+    public WebElementFacade searchMTSCheckbox;
 
     @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")
     public WebElementFacade receivedAfterDayTextbox;
@@ -148,6 +153,12 @@ public class Search extends BasePage {
                         break;
                     case "TRO":
                         safeClickOn(searchTROCheckbox);
+                        break;
+                    case "MPAM":
+                        safeClickOn(searchMPAMCheckbox);
+                        break;
+                    case "MTS":
+                        safeClickOn(searchMTSCheckbox);
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -384,19 +395,6 @@ public class Search extends BasePage {
 
     public void assertNoSearchCriteriaErrorMessage() {
         noSearchCriteriaErrorMessage.shouldContainText("No search criteria specified");
-    }
-
-    public void assertExpectedTablesHeadersPresent() {
-        List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
-        List<String> tableHeadersContent = new ArrayList<>();
-        for (WebElement tableHeader : tableHeaders) {
-            tableHeadersContent.add(tableHeader.getText());
-        }
-        assertThat(tableHeadersContent.contains("Reference"), is(true));
-        assertThat(tableHeadersContent.contains("Current Stage"), is(true));
-        assertThat(tableHeadersContent.contains("Owner"), is(true));
-        assertThat(tableHeadersContent.contains("Team"), is(true));
-        assertThat(tableHeadersContent.contains("Deadline"), is(true));
     }
 
     public void assertFirstAndLastSearchResultsMatchDateSearchCriteria(String beforeOrAfter, String date) {

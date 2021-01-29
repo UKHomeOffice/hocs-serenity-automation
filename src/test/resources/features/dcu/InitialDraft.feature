@@ -56,7 +56,7 @@ Feature: Initial Draft
     And I select the "draft" document as the primary draft
     And I click the "continue" button
     And I select "yes" to QA offline
-    And I select "AUTOMATION_USER" as the offline QA
+    And I select "DECS_USER" as the offline QA
     Then I am returned to my home screen
     And the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
     And the "draft" document should be tagged as the primary draft

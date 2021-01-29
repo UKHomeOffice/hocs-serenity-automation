@@ -7,13 +7,13 @@ Feature: Login
 
   @Regression @test
   Scenario: I can login to the Home Office Correspondence System
-    When I enter the login credentials for user "AUTOMATION_USER" and click the login button
+    When I enter the login credentials for user "DECS_USER" and click the login button
     Then I should be taken to the homepage
-    And I should be logged in as the user "AUTOMATION_USER"
+    And I should be logged in as the user "DECS_USER"
 
   @Regression
   Scenario: User is able to log out from one user and login as another
-    And I enter the login credentials for user "AUTOMATION_USER" and click the login button
+    And I enter the login credentials for user "DECS_USER" and click the login button
     When I logout of the application
     And I enter the login credentials of another user "CASEY" and click the login button
     Then I should be logged in as the user "CASEY"
