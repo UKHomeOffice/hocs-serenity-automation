@@ -6,7 +6,7 @@ Feature: DCU Search
 
   @DCURegression
   Scenario Outline: User tests DCU search criteria
-    When I create a DCU case with "<infoValue>" as its "<infoType>"
+    When I create a "DCU" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Home" page
     And I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" DCU search criteria
@@ -24,7 +24,7 @@ Feature: DCU Search
       | Active Cases Only                     | Yes                        |
 
   Scenario Outline: User can search for DCU case types
-    When I create a DCU case with "<infoValue>" as its "Case Type"
+    When I create a "DCU" case with "<infoValue>" as its "Case Type"
     And I navigate to the "Home" page
     And I navigate to the "Search" page
     And I enter "<infoValue>" into the "<Case Type" DCU search criteria
