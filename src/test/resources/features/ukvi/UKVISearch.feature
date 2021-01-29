@@ -4,8 +4,10 @@ Feature: UKVI Search
   Background:
     Given I log in to DECS as user "UKVI_ONLY"
 
-  @UKVIRegression
+  @UKVIRegression @Test
   Scenario Outline: User tests UKVI search criteria
+    When I create a "UKVI" case with "<infoValue>" as its "<infoType>"
+    And I navigate to the "Home" page
     And I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" UKVI search criteria
     And I click the search button on the search page
@@ -18,14 +20,8 @@ Feature: UKVI Search
       | Correspondent Reference Number        | TestRefNumber1 |
       | Campaign                              | Small boats    |
       | Ministerial Sign Off Team             | Home Secretary |
-      | Public Correspondent Name             | TestApplicant  |
+      | Public Correspondent Name             | Sam McTester   |
       | Telephone Surgery Official Engagement | Yes            |
-
-  Scenario: User is able to search for a case by the Correspondent Reference Number
-    And I create a "MPAM" case and add a correspondent with the correspondent reference number "TestRefNumber"
-    And I navigate to the "search" page
-    And I search for a UKVI case with "TestRefNumber 1" as its "Correspondent Reference Number"
-    Then I check that the UKVI search results have the correct "Correspondent Reference Number"
 
   @OtherTests
   Scenario: User searches by case reference from the search page

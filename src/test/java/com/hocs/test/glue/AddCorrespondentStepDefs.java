@@ -26,12 +26,4 @@ public class AddCorrespondentStepDefs {
     public void IAddMPCorrespondent(String name) {
         addCorrespondent.addAMemberCorrespondent(name);
     }
-
-    @And("I create a {string} case and add a correspondent with the correspondent reference number {string}")
-    public void iCreateACaseAndAddACorrespondentWithARandomCorrespondentReferenceNumber(String caseType, String refNumber) {
-        createCase.createCaseOfType(caseType);
-        homepage.goHome();
-        homepage.getAndClaimCurrentCase();
-        creation.moveCaseWithCorrespondentReferenceNumber(refNumber);
-    }
 }
