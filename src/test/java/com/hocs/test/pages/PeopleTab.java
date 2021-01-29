@@ -170,7 +170,7 @@ public class PeopleTab extends BasePage {
         int n = 0;
         List<WebElementFacade> listOfPublicCorrespondents = findAll("//h2[not(contains(text(), 'Member'))]/following-sibling::table//th[text()"
                 + "='Name']/following-sibling::td");
-        while (n <= listOfPublicCorrespondents.size()) {
+        while (n < listOfPublicCorrespondents.size()) {
             if (listOfPublicCorrespondents.get(n).getText().toUpperCase().contains(correspondentName.toUpperCase())) {
                 correspondentPresent = true;
                 break;

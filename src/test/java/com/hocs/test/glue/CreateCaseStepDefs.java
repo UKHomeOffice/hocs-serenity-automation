@@ -363,11 +363,15 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
                         createCase.createCaseOfType("MPAM");
+                        homepage.goHome();
+                        homepage.getAndClaimCurrentCase();
                         creation.triggerMPCorrespondentIsMandatoryScreen();
                         homepage.goHome();
                         break;
                     case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                         createCase.createCaseOfType("MTS");
+                        homepage.goHome();
+                        homepage.getAndClaimCurrentCase();
                         mtsDataInput.completeDataInputStageAndCloseMTSCase();
                         break;
                     default:

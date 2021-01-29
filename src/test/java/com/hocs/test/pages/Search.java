@@ -92,7 +92,7 @@ public class Search extends BasePage {
     @FindBy(id = "RefType")
     public WebElementFacade mpamRefTypeDropdown;
 
-    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    @FindBy(xpath = "//input[@id='react-select-3-input']")
     public WebElementFacade memberOfParliamentSearchBox;
 
     @FindBy(id = "correspondentReference")
@@ -459,7 +459,7 @@ public class Search extends BasePage {
             case "PUBLIC CORRESPONDENT NAME":
                 safeClickOn(randomSearchResult);
                 safeClickOn(peopleTab.peopleTab);
-                peopleTab.assertPublicCorrespondentAddedToTheCase("searchCorrespondentName");
+                peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
                 break;
             case "ACTIVE CASES ONLY":
                 List activeCases = findAll("//td[2][not(text() = 'Closed')]");
