@@ -12,7 +12,6 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,22 +27,19 @@ public class Search extends BasePage {
 
     Workstacks workstacks;
 
-    Homepage homepage;
+    PeopleTab peopleTab;
 
     SummaryTab summaryTab;
 
-    AccordionDCU accordionDCU;
+    Markup markup;
 
-    UnallocatedCaseView unallocatedCaseView;
+    Homepage homepage;
+
+    AccordionDCU accordionDCU;
 
     AccordionMPAM accordionMPAM;
 
-    Markup markup;
-
-    PeopleTab peopleTab;
-
-    @FindBy(xpath = "//h1[text()='Search']")
-    public WebElementFacade searchPageTitle;
+    UnallocatedCaseView unallocatedCaseView;
 
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
@@ -87,9 +83,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(css = "tr:first-child a[class*='govuk-link']")
-    public WebElementFacade topSearchResultCaseReference;
-
     @FindBy(css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
@@ -99,7 +92,7 @@ public class Search extends BasePage {
     @FindBy(id = "RefType")
     public WebElementFacade mpamRefTypeDropdown;
 
-    @FindBy(xpath = "//input[@id='react-select-2-input']")
+    @FindBy(xpath = "//input[@id='react-select-3-input']")
     public WebElementFacade memberOfParliamentSearchBox;
 
     @FindBy(id = "correspondentReference")
@@ -126,17 +119,9 @@ public class Search extends BasePage {
     @FindBy(id = "OfficialEngagement")
     public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
 
-    public void performSearch() {
-        safeClickOn(searchButton);
-        assertOnSearchPage();
-    }
-
-    //DCU Methods
+    //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
-        String dd;
-        String mm;
-        String yyyy;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -155,21 +140,11 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedAfterDayTextbox, dd);
-                typeInto(receivedAfterMonthTextbox, mm);
-                typeInto(receivedAfterYearTextbox, yyyy);
+                typeIntoDateField(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedBeforeDayTextbox, dd);
-                typeInto(receivedBeforeMonthTextbox, mm);
-                typeInto(receivedBeforeYearTextbox, yyyy);
+                typeIntoDateField(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "CORRESPONDENT NAME":
@@ -190,6 +165,7 @@ public class Search extends BasePage {
                 if (value.toUpperCase().equals("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
+                setSessionVariable("searchActiveCases").to(value);
                 break;
             case "HOME SECRETARY INTEREST":
                 if (value.toUpperCase().equals("YES")) {
@@ -201,61 +177,7 @@ public class Search extends BasePage {
         }
     }
 
-    public void getCaseReferenceOfFirstAndLastSearchResults() {
-        List<WebElement> allCaseReferences = getDriver().findElements(By.cssSelector("a[class*='govuk-link']"));
-        setSessionVariable("firstSearchResultCaseReference").to(allCaseReferences.get(0).getText());
-        setSessionVariable("lastSearchResultCaseReference").to(allCaseReferences.get(allCaseReferences.size() - 1).getText());
-    }
-
-    private boolean checkCaseReceivedDate(String beforeOrAfter, String caseRef, String date) {
-        goHome();
-        homepage.enterCaseReferenceIntoSearchBar(caseRef);
-        homepage.hitEnterCaseReferenceSearchBar();
-        Date searchDate = null;
-        Date caseDate = null;
-        try {
-            searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
-        } catch (ParseException pE) {
-            System.out.println("Could not parse dates");
-        }
-        assert caseDate != null;
-        if (beforeOrAfter.toUpperCase().equals("BEFORE")) {
-            return (caseDate.before(searchDate) || caseDate.equals(searchDate));
-        } else {
-            return (caseDate.after(searchDate) || caseDate.equals(searchDate));
-        }
-    }
-
-    public boolean checkSignOffTeam(String caseRef, String signOffTeam) {
-       String checkSignOff;
-        goHome();
-        homepage.enterCaseReferenceIntoSearchBar(caseRef);
-        homepage.hitEnterCaseReferenceSearchBar();
-        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
-            safeClickOn(accordionDCU.markupAccordionButton);
-            checkSignOff = accordionDCU.privateOfficeTeam.getText();
-        } else if (markup.privateOfficeTeamTextField.isVisible()) {
-            checkSignOff = markup.privateOfficeTeamTextField.getValue();
-        } else {
-            goHome();
-            safeClickOn(homepage.myCases);
-            workstacks.unallocateSelectedCase(caseRef);
-            goHome();
-            homepage.enterCaseReferenceIntoSearchBar(caseRef);
-            homepage.hitEnterCaseReferenceSearchBar();
-            safeClickOn(accordionDCU.markupAccordionButton);
-            checkSignOff = accordionDCU.privateOfficeTeam.getText();
-        }
-        return checkSignOff.contains(signOffTeam);
-    }
-
-    //MPAM Methods
-
     public void enterMPAMSearchCriteria(String criteria, String value) {
-        String dd;
-        String mm;
-        String yyyy;
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 typeInto(caseReferenceSearchBox, value);
@@ -290,21 +212,11 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedBeforeDayTextbox, dd);
-                typeInto(receivedBeforeMonthTextbox, mm);
-                typeInto(receivedBeforeYearTextbox, yyyy);
+                typeIntoDateField(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                dd = value.split("/")[0];
-                mm = value.split("/")[1];
-                yyyy = value.split("/")[2];
-                typeInto(receivedAfterDayTextbox, dd);
-                typeInto(receivedAfterMonthTextbox, mm);
-                typeInto(receivedAfterYearTextbox, yyyy);
+                typeIntoDateField(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "CAMPAIGN":
@@ -320,10 +232,11 @@ public class Search extends BasePage {
                 if (value.toUpperCase().equals("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
+                setSessionVariable("searchActiveCases").to(value);
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                 telephoneSurgeryOfficialEngagementDropdown.selectByVisibleText(value);
-                setSessionVariable(value).to("searchTelephoneSurgeryOfficialEngagement");
+                setSessionVariable("searchTelephoneSurgeryOfficialEngagement").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -365,21 +278,17 @@ public class Search extends BasePage {
 
     //Assertions
 
-    public void assertCaseTypeIsOnlyTypeVisible(String caseType) {
-        List<WebElementFacade> caseList = findAll("//a[contains(text(), '" + caseType + "')]");
-        int numberOfDisplayedCases = workstacks.getTotalOfCases();
-        int test = caseList.size();
-        assertThat(caseList.size() == numberOfDisplayedCases, is(true));
-    }
-
-    public void assertThatSearchedCorrespondentNameIsShownInPeopleTab() {
-        String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
-        peopleTab.assertCorrespondentIsAttachedToCase(correspondentName);
-    }
-
-    public void assertThatSearchedTopicNameIsShownInCaseSummary() {
-        String topicNameInSummary = sessionVariableCalled("searchTopic").toString();
-        summaryTab.primaryTopic.shouldContainText(topicNameInSummary);
+    public void assertCurrentCaseIsDisplayed() {
+        int n = 0;
+        List<WebElementFacade> listOfCaseRefs = findAll("//tr[@class='govuk-radios govuk-table__row']//a");
+        while (n < listOfCaseRefs.size()) {
+            String caseRef = listOfCaseRefs.get(n).getText();
+            if (caseRef.contains(sessionVariableCalled("caseReference"))) {
+                listOfCaseRefs.get(n).shouldContainText(sessionVariableCalled("caseReference"));
+                break;
+            }
+            n++;
+        }
     }
 
     public void assertNoSearchCriteriaErrorMessage() {
@@ -399,40 +308,6 @@ public class Search extends BasePage {
         assertThat(tableHeadersContent.contains("Deadline"), is(true));
     }
 
-    public void assertFirstAndLastSearchResultsMatchDateSearchCriteria(String beforeOrAfter, String date) {
-        getCaseReferenceOfFirstAndLastSearchResults();
-        assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("firstSearchResultCaseReference"),
-                date), is(true));
-        assertThat(checkCaseReceivedDate(beforeOrAfter, sessionVariableCalled("lastSearchResultCaseReference"),
-                date), is(true));
-    }
-
-    public void assertNumberOfCasesDisplayed(int number) {
-        String numberOfCasesDisplayed = numberOfSearchResults.getText().split("\\s+")[0];
-        System.out.println("There are " + numberOfCasesDisplayed + " search results");
-        assertThat(number == Integer.parseInt(numberOfCasesDisplayed), is(true));
-    }
-
-    public void assertClosedCaseVisibleIs(Boolean condition) {
-        List closedCases = findAll("//td[2][text() = 'Closed']");
-        assertThat(!closedCases.isEmpty(), is(condition));
-    }
-
-    public void assertActiveCaseVisibleIs(Boolean condition) {
-        List activeCases = findAll("//td[2][not(text() = 'Closed')]");
-        assertThat(!activeCases.isEmpty(), is(condition));
-    }
-
-    public void assertOnSearchPage() {
-        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
-        assertPageTitle("Search Results");
-    }
-
-    public void assertCurrentCaseIsDisplayedInSearchResults() {
-        WebElementFacade currentCase = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
-        assertThat(currentCase.isVisible(), is(true));
-    }
-
     public void assertAllDisplayedCaseRefsContainSubstring() {
         List<WebElementFacade> listOfCaseRefs = findAll("//tr/td[1]");
         String substringInput = sessionVariableCalled("caseReferenceSubstring");
@@ -441,78 +316,164 @@ public class Search extends BasePage {
         }
     }
 
-    public void waitUntilSearchPageLoaded() {
-        searchPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-    }
-
-    private void assertMinisterialSignOffTeamIsCorrect() {
-        String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
-        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
-            accordionMPAM.openCreationAccordion();
-            accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
-            String displayedResponse = sessionVariableCalled("response");
-            assertThat(displayedResponse.contains(ministerialSignOffTeam), is(true));
-        }
-        else {
-            accordionMPAM.openCaseDetailsAccordion();
-            String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
-            assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
-        }
-    }
-
-    public void assertFirstAndLastResultOf(String criteria) {
-        WebElementFacade topSearchResult = findBy("//tr[1]/td/a");
-        setSessionVariable("topSearchResult").to(topSearchResult.getText());
-        WebElementFacade bottomSearchResult = findBy("//tr[" + workstacks.getTotalOfCases() + "]/td/a");
-        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
+    public void assertDCUInformationRandomSearchResult(String criteria) {
+        Date searchDate = null;
+        Date caseDate = null;
+        boolean trueFalse;
+        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
+        WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
+        setSessionVariable("randomCaseRef").to(randomSearchResult.getText());
         switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                List<WebElementFacade> searchResultCaseRefs = findAll("//tr/td/a");
+                assertThat(searchResultCaseRefs.size() == numberOfCasesDisplayed, is(true));
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                safeClickOn(randomSearchResult);
+                try {
+                    searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                } catch (ParseException pE) {
+                    System.out.println("Could not parse dates");
+                }
+                assert caseDate != null;
+                trueFalse = (caseDate.after(searchDate) || caseDate.equals(searchDate));
+                assertThat(trueFalse, is(true));
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                safeClickOn(randomSearchResult);
+                searchDate = null;
+                caseDate = null;
+                try {
+                    searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                } catch (ParseException pE) {
+                    System.out.println("Could not parse dates");
+                }
+                assert caseDate != null;
+                trueFalse = (caseDate.before(searchDate) || caseDate.equals(searchDate));
+                assertThat(trueFalse, is(true));
+                break;
             case "CORRESPONDENT NAME":
-                safeClickOn(topSearchResult);
+                safeClickOn(randomSearchResult);
                 peopleTab.selectPeopleTab();
-                assertThatSearchedCorrespondentNameIsShownInPeopleTab();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                peopleTab.selectPeopleTab();
-                assertThatSearchedCorrespondentNameIsShownInPeopleTab();
+                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("searchCorrespondentName"));
                 break;
             case "TOPIC":
-                safeClickOn(topSearchResult);
+                safeClickOn(randomSearchResult);
                 summaryTab.selectSummaryTab();
-                assertThatSearchedTopicNameIsShownInCaseSummary();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                summaryTab.selectSummaryTab();
-                assertThatSearchedTopicNameIsShownInCaseSummary();
-                break;
-            case "HOME SEC INTEREST":
-                safeClickOn(topSearchResult);
-                summaryTab.selectSummaryTab();
-                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                summaryTab.selectSummaryTab();
-                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                summaryTab.primaryTopic.shouldContainText(sessionVariableCalled("searchTopic"));
                 break;
             case "SIGN OFF TEAM":
-                getCaseReferenceOfFirstAndLastSearchResults();
-                assertThat(checkSignOffTeam(sessionVariableCalled("firstSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")),
-                        is(true));
-                assertThat(checkSignOffTeam(sessionVariableCalled("lastSearchResultCaseReference"), sessionVariableCalled("searchSignOffTeam")), is(true));
+                String checkSignOff;
+                safeClickOn(randomSearchResult);
+                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    safeClickOn(accordionDCU.markupAccordionButton);
+                    checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
+                } else if (markup.privateOfficeTeamTextField.isVisible()) {
+                    checkSignOff = markup.privateOfficeTeamTextField.getValue().toUpperCase().split(": ")[1];
+                } else {
+                    goHome();
+                    safeClickOn(homepage.myCases);
+                    workstacks.unallocateSelectedCase(sessionVariableCalled("randomCaseRef"));
+                    goHome();
+                    homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
+                    homepage.hitEnterCaseReferenceSearchBar();
+                    safeClickOn(accordionDCU.markupAccordionButton);
+                    checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
+                }
+                assertThat(checkSignOff.equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()), is(true));
+                break;
+            case "ACTIVE CASES ONLY":
+                List activeCases = findAll("//td[2][not(text() = 'Closed')]");
+                if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
+                    assertThat(!activeCases.isEmpty(), is(true));
+                }
+                break;
+            case "HOME SECRETARY INTEREST":
+                safeClickOn(randomSearchResult);
+                summaryTab.selectSummaryTab();
+                assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertMPAMInformationRandomSearchResult(String criteria) {
+        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
+        WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                String caseRef;
+                safeClickOn(randomSearchResult);
+                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    caseRef = caseReference.getText();
+                } else {
+                    caseRef = allocatedCaseReference.getText();
+                }
+                assertThat(caseRef.equals("searchCaseReference"), is(true));
+                break;
+            case "REFERENCE TYPE":
+                safeClickOn(randomSearchResult);
+                safeClickOn(summaryTab.summaryTab);
+                summaryTab.isMinisterialResponseRequired.shouldContainText(sessionVariableCalled("searchReferenceType"));
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
-                getCaseReferenceOfFirstAndLastSearchResults();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("firstSearchResultCaseReference"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                assertMinisterialSignOffTeamIsCorrect();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("lastSearchResultCaseReference"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                assertMinisterialSignOffTeamIsCorrect();
+                safeClickOn(randomSearchResult);
+                String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
+                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    accordionMPAM.openCreationAccordion();
+                    accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
+                    String displayedResponse = sessionVariableCalled("response");
+                    assertThat(displayedResponse.contains(ministerialSignOffTeam), is(true));
+                }
+                else {
+                    accordionMPAM.openCaseDetailsAccordion();
+                    String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
+                    assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
+                }
                 break;
+            case "MEMBER OF PARLIAMENT NAME":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertMPCorrespondentIsAddedToTheCase(sessionVariableCalled("searchMemberOfParliamentName"));
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                safeClickOn(randomSearchResult);
+                peopleTab.selectPeopleTab();
+                WebElementFacade correspondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                correspondentRefNumber.shouldContainText(sessionVariableCalled("searchCorrespondentReferenceNumber"));
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+            case "RECEIVED ON OR AFTER DATE":
+                assertDCUInformationRandomSearchResult(criteria);
+                break;
+            case "CAMPAIGN":
+                safeClickOn(randomSearchResult);
+                safeClickOn(summaryTab.summaryTab);
+                summaryTab.assertCampaignInSummaryTabIsCorrect(sessionVariableCalled("searchCampaign"));
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
+                break;
+            case "ACTIVE CASES ONLY":
+                List activeCases = findAll("//td[2][not(text() = 'Closed')]");
+                if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
+                    assertThat(!activeCases.isEmpty(), is(true));
+                }
+                break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                safeClickOn(randomSearchResult);
+                safeClickOn(summaryTab.summaryTab);
+                summaryTab.telephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("searchTelephoneSurgeryOfficialEngagement"));
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
         }
     }
 }

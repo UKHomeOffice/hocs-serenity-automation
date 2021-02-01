@@ -204,13 +204,17 @@ public class DataInput extends BasePage {
         safeClickOn(finishButton);
     }
 
-    public void completeDataInputStageWithHomeSecInterestNo() {
+    public void completeDataInputStageSpecifyingHomeSecInterest(boolean interest) {
         typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(-2));
         typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField, getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        safeClickOn(homeSecInterestNoRadioButton);
+        if (interest) {
+            safeClickOn(homeSecInterestYesRadioButton);
+        } else {
+            safeClickOn(homeSecInterestNoRadioButton);
+        }
         safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();
         safeClickOn(finishButton);

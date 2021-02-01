@@ -83,6 +83,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade mpamDeadlineDate;
 
+    @FindBy(xpath = "//th[contains(text(), 'Ministerial response')]/following-sibling::td")
+    public WebElementFacade isMinisterialResponseRequired;
+
     @FindBy(xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
     private WebElementFacade contributionRequestDeadline;
 
@@ -94,6 +97,9 @@ public class SummaryTab extends BasePage {
 
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
+
+    @FindBy(xpath = "//th[contains(text(), 'Official Engagement')]/following-sibling::td")
+    public WebElementFacade telephoneSurgeryOfficialEngagement;
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
@@ -126,10 +132,9 @@ public class SummaryTab extends BasePage {
         return areDatesEqual && areDaysEqual;
     }
 
-    public void assertCampaignMatchesInputInSummaryTab() {
-        String inputCampaign = sessionVariableCalled("campaign");
-        String displayedCampaign = campaign.getText();
-        assertThat(inputCampaign.equals(displayedCampaign), is(true));
+    public void assertCampaignInSummaryTabIsCorrect(String input) {
+        String displayedCampaign = campaign.getText().toUpperCase();
+        assertThat(input.toUpperCase().equals(displayedCampaign), is(true));
     }
 
     public void assertDeadlineDateOfStage(String caseType, String stage) {

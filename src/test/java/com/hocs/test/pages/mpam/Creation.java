@@ -260,6 +260,18 @@ public class Creation extends BasePage {
         clickTheButton("Move to Triage");
     }
 
+    public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {
+        selectBusinessArea("UKVI");
+        selectRefType("Ministerial");
+        selectMinisterialSignOffTeam("Home Secretary");
+        selectAddressee("Home Secretary");
+        selectInboundChannel("Email");
+        selectUrgency("Standard");
+        safeClickOn(continueButton);
+        addCorrespondent.addAMemberCorrespondent(correspondent);
+        clickTheButton("Move to Triage");
+    }
+
     public void assertMPCorrespondentIsRequiredScreenIsDisplayed() {
         waitForAnyTextToAppear("A Member of Parliament is mandatory");
         pageTitle.shouldContainText("A Member of Parliament is mandatory");

@@ -18,6 +18,7 @@ import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Random;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
@@ -32,15 +33,11 @@ public class SearchStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    SummaryTab summaryTab;
-
-    PeopleTab peopleTab;
-
     UnallocatedCaseView unallocatedCaseView;
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        search.performSearch();
+        safeClickOn(search.searchButton);
     }
 
     @Then("an error message should be displayed as I have not entered any search criteria")
@@ -87,151 +84,41 @@ public class SearchStepDefs extends BasePage {
         homepage.assertCaseReferenceIsRequiredErrorMessage();
     }
 
-    @And("I enter {string} into the {string} search criteria for DCU")
+    @And("I enter {string} into the {string} DCU search criteria")
     public void enterIntoTheSearchCriteria(String value, String criteria) {
+        setSessionVariable("searchCriteria").to(criteria);
+        setSessionVariable("searchValue").to(value);
         search.enterDCUSearchCriteria(criteria, value);
     }
 
-    @Then("the {string} of the search results should be {string}")
-    public void assertThatSearchResultsContainCorrectValue(String dataType, String dataValue) {
-        switch (dataType.toUpperCase()) {
-            case "CASE TYPE":
-                search.assertCaseTypeIsOnlyTypeVisible(dataValue);
-                break;
-            case "RECEIVED ON OR BEFORE DATE":
-                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("Before", dataValue);
-                break;
-            case "RECEIVED ON OR AFTER DATE":
-                search.assertFirstAndLastSearchResultsMatchDateSearchCriteria("After", dataValue);
-                break;
-            case "CORRESPONDENT NAME":
-            case "TOPIC":
-            case "HOME SEC INTEREST":
-            case "SIGN OFF TEAM":
-            case "MINISTERIAL SIGN OFF TEAM":
-                search.assertFirstAndLastResultOf(dataType);
-                break;
-            default:
-                pendingStep(dataType + " is not defined within " + getMethodName());
-        }
-    }
-
-    @And("I click the case reference link of the first case in the results list")
-    public void iClickTheCaseReferenceLinkOfTheFirstCaseInTheResultsList() {
-        setSessionVariable("caseReference").to(search.topSearchResultCaseReference.getText());
-        safeClickOn(search.topSearchResultCaseReference);
+    @Then("I check that the DCU search results have the correct {string}")
+    public void assertThatSearchResultsContainCorrectValue(String dataType) {
+        search.assertDCUInformationRandomSearchResult(dataType);
     }
 
     @Then("the search results should contain the expected information")
     public void theSearchResultsShouldContainTheExpectedInformation() {
         search.assertExpectedTablesHeadersPresent();
-
     }
 
-    @Then("cases received on or {string} {string} should be displayed")
-    public void casesReceivedOnOrShouldBeDisplayed(String beforeOrAfter, String date) {
-        search.assertFirstAndLastSearchResultsMatchDateSearchCriteria(beforeOrAfter, date);
-    }
-
-    @Then("{int} cases should be displayed")
-    public void casesShouldBeDisplayed(int number) {
-        search.assertNumberOfCasesDisplayed(number);
-    }
-
-    @Then("the created case should be visible in the search results")
-    public void theCreatedCaseShouldBeIncludedInTheSearchResults() {
+    @Then("the created DCU case should be visible in the search results")
+    public void theCreatedDCUCaseShouldBeVisibleInTheSearchResults() {
         int retest = 0;
         while (retest < 5) {
             try {
-                search.assertCurrentCaseIsDisplayedInSearchResults();
+                search.assertCurrentCaseIsDisplayed();
                 break;
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(homepage.searchPage);
-                search.enterDCUSearchCriteria("Topic", sessionVariableCalled("searchTopic"));
+                search.enterDCUSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
                 safeClickOn(searchButton);
             }
         }
-        search.assertCurrentCaseIsDisplayedInSearchResults();
+        search.assertCurrentCaseIsDisplayed();
     }
 
-    @Then("both active and closed cases will be returned in the search results")
-    public void bothActiveAndClosedCasesWillBeReturnedInTheSearchResults() {
-        search.assertActiveCaseVisibleIs(true);
-        search.assertClosedCaseVisibleIs(true);
-    }
-
-
-    @And("I select active cases")
-    public void iSelectActiveCases() {
-        safeClickOn(search.caseStatusActiveCheckbox);
-    }
-
-    @Then("Only active cases will be returned in the search results")
-    public void onlyActiveCasesWillBeReturnedInTheSearchResults() {
-        search.assertActiveCaseVisibleIs(true);
-        search.assertClosedCaseVisibleIs(false);
-    }
-
-    @Then("cases with the queried Sign-off Team should be displayed in the results list")
-    public void casesWithTheQueriedSignOffTeamShouldBeDisplayedInTheResultsList() {
-        int retry = 0;
-        while (retry < 5) {
-            try {
-                search.assertCurrentCaseIsDisplayedInSearchResults();
-                break;
-            } catch (AssertionError e) {
-                waitABit(7500);
-                retry++;
-                safeClickOn(homepage.searchPage);
-                enterIntoTheSearchCriteria("MIN", "Case Type");
-                enterIntoTheSearchCriteria(sessionVariableCalled("searchSignOffTeam"), "Sign Off Team");
-                search.performSearch();
-            }
-        }
-        search.assertCurrentCaseIsDisplayedInSearchResults();
-    }
-
-    @And("I look for the current case that was received on or before the date searched")
-    public void lookForTheCurrentCaseInTheSearchResultsBeforeDate() {
-        int retry = 0;
-        String caseType = sessionVariableCalled("searchCaseType");
-        while (retry < 5) {
-            try {
-                search.assertCurrentCaseIsDisplayedInSearchResults();
-                break;
-            } catch (AssertionError aE) {
-                waitABit(7500);
-                retry++;
-                safeClickOn(homepage.searchPage);
-                enterIntoTheSearchCriteria(caseType, "Case Type");
-                enterIntoTheSearchCriteria("01/01/2019", "Received On Or Before Date");
-                search.performSearch();
-            }
-        }
-        search.assertCurrentCaseIsDisplayedInSearchResults();
-    }
-    @And("I look for the current case that was received on or after the date searched")
-    public void lookForTheCurrentCaseInTheSearchResultsAfterDate() {
-        int retry = 0;
-        String afterDateCaseType = sessionVariableCalled("searchCaseType");
-        while (retry < 5) {
-            try {
-                search.assertCurrentCaseIsDisplayedInSearchResults();
-                break;
-            } catch (AssertionError aE) {
-                waitABit(7500);
-                retry++;
-                safeClickOn(homepage.searchPage);
-                enterIntoTheSearchCriteria(afterDateCaseType, "Case Type");
-                enterIntoTheSearchCriteria("22/09/2020", "Received On Or After Date");
-                search.performSearch();
-            }
-        }
-        search.assertCurrentCaseIsDisplayedInSearchResults();
-    }
-
-    @And("I search for an UKVI case with {string} as it's {string}")
+    @And("I enter {string} into the {string} UKVI search criteria")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
         if (search.mpamCaseCheckbox.isVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
@@ -241,91 +128,12 @@ public class SearchStepDefs extends BasePage {
         }
         search.enterMPAMSearchCriteria(infoType, infoValue);
         setSessionVariable("infoValue").to(infoValue);
-        safeClickOn(searchButton);
+        setSessionVariable("infoType").to(infoType);
     }
 
     @And("I check that the UKVI search results have the correct {string}")
     public void checkMPAMCaseHasCorrect(String infoType) {
-        WebElementFacade topSearchResult = findBy("//tr[1]/td/a[contains(text(), 'MPAM') or contains(text(), 'MTS')]");
-        setSessionVariable("topSearchResult").to(topSearchResult.getText());
-        WebElementFacade bottomSearchResult = findBy(
-                "//tr[" + workstacks.getTotalOfCases() + "]/td/a[contains(text(), 'MPAM') or contains(text(), 'MTS')]");
-        setSessionVariable("bottomSearchResult").to(bottomSearchResult.getText());
-        switch (infoType.toUpperCase()) {
-            case "REFERENCE TYPE":
-                safeClickOn(topSearchResult);
-                summaryTab.selectSummaryTab();
-                WebElementFacade firstRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
-                firstRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
-                homepage.goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                summaryTab.selectSummaryTab();
-                WebElementFacade secondRefTypeResponse = findBy("//th[contains(text(), 'Ministerial response')]/following-sibling::td");
-                secondRefTypeResponse.shouldContainText(sessionVariableCalled("infoValue"));
-                break;
-            case "MEMBER OF PARLIAMENT NAME":
-                safeClickOn(topSearchResult);
-                peopleTab.selectPeopleTab();
-                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("infoValue"));
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                peopleTab.selectPeopleTab();
-                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("infoValue"));
-                break;
-            case "CORRESPONDENT REFERENCE NUMBER":
-                safeClickOn(topSearchResult);
-                peopleTab.selectPeopleTab();
-                WebElementFacade firstCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
-                firstCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
-                homepage.goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                peopleTab.selectPeopleTab();
-                WebElementFacade secondCorrespondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
-                secondCorrespondentRefNumber.shouldContainText(sessionVariableCalled("infoValue"));
-                break;
-            case "CAMPAIGN":
-                safeClickOn(topSearchResult);
-                summaryTab.selectSummaryTab();
-                WebElementFacade firstCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
-                firstCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
-                homepage.goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                summaryTab.selectSummaryTab();
-                WebElementFacade secondCaseCampaign = findBy("//th[text()='Campaign']/following-sibling::td");
-                secondCaseCampaign.shouldContainText(sessionVariableCalled("infoValue"));
-                break;
-            case "MINISTERIAL SIGN OFF TEAM":
-                search.assertFirstAndLastResultOf(infoType);
-                break;
-            case "PUBLIC CORRESPONDENT NAME":
-                safeClickOn(topSearchResult);
-                peopleTab.selectPeopleTab();
-                search.assertThatSearchedCorrespondentNameIsShownInPeopleTab();
-                goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.hitEnterCaseReferenceSearchBar();
-                peopleTab.selectPeopleTab();
-                search.assertThatSearchedCorrespondentNameIsShownInPeopleTab();
-                break;
-            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                safeClickOn(topSearchResult);
-                summaryTab.selectSummaryTab();
-                WebElementFacade firstCaseTelephoneSurgeryOfficialEngagement = findBy("//th[text()='Telephone Surgery Official Engagement']/following-sibling::td");
-                firstCaseTelephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("infoValue"));
-                homepage.goHome();
-                homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("bottomSearchResult"));
-                homepage.caseReferenceSearchBar.sendKeys(Keys.ENTER);
-                summaryTab.selectSummaryTab();
-                WebElementFacade secondCaseTelephoneSurgeryOfficialEngagement = findBy("//th[text()='Telephone Surgery Official Engagement']/following-sibling::td");
-                secondCaseTelephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("infoValue"));
-                break;
-            default:
-                pendingStep(infoType + " is not defined within " + getMethodName());
-        }
+        search.assertMPAMInformationRandomSearchResult(infoType);
     }
 
     @And("I search for a case by it's case reference")
@@ -335,23 +143,29 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("the one created case should be displayed")
-    public void createdCaseShouldBeDisplayed(){
+    @And("the created MPAM case should be visible in the search results")
+    public void createdMPAMCaseShouldBeVisibleInTheSearchResults(){
         int numberOfResults = workstacks.getTotalOfCases();
         int retest = 0;
         while (retest < 5) {
             try {
-                search.assertCurrentCaseIsDisplayedInSearchResults();
+                search.assertCurrentCaseIsDisplayed();
                 assertThat(numberOfResults == 1, is(true));
                 break;
             } catch (AssertionError a) {
                 retest ++;
                 safeClickOn(homepage.searchPage);
-                searchForMPAMCaseWith(sessionVariableCalled("caseReference"), "Case Reference");
+                searchForMPAMCaseWith(sessionVariableCalled("infoType"), "infoValue");
                 safeClickOn(searchButton);
             }
         }
-        search.assertCurrentCaseIsDisplayedInSearchResults();
+        search.assertCurrentCaseIsDisplayed();
+    }
+
+    @And("I click the case reference of the case in search results")
+    public void iClickTheReferenceOfARandomSearchResult() {
+        WebElementFacade caseReference = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
+        safeClickOn(caseReference);
     }
 
     @And("I search for a case using a random substring of a case reference")
@@ -364,8 +178,10 @@ public class SearchStepDefs extends BasePage {
         search.assertAllDisplayedCaseRefsContainSubstring();
     }
 
-    @Then("the first and last search results are of interest to the Home Secretary")
-    public void assertFirstAndLastSearchResultAreHomeSecInterest() {
-        search.assertFirstAndLastResultOf("Home Sec Interest");
+    @Then("{int} cases should be displayed")
+    public void numberOfCasesShouldBeDisplayed(int number) {
+        int numberOfCasesDisplayed = Integer.parseInt(search.numberOfSearchResults.getText().split("\\s+")[0]);
+        assertThat(number == numberOfCasesDisplayed, is(true));
     }
+
 }
