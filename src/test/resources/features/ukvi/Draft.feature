@@ -1,5 +1,5 @@
 @Drafting @UKVI
-Feature: Drafting
+Feature: Draft
 
   Background:
     Given I log in to DECS
@@ -21,7 +21,7 @@ Feature: Drafting
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
-    When I create a MPAM case  with "UKVI" as the Business Area and "Official" as the Reference Type and move it to the "Draft" stage
+    When I create a MPAM case  with "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
@@ -104,7 +104,6 @@ Feature: Drafting
     | moveTo                  | draftStage                    |
     | On Hold                 | Draft-On Hold                 |
     | Workflow Manager        | Draft-Escalated               |
-    | Contribution Requested  | Draft-Contribution Requested  |
 
   @UKVIRegression
   Scenario: User rejects a case at Draft back to Triage

@@ -3,23 +3,15 @@ package com.hocs.test.pages;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 import config.User;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.screenplay.actions.Switch;
-import org.hamcrest.core.Is;
 
 public class SummaryTab extends BasePage {
 
@@ -330,11 +322,6 @@ public class SummaryTab extends BasePage {
         String businessArea = sessionVariableCalled("businessArea");
         String refType = sessionVariableCalled("refType");
         assertThat(activeTeam.contains(businessArea) && activeTeam.contains(refType), is(true));
-    }
-
-    public void assertContributionRequestDeadlineVisible() {
-        String deadline = sessionVariableCalled("requestDeadline");
-        assertThat(contributionRequestDeadline.getText().contains(deadline), is(true));
     }
 
     public void assertFollowUpDueDateVisible() {
