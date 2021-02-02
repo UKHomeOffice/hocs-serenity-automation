@@ -3,23 +3,15 @@ package com.hocs.test.pages;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 import config.User;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.screenplay.actions.Switch;
-import org.hamcrest.core.Is;
 
 public class SummaryTab extends BasePage {
 
@@ -91,6 +83,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade mpamDeadlineDate;
 
+    @FindBy(xpath = "//th[contains(text(), 'Ministerial response')]/following-sibling::td")
+    public WebElementFacade isMinisterialResponseRequired;
+
     @FindBy(xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
     private WebElementFacade contributionRequestDeadline;
 
@@ -102,6 +97,9 @@ public class SummaryTab extends BasePage {
 
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
+
+    @FindBy(xpath = "//th[contains(text(), 'Official Engagement')]/following-sibling::td")
+    public WebElementFacade telephoneSurgeryOfficialEngagement;
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
@@ -134,10 +132,9 @@ public class SummaryTab extends BasePage {
         return areDatesEqual && areDaysEqual;
     }
 
-    public void assertCampaignMatchesInputInSummaryTab() {
-        String inputCampaign = sessionVariableCalled("campaign");
-        String displayedCampaign = campaign.getText();
-        assertThat(inputCampaign.equals(displayedCampaign), is(true));
+    public void assertCampaignInSummaryTabIsCorrect(String input) {
+        String displayedCampaign = campaign.getText().toUpperCase();
+        assertThat(input.toUpperCase().equals(displayedCampaign), is(true));
     }
 
     public void assertDeadlineDateOfStage(String caseType, String stage) {
@@ -325,11 +322,6 @@ public class SummaryTab extends BasePage {
         String businessArea = sessionVariableCalled("businessArea");
         String refType = sessionVariableCalled("refType");
         assertThat(activeTeam.contains(businessArea) && activeTeam.contains(refType), is(true));
-    }
-
-    public void assertContributionRequestDeadlineVisible() {
-        String deadline = sessionVariableCalled("requestDeadline");
-        assertThat(contributionRequestDeadline.getText().contains(deadline), is(true));
     }
 
     public void assertFollowUpDueDateVisible() {

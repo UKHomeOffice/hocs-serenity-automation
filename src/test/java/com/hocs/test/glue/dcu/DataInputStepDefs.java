@@ -270,10 +270,10 @@ public class DataInputStepDefs extends BasePage {
         setSessionVariable("homeSecInterest").to(interest);
         switch (interest.toUpperCase()) {
             case "YES":
-                dataInput.moveCaseFromDataInputToMarkup();
+                dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
                 break;
             case "NO":
-                dataInput.completeDataInputStageWithHomeSecInterestNo();
+                dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
                 break;
             default:
                 pendingStep(interest + " is not defined within " + getMethodName());

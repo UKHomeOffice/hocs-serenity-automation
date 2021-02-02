@@ -49,7 +49,7 @@ Feature: PrivateOffice
     And I enter follow-up details and confirm
     Then the follow-up due date should be visible in the "Private Office" workstack
     And the case should be moved to the "Dispatched (follow-up)" stage
-    And the case should be allocated to me in the summary
+    And the case "should" be allocated to me in the summary
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 

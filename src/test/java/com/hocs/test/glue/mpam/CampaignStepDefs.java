@@ -37,6 +37,6 @@ public class CampaignStepDefs extends BasePage {
     @Then("the correct Campaign is displayed in the summary tab")
     public void correctCampaignDisplayedInSummaryTab() {
         summaryTab.selectSummaryTab();
-        summaryTab.assertCampaignMatchesInputInSummaryTab();
+        summaryTab.assertCampaignInSummaryTabIsCorrect(sessionVariableCalled("campaign"));
     }
 }

@@ -8,13 +8,13 @@ Feature: ManagementUI
     When I navigate to the "<pageType>" Management page
     Then I should be taken to the "<pageType>" Management page
     Examples:
-      | pageType                 |
-      | ADD A STANDARD LINE      |
-      | TEAM                     |
-      | ADD CHILD TOPIC          |
-      | LINK TOPIC TO TEAM       |
-      | ADD A UNIT               |
-      | VIEW UNITS               |
+      | pageType            |
+      | ADD A STANDARD LINE |
+      | TEAM                |
+      | ADD CHILD TOPIC     |
+      | LINK TOPIC TO TEAM  |
+      | ADD A UNIT          |
+      | VIEW UNITS          |
 
   @TeamManagement @OtherTests
   Scenario: User can not see any assigned users if team does not have any
@@ -81,16 +81,19 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then an error message should be displayed as all Standard Line information has not been added
 
+  @ManageStandardLines
   Scenario: User is able to filter the standard lines on the manage standard lines screen
     And I navigate to the "Manage Standard Lines" Management page
     And I enter "Animal" into the standard line filter
     Then the standard lines in the "Topic" column should contain "Animal"
 
+  @ManageStandardLines @DCURegression
   Scenario: User is able to amend the expiry date of a standard line
     And I navigate to the "Manage Standard Lines" Management page
     And I amend the expiry date of the "Animal alternatives (3Rs)" standard line to 5 days from today
     Then the standard line expiry date has been correctly amended
 
+  @ManageStandardLines @DCURegression
   Scenario: User is able to delete a standard line
     And I navigate to the "ADD A STANDARD LINE" Management page
     And I add a new Standard Line with "101 non-emergency number (cost)" as the topic
@@ -99,13 +102,14 @@ Feature: ManagementUI
     And I select the checkbox to include expired standard lines
     Then the standard line "isn't" visible
 
-    Scenario: User is able to expire a standard line
-      And I navigate to the "Add a Standard Line" Management page
-      And I add a new Standard Line with "101 non-emergency number (cost)" as the topic
-      When I select the "Expire" action for the "101 non-emergency number (cost)" standard line
-      And the standard line "isn't" visible
-      And I select the checkbox to include expired standard lines
-      Then the standard line "is" visible
+  @ManageStandardLines @DCURegression
+  Scenario: User is able to expire a standard line
+    And I navigate to the "Add a Standard Line" Management page
+    And I add a new Standard Line with "101 non-emergency number (cost)" as the topic
+    When I select the "Expire" action for the "101 non-emergency number (cost)" standard line
+    And the standard line "isn't" visible
+    And I select the checkbox to include expired standard lines
+    Then the standard line "is" visible
 
   @UnitManagement @Validation
   Scenario: User must enter a display name and short code on the add unit page
