@@ -18,8 +18,6 @@ public class MultipleContributions extends BasePage {
 
     Campaign campaign;
 
-    Triage triage;
-
     @FindBy(xpath = "//label[text()='Request contributions']")
     public WebElementFacade requestContributionsRadioButton;
 

@@ -35,6 +35,12 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='BusArea-Coronavirus']")
     public WebElementFacade businessAreaCoronavirusRadioButton;
 
+    @FindBy(css = "label[for='BusArea-TransferToOgd']")
+    public WebElementFacade businessAreaTransferToOGDRadioButton;
+
+    @FindBy(css = "label[for='BusArea-TransferToOther']")
+    public WebElementFacade businessAreaTransferToOtherRadioButton;
+
     @FindBy(css = "label[for='RefType-Ministerial']")
     public WebElementFacade refTypeMRefRadioButton;
 
@@ -86,6 +92,11 @@ public class Creation extends BasePage {
     @FindBy(id = "Addressee")
     public WebElementFacade addresseeDropdown;
 
+    @FindBy(id = "TransferToOgdText")
+    public WebElementFacade reasonForTransferToOGDTextField;
+
+    @FindBy(id = "TransferToOtherText")
+    public WebElementFacade reasonForTransferToOtherTextField;
 
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
@@ -118,6 +129,12 @@ public class Creation extends BasePage {
                 break;
             case "CORONAVIRUS":
                 safeClickOn(businessAreaCoronavirusRadioButton);
+                break;
+            case "TRANSFER TO OGD":
+                safeClickOn(businessAreaTransferToOGDRadioButton);
+                break;
+            case "TRANSFER TO OTHER":
+                safeClickOn(businessAreaTransferToOtherRadioButton);
                 break;
             default:
                 pendingStep(businessArea + " is not defined within " + getMethodName());
@@ -270,6 +287,19 @@ public class Creation extends BasePage {
         safeClickOn(continueButton);
         addCorrespondent.addAMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");
+    }
+
+    public void transferCaseToStage(String stage) {
+        selectBusinessArea("Transfer to " + stage);
+        if (stage.toUpperCase().equals("OGD")) {
+            typeInto(reasonForTransferToOGDTextField, "Test");
+        } else if (stage.toUpperCase().equals("OTHER")) {
+            typeInto(reasonForTransferToOtherTextField, "Test");
+        }
+        selectInboundChannel("Email");
+        safeClickOn(continueButton);
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        clickTheButton("Move to Transfer");
     }
 
     public void assertMPCorrespondentIsRequiredScreenIsDisplayed() {
