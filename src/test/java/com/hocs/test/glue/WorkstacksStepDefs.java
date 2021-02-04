@@ -11,6 +11,7 @@ import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
+
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -431,4 +432,9 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertExpectedColumnsPresent(workstack);
     }
 
+
+    @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
+    public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {
+        workstacks.assertTransferDueDateOfCurrentCase();
+    }
 }

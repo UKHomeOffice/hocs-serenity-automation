@@ -35,6 +35,12 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='BusArea-Coronavirus']")
     public WebElementFacade businessAreaCoronavirusRadioButton;
 
+    @FindBy(css = "label[for='BusArea-TransferToOgd']")
+    public WebElementFacade businessAreaTransferToOGDRadioButton;
+
+    @FindBy(css = "label[for='BusArea-TransferToOther']")
+    public WebElementFacade businessAreaTransferToOtherRadioButton;
+
     @FindBy(css = "label[for='RefType-Ministerial']")
     public WebElementFacade refTypeMRefRadioButton;
 
@@ -86,7 +92,6 @@ public class Creation extends BasePage {
     @FindBy(id = "Addressee")
     public WebElementFacade addresseeDropdown;
 
-
     public void completeRequiredQuestions() {
         selectBusinessArea("UKVI");
         selectRefType("Ministerial");
@@ -118,6 +123,12 @@ public class Creation extends BasePage {
                 break;
             case "CORONAVIRUS":
                 safeClickOn(businessAreaCoronavirusRadioButton);
+                break;
+            case "TRANSFER TO OGD":
+                safeClickOn(businessAreaTransferToOGDRadioButton);
+                break;
+            case "TRANSFER TO OTHER":
+                safeClickOn(businessAreaTransferToOtherRadioButton);
                 break;
             default:
                 pendingStep(businessArea + " is not defined within " + getMethodName());

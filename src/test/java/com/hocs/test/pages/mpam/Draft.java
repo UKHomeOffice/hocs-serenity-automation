@@ -13,8 +13,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends BasePage {
 
-    Homepage homepage;
-
     @FindBy(css = "label[for='ChannelOut-Email']")
     private WebElementFacade responseChannelEmailRadioButton;
 

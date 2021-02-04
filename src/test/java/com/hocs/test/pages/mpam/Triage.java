@@ -81,6 +81,9 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
+    @FindBy(xpath = "//label[text()='Confirm']")
+    public WebElementFacade confirmRadioButton;
+
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
     public void moveCaseFromTriageToDraft() {
