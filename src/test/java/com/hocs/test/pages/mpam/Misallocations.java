@@ -72,7 +72,6 @@ public class Misallocations extends BasePage {
                 break;
             case "TRIAGE":
             case "DRAFT":
-                triage.businessUnitDropdown.selectByIndex(1);
                 safeClickOn(confirmRadioButton);
                 safeClickOn(continueButton);
                 break;
