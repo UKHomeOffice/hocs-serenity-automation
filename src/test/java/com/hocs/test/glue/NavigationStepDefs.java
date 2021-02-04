@@ -111,6 +111,9 @@ public class NavigationStepDefs extends BasePage {
             case "MPAM CREATION":
                 safeClickOn((homepage.MPAMCreationTeam));
                 break;
+            case "AWAITING TRANSFER":
+                safeClickOn(homepage.awaitingTransferTeamWorkstack);
+                break;
             default:
                 pendingStep(team + " is not defined within " + getMethodName());
         }

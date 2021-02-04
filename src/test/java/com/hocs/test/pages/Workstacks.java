@@ -718,4 +718,11 @@ public class Workstacks extends BasePage {
         WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
         assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
     }
+
+    public void assertTransferDueDateOfCurrentCase() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
+        waitABit(500);
+        assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
+    }
 }

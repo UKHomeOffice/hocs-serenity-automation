@@ -352,4 +352,9 @@ public class WorkstacksStepDefs extends BasePage {
     public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
         workstacks.assertRejectedFieldOfCurrentCase();
     }
+
+    @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
+    public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {
+        workstacks.assertTransferDueDateOfCurrentCase();
+    }
 }
