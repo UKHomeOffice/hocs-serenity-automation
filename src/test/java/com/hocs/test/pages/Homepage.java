@@ -106,6 +106,9 @@ public class Homepage extends BasePage {
     @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
 
+    @FindBy(xpath = "//span[text()='Awaiting Transfer']")
+    public WebElementFacade awaitingTransferTeamWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {

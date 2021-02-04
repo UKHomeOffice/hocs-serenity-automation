@@ -1,20 +1,20 @@
 package com.hocs.test.glue.mpam;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.mpam.Misallocations;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 public class MisallocationsStepDefs extends BasePage {
 
-    Creation creation;
-
     Misallocations misallocations;
 
-    @And("I select to transfer a case to {string}")
-    public void iSelectToTransferACaseTo(String transferTo) {
-        creation.transferCaseToStage(transferTo);
+    TimelineTab timelineTab;
+
+    @And("I select to transfer a case to {string} at the {string} stage")
+    public void iSelectToTransferACaseTo(String transferTo, String stage) {
+        misallocations.transferCaseFromStageTo(stage, transferTo);
     }
 
     @And("I amend the Transfer due date of the case to {string}")
@@ -35,5 +35,10 @@ public class MisallocationsStepDefs extends BasePage {
     @Then("the Transfer due date of the case should be updated")
     public void theTransferDueDateOfTheCaseShouldBeUpdated() {
         misallocations.assertDueDateHasBeenUpdated();
+    }
+
+    @Then("the reason for transfer is displayed in a case note in the case timeline")
+    public void theReasonForTransferIsDisplayedInACaseNoteInTheCaseTimeline() {
+        timelineTab.assertCaseTransferReason();
     }
 }

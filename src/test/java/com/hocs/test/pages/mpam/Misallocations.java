@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -13,7 +14,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Misallocations extends BasePage {
 
+    AccordionMPAM accordionMPAM;
+
+    AddCorrespondent addCorrespondent;
+
     Creation creation;
+
+    Triage triage;
+
+    @FindBy(id = "TransferToOgdText")
+    public WebElementFacade reasonForTransferToOGDTextField;
+
+    @FindBy(id = "TransferToOtherText")
+    public WebElementFacade reasonForTransferToOtherTextField;
 
     @FindBy(id = "TransferDueDate-day")
     public WebElementFacade transferDueDateDayField;
@@ -32,6 +45,42 @@ public class Misallocations extends BasePage {
 
     @FindBy(xpath = "//label[text()='Transfer Rejected (Move to Triage)']")
     public WebElementFacade transferRejectedMoveToTriageRadioButton;
+
+    @FindBy(xpath = "//label[text()='Confirm']")
+    public WebElementFacade confirmRadioButton;
+
+    public void transferCaseFromStageTo(String stage, String transferTo) {
+        if (stage.toUpperCase().equals("TRIAGE") || stage.toUpperCase().equals("DRAFT")) {
+            accordionMPAM.openCaseDetailsAccordion();
+            safeClickOn(triage.changeBusinessAreaLink);
+            waitABit(500);
+        }
+        creation.selectBusinessArea("Transfer to " + transferTo);
+        if (transferTo.toUpperCase().equals("OGD")) {
+            typeInto(reasonForTransferToOGDTextField, "Test");
+            setSessionVariable("inputReasonForTransfer").to("Test");
+        } else if (transferTo.toUpperCase().equals("OTHER")) {
+            typeInto(reasonForTransferToOtherTextField, "Test");
+            setSessionVariable("inputReasonForTransfer").to("Test");
+        }
+        switch (stage.toUpperCase()) {
+            case "CREATION":
+                creation.selectInboundChannel("Email");
+                safeClickOn(continueButton);
+                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                clickTheButton("Move to Transfer");
+                break;
+            case "TRIAGE":
+            case "DRAFT":
+                triage.businessUnitDropdown.selectByIndex(1);
+                safeClickOn(confirmRadioButton);
+                safeClickOn(continueButton);
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+    }
+
 
     public void updateTransferDueDate(String date) {
         typeIntoDateField(transferDueDateDayField, transferDueDateMonthField, transferDueDateYearField, date);
