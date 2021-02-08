@@ -2,7 +2,7 @@
 Feature: Escalated
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Triage stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage

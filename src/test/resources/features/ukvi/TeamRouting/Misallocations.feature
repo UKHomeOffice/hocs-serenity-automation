@@ -2,7 +2,7 @@
 Feature: Misallocations
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
   Scenario Outline: User can select to Transfer a case from different stages
     When I create a "MPAM" case and move it to the "<stage>" stage

@@ -2,7 +2,7 @@
 Feature: Topics
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DCU_USER"
 
   @DataValidation @Ignore
   Scenario Outline: Topics are assigned to the correct team

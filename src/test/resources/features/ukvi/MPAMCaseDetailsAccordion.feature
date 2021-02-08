@@ -2,7 +2,7 @@
 Feature: MPAM Case Details Accordion
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User completes a stage and checks that the information entered is correct in the case details accordion

@@ -2,7 +2,7 @@
 Feature: Close Case (Telephone)
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User closes a telephone case at different stages

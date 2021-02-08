@@ -2,8 +2,7 @@
 Feature: ManagementUI
 
   Background:
-    Given that I have navigated to the Management UI as the designated user
-
+    Given I log in to "Management UI" as user "DECS_USER"
   Scenario Outline: User navigates to a management page
     When I navigate to the "<pageType>" Management page
     Then I should be taken to the "<pageType>" Management page
@@ -194,7 +193,7 @@ Feature: ManagementUI
   Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
     And I have created a new child topic
     And I have linked teams to the new child topic
-    And I navigate to "HOCS"
+    And I navigate to "DECS"
     And I create a "MIN" case and move it to the "Markup" stage
     And I progress the case to the point of adding a topic
     When I add the new child topic
@@ -203,7 +202,7 @@ Feature: ManagementUI
   @AddChildTopic @Validation
   Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
     And I have created a new child topic
-    And I navigate to "HOCS"
+    And I navigate to "DECS"
     And I create a "MIN" case and move it to the "Markup" stage
     And I progress the case to the point of adding a topic
     When I add the new child topic
@@ -260,7 +259,7 @@ Feature: ManagementUI
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
     And I have created a new child topic
     And I have linked teams to the new child topic
-    And I navigate to "HOCS"
+    And I navigate to "DECS"
     And I create a single "MIN" case and return to the dashboard
     And I complete the Data Input Stage
     When I assign the Topic "NEW CHILD TOPIC"
@@ -269,7 +268,7 @@ Feature: ManagementUI
 
   @LinkTopicToTeam @OtherTests
   Scenario: A topic with existing team links can have those links amended in Management UI
-    Given I navigate to "HOCS"
+    Given I navigate to "DECS"
     And I discover the current default team links for a topic
     And I navigate to "Management UI"
     And I select to amend the team links for the topic
@@ -277,7 +276,7 @@ Feature: ManagementUI
     And I select a different "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     And I click the "Submit" button
     And I click the "Submit" button
-    When I check the default team links in HOCS again
+    When I check the default team links in DECS again
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
@@ -321,7 +320,7 @@ Feature: ManagementUI
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
-    And I navigate to "HOCS"
+    And I navigate to "DECS"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
     And I add the case to the new campaign

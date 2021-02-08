@@ -11,7 +11,6 @@ import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
-
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -412,18 +411,20 @@ public class WorkstacksStepDefs extends BasePage {
                 break;
             case "CAMPAIGN":
             case "TRIAGE":
-            case "DRAFTING":
+            case "DRAFT":
             case "CREATION":
                 setSessionVariable("businessArea").to("UKVI");
                 setSessionVariable("refType").to("MINISTERIAL");
                 try {
-                    homepage.selectCorrectMPAMTeamByStage("workstack");
+                    homepage.selectCorrectMPAMTeamByStage(workstack);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", "workstack");
+                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", workstack);
                     goHome();
-                    homepage.selectCorrectMPAMTeamByStage("workstack");
+                    homepage.selectCorrectMPAMTeamByStage(workstack);
                 }
                 break;
+            default:
+                pendingStep(workstack + " is not defined within " + getMethodName());
         }
     }
 

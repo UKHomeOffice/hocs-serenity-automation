@@ -2,7 +2,7 @@
 Feature: DCU Search
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DCU_USER"
 
   @DCURegression
   Scenario Outline: User tests DCU search criteria
@@ -64,9 +64,8 @@ Feature: DCU Search
   Scenario: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" DCU search criteria
     And I click the search button on the search page
-    Then the search results should contain the expected information
+    Then the "DCU Search" workstack should contain the expected columns
 
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters

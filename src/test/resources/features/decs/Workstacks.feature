@@ -2,7 +2,7 @@
 Feature: Workstacks
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DECS_USER"
 
   @Regression
   Scenario: User creates a case and allocates to another user
@@ -154,7 +154,7 @@ Feature: Workstacks
 
   @DCURegression
   Scenario Outline: DCU User sees the required information when viewing a workstack
-    Given I log in to DECS as user "DCU_USER"
+    Given I switch to user "DCU_USER"
     And I enter a "<workstack>" workstack
     Then the "<workstack>" workstack should contain the expected columns
     Examples:
@@ -164,14 +164,14 @@ Feature: Workstacks
 
   @UKVIRegression
   Scenario Outline: UKVI User sees the required information when viewing a workstack
-    Given I log in to DECS as user "UKVI_USER"
+    Given I switch to user "UKVI_USER"
     And I enter a "<workstack>" workstack
     Then the "<workstack>" workstack should contain the expected columns
     Examples:
       | workstack     |
       | UKVI My Cases |
       | Creation      |
-      | Drafting      |
+      | Draft         |
       | Triage        |
       | Campaign      |
       | MTS Team      |

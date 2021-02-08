@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I log in to DECS as user "UKVI_USER"
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User tests UKVI search criteria
@@ -42,4 +42,4 @@ Feature: UKVI Search
     And I create a single "MPAM" case
     And I navigate to the "search" page
     And I click the search button on the search page
-    Then the search results should contain the expected information
+    Then the "UKVI Search" workstack should contain the expected columns

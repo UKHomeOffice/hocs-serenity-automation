@@ -2,7 +2,7 @@
 Feature: Manage Documents
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DECS_USER"
 
   @Regression
   Scenario Outline: User can upload and preview a file of allowed file types

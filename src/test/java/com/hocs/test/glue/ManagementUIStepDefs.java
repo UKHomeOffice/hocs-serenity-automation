@@ -285,8 +285,8 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I navigate to {string}")
     public void iNavigateTo(String site) {
         switch (site.toUpperCase()) {
-            case "HOCS":
-                loginPage.navigateToHocs();
+            case "DECS":
+                loginPage.navigateToDECS();
                 break;
             case "MANAGEMENT UI":
                 loginPage.navigateToManagementUI();
@@ -347,9 +347,9 @@ public class ManagementUIStepDefs extends BasePage {
         }
     }
 
-    @When("I check the default team links in HOCS again")
-    public void iCheckTheDefaultTeamLinksInHOCSAgain() {
-        iNavigateTo("HOCS");
+    @When("I check the default team links in DECS again")
+    public void iCheckTheDefaultTeamLinksInDECSAgain() {
+        iNavigateTo("DECS");
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopic("Register of faith leaders");

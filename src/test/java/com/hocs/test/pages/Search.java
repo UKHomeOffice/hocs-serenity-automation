@@ -12,8 +12,6 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +19,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class Search extends BasePage {
@@ -397,7 +394,7 @@ public class Search extends BasePage {
 
     public void assertMPAMInformationRandomSearchResult(String criteria) {
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
-        int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
+        int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":

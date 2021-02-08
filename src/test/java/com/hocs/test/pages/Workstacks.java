@@ -758,7 +758,7 @@ public class Workstacks extends BasePage {
             case "UKVI MY CASES":
                 assertThat(visibleColumns.contains("Select"), is(true));
                 assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Reference Type"), is(true));
+                assertThat(visibleColumns.contains("Ref Type"), is(true));
                 assertThat(visibleColumns.contains("Business Area"), is(true));
                 assertThat(visibleColumns.contains("Current Stage"), is(true));
                 assertThat(visibleColumns.contains("Deadline"), is(true));
