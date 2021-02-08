@@ -236,7 +236,7 @@ public class Creation extends BasePage {
     }
 
     public void moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(String urgency, String refType) {
-        selectBusinessArea("UKVI");
+        selectBusinessArea("Windrush");
         selectRefType(refType);
         selectMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");

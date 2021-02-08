@@ -1,5 +1,5 @@
 @Campaign @TeamRouting @UKVI @UKVIWorkflow
-Feature: Campaign
+Feature: Campaigns
 
   Background:
     Given I log in to DECS

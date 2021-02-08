@@ -51,7 +51,6 @@ Feature: MPAM Case Details Accordion
     Then the case should have changed to the "<businessArea>" business area
     Examples:
       | businessArea |
-      | UKVI         |
       | BF           |
       | IE           |
       | EUSS         |

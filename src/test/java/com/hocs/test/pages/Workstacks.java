@@ -204,7 +204,7 @@ public class Workstacks extends BasePage {
     }
 
     public void selectTakeNextCase() {
-        int n = 1;
+        int n = 0;
         List<WebElementFacade> allocatedUsers = findAll("//th[text()='Owner']/ancestor::thead/following-sibling::tbody//td[4]");
         boolean isCaseUnallocated = false;
         while (n <= getTotalOfCases() && !isCaseUnallocated) {
