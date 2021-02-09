@@ -669,8 +669,9 @@ public class Workstacks extends BasePage {
     }
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
-        WebElementFacade deadlineOfCurrentCase = find(By.xpath("//a[text()='"+ sessionVariableCalled("caseReference") + "']/../following-sibling::td"
-                + "[contains(@class,'date-warning')]"));
+        WebElementFacade deadlineOfCurrentCase =
+                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[contains(text(), '" + getCurrentYear() + "')"
+                + "]");
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
 
