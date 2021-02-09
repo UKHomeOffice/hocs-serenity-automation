@@ -42,7 +42,7 @@ public class Workdays extends BasePage{
         return !bankHolidays.contains(inputDate);
     }
 
-    public LocalDate getDateXWorkdaysAgo(int targetAmount) {
+    public String getDateXWorkdaysAgo(int targetAmount) {
         int totalWorkDays = 0;
         assert totalWorkDays <= targetAmount;
         LocalDate targetDay = LocalDate.now();
@@ -52,6 +52,7 @@ public class Workdays extends BasePage{
                 totalWorkDays ++;
             }
         }
-        return targetDay;
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        return targetDay.format(formatters);
     }
 }

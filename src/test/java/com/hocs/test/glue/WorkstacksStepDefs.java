@@ -3,6 +3,7 @@ package com.hocs.test.glue;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
@@ -10,13 +11,13 @@ import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
-
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import org.openqa.selenium.NoSuchElementException;
 
 public class WorkstacksStepDefs extends BasePage {
 
@@ -29,6 +30,8 @@ public class WorkstacksStepDefs extends BasePage {
     CreateCase createCase;
 
     CreateCase_SuccessPage createCaseSuccessPage;
+
+    EndToEndStepDefs endToEndStepDefs;
 
     @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
@@ -209,15 +212,15 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertCaseIsAssignedToMe();
     }
 
-    @When("I enter the Performance and Process team workstack and narrow down the visible cases using the {string} filter card")
-    public void iNarrowDownTheVisibleCasesInThePerformanceAndProcessTeamWorkstackUsingTheFilterCard(String caseType) {
-        homepage.selectPerformanceProcessTeam();
+    @When("I enter the correct Data Input team workstack for {string} cases")
+    public void iEnterTheCorrectDataInputTeamWorkstackForCases(String caseType) {
         switch (caseType.toUpperCase()) {
             case "MIN":
-                workstacks.clickDCUMINFilterCard();
-                break;
             case "TRO":
-                workstacks.clickDCUTROFilterCard();
+                homepage.selectPerformanceProcessTeam();
+                break;
+            case "DTEN":
+                homepage.selectTransferN10Team();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -225,10 +228,22 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @When("I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card")
-    public void iNarrowDownTheVisibleCasesInTheTransfersAndNoTeamWorkstackUsingTheFilterCard() {
-        safeClickOn(homepage.transferN10Team);
-        workstacks.clickDCUTENFilterCard();
+    @When("I narrow down the visible cases using the {string} filter card")
+    public void iNarrowDownTheVisibleCasesInThePerformanceAndProcessTeamWorkstackUsingTheFilterCard(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                workstacks.clickDCUMINFilterCard();
+                break;
+            case "TRO":
+                workstacks.clickDCUTROFilterCard();
+                break;
+            case "DTEN":
+                workstacks.clickDCUTENFilterCard();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+                break;
+        }
     }
 
     @Then("the created case should be visible in the workstack")
@@ -294,8 +309,8 @@ public class WorkstacksStepDefs extends BasePage {
         homepage.selectCorrectMPAMTeamByStage(stage);
     }
 
-    @And("I choose to take the next unallocated case from the team workstack")
-    public void iChooseToTakeTheNextCaseFromTheTeamWorkstack() {
+    @And("I select to take the next unallocated case from the team workstack")
+    public void iSelectToTakeTheNextCaseFromTheTeamWorkstack() {
         workstacks.selectTakeNextCase();
     }
 
@@ -352,6 +367,71 @@ public class WorkstacksStepDefs extends BasePage {
     public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
         workstacks.assertRejectedFieldOfCurrentCase();
     }
+
+    @And("I enter a {string} workstack")
+    public void iEnterAWorkstack(String workstack) {
+        switch (workstack.toUpperCase()) {
+            case "DCU MY CASES":
+                if (homepage.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
+                    homepage.selectMyCases();
+                } else {
+                    createCase.createCaseOfType("MIN");
+                    createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                    goHome();
+                    homepage.selectMyCases();
+                }
+                break;
+            case "DCU TEAM":
+                try {
+                    homepage.selectPerformanceProcessTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCaseOfType("MIN");
+                    goHome();
+                    homepage.selectPerformanceProcessTeam();
+                }
+                break;
+            case "UKVI MY CASES":
+                try {
+                    homepage.selectMyCases();
+                } catch (NoSuchElementException e) {
+                    createCase.createCaseOfType("MPAM");
+                    goHome();
+                    homepage.selectMyCases();
+                }
+                break;
+            case "MTS TEAM":
+                try {
+                    homepage.selectMTSTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCaseOfType("MTS");
+                    goHome();
+                    homepage.selectMTSTeam();
+                }
+                break;
+            case "CAMPAIGN":
+            case "TRIAGE":
+            case "DRAFT":
+            case "CREATION":
+                setSessionVariable("businessArea").to("UKVI");
+                setSessionVariable("refType").to("Ministerial");
+                try {
+                    homepage.selectCorrectMPAMTeamByStage(workstack);
+                } catch (NoSuchElementException e) {
+                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", workstack);
+                    goHome();
+                    homepage.selectCorrectMPAMTeamByStage(workstack);
+                }
+                break;
+            default:
+                pendingStep(workstack + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the {string} workstack should contain the expected columns")
+    public void theWorkstackShouldContainTheExpectedColumns(String workstack) {
+        workstacks.assertExpectedColumnsPresent(workstack);
+    }
+
 
     @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
     public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {

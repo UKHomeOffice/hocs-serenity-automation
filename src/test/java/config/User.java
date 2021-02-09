@@ -2,14 +2,14 @@ package config;
 
 public enum User {
 
-    AUTOMATION_USER("decs automated regression user", "Password1!", "DECS Regression (decsregression@test.com)"),
+    DECS_USER("decs automated regression user", "Password1!", "DECS Regression (decsregression@test.com)"),
+    UKVI_USER("ukvi automated regression user", "Password1!", "UKVI Regression (ukviregression@test.com)"),
+    DCU_USER("dcu automated regression user", "Password1!", "DCU Regression (dcuregression@test.com)"),
+    WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
     CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),
-    UKVI_ONLY("casey.prosser@digital.homeoffice.gov.uk", "Password1!", "Casey Prosser (casey.prosser@digital.homeoffice"
-            + ".gov.uk)"),
     CAMERON_HO("cameron.page3@homeoffice.gov.uk", "", "Cameron Page (cameron.page3@homeoffice.gov.uk)"),
-    FAKE("FakeUser", "FAKE1!", ""),
-    PROD("", "", "");
+    FAKE("FakeUser", "FAKE1!", "");
 
     private final String username;
 

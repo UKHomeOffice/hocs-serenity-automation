@@ -6,10 +6,10 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.dcu.InitialDraft;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -191,8 +191,8 @@ public class InitialDraftStepDefs extends BasePage {
                 initialDraft.selectOfflineQualityAssurer(User.CASEY.getAllocationText());
                 safeClickOn(finishButton);
                 break;
-            case "AUTOMATION_USER":
-                initialDraft.selectOfflineQualityAssurer(User.AUTOMATION_USER.getAllocationText());
+            case "DECS_USER":
+                initialDraft.selectOfflineQualityAssurer(User.DECS_USER.getAllocationText());
                 safeClickOn(finishButton);
                 break;
             default:

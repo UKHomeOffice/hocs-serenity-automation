@@ -1,6 +1,7 @@
 package com.hocs.test.pages.managementUI;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -10,8 +11,6 @@ import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
-
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class TeamManagement extends BasePage {
 
@@ -90,7 +89,7 @@ public class TeamManagement extends BasePage {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
 
         teamNameHeader.shouldContainText(nameOfTeamInHeader);
-        membersInTeamTable.shouldContainText(User.AUTOMATION_USER.getAllocationText());
+        membersInTeamTable.shouldContainText(User.DECS_USER.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {

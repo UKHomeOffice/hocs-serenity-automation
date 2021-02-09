@@ -1,21 +1,20 @@
 package com.hocs.test.glue;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.Homepage;
-
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase;
+import com.hocs.test.pages.CreateCase_SuccessPage;
+import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.dcu.DataInput;
+import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.mpam.Campaign;
 import com.hocs.test.pages.mpam.Creation;
 import config.User;
@@ -280,10 +279,10 @@ public class CreateCaseStepDefs extends BasePage {
                         }
                         break;
                     case "RECEIVED ON OR AFTER DATE":
-                        createCase.createCaseBeforeOrAfterDate("MIN", "After", infoValue);
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
                         break;
                     case "RECEIVED ON OR BEFORE DATE":
-                        createCase.createCaseBeforeOrAfterDate("MIN", "Before", infoValue);
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
                         break;
                     case "CORRESPONDENT NAME":
                         createCase.createCaseOfType("MIN");
@@ -348,10 +347,10 @@ public class CreateCaseStepDefs extends BasePage {
                         creation.moveCaseWithCorrespondentReferenceNumber(infoValue);
                         break;
                     case "RECEIVED ON OR BEFORE DATE":
-                        createCase.createCaseBeforeOrAfterDate("MPAM", "Before", infoValue);
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
                         break;
                     case "RECEIVED ON OR AFTER DATE":
-                        createCase.createCaseBeforeOrAfterDate("MPAM", "After", infoValue);
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
                         break;
                     case "CAMPAIGN":
                         createCase.createCaseOfType("MPAM");

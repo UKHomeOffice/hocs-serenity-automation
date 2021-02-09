@@ -2,7 +2,7 @@
 Feature: Prioritisation
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario: User checks that a Ministerial case is given a higher priority in My Cases workstack than an Offical case

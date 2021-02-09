@@ -12,7 +12,6 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +19,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class Search extends BasePage {
@@ -49,6 +47,12 @@ public class Search extends BasePage {
 
     @FindBy(css = "label[for='caseTypes_TRO']")
     public WebElementFacade searchTROCheckbox;
+
+    @FindBy(css = "label[for='caseTypes_MPAM']")
+    public WebElementFacade searchMPAMCheckbox;
+
+    @FindBy(css = "label[for='caseTypes_MTS']")
+    public WebElementFacade searchMTSCheckbox;
 
     @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")
     public WebElementFacade receivedAfterDayTextbox;
@@ -295,19 +299,6 @@ public class Search extends BasePage {
         noSearchCriteriaErrorMessage.shouldContainText("No search criteria specified");
     }
 
-    public void assertExpectedTablesHeadersPresent() {
-        List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
-        List<String> tableHeadersContent = new ArrayList<>();
-        for (WebElement tableHeader : tableHeaders) {
-            tableHeadersContent.add(tableHeader.getText());
-        }
-        assertThat(tableHeadersContent.contains("Reference"), is(true));
-        assertThat(tableHeadersContent.contains("Current Stage"), is(true));
-        assertThat(tableHeadersContent.contains("Owner"), is(true));
-        assertThat(tableHeadersContent.contains("Team"), is(true));
-        assertThat(tableHeadersContent.contains("Deadline"), is(true));
-    }
-
     public void assertAllDisplayedCaseRefsContainSubstring() {
         List<WebElementFacade> listOfCaseRefs = findAll("//tr/td[1]");
         String substringInput = sessionVariableCalled("caseReferenceSubstring");
@@ -403,7 +394,7 @@ public class Search extends BasePage {
 
     public void assertMPAMInformationRandomSearchResult(String criteria) {
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
-        int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
+        int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":

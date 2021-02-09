@@ -45,7 +45,20 @@ public class LoginPage extends BasePage {
         enterPassword(user.getPassword());
     }
 
-    public void navigateToHocs() {
+    public void navigateToPlatform(String platform) {
+        switch (platform.toUpperCase()) {
+            case "DECS":
+                navigateToDECS();
+                break;
+            case "MANAGEMENT UI":
+                navigateToManagementUI();
+                break;
+            default:
+                pendingStep(platform + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void navigateToDECS() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 

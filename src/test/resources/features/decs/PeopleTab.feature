@@ -2,7 +2,7 @@
 Feature: PeopleTab
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DECS_USER"
 
   @Regression
   Scenario Outline: User change the primary correspondent of the case
