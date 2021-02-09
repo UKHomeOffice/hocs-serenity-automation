@@ -2,7 +2,7 @@
 Feature: Workstacks
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "DECS_USER"
 
   @Regression
   Scenario: User creates a case and allocates to another user
@@ -28,54 +28,45 @@ Feature: Workstacks
     And I then check whether the correct cases have been unallocated
 
   @Regression
-  Scenario: User creates a Ministerial case and uses the MIN filter card to view it in the Performance and Process workstack
-    Given I create a single "MIN" case and return to the dashboard
-    When I enter the Performance and Process team workstack and narrow down the visible cases using the "MIN" filter card
-    Then only "MIN" cases should be visible
+  Scenario Outline: User only sees the selected case type after clicking a case type filter card
+    And I create a single "<case type>" case and return to the dashboard
+    When I enter the correct Data Input team workstack for "<case type>" cases
+    And I narrow down the visible cases using the "<case type>" filter card
+    Then only "<case type>" cases should be visible
     And the created case should be visible in the workstack
-
-  @Regression
-  Scenario: User creates a Number 10 case and uses the DTEN filter card to view it in the Transfers and No10 team workstack
-    Given I create a single "DTEN" case and return to the dashboard
-    When I enter the Transfers and No10 team workstack and narrow down the visible cases using the TRO filter card
-    Then only "DTEN" cases should be visible
-    And the created case should be visible in the workstack
-
-  @Regression
-  Scenario: User creates a Treat Official case and uses the TRO filter card to view it in the Performance and Process
-  workstack
-    Given I create a single "TRO" case and return to the dashboard
-    When I enter the Performance and Process team workstack and narrow down the visible cases using the "TRO" filter card
-    Then only "TRO" cases should be visible
-    And the created case should be visible in the workstack
+    Examples:
+      | case type |
+      | MIN       |
+      | DTEN      |
+      | TRO       |
 
   @OtherTests
   Scenario Outline: User is able to order MPAM workstack columns
-    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I create a "MPAM" case and move it to the "Triage" stage
     When I navigate to the "Triage" workstack and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
-      | column                                | order             |
-      | Reference                             | Lowest to Highest |
-      | Reference                             | Highest to Lowest |
-      | Current Stage                         | Lowest to Highest |
-      | Current Stage                         | Highest to Lowest |
-      | Owner                                 | Lowest to Highest |
-      | Owner                                 | Highest to Lowest |
-      | Minister Sign Off                     | Lowest to Highest |
-      | Minister Sign Off                     | Highest to Lowest |
-      | Deadline                              | Lowest to Highest |
-      | Deadline                              | Highest to Lowest |
-      | Urgency                               | Lowest to Highest |
-      | Urgency                               | Highest to Lowest |
-      | Days                                  | Lowest to Highest |
-      | Days                                  | Highest to Lowest |
-      | Rejected                              | Lowest to Highest |
-      | Rejected                              | Highest to Lowest |
+      | column            | order             |
+      | Reference         | Lowest to Highest |
+      | Reference         | Highest to Lowest |
+      | Current Stage     | Lowest to Highest |
+      | Current Stage     | Highest to Lowest |
+      | Owner             | Lowest to Highest |
+      | Owner             | Highest to Lowest |
+      | Minister Sign Off | Lowest to Highest |
+      | Minister Sign Off | Highest to Lowest |
+      | Deadline          | Lowest to Highest |
+      | Deadline          | Highest to Lowest |
+      | Urgency           | Lowest to Highest |
+      | Urgency           | Highest to Lowest |
+      | Days              | Lowest to Highest |
+      | Days              | Highest to Lowest |
+      | Rejected          | Lowest to Highest |
+      | Rejected          | Highest to Lowest |
 
   @OtherTests
   Scenario Outline: User is able to order columns in my cases
-    Given I navigate to my cases and order the "<column>" column from "<order>"
+    When I navigate to my cases and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
       | column        | order             |
@@ -96,7 +87,7 @@ Feature: Workstacks
 
   @OtherTests
   Scenario Outline: User is able to order search results
-    Given I search for active MPAM cases and order the "<column>" column from "<order>"
+    When I search for active MPAM cases and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
       | column        | order             |
@@ -112,7 +103,7 @@ Feature: Workstacks
       | Deadline      | Highest to Lowest |
 
   Scenario Outline: User is able to order Telephone Surgery Official engagement column
-    Given I navigate to the "MTS Team" workstack and order the "<column>" column from "<order>"
+    When I navigate to the "MTS Team" workstack and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
     Examples:
       | column                                | order             |
@@ -120,38 +111,67 @@ Feature: Workstacks
       | Telephone Surgery Official Engagement | Highest to Lowest |
 
   @Regression
-  Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline datee
-    Given I create a single "MPAM" case with the correspondence received date set 15 workdays ago
+  Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline date
+    When I create a single "MPAM" case with the correspondence received date set 15 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should" be highlighted
 
   @OtherTests
   Scenario: User is unable to see a highlighted deadline on an MPAM case that is 6 days from its deadline date
-    Given I create a single "MPAM" case with the correspondence received date set 14 workdays ago
+    When I create a single "MPAM" case with the correspondence received date set 14 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
 
   @UKVIRegression
   Scenario: User adds a case to a Campaign and can view the case in the correct workstack
-    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
-    And I move the case into a Campaign from the "Triage" stage
+    When I move the case into a Campaign from the "Triage" stage
     And I view the MPAM case in the appropriate "Campaign" stage workstack
     Then the created case should be visible in the workstack
 
   Scenario Outline: User is able to order the Campaign workstack column
-    Given I create a "MPAM" case and move it to the "Triage" stage
+    And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
-    And I move the case into a Campaign from the "Triage" stage
+    When I move the case into a Campaign from the "Triage" stage
     And I navigate to the "Campaign" workstack and order the "Campaign" column from "<order>"
     Then the "Campaign" column is ordered from "<order>"
     Examples:
-    | order             |
-    | Lowest to Highest |
-    | Highest to Lowest |
+      | order             |
+      | Lowest to Highest |
+      | Highest to Lowest |
 
-  Scenario: User can select to take the next unallocated case from the team workstack
-    Given I create a "MPAM" case and move it to the "Triage" stage
-    And I view the MPAM case in the appropriate "Triage" stage workstack
-    And I choose to take the next unallocated case from the team workstack
+  @UKVIRegression
+  Scenario Outline: User can select to take the next unallocated case from the team workstack
+    And I create a high priority MPAM case and move it to the "<stage>" stage
+    When I view the MPAM case in the appropriate "<stage>" stage workstack
+    And I select to take the next unallocated case from the team workstack
     Then the highest priority unallocated case is loaded and allocated to the user
+    Examples:
+      | stage  |
+      | Triage |
+      | Draft  |
+
+  @DCURegression
+  Scenario Outline: DCU User sees the required information when viewing a workstack
+    Given I switch to user "DCU_USER"
+    And I enter a "<workstack>" workstack
+    Then the "<workstack>" workstack should contain the expected columns
+    Examples:
+      | workstack    |
+      | DCU My Cases |
+      | DCU Team     |
+
+  @UKVIRegression
+  Scenario Outline: UKVI User sees the required information when viewing a workstack
+    Given I switch to user "UKVI_USER"
+    And I enter a "<workstack>" workstack
+    Then the "<workstack>" workstack should contain the expected columns
+    Examples:
+      | workstack     |
+      | UKVI My Cases |
+      | Creation      |
+      | Draft         |
+      | Triage        |
+      | Campaign      |
+      | MTS Team      |

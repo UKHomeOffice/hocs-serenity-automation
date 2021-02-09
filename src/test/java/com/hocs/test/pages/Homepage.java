@@ -139,6 +139,10 @@ public class Homepage extends BasePage {
         safeClickOn(performanceProcessTeam);
     }
 
+    public void selectTransferN10Team() {
+        safeClickOn(transferN10Team);
+    }
+
     public void selectCentralDraftingTeam() {
         safeClickOn(centralDraftingTeam);
     }
@@ -215,5 +219,15 @@ public class Homepage extends BasePage {
         if (unallocatedCaseView.allocateToMeLink.isVisible()) {
             claimCurrentCase();
         }
+    }
+
+    public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {
+        WebElementFacade caseCount;
+        if (workstackName.equals("My Cases")) {
+            caseCount = findBy("//h2[text()=\"" + workstackName + "\"]/following-sibling::ul[1]/li/a/span[1]");
+        } else {
+            caseCount = findBy("//span[text()=\"" + workstackName + "\"]/preceding-sibling::span");
+        }
+        return Integer.parseInt(caseCount.getText());
     }
 }

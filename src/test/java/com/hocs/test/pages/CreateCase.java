@@ -4,13 +4,10 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import io.cucumber.java.ca.Cal;
-import java.sql.Date;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -173,9 +170,10 @@ public class CreateCase extends BasePage {
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
+        setSessionVariable("caseType").to(caseType);
     }
 
-    public void createCaseBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
+    public void createCaseReceivedFiveDaysBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
         int numberOfDays = 0;
         if (beforeAfter.toUpperCase().equals("BEFORE")) {
@@ -236,6 +234,6 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCaseWithSetCorrespondenceReceivedDate(caseType, getDatePlusMinusNDaysAgo(-days));
+        createCaseWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
     }
 }

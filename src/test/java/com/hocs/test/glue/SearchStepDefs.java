@@ -96,11 +96,6 @@ public class SearchStepDefs extends BasePage {
         search.assertDCUInformationRandomSearchResult(dataType);
     }
 
-    @Then("the search results should contain the expected information")
-    public void theSearchResultsShouldContainTheExpectedInformation() {
-        search.assertExpectedTablesHeadersPresent();
-    }
-
     @Then("the created DCU case should be visible in the search results")
     public void theCreatedDCUCaseShouldBeVisibleInTheSearchResults() {
         int retest = 0;

@@ -173,7 +173,6 @@ public class AccordionMPAM extends BasePage {
         waitABit(500);
         selectBusinessArea(businessArea);
         businessUnitDropdown.selectByIndex(1);
-        safeClickOn(confirmRadioButton);
         safeClickOn(continueButton);
     }
 

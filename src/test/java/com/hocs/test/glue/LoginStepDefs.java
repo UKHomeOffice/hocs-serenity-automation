@@ -30,10 +30,51 @@ public class LoginStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @Given("I log in to DECS as user {string}")
-    public void iLoginAs(String user) {
+    // Use in features where all scenarios require the same user
+
+    @Given("I log in to {string} as user {string}")
+    public void iLoginToAs(String platform, String user) {
         User targetUser = User.valueOf(user);
-        loginPage.navigateToHocs();
+        if (System.getProperty("user") != null) {
+            targetUser = User.valueOf(System.getProperty("user"));
+            System.out.println("User value overriden to: " + targetUser.getUsername());
+        }
+        loginPage.navigateToPlatform(platform);
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("Logging in as user: " + targetUser.getUsername());
+            loginPage.enterHocsLoginDetails(targetUser);
+            safeClickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Session still active, continuing test from dashboard");
+            homepage.goHome();
+        }
+        setCurrentUser(targetUser);
+    }
+
+    // Use in features where different scenarios require different users
+
+    @Given("I switch to user {string}")
+    public void iSwitchToUser(String user) {
+        User targetUser = User.valueOf(user);
+        loginPage.navigateToDECS();
+        if (isElementDisplayed($(loginPage.usernameField))) {
+            System.out.println("Logging in as user " + targetUser.getUsername());
+            loginPage.enterHocsLoginDetails(targetUser);
+            safeClickOn(loginPage.continueButton);
+        } else {
+            System.out.println("Session still active, logging out");
+            selectLogoutButton();
+            iLoginToAs("DECS", user);
+        }
+        setCurrentUser(targetUser);
+    }
+
+    // Use for scenarios where the active session might have the correct user, but this needs to be checked
+
+    @Given("I ensure I am logged into DECS as user {string}")
+    public void iEnsureIAmLoggedIntoDecsAsUser(String user) {
+        User targetUser = User.valueOf(user);
+        loginPage.navigateToDECS();
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("Logging in as user " + targetUser.getUsername());
             loginPage.enterHocsLoginDetails(targetUser);
@@ -54,67 +95,15 @@ public class LoginStepDefs extends BasePage {
             } catch (AssertionError ae) {
                 System.out.println("Active user does not match target user. Logging active user out of DECS");
                 selectLogoutButton();
-                iLoginAs(user);
+                iLoginToAs("DECS", user);
             }
         }
         setCurrentUser(targetUser);
     }
 
-    @Given("I log in to DECS")
-    public void iLogInToDECS() {
-        String user = System.getProperty("user");
-        if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'AUTOMATION_USER'");
-            user = "AUTOMATION_USER";
-        }
-        User targetUser = User.valueOf(user);
-        loginPage.navigateToHocs();
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(targetUser);
-            safeClickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Session still active, continuing test from homepage");
-            homepage.goHome();
-        }
-        setCurrentUser(targetUser);
-    }
-
-    @Given("that I have navigated to the Management UI as the user {string}")
-    public void iHaveNavigatedToTheManagementUI(String user) {
-        loginPage.navigateToManagementUI();
-        setSessionVariable("user").to(user);
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(User.valueOf(user));
-            safeClickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Session still active, continuing test from homepage");
-            dashboard.goToDashboard();
-        }
-    }
-
-    @Given("that I have navigated to the Management UI as the designated user")
-    public void iHaveNavigatedToTheManagementUIAsTheDesignatedUser() {
-        String user = System.getProperty("user");
-        if (user == null) {
-            System.out.println("User parameter not set. Defaulting to 'Automation User'");
-            user = "AUTOMATION_USER";
-        }
-        loginPage.navigateToManagementUI();
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("On fresh browser, beginning test..");
-            loginPage.enterHocsLoginDetails(User.valueOf(user));
-            safeClickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Session still active, continuing test from homepage");
-            dashboard.goToDashboard();
-        }
-    }
-
     @Given("I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
-        loginPage.navigateToHocs();
+        loginPage.navigateToDECS();
     }
 
 
@@ -154,7 +143,7 @@ public class LoginStepDefs extends BasePage {
 
     @When("I enter the login credentials of another user {string} and click the login button")
     public void loginAsDifferentUserAfterLogout(String user) {
-        loginPage.navigateToHocs();
+        loginPage.navigateToDECS();
         loginPage.enterHocsUsername(User.valueOf(user).getUsername());
         loginPage.enterHocsPassword(User.valueOf(user).getPassword());
         safeClickOn(loginPage.continueButton);
@@ -164,7 +153,7 @@ public class LoginStepDefs extends BasePage {
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             safeClickOn(homepage.logoutButton);
-            loginPage.navigateToHocs();
+            loginPage.navigateToDECS();
         }
     }
 

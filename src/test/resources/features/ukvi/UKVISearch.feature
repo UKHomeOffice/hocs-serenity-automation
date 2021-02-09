@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I log in to DECS as user "UKVI_ONLY"
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User tests UKVI search criteria
@@ -36,3 +36,10 @@ Feature: UKVI Search
     And I navigate to the "Search" page
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
+
+  @SearchByCaseType @Workstacks @DCURegression
+  Scenario: UKVI Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
+    And I create a single "MPAM" case
+    And I navigate to the "search" page
+    And I click the search button on the search page
+    Then the "UKVI Search" workstack should contain the expected columns

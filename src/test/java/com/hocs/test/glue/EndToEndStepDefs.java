@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -50,6 +51,8 @@ public class EndToEndStepDefs extends BasePage {
     QA qa;
 
     DispatchStages dispatchStages;
+
+    Workdays workdays;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -335,5 +338,23 @@ public class EndToEndStepDefs extends BasePage {
         moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", refType,
                 stage);
 
+    }
+
+    @When("I create a high priority MPAM case and move it to the {string} stage")
+    public void moveHighPriorityNewMPAMCaseToStage(String stage) {
+        switch (stage.toUpperCase()) {
+            case "TRIAGE":
+                createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
+                homepage.goHome();
+                homepage.getAndClaimCurrentCase();
+                creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
+                break;
+            case "DRAFT":
+                moveHighPriorityNewMPAMCaseToStage("TRIAGE");
+                iCompleteTheStage("TRIAGE");
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
     }
 }

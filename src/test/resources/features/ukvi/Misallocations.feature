@@ -1,9 +1,10 @@
-@Misallocations @UKVI @UKVIWorkflow
+@Misallocations @UKVI
 Feature: Misallocations
 
   Background:
-    Given I log in to DECS
+    Given I log in to "DECS" as user "UKVI_USER"
 
+  @UKVIRegression @UKVIWorkflow
   Scenario Outline: User can select to Transfer a case from different stages
     When I create a "MPAM" case and move it to the "<stage>" stage
     And I load and claim the current case
@@ -20,6 +21,7 @@ Feature: Misallocations
     | OGD         | Draft     |
     | Other       | Draft     |
 
+  @UKVIRegression @UKVIWorkflow
   Scenario: User is able to move a case to Triage from the Awaiting Transfer stage
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
@@ -29,6 +31,7 @@ Feature: Misallocations
     And I complete the required fields for Triage and move the case to Triage
     Then the case should be moved to the "Triage" stage
 
+  @UKVIRegression @UKVIWorkflow
   Scenario: User is able to close a case from the Awaiting Transfer stage
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
@@ -37,6 +40,7 @@ Feature: Misallocations
     And I select the "Transfer Accepted (Close Case)" action at the Awaiting Transfer stage
     Then the case should be closed
 
+  @UKVIRegression
   Scenario: User is able to amend the Transfer due date of a case at Awaiting Transfer
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
