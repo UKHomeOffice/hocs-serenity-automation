@@ -38,7 +38,7 @@ Feature: UKVI Search
     Then the displayed cases all contain the input substring case reference
 
   @SearchByCaseType @Workstacks @DCURegression
-  Scenario: MPAM Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
+  Scenario: UKVI Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
     And I create a single "MPAM" case
     And I navigate to the "search" page
     And I click the search button on the search page

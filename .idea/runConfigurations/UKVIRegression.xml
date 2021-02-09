@@ -14,7 +14,7 @@
               <option value="verify" />
               <option value="-Dcucumber.options=--tags '@UKVIRegression or @Regression'" />
               <option value="-Dchrome.switches=--headless" />
-              <option value="-Denvironment=DEMO" />
+              <option value="-Denvironment=QA" />
             </list>
           </option>
           <option name="pomFileName" />

@@ -721,6 +721,7 @@ public class Workstacks extends BasePage {
     }
 
     private List<String> getTableHeadersContent() {
+        waitFor(workstackFilter);
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
@@ -772,8 +773,8 @@ public class Workstacks extends BasePage {
                 assertThat(visibleColumns.contains("Owner"), is(true));
                 assertThat(visibleColumns.contains("Team"), is(true));
                 assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Member of Parliament"), is(true));
-                assertThat(visibleColumns.contains("Correspondents/Constituents/Applicants"), is(true));
+                assertThat(visibleColumns.contains("Members of Parliament"), is(true));
+                assertThat(visibleColumns.contains("Constituents/Applicants"), is(true));
                 break;
             case "MTS TEAM":
                 assertThat(visibleColumns.contains("Select"), is(true));
@@ -788,18 +789,18 @@ public class Workstacks extends BasePage {
             case "CAMPAIGN":
                 assertThat(visibleColumns.contains("Select"), is(true));
                 assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Reference Type"), is(true));
+                assertThat(visibleColumns.contains("Ref Type"), is(true));
                 assertThat(visibleColumns.contains("Business Area"), is(true));
                 assertThat(visibleColumns.contains("Owner"), is(true));
                 assertThat(visibleColumns.contains("Campaign"), is(true));
                 break;
             case "TRIAGE":
-            case "DRAFTING":
+            case "DRAFT":
                 assertThat(visibleColumns.contains("Select"), is(true));
                 assertThat(visibleColumns.contains("Reference"), is(true));
                 assertThat(visibleColumns.contains("Current Stage"), is(true));
                 assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Minister Sign off"), is(true));
+                assertThat(visibleColumns.contains("Minister Sign Off"), is(true));
                 assertThat(visibleColumns.contains("Deadline"), is(true));
                 assertThat(visibleColumns.contains("Urgency"), is(true));
                 assertThat(visibleColumns.contains("Days"), is(true));
@@ -810,7 +811,7 @@ public class Workstacks extends BasePage {
                 assertThat(visibleColumns.contains("Reference"), is(true));
                 assertThat(visibleColumns.contains("Current Stage"), is(true));
                 assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Minister Sign off"), is(true));
+                assertThat(visibleColumns.contains("Minister Sign Off"), is(true));
                 assertThat(visibleColumns.contains("Deadline"), is(true));
                 assertThat(visibleColumns.contains("Urgency"), is(true));
                 assertThat(visibleColumns.contains("Days"), is(true));

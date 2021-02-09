@@ -370,8 +370,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I enter a {string} workstack")
     public void iEnterAWorkstack(String workstack) {
-        workstack = workstack.toUpperCase();
-        switch (workstack) {
+        switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
                 if (homepage.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
                     homepage.selectMyCases();
@@ -414,7 +413,7 @@ public class WorkstacksStepDefs extends BasePage {
             case "DRAFT":
             case "CREATION":
                 setSessionVariable("businessArea").to("UKVI");
-                setSessionVariable("refType").to("MINISTERIAL");
+                setSessionVariable("refType").to("Ministerial");
                 try {
                     homepage.selectCorrectMPAMTeamByStage(workstack);
                 } catch (NoSuchElementException e) {
