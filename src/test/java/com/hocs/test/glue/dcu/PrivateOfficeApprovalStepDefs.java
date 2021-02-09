@@ -4,15 +4,18 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.Workstacks;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -20,11 +23,11 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     PrivateOfficeApproval privateOfficeApproval;
 
-    Workstacks workstacks;
-
     AccordionDCU accordionDCU;
 
     UnallocatedCaseView unallocatedCaseView;
+
+    SummaryTab summaryTab;
 
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStagePerCaseType() {
@@ -44,6 +47,11 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I override the Primary Topic of the case at the Private Office stage to {string}")
+    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String input) {
+        privateOfficeApproval.changeTopicAtPOStage(input);
     }
 
     @Then("an error message should be displayed as I have not selected whether I approve the response")
@@ -79,5 +87,12 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @Then("the information shown should match what I entered on the change Private Office Team page")
     public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
         accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
+    }
+
+    @Then("the Primary Topic of the case should be updated to {string} in the summary tab")
+    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String input) {
+        safeClickOn(summaryTab.summaryTab);
+        waitFor(summaryTab.primaryTopic);
+        assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
     }
 }
