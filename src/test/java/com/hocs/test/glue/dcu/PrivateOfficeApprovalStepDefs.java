@@ -101,13 +101,12 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @Then("the {string} of the case should be updated to {string} in the summary tab")
     public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
         safeClickOn(summaryTab.summaryTab);
+        waitABit(500);
         switch (category.toUpperCase()) {
             case "PRIMARY TOPIC":
-                waitFor(summaryTab.primaryTopic);
                 assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
                 break;
             case "TEAM":
-                waitFor(summaryTab.currentTeam);
                 assertThat(summaryTab.currentTeam.getText().toUpperCase().contains(input.toUpperCase()), is(true));
                 break;
             default:
