@@ -4,14 +4,14 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,7 +22,7 @@ public class DataInputStepDefs extends BasePage {
 
     AddCorrespondent dataInputAddCorrespondent;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     UnallocatedCaseView unallocatedCaseView;
 
@@ -38,7 +38,7 @@ public class DataInputStepDefs extends BasePage {
     @When("I complete the Data Input Stage")
     public void completeDataInputPerCaseType() {
         if (!dataInput.continueButton.isVisible()) {
-            homepage.getCurrentCase();
+            dashboard.getCurrentCase();
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         dataInput.moveCaseFromDataInputToMarkup();
@@ -160,7 +160,7 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
-        homepage.getCurrentCase();
+        dashboard.getCurrentCase();
         accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
     }
 

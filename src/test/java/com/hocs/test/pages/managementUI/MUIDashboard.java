@@ -4,7 +4,7 @@ import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class Dashboard extends BasePage {
+public class MUIDashboard extends BasePage {
 
     @FindBy (xpath = "//a[@href='/team-search']")
     public WebElementFacade addRemoveUsersButton;
@@ -24,9 +24,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//a[@href='/topic-to-team']")
     public WebElementFacade linkTopicToTeamButton;
 
-    @FindBy(linkText = "Correspondence System Management")
-    public WebElementFacade dashboardLink;
-
     @FindBy(xpath = ".//h1[contains(text(), 'Choose an area to manage')]")
     public WebElementFacade subheading;
 
@@ -41,10 +38,6 @@ public class Dashboard extends BasePage {
 
     @FindBy(xpath = "//a[text()='Manage standard lines ']")
     public WebElementFacade manageStandardLinesHypertext;
-
-    public void goToDashboard() {
-        safeClickOn(dashboardLink);
-    }
 
     public void assertSuccessMessageDisplayed() {
         assertElementIsDisplayed(successMessage);

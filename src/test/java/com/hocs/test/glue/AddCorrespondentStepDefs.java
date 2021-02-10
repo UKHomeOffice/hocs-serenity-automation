@@ -2,8 +2,7 @@ package com.hocs.test.glue;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.mpam.Creation;
 import io.cucumber.java.en.And;
 
@@ -11,7 +10,7 @@ public class AddCorrespondentStepDefs {
 
     AddCorrespondent addCorrespondent;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     CreateCase createCase;
 

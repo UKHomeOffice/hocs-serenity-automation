@@ -5,11 +5,10 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.managementUI.Dashboard;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -17,8 +16,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class LoginStepDefs extends BasePage {
-
-    Homepage homepage;
 
     Dashboard dashboard;
 
@@ -42,11 +39,11 @@ public class LoginStepDefs extends BasePage {
         loginPage.navigateToPlatform(platform);
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("Logging in as user: " + targetUser.getUsername());
-            loginPage.enterHocsLoginDetails(targetUser);
+            loginPage.enterLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, continuing test from dashboard");
-            homepage.goHome();
+            goToDashboard(platform);
         }
         setCurrentUser(targetUser);
     }
@@ -59,7 +56,7 @@ public class LoginStepDefs extends BasePage {
         loginPage.navigateToDECS();
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("Logging in as user " + targetUser.getUsername());
-            loginPage.enterHocsLoginDetails(targetUser);
+            loginPage.enterLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, logging out");
@@ -77,17 +74,17 @@ public class LoginStepDefs extends BasePage {
         loginPage.navigateToDECS();
         if (isElementDisplayed($(loginPage.usernameField))) {
             System.out.println("Logging in as user " + targetUser.getUsername());
-            loginPage.enterHocsLoginDetails(targetUser);
+            loginPage.enterLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
         } else {
             System.out.println("Session still active, checking active user matches target user");
-            homepage.goHome();
-            homepage.selectMyCases();
+            goToDashboard();
+            dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 createCase.createCaseOfType("ANY");
-                homepage.getAndClaimCurrentCase();
-                homepage.goHome();
-                safeClickOn(homepage.myCases);
+                dashboard.getAndClaimCurrentCase();
+                goToDashboard();
+                safeClickOn(dashboard.myCases);
             }
             try {
                 workstacks.assertOwnerIs(targetUser);
@@ -122,8 +119,8 @@ public class LoginStepDefs extends BasePage {
 
     @When("I enter invalid login credentials on the login screen")
     public void enterInvalidLoginCredentials() {
-        loginPage.enterHocsLoginDetails(FAKE);
-        safeClickOn(homepage.continueButton);
+        loginPage.enterLoginDetails(FAKE);
+        safeClickOn(loginPage.continueButton);
     }
 
     @Then("an error message should be displayed as the credentials are invalid")
@@ -133,12 +130,12 @@ public class LoginStepDefs extends BasePage {
 
     @Then("I should be taken to the homepage")
     public void assertHomePage() {
-        homepage.assertOnHomePage();
+        dashboard.assertAtDashboard();
     }
 
     @When("I logout of the application")
     public void selectLogoutButton() {
-        safeClickOn(homepage.logoutButton);
+        safeClickOn(dashboard.logoutButton);
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")
@@ -152,7 +149,7 @@ public class LoginStepDefs extends BasePage {
     @And("I am prompted to log in")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
-            safeClickOn(homepage.logoutButton);
+            safeClickOn(dashboard.logoutButton);
             loginPage.navigateToDECS();
         }
     }
@@ -160,13 +157,13 @@ public class LoginStepDefs extends BasePage {
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
         User inputUser = User.valueOf(user);
-        homepage.goHome();
-        safeClickOn(homepage.myCases);
+        goToDashboard();
+        safeClickOn(dashboard.myCases);
         if (workstacks.getTotalOfCases() == 0) {
             createCase.createCaseOfType("ANY");
-            homepage.getAndClaimCurrentCase();
-            homepage.goHome();
-            safeClickOn(homepage.myCases);
+            dashboard.getAndClaimCurrentCase();
+            goToDashboard();
+            safeClickOn(dashboard.myCases);
         }
         safeClickOn(workstacks.topCaseReferenceHypertext);
         summaryTab.selectSummaryTab();

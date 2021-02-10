@@ -8,13 +8,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DispatchStages extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     @FindBy(id = "DateDispatched-day")
     public WebElementFacade dispatchedDateDayTextField;
@@ -156,7 +156,7 @@ public class DispatchStages extends BasePage {
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(closeFollowUpNotCompletedRadioButton);
                 safeClickOn(confirmButton);
                 safeClickOn(confirmAndCloseCaseButton);
@@ -197,7 +197,7 @@ public class DispatchStages extends BasePage {
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
                 enterFollowUpDetails("Test follow-up details");
                 safeClickOn(confirmButton);
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(closeFollowUpNotCompletedRadioButton);
                 safeClickOn(confirmButton);
                 safeClickOn(confirmAndCloseCaseButton);

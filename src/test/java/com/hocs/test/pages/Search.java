@@ -31,7 +31,7 @@ public class Search extends BasePage {
 
     Markup markup;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     AccordionDCU accordionDCU;
 
@@ -365,12 +365,12 @@ public class Search extends BasePage {
                 } else if (markup.privateOfficeTeamTextField.isVisible()) {
                     checkSignOff = markup.privateOfficeTeamTextField.getValue().toUpperCase().split(": ")[1];
                 } else {
-                    goHome();
-                    safeClickOn(homepage.myCases);
+                    goToDashboard();
+                    safeClickOn(dashboard.myCases);
                     workstacks.unallocateSelectedCase(sessionVariableCalled("randomCaseRef"));
-                    goHome();
-                    homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
-                    homepage.hitEnterCaseReferenceSearchBar();
+                    goToDashboard();
+                    dashboard.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
+                    dashboard.hitEnterCaseReferenceSearchBar();
                     safeClickOn(accordionDCU.markupAccordionButton);
                     checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
                 }

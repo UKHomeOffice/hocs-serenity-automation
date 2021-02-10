@@ -1,12 +1,10 @@
 package com.hocs.test.glue.dcu;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.Workstacks;
-
-import com.hocs.test.pages.mpam.QA;
+import com.hocs.test.pages.dcu.QAResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +12,7 @@ import io.cucumber.java.en.When;
 
 public class QAResponseStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     QAResponse qaResponse;
 
@@ -25,7 +23,7 @@ public class QAResponseStepDefs extends BasePage {
     @When("I complete the QA response stage")
     public void completeQAResponseStage() {
         if (!qaResponse.QAAcceptRadioButton.isVisible()) {
-            homepage.getCurrentCase();
+            dashboard.getCurrentCase();
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         safeClickOn(qaResponse.QAAcceptRadioButton);

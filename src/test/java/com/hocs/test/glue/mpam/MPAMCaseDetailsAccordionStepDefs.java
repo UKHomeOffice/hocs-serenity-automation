@@ -4,13 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.mpam.AccordionMPAM;
-import com.hocs.test.pages.mpam.Creation;
-import com.hocs.test.pages.mpam.Draft;
-import com.hocs.test.pages.mpam.DispatchStages;
-import com.hocs.test.pages.mpam.Triage;
-import com.hocs.test.pages.mpam.QA;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 

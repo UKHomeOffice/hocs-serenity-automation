@@ -5,17 +5,15 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
-import com.hocs.test.pages.Workstacks;
-
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class MinisterialSignOffStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     MinisterialSignOff ministerialSignOff;
 
@@ -27,7 +25,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN" :
                 if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
-                    homepage.getCurrentCase();
+                    dashboard.getCurrentCase();
                     safeClickOn(unallocatedCaseView.allocateToMeLink);
                 }
                 safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);

@@ -3,7 +3,7 @@ package com.hocs.test.glue;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.TimelineTab;
 import config.User;
 import io.cucumber.java.en.And;
@@ -14,7 +14,7 @@ public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {

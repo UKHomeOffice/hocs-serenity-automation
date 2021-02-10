@@ -2,10 +2,11 @@ package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
+import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.Workstacks;
 import config.User;
 import java.time.Duration;
@@ -17,7 +18,7 @@ public class InitialDraft extends BasePage {
 
     Documents documents;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 

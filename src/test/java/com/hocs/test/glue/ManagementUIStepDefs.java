@@ -6,15 +6,15 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.LoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import com.hocs.test.pages.managementUI.AddChildTopic;
-import com.hocs.test.pages.managementUI.Dashboard;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
+import com.hocs.test.pages.managementUI.MUIDashboard;
 import com.hocs.test.pages.managementUI.StandardLine;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
@@ -35,7 +35,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     Markup_AddTopics markupAddTopics;
 
-    Dashboard dashboard;
+    MUIDashboard MUIDashboard;
 
     TeamManagement teamManagement;
 
@@ -51,37 +51,37 @@ public class ManagementUIStepDefs extends BasePage {
 
     ListsManagement listsManagement;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
             case "ADD A STANDARD LINE":
-                safeClickOn(dashboard.addStandardLineButton);
+                safeClickOn(MUIDashboard.addStandardLineButton);
                 break;
             case "MANAGE STANDARD LINES":
-                safeClickOn(dashboard.manageStandardLinesHypertext);
+                safeClickOn(MUIDashboard.manageStandardLinesHypertext);
                 break;
             case "TEAM":
-                safeClickOn(dashboard.addRemoveUsersButton);
+                safeClickOn(MUIDashboard.addRemoveUsersButton);
                 break;
             case "ADD CHILD TOPIC":
-                safeClickOn(dashboard.addChildTopicButton);
+                safeClickOn(MUIDashboard.addChildTopicButton);
                 break;
             case "ADD A UNIT":
-                safeClickOn(dashboard.addUnitButton);
+                safeClickOn(MUIDashboard.addUnitButton);
                 break;
             case "VIEW UNITS":
-                safeClickOn(dashboard.viewUnitsButton);
+                safeClickOn(MUIDashboard.viewUnitsButton);
                 break;
             case "LINK TOPIC TO TEAM":
-                safeClickOn(dashboard.linkTopicToTeamButton);
+                safeClickOn(MUIDashboard.linkTopicToTeamButton);
                 break;
             case "USER MANAGEMENT":
-                safeClickOn(dashboard.userManagementHypertext);
+                safeClickOn(MUIDashboard.userManagementHypertext);
                 break;
             case "CAMPAIGN MANAGEMENT":
-                safeClickOn(dashboard.manageMPAMCampaignsHypertext);
+                safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
                 break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
@@ -367,7 +367,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("I am returned to the dashboard screen")
     public void iAmReturnedToTheDashboardScreen() {
-        dashboard.assertElementIsDisplayed(dashboard.subheading);
+        MUIDashboard.assertElementIsDisplayed(MUIDashboard.subheading);
     }
 
     @Then("an error message should be displayed as no parent topic has been selected")
@@ -403,7 +403,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
-        homepage.getAndClaimCurrentCase();
+        dashboard.getAndClaimCurrentCase();
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 
@@ -414,7 +414,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("a success message is displayed")
     public void aSuccessMessageIsDisplayed() {
-        dashboard.assertSuccessMessageDisplayed();
+        MUIDashboard.assertSuccessMessageDisplayed();
     }
 
     @When("I add a new Standard Line with {string} as the topic")

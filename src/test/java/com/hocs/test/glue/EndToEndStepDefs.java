@@ -6,7 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -24,7 +24,7 @@ import io.cucumber.java.en.When;
 
 public class EndToEndStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     CreateCase createCase;
 
@@ -56,7 +56,7 @@ public class EndToEndStepDefs extends BasePage {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        homepage.getAndClaimCurrentCase();
+        dashboard.getAndClaimCurrentCase();
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
@@ -130,7 +130,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        homepage.goHome();
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -176,7 +176,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        homepage.goHome();
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -214,7 +214,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        homepage.goHome();
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -256,7 +256,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         createCase.createCaseOfType(caseType);
-                        homepage.goHome();
+                        goToDashboard();
                         break;
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "CREATION");
@@ -288,7 +288,7 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "MTS":
                 createCase.createCaseOfType(caseType);
-                homepage.goHome();
+                goToDashboard();
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -301,7 +301,7 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
-                homepage.getAndClaimCurrentCase();
+                dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
                 break;
             case "DRAFT":
@@ -345,8 +345,8 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
-                homepage.goHome();
-                homepage.getAndClaimCurrentCase();
+                goToDashboard();
+                dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
                 break;
             case "DRAFT":

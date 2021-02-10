@@ -1,19 +1,20 @@
 package com.hocs.test.pages.dcu;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Workstacks;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+
+import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.CreateCase_SuccessPage;
+import com.hocs.test.pages.Dashboard;
+import com.hocs.test.pages.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.thucydides.core.annotations.Managed;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Managed;
 
 public class QAResponse extends BasePage {
 
     @Managed
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
@@ -70,7 +71,7 @@ public class QAResponse extends BasePage {
     }
 
     public void qaResponseFullFlow() {
-        homepage.getAndClaimCurrentCase();
+        dashboard.getAndClaimCurrentCase();
         clickQAResponseAcceptRadioButton();
         System.out.println("Finished QA Response, returning to home page.");
         clickContinueButton();

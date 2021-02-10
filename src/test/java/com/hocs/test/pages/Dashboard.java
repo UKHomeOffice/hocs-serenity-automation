@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
-public class Homepage extends BasePage {
+public class Dashboard extends BasePage {
 
     UnallocatedCaseView unallocatedCaseView;
 
@@ -168,7 +168,7 @@ public class Homepage extends BasePage {
 
     // Assertions
 
-    public void assertOnHomePage() {
+    public void assertAtDashboard() {
         assertThat(myCases.isVisible(), is(true));
     }
 
@@ -185,7 +185,7 @@ public class Homepage extends BasePage {
         try {
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         } catch (NoSuchElementException e) {
-            goHome();
+            goToDashboard();
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         }
         caseReferenceSearchBar.clear();
@@ -206,7 +206,7 @@ public class Homepage extends BasePage {
         while (attempts < 3 && !unallocatedCaseView.checkAllocateToMeLinkVisible()) {
             waitABit(2000);
             setCaseReferenceFromUnassignedCase();
-            goHome();
+            goToDashboard();
             getCurrentCase();
             attempts++;
         }

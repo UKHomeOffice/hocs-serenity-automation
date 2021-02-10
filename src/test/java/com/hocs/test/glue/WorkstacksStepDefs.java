@@ -8,7 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Search;
 import com.hocs.test.pages.Workstacks;
 import config.User;
@@ -21,7 +21,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 public class WorkstacksStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -51,7 +51,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the case {string} be visible in my workstack")
     public void theCaseBeVisibleInMyWorkstack(String input) {
-        safeClickOn(homepage.myCases);
+        safeClickOn(dashboard.myCases);
         switch (input.toUpperCase()) {
             case "SHOULD":
                 workstacks.assertVisibilityOfCaseReference(true);
@@ -85,7 +85,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I click the {string} case type filter card")
     public void clickCaseTypeFilterCard(String caseTypeCard) {
-        safeClickOn(homepage.performanceProcessTeam);
+        safeClickOn(dashboard.performanceProcessTeam);
         switch (caseTypeCard.toUpperCase()) {
             case "MIN":
                 safeClickOn(workstacks.dcuMINFilterCard);
@@ -131,8 +131,8 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createCaseOfType("MIN");
-        homepage.goHome();
-        safeClickOn(homepage.performanceProcessTeam);
+        goToDashboard();
+        safeClickOn(dashboard.performanceProcessTeam);
         workstacks.filterByCurrentCaseReference();
         waitABit(500);
     }
@@ -153,18 +153,23 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertAssignedUser(User.valueOf(user));
     }
 
+    @Then("I should own the case")
+    public void theCurrentUserShouldOwnTheCase() {
+        workstacks.assertAssignedUser(getCurrentUser());
+    }
+
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
         createCase.createCaseOfType("MIN");
-        homepage.goHome();
+        goToDashboard();
         waitABit(500);
         createCase.createCaseOfType("MIN");
-        homepage.goHome();
+        goToDashboard();
         waitABit(500);
         createCase.createCaseOfType("MIN");
-        homepage.goHome();
+        goToDashboard();
         waitABit(500);
-        safeClickOn(homepage.performanceProcessTeam);
+        safeClickOn(dashboard.performanceProcessTeam);
     }
 
     @Then("I assign these three cases to {string}")
@@ -182,20 +187,20 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
+        goToDashboard();
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
+        goToDashboard();
         createCase.createCaseOfType("MIN");
         safeClickOn(createCaseSuccessPage.newCaseReference);
         workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
+        goToDashboard();
     }
 
     @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
     public void iUnallocateThreeCasesCreated(String user) {
-        safeClickOn(homepage.performanceProcessTeam);
+        safeClickOn(dashboard.performanceProcessTeam);
         workstacks.unallocateThreeCasesFromSelectedUser(User.valueOf(user));
     }
 
@@ -217,10 +222,10 @@ public class WorkstacksStepDefs extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "TRO":
-                homepage.selectPerformanceProcessTeam();
+                dashboard.selectPerformanceProcessTeam();
                 break;
             case "DTEN":
-                homepage.selectTransferN10Team();
+                dashboard.selectTransferN10Team();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -276,22 +281,22 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I navigate to the {string} workstack and order the {string} column from {string}")
     public void orderWorkstackColumnBy(String stage, String column, String order) {
         if (stage.toUpperCase().equals("MTS TEAM")) {
-            homepage.selectMTSTeam();
+            dashboard.selectMTSTeam();
         } else {
-            homepage.selectCorrectMPAMTeamByStage(stage);
+            dashboard.selectCorrectMPAMTeamByStage(stage);
         }
         workstacks.orderMPAMWorkstackColumn(column, order);
     }
 
     @And("I navigate to my cases and order the {string} column from {string}")
     public void orderMyCasesColumns(String column, String order) {
-        homepage.selectMyCases();
+        dashboard.selectMyCases();
         workstacks.orderMPAMWorkstackColumn(column, order);
     }
 
     @And("I search for active MPAM cases and order the {string} column from {string}")
     public void orderSearchResultColumns(String column, String order) {
-        safeClickOn(homepage.searchPage);
+        safeClickOn(dashboard.searchPage);
         safeClickOn(search.mpamCaseCheckbox);
         safeClickOn(search.caseStatusActiveCheckbox);
         safeClickOn(searchButton);
@@ -305,8 +310,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I view the MPAM case in the appropriate {string} stage workstack")
     public void iViewTheCaseInTheWorkstack(String stage) {
-        homepage.goHome();
-        homepage.selectCorrectMPAMTeamByStage(stage);
+        goToDashboard();
+        dashboard.selectCorrectMPAMTeamByStage(stage);
     }
 
     @And("I select to take the next unallocated case from the team workstack")
@@ -340,13 +345,13 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the contribution request deadline should be visible in the {string} workstack")
     public void theContributionRequestDeadlineShouldBeVisibleInTheWorkstack(String stage) {
-        homepage.selectCorrectMPAMTeamByStage(stage);
+        dashboard.selectCorrectMPAMTeamByStage(stage);
         workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
     }
 
     @Then("the follow-up due date should be visible in the {string} workstack")
     public void theFollowUpDueDateShouldBeVisibleInTheWorkstack(String stage) {
-        homepage.selectCorrectMPAMTeamByStage(stage);
+        dashboard.selectCorrectMPAMTeamByStage(stage);
         workstacks.assertCaseStageContains(sessionVariableCalled("dueDate"));
     }
 
@@ -357,9 +362,9 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
-        goHome();
+        goToDashboard();
         waitABit(500);
-        safeClickOn(homepage.myCases);
+        safeClickOn(dashboard.myCases);
         workstacks.assertDueDateOfContributionRequest();
     }
 
@@ -372,40 +377,40 @@ public class WorkstacksStepDefs extends BasePage {
     public void iEnterAWorkstack(String workstack) {
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                if (homepage.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
-                    homepage.selectMyCases();
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
+                    dashboard.selectMyCases();
                 } else {
                     createCase.createCaseOfType("MIN");
                     createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                    goHome();
-                    homepage.selectMyCases();
+                    goToDashboard();
+                    dashboard.selectMyCases();
                 }
                 break;
             case "DCU TEAM":
                 try {
-                    homepage.selectPerformanceProcessTeam();
+                    dashboard.selectPerformanceProcessTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MIN");
-                    goHome();
-                    homepage.selectPerformanceProcessTeam();
+                    goToDashboard();
+                    dashboard.selectPerformanceProcessTeam();
                 }
                 break;
             case "UKVI MY CASES":
                 try {
-                    homepage.selectMyCases();
+                    dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MPAM");
-                    goHome();
-                    homepage.selectMyCases();
+                    goToDashboard();
+                    dashboard.selectMyCases();
                 }
                 break;
             case "MTS TEAM":
                 try {
-                    homepage.selectMTSTeam();
+                    dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MTS");
-                    goHome();
-                    homepage.selectMTSTeam();
+                    goToDashboard();
+                    dashboard.selectMTSTeam();
                 }
                 break;
             case "CAMPAIGN":
@@ -415,11 +420,11 @@ public class WorkstacksStepDefs extends BasePage {
                 setSessionVariable("businessArea").to("UKVI");
                 setSessionVariable("refType").to("Ministerial");
                 try {
-                    homepage.selectCorrectMPAMTeamByStage(workstack);
+                    dashboard.selectCorrectMPAMTeamByStage(workstack);
                 } catch (NoSuchElementException e) {
                     endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", workstack);
-                    goHome();
-                    homepage.selectCorrectMPAMTeamByStage(workstack);
+                    goToDashboard();
+                    dashboard.selectCorrectMPAMTeamByStage(workstack);
                 }
                 break;
             default:

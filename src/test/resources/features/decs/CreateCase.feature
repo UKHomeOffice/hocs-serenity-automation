@@ -31,7 +31,8 @@ Feature: Create case
   Scenario: A single case is allocated to the current user
     And I create a single "MIN" case
     When I allocate the case to myself via the successful case creation screen
-    Then the case should be visible in my workstack
+    And I click to view the "Performance and Process team" workstack
+    Then I should own the case
 
   @Allocation @OtherTests
   Scenario: A single case is allocated to another user
