@@ -156,7 +156,7 @@ Feature: Workstacks
   Scenario Outline: DCU User sees the required information when viewing a workstack
     Given I switch to user "DCU_USER"
     And I enter a "<workstack>" workstack
-    Then the "<workstack>" workstack should contain the expected columns
+    Then the "<workstack>" workstack should contain only the expected columns
     Examples:
       | workstack    |
       | DCU My Cases |
@@ -166,7 +166,7 @@ Feature: Workstacks
   Scenario Outline: UKVI User sees the required information when viewing a workstack
     Given I switch to user "UKVI_USER"
     And I enter a "<workstack>" workstack
-    Then the "<workstack>" workstack should contain the expected columns
+    Then the "<workstack>" workstack should contain only the expected columns
     Examples:
       | workstack     |
       | UKVI My Cases |
