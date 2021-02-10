@@ -54,3 +54,12 @@ Feature: Private Office Approval
       | MIN  |
       | DTEN |
 
+  Scenario: User can override the Primary topic at the Private Office stage
+    And I create a "MIN" case and move it to the "Private Office Approval" stage
+    And I load and claim the current case
+    And I override the Primary Topic of the case at the Private Office stage to "Breeding of research animals"
+    And I navigate to the "home" page
+    And I load and claim the current case
+    Then the "Primary Topic" of the case should be updated to "Breeding of research animals" in the summary tab
+#    And the "Team" of the case should be updated to "Minister for Lords" in the summary tab
+    And the reason for changing the primary topic of the case should be added as a case note in the timeline

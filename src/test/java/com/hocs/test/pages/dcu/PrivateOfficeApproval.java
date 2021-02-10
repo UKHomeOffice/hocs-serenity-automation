@@ -1,11 +1,17 @@
 package com.hocs.test.pages.dcu;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.TimelineTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApproval extends BasePage {
+
+    Markup_AddTopics markup_addTopics;
+
+    TimelineTab timelineTab;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
     public WebElementFacade privateOfficeAcceptRadioButton;
@@ -37,6 +43,21 @@ public class PrivateOfficeApproval extends BasePage {
     @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
     public WebElementFacade privateOfficeTeamDropdown;
 
+    @FindBy(xpath = "//label[text()='Change Minister']")
+    public WebElementFacade changeMinisterRadioButton;
+
+    @FindBy(xpath = "//label[text()='Change Topic']")
+    public WebElementFacade changeTopicRadioButton;
+
+    @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
+    public WebElementFacade privateOfficeOverrideDropdown;
+
+    @FindBy(id = "CaseNote_PrivateOfficeOverride")
+    public WebElementFacade privateOfficeOverrideReasonTextField;
+
+    @FindBy(id = "CaseNote_PrivateOfficeTopic")
+    public WebElementFacade topicOverrideReasonTextField;
+
     public void enterPORejectNotes() {
         waitFor(privateOfficeRejectNoteField);
         String poRejectNote = "Rejection Reason: " + generateRandomString();
@@ -53,19 +74,6 @@ public class PrivateOfficeApproval extends BasePage {
     public void getToPOFeedbackResponseScreenPrerequisites() {
         safeClickOn(privateOfficeRejectRadioButton);
         safeClickOn(continueButton);
-    }
-
-    public void assertDoYouApproveTheResponseErrorMessage() {
-        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
-    }
-
-    public void assertChangeMinisterErrorMessages() {
-        overridePrivateOfficeTeamIsRequiredErrorMessage.shouldContainText("Override Private Office Team is required");
-        whyShouldThisBeApprovedErrorMessage.shouldContainText("Why should this be approved by this team instead? is required");
-    }
-
-    public void assertWhatIsYourFeedbackResponse() {
-        whatIsYourFeedbackResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 
     public void moveCaseFromPrivateOfficeToMinisterSignOff() {
@@ -92,5 +100,37 @@ public class PrivateOfficeApproval extends BasePage {
     public void enterAReasonForChangingPOTeam(String reason) {
         privateOfficeOverrideNoteField.sendKeys(reason);
         setSessionVariable("reasonForOverridePOTeam").to(reason);
+    }
+
+    public void changeTopicAtPOStage(String topic) {
+        safeClickOn(changeTopicRadioButton);
+        safeClickOn(continueButton);
+        safeClickOn(markup_addTopics.addTopicLink);
+        markup_addTopics.topicsTextField.click();
+        markup_addTopics.topicsTextField.sendKeys(topic);
+        waitABit(1000);
+        markup_addTopics.hitReturnToSendTopic();
+        waitABit(1000);
+        safeClickOn(addButton);
+        typeInto(topicOverrideReasonTextField, "Test");
+        setSessionVariable("topicOverrideReason").to("Test");
+        safeClickOn(continueButton);
+    }
+
+    public void assertTopicChangeCaseNoteIsAddedToTimeline() {
+        timelineTab.topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
+    }
+
+    public void assertDoYouApproveTheResponseErrorMessage() {
+        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
+    }
+
+    public void assertChangeMinisterErrorMessages() {
+        overridePrivateOfficeTeamIsRequiredErrorMessage.shouldContainText("Override Private Office Team is required");
+        whyShouldThisBeApprovedErrorMessage.shouldContainText("Why should this be approved by this team instead? is required");
+    }
+
+    public void assertWhatIsYourFeedbackResponse() {
+        whatIsYourFeedbackResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 }

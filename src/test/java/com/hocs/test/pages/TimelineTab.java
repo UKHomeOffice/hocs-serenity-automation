@@ -64,6 +64,9 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li//span[text()='Case transfer reason']/parent::p")
     public WebElementFacade caseTransferReasonNoteContents;
 
+    @FindBy(xpath = "//span[text()='Change note']/parent::p")
+    public WebElementFacade topicChangeCaseNoteContents;
+
     public void selectTimelineTab() {
         safeClickOn(timelineTab);
     }
