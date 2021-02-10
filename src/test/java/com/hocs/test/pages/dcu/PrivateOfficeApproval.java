@@ -1,13 +1,17 @@
 package com.hocs.test.pages.dcu;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.TimelineTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApproval extends BasePage {
 
     Markup_AddTopics markup_addTopics;
+
+    TimelineTab timelineTab;
 
     @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
     public WebElementFacade privateOfficeAcceptRadioButton;
@@ -109,7 +113,12 @@ public class PrivateOfficeApproval extends BasePage {
         waitABit(1000);
         safeClickOn(addButton);
         typeInto(topicOverrideReasonTextField, "Test");
+        setSessionVariable("topicOverrideReason").to("Test");
         safeClickOn(continueButton);
+    }
+
+    public void assertTopicChangeCaseNoteIsAddedToTimeline() {
+        timelineTab.topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
     }
 
     public void assertDoYouApproveTheResponseErrorMessage() {

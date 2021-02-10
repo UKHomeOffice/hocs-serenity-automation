@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
@@ -28,6 +29,8 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     UnallocatedCaseView unallocatedCaseView;
 
     SummaryTab summaryTab;
+
+    TimelineTab timelineTab;
 
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStagePerCaseType() {
@@ -89,10 +92,26 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
     }
 
-    @Then("the Primary Topic of the case should be updated to {string} in the summary tab")
-    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String input) {
+    @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
+    public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
+        safeClickOn(timelineTab.timelineTab);
+        privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
+    }
+
+    @Then("the {string} of the case should be updated to {string} in the summary tab")
+    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
         safeClickOn(summaryTab.summaryTab);
-        waitFor(summaryTab.primaryTopic);
-        assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+        switch (category.toUpperCase()) {
+            case "PRIMARY TOPIC":
+                waitFor(summaryTab.primaryTopic);
+                assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                break;
+            case "TEAM":
+                waitFor(summaryTab.currentTeam);
+                assertThat(summaryTab.currentTeam.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                break;
+            default:
+                pendingStep(category + " is not defined within " + getMethodName());
+        }
     }
 }
