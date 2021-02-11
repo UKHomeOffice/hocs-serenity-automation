@@ -427,8 +427,8 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @Then("the {string} workstack should contain the expected columns")
-    public void theWorkstackShouldContainTheExpectedColumns(String workstack) {
+    @Then("the {string} workstack should contain only the expected columns")
+    public void theWorkstackShouldContainOnlyTheExpectedColumns(String workstack) {
         workstacks.assertExpectedColumnsPresent(workstack);
     }
 
