@@ -2,7 +2,7 @@
 Feature: Awaiting Dispatch
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I log in to "DECS" as user "DECS_USER"
     And I create a "MPAM" case and move it to the "Awaiting Dispatch" stage
     And I load the current case
 
