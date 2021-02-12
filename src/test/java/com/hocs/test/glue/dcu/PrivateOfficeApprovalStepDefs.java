@@ -1,22 +1,21 @@
 package com.hocs.test.glue.dcu;
+
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
-import com.hocs.test.pages.Homepage;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import net.serenitybdd.core.pages.WebElementFacade;
+import io.cucumber.java.en.When;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -112,5 +111,13 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
             default:
                 pendingStep(category + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I change the minister to {string}")
+    public void iChangeTheMinisterTo(String minister) {
+        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
+        privateOfficeApproval.enterAReasonForChangingPOTeam("Test change deadlines at PO stage");
+        clickTheButton("Finish");
     }
 }

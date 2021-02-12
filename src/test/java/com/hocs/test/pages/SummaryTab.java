@@ -6,7 +6,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.dcu.AccordionDCU;
 import config.User;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -16,15 +15,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class SummaryTab extends BasePage {
 
-    AccordionDCU accordionDCU;
-
-    Homepage homepage;
-
-    UnallocatedCaseView unallocatedCaseView;
-
     Workdays workdays;
-
-    Workstacks workstacks;
 
     @FindBy(xpath = "//a[text()='Summary']")
     public WebElementFacade summaryTab;
