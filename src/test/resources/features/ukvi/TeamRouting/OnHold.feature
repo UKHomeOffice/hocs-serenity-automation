@@ -2,7 +2,7 @@
 Feature: OnHold
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I log in to "DECS" as user "DECS_USER"
 
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Triage stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage

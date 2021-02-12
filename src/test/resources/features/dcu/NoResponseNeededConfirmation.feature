@@ -2,7 +2,7 @@
 Feature: No Response Needed Confirmation
 
   Background:
-    Given I log in to "DECS" as user "DCU_USER"
+    Given I log in to "DECS" as user "DECS_USER"
     And I create a "MIN" case and move it to the "No Response Needed Confirmation" stage
     And I load and claim the current case
 
