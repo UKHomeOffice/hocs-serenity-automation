@@ -44,7 +44,7 @@ public class LoginStepDefs extends BasePage {
             System.out.println("Logging in as user: " + targetUser.getUsername());
             loginPage.enterHocsLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
-        } else {
+        } else if (!isElementDisplayed($(loginPage.usernameField)) && !platform.toUpperCase().equals("MANAGEMENT UI")){
             System.out.println("Session still active, continuing test from dashboard");
             homepage.goHome();
         }

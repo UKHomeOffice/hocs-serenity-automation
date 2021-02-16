@@ -223,22 +223,19 @@ public class Workstacks extends BasePage {
     }
 
     public void allocateThreeCasesCreated(User user) {
-        refineWorkstackSearchResults("MIN");
         waitABit(500);
         int totalCaseNumber = getTotalOfCases();
-
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
         WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
         clickOn(caseTwo);
         WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
-
         selectAllocationUserByVisibleText(user.getAllocationText());
     }
 
-    public void unallocateThreeCasesFromSelectedUser(User user) {
-        refineWorkstackSearchResults("MIN");
+    public void unallocateThreeCasesFromSelectedUser() {
+        waitABit(1500);
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
@@ -246,7 +243,6 @@ public class Workstacks extends BasePage {
         clickOn(caseTwo);
         WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
-
         safeClickOn(unallocateButton);
     }
 
@@ -463,36 +459,29 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
-        int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
-
-        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
-
-        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
-
-        waitForAnyTextToAppear(caseOwnerOne, user.getUsername());
-        caseOwnerOne.shouldContainText(user.getUsername());
-        caseOwnerTwo.shouldContainText(user.getUsername());
-        caseOwnerThree.shouldContainText(user.getUsername());
+        waitABit(2000);
+        int n = 1;
+        while (n <= 3) {
+            WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
+                    + "/following-sibling::td[2]");
+            waitFor(selectedCase);
+            selectedCase.shouldContainText(user.getUsername());
+            n++;
+        }
     }
 
     public void assertThatThreeCasesHaveBeenUnassigned() {
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
-
-        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
-
-        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
-
-        waitForAnyTextToAppear(caseOwnerOne, "");
-        caseOwnerOne.shouldContainText("");
-        caseOwnerTwo.shouldContainText("");
-        caseOwnerThree.shouldContainText("");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
+        caseOne.shouldContainText("");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
+        caseTwo.shouldContainText("");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
+        caseThree.shouldContainText("");
     }
 
     public void assertCaseIsAssignedToMe() {
-        int totalCases = getTotalOfCases();
-        WebElementFacade caseOwner = findBy("//tr[" + totalCases + "]/td[4]");
+        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[2]");
         caseOwner.shouldContainText(User.DECS_USER.getUsername());
     }
 
@@ -673,7 +662,7 @@ public class Workstacks extends BasePage {
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
         WebElementFacade deadlineOfCurrentCase =
-                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[contains(text(), '" + getCurrentYear() + "')"
+                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '" + getCurrentYear() + "')"
                 + "]");
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
@@ -745,10 +734,10 @@ public class Workstacks extends BasePage {
         List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Team", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Team", "Primary Topic", "Deadline"));
                 break;
             case "DCU TEAM":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Primary Topic", "Deadline"));
                 break;
             case "DCU SEARCH":
                 requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));

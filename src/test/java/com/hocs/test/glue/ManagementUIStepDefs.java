@@ -91,7 +91,7 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("I should be taken to the {string} Management page")
     public void assertThatTheUserIsTakenToTheSelectedManagementPage(String managementPage) {
         switch (managementPage.toUpperCase()) {
-            case "STANDARD LINE":
+            case "ADD A STANDARD LINE":
                 standardLine.assertAddStandardLinePageTitle();
                 break;
             case "TEAM":

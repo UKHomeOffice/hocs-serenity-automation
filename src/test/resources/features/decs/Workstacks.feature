@@ -22,7 +22,7 @@ Feature: Workstacks
     And I check that the three cases created have been correctly assigned to "CASEY"
 
   @Regression
-  Scenario: User creates and allocates 3 cases to another User, then unallocates these cases
+  Scenario: User creates and allocates 3 cases to another User then unallocates these cases
     And I create three cases, and assign them to "CASEY"
     Then I view these cases in Performance and Process workstack, and unallocate from "CASEY"
     And I then check whether the correct cases have been unallocated

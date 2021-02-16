@@ -81,7 +81,7 @@ Feature: Draft
     Examples:
       | errorType                                 |
       | Actions Required                          |
-      | Response Channel Required                 |
+#      | Response Channel Required                 |
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User moves case into a Campaign from Draft

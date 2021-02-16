@@ -148,7 +148,6 @@ public class TriageStepDefs extends BasePage {
         iSelectToChangeTheBusinessArea();
         waitABit(500);
         creation.selectBusinessArea(businessArea);
-        triage.selectSaveChangesAction();
         triage.setBusinessUnit();
         clickContinueButton();
     }
