@@ -181,7 +181,7 @@ public class SummaryTab extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
-                }
+                    }
                 assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
                 break;
             case "DTEN":

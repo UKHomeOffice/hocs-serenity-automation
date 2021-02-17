@@ -133,7 +133,6 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCaseOfType("MIN");
         goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
-        workstacks.filterByCurrentCaseReference();
         waitABit(500);
     }
 
@@ -160,13 +159,16 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference1").to(sessionVariableCalled("caseReference"));
         goToDashboard();
         waitABit(500);
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference2").to(sessionVariableCalled("caseReference"));
         goToDashboard();
         waitABit(500);
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference3").to(sessionVariableCalled("caseReference"));
         goToDashboard();
         waitABit(500);
         safeClickOn(dashboard.performanceProcessTeam);
@@ -184,24 +186,20 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        goToDashboard();
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        goToDashboard();
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        goToDashboard();
+        int n = 0;
+        while (n < 3) {
+            createCase.createCaseOfType("TRO");
+            safeClickOn(createCaseSuccessPage.newCaseReference);
+            workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
+            goToDashboard();
+            n++;
+        }
     }
 
     @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
     public void iUnallocateThreeCasesCreated(String user) {
         safeClickOn(dashboard.performanceProcessTeam);
-        workstacks.unallocateThreeCasesFromSelectedUser(User.valueOf(user));
+        workstacks.unallocateThreeCasesFromSelectedUser();
     }
 
     @Then("I then check whether the correct cases have been unallocated")
@@ -432,8 +430,8 @@ public class WorkstacksStepDefs extends BasePage {
         }
     }
 
-    @Then("the {string} workstack should contain the expected columns")
-    public void theWorkstackShouldContainTheExpectedColumns(String workstack) {
+    @Then("the {string} workstack should contain only the expected columns")
+    public void theWorkstackShouldContainOnlyTheExpectedColumns(String workstack) {
         workstacks.assertExpectedColumnsPresent(workstack);
     }
 

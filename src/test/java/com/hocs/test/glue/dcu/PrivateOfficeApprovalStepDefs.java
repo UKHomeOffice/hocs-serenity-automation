@@ -3,9 +3,13 @@ package com.hocs.test.glue.dcu;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
+import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.AccordionDCU;
@@ -20,11 +24,13 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     PrivateOfficeApproval privateOfficeApproval;
 
-    Workstacks workstacks;
-
     AccordionDCU accordionDCU;
 
     UnallocatedCaseView unallocatedCaseView;
+
+    SummaryTab summaryTab;
+
+    TimelineTab timelineTab;
 
     @When("I complete the Private Office stage")
     public void completePrivateOfficeStagePerCaseType() {
@@ -44,6 +50,11 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I override the Primary Topic of the case at the Private Office stage to {string}")
+    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String input) {
+        privateOfficeApproval.changeTopicAtPOStage(input);
     }
 
     @Then("an error message should be displayed as I have not selected whether I approve the response")
@@ -79,5 +90,35 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @Then("the information shown should match what I entered on the change Private Office Team page")
     public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
         accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
+    }
+
+    @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
+    public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
+        safeClickOn(timelineTab.timelineTab);
+        privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
+    }
+
+    @Then("the {string} of the case should be updated to {string} in the summary tab")
+    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
+        safeClickOn(summaryTab.summaryTab);
+        waitABit(500);
+        switch (category.toUpperCase()) {
+            case "PRIMARY TOPIC":
+                assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                break;
+            case "TEAM":
+                assertThat(summaryTab.currentTeam.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                break;
+            default:
+                pendingStep(category + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I change the minister to {string}")
+    public void iChangeTheMinisterTo(String minister) {
+        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
+        privateOfficeApproval.enterAReasonForChangingPOTeam("Test change deadlines at PO stage");
+        clickTheButton("Finish");
     }
 }

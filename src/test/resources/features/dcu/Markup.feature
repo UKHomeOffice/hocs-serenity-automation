@@ -2,7 +2,7 @@
 Feature: Markup
 
   Background:
-    Given I log in to "DECS" as user "DCU_USER"
+    Given I log in to "DECS" as user "DECS_USER"
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
 
@@ -110,9 +110,3 @@ Feature: Markup
   Scenario: Case is returned to Data Input stage when rejected at Markup stage
     And I reject the case at the "MARKUP" stage
     Then the case should be moved to the "DATA INPUT" stage
-
-
-
-
-
-  

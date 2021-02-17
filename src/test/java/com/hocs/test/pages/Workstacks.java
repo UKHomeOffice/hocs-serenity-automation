@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -142,6 +143,8 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//thead/tr[1]/th[text()='Rejected']")
     public WebElementFacade rejectedHeader;
 
+    List visibleColumns;
+
     // Basic Methods
 
     public void clickAllocateSelectedToMeButton() {
@@ -220,22 +223,19 @@ public class Workstacks extends BasePage {
     }
 
     public void allocateThreeCasesCreated(User user) {
-        refineWorkstackSearchResults("MIN");
         waitABit(500);
         int totalCaseNumber = getTotalOfCases();
-
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
         WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
         clickOn(caseTwo);
         WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
-
         selectAllocationUserByVisibleText(user.getAllocationText());
     }
 
-    public void unallocateThreeCasesFromSelectedUser(User user) {
-        refineWorkstackSearchResults("MIN");
+    public void unallocateThreeCasesFromSelectedUser() {
+        waitABit(1500);
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
@@ -243,7 +243,6 @@ public class Workstacks extends BasePage {
         clickOn(caseTwo);
         WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
         clickOn(caseThree);
-
         safeClickOn(unallocateButton);
     }
 
@@ -460,36 +459,29 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
-        int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
-
-        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
-
-        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
-
-        waitForAnyTextToAppear(caseOwnerOne, user.getUsername());
-        caseOwnerOne.shouldContainText(user.getUsername());
-        caseOwnerTwo.shouldContainText(user.getUsername());
-        caseOwnerThree.shouldContainText(user.getUsername());
+        waitABit(2000);
+        int n = 1;
+        while (n <= 3) {
+            WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
+                    + "/following-sibling::td[2]");
+            waitFor(selectedCase);
+            selectedCase.shouldContainText(user.getUsername());
+            n++;
+        }
     }
 
     public void assertThatThreeCasesHaveBeenUnassigned() {
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOwnerOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
-
-        WebElementFacade caseOwnerTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
-
-        WebElementFacade caseOwnerThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
-
-        waitForAnyTextToAppear(caseOwnerOne, "");
-        caseOwnerOne.shouldContainText("");
-        caseOwnerTwo.shouldContainText("");
-        caseOwnerThree.shouldContainText("");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
+        caseOne.shouldContainText("");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
+        caseTwo.shouldContainText("");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
+        caseThree.shouldContainText("");
     }
 
     public void assertCaseIsAssignedToMe() {
-        int totalCases = getTotalOfCases();
-        WebElementFacade caseOwner = findBy("//tr[" + totalCases + "]/td[4]");
+        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[2]");
         caseOwner.shouldContainText(User.DECS_USER.getUsername());
     }
 
@@ -670,7 +662,7 @@ public class Workstacks extends BasePage {
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
         WebElementFacade deadlineOfCurrentCase =
-                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[contains(text(), '" + getCurrentYear() + "')"
+                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '" + getCurrentYear() + "')"
                 + "]");
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
@@ -730,95 +722,55 @@ public class Workstacks extends BasePage {
         return tableHeadersContent;
     }
 
+    private void checkColumnsArePresent(List<String> columns) {
+        for (String column : columns) {
+            assertThat(visibleColumns.contains(column), is(true));
+            visibleColumns.remove(column);
+        }
+    }
+
     public void assertExpectedColumnsPresent(String workstack) {
-        List visibleColumns = getTableHeadersContent();
+        visibleColumns = getTableHeadersContent();
+        List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Team"), is(true));
-                assertThat(visibleColumns.contains("Primary Topic"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Team", "Primary Topic", "Deadline"));
                 break;
             case "DCU TEAM":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Primary Topic"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Primary Topic", "Deadline"));
                 break;
             case "DCU SEARCH":
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Team"), is(true));
-                assertThat(visibleColumns.contains("Primary Topic"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
+                requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
                 break;
             case "UKVI MY CASES":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Ref Type"), is(true));
-                assertThat(visibleColumns.contains("Business Area"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Urgency"), is(true));
-                assertThat(visibleColumns.contains("Days"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Current Stage", "Deadline", "Urgency",
+                        "Days"));
                 break;
             case "UKVI SEARCH":
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Team"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Members of Parliament"), is(true));
-                assertThat(visibleColumns.contains("Constituents/Applicants"), is(true));
+                requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Deadline", "Members of Parliament",
+                        "Constituents/Applicants"));
                 break;
             case "MTS TEAM":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Business Area"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Urgency"), is(true));
-                assertThat(visibleColumns.contains("Telephone Surgery Official Engagement"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Business Area", "Current Stage", "Owner", "Deadline", "Urgency",
+                        "Telephone Surgery Official Engagement"));
                 break;
             case "CAMPAIGN":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Ref Type"), is(true));
-                assertThat(visibleColumns.contains("Business Area"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Campaign"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Owner", "Campaign", "Days"));
                 break;
             case "TRIAGE":
             case "DRAFT":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Minister Sign Off"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Urgency"), is(true));
-                assertThat(visibleColumns.contains("Days"), is(true));
-                assertThat(visibleColumns.contains("Rejected"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
+                        "Days", "Rejected"));
                 break;
             case "CREATION":
-                assertThat(visibleColumns.contains("Select"), is(true));
-                assertThat(visibleColumns.contains("Reference"), is(true));
-                assertThat(visibleColumns.contains("Current Stage"), is(true));
-                assertThat(visibleColumns.contains("Owner"), is(true));
-                assertThat(visibleColumns.contains("Minister Sign Off"), is(true));
-                assertThat(visibleColumns.contains("Deadline"), is(true));
-                assertThat(visibleColumns.contains("Urgency"), is(true));
-                assertThat(visibleColumns.contains("Days"), is(true));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
+                        "Days"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
+        checkColumnsArePresent(requiredColumns);
+        assertThat(visibleColumns.isEmpty(), is(true));
     }
 
     public void assertTransferDueDateOfCurrentCase() {

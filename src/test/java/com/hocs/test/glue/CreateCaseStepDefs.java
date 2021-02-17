@@ -284,11 +284,17 @@ public class CreateCaseStepDefs extends BasePage {
                     case "RECEIVED ON OR BEFORE DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
                         break;
-                    case "CORRESPONDENT NAME":
+                    case "MEMBER OF PARLIAMENT NAME":
                         createCase.createCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
+                        break;
+                    case "PUBLIC CORRESPONDENT NAME":
+                        createCase.createCaseOfType("MIN");
+                        homepage.goHome();
+                        homepage.getAndClaimCurrentCase();
+                        dataInput.completeDataInputStageWithPublicCorrespondent();
                         break;
                     case "TOPIC":
                         iCreateACaseWithAsIts("DCU", "Boris Johnson", "Correspondent Name");

@@ -22,7 +22,7 @@ public class Markup_AddTopics extends BasePage {
     public WebElementFacade primaryTopicInSummary;
 
     @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
-    private WebElementFacade topicsTextField;
+    public WebElementFacade topicsTextField;
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicLink;
