@@ -133,7 +133,6 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCaseOfType("MIN");
         homepage.goHome();
         safeClickOn(homepage.performanceProcessTeam);
-        workstacks.filterByCurrentCaseReference();
         waitABit(500);
     }
 
@@ -155,13 +154,16 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference1").to(sessionVariableCalled("caseReference"));
         homepage.goHome();
         waitABit(500);
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference2").to(sessionVariableCalled("caseReference"));
         homepage.goHome();
         waitABit(500);
-        createCase.createCaseOfType("MIN");
+        createCase.createCaseOfType("TRO");
+        setSessionVariable("caseReference3").to(sessionVariableCalled("caseReference"));
         homepage.goHome();
         waitABit(500);
         safeClickOn(homepage.performanceProcessTeam);
@@ -179,24 +181,20 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and assign them to {string}")
     public void iCreateThreeCasesAndAssignToUser(String user) {
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
-        createCase.createCaseOfType("MIN");
-        safeClickOn(createCaseSuccessPage.newCaseReference);
-        workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-        homepage.goHome();
+        int n = 0;
+        while (n < 3) {
+            createCase.createCaseOfType("TRO");
+            safeClickOn(createCaseSuccessPage.newCaseReference);
+            workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
+            homepage.goHome();
+            n++;
+        }
     }
 
     @Then("I view these cases in Performance and Process workstack, and unallocate from {string}")
     public void iUnallocateThreeCasesCreated(String user) {
         safeClickOn(homepage.performanceProcessTeam);
-        workstacks.unallocateThreeCasesFromSelectedUser(User.valueOf(user));
+        workstacks.unallocateThreeCasesFromSelectedUser();
     }
 
     @Then("I then check whether the correct cases have been unallocated")

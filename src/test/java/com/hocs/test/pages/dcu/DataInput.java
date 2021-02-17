@@ -162,6 +162,13 @@ public class DataInput extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void completeDataInputStageWithPublicCorrespondent() {
+        fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAPublicCorrespondent();
+        safeClickOn(finishButton);
+    }
+
     public void completeDataInputStageAndStoreEnteredInformation() {
         typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());

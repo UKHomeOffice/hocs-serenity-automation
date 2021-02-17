@@ -3,6 +3,7 @@ Feature: ManagementUI
 
   Background:
     Given I log in to "Management UI" as user "DECS_USER"
+
   Scenario Outline: User navigates to a management page
     When I navigate to the "<pageType>" Management page
     Then I should be taken to the "<pageType>" Management page

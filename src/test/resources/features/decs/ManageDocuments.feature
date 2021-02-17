@@ -27,7 +27,7 @@ Feature: Manage Documents
       | doc      |
 
   @DCURegression
-  Scenario Outline: : User can select document type when uploading documents on a DCU case
+  Scenario Outline: User can select document type when uploading documents on a DCU case
     And I click to manage the documents of a new "MIN" case
     And I click add documents
     When I choose the document type "<docType>"
@@ -40,7 +40,7 @@ Feature: Manage Documents
       | FINAL    |
 
   @UKVIRegression
-  Scenario Outline: : User can select document type when uploading documents on a MPAM case
+  Scenario Outline: User can select document type when uploading documents on a MPAM case
     And I click to manage the documents of a new "MPAM" case
     And I click add documents
     When I choose the document type "<docType>"

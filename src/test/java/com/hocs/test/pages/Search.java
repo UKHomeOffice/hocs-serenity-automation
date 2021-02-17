@@ -151,9 +151,15 @@ public class Search extends BasePage {
                 typeIntoDateField(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
-            case "CORRESPONDENT NAME":
-                safeClickOn(searchCorrespondentTextbox);
-                typeInto(searchCorrespondentTextbox, value);
+            case "MEMBER OF PARLIAMENT NAME":
+                safeClickOn(memberOfParliamentSearchBox);
+                memberOfParliamentSearchBox.sendKeys(value);
+                waitABit(5000);
+                memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                setSessionVariable("searchMemberOfParliamentName").to(value);
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+                typeInto(applicantOrConstituentFullNameTextField, value);
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "TOPIC":
@@ -346,10 +352,21 @@ public class Search extends BasePage {
                 trueFalse = (caseDate.before(searchDate) || caseDate.equals(searchDate));
                 assertThat(trueFalse, is(true));
                 break;
-            case "CORRESPONDENT NAME":
+            case "MEMBER OF PARLIAMENT NAME":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertMPCorrespondentIsAddedToTheCase(sessionVariableCalled("searchMemberOfParliamentName"));
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
                 safeClickOn(randomSearchResult);
                 peopleTab.selectPeopleTab();
-                peopleTab.assertCorrespondentIsAttachedToCase(sessionVariableCalled("searchCorrespondentName"));
+                WebElementFacade correspondentRefNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                correspondentRefNumber.shouldContainText(sessionVariableCalled("searchCorrespondentReferenceNumber"));
                 break;
             case "TOPIC":
                 safeClickOn(randomSearchResult);
