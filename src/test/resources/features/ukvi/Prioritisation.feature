@@ -41,7 +41,7 @@ Feature: Prioritisation
     Then the "Older" case should be higher up the workstack than the "Newer" case
 
   @UKVIRegression
-  Scenario: User checks that  a case approaching its SLA is given a higher priority in a workstack than a case that has passed its SLA
+  Scenario: User checks that a case approaching its SLA is given a higher priority in a workstack than a case that has passed its SLA
     And I create a single "MPAM" case with the correspondence received date set 19 workdays ago
     And I record the case reference of this case as "Approaching SLA"
     And I create a single "MPAM" case with the correspondence received date set 21 workdays ago

@@ -42,4 +42,4 @@ Feature: UKVI Search
     And I create a single "MPAM" case
     And I navigate to the "search" page
     And I click the search button on the search page
-    Then the "UKVI Search" workstack should contain the expected columns
+    Then the "UKVI Search" workstack should contain only the expected columns
