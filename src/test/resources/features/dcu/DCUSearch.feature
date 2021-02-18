@@ -15,7 +15,7 @@ Feature: DCU Search
     Examples:
       | infoType                              | infoValue                  |
       | Case Type                             | MIN                        |
-     | Received on or Before date            | 01/01/2021                 |
+      | Received on or Before date            | 01/01/2021                 |
       | Received on or After date             | 01/01/2021                 |
       | Member of Parliament Name             | Boris Johnson              |
       | Public Correspondent Name             | Sam McTester               |
