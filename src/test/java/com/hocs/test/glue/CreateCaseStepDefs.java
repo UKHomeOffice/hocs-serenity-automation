@@ -297,7 +297,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dataInput.completeDataInputStageWithPublicCorrespondent();
                         break;
                     case "TOPIC":
-                        iCreateACaseWithAsIts("DCU", "Boris Johnson", "Correspondent Name");
+                        iCreateACaseWithAsIts("DCU", "Boris Johnson", "Public Correspondent Name");
                         dashboard.getAndClaimCurrentCase();
                         markup.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
                         break;
