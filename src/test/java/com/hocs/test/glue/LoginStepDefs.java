@@ -27,8 +27,6 @@ public class LoginStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    // Use in features where all scenarios require the same user
-
     @Given("I log in to {string} as user {string}")
     public void iLoginToAs(String platform, String user) {
         User targetUser = User.valueOf(user);
@@ -41,14 +39,21 @@ public class LoginStepDefs extends BasePage {
             System.out.println("Logging in as user: " + targetUser.getUsername());
             loginPage.enterLoginDetails(targetUser);
             safeClickOn(loginPage.continueButton);
-        } else if (!isElementDisplayed($(loginPage.usernameField)) && !platform.toUpperCase().equals("MANAGEMENT UI")){
-            System.out.println("Session still active, continuing test from dashboard");
+        } else {
+            System.out.println("Session still active");
             goToDashboard(platform);
+            if (platform.equals("DECS")) {
+                if (!dashboard.checkLoggedInAsCorrectUser(targetUser)) {
+                    System.out.println("Not logged in as correct user, logging out");
+                    selectLogoutButton();
+                    System.out.println("Logging in as user: " + targetUser.getUsername());
+                    loginPage.enterLoginDetails(targetUser);
+                    safeClickOn(loginPage.continueButton);
+                }
+            }
         }
         setCurrentUser(targetUser);
     }
-
-    // Use in features where different scenarios require different users
 
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
@@ -65,8 +70,6 @@ public class LoginStepDefs extends BasePage {
         }
         setCurrentUser(targetUser);
     }
-
-    // Use for scenarios where the active session might have the correct user, but this needs to be checked
 
     @Given("I ensure I am logged into DECS as user {string}")
     public void iEnsureIAmLoggedIntoDecsAsUser(String user) {

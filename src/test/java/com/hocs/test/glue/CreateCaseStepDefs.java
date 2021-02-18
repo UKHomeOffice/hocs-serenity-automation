@@ -292,8 +292,8 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
                         createCase.createCaseOfType("MIN");
-                        homepage.goHome();
-                        homepage.getAndClaimCurrentCase();
+                        goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithPublicCorrespondent();
                         break;
                     case "TOPIC":
