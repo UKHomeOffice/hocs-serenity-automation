@@ -360,8 +360,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
-        goToDashboard();
         waitABit(500);
+        goToDashboard();
         safeClickOn(dashboard.myCases);
         workstacks.assertDueDateOfContributionRequest();
     }

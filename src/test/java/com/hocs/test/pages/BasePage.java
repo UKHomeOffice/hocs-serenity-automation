@@ -102,6 +102,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//a[text()='Accessibility']")
     public WebElementFacade accessibilityLink;
 
+    @FindBy(xpath = "//input[@id='case-reference']")
+    public WebElementFacade caseReferenceSearchBar;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -149,6 +152,7 @@ public class BasePage extends PageObject {
 
     public void goToDashboard() {
         safeClickOn(dashboardLink);
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 
     public void goToMUIDashboard() {

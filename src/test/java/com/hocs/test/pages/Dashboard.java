@@ -27,9 +27,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
 
-    @FindBy(xpath = "//input[@id='case-reference']")
-    public WebElementFacade caseReferenceSearchBar;
-
     @FindBy(xpath = "//span[text()='Case reference is required']")
     public WebElementFacade caseReferenceIsRequiredErrorMessage;
 
