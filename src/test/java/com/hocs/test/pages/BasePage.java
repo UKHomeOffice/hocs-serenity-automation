@@ -1,5 +1,7 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -56,7 +58,10 @@ public class BasePage extends PageObject {
     protected WebElementFacade errorMessage;
 
     @FindBy(linkText = "Correspondence System")
-    public WebElementFacade home;
+    public WebElementFacade dashboardLink;
+
+    @FindBy(linkText = "Correspondence System Management")
+    public WebElementFacade muiDashboardLink;
 
     @FindBy(css = "[value = 'Next']")
     public WebElementFacade nextButton;
@@ -96,6 +101,9 @@ public class BasePage extends PageObject {
 
     @FindBy(xpath = "//a[text()='Accessibility']")
     public WebElementFacade accessibilityLink;
+
+    @FindBy(xpath = "//input[@id='case-reference']")
+    public WebElementFacade caseReferenceSearchBar;
 
     public void waitABit(int milliseconds) {
         try {
@@ -142,8 +150,26 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    public void goHome() {
-        safeClickOn(home);
+    public void goToDashboard() {
+        safeClickOn(dashboardLink);
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+    }
+
+    public void goToMUIDashboard() {
+        safeClickOn(muiDashboardLink);
+    }
+
+    public void goToDashboard(String platform) {
+        switch (platform.toUpperCase()) {
+            case "DECS":
+                goToDashboard();
+                break;
+            case "MANAGEMENT UI":
+                goToMUIDashboard();
+                break;
+            default:
+                pendingStep(platform + " is not defined within " + getMethodName());
+        }
     }
 
     public void clickRejectButton() {

@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
 
     //Multi Step Methods
 
-    public void enterHocsLoginDetails(User user) {
+    public void enterLoginDetails(User user) {
         enterUsername(user.getUsername());
         enterPassword(user.getPassword());
     }

@@ -18,7 +18,7 @@ public class CreateCase extends BasePage {
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workdays workdays;
 
@@ -134,9 +134,9 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     public void createCaseOfType(String caseType) {
-        safeClickOn(homepage.createSingleCase);
+        safeClickOn(dashboard.createSingleCase);
         if (!nextButton.isVisible()) {
-            safeClickOn(homepage.createSingleCase);
+            safeClickOn(dashboard.createSingleCase);
         }
         selectCaseType(caseType);
         completeSingleCaseCreation();
@@ -144,7 +144,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseOfTypeWithoutDocument(String caseType) {
-        safeClickOn(homepage.createSingleCase);
+        safeClickOn(dashboard.createSingleCase);
         selectCaseType(caseType);
         safeClickOn(nextButton);
         clickCreateCaseButton();
@@ -161,7 +161,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String date) {
-        safeClickOn(homepage.createSingleCase);
+        safeClickOn(dashboard.createSingleCase);
         selectCaseType(caseType);
         safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
@@ -195,7 +195,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseWithoutSelectingCorrespondenceType() {
-        safeClickOn(homepage.createSingleCase);
+        safeClickOn(dashboard.createSingleCase);
         safeClickOn(nextButton);
     }
 

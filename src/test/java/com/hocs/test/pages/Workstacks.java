@@ -699,6 +699,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertDueDateOfContributionRequest() {
+        workstackFilter.waitUntilVisible();
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
                 + "Requested) due:')]");
@@ -740,7 +741,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Primary Topic", "Deadline"));
                 break;
             case "DCU SEARCH":
-                requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
                 break;
             case "UKVI MY CASES":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Current Stage", "Deadline", "Urgency",

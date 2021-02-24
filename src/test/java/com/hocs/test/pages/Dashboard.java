@@ -1,9 +1,12 @@
 package com.hocs.test.pages;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -11,7 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
-public class Homepage extends BasePage {
+public class Dashboard extends BasePage {
 
     UnallocatedCaseView unallocatedCaseView;
 
@@ -23,9 +26,6 @@ public class Homepage extends BasePage {
 
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchPage;
-
-    @FindBy(xpath = "//input[@id='case-reference']")
-    public WebElementFacade caseReferenceSearchBar;
 
     @FindBy(xpath = "//span[text()='Case reference is required']")
     public WebElementFacade caseReferenceIsRequiredErrorMessage;
@@ -168,7 +168,7 @@ public class Homepage extends BasePage {
 
     // Assertions
 
-    public void assertOnHomePage() {
+    public void assertAtDashboard() {
         assertThat(myCases.isVisible(), is(true));
     }
 
@@ -185,7 +185,7 @@ public class Homepage extends BasePage {
         try {
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         } catch (NoSuchElementException e) {
-            goHome();
+            goToDashboard();
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         }
         caseReferenceSearchBar.clear();
@@ -206,7 +206,7 @@ public class Homepage extends BasePage {
         while (attempts < 3 && !unallocatedCaseView.checkAllocateToMeLinkVisible()) {
             waitABit(2000);
             setCaseReferenceFromUnassignedCase();
-            goHome();
+            goToDashboard();
             getCurrentCase();
             attempts++;
         }
@@ -229,5 +229,30 @@ public class Homepage extends BasePage {
             caseCount = findBy("//span[text()=\"" + workstackName + "\"]/preceding-sibling::span");
         }
         return Integer.parseInt(caseCount.getText());
+    }
+
+    public boolean checkLoggedInAsCorrectUser(User targetUser) {
+        boolean correctUser = false;
+        caseReferenceSearchBar.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
+        switch (targetUser.toString()) {
+            case "DECS_USER":
+                if (mtsTeamWorkstack.isVisible() && performanceProcessTeam.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "DCU_USER":
+                if (!mtsTeamWorkstack.isVisible() && performanceProcessTeam.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "UKVI_USER":
+                if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            default:
+                pendingStep(targetUser + " is not defined within " + getMethodName());
+        }
+        return correctUser;
     }
 }

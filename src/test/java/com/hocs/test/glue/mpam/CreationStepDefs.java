@@ -4,7 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.mpam.Creation;
 import io.cucumber.java.en.And;
@@ -13,7 +13,7 @@ import io.cucumber.java.en.When;
 
 public class CreationStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -42,7 +42,7 @@ public class CreationStepDefs extends BasePage {
 
     @Then("the case summary should list the correct primary correspondent")
     public void theSummaryShouldListTheCorrectPrimaryCorrespondent() {
-        homepage.getCurrentCase();
+        dashboard.getCurrentCase();
         workstacks.selectSummaryTab();
         workstacks.assertPrimaryCorrespondentIs(sessionVariableCalled("primaryCorrespondent"));
     }
