@@ -2,7 +2,7 @@
 Feature: QA
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I log in to "DECS" as user "UKVI_USER"
 
   @Navigation
   Scenario: User should be on the MPAM QA Page
