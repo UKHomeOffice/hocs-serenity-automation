@@ -31,13 +31,15 @@ public class Search extends BasePage {
 
     Markup markup;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     AccordionDCU accordionDCU;
 
     AccordionMPAM accordionMPAM;
 
     UnallocatedCaseView unallocatedCaseView;
+
+    AddCorrespondent addCorrespondent;
 
     @FindBy(css = "label[for='caseTypes_MIN']")
     public WebElementFacade searchMINCheckbox;
@@ -317,6 +319,7 @@ public class Search extends BasePage {
         Date searchDate = null;
         Date caseDate = null;
         boolean trueFalse;
+        numberOfSearchResults.waitUntilVisible();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
@@ -382,12 +385,12 @@ public class Search extends BasePage {
                 } else if (markup.privateOfficeTeamTextField.isVisible()) {
                     checkSignOff = markup.privateOfficeTeamTextField.getValue().toUpperCase().split(": ")[1];
                 } else {
-                    goHome();
-                    safeClickOn(homepage.myCases);
+                    goToDashboard();
+                    safeClickOn(dashboard.myCases);
                     workstacks.unallocateSelectedCase(sessionVariableCalled("randomCaseRef"));
-                    goHome();
-                    homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
-                    homepage.hitEnterCaseReferenceSearchBar();
+                    goToDashboard();
+                    dashboard.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
+                    dashboard.hitEnterCaseReferenceSearchBar();
                     safeClickOn(accordionDCU.markupAccordionButton);
                     checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
                 }
@@ -410,6 +413,7 @@ public class Search extends BasePage {
     }
 
     public void assertMPAMInformationRandomSearchResult(String criteria) {
+        numberOfSearchResults.waitUntilVisible();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
@@ -437,8 +441,11 @@ public class Search extends BasePage {
                     accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
                     String displayedResponse = sessionVariableCalled("response");
                     assertThat(displayedResponse.contains(ministerialSignOffTeam), is(true));
-                }
-                else {
+                } else if (addCorrespondent.addACorrespondentLink.isVisible()) {
+                    clickBackButton();
+                    String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
+                    assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
+                } else {
                     accordionMPAM.openCaseDetailsAccordion();
                     String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
                     assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));

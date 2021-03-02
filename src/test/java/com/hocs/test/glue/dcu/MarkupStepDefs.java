@@ -5,22 +5,21 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.Homepage;
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
+import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.dcu.InitialDraft;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class MarkupStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Markup_AddTopics markupAddTopics;
 
@@ -37,7 +36,7 @@ public class MarkupStepDefs extends BasePage {
     @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
         if (!markup.policyResponseRadioButton.isVisible()) {
-            homepage.getCurrentCase();
+            dashboard.getCurrentCase();
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         markup.moveCaseFromMarkupToInitialDraft();
@@ -45,7 +44,7 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
-        homepage.getAndClaimCurrentCase();
+        dashboard.getAndClaimCurrentCase();
         safeClickOn(markup.policyResponseRadioButton);
         safeClickOn(markup.continueButton);
         if (topic.toUpperCase().equals("NEW CHILD TOPIC")) {
@@ -77,7 +76,7 @@ public class MarkupStepDefs extends BasePage {
                 markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
                 safeClickOn(finishButton);
-                homepage.getAndClaimCurrentCase();
+                dashboard.getAndClaimCurrentCase();
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
                 qaResponse.qaResponseFullFlow();
                 break;
@@ -134,45 +133,45 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the case should be found in the {string} team")
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
-        homepage.goHome();
+        goToDashboard();
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT":
-                safeClickOn(homepage.publicProtectionUnit);
+                safeClickOn(dashboard.publicProtectionUnit);
                 break;
             case "ANIMALS IN SCIENCE REGULATION UNIT":
-                safeClickOn(homepage.animalsInScienceTeam);
+                safeClickOn(dashboard.animalsInScienceTeam);
                 break;
             case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
-                safeClickOn(homepage.policeWorkforceProfessionalismUnit);
+                safeClickOn(dashboard.policeWorkforceProfessionalismUnit);
                 break;
             case "MINISTER FOR LORDS":
-                safeClickOn(homepage.ministerForLordsTeam);
+                safeClickOn(dashboard.ministerForLordsTeam);
                 break;
             case "EXTREMISM ANALYSIS UNIT":
-                safeClickOn(homepage.extremismAnalysisUnit);
+                safeClickOn(dashboard.extremismAnalysisUnit);
                 break;
             case "COUNTER EXTREMISM UNIT":
-                safeClickOn(homepage.counterExtremismUnit);
+                safeClickOn(dashboard.counterExtremismUnit);
             case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
-                safeClickOn(homepage.counterTerrorismLegislationInvestigatoryPowersUnit);
+                safeClickOn(dashboard.counterTerrorismLegislationInvestigatoryPowersUnit);
                 break;
             case "PRESS OFFICE":
-                safeClickOn(homepage.pressOffice);
+                safeClickOn(dashboard.pressOffice);
                 break;
             case "FINANCE":
-                safeClickOn(homepage.financeTeam);
+                safeClickOn(dashboard.financeTeam);
                 break;
             case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES":
-                safeClickOn(homepage.chemBioRadioNuclearExplosives);
+                safeClickOn(dashboard.chemBioRadioNuclearExplosives);
                 break;
             case "MINISTER OF STATE FOR IMMIGRATION":
-                safeClickOn(homepage.ministerOfStateForImmigrationTeam);
+                safeClickOn(dashboard.ministerOfStateForImmigrationTeam);
                 break;
             case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME":
-                safeClickOn(homepage.ministerOfStateForSecurityAndEconomicCrime);
+                safeClickOn(dashboard.ministerOfStateForSecurityAndEconomicCrime);
                 break;
             case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
-                safeClickOn(homepage.ministerOfStateForPolicingAndFireServiceTeam);
+                safeClickOn(dashboard.ministerOfStateForPolicingAndFireServiceTeam);
                 break;
             default:
                 pendingStep(team + " is not defined within " + getMethodName());

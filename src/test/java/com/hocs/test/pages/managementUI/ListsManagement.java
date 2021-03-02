@@ -1,16 +1,15 @@
 package com.hocs.test.pages.managementUI;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ListsManagement extends BasePage {
 
-    Dashboard dashboard;
+    MUIDashboard MUIDashboard;
 
     @FindBy(xpath = "//h1[text()='View and edit campaigns']")
     private WebElementFacade viewAndEditCampaignsHeader;
@@ -52,7 +51,7 @@ public class ListsManagement extends BasePage {
 
     public void assertCampaignAddedToCampaignTable() {
         if (!viewAndEditCampaignsHeader.isVisible()) {
-            safeClickOn(dashboard.manageMPAMCampaignsHypertext);
+            safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
         }
         WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
         newCampaignInList.shouldBeVisible();

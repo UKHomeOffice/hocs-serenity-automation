@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.Workstacks;
@@ -29,7 +29,7 @@ public class BaseStepDefs extends BasePage {
 
     DataInput dataInput;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -249,7 +249,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case should be closed")
     public void theCaseShouldBeClosed() {
-        homepage.assertCaseIsClosedViaLoadCase();
+        dashboard.assertCaseIsClosedViaLoadCase();
     }
 
     @Then("{string} link is displayed")
@@ -286,23 +286,23 @@ public class BaseStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                     case "DISPATCH":
-                        safeClickOn(homepage.performanceProcessTeam);
+                        safeClickOn(dashboard.performanceProcessTeam);
                         break;
                     case "MARKUP":
-                        safeClickOn(homepage.centralDraftingTeam);
+                        safeClickOn(dashboard.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
-                        safeClickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(dashboard.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
                     case "MINISTERIAL SIGN OFF":
-                        safeClickOn(homepage.ministerForLordsTeam);
+                        safeClickOn(dashboard.ministerForLordsTeam);
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
                     case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
-                        safeClickOn(homepage.transferN10Team);
+                        safeClickOn(dashboard.transferN10Team);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -312,20 +312,20 @@ public class BaseStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        safeClickOn(homepage.performanceProcessTeam);
+                        safeClickOn(dashboard.performanceProcessTeam);
                         break;
                     case "MARKUP":
-                        safeClickOn(homepage.centralDraftingTeam);
+                        safeClickOn(dashboard.centralDraftingTeam);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
                     case "DISPATCH":
-                        safeClickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(dashboard.animalsInScienceTeam);
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
                     case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
-                        safeClickOn(homepage.transferN10Team);
+                        safeClickOn(dashboard.transferN10Team);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -339,14 +339,14 @@ public class BaseStepDefs extends BasePage {
                     case "TRANSFER CONFIRMATION":
                     case "NO RESPONSE NEEDED CONFIRMATION":
                     case "DISPATCH":
-                        safeClickOn(homepage.transferN10Team);
+                        safeClickOn(dashboard.transferN10Team);
                         break;
                     case "INITIAL DRAFT":
                     case "QA RESPONSE":
-                        safeClickOn(homepage.animalsInScienceTeam);
+                        safeClickOn(dashboard.animalsInScienceTeam);
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        safeClickOn(homepage.ministerForLordsTeam);
+                        safeClickOn(dashboard.ministerForLordsTeam);
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -355,7 +355,7 @@ public class BaseStepDefs extends BasePage {
                 break;
             case "MPAM":
             case "MTS":
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);
                 break;
@@ -416,7 +416,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("I print the stage name")
     public void iPrintTheStageName() {
-        homepage.getCurrentCase();
+        dashboard.getCurrentCase();
         workstacks.selectSummaryTab();
         workstacks.summaryPrintActiveStage();
     }

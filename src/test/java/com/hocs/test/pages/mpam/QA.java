@@ -5,13 +5,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class QA extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     //QA Elements
     @FindBy(xpath = "//label[text()='Approve']")

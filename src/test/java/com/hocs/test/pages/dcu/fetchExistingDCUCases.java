@@ -1,22 +1,16 @@
 package com.hocs.test.pages.dcu;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.dcu.Markup;
 import net.serenitybdd.core.pages.WebElementFacade;
-import com.hocs.test.pages.dcu.MinisterialSignOff;
-import com.hocs.test.pages.dcu.PrivateOfficeApproval;
-import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.dcu.DataInput;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -36,7 +30,7 @@ public class fetchExistingDCUCases extends BasePage {
 
     MinisterialSignOff minister;
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -235,14 +229,14 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.performanceProcessTeam);
+                    safeClickOn(dashboard.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
@@ -251,28 +245,28 @@ public class fetchExistingDCUCases extends BasePage {
                         dataInput.dateCorrespondenceSentDayField.clear();
                     } catch (ElementShouldBeEnabledException | org.openqa.selenium.NoSuchElementException e) {
                         System.out.println("Element not found - Searching for fresh Data Input case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDataInputCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
-                    safeClickOn(homepage.home);
-                    safeClickOn(homepage.performanceProcessTeam);
+                    safeClickOn(dashboard.dashboardLink);
+                    safeClickOn(dashboard.performanceProcessTeam);
                     getFirstUnallocatedMINCaseDataInputStage();
                 }
                 break;
             case "TRO":
                 try {
-                    safeClickOn(homepage.performanceProcessTeam);
+                    safeClickOn(dashboard.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
@@ -281,28 +275,28 @@ public class fetchExistingDCUCases extends BasePage {
                         dataInput.dateCorrespondenceSentDayField.clear();
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Element not found - Searching for fresh Data Input case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDataInputCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
-                    safeClickOn(homepage.home);
-                    safeClickOn(homepage.performanceProcessTeam);
+                    safeClickOn(dashboard.dashboardLink);
+                    safeClickOn(dashboard.performanceProcessTeam);
                     getFirstUnallocatedTROCaseDataInputStage();
                 }
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.transferN10Team);
+                    safeClickOn(dashboard.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Transfers & N10 Team not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     giveMeACase(thisCaseType, thisStage);
                 }
                 try {
@@ -311,15 +305,15 @@ public class fetchExistingDCUCases extends BasePage {
                         dataInput.dtenDraftingDeadlineDayField.clear();
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Element not found - Searching for fresh Data Input case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDataInputCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Data Input case not found - Creating a new case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     createCase.createCaseOfType(caseType);
-                    safeClickOn(homepage.home);
-                    safeClickOn(homepage.transferN10Team);
+                    safeClickOn(dashboard.dashboardLink);
+                    safeClickOn(dashboard.transferN10Team);
                     getFirstUnallocatedDTENCaseDataInputStage();
                 }
                 break;
@@ -332,10 +326,10 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.centralDraftingTeam);
+                    safeClickOn(dashboard.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available -  Searching for a Data Input case");
-                    homepage.goHome();
+                    goToDashboard();
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -353,12 +347,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (org.openqa.selenium.NoSuchElementException e) {
                         System.out.println("Markup 'What sort of response is required?' element not found - Searching for a"
                                 + " fresh Markup case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedMarkupCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Markup case not found - Searching for a Data Input case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     getFirstUnallocatedMarkupCase(caseType);
@@ -366,10 +360,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "TRO":
                 try {
-                    safeClickOn(homepage.centralDraftingTeam);
+                    safeClickOn(dashboard.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Transfers & N10 Team not available - Searching for a Data Input case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -386,12 +380,12 @@ public class fetchExistingDCUCases extends BasePage {
                         System.out.println("Markup is active stage - Continuing test");
                     } catch (NoSuchElementException e) {
                         System.out.println("Markup case not found - Searching for a Data Input case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedMarkupCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Markup case not found - Searching for a Data Input case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     getFirstUnallocatedMarkupCase(caseType);
@@ -399,10 +393,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.transferN10Team);
+                    safeClickOn(dashboard.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available - Searching for a Data Input case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -420,12 +414,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (NoSuchElementException e) {
                         System.out.println("Markup 'What sort of response is required? element not found - Searching for a"
                                 + " fresh Markup case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedMarkupCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Markup case not found - Searching for a Data Input case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     getFirstUnallocatedMarkupCase(caseType);
@@ -440,10 +434,10 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -455,7 +449,7 @@ public class fetchExistingDCUCases extends BasePage {
                     try {
                         safeClickOn(workstacks.caseTimelineTab);
                         if (initialDraft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
-                            safeClickOn(homepage.home);
+                            safeClickOn(dashboard.dashboardLink);
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             safeClickOn(workstacks.caseSummaryTab);
@@ -467,12 +461,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
                                 + "found - Searching for a fresh Initial Draft case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedInitialDraftCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
@@ -480,10 +474,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "TRO":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -495,7 +489,7 @@ public class fetchExistingDCUCases extends BasePage {
                     try {
                         safeClickOn(workstacks.caseTimelineTab);
                         if (initialDraft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
-                            safeClickOn(homepage.home);
+                            safeClickOn(dashboard.dashboardLink);
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             safeClickOn(workstacks.caseSummaryTab);
@@ -507,12 +501,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not "
                                 + "found - Searching for a fresh Initial Draft case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedInitialDraftCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
@@ -520,10 +514,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -535,7 +529,7 @@ public class fetchExistingDCUCases extends BasePage {
                     try {
                         safeClickOn(workstacks.caseTimelineTab);
                         if (initialDraft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
-                            safeClickOn(homepage.home);
+                            safeClickOn(dashboard.dashboardLink);
                             getFirstUnallocatedInitialDraftCase(caseType);
                         } else {
                             safeClickOn(workstacks.caseSummaryTab);
@@ -547,12 +541,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Initial Draft 'Can this correspondence be answered by your team?' element not"
                                 + " found - Searching for a fresh Initial Draft case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedInitialDraftCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Initial Draft case not found - Searching for a Markup case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMarkupCase(caseType);
                     markup.moveCaseFromMarkupToInitialDraft();
                     getFirstUnallocatedInitialDraftCase(caseType);
@@ -567,11 +561,11 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
                             + "case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -589,12 +583,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
                                 + " fresh QA Response case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedQaResponseCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
@@ -602,11 +596,11 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "TRO":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
                             + "case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -624,12 +618,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found - Searching for a"
                                 + " fresh QA Response case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedQaResponseCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Animals in Science Regulation Unit - Searching for an Initial Draft case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
@@ -637,11 +631,11 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Animals in Science Regulation Unit not available - Searching for an Initial Draft "
                             + "case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -659,12 +653,12 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("QA Response 'Do you approve the response?' element not found = Searching for a"
                                 + " fresh QA Response case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedQaResponseCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("QA Response case not found - Searching for an Initial Draft case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromInitialDraftToQaResponse();
                     getFirstUnallocatedQaResponseCase(caseType);
@@ -679,10 +673,10 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.ministerForLordsTeam);
+                    safeClickOn(dashboard.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Minister for Lords team not available - Searching for a QA Response case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -694,7 +688,7 @@ public class fetchExistingDCUCases extends BasePage {
                     try {
                         safeClickOn(workstacks.caseTimelineTab);
                         if (initialDraft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
-                            safeClickOn(homepage.home);
+                            safeClickOn(dashboard.dashboardLink);
                             getFirstUnallocatedPrivateOfficeCase(caseType);
                         } else {
                             safeClickOn(workstacks.caseSummaryTab);
@@ -705,11 +699,11 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Private Office Approval 'Do you approve the response?' element not found - "
                                 + "Searching for a fresh Private Office Approval case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedPrivateOfficeCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Private Office Approval case not found - Searching for a QA Response case");
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveCaseFromQaResponseToPrivateOfficeApproval();
@@ -720,10 +714,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.ministerForLordsTeam);
+                    safeClickOn(dashboard.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Minister for Lords team not available - Searching for an Initial Draft case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     initialDraft.moveCaseFromDraftToPrivateOffice();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -735,7 +729,7 @@ public class fetchExistingDCUCases extends BasePage {
                     try {
                         safeClickOn(workstacks.caseTimelineTab);
                         if (initialDraft.isElementDisplayed($("//h2[contains(text(), 'Rejection Note')]"))) {
-                            safeClickOn(homepage.home);
+                            safeClickOn(dashboard.dashboardLink);
                             getFirstUnallocatedPrivateOfficeCase(caseType);
                         } else {
                             safeClickOn(workstacks.caseSummaryTab);
@@ -746,11 +740,11 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Private Office 'Do you approve the response?' element not found - Searching "
                                 + "for a fresh Private Office case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDTENCasePrivateOfficeStage();
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Private Office case not found - Searching for an Initial Draft case");
                     getFirstUnallocatedInitialDraftCase(caseType);
                     initialDraft.moveCaseFromDraftToPrivateOffice();
@@ -766,11 +760,11 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.ministerForLordsTeam);
+                    safeClickOn(dashboard.ministerForLordsTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Minister for Lords team not available - Searching for a Private Office Approval "
                             + "case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -787,11 +781,11 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Ministerial Sign Off case 'Do you approve the response?' element not found - "
                                 + "Searching for a fresh Ministerial Sign Off case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedMinisterialSignOffCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Ministerial Sign Off case not found - Searching for a Private Office case");
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
@@ -810,11 +804,11 @@ public class fetchExistingDCUCases extends BasePage {
         switch (caseType.toUpperCase()) {
             case "MIN":
                 try {
-                    safeClickOn(homepage.performanceProcessTeam);
+                    safeClickOn(dashboard.performanceProcessTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not available - Searching for a Ministerial Sign Off "
                             + "case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -831,11 +825,11 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
                                 + "fresh Dispatch case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDispatchCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Dispatch case not found - Searching for a MINISTERIAL SIGN OFF case");
                     getFirstUnallocatedMinisterialSignOffCase(caseType);
                     minister.moveCaseFromMinisterToDispatch();
@@ -844,10 +838,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "TRO":
                 try {
-                    safeClickOn(homepage.animalsInScienceTeam);
+                    safeClickOn(dashboard.animalsInScienceTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Performance and Process Team not available - Searching for QA Response case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveTROCaseFromQAResponseToDispatch();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -865,13 +859,13 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'How do you intend to respond?' element not found - Searching for a "
                                 + "fresh Dispatch case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDispatchCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Dispatch case not found - Searching for QA Response case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedQaResponseCase(caseType);
                     qa.moveTROCaseFromQAResponseToDispatch();
                     getFirstUnallocatedDispatchCase(caseType);
@@ -879,10 +873,10 @@ public class fetchExistingDCUCases extends BasePage {
                 break;
             case "DTEN":
                 try {
-                    safeClickOn(homepage.transferN10Team);
+                    safeClickOn(dashboard.transferN10Team);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Transfers & N10 Team not available - Searching for a Private Office case");
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOfficeApproval.moveDTENCaseFromPrivateOfficeToDispatch();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
@@ -899,11 +893,11 @@ public class fetchExistingDCUCases extends BasePage {
                     } catch (ElementShouldBeEnabledException | NoSuchElementException e) {
                         System.out.println("Dispatch 'Are you able to dispatch this?' element not found - Searching for a "
                                 + "fresh Dispatch case");
-                        safeClickOn(homepage.home);
+                        safeClickOn(dashboard.dashboardLink);
                         getFirstUnallocatedDispatchCase(caseType);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    safeClickOn(homepage.home);
+                    safeClickOn(dashboard.dashboardLink);
                     System.out.println("Dispatch case not found - Searching for a Private Office case");
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                     privateOfficeApproval.moveDTENCaseFromPrivateOfficeToDispatch();

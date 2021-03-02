@@ -4,23 +4,23 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.AccordionDCU;
-import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class DCUCaseDetailsAccordionStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -51,37 +51,37 @@ public class DCUCaseDetailsAccordionStepDefs extends BasePage {
                 break;
             case "Initial Draft":
                 moveCaseToNextStage("Markup");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 markup.completeMarkupStageAndStoreEnteredInformation();
                 break;
             case "QA Response":
                 moveCaseToNextStage("Initial Draft");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 initialDraft.completeInitialDraftStageAndStoreEnteredInformation();
                 break;
             case "Private Office Approval":
                 moveCaseToNextStage("QA Response");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 qaResponse.completeQAResponseStageAndStoreEnteredInformation();
                 break;
             case "Ministerial Sign Off":
                 moveCaseToNextStage("Private Office Approval");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 privateOfficeApproval.completePrivateOfficeApprovalStageAndStoreEnteredInformation();
                 break;
             case "Dispatch":
                 moveCaseToNextStage("Ministerial Sign Off");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 ministerialSignOff.completeMinisterialSignOffStageAndStoreEnteredInformation();
                 break;
             case "Transfer to No10":
                 moveCaseToNextStage("Dispatch");
-                homepage.getCurrentCase();
+                dashboard.getCurrentCase();
                 safeClickOn(unallocatedCaseView.allocateToMeLink);
                 dispatch.completeDispatchStageAndStoreEnteredInformation();
                 break;

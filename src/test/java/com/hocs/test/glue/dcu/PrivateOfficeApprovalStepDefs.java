@@ -7,10 +7,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.UnallocatedCaseView;
+import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
@@ -20,7 +21,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     PrivateOfficeApproval privateOfficeApproval;
 
@@ -39,7 +40,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
             case "MIN" :
             case "DTEN":
                 if (!privateOfficeApproval.privateOfficeAcceptRadioButton.isVisible()) {
-                    homepage.getCurrentCase();
+                    dashboard.getCurrentCase();
                     safeClickOn(unallocatedCaseView.allocateToMeLink);
                 }
                 safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);

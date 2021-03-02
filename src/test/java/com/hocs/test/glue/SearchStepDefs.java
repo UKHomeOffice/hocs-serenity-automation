@@ -1,7 +1,5 @@
 package com.hocs.test.glue;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
@@ -9,23 +7,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Homepage;
-import com.hocs.test.pages.PeopleTab;
+import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Search;
-import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.Random;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 
 public class SearchStepDefs extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Workstacks workstacks;
 
@@ -48,9 +42,9 @@ public class SearchStepDefs extends BasePage {
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
         createCase.createCaseOfType("MIN");
-        goHome();
-        homepage.enterCaseReferenceIntoSearchBar(sessionVariableCalled("caseReference"));
-        homepage.hitEnterCaseReferenceSearchBar();
+        goToDashboard();
+        dashboard.enterCaseReferenceIntoSearchBar(sessionVariableCalled("caseReference"));
+        dashboard.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("I should be taken directly to the case")
@@ -65,23 +59,23 @@ public class SearchStepDefs extends BasePage {
 
     @When("I enter a non-existent case reference")
     public void enterInvalidCaseReferenceForSearch() {
-        homepage.enterCaseReferenceIntoSearchBar("MIN/0000000/19");
-        homepage.hitEnterCaseReferenceSearchBar();
+        dashboard.enterCaseReferenceIntoSearchBar("MIN/0000000/19");
+        dashboard.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("an error message should be displayed stating that there are no active workflows for the case")
     public void assertThatNoActiveWorkflowsErrorMessageIsShown() {
-        homepage.assertNoActiveWorkflowsForCaseErrorMessage();
+        dashboard.assertNoActiveWorkflowsForCaseErrorMessage();
     }
 
     @When("I press enter in the Load Case search bar")
     public void PressEnterInTheLoadCaseBar() {
-        homepage.hitEnterCaseReferenceSearchBar();
+        dashboard.hitEnterCaseReferenceSearchBar();
     }
 
     @Then("an error message should be displayed stating that a case reference is required")
     public void assertThatCaseReferenceIsRequiredMessageIsShown() {
-        homepage.assertCaseReferenceIsRequiredErrorMessage();
+        dashboard.assertCaseReferenceIsRequiredErrorMessage();
     }
 
     @And("I enter {string} into the {string} DCU search criteria")
@@ -105,7 +99,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                safeClickOn(homepage.searchPage);
+                safeClickOn(dashboard.searchPage);
                 search.enterDCUSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
                 safeClickOn(searchButton);
             }
@@ -149,7 +143,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                safeClickOn(homepage.searchPage);
+                safeClickOn(dashboard.searchPage);
                 searchForMPAMCaseWith(sessionVariableCalled("infoType"), "infoValue");
                 safeClickOn(searchButton);
             }

@@ -7,14 +7,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Homepage;
+import com.hocs.test.pages.Dashboard;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class MultipleContributions extends BasePage {
 
-    Homepage homepage;
+    Dashboard dashboard;
 
     Campaign campaign;
 
@@ -191,12 +191,12 @@ public class MultipleContributions extends BasePage {
                 break;
             case "CONTRIBUTIONS REQUESTED":
                 sendCaseToContributionRequest();
-                homepage.getAndClaimCurrentCase();
+                dashboard.getAndClaimCurrentCase();
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST FULFILLMENT":
                 sendCaseToContributionRequest();
-                homepage.getAndClaimCurrentCase();
+                dashboard.getAndClaimCurrentCase();
                 safeClickOn(editHypertext);
                 safeClickOn(cancelledRadioButton);
                 safeClickOn(updateButton);
@@ -206,7 +206,7 @@ public class MultipleContributions extends BasePage {
                 break;
             case "UNALLOCATE CASE":
                 sendCaseToContributionRequest();
-                homepage.getAndClaimCurrentCase();
+                dashboard.getAndClaimCurrentCase();
                 safeClickOn(editHypertext);
                 safeClickOn(completeRadioButton);
                 typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,

@@ -12,7 +12,7 @@ import org.openqa.selenium.Keys;
 public class AddCorrespondent extends BasePage {
 
     @FindBy(linkText = "Add a correspondent")
-    private WebElementFacade addACorrespondentLink;
+    public WebElementFacade addACorrespondentLink;
 
     @FindBy(css = "label[for='isMember-false']")
     public WebElementFacade correspondentMemberNoRadioButton;
