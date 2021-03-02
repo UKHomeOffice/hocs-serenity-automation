@@ -59,7 +59,6 @@ public class MarkupStepDefs extends BasePage {
     public void enterTheTopic(String topic) {
         markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(topic);
         setSessionVariable("topic").to(topic);
-
     }
 
     @When("I add the new child topic")

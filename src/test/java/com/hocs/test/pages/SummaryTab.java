@@ -42,10 +42,16 @@ public class SummaryTab extends BasePage {
     private WebElementFacade whenCorrespondenceSent;
 
     @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption")
-    private WebElementFacade activeStage;
+    public WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
     public WebElementFacade currentTeam;
+
+    @FindBy(xpath = "//th[text()='Private Office Team']/following-sibling::td")
+    public WebElementFacade privateOfficeTeam;
+
+    @FindBy(xpath = "//th[text()='Override Private Office Team']/following-sibling::td")
+    public WebElementFacade overridePrivateOfficeTeam;
 
     @FindBy(xpath = "//th[text()='User']/following-sibling::td")
     private WebElementFacade allocatedUser;
