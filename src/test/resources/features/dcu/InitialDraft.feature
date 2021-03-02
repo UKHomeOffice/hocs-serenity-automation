@@ -2,7 +2,7 @@
 Feature: Initial Draft
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I log in to "DECS" as user "DCU_USER"
 
   @Validation
   Scenario: User decides the case is not for them, does not complete a rejection note

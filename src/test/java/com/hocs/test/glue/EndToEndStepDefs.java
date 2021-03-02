@@ -121,6 +121,7 @@ public class EndToEndStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+        waitForDashboard();
     }
 
     @And("I create a {string} case and move it to the {string} stage")

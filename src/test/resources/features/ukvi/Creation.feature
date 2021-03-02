@@ -2,7 +2,7 @@
 Feature: Creation
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I log in to "DECS" as user "UKVI_USER"
     And I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
 

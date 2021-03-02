@@ -2,7 +2,7 @@
 Feature: Case Details Accordion
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I log in to "DECS" as user "DCU_USER"
     And I create a single "MIN" case
 
   Scenario: Data Input accordion should contain the same information entered at the Case Creation stage

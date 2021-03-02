@@ -214,9 +214,11 @@ public class Dashboard extends BasePage {
     }
 
     public void getAndClaimCurrentCase() {
-        getCurrentCase();
+        if (!checkCaseIsLoaded()) {
+            getCurrentCase();
+        }
         waitFor(documentsTab);
-        if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+        if (unallocatedCaseView.allocateToMeLink.isCurrentlyVisible()) {
             claimCurrentCase();
         }
     }
