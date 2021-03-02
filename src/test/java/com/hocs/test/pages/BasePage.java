@@ -152,6 +152,10 @@ public class BasePage extends PageObject {
 
     public void goToDashboard() {
         safeClickOn(dashboardLink);
+        waitForDashboard();
+    }
+
+    public void waitForDashboard() {
         caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 
@@ -302,6 +306,18 @@ public class BasePage extends PageObject {
         waitFor(ExpectedConditions.textToBePresentInElement(caseReference, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(caseReference.getText());
         return caseReference.getText();
+    }
+
+    public boolean checkCaseIsLoaded() {
+        if (pageTitle.isCurrentlyVisible()) {
+            if (pageTitle.getText().equals(sessionVariableCalled("caseReference"))) {
+                return true;
+            }
+        }
+        if (pageTitleCaption.isCurrentlyVisible()) {
+            return pageTitleCaption.getText().equals(sessionVariableCalled("caseReference"));
+        }
+        return false;
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {
