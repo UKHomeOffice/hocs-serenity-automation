@@ -64,7 +64,7 @@ Feature: Private Office Approval
     And the "Team" of the case should be updated to "Minister for Lords" in the summary tab
     And the reason for changing the primary topic of the case should be added as a case note in the timeline
 
-  Scenario: User can override the PO team at Markup and moves the case to the PO stage
+  Scenario: User overrides the PO team at Markup and moves the case to the PO stage
     And I create a "MIN" case and move it to the "Markup" stage
     And I load and claim the current case
     And I assign the Topic "Animal Alternatives (3Rs)"
