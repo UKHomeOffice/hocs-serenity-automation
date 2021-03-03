@@ -61,5 +61,14 @@ Feature: Private Office Approval
     And I navigate to the "home" page
     And I load and claim the current case
     Then the "Primary Topic" of the case should be updated to "Breeding of research animals" in the summary tab
-#    And the "Team" of the case should be updated to "Minister for Lords" in the summary tab
+    And the "Team" of the case should be updated to "Minister for Lords" in the summary tab
     And the reason for changing the primary topic of the case should be added as a case note in the timeline
+
+  Scenario: User overrides the PO team at Markup and moves the case to the PO stage
+    And I create a "MIN" case and move it to the "Markup" stage
+    And I load and claim the current case
+    And I assign the Topic "Animal Alternatives (3Rs)"
+    And I override the "Private Office" team to "Home Secretary"
+    And I load and claim the current case
+    Then the "Team" of the case should be updated to "Home Secretary" in the summary tab
+    And the "Override Private Office Team" of the case should be updated to "Home Secretary" in the summary tab

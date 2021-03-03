@@ -17,6 +17,7 @@ import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -100,18 +101,28 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     @Then("the {string} of the case should be updated to {string} in the summary tab")
     public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
-        safeClickOn(summaryTab.summaryTab);
+        WebElementFacade summaryTabField = null;
+        if (!summaryTab.activeStage.isVisible()) {
+            safeClickOn(summaryTab.summaryTab);
+        }
         waitABit(500);
         switch (category.toUpperCase()) {
             case "PRIMARY TOPIC":
-                assertThat(summaryTab.primaryTopic.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                summaryTabField = summaryTab.primaryTopic;
                 break;
             case "TEAM":
-                assertThat(summaryTab.currentTeam.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+                summaryTabField = summaryTab.currentTeam;
+                break;
+            case "PRIVATE OFFICE TEAM":
+                summaryTabField = summaryTab.privateOfficeTeam;
+                break;
+            case "OVERRIDE PRIVATE OFFICE TEAM":
+                summaryTabField = summaryTab.overridePrivateOfficeTeam;
                 break;
             default:
                 pendingStep(category + " is not defined within " + getMethodName());
         }
+        assertThat(summaryTabField.getText().toUpperCase().contains(input.toUpperCase()), is(true));
     }
 
     @And("I change the minister to {string}")

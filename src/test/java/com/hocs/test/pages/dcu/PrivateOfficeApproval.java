@@ -112,6 +112,12 @@ public class PrivateOfficeApproval extends BasePage {
         markup_addTopics.hitReturnToSendTopic();
         waitABit(1000);
         safeClickOn(addButton);
+        WebElementFacade selectedPrimaryTopic = findBy("//input[@checked]/following-sibling::label");
+        if (!selectedPrimaryTopic.getText().toUpperCase().equals(topic.toUpperCase())) {
+            WebElementFacade newTopicRadioButton = findBy("//label[text()='" + topic + "']/parent::div/input");
+            waitFor(newTopicRadioButton);
+            safeClickOn(newTopicRadioButton);
+        }
         typeInto(topicOverrideReasonTextField, "Test");
         setSessionVariable("topicOverrideReason").to("Test");
         safeClickOn(continueButton);
