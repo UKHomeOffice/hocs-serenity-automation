@@ -22,6 +22,12 @@ public class MinisterialSignOff extends BasePage {
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
     public WebElementFacade whatIsYourFeedbackMinisterSignOffErrorMessage;
 
+    @FindBy(xpath = "//label[text()='Not applicable']")
+    public WebElementFacade notApplicableRadioButton;
+
+    @FindBy(id = "CaseNote_MinisterNotApplicable")
+    public WebElementFacade whyIsCaseNotApplicableFreeTextField;
+
     // Basic Methods
 
     public void enterMinisterRejectionNote() {
@@ -51,6 +57,13 @@ public class MinisterialSignOff extends BasePage {
         safeClickOn(ministerSignOffAcceptRadioButton);
         setSessionVariable("ministerialSignOffDecision").to(ministerSignOffAcceptRadioButton.getTextContent());
         safeClickOn(continueButton);
+    }
 
+    public void moveCaseFromMinisterSignOffToPrivateOfficeApproval() {
+        safeClickOn(notApplicableRadioButton);
+        safeClickOn(continueButton);
+        typeInto(whyIsCaseNotApplicableFreeTextField, "Test");
+        setSessionVariable("rejectionReason").to("Test");
+        safeClickOn(continueButton);
     }
 }

@@ -9,7 +9,6 @@ public enum User {
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
     CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),
-    CAMERON_HO("cameron.page3@homeoffice.gov.uk", "", "Cameron Page (cameron.page3@homeoffice.gov.uk)"),
     FAKE("FakeUser", "FAKE1!", "");
 
     private final String username;

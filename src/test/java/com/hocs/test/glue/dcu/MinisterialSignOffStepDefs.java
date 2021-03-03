@@ -8,6 +8,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -21,22 +22,17 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     @When("I complete the Ministerial Sign Off stage")
     public void completeTheMinisterSignOffStagePerCaseType() {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN" :
-                if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
-                    dashboard.getCurrentCase();
-                    safeClickOn(unallocatedCaseView.allocateToMeLink);
-                }
-                safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
-                safeClickOn(ministerialSignOff.continueButton);
-                break;
-            case "TRO" :
-            case "DTEN" :
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+        if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
+            dashboard.getCurrentCase();
+            safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
+        safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
+        safeClickOn(ministerialSignOff.continueButton);
+    }
+
+    @And("I return the case at Ministerial Sign Off to Private Office Approval")
+    public void iReturnCaseAtMinisterialSignOffToPrivateOfficeApproval() {
+        ministerialSignOff.moveCaseFromMinisterSignOffToPrivateOfficeApproval();
     }
 
     @Then("an error message should be displayed as I have not selected a radio button on the approve response screen")
