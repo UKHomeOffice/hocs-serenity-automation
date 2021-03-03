@@ -14,15 +14,15 @@ Feature: DCU Search
     Then I check that the DCU search results have the correct "<infoType>"
     Examples:
       | infoType                              | infoValue                  |
-      | Case Type                             | MIN                        |
-      | Received on or Before date            | 01/01/2021                 |
-      | Received on or After date             | 01/01/2021                 |
-      | Member of Parliament Name             | Boris Johnson              |
-      | Public Correspondent Name             | Sam McTester               |
-      | Topic                                 | Animal alternatives (3Rs)  |
+#      | Case Type                             | MIN                        |
+#      | Received on or Before date            | 01/01/2021                 |
+#      | Received on or After date             | 01/01/2021                 |
+#      | Member of Parliament Name             | Boris Johnson              |
+#      | Public Correspondent Name             | Sam McTester               |
+#      | Topic                                 | Animal alternatives (3Rs)  |
       | Sign off team                         | Minister for Lords         |
-      | Home Secretary Interest               | Yes                        |
-      | Active Cases Only                     | Yes                        |
+#      | Home Secretary Interest               | Yes                        |
+#      | Active Cases Only                     | Yes                        |
 
   Scenario Outline: User can search for DCU case types
     When I create a "DCU" case with "<infoValue>" as its "Case Type"

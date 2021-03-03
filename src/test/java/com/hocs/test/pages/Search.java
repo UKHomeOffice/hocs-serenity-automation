@@ -377,24 +377,10 @@ public class Search extends BasePage {
                 summaryTab.primaryTopic.shouldContainText(sessionVariableCalled("searchTopic"));
                 break;
             case "SIGN OFF TEAM":
-                String checkSignOff;
                 safeClickOn(randomSearchResult);
-                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
-                    safeClickOn(accordionDCU.markupAccordionButton);
-                    checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
-                } else if (markup.privateOfficeTeamTextField.isVisible()) {
-                    checkSignOff = markup.privateOfficeTeamTextField.getValue().toUpperCase().split(": ")[1];
-                } else {
-                    goToDashboard();
-                    safeClickOn(dashboard.myCases);
-                    workstacks.unallocateSelectedCase(sessionVariableCalled("randomCaseRef"));
-                    goToDashboard();
-                    dashboard.enterCaseReferenceIntoSearchBar(sessionVariableCalled("randomCaseRef"));
-                    dashboard.hitEnterCaseReferenceSearchBar();
-                    safeClickOn(accordionDCU.markupAccordionButton);
-                    checkSignOff = accordionDCU.privateOfficeTeam.getText().toUpperCase().split(": ")[1];
-                }
-                assertThat(checkSignOff.equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()), is(true));
+                summaryTab.selectSummaryTab();
+                assertThat(summaryTab.privateOfficeTeam.getText().toUpperCase().equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()),
+                        is(true));
                 break;
             case "ACTIVE CASES ONLY":
                 List activeCases = findAll("//td[2][not(text() = 'Closed')]");
