@@ -377,9 +377,15 @@ public class Search extends BasePage {
                 summaryTab.primaryTopic.shouldContainText(sessionVariableCalled("searchTopic"));
                 break;
             case "SIGN OFF TEAM":
+                String signOffTeam;
                 safeClickOn(randomSearchResult);
                 summaryTab.selectSummaryTab();
-                assertThat(summaryTab.privateOfficeTeam.getText().toUpperCase().equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()),
+                if (summaryTab.overridePrivateOfficeTeam.isVisible()) {
+                    signOffTeam = summaryTab.overridePrivateOfficeTeam.getText().toUpperCase();
+                } else {
+                    signOffTeam = summaryTab.privateOfficeTeam.getText().toUpperCase();
+                }
+                assertThat(signOffTeam.equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()),
                         is(true));
                 break;
             case "ACTIVE CASES ONLY":
