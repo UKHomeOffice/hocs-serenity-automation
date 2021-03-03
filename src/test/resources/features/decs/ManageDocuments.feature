@@ -47,14 +47,15 @@ Feature: Manage Documents
     And I upload a file of type "docx"
     Then the "docx" document should be under the "<docType>" header
     Examples:
-      | docType                                |
-      | Original correspondence                |
-      | Further correspondence from MPs Office |
-      | Contributions requested                |
-      | Contributions received                 |
-      | Draft response (includes QA rejected)  |
-      | Background note                        |
-      | Final response                         |
+      | docType                                     |
+      | Original correspondence                     |
+      | Further correspondence from MPs Office      |
+      | Contributions requested                     |
+      | Contributions received                      |
+      | Draft response (includes QA rejected)       |
+      | Background note                             |
+      | Final response                              |
+      | Additional correspondence (Holding Replies) |
 
   @Validation
   Scenario: User must select a document type when uploading a document
