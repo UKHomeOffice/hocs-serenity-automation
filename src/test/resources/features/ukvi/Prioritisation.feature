@@ -6,9 +6,9 @@ Feature: Prioritisation
 
   @UKVIRegression
   Scenario: User checks that a Ministerial case is given a higher priority in My Cases workstack than an Offical case
-    And I create a MPAM case with "Standard" as the Urgency level and "Ministerial" as the Reference Type
+    And I create and claim a MPAM case with "Standard" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Ministerial"
-    And I create a MPAM case with "Standard" as the Urgency level and "Official" as the Reference Type
+    And I create and claim a MPAM case with "Standard" as the Urgency level and "Official" as the Reference Type
     And I record the case reference of this case as "Official"
     When I click to view the "My Cases" workstack
     Then the "Ministerial" case should be higher up the workstack than the "Official" case
