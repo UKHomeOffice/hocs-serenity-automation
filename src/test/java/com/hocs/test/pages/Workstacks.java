@@ -145,6 +145,8 @@ public class Workstacks extends BasePage {
 
     List visibleColumns;
 
+    List<String> caseReferencesList = new ArrayList<>();
+
     // Basic Methods
 
     public void clickAllocateSelectedToMeButton() {
@@ -206,20 +208,45 @@ public class Workstacks extends BasePage {
         typeInto(workstackFilter, workstackInput);
     }
 
-    public void selectTakeNextCase() {
-        int n = 0;
-        List<WebElementFacade> allocatedUsers = findAll("//th[text()='Owner']/ancestor::thead/following-sibling::tbody//td[4]");
-        boolean isCaseUnallocated = false;
-        while (n <= getTotalOfCases() && !isCaseUnallocated) {
-            if (allocatedUsers.get(n).getText().equals("")) {
-                WebElementFacade caseReference = findBy("//th[text()='Reference']/ancestor::thead/following-sibling::tbody/tr[" + (n + 1) + "]/td[2"
-                        + "]");
-                setSessionVariable("nextCaseCaseReference").to(caseReference.getText());
-                isCaseUnallocated = true;
+    public void recordHighestPriorityCases() {
+        int n = 1;
+        int totalOfCases = getTotalOfCases();
+        while (n <= totalOfCases) {
+            if (getNthCasesOwner(n).equals("")) {
+                caseReferencesList.add(getNthCasesReference(n));
+                break;
             }
             n++;
         }
+        String highestPriorityUrgency = getNthCasesUrgency(n);
+        String highestPriorityDays = getNthCasesDays(n);
+        n++;
+        while (getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
+            if (getNthCasesOwner(n).equals("")) {
+                caseReferencesList.add(getNthCasesReference(n));
+            }
+            n++;
+        }
+    }
+
+    public void selectTakeNextCase() {
         safeClickOn(takeNextCaseButton);
+    }
+
+    private String getNthCasesReference(int n) {
+        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[2]").getText();
+    }
+
+    private String getNthCasesOwner(int n) {
+        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[4]").getText();
+    }
+
+    private String getNthCasesUrgency(int n) {
+        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[7]").getText();
+    }
+
+    private String getNthCasesDays(int n) {
+        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[8]").getText();
     }
 
     public void allocateThreeCasesCreated(User user) {
@@ -343,7 +370,7 @@ public class Workstacks extends BasePage {
 
     public void assertCorrectCaseIsTaken() {
         waitFor(allocatedCaseReference);
-        assertThat(allocatedCaseReference.getText().equals(sessionVariableCalled("nextCaseCaseReference")), is(true));
+        assertThat(caseReferencesList.contains(allocatedCaseReference.getText()), is(true));
     }
 
     public void assertCaseIsInTheCorrectCampaign() {

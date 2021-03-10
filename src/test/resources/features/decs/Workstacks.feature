@@ -145,8 +145,9 @@ Feature: Workstacks
   Scenario Outline: User can select to take the next unallocated case from the team workstack
     And I create a high priority MPAM case and move it to the "<stage>" stage
     When I view the MPAM case in the appropriate "<stage>" stage workstack
+    And I record the highest priority cases in the workstack
     And I select to take the next unallocated case from the team workstack
-    Then the highest priority unallocated case is loaded and allocated to the user
+    Then one of the highest priority unallocated cases is loaded and allocated to the user
     Examples:
       | stage  |
       | Triage |
