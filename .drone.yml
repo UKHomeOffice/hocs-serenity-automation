@@ -52,11 +52,11 @@ pipeline:
 
   upload-serenity-report:
     image: plugins/s3
-    secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
+    secrets: [ name, access_key_id, secret_access_key ]
     region: [ eu-west-2 ]
-    bucket: cs-test-s3
-    access_key: ${AWS_ACCESS_KEY_ID}
-    secret_key: ${AWS_SECRET_ACCESS_KEY}
+    bucket: cs-integration-testing-s3
+    access_key: ${ACCESS_KEY_ID}
+    secret_key: ${SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
     target: /reports/$${DRONE_BUILD_NUMBER}/
     when:
