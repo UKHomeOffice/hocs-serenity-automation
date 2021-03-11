@@ -16,7 +16,7 @@ pipeline:
     secrets:
       - docker_password
     environment:
-      - DOCKER_USERNAME=ukhomeofficedigital+hocs
+      - DOCKER_USERNAME=ukhomeofficedigital+hocs_quay_robot
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
@@ -33,7 +33,7 @@ pipeline:
     secrets:
       - docker_password
     commands:
-      - docker login -u="ukhomeofficedigital+hocs" -p=$${DOCKER_PASSWORD} quay.io
+      - docker login -u="ukhomeofficedigital+hocs_quay_robot" -p=$${DOCKER_PASSWORD} quay.io
       - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
       - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
     when:
@@ -54,9 +54,9 @@ pipeline:
     image: plugins/s3
     secrets: [ name, access_key_id, secret_access_key ]
     region: [ eu-west-2 ]
-    bucket: cs-integration-testing-s3
-    access_key: ${ACCESS_KEY_ID}
-    secret_key: ${SECRET_ACCESS_KEY}
+    bucket: ${S3_BUCKET_NAME}
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
     target: /reports/$${DRONE_BUILD_NUMBER}/
     when:
@@ -83,7 +83,7 @@ pipeline:
       {{/success}}
     when:
       branch: master
-      event: push
+      event: pull_request
       status:
         - success
         - failure
