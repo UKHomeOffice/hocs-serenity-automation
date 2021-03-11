@@ -54,7 +54,7 @@ pipeline:
     image: plugins/s3
     secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
     settings:
-      region: [ eu-west-2 ]
+      region: eu-west-2
       bucket: ${S3_BUCKET_NAME}
       access_key: ${AWS_ACCESS_KEY_ID}
       secret_key: ${AWS_SECRET_ACCESS_KEY}
