@@ -1,4 +1,9 @@
-pipeline:
+---
+kind: pipeline
+type: kubernetes
+name: build
+
+steps:
 
   my-build:
     image: docker:18.03
