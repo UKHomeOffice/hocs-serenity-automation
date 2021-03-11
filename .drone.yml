@@ -16,7 +16,7 @@ pipeline:
     secrets:
       - docker_password
     environment:
-      - DOCKER_USERNAME=ukhomeofficedigital+hocs
+      - DOCKER_USERNAME=ukhomeofficedigital+hocs_quay_robot
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
@@ -54,7 +54,7 @@ pipeline:
     image: plugins/s3
     secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
     region: [ eu-west-2 ]
-    bucket: cs-test-s3
+    bucket: ${S3_BUCKET_NAME}
     access_key: ${AWS_ACCESS_KEY_ID}
     secret_key: ${AWS_SECRET_ACCESS_KEY}
     source: target/site/serenity/**/*
