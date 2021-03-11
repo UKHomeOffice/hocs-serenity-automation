@@ -1,4 +1,4 @@
-
+---
 kind: pipeline
 type: kubernetes
 name: build
