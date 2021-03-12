@@ -30,7 +30,7 @@ steps:
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
-      - master
+      - latest
   environment:
     DOCKER_PASSWORD:
       from_secret: QUAY_ROBOT_PASSWORD
