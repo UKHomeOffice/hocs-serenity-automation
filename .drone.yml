@@ -23,6 +23,7 @@ steps:
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
       - build_${DRONE_BUILD_NUMBER}
+      - ${DRONE_COMMIT_SHA}
   environment:
     DOCKER_PASSWORD:
       from_secret: QUAY_ROBOT_PASSWORD
