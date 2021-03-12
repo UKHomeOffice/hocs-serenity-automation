@@ -40,8 +40,6 @@ steps:
       - master
     event:
       - push
-  depends_on:
-    - build project
 
 - name: execute-tests
   pull: if-not-exists
