@@ -61,13 +61,12 @@ steps:
   pull: if-not-exists
   image: plugins/s3
   settings:
-    settings:
-      access_key: ${AWS_ACCESS_KEY_ID}
-      bucket: ${S3_BUCKET_NAME}
-      region: eu-west-2
-      secret_key: ${AWS_SECRET_ACCESS_KEY}
-      source: target/site/serenity/**/*
-      target: /reports/$${DRONE_BUILD_NUMBER}/
+    access_key: ${AWS_ACCESS_KEY_ID}
+    bucket: ${S3_BUCKET_NAME}
+    region: eu-west-2
+    secret_key: ${AWS_SECRET_ACCESS_KEY}
+    source: target/site/serenity/**/*
+    target: /reports/$${DRONE_BUILD_NUMBER}/
   environment:
     AWS_ACCESS_KEY_ID:
       from_secret: aws_access_key_id
