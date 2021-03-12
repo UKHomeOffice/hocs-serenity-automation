@@ -9,12 +9,12 @@ platform:
 
 steps:
 - name: build project
-    image: quay.io/ukhomeofficedigital/openjdk11:v11.0.5_10
-    commands:
-      - ./gradlew build
-    when:
-      event:
-        - push
+  image: quay.io/ukhomeofficedigital/openjdk11:v11.0.5_10
+  commands:
+    - ./gradlew build
+  when:
+    event:
+      - push
 
 - name: build & push
   image: plugins/docker
