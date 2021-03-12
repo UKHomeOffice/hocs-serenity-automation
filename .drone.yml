@@ -8,53 +8,30 @@ platform:
   arch: amd64
 
 steps:
-- name: my-build
-  pull: if-not-exists
-  image: docker:18.03
-  commands:
-  - docker build -t hocs_serenity_automation .
-  - docker run hocs_serenity_automation
-  environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
-  when:
-    branch:
-    - master
-    event:
-    - push
+- name: build project
+    image: quay.io/ukhomeofficedigital/openjdk11:v11.0.5_10
+    commands:
+      - ./gradlew build
+    when:
+      event:
+        - push
 
-- name: image_to_quay
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/drone-docker
+- name: build & push
+  image: plugins/docker
   settings:
     registry: quay.io
-    repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    repo: quay.io/ukhomeofficedigital/hocs_serenity_automation
     tags:
-    - build_${DRONE_BUILD_NUMBER}
-    - latest
+      - build_${DRONE_BUILD_NUMBER}
   environment:
     DOCKER_PASSWORD:
-      from_secret: docker_password
+      from_secret: QUAY_ROBOT_PASSWORD
     DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
   when:
-    branch:
-    - master
     event:
-    - push
-
-- name: tag-docker-image-with-git-tag
-  pull: if-not-exists
-  image: docker:17.09.1
-  commands:
-  - docker login -u="ukhomeofficedigital+hocs_quay_robot" -p=$${DOCKER_PASSWORD} quay.io
-  - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-  - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-  environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
-    DOCKER_PASSWORD:
-      from_secret: docker_password
-  when:
-    event:
-    - tag
+      - push
+  depends_on:
+    - build project
 
 - name: execute-tests
   pull: if-not-exists
@@ -98,6 +75,25 @@ steps:
     status:
     - success
     - failure
+
+---
+
+kind: pipeline
+type: kubernetes
+name: deploy
+depends_on:
+  - build
+
+steps:
+  - name: clone kube repo
+    image: plugins/git
+    commands:
+      - git clone https://github.com/UKHomeOffice/kube-hocs-serenity-automation.git
+    when:
+      event:
+        - push
+        - promote
+
 
 services:
 - name: selenium
