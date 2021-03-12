@@ -120,4 +120,7 @@ services:
     HUB_PORT_4444_TCP_ADDR: selenium
     HUB_PORT_4444_TCP_PORT: 4444
 
+- name: dnd
+  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+
 ...
