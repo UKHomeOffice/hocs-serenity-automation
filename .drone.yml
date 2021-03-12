@@ -8,53 +8,38 @@ platform:
   arch: amd64
 
 steps:
-- name: my-build
-  pull: if-not-exists
-  image: docker:18.03
-  commands:
-  - docker build -t hocs_serenity_automation .
-  - docker run hocs_serenity_automation
-  environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
-  when:
-    branch:
-    - master
-    event:
-    - push
-
-- name: image_to_quay
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/drone-docker
+- name: build & push
+  image: plugins/docker
   settings:
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
-    - build_${DRONE_BUILD_NUMBER}
-    - latest
+      - build_${DRONE_BUILD_NUMBER}
+      - ${DRONE_COMMIT_SHA}
   environment:
     DOCKER_PASSWORD:
-      from_secret: docker_password
+      from_secret: QUAY_ROBOT_PASSWORD
+    DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
+  when:
+    event:
+      - push
+
+- name: build & push latest
+  image: plugins/docker
+  settings:
+    registry: quay.io
+    repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    tags:
+      - latest
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: QUAY_ROBOT_PASSWORD
     DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
   when:
     branch:
-    - master
+      - master
     event:
-    - push
-
-- name: tag-docker-image-with-git-tag
-  pull: if-not-exists
-  image: docker:17.09.1
-  commands:
-  - docker login -u="ukhomeofficedigital+hocs_quay_robot" -p=$${DOCKER_PASSWORD} quay.io
-  - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-  - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-  environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
-    DOCKER_PASSWORD:
-      from_secret: docker_password
-  when:
-    event:
-    - tag
+      - push
 
 - name: execute-tests
   pull: if-not-exists
