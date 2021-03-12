@@ -1,113 +1,123 @@
 ---
 kind: pipeline
 type: kubernetes
-name: build
+name: default
+
+platform:
+  os: linux
+  arch: amd64
 
 steps:
+- name: my-build
+  pull: if-not-exists
+  image: docker:18.03
+  commands:
+  - docker build -t hocs_serenity_automation .
+  - docker run hocs_serenity_automation
+  environment:
+    DOCKER_HOST: tcp://172.17.0.1:2375
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  my-build:
-    image: docker:18.03
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -t hocs_serenity_automation .
-      - docker run hocs_serenity_automation
-    when:
-      branch: master
-      event: push
-
-  image_to_quay:
-    image: quay.io/ukhomeofficedigital/drone-docker
-    secrets:
-      - docker_password
-    environment:
-      - DOCKER_USERNAME=ukhomeofficedigital+hocs_quay_robot
+- name: image_to_quay
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/drone-docker
+  settings:
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
-      - build-${DRONE_BUILD_NUMBER}
-      - latest
-    when:
-      branch: master
-      event: push
+    - build-${DRONE_BUILD_NUMBER}
+    - latest
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: docker_password
+    DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  tag-docker-image-with-git-tag:
-    image: docker:17.09.1
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    secrets:
-      - docker_password
-    commands:
-      - docker login -u="ukhomeofficedigital+hocs_quay_robot" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-      - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
-    when:
-      event: tag
+- name: tag-docker-image-with-git-tag
+  pull: if-not-exists
+  image: docker:17.09.1
+  commands:
+  - docker login -u="ukhomeofficedigital+hocs_quay_robot" -p=$${DOCKER_PASSWORD} quay.io
+  - docker tag hocs-serenity-automation quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
+  - docker push quay.io/ukhomeofficedigital/hocs-serenity-automation:$${DRONE_TAG}
+  environment:
+    DOCKER_HOST: tcp://172.17.0.1:2375
+    DOCKER_PASSWORD:
+      from_secret: docker_password
+  when:
+    event:
+    - tag
 
-  execute-tests:
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
-    secrets:
-       - artifactory_username
-       - artifactory_password
-    commands:
-      - sh bin/smoke-tests.sh
-    when:
-      branch: master
-      event: push
+- name: execute-tests
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+  commands:
+  - sh bin/smoke-tests.sh
+  environment:
+    ARTIFACTORY_PASSWORD:
+      from_secret: artifactory_password
+    ARTIFACTORY_USERNAME:
+      from_secret: artifactory_username
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  upload-serenity-report:
-    image: plugins/s3
-    secrets: [ s3_bucket_name, aws_access_key_id, aws_secret_access_key ]
+- name: upload-serenity-report
+  pull: if-not-exists
+  image: plugins/s3
+  settings:
     settings:
-      region: eu-west-2
-      bucket: ${S3_BUCKET_NAME}
       access_key: ${AWS_ACCESS_KEY_ID}
+      bucket: ${S3_BUCKET_NAME}
+      region: eu-west-2
       secret_key: ${AWS_SECRET_ACCESS_KEY}
       source: target/site/serenity/**/*
       target: /reports/$${DRONE_BUILD_NUMBER}/
-    when:
-      branch: master
-      event: push
-      status:
-        - success
-        - failure
-
-#  slack-notification:
-#    image: plugins/slack
-#    secrets: [ slack_webhook, report_viewer_domain ]
-#    environment:
-#      - REPORT_URL=${REPORT_VIEWER_DOMAIN}
-#    webhook: ${SLACK_WEBHOOK}
-#    channel: hocs-dev
-#    username: HOCS-SERENITY-AUTOMATOR
-#    icon_emoji: ":heavy_check_mark:"
-#    template: >
-#      {{#success build.status}}
-#        build {{build.number}} succeeded and tests have executed successfully.
-#      {{else}}
-#        build {{build.number}} unfortunately has some test failures, time for some investigating!
-#      {{/success}}
-#    when:
-#      branch: master
-#      event: push
-#      status:
-#        - success
-#        - failure
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: aws_access_key_id
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: aws_secret_access_key
+    S3_BUCKET_NAME:
+      from_secret: s3_bucket_name
+  when:
+    branch:
+    - master
+    event:
+    - push
+    status:
+    - success
+    - failure
 
 services:
-  selenium:
-    image: selenium/hub
+- name: selenium
+  pull: if-not-exists
+  image: selenium/hub
 
-  chrome:
-    image: selenium/node-chrome
-    environment:
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: "4444"
-      DISPLAY: ":99.0"
+- name: chrome
+  pull: if-not-exists
+  image: selenium/node-chrome
+  environment:
+    DISPLAY: :99.0
+    HUB_PORT_4444_TCP_ADDR: selenium
+    HUB_PORT_4444_TCP_PORT: 4444
 
-  firefox:
-    image: selenium/node-firefox
-    environment:
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: "4444"
-      DISPLAY: ":98.0"
+- name: firefox
+  pull: if-not-exists
+  image: selenium/node-firefox
+  environment:
+    DISPLAY: :98.0
+    HUB_PORT_4444_TCP_ADDR: selenium
+    HUB_PORT_4444_TCP_PORT: 4444
+
+...
