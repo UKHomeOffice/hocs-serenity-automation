@@ -30,8 +30,6 @@ steps:
   when:
     event:
       - push
-  depends_on:
-    - build project
 
 - name: execute-tests
   pull: if-not-exists
@@ -75,25 +73,6 @@ steps:
     status:
     - success
     - failure
-
----
-
-kind: pipeline
-type: kubernetes
-name: deploy
-depends_on:
-  - build
-
-steps:
-  - name: clone kube repo
-    image: plugins/git
-    commands:
-      - git clone https://github.com/UKHomeOffice/kube-hocs-serenity-automation.git
-    when:
-      event:
-        - push
-        - promote
-
 
 services:
 - name: selenium
