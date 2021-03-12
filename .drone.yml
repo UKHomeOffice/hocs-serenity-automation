@@ -29,7 +29,7 @@ steps:
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
     tags:
-    - build-${DRONE_BUILD_NUMBER}
+    - build_${DRONE_BUILD_NUMBER}
     - latest
   environment:
     DOCKER_PASSWORD:
