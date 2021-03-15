@@ -58,18 +58,19 @@ steps:
     - push
 
 - name: upload-serenity-report
-  pull: if-not-exists
-  image: plugins/s3
-  settings:
-    bucket: cs-integration-testing-s3
-    region: eu-west-2
-    access_key:
-      from_secret: aws_access_key_id
-    secret_key:
-      from_secret: aws_secret_access_key
-    source: /drone/src/target/site/serenity/**/*
-    target: /reports/$${DRONE_BUILD_NUMBER}/
-  when:
+    pull: if-not-exists
+    image: amazon/aws-cli:latest
+    commands:
+      - aws s3 cp --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/reports/$${DRONE_BUILD_NUMBER}/ --sse aws:kms
+      - --sse-kms-key-id ${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
     branch:
     - master
     event:
