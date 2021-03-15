@@ -62,10 +62,10 @@ steps:
   image: plugins/s3
   settings:
     access_key: ${AWS_ACCESS_KEY_ID}
-    bucket: ${S3_BUCKET_NAME}
+    bucket: cs-integration-testing-s3
     region: eu-west-2
     secret_key: ${AWS_SECRET_ACCESS_KEY}
-    source: target/site/serenity/**/*
+    source: /drone/src/target/site/serenity/**/*
     target: /reports/$${DRONE_BUILD_NUMBER}/
   environment:
     AWS_ACCESS_KEY_ID:
