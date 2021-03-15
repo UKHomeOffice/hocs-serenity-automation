@@ -59,10 +59,13 @@ steps:
 
 - name: upload-serenity-report
     pull: if-not-exists
-    image: amazon/aws-cli:latest
+    image: amazon/aws-cli
     commands:
-      - aws s3 cp --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/reports/$${DRONE_BUILD_NUMBER}/ --sse aws:kms
-      - --sse-kms-key-id ${AWS_KMS_KEY}
+    - > # yaml folded style
+      aws s3 cp
+      --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/reports/$${DRONE_BUILD_NUMBER}/
+      --sse aws:kms
+      --sse-kms-key-id ${AWS_KMS_KEY}
     environment:
       AWS_DEFAULT_REGION: eu-west-2
       AWS_ACCESS_KEY_ID:
