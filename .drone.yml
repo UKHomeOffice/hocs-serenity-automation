@@ -61,7 +61,8 @@ steps:
   pull: if-not-exists
   image: plugins/s3
   settings:
-    access_key: ${AWS_ACCESS_KEY_ID}
+    access_key:
+      from_secret: aws_access_key_id
     bucket: cs-integration-testing-s3
     region: eu-west-2
     secret_key: ${AWS_SECRET_ACCESS_KEY}
