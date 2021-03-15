@@ -58,7 +58,6 @@ steps:
     - push
 
 - name: upload-serenity-report
-  pull: if-not-exists
   image: amazon/aws-cli
   commands:
   - > # yaml folded style
