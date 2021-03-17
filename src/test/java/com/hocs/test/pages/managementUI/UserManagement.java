@@ -33,7 +33,7 @@ public class UserManagement extends BasePage {
     public WebElementFacade successBanner;
 
     public void searchForAUsersTeams(String inputUser) {
-        User user = User.valueOf(inputUser);
+        User user = User.valueOf(inputUser.toUpperCase());
         String input = user.getAllocationText();
         setSessionVariable("inputUser").to(input);
         waitFor(userSearchTypeAhead);
@@ -79,7 +79,7 @@ public class UserManagement extends BasePage {
     }
 
     public void assertTeamHasBeenRemoved() {
-        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]/following-sibling::td/a");
+        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]");
         waitABit(500);
         assertThat(teamRemoveHypertext.isVisible(), is(false));
     }

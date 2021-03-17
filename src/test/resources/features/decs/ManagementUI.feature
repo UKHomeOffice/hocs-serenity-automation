@@ -288,19 +288,13 @@ Feature: ManagementUI
     Then the teams the user is a part of are displayed
 
   @UserManagement @Regression
-  Scenario: A user can be added to a team through User Management
+  Scenario: A user can be added and removed from a team through User Management
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "CAMERON_HO" is a member
-    And I add the user to the "Animals in Science Regulation Unit" team
+    And I load the teams of which "Cameron" is a member
+    And I add the user to the "OSCT Secretariat" team
     Then the success ribbon should be displayed once the user is added
     And the team should be visible in the users list of teams
-
-  @UserManagement @Regression
-  Scenario: A user can be removed from a team through User Management
-    Given I navigate to the "User Management" Management page
-    And I load the teams of which "CAMERON_HO" is a member
-    And I add the user to the "Animals in Science Regulation Unit" team
-    And I remove the user from the "Animals in Science Regulation Unit" team
+    And I remove the user from the "OSCT Secretariat" team
     Then the team should be removed from the users list of teams
 
   @CampaignManagement @OtherTests
