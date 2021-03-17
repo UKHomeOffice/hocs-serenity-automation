@@ -243,6 +243,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create and claim a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
     public void iCreateAndClaimAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
         iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(urgency, refType);
+        waitForDashboard();
         dashboard.getAndClaimCurrentCase();
     }
 
@@ -252,6 +253,7 @@ public class CreateCaseStepDefs extends BasePage {
         goToDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
+        waitForDashboard();
     }
 
     @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the Triage stage")
@@ -260,6 +262,7 @@ public class CreateCaseStepDefs extends BasePage {
         goToDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+        waitForDashboard();
     }
 
     @And("I create a {string} case with {string} as its {string}")

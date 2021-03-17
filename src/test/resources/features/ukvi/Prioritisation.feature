@@ -17,7 +17,7 @@ Feature: Prioritisation
   Scenario: User checks that a Priority case is given a higher priority in a workstack than a Standard case
     And I create a MPAM case with "Priority" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Priority"
-    And I create and claim a MPAM case with "Standard" as the Urgency level and "Ministerial" as the Reference Type
+    And I create a MPAM case with "Standard" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Standard"
     When I view the MPAM case in the appropriate "Triage" stage workstack
     Then the "Priority" case should be higher up the workstack than the "Standard" case
@@ -26,7 +26,7 @@ Feature: Prioritisation
   Scenario: User checks that a Immediate case is given a higher priority in a workstack than a Priority case
     And I create a MPAM case with "Immediate" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Immediate"
-    And I create and claim a MPAM case with "Priority" as the Urgency level and "Ministerial" as the Reference Type
+    And I create a MPAM case with "Priority" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Priority"
     When I view the MPAM case in the appropriate "Triage" stage workstack
     Then the "Immediate" case should be higher up the workstack than the "Priority" case

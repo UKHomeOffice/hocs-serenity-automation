@@ -67,14 +67,17 @@ public class LoginPage extends BasePage {
             baseUrl = Environment.QA.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
-                case "DEV":
-                    baseUrl = Environment.DEV.getEnvironmentURL();
-                    break;
                 case "LOCAL":
                     baseUrl = Environment.LOCAL.getEnvironmentURL() + Service.HOCS.getPort();
                     break;
                 case "QA":
                     baseUrl = Environment.QA.getEnvironmentURL();
+                    break;
+                case "QAX":
+                    baseUrl = Environment.QAX.getEnvironmentURL();
+                    break;
+                case "DEV":
+                    baseUrl = Environment.DEV.getEnvironmentURL();
                     break;
                 case "DEMO":
                     baseUrl = Environment.DEMO.getEnvironmentURL();
@@ -94,11 +97,14 @@ public class LoginPage extends BasePage {
             baseUrl = Environment.MANAGEMENTUIQA.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
-                case "DEV":
-                    baseUrl = Environment.MANAGEMENTUIDEV.getEnvironmentURL();
-                    break;
                 case "QA":
                     baseUrl = Environment.MANAGEMENTUIQA.getEnvironmentURL();
+                    break;
+                case "QAX":
+                    baseUrl = Environment.MANAGEMENTUIQAX.getEnvironmentURL();
+                    break;
+                case "DEV":
+                    baseUrl = Environment.MANAGEMENTUIDEV.getEnvironmentURL();
                     break;
                 case "DEMO":
                     baseUrl = Environment.MANAGEMENTUIDEMO.getEnvironmentURL();

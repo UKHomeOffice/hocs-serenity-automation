@@ -22,7 +22,7 @@ steps:
     DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
   when:
     branch:
-      - master
+      - main
     event:
       - push
 
@@ -39,7 +39,7 @@ steps:
     DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
   when:
     branch:
-      - master
+      - main
     event:
       - push
 
@@ -55,7 +55,7 @@ steps:
       from_secret: artifactory_username
   when:
     branch:
-      - master
+    - main
     event:
     - push
 
@@ -77,7 +77,7 @@ steps:
       from_secret: aws_kms_key_id
   when:
     branch:
-      - master
+    - main
     event:
     - push
     status:
