@@ -23,6 +23,7 @@ steps:
   when:
     event:
       - push
+      - pr
 
 - name: build & push latest
   image: plugins/docker
@@ -40,6 +41,7 @@ steps:
       - master
     event:
       - push
+      - pr
 
 - name: execute-tests
   pull: if-not-exists
@@ -56,6 +58,7 @@ steps:
     - master
     event:
     - push
+    - pr
 
 - name: upload-serenity-report
   image: amazon/aws-cli
@@ -78,6 +81,7 @@ steps:
     - master
     event:
     - push
+    - pr
     status:
     - success
     - failure
