@@ -21,9 +21,10 @@ steps:
       from_secret: QUAY_ROBOT_PASSWORD
     DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
   when:
+    branch:
+      - master
     event:
       - push
-      - pr
 
 - name: build & push latest
   image: plugins/docker
@@ -41,7 +42,6 @@ steps:
       - master
     event:
       - push
-      - pr
 
 - name: execute-tests
   pull: if-not-exists
@@ -54,11 +54,10 @@ steps:
     ARTIFACTORY_USERNAME:
       from_secret: artifactory_username
   when:
-    #    branch:
-    #    - master
+    branch:
+      - master
     event:
     - push
-    - pr
 
 - name: upload-serenity-report
   image: amazon/aws-cli
@@ -77,11 +76,10 @@ steps:
     AWS_KMS_KEY:
       from_secret: aws_kms_key_id
   when:
-    #    branch:
-    #    - master
+    branch:
+      - master
     event:
     - push
-    - pr
     status:
     - success
     - failure
