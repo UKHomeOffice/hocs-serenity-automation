@@ -199,6 +199,7 @@ public class Dashboard extends BasePage {
             typeInto(caseReferenceSearchBar, currentCase);
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         }
+        waitFor(documentsTab);
     }
 
     public void claimCurrentCase() {
@@ -214,10 +215,11 @@ public class Dashboard extends BasePage {
     }
 
     public void getAndClaimCurrentCase() {
-        if (!checkCaseIsLoaded()) {
+        if (!documentsTab.isCurrentlyVisible()) {
+            getCurrentCase();
+        } else if (!currentCaseIsLoaded()) {
             getCurrentCase();
         }
-        waitFor(documentsTab);
         if (unallocatedCaseView.allocateToMeLink.isCurrentlyVisible()) {
             claimCurrentCase();
         }

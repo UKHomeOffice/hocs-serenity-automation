@@ -19,6 +19,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -134,7 +135,7 @@ public class BasePage extends PageObject {
     public void assertPageTitle(String title) {
         WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
         pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        assert(pageTitle.isVisible());
+        assert (pageTitle.isVisible());
     }
 
     public void clickAddButton() {
@@ -308,14 +309,18 @@ public class BasePage extends PageObject {
         return caseReference.getText();
     }
 
-    public boolean checkCaseIsLoaded() {
+    public boolean currentCaseIsLoaded() {
         if (pageTitle.isCurrentlyVisible()) {
             if (pageTitle.getText().equals(sessionVariableCalled("caseReference"))) {
                 return true;
             }
         }
         if (pageTitleCaption.isCurrentlyVisible()) {
-            return pageTitleCaption.getText().equals(sessionVariableCalled("caseReference"));
+            try {
+                return pageTitleCaption.getText().equals(sessionVariableCalled("caseReference"));
+            } catch (NoSuchElementException e) {
+                return false;
+            }
         }
         return false;
     }
@@ -325,7 +330,7 @@ public class BasePage extends PageObject {
     }
 
     public void jsClickOn(WebElementFacade webElementFacade) {
-        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("arguments[0].click()", webElementFacade);
     }
 

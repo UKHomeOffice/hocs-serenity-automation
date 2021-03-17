@@ -304,6 +304,7 @@ public class EndToEndStepDefs extends BasePage {
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
+                waitForDashboard();
                 break;
             case "DRAFT":
                 moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
@@ -349,6 +350,7 @@ public class EndToEndStepDefs extends BasePage {
                 goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
+                waitForDashboard();
                 break;
             case "DRAFT":
                 moveHighPriorityNewMPAMCaseToStage("TRIAGE");

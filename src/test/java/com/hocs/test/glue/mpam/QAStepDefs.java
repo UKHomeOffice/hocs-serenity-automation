@@ -149,5 +149,6 @@ public class QAStepDefs extends BasePage {
     @And("I submit a reason to escalate the case at QA stage")
     public void iSubmitAReasonToEscalateTheCaseAtQAStage() {
         qa.submitReasonToEscalateCase("test reason to escalate case");
+        waitForDashboard();
     }
 }

@@ -317,8 +317,8 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.selectTakeNextCase();
     }
 
-    @Then("the highest priority unallocated case is loaded and allocated to the user")
-    public void theHighestPriorityUnallocatedCaseIsLoadedAndAllocatedToTheUser() {
+    @Then("one of the highest priority unallocated cases is loaded and allocated to the user")
+    public void oneOfTheHighestPriorityUnallocatedCasesIsLoadedAndAllocatedToTheUser() {
         workstacks.assertCorrectCaseIsTaken();
     }
 
@@ -439,5 +439,10 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
     public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {
         workstacks.assertTransferDueDateOfCurrentCase();
+    }
+
+    @And("I record the highest priority cases in the workstack")
+    public void iRecordTheHighestPriorityCasesInTheWorkstack() {
+        workstacks.recordHighestPriorityCases();
     }
 }
