@@ -54,8 +54,8 @@ steps:
     ARTIFACTORY_USERNAME:
       from_secret: artifactory_username
   when:
-    branch:
-    - master
+    #    branch:
+    #    - master
     event:
     - push
     - pr
