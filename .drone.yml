@@ -77,8 +77,8 @@ steps:
     AWS_KMS_KEY:
       from_secret: aws_kms_key_id
   when:
-    branch:
-    - master
+    #    branch:
+    #    - master
     event:
     - push
     - pr
