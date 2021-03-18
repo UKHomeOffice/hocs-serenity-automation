@@ -68,6 +68,10 @@ steps:
         from_secret: aws_kms_key_id
     depends_on:
       - execute tests
+    when:
+      status:
+        - success
+        - failure
 
 services:
   - name: selenium
