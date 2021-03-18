@@ -43,6 +43,7 @@ public class DraftStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        waitForDashboard();
     }
 
     @When("I take the Draft \\(On Hold) case off hold")

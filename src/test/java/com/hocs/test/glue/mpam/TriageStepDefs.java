@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MultipleContributions;
@@ -44,6 +43,7 @@ public class TriageStepDefs extends BasePage {
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
+        waitForDashboard();
     }
 
     @And("I select an enquiry subject and continue")

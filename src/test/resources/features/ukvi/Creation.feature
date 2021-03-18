@@ -48,6 +48,16 @@ Feature: Creation
     And the accessibility statement link should be visible
 
   @UKVIWorkflow @UKVIRegression
+  Scenario: User completes Case Creation stage
+    When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
+    And I complete the other required fields for Creation stage
+    And I click the "Continue" button
+    And I select to add a correspondent that "is" a member of parliament
+    And I add the member of parliament "Boris Johnson"
+    And I click the "Move to Triage" button
+    Then the case should be moved to the "Triage" stage
+
+  @UKVIWorkflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Creation stage
@@ -127,11 +137,13 @@ Feature: Creation
     And I click the "Continue" button
     Then an error message should be displayed as I must complete all required questions at Creation stage
 
+  @OtherTests
   Scenario: User can select a Ministerial Sign off team for the case
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
     And I load the current case
     Then the "Creation" accordion in case details should display the correct information for "Ministerial Sign Off Team"
 
+  @OtherTests
   Scenario: User can select a Ministerial Sign Off team for a case and the selection is visible in a team workstack
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
     And I view the MPAM case in the appropriate "Triage" stage workstack
