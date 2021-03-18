@@ -271,16 +271,7 @@ public class CreateCaseStepDefs extends BasePage {
             case "DCU":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
-                        switch (infoValue.toUpperCase()) {
-                            case "MIN":
-                            case "DTEN":
-                            case "TRO":
-                                createCase.createCaseOfType(infoValue);
-                                break;
-                            default:
-                                pendingStep(infoValue + " is not defined within " + getMethodName());
-                        }
-                        break;
+                        createCase.createCaseOfType(infoValue);
                     case "RECEIVED ON OR AFTER DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
                         break;
@@ -298,9 +289,10 @@ public class CreateCaseStepDefs extends BasePage {
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithPublicCorrespondent();
+                        waitForDashboard();
                         break;
                     case "TOPIC":
-                        iCreateACaseWithAsIts("DCU", "Boris Johnson", "Public Correspondent Name");
+                        iCreateACaseWithAsIts("DCU", "Gordon Freeman", "Public Correspondent Name");
                         dashboard.getAndClaimCurrentCase();
                         markup.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
                         break;
