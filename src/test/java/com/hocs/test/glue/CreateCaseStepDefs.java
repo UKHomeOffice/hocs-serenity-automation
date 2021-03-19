@@ -272,6 +272,7 @@ public class CreateCaseStepDefs extends BasePage {
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
                         createCase.createCaseOfType(infoValue);
+                        break;
                     case "RECEIVED ON OR AFTER DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
                         break;
