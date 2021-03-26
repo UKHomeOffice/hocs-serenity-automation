@@ -4,7 +4,7 @@ Feature: Workstacks
   Background:
     Given I log in to "DECS" as user "DECS_USER"
 
-  @Regression
+  @Regression  @SmokeTests
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY"

@@ -26,7 +26,7 @@ Feature: PeopleTab
     And I remove "Nicola Sturgeon" as a correspondent of the case
     Then "Nicola Sturgeon" should be removed as a correspondent on the case
 
-  @Regression
+  @Regression  @SmokeTests
   Scenario Outline: User is able to add a correspondent to the case through the people tab
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case

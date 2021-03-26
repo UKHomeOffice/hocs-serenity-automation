@@ -4,7 +4,7 @@ Feature: DCU Search
   Background:
     Given I log in to "DECS" as user "DCU_USER"
 
-  @DCURegression
+  @DCURegression  @SmokeTests
   Scenario Outline: User tests DCU search criteria
     When I create a "DCU" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Home" page

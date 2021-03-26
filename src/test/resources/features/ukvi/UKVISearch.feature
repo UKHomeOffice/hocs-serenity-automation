@@ -4,7 +4,7 @@ Feature: UKVI Search
   Background:
     Given I log in to "DECS" as user "UKVI_USER"
 
-  @UKVIRegression
+  @UKVIRegression  @SmokeTests
   Scenario Outline: User tests UKVI search criteria
     When I create a "UKVI" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Home" page

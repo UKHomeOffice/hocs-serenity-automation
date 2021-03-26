@@ -10,7 +10,7 @@ Feature: Create case
     When I do not select a type of correspondence when creating a case
     Then an error message is displayed
 
-  @Regression
+  @Regression  @SmokeTests
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully "<with / without>" a document
@@ -42,7 +42,7 @@ Feature: Create case
     And I click to view the "MPAM Creation" workstack
     Then the owner field should display "CAMERON"
 
-  @Workflow @Regression @SmokeTests
+  @Regression @SmokeTests
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully

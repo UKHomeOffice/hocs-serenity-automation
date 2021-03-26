@@ -4,7 +4,7 @@ Feature: Manage Documents
   Background:
     Given I log in to "DECS" as user "DECS_USER"
 
-  @Regression
+  @Regression @SmokeTests
   Scenario Outline: User can upload and preview a file of allowed file types
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -99,7 +99,7 @@ Feature: Manage Documents
     And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @Regression
+  @Regression  @SmokeTests
   Scenario: User can select which document to preview
     And I click to manage the documents of a new "MIN" case
     And I upload a 5MB and a 10MB file
@@ -107,7 +107,7 @@ Feature: Manage Documents
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be select to be displayed in the preview pane
 
-  @Regression
+  @Regression  @SmokeTests
   Scenario Outline: User can remove any document
     And I click to manage the documents of a new "MPAM" case
     And I add a "<fileType>" document to the case
