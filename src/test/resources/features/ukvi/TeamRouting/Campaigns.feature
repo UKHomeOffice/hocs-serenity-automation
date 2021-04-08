@@ -83,9 +83,9 @@ Feature: Campaigns
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (Contribution Requested)
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
-    And I send the Triage case to "Contribution Requested"
+    And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
-    And I move the case into a Campaign from the "Triage-Contribution Requested" stage
+    And I move the case into a Campaign from the "Triage-Contributions Requested" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
@@ -182,12 +182,12 @@ Feature: Campaigns
       | Windrush     | Official      | Draft   | Campaign |
       | Coronavirus  | Official      | Draft   | Campaign |
 
-  Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Contribution Requested)
+  Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Contributions Requested)
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
-    And I send the Draft case to "Contribution Requested"
+    And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
-    And I move the case into a Campaign from the "Draft-Contribution Requested" stage
+    And I move the case into a Campaign from the "Draft-Contributions Requested" stage
     And I load the current case
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack

@@ -202,8 +202,12 @@ public class Documents extends BasePage {
     }
 
     public void assertPendingTagVisible() {
-        waitFor(pendingTag);
-        assertThat(pendingTag.isVisible(), is(true));
+        if (!pendingTag.isVisible()) {
+            assertThat(pendingTag.isVisible(), is(true));
+        } else {
+            WebElementFacade downloadHypertext = findBy("//a[@download]");
+            assertThat(downloadHypertext.isVisible(), is(true));
+        }
     }
 
     public void waitForFileToUpload(Object fileIdentifier) {

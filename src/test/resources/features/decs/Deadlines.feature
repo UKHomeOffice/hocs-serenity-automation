@@ -30,7 +30,7 @@ Feature: Deadlines
     Then the stage deadline dates for a "Home Secretary sign-off" case are correct
 
   @DCURegression
-  Scenario: User changes Minisiter from Home Secretary to another PO Team at Private office stage
+  Scenario: User changes Minister from Home Secretary to another PO Team at Private office stage
     When I create a "MIN" case and move it to the "Markup" stage
     And I load and claim the current case
     And I complete Markup with "Home Secretary" selected as the Private Office team

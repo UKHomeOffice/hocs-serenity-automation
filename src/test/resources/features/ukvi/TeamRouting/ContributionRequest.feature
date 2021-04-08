@@ -7,7 +7,7 @@ Feature: Contribution Request
   Scenario Outline: User requests a contribution at Triage stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
-    When I send the Triage case to "Contribution Requested"
+    When I send the Triage case to "Contributions Requested"
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -30,9 +30,10 @@ Feature: Contribution Request
   Scenario Outline: User records that a contribution has been received and returns a case to the Triage stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
-    And I send the Triage case to "Contribution Requested"
+    And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
-    When I select the "Contributions received" action at Triage (Contribution Requested) stage
+    And I choose to "Complete" the contribution request at the multiple contribution stage
+    When I select the "Contributions received" action at the contributions requested stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -55,7 +56,7 @@ Feature: Contribution Request
   Scenario Outline: User requests a contribution at Draft stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
-    When I send the Draft case to "Contribution Requested"
+    When I send the Draft case to "Contributions Requested"
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -78,8 +79,9 @@ Feature: Contribution Request
   Scenario Outline: User records that a contribution has been received and returns a case to the Draft stage
     And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
-    And I send the Draft case to "Contribution Requested"
+    And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
+    And I choose to "Complete" the contribution request at the multiple contribution stage
     When I select the "Contributions received" action at Draft (Contribution Requested) stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack

@@ -169,6 +169,7 @@ public class Dashboard extends BasePage {
     // Assertions
 
     public void assertAtDashboard() {
+        waitFor(myCases);
         assertThat(myCases.isVisible(), is(true));
     }
 

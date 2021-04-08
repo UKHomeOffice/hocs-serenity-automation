@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.mpam.Campaign;
+import com.hocs.test.pages.mpam.MultipleContributions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -12,10 +13,15 @@ public class CampaignStepDefs extends BasePage {
 
     Campaign campaign;
 
+    MultipleContributions multipleContributions;
+
     SummaryTab summaryTab;
 
     @And("I move the case into a Campaign from the {string} stage")
     public void moveCaseFromStageToCampaign(String stage) {
+        if (stage.toUpperCase().contains("CONTRIBUTIONS REQUESTED")) {
+            multipleContributions.selectActionForIndividualContributionRequest("Complete");
+        }
         campaign.moveCaseFromAStageToCampaign("Small boats");
     }
 
