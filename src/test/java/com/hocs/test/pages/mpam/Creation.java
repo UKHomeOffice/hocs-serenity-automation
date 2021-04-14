@@ -156,6 +156,7 @@ public class Creation extends BasePage {
         if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
             ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
             setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
+            setSessionVariable("signOffTeam").to(signOffTeam);
         }
     }
 
