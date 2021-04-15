@@ -62,9 +62,11 @@ public class UserManagement extends BasePage {
     }
 
     public void assertCorrectUserTeamsAreDisplayed() {
-        WebElementFacade displayedUser = findBy("//h2[contains(text(), 'User:')]");
+        WebElementFacade usernameField = findBy("//input[@id='username']");
+        String displayedUsername = usernameField.getValue();
+        String inputUser = sessionVariableCalled("inputUser");
         waitABit(1000);
-        displayedUser.shouldContainText(sessionVariableCalled("inputUser"));
+        assertThat(inputUser.contains(displayedUsername), is(true));
     }
 
     public void assertNewTeamIsAddedToUserTeams() {

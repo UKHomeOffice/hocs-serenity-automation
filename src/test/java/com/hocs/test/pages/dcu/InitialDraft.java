@@ -48,7 +48,7 @@ public class InitialDraft extends BasePage {
     @FindBy(xpath = "//a[text()='Please summarise your call. is required']")
     public WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Which is the primary draft document? is required']")
+    @FindBy(xpath = "//a[text()='Primary draft document is required']")
     public WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
 
     @FindBy(xpath = "//a[text()='Do you want to QA this offline? is required']")
@@ -245,7 +245,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
-        whichIsThePrimaryDraftDocumentErrorMessage.shouldContainText("Which is the primary draft document? is required");
+        whichIsThePrimaryDraftDocumentErrorMessage.shouldContainText("Primary draft document is required");
     }
 
     public void assertDoYouWantToQAThisOfflineErrorMessage() {

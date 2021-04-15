@@ -68,7 +68,10 @@ public class fetchExistingDCUCases extends BasePage {
         WebElementFacade firstUnallocatedMINCase = findAll("//td[following-sibling::td[1][contains(text(), "
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
-        safeClickOn(firstUnallocatedMINCase);
+        String caseRef = firstUnallocatedMINCase.getText().split("\\r?\\n")[1];
+        goToDashboard();
+        typeInto(dashboard.caseReferenceSearchBar, caseRef);
+        dashboard.hitEnterCaseReferenceSearchBar();
         safeClickOn(unallocatedCaseView.allocateToMeLink);
     }
 

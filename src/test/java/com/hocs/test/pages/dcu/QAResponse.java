@@ -32,8 +32,8 @@ public class QAResponse extends BasePage {
     @FindBy(id ="CaseNote_QA")
     public WebElementFacade QARejectionNoteField;
 
-    @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    public WebElementFacade QADoYouApproveTheReponseErrorMessage;
+    @FindBy(xpath = "//a[text()='Actions is required']")
+    public WebElementFacade actionsIsRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
     public WebElementFacade QAWhatIsYourFeedbackAboutTheResponseErrorMessage;
@@ -101,7 +101,7 @@ public class QAResponse extends BasePage {
     //Assertions
 
     public void assertQADoYouApproveErrorMessage() {
-        QADoYouApproveTheReponseErrorMessage.shouldContainText("Do you approve the response? is required");
+        actionsIsRequiredErrorMessage.shouldContainText("Actions is required");
     }
 
     public void assertQAWhatIsYourFeedbackErrorMessage() {

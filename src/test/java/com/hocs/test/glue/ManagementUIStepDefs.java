@@ -154,7 +154,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I attempt to remove the user {string}")
     public void attemptRemoveUserFromTeamWithAssignedCases(String user) {
-        teamManagement.removeUserFromTeamWithAssignedCases(User.valueOf(user).getUsername());
+        teamManagement.removeUserFromTeamWithAssignedCases(User.valueOf(user).getAllocationText());
     }
 
     @Then("an error message should be displayed as they have cases assigned in that team")
@@ -215,7 +215,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iSelectATopicThatHaveLinkedTeams(String topicState) {
         switch (topicState.toUpperCase()) {
             case "DOES":
-                linkTopicToTeam.selectATopic("Register of faith leaders");
+                linkTopicToTeam.selectATopic("101 non-emergency number (cost)");
                 break;
             case "DOES NOT":
                 linkTopicToTeam.selectATopic(sessionVariableCalled("newChildTopic").toString());
@@ -302,7 +302,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopicWithoutHittingFinish("Register of faith leaders");
+        markupAddTopics.enterATopicWithoutHittingFinish("101 non-emergency number (cost)");
         markupAddTopics.getCurrentDefaultTeamsForTopic();
     }
 
@@ -318,11 +318,11 @@ public class ManagementUIStepDefs extends BasePage {
         switch (typeOfTeam.toUpperCase()) {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
                 switch (sessionVariableCalled("defaultDraftTeam").toString()) {
-                    case "Advice Team":
+                    case "Animals in Science Regulation Unit":
                         linkTopicToTeam.selectADraftAndQATeam("North Region");
                         break;
                     case "North Region":
-                        linkTopicToTeam.selectADraftAndQATeam("Advice Team");
+                        linkTopicToTeam.selectADraftAndQATeam("Animals in Science Regulation Unit");
                         break;
                     default:
                         pendingStep(sessionVariableCalled("defaultDraftTeam").toString() + " is not defined within "
@@ -352,7 +352,7 @@ public class ManagementUIStepDefs extends BasePage {
         iNavigateTo("DECS");
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopic("Register of faith leaders");
+        markupAddTopics.enterATopic("101 non-emergency number (cost)");
     }
 
     @When("I enter a display name")
@@ -569,6 +569,11 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the Campaign name should have changed in the list of Campaigns")
     public void campaignNameShouldHaveChangedInTheList() {
         listsManagement.assertCampaignAddedToCampaignTable();
+    }
+
+    @And("I click the view team button")
+    public void iClickTheViewTeamButton() {
+        safeClickOn(teamManagement.viewTeamButton);
     }
 }
 

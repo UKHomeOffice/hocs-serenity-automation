@@ -66,14 +66,17 @@ public class DraftStepDefs extends BasePage {
         switch (action.toUpperCase()) {
             case "ESCALATE TO WORKFLOW MANAGER":
                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
+                safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTIONS RECEIVED":
                 safeClickOn(draft.contributionsReceivedRadioButton);
+                safeClickOn(confirmButton);
+                safeClickOn(multipleContributions.unallocateCaseRadioButton);
+                safeClickOn(confirmButton);
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
-        safeClickOn(confirmButton);
     }
 
     @When("the user triggers the {string} error message at Draft by not entering the correct information")

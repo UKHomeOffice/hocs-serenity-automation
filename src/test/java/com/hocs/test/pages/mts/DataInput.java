@@ -355,6 +355,18 @@ public class DataInput extends BasePage {
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(continueButton);
                 break;
+            case "DATE OF SURGERY":
+                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                safeClickOn(continueButton);
+                selectBusinessArea("UKVI");
+                businessUnitDropdown.selectByVisibleText("Asylum");
+                selectUrgency("Standard");
+                selectChannelReceived("Phone - reply given");
+                selectEnquirySubject("Person Specific");
+                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
+                safeClickOn(completeAndCloseCaseRadioButton);
+                safeClickOn(continueButton);
+                break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }

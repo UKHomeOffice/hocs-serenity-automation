@@ -82,8 +82,8 @@ Feature: DCU End To End
       | MIN      |
 
   @DCUWorkflow
-  Scenario Outline: New case moves to Dispatch stage
-    When I create a single "<caseType>" case and return to the dashboard
+  Scenario: MIN case moves to Dispatch stage
+    When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input Stage
     And I complete the Markup stage
@@ -92,9 +92,19 @@ Feature: DCU End To End
     And I complete the Private Office stage
     And I complete the Ministerial Sign Off stage
     Then the case should be moved to the "DISPATCH" stage
+
+  @DCUWorkflow
+  Scenario Outline: TRO and DTEN case moves to Dispatch stage
+    When I create a single "<caseType>" case and return to the dashboard
+    And I load and claim the current case
+    And I complete the Data Input Stage
+    And I complete the Markup stage
+    And I complete the Initial Draft stage
+    And I complete the QA response stage
+    And I complete the Private Office stage
+    Then the case should be moved to the "DISPATCH" stage
     Examples:
       | caseType |
-      | MIN      |
       | TRO      |
       | DTEN     |
 

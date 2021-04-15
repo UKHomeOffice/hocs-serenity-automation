@@ -72,12 +72,6 @@ Feature: Create case
     And I click the "Cancel" link
     Then I should be taken to the homepage
 
-  @Navigation
-  Scenario: User should be taken back to the dashboard when they click the cancel link on second 'Create Single Case' page
-    And I move to the When Was Correspondence Received Page
-    And I click the "Cancel" link
-    Then I should be taken to the homepage
-
   @Validation
   Scenario: When creating a Single Case case type selection is required
     And I click the "Next" button
