@@ -32,8 +32,9 @@ public class NavigationStepDefs extends BasePage {
     @When("I navigate to the {string} page")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
-            case "HOME":
+            case "DASHBOARD":
                 safeClickOn(dashboard.dashboardLink);
+                waitForDashboard();
                 break;
             case "CREATE SINGLE CASE":
                 safeClickOn(dashboard.createSingleCase);

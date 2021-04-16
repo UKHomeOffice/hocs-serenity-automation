@@ -386,7 +386,7 @@ public class WorkstacksStepDefs extends BasePage {
                 break;
             case "DCU TEAM":
                 try {
-                    dashboard.selectPerformanceProcessTeam();
+                    dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MIN");
                     goToDashboard();

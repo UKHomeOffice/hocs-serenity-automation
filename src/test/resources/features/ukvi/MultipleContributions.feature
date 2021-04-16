@@ -162,7 +162,7 @@ Feature: Multiple Contributions
     And I load and claim the current case
     And I add 3 contribution requests to the case and move the case to the Contribution Request stage
     Then the earliest due date of the contribution requests is displayed in workstacks
-    And I navigate to the "home" page
+    And I navigate to the "Dashboard" page
     And I load the current case
     And I edit the due date of a contribution request
     Then the earliest due date of the contribution requests is displayed in workstacks
