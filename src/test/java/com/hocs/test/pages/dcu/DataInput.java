@@ -127,8 +127,6 @@ public class DataInput extends BasePage {
         } else {
             typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     getDatePlusMinusNDaysAgo(-2));
-            typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
-                    getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
             safeClickOn(homeSecInterestYesRadioButton);

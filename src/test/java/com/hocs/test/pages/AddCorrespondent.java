@@ -223,7 +223,7 @@ public class AddCorrespondent extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectMemberOfParliament(member);
-        waitABit(2000);
+        correspondentTypeDropdown.waitUntilVisible();
         clickAddButton();
     }
 

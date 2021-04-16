@@ -18,6 +18,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -118,9 +119,9 @@ public class BasePage extends PageObject {
         String dd = date.split("/")[0];
         String mm = date.split("/")[1];
         String yyyy = date.split("/")[2];
-        typeInto(ddField, dd);
-        typeInto(mmField, mm);
-        typeInto(yyyyField, yyyy);
+        ddField.sendKeys(dd);
+        mmField.sendKeys(mm);
+        yyyyField.sendKeys(yyyy);
     }
 
     public void clickTheButton(String buttonLabel) {
@@ -311,14 +312,18 @@ public class BasePage extends PageObject {
 
     public boolean currentCaseIsLoaded() {
         if (pageTitle.isCurrentlyVisible()) {
-            if (pageTitle.getText().equals(sessionVariableCalled("caseReference"))) {
-                return true;
+            try {
+                if (pageTitle.getText().equals(sessionVariableCalled("caseReference"))) {
+                    return true;
+                }
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
+                return false;
             }
         }
         if (pageTitleCaption.isCurrentlyVisible()) {
             try {
                 return pageTitleCaption.getText().equals(sessionVariableCalled("caseReference"));
-            } catch (NoSuchElementException e) {
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
                 return false;
             }
         }

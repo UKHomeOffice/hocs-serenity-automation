@@ -110,14 +110,14 @@ public class LoginStepDefs extends BasePage {
     @When("I enter the login credentials for user {string} and click the login button")
     public void enterCredentialsAndClickLogin(String user) {
         setSessionVariable("user").to(User.valueOf(user));
-        loginPage.enterHocsUsername(User.valueOf(user).getUsername());
-        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
+        loginPage.enterUsername(User.valueOf(user).getUsername());
+        loginPage.enterPassword(User.valueOf(user).getPassword());
         safeClickOn(loginPage.continueButton);
     }
 
     @And("I enter the password of user {string} in the password field")
     public void IEnterMyHocsPassword(String user) {
-        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
+        loginPage.enterPassword(User.valueOf(user).getPassword());
     }
 
     @When("I enter invalid login credentials on the login screen")
@@ -144,8 +144,8 @@ public class LoginStepDefs extends BasePage {
     @When("I enter the login credentials of another user {string} and click the login button")
     public void loginAsDifferentUserAfterLogout(String user) {
         loginPage.navigateToDECS();
-        loginPage.enterHocsUsername(User.valueOf(user).getUsername());
-        loginPage.enterHocsPassword(User.valueOf(user).getPassword());
+        loginPage.enterUsername(User.valueOf(user).getUsername());
+        loginPage.enterPassword(User.valueOf(user).getPassword());
         safeClickOn(loginPage.continueButton);
     }
 

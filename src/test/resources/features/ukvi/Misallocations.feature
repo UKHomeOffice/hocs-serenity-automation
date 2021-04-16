@@ -48,6 +48,6 @@ Feature: Misallocations
     And I load and claim the current case
     And I amend the Transfer due date of the case to "01/01/2022"
     And I select the "Save Deadline for Transfer" action at the Awaiting Transfer stage
-    And I navigate to the "home" page
+    And I navigate to the "Dashboard" page
     And I click to view the "Awaiting Transfer" workstack
     Then the Transfer deadline date is correct in the Awaiting Transfer team workstack

@@ -23,19 +23,11 @@ public class LoginPage extends BasePage {
     //Basic methods
 
     public void enterUsername(String username) {
-        typeInto(usernameField, username);
+        usernameField.sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        typeInto(passwordField, password);
-    }
-
-    public void enterHocsUsername(String username) {
-        enterUsername(username);
-    }
-
-    public void enterHocsPassword(String password) {
-        enterPassword(password);
+        passwordField.sendKeys(password);
     }
 
     //Multi Step Methods
