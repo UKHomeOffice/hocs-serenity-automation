@@ -30,6 +30,6 @@ Feature: Ministerial Sign-Off
   Scenario: User rejects a case at Ministerial Sign Off and returns it to Private Office Approval
     And I return the case at Ministerial Sign Off to Private Office Approval
     Then the case should be moved to the "Private Office Approval" stage
-    And I navigate to the "home" page
+    And I navigate to the "Dashboard" page
     And I load and claim the current case
     Then a rejection note should be visible showing the reason for rejection

@@ -33,6 +33,6 @@ Feature: MTS Data Input
     | Channel Received      |
     | Enquiry Subject       |
     | Enquiry Reason        |
-    | Your Business Area    |
+    | Business Area         |
     | Date of Surgery       |
     | Actions               |

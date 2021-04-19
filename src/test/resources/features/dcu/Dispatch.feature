@@ -1,5 +1,5 @@
 @Dispatch @DCU
-Feature:  Dispatch
+Feature: Dispatch
 
   Background:
     Given I log in to "DECS" as user "DCU_USER"

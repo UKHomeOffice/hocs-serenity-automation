@@ -82,15 +82,6 @@ Feature: Manage Documents
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
 
-  @Validation @Ignore
-  Scenario: Document exceeds the file size limit
-    And I click to manage the documents of a new "MIN" case
-    And I click add documents
-    When I choose the document type "Draft"
-    And I upload a file that is 51MB in size
-    Then an error message should be displayed as I have selected a file which is larger than the allowed limit
-    And I cannot see the "51MB" file in the uploaded document list
-
   @OtherTests
   Scenario: A document has the pending tag whilst it is being converted
     And I click to manage the documents of a new "MIN" case

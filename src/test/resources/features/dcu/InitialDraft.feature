@@ -72,9 +72,8 @@ Feature: Initial Draft
   Scenario: User must enter the reason that their team cannot answer a case in the text box at the Draft stage
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
-    And I click the "Finish " button on the "CASE REJECTION" page
+    And I click the "Finish" button on the "CASE REJECTION" page
     Then an error message should be displayed as I have not entered a reason in the text box
-
 
   @Validation
   Scenario: User must select a radio button when asked how they intend to respond at the Draft stage

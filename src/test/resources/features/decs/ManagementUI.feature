@@ -53,7 +53,7 @@ Feature: ManagementUI
   @TeamManagement @Validation
   Scenario: User must select a team from the dropdown on the team search page
     And I navigate to the "TEAM" Management page
-    When I click the "View Team" button
+    When I click the view team button
     Then an error message should displayed as no team been selected
 
   @TeamManagement @Validation
@@ -248,7 +248,7 @@ Feature: ManagementUI
     Then an error message should be displayed as no "INITIAL DRAFT AND QA RESPONSE STAGES" team has been selected
 
   @LinkTopicToTeam @Validation
-  Scenario: User must select a 'Private Office/MINISTERIAL SIGN OFF stages' team to assign topic to
+  Scenario: User must select a 'Private Office/Ministerial Sign Off stages' team to assign topic to
     And I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
     And I click the "Submit" button
@@ -284,7 +284,7 @@ Feature: ManagementUI
   @UserManagement @OtherTests
   Scenario: A user can check the teams a user is in through User Management
     Given I navigate to the "User Management" Management page
-    And I load the teams of which "CAMERON_HO" is a member
+    And I load the teams of which "Cameron" is a member
     Then the teams the user is a part of are displayed
 
   @UserManagement @Regression

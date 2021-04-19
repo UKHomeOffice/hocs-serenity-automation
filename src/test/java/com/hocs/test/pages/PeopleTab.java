@@ -127,13 +127,11 @@ public class PeopleTab extends BasePage {
     }
 
     public void assertCorrespondentHasBeenRemoved(String correspondent) {
-        int n = 0;
-        if (!managePeopleHypertext.isVisible()) {
-            safeClickOn(peopleTab);
-        }
+        continueButton.waitUntilVisible();
+        safeClickOn(peopleTab);
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
-        int listSize = correspondentNames.size();
-        while (n <= (listSize - 1)) {
+        int n = 0;
+        while (n < (correspondentNames.size())) {
             assertThat(correspondentNames.get(n).getText().contains(correspondent), is(false));
             n++;
         }

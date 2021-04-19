@@ -8,6 +8,7 @@ import static org.hamcrest.core.Is.is;
 import com.hocs.test.pages.BasePage;
 import config.User;
 import java.time.Duration;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -72,9 +73,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void removeUserFromTeamWithAssignedCases(String nameOfUser) {
-        WebElementFacade removeButtonOfUser = findAll("//td[@class='govuk-table__cell'][contains(text(), '" + nameOfUser +
-                "')]/."
-                + ".//td//a").get(0);
+        WebElementFacade removeButtonOfUser = findBy("//td[contains(text(), '" + nameOfUser + "')]/following-sibling::td/a");
         safeClickOn(removeButtonOfUser);
     }
 
@@ -84,12 +83,18 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertThatUserIsVisibleInTeamList() {
-        WebElementFacade membersInTeamTable = findAll("(//tr[@class='govuk-table__row'])[2]").get(0);
-
-        String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-
-        teamNameHeader.shouldContainText(nameOfTeamInHeader);
-        membersInTeamTable.shouldContainText(User.DECS_USER.getAllocationText());
+        int n = 0;
+        boolean trueFalse = false;
+        List<WebElementFacade> membersInTeamTable = findAll("//tr[@class='govuk-table__row']");
+        while (n <= membersInTeamTable.size() && !trueFalse) {
+            n++;
+            String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
+            teamNameHeader.shouldContainText(nameOfTeamInHeader);
+            if (membersInTeamTable.get(n).containsText(User.DECS_USER.getAllocationText())) {
+                trueFalse = true;
+            }
+        }
+        membersInTeamTable.get(n).shouldContainText(User.DECS_USER.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {

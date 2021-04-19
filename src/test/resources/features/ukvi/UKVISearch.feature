@@ -7,7 +7,7 @@ Feature: UKVI Search
   @UKVIRegression
   Scenario Outline: User tests UKVI search criteria
     When I create a "UKVI" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Home" page
+    And I navigate to the "Dashboard" page
     And I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" UKVI search criteria
     And I click the search button on the search page

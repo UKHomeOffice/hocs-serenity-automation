@@ -63,11 +63,14 @@ public class AccordionDCU extends BasePage {
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'How do you intend to respond?']/parent::span")
     public WebElementFacade howDoYouIntendToRespond;
 
-    @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Which is the primary draft document?']/parent::span")
+    @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Primary draft document']/parent::span")
     public WebElementFacade whichIsThePrimaryDraftDocument;
 
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Can this correspondence be answered by your team?']/parent::span")
     public WebElementFacade canThisCorrespondenceBeAnsweredByYourTeam;
+
+    @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Actions']/parent::span")
+    public WebElementFacade actions;
 
     @FindBy(xpath = "//div[contains(@class ,'govuk-accordion__section--expanded')]/descendant::strong[text() = 'Do you approve the response?']/parent::span")
     public WebElementFacade doYouApproveTheResponse;
@@ -133,7 +136,7 @@ public class AccordionDCU extends BasePage {
 
     public void assertAccordionQAResponseFields() {
         String chosenQAResponse = sessionVariableCalled("chosenQAResponse");
-        doYouApproveTheResponse.shouldContainText(chosenQAResponse);
+        actions.shouldContainText(chosenQAResponse);
     }
 
     public void assertAccordionPrivateOfficeApprovalFields() {

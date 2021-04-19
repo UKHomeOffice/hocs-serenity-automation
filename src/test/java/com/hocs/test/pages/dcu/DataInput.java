@@ -127,8 +127,6 @@ public class DataInput extends BasePage {
         } else {
             typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     getDatePlusMinusNDaysAgo(-2));
-            typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
-                    getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
             safeClickOn(homeSecInterestYesRadioButton);
@@ -186,7 +184,9 @@ public class DataInput extends BasePage {
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
         String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getTextContent();
         setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
-
+        safeClickOn(homeSecInterestYesRadioButton);
+        String selectedHomeSecInterest = homeSecInterestYesRadioButton.getText();
+        setSessionVariable("selectedHomeSecInterestRadioButton").to(selectedHomeSecInterest);
         safeClickOn(continueButton);
         waitABit(500);
         addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");

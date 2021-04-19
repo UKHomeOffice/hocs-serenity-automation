@@ -169,6 +169,7 @@ public class Dashboard extends BasePage {
     // Assertions
 
     public void assertAtDashboard() {
+        waitFor(myCases);
         assertThat(myCases.isVisible(), is(true));
     }
 
@@ -188,15 +189,14 @@ public class Dashboard extends BasePage {
             goToDashboard();
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         }
-        caseReferenceSearchBar.clear();
         String currentCase = sessionVariableCalled("caseReference").toString();
         try {
-            typeInto(caseReferenceSearchBar, currentCase);
+            caseReferenceSearchBar.sendKeys(currentCase);
             assertThat(caseReferenceSearchBar.getValue().equals(currentCase), is(true));
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         } catch (AssertionError a) {
             caseReferenceSearchBar.clear();
-            typeInto(caseReferenceSearchBar, currentCase);
+            caseReferenceSearchBar.sendKeys(currentCase);
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         }
         waitFor(documentsTab);
