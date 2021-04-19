@@ -122,3 +122,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /.idea/
+
+# Sysmtem Config
+.DS_Store
