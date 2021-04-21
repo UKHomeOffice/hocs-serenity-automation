@@ -78,9 +78,7 @@ public class StandardLine extends BasePage {
     }
 
     public void enterPastStandardLineExpirationDate() {
-        typeInto(expirationDateDayTextBox, "01");
-        typeInto(expirationDateMonthTextBox, "05");
-        typeInto(expirationDateYearTextBox, "2018");
+        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, getDatePlusMinusNDaysAgo(-300));
     }
 
     public void selectActionForStandardLine(String topic, String action) {
@@ -106,7 +104,7 @@ public class StandardLine extends BasePage {
     }
 
     public void enterIntoStandardLineFilter(String input) {
-        typeInto(manageStandardLinesFilter, input);
+        manageStandardLinesFilter.sendKeys(input);
     }
 
     public void assertStandardLinesAreFilteredBy(String filterBy, String contents) {

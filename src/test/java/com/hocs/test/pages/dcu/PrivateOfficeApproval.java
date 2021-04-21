@@ -118,7 +118,7 @@ public class PrivateOfficeApproval extends BasePage {
             waitFor(newTopicRadioButton);
             safeClickOn(newTopicRadioButton);
         }
-        typeInto(topicOverrideReasonTextField, "Test");
+        topicOverrideReasonTextField.sendKeys( "Test");
         setSessionVariable("topicOverrideReason").to("Test");
         safeClickOn(continueButton);
     }

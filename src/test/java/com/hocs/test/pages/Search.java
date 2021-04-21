@@ -161,12 +161,12 @@ public class Search extends BasePage {
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
-                typeInto(applicantOrConstituentFullNameTextField, value);
+                applicantOrConstituentFullNameTextField.sendKeys(value);
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "TOPIC":
                 safeClickOn(searchTopicTextbox);
-                typeInto(searchTopicTextbox, value);
+                searchTopicTextbox.sendKeys(value);
                 setSessionVariable("searchTopic").to(value);
                 break;
             case "SIGN OFF TEAM":
@@ -192,7 +192,7 @@ public class Search extends BasePage {
     public void enterMPAMSearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
-                typeInto(caseReferenceSearchBox, value);
+                caseReferenceSearchBox.sendKeys(value);
                 setSessionVariable("searchCaseReference").to(value);
                 break;
             case "REFERENCE TYPE":
@@ -220,7 +220,7 @@ public class Search extends BasePage {
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                typeInto(correspondentReferenceNumber, value);
+                correspondentReferenceNumber.sendKeys(value);
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
@@ -237,7 +237,7 @@ public class Search extends BasePage {
                 setSessionVariable("searchCampaign").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
-                typeInto(applicantOrConstituentFullNameTextField, value);
+                applicantOrConstituentFullNameTextField.sendKeys(value);
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "ACTIVE CASES ONLY":
@@ -284,7 +284,7 @@ public class Search extends BasePage {
         }
         String randomCaseRefString = "/012" + randomCaseIntToString;
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
-        typeInto(caseReferenceSearchBox, randomCaseRefString);
+        caseReferenceSearchBox.sendKeys(randomCaseRefString);
         safeClickOn(searchButton);
     }
 

@@ -53,7 +53,7 @@ public class Dispatch extends BasePage {
     public void enterDispatchRejectionNotes() {
         waitFor(dispatchRejectNoteField);
         String rejectionReason = "Rejection Reason: " + generateRandomString();
-        typeInto(dispatchRejectNoteField, rejectionReason);
+        dispatchRejectNoteField.sendKeys(rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 

@@ -205,7 +205,7 @@ public class Workstacks extends BasePage {
 
     public void refineWorkstackSearchResults(String workstackInput) {
         safeClickOn(workstackFilter);
-        typeInto(workstackFilter, workstackInput);
+        workstackFilter.sendKeys(workstackInput);
     }
 
     public void recordHighestPriorityCases() {
@@ -361,7 +361,7 @@ public class Workstacks extends BasePage {
 
     public void unallocateSelectedCase(String caseRef) {
         WebElement selectedCaseCheckBox = getDriver().findElement(By.xpath("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//input"));
-        typeInto(workstackFilter, caseRef);
+        workstackFilter.sendKeys(caseRef);
         selectedCaseCheckBox.click();
         safeClickOn(unallocateButton);
     }
@@ -475,7 +475,7 @@ public class Workstacks extends BasePage {
     }
 
     public void filterByCurrentCaseReference() {
-        typeInto(workstackFilter, sessionVariableCalled("caseReference"));
+        workstackFilter.sendKeys(sessionVariableCalled("caseReference"));
     }
 
     public void assertAssignedUser(User user) {

@@ -48,12 +48,12 @@ public class UnitManagement extends BasePage {
     }
 
     public void inputUnitDisplayName(String unitDisplayName) {
-        typeInto(displayNameTextField, unitDisplayName);
+        displayNameTextField.sendKeys(unitDisplayName);
         setSessionVariable("unitDisplayName").to(unitDisplayName);
     }
 
     public void inputUnitShortCode(String unitShortCode) {
-        typeInto(shortCodeNameTextField, unitShortCode);
+        shortCodeNameTextField.sendKeys(unitShortCode);
         setSessionVariable("unitShortCode").to(unitShortCode);
     }
 

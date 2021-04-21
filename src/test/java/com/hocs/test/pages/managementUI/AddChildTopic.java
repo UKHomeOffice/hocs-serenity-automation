@@ -40,7 +40,7 @@ public class AddChildTopic extends BasePage {
     public void inputAChildTopicDisplayName(String childTopic) {
         waitABit(1000);
         safeClickOn(childTopicDisplayNameInputBar);
-        typeInto(childTopicDisplayNameInputBar, childTopic);
+        childTopicDisplayNameInputBar.sendKeys(childTopic);
         setSessionVariable("childTopic").to(childTopic);
         childTopicDisplayNameInputBar.sendKeys(Keys.ENTER);
     }

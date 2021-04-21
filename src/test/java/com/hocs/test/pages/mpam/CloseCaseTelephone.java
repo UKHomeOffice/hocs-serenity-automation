@@ -69,7 +69,7 @@ public class CloseCaseTelephone extends BasePage {
     }
 
     public void enterExplanationForClosingCase(String text) {
-        typeInto(explanationForClosingCaseTelephoneTextBox, text);
+        explanationForClosingCaseTelephoneTextBox.sendKeys(text);
     }
 
     public void selectTelephoneContactRoute(String contactRoute) {
