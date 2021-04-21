@@ -1,11 +1,11 @@
-@Login @DECS
+@Login @DECS @test2
 Feature: Login
 
   Background:
     Given I am on the Home Office Correspondence Login Page
     And I am prompted to log in
 
-  @Regression @test
+  @Regression
   Scenario: I can login to the Home Office Correspondence System
     When I enter the login credentials for user "DECS_USER" and click the login button
     Then I should be taken to the homepage

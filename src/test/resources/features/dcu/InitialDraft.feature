@@ -1,4 +1,4 @@
-@InitialDraft @DCU
+@InitialDraft @DCU @test
 Feature: Initial Draft
 
   Background:
