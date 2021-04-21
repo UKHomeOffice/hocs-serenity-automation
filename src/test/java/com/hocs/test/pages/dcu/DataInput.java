@@ -134,8 +134,6 @@ public class DataInput extends BasePage {
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
         typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(-2));
-        typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
-                getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
         safeClickOn(homeSecInterestYesRadioButton);
