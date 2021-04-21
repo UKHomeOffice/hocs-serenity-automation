@@ -21,7 +21,7 @@ Feature: Deadlines
     And I load and claim the current case
     Then the stage deadline dates for a "MPAM" case are correct
 
-  @DCURegression @test
+  @DCURegression
   Scenario: User assigns a case to the Home Secretary team for sign-off and checks that the stage deadlines are correct
     When I create a "MIN" case and move it to the "Markup" stage
     And I load and claim the current case

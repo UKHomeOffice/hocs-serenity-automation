@@ -1,10 +1,10 @@
-@Dispatch @test
+@Dispatch
 Feature:  Dispatch
 
   Background:
     Given I log in to "DECS" as user "DCU_USER"
 
-  @Validation
+  @Validation @test
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
     And I create a "DTEN" case and move it to the "Dispatch" stage
     And I load and claim the current case

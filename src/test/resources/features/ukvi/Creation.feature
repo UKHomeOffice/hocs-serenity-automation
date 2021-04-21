@@ -1,4 +1,4 @@
-@Creation @UKVI @test
+@Creation @UKVI
 Feature: Creation
 
   Background:
@@ -6,13 +6,13 @@ Feature: Creation
     And I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
 
-  @Navigation @test
+  @Navigation
   Scenario: User should be on the MPAM Data Input Page
     Then the "MPAM Data Input" page should be displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @Navigation @test
+  @Navigation
   Scenario: User can navigate to the MPAM Correspondents Details Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -83,7 +83,7 @@ Feature: Creation
       | Windrush     | Official    |
       | Coronavirus  | Official    |
 
-  @UKVIRegression
+  @UKVIRegression @test
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
