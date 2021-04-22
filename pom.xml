@@ -123,7 +123,7 @@
           </includes>
           <argLine>-Xmx512m</argLine>
           <parallel>classes</parallel>
-          <threadCount>1</threadCount>
+          <threadCount>4</threadCount>
           <perCoreThreadCount>true</perCoreThreadCount>
         </configuration>
         <executions>
