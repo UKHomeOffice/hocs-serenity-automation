@@ -86,7 +86,7 @@ steps:
         - success
         - failure
 
-  - name: upload serenity report
+  - name: upload serenity report2
     image: amazon/aws-cli
     commands:
       - > # yaml folded style
@@ -103,7 +103,7 @@ steps:
       AWS_KMS_KEY:
         from_secret: aws_kms_key_id
     depends_on:
-      - execute tests
+      - execute tests2
     when:
       status:
         - success
