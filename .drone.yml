@@ -74,9 +74,14 @@ steps:
         - failure
 
 services:
+  - name: selenium
+    image: selenium/hub
+
   - name: zalenium
     image: dosel/zalenium
     commands:
       - sh bin/zal.sh
+
+
 
 
