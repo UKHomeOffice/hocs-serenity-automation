@@ -74,19 +74,9 @@ steps:
         - failure
 
 services:
-  - name: selenium
-    image: selenium/hub
-
   - name: zalenium
     image: dosel/zalenium
     commands:
       - sh bin/zal.sh
-
-  - name: chrome2
-    image: selenium/node-chrome
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
 
 
