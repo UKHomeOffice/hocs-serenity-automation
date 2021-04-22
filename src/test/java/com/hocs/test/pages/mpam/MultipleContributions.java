@@ -98,7 +98,7 @@ public class MultipleContributions extends BasePage {
                 getDatePlusMinusNDaysAgo(-1));
         typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(5));
         setSessionVariable("contributionDueDate").to(getDatePlusMinusNDaysAgo(5));
-        typeInto(whatYouAreRequestingTextField, "Test");
+        whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
     }
 
@@ -135,11 +135,11 @@ public class MultipleContributions extends BasePage {
                 safeClickOn(completeRadioButton);
                 typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
                         getDatePlusMinusNDaysAgo(-1));
-                typeInto(contributionReceivedDetailsTextField, "Test");
+                contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
                 break;
             case "CANCEL":
                 safeClickOn(cancelledRadioButton);
-                typeInto(reasonForCancellingTextField, "Test");
+                reasonForCancellingTextField.sendKeys("Test - contribution cancelled details");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -211,7 +211,7 @@ public class MultipleContributions extends BasePage {
                 safeClickOn(completeRadioButton);
                 typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
                         getDatePlusMinusNDaysAgo(-1));
-                typeInto(contributionReceivedDetailsTextField, "Test");
+                contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
                 safeClickOn(updateButton);
                 safeClickOn(contributionsReceivedRadioButton);
                 safeClickOn(confirmButton);

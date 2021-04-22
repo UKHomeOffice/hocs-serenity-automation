@@ -33,9 +33,9 @@ public class ListsManagement extends BasePage {
         String campaignName = generateRandomString();
         String campaignCode = generateRandomString();
         safeClickOn(addNewCampaignButton);
-        typeInto(campaignNameTextBox, campaignName);
+        campaignNameTextBox.sendKeys(campaignName);
         setSessionVariable("newCampaign").to(campaignName);
-        typeInto(campaignCodeTextBox, campaignCode);
+        campaignCodeTextBox.sendKeys(campaignCode);
         safeClickOn(submitButton);
     }
 
@@ -44,7 +44,7 @@ public class ListsManagement extends BasePage {
         WebElementFacade amendLink = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']/following-sibling::td/a[text()='Amend']");
         safeClickOn(amendLink);
         newCampaignNameTextBox.clear();
-        typeInto(newCampaignNameTextBox, campaignName);
+        newCampaignNameTextBox.sendKeys(campaignName);
         setSessionVariable("newCampaign").to(campaignName);
         safeClickOn(submitButton);
     }

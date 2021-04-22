@@ -66,7 +66,7 @@ public class QAResponse extends BasePage {
 
     public void enterQARejectionNote() {
         String QARejectionNote = generateRandomString();
-        typeInto(QARejectionNoteField, QARejectionNote);
+        QARejectionNoteField.sendKeys(QARejectionNote);
         setSessionVariable("QARejectionNote").to(QARejectionNote);
     }
 

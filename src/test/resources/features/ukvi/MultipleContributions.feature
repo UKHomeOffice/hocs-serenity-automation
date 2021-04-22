@@ -95,9 +95,8 @@ Feature: Multiple Contributions
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
-    And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Escalate to workflow manager" action at the contributions requested stage
-    Then the case should be moved to the "Triage (Escalated)" stage
+    Then the case should be moved to the "Triage - Escalated (Contribution Requested)" stage
 
   @UKVIRegression @UKVIWorkflow
   Scenario: User can escalate a case to workflow manager at the Draft-Contributions Requested stage
@@ -105,9 +104,8 @@ Feature: Multiple Contributions
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
-    And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Escalate to workflow manager" action at the contributions requested stage
-    Then the case should be moved to the "Draft (Escalated)" stage
+    Then the case should be moved to the "Draft - Escalated (Contribution Requested)" stage
 
   @UKVIRegression @UKVIWorkflow
   Scenario: User de-escalates a case returns it to the Triage-Contributions Requested stage

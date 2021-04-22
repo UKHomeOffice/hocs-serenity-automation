@@ -57,11 +57,11 @@ public class Misallocations extends BasePage {
         }
         creation.selectBusinessArea("Transfer to " + transferTo);
         if (transferTo.toUpperCase().equals("OGD")) {
-            typeInto(reasonForTransferToOGDTextField, "Test");
-            setSessionVariable("inputReasonForTransfer").to("Test");
+            reasonForTransferToOGDTextField.sendKeys("Test - Transfer to OGD reason");
+            setSessionVariable("inputReasonForTransfer").to("Test - Transfer to OGD reason");
         } else if (transferTo.toUpperCase().equals("OTHER")) {
-            typeInto(reasonForTransferToOtherTextField, "Test");
-            setSessionVariable("inputReasonForTransfer").to("Test");
+            reasonForTransferToOtherTextField.sendKeys("Test - Transfer to Other reason");
+            setSessionVariable("inputReasonForTransfer").to("Test - Transfer to Other reason");
         }
         switch (stage.toUpperCase()) {
             case "CREATION":

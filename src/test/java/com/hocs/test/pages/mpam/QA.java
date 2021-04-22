@@ -99,19 +99,19 @@ public class QA extends BasePage {
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
-        typeInto(escalationReasonTextArea, escalationReason);
+        escalationReasonTextArea.sendKeys(escalationReason);
         safeClickOn(confirmButton);
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
-        typeInto(draftRejectionTextField, rejectionReason);
+        draftRejectionTextField.sendKeys(rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void submitReasonToRejectToTriage(String rejectionReason) {
-        typeInto(triageRejectionTextField, rejectionReason);
+        triageRejectionTextField.sendKeys(rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }

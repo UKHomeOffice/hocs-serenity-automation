@@ -36,7 +36,7 @@ public class LinkTopicToTeam extends BasePage {
     public void selectATopic(String topic) {
         waitABit(1000);
         safeClickOn(topicsSearchBar);
-        typeInto(topicsSearchBar, topic);
+        topicsSearchBar.sendKeys(topic);
         setSessionVariable("chosenTopic").to(topic);
         waitABit(1000);
         topicsSearchBar.sendKeys(Keys.ENTER);

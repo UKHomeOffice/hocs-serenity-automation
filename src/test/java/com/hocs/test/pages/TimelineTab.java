@@ -77,14 +77,14 @@ public class TimelineTab extends BasePage {
 
     public void enterTextIntoCaseNote(String text) {
         safeClickOn(caseNoteTextbox);
-        typeInto(caseNoteTextbox, text);
+        caseNoteTextbox.sendKeys(text);
     }
 
     public void editACase(String input) {
         safeClickOn(editButton);
         WebElementFacade editTextBox = findBy("//div[@class='timeline']//textarea");
         editTextBox.clear();
-        typeInto(editTextBox, input);
+        editTextBox.sendKeys(input);
         safeClickOn(saveButton);
         setSessionVariable("createdNoteContents").to(input);
     }

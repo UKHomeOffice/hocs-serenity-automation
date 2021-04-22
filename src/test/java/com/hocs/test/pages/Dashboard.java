@@ -112,7 +112,7 @@ public class Dashboard extends BasePage {
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
-        typeInto(caseReferenceSearchBar, caseReference);
+        caseReferenceSearchBar.sendKeys(caseReference);
     }
 
     public void hitEnterCaseReferenceSearchBar() {
@@ -176,7 +176,7 @@ public class Dashboard extends BasePage {
     public void assertCaseIsClosedViaLoadCase() {
         caseReferenceSearchBar.waitUntilVisible().clear();
         String thisCaseId = sessionVariableCalled("caseReference").toString();
-        typeInto(caseReferenceSearchBar, thisCaseId);
+        caseReferenceSearchBar.sendKeys(thisCaseId);
         caseReferenceSearchBar.sendKeys(Keys.RETURN);
         unallocatedCaseView.assertCaseCannotBeAssigned();
         System.out.println("The case is closed");

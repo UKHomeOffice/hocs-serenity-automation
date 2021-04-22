@@ -93,7 +93,7 @@ public class Draft extends BasePage {
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
-        typeInto(escalationReasonTextArea, escalationReason);
+        escalationReasonTextArea.sendKeys(escalationReason);
         safeClickOn(confirmButton);
         setSessionVariable("escalationReason").to(escalationReason);
     }
@@ -141,7 +141,7 @@ public class Draft extends BasePage {
     public void sendDraftCaseBackToTriage() {
         safeClickOn(returnToTriageRadioButton);
         safeClickOn(confirmButton);
-        typeInto(returnToTriageReasonTextArea, "Test");
+        returnToTriageReasonTextArea.sendKeys("Test");
         setSessionVariable("rejectionReason").to("Test");
         setSessionVariable("rejectionStage").to("Draft");
         safeClickOn(confirmButton);

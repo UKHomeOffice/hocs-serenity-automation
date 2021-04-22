@@ -53,21 +53,8 @@ public class Markup_AddTopics extends BasePage {
 
     // Basic Methods
 
-    public String getPrimaryTopicText() {
-        String thisTopic = assignedTopic.getText();
-        return thisTopic;
-    }
-
     public void clickAddTopicLink() {
         safeClickOn(addTopicLink);
-    }
-
-    public void enterTopic() {
-        typeInto(topicsTextField, generateRandomString());
-    }
-
-    public void clickTopicsTextField() {
-        safeClickOn(topicsTextField);
     }
 
     public void hitReturnToSendTopic() {

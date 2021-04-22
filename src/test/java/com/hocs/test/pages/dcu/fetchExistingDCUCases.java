@@ -70,7 +70,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         String caseRef = firstUnallocatedMINCase.getText().split("\\r?\\n")[1];
         goToDashboard();
-        typeInto(dashboard.caseReferenceSearchBar, caseRef);
+        dashboard.caseReferenceSearchBar.sendKeys(caseRef);
         dashboard.hitEnterCaseReferenceSearchBar();
         safeClickOn(unallocatedCaseView.allocateToMeLink);
     }
