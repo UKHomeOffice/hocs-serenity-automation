@@ -79,15 +79,8 @@ services:
 
   - name: zalenium
     image: dosel/zalenium
-    volumes:
-      - /tmp/drone/videos:/home/seluser/videos
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
     commands:
-      - |
-        start --desiredContainers 4
-              --maxDockerSeleniumContainers 4
-              --videoRecordingEnabled false
+      - sh bin/zal.sh
 
   - name: chrome2
     image: selenium/node-chrome
