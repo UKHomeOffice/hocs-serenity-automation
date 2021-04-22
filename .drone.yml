@@ -82,6 +82,32 @@ services:
     commands:
       - sh bin/zal.sh
 
+  - name: chrome1
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: zalenium
+      HUB_PORT_4444_TCP_PORT: 4444
 
+  - name: chrome2
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: zalenium
+      HUB_PORT_4444_TCP_PORT: 4444
+
+  - name: chrome3
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: zalenium
+      HUB_PORT_4444_TCP_PORT: 4444
+
+  - name: chrome4
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: zalenium
+      HUB_PORT_4444_TCP_PORT: 4444
 
 
