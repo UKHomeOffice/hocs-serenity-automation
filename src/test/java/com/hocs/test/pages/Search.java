@@ -321,7 +321,7 @@ public class Search extends BasePage {
         boolean trueFalse;
         numberOfSearchResults.waitUntilVisible();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
-        int randomNumber = new Random().nextInt(numberOfCasesDisplayed);
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
         setSessionVariable("randomCaseRef").to(randomSearchResult.getText());
         switch (criteria.toUpperCase()) {
@@ -428,20 +428,25 @@ public class Search extends BasePage {
             case "MINISTERIAL SIGN OFF TEAM":
                 safeClickOn(randomSearchResult);
                 String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
-                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+                summaryTab.summaryTab.waitUntilVisible();
+                String displayedSignOffTeam = "";
+                if (unallocatedCaseView.allocateToMeLink.isCurrentlyVisible()) {
                     accordionMPAM.openCreationAccordion();
                     accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
-                    String displayedResponse = sessionVariableCalled("response");
-                    assertThat(displayedResponse.contains(ministerialSignOffTeam), is(true));
-                } else if (addCorrespondent.addACorrespondentLink.isVisible()) {
+                    displayedSignOffTeam = sessionVariableCalled("response");
+                } else if (addCorrespondent.addACorrespondentLink.isCurrentlyVisible()) {
                     clickBackButton();
-                    String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
-                    assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
+                    displayedSignOffTeam = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
                 } else {
                     accordionMPAM.openCaseDetailsAccordion();
-                    String chosenSelection = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
-                    assertThat(chosenSelection.contains(ministerialSignOffTeam), is(true));
+                    WebElementFacade readOnlySignOffTeam = findBy("//label[text()='Ministerial sign off team']/following-sibling::label");
+                    if (readOnlySignOffTeam.isCurrentlyVisible()) {
+                        displayedSignOffTeam = readOnlySignOffTeam.getText();
+                    } else {
+                        displayedSignOffTeam = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
+                    }
                 }
+                assertThat(displayedSignOffTeam.contains(ministerialSignOffTeam), is(true));
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(randomSearchResult);
