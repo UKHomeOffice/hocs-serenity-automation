@@ -68,7 +68,7 @@ Feature: DCU Search
     And I click the search button on the search page
     Then the "DCU Search" workstack should contain only the expected columns
 
-  @SearchByCaseType @SearchByTopic @OtherTests
+  @SearchByCaseType @SearchByTopic @OtherTests @test1
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
     And I navigate to the "search" page
@@ -90,7 +90,7 @@ Feature: DCU Search
     | Correspondent Name          | Humpty Dumpty |
     | Received on or before date  | 01/01/1901    |
 
-  @SearchByCaseReferenceNumber @DCURegression
+  @SearchByCaseReferenceNumber @DCURegression @test1
   Scenario Outline: User searches for DCU cases using a substring of a case reference
     And I create a single "<caseType>" case and return to the dashboard
     And I navigate to the "Search" page

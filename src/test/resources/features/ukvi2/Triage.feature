@@ -27,7 +27,7 @@ Feature: Triage
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIRegression
+  @UKVIRegression @test4
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     When I click the "Set enquiry subject/reason" link
     And I select an enquiry subject and continue

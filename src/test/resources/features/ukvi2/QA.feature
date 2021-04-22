@@ -12,7 +12,7 @@ Feature: QA
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression @test4
   Scenario: User completes the QA stage for a Ministerial case
     And I create a MPAM case  with "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case

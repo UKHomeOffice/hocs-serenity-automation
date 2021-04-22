@@ -12,14 +12,14 @@ Feature: Draft
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression @test3
   Scenario: User completes the Draft stage
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     When I complete the "Draft" stage
     Then the case should be moved to the "QA" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression @test3
   Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
     When I create a MPAM case  with "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
