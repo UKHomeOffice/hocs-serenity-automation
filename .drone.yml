@@ -77,12 +77,17 @@ services:
   - name: selenium
     image: selenium/hub
 
-  - name: chrome
-    image: selenium/node-chrome
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
+  - name: zalenium
+    image: dosel/zalenium
+    volumes:
+      - /tmp/drone/videos:/home/seluser/videos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    commands:
+      - |
+        start --desiredContainers 4
+              --maxDockerSeleniumContainers 4
+              --videoRecordingEnabled false
 
   - name: chrome2
     image: selenium/node-chrome
