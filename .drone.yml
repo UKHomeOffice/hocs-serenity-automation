@@ -107,7 +107,8 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_$(date +'%Y-%m-%d_%H-%M')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/'2_' + $${DRONE_BUILD_NUMBER}_$(date
+        +'%Y-%m-%d_%H-%M')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -129,21 +130,10 @@ services:
   - name: selenium
     image: selenium/hub
 
-  - name: zalenium
-    image: dosel/zalenium
-    commands:
-      - sh bin/zal.sh
-
   - name: chrome1
     image: selenium/node-chrome
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: zalenium
+      HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
 
-  - name: chrome2
-    image: selenium/node-chrome
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: zalenium
-      HUB_PORT_4444_TCP_PORT: 4444
