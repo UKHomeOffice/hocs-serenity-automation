@@ -115,9 +115,6 @@ services:
 
   - name: zalenium
     image: dosel/zalenium
-    depends_on:
-      - build & push
-      - build & push latest
     commands:
       - sh bin/zal.sh
 
