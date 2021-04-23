@@ -170,4 +170,12 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>newtarget</id>
+      <build>
+        <directory>newtarget</directory>
+      </build>
+    </profile>
+  </profiles>
 </project>
