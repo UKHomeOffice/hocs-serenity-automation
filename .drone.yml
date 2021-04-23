@@ -19,7 +19,7 @@ steps:
       DOCKER_PASSWORD:
         from_secret: QUAY_ROBOT_PASSWORD
       DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    depends_on: [ ]
+    depends_on: []
 
   - name: build & push latest
     image: plugins/docker
@@ -35,7 +35,7 @@ steps:
     when:
       branch:
         - main
-    depends_on: [ ]
+    depends_on: []
 
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
@@ -50,7 +50,7 @@ steps:
       - build & push
       - build & push latest
 
-  -Nets name: upload serenity report
+  - name: upload serenity report
     image: amazon/aws-cli
     commands:
       - > # yaml folded style
@@ -77,7 +77,7 @@ services:
   - name: selenium
     image: selenium/hub
 
-  - name: chrome1
+  - name: chrome
     image: selenium/node-chrome
     environment:
       DISPLAY: :99.0
