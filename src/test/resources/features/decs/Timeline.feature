@@ -19,7 +19,7 @@ Feature: Timeline
     When I attempt to add an empty case note
     Then an error message is displayed as I have not entered text content for the case note
 
-  @Regression @test1
+  @Regression
   Scenario: Notes are ordered by creation datetime
     When I create a case note with random content
     And I create another case note with random content
