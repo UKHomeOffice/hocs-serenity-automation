@@ -4,7 +4,7 @@ Feature: Close Case (Telephone)
   Background:
     Given I log in to "DECS" as user "UKVI_USER"
 
-  @UKVIRegression
+  @UKVIRegression11
   Scenario Outline: User closes a telephone case at different stages
     And I create a MPAM case  with "Official" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case

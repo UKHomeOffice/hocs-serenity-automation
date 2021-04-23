@@ -4,7 +4,7 @@ Feature: MPAM Case Details Accordion
   Background:
     Given I log in to "DECS" as user "UKVI_USER"
 
-  @UKVIRegression
+  @UKVIRegression1
   Scenario Outline: User completes a stage and checks that the information entered is correct in the case details accordion
     And I create a "MPAM" case and move it to the "<stage>" stage
     And I load the current case
@@ -43,7 +43,7 @@ Feature: MPAM Case Details Accordion
     And I load the current case
     Then the "Draft" accordion in case details should display the correct information for "Response Channel"
 
-  @UKVIRegression
+  @UKVIRegression1
   Scenario Outline: User changes the business area of the case
     And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case

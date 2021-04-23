@@ -47,7 +47,7 @@ Feature: Creation
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression11
   Scenario: User completes Case Creation stage
     When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
     And I complete the other required fields for Creation stage
@@ -83,7 +83,7 @@ Feature: Creation
       | Windrush     | Official    |
       | Coronavirus  | Official    |
 
-  @UKVIRegression @test
+  @UKVIRegression11 @test
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -91,7 +91,7 @@ Feature: Creation
     And I add the member of parliament "Nicola Sturgeon MSP"
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @UKVIRegression
+  @UKVIRegression11
   Scenario: User adds a member of public correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -99,7 +99,7 @@ Feature: Creation
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @UKVIRegression
+  @UKVIRegression11
   Scenario: User removes the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -107,7 +107,7 @@ Feature: Creation
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
-  @UKVIRegression
+  @UKVIRegression11
   Scenario: User edits an existing correspondents name
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -115,7 +115,7 @@ Feature: Creation
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
-  @UKVIRegression
+  @UKVIRegression11
   Scenario: User adds a second correspondent and selects them as the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button
