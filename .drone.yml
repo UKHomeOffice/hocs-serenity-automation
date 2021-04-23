@@ -21,41 +21,11 @@ steps:
       DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
     depends_on: [ ]
 
-  - name: build & push2
-    image: plugins/docker
-    settings:
-      registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation2
-      tags:
-        - 2build_${DRONE_BUILD_NUMBER}
-        - ${DRONE_COMMIT_SHA}
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: QUAY_ROBOT_PASSWORD
-      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    depends_on: [ ]
-
   - name: build & push latest
     image: plugins/docker
     settings:
       registry: quay.io
       repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
-      tags:
-        - latest
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: QUAY_ROBOT_PASSWORD
-      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    when:
-      branch:
-        - main
-    depends_on: [ ]
-
-  - name: build & push latest2
-    image: plugins/docker
-    settings:
-      registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation2
       tags:
         - latest
     environment:
@@ -90,8 +60,8 @@ steps:
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
     depends_on:
-      - build & push2
-      - build & push latest2
+      - build & push
+      - build & push latest
 
   - name: upload serenity report
     image: amazon/aws-cli
@@ -121,7 +91,9 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/xtarget/ s3://cs-integration-testing-s3/serenity-reports/2_$${DRONE_BUILD_NUMBER}_$(date
+        --recursive /drone/src/xtarget/NeNetsc@pe1234
+
+        s3://cs-integration-testing-s3/serenity-reports/2_$${DRONE_BUILD_NUMBER}_$(date
         +'%Y-%m-%d_%H-%M')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
