@@ -172,9 +172,9 @@
   </build>
   <profiles>
     <profile>
-      <id>newtarget</id>
+      <id>conf</id>
       <build>
-        <directory>newtarget</directory>
+        <directory>${dir}</directory>
       </build>
     </profile>
   </profiles>
