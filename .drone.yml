@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: DCU
 trigger:
   event:
     - push
@@ -87,7 +87,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: default1
+name: DECSRegression
 trigger:
   event:
     - push
