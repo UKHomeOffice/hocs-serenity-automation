@@ -21,6 +21,20 @@ steps:
       DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
     depends_on: [ ]
 
+  - name: build & push2
+    image: plugins/docker
+    settings:
+      registry: quay.io
+      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+      tags:
+        - 2build_${DRONE_BUILD_NUMBER}
+        - ${DRONE_COMMIT_SHA}
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: QUAY_ROBOT_PASSWORD
+      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
+    depends_on: [ ]
+
   - name: build & push latest
     image: plugins/docker
     settings:
@@ -76,7 +90,7 @@ steps:
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
     depends_on:
-      - build & push
+      - build & push2
       - build & push latest2
 
   - name: upload serenity report
