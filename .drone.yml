@@ -211,7 +211,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
     commands:
-      - sh bin/UKVI1.sh
+      - sh bin/ukvi1.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
@@ -296,7 +296,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation
     commands:
-      - sh bin/ukvi1.sh
+      - sh bin/ukvi2.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
