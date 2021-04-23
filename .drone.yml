@@ -25,7 +25,7 @@ steps:
     image: plugins/docker
     settings:
       registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation2
       tags:
         - 2build_${DRONE_BUILD_NUMBER}
         - ${DRONE_COMMIT_SHA}
@@ -55,7 +55,7 @@ steps:
     image: plugins/docker
     settings:
       registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation2
       tags:
         - latest
     environment:
@@ -81,7 +81,7 @@ steps:
       - build & push latest
 
   - name: execute tests2
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation2
     commands:
       - sh bin/smoke-tests2.sh
     environment:
@@ -121,7 +121,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/xtarget/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/2_$${DRONE_BUILD_NUMBER}_$(date
+        --recursive /drone/src/xtarget/ s3://cs-integration-testing-s3/serenity-reports/2_$${DRONE_BUILD_NUMBER}_$(date
         +'%Y-%m-%d_%H-%M')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
