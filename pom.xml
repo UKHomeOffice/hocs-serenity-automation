@@ -91,6 +91,12 @@
       <version>1.3</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>net.serenity-bdd</groupId>
+      <artifactId>serenity-zalenium</artifactId>
+      <version>${serenity.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -111,7 +117,7 @@
           </includes>
           <argLine>-Xmx512m</argLine>
           <parallel>classes</parallel>
-          <threadCount>4</threadCount>
+          <threadCount>1</threadCount>
           <perCoreThreadCount>true</perCoreThreadCount>
         </configuration>
         <executions>
