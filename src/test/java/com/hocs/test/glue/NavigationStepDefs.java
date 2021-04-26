@@ -44,6 +44,7 @@ public class NavigationStepDefs extends BasePage {
                 break;
             case "SEARCH":
                 safeClickOn(dashboard.searchPage);
+                search.searchButton.waitUntilVisible();
                 break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());

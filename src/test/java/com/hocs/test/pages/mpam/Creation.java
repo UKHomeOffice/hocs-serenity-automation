@@ -229,8 +229,8 @@ public class Creation extends BasePage {
         selectRefType(refType);
         selectMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");
-        selectInboundChannel("Email");
         selectUrgency("Standard");
+        selectInboundChannel("Email");
         clickTheButton("Continue");
         addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
@@ -241,8 +241,8 @@ public class Creation extends BasePage {
         selectRefType(refType);
         selectMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");
-        selectInboundChannel("Email");
         selectUrgency(urgency);
+        selectInboundChannel("Email");
         clickTheButton("Continue");
         addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
@@ -253,8 +253,8 @@ public class Creation extends BasePage {
         selectRefType("Ministerial");
         selectMinisterialSignOffTeam(signOffTeam);
         selectAddressee(signOffTeam);
-        selectInboundChannel("Email");
         selectUrgency("Standard");
+        selectInboundChannel("Email");
         safeClickOn(continueButton);
         addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
@@ -263,8 +263,8 @@ public class Creation extends BasePage {
     public void triggerMPCorrespondentIsMandatoryScreen() {
         selectBusinessArea("UKVI");
         selectRefType("Official");
-        selectInboundChannel("Email");
         selectUrgency("Standard");
+        selectInboundChannel("Email");
         safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondent();
         clickTheButton("Move to Triage");
@@ -275,8 +275,8 @@ public class Creation extends BasePage {
         selectRefType("Ministerial");
         selectMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");
-        selectInboundChannel("Email");
         selectUrgency("Standard");
+        selectInboundChannel("Email");
         safeClickOn(continueButton);
         addCorrespondent.addAMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");

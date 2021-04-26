@@ -109,10 +109,10 @@ public class SearchStepDefs extends BasePage {
 
     @And("I enter {string} into the {string} UKVI search criteria")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
-        if (search.mpamCaseCheckbox.isVisible()) {
+        if (search.mpamCaseCheckbox.isCurrentlyVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
         }
-        if (search.mtsCaseCheckbox.isVisible()) {
+        if (search.mtsCaseCheckbox.isCurrentlyVisible()) {
             safeClickOn(search.mtsCaseCheckbox);
         }
         search.enterMPAMSearchCriteria(infoType, infoValue);
