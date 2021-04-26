@@ -119,8 +119,11 @@ public class BasePage extends PageObject {
         String dd = date.split("/")[0];
         String mm = date.split("/")[1];
         String yyyy = date.split("/")[2];
+        ddField.clear();
         ddField.sendKeys(dd);
+        mmField.clear();
         mmField.sendKeys(mm);
+        yyyyField.clear();
         yyyyField.sendKeys(yyyy);
     }
 
@@ -185,7 +188,7 @@ public class BasePage extends PageObject {
     public void enterRejectionNotes() {
         waitFor(rejectReasonTextField);
         String rejectionReason = "Rejection Reason: " + generateRandomString();
-        typeInto(rejectReasonTextField, rejectionReason);
+        rejectReasonTextField.sendKeys(rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 

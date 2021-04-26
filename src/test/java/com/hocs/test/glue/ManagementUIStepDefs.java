@@ -144,7 +144,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @When("I search for a team with no assigned users")
     public void navigateToTeamWithNoAssignedUsers() {
-        teamManagement.selectTeamWithNoUsers();
+        teamManagement.selectATeam("Data & Identity Unit");
     }
 
     @Then("no users should be shown in user list")

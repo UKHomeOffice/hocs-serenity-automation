@@ -56,31 +56,31 @@ public class PeopleTab extends BasePage {
         switch (detail.toUpperCase()) {
             case "FULL NAME":
                 addCorrespondent.correspondentFullNameField.clear();
-                typeInto(addCorrespondent.correspondentFullNameField, "Test");
+                addCorrespondent.correspondentFullNameField.sendKeys("Test - correspondent name");
                 break;
             case "BUILDING":
                 addCorrespondent.correspondentBuildingField.clear();
-                typeInto(addCorrespondent.correspondentBuildingField, "Test");
+                addCorrespondent.correspondentBuildingField.sendKeys("Test - correspondent building");
                 break;
             case "STREET":
                 addCorrespondent.correspondentStreetField.clear();
-                typeInto(addCorrespondent.correspondentStreetField, "TEST");
+                addCorrespondent.correspondentStreetField.sendKeys("Test - correspondent street");
                 break;
             case "TOWN OR CITY":
                 addCorrespondent.correspondentTownOrCityField.clear();
-                typeInto(addCorrespondent.correspondentTownOrCityField, "TEST");
+                addCorrespondent.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
                 break;
             case "POSTCODE":
                 addCorrespondent.correspondentPostcodeField.clear();
-                typeInto(addCorrespondent.correspondentPostcodeField, "TEST");
+                addCorrespondent.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
                 break;
             case "TELEPHONE":
                 addCorrespondent.correspondentTelephoneField.clear();
-                typeInto(addCorrespondent.correspondentTelephoneField, "TEST");
+                addCorrespondent.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
                 break;
             case "EMAIL ADDRESS":
                 addCorrespondent.correspondentEmailField.clear();
-                typeInto(addCorrespondent.correspondentEmailField, "TEST");
+                addCorrespondent.correspondentEmailField.sendKeys("Test - correspondent email address");
                 break;
             default:
                 pendingStep(detail + " is not defined within " + getMethodName());

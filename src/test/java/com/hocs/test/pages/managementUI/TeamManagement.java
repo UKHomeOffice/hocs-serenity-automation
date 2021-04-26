@@ -45,15 +45,8 @@ public class TeamManagement extends BasePage {
 
     public void selectATeam(String teamName) {
         waitABit(500);
-        typeInto(teamSearchBar, teamName);
+        teamSearchBar.sendKeys(teamName);
         setSessionVariable("teamName").to(teamName);
-        teamSearchBar.sendKeys(Keys.ENTER);
-        safeClickOn(viewTeamButton);
-    }
-
-    public void selectTeamWithNoUsers() {
-        waitABit(500);
-        typeInto(teamSearchBar, "Data & Identity Unit");
         teamSearchBar.sendKeys(Keys.ENTER);
         safeClickOn(viewTeamButton);
     }

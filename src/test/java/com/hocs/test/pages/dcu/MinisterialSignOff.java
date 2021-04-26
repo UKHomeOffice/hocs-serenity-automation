@@ -31,7 +31,7 @@ public class MinisterialSignOff extends BasePage {
     // Basic Methods
 
     public void enterMinisterRejectionNote() {
-        typeInto(ministerRejectionNote, generateRandomString());
+        ministerRejectionNote.sendKeys("Test - rejection at Minister Sign-off reason");
     }
 
     public void getToMinisterFeedbackResponseScreenPrerequisites() {
@@ -62,7 +62,7 @@ public class MinisterialSignOff extends BasePage {
     public void moveCaseFromMinisterSignOffToPrivateOfficeApproval() {
         safeClickOn(notApplicableRadioButton);
         safeClickOn(continueButton);
-        typeInto(whyIsCaseNotApplicableFreeTextField, "Test");
+        whyIsCaseNotApplicableFreeTextField.sendKeys("Test");
         setSessionVariable("rejectionReason").to("Test");
         safeClickOn(continueButton);
     }

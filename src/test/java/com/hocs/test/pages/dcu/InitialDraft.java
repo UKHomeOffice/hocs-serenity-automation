@@ -84,7 +84,7 @@ public class InitialDraft extends BasePage {
     //Basic Methods
 
     public void enterTextInSummariseCallTextbox() {
-        typeInto(summariseCallTextBox, generateRandomString());
+        summariseCallTextBox.sendKeys(generateRandomString());
     }
 
     // Multi Step Methods

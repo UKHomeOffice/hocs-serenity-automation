@@ -125,41 +125,41 @@ public class AddCorrespondent extends BasePage {
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        typeInto(correspondentFullNameField, fullName);
+        correspondentFullNameField.sendKeys(fullName);
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
     public void enterSecondaryCorrespondentFullName(String fullName) {
-        typeInto(correspondentFullNameField, fullName);
+        correspondentFullNameField.sendKeys(fullName);
         setSessionVariable("secondCorrespondentFullName").to(fullName);
     }
 
     public void enterCorrespondentBuilding(String building) {
-        typeInto(correspondentBuildingField, building);
+        correspondentBuildingField.sendKeys(building);
     }
 
     public void enterCorrespondentStreet(String street) {
-        typeInto(correspondentStreetField, street);
+        correspondentStreetField.sendKeys(street);
     }
 
     public void enterCorrespondentTownOrCity(String location) {
-        typeInto(correspondentTownOrCityField, location);
+        correspondentTownOrCityField.sendKeys(location);
     }
 
     public void enterCorrespondentPostcode(String postcode) {
-        typeInto(correspondentPostcodeField, postcode);
+        correspondentPostcodeField.sendKeys(postcode);
     }
 
     public void enterCorrespondentTelephoneNumber(String number) {
-        typeInto(correspondentTelephoneField, number);
+        correspondentTelephoneField.sendKeys(number);
     }
 
     public void enterCorrespondentEmailAddress(String email) {
-        typeInto(correspondentEmailField, email);
+        correspondentEmailField.sendKeys(email);
     }
 
     public void enterCorrespondenceReference(String reference) {
-        typeInto(correspondenceCaseReference, reference);
+        correspondenceCaseReference.sendKeys(reference);
     }
 
     public String getPrimaryCorrespondent() {
@@ -257,7 +257,7 @@ public class AddCorrespondent extends BasePage {
 
     public void assertAddACorrespondentLinkIsDisplayed() {
         waitFor(addACorrespondentLink);
-        assert(addACorrespondentLink.isDisplayed());
+        assert (addACorrespondentLink.isDisplayed());
     }
 
     public void assertPageTitle() {

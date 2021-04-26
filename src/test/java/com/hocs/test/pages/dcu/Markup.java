@@ -128,7 +128,7 @@ public class Markup extends BasePage {
     public void enterRejectToDataInputReasonIntoTextBox() {
         waitFor(rejectToDataInputTextField);
         String rejectionReason = "Rejection Reason: " + generateRandomString();
-        typeInto(rejectToDataInputTextField, rejectionReason);
+        rejectToDataInputTextField.sendKeys(rejectionReason);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 

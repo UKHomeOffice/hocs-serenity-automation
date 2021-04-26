@@ -130,7 +130,7 @@ public class Triage extends BasePage {
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
-        typeInto(escalationReasonTextArea, escalationReason);
+        escalationReasonTextArea.sendKeys(escalationReason);
         safeClickOn(confirmButton);
         setSessionVariable("escalationReason").to(escalationReason);
     }
@@ -187,11 +187,6 @@ public class Triage extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void enterRequestDescription(String requestDescription) {
-        typeInto(requestContributionTextArea, requestDescription);
-        setSessionVariable("requestDescription").to(requestDescription);
     }
 
     public void selectSaveChangesAction() {

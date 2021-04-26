@@ -220,13 +220,13 @@ public class DispatchStages extends BasePage {
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
-        typeInto(rejectionReasonTextArea, rejectionReason);
+        rejectionReasonTextArea.sendKeys(rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void submitReasonToReturnToDraft(String returnReason) {
-        typeInto(returnReasonTextArea, returnReason);
+        returnReasonTextArea.sendKeys(returnReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(returnReason);
     }
@@ -247,12 +247,12 @@ public class DispatchStages extends BasePage {
     }
 
     public void enterFollowUpDetails(String followUpDetails) {
-        typeInto(followUpDetailsTextArea, followUpDetails);
+        followUpDetailsTextArea.sendKeys(followUpDetails);
         setSessionVariable("followUpDetails").to(followUpDetails);
     }
 
     public void enterReasonForNotCompletingFollowUp(String reason) {
-        typeInto(followUpNotCompletedReasonTextArea, reason);
+        followUpNotCompletedReasonTextArea.sendKeys(reason);
         setSessionVariable("followUpNotCompletedReason").to(reason);
     }
 

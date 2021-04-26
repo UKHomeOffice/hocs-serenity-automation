@@ -189,9 +189,9 @@ public class CreateCase extends BasePage {
     }
 
     public void enterNoDate() {
-        typeInto(correspondenceReceivedDayField, "");
-        typeInto(correspondenceReceivedMonthField, "");
-        typeInto(correspondenceReceivedYearField, "");
+        correspondenceReceivedDayField.sendKeys("");
+        correspondenceReceivedMonthField.sendKeys("");
+        correspondenceReceivedYearField.sendKeys("");
     }
 
     public void createCaseWithoutSelectingCorrespondenceType() {
