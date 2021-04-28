@@ -257,7 +257,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: UKVI-2-Regression
+name: Reg-UKVI2
 trigger:
   event:
     - push
