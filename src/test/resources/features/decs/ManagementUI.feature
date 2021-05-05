@@ -2,7 +2,7 @@
 Feature: ManagementUI
 
   Background:
-    Given I log in to "Management UI" as user "DECS_USER"
+    Given I am logged into "Management UI" as user "DECS_USER"
 
   Scenario Outline: User navigates to a management page
     When I navigate to the "<pageType>" Management page
