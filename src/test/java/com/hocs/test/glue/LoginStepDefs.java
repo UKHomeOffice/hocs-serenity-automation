@@ -32,7 +32,7 @@ public class LoginStepDefs extends BasePage {
     User targetUser;
 
     @Given("I am logged into {string} as user {string}")
-    public void iAmLoggedInToAs(String platform, String user) {
+    public void iAmLoggedIntoAs(String platform, String user) {
         targetUser = User.valueOf(user);
         checkForOverrideUser();
         loginPage.navigateToPlatform(platform);
@@ -53,7 +53,11 @@ public class LoginStepDefs extends BasePage {
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
         targetUser = User.valueOf(user);
-        selectLogoutButton();
+        loginPage.navigateToDECS();
+        if (!loginPage.onLoginPage()) {
+            System.out.println("Session still active, logging out");
+            selectLogoutButton();
+        }
         loginPage.logInAsUser(targetUser);
         setCurrentUser(targetUser);
     }
@@ -62,7 +66,7 @@ public class LoginStepDefs extends BasePage {
     public void homeUrl() {
         loginPage.navigateToDECS();
     }
-    
+
     @When("I enter the login credentials for user {string} and click the login button")
     public void enterCredentialsAndClickLogin(String user) {
         setSessionVariable("user").to(User.valueOf(user));
