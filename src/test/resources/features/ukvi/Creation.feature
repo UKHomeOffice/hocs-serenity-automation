@@ -47,7 +47,7 @@ Feature: Creation
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @UKVIRegression1 @test
   Scenario: User completes Case Creation stage
     When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
     And I complete the other required fields for Creation stage

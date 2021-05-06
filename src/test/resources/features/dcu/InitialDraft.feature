@@ -12,7 +12,7 @@ Feature: Initial Draft
     And I "do not complete" the rejection note
     Then an error message appears instructing me to add rejection reasons
 
-  @DCURegression
+  @DCURegression @test
   Scenario: User responds by Phone and fills out call details to complete the case
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
