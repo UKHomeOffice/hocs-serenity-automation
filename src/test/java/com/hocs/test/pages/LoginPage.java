@@ -68,6 +68,9 @@ public class LoginPage extends BasePage {
                 case "QAX":
                     baseUrl = Environment.QAX.getEnvironmentURL();
                     break;
+                case "DELTA":
+                    baseUrl = Environment.DELTA.getEnvironmentURL();
+                    break;
                 case "DEV":
                     baseUrl = Environment.DEV.getEnvironmentURL();
                     break;

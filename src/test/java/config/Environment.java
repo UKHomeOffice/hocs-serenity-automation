@@ -6,6 +6,7 @@ public enum Environment {
     QA("https://qa.internal.cs-notprod.homeoffice.gov.uk/"),
     QAX("https://qax.internal.cs-notprod.homeoffice.gov.uk/"),
     DEV("https://dev.internal.cs-notprod.homeoffice.gov.uk/"),
+    DELTA("http://delta.cs-notprod.homeoffice.gov.uk/"),
     DEMO("https://demo.cs-notprod.homeoffice.gov.uk/"),
     MANAGEMENTUIQA("https://qa-management.internal.cs-notprod.homeoffice.gov.uk"),
     MANAGEMENTUIQAX("https://qax-management.internal.cs-notprod.homeoffice.gov.uk/"),
