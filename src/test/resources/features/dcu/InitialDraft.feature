@@ -32,7 +32,7 @@ Feature: Initial Draft
     And I "do not complete" the call details
     Then I see an error message instructing me to enter call notes
 
-  @DCUWorkflow @DCURegression
+  @DCUWorkflow @DCURegression @ignore
   Scenario: A user selects not to offline QA
     And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case

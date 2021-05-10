@@ -26,7 +26,7 @@ Feature: Draft
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @UKVIRegression1 @ignore
   Scenario: User escalates the draft case to workflow manager
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -62,7 +62,7 @@ Feature: Draft
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @UKVIRegression1 @ignore
   Scenario: User closes a Draft (Escalated) case
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

@@ -42,7 +42,7 @@ Feature: Create case
     And I click to view the "MPAM Creation" workstack
     Then the owner field should display "CAMERON"
 
-  @Workflow @Regression @SmokeTests
+  @Workflow @Regression @SmokeTests @ignore
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully

@@ -134,7 +134,7 @@ Feature: DCU End To End
     And I complete the dispatch stage
     Then the case should be closed
 
-  @DCUWorkflow @DCURegression @SmokeTests
+  @DCUWorkflow @DCURegression @SmokeTests @ignore
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single "DTEN" case and return to the dashboard
     And I load and claim the current case
@@ -146,7 +146,7 @@ Feature: DCU End To End
     And I complete the dispatch stage
     Then the case should be closed
 
-  @DCUWorkflow @DCURegression @SmokeTests
+  @DCUWorkflow @DCURegression @SmokeTests @ignore
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single "TRO" case and return to the dashboard
     And I load and claim the current case

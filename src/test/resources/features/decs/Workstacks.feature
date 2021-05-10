@@ -10,7 +10,7 @@ Feature: Workstacks
     When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
-  @Regression
+  @Regression @ignore
   Scenario: User creates a case and assigns it to themselves from the workstack
     And I create a new case and view it in the Performance and Process team workstack
     When I assign this case to me, and check if it has been correctly allocated
@@ -153,7 +153,7 @@ Feature: Workstacks
       | Triage |
       | Draft  |
 
-  @DCURegression
+  @DCURegression @ignore
   Scenario Outline: DCU User sees the required information when viewing a workstack
     Given I switch to user "DCU_USER"
     And I enter a "<workstack>" workstack
@@ -163,7 +163,7 @@ Feature: Workstacks
       | DCU My Cases |
       | DCU Team     |
 
-  @UKVIRegression
+  @UKVIRegression @ignore
   Scenario Outline: UKVI User sees the required information when viewing a workstack
     Given I switch to user "UKVI_USER"
     And I enter a "<workstack>" workstack

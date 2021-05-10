@@ -87,7 +87,7 @@ Feature: ManagementUI
     And I enter "Animal" into the standard line filter
     Then the standard lines in the "Topic" column should contain "Animal"
 
-  @ManageStandardLines @DCURegression
+  @ManageStandardLines @DCURegression @ignore
   Scenario: User is able to amend the expiry date of a standard line
     And I navigate to the "Manage Standard Lines" Management page
     And I amend the expiry date of the "Animal alternatives (3Rs)" standard line to 5 days from today
@@ -303,7 +303,7 @@ Feature: ManagementUI
     And I add a Campaign with random name and campaign code
     Then the new Campaign has been added to the list of Campaigns
 
-  @CampaignManagement @UKVIRegression
+  @CampaignManagement @UKVIRegression @ignore
   Scenario: User is able to amend the details of a Campaign through Campaign Management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
@@ -311,7 +311,7 @@ Feature: ManagementUI
     And I edit a Campaign name
     Then the Campaign name should have changed in the list of Campaigns
 
-  @CampaignManagement @UKVIRegression
+  @CampaignManagement @UKVIRegression @ignore
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code

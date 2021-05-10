@@ -53,7 +53,7 @@ Feature: PrivateOffice
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression @ignore
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     When I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date

@@ -143,7 +143,7 @@ Feature: Multiple Contributions
     And the case is added to the correct Campaign
 
 
-  @UKVIRegression @UKVIWorkflow
+  @UKVIRegression @UKVIWorkflow @ignore
   Scenario: User can add a case to a Campaign at the Draft-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -154,7 +154,7 @@ Feature: Multiple Contributions
     Then the case should be moved to the "Campaign" stage
     And the case is added to the correct Campaign
 
-  @UKVIRegression
+  @UKVIRegression @ignore
   Scenario: The earliest contribution request due date updates in workstacks when amended
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

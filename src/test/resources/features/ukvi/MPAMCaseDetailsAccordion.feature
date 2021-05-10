@@ -43,7 +43,7 @@ Feature: MPAM Case Details Accordion
     And I load the current case
     Then the "Draft" accordion in case details should display the correct information for "Response Channel"
 
-  @UKVIRegression1
+  @UKVIRegression1 @ignore
   Scenario Outline: User changes the business area of the case
     And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
