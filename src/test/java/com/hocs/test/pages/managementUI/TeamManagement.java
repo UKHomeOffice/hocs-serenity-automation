@@ -39,6 +39,21 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "(//div//p)[2]")
     public WebElementFacade errorMessage;
 
+    @FindBy(id = "teamName")
+    public WebElementFacade teamNameTextBox;
+
+    @FindBy(id = "unit-input")
+    public WebElementFacade unitTypeahead;
+
+    @FindBy(xpath = "//button[text()='Edit Team']")
+    public WebElementFacade editTeamButton;
+
+    @FindBy(id = "newTeamName")
+    public WebElementFacade newTeamNameTextBox;
+
+    @FindBy(xpath = "//button[text()='Update']")
+    public WebElementFacade updateButton;
+
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
     }
@@ -102,6 +117,26 @@ public class TeamManagement extends BasePage {
         if (isElementDisplayed($(removeButton))) {
             safeClickOn(removeButton);
         }
+    }
+
+    public void createDraftingTeamWithRandomName() {
+        String randomTeamValue = generateRandomString();
+        String newTeamName = "Test Drafting Team - " + randomTeamValue;
+        setSessionVariable("draftingTeamName").to(newTeamName);
+        typeInto(teamNameTextBox, newTeamName);
+        typeInto(unitTypeahead, "Border Force");
+        unitTypeahead.sendKeys(Keys.RETURN);
+        safeClickOn(addButton);
+    }
+
+    public void editNewDCUDraftingTeamName() {
+        String initialTeamName = sessionVariableCalled("draftingTeamName");
+        selectATeam(initialTeamName);
+        safeClickOn(editTeamButton);
+        String newTeamName = "Edited " + initialTeamName;
+        setSessionVariable("draftingTeamName").to(newTeamName);
+        typeInto(newTeamNameTextBox, newTeamName);
+        safeClickOn(updateButton);
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {

@@ -63,7 +63,10 @@ public class ManagementUIStepDefs extends BasePage {
                 safeClickOn(MUIDashboard.manageStandardLinesHypertext);
                 break;
             case "TEAM":
-                safeClickOn(MUIDashboard.addRemoveUsersButton);
+                safeClickOn(MUIDashboard.manageATeamButton);
+                break;
+            case "CREATE DCU DRAFTING TEAM":
+                safeClickOn(MUIDashboard.createDCUDraftingTeamHypertext);
                 break;
             case "ADD CHILD TOPIC":
                 safeClickOn(MUIDashboard.addChildTopicButton);
@@ -574,6 +577,16 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I click the view team button")
     public void iClickTheViewTeamButton() {
         safeClickOn(teamManagement.viewTeamButton);
+    }
+
+    @And("I create a new DCU drafting team")
+    public void iCreateANewDCUDraftingTeam() {
+        teamManagement.createDraftingTeamWithRandomName();
+    }
+
+    @And("I edit the name of the newly created DCU drafting team")
+    public void iEditTheNameOfTheNewlyCreatedDCUDraftingTeam() {
+        teamManagement.editNewDCUDraftingTeamName();
     }
 }
 

@@ -29,12 +29,6 @@ public class Search extends BasePage {
 
     SummaryTab summaryTab;
 
-    Markup markup;
-
-    Dashboard dashboard;
-
-    AccordionDCU accordionDCU;
-
     AccordionMPAM accordionMPAM;
 
     UnallocatedCaseView unallocatedCaseView;
