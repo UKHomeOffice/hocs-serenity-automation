@@ -10,22 +10,22 @@ Feature: Create case
     When I do not select a type of correspondence when creating a case
     Then an error message is displayed
 
-  @Regression
+  @Regression @abc
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully "<with / without>" a document
     Examples:
       | case | with / without |
-      | MIN  | with           |
-      | MIN  | without        |
+#      | MIN  | with           |
+#      | MIN  | without        |
       | TRO  | with           |
-      | TRO  | without        |
-      | DTEN | with           |
-      | DTEN | without        |
-      | MPAM | with           |
-      | MPAM | without        |
-      | MTS  | with           |
-      | MTS  | without        |
+#      | TRO  | without        |
+#      | DTEN | with           |
+#      | DTEN | without        |
+#      | MPAM | with           |
+#      | MPAM | without        |
+#      | MTS  | with           |
+#      | MTS  | without        |
 
   @Allocation @OtherTests
   Scenario: A single case is allocated to the current user

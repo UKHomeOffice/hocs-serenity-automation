@@ -171,7 +171,7 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        waitFor(totalNumberOfCases);
+       totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
     }

@@ -4,6 +4,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.File;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -62,13 +63,15 @@ public class Documents extends BasePage {
     }
 
     public void uploadDocumentOfSize(int fileSize) {
-        upload("src/test/resources/documents/" + fileSize + "MB.docx").to(addDocument);
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                "documents" +  File.separator  + fileSize + "MB.docx").to(addDocument);
     }
 
     public void uploadDocumentOfType(String type) {
         setSessionVariable("docType").to(type);
-        addDocument.withTimeoutOf(Duration.ofSeconds(5)).waitUntilPresent();
-        upload("src/test/resources/documents/test." + type).to(addDocument);
+        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                "documents" +  File.separator + "test."  + type).to(addDocument);
     }
 
 
@@ -78,8 +81,9 @@ public class Documents extends BasePage {
         String allFiles = "";
         for (int i = 1; i <= documents; i++) {
             String workingDir = System.getProperty("user.dir");
-            String filePath = workingDir + "\\src\\test\\resources\\documents\\test" + i + ".docx";
-            if (i != documents) {
+            String filePath = workingDir + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                    "documents" +  File.separator + "test" +  File.separator + i + ".docx";
+                        if (i != documents) {
                 allFiles += filePath + "\n";
             } else {
                 allFiles += filePath;

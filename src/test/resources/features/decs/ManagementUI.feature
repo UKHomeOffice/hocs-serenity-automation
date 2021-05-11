@@ -287,7 +287,7 @@ Feature: ManagementUI
     And I load the teams of which "Cameron" is a member
     Then the teams the user is a part of are displayed
 
-  @UserManagement @Regression
+  @UserManagement @Regression @ignore
   Scenario: A user can be added and removed from a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "Cameron" is a member

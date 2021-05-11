@@ -107,17 +107,17 @@ Feature: Manage Documents
     Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:
       | fileType |
-      | docx     |
-      | txt      |
-      | pdf      |
-      | tiff     |
-      | xlsx     |
-      | gif      |
-      | html     |
-      | jpg      |
+#      | docx     |
+#      | txt      |
+#      | pdf      |
+#      | tiff     |
+#      | xlsx     |
+#      | gif      |
+#      | html     |
+#      | jpg      |
       | png      |
-      | bmp      |
-      | doc      |
+#      | bmp      |
+#      | doc      |doc
 
   @DCURegression
   Scenario: User checks that the primary draft tag is visible after the initial draft stage
