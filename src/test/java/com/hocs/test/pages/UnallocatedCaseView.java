@@ -31,7 +31,7 @@ public class UnallocatedCaseView extends BasePage {
         return allocateToMeLink.isVisible();
     }
 
-    public boolean checkCaseDetailsHeaderVisible() { return caseDetailsHeader.withTimeoutOf(Duration.ofSeconds(10)).isVisible(); }
+    public boolean checkCaseDetailsHeaderVisible() { return caseDetailsHeader.withTimeoutOf(Duration.ofSeconds(30)).isVisible(); }
 
     //assertions
 
