@@ -82,7 +82,7 @@ public class Documents extends BasePage {
         for (int i = 1; i <= documents; i++) {
             String workingDir = System.getProperty("user.dir");
             String filePath = workingDir + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                    "documents" +  File.separator + "test" +  File.separator + i + ".docx";
+                    "documents" +  File.separator + "test" + i + ".docx";
                         if (i != documents) {
                 allFiles += filePath + "\n";
             } else {

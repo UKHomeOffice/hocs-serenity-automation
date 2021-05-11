@@ -33,7 +33,7 @@ public class CreateCase_SuccessPage extends BasePage {
     }
 
     public String getCaseReference() {
-        newCaseReference.waitUntilVisible();
+        newCaseReference.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
         setSessionVariable("caseReference").to(caseReference);

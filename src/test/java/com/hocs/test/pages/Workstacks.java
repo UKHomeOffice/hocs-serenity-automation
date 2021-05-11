@@ -511,7 +511,7 @@ public class Workstacks extends BasePage {
 
     public void assertCaseIsAssignedToMe() {
         WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[2]");
-        caseOwner.shouldContainText(User.DECS_USER.getUsername());
+        caseOwner.waitUntilVisible().shouldContainText(User.DECS_USER.getUsername());
     }
 
     public void assertThatDCUMINisOnlyVisibleCaseType() {
