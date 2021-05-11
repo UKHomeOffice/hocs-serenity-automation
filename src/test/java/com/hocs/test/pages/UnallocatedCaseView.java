@@ -12,7 +12,7 @@ public class UnallocatedCaseView extends BasePage {
     @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeLink;
 
-    @FindBy(xpath = "//h2[text()='Case Details']")
+    @FindBy(xpath = "//h2[@class='govuk-heading-m'][text()='Case Details']")
     public WebElementFacade caseDetailsHeader;
 
     @FindBy(css = "[value = 'Allocate']")

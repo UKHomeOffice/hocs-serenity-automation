@@ -35,7 +35,7 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//button[text()='Unallocate selected']")
     public WebElementFacade unallocateButton;
 
-    @FindBy(id = "workstack-filter")
+    @FindBy(xpath = "//input[@id='workstack-filter']")
     public WebElementFacade workstackFilter;
 
     @FindBy(css = "[value = 'Allocate']")
@@ -743,7 +743,7 @@ public class Workstacks extends BasePage {
     }
 
     private List<String> getTableHeadersContent() {
-        waitFor(workstackFilter);
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
