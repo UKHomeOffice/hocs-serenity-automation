@@ -36,7 +36,7 @@ public class MUIDashboard extends BasePage {
     @FindBy(xpath = "//a[text()='Manage MPAM campaigns ']")
     public WebElementFacade manageMPAMCampaignsHypertext;
 
-    @FindBy(xpath = "//a[text()='Manage standard lines ']")
+    @FindBy(xpath = "//a[text()='Manage standard lines']")
     public WebElementFacade manageStandardLinesHypertext;
 
     public void assertSuccessMessageDisplayed() {
