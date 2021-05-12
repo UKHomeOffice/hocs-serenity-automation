@@ -54,13 +54,20 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "//button[text()='Update']")
     public WebElementFacade updateButton;
 
+    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
+    public WebElementFacade successMessage;
+
+    @FindBy(xpath = "//button[text()='Add']")
+    public WebElementFacade addTeamButton;
+
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
     }
 
     public void selectATeam(String teamName) {
-        waitABit(500);
+        waitABit(1000);
         teamSearchBar.sendKeys(teamName);
+        waitABit(500);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
         safeClickOn(viewTeamButton);
@@ -90,7 +97,7 @@ public class TeamManagement extends BasePage {
         teamNameHeader.shouldContainText("Team: " + sessionVariableCalled("teamName"));
     }
 
-    public void assertThatUserIsVisibleInTeamList() {
+    public void assertThatUserIsVisibleInTeamList(User user) {
         int n = 0;
         boolean trueFalse = false;
         List<WebElementFacade> membersInTeamTable = findAll("//tr[@class='govuk-table__row']");
@@ -98,11 +105,11 @@ public class TeamManagement extends BasePage {
             n++;
             String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
             teamNameHeader.shouldContainText(nameOfTeamInHeader);
-            if (membersInTeamTable.get(n).containsText(User.DECS_USER.getAllocationText())) {
+            if (membersInTeamTable.get(n).containsText(user.getAllocationText())) {
                 trueFalse = true;
             }
         }
-        membersInTeamTable.get(n).shouldContainText(User.DECS_USER.getAllocationText());
+        membersInTeamTable.get(n).shouldContainText(user.getAllocationText());
     }
 
     public void removeFirstUserInListAndStoreName() {
@@ -124,19 +131,34 @@ public class TeamManagement extends BasePage {
         String newTeamName = "Test Drafting Team - " + randomTeamValue;
         setSessionVariable("draftingTeamName").to(newTeamName);
         typeInto(teamNameTextBox, newTeamName);
-        typeInto(unitTypeahead, "Border Force");
-        unitTypeahead.sendKeys(Keys.RETURN);
-        safeClickOn(addButton);
+        unitTypeahead.sendKeys("Border Force");
+        unitTypeahead.sendKeys(Keys.ENTER);
+        safeClickOn(addTeamButton);
     }
 
     public void editNewDCUDraftingTeamName() {
         String initialTeamName = sessionVariableCalled("draftingTeamName");
+        setSessionVariable("initialDraftingTeamName").to(initialTeamName);
         selectATeam(initialTeamName);
         safeClickOn(editTeamButton);
         String newTeamName = "Edited " + initialTeamName;
-        setSessionVariable("draftingTeamName").to(newTeamName);
+        setSessionVariable("newDraftingTeamName").to(newTeamName);
         typeInto(newTeamNameTextBox, newTeamName);
         safeClickOn(updateButton);
+    }
+
+    public void assertNewTeamIsDisplayed() {
+        waitABit(500);
+        String displayedTeam = teamNameHeader.getText().split(": ")[1];
+        String newTeam = sessionVariableCalled("draftingTeamName");
+        assertThat(displayedTeam.equalsIgnoreCase(newTeam), is(true));
+    }
+
+    public void assertRenamedTeamIsDisplayed() {
+        waitABit(750);
+        String displayedTeam = teamNameHeader.getText().split(": ")[1];
+        String renamedTeam = sessionVariableCalled("newDraftingTeamName");
+        assertThat(displayedTeam.equalsIgnoreCase(renamedTeam), is(true));
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
@@ -168,5 +190,15 @@ public class TeamManagement extends BasePage {
 
     public void assertSelectSomeUsersErrorMessage() {
         errorMessage.shouldContainText("Please select some users before submitting.");
+    }
+
+    public void assertSuccessMessageOfTeamCreation() {
+        successMessage.shouldContainText("The team was created successfully.");
+    }
+
+    public void assertSuccessMessageOfTeamRename() {
+        String initialTeamName = sessionVariableCalled("initialDraftingTeamName");
+        String finalTeamName = sessionVariableCalled("newDraftingTeamName");
+        successMessage.shouldContainText("Team name changed from " + initialTeamName + " to " + finalTeamName + ".");
     }
 }

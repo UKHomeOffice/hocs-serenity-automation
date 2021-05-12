@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -26,6 +27,8 @@ public class InitialDraftStepDefs extends BasePage {
     Workstacks workstacks;
 
     UnallocatedCaseView unallocatedCaseView;
+
+    SummaryTab summaryTab;
 
     @When("I complete the Initial Draft stage")
     public void initialDraftFullFlowPerCaseType() {
@@ -209,5 +212,11 @@ public class InitialDraftStepDefs extends BasePage {
     public void theDocumentShouldBeTaggedAsThePrimaryDraft(String document) {
         workstacks.goToCurrentCaseFromWorkstack();
         initialDraft.assertThatPrimaryDraftIs(sessionVariableCalled(document));
+    }
+
+    @And("the case should be assigned to the DCU draft team created in Management UI")
+    public void theCaseShouldBeAssignedToTheDCUDraftTeamCreatedInMUI() {
+        safeClickOn(summaryTab.summaryTab);
+        summaryTab.assertAllocatedDCUTeam(sessionVariableCalled("draftingTeamName"));
     }
 }
