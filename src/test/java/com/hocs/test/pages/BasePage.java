@@ -41,7 +41,7 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Accept']")
     public WebElementFacade acceptButton;
 
-    @FindBy(css = "[value='Add']")
+    @FindBy(css = "[value = 'Add']")
     public WebElementFacade addButton;
 
     @FindBy(id = "CaseNote_AllocationNote")
