@@ -728,7 +728,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertDueDateOfContributionRequest() {
-        workstackFilter.waitUntilVisible();
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
                 + "Requested) due:')]");
@@ -743,7 +743,7 @@ public class Workstacks extends BasePage {
     }
 
     private List<String> getTableHeadersContent() {
-        waitFor(workstackFilter);
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
