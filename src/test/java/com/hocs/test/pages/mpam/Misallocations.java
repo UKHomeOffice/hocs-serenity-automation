@@ -65,6 +65,9 @@ public class Misallocations extends BasePage {
         }
         switch (stage.toUpperCase()) {
             case "CREATION":
+                creation.selectRefType("Ministerial");
+                creation.selectMinisterialSignOffTeam("Home Secretary");
+                creation.selectAddressee("Home Secretary");
                 creation.selectInboundChannel("Email");
                 safeClickOn(continueButton);
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
