@@ -27,7 +27,7 @@ Feature: ManagementUI
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
     And I add the user "CAMERON" to the team
-    Then the user should be visible in the team list
+    Then "CAMERON" should be visible in the team list
 
   @TeamManagement @Regression
   Scenario: User can add multiple users to a team
@@ -321,3 +321,42 @@ Feature: ManagementUI
     And I add the case to the new campaign
     And I load the current case
     Then the case is added to the correct Campaign
+
+  Scenario: User can create a DCU drafting team through team management
+    Given I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    Then the success message for team "Creation" should be displayed
+    And I navigate to "Management UI"
+    And I navigate to the "Team" Management page
+    And I load the "created" DCU Drafting team through team management
+    Then the "created" DCU Drafting team is displayed
+
+  Scenario: User is able to rename teams through team management
+    Given I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    And I navigate to "Management UI"
+    And I navigate to the "Team" Management page
+    And I edit the name of the created DCU drafting team
+    Then the success message for team "Rename" should be displayed
+    And I navigate to "Management UI"
+    And I navigate to the "Team" Management page
+    And I load the "renamed" DCU Drafting team through team management
+    Then the "renamed" DCU Drafting team is displayed
+
+  Scenario: User is able to assign users to a drafting team created through team management
+    Given I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    And I navigate to "Management UI"
+    And I navigate to the "Team" Management page
+    And I load the "created" DCU Drafting team through team management
+    And I add the user "DCU_USER" to the team
+    Then "DCU_USER" should be visible in the team list
+
+  Scenario: User is able to assign cases to a DCU drafting team created through team management
+    Given I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    And I navigate to "DECS"
+    And I create a "MIN" case with "Cyber Stalking And Harassment" as the primary topic
+    And I override the initial draft team of the case to the team created in Management UI
+    And I load the current case
+    Then the case should be assigned to the DCU draft team created in Management UI

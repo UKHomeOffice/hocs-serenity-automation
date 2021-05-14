@@ -7,7 +7,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class MUIDashboard extends BasePage {
 
     @FindBy (xpath = "//a[@href='/team-search']")
-    public WebElementFacade addRemoveUsersButton;
+    public WebElementFacade manageATeamButton;
 
     @FindBy(xpath = "//a[@href='/add-child-topic']")
     public WebElementFacade addChildTopicButton;
@@ -38,6 +38,9 @@ public class MUIDashboard extends BasePage {
 
     @FindBy(xpath = "//a[text()='Manage standard lines ']")
     public WebElementFacade manageStandardLinesHypertext;
+
+    @FindBy(xpath = "//a[text()='Create a DCU drafting team']")
+    public WebElementFacade createDCUDraftingTeamHypertext;
 
     public void assertSuccessMessageDisplayed() {
         assertElementIsDisplayed(successMessage);

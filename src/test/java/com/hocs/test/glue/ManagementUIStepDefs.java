@@ -63,7 +63,10 @@ public class ManagementUIStepDefs extends BasePage {
                 safeClickOn(MUIDashboard.manageStandardLinesHypertext);
                 break;
             case "TEAM":
-                safeClickOn(MUIDashboard.addRemoveUsersButton);
+                safeClickOn(MUIDashboard.manageATeamButton);
+                break;
+            case "CREATE DCU DRAFTING TEAM":
+                safeClickOn(MUIDashboard.createDCUDraftingTeamHypertext);
                 break;
             case "ADD CHILD TOPIC":
                 safeClickOn(MUIDashboard.addChildTopicButton);
@@ -126,9 +129,9 @@ public class ManagementUIStepDefs extends BasePage {
         teamManagement.selectAUser(User.valueOf(user));
     }
 
-    @Then("the user should be visible in the team list")
-    public void assertThatUserIsVisibleInTeamList() {
-        teamManagement.assertThatUserIsVisibleInTeamList();
+    @Then("{string} should be visible in the team list")
+    public void assertThatUserIsVisibleInTeamList(User user) {
+        teamManagement.assertThatUserIsVisibleInTeamList(user);
     }
 
     @And("I remove the user {string} from the team")
@@ -574,6 +577,48 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I click the view team button")
     public void iClickTheViewTeamButton() {
         safeClickOn(teamManagement.viewTeamButton);
+    }
+
+    @And("I create a new DCU drafting team")
+    public void iCreateANewDCUDraftingTeam() {
+        teamManagement.createDraftingTeamWithRandomName();
+    }
+
+    @And("I edit the name of the created DCU drafting team")
+    public void iEditTheNameOfTheNewlyCreatedDCUDraftingTeam() {
+        teamManagement.editNewDCUDraftingTeamName();
+    }
+
+    @And("I load the {string} DCU Drafting team through team management")
+    public void iLoadTheNewlyDCUDraftingTeamThroughTeamManagement(String action) {
+        if (action.equalsIgnoreCase("CREATED")) {
+            teamManagement.selectATeam(sessionVariableCalled("draftingTeamName"));
+        } else if (action.equalsIgnoreCase("RENAMED")) {
+            teamManagement.selectATeam(sessionVariableCalled("newDraftingTeamName"));
+        }
+    }
+
+    @Then("the {string} DCU Drafting team is displayed")
+    public void theNewlyCreatedDCUDraftingTeamIsDisplayed(String action) {
+        if (action.equalsIgnoreCase("CREATED")) {
+            teamManagement.assertNewTeamIsDisplayed();
+        } else if (action.equalsIgnoreCase("RENAMED")) {
+            teamManagement.assertRenamedTeamIsDisplayed();
+        }
+    }
+
+    @Then("the success message for team {string} should be displayed")
+    public void theSuccessMessageForTeamShouldBeDisplayed(String action) {
+        switch (action.toUpperCase()) {
+            case "CREATION":
+                teamManagement.assertSuccessMessageOfTeamCreation();
+                break;
+            case "RENAME":
+                teamManagement.assertSuccessMessageOfTeamRename();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
     }
 }
 
