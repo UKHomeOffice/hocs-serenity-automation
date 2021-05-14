@@ -334,7 +334,7 @@ public class BasePage extends PageObject {
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {
-        webElementFacade.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible().waitUntilClickable().click();
+        webElementFacade.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().waitUntilClickable().click();
     }
 
     public void jsClickOn(WebElementFacade webElementFacade) {
