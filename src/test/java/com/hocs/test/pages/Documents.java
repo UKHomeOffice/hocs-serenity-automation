@@ -63,7 +63,7 @@ public class Documents extends BasePage {
     }
 
     public void uploadDocumentOfSize(int fileSize) {
-        System.out.println(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+        System.err.println(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator  + fileSize + "MB.docx");
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator  + fileSize + "MB.docx").to(addDocument);
