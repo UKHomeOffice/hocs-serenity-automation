@@ -2,7 +2,7 @@
 Feature: Triage
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
 

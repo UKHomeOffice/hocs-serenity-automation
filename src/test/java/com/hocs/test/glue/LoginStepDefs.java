@@ -1,6 +1,10 @@
 package com.hocs.test.glue;
 
+import static config.User.DCU_USER;
+import static config.User.DECS_USER;
 import static config.User.FAKE;
+import static config.User.UKVI_USER;
+import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
@@ -25,31 +29,22 @@ public class LoginStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    SummaryTab summaryTab;
+    User targetUser;
 
-    @Given("I log in to {string} as user {string}")
-    public void iLoginToAs(String platform, String user) {
-        User targetUser = User.valueOf(user);
-        if (System.getProperty("user") != null) {
-            targetUser = User.valueOf(System.getProperty("user"));
-            System.out.println("User value overriden to: " + targetUser.getUsername());
-        }
+    @Given("I am logged into {string} as user {string}")
+    public void iAmLoggedIntoAs(String platform, String user) {
+        targetUser = User.valueOf(user);
+        checkForOverrideUser();
         loginPage.navigateToPlatform(platform);
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("Logging in as user: " + targetUser.getUsername());
-            loginPage.enterLoginDetails(targetUser);
-            safeClickOn(loginPage.continueButton);
+        if (loginPage.onLoginPage()) {
+            loginPage.logInAsUser(targetUser);
         } else {
-            System.out.println("Session still active");
+            System.out.println("Session still active, checking active user matches target user");
             goToDashboard(platform);
-            if (platform.equals("DECS")) {
-                if (!dashboard.checkLoggedInAsCorrectUser(targetUser)) {
-                    System.out.println("Not logged in as correct user, logging out");
-                    selectLogoutButton();
-                    System.out.println("Logging in as user: " + targetUser.getUsername());
-                    loginPage.enterLoginDetails(targetUser);
-                    safeClickOn(loginPage.continueButton);
-                }
+            if (!loggedInAsTargetUser()) {
+                System.out.println("Active user does not match target user, logging out");
+                selectLogoutButton();
+                loginPage.logInAsUser(targetUser);
             }
         }
         setCurrentUser(targetUser);
@@ -57,47 +52,13 @@ public class LoginStepDefs extends BasePage {
 
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
-        User targetUser = User.valueOf(user);
+        targetUser = User.valueOf(user);
         loginPage.navigateToDECS();
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("Logging in as user " + targetUser.getUsername());
-            loginPage.enterLoginDetails(targetUser);
-            safeClickOn(loginPage.continueButton);
-        } else {
+        if (!loginPage.onLoginPage()) {
             System.out.println("Session still active, logging out");
             selectLogoutButton();
-            iLoginToAs("DECS", user);
         }
-        setCurrentUser(targetUser);
-    }
-
-    @Given("I ensure I am logged into DECS as user {string}")
-    public void iEnsureIAmLoggedIntoDecsAsUser(String user) {
-        User targetUser = User.valueOf(user);
-        loginPage.navigateToDECS();
-        if (isElementDisplayed($(loginPage.usernameField))) {
-            System.out.println("Logging in as user " + targetUser.getUsername());
-            loginPage.enterLoginDetails(targetUser);
-            safeClickOn(loginPage.continueButton);
-        } else {
-            System.out.println("Session still active, checking active user matches target user");
-            goToDashboard();
-            dashboard.selectMyCases();
-            if (workstacks.getTotalOfCases() == 0) {
-                createCase.createCaseOfType("ANY");
-                dashboard.getAndClaimCurrentCase();
-                goToDashboard();
-                safeClickOn(dashboard.myCases);
-            }
-            try {
-                workstacks.assertOwnerIs(targetUser);
-                System.out.println("Active user matches target user, continuing test");
-            } catch (AssertionError ae) {
-                System.out.println("Active user does not match target user. Logging active user out of DECS");
-                selectLogoutButton();
-                iLoginToAs("DECS", user);
-            }
-        }
+        loginPage.logInAsUser(targetUser);
         setCurrentUser(targetUser);
     }
 
@@ -105,7 +66,6 @@ public class LoginStepDefs extends BasePage {
     public void homeUrl() {
         loginPage.navigateToDECS();
     }
-
 
     @When("I enter the login credentials for user {string} and click the login button")
     public void enterCredentialsAndClickLogin(String user) {
@@ -159,17 +119,31 @@ public class LoginStepDefs extends BasePage {
 
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
-        User inputUser = User.valueOf(user);
-        goToDashboard();
-        safeClickOn(dashboard.myCases);
-        if (workstacks.getTotalOfCases() == 0) {
-            createCase.createCaseOfType("ANY");
-            dashboard.getAndClaimCurrentCase();
-            goToDashboard();
-            safeClickOn(dashboard.myCases);
+        targetUser = User.valueOf(user);
+        assert loggedInAsTargetUser();
+    }
+
+    private void checkForOverrideUser() {
+        if (System.getProperty("user") != null) {
+            targetUser = User.valueOf(System.getProperty("user"));
+            System.out.println("User value overriden to: " + targetUser.getUsername());
         }
-        safeClickOn(workstacks.topCaseReferenceHypertext);
-        summaryTab.selectSummaryTab();
-        summaryTab.assertAllocatedUserIs(inputUser);
+    }
+
+    private boolean loggedInAsTargetUser() {
+        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER) {
+            return dashboard.loggedInAsTargetUser(targetUser);
+        }
+        else {
+            goToDashboard();
+            dashboard.selectMyCases();
+            if (workstacks.getTotalOfCases() == 0) {
+                createCase.createCaseOfType("ANY");
+                dashboard.getAndClaimCurrentCase();
+                goToDashboard();
+                dashboard.selectMyCases();
+            }
+            return workstacks.owningUserIs(targetUser);
+        }
     }
 }

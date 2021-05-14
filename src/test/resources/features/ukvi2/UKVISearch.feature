@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @UKVIRegression
   Scenario Outline: User tests UKVI search criteria

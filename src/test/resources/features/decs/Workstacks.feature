@@ -2,7 +2,7 @@
 Feature: Workstacks
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I am logged into "DECS" as user "DECS_USER"
 
   @Regression
   Scenario: User creates a case and allocates to another user

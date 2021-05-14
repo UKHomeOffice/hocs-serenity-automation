@@ -153,6 +153,10 @@ public class Workstacks extends BasePage {
         safeClickOn(allocateSelectedToMeButton);
     }
 
+    public boolean owningUserIs(User user) {
+        return displayedOwner.getText().contains(user.getUsername());
+    }
+
     public void selectAllocationUserByVisibleText(String allocationUser) {
         safeClickOn(allocateDropdown);
         allocateDropdown.selectByVisibleText(allocationUser);
@@ -160,7 +164,7 @@ public class Workstacks extends BasePage {
     }
 
     public void goToCurrentCaseFromWorkstack() {
-        WebElementFacade caseReference = find(By.xpath("//a[text()='"+ sessionVariableCalled("caseReference")+"']"));
+        WebElementFacade caseReference = find(By.xpath("//a[text()='" + sessionVariableCalled("caseReference") + "']"));
         safeClickOn(caseReference);
     }
 
@@ -220,7 +224,7 @@ public class Workstacks extends BasePage {
         }
         String highestPriorityUrgency = getNthCasesUrgency(n);
         String highestPriorityDays = getNthCasesDays(n);
-        if(totalOfCases>1) {
+        if (totalOfCases > 1) {
             n++;
             while (getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
                 if (getNthCasesOwner(n).equals("")) {
@@ -627,24 +631,24 @@ public class Workstacks extends BasePage {
                     }
                     break;
                 case "DEADLINE":
-                     String deadlineOneString = cellOne.getText();
-                     String deadlineTwoString = cellTwo.getText();
-                     if (!deadlineOneString.equals("") && !deadlineTwoString.equals("")) {
-                         DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
-                         Date deadlineOne = format.parse(deadlineOneString);
-                         Date deadlineTwo = format.parse(deadlineTwoString);
-                         switch (order.toUpperCase()) {
-                             case "LOWEST TO HIGHEST":
-                                 assertThat(deadlineOne.before(deadlineTwo)||deadlineOne.equals(deadlineTwo), is(true));
-                                 break;
-                             case "HIGHEST TO LOWEST":
-                                 assertThat(deadlineOne.after(deadlineTwo)||deadlineOne.equals(deadlineTwo), is(true));
-                                 break;
-                             default:
-                                 pendingStep(order + " is not defined within " + getMethodName());
-                         }
-                     }
-                     break;
+                    String deadlineOneString = cellOne.getText();
+                    String deadlineTwoString = cellTwo.getText();
+                    if (!deadlineOneString.equals("") && !deadlineTwoString.equals("")) {
+                        DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+                        Date deadlineOne = format.parse(deadlineOneString);
+                        Date deadlineTwo = format.parse(deadlineTwoString);
+                        switch (order.toUpperCase()) {
+                            case "LOWEST TO HIGHEST":
+                                assertThat(deadlineOne.before(deadlineTwo) || deadlineOne.equals(deadlineTwo), is(true));
+                                break;
+                            case "HIGHEST TO LOWEST":
+                                assertThat(deadlineOne.after(deadlineTwo) || deadlineOne.equals(deadlineTwo), is(true));
+                                break;
+                            default:
+                                pendingStep(order + " is not defined within " + getMethodName());
+                        }
+                    }
+                    break;
                 case "URGENCY":
                     Hashtable<String, Integer> urgencyDictionary = new Hashtable<String, Integer>();
                     urgencyDictionary.put("", 0);
@@ -691,8 +695,9 @@ public class Workstacks extends BasePage {
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
         WebElementFacade deadlineOfCurrentCase =
-                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '" + getCurrentYear() + "')"
-                + "]");
+                findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '"
+                        + getCurrentYear() + "')"
+                        + "]");
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
 
@@ -704,11 +709,11 @@ public class Workstacks extends BasePage {
         List<WebElementFacade> caseReferenceElements = findAll(By.xpath("//tr/td[2]/a"));
         Boolean highPriorityFirst = false;
         Boolean lowPrioritySecond = false;
-        for(WebElementFacade caseReferenceElement: caseReferenceElements) {
+        for (WebElementFacade caseReferenceElement : caseReferenceElements) {
             if (caseReferenceElement.getText().equals(highPriorityReference)) {
                 highPriorityFirst = true;
             }
-            if(caseReferenceElement.getText().equals(lowPriorityReference) && highPriorityFirst) {
+            if (caseReferenceElement.getText().equals(lowPriorityReference) && highPriorityFirst) {
                 lowPrioritySecond = true;
             }
         }
@@ -716,7 +721,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertCaseStageContains(String contents) {
-            assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
+        assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
     }
 
     public void assertMinisterSignOffTeam() {
