@@ -90,7 +90,7 @@ Feature: Manage Documents
     And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @Regression
+  @Regression @spot
   Scenario: User can select which document to preview
     And I click to manage the documents of a new "MIN" case
     And I upload a 5MB and a 10MB file
