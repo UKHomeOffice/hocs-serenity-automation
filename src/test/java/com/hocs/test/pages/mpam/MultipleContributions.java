@@ -113,12 +113,11 @@ public class MultipleContributions extends BasePage {
         safeClickOn(requestContributionsRadioButton);
         safeClickOn(confirmButton);
         addAContribution();
-        if (continueButton.isVisible()) {
+        if (continueButton.isCurrentlyVisible()) {
             safeClickOn(continueButton);
-        } else if (confirmButton.isVisible()) {
+        } else if (confirmButton.isCurrentlyVisible()) {
             safeClickOn(confirmButton);
         }
-
     }
 
     public void addMultipleContributionRequests(int numberOfContributions) {
