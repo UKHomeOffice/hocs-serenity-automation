@@ -85,6 +85,12 @@ public class MarkupStepDefs extends BasePage {
         }
     }
 
+    @And("I override the initial draft team of the case to the team created in Management UI")
+    public void iOverrideTheInitialDraftTeamOfTheCaseToTheTeamCreatedInMUI() {
+        markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(sessionVariableCalled("draftingTeamName"));
+        safeClickOn(finishButton);
+    }
+
     @Then("an error message should be displayed as I have not selected a topic")
     public void assertThatTopicIsRequiredErrorMessageIsShown() {
         markup.assertTopicIsRequiredErrorMessage();

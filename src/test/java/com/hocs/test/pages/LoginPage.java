@@ -22,6 +22,8 @@ public class LoginPage extends BasePage {
 
     //Basic methods
 
+    public boolean onLoginPage() { return isElementDisplayed(usernameField);}
+
     public void enterUsername(String username) {
         usernameField.sendKeys(username);
     }
@@ -35,6 +37,11 @@ public class LoginPage extends BasePage {
     public void enterLoginDetails(User user) {
         enterUsername(user.getUsername());
         enterPassword(user.getPassword());
+    }
+
+    public void logInAsUser(User user) {
+        enterLoginDetails(user);
+        safeClickOn(continueButton);
     }
 
     public void navigateToPlatform(String platform) {

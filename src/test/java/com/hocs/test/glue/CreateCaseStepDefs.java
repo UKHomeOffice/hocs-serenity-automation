@@ -382,6 +382,5 @@ public class CreateCaseStepDefs extends BasePage {
             default:
                 pendingStep(config + " is not defined within " + getMethodName());
         }
-
     }
 }

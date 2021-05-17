@@ -2,7 +2,7 @@
 Feature: Dispatch
 
   Background:
-    Given I log in to "DECS" as user "DCU_USER"
+    Given I am logged into "DECS" as user "DCU_USER"
 
   @Validation
   Scenario: User has a hard copy of a case to dispatch, they decide to reject it and don't fill in a rejection reason
