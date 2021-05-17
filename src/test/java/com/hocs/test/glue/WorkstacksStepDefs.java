@@ -18,6 +18,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.Wait;
 
 public class WorkstacksStepDefs extends BasePage {
 
@@ -209,6 +210,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I assign this case to me, and check if it has been correctly allocated")
     public void iAssignTheCurrentCaseNumberToMe() {
+        waitABit(2000);
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
         waitABit(3500);
