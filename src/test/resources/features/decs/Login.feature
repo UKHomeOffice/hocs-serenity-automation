@@ -11,7 +11,7 @@ Feature: Login
     Then I should be taken to the homepage
     And I should be logged in as the user "DECS_USER"
 
-  @Regression @ignore
+  @FailingRegression
   Scenario: User is able to log out from one user and login as another
     And I enter the login credentials for user "DECS_USER" and click the login button
     When I logout of the application
