@@ -127,14 +127,21 @@ public class TriageStepDefs extends BasePage {
         creation.selectBusinessArea(businessArea);
     }
 
-    @When("I de-escalate the Triage \\(Escalated) case")
-    public void iDescalateTheTriageEscalatedCase() {
-        triage.deescalateTriageCase();
-    }
-
-    @And("I select to close the Triage \\(Escalated) case")
-    public void iSelectToCloseTheTriageEscalatedCase() {
-        triage.selectToCloseEscalatedCase();
+    @And("I select the {string} action at the Triage-Escalated stage")
+    public void iSelectTheActionAtDraftEscalatedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "DE-ESCALATE":
+                triage.deescalateTriageCase();
+                break;
+            case "CLOSE CASE":
+                triage.selectToCloseEscalatedCase();
+                break;
+            case "CONTRIBUTIONS REQUESTED":
+                multipleContributions.sendCaseToContributionRequest();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
     }
 
     @And("I select to change the Business Area")
