@@ -488,7 +488,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
-        waitABit(2000);
+        waitABit(3500);
         int n = 1;
         while (n <= 3) {
             WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
