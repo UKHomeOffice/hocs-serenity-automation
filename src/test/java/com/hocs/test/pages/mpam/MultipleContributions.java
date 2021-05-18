@@ -18,6 +18,8 @@ public class MultipleContributions extends BasePage {
 
     Campaign campaign;
 
+    Triage triage;
+
     @FindBy(xpath = "//label[text()='Request contributions']")
     public WebElementFacade requestContributionsRadioButton;
 
@@ -113,9 +115,9 @@ public class MultipleContributions extends BasePage {
         safeClickOn(requestContributionsRadioButton);
         safeClickOn(confirmButton);
         addAContribution();
-        if (continueButton.isCurrentlyVisible()) {
+        if (continueButton.isVisible()) {
             safeClickOn(continueButton);
-        } else if (confirmButton.isCurrentlyVisible()) {
+        } else if (confirmButton.isVisible()) {
             safeClickOn(confirmButton);
         }
     }

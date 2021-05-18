@@ -128,7 +128,7 @@ public class TriageStepDefs extends BasePage {
     }
 
     @And("I select the {string} action at the Triage-Escalated stage")
-    public void iSelectTheActionAtDraftEscalatedStage(String action) {
+    public void iSelectTheActionAtTriageEscalatedStage(String action) {
         switch (action.toUpperCase()) {
             case "DE-ESCALATE":
                 triage.deescalateTriageCase();
@@ -137,6 +137,10 @@ public class TriageStepDefs extends BasePage {
                 triage.selectToCloseEscalatedCase();
                 break;
             case "CONTRIBUTIONS REQUESTED":
+                safeClickOn(triage.setEnquiryHypertext);
+                triage.selectEnquirySubject("Person Specific");
+                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.setBusinessUnit();
                 multipleContributions.sendCaseToContributionRequest();
                 break;
             default:
