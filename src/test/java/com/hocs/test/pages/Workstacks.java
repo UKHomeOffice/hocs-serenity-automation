@@ -518,49 +518,18 @@ public class Workstacks extends BasePage {
         caseOwner.shouldContainText(User.DECS_USER.getUsername());
     }
 
-    public void assertThatDCUMINisOnlyVisibleCaseType() {
+    private boolean areCasesOfCaseTypePresent(String caseType) {
+        refineWorkstackSearchResults(caseType);
+        waitABit(500);
         int totalCases = getTotalOfCases();
-        refineWorkstackSearchResults("MIN");
-        assertThat(totalCases != 0, is(true));
         workstackFilter.clear();
-        refineWorkstackSearchResults("DTEN");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
-        refineWorkstackSearchResults("TRO");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
+        return (totalCases!=0);
     }
 
-    public void assertThatDCUTENisOnlyVisibleCaseType() {
-        int totalCases = getTotalOfCases();
-        refineWorkstackSearchResults("DTEN");
-        assertThat(totalCases != 0, is(true));
-        workstackFilter.clear();
-        refineWorkstackSearchResults("MIN");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
-        refineWorkstackSearchResults("TRO");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
-    }
-
-    public void assertThatDCUTROisOnlyVisibleCaseType() {
-        int totalCases = getTotalOfCases();
-        refineWorkstackSearchResults("TRO");
-        assertThat(totalCases != 0, is(true));
-        workstackFilter.clear();
-        refineWorkstackSearchResults("MIN");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
-        refineWorkstackSearchResults("DTEN");
-        totalCases = getTotalOfCases();
-        assertThat(totalCases == 0, is(true));
-        workstackFilter.clear();
+    public void assertThatTheOnlyDCUCaseTypePresentIs(String caseType) {
+        assertThat(areCasesOfCaseTypePresent("MIN")==(caseType.equals("MIN")), is(true));
+        assertThat(areCasesOfCaseTypePresent("DTEN")==(caseType.equals("DTEN")), is(true));
+        assertThat(areCasesOfCaseTypePresent("TRO")==(caseType.equals("TRO")), is(true));
     }
 
     public void assertPrimaryCorrespondentIs(String name) {
