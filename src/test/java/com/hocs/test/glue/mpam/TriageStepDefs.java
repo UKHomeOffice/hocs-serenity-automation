@@ -128,7 +128,7 @@ public class TriageStepDefs extends BasePage {
     }
 
     @And("I select the {string} action at the Triage-Escalated stage")
-    public void iSelectTheActionAtDraftEscalatedStage(String action) {
+    public void iSelectTheActionAtTriageEscalatedStage(String action) {
         switch (action.toUpperCase()) {
             case "DE-ESCALATE":
                 triage.deescalateTriageCase();
