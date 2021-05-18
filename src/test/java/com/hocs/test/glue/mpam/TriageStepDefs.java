@@ -137,6 +137,10 @@ public class TriageStepDefs extends BasePage {
                 triage.selectToCloseEscalatedCase();
                 break;
             case "CONTRIBUTIONS REQUESTED":
+                safeClickOn(triage.setEnquiryHypertext);
+                triage.selectEnquirySubject("Person Specific");
+                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.setBusinessUnit();
                 multipleContributions.sendCaseToContributionRequest();
                 break;
             default:
