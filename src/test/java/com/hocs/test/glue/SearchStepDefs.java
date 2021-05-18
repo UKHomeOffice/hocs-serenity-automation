@@ -32,6 +32,7 @@ public class SearchStepDefs extends BasePage {
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
         safeClickOn(search.searchButton);
+        search.waitForResultsPage();
     }
 
     @Then("an error message should be displayed as I have not entered any search criteria")
