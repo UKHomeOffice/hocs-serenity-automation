@@ -295,7 +295,7 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
-    @When("I create a MPAM case  with {string} as the Business Area and {string} as the Reference Type and move it to the "
+    @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "
             + "{string} stage")
     public void moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
             String stage) {
@@ -334,7 +334,7 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
-    @When("I create a MPAM case  with {string} as the Reference Type and move it to the {string} stage")
+    @When("I create a MPAM case with {string} as the Reference Type and move it to the {string} stage")
     public void moveNewMPAMCaseWithSpecifiedReferenceTypeToStage(String refType,
             String stage) {
         moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", refType,

@@ -5,7 +5,7 @@ Feature: MPAM End To End
     Given I am logged into "DECS" as user "UKVI_USER"
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to Triage stage
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -26,7 +26,7 @@ Feature: MPAM End To End
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to Draft stage
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -47,7 +47,7 @@ Feature: MPAM End To End
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to QA stage
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -68,7 +68,7 @@ Feature: MPAM End To End
       | Coronavirus  | Official   | QA    |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type to its appropriate dispatch stage
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -90,7 +90,7 @@ Feature: MPAM End To End
 
   @UKVIRegression1 @SmokeTests
   Scenario Outline: User closes a Ministerial case with specific Business Area and Reference Type
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
     Examples:
       | businessArea | refType | stage       |
@@ -104,7 +104,7 @@ Feature: MPAM End To End
 
   @UKVIRegression1 @SmokeTests
   Scenario Outline: User closes a Official case with specific Business Area and Reference Type
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
     Examples:
       | businessArea | refType | stage       |
