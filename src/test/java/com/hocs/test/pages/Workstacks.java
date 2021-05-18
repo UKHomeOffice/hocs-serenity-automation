@@ -190,7 +190,6 @@ public class Workstacks extends BasePage {
     }
 
     public void clickCheckboxRelevantToCaseReference() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
         String caseReference =
                 sessionVariableCalled("caseReference").toString();
         WebDriver webDriver = getDriver();
@@ -515,10 +514,8 @@ public class Workstacks extends BasePage {
     }
 
     public void assertCaseIsAssignedToMe() {
-        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[2][text"
-                + "()='"+ getCurrentUser().getUsername()+ "']");
-        caseOwner.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-        assert caseOwner.isVisible();
+        WebElementFacade caseOwner = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td[2]");
+        caseOwner.shouldContainText(User.DECS_USER.getUsername());
     }
 
     public void assertThatDCUMINisOnlyVisibleCaseType() {
