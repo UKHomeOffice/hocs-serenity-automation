@@ -211,7 +211,6 @@ public class WorkstacksStepDefs extends BasePage {
     public void iAssignTheCurrentCaseNumberToMe() {
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
-        waitABit(1000);
         workstacks.assertCaseIsAssignedToMe();
     }
 
