@@ -12,6 +12,7 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -310,10 +311,10 @@ public class Search extends BasePage {
     }
 
     public void assertDCUInformationRandomSearchResult(String criteria) {
+        waitForResultsPage();
         Date searchDate = null;
         Date caseDate = null;
         boolean trueFalse;
-        numberOfSearchResults.waitUntilVisible();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
@@ -399,7 +400,7 @@ public class Search extends BasePage {
     }
 
     public void assertMPAMInformationRandomSearchResult(String criteria) {
-        numberOfSearchResults.waitUntilVisible();
+        waitForResultsPage();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
@@ -481,5 +482,9 @@ public class Search extends BasePage {
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
+    }
+
+    public void waitForResultsPage() {
+        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
     }
 }
