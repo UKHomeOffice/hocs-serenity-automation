@@ -191,7 +191,7 @@ Feature: ManagementUI
     And a success message is displayed
 
   @AddChildTopic @LinkTopicToTeam @DCURegression
-  Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in HOCS
+  Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in DECS
     And I have created a new child topic
     And I have linked teams to the new child topic
     And I navigate to "DECS"
