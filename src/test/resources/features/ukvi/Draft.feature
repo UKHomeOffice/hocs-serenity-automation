@@ -21,7 +21,7 @@ Feature: Draft
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
-    When I create a MPAM case  with "Official" as the Reference Type and move it to the "Draft" stage
+    When I create a MPAM case with "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage

@@ -5,7 +5,7 @@ Feature: Contribution Request
     Given I am logged into "DECS" as user "UKVI_USER"
 
   Scenario Outline: User requests a contribution at Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "Contributions Requested"
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
@@ -28,7 +28,7 @@ Feature: Contribution Request
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User records that a contribution has been received and returns a case to the Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
@@ -54,7 +54,7 @@ Feature: Contribution Request
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User requests a contribution at Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "Contributions Requested"
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
@@ -77,7 +77,7 @@ Feature: Contribution Request
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User records that a contribution has been received and returns a case to the Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
@@ -104,7 +104,7 @@ Feature: Contribution Request
 
   @UKVIRegression
   Scenario: User requests contribution at Triage-Escalated stage
-    And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
+    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -112,7 +112,7 @@ Feature: Contribution Request
     Then the case should be moved to the "Triage - Escalated (Contribution Requested)" stage
 
   Scenario Outline: User requests a contribution at Triage-Escalated stage through other MPAM teams
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -136,7 +136,7 @@ Feature: Contribution Request
 
   @UKVIRegression
   Scenario: User requests contribution at Draft-Escalated stage
-    And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Draft" stage
+    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
     And I load and claim the current case
@@ -144,7 +144,7 @@ Feature: Contribution Request
     Then the case should be moved to the "Draft - Escalated (Contribution Requested)" stage
 
   Scenario Outline: User requests a contribution at Draft-Escalated stage through other MPAM teams
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
     And I load and claim the current case

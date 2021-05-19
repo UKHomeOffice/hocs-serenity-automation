@@ -5,7 +5,7 @@ Feature: Campaigns
     Given I am logged into "DECS" as user "UKVI_USER"
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from Triage to Campaign and its appropriate team
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
@@ -29,7 +29,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Triage |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (On Hold)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Triage case to "On Hold"
     And I load and claim the current case
@@ -55,7 +55,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Triage  | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (Escalated)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -81,7 +81,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Triage  | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (Contribution Requested)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
@@ -107,7 +107,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Triage  | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from Draft to Campaign and its appropriate team
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
@@ -131,7 +131,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Draft |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (On Hold)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Draft case to "On Hold"
     And I load and claim the current case
@@ -157,7 +157,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Draft   | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Escalated)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     And I load and claim the current case
@@ -183,7 +183,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Draft   | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Contributions Requested)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
@@ -209,7 +209,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | Draft   | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from QA to Campaign and its appropriate team
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case
@@ -233,7 +233,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | QA    |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from QA (On Hold)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I select the "Put On Hold" action at QA
     And I load and claim the current case
@@ -259,7 +259,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | QA      | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from QA (Escalated)
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
     And I load and claim the current case
     And I select the "Escalated to Workflow Manager" action at QA
     And I load and claim the current case
@@ -285,7 +285,7 @@ Feature: Campaigns
       | Coronavirus  | Official      | QA      | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from Dispatch stages to Campaign and its appropriate team
-    When I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I move the case into a Campaign from the "<stage>" stage
     And I load the current case

@@ -14,14 +14,14 @@ Feature: QA
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User completes the QA stage for a Ministerial case
-    And I create a MPAM case  with "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Private Office" stage
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User completes the QA stage for a Official case
-    And I create a MPAM case  with "Official" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Awaiting Dispatch" stage
@@ -111,7 +111,7 @@ Feature: QA
 
   @AutoAssignTests @UKVIRegression
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
-    And I create a MPAM case  with "Official" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     And I record the user who completed the previous stages
     And I logout of the application
