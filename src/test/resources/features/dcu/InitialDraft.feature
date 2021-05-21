@@ -13,8 +13,8 @@ Feature: Initial Draft
     Then an error message appears instructing me to add rejection reasons
 
   @DCURegression
-  Scenario: User responds by Phone and fills out call details to complete the case
-    And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
+  Scenario Outline: User responds by Phone and fills out call details to complete the case
+    And I create a "<caseType>" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
     Given I select a case "should" be answered by my team
     And I select to reply by "phone"
@@ -22,6 +22,10 @@ Feature: Initial Draft
     And I select "no" to choosing another Response Type
     Then I am returned to my home screen
     And the case should be closed
+    Examples:
+      | caseType  |
+      | MIN       |
+      | TRO       |
 
   @Validation
   Scenario: Phone response does not have info in free text field
@@ -33,8 +37,8 @@ Feature: Initial Draft
     Then I see an error message instructing me to enter call notes
 
   @DCUWorkflow @DCURegression
-  Scenario: A user selects not to offline QA
-    And I create a "MIN" case and move it to the "INITIAL DRAFT" stage
+  Scenario Outline: A user selects not to offline QA
+    And I create a "<caseType>" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
     When I select a case "should" be answered by my team
     And I select to reply by "email"
@@ -45,6 +49,10 @@ Feature: Initial Draft
     Then I am returned to my home screen
     And the case should be moved to the "QA RESPONSE" stage
     And the "draft" document should be tagged as the primary draft
+    Examples:
+      | caseType  |
+      | MIN       |
+      | TRO       |
 
   @DCUWorkflow @DCURegression
   Scenario: User selects offline QA

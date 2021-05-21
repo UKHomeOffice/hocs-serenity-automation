@@ -313,6 +313,7 @@ public class BaseStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
+                    case "NO RESPONSE NEEDED CONFIRMATION":
                         safeClickOn(dashboard.performanceProcessTeam);
                         break;
                     case "MARKUP":
@@ -323,7 +324,6 @@ public class BaseStepDefs extends BasePage {
                     case "DISPATCH":
                         safeClickOn(dashboard.animalsInScienceTeam);
                         break;
-                    case "NO RESPONSE NEEDED CONFIRMATION":
                     case "TRANSFER CONFIRMATION":
                     case "COPY TO NUMBER 10":
                         safeClickOn(dashboard.transferN10Team);
