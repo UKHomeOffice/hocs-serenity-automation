@@ -84,7 +84,7 @@ public class Markup extends BasePage {
     public void getToMarkupAddATopicScreenPrerequisites() {
         safeClickOn(policyResponseRadioButton);
         safeClickOn(continueButton);
-        waitABit(500);
+        waitABit(1000);
     }
 
     public void getToMarkupEnterANewTopicScreenPrerequisites() {

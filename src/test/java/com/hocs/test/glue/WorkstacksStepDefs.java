@@ -134,7 +134,7 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCaseOfType("MIN");
         goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
-        waitABit(500);
+        waitABit(1000);
     }
 
     @Then("the case should be allocated to me in the workstack")
@@ -163,15 +163,15 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference1").to(sessionVariableCalled("caseReference"));
         goToDashboard();
-        waitABit(500);
+        waitABit(1000);
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference2").to(sessionVariableCalled("caseReference"));
         goToDashboard();
-        waitABit(500);
+        waitABit(1000);
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference3").to(sessionVariableCalled("caseReference"));
         goToDashboard();
-        waitABit(500);
+        waitABit(1000);
         safeClickOn(dashboard.performanceProcessTeam);
     }
 
@@ -353,7 +353,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
-        waitABit(500);
+        waitABit(1000);
         goToDashboard();
         safeClickOn(dashboard.myCases);
         workstacks.assertDueDateOfContributionRequest();

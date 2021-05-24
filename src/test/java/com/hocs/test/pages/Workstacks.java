@@ -257,7 +257,7 @@ public class Workstacks extends BasePage {
     }
 
     public void allocateThreeCasesCreated(User user) {
-        waitABit(500);
+        waitABit(1000);
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
@@ -523,7 +523,7 @@ public class Workstacks extends BasePage {
 
     private boolean areCasesOfCaseTypePresent(String caseType) {
         refineWorkstackSearchResults(caseType);
-        waitABit(500);
+        waitABit(1000);
         int totalCases = getTotalOfCases();
         workstackFilter.clear();
         return (totalCases!=0);
@@ -783,7 +783,7 @@ public class Workstacks extends BasePage {
     public void assertTransferDueDateOfCurrentCase() {
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
-        waitABit(500);
+        waitABit(1000);
         assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
     }
 }

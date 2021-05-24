@@ -184,7 +184,7 @@ public class DataInput extends BasePage {
         String selectedHomeSecInterest = homeSecInterestYesRadioButton.getText();
         setSessionVariable("selectedHomeSecInterestRadioButton").to(selectedHomeSecInterest);
         safeClickOn(continueButton);
-        waitABit(500);
+        waitABit(1000);
         addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");
         safeClickOn(finishButton);
     }

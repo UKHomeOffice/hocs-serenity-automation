@@ -105,7 +105,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         if (!summaryTab.activeStage.isVisible()) {
             safeClickOn(summaryTab.summaryTab);
         }
-        waitABit(500);
+        waitABit(1000);
         switch (category.toUpperCase()) {
             case "PRIMARY TOPIC":
                 summaryTabField = summaryTab.primaryTopic;

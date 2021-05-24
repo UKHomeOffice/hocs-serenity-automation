@@ -157,7 +157,7 @@ public class TriageStepDefs extends BasePage {
     @When("I change the Business Area of the case to {string}")
     public void iChangeTheBusinessAreaOfTheCaseTo(String businessArea) {
         iSelectToChangeTheBusinessArea();
-        waitABit(500);
+        waitABit(1000);
         creation.selectBusinessArea(businessArea);
         triage.setBusinessUnit();
         clickContinueButton();
