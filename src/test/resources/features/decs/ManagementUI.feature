@@ -29,7 +29,7 @@ Feature: ManagementUI
     And I add the user "CAMERON" to the team
     Then "CAMERON" should be visible in the team list
 
-  @TeamManagement @Regression
+  @TeamManagement @Regressionx
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "Animals in Science Regulation Unit" team from the dropdown

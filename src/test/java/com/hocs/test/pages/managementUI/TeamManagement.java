@@ -66,7 +66,7 @@ public class TeamManagement extends BasePage {
 
     public void selectATeam(String teamName) {
         waitABit(1000);
-        teamSearchBar.sendKeys(teamName);
+        teamSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().sendKeys(teamName);
         waitABit(1000);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
