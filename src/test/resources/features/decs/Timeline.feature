@@ -2,7 +2,7 @@
 Feature: Timeline
 
   Background:
-    Given I log in to "DECS" as user "DECS_USER"
+    Given I am logged into "DECS" as user "DECS_USER"
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
     And I select the Timeline tab

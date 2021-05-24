@@ -344,6 +344,7 @@ public class BasePage extends PageObject {
 
     public void setCurrentUser(User user) {
         CurrentUser.getInstance().setUser(user);
+        System.out.println("Logged in as user: " + user.getUsername());
     }
 
     public User getCurrentUser() {

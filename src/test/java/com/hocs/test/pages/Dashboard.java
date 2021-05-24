@@ -235,7 +235,7 @@ public class Dashboard extends BasePage {
         return Integer.parseInt(caseCount.getText());
     }
 
-    public boolean checkLoggedInAsCorrectUser(User targetUser) {
+    public boolean loggedInAsTargetUser(User targetUser) {
         boolean correctUser = false;
         caseReferenceSearchBar.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         switch (targetUser.toString()) {

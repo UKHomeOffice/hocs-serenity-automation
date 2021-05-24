@@ -281,6 +281,7 @@ public class BaseStepDefs extends BasePage {
     @Then("the case should be moved to the {string} stage")
     public void assertCaseTypeReturnedToStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
+        waitForDashboard();
         switch (caseType.toUpperCase()) {
             case "MIN":
                 switch (stage.toUpperCase()) {

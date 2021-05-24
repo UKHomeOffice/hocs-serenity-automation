@@ -51,14 +51,21 @@ public class DraftStepDefs extends BasePage {
         draft.takeDraftCaseOffHold();
     }
 
-    @When("I de-escalate the Draft \\(Escalated) case")
-    public void iDeEscalateTheDraftEscalatedCase() {
-        draft.deescalateDraftCase();
-    }
-
-    @And("I select to close the Draft \\(Escalated) case")
-    public void iSelectToCloseTheDraftEscalatedCase() {
-        draft.selectToCloseEscalatedCase();
+    @And("I select the {string} action at the Draft-Escalated stage")
+    public void iSelectTheActionAtDraftEscalatedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "DE-ESCALATE":
+                draft.deescalateDraftCase();
+                break;
+            case "CLOSE CASE":
+                draft.selectToCloseEscalatedCase();
+                break;
+            case "CONTRIBUTIONS REQUESTED":
+                multipleContributions.sendCaseToContributionRequest();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
     }
 
     @When("I select the {string} action at Draft \\(Contribution Requested) stage")

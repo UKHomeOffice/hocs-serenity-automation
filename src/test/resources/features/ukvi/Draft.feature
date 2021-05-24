@@ -2,7 +2,7 @@
 Feature: Draft
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @Navigation
   Scenario: User should be on the MPAM Draft Page
@@ -21,7 +21,7 @@ Feature: Draft
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
-    When I create a MPAM case  with "Official" as the Reference Type and move it to the "Draft" stage
+    When I create a MPAM case with "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
@@ -58,7 +58,7 @@ Feature: Draft
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     When I load and claim the current case
-    And I de-escalate the Draft (Escalated) case
+    And I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
 
@@ -68,7 +68,7 @@ Feature: Draft
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     When I load and claim the current case
-    And I select to close the Draft (Escalated) case
+    And I select the "Close Case" action at the Draft-Escalated stage
     And I click the "Close case" button
     Then the case should be closed
 

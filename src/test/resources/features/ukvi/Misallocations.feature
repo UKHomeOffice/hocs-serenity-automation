@@ -2,7 +2,7 @@
 Feature: Misallocations
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @UKVIRegression1 @UKVIWorkflow
   Scenario Outline: User can select to Transfer a case from different stages

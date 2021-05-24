@@ -210,7 +210,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I assign this case to me, and check if it has been correctly allocated")
     public void iAssignTheCurrentCaseNumberToMe() {
-        waitABit(2000);
+        waitABit(3500);
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
         waitABit(3500);
@@ -231,6 +231,7 @@ public class WorkstacksStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
                 break;
         }
+        workstacks.waitForWorkstackToLoad();
     }
 
     @When("I narrow down the visible cases using the {string} filter card")
@@ -249,6 +250,8 @@ public class WorkstacksStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
                 break;
         }
+        waitABit(3000);
+        workstacks.waitForWorkstackToLoad();
     }
 
     @Then("the created case should be visible in the workstack")
@@ -258,19 +261,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("only {string} cases should be visible")
     public void onlyCasesShouldBeVisible(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                workstacks.assertThatDCUMINisOnlyVisibleCaseType();
-                break;
-            case "DTEN":
-                workstacks.assertThatDCUTENisOnlyVisibleCaseType();
-                break;
-            case "TRO":
-                workstacks.assertThatDCUTROisOnlyVisibleCaseType();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
+        workstacks.assertThatTheOnlyDCUCaseTypePresentIs(caseType.toUpperCase());
     }
 
     @Then("the case should be assigned {string} points")

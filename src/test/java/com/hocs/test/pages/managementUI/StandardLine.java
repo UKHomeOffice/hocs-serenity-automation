@@ -86,7 +86,7 @@ public class StandardLine extends BasePage {
             setSessionVariable("standardLineExpiryDate").to(getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         }
         WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
-        safeClickOn(hypertext);
+        jsClickOn(hypertext);
         waitABit(1000);
     }
 

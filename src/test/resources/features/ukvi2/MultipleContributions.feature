@@ -2,7 +2,7 @@
 Feature: Multiple Contributions
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @UKVIRegression @UKVIWorkflow
   Scenario: User can send a Triage case to the Triage (Contribution Requested) stage
@@ -116,7 +116,7 @@ Feature: Multiple Contributions
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Escalate to workflow manager" action at the contributions requested stage
     And I load and claim the current case
-    And I de-escalate the Triage (Escalated) case
+    And I select the "De-Escalate" action at the Triage-Escalated stage
     Then the case should be moved to the "Triage (Contribution Requested)" stage
 
   @UKVIRegression @UKVIWorkflow
@@ -128,7 +128,7 @@ Feature: Multiple Contributions
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Escalate to workflow manager" action at the contributions requested stage
     And I load and claim the current case
-    And I de-escalate the Draft (Escalated) case
+    And I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft (Contribution Requested)" stage
 
   @UKVIRegression @UKVIWorkflow

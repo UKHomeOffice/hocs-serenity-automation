@@ -2,7 +2,7 @@
 Feature: QA
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @Navigation
   Scenario: User should be on the MPAM QA Page
@@ -14,14 +14,14 @@ Feature: QA
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User completes the QA stage for a Ministerial case
-    And I create a MPAM case  with "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Private Office" stage
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User completes the QA stage for a Official case
-    And I create a MPAM case  with "Official" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Awaiting Dispatch" stage
@@ -111,11 +111,11 @@ Feature: QA
 
   @AutoAssignTests @UKVIRegression
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
-    And I create a MPAM case  with "Official" as the Reference Type and move it to the "QA" stage
+    And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     And I record the user who completed the previous stages
     And I logout of the application
-    And I log in to "DECS" as user "CAMERON"
+    And I am logged into "DECS" as user "CAMERON"
     And I load and claim the current case
     And I complete the "<actions>" action at QA
     And I load the current case

@@ -2,7 +2,7 @@
 Feature: MPAM Case Details Accordion
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   @UKVIRegression1
   Scenario Outline: User completes a stage and checks that the information entered is correct in the case details accordion
@@ -45,7 +45,7 @@ Feature: MPAM Case Details Accordion
 
   @UKVIRegression1
   Scenario Outline: User changes the business area of the case
-    And I create a MPAM case  with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
+    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
     And I change the business area of the case to "<businessArea>"
     Then the case should have changed to the "<businessArea>" business area
@@ -82,7 +82,7 @@ Feature: MPAM Case Details Accordion
       | Actions required       |
 
   Scenario Outline: User can change the reference type of a case
-    And I create a MPAM case  with "UKVI" as the Business Area and "<initial>" as the Reference Type and move it to the "Triage" stage
+    And I create a MPAM case with "UKVI" as the Business Area and "<initial>" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
     And I change the reference type of the case to "Convert the Case"
     Then the reference type that is displayed should be "<final>"

@@ -2,7 +2,7 @@
 Feature: Triage
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
 
@@ -82,7 +82,7 @@ Feature: Triage
   Scenario: User de-escalates a Triage (Escalated) case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
-    When I de-escalate the Triage (Escalated) case
+    When I select the "De-Escalate" action at the Triage-Escalated stage
     Then the case should be moved to the "Triage" stage
     And the case "should" be allocated to me in the summary
 
@@ -90,7 +90,7 @@ Feature: Triage
   Scenario: User closes a Triage (Escalated) case
     And I send the Triage case to "Workflow Manager"
     When I load and claim the current case
-    And I select to close the Triage (Escalated) case
+    And I select the "Close Case" action at the Triage-Escalated stage
     And I click the "Close case" button
     Then the case should be closed
 

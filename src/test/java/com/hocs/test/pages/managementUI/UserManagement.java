@@ -37,9 +37,10 @@ public class UserManagement extends BasePage {
         String input = user.getAllocationText();
         setSessionVariable("inputUser").to(input);
         waitFor(userSearchTypeAhead);
+        waitABit(3000);
         safeClickOn(userSearchTypeAhead);
         userSearchTypeAhead.sendKeys(input);
-        waitABit(10000);
+        waitABit(3000);
         userSearchTypeAhead.sendKeys(Keys.RETURN);
         safeClickOn(viewUserButton);
     }
@@ -48,9 +49,10 @@ public class UserManagement extends BasePage {
         setSessionVariable("inputTeam").to(team);
         safeClickOn(addTeamsButton);
         waitFor(selectTeamsTypeAhead);
+        waitABit(3000);
         safeClickOn(selectTeamsTypeAhead);
         selectTeamsTypeAhead.sendKeys(team);
-        waitABit(10000);
+        waitABit(3000);
         selectTeamsTypeAhead.sendKeys(Keys.RETURN);
         safeClickOn(addSelectedTeamsButton);
     }

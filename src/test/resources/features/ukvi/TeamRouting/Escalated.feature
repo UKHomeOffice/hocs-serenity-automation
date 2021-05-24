@@ -2,10 +2,10 @@
 Feature: Escalated
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "<stage> (Escalated)" stage
@@ -28,7 +28,7 @@ Feature: Escalated
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Triage (Contribution Requested) stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
@@ -53,11 +53,11 @@ Feature: Escalated
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Triage case to "Workflow Manager"
     And I load and claim the current case
-    When I de-escalate the Triage (Escalated) case
+    When I select the "De-Escalate" action at the Triage-Escalated stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -78,7 +78,7 @@ Feature: Escalated
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
     Then the case should be moved to the "<stage> (Escalated)" stage
@@ -101,7 +101,7 @@ Feature: Escalated
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at Draft (Contribution Requested) stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
@@ -126,11 +126,11 @@ Feature: Escalated
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
     And I load and claim the current case
-    When I de-escalate the Draft (Escalated) case
+    When I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
@@ -151,7 +151,7 @@ Feature: Escalated
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User escalates a case with specific Business Area and Reference Type at QA stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I select the "Escalate to Workflow Manager" action at QA
     Then the case should be moved to the "<stage> (Escalated)" stage
@@ -174,7 +174,7 @@ Feature: Escalated
       | Coronavirus  | Official   | QA    |
 
   Scenario Outline: User de-escalates a case with specific Business Area and Reference Type at QA stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I select the "Escalate to Workflow Manager" action at QA
     And I load and claim the current case

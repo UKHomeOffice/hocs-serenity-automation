@@ -185,6 +185,10 @@ public class Triage extends BasePage {
     }
 
     public void selectToCloseEscalatedCase() {
+        safeClickOn(setEnquiryHypertext);
+        selectEnquirySubject("Person Specific");
+        selectEnquiryReason("Allowed appeal enquiry update");
+        setBusinessUnit();
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
     }

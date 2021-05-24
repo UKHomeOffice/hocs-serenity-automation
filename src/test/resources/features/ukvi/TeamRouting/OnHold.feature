@@ -2,10 +2,10 @@
 Feature: OnHold
 
   Background:
-    Given I log in to "DECS" as user "UKVI_USER"
+    Given I am logged into "DECS" as user "UKVI_USER"
 
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "<stage> (On Hold)" stage
@@ -28,7 +28,7 @@ Feature: OnHold
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at Triage stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Triage case to "On Hold"
     And I load and claim the current case
@@ -53,7 +53,7 @@ Feature: OnHold
       | Coronavirus  | Official   | Triage |
 
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "On Hold"
     Then the case should be moved to the "<stage> (On Hold)" stage
@@ -76,7 +76,7 @@ Feature: OnHold
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at Draft stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I send the Draft case to "On Hold"
     And I load and claim the current case
@@ -101,7 +101,7 @@ Feature: OnHold
       | Coronavirus  | Official   | Draft |
 
   Scenario Outline: User puts a case with specific Business Area and Reference Type on hold at QA stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I select the "Put on hold" action at QA
     Then the case should be moved to the "<stage> (On Hold)" stage
@@ -124,7 +124,7 @@ Feature: OnHold
       | Coronavirus  | Official   | QA    |
 
   Scenario Outline: User takes a case with specific Business Area and Reference Type off hold at QA stage
-    And I create a MPAM case  with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     And I select the "Put on hold" action at QA
     And I load and claim the current case
