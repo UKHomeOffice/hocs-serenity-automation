@@ -9,7 +9,6 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
-    And I load and claim the current case
     Then the case should be moved to the "Triage (Contribution Requested)" stage
 
   @UKVIRegression @UKVIWorkflow
@@ -17,7 +16,6 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
-    And I load and claim the current case
     Then the case should be moved to the "Draft (Contribution Requested)" stage
 
   Scenario Outline: User can mark a contribution as complete or cancelled at the Triage (Contributions Requested) stage

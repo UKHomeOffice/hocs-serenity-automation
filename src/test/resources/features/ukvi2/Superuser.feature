@@ -17,4 +17,3 @@ Feature: Superuser
     And I complete the "Creation" stage
     Then the case should be moved to the "Triage" stage
     And I logout of the application
-    

@@ -76,7 +76,6 @@ public class Draft extends BasePage {
     public WebElementFacade returnToTriageReasonTextArea;
 
     public void moveCaseFromDraftToQA() {
-        selectResponseChannel("Email");
         safeClickOn(moveToQARadioButton);
         safeClickOn(confirmButton);
     }
