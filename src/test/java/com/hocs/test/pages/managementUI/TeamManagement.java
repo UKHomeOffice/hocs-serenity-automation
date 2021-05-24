@@ -76,7 +76,7 @@ public class TeamManagement extends BasePage {
     public void selectAUser(User user) {
         addTeamMembersButton.waitUntilClickable().click();
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
-        waitABit(5000);
+        waitABit(10000);
         userSearchBar.sendKeys(Keys.RETURN);
         waitABit(1000);
         safeClickOn(addSelectedUsersButton);
@@ -94,7 +94,6 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertTeamName() {
-        String header = teamNameHeader.getText();
         teamNameHeader.shouldContainText("Team: " + sessionVariableCalled("teamName"));
     }
 

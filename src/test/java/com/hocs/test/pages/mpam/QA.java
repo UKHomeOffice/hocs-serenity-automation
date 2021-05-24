@@ -111,7 +111,7 @@ public class QA extends BasePage {
     }
 
     public void submitReasonToRejectToTriage(String rejectionReason) {
-        triageRejectionTextField.sendKeys(rejectionReason);
+        typeInto(triageRejectionTextField, rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }

@@ -21,10 +21,6 @@ Feature: PrivateOffice
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIRegression
-  Scenario: User can see which response channel was selected at Draft stage
-    Then I can see the previous selected response channel is still selected
-
   @UKVIWorkflow @UKVIRegression
   Scenario: User rejects the case back to drafting
     When I select the "Draft rejected by Private Office" action at Private Office stage
@@ -48,6 +44,7 @@ Feature: PrivateOffice
     And I enter a follow-up date
     And I enter follow-up details and confirm
     Then the follow-up due date should be visible in the "Private Office" workstack
+    And I navigate to the "Dashboard" page
     And the case should be moved to the "Dispatched (follow-up)" stage
     And the case "should" be allocated to me in the summary
     And the follow-up due date should be visible in the summary
