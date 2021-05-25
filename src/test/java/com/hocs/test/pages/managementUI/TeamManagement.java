@@ -76,7 +76,7 @@ public class TeamManagement extends BasePage {
     public void selectAUser(User user) {
         addTeamMembersButton.waitUntilClickable().click();
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
-        waitABit(10000);
+        waitABit(6000);
         userSearchBar.sendKeys(Keys.RETURN);
         waitABit(1000);
         safeClickOn(addSelectedUsersButton);
