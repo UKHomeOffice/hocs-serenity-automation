@@ -56,33 +56,23 @@ Feature: DCU Data Input
       | Correspondence Received Date | Correspondence Received |
 
   @DCURegression
-  Scenario Outline: User can add a Member of Parliament as a Correspondent
-    When I create a "<caseType>" case and move it to the "Data Input" stage
+  Scenario: User can add a Member of Parliament as a Correspondent
+    When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
     And I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
     And I add "Nicola Sturgeon" MP as a correspondent
     Then the submitted correspondent should be visible in the list of correspondents
-    Examples:
-    | caseType  |
-    | MIN       |
-    | TRO       |
-    | DTEN      |
 
   @DCURegression
-  Scenario Outline: User can add a Correspondent who is not a Member of Parliament
-    When I create a "<caseType>" case and move it to the "Data Input" stage
+  Scenario: User can add a Correspondent who is not a Member of Parliament
+    When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
     And I fill all mandatory fields on the "DATA INPUT" page with valid data
     And I click the "Continue" button
     And I select to add a correspondent that "IS NOT" a member of parliament
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
-    Examples:
-      | caseType  |
-      | MIN       |
-      | TRO       |
-      | DTEN      |
 
   @OtherTests
   Scenario: User adds more than one correspondent
@@ -168,16 +158,6 @@ Feature: DCU Data Input
     And I add "Nicola Sturgeon" MP as a correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
-
-  @DCURegression
-  Scenario Outline: User creates a DCU case and checks that the stage deadlines are correct
-    When I create a "<caseType>" case and move it to the "Data Input" stage
-    And I load and claim the current case
-    Then the stage deadline dates for a "<caseType>" case are correct
-    Examples:
-      | caseType  |
-      | MIN       |
-      | TRO       |
 
   @DCURegression
   Scenario Outline: User checks that Home Secretary interest decision is properly displayed in summary tab

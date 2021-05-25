@@ -54,3 +54,10 @@ Feature: Dispatch
       | caseType |
       | MIN      |
       | DTEN     |
+
+  @DCURegression
+  Scenario: User returns a TRO case to initial draft when rejected at Dispatch
+    And I create a "TRO" case and move it to the "Dispatch" stage
+    And I load and claim the current case
+    And I reject the case at the "Dispatch" stage
+    Then the case should be moved to the "Initial Draft" stage
