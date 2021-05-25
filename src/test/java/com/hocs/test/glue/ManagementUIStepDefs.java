@@ -124,7 +124,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I add the user {string} to the team")
     public void addUserToSelectedTeam(String user) {
-        waitABit(500);
+        waitABit(1000);
         teamManagement.assertTeamName();
         teamManagement.selectAUser(User.valueOf(user));
     }
@@ -177,7 +177,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I add the users {string} and {string} to the team")
     public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
-        waitABit(500);
+        waitABit(1000);
         teamManagement.assertTeamName();
         teamManagement.clearTeamMember(firstUser);
         teamManagement.clearTeamMember(secondUser);

@@ -59,7 +59,7 @@ public class StandardLine extends BasePage {
     public WebElementFacade submitButton;
 
     public void enterStandardLineTopic(String topic) {
-        waitABit(500);
+        waitABit(1000);
         safeClickOn(topicTypeahead);
         topicTypeahead.sendKeys(topic);
         setSessionVariable("standardLineTopic").to(topic);

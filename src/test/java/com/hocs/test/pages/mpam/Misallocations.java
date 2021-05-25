@@ -53,7 +53,7 @@ public class Misallocations extends BasePage {
         if (stage.toUpperCase().equals("TRIAGE") || stage.toUpperCase().equals("DRAFT")) {
             accordionMPAM.openCaseDetailsAccordion();
             safeClickOn(triage.changeBusinessAreaLink);
-            waitABit(500);
+            waitABit(1000);
         }
         creation.selectBusinessArea("Transfer to " + transferTo);
         if (transferTo.toUpperCase().equals("OGD")) {
@@ -106,7 +106,7 @@ public class Misallocations extends BasePage {
     }
 
     public void completeRequiredFieldsForTriage() {
-        waitABit(500);
+        waitABit(1000);
         creation.selectBusinessArea("UKVI");
         creation.selectRefType("Ministerial");
         creation.selectMinisterialSignOffTeam("Home Secretary");

@@ -170,7 +170,7 @@ public class AccordionMPAM extends BasePage {
 
     public void changeBusinessAreaAndUnit(String businessArea) {
         safeClickOn(changeBusinessAreaHypertext);
-        waitABit(500);
+        waitABit(1000);
         selectBusinessArea(businessArea);
         businessUnitDropdown.selectByIndex(1);
         safeClickOn(continueButton);

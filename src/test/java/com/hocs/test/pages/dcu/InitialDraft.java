@@ -97,7 +97,7 @@ public class InitialDraft extends BasePage {
     public void getToHowDoYouIntendToRespondScreenPrerequisites() {
         safeClickOn(answeredByMyTeamYesRadioButton);
         safeClickOn(continueButton);
-        waitABit(500);
+        waitABit(1000);
     }
 
     public void getToSummariseYouCallScreenPrerequisites() {
@@ -144,7 +144,7 @@ public class InitialDraft extends BasePage {
         }
             documents.addADraftDocumentAtDraftStage();
             continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-            waitABit(500);
+            waitABit(1000);
     }
 
     public void getToWhoDidTheQAOfflineScreenPrerequisites() {
@@ -194,7 +194,7 @@ public class InitialDraft extends BasePage {
             acceptAndDraftALetter();
         }
         documents.addADraftDocumentAtDraftStage();
-        waitABit(500);
+        waitABit(1000);
         dontQAOffline();
     }
 

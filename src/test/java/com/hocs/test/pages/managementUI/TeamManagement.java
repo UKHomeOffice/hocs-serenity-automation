@@ -66,8 +66,8 @@ public class TeamManagement extends BasePage {
 
     public void selectATeam(String teamName) {
         waitABit(1000);
-        teamSearchBar.sendKeys(teamName);
-        waitABit(500);
+        teamSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().sendKeys(teamName);
+        waitABit(1000);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
         safeClickOn(viewTeamButton);
@@ -148,7 +148,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertNewTeamIsDisplayed() {
-        waitABit(500);
+        waitABit(1000);
         String displayedTeam = teamNameHeader.getText().split(": ")[1];
         String newTeam = sessionVariableCalled("draftingTeamName");
         assertThat(displayedTeam.equalsIgnoreCase(newTeam), is(true));
@@ -162,13 +162,13 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
-        waitABit(500);
+        waitABit(1000);
         String removedUser = sessionVariableCalled("user").toString();
         $("//body").shouldNotContainText(removedUser);
     }
 
     public void assertThatTeamContainsNoUsers() {
-        waitABit(500);
+        waitABit(1000);
         assertThat(isElementDisplayed(firstRemoveButtonInList), is(false));
     }
 
@@ -183,7 +183,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertMultipleUsersAddedToTeam() {
-        waitABit(500);
+        waitABit(1000);
         $("//table[@class='govuk-table']").shouldContainText(User.CAMERON.getAllocationText());
         $("//table[@class='govuk-table']").shouldContainText(User.CASEY.getAllocationText());
     }
