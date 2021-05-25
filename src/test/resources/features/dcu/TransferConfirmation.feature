@@ -31,13 +31,8 @@ Feature: TransferConfirmation
       | DTEN      |
 
   @Validation
-  Scenario Outline: User must select whether the agree the case should be transferred
-    When I create a "<caseType>" case and move it to the "Transfer Confirmation" stage
+  Scenario: User must select whether the agree the case should be transferred
+    When I create a "MIN" case and move it to the "Transfer Confirmation" stage
     And I load and claim the current case
     And I click the "Finish" button
     Then an error message should be displayed as I have not selected a response on the Transfer Confirmation screen
-    Examples:
-      | caseType  |
-      | MIN       |
-      | TRO       |
-      | DTEN      |
