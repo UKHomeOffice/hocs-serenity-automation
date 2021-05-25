@@ -498,7 +498,7 @@ public class Workstacks extends BasePage {
         while (n <= 3) {
             WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
                     + "/following-sibling::td[2]");
-            waitFor(selectedCase);
+            waitABit(4000);
             selectedCase.waitUntilVisible().shouldContainText(user.getUsername());
             n++;
         }

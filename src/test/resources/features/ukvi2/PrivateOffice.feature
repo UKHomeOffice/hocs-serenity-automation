@@ -21,10 +21,6 @@ Feature: PrivateOffice
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIRegression
-  Scenario: User can see which response channel was selected at Draft stage
-    Then I can see the previous selected response channel is still selected
-
   @UKVIWorkflow @UKVIRegression
   Scenario: User rejects the case back to drafting
     When I select the "Draft rejected by Private Office" action at Private Office stage
