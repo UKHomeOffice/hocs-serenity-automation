@@ -16,16 +16,16 @@ Feature: Create case
     Then A case is created successfully "<with / without>" a document
     Examples:
       | case | with / without |
-      | MIN  | with           |
-      | MIN  | without        |
+#      | MIN  | with           |
+#      | MIN  | without        |
       | TRO  | with           |
-      | TRO  | without        |
-      | DTEN | with           |
-      | DTEN | without        |
-      | MPAM | with           |
-      | MPAM | without        |
-      | MTS  | with           |
-      | MTS  | without        |
+#      | TRO  | without        |
+#      | DTEN | with           |
+#      | DTEN | without        |
+#      | MPAM | with           |
+#      | MPAM | without        |
+#      | MTS  | with           |
+#      | MTS  | without        |
 
   @Allocation @OtherTests
   Scenario: A single case is allocated to the current user

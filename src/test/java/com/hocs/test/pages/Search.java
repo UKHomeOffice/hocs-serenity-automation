@@ -315,6 +315,7 @@ public class Search extends BasePage {
         Date searchDate = null;
         Date caseDate = null;
         boolean trueFalse;
+        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
@@ -485,6 +486,6 @@ public class Search extends BasePage {
     }
 
     public void waitForResultsPage() {
-        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
+        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 }

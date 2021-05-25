@@ -119,7 +119,7 @@ public class BasePage extends PageObject {
         String dd = date.split("/")[0];
         String mm = date.split("/")[1];
         String yyyy = date.split("/")[2];
-        ddField.clear();
+        ddField.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible().clear();
         ddField.sendKeys(dd);
         mmField.clear();
         mmField.sendKeys(mm);
@@ -161,7 +161,7 @@ public class BasePage extends PageObject {
     }
 
     public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public void goToMUIDashboard() {
@@ -334,7 +334,7 @@ public class BasePage extends PageObject {
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {
-        webElementFacade.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible().waitUntilEnabled().click();
+        webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable().click();
     }
 
     public void jsClickOn(WebElementFacade webElementFacade) {

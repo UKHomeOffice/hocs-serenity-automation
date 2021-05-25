@@ -28,12 +28,12 @@ public class CreateCase_SuccessPage extends BasePage {
 
     public void assertBulkCasesCreatedSuccess() {
         int numberOfCases = sessionVariableCalled("bulkCaseNumber");
-        panelBody.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        panelBody.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         panelBody.shouldContainText("Created " + numberOfCases + " new case");
     }
 
     public String getCaseReference() {
-        newCaseReference.waitUntilVisible();
+        newCaseReference.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
         String caseReference = newCaseReference.getAttribute("value");
         System.out.println(caseReference + " is the case reference");
         setSessionVariable("caseReference").to(caseReference);

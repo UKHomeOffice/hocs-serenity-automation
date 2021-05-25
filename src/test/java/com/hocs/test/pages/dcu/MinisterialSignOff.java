@@ -37,7 +37,7 @@ public class MinisterialSignOff extends BasePage {
     public void getToMinisterFeedbackResponseScreenPrerequisites() {
         safeClickOn(ministerSignOffRejectRadioButton);
         safeClickOn(continueButton);
-        waitABit(500);
+        waitABit(1000);
     }
 
     public void assertDoYouApproveTheResponseErrorMessage() {

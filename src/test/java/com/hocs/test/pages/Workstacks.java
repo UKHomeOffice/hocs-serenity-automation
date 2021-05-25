@@ -175,7 +175,7 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        waitFor(totalNumberOfCases);
+       totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
     }
@@ -257,7 +257,7 @@ public class Workstacks extends BasePage {
     }
 
     public void allocateThreeCasesCreated(User user) {
-        waitABit(500);
+        waitABit(1000);
         int totalCaseNumber = getTotalOfCases();
         WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
         clickOn(caseOne);
@@ -493,13 +493,13 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
-        waitABit(2000);
+        waitABit(6000);
         int n = 1;
         while (n <= 3) {
             WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
                     + "/following-sibling::td[2]");
             waitFor(selectedCase);
-            selectedCase.shouldContainText(user.getUsername());
+            selectedCase.waitUntilVisible().shouldContainText(user.getUsername());
             n++;
         }
     }
@@ -523,7 +523,7 @@ public class Workstacks extends BasePage {
 
     private boolean areCasesOfCaseTypePresent(String caseType) {
         refineWorkstackSearchResults(caseType);
-        waitABit(500);
+        waitABit(1000);
         int totalCases = getTotalOfCases();
         workstackFilter.clear();
         return (totalCases!=0);
@@ -705,7 +705,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertDueDateOfContributionRequest() {
-        workstackFilter.waitUntilVisible();
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
                 + "Requested) due:')]");
@@ -783,7 +783,7 @@ public class Workstacks extends BasePage {
     public void assertTransferDueDateOfCurrentCase() {
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
-        waitABit(500);
+        waitABit(1000);
         assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
     }
 }
