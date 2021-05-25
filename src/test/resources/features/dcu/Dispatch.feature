@@ -12,11 +12,16 @@ Feature: Dispatch
     Then an error message is displayed
 
   @DCUWorkflow @DCURegression
-  Scenario: User dispatches a case
-    And I create a "DTEN" case and move it to the "Dispatch" stage
+  Scenario Outline: User dispatches a case
+    And I create a "<caseType>" case and move it to the "Dispatch" stage
     And I load and claim the current case
     When I complete the dispatch stage
     Then the case should be closed
+    Examples:
+    | caseType  |
+    | MIN       |
+    | TRO       |
+    | DTEN      |
 
   @Validation
   Scenario: User must select a radio button when asked if they able to dispatch the case at the Dispatch Stage
@@ -47,5 +52,12 @@ Feature: Dispatch
     Then the case should be moved to the "Private Office Approval" stage
     Examples:
       | caseType |
-      | MIN  |
-      | DTEN |
+      | MIN      |
+      | DTEN     |
+
+  @DCURegression
+  Scenario: User returns a TRO case to initial draft when rejected at Dispatch
+    And I create a "TRO" case and move it to the "Dispatch" stage
+    And I load and claim the current case
+    And I reject the case at the "Dispatch" stage
+    Then the case should be moved to the "Initial Draft" stage
