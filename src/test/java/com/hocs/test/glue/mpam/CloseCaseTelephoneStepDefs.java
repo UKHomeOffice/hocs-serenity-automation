@@ -36,8 +36,6 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
                 triage.setBusinessUnit();
                 break;
             case "DRAFT":
-                draft.selectResponseChannel("Email");
-                break;
             case "QA":
                 break;
             case "AWAITING DISPATCH":
@@ -51,9 +49,6 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
 
     @And("I enter the mandatory information at the Close Case (Telephone) screen and close the case")
     public void iEnterMandatoryInformationAtCloseCaseScreen() {
-        if (sessionVariableCalled("closeCaseTelephoneStage").equals("TRIAGE")) {
-            closeCaseTelephone.selectResponseChannel("Email");
-        }
         closeCaseTelephone.enterExplanationForClosingCase("Test");
         closeCaseTelephone.selectTelephoneContactRoute("Telephone Surgery");
         clickTheButton("Close Case");
@@ -62,9 +57,6 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
     @And("I check the validation at the Close Case Telephone screen")
     public void iCheckValidationAtCloseCaseScreen() {
         clickTheButton("Close Case");
-        if (sessionVariableCalled("closeCaseTelephoneStage").equals("TRIAGE")) {
-            closeCaseTelephone.assertErrorMessageIsDisplayed("Response Channel");
-        }
         closeCaseTelephone.assertErrorMessageIsDisplayed("Explanation for closing case");
         closeCaseTelephone.assertErrorMessageIsDisplayed("Telephone contact route");
     }
