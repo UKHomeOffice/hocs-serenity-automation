@@ -1,6 +1,6 @@
 package com.hocs.test.api;
 
-import static config.Environment.DEV;
+import static config.Environment.CS_DEV;
 import static config.Environment.LOCAL;
 import static config.Service.CASE;
 import static config.Service.INFO;
@@ -27,7 +27,7 @@ public class ApiHelper extends PageObject {
 
         switch (environment.toUpperCase()) {
             case "DEV":
-                baseURI = DEV.getEnvironmentURL();
+                baseURI = CS_DEV.getEnvironmentURL();
                 switch (api.toUpperCase()) {
                     case "CASE":
                         port = CASE.getPort();
