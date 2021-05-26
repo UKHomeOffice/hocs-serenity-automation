@@ -153,6 +153,12 @@ public class LoginPage extends BasePage {
                     break;
                 case "DEMO":
                     baseUrl = Environment.WCS_DEMO.getEnvironmentURL();
+                case "QAX":
+                case "DELTA":
+                case "GAMMA":
+                case "EPSILON":
+                    pendingStep("There is no WCS instance for environment " + env.toUpperCase());
+                    break;
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
             }
@@ -176,6 +182,12 @@ public class LoginPage extends BasePage {
                     break;
                 case "DEMO":
                     baseUrl = Environment.WCS_DEMO_MUI.getEnvironmentURL();
+                    break;
+                case "QAX":
+                case "DELTA":
+                case "GAMMA":
+                case "EPSILON":
+                    pendingStep("There is no WCS instance for environment " + env.toUpperCase());
                     break;
                 default:
                     pendingStep(env + " is not defined within " + getMethodName());
