@@ -292,7 +292,7 @@ public class ManagementUIStepDefs extends BasePage {
                 loginPage.navigateToDECS();
                 break;
             case "MANAGEMENT UI":
-                loginPage.navigateToManagementUI();
+                loginPage.navigateToDECSManagementUI();
                 break;
             default:
                 pendingStep(site + " is not defined within " + getMethodName());
