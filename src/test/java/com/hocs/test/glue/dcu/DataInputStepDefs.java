@@ -126,7 +126,7 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
+                dataInputAddCorrespondent.fillPublicCorrespondentFields();
                 dataInput.clickAddButton();
                 dataInputAddCorrespondent.assertPrimaryCorrespondent();
                 break;
@@ -194,7 +194,7 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
             case "CORRESPONDENT DETAILS":
-                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
+                dataInputAddCorrespondent.fillPublicCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:

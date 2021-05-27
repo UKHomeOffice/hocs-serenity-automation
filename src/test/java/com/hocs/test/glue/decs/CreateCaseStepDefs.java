@@ -220,7 +220,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I enter a blank date")
     public void enterInvalidDateOnCaseCreateScreen() {
-        createCase.enterNoDate();
+        createCase.clearCorrespondentReceivedDateFields();
     }
 
     @And("I create a {string} case with {string} as the correspondent")
@@ -411,6 +411,6 @@ public class CreateCaseStepDefs extends BasePage {
 
     @Then("the case should be allocated to the previously selected user in the summary")
     public void theCaseShouldBeAllocatedToThePreviouslySelectedUser() {
-        summaryTab.assertAllocatedUserIs(User.valueOf(sessionVariableCalled("selectedUser")));
+        summaryTab.assertAllocatedUserIs(sessionVariableCalled("selectedUser"));
     }
 }

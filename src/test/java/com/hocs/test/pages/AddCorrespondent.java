@@ -175,7 +175,7 @@ public class AddCorrespondent extends BasePage {
         safeClickOn(secondaryCorrespondentName);
     }
 
-    public void fillMandatoryPublicCorrespondentFields() {
+    public void fillPublicCorrespondentFields() {
         selectCorrespondentTypeFromDropdown("Constituent");
         enterCorrespondentFullName("Sam McTester");
         enterCorrespondentBuilding("1 Test House");
@@ -230,7 +230,7 @@ public class AddCorrespondent extends BasePage {
     public void addAPublicCorrespondent() {
         selectToAddACorrespondent();
         selectCorrespondentIsNotMP();
-        fillMandatoryPublicCorrespondentFields();
+        fillPublicCorrespondentFields();
         clickAddButton();
     }
 
@@ -238,7 +238,7 @@ public class AddCorrespondent extends BasePage {
         setSessionVariable("correspondentReferenceNumber").to(refNumber);
         selectToAddACorrespondent();
         selectCorrespondentIsNotMP();
-        fillMandatoryPublicCorrespondentFields();
+        fillPublicCorrespondentFields();
         enterCorrespondenceReference(refNumber);
         clickAddButton();
     }

@@ -37,6 +37,7 @@ Feature: Create case
     And I create a single "ANY" case
     And I go to the case from the successful case creation screen
     When I allocate the case to another user on the case details accordion screen
+    And I load the current case
     And I click to view the "Summary" tab
     Then the case should be allocated to the previously selected user in the summary
 

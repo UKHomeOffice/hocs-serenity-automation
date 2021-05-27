@@ -197,12 +197,6 @@ public class BasePage extends PageObject {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public WebElementFacade getRandomElementFromList(List<WebElementFacade> list)
-    {
-        Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
-    }
-
     public void errorMessageIsDisplayed() {
         assertThat(isElementDisplayed(errorMessage), is(true));
     }

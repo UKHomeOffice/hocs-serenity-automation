@@ -7,7 +7,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -104,16 +106,14 @@ public class CreateCase extends BasePage {
         safeClickOn(compRadioButton);
     }
 
-    public void chooseCaseTypeAtRandom() {
-        List<WebElementFacade> caseTypes = findAll("//label[contains(@for, 'case-type')]");
-        safeClickOn(getRandomElementFromList(caseTypes));
-    }
-
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
 
     public void selectCaseType(String caseType) {
+        if (caseType.equalsIgnoreCase("ANY")) {
+            caseType = getRandomCaseType();
+        }
         switch (caseType.toUpperCase()) {
             case "MIN":
                 clickDcuMinRadioButton();
@@ -133,12 +133,16 @@ public class CreateCase extends BasePage {
             case "COMP":
                 clickCompRadioButton();
                 break;
-            case "ANY":
-                chooseCaseTypeAtRandom();
-                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+        setSessionVariable("caseType").to(caseType);
+    }
+
+    public String getRandomCaseType() {
+        List<String> caseTypes = Arrays.asList("MIN", "DTEN", "TRO", "MPAM", "MTS", "COMP");
+        Random rand = new Random();
+        return caseTypes.get(rand.nextInt(caseTypes.size()));
     }
 
     // Multi Step Methods
@@ -150,7 +154,6 @@ public class CreateCase extends BasePage {
         }
         selectCaseType(caseType);
         completeSingleCaseCreation();
-        setSessionVariable("caseType").to(caseType);
     }
 
     public void createCaseOfTypeWithoutDocument(String caseType) {
@@ -159,7 +162,6 @@ public class CreateCase extends BasePage {
         safeClickOn(nextButton);
         clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
-        setSessionVariable("caseType").to(caseType);
     }
 
     public void completeSingleCaseCreation() {
@@ -180,7 +182,6 @@ public class CreateCase extends BasePage {
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.getCaseReference();
-        setSessionVariable("caseType").to(caseType);
     }
 
     public void createCaseReceivedFiveDaysBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
@@ -198,10 +199,10 @@ public class CreateCase extends BasePage {
         createCaseWithSetCorrespondenceReceivedDate(caseType, date);
     }
 
-    public void enterNoDate() {
-        correspondenceReceivedDayField.sendKeys("");
-        correspondenceReceivedMonthField.sendKeys("");
-        correspondenceReceivedYearField.sendKeys("");
+    public void clearCorrespondentReceivedDateFields() {
+        correspondenceReceivedDayField.clear();
+        correspondenceReceivedMonthField.clear();
+        correspondenceReceivedYearField.clear();
     }
 
     public void createCaseWithoutSelectingCorrespondenceType() {

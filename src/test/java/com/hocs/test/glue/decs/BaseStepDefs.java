@@ -358,16 +358,12 @@ public class BaseStepDefs extends BasePage {
                 break;
             case "MPAM":
             case "MTS":
-                dashboard.goToDashboard();
-                dashboard.getCurrentCase();
-                summaryTab.selectSummaryTab();
-                summaryTab.assertCaseStage(stage);
-                break;
             case "COMP":
                 dashboard.goToDashboard();
                 dashboard.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
