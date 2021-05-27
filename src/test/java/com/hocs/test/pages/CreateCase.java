@@ -8,7 +8,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -42,8 +44,8 @@ public class CreateCase extends BasePage {
     @FindBy(css = "label[for='case-type-MTS']")
     public WebElementFacade mtsRadioButton;
 
-    @FindBy(xpath = "//label[contains(@for, 'case-type')]")
-    public WebElementFacade topCaseRadioButton;
+    @FindBy(css = "label[for='case-type-COMP']")
+    public WebElementFacade compRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -98,8 +100,13 @@ public class CreateCase extends BasePage {
         safeClickOn(mtsRadioButton);
     }
 
-    private void clickTopCaseRadioButton() {
-        safeClickOn(topCaseRadioButton);
+    private void clickCompRadioButton() {
+        safeClickOn(compRadioButton);
+    }
+
+    public void chooseCaseTypeAtRandom() {
+        List<WebElementFacade> caseTypes = findAll("//label[contains(@for, 'case-type')]");
+        safeClickOn(getRandomElementFromList(caseTypes));
     }
 
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
@@ -123,8 +130,11 @@ public class CreateCase extends BasePage {
             case "MTS":
                 clickMtsRadioButton();
                 break;
+            case "COMP":
+                clickCompRadioButton();
+                break;
             case "ANY":
-                clickTopCaseRadioButton();
+                chooseCaseTypeAtRandom();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -197,12 +207,6 @@ public class CreateCase extends BasePage {
     public void createCaseWithoutSelectingCorrespondenceType() {
         safeClickOn(dashboard.createSingleCase);
         safeClickOn(nextButton);
-    }
-
-    public void getToWhenWasCorReceived() {
-        safeClickOn(dcuMinRadioButton);
-        safeClickOn(nextButton);
-        waitABit(100);
     }
 
     public void storeCorrespondenceReceivedDate() {

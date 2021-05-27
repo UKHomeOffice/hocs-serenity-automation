@@ -10,6 +10,7 @@ import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.CreateCase_SuccessPage;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
@@ -49,6 +50,8 @@ public class CreateCaseStepDefs extends BasePage {
     UnallocatedCaseView unallocatedCaseView;
 
     Creation creation;
+
+    SummaryTab summaryTab;
 
     @When("I create a single {string} case")
     public void createNewCase(String caseType) {
@@ -207,9 +210,11 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.assertDateReceivedIsInvalidErrorMessage();
     }
 
-    @When("I move to the When Was Correspondence Received Page")
-    public void getToWhenWasCorrespondenceReceivedPage() {
-        createCase.getToWhenWasCorReceived();
+    @When("I select {string} case type and continue")
+    public void getToWhenWasCorrespondenceReceivedPage(String caseType) {
+        createCase.selectCaseType(caseType);
+        safeClickOn(nextButton);
+        waitABit(100);
     }
 
     @When("I enter a blank date")
@@ -235,9 +240,28 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
     }
 
-    @When("I allocate the case to {string} on the case details accordion screen")
-    public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen(String user) {
-        unallocatedCaseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
+    @When("I allocate the case to another user on the case details accordion screen")
+    public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen() {
+        User user = null;
+        String caseType = sessionVariableCalled("caseType");
+        switch (caseType) {
+            case "MIN":
+            case "DTEN":
+            case "TRO":
+                user = User.DCU_USER;
+                break;
+            case "MPAM":
+            case "MTS":
+                user = User.UKVI_USER;
+                break;
+            case "COMP":
+                user = User.COMP_USER;
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        unallocatedCaseView.allocateToUserByVisibleText(user.getAllocationText());
+        setSessionVariable("selectedUser").to(user);
     }
 
     @And("I create and claim a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
@@ -382,5 +406,10 @@ public class CreateCaseStepDefs extends BasePage {
             default:
                 pendingStep(config + " is not defined within " + getMethodName());
         }
+    }
+
+    @Then("the case should be allocated to the previously selected user in the summary")
+    public void theCaseShouldBeAllocatedToThePreviouslySelectedUser() {
+        summaryTab.assertAllocatedUserIs(User.valueOf(sessionVariableCalled("selectedUser")));
     }
 }

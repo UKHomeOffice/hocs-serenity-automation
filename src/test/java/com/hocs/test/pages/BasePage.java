@@ -13,6 +13,7 @@ import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -194,6 +195,12 @@ public class BasePage extends PageObject {
 
     public void javascriptScrollToElem(WebElementFacade element) {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public WebElementFacade getRandomElementFromList(List<WebElementFacade> list)
+    {
+        Random rand = new Random();
+        return list.get(rand.nextInt(list.size()));
     }
 
     public void errorMessageIsDisplayed() {

@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
+import com.hocs.test.pages.PeopleTab;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.TimelineTab;
 import com.hocs.test.pages.Workstacks;
@@ -48,6 +49,8 @@ public class BaseStepDefs extends BasePage {
     AddCorrespondent addCorrespondent;
 
     SummaryTab summaryTab;
+
+    PeopleTab peopleTab;
 
     Triage triage;
 
@@ -360,6 +363,11 @@ public class BaseStepDefs extends BasePage {
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);
                 break;
+            case "COMP":
+                dashboard.goToDashboard();
+                dashboard.getCurrentCase();
+                summaryTab.selectSummaryTab();
+                summaryTab.assertCaseStage(stage);
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -407,7 +415,6 @@ public class BaseStepDefs extends BasePage {
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
-
     }
 
     @Then("an error message should be displayed as I have not entered text in the Case Note text box")
@@ -420,6 +427,23 @@ public class BaseStepDefs extends BasePage {
         dashboard.getCurrentCase();
         workstacks.selectSummaryTab();
         workstacks.summaryPrintActiveStage();
+    }
+
+    @And("I click to view the {string} tab")
+    public void iClickToViewTheTab(String tab) {
+        switch (tab.toUpperCase()) {
+            case "SUMMARY":
+                summaryTab.selectSummaryTab();
+                break;
+            case "TIMELINE":
+                timelineTab.selectTimelineTab();
+                break;
+            case "PEOPLE":
+                peopleTab.selectPeopleTab();
+                break;
+            default:
+                pendingStep(tab + " is not defined within " + getMethodName());
+        }
     }
 
     @And("the case {string} be allocated to me in the summary")
