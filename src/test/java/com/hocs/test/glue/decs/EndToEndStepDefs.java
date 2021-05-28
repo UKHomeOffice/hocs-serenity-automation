@@ -131,7 +131,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -177,7 +177,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -215,7 +215,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCaseOfType(caseType);
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -257,7 +257,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         createCase.createCaseOfType(caseType);
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "CREATION");
@@ -289,7 +289,7 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "MTS":
                 createCase.createCaseOfType(caseType);
-                goToDashboard();
+                goToDECSDashboard();
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -347,7 +347,7 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
-                goToDashboard();
+                goToDECSDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
                 waitForDashboard();

@@ -186,7 +186,7 @@ public class Dashboard extends BasePage {
         try {
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         } catch (NoSuchElementException e) {
-            goToDashboard();
+            goToDECSDashboard();
             caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         }
         String currentCase = sessionVariableCalled("caseReference").toString();
@@ -207,7 +207,7 @@ public class Dashboard extends BasePage {
         while (attempts < 3 && !unallocatedCaseView.checkAllocateToMeLinkVisible()) {
             waitABit(2000);
             setCaseReferenceFromUnassignedCase();
-            goToDashboard();
+            goToDECSDashboard();
             getCurrentCase();
             attempts++;
         }

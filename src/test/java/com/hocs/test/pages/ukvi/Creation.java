@@ -266,7 +266,7 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         clickTheButton("Move to Triage");
     }
 

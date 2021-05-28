@@ -359,7 +359,7 @@ public class BaseStepDefs extends BasePage {
             case "MPAM":
             case "MTS":
             case "COMP":
-                dashboard.goToDashboard();
+                dashboard.goToDECSDashboard();
                 dashboard.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);

@@ -54,7 +54,7 @@ public class NavigationStepDefs extends BasePage {
     @And ("I click to view the {string} workstack")
     public void iClickToViewTheWorkstack(String team) {
         if (!dashboard.myCases.isVisible()) {
-            goToDashboard();
+            goToDECSDashboard();
         }
         switch (team.toUpperCase()) {
             case "ANIMALS IN SCIENCE REGULATION UNIT":

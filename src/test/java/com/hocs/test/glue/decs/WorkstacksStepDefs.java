@@ -131,7 +131,7 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createCaseOfType("MIN");
-        goToDashboard();
+        goToDECSDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
         waitABit(1000);
     }
@@ -161,15 +161,15 @@ public class WorkstacksStepDefs extends BasePage {
     public void createThreeCasesAndReassign() {
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference1").to(sessionVariableCalled("caseReference"));
-        goToDashboard();
+        goToDECSDashboard();
         waitABit(1000);
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference2").to(sessionVariableCalled("caseReference"));
-        goToDashboard();
+        goToDECSDashboard();
         waitABit(1000);
         createCase.createCaseOfType("TRO");
         setSessionVariable("caseReference3").to(sessionVariableCalled("caseReference"));
-        goToDashboard();
+        goToDECSDashboard();
         waitABit(1000);
         safeClickOn(dashboard.performanceProcessTeam);
     }
@@ -191,7 +191,7 @@ public class WorkstacksStepDefs extends BasePage {
             createCase.createCaseOfType("TRO");
             safeClickOn(createCaseSuccessPage.newCaseReference);
             workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-            goToDashboard();
+            goToDECSDashboard();
             n++;
         }
     }
@@ -300,7 +300,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I view the MPAM case in the appropriate {string} stage workstack")
     public void iViewTheCaseInTheWorkstack(String stage) {
-        goToDashboard();
+        goToDECSDashboard();
         dashboard.selectCorrectMPAMTeamByStage(stage);
     }
 
@@ -353,7 +353,7 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
         waitABit(1000);
-        goToDashboard();
+        goToDECSDashboard();
         safeClickOn(dashboard.myCases);
         workstacks.assertDueDateOfContributionRequest();
     }
@@ -372,7 +372,7 @@ public class WorkstacksStepDefs extends BasePage {
                 } else {
                     createCase.createCaseOfType("MIN");
                     createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                    goToDashboard();
+                    goToDECSDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -381,7 +381,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MIN");
-                    goToDashboard();
+                    goToDECSDashboard();
                     dashboard.selectPerformanceProcessTeam();
                 }
                 break;
@@ -390,7 +390,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MPAM");
-                    goToDashboard();
+                    goToDECSDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -399,7 +399,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCaseOfType("MTS");
-                    goToDashboard();
+                    goToDECSDashboard();
                     dashboard.selectMTSTeam();
                 }
                 break;
@@ -413,7 +413,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectCorrectMPAMTeamByStage(workstack);
                 } catch (NoSuchElementException e) {
                     endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", workstack);
-                    goToDashboard();
+                    goToDECSDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(workstack);
                 }
                 break;

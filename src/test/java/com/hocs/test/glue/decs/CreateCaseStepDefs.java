@@ -62,7 +62,7 @@ public class CreateCaseStepDefs extends BasePage {
     @Given("I create a single {string} case and return to the dashboard")
     public void createACaseTypeSpecificCase(String caseType) {
         createCase.createCaseOfType(caseType.toUpperCase());
-        goToDashboard();
+        goToDECSDashboard();
     }
 
     @When("I create a {string} case {string} a document")
@@ -275,7 +275,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
     public void iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
         createCase.createCaseOfType("MPAM");
-        goToDashboard();
+        goToDECSDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
         waitForDashboard();
@@ -284,7 +284,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the Triage stage")
     public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam) {
         createCase.createCaseOfType("MPAM");
-        goToDashboard();
+        goToDECSDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
         waitForDashboard();
@@ -306,13 +306,13 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
                         createCase.createCaseOfType("MIN");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
                         createCase.createCaseOfType("MIN");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithPublicCorrespondent();
                         waitForDashboard();
@@ -330,7 +330,7 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "HOME SECRETARY INTEREST":
                         createCase.createCaseOfType("MIN");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         if (infoValue.toUpperCase().equals("YES")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
@@ -347,29 +347,29 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CASE REFERENCE":
                     case "ACTIVE CASES ONLY":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "REFERENCE TYPE":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage("UKVI", infoValue);
                         break;
                     case "MINISTERIAL SIGN OFF TEAM":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(infoValue);
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
                         break;
                     case "CORRESPONDENT REFERENCE NUMBER":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithCorrespondentReferenceNumber(infoValue);
                         break;
@@ -381,7 +381,7 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "CAMPAIGN":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseFromCreationToTriage();
                         dashboard.getAndClaimCurrentCase();
@@ -389,14 +389,14 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
                         createCase.createCaseOfType("MPAM");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.triggerMPCorrespondentIsMandatoryScreen();
-                        goToDashboard();
+                        goToDECSDashboard();
                         break;
                     case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                         createCase.createCaseOfType("MTS");
-                        goToDashboard();
+                        goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         mtsDataInput.completeDataInputStageAndCloseMTSCase();
                         break;

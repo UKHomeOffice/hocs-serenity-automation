@@ -1,24 +1,15 @@
 package com.hocs.test.glue.decs;
 
 import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.ukvi.Creation;
 import io.cucumber.java.en.And;
 
 public class AddCorrespondentStepDefs {
 
     AddCorrespondent addCorrespondent;
 
-    Dashboard dashboard;
-
-    CreateCase createCase;
-
-    Creation creation;
-
-    @And("I add a public correspondent")
-    public void iAddAPublicCorrespondent() {
-        addCorrespondent.addAPublicCorrespondent();
+    @And("I add a {string} correspondent")
+    public void iAddAPublicCorrespondent(String correspondentType) {
+        addCorrespondent.addAPublicCorrespondentOfType(correspondentType);
     }
 
     @And("I add {string} MP as a correspondent")

@@ -11,7 +11,6 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.LoginPage;
-import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.Workstacks;
 import config.User;
 import io.cucumber.java.en.And;
@@ -40,7 +39,7 @@ public class LoginStepDefs extends BasePage {
             loginPage.logInAsUser(targetUser);
         } else {
             System.out.println("Session still active, checking active user matches target user");
-            goToDashboard(platform);
+            goToDECSDashboard(platform);
             if (!loggedInAsTargetUser()) {
                 System.out.println("Active user does not match target user, logging out");
                 selectLogoutButton();
@@ -135,12 +134,12 @@ public class LoginStepDefs extends BasePage {
             return dashboard.loggedInAsTargetUser(targetUser);
         }
         else {
-            goToDashboard();
+            goToDECSDashboard();
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 createCase.createCaseOfType("ANY");
                 dashboard.getAndClaimCurrentCase();
-                goToDashboard();
+                goToDECSDashboard();
                 dashboard.selectMyCases();
             }
             return workstacks.owningUserIs(targetUser);
