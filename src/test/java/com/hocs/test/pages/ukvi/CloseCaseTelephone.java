@@ -91,10 +91,6 @@ public class CloseCaseTelephone extends BasePage {
         WebElementFacade error = null;
         String message = null;
         switch (errorMessage.toUpperCase()) {
-            case "RESPONSE CHANNEL":
-                error = responseChannelIsRequiredErrorMessage;
-                message = "Response channel is required";
-                break;
             case "EXPLANATION FOR CLOSING CASE":
                 error = explanationForClosingCaseIsRequiredErrorMessage;
                 message = "Explanation for closing case (Telephone) is required";
