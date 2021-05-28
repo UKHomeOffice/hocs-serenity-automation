@@ -25,3 +25,6 @@ Feature: Registration
     When I click the "Continue" button
     Then the "Complaint Correspondents Invalid" page should be displayed
 
+  @Validation
+  Scenario: User tests the validation at the Registration stage
+    And I test the validation at the Complaints Registration stage
