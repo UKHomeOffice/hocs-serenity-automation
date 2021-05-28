@@ -6,6 +6,7 @@ Feature: Registration
     And I create a single "COMP" case
     And I allocate the case to myself via the successful case creation screen
 
+  @COMPWorkflow @COMPRegression
   Scenario: User can complete the Registration stage for a Service complaint
     And I add a "Complainant" correspondent
     And I click the "Continue" button
@@ -17,4 +18,10 @@ Feature: Registration
     And I select a Owning CSU
     When I click the "Continue" button
     Then the case should be moved to the "Service Triage" stage
+
+  @COMPRegression
+  Scenario: User must add a Complainant type correspondent
+    And I add a "Third Party Representative" correspondent
+    When I click the "Continue" button
+    Then the "Complaint Correspondents Invalid" page should be displayed
 
