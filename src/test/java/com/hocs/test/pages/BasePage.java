@@ -13,6 +13,7 @@ import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -155,7 +156,7 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    public void goToDashboard() {
+    public void goToDECSDashboard() {
         safeClickOn(dashboardLink);
         waitForDashboard();
     }
@@ -168,10 +169,10 @@ public class BasePage extends PageObject {
         safeClickOn(muiDashboardLink);
     }
 
-    public void goToDashboard(String platform) {
+    public void goToDECSDashboard(String platform) {
         switch (platform.toUpperCase()) {
             case "DECS":
-                goToDashboard();
+                goToDECSDashboard();
                 break;
             case "MANAGEMENT UI":
                 goToMUIDashboard();
@@ -365,5 +366,10 @@ public class BasePage extends PageObject {
 
     public void assertVisibilityOfAccessibilityLink() {
         accessibilityLink.shouldBeVisible();
+    }
+
+    public WebElementFacade getRandomElementFromList(List<WebElementFacade> list) {
+        Random rand = new Random();
+        return list.get(rand.nextInt(list.size()));
     }
 }

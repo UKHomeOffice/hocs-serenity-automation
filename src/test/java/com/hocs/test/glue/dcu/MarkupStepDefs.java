@@ -139,7 +139,7 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the case should be found in the {string} team")
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
-        goToDashboard();
+        goToDECSDashboard();
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT":
                 safeClickOn(dashboard.publicProtectionUnit);

@@ -69,7 +69,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         String caseRef = firstUnallocatedMINCase.getText().split("\\r?\\n")[1];
-        goToDashboard();
+        goToDECSDashboard();
         dashboard.caseReferenceSearchBar.sendKeys(caseRef);
         dashboard.hitEnterCaseReferenceSearchBar();
         safeClickOn(unallocatedCaseView.allocateToMeLink);
@@ -332,7 +332,7 @@ public class fetchExistingDCUCases extends BasePage {
                     safeClickOn(dashboard.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available -  Searching for a Data Input case");
-                    goToDashboard();
+                    goToDECSDashboard();
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();

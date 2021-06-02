@@ -103,7 +103,7 @@ Feature: Creation
   Scenario: User removes the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    When I add a public correspondent
+    When I add a "Constituent" correspondent
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
@@ -111,7 +111,7 @@ Feature: Creation
   Scenario: User edits an existing correspondents name
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    When I add a public correspondent
+    When I add a "Constituent" correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
@@ -120,7 +120,7 @@ Feature: Creation
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     When I add "Nicola Sturgeon" MP as a correspondent
-    And I add a public correspondent
+    And I add a "Constituent" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "Move to Triage" button
     Then the case summary should list the correct primary correspondent

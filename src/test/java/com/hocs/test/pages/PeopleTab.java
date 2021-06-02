@@ -1,6 +1,5 @@
 package com.hocs.test.pages;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -46,7 +45,7 @@ public class PeopleTab extends BasePage {
 
     public void addAPublicCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
     }
 
     public void editCorrespondent(String detail, String correspondent) {

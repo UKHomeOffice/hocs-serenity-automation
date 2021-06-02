@@ -88,14 +88,14 @@ public class DataInput extends BasePage {
     public void moveCaseFromDataInputToMarkup() {
         fillAllMandatoryCorrespondenceFields();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         safeClickOn(finishButton);
     }
 
     public void dataInputFullFlowWithCopyToN10() {
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         safeClickOn(finishButton);
     }
 
@@ -159,7 +159,7 @@ public class DataInput extends BasePage {
     public void completeDataInputStageWithPublicCorrespondent() {
         fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         safeClickOn(finishButton);
     }
 
@@ -201,9 +201,9 @@ public class DataInput extends BasePage {
     public void completeDataInputWithThreePublicCorrespondents() {
         fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        addCorrespondent.addAPublicCorrespondent();
-        addCorrespondent.addAPublicCorrespondent();
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         safeClickOn(finishButton);
     }
 
@@ -218,7 +218,7 @@ public class DataInput extends BasePage {
             safeClickOn(homeSecInterestNoRadioButton);
         }
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondent();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
         safeClickOn(finishButton);
     }
 

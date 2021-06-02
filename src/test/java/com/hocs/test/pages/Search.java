@@ -7,9 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.dcu.AccordionDCU;
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.mpam.AccordionMPAM;
+import com.hocs.test.pages.ukvi.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
