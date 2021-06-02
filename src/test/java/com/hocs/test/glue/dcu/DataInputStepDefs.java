@@ -20,7 +20,7 @@ public class DataInputStepDefs extends BasePage {
 
     DataInput dataInput;
 
-    AddCorrespondent dataInputAddCorrespondent;
+    AddCorrespondent addCorrespondent;
 
     Dashboard dashboard;
 
@@ -47,7 +47,7 @@ public class DataInputStepDefs extends BasePage {
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
-        dataInputAddCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        addCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
         dataInput.clickAddButton();
     }
 
@@ -74,32 +74,32 @@ public class DataInputStepDefs extends BasePage {
     @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
-        dataInputAddCorrespondent.selectToAddACorrespondent();
+        addCorrespondent.selectToAddACorrespondent();
         if (isOrIsNot.toUpperCase().equals("IS")) {
-            dataInputAddCorrespondent.selectCorrespondentIsMP();
+            addCorrespondent.selectCorrespondentIsMP();
         } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
-            dataInputAddCorrespondent.selectCorrespondentIsNotMP();
+            addCorrespondent.selectCorrespondentIsNotMP();
         }
     }
 
     @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
-        dataInputAddCorrespondent.assertCorrespondentFullNameErrorMessage();
+        addCorrespondent.assertCorrespondentFullNameErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not selected the correspondent type")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
-        dataInputAddCorrespondent.assertCorrespondentTypeDropDownErrorMessage();
+        addCorrespondent.assertCorrespondentTypeDropDownErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a member of parliament from the drop down")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
-        dataInputAddCorrespondent.assertMemberIsRequiredErrorMessage();
+        addCorrespondent.assertMemberIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
-        dataInputAddCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
+        addCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not entered a {string}")
@@ -126,14 +126,15 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
+                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
+                addCorrespondent.fillCorrespondentFields();
                 dataInput.clickAddButton();
-                dataInputAddCorrespondent.assertPrimaryCorrespondent();
+                addCorrespondent.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 aCaseHasACorrespondent("PRIMARY");
                 iAddAnAdditionalCorrespondent();
-                dataInputAddCorrespondent.assertSecondaryCorrespondent();
+                addCorrespondent.assertSecondaryCorrespondent();
                 break;
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
@@ -149,13 +150,13 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
-        dataInputAddCorrespondent.assertPrimaryCorrespondent();
-        dataInputAddCorrespondent.assertSecondaryCorrespondent();
+        addCorrespondent.assertPrimaryCorrespondent();
+        addCorrespondent.assertSecondaryCorrespondent();
     }
 
     @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        dataInputAddCorrespondent.setSecondCorrespondentAsPrimaryCorrespondent();
+        addCorrespondent.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
@@ -182,9 +183,9 @@ public class DataInputStepDefs extends BasePage {
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
         setSessionVariable("correspondentFullName").to(member);
-        dataInputAddCorrespondent.selectMemberOfParliament(member);
+        addCorrespondent.selectMemberOfParliament(member);
         waitABit(2000);
-        dataInputAddCorrespondent.clickAddButton();
+        addCorrespondent.clickAddButton();
     }
 
     @When("I fill all mandatory fields on the {string} page with valid data")
@@ -194,7 +195,8 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
             case "CORRESPONDENT DETAILS":
-                dataInputAddCorrespondent.fillMandatoryPublicCorrespondentFields();
+                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
+                addCorrespondent.fillCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:
@@ -204,27 +206,27 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("the submitted correspondent should be visible in the list of correspondents")
     public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
-        dataInputAddCorrespondent.assertPrimaryCorrespondent();
+        addCorrespondent.assertPrimaryCorrespondent();
     }
 
     @And("I remove the primary correspondent")
     public void removePrimaryCorrespondent() {
-        dataInputAddCorrespondent.removePrimaryCorrespondent();
+        addCorrespondent.removePrimaryCorrespondent();
     }
 
     @Then("there shouldn't be a primary correspondent displayed")
     public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
-        dataInputAddCorrespondent.assertNoPrimaryCorrespondentDisplayed();
+        addCorrespondent.assertNoPrimaryCorrespondentDisplayed();
     }
 
     @And("I edit the primary correspondents name")
     public void iEditThePrimaryCorrespondent() {
-        dataInputAddCorrespondent.editPrimaryCorrespondent();
+        addCorrespondent.editPrimaryCorrespondent();
     }
 
     @Then("the correspondents name should be updated")
     public void theCorrespondentsNameShouldBeUpdated() {
-        dataInputAddCorrespondent.assertPrimaryCorrespondent();
+        addCorrespondent.assertPrimaryCorrespondent();
     }
 
     @And("the stage deadline dates for a {string} case are correct")

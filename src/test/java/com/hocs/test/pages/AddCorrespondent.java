@@ -175,13 +175,16 @@ public class AddCorrespondent extends BasePage {
         safeClickOn(secondaryCorrespondentName);
     }
 
-    public void fillMandatoryPublicCorrespondentFields() {
-        selectCorrespondentTypeFromDropdown("Constituent");
+    public void fillCorrespondentFields() {
         enterCorrespondentFullName("Sam McTester");
         enterCorrespondentBuilding("1 Test House");
         enterCorrespondentStreet("Test Road");
         enterCorrespondentTownOrCity("Test Town");
         enterCorrespondentPostcode("AB1 2CD");
+        selectCorrespondentCountry("United Kingdom");
+        enterCorrespondentTelephoneNumber("01234 567890");
+        enterCorrespondentEmailAddress("SamMcTester@Test.com");
+        enterCorrespondenceReference("Ref-ABCD-1234");
     }
 
     public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
@@ -227,10 +230,13 @@ public class AddCorrespondent extends BasePage {
         clickAddButton();
     }
 
-    public void addAPublicCorrespondent() {
+    public void addAPublicCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        selectCorrespondentIsNotMP();
-        fillMandatoryPublicCorrespondentFields();
+        if (!sessionVariableCalled("caseType").equals("COMP")) {
+            selectCorrespondentIsNotMP();
+        }
+        selectCorrespondentTypeFromDropdown(correspondentType);
+        fillCorrespondentFields();
         clickAddButton();
     }
 
@@ -238,7 +244,8 @@ public class AddCorrespondent extends BasePage {
         setSessionVariable("correspondentReferenceNumber").to(refNumber);
         selectToAddACorrespondent();
         selectCorrespondentIsNotMP();
-        fillMandatoryPublicCorrespondentFields();
+        selectCorrespondentTypeFromDropdown("Constituent");
+        fillCorrespondentFields();
         enterCorrespondenceReference(refNumber);
         clickAddButton();
     }
@@ -297,4 +304,5 @@ public class AddCorrespondent extends BasePage {
     public void assertNoPrimaryCorrespondentDisplayed() {
         assertThat(removeCorrespondentHyperText.isVisible(), is(false));
     }
+
 }
