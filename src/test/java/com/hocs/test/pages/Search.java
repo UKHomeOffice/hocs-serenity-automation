@@ -118,6 +118,30 @@ public class Search extends BasePage {
     @FindBy(id = "OfficialEngagement")
     public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
 
+    @FindBy(id = "correspondent")
+    public WebElementFacade correspondentFullNameTextField;
+
+    @FindBy(id = "correspondentPostcode")
+    public WebElementFacade correspondentPostcodeTextField;
+
+    @FindBy(id = "correspondentEmail")
+    public WebElementFacade correspondentEmailAddressTextField;
+
+    @FindBy(id = "ComplainantDOB-day")
+    public WebElementFacade complainantDateOfBirthDayTextField;
+
+    @FindBy(id = "ComplainantDOB-month")
+    public WebElementFacade complainantDateOfBirthMonthTextField;
+
+    @FindBy(id = "ComplainantDOB-year")
+    public WebElementFacade complainantDateOfBirthYearTextField;
+
+    @FindBy(id = "reference")
+    public WebElementFacade caseReferenceTextField;
+
+    @FindBy(id = "ComplainantHORef")
+    public WebElementFacade complainantHomeOfficeReferenceTextField;
+
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -242,6 +266,37 @@ public class Search extends BasePage {
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                 telephoneSurgeryOfficialEngagementDropdown.selectByVisibleText(value);
                 setSessionVariable("searchTelephoneSurgeryOfficialEngagement").to(value);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void enterCOMPSearchCriteria(String criteria, String value) {
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                correspondentFullNameTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                correspondentPostcodeTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                correspondentEmailAddressTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                typeIntoDateField(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField, value);
+                setSessionVariable("searchComplainantDateOfBirth").to(value);
+                break;
+            case "CASE REFERENCE":
+                caseReferenceTextField.sendKeys(value);
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "COMPLAINANT HOME OFFiCE REFERENCE":
+                complainantHomeOfficeReferenceTextField.sendKeys(value);
+                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -468,7 +523,7 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 List activeCases = findAll("//td[2][not(text() = 'Closed')]");
-                if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
+                if (sessionVariableCalled("searchActiveCases").toString().equalsIgnoreCase("YES")) {
                     assertThat(!activeCases.isEmpty(), is(true));
                 }
                 break;
@@ -476,6 +531,35 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResult);
                 safeClickOn(summaryTab.summaryTab);
                 summaryTab.telephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("searchTelephoneSurgeryOfficialEngagement"));
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertCOMPInformationRandomSearchResult(String criteria) {
+        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
+        setSessionVariable("randomCaseRef").to(randomSearchResult.getText());
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+
+                break;
+            case "CORRESPONDENT POSTCODE":
+
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+
+                break;
+            case "CASE REFERENCE":
+
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
