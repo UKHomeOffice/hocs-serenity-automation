@@ -65,8 +65,8 @@ public class Registration extends BasePage {
     @FindBy(css = "label[for='Channel-Webform']")
     public WebElementFacade channelWebformRadioButton;
 
-    @FindBy(xpath = "//textarea[@name='Description']")
-    public WebElementFacade descriptionTextArea;
+    @FindBy(xpath = "//textarea[@name='CaseSummary']")
+    public WebElementFacade caseSummaryTextArea;
 
     @FindBy(css = "label[for='Severity-1 Very High']")
     public WebElementFacade severityVeryHighRadioButton;
@@ -209,7 +209,7 @@ public class Registration extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint(String complaintDescription) {
-        descriptionTextArea.sendKeys(complaintDescription);
+        caseSummaryTextArea.sendKeys(complaintDescription);
     }
 
     public void selectASeverity() {

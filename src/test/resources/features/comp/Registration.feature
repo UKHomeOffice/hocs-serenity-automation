@@ -13,7 +13,6 @@ Feature: Registration
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
-    And I click the "Continue" button
     And I select a "Service" Complaint Category
     And I select a Owning CSU
     When I click the "Continue" button
