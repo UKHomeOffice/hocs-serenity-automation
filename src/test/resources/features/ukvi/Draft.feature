@@ -73,15 +73,11 @@ Feature: Draft
     Then the case should be closed
 
   @Validation
-  Scenario Outline: User triggers error message to be displayed at Draft
+  Scenario: User triggers error message to be displayed at Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
-    When the user triggers the "<errorType>" error message at Draft by not entering the correct information
-    Then  the "<errorType>" error message should be displayed at Draft
-    Examples:
-      | errorType                                 |
-      | Actions Required                          |
-#      | Response Channel Required                 |
+    When the user triggers the "Actions Required" error message at Draft by not entering the correct information
+    Then  the "Actions Required" error message should be displayed at Draft
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User moves case into a Campaign from Draft

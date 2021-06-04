@@ -43,10 +43,6 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
                 accordionMPAM.openTriageAccordion();
                 accordionMPAM.assertAllTriageResponsesMatchInput();
                 break;
-            case "DRAFT":
-                accordionMPAM.openDraftAccordion();
-                accordionMPAM.assertAllDraftResponsesMatchInput();
-                break;
             default:
                 pendingStep(accordion + " is not defined within " + getMethodName());
         }
