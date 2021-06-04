@@ -4,9 +4,8 @@ type: kubernetes
 name: DCU
 trigger:
   branch:
-    - master
+    - main
   event:
-    - pull_request
     - push
 
 steps:
@@ -93,9 +92,8 @@ type: kubernetes
 name: DECSRegression
 trigger:
   branch:
-    - master
+    - main
   event:
-    - pull_request
     - push
 
 steps:
@@ -181,9 +179,8 @@ type: kubernetes
 name: UKVI-1-Regression
 trigger:
   branch:
-    - master
+    - main
   event:
-    - pull_request
     - push
 
 steps:
@@ -269,9 +266,8 @@ type: kubernetes
 name: UKVI-2-Regression
 trigger:
   branch:
-    - master
+    - main
   event:
-    - pull_request
     - push
 
 steps:
