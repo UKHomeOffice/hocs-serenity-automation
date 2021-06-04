@@ -12,10 +12,6 @@ Feature: Awaiting Dispatch
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
 
-  @UKVIRegression1
-  Scenario: User can see which response channel was selected at Draft stage
-    Then I can see the previous selected response channel is still selected
-
   @UKVIWorkflow @UKVIRegression1
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
