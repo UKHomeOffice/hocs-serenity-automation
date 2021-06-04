@@ -227,7 +227,7 @@ public class Workstacks extends BasePage {
         String highestPriorityDays = getNthCasesDays(n);
         if (totalOfCases > 1) {
             n++;
-            while (getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
+            while (n <= totalOfCases && getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
                 if (getNthCasesOwner(n).equals("")) {
                     caseReferencesList.add(getNthCasesReference(n));
                 }
