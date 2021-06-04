@@ -77,6 +77,7 @@ public class Draft extends BasePage {
 
     public void moveCaseFromDraftToQA() {
         safeClickOn(moveToQARadioButton);
+        setSessionVariable("action").to("Move to QA");
         safeClickOn(confirmButton);
     }
 
@@ -88,6 +89,7 @@ public class Draft extends BasePage {
 
     public void selectEscalateDraftCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        setSessionVariable("action").to("Escalate to workflow manager");
         safeClickOn(confirmButton);
     }
 
@@ -99,6 +101,7 @@ public class Draft extends BasePage {
 
     public void putCaseOnHold() {
         safeClickOn(putOnHoldRadioButton);
+        setSessionVariable("action").to("Put on hold");
         safeClickOn(confirmButton);
     }
 

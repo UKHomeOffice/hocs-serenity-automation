@@ -61,6 +61,9 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//strong[contains(text(), 'Response channel')]/parent::span")
     public WebElementFacade draftAccordionResponseChannel;
 
+    @FindBy(xpath = "//strong[contains(text(), 'Actions')]/parent::span")
+    public WebElementFacade allAccordionActions;
+
     @FindBy(xpath = "//a[text()='Change business area']")
     public WebElementFacade changeBusinessAreaHypertext;
 
@@ -113,6 +116,10 @@ public class AccordionMPAM extends BasePage {
     public void getQuestionResponse(String responseType) {
         String response = null;
         switch (responseType.toUpperCase()) {
+            case "ACTIONS":
+                String actionsFullLine = allAccordionActions.getText();
+                response = actionsFullLine.split(": ")[1];
+                break;
             case "BUSINESS AREA":
                 String businessAreaFullLine = creationAccordionBusinessArea.getText();
                 response = businessAreaFullLine.split(": ")[1];
@@ -214,6 +221,9 @@ public class AccordionMPAM extends BasePage {
         String inputResponse = null;
         String displayedResponse;
         switch (responseType.toUpperCase()) {
+            case "ACTIONS":
+                inputResponse = sessionVariableCalled("action");
+                break;
             case "BUSINESS AREA":
                 inputResponse = sessionVariableCalled("businessArea");
                 break;
@@ -276,11 +286,13 @@ public class AccordionMPAM extends BasePage {
         assertInputMatchesCaseDetailsResponse("Enquiry Reason");
         getQuestionResponse("Business Unit");
         assertInputMatchesCaseDetailsResponse("Business Unit");
+        getQuestionResponse("Actions");
+        assertInputMatchesCaseDetailsResponse("Actions");
     }
 
     public void assertAllDraftResponsesMatchInput() {
-        getQuestionResponse("Response Channel");
-        assertInputMatchesCaseDetailsResponse("Response Channel");
+        getQuestionResponse("Actions");
+        assertInputMatchesCaseDetailsResponse("Actions");
     }
 
     public void assertChangeBusinessAreaErrorMessageIsDisplayed(String errorMessage) {
