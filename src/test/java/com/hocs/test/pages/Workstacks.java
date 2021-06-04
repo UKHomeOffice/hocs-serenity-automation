@@ -716,6 +716,7 @@ public class Workstacks extends BasePage {
     public void assertRejectedFieldOfCurrentCase() {
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
+        waitFor(rejectedStageField).withTimeoutOf(Duration.ofSeconds(10));
         assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
     }
 

@@ -88,31 +88,19 @@ public class DraftStepDefs extends BasePage {
 
     @When("the user triggers the {string} error message at Draft by not entering the correct information")
     public void theUserTriggersTheErrorMessageAtDraftByNotEnteringTheCorrectInformation(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                draft.selectResponseChannel("Email");
-                safeClickOn(confirmButton);
-                break;
-            case "RESPONSE CHANNEL REQUIRED":
-                safeClickOn(draft.escalateToWorkflowManagerRadioButton);
-                safeClickOn(confirmButton);
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        if ("ACTIONS REQUIRED".equals(errorMessage.toUpperCase())) {
+            safeClickOn(confirmButton);
+        } else {
+            pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
 
     @Then("the {string} error message should be displayed at Draft")
     public void theErrorMessageShouldBeDisplayedAtDraft(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                draft.assertActionsRequiredErrorMessageDisplayed();
-                break;
-            case "RESPONSE CHANNEL REQUIRED":
-                draft.assertResponseChannelRequiredErrorMessageDisplayed();
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        if ("ACTIONS REQUIRED".equals(errorMessage.toUpperCase())) {
+            draft.assertActionsRequiredErrorMessageDisplayed();
+        } else {
+            pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
 }
