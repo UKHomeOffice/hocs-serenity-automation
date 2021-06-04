@@ -13,6 +13,7 @@ Feature: MPAM Case Details Accordion
       | stage  | stageAccordion |
       | Triage | Creation       |
       | Draft  | Triage         |
+      | QA     | Draft          |
 
   Scenario Outline: User completes the creation stage and the information entered is displayed in the case details accordion
     And I create a "MPAM" case and move it to the "Triage" stage

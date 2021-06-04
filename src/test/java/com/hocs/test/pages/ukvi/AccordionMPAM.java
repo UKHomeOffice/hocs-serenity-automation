@@ -290,6 +290,11 @@ public class AccordionMPAM extends BasePage {
         assertInputMatchesCaseDetailsResponse("Actions");
     }
 
+    public void assertAllDraftResponsesMatchInput() {
+        getQuestionResponse("Actions");
+        assertInputMatchesCaseDetailsResponse("Actions");
+    }
+
     public void assertChangeBusinessAreaErrorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "BUSINESS UNIT REQUIRED":
