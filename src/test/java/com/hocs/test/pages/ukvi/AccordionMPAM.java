@@ -59,11 +59,11 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//strong[contains(text(), 'Business unit')]/parent::span")
     public WebElementFacade triageAccordionBusinessUnit;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Response channel')]/parent::span")
-    public WebElementFacade draftAccordionResponseChannel;
+    @FindBy(xpath = "//button[text()='Triage']/ancestor::div//div[@id='accordion-default-content-1']//strong[contains(text(), 'Actions')]/parent::span")
+    public WebElementFacade triageAccordionActions;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Actions')]/parent::span")
-    public WebElementFacade allAccordionActions;
+    @FindBy(xpath = "//button[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
+    public WebElementFacade draftAccordionActions;
 
     @FindBy(xpath = "//a[text()='Change business area']")
     public WebElementFacade changeBusinessAreaHypertext;
@@ -108,17 +108,24 @@ public class AccordionMPAM extends BasePage {
 
     public void openTriageAccordion() {
         safeClickOn(triageAccordionButton);
+        setSessionVariable("accordion").to("TRIAGE");
     }
 
     public void openDraftAccordion() {
         safeClickOn(draftAccordionButton);
+        setSessionVariable("accordion").to("DRAFT");
     }
 
     public void getQuestionResponse(String responseType) {
         String response = null;
         switch (responseType.toUpperCase()) {
             case "ACTIONS":
-                String actionsFullLine = allAccordionActions.getText();
+                String actionsFullLine = "";
+                if (sessionVariableCalled("accordion").equals("TRIAGE")) {
+                    actionsFullLine = triageAccordionActions.getText();
+                } else if (sessionVariableCalled("accordion").equals("DRAFT")) {
+                    actionsFullLine = draftAccordionActions.getText();
+                }
                 response = actionsFullLine.split(": ")[1];
                 break;
             case "BUSINESS AREA":
