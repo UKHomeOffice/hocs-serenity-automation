@@ -6,12 +6,12 @@ Feature: MTS Data Input
     And I create a single "MTS" case and return to the dashboard
     And I load and claim the current case
 
-  @UKVIRegression1 @SmokeTests
+  @FailingRegression @SmokeTests
   Scenario: The user is able to complete and close an MTS Case
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
 
-  @UKVIRegression1
+  @FailingRegression
   Scenario: The user is able to put an MTS Case On Hold
     And I put the MTS case on hold
     Then the case should be moved to the "On Hold" stage
