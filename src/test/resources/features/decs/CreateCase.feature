@@ -21,8 +21,8 @@ Feature: Create case
       | MPAM | without        |
       | MTS  | with           |
       | MTS  | without        |
-      | COMP | with           |
-      | COMP | without        |
+#      | COMP | with           |
+#      | COMP | without        |
 
   @Allocation @OtherTests
   Scenario: A single case is allocated to the current user
@@ -57,7 +57,7 @@ Feature: Create case
       | TRO      | Data Input   |
       | MPAM     | Creation     |
       | MTS      | Data Input   |
-      | COMP     | Registration |
+#      | COMP     | Registration |
 
   @Navigation
   Scenario: User should be taken back to the dashboard when they click the cancel link on the first 'Create Single Case' page
