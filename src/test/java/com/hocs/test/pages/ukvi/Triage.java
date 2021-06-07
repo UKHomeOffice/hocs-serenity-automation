@@ -92,6 +92,7 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(readyToDraftRadioButton);
+        setSessionVariable("action").to("Ready to draft");
         safeClickOn(confirmButton);
     }
 
@@ -116,6 +117,7 @@ public class Triage extends BasePage {
 
     public void putTriageCaseOnHold() {
         safeClickOn(onHoldRadioButton);
+        setSessionVariable("action").to("Put on hold");
         safeClickOn(confirmButton);
     }
 
@@ -126,6 +128,7 @@ public class Triage extends BasePage {
 
     public void selectEscalateTriageCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        setSessionVariable("action").to("Escalate to workflow manager");
         safeClickOn(confirmButton);
     }
 

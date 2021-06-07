@@ -77,17 +77,18 @@ public class Draft extends BasePage {
 
     public void moveCaseFromDraftToQA() {
         safeClickOn(moveToQARadioButton);
+        setSessionVariable("action").to("Move to QA");
         safeClickOn(confirmButton);
     }
 
     public void moveBRefCaseFromDraftToDispatch() {
-        selectResponseChannel("Email");
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);
     }
 
     public void selectEscalateDraftCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        setSessionVariable("action").to("Escalate to workflow manager");
         safeClickOn(confirmButton);
     }
 
@@ -99,6 +100,7 @@ public class Draft extends BasePage {
 
     public void putCaseOnHold() {
         safeClickOn(putOnHoldRadioButton);
+        setSessionVariable("action").to("Put on hold");
         safeClickOn(confirmButton);
     }
 
@@ -115,26 +117,6 @@ public class Draft extends BasePage {
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    public void selectResponseChannel(String outboundChannel) {
-        switch (outboundChannel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(responseChannelEmailRadioButton);
-                break;
-            case "LETTER":
-                safeClickOn(responseChannelLetterRadioButton);
-                break;
-            case "PHONE":
-                safeClickOn(responseChannelPhoneRadioButton);
-                break;
-            case "OUTREACH":
-                safeClickOn(responseChannelOutreachRadioButton);
-                break;
-            default:
-                pendingStep(outboundChannel + " is not defined within " + getMethodName());
-        }
-        setSessionVariable("responseChannel").to(outboundChannel);
     }
 
     public void sendDraftCaseBackToTriage() {

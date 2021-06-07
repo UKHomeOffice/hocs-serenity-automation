@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.SummaryTab;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -60,6 +61,9 @@ public class AccordionMPAM extends BasePage {
 
     @FindBy(xpath = "//strong[contains(text(), 'Response channel')]/parent::span")
     public WebElementFacade draftAccordionResponseChannel;
+
+    @FindBy(xpath = "//strong[contains(text(), 'Actions')]/parent::span")
+    public WebElementFacade allAccordionActions;
 
     @FindBy(xpath = "//a[text()='Change business area']")
     public WebElementFacade changeBusinessAreaHypertext;
@@ -113,6 +117,10 @@ public class AccordionMPAM extends BasePage {
     public void getQuestionResponse(String responseType) {
         String response = null;
         switch (responseType.toUpperCase()) {
+            case "ACTIONS":
+                String actionsFullLine = allAccordionActions.getText();
+                response = actionsFullLine.split(": ")[1];
+                break;
             case "BUSINESS AREA":
                 String businessAreaFullLine = creationAccordionBusinessArea.getText();
                 response = businessAreaFullLine.split(": ")[1];
@@ -153,10 +161,6 @@ public class AccordionMPAM extends BasePage {
                 String businessUnitFullLine = triageAccordionBusinessUnit.getText();
                 response = businessUnitFullLine.split(": ")[1];
                 break;
-            case "RESPONSE CHANNEL":
-                String responseChannelFullLine = draftAccordionResponseChannel.getText();
-                response = responseChannelFullLine.split(": ")[1];
-                break;
             default:
                 pendingStep(responseType + " is not defined within " + getMethodName());
         }
@@ -165,6 +169,7 @@ public class AccordionMPAM extends BasePage {
 
     public void selectBusinessArea(String businessArea) {
         WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]");
+        waitABit(500);
         safeClickOn(businessAreaLabel);
     }
 
@@ -206,7 +211,9 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
+        waitFor(summaryTab.summaryTab).withTimeoutOf(Duration.ofSeconds(10));
         summaryTab.selectSummaryTab();
+        waitFor(summaryTab.currentTeam).withTimeoutOf(Duration.ofSeconds(10));
         assertThat(summaryTab.currentTeam.getText().contains(newBusinessArea), is(true));
     }
 
@@ -214,6 +221,9 @@ public class AccordionMPAM extends BasePage {
         String inputResponse = null;
         String displayedResponse;
         switch (responseType.toUpperCase()) {
+            case "ACTIONS":
+                inputResponse = sessionVariableCalled("action");
+                break;
             case "BUSINESS AREA":
                 inputResponse = sessionVariableCalled("businessArea");
                 break;
@@ -276,11 +286,13 @@ public class AccordionMPAM extends BasePage {
         assertInputMatchesCaseDetailsResponse("Enquiry Reason");
         getQuestionResponse("Business Unit");
         assertInputMatchesCaseDetailsResponse("Business Unit");
+        getQuestionResponse("Actions");
+        assertInputMatchesCaseDetailsResponse("Actions");
     }
 
     public void assertAllDraftResponsesMatchInput() {
-        getQuestionResponse("Response Channel");
-        assertInputMatchesCaseDetailsResponse("Response Channel");
+        getQuestionResponse("Actions");
+        assertInputMatchesCaseDetailsResponse("Actions");
     }
 
     public void assertChangeBusinessAreaErrorMessageIsDisplayed(String errorMessage) {
