@@ -26,9 +26,6 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Save changes']")
-    public WebElementFacade saveChangesRadioButton;
-
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
