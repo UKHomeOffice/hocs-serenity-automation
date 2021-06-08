@@ -17,11 +17,6 @@ public class MTSDataInputStepDefs extends BasePage {
         MTSDataInput.completeDataInputStageAndCloseMTSCase();
     }
 
-    @And("I put the MTS case on hold")
-    public void iPutTheMTSCaseOnHold() {
-        MTSDataInput.putMTSCaseOnHold();
-    }
-
     @And("I trigger the {string} error at the MTS Data Input stage")
     public void iTriggerTheErrorAtTheMTSCaseDetailsStage(String errorMessage) {
         MTSDataInput.triggerErrorMessage(errorMessage);

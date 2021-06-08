@@ -9,12 +9,14 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @FailingRegression
   Scenario: User enters a date of dispatch and closes the case
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
 
   @UKVIWorkflow @FailingRegression
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -27,6 +29,7 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @FailingRegression
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -37,6 +40,7 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @FailingRegression
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
+    And I select a response channel
     And I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm

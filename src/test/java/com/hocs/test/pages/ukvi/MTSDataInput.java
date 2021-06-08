@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -123,11 +124,13 @@ public class MTSDataInput extends BasePage {
     @FindBy(xpath = "//label[text()='No']")
     public WebElementFacade noOfficialTelephoneEngagementRadioButton;
 
-    @FindBy(xpath = "//label[text()='Put on hold']")
-    private WebElementFacade putOnHoldRadioButton;
-
-    @FindBy(xpath = "//label[text()='Complete and close case']")
+    @FindBy(xpath = "//Input[@value='Complete and Close Case']")
     private WebElementFacade completeAndCloseCaseRadioButton;
+
+    public void selectBusinessArea() {
+        List<WebElementFacade> businessAreas = findAll("//input[@name='BusArea']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(businessAreas));
+    }
 
     public void selectBusinessArea(String businessArea) {
         WebElementFacade radioButton = null;
@@ -159,6 +162,11 @@ public class MTSDataInput extends BasePage {
         safeClickOn(radioButton);
     }
 
+    public void selectUrgency() {
+        List<WebElementFacade> urgencies = findAll("//input[@name='Priority']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(urgencies));
+    }
+
     public void selectUrgency(String urgency) {
         WebElementFacade radioButton = null;
         switch (urgency.toUpperCase()) {
@@ -175,6 +183,11 @@ public class MTSDataInput extends BasePage {
                 pendingStep(urgency + " is not defined within " + getMethodName());
         }
         safeClickOn(radioButton);
+    }
+
+    public void selectChannelReceived() {
+        List<WebElementFacade> channels = findAll("//input[@name='ChannelIn']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(channels));
     }
 
     public void selectChannelReceived(String channelReceived) {
@@ -202,6 +215,11 @@ public class MTSDataInput extends BasePage {
                 pendingStep(channelReceived + " is not defined within " + getMethodName());
         }
         safeClickOn(radioButton);
+    }
+
+    public void selectEnquirySubject() {
+        List<WebElementFacade> enquirySubjects = findAll("//input[@name='EnquirySubject']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(enquirySubjects));
     }
 
     public void selectEnquirySubject(String enquirySubject) {
@@ -234,34 +252,9 @@ public class MTSDataInput extends BasePage {
         safeClickOn(radioButton);
     }
 
-    public void selectYourBusinessArea(String businessArea) {
-        WebElementFacade radioButton = null;
-        switch (businessArea.toUpperCase()) {
-            case "UKVI":
-                radioButton = ukviYourBusinessAreaRadioButton;
-                break;
-            case "BF":
-                radioButton = bfYourBusinessAreaRadioButton;
-                break;
-            case "IE":
-                radioButton = ieYourBusinessAreaRadioButton;
-                break;
-            case "EUSS":
-                radioButton = eussYourBusinessAreaRadioButton;
-                break;
-            case "HMPO":
-                radioButton = hmpoYourBusinessAreaRadioButton;
-                break;
-            case "WINDRUSH":
-                radioButton = windrushYourBusinessAreaRadioButton;
-                break;
-            case "CORONAVIRUS (COVID-19)":
-                radioButton = coronavirusYourBusinessAreaRadioButton;
-                break;
-            default:
-                pendingStep(businessArea + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+    public void selectYourBusinessArea() {
+        List<WebElementFacade> yourBusinessAreas = findAll("//input[@name='YourBusArea']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(yourBusinessAreas));
     }
 
     public void enterDateOfSurgery(String date) {
@@ -288,7 +281,6 @@ public class MTSDataInput extends BasePage {
                 selectEnquirySubject("Person Specific");
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             case "BUSINESS UNIT":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -299,7 +291,6 @@ public class MTSDataInput extends BasePage {
                 selectEnquirySubject("Person Specific");
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             case "URGENCY":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -310,7 +301,6 @@ public class MTSDataInput extends BasePage {
                 selectEnquirySubject("Person Specific");
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             case "CHANNEL RECEIVED":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -321,7 +311,6 @@ public class MTSDataInput extends BasePage {
                 selectEnquirySubject("Person Specific");
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             case "ENQUIRY SUBJECT":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -331,7 +320,6 @@ public class MTSDataInput extends BasePage {
                 selectUrgency("Standard");
                 selectChannelReceived("Phone - reply given");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             case "ENQUIRY REASON":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -342,18 +330,6 @@ public class MTSDataInput extends BasePage {
                 selectChannelReceived("Phone - reply given");
                 selectEnquirySubject("Person Specific");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
-                break;
-            case "ACTIONS":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectUrgency("Standard");
-                selectChannelReceived("Phone - reply given");
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                safeClickOn(continueButton);
                 break;
             case "DATE OF SURGERY":
                 addCorrespondent.addAMemberCorrespondent("Boris Johnson");
@@ -365,7 +341,6 @@ public class MTSDataInput extends BasePage {
                 selectEnquirySubject("Person Specific");
                 enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
                 safeClickOn(completeAndCloseCaseRadioButton);
-                safeClickOn(continueButton);
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -376,24 +351,17 @@ public class MTSDataInput extends BasePage {
     public void completeDataInputStageAndCloseMTSCase() {
         addCorrespondent.addAMemberCorrespondent("Boris Johnson");
         safeClickOn(continueButton);
-        selectBusinessArea("UKVI");
-        businessUnitDropdown.selectByVisibleText("Asylum");
-        selectUrgency("Standard");
-        selectChannelReceived("Phone - reply given");
-        selectEnquirySubject("Person Specific");
-        enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-        selectYourBusinessArea("IE");
+        businessUnitDropdown.waitUntilVisible();
+        selectBusinessArea();
+        businessUnitDropdown.selectByIndex(1);
+        selectUrgency();
+        selectChannelReceived();
+        selectEnquirySubject();
+        enquiryReasonDropdown.selectByIndex(1);
+        selectYourBusinessArea();
         enterDateOfSurgery(getDatePlusMinusNDaysAgo(0));
         selectTelephoneSurgeryOfficialEngagement("Yes");
         safeClickOn(completeAndCloseCaseRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void putMTSCaseOnHold() {
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-        safeClickOn(continueButton);
-        safeClickOn(putOnHoldRadioButton);
-        safeClickOn(continueButton);
     }
 
     public void assertErrorMessageIsDisplayed(String expectedMessage) {

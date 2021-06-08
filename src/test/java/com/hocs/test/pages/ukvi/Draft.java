@@ -33,9 +33,6 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade putOnHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Save changes']")
-    public WebElementFacade saveChangesRadioButton;
-
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
@@ -130,9 +127,5 @@ public class Draft extends BasePage {
 
     public void assertActionsRequiredErrorMessageDisplayed() {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertResponseChannelRequiredErrorMessageDisplayed() {
-        assertThat(responseChannelRequiredErrorMessage.isVisible(), is(true));
     }
 }

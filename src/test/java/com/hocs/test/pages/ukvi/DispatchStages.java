@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -91,9 +92,6 @@ public class DispatchStages extends BasePage {
     @FindBy(id = "CaseNote_DispatchFollowUpNotCompleted")
     public WebElementFacade followUpNotCompletedReasonTextArea;
 
-    @FindBy(xpath = "//input[@name='ChannelOut'][@checked]/following-sibling::label")
-    public WebElementFacade selectedResponseChannel;
-
     @FindBy(id = "DueDate-day")
     public WebElementFacade dueDateDayTextField;
 
@@ -169,14 +167,17 @@ public class DispatchStages extends BasePage {
     public void triggerPrivateOfficeErrorMessage(String message) {
         switch (message.toUpperCase()) {
             case "DISPATCHED DATE REQUIRED":
+                selectAResponseChannel();
                 safeClickOn(dispatchedRadioButtonAtPrivateOffice);
                 safeClickOn(confirmButton);
                 safeClickOn(confirmAndCloseCaseButton);
                 break;
             case "ACTIONS REQUIRED":
+                selectAResponseChannel();
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP DATE REQUIRED":
+                selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
@@ -184,6 +185,7 @@ public class DispatchStages extends BasePage {
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP DETAILS REQUIRED":
+                selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
@@ -191,6 +193,7 @@ public class DispatchStages extends BasePage {
                 safeClickOn(confirmButton);
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
+                selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
                 safeClickOn(confirmButton);
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
@@ -235,12 +238,6 @@ public class DispatchStages extends BasePage {
         assertThat(rejectionReasonTextArea.isVisible(), is(true));
     }
 
-    public void assertThatResponseChannelIsPreSelected() {
-        String previouslySelectedResponseChannel = sessionVariableCalled("responseChannel").toString().toUpperCase();
-        String currentlySelectedResponseChannel = selectedResponseChannel.getText().toUpperCase();
-        assertThat(currentlySelectedResponseChannel.equals(previouslySelectedResponseChannel), is(true));
-    }
-
     public void followUpDateInput(String date) {
         typeIntoDateField(dueDateDayTextField, dueDateMonthTextField, dueDateYearTextField, date);
         setSessionVariable("dueDate").to(date);
@@ -266,5 +263,11 @@ public class DispatchStages extends BasePage {
 
     public void assertFollowUpNotCompletedReasonRequiredErrorMessageDisplayed() {
         followUpNotCompletedReasonRequiredErrorMessage.shouldContainText("Details of not completing the follow up action is required");
+    }
+
+    public void selectAResponseChannel() {
+        saveChangesRadioButton.waitUntilVisible();
+        List<WebElementFacade> responseChannels = findAll("//input[@name='ChannelOut']/following-sibling::label");
+        safeClickOn(getRandomElementFromList(responseChannels));
     }
 }
