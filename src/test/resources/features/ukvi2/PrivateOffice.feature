@@ -8,7 +8,8 @@ Feature: PrivateOffice
 
   @Navigation
   Scenario: User selects the Dispatched action
-    When I select the "Dispatched" action at Private Office stage
+    When I select a response channel
+    And I select the "Dispatched" action at Private Office stage
     Then the "MPAM Private Office" page should be displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
@@ -33,13 +34,15 @@ Feature: PrivateOffice
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User enters a date of dispatch and closes the case
-    When I select the "Dispatched" action at Private Office stage
+    When I select a response channel
+    And I select the "Dispatched" action at Private Office stage
     And I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User selects that the case requires follow-up actions after being dispatched
-    When I select the "Dispatched (follow-up)" action at Private Office stage
+    When I select a response channel
+    And I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -51,7 +54,8 @@ Feature: PrivateOffice
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
-    When I select the "Dispatched (follow-up)" action at Private Office stage
+    When I select a response channel
+    And I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -61,7 +65,8 @@ Feature: PrivateOffice
 
   @UKVIWorkflow @UKVIRegression
   Scenario: User selects to close the case without completing follow-up action
-    When I select the "Dispatched (follow-up)" action at Private Office stage
+    When I select a response channel
+    And I select the "Dispatched (follow-up)" action at Private Office stage
     And I enter a dispatched date
     And I enter a follow-up date
     And I enter follow-up details and confirm
