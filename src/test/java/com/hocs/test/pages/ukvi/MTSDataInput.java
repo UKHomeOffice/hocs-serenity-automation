@@ -2,6 +2,7 @@ package com.hocs.test.pages.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
@@ -85,6 +86,9 @@ public class MTSDataInput extends BasePage {
     @FindBy(id = "EnquiryReason")
     private WebElementFacade enquiryReasonDropdown;
 
+    @FindBy(xpath = "//textarea[@name='SupportNote']")
+    public WebElementFacade supportNoteTextArea;
+
     @FindBy(xpath = "//label[@for='BusArea-Coronavirus']")
     private WebElementFacade coronavirusBusinessAreaRadioButton;
 
@@ -108,21 +112,6 @@ public class MTSDataInput extends BasePage {
 
     @FindBy(xpath = "//label[@for='YourBusArea-Coronavirus']")
     private WebElementFacade coronavirusYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//input[@name='DateOfSurgery-day']")
-    public WebElementFacade dateOfSurgeryDayField;
-
-    @FindBy(xpath = "//input[@name='DateOfSurgery-month']")
-    public WebElementFacade dateOfSurgeryMonthField;
-
-    @FindBy(xpath = "//input[@name='DateOfSurgery-year']")
-    public WebElementFacade dateOfSurgeryYearField;
-
-    @FindBy(xpath = "//label[text()='Yes']")
-    public WebElementFacade yesOfficialTelephoneEngagementRadioButton;
-
-    @FindBy(xpath = "//label[text()='No']")
-    public WebElementFacade noOfficialTelephoneEngagementRadioButton;
 
     @FindBy(xpath = "//Input[@value='Complete and Close Case']")
     private WebElementFacade completeAndCloseCaseRadioButton;
@@ -252,21 +241,29 @@ public class MTSDataInput extends BasePage {
         safeClickOn(radioButton);
     }
 
+    private void enterASupportNote(String supportNoteText) {
+        supportNoteTextArea.sendKeys(supportNoteText);
+        setSessionVariable("supportNote").to(supportNoteText);
+    }
+
     public void selectYourBusinessArea() {
         List<WebElementFacade> yourBusinessAreas = findAll("//input[@name='YourBusArea']/following-sibling::label");
         safeClickOn(getRandomElementFromList(yourBusinessAreas));
     }
 
-    public void enterDateOfSurgery(String date) {
-        typeIntoDateField(dateOfSurgeryDayField, dateOfSurgeryMonthField, dateOfSurgeryYearField, date);
-    }
-
-    public void selectTelephoneSurgeryOfficialEngagement(String decision) {
-        if (decision.toUpperCase().equals("YES")) {
-            safeClickOn(yesOfficialTelephoneEngagementRadioButton);
-        } else if (decision.toUpperCase().equals("NO")) {
-            safeClickOn(noOfficialTelephoneEngagementRadioButton);
-        }
+    public void completeDataInputStageAndCloseMTSCase() {
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        safeClickOn(continueButton);
+        businessUnitDropdown.waitUntilVisible();
+        selectBusinessArea();
+        businessUnitDropdown.selectByIndex(1);
+        selectUrgency();
+        selectChannelReceived();
+        selectEnquirySubject();
+        enquiryReasonDropdown.selectByIndex(1);
+        enterASupportNote("Test support note");
+        selectYourBusinessArea();
+        safeClickOn(completeAndCloseCaseRadioButton);
     }
 
     public void triggerErrorMessage(String errorMessage) {
@@ -348,22 +345,6 @@ public class MTSDataInput extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void completeDataInputStageAndCloseMTSCase() {
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-        safeClickOn(continueButton);
-        businessUnitDropdown.waitUntilVisible();
-        selectBusinessArea();
-        businessUnitDropdown.selectByIndex(1);
-        selectUrgency();
-        selectChannelReceived();
-        selectEnquirySubject();
-        enquiryReasonDropdown.selectByIndex(1);
-        selectYourBusinessArea();
-        enterDateOfSurgery(getDatePlusMinusNDaysAgo(0));
-        selectTelephoneSurgeryOfficialEngagement("Yes");
-        safeClickOn(completeAndCloseCaseRadioButton);
-    }
-
     public void assertErrorMessageIsDisplayed(String expectedMessage) {
         String expectedText = null;
         switch (expectedMessage.toUpperCase()) {
@@ -391,14 +372,8 @@ public class MTSDataInput extends BasePage {
             case "YOUR BUSINESS AREA":
                 expectedText = "Your Business Area is required";
                 break;
-            case "DATE OF SURGERY":
-                expectedText = "Date of Surgery is required";
-                break;
-            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                expectedText = "Telephone Surgery Official Engagement is required";
-                break;
-            case "ACTIONS":
-                expectedText = "Actions is required";
+            case "NOTE TO SUPPORT CASE":
+                expectedText = "Note to support case is required";
                 break;
             default:
                 pendingStep(expectedMessage + " is not defined within " + getMethodName());
