@@ -174,11 +174,7 @@ public class Dashboard extends BasePage {
     }
 
     public void assertCaseIsClosedViaLoadCase() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().clear();
-        String thisCaseId = sessionVariableCalled("caseReference").toString();
-        caseReferenceSearchBar.sendKeys(thisCaseId);
-        caseReferenceSearchBar.sendKeys(Keys.RETURN);
-        unallocatedCaseView.caseDetailsHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        getCurrentCase();
         unallocatedCaseView.assertCaseCannotBeAssigned();
         System.out.println("The case is closed");
     }

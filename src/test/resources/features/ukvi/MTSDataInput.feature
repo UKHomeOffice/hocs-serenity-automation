@@ -10,6 +10,7 @@ Feature: MTS Data Input
   Scenario: The user is able to complete and close an MTS Case
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
+    And the support note should be visible in the summary
 
   @Validation
   Scenario: User triggers all error messages at the MTS Data Input stage
@@ -28,6 +29,5 @@ Feature: MTS Data Input
     | Channel Received      |
     | Enquiry Subject       |
     | Enquiry Reason        |
+    | Note to support case  |
     | Business Area         |
-    | Date of Surgery       |
-    | Actions               |

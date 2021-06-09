@@ -111,6 +111,11 @@ public class SummaryTab extends BasePage {
         safeClickOn(summaryTab);
     }
 
+    public void assertSummaryContainsExpectedContentForGivenHeader(String header, String expectedContent) {
+        WebElementFacade cellContainingContent = findBy("//th[text()='"+ header +"']/following-sibling::td");
+        cellContainingContent.shouldContainText(expectedContent);
+    }
+
     public String getPrimaryCorrespondent() {
         return primaryCorrespondent.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
     }
