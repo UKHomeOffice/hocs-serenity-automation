@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -89,19 +90,21 @@ public class Misallocations extends BasePage {
     }
 
     public void selectActionAtTransferStage(String action) {
+        WebElementFacade radioButton = null;
         switch (action.toUpperCase()) {
             case "SAVE DEADLINE FOR TRANSFER":
-                safeClickOn(saveDeadlineForTransferRadioButton);
+                radioButton = saveDeadlineForTransferRadioButton;
                 break;
             case "TRANSFER ACCEPTED (CLOSE CASE)":
-                safeClickOn(transferAcceptedCloseCaseRadioButton);
+                radioButton = transferAcceptedCloseCaseRadioButton;
                 break;
             case "TRANSFER REJECTED (MOVE TO TRIAGE)":
-                safeClickOn(transferRejectedMoveToTriageRadioButton);
+                radioButton = transferRejectedMoveToTriageRadioButton;
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        radioButton.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(30)).click();
         safeClickOn(confirmButton);
     }
 
