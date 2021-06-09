@@ -196,7 +196,7 @@ public class Dashboard extends BasePage {
             caseReferenceSearchBar.sendKeys(currentCase);
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         }
-        documentsTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        documentsTab.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public void claimCurrentCase() {
