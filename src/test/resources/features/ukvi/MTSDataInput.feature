@@ -11,11 +11,6 @@ Feature: MTS Data Input
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
 
-  @UKVIRegression1
-  Scenario: The user is able to put an MTS Case On Hold
-    And I put the MTS case on hold
-    Then the case should be moved to the "On Hold" stage
-
   @Validation
   Scenario: User triggers all error messages at the MTS Data Input stage
     And I check the validation at the MTS Data Input stage
