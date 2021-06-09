@@ -41,6 +41,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='When was the correspondence sent?']/following-sibling::td")
     private WebElementFacade whenCorrespondenceSent;
 
+    @FindBy(xpath = "//h2[text()='Active stage']")
+    public WebElementFacade activeStageHeader;
+
     @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption")
     public WebElementFacade activeStage;
 
@@ -109,6 +112,7 @@ public class SummaryTab extends BasePage {
 
     public void selectSummaryTab() {
         safeClickOn(summaryTab);
+        activeStageHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
     }
 
     public void assertSummaryContainsExpectedContentForGivenHeader(String header, String expectedContent) {
@@ -304,6 +308,7 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertCaseStage(String stage) {
+        activeStage.waitUntilVisible();
         assertThat(getActiveStage().toUpperCase(), is(stage.toUpperCase()));
     }
 
