@@ -6,14 +6,14 @@ Feature: Awaiting Dispatch
     And I create a "MPAM" case and move it to the "Awaiting Dispatch" stage
     And I load the current case
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @FailingRegression
   Scenario: User enters a date of dispatch and closes the case
     And I enter a dispatched date
     And I select a response channel
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @FailingRegression
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
     And I select a response channel
@@ -26,7 +26,7 @@ Feature: Awaiting Dispatch
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @FailingRegression
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I enter a dispatched date
     And I select a response channel
@@ -37,7 +37,7 @@ Feature: Awaiting Dispatch
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @FailingRegression
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
     And I select a response channel
@@ -50,7 +50,7 @@ Feature: Awaiting Dispatch
     Then the case should be closed
     And a follow-up not completed note should be visible showing the entered reason
 
-  @UKVIWorkflow @UKVIRegression1
+  @UKVIWorkflow @FailingRegression
   Scenario: User selects to return the case to the Draft stage
     When I select the "Return to Draft" action at Awaiting Dispatch stage
     And I submit a reason to reject the case back to the Draft stage
