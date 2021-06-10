@@ -297,7 +297,7 @@ public class Search extends BasePage {
                 caseReferenceTextField.sendKeys(value);
                 setSessionVariable("searchCaseReference").to(value);
                 break;
-            case "COMPLAINANT HOME OFFiCE REFERENCE":
+            case "COMPLAINANT HOME OFFICE REFERENCE":
                 complainantHomeOfficeReferenceTextField.sendKeys(value);
                 setSessionVariable("searchComplainantHomeOfficeReference").to(value);
                 break;
@@ -542,6 +542,7 @@ public class Search extends BasePage {
 
     public void assertCOMPInformationRandomSearchResult(String criteria) {
         WebElementFacade cell = null;
+        String displayedValue;
         String expectedValue = null;
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
@@ -565,12 +566,24 @@ public class Search extends BasePage {
                 break;
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
+                if (!unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    safeClickOn(summaryTab.summaryTab);
+                    WebElementFacade assignedTeamCell = findBy("//th[text()='Team']/following-sibling::td");
+                    String assignedTeam = assignedTeamCell.getText();
+                    goToDECSDashboard();
+                    WebElementFacade teamWorkstack = findBy("//span[text()='" + assignedTeam + "']");
+                    safeClickOn(teamWorkstack);
+                    workstacks.unallocateSelectedCase(randomSearchResult);
+                    WebElementFacade caseHypertext = findBy("//a[text()='" + randomSearchResult + "']");
+                    safeClickOn(caseHypertext);
+                }
                 safeClickOn(accordionCOMP.registrationAccordionButton);
                 cell = accordionCOMP.complainantDateOfBirth;
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
                 cell = randomSearchResultHypertext;
+                expectedValue = sessionVariableCalled("searchCaseReference");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
@@ -579,7 +592,11 @@ public class Search extends BasePage {
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        String displayedValue = cell.getText();
+        if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText().split(": ")[1];
+        } else {
+            displayedValue = cell.getText();
+        }
         assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
