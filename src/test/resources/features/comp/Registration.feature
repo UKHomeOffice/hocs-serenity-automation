@@ -17,6 +17,7 @@ Feature: Registration
     And I select a Owning CSU
     When I click the "Continue" button
     Then the case should be moved to the "Service Triage" stage
+    And the summary should display the owning team as "CCT Stage 1 Triage Team"
 
   @COMPRegression
   Scenario: User must add a Complainant type correspondent

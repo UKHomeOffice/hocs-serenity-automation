@@ -497,5 +497,10 @@ public class BaseStepDefs extends BasePage {
     public void accessibilityStatementLinkShouldBeVisible() {
         assertVisibilityOfAccessibilityLink();
     }
+
+    @And("the summary should display the owning team as {string}")
+    public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
+        summaryTab.assertSummaryContainsExpectedContentForGivenHeader("Team", teamName);
+    }
 }
 
