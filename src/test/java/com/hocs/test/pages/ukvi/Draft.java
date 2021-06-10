@@ -33,9 +33,6 @@ public class Draft extends BasePage {
     @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade putOnHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Save changes']")
-    public WebElementFacade saveChangesRadioButton;
-
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
@@ -77,17 +74,18 @@ public class Draft extends BasePage {
 
     public void moveCaseFromDraftToQA() {
         safeClickOn(moveToQARadioButton);
+        setSessionVariable("action").to("Move to QA");
         safeClickOn(confirmButton);
     }
 
     public void moveBRefCaseFromDraftToDispatch() {
-        selectResponseChannel("Email");
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);
     }
 
     public void selectEscalateDraftCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        setSessionVariable("action").to("Escalate to workflow manager");
         safeClickOn(confirmButton);
     }
 
@@ -99,6 +97,7 @@ public class Draft extends BasePage {
 
     public void putCaseOnHold() {
         safeClickOn(putOnHoldRadioButton);
+        setSessionVariable("action").to("Put on hold");
         safeClickOn(confirmButton);
     }
 
@@ -117,26 +116,6 @@ public class Draft extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void selectResponseChannel(String outboundChannel) {
-        switch (outboundChannel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(responseChannelEmailRadioButton);
-                break;
-            case "LETTER":
-                safeClickOn(responseChannelLetterRadioButton);
-                break;
-            case "PHONE":
-                safeClickOn(responseChannelPhoneRadioButton);
-                break;
-            case "OUTREACH":
-                safeClickOn(responseChannelOutreachRadioButton);
-                break;
-            default:
-                pendingStep(outboundChannel + " is not defined within " + getMethodName());
-        }
-        setSessionVariable("responseChannel").to(outboundChannel);
-    }
-
     public void sendDraftCaseBackToTriage() {
         safeClickOn(returnToTriageRadioButton);
         safeClickOn(confirmButton);
@@ -148,9 +127,5 @@ public class Draft extends BasePage {
 
     public void assertActionsRequiredErrorMessageDisplayed() {
         assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertResponseChannelRequiredErrorMessageDisplayed() {
-        assertThat(responseChannelRequiredErrorMessage.isVisible(), is(true));
     }
 }

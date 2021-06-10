@@ -29,9 +29,6 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Save changes']")
-    public WebElementFacade saveChangesRadioButton;
-
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
@@ -92,6 +89,7 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(readyToDraftRadioButton);
+        setSessionVariable("action").to("Ready to draft");
         safeClickOn(confirmButton);
     }
 
@@ -110,12 +108,14 @@ public class Triage extends BasePage {
     }
 
     public void setBusinessUnit() {
+        businessUnitDropdown.waitUntilEnabled();
         businessUnitDropdown.selectByIndex(1);
         setSessionVariable("businessUnit").to(businessUnitDropdown.getValue());
     }
 
     public void putTriageCaseOnHold() {
         safeClickOn(onHoldRadioButton);
+        setSessionVariable("action").to("Put on hold");
         safeClickOn(confirmButton);
     }
 
@@ -126,6 +126,7 @@ public class Triage extends BasePage {
 
     public void selectEscalateTriageCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
+        setSessionVariable("action").to("Escalate to workflow manager");
         safeClickOn(confirmButton);
     }
 

@@ -174,21 +174,17 @@ public class Dashboard extends BasePage {
     }
 
     public void assertCaseIsClosedViaLoadCase() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().clear();
-        String thisCaseId = sessionVariableCalled("caseReference").toString();
-        caseReferenceSearchBar.sendKeys(thisCaseId);
-        caseReferenceSearchBar.sendKeys(Keys.RETURN);
-        unallocatedCaseView.caseDetailsHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        getCurrentCase();
         unallocatedCaseView.assertCaseCannotBeAssigned();
         System.out.println("The case is closed");
     }
 
     public void getCurrentCase() {
         try {
-            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         } catch (NoSuchElementException e) {
             goToDECSDashboard();
-            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         }
         String currentCase = sessionVariableCalled("caseReference").toString();
         try {
@@ -200,7 +196,7 @@ public class Dashboard extends BasePage {
             caseReferenceSearchBar.sendKeys(currentCase);
             caseReferenceSearchBar.sendKeys(Keys.RETURN);
         }
-        documentsTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        documentsTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void claimCurrentCase() {
