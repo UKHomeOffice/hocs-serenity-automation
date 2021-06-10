@@ -227,7 +227,7 @@ public class Workstacks extends BasePage {
         String highestPriorityDays = getNthCasesDays(n);
         if (totalOfCases > 1) {
             n++;
-            while (getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
+            while (n <= totalOfCases && getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
                 if (getNthCasesOwner(n).equals("")) {
                     caseReferencesList.add(getNthCasesReference(n));
                 }
@@ -716,6 +716,7 @@ public class Workstacks extends BasePage {
     public void assertRejectedFieldOfCurrentCase() {
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
+        waitFor(rejectedStageField).withTimeoutOf(Duration.ofSeconds(30));
         assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
     }
 

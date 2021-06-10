@@ -119,11 +119,6 @@ public class DispatchStagesStepDefs extends BasePage {
         safeClickOn(dispatchStages.confirmAndCloseCaseButton);
     }
 
-    @Then("I can see the previous selected response channel is still selected")
-    public void iCanSeeThePreviousSelectedResponseChannelIsSelected() {
-        dispatchStages.assertThatResponseChannelIsPreSelected();
-    }
-
     @And("the follow-up due date should be visible in the summary")
     public void theFollowUpDueDateShouldBeVisibleInTheSummary() {
         summaryTab.assertFollowUpDueDateVisible();
@@ -154,5 +149,10 @@ public class DispatchStagesStepDefs extends BasePage {
     @And("I submit a reason to reject the case back to the Draft stage")
     public void iSubmitAReasonToRejectTheCaseBackToTheDraftStage() {
         dispatchStages.submitReasonToReturnToDraft("Test return to draft at Awaiting Dispatch");
+    }
+
+    @And("I select a response channel")
+    public void iSelectAResponseChannel() {
+        dispatchStages.selectAResponseChannel();
     }
 }

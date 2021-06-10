@@ -108,6 +108,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
 
+    @FindBy(xpath = "//label[text()='Save changes']")
+    public WebElementFacade saveChangesRadioButton;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -162,7 +165,7 @@ public class BasePage extends PageObject {
     }
 
     public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void goToMUIDashboard() {

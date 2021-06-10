@@ -9,16 +9,14 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @UKVIRegression1
   Scenario: User enters a date of dispatch and closes the case
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched, close case" action at Awaiting Dispatch stage
     Then the case should be closed
-
-  @UKVIRegression1
-  Scenario: User can see which response channel was selected at Draft stage
-    Then I can see the previous selected response channel is still selected
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User selects that the case requires follow-up actions after being dispatched
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -31,6 +29,7 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @UKVIRegression1
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I enter a dispatched date
+    And I select a response channel
     When I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -41,6 +40,7 @@ Feature: Awaiting Dispatch
   @UKVIWorkflow @UKVIRegression1
   Scenario: User selects to close the case without completing follow-up action
     And I enter a dispatched date
+    And I select a response channel
     And I select the "Dispatched (follow-up)" action at Awaiting Dispatch stage
     And I enter a follow-up date
     And I enter follow-up details and confirm
@@ -72,7 +72,7 @@ Feature: Awaiting Dispatch
       | Follow-up Details Required              |
       | Follow-up Not Completed Reason Required |
 
-  @Campaigns
+  @Campaigns @UKVIRegression1
   Scenario: User moves a case into a Campaign from the Awaiting Dispatch stage
     When I move the case into a Campaign from the "Awaiting Dispatch" stage
     And I load the current case

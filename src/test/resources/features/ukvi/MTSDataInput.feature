@@ -6,15 +6,11 @@ Feature: MTS Data Input
     And I create a single "MTS" case and return to the dashboard
     And I load and claim the current case
 
-  @UKVIRegression1 @SmokeTests
+  @UKVIRegression @SmokeTests
   Scenario: The user is able to complete and close an MTS Case
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
-
-  @UKVIRegression1
-  Scenario: The user is able to put an MTS Case On Hold
-    And I put the MTS case on hold
-    Then the case should be moved to the "On Hold" stage
+    And the support note should be visible in the summary
 
   @Validation
   Scenario: User triggers all error messages at the MTS Data Input stage
@@ -33,6 +29,5 @@ Feature: MTS Data Input
     | Channel Received      |
     | Enquiry Subject       |
     | Enquiry Reason        |
+    | Note to support case  |
     | Business Area         |
-    | Date of Surgery       |
-    | Actions               |

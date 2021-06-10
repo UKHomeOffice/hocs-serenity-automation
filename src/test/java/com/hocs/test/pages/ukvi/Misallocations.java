@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -50,13 +51,13 @@ public class Misallocations extends BasePage {
     public WebElementFacade confirmRadioButton;
 
     public void transferCaseFromStageTo(String stage, String transferTo) {
-        if (stage.toUpperCase().equals("TRIAGE") || stage.toUpperCase().equals("DRAFT")) {
+        if (stage.toUpperCase().equals("TRIAGE") || stage.equalsIgnoreCase("DRAFT")) {
             accordionMPAM.openCaseDetailsAccordion();
             safeClickOn(triage.changeBusinessAreaLink);
             waitABit(1000);
         }
         creation.selectBusinessArea("Transfer to " + transferTo);
-        if (transferTo.toUpperCase().equals("OGD")) {
+        if (transferTo.equalsIgnoreCase("OGD")) {
             reasonForTransferToOGDTextField.sendKeys("Test - Transfer to OGD reason");
             setSessionVariable("inputReasonForTransfer").to("Test - Transfer to OGD reason");
         } else if (transferTo.toUpperCase().equals("OTHER")) {
@@ -89,19 +90,21 @@ public class Misallocations extends BasePage {
     }
 
     public void selectActionAtTransferStage(String action) {
+        WebElementFacade radioButton = null;
         switch (action.toUpperCase()) {
             case "SAVE DEADLINE FOR TRANSFER":
-                safeClickOn(saveDeadlineForTransferRadioButton);
+                radioButton = saveDeadlineForTransferRadioButton;
                 break;
             case "TRANSFER ACCEPTED (CLOSE CASE)":
-                safeClickOn(transferAcceptedCloseCaseRadioButton);
+                radioButton = transferAcceptedCloseCaseRadioButton;
                 break;
             case "TRANSFER REJECTED (MOVE TO TRIAGE)":
-                safeClickOn(transferRejectedMoveToTriageRadioButton);
+                radioButton = transferRejectedMoveToTriageRadioButton;
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        radioButton.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(30)).click();
         safeClickOn(confirmButton);
     }
 
