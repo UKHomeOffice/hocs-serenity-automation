@@ -4,7 +4,7 @@ Feature: MPAM Case Details Accordion
   Background:
     Given I am logged into "DECS" as user "UKVI_USER"
 
-  @FailingRegression
+  @UKVIRegression
   Scenario Outline: User completes a stage and checks that the information entered is correct in the case details accordion
     And I create a "MPAM" case and move it to the "<stage>" stage
     And I load the current case
