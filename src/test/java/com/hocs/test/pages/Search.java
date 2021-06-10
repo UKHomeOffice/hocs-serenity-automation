@@ -115,9 +115,6 @@ public class Search extends BasePage {
     @FindBy(id = "correspondentNameNotMember")
     public WebElementFacade applicantOrConstituentFullNameTextField;
 
-    @FindBy(id = "OfficialEngagement")
-    public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
-
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -238,10 +235,6 @@ public class Search extends BasePage {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
-                break;
-            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                telephoneSurgeryOfficialEngagementDropdown.selectByVisibleText(value);
-                setSessionVariable("searchTelephoneSurgeryOfficialEngagement").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -471,11 +464,6 @@ public class Search extends BasePage {
                 if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
                     assertThat(!activeCases.isEmpty(), is(true));
                 }
-                break;
-            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                safeClickOn(randomSearchResult);
-                safeClickOn(summaryTab.summaryTab);
-                summaryTab.telephoneSurgeryOfficialEngagement.shouldContainText(sessionVariableCalled("searchTelephoneSurgeryOfficialEngagement"));
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
