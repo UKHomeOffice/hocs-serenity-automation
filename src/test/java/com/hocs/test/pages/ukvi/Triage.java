@@ -108,6 +108,7 @@ public class Triage extends BasePage {
     }
 
     public void setBusinessUnit() {
+        businessUnitDropdown.waitUntilEnabled();
         businessUnitDropdown.selectByIndex(1);
         setSessionVariable("businessUnit").to(businessUnitDropdown.getValue());
     }
