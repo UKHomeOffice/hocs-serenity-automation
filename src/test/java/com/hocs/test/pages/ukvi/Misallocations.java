@@ -51,13 +51,13 @@ public class Misallocations extends BasePage {
     public WebElementFacade confirmRadioButton;
 
     public void transferCaseFromStageTo(String stage, String transferTo) {
-        if (stage.toUpperCase().equals("TRIAGE") || stage.toUpperCase().equals("DRAFT")) {
+        if (stage.toUpperCase().equals("TRIAGE") || stage.equalsIgnoreCase("DRAFT")) {
             accordionMPAM.openCaseDetailsAccordion();
             safeClickOn(triage.changeBusinessAreaLink);
             waitABit(1000);
         }
         creation.selectBusinessArea("Transfer to " + transferTo);
-        if (transferTo.toUpperCase().equals("OGD")) {
+        if (transferTo.equalsIgnoreCase("OGD")) {
             reasonForTransferToOGDTextField.sendKeys("Test - Transfer to OGD reason");
             setSessionVariable("inputReasonForTransfer").to("Test - Transfer to OGD reason");
         } else if (transferTo.toUpperCase().equals("OTHER")) {

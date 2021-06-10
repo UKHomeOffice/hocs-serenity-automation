@@ -165,7 +165,7 @@ public class BasePage extends PageObject {
     }
 
     public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void goToMUIDashboard() {
