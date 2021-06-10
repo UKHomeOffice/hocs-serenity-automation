@@ -20,8 +20,8 @@ Feature: Service Escalated
 
   Scenario Outline: User can add and complete or close contributions as part of Service Escalated stage
     And I add a "<contributionType>" contribution
-    And I "action" the "contributionType" contribution
-    Then the "contributionType" contribution should be marked as "action"
+    And I "<action>" the "contributionType" contribution
+    Then the "contributionType" contribution should be marked as "<action>"
     Examples:
       | contributionType         | action   |
       | Complainant contribution | Complete |

@@ -49,8 +49,8 @@ Feature: Service Triage
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I add a "<contributionType>" contribution
-    And I "action" the "contributionType" contribution
-    Then the "contributionType" contribution should be marked as "action"
+    And I "<action>" the "contributionType" contribution
+    Then the "contributionType" contribution should be marked as "<action>"
     Examples:
       | contributionType         | action   |
       | Complainant contribution | Complete |
@@ -58,18 +58,18 @@ Feature: Service Triage
       | Complainant contribution | Complete |
       | Business contribution    | Close    |
 
-    Scenario: USer can tell if a contribution is overdue on the Triage Contributions page
-      When I accept the case at Service Triage stage
-      And I click the "Continue" button
-      And I enter details on the Triage Capture Reason page
-      And I add a contribution with a due date in the past
-      Then the contributions due date should be highlighted
+  Scenario: USer can tell if a contribution is overdue on the Triage Contributions page
+    When I accept the case at Service Triage stage
+    And I click the "Continue" button
+    And I enter details on the Triage Capture Reason page
+    And I add a contribution with a due date in the past
+    Then the contributions due date should be highlighted
 
-      Scenario: User can select that a Letter of Authority is required for this complaint
-        When I accept the case at Service Triage stage
-        And I click the "Continue" button
-        And I select that a Letter of Authority is required
-        Then I can mark that the LoA was received and enter the LoA date
+  Scenario: User can select that a Letter of Authority is required for this complaint
+    When I accept the case at Service Triage stage
+    And I click the "Continue" button
+    And I select that a Letter of Authority is required
+    Then I can mark that the LoA was received and enter the LoA date
 
 
 
