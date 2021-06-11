@@ -110,7 +110,7 @@ public class DispatchStages extends BasePage {
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
-        safeClickOn(responseChannelEmailRadioButton);
+        selectAResponseChannel();
         safeClickOn(dispatchedRadioButtonAtPrivateOffice);
         safeClickOn(confirmButton);
         inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
@@ -118,6 +118,7 @@ public class DispatchStages extends BasePage {
     }
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {
+        selectAResponseChannel();
         inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchedRadioButtonAtDispatch);
         safeClickOn(confirmButton);
