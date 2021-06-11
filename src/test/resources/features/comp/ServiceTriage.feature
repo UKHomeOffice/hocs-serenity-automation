@@ -58,7 +58,7 @@ Feature: Service Triage
       | Complainant contribution | Complete |
       | Business contribution    | Close    |
 
-  Scenario: USer can tell if a contribution is overdue on the Triage Contributions page
+  Scenario: User can tell if a contribution is overdue on the Triage Contributions page
     When I accept the case at Service Triage stage
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page

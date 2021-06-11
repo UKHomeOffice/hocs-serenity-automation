@@ -13,6 +13,7 @@ import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.comp.ServiceDraft;
 import com.hocs.test.pages.comp.ServiceQA;
 import com.hocs.test.pages.comp.ServiceSend;
+import com.hocs.test.pages.comp.ServiceTriage;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -60,6 +61,8 @@ public class EndToEndStepDefs extends BasePage {
     Workdays workdays;
 
     Registration registration;
+
+    ServiceTriage serviceTriage;
 
     ServiceDraft serviceDraft;
 
