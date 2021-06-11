@@ -172,7 +172,7 @@ public class EndToEndStepDefs extends BasePage {
         waitForDashboard();
     }
 
-    @And("I create a {string} case and move it to the {string} stage")
+    @And("I create a {string} case and move it to (the ){string}( stage)")
     public void iCreateACaseAndMoveItToAStage(String caseType, String stage) {
         switch (caseType.toUpperCase()) {
             case "MIN":
