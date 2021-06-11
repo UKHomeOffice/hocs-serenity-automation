@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.comp.AccordionCOMP;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,8 @@ public class Search extends BasePage {
     SummaryTab summaryTab;
 
     AccordionMPAM accordionMPAM;
+
+    AccordionCOMP accordionCOMP;
 
     UnallocatedCaseView unallocatedCaseView;
 
@@ -294,7 +297,7 @@ public class Search extends BasePage {
                 caseReferenceTextField.sendKeys(value);
                 setSessionVariable("searchCaseReference").to(value);
                 break;
-            case "COMPLAINANT HOME OFFiCE REFERENCE":
+            case "COMPLAINANT HOME OFFICE REFERENCE":
                 complainantHomeOfficeReferenceTextField.sendKeys(value);
                 setSessionVariable("searchComplainantHomeOfficeReference").to(value);
                 break;
@@ -538,32 +541,63 @@ public class Search extends BasePage {
     }
 
     public void assertCOMPInformationRandomSearchResult(String criteria) {
+        WebElementFacade cell = null;
+        String displayedValue;
+        String expectedValue = null;
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
-        WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
-        setSessionVariable("randomCaseRef").to(randomSearchResult.getText());
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        setSessionVariable("randomCaseRef").to(randomSearchResult);
         switch (criteria.toUpperCase()) {
             case "CORRESPONDENT FULL NAME":
-
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentFullName");
                 break;
             case "CORRESPONDENT POSTCODE":
-
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
-
+                safeClickOn(randomSearchResultHypertext);
+                safeClickOn(peopleTab.peopleTab);
+                cell = findBy("//th[text()='Email address']/following-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-
+                safeClickOn(randomSearchResultHypertext);
+                if (!unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    safeClickOn(summaryTab.summaryTab);
+                    WebElementFacade assignedTeamCell = findBy("//th[text()='Team']/following-sibling::td");
+                    String assignedTeam = assignedTeamCell.getText();
+                    goToDECSDashboard();
+                    WebElementFacade teamWorkstack = findBy("//span[text()='" + assignedTeam + "']");
+                    safeClickOn(teamWorkstack);
+                    workstacks.unallocateSelectedCase(randomSearchResult);
+                    WebElementFacade caseHypertext = findBy("//a[text()='" + randomSearchResult + "']");
+                    safeClickOn(caseHypertext);
+                }
+                safeClickOn(accordionCOMP.registrationAccordionButton);
+                cell = accordionCOMP.complainantDateOfBirth;
+                expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
-
+                cell = randomSearchResultHypertext;
+                expectedValue = sessionVariableCalled("searchCaseReference");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
+        if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText().split(": ")[1];
+        } else {
+            displayedValue = cell.getText();
+        }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void waitForResultsPage() {

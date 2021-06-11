@@ -174,4 +174,19 @@ public class SearchStepDefs extends BasePage {
         assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
+    @And("I enter {string} into the {string} COMP search criteria")
+    public void iEnterIntoTheCompSearchCriteria(String value, String criteria) {
+        search.enterCOMPSearchCriteria(criteria, value);
+    }
+
+    @And("I search for the COMP case by its case reference")
+    public void iSearchForTheCaseByItsCaseReference() {
+        search.enterCOMPSearchCriteria("Case Reference", sessionVariableCalled("caseReference"));
+        safeClickOn(searchButton);
+    }
+
+    @Then("I check that the COMP search results have the correct {string}")
+    public void theCOMPSearchResultsHaveTheCorrect(String criteria) {
+        search.assertCOMPInformationRandomSearchResult(criteria);
+    }
 }

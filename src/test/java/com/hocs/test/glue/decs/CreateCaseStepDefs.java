@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.CreateCase_SuccessPage;
@@ -13,6 +14,8 @@ import com.hocs.test.pages.Documents;
 import com.hocs.test.pages.SummaryTab;
 import com.hocs.test.pages.UnallocatedCaseView;
 import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.comp.AccordionCOMP;
+import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
@@ -27,6 +30,8 @@ import io.cucumber.java.en.When;
 import java.text.ParseException;
 
 public class CreateCaseStepDefs extends BasePage {
+
+    AccordionCOMP accordionCOMP;
 
     Documents documents;
 
@@ -53,6 +58,10 @@ public class CreateCaseStepDefs extends BasePage {
     Creation creation;
 
     SummaryTab summaryTab;
+
+    Registration registration;
+
+    AddCorrespondent addCorrespondent;
 
     @When("I create a single {string} case")
     public void createNewCase(String caseType) {
@@ -399,6 +408,56 @@ public class CreateCaseStepDefs extends BasePage {
                         goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
                         mtsDataInput.completeDataInputStageAndCloseMTSCase();
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "COMP":
+                switch (infoType.toUpperCase()) {
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                        createCase.createCaseOfType("COMP");
+                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+                        safeClickOn(continueButton);
+                        break;
+                    case "COMPLAINANT DATE OF BIRTH":
+                        createCase.createCaseOfType("COMP");
+                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+                        safeClickOn(continueButton);
+                        registration.enterComplainantDOB("01/01/2001");
+                        registration.selectAGender();
+                        registration.enterACompanyName(generateRandomString());
+                        registration.enterAHomeOfficeReference("Test HO Ref");
+                        registration.enterAPortReference(generateRandomString());
+                        safeClickOn(continueButton);
+                        registration.selectComplaintType("Service");
+                        safeClickOn(continueButton);
+                        registration.selectAChannel();
+                        registration.selectASeverity();
+                        safeClickOn(continueButton);
+                        safeClickOn(accordionCOMP.serviceAccordionButton);
+                        safeClickOn(accordionCOMP.delayCheckbox);
+                        registration.selectAnOwningCSU();
+                        safeClickOn(finishButton);
+                        break;
+                    case "CASE REFERENCE":
+                        createCase.createCaseOfType("COMP");
+                        break;
+                    case "COMPLAINANT HOME OFFICE REFERENCE":
+                        createCase.createCaseOfType("COMP");
+                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+                        safeClickOn(continueButton);
+                        registration.enterComplainantDOB("01/01/2001");
+                        registration.selectAGender();
+                        registration.enterACompanyName(generateRandomString());
+                        registration.enterAHomeOfficeReference("Test HO Ref");
+                        registration.enterAPortReference(generateRandomString());
+                        safeClickOn(continueButton);
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());
