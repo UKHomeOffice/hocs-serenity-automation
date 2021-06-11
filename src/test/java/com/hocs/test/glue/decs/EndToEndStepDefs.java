@@ -10,6 +10,7 @@ import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workdays;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.comp.ServiceDraft;
+import com.hocs.test.pages.comp.ServiceQA;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -59,6 +60,8 @@ public class EndToEndStepDefs extends BasePage {
     Registration registration;
 
     ServiceDraft serviceDraft;
+
+    ServiceQA serviceQA;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -142,7 +145,7 @@ public class EndToEndStepDefs extends BasePage {
                         serviceDraft.moveCaseFromServiceDraftToServiceQA();
                         break;
                     case "SERVICE QA":
-                        serviceQA.moveCaseFromServiceDraftToServiceQA();
+                        serviceQA.moveCaseFromServiceQAToServiceSend();
                         break;
                     case "SERVICE SEND":
                         serviceSend.moveCaseFromServiceSendToComplaintClosed();

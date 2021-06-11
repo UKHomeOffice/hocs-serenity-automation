@@ -28,5 +28,4 @@ public class ServiceDraft extends BasePage {
         safeClickOn(sendCaseToQARadioButton);
         safeClickOn(continueButton);
     }
-
 }
