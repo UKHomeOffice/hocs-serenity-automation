@@ -59,4 +59,34 @@ public class ServiceTriage extends BasePage {
 
     @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
+
+    public void moveCaseFromServiceTriageToServiceDraft() {
+        safeClickOn(acceptTheComplaintRadioButton);
+        safeClickOn(continueButton);
+        safeClickOn(continueButton);
+        businessAreaDropdown.selectByVisibleText("Asylum");
+        enquiryReasonDropdown.selectByVisibleText("Accommodation");
+        safeClickOn(loaRequiredYesRadioButton);
+        safeClickOn(readyForDraftingRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void moveCaseFromServiceTriageToServiceEscalated() {
+        safeClickOn(acceptTheComplaintRadioButton);
+        safeClickOn(continueButton);
+        safeClickOn(continueButton);
+        businessAreaDropdown.selectByVisibleText("Asylum");
+        enquiryReasonDropdown.selectByVisibleText("Accommodation");
+        safeClickOn(loaRequiredYesRadioButton);
+        safeClickOn(escalateToWFMRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void moveCaseFromServiceTriageToCCH() {
+        safeClickOn(transferTheComplaintRadioButton);
+        safeClickOn(continueButton);
+        transferReasonTextArea.sendKeys("Test Transfer Reason");
+        safeClickOn(transferToCCHRadioButton);
+        safeClickOn(continueButton);
+    }
 }
