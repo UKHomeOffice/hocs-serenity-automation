@@ -31,7 +31,7 @@ Feature: Misallocations
     And I complete the required fields for Triage and move the case to Triage
     Then the case should be moved to the "Triage" stage
 
-  @FailingRegression @UKVIWorkflow
+  @UKVIRegression @UKVIWorkflow
   Scenario: User is able to close a case from the Awaiting Transfer stage
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
