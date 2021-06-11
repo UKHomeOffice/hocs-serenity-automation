@@ -8,6 +8,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workdays;
+import com.hocs.test.pages.comp.ComplaintClosed;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.comp.ServiceDraft;
 import com.hocs.test.pages.comp.ServiceQA;
@@ -65,6 +66,8 @@ public class EndToEndStepDefs extends BasePage {
     ServiceQA serviceQA;
 
     ServiceSend serviceSend;
+
+    ComplaintClosed complaintClosed;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
