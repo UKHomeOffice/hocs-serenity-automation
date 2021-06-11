@@ -118,6 +118,30 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "COMP":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION":
+
+                        break;
+                    case "SERVICE TRIAGE":
+
+                        break;
+                    case "SERVICE DRAFT":
+
+                        break;
+                    case "SERVICE QA":
+
+                        break;
+                    case "SERVICE SEND":
+
+                        break;
+                    case "COMPLAINT CLOSED":
+
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -290,6 +314,45 @@ public class EndToEndStepDefs extends BasePage {
             case "MTS":
                 createCase.createCaseOfType(caseType);
                 goToDECSDashboard();
+                break;
+            case "COMP":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION":
+                        createCase.createCaseOfType(caseType);
+                        goToDECSDashboard();
+                        break;
+                    case "SERVICE TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO SERVICE TRIAGE)");
+                        break;
+                    case "SERVICE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE DRAFT)");
+                        break;
+                    case "SERVICE ESCALATED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE ");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
+                        break;
+                    case "CCH":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE ");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
+                        break;
+                    case "SERIVCE QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE DRAFT");
+                        iCompleteTheStage("SERVICE DRAFT");
+                        break;
+                    case "SERVICE SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE QA");
+                        iCompleteTheStage("SERVICE QA");
+                        break;
+                    case "COMPLAINT CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE SEND");
+                        iCompleteTheStage("SERVICE SEND");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
