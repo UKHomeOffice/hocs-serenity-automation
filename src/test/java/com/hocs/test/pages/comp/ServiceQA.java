@@ -17,4 +17,8 @@ public class ServiceQA extends BasePage {
         safeClickOn(continueButton);
     }
 
+    public void moveCaseFromServiceQAToServiceDraft() {
+        safeClickOn(returnResponseToDraftRadioButton);
+        safeClickOn(continueButton);
+    }
 }
