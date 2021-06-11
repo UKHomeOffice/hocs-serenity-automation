@@ -354,14 +354,14 @@ public class EndToEndStepDefs extends BasePage {
                         iCompleteTheStage("SERVICE TRIAGE (TO SERVICE DRAFT)");
                         break;
                     case "SERVICE ESCALATED":
-                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE ");
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
                         iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
                         break;
                     case "CCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE ");
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
                         iCompleteTheStage("SERVICE TRIAGE (TO CCH)");
                         break;
-                    case "SERIVCE QA":
+                    case "SERVICE QA":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE DRAFT");
                         iCompleteTheStage("SERVICE DRAFT");
                         break;

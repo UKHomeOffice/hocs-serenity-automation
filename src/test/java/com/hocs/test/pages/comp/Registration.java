@@ -189,7 +189,7 @@ public class Registration extends BasePage {
         waitABit(1000);
         selectAVisibleClaimCategory();
         selectAnOwningCSU();
-        clickTheButton("Continue");
+        safeClickOn(finishButton);
     }
 
     public void enterComplainantDOB(String complainantDOB) {

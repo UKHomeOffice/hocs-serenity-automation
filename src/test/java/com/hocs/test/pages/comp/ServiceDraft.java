@@ -25,6 +25,7 @@ public class ServiceDraft extends BasePage {
         safeClickOn(addADocumentHypertext);
         documents.documentTypeDropDown.selectByVisibleText("DRAFT");
         documents.uploadDocumentOfType("docx");
+        safeClickOn(addButton);
         safeClickOn(sendCaseToQARadioButton);
         safeClickOn(continueButton);
     }

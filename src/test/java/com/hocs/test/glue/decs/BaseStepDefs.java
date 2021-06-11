@@ -281,7 +281,7 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @Then("the case should be moved to the {string} stage")
+    @Then("the case should be moved to (the ){string}( stage)")
     public void assertCaseTypeReturnedToStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {

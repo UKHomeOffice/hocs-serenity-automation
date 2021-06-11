@@ -57,16 +57,24 @@ public class ServiceTriage extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate case to WFM']")
     public WebElementFacade escalateToWFMRadioButton;
 
+    @FindBy(id = "CaseNote_TriageEscalate")
+    public WebElementFacade reasonForEscalationTextField;
+
+    @FindBy(xpath = "//input[@value='Escalate case']")
+    public WebElementFacade escalateCaseButton;
+
     @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
 
     public void moveCaseFromServiceTriageToServiceDraft() {
         safeClickOn(acceptTheComplaintRadioButton);
         safeClickOn(continueButton);
+        waitABit(1000);
         safeClickOn(continueButton);
         businessAreaDropdown.selectByVisibleText("Asylum");
         enquiryReasonDropdown.selectByVisibleText("Accommodation");
         safeClickOn(loaRequiredYesRadioButton);
+        safeClickOn(continueButton);
         safeClickOn(readyForDraftingRadioButton);
         safeClickOn(continueButton);
     }
@@ -74,12 +82,16 @@ public class ServiceTriage extends BasePage {
     public void moveCaseFromServiceTriageToServiceEscalated() {
         safeClickOn(acceptTheComplaintRadioButton);
         safeClickOn(continueButton);
+        waitABit(1000);
         safeClickOn(continueButton);
         businessAreaDropdown.selectByVisibleText("Asylum");
         enquiryReasonDropdown.selectByVisibleText("Accommodation");
         safeClickOn(loaRequiredYesRadioButton);
+        safeClickOn(continueButton);
         safeClickOn(escalateToWFMRadioButton);
         safeClickOn(continueButton);
+        reasonForEscalationTextField.sendKeys("Test Escalation Reason");
+        safeClickOn(escalateCaseButton);
     }
 
     public void moveCaseFromServiceTriageToCCH() {
