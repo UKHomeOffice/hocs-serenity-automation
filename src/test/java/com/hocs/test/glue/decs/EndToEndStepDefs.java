@@ -11,6 +11,7 @@ import com.hocs.test.pages.Workdays;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.comp.ServiceDraft;
 import com.hocs.test.pages.comp.ServiceQA;
+import com.hocs.test.pages.comp.ServiceSend;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -62,6 +63,8 @@ public class EndToEndStepDefs extends BasePage {
     ServiceDraft serviceDraft;
 
     ServiceQA serviceQA;
+
+    ServiceSend serviceSend;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
