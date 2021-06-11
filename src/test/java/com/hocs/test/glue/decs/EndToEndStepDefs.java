@@ -8,6 +8,7 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workdays;
+import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -53,6 +54,8 @@ public class EndToEndStepDefs extends BasePage {
     DispatchStages dispatchStages;
 
     Workdays workdays;
+
+    Registration registration;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -120,23 +123,29 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
-                    case "REGISTRATION":
-
+                    case "REGISTRATION (TO SERVICE TRIAGE)":
+                        registration.moveCaseFromRegistrationToServiceTriage();
                         break;
-                    case "SERVICE TRIAGE":
-
+                    case "SERVICE TRIAGE (TO SERVICE DRAFT)":
+                        serviceTriage.moveCaseFromServiceTriageToServiceDraft();
+                        break;
+                    case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
+                        serviceTriage.moveCaseFromServiceTriageToServiceEscalated();
+                        break;
+                    case "SERVICE TRIAGE (TO CCH)":
+                        serviceTriage.moveCaseFromServiceTriageToCCH();
                         break;
                     case "SERVICE DRAFT":
-
+                        serviceDraft.moveCaseFromServiceDraftToServiceQA();
                         break;
                     case "SERVICE QA":
-
+                        serviceQA.moveCaseFromServiceDraftToServiceQA();
                         break;
                     case "SERVICE SEND":
-
+                        serviceSend.moveCaseFromServiceSendToComplaintClosed();
                         break;
-                    case "COMPLAINT CLOSED":
-
+                    case "COMPLAINT CLOSED (TO CASE CLOSED)":
+                        complaintClosed.moveCaseFromComplaintClosedToCaseClosed();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -335,7 +344,7 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     case "CCH":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE ");
-                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
+                        iCompleteTheStage("SERVICE TRIAGE (TO CCH)");
                         break;
                     case "SERIVCE QA":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE DRAFT");
@@ -348,6 +357,10 @@ public class EndToEndStepDefs extends BasePage {
                     case "COMPLAINT CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE SEND");
                         iCompleteTheStage("SERVICE SEND");
+                        break;
+                    case "CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED");
+                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());

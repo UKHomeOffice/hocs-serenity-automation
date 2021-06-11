@@ -160,7 +160,7 @@ public class InitialDraft extends BasePage {
             safeClickOn(finishButton);
     }
 
-    public void moveCaseFromDraftToPrivateOffice() {
+    public void moveCaseFromInitialDraftToPrivateOffice() {
         if (sessionVariableCalled("caseType").equals("DTEN")) {
             dtenAcceptAndDraftALetter();
         } else {

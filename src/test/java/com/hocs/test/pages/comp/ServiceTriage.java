@@ -59,11 +59,4 @@ public class ServiceTriage extends BasePage {
 
     @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
-
-
-
-
-
-
-
 }

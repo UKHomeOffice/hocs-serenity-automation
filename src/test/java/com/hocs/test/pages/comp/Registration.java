@@ -3,6 +3,7 @@ package com.hocs.test.pages.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Registration extends BasePage {
+
+    AddCorrespondent addCorrespondent;
 
     @FindBy(xpath = "//input[@name='ComplainantDOB-day']")
     public WebElementFacade complainantDOBDayField;
@@ -163,6 +166,31 @@ public class Registration extends BasePage {
 
     @FindBy(id = "OwningCSU")
     private WebElementFacade owningCSUDropdown;
+
+    public void moveCaseFromRegistrationToServiceTriage() {
+        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        clickTheButton("Continue");
+        enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+        selectAGender();
+        enterACompanyName(generateRandomString());
+        enterAHomeOfficeReference(generateRandomString());
+        enterAPortReference(generateRandomString());
+        clickTheButton("Continue");
+        selectComplaintType("Service");
+        clickTheButton("Continue");
+        selectAChannel();
+        enterADescriptionOfTheComplaint("Test complaint description");
+        selectASeverity();
+        selectSafeGuardingAndVulnerableIfPossible();
+        enterAPreviousUKVIComplaintReference(generateRandomString());
+        enterAThirdPartyReference(generateRandomString());
+        clickTheButton("Continue");
+        openTheServiceComplaintCategoryAccordion();
+        waitABit(1000);
+        selectAVisibleClaimCategory();
+        selectAnOwningCSU();
+        clickTheButton("Continue");
+    }
 
     public void enterComplainantDOB(String complainantDOB) {
         typeIntoDateField(complainantDOBDayField, complainantDOBMonthField, complainantDOBYearField, complainantDOB);
