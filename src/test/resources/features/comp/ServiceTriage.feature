@@ -6,6 +6,7 @@ Feature: Service Triage
     And I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
 
+#   HOCS-2944, HOCS-2868
   @COMPWorkflow @COMPRegression
   Scenario: User can transfer the case to CCH
     When I select to Transfer the case to CCH
@@ -14,6 +15,7 @@ Feature: Service Triage
     And the summary should display the owning team as "CCH Returned Cases"
     And a rejection note should be visible showing the reason for rejection
 
+#    HOCS-2979, HOCS-3074, HOCS-2868, HOCS2869, HOCS-3002, HOCS-2913
   @COMPWorkflow @COMPRegression
   Scenario: User completes the Service Triage stage
     And I accept the case at Service Triage stage
@@ -23,6 +25,7 @@ Feature: Service Triage
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
 
+#    HOCS-3028
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Service Triage stage
       And I accept the case at Service Triage stage
@@ -33,6 +36,7 @@ Feature: Service Triage
       And the summary should display the owning team as "CCT Stage 1 Escalated"
       And a escalation note should be visible showing the reason for escalation
 
+#    HCOS-3026
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at Service Triage stage
     And I accept the case at Service Triage stage
@@ -44,6 +48,7 @@ Feature: Service Triage
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
 
+#    HOCS-2870, HOCS-3096, HOCS-3022
   Scenario Outline: User can add and complete or close contributions as part of Service Triage stage
     When I accept the case at Service Triage stage
     And I click the "Continue" button
@@ -58,6 +63,7 @@ Feature: Service Triage
       | Complainant contribution | Complete |
       | Business contribution    | Close    |
 
+#    HOCS-3103
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
     When I accept the case at Service Triage stage
     And I click the "Continue" button
@@ -65,6 +71,7 @@ Feature: Service Triage
     And I add a contribution with a due date in the past
     Then the contributions due date should be highlighted
 
+#    HOCS-2979
   Scenario: User can select that a Letter of Authority is required for this complaint
     When I accept the case at Service Triage stage
     And I click the "Continue" button

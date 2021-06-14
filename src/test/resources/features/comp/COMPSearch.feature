@@ -4,6 +4,7 @@ Feature: COMP Search
   Background:
     Given I am logged into "DECS" as user "COMP_USER"
 
+#    HOCS-2838, HOCS-3036
   Scenario Outline: User tests COMP search criteria
     When I create a "COMP" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Dashboard" page
@@ -19,6 +20,7 @@ Feature: COMP Search
     | Complainant Date Of Birth         | 01/01/2001            |
     | Complainant Home Office Reference | Test HO Ref           |
 
+#    HOCS-2838
   Scenario: User can search for a COMP case by its case reference
     When I create a single "COMP" case
     And I navigate to the "Dashboard" page

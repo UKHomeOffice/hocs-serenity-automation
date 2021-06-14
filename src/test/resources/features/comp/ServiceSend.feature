@@ -6,6 +6,7 @@ Feature: Service Send
     And I create a "COMP" case and move it to the "Service Send" stage
     And I load and claim the current case
 
+#    HOCS-2722, HOCS-3076
   @COMPWorkflow @COMPRegression
   Scenario: User can complete service send stage
     When I select a Case Outcome
