@@ -38,7 +38,7 @@ public class ServiceTriageStepDefs extends BasePage {
         serviceTriage.selectReadyForDrafting();
     }
 
-    @And("I escalate the case to WFM")
+    @And("I escalate the case to WFM at Service Triage stage")
     public void iEscalateTheCaseToWFM() {
         serviceTriage.escalateCaseToWFM();
     }
