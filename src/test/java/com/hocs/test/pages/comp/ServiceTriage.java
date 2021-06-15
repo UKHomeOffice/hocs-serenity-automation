@@ -1,10 +1,16 @@
 package com.hocs.test.pages.comp;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.ukvi.MultipleContributions;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ServiceTriage extends BasePage {
+
+    MultipleContributions multipleContributions;
 
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
@@ -39,17 +45,23 @@ public class ServiceTriage extends BasePage {
     @FindBy(css = "label[for='LoaRequired-No']")
     public WebElementFacade loaRequiredNoRadioButton;
 
+    @FindBy(xpath = "//a[text()='Add complainant contribution']")
+    public WebElementFacade addComplainantContributionHypertext;
+
     @FindBy(css = "label[for='LoaReceived_Yes']")
     public WebElementFacade loaReceivedCheckbox;
 
+    @FindBy(xpath = "//a[text()='Add business contribution']")
+    public WebElementFacade addBusinessContributionHypertext;
+
     @FindBy(xpath = "//input[@name='LoaDate-day']")
-    public WebElementFacade loadReceivedDayField;
+    public WebElementFacade loaReceivedDayField;
 
     @FindBy(xpath = "//input[@name='LoaDate-month']")
-    public WebElementFacade loadReceivedMonthField;
+    public WebElementFacade loaReceivedMonthField;
 
     @FindBy(xpath = "//input[@name='LoaDate-year']")
-    public WebElementFacade loadReceivedYearField;
+    public WebElementFacade loaReceivedYearField;
 
     @FindBy(xpath = "//label[text()='All information collected - case ready for drafting']")
     public WebElementFacade readyForDraftingRadioButton;
@@ -66,39 +78,105 @@ public class ServiceTriage extends BasePage {
     @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
 
-    public void moveCaseFromServiceTriageToServiceDraft() {
+    @FindBy(id = "CaseNote_CompleteReason")
+    public WebElementFacade completionReasonTextField;
+
+    @FindBy(xpath = "//label[text()='Yes']")
+    public WebElementFacade permanentlyCloseCaseYesRadioButton;
+
+    @FindBy(xpath = "//label[text()='No']")
+    public WebElementFacade permanentlyCloseCaseNoRadioButton;
+
+    public void selectAcceptCase() {
         safeClickOn(acceptTheComplaintRadioButton);
         safeClickOn(continueButton);
-        waitABit(1000);
+        waitABit(500);
+    }
+
+    public void selectTransferComplaint() {
+        safeClickOn(transferTheComplaintRadioButton);
         safeClickOn(continueButton);
+    }
+
+    public void enterTransferReason() {
+        transferReasonTextArea.sendKeys("Test Transfer Reason");
+        setSessionVariable("rejectionReason").to("Test Transfer Reason");
+    }
+
+    public void selectTransferToCCH() {
+        safeClickOn(transferToCCHRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void enterDetailsOnTriageCaptureReasonPage() {
         businessAreaDropdown.selectByVisibleText("Asylum");
         enquiryReasonDropdown.selectByVisibleText("Accommodation");
         safeClickOn(loaRequiredYesRadioButton);
-        safeClickOn(continueButton);
+    }
+
+    public void selectLOAReceived() {
+        safeClickOn(loaReceivedCheckbox);
+        setSessionVariable("loaReceived").to("Yes");
+        typeIntoDateField(loaReceivedDayField, loaReceivedMonthField, loaReceivedYearField, "01/01/2021");
+        setSessionVariable("loaReceivedDate").to("01/01/2021");
+    }
+
+    public void selectReadyForDrafting() {
         safeClickOn(readyForDraftingRadioButton);
         safeClickOn(continueButton);
     }
 
-    public void moveCaseFromServiceTriageToServiceEscalated() {
-        safeClickOn(acceptTheComplaintRadioButton);
-        safeClickOn(continueButton);
-        waitABit(1000);
-        safeClickOn(continueButton);
-        businessAreaDropdown.selectByVisibleText("Asylum");
-        enquiryReasonDropdown.selectByVisibleText("Accommodation");
-        safeClickOn(loaRequiredYesRadioButton);
-        safeClickOn(continueButton);
+    public void escalateCaseToWFM() {
         safeClickOn(escalateToWFMRadioButton);
         safeClickOn(continueButton);
         reasonForEscalationTextField.sendKeys("Test Escalation Reason");
+        setSessionVariable("escalationReason").to("Test Escalation Reason");
         safeClickOn(escalateCaseButton);
     }
 
+    public void selectCompleteTheCase() {
+        safeClickOn(noResponseCloseCaseRadioButton);
+        safeClickOn(continueButton);
+    }
+
+    public void enterCompletionReason() {
+        completionReasonTextField.sendKeys("Test Completion Reason");
+        setSessionVariable("closureReason").to("Test Completion Reason");
+    }
+
+    public void selectPermanentlyCloseCase(String yesNo) {
+        if (yesNo.equalsIgnoreCase("Yes")) {
+            safeClickOn(permanentlyCloseCaseYesRadioButton);
+        } else if (yesNo.equalsIgnoreCase("No")) {
+            safeClickOn(permanentlyCloseCaseNoRadioButton);
+        }
+        safeClickOn(confirmButton);
+    }
+
+    public void moveCaseFromServiceTriageToServiceDraft() {
+        selectAcceptCase();
+        safeClickOn(continueButton);
+        enterDetailsOnTriageCaptureReasonPage();
+        safeClickOn(continueButton);
+        selectReadyForDrafting();
+    }
+
+    public void moveCaseFromServiceTriageToServiceEscalated() {
+        selectAcceptCase();
+        safeClickOn(continueButton);
+        enterDetailsOnTriageCaptureReasonPage();
+        safeClickOn(continueButton);
+        escalateCaseToWFM();
+    }
+
     public void moveCaseFromServiceTriageToCCH() {
-        safeClickOn(transferTheComplaintRadioButton);
-        safeClickOn(continueButton);
-        transferReasonTextArea.sendKeys("Test Transfer Reason");
-        safeClickOn(transferToCCHRadioButton);
-        safeClickOn(continueButton);
+        selectTransferComplaint();
+        enterTransferReason();
+        selectTransferToCCH();
+    }
+
+    public void assertContributionIsOverdue() {
+        WebElementFacade dueDateField = findBy("//a[text()='Edit']/parent::td/preceding-sibling::td[1]/label");
+        assertThat(dueDateField.getText().contains("Overdue"), is(true));
     }
 }

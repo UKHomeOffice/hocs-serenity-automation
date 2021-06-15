@@ -13,7 +13,7 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
-    @And("the {string} accordion in case details should display the correct information for {string}")
+    @And("the {string} MPAM accordion in case details should display the correct information for {string}")
     public void accordionInCaseDetailsDisplaysCorrectInformation(String accordion, String responseType) {
         switch (accordion.toUpperCase()) {
             case "CREATION":

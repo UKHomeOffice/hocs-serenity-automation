@@ -116,7 +116,7 @@ public class NavigationStepDefs extends BasePage {
         }
     }
 
-    @Given("I load the current case")
+    @And("I load the current case")
     public void loadCase() {
         dashboard.getCurrentCase();
     }

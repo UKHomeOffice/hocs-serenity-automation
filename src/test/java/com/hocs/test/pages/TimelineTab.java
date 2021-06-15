@@ -46,6 +46,9 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li//span[text()='Rejection note']/ancestor::p")
     public WebElementFacade rejectionNoteContents;
 
+    @FindBy(xpath = "//li//span[text()='Escalation note']/ancestor::p")
+    public WebElementFacade escalationNoteContents;
+
     @FindBy(xpath = "//li//span[text()='Case closure note']/ancestor::p")
     public WebElementFacade closureNoteContents;
 
@@ -179,6 +182,18 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String rejectionReason = sessionVariableCalled("rejectionReason");
         assertThat(rejectionNoteContents.getText().contains(rejectionReason), is(true));
+    }
+
+    public void assertEscalationNoteVisible() {
+        selectTimelineTab();
+        String escalationReason = sessionVariableCalled("escalationReason");
+        assertThat(escalationNoteContents.getText().contains(escalationReason), is(true));
+    }
+
+    public void assertClosureNoteVisible() {
+        selectTimelineTab();
+        String closureReason = sessionVariableCalled("closureReason");
+        assertThat(closureNoteContents.getText().contains(closureReason), is(true));
     }
 
     public void assertContributionRequestNoteVisible() {

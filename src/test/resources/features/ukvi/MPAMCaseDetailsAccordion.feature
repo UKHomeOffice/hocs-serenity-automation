@@ -18,7 +18,7 @@ Feature: MPAM Case Details Accordion
   Scenario Outline: User completes the creation stage and the information entered is displayed in the case details accordion
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load the current case
-    Then the "Creation" accordion in case details should display the correct information for "<infoType>"
+    Then the "Creation" MPAM accordion in case details should display the correct information for "<infoType>"
     Examples:
       | infoType              |
       | Business Area         |
@@ -31,7 +31,7 @@ Feature: MPAM Case Details Accordion
   Scenario Outline: User completes the triage stage and the information entered is displayed in the case details accordion
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load the current case
-    Then the "Triage" accordion in case details should display the correct information for "<infoType>"
+    Then the "Triage" MPAM accordion in case details should display the correct information for "<infoType>"
     Examples:
       | infoType        |
       | Enquiry Subject |
@@ -41,7 +41,7 @@ Feature: MPAM Case Details Accordion
   Scenario: User completes the draft stage and the information entered is displayed in the case details accordion
     And I create a "MPAM" case and move it to the "QA" stage
     And I load the current case
-    Then the "Draft" accordion in case details should display the correct information for "Response Channel"
+    Then the "Draft" MPAM accordion in case details should display the correct information for "Response Channel"
 
   @UKVIRegression1
   Scenario Outline: User changes the business area of the case
@@ -99,4 +99,4 @@ Feature: MPAM Case Details Accordion
     And I change the Ministerial sign off team of the case to "Paul Lincoln"
     And I complete the "Triage" stage
     And I load the current case
-    Then the "Creation" accordion in case details should display the correct information for "Ministerial Sign Off Team"
+    Then the "Creation" MPAM accordion in case details should display the correct information for "Ministerial Sign Off Team"
