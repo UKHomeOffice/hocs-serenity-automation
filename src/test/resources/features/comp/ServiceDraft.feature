@@ -8,9 +8,9 @@ Feature: Service Draft
 
 #   HOCS-3695
   @COMPWorkflow @COMPRegression
-  Scenario: User sends the case to Service Dispatch stage
+  Scenario: User sends the case to Service Send stage
     And I upload a "Draft" document
-    And I select the the case is ready to send
+    And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
 
@@ -18,11 +18,18 @@ Feature: Service Draft
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Service QA stage
     And I upload a "Draft" document
-    And I send the case to QA
+    And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Service QA" stage
     And the summary should display the owning team as "CCT Stage 1 Response QA"
 
+  @COMPWorkflow @COMPRegression
+  Scenario: User is able to escalate a case to WFM at Service Draft stage
+    And I escalate the case to WFM at Service Draft stage
+    Then the case should be moved to the "Service Escalated" stage
+    And the summary should display the owning team as "CCT Stage 1 Escalated"
+    And a escalation note should be visible showing the reason for escalation
+
 #    HOCS-3076
   Scenario: User must upload a document at Service Draft stage
-    And I select that the case is ready to send
+    And I select the "Response is ready to send" action at the Service Draft stage
     Then an error message is displayed as I have not uploaded a document

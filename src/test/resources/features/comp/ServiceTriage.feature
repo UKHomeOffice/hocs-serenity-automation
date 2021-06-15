@@ -33,7 +33,7 @@ Feature: Service Triage
       And I click the "Continue" button
       And I enter details on the Triage Capture Reason page
       And I click the "Continue" button
-      When I escalate the case to WFM
+      When I escalate the case to WFM at Service Triage stage
       Then the case should be moved to the "Service Escalated" stage
       And the summary should display the owning team as "CCT Stage 1 Escalated"
       And a escalation note should be visible showing the reason for escalation
