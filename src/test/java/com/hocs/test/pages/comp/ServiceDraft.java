@@ -56,7 +56,7 @@ public class ServiceDraft extends BasePage {
         selectActionAtServiceDraft("Send Case to QA");
     }
 
-    public void escalateACaseFromServiceDraftToWFM() {
+    public void moveCaseFromServiceDraftToServiceEscalated() {
         selectActionAtServiceDraft("Escalate case to WFM");
         reasonForEscalationTextField.sendKeys("Test Escalation Reason");
         setSessionVariable("escalationReason").to("Test Escalation Reason");
