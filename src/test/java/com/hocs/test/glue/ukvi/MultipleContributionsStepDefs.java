@@ -74,7 +74,7 @@ public class MultipleContributionsStepDefs extends BasePage {
 
     @And("I add a {string} contribution request")
     public void iAddAContribution(String contributionType) {
-        contributionRequests.addAContribution(contributionType);
+        contributionRequests.addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
     }
 
     @And("I {string} the contribution request")
@@ -85,5 +85,10 @@ public class MultipleContributionsStepDefs extends BasePage {
     @Then("the {string} contribution request should be marked as {string}")
     public void theContributionRequestShouldBeMarkedAs(String contributionType, String action) {
         contributionRequests.assertThatContributionRequestOfTypeIsMarkedAs(contributionType, action);
+    }
+
+    @And("I add a {string} contribution with a due date in the past")
+    public void iAddAContributionWithADueDateInThePast(String contributionType) {
+        contributionRequests.addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(-5));
     }
 }

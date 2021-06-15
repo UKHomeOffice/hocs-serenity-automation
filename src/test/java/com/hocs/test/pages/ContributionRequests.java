@@ -75,7 +75,7 @@ public class ContributionRequests extends BasePage {
     @FindBy(xpath = "//input[@value='Update']")
     public WebElementFacade updateButton;
 
-    public void addAContribution(String contributionType) {
+    public void addAContribution(String contributionType, String requestDate, String dueDate) {
         switch (contributionType.toUpperCase()) {
             case "CASE":
                 safeClickOn(addAContributionHypertext);
@@ -94,9 +94,9 @@ public class ContributionRequests extends BasePage {
                 pendingStep(contributionType + " is not defined within " + getMethodName());
         }
         typeIntoDateField(contributionRequestDateDayField, contributionRequestDateMonthField, contributionRequestDateYearField,
-                getDatePlusMinusNDaysAgo(-1));
-        typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(5));
-        setSessionVariable("contributionDueDate").to(getDatePlusMinusNDaysAgo(5));
+                requestDate);
+        typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, dueDate);
+        setSessionVariable("contributionDueDate").to(dueDate);
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
     }
@@ -130,7 +130,7 @@ public class ContributionRequests extends BasePage {
     public void addMultipleContributionRequests(int numberOfContributionRequests, String contributionType) {
         int count = 0;
         while (count < numberOfContributionRequests) {
-            addAContribution(contributionType);
+            addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
             count++;
         }
         safeClickOn(continueButton);
@@ -142,19 +142,6 @@ public class ContributionRequests extends BasePage {
         contributionType = contributionType.substring(0, 1).toUpperCase() + contributionType.substring(1);
         WebElementFacade contributionRequestStatus = findBy("//span[contains(text(),'" + contributionType + "')]/parent::legend/following-sibling::table//tr/td"
                 + "[2]");
-//        switch (contributionType.toUpperCase()) {
-//            case "CASE":
-//                contributionRequestStatus = findBy("//span[contains(text(),'Case')]/parent::legend/following-sibling::table//tr/td[2]");
-//                break;
-//            case "COMPLAINANT":
-//                contributionRequestStatus = findBy("//span[contains(text(),'Complainant')]/parent::legend/following-sibling::table//tr/td[2]");
-//                break;
-//            case "BUSINESS":
-//                contributionRequestStatus = findBy("//span[contains(text(),'Business')]/parent::legend/following-sibling::table//tr/td[2]");
-//                break;
-//            default:
-//                pendingStep(contributionType + " is not defined within " + getMethodName());
-//        }
         assertThat(contributionRequestStatus.getText().toUpperCase().contains(action.toUpperCase()), is(true));
     }
 }

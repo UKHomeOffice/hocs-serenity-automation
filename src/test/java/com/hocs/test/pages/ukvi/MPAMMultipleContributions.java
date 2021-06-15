@@ -43,7 +43,7 @@ public class MPAMMultipleContributions extends BasePage {
 
     public void sendMPAMCaseToContributionRequest() {
         selectToAddContributionsToAnMPAMCase();
-        contributionRequests.addAContribution("CASE");
+        contributionRequests.addAContribution("CASE", getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
         if (continueButton.isVisible()) {
             safeClickOn(continueButton);
         } else if (confirmButton.isVisible()) {
