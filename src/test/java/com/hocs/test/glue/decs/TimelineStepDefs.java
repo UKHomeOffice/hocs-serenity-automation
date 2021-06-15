@@ -14,8 +14,6 @@ public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    Dashboard dashboard;
-
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
         waitABit(5000);
@@ -113,6 +111,16 @@ public class TimelineStepDefs extends BasePage {
     @And("a rejection note should be visible showing the reason for rejection")
     public void aRejectionNoteShouldBeVisibleShowingTheReasonForRejection() {
         timelineTab.assertRejectionNoteVisible();
+    }
+
+    @And("a escalation note should be visible showing the reason for escalation")
+    public void aEscalationNoteShouldBeVisibleShowingTheReasonForEscalation() {
+        timelineTab.assertEscalationNoteVisible();
+    }
+
+    @And("a case closure note should be visible showing the reason for closure")
+    public void aCaseClosureNoteShouldBeVisibleShowingTheReasonForClosure() {
+        timelineTab.assertClosureNoteVisible();
     }
 
     @And("a contribution request note should be visible showing the description of the request")

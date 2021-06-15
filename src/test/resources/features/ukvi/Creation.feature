@@ -141,7 +141,7 @@ Feature: Creation
   Scenario: User can select a Ministerial Sign off team for the case
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
     And I load the current case
-    Then the "Creation" accordion in case details should display the correct information for "Ministerial Sign Off Team"
+    Then the "Creation" MPAM accordion in case details should display the correct information for "Ministerial Sign Off Team"
 
   @OtherTests
   Scenario: User can select a Ministerial Sign Off team for a case and the selection is visible in a team workstack

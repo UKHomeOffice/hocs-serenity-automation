@@ -2,6 +2,7 @@ package com.hocs.test.pages.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,8 +18,6 @@ public class MultipleContributions extends BasePage {
     Dashboard dashboard;
 
     Campaign campaign;
-
-    Triage triage;
 
     @FindBy(xpath = "//label[text()='Request contributions']")
     public WebElementFacade requestContributionsRadioButton;
@@ -92,10 +91,11 @@ public class MultipleContributions extends BasePage {
     @FindBy(xpath = "//label[text()='Retain Case']")
     public WebElementFacade retainCaseRadioButton;
 
-    private void addAContribution() {
-        safeClickOn(addAContributionHypertext);
+    public void addAContribution() {
         contributionRequestBusinessArea.selectByIndex(1);
-        contributionRequestBusinessUnit.selectByIndex(1);
+        if (!sessionVariableCalled("caseType").equals("COMP")) {
+            contributionRequestBusinessUnit.selectByIndex(1);
+        }
         typeIntoDateField(contributionRequestDateDayField, contributionRequestDateMonthField, contributionRequestDateYearField,
                 getDatePlusMinusNDaysAgo(-1));
         typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(5));
@@ -114,6 +114,7 @@ public class MultipleContributions extends BasePage {
     public void sendCaseToContributionRequest() {
         safeClickOn(requestContributionsRadioButton);
         safeClickOn(confirmButton);
+        safeClickOn(addAContributionHypertext);
         addAContribution();
         if (continueButton.isVisible()) {
             safeClickOn(continueButton);
@@ -127,6 +128,7 @@ public class MultipleContributions extends BasePage {
         safeClickOn(requestContributionsRadioButton);
         safeClickOn(confirmButton);
         while (count < numberOfContributions) {
+            safeClickOn(addAContributionHypertext);
             addAContribution();
             count++;
         }
@@ -228,8 +230,18 @@ public class MultipleContributions extends BasePage {
         }
     }
 
+    public void addAnOverdueCOMPContribution() {
+        contributionRequestBusinessArea.selectByIndex(1);
+        typeIntoDateField(contributionRequestDateDayField, contributionRequestDateMonthField, contributionRequestDateYearField,
+                getDatePlusMinusNDaysAgo(-1));
+        typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(-1));
+        setSessionVariable("contributionDueDate").to(getDatePlusMinusNDaysAgo(-1));
+        whatYouAreRequestingTextField.sendKeys("Test - details of request");
+        safeClickOn(addButton);
+    }
+
     public void assertThatContributionRequestHasBeen(String action) {
-        WebElementFacade contributionRequestStatus = findBy("//span[text()='Case contributions']/parent::legend/following-sibling::table//tr/td[2]");
+        WebElementFacade contributionRequestStatus = findBy("//a[text()='Edit']/parent::td/preceding-sibling::td[1]");
         assertThat(contributionRequestStatus.getText().toUpperCase().contains(action.toUpperCase()), is(true));
     }
 
