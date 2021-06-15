@@ -2,13 +2,10 @@ package com.hocs.test.glue.comp;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.comp.ServiceTriage;
-import com.hocs.test.pages.ukvi.MultipleContributions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 public class ServiceTriageStepDefs extends BasePage {
-
-    MultipleContributions multipleContributions;
 
     ServiceTriage serviceTriage;
 
@@ -56,27 +53,6 @@ public class ServiceTriageStepDefs extends BasePage {
     @And("I confirm I want to close the case")
     public void iConfirmIWantToCloseTheCase() {
         serviceTriage.selectPermanentlyCloseCase("Yes");
-    }
-
-    @And("I add a {string} contribution")
-    public void iAddAContribution(String contributionType) {
-        if (contributionType.equalsIgnoreCase("COMPLAINANT")) {
-            safeClickOn(serviceTriage.addComplainantContributionHypertext);
-        } else if (contributionType.equalsIgnoreCase("BUSINESS")) {
-            safeClickOn(serviceTriage.addBusinessContributionHypertext);
-        }
-        multipleContributions.addAContribution();
-    }
-
-    @And("I add a contribution with a due date in the past")
-    public void iAddAContributionWithADueDateInThePast() {
-        safeClickOn(serviceTriage.addComplainantContributionHypertext);
-        multipleContributions.addAnOverdueCOMPContribution();
-    }
-
-    @Then("the contributions due date should be displayed as overdue")
-    public void theContributionsDueDateShouldBeDisplayedAsOverdue() {
-        serviceTriage.assertContributionIsOverdue();
     }
 
     @And("I select that a Letter of Authority is required")

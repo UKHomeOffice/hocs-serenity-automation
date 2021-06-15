@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.MultipleContributions;
+import com.hocs.test.pages.ukvi.MPAMMultipleContributions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +14,7 @@ public class DraftStepDefs extends BasePage {
 
     Draft draft;
 
-    MultipleContributions multipleContributions;
+    MPAMMultipleContributions MPAMMultipleContributions;
 
     @And("I move a Official case from Draft to Dispatch bypassing QA")
     public void moveBRefCaseFromDraftToDispatch() {
@@ -35,7 +35,7 @@ public class DraftStepDefs extends BasePage {
                 draft.putCaseOnHold();
                 break;
             case "CONTRIBUTIONS REQUESTED":
-                multipleContributions.sendCaseToContributionRequest();
+                MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
             case "TRIAGE":
                 draft.sendDraftCaseBackToTriage();
@@ -61,7 +61,7 @@ public class DraftStepDefs extends BasePage {
                 draft.selectToCloseEscalatedCase();
                 break;
             case "CONTRIBUTIONS REQUESTED":
-                multipleContributions.sendCaseToContributionRequest();
+                MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -78,7 +78,7 @@ public class DraftStepDefs extends BasePage {
             case "CONTRIBUTIONS RECEIVED":
                 safeClickOn(draft.contributionsReceivedRadioButton);
                 safeClickOn(confirmButton);
-                safeClickOn(multipleContributions.unallocateCaseRadioButton);
+                safeClickOn(MPAMMultipleContributions.unallocateCaseRadioButton);
                 safeClickOn(confirmButton);
                 break;
             default:

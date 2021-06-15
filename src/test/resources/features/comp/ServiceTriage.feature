@@ -53,20 +53,20 @@ Feature: Service Triage
     And a case closure note should be visible showing the reason for closure
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
-  Scenario Outline: User can add and complete or close contributions as part of Service Triage stage
+  Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
     When I accept the case at Service Triage stage
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    And I add a "<contributionType>" contribution
-    And I choose to "<action>" the contribution request at the multiple contribution stage
-    Then the contribution request should be displayed as "<action>"
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
     Examples:
-      | contributionType  | action   |
-      | Complainant       | Complete |
-      | Business          | Cancel   |
-      | Complainant       | Complete |
-      | Business          | Cancel   |
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Business         | Cancel   |
+      | Complainant      | Complete |
+      | Business         | Cancel   |
 
 #    HOCS-3103
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
@@ -74,8 +74,8 @@ Feature: Service Triage
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    And I add a contribution with a due date in the past
-    Then the contributions due date should be displayed as overdue
+    And I add a "complainant" contribution with a due date in the past
+    Then the "complainant" contribution request should be marked as "overdue"
 
 #    HOCS-2979
   Scenario: User can select that a Letter of Authority is required for this complaint

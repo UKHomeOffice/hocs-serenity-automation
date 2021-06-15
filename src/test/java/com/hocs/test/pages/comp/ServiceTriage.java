@@ -1,7 +1,6 @@
 package com.hocs.test.pages.comp;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.ukvi.MultipleContributions;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
@@ -9,8 +8,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ServiceTriage extends BasePage {
-
-    MultipleContributions multipleContributions;
 
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
@@ -173,10 +170,5 @@ public class ServiceTriage extends BasePage {
         selectTransferComplaint();
         enterTransferReason();
         selectTransferToCCH();
-    }
-
-    public void assertContributionIsOverdue() {
-        WebElementFacade dueDateField = findBy("//a[text()='Edit']/parent::td/preceding-sibling::td[1]/label");
-        assertThat(dueDateField.getText().contains("Overdue"), is(true));
     }
 }

@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import com.hocs.test.pages.ukvi.Creation;
-import com.hocs.test.pages.ukvi.MultipleContributions;
+import com.hocs.test.pages.ukvi.MPAMMultipleContributions;
 import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -21,7 +21,7 @@ public class TriageStepDefs extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
-    MultipleContributions multipleContributions;
+    MPAMMultipleContributions MPAMMultipleContributions;
 
     @And("I send the Triage case to {string}")
     public void sendTheTriageCaseTo(String stage) {
@@ -38,7 +38,7 @@ public class TriageStepDefs extends BasePage {
                 triage.selectEnquirySubject("Person Specific");
                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                 triage.setBusinessUnit();
-                multipleContributions.sendCaseToContributionRequest();
+                MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -141,7 +141,7 @@ public class TriageStepDefs extends BasePage {
                 triage.selectEnquirySubject("Person Specific");
                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                 triage.setBusinessUnit();
-                multipleContributions.sendCaseToContributionRequest();
+                MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());

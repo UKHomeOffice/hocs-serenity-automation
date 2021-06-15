@@ -24,7 +24,7 @@ Feature: Multiple Contributions
     And I send the Triage case to "Contributions Requested"
     And I load and claim the current case
     And I choose to "<action>" the contribution request at the multiple contribution stage
-    Then the contribution request should be displayed as "<action>"
+    Then the "case" contribution request should be marked as "<action>"
     Examples:
       | action   |
       | Complete |
@@ -36,7 +36,7 @@ Feature: Multiple Contributions
     And I send the Draft case to "Contributions Requested"
     And I load and claim the current case
     And I choose to "<action>" the contribution request at the multiple contribution stage
-    Then the contribution request should be displayed as "<action>"
+    Then the "case" contribution request should be marked as "<action>"
     Examples:
       | action   |
       | Complete |
