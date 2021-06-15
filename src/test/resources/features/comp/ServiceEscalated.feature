@@ -22,12 +22,12 @@ Feature: Service Escalated
 
 #    HOCS-2870, HOCS-3096
   Scenario Outline: User can add and complete or close contributions as part of Service Escalated stage
-    And I add a "<contributionType>" contribution
-    And I "<action>" the "contributionType" contribution
-    Then the "contributionType" contribution should be marked as "<action>"
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
     Examples:
-      | contributionType         | action   |
-      | Complainant contribution | Complete |
-      | Business contribution    | Close    |
-      | Complainant contribution | Complete |
-      | Business contribution    | Close    |
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Business         | Cancel   |
+      | Complainant      | Complete |
+      | Business         | Cancel   |
