@@ -3,6 +3,10 @@ package com.hocs.test.pages.comp;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -170,5 +174,11 @@ public class ServiceTriage extends BasePage {
         selectTransferComplaint();
         enterTransferReason();
         selectTransferToCCH();
+    }
+
+    public void assertOverdueContributionRequestIsHighlighted() {
+        WebElement label = find(By.xpath("//label[text()='Overdue " + sessionVariableCalled("contributionDueDate") + "']"));
+        String value = label.getCssValue("background-color");
+        assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }
 }

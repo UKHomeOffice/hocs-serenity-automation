@@ -109,6 +109,14 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Awaiting Transfer']")
     public WebElementFacade awaitingTransferTeamWorkstack;
 
+    // COMPS
+
+    @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
+    public WebElementFacade cchClosedCasesWorkstack;
+
+    @FindBy(xpath = "//span[text()='Complaint Registration']")
+    public WebElementFacade complaintRegisteredWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -158,6 +166,20 @@ public class Dashboard extends BasePage {
             requiredTeam =
                     find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
+        }
+        safeClickOn(requiredTeam);
+    }
+
+    public void selectCorrectComplaintRegisterationStage(String stage) {
+        WebElementFacade requiredTeam;
+        if (stage.toUpperCase().equals("CREATION")) {
+            requiredTeam = complaintRegisteredWorkstack;
+        } else {
+            if (stage.toUpperCase().equals("PRIVATE OFFICE")) {
+                stage = "PO";
+            }
+            requiredTeam =
+                    find(By.xpath("//span[text()='Complaint Registration']"));
         }
         safeClickOn(requiredTeam);
     }

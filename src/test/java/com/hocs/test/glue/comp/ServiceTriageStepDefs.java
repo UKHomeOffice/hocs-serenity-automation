@@ -40,18 +40,18 @@ public class ServiceTriageStepDefs extends BasePage {
         serviceTriage.escalateCaseToWFM();
     }
 
-    @And("I select to complete the case")
+    @And("I select to complete the case at Service Triage")
     public void iSelectToCompleteTheCase() {
         serviceTriage.selectCompleteTheCase();
     }
 
-    @And("I enter a completion note")
+    @And("I enter a completion note at Service Triage")
     public void iEnterACompletionNote() {
         serviceTriage.enterCompletionReason();
     }
 
-    @And("I confirm I want to close the case")
-    public void iConfirmIWantToCloseTheCase() {
+    @And("I confirm I want to close the case at Service Triage")
+    public void iConfirmIWantToCloseTheCaseAtServiceTriage() {
         serviceTriage.selectPermanentlyCloseCase("Yes");
     }
 
@@ -63,5 +63,10 @@ public class ServiceTriageStepDefs extends BasePage {
     @And("I can mark that the LoA was received and enter the LoA date")
     public void iCanMarkThatTheLOAWasReceivedAndEnterTheLOADates() {
         serviceTriage.selectLOAReceived();
+    }
+
+    @And("the overdue contribution request should be highlighted")
+    public void highlightingcheck() {
+        serviceTriage.assertOverdueContributionRequestIsHighlighted();
     }
 }

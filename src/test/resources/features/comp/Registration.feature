@@ -16,7 +16,7 @@ Feature: Registration
     And I enter the complaint details on the Complaint Input page
     And I select a "Service" Complaint Category
     And I select a Owning CSU
-    When I click the "Continue" button
+    When I click the "Finish" button
     Then the case should be moved to the "Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
 
