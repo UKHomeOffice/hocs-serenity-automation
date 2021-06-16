@@ -7,7 +7,7 @@ Feature: Timeline
     And I load and claim the current case
     And I select the Timeline tab
 
-  @Regression
+  @Regression @test
   Scenario: User can add a case note to a case
     When I create a case note with random content
     Then a note should be created at the top of the timeline
