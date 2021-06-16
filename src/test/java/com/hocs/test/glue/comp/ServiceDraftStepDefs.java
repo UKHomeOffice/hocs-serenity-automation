@@ -16,7 +16,7 @@ public class ServiceDraftStepDefs extends BasePage {
 
     @And("I escalate the case to WFM at Service Draft stage")
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
-        serviceDraft.escalateACaseFromServiceDraftToWFM();
+        serviceDraft.moveCaseFromServiceDraftToServiceEscalated();
     }
 
     @Then("an error message is displayed as I have not uploaded a document")
