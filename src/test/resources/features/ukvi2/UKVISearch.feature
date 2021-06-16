@@ -21,7 +21,6 @@ Feature: UKVI Search
       | Campaign                              | Small boats    |
       | Ministerial Sign Off Team             | Home Secretary |
       | Public Correspondent Name             | Sam McTester   |
-      | Telephone Surgery Official Engagement | Yes            |
 
   @OtherTests
   Scenario: User searches by case reference from the search page
