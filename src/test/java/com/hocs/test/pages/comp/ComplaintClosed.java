@@ -3,6 +3,7 @@ package com.hocs.test.pages.comp;
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ComplaintClosed extends BasePage {
 
@@ -24,12 +25,33 @@ public class ComplaintClosed extends BasePage {
     @FindBy(xpath = "//label[@for='CompleteResult-No']")
     public WebElementFacade completeCasePermanentlyCloseNoRadioButton;
 
-    public void moveCaseFromComplaintClosedToCaseClosed() {
-        safeClickOn(completeTheCaseClosePermanentlyRadioButton);
+    public void selectActionAtComplaintClosed(String action) {
+        if (action.equalsIgnoreCase("RE-OPEN THE CASE")) {
+            safeClickOn(reopenCaseSendToCCTStage2RadioButton);
+        } else if (action.equalsIgnoreCase("COMPLETE THE CASE")) {
+            safeClickOn(completeTheCaseClosePermanentlyRadioButton);
+        }
         safeClickOn(continueButton);
+    }
+
+    public void enterReasonForCaseCompletion() {
         caseCompletionReasonTextField.sendKeys("Test Completion Reason");
+        setSessionVariable("closureReason").to("Test Completion Reason");
         safeClickOn(completeCaseButton);
-        safeClickOn(completeCasePermanentlyCloseYesRadioButton);
+    }
+
+    public void selectActionAtCompleteConfirmation(String action) {
+        if (action.equalsIgnoreCase("YES")) {
+            safeClickOn(completeCasePermanentlyCloseYesRadioButton);
+        } else if (action.equalsIgnoreCase("NO")) {
+            safeClickOn(completeCasePermanentlyCloseNoRadioButton);
+        }
         safeClickOn(confirmButton);
+    }
+
+    public void moveCaseFromComplaintClosedToCaseClosed() {
+        selectActionAtComplaintClosed("Complete the Case");
+        enterReasonForCaseCompletion();
+        selectActionAtCompleteConfirmation("Yes");
     }
 }
