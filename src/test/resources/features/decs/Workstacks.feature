@@ -161,7 +161,7 @@ Feature: Workstacks
     Examples:
       | workstack    |
       | DCU My Cases |
-      | DCU Team     |
+#      | DCU Team     |
 
   @UKVIRegression
   Scenario Outline: UKVI User sees the required information when viewing a workstack

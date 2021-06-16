@@ -21,7 +21,7 @@ public class CreateCase_SuccessPage extends BasePage {
     public WebElementFacade newCaseReference;
 
     public void assertCaseCreatedSuccess() {
-        panelBody.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+        panelBody.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         panelBody.shouldContainText("Case Created");
         newCaseReference.shouldBeCurrentlyVisible();
     }

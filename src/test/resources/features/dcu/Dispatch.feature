@@ -45,7 +45,7 @@ Feature: Dispatch
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @DCUWorkflow @DCURegression
-  Scenario Outline: Case is returned to Private Office Approval stage when rejected by Dispatch Team
+  Scenario Outline: User can return a case to Private Office Approval stage
     And I create a "<caseType>" case and move it to the "Dispatch" stage
     And I load and claim the current case
     And I reject the case at the "Dispatch" stage
