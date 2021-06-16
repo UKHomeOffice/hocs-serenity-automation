@@ -786,7 +786,7 @@ public class Workstacks extends BasePage {
             case "CCH CLOSED CASES":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
                 break;
-            case "DEC SEARCH":
+            case "COMP SEARCH":
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref"));
                 break;
             case "TRIAGE":

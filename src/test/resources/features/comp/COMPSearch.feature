@@ -34,4 +34,4 @@ Feature: COMP Search
     Given I am logged into "DECS" as user "COMP_USER"
     And I navigate to the "search" page
     And I click the search button on the search page
-    Then the "DEC Search" workstack should contain only the expected columns
+    Then the "COMP Search" workstack should contain only the expected columns
