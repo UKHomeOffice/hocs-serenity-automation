@@ -34,10 +34,12 @@ Feature: Manage Documents
     And I upload a file of type "docx"
     Then the "docx" document should be under the "<docType>" header
     Examples:
-      | docType  |
-      | ORIGINAL |
-      | DRAFT    |
-      | FINAL    |
+      | docType         |
+      | ORIGINAL        |
+      | DRAFT           |
+      | FINAL           |
+      | CONTRIBUTION    |
+      | BACKGROUND NOTE |
 
   @UKVIRegression
   Scenario Outline: User can select document type when uploading documents on a MPAM case
