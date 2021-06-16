@@ -46,6 +46,9 @@ public class NavigationStepDefs extends BasePage {
                 safeClickOn(dashboard.searchPage);
                 search.searchButton.waitUntilVisible();
                 break;
+            case "CCH CLOSED CASES":
+                safeClickOn(dashboard.cchClosedCasesWorkstack);
+                break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
         }

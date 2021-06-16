@@ -673,6 +673,24 @@ public class Workstacks extends BasePage {
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
     }
 
+    public void assertThatDeadlineHighlightedIsYellow() {
+        WebElement label = find(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '"
+                        + getCurrentYear() + "')"
+                        + "]"));
+        String value = label.getCssValue("background-color");
+        assertThat(value.equalsIgnoreCase("rgba(255, 221, 0, 1)"), is(true));
+    }
+
+    public void assertThatDeadlineHighlightedIsRed() {
+        WebElement label = find(
+                By.xpath("//a[text()='" + sessionVariableCalled("caseReference") + "']/parent::td/following-sibling::td/span[contains(text(), '"
+                        + getCurrentYear() + "')"
+                        + "]"));
+        String value = label.getCssValue("background-color");
+        assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
+    }
+
     public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
         workstackFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         String highPriorityReference = sessionVariableCalled(highPriorityCase);
@@ -764,6 +782,12 @@ public class Workstacks extends BasePage {
                 break;
             case "CAMPAIGN":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Owner", "Campaign", "Days"));
+                break;
+            case "CCH CLOSED CASES":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
+                break;
+            case "DEC SEARCH":
+                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref"));
                 break;
             case "TRIAGE":
             case "DRAFT":

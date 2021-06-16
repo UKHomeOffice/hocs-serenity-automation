@@ -13,12 +13,12 @@ Feature: COMP Search
     And I click the search button on the search page
     Then I check that the COMP search results have the correct "<infoType>"
     Examples:
-    | infoType                          | infoValue             |
-    | Correspondent Full Name           | Sam McTester          |
-    | Correspondent Postcode            | AB1 2CD               |
-    | Correspondent Email Address       | SamMcTester@Test.com  |
-    | Complainant Date Of Birth         | 01/01/2001            |
-    | Complainant Home Office Reference | Test HO Ref           |
+      | infoType                          | infoValue            |
+      | Correspondent Full Name           | Sam McTester         |
+      | Correspondent Postcode            | AB1 2CD              |
+      | Correspondent Email Address       | SamMcTester@Test.com |
+      | Complainant Date Of Birth         | 01/01/2001           |
+      | Complainant Home Office Reference | Test HO Ref          |
 
 #    HOCS-2838
   Scenario: User can search for a COMP case by its case reference
@@ -27,3 +27,11 @@ Feature: COMP Search
     And I navigate to the "Search" page
     And I search for the COMP case by its case reference
     Then I check that the COMP search results have the correct "Case Reference"
+
+#     HOCS-2847 HOCS-3161
+  @test @COMPRegression
+  Scenario: COMP User sees the required information when viewing search
+    Given I am logged into "DECS" as user "COMP_USER"
+    And I navigate to the "search" page
+    And I click the search button on the search page
+    Then the "DEC Search" workstack should contain only the expected columns
