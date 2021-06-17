@@ -11,10 +11,7 @@ public class COMPCaseDetailsAccordionStepDefs extends BasePage {
 
     @And("the {string} COMP accordion in case details should display the correct information for {string}")
     public void theCOMPAccordionInCaseDetailsShouldDisplayTheCorrectInformation(String accordion, String info) {
-        WebElementFacade accordionOpen = findBy("//div[@class='govuk-accordion__section govuk-accordion__section--expanded']");
-        if (!accordionOpen.isVisible()) {
-            accordionCOMP.openAccordion(accordion);
-        }
+        accordionCOMP.openAccordion(accordion);
         accordionCOMP.getQuestionResponse(info);
         accordionCOMP.assertInputMatchesCaseDetailsResponse(info);
     }

@@ -53,7 +53,10 @@ public class AccordionCOMP extends BasePage {
             default:
                 pendingStep(accordion + " is not defined within " + getMethodName());
         }
-        safeClickOn(selectedAccordion);
+        WebElementFacade accordionOpen = findBy("//div[@class='govuk-accordion__section govuk-accordion__section--expanded']");
+        if (!accordionOpen.isVisible()) {
+            safeClickOn(selectedAccordion);
+        }
         setSessionVariable("accordion").to(accordion.toUpperCase());
     }
 
