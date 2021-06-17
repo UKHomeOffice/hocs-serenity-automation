@@ -109,6 +109,11 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Awaiting Transfer']")
     public WebElementFacade awaitingTransferTeamWorkstack;
 
+    // COMPS
+
+    @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
+    public WebElementFacade cchClosedCasesWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -160,6 +165,11 @@ public class Dashboard extends BasePage {
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
         }
         safeClickOn(requiredTeam);
+    }
+
+    public void selectWorkstackByTeamName(String teamName) {
+        WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
+        safeClickOn(workstack);
     }
 
     public void selectMTSTeam() {

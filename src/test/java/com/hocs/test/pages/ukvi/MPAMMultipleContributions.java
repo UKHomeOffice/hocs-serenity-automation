@@ -7,78 +7,22 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.ContributionRequests;
 import com.hocs.test.pages.Dashboard;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class MultipleContributions extends BasePage {
+public class MPAMMultipleContributions extends BasePage {
 
     Dashboard dashboard;
 
     Campaign campaign;
 
-    Triage triage;
+    ContributionRequests contributionRequests;
 
     @FindBy(xpath = "//label[text()='Request contributions']")
     public WebElementFacade requestContributionsRadioButton;
-
-    @FindBy(xpath = "//a[text()='Add a Contribution']")
-    public WebElementFacade addAContributionHypertext;
-
-    @FindBy(id = "contributionBusinessArea")
-    public WebElementFacade contributionRequestBusinessArea;
-
-    @FindBy(id = "contributionBusinessUnit")
-    public WebElementFacade contributionRequestBusinessUnit;
-
-    @FindBy(id = "contributionRequestDate-day")
-    public WebElementFacade contributionRequestDateDayField;
-
-    @FindBy(id = "contributionRequestDate-month")
-    public WebElementFacade contributionRequestDateMonthField;
-
-    @FindBy(id = "contributionRequestDate-year")
-    public WebElementFacade contributionRequestDateYearField;
-
-    @FindBy(id = "contributionDueDate-day")
-    public WebElementFacade contributionDueDateDayField;
-
-    @FindBy(id = "contributionDueDate-month")
-    public WebElementFacade contributionDueDateMonthField;
-
-    @FindBy(id = "contributionDueDate-year")
-    public WebElementFacade contributionDueDateYearField;
-
-    @FindBy(id = "contributionRequestNote")
-    public WebElementFacade whatYouAreRequestingTextField;
-
-    @FindBy(xpath = "//a[text()='Edit']")
-    public WebElementFacade editHypertext;
-
-    @FindBy(xpath = "//label[text()='Complete']")
-    public WebElementFacade completeRadioButton;
-
-    @FindBy(xpath = "//label[text()='Cancelled']")
-    public WebElementFacade cancelledRadioButton;
-
-    @FindBy(id = "contributionReceivedDate-day")
-    public WebElementFacade contributionReceivedDateDayField;
-
-    @FindBy(id = "contributionReceivedDate-month")
-    public WebElementFacade contributionReceivedDateMonthField;
-
-    @FindBy(id = "contributionReceivedDate-year")
-    public WebElementFacade contributionReceivedDateYearField;
-
-    @FindBy(id = "contributionReceivedNote")
-    public WebElementFacade contributionReceivedDetailsTextField;
-
-    @FindBy(id = "contributionCancellationNote")
-    public WebElementFacade reasonForCancellingTextField;
-
-    @FindBy(xpath = "//input[@value='Update']")
-    public WebElementFacade updateButton;
 
     @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
@@ -92,29 +36,14 @@ public class MultipleContributions extends BasePage {
     @FindBy(xpath = "//label[text()='Retain Case']")
     public WebElementFacade retainCaseRadioButton;
 
-    private void addAContribution() {
-        safeClickOn(addAContributionHypertext);
-        contributionRequestBusinessArea.selectByIndex(1);
-        contributionRequestBusinessUnit.selectByIndex(1);
-        typeIntoDateField(contributionRequestDateDayField, contributionRequestDateMonthField, contributionRequestDateYearField,
-                getDatePlusMinusNDaysAgo(-1));
-        typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(5));
-        setSessionVariable("contributionDueDate").to(getDatePlusMinusNDaysAgo(5));
-        whatYouAreRequestingTextField.sendKeys("Test - details of request");
-        safeClickOn(addButton);
-    }
-
-    public void editContributionDueDate() {
-        safeClickOn(editHypertext);
-        typeIntoDateField(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, getDatePlusMinusNDaysAgo(1));
-        setSessionVariable("contributionDueDate").to(getDatePlusMinusNDaysAgo(1));
-        safeClickOn(updateButton);
-    }
-
-    public void sendCaseToContributionRequest() {
+    public void selectToAddContributionsToAnMPAMCase(){
         safeClickOn(requestContributionsRadioButton);
         safeClickOn(confirmButton);
-        addAContribution();
+    }
+
+    public void sendMPAMCaseToContributionRequest() {
+        selectToAddContributionsToAnMPAMCase();
+        contributionRequests.addAContribution("CASE", getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
         if (continueButton.isVisible()) {
             safeClickOn(continueButton);
         } else if (confirmButton.isVisible()) {
@@ -123,34 +52,8 @@ public class MultipleContributions extends BasePage {
     }
 
     public void addMultipleContributionRequests(int numberOfContributions) {
-        int count = 0;
-        safeClickOn(requestContributionsRadioButton);
-        safeClickOn(confirmButton);
-        while (count < numberOfContributions) {
-            addAContribution();
-            count++;
-        }
-        safeClickOn(continueButton);
-        setSessionVariable("numberOfContributions").to(numberOfContributions);
-    }
-
-    public void selectActionForIndividualContributionRequest(String action) {
-        safeClickOn(editHypertext);
-        switch (action.toUpperCase()) {
-            case "COMPLETE":
-                safeClickOn(completeRadioButton);
-                typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
-                        getDatePlusMinusNDaysAgo(-1));
-                contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
-                break;
-            case "CANCEL":
-                safeClickOn(cancelledRadioButton);
-                reasonForCancellingTextField.sendKeys("Test - contribution cancelled details");
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
-        safeClickOn(updateButton);
+        selectToAddContributionsToAnMPAMCase();
+        contributionRequests.addMultipleContributionRequests(numberOfContributions, "CASE");
     }
 
     public void selectActionAtContributionRequestedStage(String action) {
@@ -190,35 +93,35 @@ public class MultipleContributions extends BasePage {
     public void triggerValidationAtContributionRequestScreens(String screen) {
         switch (screen.toUpperCase()) {
             case "ADD CONTRIBUTION REQUEST":
-                safeClickOn(requestContributionsRadioButton);
-                safeClickOn(confirmButton);
-                safeClickOn(addAContributionHypertext);
+                selectToAddContributionsToAnMPAMCase();
+                safeClickOn(contributionRequests.addAContributionHypertext);
                 safeClickOn(addButton);
                 break;
             case "CONTRIBUTIONS REQUESTED":
-                sendCaseToContributionRequest();
+                sendMPAMCaseToContributionRequest();
                 dashboard.getAndClaimCurrentCase();
                 safeClickOn(confirmButton);
                 break;
             case "CONTRIBUTION REQUEST FULFILLMENT":
-                sendCaseToContributionRequest();
+                sendMPAMCaseToContributionRequest();
                 dashboard.getAndClaimCurrentCase();
-                safeClickOn(editHypertext);
-                safeClickOn(cancelledRadioButton);
-                safeClickOn(updateButton);
+                safeClickOn(contributionRequests.editHypertext);
+                safeClickOn(contributionRequests.cancelledRadioButton);
+                safeClickOn(contributionRequests.updateButton);
                 assertRequiredErrorMessageIsDisplayed("Contribution Cancellation reason");
-                safeClickOn(completeRadioButton);
-                safeClickOn(updateButton);
+                safeClickOn(contributionRequests.completeRadioButton);
+                safeClickOn(contributionRequests.updateButton);
                 break;
             case "UNALLOCATE CASE":
-                sendCaseToContributionRequest();
+                sendMPAMCaseToContributionRequest();
                 dashboard.getAndClaimCurrentCase();
-                safeClickOn(editHypertext);
-                safeClickOn(completeRadioButton);
-                typeIntoDateField(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
+                safeClickOn(contributionRequests.editHypertext);
+                safeClickOn(contributionRequests.completeRadioButton);
+                typeIntoDateField(contributionRequests.contributionReceivedDateDayField, contributionRequests.contributionReceivedDateMonthField,
+                        contributionRequests.contributionReceivedDateYearField,
                         getDatePlusMinusNDaysAgo(-1));
-                contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
-                safeClickOn(updateButton);
+                contributionRequests.contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
+                safeClickOn(contributionRequests.updateButton);
                 safeClickOn(contributionsReceivedRadioButton);
                 safeClickOn(confirmButton);
                 safeClickOn(confirmButton);
@@ -226,11 +129,6 @@ public class MultipleContributions extends BasePage {
             default:
                 pendingStep(screen + " is not defined within " + getMethodName());
         }
-    }
-
-    public void assertThatContributionRequestHasBeen(String action) {
-        WebElementFacade contributionRequestStatus = findBy("//span[text()='Case contributions']/parent::legend/following-sibling::table//tr/td[2]");
-        assertThat(contributionRequestStatus.getText().toUpperCase().contains(action.toUpperCase()), is(true));
     }
 
     public void assertRequiredErrorMessageIsDisplayed(String error) {

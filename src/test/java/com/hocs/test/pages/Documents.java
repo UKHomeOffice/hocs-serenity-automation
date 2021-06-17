@@ -102,7 +102,7 @@ public class Documents extends BasePage {
     }
 
     public void addADraftDocumentAtDraftStage() {
-        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
+        addDocumentsButton.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
         safeClickOn(addDocumentsButton);
         selectDocumentTypeByText("DRAFT");
         uploadDocumentOfType("docx");

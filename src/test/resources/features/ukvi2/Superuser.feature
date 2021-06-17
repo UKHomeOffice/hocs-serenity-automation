@@ -4,7 +4,7 @@ Feature: Superuser
   @UKVIRegression @Smoketest
   Scenario: MPAM Superuser can complete the entire MPAM workflow
     Given I switch to user "MPAM_SUPERUSER"
-    When I create a "MPAM" case and move it to the "Case Closed" stage
+    When I create a "MPAM" case and move it to "Case Closed"
     Then the case should be closed
 
   @UKVIRegression

@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.comp.AccordionCOMP;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,8 @@ public class Search extends BasePage {
     SummaryTab summaryTab;
 
     AccordionMPAM accordionMPAM;
+
+    AccordionCOMP accordionCOMP;
 
     UnallocatedCaseView unallocatedCaseView;
 
@@ -114,6 +117,33 @@ public class Search extends BasePage {
 
     @FindBy(id = "correspondentNameNotMember")
     public WebElementFacade applicantOrConstituentFullNameTextField;
+
+    @FindBy(id = "OfficialEngagement")
+    public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
+
+    @FindBy(id = "correspondent")
+    public WebElementFacade correspondentFullNameTextField;
+
+    @FindBy(id = "correspondentPostcode")
+    public WebElementFacade correspondentPostcodeTextField;
+
+    @FindBy(id = "correspondentEmail")
+    public WebElementFacade correspondentEmailAddressTextField;
+
+    @FindBy(id = "ComplainantDOB-day")
+    public WebElementFacade complainantDateOfBirthDayTextField;
+
+    @FindBy(id = "ComplainantDOB-month")
+    public WebElementFacade complainantDateOfBirthMonthTextField;
+
+    @FindBy(id = "ComplainantDOB-year")
+    public WebElementFacade complainantDateOfBirthYearTextField;
+
+    @FindBy(id = "reference")
+    public WebElementFacade caseReferenceTextField;
+
+    @FindBy(id = "ComplainantHORef")
+    public WebElementFacade complainantHomeOfficeReferenceTextField;
 
     //Enter search criteria
 
@@ -235,6 +265,37 @@ public class Search extends BasePage {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void enterCOMPSearchCriteria(String criteria, String value) {
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                correspondentFullNameTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                correspondentPostcodeTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                correspondentEmailAddressTextField.sendKeys(value);
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                typeIntoDateField(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField, value);
+                setSessionVariable("searchComplainantDateOfBirth").to(value);
+                break;
+            case "CASE REFERENCE":
+                caseReferenceTextField.sendKeys(value);
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                complainantHomeOfficeReferenceTextField.sendKeys(value);
+                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -461,13 +522,73 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 List activeCases = findAll("//td[2][not(text() = 'Closed')]");
-                if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
+                if (sessionVariableCalled("searchActiveCases").toString().equalsIgnoreCase("YES")) {
                     assertThat(!activeCases.isEmpty(), is(true));
                 }
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
+    }
+
+    public void assertCOMPInformationRandomSearchResult(String criteria) {
+        WebElementFacade cell = null;
+        String displayedValue;
+        String expectedValue = null;
+        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        setSessionVariable("randomCaseRef").to(randomSearchResult);
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentFullName");
+                break;
+            case "CORRESPONDENT POSTCODE":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                safeClickOn(randomSearchResultHypertext);
+                safeClickOn(peopleTab.peopleTab);
+                cell = findBy("//th[text()='Email address']/following-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                safeClickOn(randomSearchResultHypertext);
+                if (!unallocatedCaseView.allocateToMeLink.isVisible()) {
+                    safeClickOn(summaryTab.summaryTab);
+                    WebElementFacade assignedTeamCell = findBy("//th[text()='Team']/following-sibling::td");
+                    String assignedTeam = assignedTeamCell.getText();
+                    goToDECSDashboard();
+                    WebElementFacade teamWorkstack = findBy("//span[text()='" + assignedTeam + "']");
+                    safeClickOn(teamWorkstack);
+                    workstacks.unallocateSelectedCase(randomSearchResult);
+                    WebElementFacade caseHypertext = findBy("//a[text()='" + randomSearchResult + "']");
+                    safeClickOn(caseHypertext);
+                }
+                safeClickOn(accordionCOMP.registrationAccordionButton);
+                cell = accordionCOMP.complainantDateOfBirth;
+                expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
+                break;
+            case "CASE REFERENCE":
+                cell = randomSearchResultHypertext;
+                expectedValue = sessionVariableCalled("searchCaseReference");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+        if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText().split(": ")[1];
+        } else {
+            displayedValue = cell.getText();
+        }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void waitForResultsPage() {

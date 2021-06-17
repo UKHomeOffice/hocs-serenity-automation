@@ -437,4 +437,20 @@ public class WorkstacksStepDefs extends BasePage {
     public void iRecordTheHighestPriorityCasesInTheWorkstack() {
         workstacks.recordHighestPriorityCases();
     }
+
+    @And("I view the case in the {string} workstack")
+    public void iViewTheCOMPCaseInTheWorkstack(String teamName) {
+        goToDECSDashboard();
+        dashboard.selectWorkstackByTeamName(teamName);
+    }
+
+    @Then("the case deadline should be highlighted yellow")
+    public void theCaseDeadlineBeHighlightedYellow() {
+        workstacks.assertThatDeadlineHighlightedIsYellow();
+    }
+
+    @Then("the case deadline should be highlighted red")
+    public void theCaseDeadlineShouldBeHighlightedRed() {
+        workstacks.assertThatDeadlineHighlightedIsRed();
+    }
 }

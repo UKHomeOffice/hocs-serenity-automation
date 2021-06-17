@@ -722,7 +722,7 @@ public class fetchExistingDCUCases extends BasePage {
                     System.out.println("Minister for Lords team not available - Searching for an Initial Draft case");
                     safeClickOn(dashboard.dashboardLink);
                     getFirstUnallocatedPrivateOfficeCase(caseType);
-                    initialDraft.moveCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromInitialDraftToPrivateOffice();
                     String thisCaseType = sessionVariableCalled("caseType").toString();
                     String thisStage = sessionVariableCalled("stage").toString();
                     giveMeACase(thisCaseType, thisStage);
@@ -750,7 +750,7 @@ public class fetchExistingDCUCases extends BasePage {
                     safeClickOn(dashboard.dashboardLink);
                     System.out.println("Private Office case not found - Searching for an Initial Draft case");
                     getFirstUnallocatedInitialDraftCase(caseType);
-                    initialDraft.moveCaseFromDraftToPrivateOffice();
+                    initialDraft.moveCaseFromInitialDraftToPrivateOffice();
                     getFirstUnallocatedPrivateOfficeCase(caseType);
                 }
                 break;

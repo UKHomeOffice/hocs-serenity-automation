@@ -281,7 +281,7 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @Then("the case should be moved to the {string} stage")
+    @Then("the case should be moved to (the ){string}( stage)")
     public void assertCaseTypeReturnedToStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
@@ -496,6 +496,11 @@ public class BaseStepDefs extends BasePage {
     @And("the accessibility statement link should be visible")
     public void accessibilityStatementLinkShouldBeVisible() {
         assertVisibilityOfAccessibilityLink();
+    }
+
+    @And("the summary should display the owning team as {string}")
+    public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
+        summaryTab.assertSummaryContainsExpectedContentForGivenHeader("Team", teamName);
     }
 }
 

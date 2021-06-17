@@ -8,6 +8,12 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Workdays;
+import com.hocs.test.pages.comp.ComplaintClosed;
+import com.hocs.test.pages.comp.Registration;
+import com.hocs.test.pages.comp.ServiceDraft;
+import com.hocs.test.pages.comp.ServiceQA;
+import com.hocs.test.pages.comp.ServiceSend;
+import com.hocs.test.pages.comp.ServiceTriage;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -53,6 +59,18 @@ public class EndToEndStepDefs extends BasePage {
     DispatchStages dispatchStages;
 
     Workdays workdays;
+
+    Registration registration;
+
+    ServiceTriage serviceTriage;
+
+    ServiceDraft serviceDraft;
+
+    ServiceQA serviceQA;
+
+    ServiceSend serviceSend;
+
+    ComplaintClosed complaintClosed;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -118,13 +136,43 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "COMP":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION (TO SERVICE TRIAGE)":
+                        registration.moveCaseFromRegistrationToServiceTriage();
+                        break;
+                    case "SERVICE TRIAGE (TO SERVICE DRAFT)":
+                        serviceTriage.moveCaseFromServiceTriageToServiceDraft();
+                        break;
+                    case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
+                        serviceTriage.moveCaseFromServiceTriageToServiceEscalated();
+                        break;
+                    case "SERVICE TRIAGE (TO CCH)":
+                        serviceTriage.moveCaseFromServiceTriageToCCH();
+                        break;
+                    case "SERVICE DRAFT":
+                        serviceDraft.moveCaseFromServiceDraftToServiceQA();
+                        break;
+                    case "SERVICE QA":
+                        serviceQA.moveCaseFromServiceQAToServiceSend();
+                        break;
+                    case "SERVICE SEND":
+                        serviceSend.moveCaseFromServiceSendToComplaintClosed();
+                        break;
+                    case "COMPLAINT CLOSED (TO CASE CLOSED)":
+                        complaintClosed.moveCaseFromComplaintClosedToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         waitForDashboard();
     }
 
-    @And("I create a {string} case and move it to the {string} stage")
+    @And("I create a {string} case and move it to (the ){string}( stage)")
     public void iCreateACaseAndMoveItToAStage(String caseType, String stage) {
         switch (caseType.toUpperCase()) {
             case "MIN":
@@ -290,6 +338,49 @@ public class EndToEndStepDefs extends BasePage {
             case "MTS":
                 createCase.createCaseOfType(caseType);
                 goToDECSDashboard();
+                break;
+            case "COMP":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION":
+                        createCase.createCaseOfType(caseType);
+                        goToDECSDashboard();
+                        break;
+                    case "SERVICE TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO SERVICE TRIAGE)");
+                        break;
+                    case "SERVICE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE DRAFT)");
+                        break;
+                    case "SERVICE ESCALATED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
+                        break;
+                    case "CCH":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
+                        iCompleteTheStage("SERVICE TRIAGE (TO CCH)");
+                        break;
+                    case "SERVICE QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE DRAFT");
+                        iCompleteTheStage("SERVICE DRAFT");
+                        break;
+                    case "SERVICE SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE QA");
+                        iCompleteTheStage("SERVICE QA");
+                        break;
+                    case "COMPLAINT CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SERVICE SEND");
+                        iCompleteTheStage("SERVICE SEND");
+                        break;
+                    case "CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED");
+                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }

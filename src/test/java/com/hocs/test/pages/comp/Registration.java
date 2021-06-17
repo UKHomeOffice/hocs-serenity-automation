@@ -3,6 +3,7 @@ package com.hocs.test.pages.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.AddCorrespondent;
 import com.hocs.test.pages.BasePage;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Registration extends BasePage {
+
+    AddCorrespondent addCorrespondent;
 
     @FindBy(xpath = "//input[@name='ComplainantDOB-day']")
     public WebElementFacade complainantDOBDayField;
@@ -65,8 +68,8 @@ public class Registration extends BasePage {
     @FindBy(css = "label[for='Channel-Webform']")
     public WebElementFacade channelWebformRadioButton;
 
-    @FindBy(xpath = "//textarea[@name='Description']")
-    public WebElementFacade descriptionTextArea;
+    @FindBy(xpath = "//textarea[@name='CaseSummary']")
+    public WebElementFacade caseSummaryTextArea;
 
     @FindBy(css = "label[for='Severity-1 Very High']")
     public WebElementFacade severityVeryHighRadioButton;
@@ -164,6 +167,31 @@ public class Registration extends BasePage {
     @FindBy(id = "OwningCSU")
     private WebElementFacade owningCSUDropdown;
 
+    public void moveCaseFromRegistrationToServiceTriage() {
+        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        clickTheButton("Continue");
+        enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+        selectAGender();
+        enterACompanyName(generateRandomString());
+        enterAHomeOfficeReference(generateRandomString());
+        enterAPortReference(generateRandomString());
+        clickTheButton("Continue");
+        selectComplaintType("Service");
+        clickTheButton("Continue");
+        selectAChannel();
+        enterADescriptionOfTheComplaint("Test complaint description");
+        selectASeverity();
+        selectSafeGuardingAndVulnerableIfPossible();
+        enterAPreviousUKVIComplaintReference(generateRandomString());
+        enterAThirdPartyReference(generateRandomString());
+        clickTheButton("Continue");
+        openTheServiceComplaintCategoryAccordion();
+        waitABit(1000);
+        selectAVisibleClaimCategory();
+        selectAnOwningCSU();
+        safeClickOn(finishButton);
+    }
+
     public void enterComplainantDOB(String complainantDOB) {
         typeIntoDateField(complainantDOBDayField, complainantDOBMonthField, complainantDOBYearField, complainantDOB);
     }
@@ -209,7 +237,7 @@ public class Registration extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint(String complaintDescription) {
-        descriptionTextArea.sendKeys(complaintDescription);
+        caseSummaryTextArea.sendKeys(complaintDescription);
     }
 
     public void selectASeverity() {
@@ -224,7 +252,6 @@ public class Registration extends BasePage {
             safeClickOn(vulnerableCheckbox);
         }
     }
-
 
     public void enterAPreviousUKVIComplaintReference(String previousUKVIComplaintReference) {
         previousUKVIComplaintReferenceField.sendKeys(previousUKVIComplaintReference);
@@ -259,5 +286,31 @@ public class Registration extends BasePage {
 
     public void selectAnOwningCSU() {
         owningCSUDropdown.selectByIndex(1);
+    }
+
+    public void assertErrorMessageIsDisplayed(String expectedMessage) {
+        String expectedText = null;
+        switch (expectedMessage.toUpperCase()) {
+            case "PRIMARY CORRESPONDENT":
+                expectedText = "Which is the primary correspondent? is required";
+                break;
+            case "COMPLAINT TYPE":
+                expectedText = "Complaint Type is required";
+                break;
+            case "CHANNEL":
+                expectedText = "Channel is required";
+                break;
+            case "SEVERITY":
+                expectedText = "Severity is required";
+                break;
+            case "OWNING CSU":
+                expectedText = "Owning CSU is required";
+                break;
+            default:
+                pendingStep(expectedMessage + " is not defined within " + getMethodName());
+        }
+        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedText +
+                "')]");
+        errorMessage.shouldBeVisible();
     }
 }
