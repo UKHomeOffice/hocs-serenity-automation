@@ -21,6 +21,7 @@ Feature: Service Escalated
     And the summary should display the owning team as "CCT Stage 1 Response Team"
 
 #    HOCS-2870, HOCS-3096
+  @COMPRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Escalated stage
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request

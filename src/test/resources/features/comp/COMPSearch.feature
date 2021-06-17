@@ -5,6 +5,7 @@ Feature: COMP Search
     Given I am logged into "DECS" as user "COMP_USER"
 
 #    HOCS-2838, HOCS-3036
+  @COMPRegression
   Scenario Outline: User tests COMP search criteria
     When I create a "COMP" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Dashboard" page
@@ -21,6 +22,7 @@ Feature: COMP Search
       | Complainant Home Office Reference | Test HO Ref          |
 
 #    HOCS-2838
+  @COMPRegression
   Scenario: User can search for a COMP case by its case reference
     When I create a single "COMP" case
     And I navigate to the "Dashboard" page
@@ -29,7 +31,7 @@ Feature: COMP Search
     Then I check that the COMP search results have the correct "Case Reference"
 
 #     HOCS-2847 HOCS-3161
-  @test @COMPRegression
+  @COMPRegression
   Scenario: COMP User sees the required information when viewing search
     Given I am logged into "DECS" as user "COMP_USER"
     And I navigate to the "search" page

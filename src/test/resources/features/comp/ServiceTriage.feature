@@ -53,6 +53,7 @@ Feature: Service Triage
     And a case closure note should be visible showing the reason for closure
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
+  @COMPRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
     When I accept the case at Service Triage stage
     And I click the "Continue" button
@@ -69,6 +70,7 @@ Feature: Service Triage
       | Business         | Cancel   |
 
 #    HOCS-3103
+  @COMPRegression
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
     When I accept the case at Service Triage stage
     And I click the "Continue" button
@@ -79,6 +81,7 @@ Feature: Service Triage
     And the overdue contribution request should be highlighted
 
 #    HOCS-2979
+  @COMPRegression
   Scenario: User can select that a Letter of Authority is required for this complaint
     When I accept the case at Service Triage stage
     And I click the "Continue" button

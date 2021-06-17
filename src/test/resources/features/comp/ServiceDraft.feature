@@ -30,6 +30,7 @@ Feature: Service Draft
     And a escalation note should be visible showing the reason for escalation
 
 #    HOCS-3076
+  @Validation
   Scenario: User must upload a document at Service Draft stage
     And I select the "Response is ready to send" action at the Service Draft stage
     Then an error message is displayed as I have not uploaded a document
