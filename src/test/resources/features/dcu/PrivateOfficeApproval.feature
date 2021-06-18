@@ -12,7 +12,7 @@ Feature: Private Office Approval
     Then an error message should be displayed as I have not selected whether I approve the response
 
   @Validation
-  Scenario: If the user decides to change the case minister they must select an override team and enter their reasoning in the text box
+  Scenario: User must select an override team and enter a reason to change the case minister
     When I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I click the "Finish" button on the "CHANGE MINISTER" page
@@ -44,7 +44,7 @@ Feature: Private Office Approval
     Then the information shown should match what I entered on the change Private Office Team page
 
   @DCUWorkflow @DCURegression
-  Scenario Outline: Case is returned to Initial Draft stage when rejected by Private Office Approval Team
+  Scenario Outline: User can return a case to the Initial Draft stage
     And I create a "<caseType>" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
     And I reject the case at the "Private Office Approval" stage

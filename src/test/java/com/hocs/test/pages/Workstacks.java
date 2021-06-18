@@ -462,7 +462,7 @@ public class Workstacks extends BasePage {
     }
 
     private String getStageFromWorkstacksTable() {
-        workstackFilter.waitUntilVisible();
+        workstackFilter.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + sessionVariableCalled("caseReference")
                         + "']/../following-sibling::td[1]"));
