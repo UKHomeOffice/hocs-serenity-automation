@@ -160,6 +160,23 @@ public class Search extends BasePage {
                     case "TRO":
                         safeClickOn(searchTROCheckbox);
                         break;
+                    case "MIN + TRO":
+                        safeClickOn(searchMINCheckbox);
+                        safeClickOn(searchTROCheckbox);
+                        break;
+                    case "MIN + DTEN":
+                        safeClickOn(searchMINCheckbox);
+                        safeClickOn(searchDTENCheckbox);
+                        break;
+                    case "TRO + DTEN":
+                        safeClickOn(searchTROCheckbox);
+                        safeClickOn(searchDTENCheckbox);
+                        break;
+                    case "ALL DCU CASE TYPES":
+                        safeClickOn(searchMINCheckbox);
+                        safeClickOn(searchTROCheckbox);
+                        safeClickOn(searchDTENCheckbox);
+                        break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }

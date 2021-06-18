@@ -31,19 +31,19 @@ public class CreateCase extends BasePage {
     @FindBy(className = "govuk-radios")
     public WebElementFacade allRadioButtons;
 
-    @FindBy(css = "label[for='case-type-MIN']")
+    @FindBy(xpath = "//label[text()='DCU Ministerial']")
     public WebElementFacade dcuMinRadioButton;
 
-    @FindBy(css = "label[for='case-type-TRO']")
+    @FindBy(xpath = "//label[text()='DCU Number 10']")
     public WebElementFacade dcuTroRadioButton;
 
-    @FindBy(css = "label[for='case-type-DTEN']")
+    @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade dcuDTenRadioButton;
 
-    @FindBy(css = "label[for='case-type-MPAM']")
+    @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamRadioButton;
 
-    @FindBy(css = "label[for='case-type-MTS']")
+    @FindBy(xpath = "//label[text()='MTS Case']")
     public WebElementFacade mtsRadioButton;
 
     @FindBy(css = "label[for='case-type-COMP']")
