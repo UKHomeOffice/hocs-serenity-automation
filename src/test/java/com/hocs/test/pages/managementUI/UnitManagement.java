@@ -2,9 +2,6 @@ package com.hocs.test.pages.managementUI;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.matches;
 
 import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
