@@ -218,9 +218,8 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
-        waitFor(summaryTab.summaryTab).withTimeoutOf(Duration.ofSeconds(10));
         summaryTab.selectSummaryTab();
-        waitFor(summaryTab.currentTeam).withTimeoutOf(Duration.ofSeconds(10));
+        waitABit(2500);
         assertThat(summaryTab.currentTeam.getText().contains(newBusinessArea), is(true));
     }
 
