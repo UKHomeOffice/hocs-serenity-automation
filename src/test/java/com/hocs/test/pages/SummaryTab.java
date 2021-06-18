@@ -108,8 +108,9 @@ public class SummaryTab extends BasePage {
     public WebElementFacade homeSecInterest;
 
     public void selectSummaryTab() {
+        summaryTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilClickable();
         safeClickOn(summaryTab);
-        activeStageHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        waitABit(1500);
     }
 
     public void assertSummaryContainsExpectedContentForGivenHeader(String header, String expectedContent) {
