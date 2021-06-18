@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -226,7 +227,7 @@ public class AddCorrespondent extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectMemberOfParliament(member);
-        correspondentTypeDropdown.waitUntilVisible();
+        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         clickAddButton();
     }
 
