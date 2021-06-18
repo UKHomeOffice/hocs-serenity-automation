@@ -360,3 +360,19 @@ Feature: ManagementUI
     And I override the initial draft team of the case to the team created in Management UI
     And I load the current case
     Then the case should be assigned to the DCU draft team created in Management UI
+
+  @TeamManagement @Regression
+  Scenario: User is able to move a team to a different unit
+    Given I navigate to the "Team" Management page
+    When I select the "Detention Services" team from the dropdown
+    And I navigate to edit team
+    And I change to a different unit
+
+
+
+
+
+
+
+
+

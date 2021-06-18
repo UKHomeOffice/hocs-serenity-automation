@@ -2,12 +2,14 @@ package com.hocs.test.pages.managementUI;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.mockito.ArgumentMatchers.matches;
 
 import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -33,6 +35,27 @@ public class UnitManagement extends BasePage {
 
     @FindBy(xpath = "//caption[contains(text(), 'Units')]/following-sibling::tbody")
     public WebElementFacade listOfUnits;
+
+    @FindBy(xpath = "//button[contains(text(),'Edit Team')]")
+    public WebElementFacade editTeamButton;
+
+    @FindBy(xpath = "//body/div[@id='app']/div[1]/main[1]/div[2]/div[1]/form[1]/div[2]/div[1]/div[1]/div[1]")
+    public WebElementFacade unitTypeBox;
+
+    @FindBy(xpath = "//div[contains(text(),'Border Force')]")
+    public WebElementFacade unitBorderForceOption;
+
+    @FindBy(xpath = "//div[contains(text(),'Communication')]")
+    public WebElementFacade unitCommunicationOption;
+
+    @FindBy(xpath = "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/div[3]/button[1]")
+    public WebElementFacade updateUnitButton;
+
+    @FindBy(xpath = "//h2[contains(text(),'Success')]")
+    public WebElementFacade commtoBfSuccess;
+
+    @FindBy(xpath = "//p[contains(text(),'Team unit changed from Border Force to Communicati')]")
+    public WebElementFacade bfToCommSuccess;
 
     public void assertAddUnitPageTitle() {
         managementUIPageTitle.shouldContainText("Add Unit");
@@ -82,5 +105,35 @@ public class UnitManagement extends BasePage {
         WebElementFacade desiredUnit = findBy("(//th[contains(text(), '" + sessionVariableCalled("unitDisplayName") + "')"
                 + "])");
         assertElementIsDisplayed(desiredUnit);
+    }
+
+    public void clickEditTeamButton() {
+        editTeamButton.click();
+    }
+
+    public boolean selectRandomUnitName() throws InterruptedException {
+        Thread.sleep(3000);
+        if (unitTypeBox.containsText("Communication")) {
+            unitTypeBox.click();
+            unitBorderForceOption.click();
+            updateUnitButton.click();
+            try {
+                commtoBfSuccess.isDisplayed();
+                return true;
+            } catch (NoSuchElementException e) {
+                return false;
+            }
+        } else if (unitTypeBox.containsText("Border Force")) {
+            unitTypeBox.click();
+            unitCommunicationOption.click();
+            updateUnitButton.click();
+            try {
+                bfToCommSuccess.isDisplayed();
+                return true;
+            } catch (NoSuchElementException e) {
+                return false;
+            }
+        }
+        return false;
     }
 }
