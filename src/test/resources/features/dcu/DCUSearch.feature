@@ -62,11 +62,21 @@ Feature: DCU Search
     Then I should be taken directly to the case
 
   @SearchByCaseType @Workstacks @DCURegression
-  Scenario: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
-    And I create a single "MIN" case
+  Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
+    And I create a single "<createCase>" case
     And I navigate to the "search" page
+    When I enter "<searchCase>" into the "Case Type" DCU search criteria
     And I click the search button on the search page
     Then the "DCU Search" workstack should contain only the expected columns
+    Examples:
+    | createCase | searchCase          |
+#    | MIN        | MIN                 | Currently a bug impacting scenarios: #1
+#    | TRO        | TRO                 | #2
+#    | DTEN       | DTEN                | #3
+    | MIN        | MIN + TRO           |
+    | MIN        | MIN + DTEN          |
+    | TRO        | TRO + DTEN          |
+    | MIN        | All DCU Case Types  |
 
   @SearchByCaseType @SearchByTopic @OtherTests
   Scenario: User should be able to search by multiple parameters
