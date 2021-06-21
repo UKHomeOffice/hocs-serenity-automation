@@ -18,7 +18,7 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "//input[@id='Teams-input']")
     public WebElementFacade teamSearchBar;
 
-    @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
+    @FindBy(xpath = "//button[contains(text(),'View team')]")
     public WebElementFacade viewTeamButton;
 
     @FindBy(css = "button[type='submit']:nth-of-type(1)")

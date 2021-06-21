@@ -6,7 +6,6 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.NoSuchElementException;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -36,7 +35,7 @@ public class UnitManagement extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Edit Team')]")
     public WebElementFacade editTeamButton;
 
-    @FindBy(xpath = "//body/div[@id='app']/div[1]/main[1]/div[2]/div[1]/form[1]/div[2]/div[1]/div[1]/div[1]")
+    @FindBy(xpath = "//*[@id='unit']")
     public WebElementFacade unitTypeBox;
 
     @FindBy(xpath = "//div[contains(text(),'Border Force')]")
@@ -45,14 +44,14 @@ public class UnitManagement extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'Communication')]")
     public WebElementFacade unitCommunicationOption;
 
-    @FindBy(xpath = "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/div[3]/button[1]")
+    @FindBy(xpath = "//button[contains(text(),'Update')]")
     public WebElementFacade updateUnitButton;
 
-    @FindBy(xpath = "//h2[contains(text(),'Success')]")
-    public WebElementFacade commtoBfSuccess;
+    @FindBy(xpath = "//p[contains(text(),'Team unit changed from')]")
+    public WebElementFacade successMessage;
 
-    @FindBy(xpath = "//p[contains(text(),'Team unit changed from Border Force to Communicati')]")
-    public WebElementFacade bfToCommSuccess;
+    @FindBy(xpath = "//h2[contains(text(),'Success')]")
+    public static WebElementFacade successMessageDisplayed;
 
     public void assertAddUnitPageTitle() {
         managementUIPageTitle.shouldContainText("Add Unit");
@@ -108,29 +107,21 @@ public class UnitManagement extends BasePage {
         editTeamButton.click();
     }
 
-    public boolean selectRandomUnitName() throws InterruptedException {
+    public void selectNewUnitName() throws InterruptedException {
         Thread.sleep(3000);
         if (unitTypeBox.containsText("Communication")) {
             unitTypeBox.click();
             unitBorderForceOption.click();
             updateUnitButton.click();
-            try {
-                commtoBfSuccess.isDisplayed();
-                return true;
-            } catch (NoSuchElementException e) {
-                return false;
-            }
         } else if (unitTypeBox.containsText("Border Force")) {
             unitTypeBox.click();
             unitCommunicationOption.click();
             updateUnitButton.click();
-            try {
-                bfToCommSuccess.isDisplayed();
-                return true;
-            } catch (NoSuchElementException e) {
-                return false;
-            }
         }
-        return false;
+    }
+
+    public void correctSuccessmessageDisplayed() {
+        successMessageDisplayed.isDisplayed();
+        successMessage.shouldContainText("Team unit changed from ");
     }
 }

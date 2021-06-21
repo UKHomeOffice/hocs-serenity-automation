@@ -628,7 +628,12 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I change to a different unit")
     public void iChangeToADifferentUnit() throws InterruptedException {
-        unitManagement.selectRandomUnitName();
+        unitManagement.selectNewUnitName();
+    }
+
+    @Then("success message is displayed")
+    public void successMessageIsDisplayed() {
+        unitManagement.correctSuccessmessageDisplayed();
     }
 }
 
