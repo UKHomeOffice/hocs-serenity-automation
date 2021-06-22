@@ -375,4 +375,12 @@ public class BasePage extends PageObject {
         Random rand = new Random();
         return list.get(rand.nextInt(list.size()));
     }
+
+    public WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elemenetText) {
+        return findBy("//input/following-sibling::label[contains(text(),'" + elemenetText + "')]");
+    }
+
+    public void safeClickRadioButtonByVisibleText(String elementText) {
+        safeClickOn(getRadioButtonLabelElementWithSpecifiedText(elementText));
+    }
 }

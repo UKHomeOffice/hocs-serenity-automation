@@ -98,11 +98,11 @@ public class AddCorrespondent extends BasePage {
     }
 
     public void selectCorrespondentIsMPRadioButton() {
-        safeClickOn(correspondentMemberYesRadioButton);
+        safeClickRadioButtonByVisibleText("Yes");
     }
 
     public void selectCorrespondentNotMPRadioButton() {
-        safeClickOn(correspondentMemberNoRadioButton);
+        safeClickRadioButtonByVisibleText("No");;
     }
 
     public void selectCorrespondentIsMP() {

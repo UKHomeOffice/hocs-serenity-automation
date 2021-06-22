@@ -102,52 +102,13 @@ public class Creation extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        switch (businessArea.toUpperCase()) {
-            case "UKVI":
-                safeClickOn(businessAreaUKVIRadioButton);
-                break;
-            case "BF":
-                safeClickOn(businessAreaBFRadioButton);
-                break;
-            case "IE":
-                safeClickOn(businessAreaIERadioButton);
-                break;
-            case "EUSS":
-                safeClickOn(businessAreaEUSSRadioButton);
-                break;
-            case "HMPO":
-                safeClickOn(businessAreaHMPORadioButton);
-                break;
-            case "WINDRUSH":
-                safeClickOn(businessAreaWindrushRadioButton);
-                break;
-            case "CORONAVIRUS":
-                safeClickOn(businessAreaCoronavirusRadioButton);
-                break;
-            case "TRANSFER TO OGD":
-                safeClickOn(businessAreaTransferToOGDRadioButton);
-                break;
-            case "TRANSFER TO OTHER":
-                safeClickOn(businessAreaTransferToOtherRadioButton);
-                break;
-            default:
-                pendingStep(businessArea + " is not defined within " + getMethodName());
-        }
+        safeClickRadioButtonByVisibleText(businessArea);
         setSessionVariable("businessArea").to(businessArea);
         System.out.println(businessArea + " is the business area");
     }
 
     public void selectRefType(String refType) {
-        switch (refType.toUpperCase()) {
-            case "MINISTERIAL":
-                safeClickOn(refTypeMRefRadioButton);
-                break;
-            case "OFFICIAL":
-                safeClickOn(refTypeBRefRadioButton);
-                break;
-            default:
-                pendingStep(refType + " is not defined within " + getMethodName());
-        }
+        safeClickRadioButtonByVisibleText(refType);
         setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
     }
@@ -168,46 +129,13 @@ public class Creation extends BasePage {
     }
 
     public void selectUrgency(String urgency) {
-        switch (urgency.toUpperCase()) {
-            case "STANDARD":
-                safeClickOn(urgencyStandardRadioButton);
-                break;
-            case "PRIORITY":
-                safeClickOn(urgencyPriorityRadioButton);
-                break;
-            case "IMMEDIATE":
-                safeClickOn(urgencyImmediateRadioButton);
-                break;
-            default:
-                pendingStep(urgency + " is not defined within " + getMethodName());
-        }
+        safeClickRadioButtonByVisibleText(urgency);
         setSessionVariable("urgency").to(urgency);
     }
 
-    public void selectInboundChannel(String channel) {
-        switch (channel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(channelEmailRadioButton);
-                break;
-            case "PHONE ROUTED":
-                safeClickOn(channelPhoneResponseRequiredRadioButton);
-                break;
-            case "PHONE COMPLETED":
-                safeClickOn(channelPhoneReplyGivenRadioButton);
-                break;
-            case "POST":
-                safeClickOn(channelPostRadioButton);
-                break;
-            case "OUTREACH":
-                safeClickOn(channelOutreachRadioButton);
-                break;
-            case "PRIVATE OFFICE":
-                safeClickOn(channelPrivateOfficeRadioButton);
-                break;
-            default:
-                pendingStep(channel + " is not defined within " + getMethodName());
-        }
-        setSessionVariable("inboundChannel").to(channel);
+    public void selectInboundChannel(String inboundChannel) {
+        safeClickRadioButtonByVisibleText(inboundChannel);
+        setSessionVariable("inboundChannel").to(inboundChannel);
     }
 
     public void moveCaseFromCreationToTriage() {

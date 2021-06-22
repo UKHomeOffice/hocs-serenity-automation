@@ -12,18 +12,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends BasePage {
 
-    @FindBy(css = "label[for='ChannelOut-Email']")
-    private WebElementFacade responseChannelEmailRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Letter']")
-    private WebElementFacade responseChannelLetterRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Phone']")
-    private WebElementFacade responseChannelPhoneRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Outreach']")
-    private WebElementFacade responseChannelOutreachRadioButton;
-
     @FindBy(xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
 
