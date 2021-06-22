@@ -620,5 +620,20 @@ public class ManagementUIStepDefs extends BasePage {
                 pendingStep(action + " is not defined within " + getMethodName());
         }
     }
+
+    @And("I navigate to edit team")
+    public void iNavigateToEditTeam() {
+        unitManagement.clickEditTeamButton();
+    }
+
+    @And("I change to a different unit")
+    public void iChangeToADifferentUnit() throws InterruptedException {
+        unitManagement.selectNewUnitName();
+    }
+
+    @Then("success message is displayed")
+    public void successMessageIsDisplayed() {
+        unitManagement.correctSuccessmessageDisplayed();
+    }
 }
 

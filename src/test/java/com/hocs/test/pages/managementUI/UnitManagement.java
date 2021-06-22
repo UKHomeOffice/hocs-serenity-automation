@@ -2,8 +2,6 @@ package com.hocs.test.pages.managementUI;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 import com.hocs.test.pages.BasePage;
 import java.time.LocalDateTime;
@@ -33,6 +31,27 @@ public class UnitManagement extends BasePage {
 
     @FindBy(xpath = "//caption[contains(text(), 'Units')]/following-sibling::tbody")
     public WebElementFacade listOfUnits;
+
+    @FindBy(xpath = "//button[contains(text(),'Edit Team')]")
+    public WebElementFacade editTeamButton;
+
+    @FindBy(xpath = "//*[@id='unit']")
+    public WebElementFacade unitTypeBox;
+
+    @FindBy(xpath = "//div[contains(text(),'Border Force')]")
+    public WebElementFacade unitBorderForceOption;
+
+    @FindBy(xpath = "//div[contains(text(),'Communication')]")
+    public WebElementFacade unitCommunicationOption;
+
+    @FindBy(xpath = "//button[contains(text(),'Update')]")
+    public WebElementFacade updateUnitButton;
+
+    @FindBy(xpath = "//p[contains(text(),'Team unit changed from')]")
+    public WebElementFacade successMessage;
+
+    @FindBy(xpath = "//h2[contains(text(),'Success')]")
+    public static WebElementFacade successMessageDisplayed;
 
     public void assertAddUnitPageTitle() {
         managementUIPageTitle.shouldContainText("Add Unit");
@@ -82,5 +101,27 @@ public class UnitManagement extends BasePage {
         WebElementFacade desiredUnit = findBy("(//th[contains(text(), '" + sessionVariableCalled("unitDisplayName") + "')"
                 + "])");
         assertElementIsDisplayed(desiredUnit);
+    }
+
+    public void clickEditTeamButton() {
+        editTeamButton.click();
+    }
+
+    public void selectNewUnitName() throws InterruptedException {
+        Thread.sleep(3000);
+        if (unitTypeBox.containsText("Communication")) {
+            unitTypeBox.click();
+            unitBorderForceOption.click();
+            updateUnitButton.click();
+        } else if (unitTypeBox.containsText("Border Force")) {
+            unitTypeBox.click();
+            unitCommunicationOption.click();
+            updateUnitButton.click();
+        }
+    }
+
+    public void correctSuccessmessageDisplayed() {
+        successMessageDisplayed.isDisplayed();
+        successMessage.shouldContainText("Team unit changed from ");
     }
 }
