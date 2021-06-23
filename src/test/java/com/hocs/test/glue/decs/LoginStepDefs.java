@@ -39,7 +39,7 @@ public class LoginStepDefs extends BasePage {
             loginPage.logInAsUser(targetUser);
         } else {
             System.out.println("Session still active, checking active user matches target user");
-            goToDECSDashboard(platform);
+            goToDashboard(platform);
             if (!loggedInAsTargetUser()) {
                 System.out.println("Active user does not match target user, logging out");
                 selectLogoutButton();

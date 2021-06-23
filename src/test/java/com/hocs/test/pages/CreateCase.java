@@ -34,10 +34,10 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='DCU Ministerial']")
     public WebElementFacade dcuMinRadioButton;
 
-    @FindBy(xpath = "//label[text()='DCU Number 10']")
+    @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade dcuTroRadioButton;
 
-    @FindBy(xpath = "//label[text()='DCU Treat Official']")
+    @FindBy(xpath = "//label[text()='DCU Number 10l']")
     public WebElementFacade dcuDTenRadioButton;
 
     @FindBy(xpath = "//label[text()='MPAM Case']")
@@ -46,7 +46,7 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='MTS Case']")
     public WebElementFacade mtsRadioButton;
 
-    @FindBy(xpath = "//label[contains(text(),'Complaint Case')]")
+    @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
 
     @FindBy(id = "DateReceived-day")
