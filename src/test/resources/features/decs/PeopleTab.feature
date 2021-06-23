@@ -5,7 +5,7 @@ Feature: PeopleTab
     Given I am logged into "DECS" as user "DECS_USER"
 
   @Regression
-  Scenario Outline: User change the primary correspondent of the case
+  Scenario Outline: User changes the primary correspondent of the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
     And I complete the Data Input stage adding 3 member correspondents

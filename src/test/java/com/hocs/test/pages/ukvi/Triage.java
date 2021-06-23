@@ -94,6 +94,7 @@ public class Triage extends BasePage {
     }
 
     public void selectEnquirySubject(String subject) {
+        waitForPageWithTitle("Enquiry subject");
         safeClickRadioButtonByVisibleText(subject);
         setSessionVariable("enquirySubject").to(subject);
         safeClickOn(continueButton);

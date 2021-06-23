@@ -146,6 +146,19 @@ public class BasePage extends PageObject {
         assert (pageTitle.isVisible());
     }
 
+    public void waitForPageWithTitle(String pageTitle) {
+        int retries = 0;
+        while (retries < 3) {
+            try{
+                assertPageTitle(pageTitle);
+                break;
+            }
+            catch (AssertionError e) {
+                retries ++;
+            }
+        }
+    }
+
     public void clickAddButton() {
         safeClickOn(addButton);
     }
@@ -172,7 +185,7 @@ public class BasePage extends PageObject {
         safeClickOn(muiDashboardLink);
     }
 
-    public void goToDECSDashboard(String platform) {
+    public void goToDashboard(String platform) {
         switch (platform.toUpperCase()) {
             case "DECS":
                 goToDECSDashboard();
