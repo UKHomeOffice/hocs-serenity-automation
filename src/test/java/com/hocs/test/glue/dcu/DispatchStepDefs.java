@@ -26,7 +26,7 @@ public class DispatchStepDefs extends BasePage {
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         safeClickOn(dispatch.dispatchAcceptRadioButton);
-        safeClickOn(dispatch.continueButton);
+        safeClickOn(continueButton);
     }
 
     @Then("an error message should be displayed as I have selected whether the case can be dispatched")

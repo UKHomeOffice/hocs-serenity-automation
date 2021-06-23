@@ -7,10 +7,10 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class MinisterialSignOff extends BasePage {
 
-    @FindBy(css = "label[for='MinisterSignOffDecision-ACCEPT']")
+    @FindBy(xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='Yes']")
     public WebElementFacade ministerSignOffAcceptRadioButton;
 
-    @FindBy(css = "label[for='MinisterSignOffDecision-REJECT']")
+    @FindBy(xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='No']")
     public WebElementFacade ministerSignOffRejectRadioButton;
 
     @FindBy(id = "CaseNote_MinisterReject")

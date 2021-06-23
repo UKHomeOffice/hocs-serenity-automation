@@ -24,16 +24,16 @@ public class InitialDraft extends BasePage {
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
-    @FindBy(css = "label[for=InitialDraftDecision-REJECT]")
+    @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='No']")
     public WebElementFacade answeredByMyTeamNoRadioButton;
 
-    @FindBy(css = "label[for=InitialDraftDecision-ACCEPT")
+    @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='Yes']")
     public WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(css = "label[for=ReturnToResponseChannelDecision-REJECT]")
+    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='No ']")
     public WebElementFacade chooseAnotherResponseTypeNoButton;
 
-    @FindBy(css = "label[for=ReturnToResponseChannelDecision-ACCEPT")
+    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='Yes']")
     public WebElementFacade chooseAnotherResponseTypeYesButton;
 
     @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
@@ -57,22 +57,22 @@ public class InitialDraft extends BasePage {
     @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
     public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
 
-    @FindBy(css = "label[for=ResponseChannel-EMAIL]")
+    @FindBy(xpath = "//label[text()='Email']")
     public WebElementFacade emailReplyRadioButton;
 
-    @FindBy(css = "label[for=ResponseChannel-LETTER]")
+    @FindBy(xpath = "//label[text()='Letter']")
     public WebElementFacade letterReplyRadioButton;
 
-    @FindBy(css = "label[for=ResponseChannel-PHONE]")
+    @FindBy(xpath = "//label[text()='Phone']")
     public WebElementFacade phoneReplyRadioButton;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
     public WebElementFacade summariseCallTextBox;
 
-    @FindBy(css = "label[for='OfflineQA-TRUE']")
+    @FindBy(xpath = "//div[@id='OfflineQA-radios']//label[text()='Yes']")
     public WebElementFacade offlineQaYesRadioButton;
 
-    @FindBy(css = "label[for='OfflineQA-FALSE']")
+    @FindBy(xpath = "//div[@id='OfflineQA-radios']//label[text()='No']")
     public WebElementFacade offlineQaNoRadioButton;
 
     @FindBy(id = "OfflineQaUser")
@@ -177,9 +177,9 @@ public class InitialDraft extends BasePage {
     public void acceptAndDraftALetter() {
         safeClickOn(answeredByMyTeamYesRadioButton);
         safeClickOn(continueButton);
-        waitFor(letterReplyRadioButton);
+        letterReplyRadioButton.waitUntilVisible();
         safeClickOn(letterReplyRadioButton);
-        safeClickOn(continueButton);
+        jsClickOn(continueButton);
     }
 
     public void dtenAcceptAndDraftALetter() {
@@ -204,7 +204,8 @@ public class InitialDraft extends BasePage {
         safeClickOn(continueButton);
         safeClickOn(letterReplyRadioButton);
         setSessionVariable("selectedTypeOfResponseRadioButton").to(letterReplyRadioButton.getTextContent());
-        safeClickOn(continueButton);
+        waitABit(1000);
+        jsClickOn(continueButton);
         documents.addADraftDocumentAtDraftStage();
         setSessionVariable("uploadedDocumentTitle").to("test.docx");
         continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();

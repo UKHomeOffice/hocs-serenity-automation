@@ -27,7 +27,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
         safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
-        safeClickOn(ministerialSignOff.continueButton);
+        safeClickOn(continueButton);
     }
 
     @And("I return the case at Ministerial Sign Off to Private Office Approval")

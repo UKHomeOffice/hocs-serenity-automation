@@ -6,10 +6,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class NoResponseNeededConfirmation extends BasePage {
 
-    @FindBy(css = "label[for='NoReplyNeededConfirmation-ACCEPT']")
+    @FindBy(xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='Yes']")
     public WebElementFacade noResponseNeededYesRadioButton;
 
-    @FindBy(css = "label[for='NoReplyNeededConfirmation-REJECT']")
+    @FindBy(xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='No']")
     public WebElementFacade noResponseNeededNoRadioButton;
 
     @FindBy(xpath = "//a[@href='#NoReplyNeededConfirmation-error']")

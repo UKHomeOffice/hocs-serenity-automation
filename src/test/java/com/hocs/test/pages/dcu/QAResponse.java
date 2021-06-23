@@ -20,13 +20,13 @@ public class QAResponse extends BasePage {
 
     Workstacks workstacks;
 
-    @FindBy(css = "label[for='QAResponseDecision-ACCEPT']")
+    @FindBy(xpath = "//label[text()='Approve primary draft']")
     public WebElementFacade QAAcceptRadioButton;
 
-    @FindBy(css = "label[for='QAResponseDecision-REJECT']")
+    @FindBy(xpath = "//label[text()='Return case to drafting team']")
     public WebElementFacade QARejectRadioButton;
 
-    @FindBy(css = "label[for='QAResponseDecision-MODIFY']")
+    @FindBy(xpath = "//label[text()='Modify primary draft']")
     public WebElementFacade QAModifyRadioButton;
 
     @FindBy(id ="CaseNote_QA")

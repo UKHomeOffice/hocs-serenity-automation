@@ -13,13 +13,13 @@ public class PrivateOfficeApproval extends BasePage {
 
     TimelineTab timelineTab;
 
-    @FindBy(css = "label[for='PrivateOfficeDecision-ACCEPT']")
+    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Yes']")
     public WebElementFacade privateOfficeAcceptRadioButton;
 
-    @FindBy(css = "label[for='PrivateOfficeDecision-REJECT']")
+    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='No']")
     public WebElementFacade privateOfficeRejectRadioButton;
 
-    @FindBy(css = "label[for='PrivateOfficeDecision-CHANGE']")
+    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Minister']")
     public WebElementFacade privateOfficeChangeMinisterRadioButton;
 
     @FindBy(id = "CaseNote_PrivateOfficeReject")
@@ -43,10 +43,7 @@ public class PrivateOfficeApproval extends BasePage {
     @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
     public WebElementFacade privateOfficeTeamDropdown;
 
-    @FindBy(xpath = "//label[text()='Change Minister']")
-    public WebElementFacade changeMinisterRadioButton;
-
-    @FindBy(xpath = "//label[text()='Change Topic']")
+    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Topic']")
     public WebElementFacade changeTopicRadioButton;
 
     @FindBy(id = "PrivateOfficeOverridePOTeamUUID")

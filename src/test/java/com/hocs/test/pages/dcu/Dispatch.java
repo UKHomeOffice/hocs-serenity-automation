@@ -7,10 +7,10 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class Dispatch extends BasePage {
 
-    @FindBy(css = "label[for='DispatchDecision-ACCEPT']")
+    @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='Yes']")
     public WebElementFacade dispatchAcceptRadioButton;
 
-    @FindBy(css = "label[for='DispatchDecision-REJECT']")
+    @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='No']")
     public WebElementFacade dispatchRejectRadioButton;
 
     @FindBy(xpath = "//a[text()='Are you able to dispatch this? is required']")

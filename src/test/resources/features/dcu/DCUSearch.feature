@@ -28,7 +28,7 @@ Feature: DCU Search
     When I create a "DCU" case with "<infoValue>" as its "Case Type"
     And I navigate to the "Dashboard" page
     And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<Case Type" DCU search criteria
+    And I enter "<infoValue>" into the "Case Type" DCU search criteria
     And I click the search button on the search page
     Then I check that the DCU search results have the correct "Case Type"
     Examples:
@@ -97,7 +97,7 @@ Feature: DCU Search
     Examples:
     | infoType                    | infoValue     |
     | Topic                       | Made up Topic |
-    | Correspondent Name          | Humpty Dumpty |
+    | Public Correspondent Name   | Humpty Dumpty |
     | Received on or before date  | 01/01/1901    |
 
   @SearchByCaseReferenceNumber @DCURegression

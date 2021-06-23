@@ -14,16 +14,16 @@ public class DataInput extends BasePage {
 
     // Elements
 
-    @FindBy(css = "label[for='OriginalChannel-EMAIL']")
+    @FindBy(xpath = "//label[text()='Email']")
     public WebElementFacade emailOriginalChannelRadioButton;
 
-    @FindBy(css = "label[for='OriginalChannel-POST']")
+    @FindBy(xpath = "//label[text()='Post']")
     public WebElementFacade postOriginalChannelRadioButton;
 
-    @FindBy(css = "label[for='OriginalChannel-PHONE']")
+    @FindBy(xpath = "//label[text()='Phone']")
     public WebElementFacade phoneOriginalChannelRadioButton;
 
-    @FindBy(css = "label[for='OriginalChannel-NO10']")
+    @FindBy(xpath = "//label[text()='No. 10']")
     public WebElementFacade numberTenOriginalChannelRadioButton;
 
     @FindBy(id = "DateOfCorrespondence-day")
@@ -44,10 +44,10 @@ public class DataInput extends BasePage {
     @FindBy(id = "DateReceived-year")
     public WebElementFacade dateCorrespondenceReceivedYearField;
 
-    @FindBy(css = "label[for='CopyNumberTen-TRUE']")
+    @FindBy(xpath = "//div[@id='CopyNumberTen-radios']//label[text()='Yes']")
     public WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
 
-    @FindBy(css = "label[for='CopyNumberTen-FALSE']")
+    @FindBy(xpath = "//div[@id='CopyNumberTen-radios']//label[text()='No']")
     public WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
     @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-day']")
@@ -77,10 +77,10 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
     public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
 
-    @FindBy(css = "label[for='HomeSecInterest-TRUE']")
+    @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='Yes']")
     public WebElementFacade homeSecInterestYesRadioButton;
 
-    @FindBy(css = "label[for='HomeSecInterest-FALSE']")
+    @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='No']")
     public WebElementFacade homeSecInterestNoRadioButton;
 
     // Multi Step Methods
