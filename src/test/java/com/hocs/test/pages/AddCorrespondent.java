@@ -15,10 +15,10 @@ public class AddCorrespondent extends BasePage {
     @FindBy(linkText = "Add a correspondent")
     public WebElementFacade addACorrespondentLink;
 
-    @FindBy(css = "label[for='isMember-false']")
+    @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='No']")
     public WebElementFacade correspondentMemberNoRadioButton;
 
-    @FindBy(css = "label[for='isMember-true']")
+    @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='Yes']")
     public WebElementFacade correspondentMemberYesRadioButton;
 
     @FindBy(xpath = "//input[contains(@id,'react-select')]")

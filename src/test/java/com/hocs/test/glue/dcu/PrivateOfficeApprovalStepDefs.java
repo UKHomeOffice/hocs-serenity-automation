@@ -44,7 +44,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
                     safeClickOn(unallocatedCaseView.allocateToMeLink);
                 }
                 safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
-                safeClickOn(privateOfficeApproval.continueButton);
+                safeClickOn(continueButton);
                 break;
             case "TRO" :
                 break;

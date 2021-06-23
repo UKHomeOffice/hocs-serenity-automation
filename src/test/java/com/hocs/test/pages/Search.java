@@ -37,19 +37,19 @@ public class Search extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(css = "label[for='caseTypes_MIN']")
+    @FindBy(xpath = "//label[text()='DCU Ministerial']")
     public WebElementFacade searchMINCheckbox;
 
-    @FindBy(css = "label[for='caseTypes_DTEN']")
+    @FindBy(xpath = "//label[text()='DCU Number 10']")
     public WebElementFacade searchDTENCheckbox;
 
-    @FindBy(css = "label[for='caseTypes_TRO']")
+    @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade searchTROCheckbox;
 
-    @FindBy(css = "label[for='caseTypes_MPAM']")
+    @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade searchMPAMCheckbox;
 
-    @FindBy(css = "label[for='caseTypes_MTS']")
+    @FindBy(xpath = "//label[text()='MTS Case']")
     public WebElementFacade searchMTSCheckbox;
 
     @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")

@@ -11,19 +11,19 @@ public class Markup extends BasePage {
 
     Markup_AddTopics markupAddTopics;
 
-    @FindBy(css = "label[for='MarkupDecision-PR']")
+    @FindBy(xpath = "//label[text()='Policy Response']")
     public WebElementFacade policyResponseRadioButton;
 
-    @FindBy(css = "label[for='MarkupDecision-OGD']")
+    @FindBy(xpath = "//label[text()='Refer To OGD']")
     public WebElementFacade referToOgdRadioButton;
 
-    @FindBy(css = "label[for='MarkupDecision-FAQ']")
+    @FindBy(xpath = "//label[text()='FAQ Response']")
     public WebElementFacade faqRadioButton;
 
-    @FindBy(css = "label[for='MarkupDecision-NRN']")
+    @FindBy(xpath = "//label[text()='No Response Needed']")
     public WebElementFacade noReplyNeededRadioButton;
 
-    @FindBy(css = "label[for='MarkupDecision-REJ']")
+    @FindBy(xpath = "//label[text()='Reject To Data Input']")
     public WebElementFacade rejectToDataInputRadioButton;
 
     @FindBy(id = "OGDDept")

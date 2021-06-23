@@ -28,7 +28,7 @@ public class QAResponseStepDefs extends BasePage {
         }
         safeClickOn(qaResponse.QAAcceptRadioButton);
         System.out.println("Finished QA Response, returning to home page.");
-        safeClickOn(qaResponse.continueButton);
+        safeClickOn(continueButton);
     }
 
     @Then("an error message should be displayed as I have not selected a radio button on the QA approve response screen")

@@ -6,10 +6,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class TransferConfirmation extends BasePage {
 
-    @FindBy(css = "label[for='TransferConfirmation-ACCEPT']")
+    @FindBy(xpath = "//div[@id='TransferConfirmation-radios']//label[text()='Yes']")
     public WebElementFacade transferCaseYesRadioButton;
 
-    @FindBy(css = "label[for='TransferConfirmation-REJECT']")
+    @FindBy(xpath = "//div[@id='TransferConfirmation-radios']//label[text()='No']")
     public WebElementFacade transferCaseNoRadioButton;
 
     @FindBy(xpath = "//a[@href='#TransferConfirmation-error']")

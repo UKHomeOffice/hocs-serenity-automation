@@ -110,7 +110,7 @@ public class InitialDraftStepDefs extends BasePage {
             default:
                 pendingStep(method + " is not defined within " + getMethodName());
         }
-        safeClickOn(initialDraft.continueButton);
+        jsClickOn(continueButton);
     }
 
     @Then("an error message appears instructing me to add rejection reasons")
