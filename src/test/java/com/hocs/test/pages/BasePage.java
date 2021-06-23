@@ -36,7 +36,7 @@ public class BasePage extends PageObject {
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
-    @FindBy(linkText = "Logout")
+    @FindBy(xpath = "//a[contains(text(),'Logout')]")
     public WebElementFacade logoutButton;
 
     @FindBy(css = "[value='Accept']")

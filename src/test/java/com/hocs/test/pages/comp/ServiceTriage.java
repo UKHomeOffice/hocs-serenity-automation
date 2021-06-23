@@ -19,16 +19,16 @@ public class ServiceTriage extends BasePage {
     @FindBy(xpath = "//textarea[@name='CaseSummary']")
     public WebElementFacade caseSummaryTextArea;
 
-    @FindBy(css = "label[for='CctTriageAccept-Yes']")
+    @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
 
-    @FindBy(css = "label[for='CctTriageAccept-No']")
+    @FindBy(xpath = "//label[contains(text(),'No - transfer the complaint')]")
     public WebElementFacade transferTheComplaintRadioButton;
 
     @FindBy(xpath = "//textarea[@name='CaseNote_TriageTransfer']")
     public WebElementFacade transferReasonTextArea;
 
-    @FindBy(css = "label[for='CctCompType-CCH']")
+    @FindBy(xpath = "//label[contains(text(),'CCH')]")
     public WebElementFacade transferToCCHRadioButton;
 
     @FindBy(css = "label[for='CctCompType-Minor']")
@@ -40,10 +40,10 @@ public class ServiceTriage extends BasePage {
     @FindBy(id = "EnqReason")
     private WebElementFacade enquiryReasonDropdown;
 
-    @FindBy(css = "label[for='LoaRequired-Yes']")
+    @FindBy(xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade loaRequiredYesRadioButton;
 
-    @FindBy(css = "label[for='LoaRequired-No']")
+    @FindBy(xpath = "//label[contains(text(),'No')]")
     public WebElementFacade loaRequiredNoRadioButton;
 
     @FindBy(xpath = "//a[text()='Add complainant contribution']")
