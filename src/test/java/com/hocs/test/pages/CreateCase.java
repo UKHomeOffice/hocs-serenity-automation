@@ -37,7 +37,7 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade dcuTroRadioButton;
 
-    @FindBy(xpath = "//label[text()='DCU Number 10l']")
+    @FindBy(xpath = "//label[text()='DCU Number 10']")
     public WebElementFacade dcuDTenRadioButton;
 
     @FindBy(xpath = "//label[text()='MPAM Case']")
