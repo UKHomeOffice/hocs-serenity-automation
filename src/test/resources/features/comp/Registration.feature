@@ -1,4 +1,4 @@
-@Registration  @COMP
+@Registration @COMP
 Feature: Registration
 
   Background:

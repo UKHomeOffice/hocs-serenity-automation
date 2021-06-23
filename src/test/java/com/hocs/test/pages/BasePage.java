@@ -36,7 +36,7 @@ public class BasePage extends PageObject {
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
-    @FindBy(linkText = "Logout")
+    @FindBy(xpath = "//a[contains(text(),'Logout')]")
     public WebElementFacade logoutButton;
 
     @FindBy(css = "[value='Accept']")
@@ -146,6 +146,19 @@ public class BasePage extends PageObject {
         assert (pageTitle.isVisible());
     }
 
+    public void waitForPageWithTitle(String pageTitle) {
+        int retries = 0;
+        while (retries < 3) {
+            try{
+                assertPageTitle(pageTitle);
+                break;
+            }
+            catch (AssertionError e) {
+                retries ++;
+            }
+        }
+    }
+
     public void clickAddButton() {
         safeClickOn(addButton);
     }
@@ -172,7 +185,7 @@ public class BasePage extends PageObject {
         safeClickOn(muiDashboardLink);
     }
 
-    public void goToDECSDashboard(String platform) {
+    public void goToDashboard(String platform) {
         switch (platform.toUpperCase()) {
             case "DECS":
                 goToDECSDashboard();
@@ -374,5 +387,13 @@ public class BasePage extends PageObject {
     public WebElementFacade getRandomElementFromList(List<WebElementFacade> list) {
         Random rand = new Random();
         return list.get(rand.nextInt(list.size()));
+    }
+
+    public WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elemenetText) {
+        return findBy("//input/following-sibling::label[contains(text(),'" + elemenetText + "')]");
+    }
+
+    public void safeClickRadioButtonByVisibleText(String elementText) {
+        safeClickOn(getRadioButtonLabelElementWithSpecifiedText(elementText));
     }
 }

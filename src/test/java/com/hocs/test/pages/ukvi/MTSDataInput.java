@@ -14,24 +14,6 @@ public class MTSDataInput extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(xpath = "//label[@for='BusArea-UKVI']")
-    private WebElementFacade ukviBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-BF']")
-    private WebElementFacade bfBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-IE']")
-    private WebElementFacade ieBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-EUSS']")
-    private WebElementFacade eussBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-HMPO']")
-    private WebElementFacade hmpoBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='BusArea-Windrush']")
-    private WebElementFacade windrushBusinessAreaRadioButton;
-
     @FindBy(id = "BusUnit")
     private WebElementFacade businessUnitDropdown;
 
@@ -89,30 +71,6 @@ public class MTSDataInput extends BasePage {
     @FindBy(xpath = "//textarea[@name='SupportNote']")
     public WebElementFacade supportNoteTextArea;
 
-    @FindBy(xpath = "//label[@for='BusArea-Coronavirus']")
-    private WebElementFacade coronavirusBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-UKVI']")
-    private WebElementFacade ukviYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-BF']")
-    private WebElementFacade bfYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-IE']")
-    private WebElementFacade ieYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-EUSS']")
-    private WebElementFacade eussYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-HMPO']")
-    private WebElementFacade hmpoYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-Windrush']")
-    private WebElementFacade windrushYourBusinessAreaRadioButton;
-
-    @FindBy(xpath = "//label[@for='YourBusArea-Coronavirus']")
-    private WebElementFacade coronavirusYourBusinessAreaRadioButton;
-
     @FindBy(xpath = "//Input[@value='Complete and Close Case']")
     private WebElementFacade completeAndCloseCaseButton;
 
@@ -122,33 +80,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        WebElementFacade radioButton = null;
-        switch (businessArea.toUpperCase()) {
-            case "UKVI":
-                radioButton = ukviBusinessAreaRadioButton;
-                break;
-            case "BF":
-                radioButton = bfBusinessAreaRadioButton;
-                break;
-            case "IE":
-                radioButton = ieBusinessAreaRadioButton;
-                break;
-            case "EUSS":
-                radioButton = eussBusinessAreaRadioButton;
-                break;
-            case "HMPO":
-                radioButton = hmpoBusinessAreaRadioButton;
-                break;
-            case "WINDRUSH":
-                radioButton = windrushBusinessAreaRadioButton;
-                break;
-            case "CORONAVIRUS (COVID-19)":
-                radioButton = coronavirusBusinessAreaRadioButton;
-                break;
-            default:
-                pendingStep(businessArea + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+        safeClickRadioButtonByVisibleText(businessArea);
     }
 
     public void selectUrgency() {
@@ -157,21 +89,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectUrgency(String urgency) {
-        WebElementFacade radioButton = null;
-        switch (urgency.toUpperCase()) {
-            case "STANDARD":
-                radioButton = standardUrgencyRadioButton;
-                break;
-            case "PRIORITY":
-                radioButton = priorityUrgencyRadioButton;
-                break;
-            case "IMMEDIATE":
-                radioButton = immediateUrgencyRadioButton;
-                break;
-            default:
-                pendingStep(urgency + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+        safeClickRadioButtonByVisibleText(urgency);
     }
 
     public void selectChannelReceived() {
@@ -180,30 +98,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectChannelReceived(String channelReceived) {
-        WebElementFacade radioButton = null;
-        switch (channelReceived.toUpperCase()) {
-            case "EMAIL":
-                radioButton = emailChannelReceivedRadioButton;
-                break;
-            case "POST":
-                radioButton = postChannelReceivedRadioButton;
-                break;
-            case "PHONE - REPLY GIVEN":
-                radioButton = phoneReplyGivenChannelReceivedRadioButton;
-                break;
-            case "PHONE - RESPONSE REQUIRED":
-                radioButton = phoneResponseRequiredChannelReceivedRadioButton;
-                break;
-            case "PRIVATE OFFICE REFERRAL":
-                radioButton = privateOfficeReferralReceivedChannelRadioButton;
-                break;
-            case "OUTREACH":
-                radioButton = outreachChannelReceivedRadioButton;
-                break;
-            default:
-                pendingStep(channelReceived + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+        safeClickRadioButtonByVisibleText(channelReceived);
     }
 
     public void selectEnquirySubject() {
@@ -212,33 +107,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectEnquirySubject(String enquirySubject) {
-        WebElementFacade radioButton = null;
-        switch (enquirySubject.toUpperCase()) {
-            case "PERSON SPECIFIC":
-                radioButton = personSpecificEnquirySubjectRadioButton;
-                break;
-            case "GUIDANCE/POLICY":
-                radioButton = guidanceOrPolicyEnquirySubjectRadioButton;
-                break;
-            case "DOCUMENTATION":
-                radioButton = documentationEnquirySubjectRadioButton;
-                break;
-            case "TECHNICAL":
-                radioButton = technicalEnquirySubjectRadioButton;
-                break;
-            case "DETENTION":
-                radioButton = detentionEnquirySubjectRadioButton;
-                break;
-            case "HMPO SPECIFIC":
-                radioButton = hmpoSpecificEnquirySubjectRadioButton;
-                break;
-            case "OTHER":
-                radioButton = otherEnquirySubjectRadioButton;
-                break;
-            default:
-                pendingStep(enquirySubject + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+        safeClickRadioButtonByVisibleText(enquirySubject);
     }
 
     private void enterASupportNote(String supportNoteText) {

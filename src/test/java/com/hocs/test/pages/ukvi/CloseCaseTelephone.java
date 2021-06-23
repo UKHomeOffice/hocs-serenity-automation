@@ -12,18 +12,6 @@ public class CloseCaseTelephone extends BasePage {
     @FindBy(xpath = "//label[text()='Close Case (Telephone)']")
     public WebElementFacade closeCaseTelephoneRadioButton;
 
-    @FindBy(xpath = "//label[@for='ChannelOut-Email']")
-    public WebElementFacade emailResponseChannelRadioButton;
-
-    @FindBy(xpath = "//label[@for='ChannelOut-Letter']")
-    public WebElementFacade letterResponseChannelRadioButton;
-
-    @FindBy(xpath = "//label[@for='ChannelOut-Phone']")
-    public WebElementFacade phoneResponseChannelRadioButton;
-
-    @FindBy(xpath = "//label[@for='ChannelOut-Outreach']")
-    public WebElementFacade outreachResponseChannelRadioButton;
-
     @FindBy(id = "CaseNote_CaseClose")
     public WebElementFacade explanationForClosingCaseTelephoneTextBox;
 
@@ -47,25 +35,8 @@ public class CloseCaseTelephone extends BasePage {
         safeClickOn(confirmButton);
     }
 
-    public void selectResponseChannel(String channel) {
-        WebElementFacade radioButton = null;
-        switch (channel.toUpperCase()) {
-            case "EMAIL":
-                radioButton = emailResponseChannelRadioButton;
-                break;
-            case "LETTER":
-                radioButton = letterResponseChannelRadioButton;
-                break;
-            case "PHONE":
-                radioButton = phoneResponseChannelRadioButton;
-                break;
-            case "OUTREACH":
-                radioButton = outreachResponseChannelRadioButton;
-                break;
-            default:
-                pendingStep(channel + " is not defined within " + getMethodName());
-        }
-        safeClickOn(radioButton);
+    public void selectResponseChannel(String responseChannel) {
+        safeClickRadioButtonByVisibleText(responseChannel);
     }
 
     public void enterExplanationForClosingCase(String text) {

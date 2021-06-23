@@ -11,7 +11,6 @@ import com.hocs.test.pages.Search;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 

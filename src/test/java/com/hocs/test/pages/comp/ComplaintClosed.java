@@ -19,10 +19,10 @@ public class ComplaintClosed extends BasePage {
     @FindBy(xpath = "//input[@value='Complete case']")
     public WebElementFacade completeCaseButton;
 
-    @FindBy(xpath = "//label[@for='CompleteResult-Yes']")
+    @FindBy(xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade completeCasePermanentlyCloseYesRadioButton;
 
-    @FindBy(xpath = "//label[@for='CompleteResult-No']")
+    @FindBy(xpath = "//label[contains(text(),'No')]")
     public WebElementFacade completeCasePermanentlyCloseNoRadioButton;
 
     public void selectActionAtComplaintClosed(String action) {

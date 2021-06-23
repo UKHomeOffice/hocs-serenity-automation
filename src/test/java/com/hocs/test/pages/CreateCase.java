@@ -46,7 +46,7 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='MTS Case']")
     public WebElementFacade mtsRadioButton;
 
-    @FindBy(css = "label[for='case-type-COMP']")
+    @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
 
     @FindBy(id = "DateReceived-day")

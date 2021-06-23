@@ -94,15 +94,14 @@ public class Triage extends BasePage {
     }
 
     public void selectEnquirySubject(String subject) {
-        WebElementFacade enquirySubjectRadioButton = findBy("//label[text()='" + subject + "']");
-        safeClickOn(enquirySubjectRadioButton);
+        waitForPageWithTitle("Enquiry subject");
+        safeClickRadioButtonByVisibleText(subject);
         setSessionVariable("enquirySubject").to(subject);
         safeClickOn(continueButton);
     }
 
     public void selectEnquiryReason(String reason) {
-        WebElementFacade enquiryReasonRadioButton = findBy("//label[text()='" + reason + "']");
-        safeClickOn(enquiryReasonRadioButton);
+        safeClickRadioButtonByVisibleText(reason);
         setSessionVariable("enquiryReason").to(reason);
         safeClickOn(continueButton);
     }

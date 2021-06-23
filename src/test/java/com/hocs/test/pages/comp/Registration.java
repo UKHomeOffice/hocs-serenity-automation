@@ -41,7 +41,7 @@ public class Registration extends BasePage {
     @FindBy(xpath = "//input[@name='ComplainantPortRef']")
     public WebElementFacade portReferenceField;
 
-    @FindBy(css = "label[for='CompType-Service']")
+    @FindBy(xpath = "//label[contains(text(),'Service')]")
     public WebElementFacade complaintTypeServiceRadioButton;
 
     @FindBy(css = "label[for='CompType-Minor']")
