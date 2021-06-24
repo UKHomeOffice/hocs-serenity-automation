@@ -30,7 +30,7 @@ public class InitialDraft extends BasePage {
     @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='Yes']")
     public WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='No ']")
+    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='No']")
     public WebElementFacade chooseAnotherResponseTypeNoButton;
 
     @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='Yes']")
