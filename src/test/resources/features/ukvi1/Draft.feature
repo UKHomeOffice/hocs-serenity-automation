@@ -101,7 +101,7 @@ Feature: Draft
     | On Hold                 | Draft-On Hold                 |
     | Workflow Manager        | Draft-Escalated               |
 
-  @UKVIRegression
+  @UKVIRegression1
   Scenario: User rejects a case at Draft back to Triage
     Given I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

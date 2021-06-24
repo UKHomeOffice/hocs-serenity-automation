@@ -102,7 +102,7 @@ Feature: Contribution Request
       | Windrush     | Official   | Draft |
       | Coronavirus  | Official   | Draft |
 
-  @UKVIRegression
+  @UKVIRegression1
   Scenario: User requests contribution at Triage-Escalated stage
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
@@ -134,7 +134,7 @@ Feature: Contribution Request
       | Windrush     | Official   | Triage |
       | Coronavirus  | Official   | Triage |
 
-  @UKVIRegression
+  @UKVIRegression1
   Scenario: User requests contribution at Draft-Escalated stage
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
