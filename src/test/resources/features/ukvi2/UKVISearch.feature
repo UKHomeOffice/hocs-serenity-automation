@@ -4,7 +4,7 @@ Feature: UKVI Search
   Background:
     Given I am logged into "DECS" as user "UKVI_USER"
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario Outline: User tests UKVI search criteria
     When I create a "UKVI" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Dashboard" page
@@ -29,7 +29,7 @@ Feature: UKVI Search
     And I search for a case by it's case reference
     Then the created MPAM case should be visible in the search results
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario: User searches for MPAM cases using a substring of a case reference
     And I create a single "MPAM" case and return to the dashboard
     And I navigate to the "Search" page

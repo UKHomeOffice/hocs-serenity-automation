@@ -102,7 +102,7 @@ Feature: MPAM End To End
       | Windrush     | Ministerial   | Case Closed |
       | Coronavirus  | Ministerial   | Case Closed |
 
-  @FailingRegression @SmokeTests
+  @UKVIRegression1 @SmokeTests
   Scenario Outline: User closes a Official case with specific Business Area and Reference Type
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
