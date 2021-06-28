@@ -242,7 +242,7 @@ public class Dashboard extends BasePage {
         return Integer.parseInt(caseCount.getText());
     }
 
-    public boolean loggedInAsTargetUser(User targetUser) {
+    public boolean checkTargetUserIsLoggedInUsingVisibleTeams(User targetUser) {
         boolean correctUser = false;
         caseReferenceSearchBar.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         switch (targetUser.toString()) {
@@ -258,6 +258,11 @@ public class Dashboard extends BasePage {
                 break;
             case "UKVI_USER":
                 if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "COMP_USER":
+                if (cchClosedCasesWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;
