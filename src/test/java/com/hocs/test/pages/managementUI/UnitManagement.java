@@ -121,7 +121,7 @@ public class UnitManagement extends BasePage {
     }
 
     public void correctSuccessmessageDisplayed() {
-        successMessageDisplayed.isDisplayed();
+        successMessageDisplayed.waitUntilVisible().isDisplayed();
         successMessage.shouldContainText("Team unit changed from ");
     }
 }
