@@ -180,6 +180,6 @@ public class Markup extends BasePage {
     }
 
     public void enterNRNreason() {
-        noResponseNeededTextField.sendKeys("Test reason for NRN");
+        noResponseNeededTextField.waitUntilVisible().sendKeys("Test reason for NRN");
     }
 }

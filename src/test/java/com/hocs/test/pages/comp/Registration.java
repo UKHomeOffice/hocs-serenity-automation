@@ -197,8 +197,7 @@ public class Registration extends BasePage {
     }
 
     public void selectAGender() {
-        List<WebElementFacade> genders = findAll("//label[contains(@for,'ComplainantGender')]");
-        safeClickOn(getRandomElementFromList(genders));
+        selectRandomRadioButtonFromGroupWithHeading("Gender");
     }
 
     public void selectANationality(String nationality) {
@@ -232,8 +231,7 @@ public class Registration extends BasePage {
     }
 
     public void selectAChannel() {
-        List<WebElementFacade> channels = findAll("//label[contains(@for,'Channel')]");
-        safeClickOn(getRandomElementFromList(channels));
+        selectRandomRadioButtonFromGroupWithHeading("Channel");
     }
 
     public void enterADescriptionOfTheComplaint(String complaintDescription) {
@@ -241,8 +239,7 @@ public class Registration extends BasePage {
     }
 
     public void selectASeverity() {
-        List<WebElementFacade> severities = findAll("//label[contains(@for,'Severity-')]");
-        safeClickOn(getRandomElementFromList(severities));
+        selectRandomRadioButtonFromGroupWithHeading("Severity");
     }
 
     public void selectSafeGuardingAndVulnerableIfPossible() {

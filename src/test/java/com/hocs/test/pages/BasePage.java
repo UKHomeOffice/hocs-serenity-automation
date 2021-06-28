@@ -149,12 +149,11 @@ public class BasePage extends PageObject {
     public void waitForPageWithTitle(String pageTitle) {
         int retries = 0;
         while (retries < 3) {
-            try{
+            try {
                 assertPageTitle(pageTitle);
                 break;
-            }
-            catch (AssertionError e) {
-                retries ++;
+            } catch (AssertionError e) {
+                retries++;
             }
         }
     }
@@ -382,6 +381,19 @@ public class BasePage extends PageObject {
 
     public void assertVisibilityOfAccessibilityLink() {
         accessibilityLink.shouldBeVisible();
+    }
+
+    public void selectRandomRadioButtonFromGroupWithHeading(String heading) {
+        waitForHeadingToBeVisible(heading);
+        List<WebElementFacade> radioButtons = findAll(
+                "//span[contains(@class, 'govuk-fieldset__heading')][text() ='" + heading + "']/ancestor::fieldset//input/following-sibling::label");
+        safeClickOn(getRandomElementFromList(radioButtons));
+    }
+
+    private void waitForHeadingToBeVisible(String heading) {
+        WebElementFacade headingElement = findBy("//div//*[self::label[@class = 'govuk-label govuk-label--s'][text() ='" + heading + "'] or "
+                + "self::span[contains(@class, 'govuk-label')]][text() ='" + heading + "']");
+        headingElement.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public WebElementFacade getRandomElementFromList(List<WebElementFacade> list) {

@@ -267,8 +267,6 @@ public class DispatchStages extends BasePage {
     }
 
     public void selectAResponseChannel() {
-        saveChangesRadioButton.waitUntilVisible();
-        List<WebElementFacade> responseChannels = findAll("//input[@name='ChannelOut']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(responseChannels));
+        selectRandomRadioButtonFromGroupWithHeading("Response channel");
     }
 }
