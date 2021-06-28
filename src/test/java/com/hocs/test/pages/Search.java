@@ -473,7 +473,7 @@ public class Search extends BasePage {
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
-        System.out.print(randomSearchResult.getText());
+        System.out.print(randomSearchResult.getText() + " is the case reference of the randomly selected case");
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 String caseRef;
