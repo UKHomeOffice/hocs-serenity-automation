@@ -4,9 +4,11 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -218,6 +220,36 @@ public class CreateCase extends BasePage {
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
         setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+    }
+
+    public boolean checkTargetUserIsLoggedInUsingCaseOptions(User targetUser) {
+        boolean correctUser = false;
+        nextButton.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
+        switch (targetUser.toString()) {
+            case "DECS_USER":
+                if (mtsRadioButton.isVisible() && dcuMinRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "DCU_USER":
+                if (!mtsRadioButton.isVisible() && dcuMinRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "UKVI_USER":
+                if (mtsRadioButton.isVisible() && !dcuMinRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "COMP_USER":
+                if (compRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            default:
+                pendingStep(targetUser + " is not defined within " + getMethodName());
+        }
+        return correctUser;
     }
 
     //Assertions

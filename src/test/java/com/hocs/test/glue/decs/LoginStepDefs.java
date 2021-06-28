@@ -1,5 +1,6 @@
 package com.hocs.test.glue.decs;
 
+import static config.User.COMP_USER;
 import static config.User.DCU_USER;
 import static config.User.DECS_USER;
 import static config.User.FAKE;
@@ -130,8 +131,15 @@ public class LoginStepDefs extends BasePage {
     }
 
     private boolean loggedInAsTargetUser() {
-        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER) {
-            return dashboard.loggedInAsTargetUser(targetUser);
+        boolean targetUserLoggedIn = false;
+        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER) {
+            if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
+                targetUserLoggedIn = true;
+            } else {
+                safeClickOn(dashboard.createSingleCase);
+                targetUserLoggedIn = createCase.checkTargetUserIsLoggedInUsingCaseOptions(targetUser);
+                goToDECSDashboard();
+            }
         }
         else {
             goToDECSDashboard();
@@ -142,7 +150,8 @@ public class LoginStepDefs extends BasePage {
                 goToDECSDashboard();
                 dashboard.selectMyCases();
             }
-            return workstacks.owningUserIs(targetUser);
+            targetUserLoggedIn = workstacks.owningUserIs(targetUser);
         }
+        return targetUserLoggedIn;
     }
 }
