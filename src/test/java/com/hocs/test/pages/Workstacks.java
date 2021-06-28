@@ -367,9 +367,9 @@ public class Workstacks extends BasePage {
     }
 
     public void unallocateSelectedCase(String caseRef) {
-        WebElement selectedCaseCheckBox = getDriver().findElement(By.xpath("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//input"));
+        WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//input");
         workstackFilter.sendKeys(caseRef);
-        selectedCaseCheckBox.click();
+        safeClickOn(selectedCaseCheckBox);
         safeClickOn(unallocateButton);
     }
 
