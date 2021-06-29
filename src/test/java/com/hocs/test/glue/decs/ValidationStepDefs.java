@@ -1893,7 +1893,7 @@ public class ValidationStepDefs extends BasePage {
                             case "ACTIONS REQUIRED":
                                 errorText = "Actions";
                                 break;
-                            case "REJECTION REASON":
+                            case "REJECTION REASON REQUIRED":
                                 errorText = "Return to Draft reason";
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":

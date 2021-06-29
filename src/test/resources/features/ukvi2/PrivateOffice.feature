@@ -77,16 +77,18 @@ Feature: PrivateOffice
     And a follow-up not completed note should be visible showing the entered reason
 
   @Validation
-  Scenario Outline: User triggers error message to be displayed at Private Office
-    When the user triggers the "<errorType>" error message at Private Office by not entering the correct information
-    Then then the "<errorType>" error message should be displayed at a Dispatch stage
+  Scenario Outline: User tests validation at the Private Office stage
+    And I trigger the "<errorType>" error message at the "Private Office" stage
+    Then the "<errorType>" error message is displayed at the "Private Office" stage
     Examples:
-      | errorType                               |
-      | Actions Required                        |
-      | Dispatched Date Required                |
-      | Follow-up Date Required                 |
-      | Follow-up Details Required              |
-      | Follow-up Not Completed Reason Required |
+      | errorType                     |
+      | RESPONSE CHANNEL REQUIRED     |
+      | ACTIONS REQUIRED              |
+      | CAMPAIGN REQUIRED             |
+      | DISPATCHED DATE REQUIRED      |
+      | FOLLOW-UP DUE DATE REQUIRED   |
+      | DETAILS OF FOLLOW-UP REQUIRED |
+      | REJECTION REASON REQUIRED     |
 
   @Campaigns
   Scenario: User moves a case into a Campaign from the Private Office stage

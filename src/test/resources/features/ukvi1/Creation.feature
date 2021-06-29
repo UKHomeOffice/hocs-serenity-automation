@@ -125,18 +125,6 @@ Feature: Creation
     And I click the "Move to Triage" button
     Then the case summary should list the correct primary correspondent
 
-  @Validation
-  Scenario: User attempts to progress without answering required questions
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    And I click the "Move to Triage" button
-    Then an error message should be displayed as I must enter a Primary Correspondent at Creation stage
-
-  @Validation
-  Scenario: User attempts to progress without adding a correspondent
-    And I click the "Continue" button
-    Then an error message should be displayed as I must complete all required questions at Creation stage
-
   @OtherTests
   Scenario: User can select a Ministerial Sign off team for the case
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
@@ -153,3 +141,18 @@ Feature: Creation
   Scenario: User attempts to progress a case without adding an MP correspondent
     And I try to advance a case with a public correspondent at Creation stage
     Then the MP correspondent is mandatory screen is displayed
+
+  Scenario Outline: User tests validation at MPAM Creation
+    And I trigger the "<errorType>" error message at "Creation"
+    Then the "<errorType>" error message is displayed at "Creation"
+    Examples:
+      | errorType                        |
+      | DISPATCHED DATE REQUIRED         |
+      | RESPONSE CHANNEL REQUIRED        |
+      | ACTIONS REQUIRED                 |
+      | REJECTION REASON REQUIRED        |
+      | REASON FOR CLOSING CASE REQUIRED |
+      | TELEPHONE CONTACT ROUTE REQUIRED |
+      | CAMPAIGN REQUIRED                |
+      | FOLLOW-UP DUE DATE REQUIRED      |
+      | DETAILS OF FOLLOW-UP REQUIRED    |

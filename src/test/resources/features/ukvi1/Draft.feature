@@ -72,13 +72,6 @@ Feature: Draft
     And I click the "Close case" button
     Then the case should be closed
 
-  @Validation
-  Scenario: User triggers error message to be displayed at Draft
-    And I create a "MPAM" case and move it to the "Draft" stage
-    And I load and claim the current case
-    When the user triggers the "Actions Required" error message at Draft by not entering the correct information
-    Then  the "Actions Required" error message should be displayed at Draft
-
   @UKVIWorkflow @UKVIRegression1
   Scenario: User moves case into a Campaign from Draft
     And I create a "MPAM" case and move it to the "Draft" stage
@@ -111,3 +104,16 @@ Feature: Draft
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Triage" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
+
+  @Validation
+  Scenario Outline: User tests validation at the Draft stage
+    And I trigger the "<errorType>" error message at the "Draft" stage
+    Then the "<errorType>" error message is displayed at the "Draft" stage
+    Examples:
+      | errorType                        |
+      | ACTIONS REQUIRED                 |
+      | REJECTION REASON REQUIRED        |
+      | ESCALATION REASON REQUIRED       |
+      | REASON FOR CLOSING CASE REQUIRED |
+      | TELEPHONE CONTACT ROUTE REQUIRED |
+      | CAMPAIGN REQUIRED                |
