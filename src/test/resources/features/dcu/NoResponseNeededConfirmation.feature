@@ -31,8 +31,13 @@ Feature: No Response Needed Confirmation
       | DTEN      |
 
   @Validation
-  Scenario: User must select whether the agree with NRN
-    When I create a "MIN" case and move it to the "No Response Needed Confirmation" stage
+  Scenario Outline: User tests the validation at the No Response Needed Confirmation stage
+    When I create a "<caseType>" case and move it to the "No Response Needed Confirmation" stage
     And I load and claim the current case
-    And I click the "Finish" button
-    Then an error message should be displayed as I have not selected a response on the NRN Confirmation screen
+    And I trigger the "<errorMessage>" error message at the "No Response Needed Confirmation" stage
+    Then the "<errorMessage>" error message is displayed at the "No Response Needed Confirmation" stage
+    Examples:
+      | caseType  | errorMessage                       |
+      | MIN       | No response needed action required |
+      | TRO       | No response needed action required |
+      | DTEN      | No response needed action required |

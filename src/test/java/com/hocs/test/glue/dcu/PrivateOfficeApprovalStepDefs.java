@@ -58,21 +58,6 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         privateOfficeApproval.changeTopicAtPOStage(input);
     }
 
-    @Then("an error message should be displayed as I have not selected whether I approve the response")
-    public void assertThatApprovedResponseErrorMessageIsShown() {
-        privateOfficeApproval.assertDoYouApproveTheResponseErrorMessage();
-    }
-
-    @Then("error messages should be displayed as I have not selected an override team or entered change reasoning")
-    public void assertThatChangeMinisterErrorMessagesAreShown() {
-        privateOfficeApproval.assertChangeMinisterErrorMessages();
-    }
-
-    @Then("an error message should be displayed as I have not entered feedback into the text box")
-    public void assertThatFeedbackResponseErrorMessageIsShown() {
-        privateOfficeApproval.assertWhatIsYourFeedbackResponse();
-    }
-
     @And("I select to change minister")
     public void iSelectToChangeMinister() {
         privateOfficeApproval.getToChangeMinisterScreenPrerequisites();

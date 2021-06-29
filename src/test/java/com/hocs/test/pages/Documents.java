@@ -31,7 +31,7 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//a[@href = '#add_document-error']")
     public WebElementFacade addDocumentErrorMessage;
 
-    @FindBy(xpath = "//a[contains(text(), 'document')]")
+    @FindBy(xpath = "//a[text()='document']")
     public WebElementFacade addDocumentsButton;
 
     @FindBy(id = "document_type")

@@ -68,15 +68,6 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
     public WebElementFacade dtenDispatchDeadlineYearField;
 
-    @FindBy(xpath = "//a[text()='When was the correspondence sent? is required']")
-    public WebElementFacade correspondenceDateErrorMessage;
-
-    @FindBy(xpath = "//a[text()='How was the correspondence received? is required']")
-    public WebElementFacade howWasCorrespondenceReceivedErrorMessage;
-
-    @FindBy(xpath = "//span[text()='Should the response be copied to Number 10? is required']")
-    public WebElementFacade shouldTheResponseBeCopiedN10ErrorMessage;
-
     @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='Yes']")
     public WebElementFacade homeSecInterestYesRadioButton;
 
@@ -226,17 +217,5 @@ public class DataInput extends BasePage {
 
     public void assertPageTitle() {
         assertPageTitle("Data Input");
-    }
-
-    public void assertCorrespondenceDateErrorMessage() {
-        correspondenceDateErrorMessage.shouldContainText("When was the correspondence sent? is required");
-    }
-
-    public void assertHowWasCorrespondenceReceivedErrorMessage() {
-        howWasCorrespondenceReceivedErrorMessage.shouldContainText("How was the correspondence received? is required");
-    }
-
-    public void assertShouldResponseBeCopiedN10ErrorMessage() {
-        shouldTheResponseBeCopiedN10ErrorMessage.shouldContainText("Should the response be copied to Number 10? is required");
     }
 }

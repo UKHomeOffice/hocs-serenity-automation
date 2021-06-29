@@ -28,14 +28,4 @@ public class DispatchStepDefs extends BasePage {
         safeClickOn(dispatch.dispatchAcceptRadioButton);
         safeClickOn(continueButton);
     }
-
-    @Then("an error message should be displayed as I have selected whether the case can be dispatched")
-    public void assertThatAreYouAbleToDispatchErrorMessage() {
-        dispatch.assertAreYouAbleToDispatchErrorMessageIsShown();
-    }
-
-    @Then("an error message should be displayed as I have not entered a reason for not dispatching in the text box")
-    public void assertThatWhyAreYouUnableToDispatchErrorMessageIsShown() {
-        dispatch.assertWhyAreYouUnableToDispatchErrorMessageIsShown();
-    }
 }

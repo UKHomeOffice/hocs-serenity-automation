@@ -31,16 +31,6 @@ public class QAResponseStepDefs extends BasePage {
         safeClickOn(continueButton);
     }
 
-    @Then("an error message should be displayed as I have not selected a radio button on the QA approve response screen")
-    public void assertThatQAApproveResponseErrorMessageIsShown() {
-        qaResponse.assertQADoYouApproveErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response")
-    public void assertThatQAResponseFeedbackErrorMessageIsShown() {
-        qaResponse.assertQAWhatIsYourFeedbackErrorMessage();
-    }
-
     @And("I select to modify the primary draft")
     public void iSelectToModifyThePrimaryDraft() {
         qaResponse.clickQAResponseModifyRadioButton();

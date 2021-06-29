@@ -54,45 +54,10 @@ public class InitialDraftStepDefs extends BasePage {
         }
     }
 
-    @Then("an error message should be displayed as I have not selected radio buttons on this screen")
-    public void assertThatCorrespondenceCanBeAnsweredErrorMessageIsShown() {
-        initialDraft.assertCorrespondenceAnsweredErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not entered a reason in the text box")
-    public void assertThatShouldBeAnsweredErrorMessageIsShown() {
-        initialDraft.assertShouldBeAnsweredErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not selected a response on this screen")
-    public void assertThatHowDoYouIntendToRespondScreenIsShown() {
-        initialDraft.assertHowDoYouIntendToRespondErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not summarised the call")
-    public void assertThatSummariseYourCallErrorMessageIsShown() {
-        initialDraft.assertPleaseSummariseYourCallErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not added a primary draft document")
-    public void assertThatWhichIsThePrimaryDraftDocumentErrorMessageIsShown() {
-        initialDraft.assertWhichIsThePrimaryDraftDocumentErrorMessage();
-    }
-
     @Then("an error message should be displayed as I have not selected a document type and added a document")
     public void assertThatAddDocumentErrorMessagesAreShown() {
         documents.assertDocumentTypeIsRequiredErrorMessage();
         documents.assertDocumentIsRequiredErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not selected whether the case should be QA offline or not")
-    public void assertThatQAOfflineErrorMessageIsShown() {
-        initialDraft.assertDoYouWantToQAThisOfflineErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not selected the user that did the offline QA")
-    public void assertThatWhoHasDoneTheOfflineQAErrorMessageIsShown() {
-        initialDraft.assertWhoHasDoneOfflineQAErrorMessage();
     }
 
     @When("I select to reply by {string}")
@@ -111,16 +76,6 @@ public class InitialDraftStepDefs extends BasePage {
                 pendingStep(method + " is not defined within " + getMethodName());
         }
         jsClickOn(continueButton);
-    }
-
-    @Then("an error message appears instructing me to add rejection reasons")
-    public void anErrorMessageAppearsInstructingMeToAddRejectionReasons() {
-        initialDraft.assertEnterRejectionReasonsError();
-    }
-
-    @Then("I see an error message instructing me to enter call notes")
-    public void iSeeAnErrorMessageInstructingMeToEnterCallNotes() {
-        initialDraft.assertEnterCallNotesError();
     }
 
     @When("I select a case {string} be answered by my team")

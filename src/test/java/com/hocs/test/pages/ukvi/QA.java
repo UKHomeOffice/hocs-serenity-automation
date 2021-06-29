@@ -11,8 +11,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class QA extends BasePage {
 
-    Dashboard dashboard;
-
     //QA Elements
     @FindBy(xpath = "//label[text()='Approve']")
     public WebElementFacade approvedAtQARadioButton;
@@ -29,20 +27,11 @@ public class QA extends BasePage {
     @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//a[text()='Actions is required']")
-    public WebElementFacade actionsRequiredErrorMessage;
-
     @FindBy(id = "CaseNote_RejectDraft")
     public WebElementFacade draftRejectionTextField;
 
     @FindBy(id = "CaseNote_RejectTriage")
     public WebElementFacade triageRejectionTextField;
-
-    @FindBy(xpath = "//a[text()='Explanation for rejection, move back to triage is required']")
-    public WebElementFacade explanationForRejectionBacktoTriageRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Explanation for rejection, move back to drafting is required']")
-    public WebElementFacade explanationForRejectionBackToDraftRequiredErrorMessage;
 
     @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
@@ -138,18 +127,5 @@ public class QA extends BasePage {
     public void takeCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
         safeClickOn(confirmButton);
-    }
-
-    //Assertions
-    public void assertActionsRequiredErrorMessageDisplayed() {
-        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertRejectBackToTriageReasonRequiredErrorMessageDisplayed() {
-        assertThat(explanationForRejectionBacktoTriageRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertRejectBackToDraftReasonRequiredErrorMessageDisplayed() {
-        assertThat(explanationForRejectionBackToDraftRequiredErrorMessage.isVisible(), is(true));
     }
 }

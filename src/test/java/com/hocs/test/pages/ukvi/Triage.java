@@ -35,18 +35,6 @@ public class Triage extends BasePage {
     @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
-    @FindBy(xpath = "//a[text()='Actions is required']")
-    public WebElementFacade actionsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Business unit is required']")
-    public WebElementFacade businessUnitRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Enquiry subject is required']")
-    public WebElementFacade enquirySubjectRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Enquiry reason is required']")
-    public WebElementFacade enquiryReasonRequiredErrorMessage;
-
     @FindBy(xpath = "//label[@id='EnquirySubject']")
     public WebElementFacade setEnquirySubject;
 
@@ -135,28 +123,12 @@ public class Triage extends BasePage {
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
-    public void assertActionsRequiredErrorMessageDisplayed() {
-        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
-    }
-
     public void assertSetEnquirySubject(String enquirySubject) {
         assertThat(setEnquirySubject.getText(), containsString(enquirySubject));
     }
 
     public void assertSetEnquiryReason(String enquiryReason) {
         assertThat(setEnquiryReason.getText(), containsString(enquiryReason));
-    }
-
-    public void assertBusinessUnitRequiredErrorMessageDisplayed() {
-        assertThat(businessUnitRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertEnquirySubjectRequiredErrorMessageDisplayed() {
-        assertThat(enquirySubjectRequiredErrorMessage.isVisible(), is(true));
-    }
-
-    public void assertEnquiryReasonRequiredErrorMessageDisplayed() {
-        assertThat(enquiryReasonRequiredErrorMessage.isVisible(), is(true));
     }
 
     public void recordCurrentBusinessUnitOptions() {

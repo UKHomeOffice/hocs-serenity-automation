@@ -18,9 +18,4 @@ public class NoResponseNeededConfirmationStepDefs extends BasePage {
     public void iClickTheNRNNoRadioButton() {
         safeClickOn(noResponseNeededConfirmation.noResponseNeededNoRadioButton);
     }
-
-    @Then("an error message should be displayed as I have not selected a response on the NRN Confirmation screen")
-    public void anErrorMessageShouldBeDisplayedAsIHaveNotSelectedAResponseOnTheNRNConfirmationScreen() {
-        noResponseNeededConfirmation.assertDoYouAgreeNRNErrorMessage();
-    }
 }

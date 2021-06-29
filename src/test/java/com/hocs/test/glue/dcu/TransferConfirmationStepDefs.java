@@ -18,8 +18,4 @@ public class TransferConfirmationStepDefs extends BasePage {
     public void iClickTheConfirmTransferNoRadioButton() {
         safeClickOn(transferConfirmation.transferCaseNoRadioButton);
     }
-
-    @Then("an error message should be displayed as I have not selected a response on the Transfer Confirmation screen")
-    public void anErrorMessageShouldBeDisplayedAsIHaveNotSelectedAResponseOnTheTransferConfirmationScreen() {
-    }
 }

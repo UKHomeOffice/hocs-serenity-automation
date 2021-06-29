@@ -32,13 +32,6 @@ public class QAResponse extends BasePage {
     @FindBy(id ="CaseNote_QA")
     public WebElementFacade QARejectionNoteField;
 
-    @FindBy(xpath = "//a[text()='Actions is required']")
-    public WebElementFacade actionsIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    public WebElementFacade QAWhatIsYourFeedbackAboutTheResponseErrorMessage;
-
-
     // Basic Methods
 
     public void clickQAResponseAcceptRadioButton() {
@@ -97,15 +90,4 @@ public class QAResponse extends BasePage {
         setSessionVariable("chosenQAResponse").to(QAAcceptRadioButton.getTextContent());
         safeClickOn(continueButton);
     }
-
-    //Assertions
-
-    public void assertQADoYouApproveErrorMessage() {
-        actionsIsRequiredErrorMessage.shouldContainText("Actions is required");
-    }
-
-    public void assertQAWhatIsYourFeedbackErrorMessage() {
-        QAWhatIsYourFeedbackAboutTheResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
-    }
-
 }

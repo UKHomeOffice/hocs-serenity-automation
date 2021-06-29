@@ -11,12 +11,4 @@ public class TransferConfirmation extends BasePage {
 
     @FindBy(xpath = "//div[@id='TransferConfirmation-radios']//label[text()='No']")
     public WebElementFacade transferCaseNoRadioButton;
-
-    @FindBy(xpath = "//a[@href='#TransferConfirmation-error']")
-    public WebElementFacade shouldCaseBeTransferIsRequiredErrorMessage;
-
-    public void assertShouldCaseBeTransferredIsRequiredErrorMessage() {
-        shouldCaseBeTransferIsRequiredErrorMessage.shouldContainText("Should this case be transferred to the OGD? is required");
-    }
-
 }

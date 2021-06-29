@@ -47,16 +47,6 @@ public class CreationStepDefs extends BasePage {
         workstacks.assertPrimaryCorrespondentIs(sessionVariableCalled("primaryCorrespondent"));
     }
 
-    @Then("an error message should be displayed as I must complete all required questions at Creation stage")
-    public void anErrorMessageShouldBeDisplayedAsIMustCompleteAllRequiredQuestionsAtCaseCreationStage() {
-        creation.assertCaseCreationRequiredQuestionErrorMessages();
-    }
-
-    @Then("an error message should be displayed as I must enter a Primary Correspondent at Creation stage")
-    public void anErrorMessageShouldBeDisplayedAsIMustEnterAPrimaryCorrespondentAtCaseCreationStage() {
-        addCorrespondent.assertWhichIsThePrimaryCorrespondentIsRequiredErrorMessage();
-    }
-
     @When("I select {string} as the Urgency and {string} as the Reference Type")
     public void selectSpecificUrgencyAndReferenceType(String urgency, String refType) {
         creation.selectUrgency(urgency);

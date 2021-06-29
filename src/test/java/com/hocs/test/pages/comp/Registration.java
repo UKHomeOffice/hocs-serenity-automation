@@ -284,30 +284,4 @@ public class Registration extends BasePage {
     public void selectAnOwningCSU() {
         owningCSUDropdown.selectByIndex(1);
     }
-
-    public void assertErrorMessageIsDisplayed(String expectedMessage) {
-        String expectedText = null;
-        switch (expectedMessage.toUpperCase()) {
-            case "PRIMARY CORRESPONDENT":
-                expectedText = "Which is the primary correspondent? is required";
-                break;
-            case "COMPLAINT TYPE":
-                expectedText = "Complaint Type is required";
-                break;
-            case "CHANNEL":
-                expectedText = "Channel is required";
-                break;
-            case "SEVERITY":
-                expectedText = "Severity is required";
-                break;
-            case "OWNING CSU":
-                expectedText = "Owning CSU is required";
-                break;
-            default:
-                pendingStep(expectedMessage + " is not defined within " + getMethodName());
-        }
-        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedText +
-                "')]");
-        errorMessage.shouldBeVisible();
-    }
 }

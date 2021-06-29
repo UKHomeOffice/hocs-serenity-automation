@@ -13,12 +13,6 @@ public class Dispatch extends BasePage {
     @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='No']")
     public WebElementFacade dispatchRejectRadioButton;
 
-    @FindBy(xpath = "//a[text()='Are you able to dispatch this? is required']")
-    public WebElementFacade areYouAbleToDispatchErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Why are you unable to dispatch this? is required']")
-    public WebElementFacade whyAreYouUnableToDispatchErrorMessage;
-
     @FindBy(xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
     public WebElementFacade dispatchRejectNoteField;
 
@@ -64,15 +58,5 @@ public class Dispatch extends BasePage {
         String dispatchAbleDecision = dispatchAcceptRadioButton.getAttribute("for").substring(17);
         setSessionVariable("dispatchAbleDecision").to(dispatchAbleDecision);
         safeClickOn(continueButton);
-    }
-
-    //assertions
-
-    public void assertAreYouAbleToDispatchErrorMessageIsShown() {
-        areYouAbleToDispatchErrorMessage.shouldContainText("Are you able to dispatch this? is required");
-    }
-
-    public void assertWhyAreYouUnableToDispatchErrorMessageIsShown() {
-        whyAreYouUnableToDispatchErrorMessage.shouldContainText("Why are you unable to dispatch this? is required");
     }
 }

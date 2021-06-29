@@ -17,39 +17,6 @@ public class DispatchStagesStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @And("I trigger the {string} error message at Awaiting Dispatch stage by not entering the correct information")
-    public void triggerAwaitingDispatchErrorMessage(String errorMessage) {
-       dispatchStages.triggerAwaitingDispatchErrorMessage(errorMessage);
-    }
-
-    @And("the user triggers the {string} error message at Private Office by not entering the correct information")
-    public void triggerPrivateOfficeErrorMessage(String errorMessage) {
-        dispatchStages.triggerPrivateOfficeErrorMessage(errorMessage);
-    }
-
-    @And("then the {string} error message should be displayed at a Dispatch stage")
-    public void theErrorMessageIsDisplayed(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                dispatchStages.assertActionsRequiredErrorMessageDisplayed();
-                break;
-            case "DISPATCHED DATE REQUIRED":
-                dispatchStages.assertDispatchedDateRequiredErrorMessageDisplayed();
-                break;
-            case "FOLLOW-UP DATE REQUIRED":
-                dispatchStages.assertFollowUpDateRequiredErrorMessageDisplayed();
-                break;
-            case "FOLLOW-UP DETAILS REQUIRED":
-                dispatchStages.assertFollowUpDetailsRequiredErrorMessageDisplayed();
-                break;
-            case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
-                dispatchStages.assertFollowUpNotCompletedReasonRequiredErrorMessageDisplayed();
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
-
     @When("I select the {string} action at Awaiting Dispatch stage")
     public void iSelectTheActionAtAwaitingDispatchStage(String action) {
         switch (action.toUpperCase()) {

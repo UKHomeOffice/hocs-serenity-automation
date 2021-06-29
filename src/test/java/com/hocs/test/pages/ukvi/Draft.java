@@ -1,10 +1,6 @@
 package com.hocs.test.pages.ukvi;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -35,12 +31,6 @@ public class Draft extends BasePage {
 
     @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
-
-    @FindBy(xpath = "//a[text()='Actions is required']")
-    public WebElementFacade actionsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Response channel is required']")
-    public WebElementFacade responseChannelRequiredErrorMessage;
 
     @FindBy(xpath = "//a[text()='Change reference type']")
     public WebElementFacade changeReferenceTypeLink;
@@ -111,9 +101,5 @@ public class Draft extends BasePage {
         setSessionVariable("rejectionReason").to("Test");
         setSessionVariable("rejectionStage").to("Draft");
         safeClickOn(confirmButton);
-    }
-
-    public void assertActionsRequiredErrorMessageDisplayed() {
-        assertThat(actionsRequiredErrorMessage.isVisible(), is(true));
     }
 }
