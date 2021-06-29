@@ -86,7 +86,7 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectASeverity();
         safeClickOn(continueButton);
         waitABit(250);
-        safeClickOn(continueButton);
+        safeClickOn(finishButton);
         registration.assertErrorMessageIsDisplayed("Owning CSU");
     }
 }
