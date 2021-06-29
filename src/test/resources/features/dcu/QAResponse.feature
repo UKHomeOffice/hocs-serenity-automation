@@ -41,10 +41,6 @@ Feature: QA Response
     And I trigger the "<errorMessage>" error message at the "QA Response" stage
     Then the "<errorMessage>" error message is displayed at the "QA Response" stage
     Examples:
-      | caseType  | errorMessage            |
-      | MIN       | Actions Required        |
-      | TRO       | Actions Required        |
-      | DTEN      | Actions Required        |
-      | MIN       | Rejection Note Required |
-      | TRO       | Rejection Note Required |
-      | DTEN      | Rejection Note Required |
+      | caseType  | errorMessage               |
+      | MIN       | Response Approval Required |
+      | TRO       | Rejection Note Required    |

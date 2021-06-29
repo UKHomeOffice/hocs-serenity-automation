@@ -117,27 +117,6 @@ Feature: Markup
     Then the topic should be added to the case
 
   @Validation
-  Scenario: User must select a response on the first Markup Stage screen
-    When I create a "DTEN" case and move it to the "MARKUP" stage
-    And I load and claim the current case
-    And I click the "Continue" button
-    Then an error message should be displayed as I have not selected a response
-
-  @Validation
-  Scenario: User must add a topic at the Markup Stage
-    When I create a "DTEN" case and move it to the "MARKUP" stage
-    And I load and claim the current case
-    And I click the "Continue" button on the "ADD A TOPIC" page
-    Then an error message should be displayed as I have not added a topic
-
-  @Validation
-  Scenario: User must select a topic from the dropdown box at the Markup Stage
-    When I create a "DTEN" case and move it to the "MARKUP" stage
-    And I load and claim the current case
-    And I click the "Add" button on the "ENTER A NEW TOPIC" page
-    Then an error message should be displayed as I have not selected a topic
-
-  @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Markup stage
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -155,3 +134,18 @@ Feature: Markup
     | MIN       |
     | TRO       |
     | DTEN      |
+
+  @Validation
+  Scenario Outline: User tests the validation at the Markup stage
+    When I create a "<caseType>" case and move it to the "Markup" stage
+    And I load and claim the current case
+    And I trigger the "<errorMessage>" error message at the "Markup" stage
+    Then the "<errorMessage>" error message is displayed at the "Markup" stage
+    Examples:
+      | caseType  | errorMessage                                  |
+      | MIN       | Type of Response Required                     |
+      | TRO       | Primary Topic Required                        |
+      | DTEN      | Response Approval Required                    |
+      | MIN       | Why is no Response Needed Required            |
+      | TRO       | Where Should the Case be Transferred Required |
+      | DTEN      | Reason for Transfer Required                  |

@@ -5,27 +5,6 @@ Feature: Private Office Approval
     Given I am logged into "DECS" as user "DCU_USER"
 
   @Validation
-  Scenario: User must select a radio button when asked whether they approve the Private Office response
-    When I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
-    And I load and claim the current case
-    And I click the "Continue" button
-    Then an error message should be displayed as I have not selected whether I approve the response
-
-  @Validation
-  Scenario: User must select an override team and enter a reason to change the case minister
-    When I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
-    And I load and claim the current case
-    And I click the "Finish" button on the "CHANGE MINISTER" page
-    Then error messages should be displayed as I have not selected an override team or entered change reasoning
-
-  @Validation
-  Scenario: User must enter their feedback in the text box if they do not approve the Private Office response
-    And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
-    And I load and claim the current case
-    And I click the "Finish" button on the "PO FEEDBACK RESPONSE" page
-    Then an error message should be displayed as I have not entered feedback into the text box
-
-  @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Private Office response stage
     And I create a "MIN" case and move it to the "PRIVATE OFFICE APPROVAL" stage
     And I load and claim the current case
@@ -72,3 +51,17 @@ Feature: Private Office Approval
     And I load and claim the current case
     Then the "Team" of the case should be updated to "Home Secretary" in the summary tab
     And the "Override Private Office Team" of the case should be updated to "Home Secretary" in the summary tab
+
+  @Validation
+  Scenario Outline: User tests the validation at the Private Office Approval stage
+    When I create a "<caseType>" case and move it to the "Private Office Approval" stage
+    And I load and claim the current case
+    And I trigger the "<errorMessage>" error message at the "Private Office Approval" stage
+    Then the "<errorMessage>" error message is displayed at the "Private Office Approval" stage
+    Examples:
+      | caseType  | errorMessage                          |
+      | DTEN      | Response Approval Required            |
+      | DTEN      | Rejection Note Required               |
+      | MIN       | Override Private Office Team Required |
+      | MIN       | Reason for Change Minister Required   |
+      | MIN       | Reason for Topic Change Required      |
