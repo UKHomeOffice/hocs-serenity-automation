@@ -15,7 +15,7 @@ public class MTSDataInput extends BasePage {
     AddCorrespondent addCorrespondent;
 
     @FindBy(id = "BusUnit")
-    private WebElementFacade businessUnitDropdown;
+    public WebElementFacade businessUnitDropdown;
 
     @FindBy(xpath = "//label[text()='Standard']")
     private WebElementFacade standardUrgencyRadioButton;
@@ -66,7 +66,7 @@ public class MTSDataInput extends BasePage {
     private WebElementFacade otherEnquirySubjectRadioButton;
 
     @FindBy(id = "EnquiryReason")
-    private WebElementFacade enquiryReasonDropdown;
+    public WebElementFacade enquiryReasonDropdown;
 
     @FindBy(xpath = "//textarea[@name='SupportNote']")
     public WebElementFacade supportNoteTextArea;
