@@ -41,17 +41,11 @@ public class UnitManagement extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'Border Force')]")
     public WebElementFacade unitBorderForceOption;
 
-    @FindBy(xpath = "//div[contains(text(),'Communication')]")
-    public WebElementFacade unitCommunicationOption;
+    @FindBy(xpath = "//div[contains(text(),'Immigration Enforcement')]")
+    public WebElementFacade unitImmigrationEnforcementOption;
 
     @FindBy(xpath = "//button[contains(text(),'Update')]")
     public WebElementFacade updateUnitButton;
-
-    @FindBy(xpath = "//p[contains(text(),'Team unit changed from')]")
-    public WebElementFacade successMessage;
-
-    @FindBy(xpath = "//h2[contains(text(),'Success')]")
-    public static WebElementFacade successMessageDisplayed;
 
     public void assertAddUnitPageTitle() {
         managementUIPageTitle.shouldContainText("Add Unit");
@@ -108,20 +102,21 @@ public class UnitManagement extends BasePage {
     }
 
     public void selectNewUnitName() throws InterruptedException {
-        Thread.sleep(3000);
-        if (unitTypeBox.containsText("Communication")) {
+        unitTypeBox.waitUntilVisible();
+        setSessionVariable("originalUnit").to(unitTypeBox.getText());
+        if (unitTypeBox.containsText("Immigration Enforcement")) {
             unitTypeBox.click();
             unitBorderForceOption.click();
-            updateUnitButton.click();
-        } else if (unitTypeBox.containsText("Border Force")) {
+        } else {
             unitTypeBox.click();
-            unitCommunicationOption.click();
-            updateUnitButton.click();
+            unitImmigrationEnforcementOption.click();
         }
+        setSessionVariable("newUnit").to(unitTypeBox.getText());
+        updateUnitButton.click();
     }
 
-    public void correctSuccessmessageDisplayed() {
-        successMessageDisplayed.isDisplayed();
-        successMessage.shouldContainText("Team unit changed from ");
+    public void assertCorrectSuccessMessageDisplayed() {
+        WebElementFacade successMessageBody = findBy("//p[contains(text(),'Team unit changed from " + sessionVariableCalled("originalUnit") + " to " + sessionVariableCalled("newUnit") + ".')]");
+        successMessageBody.shouldBeVisible();
     }
 }

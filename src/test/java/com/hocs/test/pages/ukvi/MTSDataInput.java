@@ -75,8 +75,7 @@ public class MTSDataInput extends BasePage {
     private WebElementFacade completeAndCloseCaseButton;
 
     public void selectBusinessArea() {
-        List<WebElementFacade> businessAreas = findAll("//input[@name='BusArea']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(businessAreas));
+        selectRandomRadioButtonFromGroupWithHeading("Business Area");
     }
 
     public void selectBusinessArea(String businessArea) {
@@ -84,8 +83,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectUrgency() {
-        List<WebElementFacade> urgencies = findAll("//input[@name='Priority']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(urgencies));
+        selectRandomRadioButtonFromGroupWithHeading("Urgency");
     }
 
     public void selectUrgency(String urgency) {
@@ -93,8 +91,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectChannelReceived() {
-        List<WebElementFacade> channels = findAll("//input[@name='ChannelIn']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(channels));
+        selectRandomRadioButtonFromGroupWithHeading("Channel received");
     }
 
     public void selectChannelReceived(String channelReceived) {
@@ -102,8 +99,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectEnquirySubject() {
-        List<WebElementFacade> enquirySubjects = findAll("//input[@name='EnquirySubject']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(enquirySubjects));
+        selectRandomRadioButtonFromGroupWithHeading("Enquiry subject");
     }
 
     public void selectEnquirySubject(String enquirySubject) {
@@ -116,8 +112,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectYourBusinessArea() {
-        List<WebElementFacade> yourBusinessAreas = findAll("//input[@name='YourBusArea']/following-sibling::label");
-        safeClickOn(getRandomElementFromList(yourBusinessAreas));
+        selectRandomRadioButtonFromGroupWithHeading("Your Business Area");
     }
 
     public void completeDataInputStageAndCloseMTSCase() {

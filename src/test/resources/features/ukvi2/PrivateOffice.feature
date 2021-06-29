@@ -22,7 +22,7 @@ Feature: PrivateOffice
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User rejects the case back to drafting
     When I select the "Draft rejected by Private Office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
@@ -32,14 +32,14 @@ Feature: PrivateOffice
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User enters a date of dispatch and closes the case
     When I select a response channel
     And I select the "Dispatched" action at Private Office stage
     And I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User selects that the case requires follow-up actions after being dispatched
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage
@@ -52,7 +52,7 @@ Feature: PrivateOffice
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage
@@ -63,7 +63,7 @@ Feature: PrivateOffice
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User selects to close the case without completing follow-up action
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage

@@ -12,21 +12,21 @@ Feature: QA
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User completes the QA stage for a Ministerial case
     And I create a MPAM case with "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Private Office" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User completes the QA stage for a Official case
     And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     When I complete the "QA" stage
     Then the case should be moved to the "Awaiting Dispatch" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User escalates the QA case to the workflow manager
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -34,14 +34,14 @@ Feature: QA
     And I submit a reason to escalate the case at QA stage
     Then the case should be moved to the "QA (Escalated)" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User puts a QA case on hold
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
     And I select the "Put on hold" action at QA
     Then the case should be moved to the "QA (On Hold)" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User sends a case back to draft at the QA stage
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -53,7 +53,7 @@ Feature: QA
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User sends a case back to triage at the QA stage
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -65,7 +65,7 @@ Feature: QA
     And I view the MPAM case in the appropriate "Triage" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User takes a QA (On Hold) case off hold
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -75,7 +75,7 @@ Feature: QA
     Then the case should be moved to the "QA" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User de-escalates a QA (Escalated) case
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -86,7 +86,7 @@ Feature: QA
     Then the case should be moved to the "QA" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User closes a QA (Escalated) case
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -109,7 +109,7 @@ Feature: QA
       | Reject at Triage Reason Required |
       | Reject at Draft Reason Required  |
 
-  @AutoAssignTests @UKVIRegression
+  @AutoAssignTests @UKVIRegression2
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
     And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case

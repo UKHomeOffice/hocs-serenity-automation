@@ -183,6 +183,7 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
+                safeClickOn(searchMINCheckbox);
                 typeIntoDateField(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
@@ -473,6 +474,7 @@ public class Search extends BasePage {
         int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
         int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
+        System.out.print(randomSearchResult.getText() + " is the case reference of the randomly selected case");
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 String caseRef;
@@ -490,26 +492,17 @@ public class Search extends BasePage {
                 summaryTab.isMinisterialResponseRequired.shouldContainText(sessionVariableCalled("searchReferenceType"));
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
-                safeClickOn(randomSearchResult);
-                String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
-                summaryTab.summaryTab.waitUntilVisible();
                 String displayedSignOffTeam = "";
-                if (unallocatedCaseView.allocateToMeLink.isCurrentlyVisible()) {
+                List<WebElementFacade> listOfUnallocatedSearchResults = findAll("//td[3][not(contains(text(), '" + getCurrentUser().getUsername() +
+                        "'))]/preceding-sibling::td/a");
+                int randomListValue = new Random().nextInt(listOfUnallocatedSearchResults.size());
+                WebElementFacade randomUnallocatedSearchResult = listOfUnallocatedSearchResults.get(randomListValue);
+                safeClickOn(randomUnallocatedSearchResult);
+                if (accordionMPAM.creationAccordionButton.isVisible()) {
                     accordionMPAM.openCreationAccordion();
-                    accordionMPAM.getQuestionResponse("Ministerial Sign Off Team");
-                    displayedSignOffTeam = sessionVariableCalled("response");
-                } else if (addCorrespondent.addACorrespondentLink.isCurrentlyVisible()) {
-                    clickBackButton();
-                    displayedSignOffTeam = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
-                } else {
-                    accordionMPAM.openCaseDetailsAccordion();
-                    WebElementFacade readOnlySignOffTeam = findBy("//label[text()='Ministerial sign off team']/following-sibling::label");
-                    if (readOnlySignOffTeam.isCurrentlyVisible()) {
-                        displayedSignOffTeam = readOnlySignOffTeam.getText();
-                    } else {
-                        displayedSignOffTeam = new Select(getDriver().findElement(By.xpath("//select"))).getFirstSelectedOption().getText();
-                    }
+                    displayedSignOffTeam = accordionMPAM.creationMinisterialSignOffTeam.getText().split(": ")[1];
                 }
+                String ministerialSignOffTeam = sessionVariableCalled("searchMinisterialSignOffTeam");
                 assertThat(displayedSignOffTeam.contains(ministerialSignOffTeam), is(true));
                 break;
             case "MEMBER OF PARLIAMENT NAME":
@@ -538,7 +531,7 @@ public class Search extends BasePage {
                 peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
                 break;
             case "ACTIVE CASES ONLY":
-                List activeCases = findAll("//td[2][not(text() = 'Closed')]");
+                List<WebElementFacade> activeCases = findAll("//td[2][not(text() = 'Closed')]");
                 if (sessionVariableCalled("searchActiveCases").toString().equalsIgnoreCase("YES")) {
                     assertThat(!activeCases.isEmpty(), is(true));
                 }

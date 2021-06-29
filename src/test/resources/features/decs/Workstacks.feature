@@ -122,7 +122,7 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario: User adds a case to a Campaign and can view the case in the correct workstack
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -141,7 +141,7 @@ Feature: Workstacks
       | Lowest to Highest |
       | Highest to Lowest |
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario Outline: User can select to take the next unallocated case from the team workstack
     And I create a high priority MPAM case and move it to the "<stage>" stage
     When I view the MPAM case in the appropriate "<stage>" stage workstack
@@ -163,7 +163,7 @@ Feature: Workstacks
       | DCU My Cases |
 #      | DCU Team     |
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario Outline: UKVI User sees the required information when viewing a workstack
     Given I switch to user "UKVI_USER"
     And I enter a "<workstack>" workstack

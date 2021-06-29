@@ -27,7 +27,7 @@ Feature: Triage
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     When I click the "Set enquiry subject/reason" link
     And I select an enquiry subject and continue
@@ -41,36 +41,36 @@ Feature: Triage
     When I select "Windrush" as the new Business Area of the case
     Then the options for Business Unit should change
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario: User can change the Business Area of the case
     When I change the Business Area of the case to "Windrush"
     Then the new Business Area should be selected in the accordion
     And the case should be in the correct MPAM "Triage" team workstack
 
-  @UKVIRegression
+  @UKVIRegression2
   Scenario: User can change the reference type of the case
     When I change the reference type of the case to "Correct an error"
     Then the reference type that is displayed should be "Official"
     And the case should be in the correct MPAM "Triage" team workstack
     And a conversion note should be visible showing the entered notes on conversion
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User completes the Triage stage
     When I complete the "Triage" stage
     Then the case should be moved to the "Draft" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User puts the Triage case On Hold
     When I send the Triage case to "On Hold"
     Then the case should be moved to the "Triage (On Hold)" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User escalates the Triage case to the workflow manager
     When I send the Triage case to "Workflow Manager"
     Then the case should be moved to the "Triage (Escalated)" stage
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
     And I load and claim the current case
@@ -78,7 +78,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User de-escalates a Triage (Escalated) case
     When I send the Triage case to "Workflow Manager"
     And I load and claim the current case
@@ -86,7 +86,7 @@ Feature: Triage
     Then the case should be moved to the "Triage" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User closes a Triage (Escalated) case
     And I send the Triage case to "Workflow Manager"
     When I load and claim the current case
@@ -104,13 +104,13 @@ Feature: Triage
       | Business Unit Required                    |
       | Enquiry Subject Required                  |
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User moves a case into a Campaign from the Triage stage
     When I move the case into a Campaign from the "Triage" stage
     And I load the current case
     Then the case is added to the correct Campaign
 
-  @UKVIWorkflow @UKVIRegression
+  @UKVIWorkflow @UKVIRegression2
   Scenario Outline: User moves cases into Campaigns from the Triage sub-stages
     When I send the Triage case to "<moveTo>"
     And I load the current case
