@@ -18,4 +18,9 @@ public class ServiceDraftStepDefs extends BasePage {
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
         serviceDraft.moveCaseFromServiceDraftToServiceEscalated();
     }
+
+    @Then("an error message is displayed as I have not uploaded a document")
+    public void anErrorMessageIsDisabledAsIHaveNotUploadedADocument() {
+        serviceDraft.assertErrorMessageIsDisplayed("Primary Draft Document");
+    }
 }

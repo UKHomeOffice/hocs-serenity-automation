@@ -92,3 +92,20 @@ Feature: Service Triage
     And I load the current case
     Then the "Service Triage" COMP accordion in case details should display the correct information for "Has LoA Been Received"
     And the "Service Triage" COMP accordion in case details should display the correct information for "Date Of LoA"
+
+  @Validation
+  Scenario Outline: User tests the validation at the Service Triage stage
+    When I trigger the "<errorType>" error message at the "Service Triage" stage
+    Then the "<errorType>" error message is displayed at the "Service Triage" stage
+    Examples:
+      | errorType                                    |
+      | CAN YOUR TEAM RESPOND TO COMPLAINT REQUIRED  |
+      | REASON FOR TRANSFER REQUIRED                 |
+      | TRANSFER TO REQUIRED                         |
+      | BUSINESS AREA REQUIRED                       |
+      | ENQUIRY REASON REQUIRED                      |
+      | IS LETTER OF AUTHORITY REQUIRED              |
+      | ACTION REQUIRED                              |
+      | ESCALATION REASON REQUIRED                   |
+      | COMPLETE CASE NOTE REQUIRED                  |
+      | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED  |

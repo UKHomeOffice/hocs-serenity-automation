@@ -28,5 +28,14 @@ Feature: Registration
     Then the "Complaint Correspondents Invalid" page should be displayed
 
   @Validation
-  Scenario: User tests the validation at the Registration stage
-    And I test the validation at the Complaints Registration stage
+  Scenario Outline: User tests the validation at the Registration stage
+    When I trigger the "<errorType>" error message at the "Registration" stage
+    Then the "<errorType>" error message is displayed at the "Registration" stage
+    Examples:
+    | errorType                       |
+    | PRIMARY CORRESPONDENT REQUIRED  |
+    | COMPLAINT TYPE REQUIRED         |
+    | CHANNEL REQUIRED                |
+    | SEVERITY REQUIRED               |
+    | OWNING CSU REQUIRED             |
+    | COMPLAINT TYPE OPTION REQUIRED  |

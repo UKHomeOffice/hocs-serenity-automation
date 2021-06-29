@@ -12,3 +12,11 @@ Feature: Service Send
     When I select a Case Outcome at the Service Send stage
     Then the case should be moved to the "Complaint Closed" stage
     And the summary should display the owning team as "CCH Closed Cases"
+
+  @Validation
+  Scenario Outline: User tests the validation at the Service Send stage
+    When I trigger the "<errorType>" error message at the "Service Send" stage
+    Then the "<errorType>" error message is displayed at the "Service Send" stage
+    Examples:
+      | errorType              |
+      | CASE OUTCOME REQUIRED  |

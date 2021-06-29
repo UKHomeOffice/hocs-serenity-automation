@@ -13,6 +13,9 @@ public class ServiceDraft extends BasePage {
 
     Documents documents;
 
+    @FindBy(xpath = "//a[contains(text(),'Add a')]")
+    public WebElementFacade addADocumentHypertext;
+
     @FindBy(xpath = "//label[text()='Response is ready to send']")
     public WebElementFacade responseIsReadyToSendRadioButton;
 
@@ -58,5 +61,13 @@ public class ServiceDraft extends BasePage {
         reasonForEscalationTextField.sendKeys("Test Escalation Reason");
         setSessionVariable("escalationReason").to("Test Escalation Reason");
         clickTheButton("Escalate case");
+    }
+
+    public void assertErrorMessageIsDisplayed(String errorMessage) {
+        if (errorMessage.equalsIgnoreCase("ACTION")) {
+            actionIsRequired.shouldBeVisible();
+        } else if (errorMessage.equalsIgnoreCase("PRIMARY DRAFT DOCUMENT")) {
+            primaryDraftDocumentIsRequiredErrorMessage.shouldBeVisible();
+        }
     }
 }

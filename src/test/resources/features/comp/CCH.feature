@@ -21,3 +21,13 @@ Feature: CCH
     And I confirm I want to close the case at CCH
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
+
+  @Validation
+  Scenario Outline: User tests the validation at CCH
+    When I trigger the "<errorType>" error message at "CCH"
+    Then the "<errorType>" error message is displayed at "CCH"
+    Examples:
+      | errorType                                   |
+      | TRANSFER TO REQUIRED                        |
+      | COMPLETE CASE NOTE REQUIRED                 |
+      | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED |
