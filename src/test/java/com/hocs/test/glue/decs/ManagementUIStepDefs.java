@@ -633,7 +633,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("success message is displayed")
     public void successMessageIsDisplayed() {
-        unitManagement.correctSuccessmessageDisplayed();
+        unitManagement.assertCorrectSuccessMessageDisplayed();
     }
 }
 
