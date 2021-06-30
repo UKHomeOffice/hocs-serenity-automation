@@ -604,4 +604,8 @@ public class Search extends BasePage {
     public void waitForResultsPage() {
         numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
+
+    public void waitForSearchCriteriaPage() {
+        searchButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+    }
 }
