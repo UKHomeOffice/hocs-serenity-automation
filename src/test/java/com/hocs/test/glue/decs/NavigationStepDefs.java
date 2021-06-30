@@ -43,7 +43,7 @@ public class NavigationStepDefs extends BasePage {
                 break;
             case "SEARCH":
                 safeClickOn(dashboard.searchPage);
-                search.searchButton.waitUntilVisible();
+                search.waitForSearchCriteriaPage();
                 break;
             case "CCH CLOSED CASES":
                 safeClickOn(dashboard.cchClosedCasesWorkstack);
