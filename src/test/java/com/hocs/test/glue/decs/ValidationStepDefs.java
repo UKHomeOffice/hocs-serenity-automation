@@ -98,29 +98,29 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
@@ -329,29 +329,29 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, "01/01/2021");
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
                                 safeClickOn(dataInput.homeSecInterestYesRadioButton);
@@ -532,8 +532,8 @@ public class ValidationStepDefs extends BasePage {
                                 typeIntoDateField(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
                                         dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, getDatePlusMinusNDaysAgo(0));
+                                typeIntoDateField(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
+                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(dataInput.emailOriginalChannelRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
@@ -906,23 +906,30 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     case "PRIVATE OFFICE":
                         switch (errorMessage.toUpperCase()) {
+                            case "RESPONSE CHANNEL REQUIRED":
+                                safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
+                                safeClickOn(confirmButton);
+                                break;
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(confirmButton);
                                 break;
                             case "CAMPAIGN REQUIRED":
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 safeClickOn(confirmButton);
                                 waitABit(500);
                                 safeClickOn(confirmButton);
                                 break;
                             case "DISPATCHED DATE REQUIRED":
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
                                 safeClickOn(confirmButton);
                                 waitABit(500);
                                 clickTheButton("Confirm and close case");
                                 break;
                             case "FOLLOW-UP DUE DATE REQUIRED":
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
                                 safeClickOn(confirmButton);
                                 typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
@@ -931,6 +938,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(confirmButton);
                                 break;
                             case "DETAILS OF FOLLOW-UP REQUIRED":
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
                                 safeClickOn(confirmButton);
                                 typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
@@ -938,7 +946,7 @@ public class ValidationStepDefs extends BasePage {
                                 dispatchStages.followUpDateInput(getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(confirmButton);
                                 break;
-                            case "REJECTION REASON":
+                            case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.draftRejectedRadioButton);
                                 safeClickOn(confirmButton);
                                 waitABit(500);
@@ -951,16 +959,26 @@ public class ValidationStepDefs extends BasePage {
                     case "AWAITING DISPATCH":
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCHED DATE REQUIRED":
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
+                                safeClickOn(dispatchStages.dispatchedCloseCaseRadioButton);
+                                safeClickOn(confirmButton);
+                                break;
+                            case "RESPONSE CHANNEL REQUIRED":
+                                typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
+                                        dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(dispatchStages.dispatchedCloseCaseRadioButton);
                                 safeClickOn(confirmButton);
                                 break;
                             case "ACTIONS REQUIRED":
                                 typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(confirmButton);
                                 break;
-                            case "REJECTION REASON":
+                            case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.returnToDraftButton);
+                                safeClickOn(confirmButton);
+                                waitABit(500);
                                 safeClickOn(confirmButton);
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
@@ -984,6 +1002,7 @@ public class ValidationStepDefs extends BasePage {
                             case "FOLLOW-UP DUE DATE REQUIRED":
                                 typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
                                 safeClickOn(confirmButton);
                                 typeInto(dispatchStages.followUpDetailsTextArea, "Test");
@@ -992,6 +1011,7 @@ public class ValidationStepDefs extends BasePage {
                             case "DETAILS OF FOLLOW-UP REQUIRED":
                                 typeIntoDateField(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
+                                safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
                                 safeClickOn(confirmButton);
                                 dispatchStages.followUpDateInput(getDatePlusMinusNDaysAgo(0));
@@ -1999,7 +2019,7 @@ public class ValidationStepDefs extends BasePage {
                             case "ENQUIRY REASON REQUIRED":
                                 errorText = "Enquiry Reason";
                                 break;
-                            case "IS LETTER OF AUTHORITY REQUIRED":
+                            case "IS LETTER OF AUTHORITY REQUIRED RESPONSE REQUIRED":
                                 errorText = "Is a Letter of Authority required?";
                                 break;
                             case "ACTION REQUIRED":

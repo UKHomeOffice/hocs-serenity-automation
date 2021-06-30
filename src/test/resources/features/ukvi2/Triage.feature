@@ -123,6 +123,4 @@ Feature: Triage
       | BUSINESS UNIT REQUIRED           |
       | ACTIONS REQUIRED                 |
       | ESCALATION REASON REQUIRED       |
-      | REASON FOR CLOSING CASE REQUIRED |
-      | TELEPHONE CONTACT ROUTE REQUIRED |
       | CAMPAIGN REQUIRED                |

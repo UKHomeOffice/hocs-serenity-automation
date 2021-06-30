@@ -142,17 +142,16 @@ Feature: Creation
     And I try to advance a case with a public correspondent at Creation stage
     Then the MP correspondent is mandatory screen is displayed
 
+  @Validation
   Scenario Outline: User tests validation at MPAM Creation
     And I trigger the "<errorType>" error message at "Creation"
     Then the "<errorType>" error message is displayed at "Creation"
     Examples:
-      | errorType                        |
-      | DISPATCHED DATE REQUIRED         |
-      | RESPONSE CHANNEL REQUIRED        |
-      | ACTIONS REQUIRED                 |
-      | REJECTION REASON REQUIRED        |
-      | REASON FOR CLOSING CASE REQUIRED |
-      | TELEPHONE CONTACT ROUTE REQUIRED |
-      | CAMPAIGN REQUIRED                |
-      | FOLLOW-UP DUE DATE REQUIRED      |
-      | DETAILS OF FOLLOW-UP REQUIRED    |
+      | errorType                                 |
+      | BUSINESS AREA REQUIRED                    |
+      | IS MINISTERIAL RESPONSE REQUIRED REQUIRED |
+      | MINISTERIAL SIGN OFF TEAM REQUIRED        |
+      | ADDRESSEE REQUIRED                        |
+      | URGENCY REQUIRED                          |
+      | CHANNEL RECEIVED REQUIRED                 |
+      | PRIMARY CORRESPONDENT REQUIRED            |

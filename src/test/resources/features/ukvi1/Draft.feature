@@ -107,6 +107,8 @@ Feature: Draft
 
   @Validation
   Scenario Outline: User tests validation at the Draft stage
+    Given I create a "MPAM" case and move it to the "Draft" stage
+    And I load and claim the current case
     And I trigger the "<errorType>" error message at the "Draft" stage
     Then the "<errorType>" error message is displayed at the "Draft" stage
     Examples:
@@ -114,6 +116,4 @@ Feature: Draft
       | ACTIONS REQUIRED                 |
       | REJECTION REASON REQUIRED        |
       | ESCALATION REASON REQUIRED       |
-      | REASON FOR CLOSING CASE REQUIRED |
-      | TELEPHONE CONTACT ROUTE REQUIRED |
       | CAMPAIGN REQUIRED                |

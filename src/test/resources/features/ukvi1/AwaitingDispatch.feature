@@ -70,8 +70,6 @@ Feature: Awaiting Dispatch
       | RESPONSE CHANNEL REQUIRED        |
       | ACTIONS REQUIRED                 |
       | REJECTION REASON REQUIRED        |
-      | REASON FOR CLOSING CASE REQUIRED |
-      | TELEPHONE CONTACT ROUTE REQUIRED |
       | CAMPAIGN REQUIRED                |
       | FOLLOW-UP DUE DATE REQUIRED      |
       | DETAILS OF FOLLOW-UP REQUIRED    |

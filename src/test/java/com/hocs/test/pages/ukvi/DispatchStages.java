@@ -26,17 +26,11 @@ public class DispatchStages extends BasePage {
     @FindBy(id = "DateDispatched-year")
     public WebElementFacade dispatchedDateYearTextField;
 
-    @FindBy(css = "label[for='ChannelOut-Email']")
+    @FindBy(xpath = "//div[@id='ChannelOut-radios']//label[text()='Email']")
     public WebElementFacade responseChannelEmailRadioButton;
 
-    @FindBy(css = "label[for='ChannelOut-Letter']")
+    @FindBy(xpath = "//div[@id='ChannelOut-radios']//label[text()='Letter']")
     public WebElementFacade responseChannelLetterRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Phone']")
-    public WebElementFacade responseChannelPhoneRadioButton;
-
-    @FindBy(css = "label[for='ChannelOut-Outreach']")
-    public WebElementFacade responseChannelOutreachRadioButton;
 
     @FindBy(xpath = "//label[text()='Dispatch, close case']")
     public WebElementFacade dispatchedCloseCaseRadioButton;

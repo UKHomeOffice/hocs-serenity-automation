@@ -42,5 +42,5 @@ Feature: QA Response
     Then the "<errorMessage>" error message is displayed at the "QA Response" stage
     Examples:
       | caseType  | errorMessage               |
-      | MIN       | Response Approval Required |
+      | MIN       | Actions Required           |
       | TRO       | Rejection Note Required    |

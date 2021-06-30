@@ -98,14 +98,14 @@ Feature: Service Triage
     When I trigger the "<errorType>" error message at the "Service Triage" stage
     Then the "<errorType>" error message is displayed at the "Service Triage" stage
     Examples:
-      | errorType                                    |
-      | CAN YOUR TEAM RESPOND TO COMPLAINT REQUIRED  |
-      | REASON FOR TRANSFER REQUIRED                 |
-      | TRANSFER TO REQUIRED                         |
-      | BUSINESS AREA REQUIRED                       |
-      | ENQUIRY REASON REQUIRED                      |
-      | IS LETTER OF AUTHORITY REQUIRED              |
-      | ACTION REQUIRED                              |
-      | ESCALATION REASON REQUIRED                   |
-      | COMPLETE CASE NOTE REQUIRED                  |
-      | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED  |
+      | errorType                                         |
+      | CAN YOUR TEAM RESPOND TO COMPLAINT REQUIRED       |
+      | REASON FOR TRANSFER REQUIRED                      |
+      | TRANSFER TO REQUIRED                              |
+      | BUSINESS AREA REQUIRED                            |
+      | ENQUIRY REASON REQUIRED                           |
+      | IS LETTER OF AUTHORITY REQUIRED RESPONSE REQUIRED |
+      | ACTION REQUIRED                                   |
+      | ESCALATION REASON REQUIRED                        |
+      | COMPLETE CASE NOTE REQUIRED                       |
+      | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED       |
