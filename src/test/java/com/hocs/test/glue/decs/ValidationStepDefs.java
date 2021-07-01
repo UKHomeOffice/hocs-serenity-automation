@@ -196,7 +196,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
@@ -204,7 +204,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 documents.addADraftDocumentAtDraftStage();
                                 safeClickOn(continueButton);
                                 waitABit(500);
@@ -214,7 +214,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 documents.addADraftDocumentAtDraftStage();
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
@@ -421,13 +421,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
@@ -435,7 +435,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 documents.addADraftDocumentAtDraftStage();
                                 safeClickOn(continueButton);
                                 waitABit(500);
@@ -445,7 +445,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                jsClickOn(continueButton);
                                 documents.addADraftDocumentAtDraftStage();
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
@@ -686,56 +686,57 @@ public class ValidationStepDefs extends BasePage {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
                             case "BUSINESS AREA REQUIRED":
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.urgencyStandardRadioButton);
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectUrgency("Standard");
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "IS MINISTERIAL RESPONSE REQUIRED REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.urgencyStandardRadioButton);
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectUrgency("Standard");
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "MINISTERIAL SIGN OFF TEAM REQUIRED":
                                 safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectRefType("Ministerial");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.urgencyStandardRadioButton);
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectUrgency("Standard");
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
+                                break;
                             case "ADDRESSEE REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectBusinessArea("UKVI");
+                                creation.selectRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.urgencyStandardRadioButton);
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectUrgency("Standard");
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
+                                break;
                             case "URGENCY REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectBusinessArea("UKVI");
+                                creation.selectRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "CHANNEL RECEIVED REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectBusinessArea("UKVI");
+                                creation.selectRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.urgencyStandardRadioButton);
+                                creation.selectUrgency("Standard");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                safeClickOn(creation.refTypeMRefRadioButton);
+                                creation.selectBusinessArea("UKVI");
+                                creation.selectRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                safeClickOn(creation.urgencyStandardRadioButton);
-                                safeClickOn(creation.channelEmailRadioButton);
+                                creation.selectUrgency("Standard");
+                                creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Move to Triage");
@@ -781,20 +782,20 @@ public class ValidationStepDefs extends BasePage {
                                 triage.selectEnquirySubject("Person Specific");
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
-                                safeClickOn(triage.closeCaseRadioButton);
+                                safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
                                 triage.selectEnquirySubject("Person Specific");
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
-                                safeClickOn(triage.closeCaseRadioButton);
+                                safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
@@ -832,13 +833,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
@@ -878,13 +879,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
@@ -977,13 +978,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
                                 safeClickOn(confirmButton);
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
-                                safeClickOn(closeCaseButton);
+                                clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);

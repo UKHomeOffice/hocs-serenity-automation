@@ -12,7 +12,7 @@ public class Creation extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(css = "label[for='BusArea-UKVI']")
+    @FindBy(xpath = "//label[text()='UKVI']")
     public WebElementFacade businessAreaUKVIRadioButton;
 
     @FindBy(css = "label[for='BusArea-BF']")
@@ -39,10 +39,10 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='BusArea-TransferToOther']")
     public WebElementFacade businessAreaTransferToOtherRadioButton;
 
-    @FindBy(css = "label[for='RefType-Ministerial']")
+    @FindBy(xpath = "//label[text()='Yes (Ministerial)']")
     public WebElementFacade refTypeMRefRadioButton;
 
-    @FindBy(css = "label[for='RefType-Official']")
+    @FindBy(xpath = "//label[text()='No (Official)']")
     public WebElementFacade refTypeBRefRadioButton;
 
     @FindBy(css = "label[for='Priority-Standard']")
