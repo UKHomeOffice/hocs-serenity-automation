@@ -181,6 +181,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I search for the COMP case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
+        waitABit(10);
         search.enterCOMPSearchCriteria("Case Reference", sessionVariableCalled("caseReference"));
         safeClickOn(searchButton);
     }

@@ -542,6 +542,7 @@ public class Search extends BasePage {
     }
 
     public void assertCOMPInformationRandomSearchResult(String criteria) {
+        waitForResultsPage();
         WebElementFacade cell = null;
         String displayedValue;
         String expectedValue = null;
@@ -603,5 +604,9 @@ public class Search extends BasePage {
 
     public void waitForResultsPage() {
         numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
+    public void waitForSearchCriteriaPage() {
+        searchButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 }
