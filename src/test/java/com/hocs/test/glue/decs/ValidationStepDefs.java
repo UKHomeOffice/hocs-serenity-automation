@@ -597,16 +597,8 @@ public class ValidationStepDefs extends BasePage {
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
-                            case "RESPONSE CHANNEL REQUIRED":
-                                safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
-                                waitABit(500);
-                                safeClickOn(continueButton);
-                                break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
-                                safeClickOn(initialDraft.letterReplyRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -1047,7 +1039,7 @@ public class ValidationStepDefs extends BasePage {
                         case "URGENCY REQUIRED":
                             addCorrespondent.addAMemberCorrespondent("Boris Johnson");
                             safeClickOn(continueButton);
-                            mtsDataInput.selectYourBusinessArea();
+                            mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
                             mtsDataInput.selectChannelReceived();
                             mtsDataInput.selectEnquirySubject();
@@ -1059,7 +1051,7 @@ public class ValidationStepDefs extends BasePage {
                         case "CHANNEL RECEIVED REQUIRED":
                             addCorrespondent.addAMemberCorrespondent("Boris Johnson");
                             safeClickOn(continueButton);
-                            mtsDataInput.selectYourBusinessArea();
+                            mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
                             mtsDataInput.selectUrgency();
                             mtsDataInput.selectEnquirySubject();
@@ -1072,7 +1064,7 @@ public class ValidationStepDefs extends BasePage {
                         case "ENQUIRY REASON REQUIRED":
                             addCorrespondent.addAMemberCorrespondent("Boris Johnson");
                             safeClickOn(continueButton);
-                            mtsDataInput.selectYourBusinessArea();
+                            mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
                             mtsDataInput.selectUrgency();
                             mtsDataInput.selectChannelReceived();
@@ -1083,7 +1075,7 @@ public class ValidationStepDefs extends BasePage {
                         case "SUPPORT CASE NOTE REQUIRED":
                             addCorrespondent.addAMemberCorrespondent("Boris Johnson");
                             safeClickOn(continueButton);
-                            mtsDataInput.selectYourBusinessArea();
+                            mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
                             mtsDataInput.selectUrgency();
                             mtsDataInput.selectChannelReceived();
@@ -1095,7 +1087,7 @@ public class ValidationStepDefs extends BasePage {
                         case "YOUR BUSINESS AREA REQUIRED":
                             addCorrespondent.addAMemberCorrespondent("Boris Johnson");
                             safeClickOn(continueButton);
-                            mtsDataInput.selectYourBusinessArea();
+                            mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
                             mtsDataInput.selectUrgency();
                             mtsDataInput.selectChannelReceived();
@@ -1134,7 +1126,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(registration.complaintTypeServiceRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(registration.severityHighRadioButton);
+                                registration.selectASeverity();
                                 safeClickOn(continueButton);
                                 break;
                             case "SEVERITY REQUIRED":
@@ -1144,7 +1136,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(registration.complaintTypeServiceRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(registration.channelEmailRadioButton);
+                                registration.selectAChannel();
                                 safeClickOn(continueButton);
                                 break;
                             case "OWNING CSU REQUIRED":
@@ -1154,8 +1146,8 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(registration.complaintTypeServiceRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(registration.channelEmailRadioButton);
-                                safeClickOn(registration.severityHighRadioButton);
+                                registration.selectAChannel();
+                                registration.selectASeverity();
                                 safeClickOn(continueButton);
                                 safeClickOn(accordionCOMP.serviceAccordionButton);
                                 safeClickOn(accordionCOMP.delayCheckbox);
@@ -1168,8 +1160,8 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(registration.complaintTypeServiceRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(registration.channelEmailRadioButton);
-                                safeClickOn(registration.severityHighRadioButton);
+                                registration.selectAChannel();
+                                registration.selectASeverity();
                                 safeClickOn(continueButton);
                                 registration.selectAnOwningCSU();
                                 safeClickOn(finishButton);
@@ -1353,7 +1345,7 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE SEND":
                             if (errorMessage.equalsIgnoreCase("CASE OUTCOME REQUIRED")) {
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickTheButton("Complete");
                             } else {
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
                             }

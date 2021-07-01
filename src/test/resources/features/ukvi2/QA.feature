@@ -139,6 +139,8 @@ Feature: QA
 
   @Validation
   Scenario Outline: User tests validation at the QA stage
+    When I create a "MPAM" case and move it to the "QA" stage
+    And I load and claim the current case
     And I trigger the "<errorType>" error message at the "QA" stage
     Then the "<errorType>" error message is displayed at the "QA" stage
     Examples:
