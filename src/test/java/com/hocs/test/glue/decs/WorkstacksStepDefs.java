@@ -453,4 +453,9 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineShouldBeHighlightedRed() {
         workstacks.assertThatDeadlineHighlightedIsRed();
     }
+
+    @Then("the overdue contribution request should be highlighted in red")
+    public void theOverdueContributionRequestShouldBeHighlightedInRed() {
+        workstacks.assertOverdueContributionRequestIsHighlighted();
+    }
 }

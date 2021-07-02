@@ -172,8 +172,14 @@ public class BasePage extends PageObject {
     }
 
     public void goToDECSDashboard() {
-        safeClickOn(dashboardLink);
-        waitForDashboard();
+        try {
+            safeClickOn(dashboardLink);
+            waitABit(2500);
+        } catch (NoSuchElementException a) {
+            safeClickOn(dashboardLink);
+            waitForDashboard();
+        }
+
     }
 
     public void waitForDashboard() {

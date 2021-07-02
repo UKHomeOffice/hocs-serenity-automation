@@ -66,7 +66,7 @@ public class ServiceTriageStepDefs extends BasePage {
     }
 
     @And("the overdue contribution request should be highlighted")
-    public void highlightingcheck() {
+    public void highlightingCheckAtServiceTriage() {
         serviceTriage.assertOverdueContributionRequestIsHighlighted();
     }
 }
