@@ -25,7 +25,7 @@ steps:
     depends_on: []
 
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/smoke.sh
     environment:
@@ -61,7 +61,7 @@ trigger:
     - push
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/dcu.sh
     environment:
@@ -119,7 +119,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/decs.sh
     environment:
@@ -175,7 +175,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/ukvi1.sh
     environment:
@@ -231,7 +231,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/ukvi2.sh
     environment:
@@ -288,7 +288,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/comp.sh
     environment:
