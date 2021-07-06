@@ -14,12 +14,12 @@ Feature: COMP Search
     And I click the search button on the search page
     Then I check that the COMP search results have the correct "<infoType>"
     Examples:
-      | infoType                          | infoValue            |
-      | Correspondent Full Name           | Sam McTester         |
-      | Correspondent Postcode            | AB1 2CD              |
-      | Correspondent Email Address       | SamMcTester@Test.com |
-      | Complainant Date Of Birth         | 01/01/2001           |
-      | Complainant Home Office Reference | Test HO Ref          |
+      | infoType                          | infoValue                            |
+      | Correspondent Full Name           | Sam McTester                         |
+      | Correspondent Postcode            | AB1 2CD                              |
+      | Correspondent Email Address       | SamMcTester@Test.com                 |
+      | Complainant Date Of Birth         | 01/01/2001                           |
+      | Complainant Home Office Reference | Test entry for Home Office Reference |
 
 #    HOCS-2838
   @COMPRegression

@@ -189,9 +189,9 @@ public class CreateCase extends BasePage {
     public void createCaseReceivedFiveDaysBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
         int numberOfDays = 0;
-        if (beforeAfter.toUpperCase().equals("BEFORE")) {
+        if (beforeAfter.equalsIgnoreCase("BEFORE")) {
             numberOfDays = (-5);
-        } else if (beforeAfter.toUpperCase().equals("AFTER")) {
+        } else if (beforeAfter.equalsIgnoreCase("AFTER")) {
             numberOfDays = 5;
         }
         Calendar c = Calendar.getInstance();

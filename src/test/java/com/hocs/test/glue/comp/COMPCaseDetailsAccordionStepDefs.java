@@ -18,7 +18,7 @@ public class COMPCaseDetailsAccordionStepDefs extends BasePage {
 
     @And("the read-only Case Details accordion should contain all case information entered during the {string} stage")
     public void theReadOnlyCaseDetailsAccordionShouldContainAllCaseInformationEnteredDuringTheStage(String stageName) {
-        openAccordionSection("Registration");
+        openAccordionSection(stageName);
         assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
     }
 }
