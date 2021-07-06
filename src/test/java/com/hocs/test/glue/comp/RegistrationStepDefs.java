@@ -18,9 +18,10 @@ public class RegistrationStepDefs extends BasePage {
     public void iEnterTheComplainantDetails() {
         registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
         registration.selectAGender();
-        registration.enterACompanyName(generateRandomString());
-        registration.enterAHomeOfficeReference(generateRandomString());
-        registration.enterAPortReference(generateRandomString());
+        registration.selectANationality();
+        registration.enterACompanyName();
+        registration.enterAHomeOfficeReference();
+        registration.enterAPortReference();
         clickTheButton("Continue");
     }
 
@@ -33,11 +34,11 @@ public class RegistrationStepDefs extends BasePage {
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
         registration.selectAChannel();
-        registration.enterADescriptionOfTheComplaint("Test complaint description");
+        registration.enterADescriptionOfTheComplaint();
         registration.selectASeverity();
         registration.selectSafeGuardingAndVulnerableIfPossible();
-        registration.enterAPreviousUKVIComplaintReference(generateRandomString());
-        registration.enterAThirdPartyReference(generateRandomString());
+        registration.enterAPreviousUKVIComplaintReference();
+        registration.enterAThirdPartyReference();
         clickTheButton("Continue");
     }
 

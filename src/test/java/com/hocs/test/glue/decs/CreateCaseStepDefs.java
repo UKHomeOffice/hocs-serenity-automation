@@ -430,9 +430,9 @@ public class CreateCaseStepDefs extends BasePage {
                         safeClickOn(continueButton);
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
-                        registration.enterACompanyName(generateRandomString());
-                        registration.enterAHomeOfficeReference("Test HO Ref");
-                        registration.enterAPortReference(generateRandomString());
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference();
+                        registration.enterAPortReference();
                         safeClickOn(continueButton);
                         registration.selectComplaintType("Service");
                         safeClickOn(continueButton);
@@ -454,9 +454,9 @@ public class CreateCaseStepDefs extends BasePage {
                         safeClickOn(continueButton);
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
-                        registration.enterACompanyName(generateRandomString());
-                        registration.enterAHomeOfficeReference("Test HO Ref");
-                        registration.enterAPortReference(generateRandomString());
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference();
+                        registration.enterAPortReference();
                         safeClickOn(continueButton);
                         break;
                     default:

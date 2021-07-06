@@ -172,18 +172,19 @@ public class Registration extends BasePage {
         clickTheButton("Continue");
         enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
         selectAGender();
-        enterACompanyName(generateRandomString());
-        enterAHomeOfficeReference(generateRandomString());
-        enterAPortReference(generateRandomString());
+        selectANationality();
+        enterACompanyName();
+        enterAHomeOfficeReference();
+        enterAPortReference();
         clickTheButton("Continue");
         selectComplaintType("Service");
         clickTheButton("Continue");
         selectAChannel();
-        enterADescriptionOfTheComplaint("Test complaint description");
+        enterADescriptionOfTheComplaint();
         selectASeverity();
         selectSafeGuardingAndVulnerableIfPossible();
-        enterAPreviousUKVIComplaintReference(generateRandomString());
-        enterAThirdPartyReference(generateRandomString());
+        enterAPreviousUKVIComplaintReference();
+        enterAThirdPartyReference();
         clickTheButton("Continue");
         openTheServiceComplaintCategoryAccordion();
         waitABit(1000);
@@ -193,37 +194,37 @@ public class Registration extends BasePage {
     }
 
     public void enterComplainantDOB(String complainantDOB) {
-        typeIntoDateField(complainantDOBDayField, complainantDOBMonthField, complainantDOBYearField, complainantDOB);
+        enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
     }
 
     public void selectAGender() {
         selectRandomRadioButtonFromGroupWithHeading("Gender");
     }
 
-    public void selectANationality(String nationality) {
-        nationalityDropdown.selectByVisibleText(nationality);
+    public void selectANationality() {
+        selectRandomOptionFromDropdownWithHeading("Nationality");
     }
 
-    public void enterACompanyName(String companyName) {
-        companyNameField.sendKeys(companyName);
+    public void enterACompanyName() {
+        enterRandomTextIntoTextFieldWithHeading("Company Name");
     }
 
-    public void enterAHomeOfficeReference(String homeOfficeReference) {
-        homeOfficeReferenceField.sendKeys(homeOfficeReference);
+    public void enterAHomeOfficeReference() {
+        enterRandomTextIntoTextFieldWithHeading("Home Office Reference");
     }
 
-    public void enterAPortReference(String portReference) {
-        portReferenceField.sendKeys(portReference);
+    public void enterAPortReference() {
+        enterRandomTextIntoTextFieldWithHeading("Port Reference");
     }
 
 
     public void selectComplaintType(String complaintType) {
         switch (complaintType.toUpperCase()) {
             case "SERVICE":
-                safeClickOn(complaintTypeServiceRadioButton);
+                selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
                 break;
             case "MINOR MISCONDUCT":
-                safeClickOn(complaintTypeMinorMisconductRadioButton);
+                selectSpecificRadioButtonFromGroupWithHeading("Minor Misconduct", "Complaint Type");
                 break;
             default:
                 pendingStep(complaintType + " is not defined within " + getMethodName());
@@ -234,8 +235,8 @@ public class Registration extends BasePage {
         selectRandomRadioButtonFromGroupWithHeading("Channel");
     }
 
-    public void enterADescriptionOfTheComplaint(String complaintDescription) {
-        caseSummaryTextArea.sendKeys(complaintDescription);
+    public void enterADescriptionOfTheComplaint() {
+        enterRandomTextIntoTextAreaWithHeading("Case Summary");
     }
 
     public void selectASeverity() {
@@ -245,29 +246,29 @@ public class Registration extends BasePage {
     public void selectSafeGuardingAndVulnerableIfPossible() {
         waitABit(500);
         if (safeGuardingCheckbox.isCurrentlyVisible()) {
-            safeClickOn(safeGuardingCheckbox);
-            safeClickOn(vulnerableCheckbox);
+            checkSpecificCheckbox("Safe Guarding");
+            checkSpecificCheckbox("Vulnerable");
         }
     }
 
-    public void enterAPreviousUKVIComplaintReference(String previousUKVIComplaintReference) {
-        previousUKVIComplaintReferenceField.sendKeys(previousUKVIComplaintReference);
+    public void enterAPreviousUKVIComplaintReference() {
+        enterRandomTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
     }
 
-    public void enterAThirdPartyReference(String thirdPartyReference) {
-        thirdPartyReferenceField.sendKeys(thirdPartyReference);
+    public void enterAThirdPartyReference() {
+        enterRandomTextIntoTextFieldWithHeading("Third Party Reference");
     }
 
     public void openTheServiceComplaintCategoryAccordion() {
-        safeClickOn(claimCategoryServiceAccordionButton);
+        openAccordionSection("Service");
     }
 
     public void openTheSeriousAndMinorComplaintCategoryAccordion() {
-        safeClickOn(claimCategorySeriousAndMinorAccordionButton);
+        openAccordionSection("Serious and Minor");
     }
 
     public void openTheSeriousComplaintCategoryAccordion() {
-        safeClickOn(claimCategorySeriousAccordionButton);
+        openAccordionSection("Serious");
     }
 
     public void selectAVisibleClaimCategory() {
@@ -278,11 +279,11 @@ public class Registration extends BasePage {
                 visibleClaimCategories.add(claimCategory);
             }
         }
-        safeClickOn(getRandomElementFromList(visibleClaimCategories));
+        checkRandomCheckboxFromList(visibleClaimCategories);
     }
 
     public void selectAnOwningCSU() {
-        owningCSUDropdown.selectByIndex(1);
+        selectRandomOptionFromDropdownWithHeading("Owning CSU");
     }
 
     public void assertErrorMessageIsDisplayed(String expectedMessage) {
