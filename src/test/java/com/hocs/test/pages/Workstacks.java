@@ -818,4 +818,10 @@ public class Workstacks extends BasePage {
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }
+
+    public void assertContributionRequestStatus() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade contributionRequestField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[2]");
+        contributionRequestField.shouldContainText(sessionVariableCalled("expectedContributionRequestStatus"));
+    }
 }

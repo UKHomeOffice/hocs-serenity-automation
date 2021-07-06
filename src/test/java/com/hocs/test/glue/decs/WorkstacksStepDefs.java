@@ -458,4 +458,9 @@ public class WorkstacksStepDefs extends BasePage {
     public void theOverdueContributionRequestShouldBeHighlightedInRed() {
         workstacks.assertOverdueContributionRequestIsHighlighted();
     }
+
+    @Then("the displayed contribution request status of the case should be correct")
+    public void theDisplayedContributionRequestStatusOfTheCaseShouldBeCorrect() {
+        workstacks.assertContributionRequestStatus();
+    }
 }

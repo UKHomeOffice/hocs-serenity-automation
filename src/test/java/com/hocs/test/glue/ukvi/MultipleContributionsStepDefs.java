@@ -90,5 +90,6 @@ public class MultipleContributionsStepDefs extends BasePage {
     @And("I add a {string} contribution with a due date in the past")
     public void iAddAContributionWithADueDateInThePast(String contributionType) {
         contributionRequests.addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(-5));
+        contributionRequests.determineStatusOfCaseContributionRequestInWorkstack(contributionType);
     }
 }

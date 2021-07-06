@@ -6,8 +6,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.util.Locale;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ContributionRequests extends BasePage {
@@ -135,6 +136,33 @@ public class ContributionRequests extends BasePage {
         }
         safeClickOn(continueButton);
         setSessionVariable("numberOfContributions").to(numberOfContributionRequests);
+    }
+
+    public void determineStatusOfCaseContributionRequestInWorkstack(String contributionType) {
+        int n = 0;
+        String tableID = null;
+        String expectedStatus = "";
+        if (contributionType.equalsIgnoreCase("COMPLAINANT")) {
+            tableID = "CompContributions";
+        } else if (contributionType.equalsIgnoreCase("BUSINESS")) {
+            tableID = "BusContributions";
+        }
+        List<WebElementFacade> listOfContributionStatus = findAll("//fieldset[@id='" + tableID + "']/table//td[2]");
+        while (n < listOfContributionStatus.size() || !expectedStatus.equals("Overdue")) {
+            String status = listOfContributionStatus.get(n).getText();
+            if (status.contains("Due") || status.contains("Overdue") || status.contains("Complete") || status.contains("Cancelled")) {
+                expectedStatus = "Due";
+                    if (status.equalsIgnoreCase("COMPLETE")) {
+                        expectedStatus = "Complete";
+                    } else if (status.equalsIgnoreCase("CANCELLED")) {
+                        expectedStatus = "Cancelled";
+                    } else if (status.contains("Overdue")) {
+                        expectedStatus = "Overdue";
+                    }
+                }
+            n++;
+        }
+        setSessionVariable("expectedContributionRequestStatus").to(expectedStatus);
     }
 
     public void assertThatContributionRequestOfTypeIsMarkedAs(String contributionType, String action) {
