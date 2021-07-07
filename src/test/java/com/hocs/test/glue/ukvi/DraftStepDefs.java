@@ -85,22 +85,4 @@ public class DraftStepDefs extends BasePage {
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
         }
     }
-
-    @When("the user triggers the {string} error message at Draft by not entering the correct information")
-    public void theUserTriggersTheErrorMessageAtDraftByNotEnteringTheCorrectInformation(String errorMessage) {
-        if ("ACTIONS REQUIRED".equals(errorMessage.toUpperCase())) {
-            safeClickOn(confirmButton);
-        } else {
-            pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("the {string} error message should be displayed at Draft")
-    public void theErrorMessageShouldBeDisplayedAtDraft(String errorMessage) {
-        if ("ACTIONS REQUIRED".equals(errorMessage.toUpperCase())) {
-            draft.assertActionsRequiredErrorMessageDisplayed();
-        } else {
-            pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
 }

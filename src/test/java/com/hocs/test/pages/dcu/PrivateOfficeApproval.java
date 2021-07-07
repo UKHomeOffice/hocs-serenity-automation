@@ -28,18 +28,6 @@ public class PrivateOfficeApproval extends BasePage {
     @FindBy(id = "CaseNote_PrivateOfficeOverride")
     public WebElementFacade privateOfficeOverrideNoteField;
 
-    @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    public WebElementFacade doYouApproveTheResponseErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Override Private Office Team is required']")
-    public WebElementFacade overridePrivateOfficeTeamIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Why should this be approved by this team instead? is required']")
-    public WebElementFacade whyShouldThisBeApprovedErrorMessage;
-
-    @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    public WebElementFacade whatIsYourFeedbackResponseErrorMessage;
-
     @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
     public WebElementFacade privateOfficeTeamDropdown;
 
@@ -122,18 +110,5 @@ public class PrivateOfficeApproval extends BasePage {
 
     public void assertTopicChangeCaseNoteIsAddedToTimeline() {
         timelineTab.topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
-    }
-
-    public void assertDoYouApproveTheResponseErrorMessage() {
-        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
-    }
-
-    public void assertChangeMinisterErrorMessages() {
-        overridePrivateOfficeTeamIsRequiredErrorMessage.shouldContainText("Override Private Office Team is required");
-        whyShouldThisBeApprovedErrorMessage.shouldContainText("Why should this be approved by this team instead? is required");
-    }
-
-    public void assertWhatIsYourFeedbackResponse() {
-        whatIsYourFeedbackResponseErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 }

@@ -11,11 +11,4 @@ public class NoResponseNeededConfirmation extends BasePage {
 
     @FindBy(xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='No']")
     public WebElementFacade noResponseNeededNoRadioButton;
-
-    @FindBy(xpath = "//a[@href='#NoReplyNeededConfirmation-error']")
-    public WebElementFacade doYouAgreeIsRequiredErrorMessage;
-
-    public void assertDoYouAgreeNRNErrorMessage() {
-        doYouAgreeIsRequiredErrorMessage.shouldContainText("Do you agree that no response is needed? is required");
-    }
 }

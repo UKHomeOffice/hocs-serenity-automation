@@ -4,27 +4,6 @@ Feature: QA Response
   Background:
     Given I am logged into "DECS" as user "DCU_USER"
 
-  @Validation
-  Scenario: User must select a radio button to indicate whether they approve the QA response
-    And I create a "DTEN" case and move it to the "QA RESPONSE" stage
-    And I load and claim the current case
-    And I click the "Continue" button
-    Then an error message should be displayed as I have not selected a radio button on the QA approve response screen
-
-  @Validation
-  Scenario: User reviews draft, rejects it and does not provide a rejection reason
-    And I create a "DTEN" case and move it to the "QA RESPONSE" stage
-    And I load and claim the current case
-    When I attempt to reject the "QA RESPONSE" case without reason
-    Then an error message should be displayed as I have not entered feedback in the text box for the disapproved QA response
-
-  @Validation
-  Scenario: User must enter text in the text box when creating a Case note at the QA Response stage
-    And I create a "DTEN" case and move it to the "QA RESPONSE" stage
-    And I load and claim the current case
-    And I click the add button when creating a case note
-    Then an error message should be displayed as I have not entered text in the Case Note text box
-
   @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Initial Draft stage when rejected by QA Response Team
     And I create a "<caseType>" case and move it to the "QA RESPONSE" stage
@@ -47,3 +26,21 @@ Feature: QA Response
       And I click the "Approve primary draft" button
       Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
       And the "second draft" document should be tagged as the primary draft
+
+  @Validation
+  Scenario: User must enter text in the text box when creating a Case note at the QA Response stage
+    And I create a "DTEN" case and move it to the "QA RESPONSE" stage
+    And I load and claim the current case
+    And I click the add button when creating a case note
+    Then an error message should be displayed as I have not entered text in the Case Note text box
+
+  @Validation
+  Scenario Outline: User tests the validation at the QA Response stage
+    When I create a "<caseType>" case and move it to the "QA Response" stage
+    And I load and claim the current case
+    And I trigger the "<errorMessage>" error message at the "QA Response" stage
+    Then the "<errorMessage>" error message is displayed at the "QA Response" stage
+    Examples:
+      | caseType  | errorMessage               |
+      | MIN       | Actions Required           |
+      | TRO       | Rejection Note Required    |

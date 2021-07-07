@@ -7,16 +7,6 @@ Feature: Ministerial Sign-Off
     And I load and claim the current case
 
   @Validation
-  Scenario: User must select a radio button when asked whether or not they approve the response at the Minister Sign Off stage
-    When I click the "Continue" button
-    Then an error message should be displayed as I have not selected a radio button on the approve response screen
-
-  @Validation
-  Scenario: User must enter feedback in a text box if they do not approve the MINISTERIAL SIGN OFF response
-    When I click the "Continue" button on the "MINISTERIAL SIGN OFF FEEDBACK RESPONSE" page
-    Then an error message should be displayed as I have not entered feedback in the text box
-
-  @Validation
   Scenario: User must enter text in the text box when creating a Case note at the MINISTERIAL SIGN OFF stage
     When I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
@@ -33,3 +23,13 @@ Feature: Ministerial Sign-Off
     And I navigate to the "Dashboard" page
     And I load and claim the current case
     Then a rejection note should be visible showing the reason for rejection
+
+  @Validation
+  Scenario Outline: User tests the validation at the Ministerial Sign Off stage
+    And I trigger the "<errorMessage>" error message at the "Ministerial Sign Off" stage
+    Then the "<errorMessage>" error message is displayed at the "Ministerial Sign Off" stage
+    Examples:
+      | errorMessage                              |
+      | Response Approval Required                |
+      | Rejection to Draft Note Required          |
+      | Rejection to Private Office Note Required |

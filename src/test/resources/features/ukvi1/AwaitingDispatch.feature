@@ -61,16 +61,18 @@ Feature: Awaiting Dispatch
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
   @Validation
-  Scenario Outline: User triggers error message to be displayed at Awaiting Dispatch stage
-    And I trigger the "<errorType>" error message at Awaiting Dispatch stage by not entering the correct information
-    Then then the "<errorType>" error message should be displayed at a Dispatch stage
+  Scenario Outline: User tests validation at Awaiting Dispatch
+    And I trigger the "<errorType>" error message at "Awaiting Dispatch"
+    Then the "<errorType>" error message is displayed at "Awaiting Dispatch"
     Examples:
-      | errorType                               |
-      | Actions Required                        |
-      | Dispatched Date Required                |
-      | Follow-up Date Required                 |
-      | Follow-up Details Required              |
-      | Follow-up Not Completed Reason Required |
+      | errorType                        |
+      | DISPATCHED DATE REQUIRED         |
+      | RESPONSE CHANNEL REQUIRED        |
+      | ACTIONS REQUIRED                 |
+      | REJECTION REASON REQUIRED        |
+      | CAMPAIGN REQUIRED                |
+      | FOLLOW-UP DUE DATE REQUIRED      |
+      | DETAILS OF FOLLOW-UP REQUIRED    |
 
   @Campaigns @UKVIRegression1
   Scenario: User moves a case into a Campaign from the Awaiting Dispatch stage

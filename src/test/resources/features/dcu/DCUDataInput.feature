@@ -92,19 +92,6 @@ Feature: DCU Data Input
     Then the correct correspondent is recorded as the primary correspondent
 
   @Validation
-  Scenario Outline: User must complete all mandatory inputs on the Data Input form
-    When I create a "MIN" case and move it to the "Data Input" stage
-    And I load and claim the current case
-    And I click the "Continue" button
-    Then an error message should be displayed as I have not entered a "<formDetail>"
-
-    Examples:
-    | formDetail |
-    | Correspondence Date |
-    | Correspondence Type |
-    | Copy to Number Ten  |
-
-  @Validation
   Scenario: User must select whether the primary correspondent is an MP or not at the Data Input stage
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
@@ -172,3 +159,19 @@ Feature: DCU Data Input
     | MIN       | No              |
     | TRO       | Yes             |
     | TRO       | No              |
+
+  @Validation
+  Scenario Outline: User tests the validation at the DCU Data Input stage
+    When I create a "<caseType>" case and move it to the "Data Input" stage
+    And I load and claim the current case
+    And I trigger the "<errorMessage>" error message at the "Data Input" stage
+    Then the "<errorMessage>" error message is displayed at the "Data Input" stage
+    Examples:
+      | caseType  | errorMessage                      |
+      | MIN       | CORRESPONDENCE SENT DATE REQUIRED |
+      | MIN       | INBOUND CHANNEL REQUIRED          |
+      | TRO       | COPY TO NUMBER 10 REQUIRED        |
+      | TRO       | HOME SECRETARY INTEREST REQUIRED  |
+      | DTEN      | PRIMARY CORRESPONDENT REQUIRED    |
+      | DTEN      | DRAFTING DEADLINE REQUIRED        |
+      | DTEN      | DISPATCH DEADLINE REQUIRED        |

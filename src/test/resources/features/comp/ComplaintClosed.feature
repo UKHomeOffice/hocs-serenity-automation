@@ -21,3 +21,13 @@ Feature: Complaint Closed
     And I confirm I want to close the case at Complaint Closed
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
+
+  @Validation
+  Scenario Outline: User tests the validation at Complaint Closed
+    When I trigger the "<errorType>" error message at "Complaint Closed"
+    Then the "<errorType>" error message is displayed at "Complaint Closed"
+    Examples:
+      | errorType                                   |
+      | PROGRESS CASE REQUIRED                      |
+      | COMPLETE CASE NOTE REQUIRED                 |
+      | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED |

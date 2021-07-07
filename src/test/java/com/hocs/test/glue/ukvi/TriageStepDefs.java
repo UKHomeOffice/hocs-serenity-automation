@@ -92,26 +92,6 @@ public class TriageStepDefs extends BasePage {
         }
     }
 
-    @Then("the {string} error message should be displayed at Triage")
-    public void theErrorMessageShouldBeDisplayedAtTriage(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "ACTIONS REQUIRED":
-                triage.assertActionsRequiredErrorMessageDisplayed();
-                break;
-            case "BUSINESS UNIT REQUIRED":
-                triage.assertBusinessUnitRequiredErrorMessageDisplayed();
-                break;
-            case "ENQUIRY SUBJECT REQUIRED":
-                triage.assertEnquirySubjectRequiredErrorMessageDisplayed();
-                break;
-            case "ENQUIRY REASON REQUIRED":
-                triage.assertEnquiryReasonRequiredErrorMessageDisplayed();
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I record the current options for Business Unit")
     public void iRecordTheCurrentOptionsForBusinessUnit() {
         triage.recordCurrentBusinessUnitOptions();

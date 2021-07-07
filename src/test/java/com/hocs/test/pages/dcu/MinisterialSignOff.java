@@ -16,12 +16,6 @@ public class MinisterialSignOff extends BasePage {
     @FindBy(id = "CaseNote_MinisterReject")
     public WebElementFacade ministerRejectionNote;
 
-    @FindBy(xpath = "//a[text()='Do you approve the response? is required']")
-    public WebElementFacade doYouApproveTheResponseErrorMessage;
-
-    @FindBy(xpath = "//a[text()='What is your feedback about the response? is required']")
-    public WebElementFacade whatIsYourFeedbackMinisterSignOffErrorMessage;
-
     @FindBy(xpath = "//label[text()='Not applicable']")
     public WebElementFacade notApplicableRadioButton;
 
@@ -38,14 +32,6 @@ public class MinisterialSignOff extends BasePage {
         safeClickOn(ministerSignOffRejectRadioButton);
         safeClickOn(continueButton);
         waitABit(1000);
-    }
-
-    public void assertDoYouApproveTheResponseErrorMessage() {
-        doYouApproveTheResponseErrorMessage.shouldContainText("Do you approve the response? is required");
-    }
-
-    public void assertFeedbackResponseMinisterSignOffErrorMessage() {
-        whatIsYourFeedbackMinisterSignOffErrorMessage.shouldContainText("What is your feedback about the response? is required");
     }
 
     public void moveCaseFromMinisterToDispatch() {

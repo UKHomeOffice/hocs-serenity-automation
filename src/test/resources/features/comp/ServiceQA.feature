@@ -20,3 +20,12 @@ Feature: Service QA
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And a rejection note should be visible showing the reason for rejection
+
+  @Validation
+  Scenario Outline: User tests the validation at the Service QA stage
+    When I trigger the "<errorType>" error message at the "Service QA" stage
+    Then the "<errorType>" error message is displayed at the "Service QA" stage
+    Examples:
+      | errorType                 |
+      | QA RESULT REQUIRED        |
+      | REJECTION REASON REQUIRED |

@@ -12,8 +12,6 @@ public class RegistrationStepDefs extends BasePage {
 
     Registration registration;
 
-    AddCorrespondent addCorrespondent;
-
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
         registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
@@ -63,30 +61,5 @@ public class RegistrationStepDefs extends BasePage {
     @And("I select a Owning CSU")
     public void iSelectAOwningCSU() {
         registration.selectAnOwningCSU();
-    }
-
-    @And("I test the validation at the Complaints Registration stage")
-    public void iTestTheValidationAtTheComplaintRegistrationStage() {
-        safeClickOn(continueButton);
-        registration.assertErrorMessageIsDisplayed("Primary Correspondent");
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        safeClickOn(continueButton);
-        waitABit(250);
-        safeClickOn(continueButton);
-        waitABit(250);
-        safeClickOn(continueButton);
-        registration.assertErrorMessageIsDisplayed("Complaint Type");
-        registration.selectComplaintType("Service");
-        safeClickOn(continueButton);
-        waitABit(250);
-        safeClickOn(continueButton);
-        registration.assertErrorMessageIsDisplayed("Channel");
-        registration.assertErrorMessageIsDisplayed("Severity");
-        registration.selectAChannel();
-        registration.selectASeverity();
-        safeClickOn(continueButton);
-        waitABit(250);
-        safeClickOn(finishButton);
-        registration.assertErrorMessageIsDisplayed("Owning CSU");
     }
 }

@@ -15,7 +15,7 @@ public class MTSDataInput extends BasePage {
     AddCorrespondent addCorrespondent;
 
     @FindBy(id = "BusUnit")
-    private WebElementFacade businessUnitDropdown;
+    public WebElementFacade businessUnitDropdown;
 
     @FindBy(xpath = "//label[text()='Standard']")
     private WebElementFacade standardUrgencyRadioButton;
@@ -66,7 +66,7 @@ public class MTSDataInput extends BasePage {
     private WebElementFacade otherEnquirySubjectRadioButton;
 
     @FindBy(id = "EnquiryReason")
-    private WebElementFacade enquiryReasonDropdown;
+    public WebElementFacade enquiryReasonDropdown;
 
     @FindBy(xpath = "//textarea[@name='SupportNote']")
     public WebElementFacade supportNoteTextArea;
@@ -128,128 +128,5 @@ public class MTSDataInput extends BasePage {
         enterASupportNote("Test support note");
         selectYourBusinessArea();
         safeClickOn(completeAndCloseCaseButton);
-    }
-
-    public void triggerErrorMessage(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "PRIMARY CORRESPONDENT":
-                safeClickOn(continueButton);
-                break;
-            case "BUSINESS AREA":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectUrgency("Standard");
-                selectChannelReceived();
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "BUSINESS UNIT":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                selectUrgency("Standard");
-                selectChannelReceived();
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "URGENCY":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectChannelReceived();
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "CHANNEL RECEIVED":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectUrgency("Standard");
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "ENQUIRY SUBJECT":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectUrgency("Standard");
-                selectChannelReceived();
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "ENQUIRY REASON":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectUrgency("Standard");
-                selectChannelReceived();
-                selectEnquirySubject("Person Specific");
-                enterASupportNote("Test support note");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            case "NOTE TO SUPPORT CASE":
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-                safeClickOn(continueButton);
-                selectBusinessArea("UKVI");
-                businessUnitDropdown.selectByVisibleText("Asylum");
-                selectUrgency("Standard");
-                selectChannelReceived();
-                selectEnquirySubject("Person Specific");
-                enquiryReasonDropdown.selectByVisibleText("Allowed appeal enquiry update");
-                safeClickOn(completeAndCloseCaseButton);
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void assertErrorMessageIsDisplayed(String expectedMessage) {
-        String expectedText = null;
-        switch (expectedMessage.toUpperCase()) {
-            case "PRIMARY CORRESPONDENT":
-                expectedText = "Which is the primary correspondent? is required";
-                break;
-            case "BUSINESS AREA":
-                expectedText = "Business Area is required";
-                break;
-            case "BUSINESS UNIT":
-                expectedText = "Business unit is required";
-                break;
-            case "URGENCY":
-                expectedText = "Urgency is required";
-                break;
-            case "CHANNEL RECEIVED":
-                expectedText = "Channel received is required";
-                break;
-            case "ENQUIRY SUBJECT":
-                expectedText = "Enquiry subject is required";
-                break;
-            case "ENQUIRY REASON":
-                expectedText = "Enquiry reason is required";
-                break;
-            case "YOUR BUSINESS AREA":
-                expectedText = "Your Business Area is required";
-                break;
-            case "NOTE TO SUPPORT CASE":
-                expectedText = "Note to support case is required";
-                break;
-            default:
-                pendingStep(expectedMessage + " is not defined within " + getMethodName());
-        }
-        WebElementFacade errorMessage = findBy("//ul[@class = 'govuk-list govuk-error-summary__list']//a[contains(text(), '" + expectedText +
-                "')]");
-        errorMessage.shouldBeVisible();
     }
 }

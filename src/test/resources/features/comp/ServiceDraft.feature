@@ -34,3 +34,13 @@ Feature: Service Draft
   Scenario: User must upload a document at Service Draft stage
     And I select the "Response is ready to send" action at the Service Draft stage
     Then an error message is displayed as I have not uploaded a document
+
+  @Validation
+  Scenario Outline: User tests the validation at the Service Draft stage
+    When I trigger the "<errorType>" error message at the "Service Draft" stage
+    Then the "<errorType>" error message is displayed at the "Service Draft" stage
+    Examples:
+      | errorType                        |
+      | PRIMARY DRAFT DOCUMENT REQUIRED  |
+      | ACTION REQUIRED                  |
+      | ESCALATION REASON                |

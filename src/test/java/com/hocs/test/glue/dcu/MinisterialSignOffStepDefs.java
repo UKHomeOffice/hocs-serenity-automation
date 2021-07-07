@@ -34,15 +34,4 @@ public class MinisterialSignOffStepDefs extends BasePage {
     public void iReturnCaseAtMinisterialSignOffToPrivateOfficeApproval() {
         ministerialSignOff.moveCaseFromMinisterSignOffToPrivateOfficeApproval();
     }
-
-    @Then("an error message should be displayed as I have not selected a radio button on the approve response screen")
-    public void assertThatApproveResponseErrorMessageIsShown() {
-        ministerialSignOff.assertDoYouApproveTheResponseErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not entered feedback in the text box")
-    public void assertThatFeedbackResponseMinisterSignOffErrorMessageIsShown() {
-        ministerialSignOff.assertFeedbackResponseMinisterSignOffErrorMessage();
-    }
-
 }

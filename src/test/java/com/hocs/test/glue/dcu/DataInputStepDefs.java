@@ -75,9 +75,9 @@ public class DataInputStepDefs extends BasePage {
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
         addCorrespondent.selectToAddACorrespondent();
-        if (isOrIsNot.toUpperCase().equals("IS")) {
+        if (isOrIsNot.equalsIgnoreCase("IS")) {
             addCorrespondent.selectCorrespondentIsMP();
-        } else if (isOrIsNot.toUpperCase().equals("IS NOT")) {
+        } else if (isOrIsNot.equalsIgnoreCase("IS NOT")) {
             addCorrespondent.selectCorrespondentIsNotMP();
         }
     }
@@ -100,23 +100,6 @@ public class DataInputStepDefs extends BasePage {
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         addCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not entered a {string}")
-    public void assertValidationMessagesOnDataInputForm(String field) {
-        switch (field.toUpperCase()) {
-            case "CORRESPONDENCE DATE":
-                dataInput.assertCorrespondenceDateErrorMessage();
-                break;
-            case "CORRESPONDENCE TYPE":
-                dataInput.assertHowWasCorrespondenceReceivedErrorMessage();
-                break;
-            case "COPY TO NUMBER TEN":
-                dataInput.assertShouldResponseBeCopiedN10ErrorMessage();
-                break;
-            default:
-                pendingStep(field + " is not defined within " + getMethodName());
-        }
     }
 
     @And("a case has a {string} correspondent")

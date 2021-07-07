@@ -13,21 +13,17 @@ Feature: MTS Data Input
     And the support note should be visible in the summary
 
   @Validation
-  Scenario: User triggers all error messages at the MTS Data Input stage
-    And I check the validation at the MTS Data Input stage
-
-  @Validation
-  Scenario Outline: User triggers error messages at the MTS Data Input stage
-    And I trigger the "<errorMessage>" error at the MTS Data Input stage
-    Then the "<errorMessage>" error message should be displayed at MTS Data Input Stage
+  Scenario Outline: User tests validation at MTS Data Input
+    And I trigger the "<errorType>" error message at "Data Input"
+    Then the "<errorType>" error message is displayed at "Data Input"
     Examples:
-    | errorMessage          |
-    | Primary Correspondent |
-    | Business Area         |
-    | Business Unit         |
-    | Urgency               |
-    | Channel Received      |
-    | Enquiry Subject       |
-    | Enquiry Reason        |
-    | Note to support case  |
-    | Business Area         |
+      | errorType                       |
+      | PRIMARY CORRESPONDENT REQUIRED  |
+      | BUSINESS AREA REQUIRED          |
+      | BUSINESS UNIT REQUIRED          |
+      | URGENCY REQUIRED                |
+      | CHANNEL RECEIVED REQUIRED       |
+      | ENQUIRY SUBJECT REQUIRED        |
+      | ENQUIRY REASON REQUIRED         |
+      | SUPPORT CASE NOTE REQUIRED      |
+      | YOUR BUSINESS AREA REQUIRED     |

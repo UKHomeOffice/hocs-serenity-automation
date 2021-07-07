@@ -1,7 +1,5 @@
 package com.hocs.test.pages.ukvi;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -14,7 +12,7 @@ public class Creation extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @FindBy(css = "label[for='BusArea-UKVI']")
+    @FindBy(xpath = "//label[text()='UKVI']")
     public WebElementFacade businessAreaUKVIRadioButton;
 
     @FindBy(css = "label[for='BusArea-BF']")
@@ -41,10 +39,10 @@ public class Creation extends BasePage {
     @FindBy(css = "label[for='BusArea-TransferToOther']")
     public WebElementFacade businessAreaTransferToOtherRadioButton;
 
-    @FindBy(css = "label[for='RefType-Ministerial']")
+    @FindBy(xpath = "//label[text()='Yes (Ministerial)']")
     public WebElementFacade refTypeMRefRadioButton;
 
-    @FindBy(css = "label[for='RefType-Official']")
+    @FindBy(xpath = "//label[text()='No (Official)']")
     public WebElementFacade refTypeBRefRadioButton;
 
     @FindBy(css = "label[for='Priority-Standard']")
@@ -73,18 +71,6 @@ public class Creation extends BasePage {
 
     @FindBy(css = "label[for='ChannelIn-Outreach']")
     public WebElementFacade channelOutreachRadioButton;
-
-    @FindBy(xpath = "//a[contains(@href, '#BusArea-error')]")
-    public WebElementFacade businessAreaIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[contains(@href, '#RefType-error')]")
-    public WebElementFacade referenceTypeIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[contains(@href, '#Priority-error')]")
-    public WebElementFacade urgencyIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[contains(@href, '#ChannelIn-error')]")
-    public WebElementFacade channelReceivedIsRequiredErrorMessage;
 
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
@@ -213,12 +199,5 @@ public class Creation extends BasePage {
     public void assertMPCorrespondentIsRequiredScreenIsDisplayed() {
         waitForAnyTextToAppear("A Member of Parliament is mandatory");
         pageTitle.shouldContainText("A Member of Parliament is mandatory");
-    }
-
-    public void assertCaseCreationRequiredQuestionErrorMessages() {
-        businessAreaIsRequiredErrorMessage.shouldContainText("Business Area is required");
-        referenceTypeIsRequiredErrorMessage.shouldContainText("Does this correspondence need a Ministerial response? is required");
-        urgencyIsRequiredErrorMessage.shouldContainText("Urgency is required");
-        channelReceivedIsRequiredErrorMessage.shouldContainText("Channel received is required");
     }
 }

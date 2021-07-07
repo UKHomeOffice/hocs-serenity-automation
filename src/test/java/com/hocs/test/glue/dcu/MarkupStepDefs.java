@@ -91,21 +91,6 @@ public class MarkupStepDefs extends BasePage {
         safeClickOn(finishButton);
     }
 
-    @Then("an error message should be displayed as I have not selected a topic")
-    public void assertThatTopicIsRequiredErrorMessageIsShown() {
-        markup.assertTopicIsRequiredErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not selected a response")
-    public void assertThatMarkupResponseErrorMessageIsShown() {
-        markup.assertSortOfResponseErrorMessage();
-    }
-
-    @Then("an error message should be displayed as I have not added a topic")
-    public void assertThatAddATopicErrorMessageIsShown() {
-        markup.assertAddATopicErrorMessage();
-    }
-
     @Then("the topic should be added to the case")
     public void assertTopicOnCase() {
         markup.clickContinueButton();

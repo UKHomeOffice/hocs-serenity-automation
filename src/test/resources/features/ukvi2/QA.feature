@@ -97,18 +97,6 @@ Feature: QA
     And I click the "Close case" button
     Then the case should be closed
 
-  @Validation
-  Scenario Outline: User triggers error message is displayed at QA
-    And I create a "MPAM" case and move it to the "QA" stage
-    And I load and claim the current case
-    And the user triggers the "<errorType>" error message at QA
-    Then the "<errorType>" error message should be displayed at QA
-    Examples:
-      | errorType                        |
-      | Actions Required                 |
-      | Reject at Triage Reason Required |
-      | Reject at Draft Reason Required  |
-
   @AutoAssignTests @UKVIRegression2
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
     And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
@@ -148,3 +136,17 @@ Feature: QA
     | action                        | qaStage       |
     | Put On Hold                   | QA-On Hold    |
     | Escalate To Workflow Manager  | QA-Escalated  |
+
+  @Validation
+  Scenario Outline: User tests validation at the QA stage
+    When I create a "MPAM" case and move it to the "QA" stage
+    And I load and claim the current case
+    And I trigger the "<errorType>" error message at the "QA" stage
+    Then the "<errorType>" error message is displayed at the "QA" stage
+    Examples:
+      | errorType                           |
+      | ACTIONS REQUIRED                    |
+      | REJECTION TO TRIAGE REASON REQUIRED |
+      | REJECTION TO DRAFT REASON REQUIRED  |
+      | ESCALATION REASON REQUIRED          |
+      | CAMPAIGN REQUIRED                   |

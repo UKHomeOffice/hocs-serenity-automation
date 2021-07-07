@@ -22,11 +22,14 @@ Feature: Close Case (Telephone)
   Scenario Outline: User tests the validation of the Close Case (Telephone) screen
     And I create a MPAM case with "Official" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
-    And I select the Close Case Telephone radio button at the "<stage>" stage and confirm
-    And I check the validation at the Close Case Telephone screen
+    And I trigger the "<errorType>" error message at the "<stage>" stage
     Examples:
-      | stage             |
-      | Triage            |
-      | Draft             |
-      | QA                |
-      | Awaiting Dispatch |
+      | stage             | errorType                        |
+      | Triage            | REASON FOR CLOSING CASE REQUIRED |
+      | Draft             | REASON FOR CLOSING CASE REQUIRED |
+      | QA                | REASON FOR CLOSING CASE REQUIRED |
+      | Awaiting Dispatch | REASON FOR CLOSING CASE REQUIRED |
+      | Triage            | TELEPHONE CONTACT ROUTE REQUIRED |
+      | Draft             | TELEPHONE CONTACT ROUTE REQUIRED |
+      | QA                | TELEPHONE CONTACT ROUTE REQUIRED |
+      | Awaiting Dispatch | TELEPHONE CONTACT ROUTE REQUIRED |

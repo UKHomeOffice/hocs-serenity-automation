@@ -4,10 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.Workstacks;
 import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -17,12 +14,6 @@ import org.openqa.selenium.By;
 public class InitialDraft extends BasePage {
 
     Documents documents;
-
-    Dashboard dashboard;
-
-    Workstacks workstacks;
-
-    CreateCase_SuccessPage createCaseSuccessPage;
 
     @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='No']")
     public WebElementFacade answeredByMyTeamNoRadioButton;
@@ -35,27 +26,6 @@ public class InitialDraft extends BasePage {
 
     @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='Yes']")
     public WebElementFacade chooseAnotherResponseTypeYesButton;
-
-    @FindBy(xpath = "//a[text()='Can this correspondence be answered by your team? is required']")
-    public WebElementFacade correspondenceAnsweredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Why should this not be answered by your team? is required']")
-    public WebElementFacade shouldBeAnsweredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='How do you intend to respond? is required']")
-    public WebElementFacade howDoYouIntendToRespondErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Please summarise your call. is required']")
-    public WebElementFacade pleaseSummariseYourCallIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Primary draft document is required']")
-    public WebElementFacade whichIsThePrimaryDraftDocumentErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Do you want to QA this offline? is required']")
-    public WebElementFacade doYouWantToQAThisOfflineErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Who has done the Offline QA for this case? is required']")
-    public WebElementFacade whoHadDoneTheOfflineQAErrorMessage;
 
     @FindBy(xpath = "//label[text()='Email']")
     public WebElementFacade emailReplyRadioButton;
@@ -215,47 +185,6 @@ public class InitialDraft extends BasePage {
     }
 
     // Assertions
-
-    public void assertEnterCallNotesError() {
-        pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
-    }
-
-    public void assertEnterRejectionReasonsError() {
-        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
-    }
-
-    public void assertCorrespondenceAnsweredErrorMessage() {
-        correspondenceAnsweredErrorMessage.shouldContainText("Can this correspondence be answered by your team? is required");
-    }
-
-    public void assertShouldBeAnsweredErrorMessage() {
-        shouldBeAnsweredErrorMessage.shouldContainText("Why should this not be answered by your team? is required");
-    }
-
-    public void assertHowDoYouIntendToRespondErrorMessage() {
-       howDoYouIntendToRespondErrorMessage.shouldContainText("How do you intend to respond? is required");
-    }
-
-    public void assertPleaseSummariseYourCallErrorMessage() {
-        try {
-            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
-        } catch (Exception e) {
-            safeClickOn(continueButton);
-            pleaseSummariseYourCallIsRequiredErrorMessage.shouldContainText("Please summarise your call. is required");
-        }
-    }
-
-    public void assertWhichIsThePrimaryDraftDocumentErrorMessage() {
-        whichIsThePrimaryDraftDocumentErrorMessage.shouldContainText("Primary draft document is required");
-    }
-
-    public void assertDoYouWantToQAThisOfflineErrorMessage() {
-        doYouWantToQAThisOfflineErrorMessage.shouldContainText("Do you want to QA this offline? is required");
-    }
-
-    public void assertWhoHasDoneOfflineQAErrorMessage() {
-        whoHadDoneTheOfflineQAErrorMessage.shouldContainText("Who has done the Offline QA for this case? is required");
-    }
 
     public void selectPrimaryDraft(String fileIdentifier) {
         WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));

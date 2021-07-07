@@ -94,16 +94,6 @@ Feature: Triage
     And I click the "Close case" button
     Then the case should be closed
 
-  @Validation
-  Scenario Outline: User triggers error message to be displayed at Triage
-    When the user triggers the "<errorType>" error message at Triage by not entering the correct information
-    Then  the "<errorType>" error message should be displayed at Triage
-    Examples:
-      | errorType                                 |
-      | Actions Required                          |
-      | Business Unit Required                    |
-      | Enquiry Subject Required                  |
-
   @UKVIWorkflow @UKVIRegression2
   Scenario: User moves a case into a Campaign from the Triage stage
     When I move the case into a Campaign from the "Triage" stage
@@ -121,3 +111,16 @@ Feature: Triage
       | moveTo                 | triageStage                   |
       | On Hold                | Triage-On Hold                |
       | Workflow Manager       | Triage-Escalated              |
+
+  @Validation
+  Scenario Outline: User tests validation at the Triage stage
+    And I trigger the "<errorType>" error message at the "Triage" stage
+    Then the "<errorType>" error message is displayed at the "Triage" stage
+    Examples:
+      | errorType                        |
+      | ENQUIRY SUBJECT REQUIRED         |
+      | ENQUIRY REASON REQUIRED          |
+      | BUSINESS UNIT REQUIRED           |
+      | ACTIONS REQUIRED                 |
+      | ESCALATION REASON REQUIRED       |
+      | CAMPAIGN REQUIRED                |

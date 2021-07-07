@@ -410,11 +410,6 @@ public class ManagementUIStepDefs extends BasePage {
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
     }
 
-    @Then("an error message should be displayed as the topic was not recognised as a valid topic")
-    public void anErrorMessageShouldBeDisplayedAsTheTopicWasNotRecognisedAsAValidTopic() {
-        markupDecision.assertTopicIsRequiredErrorMessage();
-    }
-
     @And("a success message is displayed")
     public void aSuccessMessageIsDisplayed() {
         MUIDashboard.assertSuccessMessageDisplayed();

@@ -32,3 +32,11 @@ Feature: Service Escalated
       | Business         | Cancel   |
       | Complainant      | Complete |
       | Business         | Cancel   |
+
+  @Validation
+  Scenario Outline: User tests the validation at the Service Escalated stage
+    When I trigger the "<errorType>" error message at the "Service Escalated" stage
+    Then the "<errorType>" error message is displayed at the "Service Escalated" stage
+    Examples:
+      | errorType       |
+      | Action Required |

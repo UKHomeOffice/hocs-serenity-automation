@@ -19,10 +19,6 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
 
     Triage triage;
 
-    Draft draft;
-
-    QA qa;
-
     DispatchStages dispatchStages;
 
     @And("I select the Close Case Telephone radio button at the {string} stage and confirm")
@@ -52,12 +48,5 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
         closeCaseTelephone.enterExplanationForClosingCase("Test");
         closeCaseTelephone.selectTelephoneContactRoute("Telephone Surgery");
         clickTheButton("Close Case");
-    }
-
-    @And("I check the validation at the Close Case Telephone screen")
-    public void iCheckValidationAtCloseCaseScreen() {
-        clickTheButton("Close Case");
-        closeCaseTelephone.assertErrorMessageIsDisplayed("Explanation for closing case");
-        closeCaseTelephone.assertErrorMessageIsDisplayed("Telephone contact route");
     }
 }

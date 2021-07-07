@@ -35,10 +35,10 @@ public class ServiceTriage extends BasePage {
     public WebElementFacade transferToMinorMisconductRadioButton;
 
     @FindBy(id = "BusArea")
-    private WebElementFacade businessAreaDropdown;
+    public WebElementFacade businessAreaDropdown;
 
     @FindBy(id = "EnqReason")
-    private WebElementFacade enquiryReasonDropdown;
+    public WebElementFacade enquiryReasonDropdown;
 
     @FindBy(xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade loaRequiredYesRadioButton;

@@ -21,15 +21,6 @@ public class CloseCaseTelephone extends BasePage {
     @FindBy(xpath = "//label[text()='MP Helpline']")
     public WebElementFacade mpHelplineContactRouteRadioButton;
 
-    @FindBy(xpath = "//a[text()='Response channel is required']")
-    public WebElementFacade responseChannelIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Explanation for closing case (Telephone) is required']")
-    public WebElementFacade explanationForClosingCaseIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Telephone Contact Route is required']")
-    public WebElementFacade telephoneContactRouteIsRequiredErrorMessage;
-
     public void selectCloseCaseTelephone() {
         safeClickOn(closeCaseTelephoneRadioButton);
         safeClickOn(confirmButton);
@@ -56,23 +47,5 @@ public class CloseCaseTelephone extends BasePage {
                 pendingStep(contactRoute + " is not defined within " + getMethodName());
         }
         safeClickOn(radioButton);
-    }
-
-    public void assertErrorMessageIsDisplayed(String errorMessage) {
-        WebElementFacade error = null;
-        String message = null;
-        switch (errorMessage.toUpperCase()) {
-            case "EXPLANATION FOR CLOSING CASE":
-                error = explanationForClosingCaseIsRequiredErrorMessage;
-                message = "Explanation for closing case (Telephone) is required";
-                break;
-            case "TELEPHONE CONTACT ROUTE":
-                error = telephoneContactRouteIsRequiredErrorMessage;
-                message = "Telephone Contact Route is required";
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-        error.shouldContainText(message);
     }
 }

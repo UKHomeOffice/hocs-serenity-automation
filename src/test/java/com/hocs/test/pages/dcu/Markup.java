@@ -35,15 +35,6 @@ public class Markup extends BasePage {
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addATopicButton;
 
-    @FindBy(xpath = "//a[text()='What sort of response is required? is required']")
-    public WebElementFacade whatSortOfResponseErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Which is the primary topic? is required']")
-    public WebElementFacade whichIsThePrimaryTopicErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Topic is required']")
-    public WebElementFacade topicIsRequiredErrorMessage;
-
     @FindBy(id = "CaseNote_NRN")
     public WebElementFacade noResponseNeededTextField;
 
@@ -100,18 +91,6 @@ public class Markup extends BasePage {
     }
 
     //Assertions
-
-    public void assertSortOfResponseErrorMessage() {
-        whatSortOfResponseErrorMessage.shouldContainText("What sort of response is required? is required");
-    }
-
-    public void assertAddATopicErrorMessage() {
-        whichIsThePrimaryTopicErrorMessage.shouldContainText("Which is the primary topic? is required");
-    }
-
-    public void assertTopicIsRequiredErrorMessage() {
-        topicIsRequiredErrorMessage.shouldContainText("Topic is required");
-    }
 
     public void assertNRNTextBoxIsDisplayed() {
         assertThat(isElementDisplayed(noResponseNeededTextField), is(true));
