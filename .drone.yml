@@ -17,30 +17,15 @@ steps:
       tags:
         - build_${DRONE_BUILD_NUMBER}
         - ${DRONE_COMMIT_SHA}
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: QUAY_ROBOT_PASSWORD
-      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    depends_on: []
-
-  - name: build & push latest
-    image: plugins/docker
-    settings:
-      registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
-      tags:
         - latest
     environment:
       DOCKER_PASSWORD:
         from_secret: QUAY_ROBOT_PASSWORD
       DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    when:
-      branch:
-        - main
     depends_on: []
 
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/smoke.sh
     environment:
@@ -76,7 +61,7 @@ trigger:
     - push
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/dcu.sh
     environment:
@@ -134,7 +119,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/decs.sh
     environment:
@@ -190,7 +175,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/ukvi1.sh
     environment:
@@ -246,7 +231,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/ukvi2.sh
     environment:
@@ -303,7 +288,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
       - sh bin/comp.sh
     environment:
