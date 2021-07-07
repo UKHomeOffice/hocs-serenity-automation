@@ -36,3 +36,19 @@ Feature: PeopleTab
       | correspondentType |
       | Member            |
       | Public            |
+
+  @Regression
+  Scenario Outline: User can add a Member of Parliament as a Correspondent
+    When I create a "MIN" case and move it to the "Data Input" stage
+    And I load and claim the current case
+    And I fill all mandatory fields on the "Data Input" page with valid data
+    And I click the "Continue" button
+    And I add "<mpName>" MP as a correspondent
+    Then the submitted correspondent should be visible in the list of correspondents
+    Examples:
+      | mpName                                                |
+      | Boris Johnson                                         |
+      | Nicola Sturgeon MSP                                   |
+      | The Admiral of the Fleet the Lord Boyce KG GCB OBE DL |
+      | Dr Caoimhe Archibald MLA                              |
+      | Mabon ap Gwynfor MS                                   |
