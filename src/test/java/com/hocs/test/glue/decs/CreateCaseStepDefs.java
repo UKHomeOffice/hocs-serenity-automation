@@ -300,8 +300,8 @@ public class CreateCaseStepDefs extends BasePage {
     }
 
     @And("I create a {string} case with {string} as its {string}")
-    public void iCreateACaseWithAsIts(String config, String infoValue, String infoType) throws ParseException {
-        switch (config.toUpperCase()) {
+    public void iCreateACaseWithAsIts(String caseType, String infoValue, String infoType) throws ParseException {
+        switch (caseType.toUpperCase()) {
             case "DCU":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
@@ -341,9 +341,9 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCaseOfType("MIN");
                         goToDECSDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        if (infoValue.toUpperCase().equals("YES")) {
+                        if (infoValue.equalsIgnoreCase("YES")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
-                        } else if (infoValue.toUpperCase().equals("NO")) {
+                        } else if (infoValue.equalsIgnoreCase("NO")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
                         }
                         break;
@@ -428,11 +428,11 @@ public class CreateCaseStepDefs extends BasePage {
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
                         addCorrespondent.addAPublicCorrespondentOfType("Complainant");
                         safeClickOn(continueButton);
-                        registration.enterComplainantDOB("01/01/2001");
+                        registration.enterComplainantDOB(infoValue);
                         registration.selectAGender();
-                        registration.enterACompanyName(generateRandomString());
-                        registration.enterAHomeOfficeReference("Test HO Ref");
-                        registration.enterAPortReference(generateRandomString());
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference();
+                        registration.enterAPortReference();
                         safeClickOn(continueButton);
                         registration.selectComplaintType("Service");
                         safeClickOn(continueButton);
@@ -454,9 +454,9 @@ public class CreateCaseStepDefs extends BasePage {
                         safeClickOn(continueButton);
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
-                        registration.enterACompanyName(generateRandomString());
-                        registration.enterAHomeOfficeReference("Test HO Ref");
-                        registration.enterAPortReference(generateRandomString());
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference();
+                        registration.enterAPortReference();
                         safeClickOn(continueButton);
                         break;
                     default:
@@ -464,7 +464,7 @@ public class CreateCaseStepDefs extends BasePage {
                 }
                 break;
             default:
-                pendingStep(config + " is not defined within " + getMethodName());
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 

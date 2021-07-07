@@ -15,4 +15,10 @@ public class COMPCaseDetailsAccordionStepDefs extends BasePage {
         accordionCOMP.getQuestionResponse(info);
         accordionCOMP.assertInputMatchesCaseDetailsResponse(info);
     }
+
+    @And("the read-only Case Details accordion should contain all case information entered during the {string} stage")
+    public void theReadOnlyCaseDetailsAccordionShouldContainAllCaseInformationEnteredDuringTheStage(String stageName) {
+        openAccordionSection(stageName);
+        assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
+    }
 }
