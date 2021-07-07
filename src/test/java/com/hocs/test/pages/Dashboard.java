@@ -83,12 +83,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
     public WebElementFacade chemBioRadioNuclearExplosives;
 
-    @FindBy(xpath = "//span[text()='Under Secretary of State for Crime, Safeguarding and Vulnerability']")
-    public WebElementFacade underSecretaryCrimeSafeguardVulnerability;
-
-    @FindBy(xpath = "//span[text()='Criminal & Financial Investigations']")
-    public WebElementFacade criminalAndFinacialInvestigations;
-
     @FindBy(xpath = "//span[text()='Press Office']")
     public WebElementFacade pressOffice;
 
@@ -105,9 +99,6 @@ public class Dashboard extends BasePage {
 
     @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
-
-    @FindBy(xpath = "//span[text()='Awaiting Transfer']")
-    public WebElementFacade awaitingTransferTeamWorkstack;
 
     // COMPS
 
@@ -132,10 +123,6 @@ public class Dashboard extends BasePage {
         noActiveWorkflowsForCaseErrorMessage.shouldContainText("No active workflows for case");
     }
 
-    public void waitForPerformanceProcessTeam() {
-        performanceProcessTeam.waitUntilEnabled();
-    }
-
     public void selectMyCases() {
         safeClickOn(myCases);
     }
@@ -146,10 +133,6 @@ public class Dashboard extends BasePage {
 
     public void selectTransferN10Team() {
         safeClickOn(transferN10Team);
-    }
-
-    public void selectCentralDraftingTeam() {
-        safeClickOn(centralDraftingTeam);
     }
 
     public void selectCorrectMPAMTeamByStage(String stage) {
