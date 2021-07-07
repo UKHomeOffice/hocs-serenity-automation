@@ -63,7 +63,7 @@ public class LoginPage extends BasePage {
 
         if (env == null) {
             System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.QAX.getEnvironmentURL();
+            baseUrl = Environment.CS_QA.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
                 case "LOCAL":
