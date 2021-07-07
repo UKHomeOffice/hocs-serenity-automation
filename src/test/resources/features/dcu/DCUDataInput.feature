@@ -56,15 +56,6 @@ Feature: DCU Data Input
       | Correspondence Received Date | Correspondence Received |
 
   @DCURegression
-  Scenario: User can add a Member of Parliament as a Correspondent
-    When I create a "MIN" case and move it to the "Data Input" stage
-    And I load and claim the current case
-    And I fill all mandatory fields on the "Data Input" page with valid data
-    And I click the "Continue" button
-    And I add "Nicola Sturgeon" MP as a correspondent
-    Then the submitted correspondent should be visible in the list of correspondents
-
-  @DCURegression
   Scenario: User can add a Correspondent who is not a Member of Parliament
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
