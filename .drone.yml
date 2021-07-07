@@ -35,7 +35,6 @@ steps:
         from_secret: artifactory_username
     depends_on:
       - build & push
-      - build & push latest
 
 services:
   - name: selenium
