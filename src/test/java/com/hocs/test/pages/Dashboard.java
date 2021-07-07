@@ -154,10 +154,10 @@ public class Dashboard extends BasePage {
 
     public void selectCorrectMPAMTeamByStage(String stage) {
         WebElementFacade requiredTeam;
-        if (stage.toUpperCase().equals("CREATION")) {
+        if (stage.equalsIgnoreCase("CREATION")) {
             requiredTeam = MPAMCreationTeam;
         } else {
-            if (stage.toUpperCase().equals("PRIVATE OFFICE")) {
+            if (stage.equalsIgnoreCase("PRIVATE OFFICE")) {
                 stage = "PO";
             }
             requiredTeam =
