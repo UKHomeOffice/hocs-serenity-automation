@@ -44,77 +44,17 @@ public class NavigationStepDefs extends BasePage {
                 safeClickOn(dashboard.searchPage);
                 search.waitForSearchCriteriaPage();
                 break;
-            case "CCH CLOSED CASES":
-                safeClickOn(dashboard.cchClosedCasesWorkstack);
-                break;
             default:
                 pendingStep(hocsPage + " is not defined within " + getMethodName());
         }
     }
 
-    @And ("I click to view the {string} workstack")
-    public void iClickToViewTheWorkstack(String team) {
-        if (!dashboard.myCases.isVisible()) {
+    @And ("I click to view( the case in) the {string} workstack")
+    public void iClickToViewTheWorkstack(String teamName) {
+        if (!dashboard.myCases.isCurrentlyVisible()) {
             goToDECSDashboard();
         }
-        switch (team.toUpperCase()) {
-            case "ANIMALS IN SCIENCE REGULATION UNIT":
-                safeClickOn(dashboard.animalsInScienceTeam);
-                break;
-            case "PERFORMANCE AND PROCESS TEAM":
-                safeClickOn(dashboard.performanceProcessTeam);
-                break;
-            case "TRANSFERS AND NO10 TEAM":
-                safeClickOn(dashboard.transferN10Team);
-                break;
-            case "CENTRAL DRAFTING TEAM":
-                safeClickOn(dashboard.centralDraftingTeam);
-                break;
-            case "MINISTER FOR LORDS":
-                safeClickOn(dashboard.ministerForLordsTeam);
-                break;
-            case "EXTREMISM ANALYSIS UNIT":
-                safeClickOn(dashboard.extremismAnalysisUnit);
-                break;
-            case "MINSTER OF STATE FOR POLICING AND FIRE SERVICE":
-                safeClickOn(dashboard.ministerOfStateForPolicingAndFireServiceTeam);
-                break;
-            case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
-                safeClickOn(dashboard.policeWorkforceProfessionalismUnit);
-                break;
-            case "UNDER SECRETARY OF STATE FOR CRIME SAFEGUARDING AND VULNERABILITY":
-                safeClickOn(dashboard.underSecretaryCrimeSafeguardVulnerability);
-                break;
-            case "CRIMINAL AND FINANCIAL INVESTIGATIONS":
-                safeClickOn(dashboard.criminalAndFinacialInvestigations);
-                break;
-            case "CHEMICAL BIOLOGICAL RADIOLOGICAL NUCLEAR EXPLOSIVES":
-                safeClickOn(dashboard.chemBioRadioNuclearExplosives);
-                break;
-            case "PRESS OFFICE":
-                safeClickOn(dashboard.pressOffice);
-                break;
-            case "COUNTER EXTREMISM UNIT":
-                safeClickOn(dashboard.counterExtremismUnit);
-                break;
-            case "FINANCE":
-                safeClickOn(dashboard.financeTeam);
-                break;
-            case "COUNTERTERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
-                safeClickOn(dashboard.counterTerrorismLegislationInvestigatoryPowersUnit);
-                break;
-            case "MY CASES":
-                safeClickOn(dashboard.myCases);
-                break;
-            case "MPAM CREATION":
-                safeClickOn((dashboard.MPAMCreationTeam));
-                break;
-            case "AWAITING TRANSFER":
-                safeClickOn(dashboard.awaitingTransferTeamWorkstack);
-                break;
-            default:
-                pendingStep(team + " is not defined within " + getMethodName());
-        }
+        dashboard.selectWorkstackByTeamName(teamName);
     }
 
     @And("I load the current case")

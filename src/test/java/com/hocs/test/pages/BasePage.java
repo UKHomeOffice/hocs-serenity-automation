@@ -12,7 +12,9 @@ import config.CurrentUser;
 import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -27,6 +29,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BasePage extends PageObject {
+
+    static HashMap<String, String> dataRecords = new HashMap<>();
 
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
@@ -134,6 +138,11 @@ public class BasePage extends PageObject {
     public void clickTheButton(String buttonLabel) {
         WebElementFacade button = find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
         safeClickOn(button);
+    }
+
+    public void openAccordionSection(String accordionLabel) {
+        WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
+        safeClickOn(accordionSectionButton);
     }
 
     public void assertErrorMessageText(String text) {
@@ -389,16 +398,87 @@ public class BasePage extends PageObject {
         accessibilityLink.shouldBeVisible();
     }
 
-    public void selectRandomRadioButtonFromGroupWithHeading(String heading) {
-        waitForHeadingToBeVisible(heading);
-        List<WebElementFacade> radioButtons = findAll(
-                "//span[contains(@class, 'govuk-fieldset__heading')][text() ='" + heading + "']/ancestor::fieldset//input/following-sibling::label");
-        safeClickOn(getRandomElementFromList(radioButtons));
+    public void selectRandomRadioButtonFromGroupWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        List<WebElementFacade> radioButtonElements = findAll(
+                "//span[contains(@class,'govuk-fieldset__heading')][text() ='" + headingText + "']/ancestor::fieldset//input/following-sibling::label");
+        WebElementFacade radioButtonElementToSelect = getRandomElementFromList(radioButtonElements);
+        safeClickOn(radioButtonElementToSelect);
+        addHeadingAndValueRecord(headingText,radioButtonElementToSelect.getText());
     }
 
-    private void waitForHeadingToBeVisible(String heading) {
-        WebElementFacade headingElement = findBy("//div//*[self::label[@class = 'govuk-label govuk-label--s'][text() ='" + heading + "'] or "
-                + "self::span[contains(@class, 'govuk-label')]][text() ='" + heading + "']");
+    public void selectSpecificRadioButton(String radioButtonText) {
+        WebElementFacade radioButtonElement = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
+        safeClickOn(radioButtonElement);
+        String heading = findBy("//label[text()='High']/ancestor::fieldset/legend/span").getText();
+        addHeadingAndValueRecord(heading, radioButtonText);
+    }
+
+    public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade radioButtonElement = findBy("//span[contains(@class,'govuk-fieldset__heading')][text() ='" + headingText + "']/ancestor"
+                + "::fieldset//input/following-sibling::label[text()='" + radioButtonText + "']");
+        safeClickOn(radioButtonElement);
+        addHeadingAndValueRecord(headingText, radioButtonText);
+    }
+
+    public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade dayField = findBy("//legend[text()='" + headingText + "']/following-sibling::div/div[1]//input");
+        WebElementFacade monthField = findBy("//legend[text()='" + headingText + "']/following-sibling::div/div[2]//input");
+        WebElementFacade yearField = findBy("//legend[text()='" + headingText + "']/following-sibling::div/div[3]//input");
+        typeIntoDateField(dayField, monthField, yearField, date);
+        addHeadingAndValueRecord(headingText, date);
+    }
+
+    public void enterRandomTextIntoTextFieldWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade textField = findBy("//label[text()='" + headingText + "']/following-sibling::div/input");
+        String textToEnter = "Test entry for " + headingText;
+        textField.sendKeys(textToEnter);
+        addHeadingAndValueRecord(headingText, textToEnter);
+    }
+
+    public void enterRandomTextIntoTextAreaWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade textArea = findBy("//label[text()='" + headingText + "']/following-sibling::textarea");
+        String textToEnter = "Test entry for " + headingText;
+        textArea.sendKeys(textToEnter);
+        addHeadingAndValueRecord(headingText, textToEnter);
+    }
+
+    public void selectRandomOptionFromDropdownWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()='" + headingText + "']/following-sibling::select"
+                + "/option");
+        optionElements.remove(0);
+        WebElementFacade optionElementToSelect = getRandomElementFromList(optionElements);
+        safeClickOn(optionElementToSelect);
+        addHeadingAndValueRecord(headingText,optionElementToSelect.getText());
+    }
+
+    public void selectSpecificOptionFromDropdownWithHeading(String optionText, String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade optionElement =
+                findBy("//div[@class='govuk-form-group']//*[text()='" + headingText + "']/following-sibling::select/option[text()='" + optionText + "']");
+        safeClickOn(optionElement);
+        addHeadingAndValueRecord(headingText, optionText);
+    }
+
+    public void checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
+        WebElementFacade checkboxToCheck = getRandomElementFromList(checkboxes);
+        safeClickOn(checkboxToCheck);
+        addValueRecord(checkboxToCheck.getText());
+    }
+
+    public void checkSpecificCheckbox(String checkboxLabelText) {
+        WebElementFacade checkbox = findBy("//input[@type='checkbox']/following-sibling::label[text()='" + checkboxLabelText + "']");
+        safeClickOn(checkbox);
+        addValueRecord(checkboxLabelText);
+    }
+
+    private void waitForHeadingToBeVisible(String headingText) {
+        WebElementFacade headingElement = findBy("//div[contains(@class,'govuk-form-group')]//*[text()='" + headingText + "']");
         headingElement.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
@@ -407,11 +487,26 @@ public class BasePage extends PageObject {
         return list.get(rand.nextInt(list.size()));
     }
 
-    public WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elemenetText) {
-        return findBy("//input/following-sibling::label[contains(text(),'" + elemenetText + "')]");
+    public WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
+        return findBy("//input/following-sibling::label[contains(text(),'" + elementText + "')]");
     }
 
     public void safeClickRadioButtonByVisibleText(String elementText) {
         safeClickOn(getRadioButtonLabelElementWithSpecifiedText(elementText));
+    }
+
+    public void addHeadingAndValueRecord(String heading, String value) {
+        dataRecords.put(heading, value);
+    }
+
+    public void addValueRecord(String value) {
+        dataRecords.put(value, "Yes");
+    }
+
+    public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
+        for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
+            WebElementFacade valueDisplayed = findBy("//Strong[contains(text(),'" + entry.getKey() + "')]/parent::span");
+            valueDisplayed.shouldContainText(entry.getValue());
+        }
     }
 }

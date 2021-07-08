@@ -24,7 +24,7 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("05/04/2021", formatter));
         bankHolidays.add(LocalDate.parse("03/05/2021", formatter));
         bankHolidays.add(LocalDate.parse("31/05/2021", formatter));
-        bankHolidays.add(LocalDate.parse("30/07/2021", formatter));
+        bankHolidays.add(LocalDate.parse("30/08/2021", formatter));
         bankHolidays.add(LocalDate.parse("27/12/2021", formatter));
         bankHolidays.add(LocalDate.parse("28/12/2021", formatter));
         bankHolidays.add(LocalDate.parse("03/01/2022", formatter));
