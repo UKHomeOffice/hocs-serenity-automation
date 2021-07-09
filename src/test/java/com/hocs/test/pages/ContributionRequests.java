@@ -120,7 +120,7 @@ public class ContributionRequests extends BasePage {
         setSessionVariable("contributionDueDate").to(dueDate);
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
-        setSessionVariable("expectedContributionRequestStatus").to(expectedStatus);
+        setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
     }
 
     public void editContributionDueDate() {

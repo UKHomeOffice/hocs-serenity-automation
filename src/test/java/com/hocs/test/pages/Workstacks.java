@@ -822,6 +822,6 @@ public class Workstacks extends BasePage {
     public void assertContributionRequestStatus() {
         String caseRef = sessionVariableCalled("caseReference");
         WebElementFacade contributionRequestField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[2]");
-        contributionRequestField.shouldContainText(sessionVariableCalled("expectedContributionRequestStatus"));
+        contributionRequestField.shouldContainText(sessionVariableCalled("expectedWorkstackCRStatus"));
     }
 }
