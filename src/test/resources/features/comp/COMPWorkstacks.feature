@@ -33,7 +33,7 @@ Feature: COMP Workstacks
     And I click the "Continue" button
     And I add a "complainant" contribution with a due date in the past
     And I navigate to the "Dashboard"
-    And I view the case in the "CCT Stage 1 Triage Team" workstack
+    And I click to view the "CCT Stage 1 Triage Team" workstack
     Then the overdue contribution request should be highlighted in red
 
   Scenario: Contribution Request statuses are correctly displayed in team workstacks
@@ -44,6 +44,7 @@ Feature: COMP Workstacks
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     And I add a "complainant" contribution with a due date in the past
+    And I add a "complainant" contribution request
     And I navigate to the "Dashboard"
-    And I view the case in the "CCT Stage 1 Triage Team" workstack
+    And I click to view the "CCT Stage 1 Triage Team" workstack
     Then the displayed contribution request status of the case should be correct

@@ -35,8 +35,6 @@ public class Search extends BasePage {
 
     UnallocatedCaseView unallocatedCaseView;
 
-    AddCorrespondent addCorrespondent;
-
     @FindBy(xpath = "//label[text()='DCU Ministerial']")
     public WebElementFacade searchMINCheckbox;
 
