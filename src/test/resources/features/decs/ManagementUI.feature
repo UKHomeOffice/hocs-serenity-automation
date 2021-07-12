@@ -2,8 +2,9 @@
 Feature: ManagementUI
 
   Background:
-    Given I am logged into "Management UI" as user "DECS_USER"
+    Given I am logged into "DECS Management UI" as user "DECS_USER"
 
+  @Navigation
   Scenario Outline: User navigates to a management page
     When I navigate to the "<pageType>" Management page
     Then I should be taken to the "<pageType>" Management page
@@ -16,20 +17,20 @@ Feature: ManagementUI
       | ADD A UNIT          |
       | VIEW UNITS          |
 
-  @TeamManagement @OtherTests
+  @TeamManagement
   Scenario: User can not see any assigned users if team does not have any
     And I navigate to the "TEAM" Management page
     When I search for a team with no assigned users
     Then no users should be shown in user list
 
-  @TeamManagement @OtherTests
+  @TeamManagement @Regression
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
     And I add the user "CAMERON" to the team
     Then "CAMERON" should be visible in the team list
 
-  @TeamManagement @Regressionx
+  @TeamManagement
   Scenario: User can add multiple users to a team
     And I navigate to the "TEAM" Management page
     When I select the "Animals in Science Regulation Unit" team from the dropdown
@@ -117,7 +118,7 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then an error message should be displayed as they have not entered a display name and short code
 
-  @UnitManagement @OtherTests
+  @UnitManagement
   Scenario: User can submit a new Unit
     And I navigate to the "ADD A UNIT" Management page
     And I enter a "NEW" Display Name
@@ -138,7 +139,7 @@ Feature: ManagementUI
     And I click the "Submit" button
     Then an error message should be displayed a unit with those details already exists
 
-  @UnitManagement @OtherTests
+  @UnitManagement
   Scenario: User can view a list of units
     When I navigate to the "VIEW UNITS" Management page
     Then a list of units should be displayed
@@ -166,7 +167,7 @@ Feature: ManagementUI
     And I click the "Submit" button
     Then an error message should be displayed as no display name has been entered
 
-  @AddChildTopic @OtherTests
+  @AddChildTopic
   Scenario: User can submit a new child topic
     And I navigate to the "ADD CHILD TOPIC" Management page
     And I select a parent topic
@@ -181,7 +182,7 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then an error message should be displayed stating that topic already exists
 
-  @AddChildTopic @OtherTests
+  @AddChildTopic
   Scenario: User can use the same display name for two different child topics if the parent topics are different
     And I have created a new child topic
     And I navigate to the "ADD CHILD TOPIC" Management page
@@ -209,7 +210,7 @@ Feature: ManagementUI
     When I add the new child topic
     Then an error message should be displayed as the topic was not recognised as a valid topic
 
-  @LinkTopicToTeam @OtherTests
+  @LinkTopicToTeam
   Scenario: User can view a summary of the topic and teams before final submission
     Given I have created a new child topic
     And I navigate to the "LINK TOPIC TO TEAM" Management page
@@ -220,7 +221,7 @@ Feature: ManagementUI
     When I click the "Submit" button
     Then the summary should correctly detail the topic and the teams chosen to link to it
 
-  @LinkTopicToTeam @OtherTests
+  @LinkTopicToTeam
   Scenario: User can choose and submit teams to amend the links of a topic
     Given I navigate to the "LINK TOPIC TO TEAM" Management page
     And I select a topic that "DOES" have linked teams
@@ -267,11 +268,11 @@ Feature: ManagementUI
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
-  @LinkTopicToTeam @OtherTests
+  @LinkTopicToTeam
   Scenario: A topic with existing team links can have those links amended in Management UI
     Given I navigate to "DECS"
     And I discover the current default team links for a topic
-    And I navigate to "Management UI"
+    And I navigate to "DECS Management UI"
     And I select to amend the team links for the topic
     And I select a different "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a different "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
@@ -281,13 +282,13 @@ Feature: ManagementUI
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
-  @UserManagement @OtherTests
+  @UserManagement
   Scenario: A user can check the teams a user is in through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "Cameron" is a member
     Then the teams the user is a part of are displayed
 
-  @FailingRegression
+  @UserManagement @Regression
   Scenario: A user can be added and removed from a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "Cameron" is a member
@@ -297,7 +298,7 @@ Feature: ManagementUI
     And I remove the user from the "OSCT Secretariat" team
     Then the team should be removed from the users list of teams
 
-  @CampaignManagement @OtherTests
+  @CampaignManagement
   Scenario: User is able to add a Campaign through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
@@ -322,36 +323,40 @@ Feature: ManagementUI
     And I load the current case
     Then the case is added to the correct Campaign
 
+  @TeamManagement
   Scenario: User can create a DCU drafting team through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
     Then the success message for team "Creation" should be displayed
-    And I navigate to "Management UI"
+    And I navigate to "DECS Management UI"
     And I navigate to the "Team" Management page
     And I load the "created" DCU Drafting team through team management
     Then the "created" DCU Drafting team is displayed
 
+  @TeamManagement @Regression
   Scenario: User is able to rename teams through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
-    And I navigate to "Management UI"
+    And I navigate to "DECS Management UI"
     And I navigate to the "Team" Management page
     And I edit the name of the created DCU drafting team
     Then the success message for team "Rename" should be displayed
-    And I navigate to "Management UI"
+    And I navigate to "DECS Management UI"
     And I navigate to the "Team" Management page
     And I load the "renamed" DCU Drafting team through team management
     Then the "renamed" DCU Drafting team is displayed
 
-  Scenario: User is able to assign users to a drafting team created through team management
+  @TeamManagement
+  Scenario: User is able to assign users to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
-    And I navigate to "Management UI"
+    And I navigate to "DECS Management UI"
     And I navigate to the "Team" Management page
     And I load the "created" DCU Drafting team through team management
     And I add the user "DCU_USER" to the team
     Then "DCU_USER" should be visible in the team list
 
+  @TeamManagement @Regression
   Scenario: User is able to assign cases to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team

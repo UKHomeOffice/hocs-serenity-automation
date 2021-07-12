@@ -3,40 +3,39 @@ package com.hocs.test.glue.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.comp.Registration;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.comp.COMPRegistration;
 import io.cucumber.java.en.And;
 
 public class RegistrationStepDefs extends BasePage {
 
-    Registration registration;
+    COMPRegistration COMPRegistration;
 
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
-        registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-        registration.selectAGender();
-        registration.selectANationality();
-        registration.enterACompanyName();
-        registration.enterAHomeOfficeReference();
-        registration.enterAPortReference();
+        COMPRegistration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+        COMPRegistration.selectAGender();
+        COMPRegistration.selectANationality();
+        COMPRegistration.enterACompanyName();
+        COMPRegistration.enterAHomeOfficeReference();
+        COMPRegistration.enterAPortReference();
         clickTheButton("Continue");
     }
 
     @And("I select {string} as the Complaint Type")
     public void iSelectAsTheComplaintType(String complaintType) {
-        registration.selectComplaintType(complaintType);
+        COMPRegistration.selectComplaintType(complaintType);
         clickTheButton("Continue");
     }
 
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
-        registration.selectAChannel();
-        registration.enterADescriptionOfTheComplaint();
-        registration.selectASeverity();
-        registration.selectSafeGuardingAndVulnerableIfPossible();
-        registration.enterAPreviousUKVIComplaintReference();
-        registration.enterAThirdPartyReference();
+        COMPRegistration.selectAChannel();
+        COMPRegistration.enterADescriptionOfTheComplaint();
+        COMPRegistration.selectASeverity();
+        COMPRegistration.selectSafeGuardingAndVulnerableIfPossible();
+        COMPRegistration.enterAPreviousUKVIComplaintReference();
+        COMPRegistration.enterAThirdPartyReference();
         clickTheButton("Continue");
     }
 
@@ -44,23 +43,23 @@ public class RegistrationStepDefs extends BasePage {
     public void iSelectAComplaintCategory(String complaintCategory) {
         switch (complaintCategory.toUpperCase()) {
             case "SERVICE":
-                registration.openTheServiceComplaintCategoryAccordion();
+                COMPRegistration.openTheServiceComplaintCategoryAccordion();
                 break;
             case "SERIOUS AND MINOR":
-                registration.openTheSeriousAndMinorComplaintCategoryAccordion();
+                COMPRegistration.openTheSeriousAndMinorComplaintCategoryAccordion();
                 break;
             case "SERIOUS":
-                registration.openTheSeriousComplaintCategoryAccordion();
+                COMPRegistration.openTheSeriousComplaintCategoryAccordion();
                 break;
             default:
                 pendingStep(complaintCategory + " is not defined within " + getMethodName());
         }
         waitABit(1000);
-        registration.selectAVisibleClaimCategory();
+        COMPRegistration.selectAVisibleClaimCategory();
     }
 
     @And("I select a Owning CSU")
     public void iSelectAOwningCSU() {
-        registration.selectAnOwningCSU();
+        COMPRegistration.selectAnOwningCSU();
     }
 }

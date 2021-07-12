@@ -2,16 +2,16 @@
 Feature: Login
 
   Background:
-    Given I am on the Home Office Correspondence Login Page
+    Given I am on the DECS Login Page
     And I am prompted to log in
 
   @Regression @Smoke
-  Scenario: I can login to the Home Office Correspondence System
+  Scenario: I can login to DECS
     When I enter the login credentials for user "DECS_USER" and click the login button
     Then I should be taken to the homepage
     And I should be logged in as the user "DECS_USER"
 
-  @FailingRegression
+  @Regression
   Scenario: User is able to log out from one user and login as another
     And I enter the login credentials for user "DECS_USER" and click the login button
     When I logout of the application

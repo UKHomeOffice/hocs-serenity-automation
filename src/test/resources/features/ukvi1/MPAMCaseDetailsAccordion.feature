@@ -58,7 +58,7 @@ Feature: MPAM Case Details Accordion
       | Windrush     |
       | Coronavirus  |
 
-  @OtherTests
+
   Scenario Outline: User checks that the change business area hypertext is displayed at the correct stages
     And I create a "MPAM" case and move it to the "<stage>" stage
     And I load and claim the current case

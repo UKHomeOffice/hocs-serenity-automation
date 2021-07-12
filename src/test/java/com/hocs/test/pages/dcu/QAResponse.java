@@ -2,10 +2,10 @@ package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.CreateCase_SuccessPage;
+import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.platform.Workstacks;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;

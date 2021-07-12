@@ -1,4 +1,4 @@
-@AccordionDCU  @DCU @OtherTests
+@AccordionDCU  @DCU
 Feature: Case Details Accordion
 
   Background:

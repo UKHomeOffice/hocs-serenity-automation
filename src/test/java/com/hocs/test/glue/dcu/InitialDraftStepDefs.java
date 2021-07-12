@@ -4,12 +4,12 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.platform.Documents;
+import com.hocs.test.pages.platform.SummaryTab;
+import com.hocs.test.pages.platform.UnallocatedCaseView;
+import com.hocs.test.pages.platform.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import config.User;
 import io.cucumber.java.en.And;

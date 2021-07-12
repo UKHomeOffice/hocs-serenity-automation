@@ -24,7 +24,7 @@ Feature: Create case
       | COMP | with           |
       | COMP | without        |
 
-  @Allocation @OtherTests
+  @Allocation
   Scenario: A single case is allocated to the current user
     And I create a single "ANY" case
     When I allocate the case to myself via the successful case creation screen
@@ -32,7 +32,7 @@ Feature: Create case
     Then the case "Should" be allocated to me in the summary
 
 
-  @Allocation @OtherTests
+  @Allocation
   Scenario: A single case is allocated to another user
     And I create a single "ANY" case
     And I go to the case from the successful case creation screen

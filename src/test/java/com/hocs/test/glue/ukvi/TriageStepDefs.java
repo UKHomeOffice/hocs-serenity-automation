@@ -4,7 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.MPAMMultipleContributions;

@@ -11,7 +11,7 @@ Feature: Manage Documents
     When I choose the document type "Original"
     And I upload a file of type "<fileType>"
     Then I can see the "<fileType>" file in the uploaded document list
-    And the "<fileType>" document should be select to be displayed in the preview pane
+    And the "<fileType>" document should be selected to be displayed in the preview pane
     Examples:
       | fileType |
       | docx     |
@@ -84,7 +84,7 @@ Feature: Manage Documents
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
 
-  @OtherTests
+
   Scenario: A document has the pending tag whilst it is being converted
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -92,13 +92,13 @@ Feature: Manage Documents
     And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @FailingRegression
+  @Regression
   Scenario: User can select which document to preview
     And I click to manage the documents of a new "MIN" case
     And I upload a 5MB and a 10MB file
-    And the "5MB" document should be select to be displayed in the preview pane
+    And the "5MB" document should be selecteded to be displayed in the preview pane
     And I click the preview button of the "10MB" file
-    Then the "10MB" document should be select to be displayed in the preview pane
+    Then the "10MB" document should be selecteded to be displayed in the preview pane
 
   @Regression
   Scenario Outline: User can remove any document

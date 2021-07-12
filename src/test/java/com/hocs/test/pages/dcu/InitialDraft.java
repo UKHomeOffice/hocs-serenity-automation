@@ -3,8 +3,8 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Documents;
 import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;

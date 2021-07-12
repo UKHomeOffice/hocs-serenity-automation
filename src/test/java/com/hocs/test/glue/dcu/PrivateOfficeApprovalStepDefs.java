@@ -6,12 +6,11 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.TimelineTab;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.platform.SummaryTab;
+import com.hocs.test.pages.platform.TimelineTab;
+import com.hocs.test.pages.platform.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;

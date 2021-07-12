@@ -1,12 +1,11 @@
 package com.hocs.test.glue.dcu;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.platform.UnallocatedCaseView;
+import com.hocs.test.pages.platform.Workstacks;
 import com.hocs.test.pages.dcu.QAResponse;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 

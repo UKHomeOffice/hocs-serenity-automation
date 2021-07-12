@@ -2,8 +2,8 @@ package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.TimelineTab;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.TimelineTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

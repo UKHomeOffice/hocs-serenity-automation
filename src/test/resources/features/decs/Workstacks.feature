@@ -40,7 +40,7 @@ Feature: Workstacks
       | DTEN      |
       | TRO       |
 
-  @OtherTests
+
   Scenario Outline: User is able to order MPAM workstack columns
     And I create a "MPAM" case and move it to the "Triage" stage
     When I navigate to the "Triage" workstack and order the "<column>" column from "<order>"
@@ -64,7 +64,7 @@ Feature: Workstacks
       | Rejected          | Lowest to Highest |
       | Rejected          | Highest to Lowest |
 
-  @OtherTests
+
   Scenario Outline: User is able to order columns in my cases
     When I navigate to my cases and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
@@ -85,7 +85,7 @@ Feature: Workstacks
       | Days          | Lowest to Highest |
       | Days          | Highest to Lowest |
 
-  @OtherTests
+
   Scenario Outline: User is able to order search results
     When I search for active MPAM cases and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
@@ -116,7 +116,7 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should" be highlighted
 
-  @OtherTests
+
   Scenario: User is unable to see a highlighted deadline on an MPAM case that is 6 days from its deadline date
     When I create a single "MPAM" case with the correspondence received date set 14 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack

@@ -5,10 +5,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.platform.UnallocatedCaseView;
+import com.hocs.test.pages.platform.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
@@ -124,7 +124,7 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the case should be found in the {string} team")
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
-        goToDECSDashboard();
+        goToDashboard();
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT":
                 safeClickOn(dashboard.publicProtectionUnit);

@@ -4,11 +4,10 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.SummaryTab;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.SummaryTab;
 import com.hocs.test.pages.ukvi.DispatchStages;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class DispatchStagesStepDefs extends BasePage {

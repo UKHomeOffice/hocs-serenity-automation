@@ -3,8 +3,8 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.AddCorrespondent;
+import com.hocs.test.pages.platform.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -105,16 +105,16 @@ public class DataInput extends BasePage {
     public void fillAllMandatoryCorrespondenceFields() {
         String caseType = sessionVariableCalled("caseType");
         if (caseType.equals("DTEN")) {
-            typeIntoDateField(dtenDraftingDeadlineDayField, dtenDraftingDeadlineMonthField, dtenDraftingDeadlineYearField, "01/01/2019");
+            typeIntoDateFields(dtenDraftingDeadlineDayField, dtenDraftingDeadlineMonthField, dtenDraftingDeadlineYearField, "01/01/2019");
             setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
-            typeIntoDateField(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField,"01/01/2019");
+            typeIntoDateFields(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField,"01/01/2019");
             setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
             safeClickOn(continueButton);
-            typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+            typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     getDatePlusMinusNDaysAgo(-2));
             safeClickOn(emailOriginalChannelRadioButton);
         } else {
-            typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+            typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                     getDatePlusMinusNDaysAgo(-2));
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
@@ -123,7 +123,7 @@ public class DataInput extends BasePage {
     }
 
     public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
-        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(-2));
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
@@ -131,12 +131,12 @@ public class DataInput extends BasePage {
     }
 
     public void invalidCorrespondenceReceivedDate() {
-        typeIntoDateField(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
+        typeIntoDateFields(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
                 getDatePlusMinusNDaysAgo(1));
     }
 
     public void invalidCorrespondenceSentDate() {
-        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(1));
     }
 
@@ -155,7 +155,7 @@ public class DataInput extends BasePage {
     }
 
     public void completeDataInputStageAndStoreEnteredInformation() {
-        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
         String currentDay = dateCorrespondenceSentDayField.getValue();
         setSessionVariable("currentDay").to(currentDay);
@@ -199,7 +199,7 @@ public class DataInput extends BasePage {
     }
 
     public void completeDataInputStageSpecifyingHomeSecInterest(boolean interest) {
-        typeIntoDateField(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(-2));
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);

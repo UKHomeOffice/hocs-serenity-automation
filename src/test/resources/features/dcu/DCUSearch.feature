@@ -37,7 +37,7 @@ Feature: DCU Search
       | TRO       |
       | DTEN      |
 
-  @SearchByCaseReferenceNumber @OtherTests
+  @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they search for the Case Reference number
     When I enter a valid case reference into the load case search bar
     Then I should be taken directly to the case
@@ -52,7 +52,7 @@ Feature: DCU Search
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
-  @SearchByCaseType @OtherTests
+  @SearchByCaseType
   Scenario: User should be able to click on the case link when cases are displayed in the results list
     And I create a single "MIN" case
     And I navigate to the "search" page
@@ -78,7 +78,7 @@ Feature: DCU Search
     | TRO        | TRO + DTEN          |
     | MIN        | All DCU Case Types  |
 
-  @SearchByCaseType @SearchByTopic @OtherTests
+  @SearchByCaseType @SearchByTopic
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
     And I navigate to the "search" page
@@ -88,7 +88,7 @@ Feature: DCU Search
     Then I check that the DCU search results have the correct "Case Type"
     And I check that the DCU search results have the correct "Topic"
 
-  @SearchByDateReceived @OtherTests
+  @SearchByDateReceived
   Scenario Outline: No cases should be displayed if a user searches for a criteria that would contain no cases
     And I navigate to the "search" page
     When I enter "<infoValue>" into the "<infoType>" DCU search criteria

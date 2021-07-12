@@ -1,9 +1,8 @@
 package com.hocs.test.glue.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import com.hocs.test.pages.comp.AccordionCOMP;
 import io.cucumber.java.en.And;
-import net.serenitybdd.core.pages.WebElementFacade;
 
 public class COMPCaseDetailsAccordionStepDefs extends BasePage {
 

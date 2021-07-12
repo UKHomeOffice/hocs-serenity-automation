@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -170,7 +170,7 @@ public class Triage extends BasePage {
     }
 
     public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {
-        assertThat(pageTitle.getText().contains(ministerialOrOfficial), is(true));
+        assertThat(header1.getText().contains(ministerialOrOfficial), is(true));
     }
 
     public void assertCasesCurrentRefTypeIs(String ministerialOrOfficial) {

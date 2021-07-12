@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -73,12 +73,12 @@ public class StandardLine extends BasePage {
 
     public void enterStandardLineExpirationDate() {
         String tomorrowsDate = getDatePlusMinusNDaysAgo(1);
-        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, tomorrowsDate);
+        typeIntoDateFields(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, tomorrowsDate);
         setSessionVariable("standardLineExpiryDate").to(tomorrowsDate);
     }
 
     public void enterPastStandardLineExpirationDate() {
-        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, getDatePlusMinusNDaysAgo(-300));
+        typeIntoDateFields(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, getDatePlusMinusNDaysAgo(-300));
     }
 
     public void selectActionForStandardLine(String topic, String action) {
@@ -95,7 +95,7 @@ public class StandardLine extends BasePage {
         selectActionForStandardLine(topic, "Amend");
         setSessionVariable("standardLineTopic").to(topic);
         setSessionVariable("standardLineExpiryDate").to(newDate);
-        typeIntoDateField(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, newDate);
+        typeIntoDateFields(expirationDateDayTextBox, expirationDateMonthTextBox, expirationDateYearTextBox, newDate);
         safeClickOn(submitButton);
     }
 

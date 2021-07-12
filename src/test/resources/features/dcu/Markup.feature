@@ -4,7 +4,7 @@ Feature: Markup
   Background:
     Given I am logged into "DECS" as user "DCU_USER"
 
-  @OtherTests
+
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -17,7 +17,7 @@ Feature: Markup
       | Policy Response |
       | FAQ             |
 
-  @OtherTests
+
   Scenario: User selects an initial decision of Refer to OGD
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -40,7 +40,7 @@ Feature: Markup
     | TRO       |
     | DTEN      |
 
-  @OtherTests
+
   Scenario: User selects an initial decision of No Response Needed
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -72,7 +72,7 @@ Feature: Markup
     But I do not enter a "Other Government Department"
     Then an error message is displayed
 
-  @OtherTests
+
   Scenario: User selects an initial decision of Reject to Data Input
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -98,7 +98,7 @@ Feature: Markup
     But I do not enter a "REASON FOR REJECTING TO DATA INPUT"
     Then an error message is displayed
 
-  @OtherTests
+
   Scenario: User selects topic
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case
@@ -107,7 +107,7 @@ Feature: Markup
     And I add the topic "Animal alternatives (3Rs)"
     Then the topic should be added to the case
 
-  @OtherTests
+
   Scenario: User can select a topic for a FAQ response
     When I create a "DTEN" case and move it to the "MARKUP" stage
     And I load and claim the current case

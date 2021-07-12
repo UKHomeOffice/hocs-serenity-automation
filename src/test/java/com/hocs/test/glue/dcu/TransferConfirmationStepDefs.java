@@ -1,8 +1,7 @@
 package com.hocs.test.glue.dcu;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import com.hocs.test.pages.dcu.TransferConfirmation;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TransferConfirmationStepDefs extends BasePage {

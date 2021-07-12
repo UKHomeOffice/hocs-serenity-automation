@@ -1,8 +1,8 @@
 package com.hocs.test.pages.dcu;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.TimelineTab;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.TimelineTab;
+import com.hocs.test.pages.platform.Workstacks;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;

@@ -1,7 +1,7 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.platform.Documents;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

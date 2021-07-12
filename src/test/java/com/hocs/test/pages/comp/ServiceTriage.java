@@ -1,6 +1,6 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -118,7 +118,7 @@ public class ServiceTriage extends BasePage {
     public void selectLOAReceived() {
         safeClickOn(loaReceivedCheckbox);
         setSessionVariable("loaReceived").to("Yes");
-        typeIntoDateField(loaReceivedDayField, loaReceivedMonthField, loaReceivedYearField, "01/01/2021");
+        typeIntoDateFields(loaReceivedDayField, loaReceivedMonthField, loaReceivedYearField, "01/01/2021");
         setSessionVariable("loaReceivedDate").to("01/01/2021");
     }
 

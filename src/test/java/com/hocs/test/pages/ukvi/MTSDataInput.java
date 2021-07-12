@@ -1,12 +1,9 @@
 package com.hocs.test.pages.ukvi;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import java.util.List;
+import com.hocs.test.pages.platform.AddCorrespondent;
+import com.hocs.test.pages.platform.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

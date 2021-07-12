@@ -3,11 +3,10 @@ package com.hocs.test.glue.ukvi;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.platform.BasePage;
 import com.hocs.test.pages.ukvi.Draft;
 import com.hocs.test.pages.ukvi.MPAMMultipleContributions;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class DraftStepDefs extends BasePage {
