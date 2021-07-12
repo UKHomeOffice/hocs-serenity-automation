@@ -52,7 +52,7 @@ Feature: WCS Manage Documents
     And I click manage documents
     And I select to remove the "docx" document
     Then I cannot see the "docx" file in the uploaded document list
-    
+
   @Validation
   Scenario: User must select a document type when uploading a document
     And I click add documents

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="AllTests" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="AllCOMPTests" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.filter.tags=@UKVI or @DECS or @DCU or @WCS or @COMP" />
+              <option value="-Dcucumber.filter.tags=@COMP or @COMPRegression or @Regression" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>
