@@ -51,11 +51,15 @@ public class NavigationStepDefs extends BasePage {
     }
 
     @And ("I click to view( the case in) the {string} workstack")
-    public void iClickToViewTheWorkstack(String teamName) {
-        if (!dashboard.myCases.isCurrentlyVisible()) {
+    public void iClickToViewTheWorkstack(String workstackIdentifier) {
+        if (!onDashboard()) {
             goToDECSDashboard();
         }
-        dashboard.selectWorkstackByTeamName(teamName);
+        if (workstackIdentifier.equalsIgnoreCase("My Cases")) {
+            dashboard.selectMyCases();
+        } else {
+            dashboard.selectWorkstackByTeamName(workstackIdentifier);
+        }
     }
 
     @And("I load the current case")
