@@ -189,6 +189,10 @@ public class BasePage extends PageObject {
         caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
+    public boolean onDashboard() {
+        return caseReferenceSearchBar.isCurrentlyVisible();
+    }
+
     public void goToMUIDashboard() {
         safeClickOn(muiDashboardLink);
     }
