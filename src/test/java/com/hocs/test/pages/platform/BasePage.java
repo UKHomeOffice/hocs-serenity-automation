@@ -187,6 +187,11 @@ public class BasePage extends PageObject {
     }
 
     private void goToMUIDashboard() {
+    public boolean onDashboard() {
+        return caseReferenceSearchBar.isCurrentlyVisible();
+    }
+
+    public void goToMUIDashboard() {
         safeClickOn(muiDashboardLink);
     }
 

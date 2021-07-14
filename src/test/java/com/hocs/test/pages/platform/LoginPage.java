@@ -70,8 +70,8 @@ public class LoginPage extends BasePage {
         String baseUrl = "";
 
         if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.CS_QA.getEnvironmentURL();
+            System.out.println("Environment parameter not set. Defaulting to 'DEMO'");
+            baseUrl = Environment.CS_DEMO.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
                 case "LOCAL":
@@ -109,8 +109,8 @@ public class LoginPage extends BasePage {
         String env = System.getProperty("environment");
         String baseUrl = "";
         if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.CS_QA_MUI.getEnvironmentURL();
+            System.out.println("Environment parameter not set. Defaulting to 'DEMO'");
+            baseUrl = Environment.CS_DEMO_MUI.getEnvironmentURL();
         } else {
             switch (env.toUpperCase()) {
                 case "DEV":

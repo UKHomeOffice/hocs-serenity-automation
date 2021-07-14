@@ -106,12 +106,13 @@ public class UnitManagement extends BasePage {
         setSessionVariable("originalUnit").to(unitTypeBox.getText());
         if (unitTypeBox.containsText("Immigration Enforcement")) {
             unitTypeBox.click();
+            setSessionVariable("newUnit").to(unitBorderForceOption.getText());
             unitBorderForceOption.click();
         } else {
             unitTypeBox.click();
+            setSessionVariable("newUnit").to(unitImmigrationEnforcementOption.getText());
             unitImmigrationEnforcementOption.click();
         }
-        setSessionVariable("newUnit").to(unitTypeBox.getText());
         updateUnitButton.click();
     }
 

@@ -181,11 +181,11 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                safeClickOn(searchMINCheckbox);
                 typeIntoDateFields(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
+                safeClickOn(searchMINCheckbox);
                 typeIntoDateFields(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
