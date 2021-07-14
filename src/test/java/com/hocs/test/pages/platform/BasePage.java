@@ -186,7 +186,6 @@ public class BasePage extends PageObject {
         caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
-    private void goToMUIDashboard() {
     public boolean onDashboard() {
         return caseReferenceSearchBar.isCurrentlyVisible();
     }

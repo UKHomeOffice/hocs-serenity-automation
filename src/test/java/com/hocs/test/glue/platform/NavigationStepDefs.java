@@ -61,7 +61,7 @@ public class NavigationStepDefs extends BasePage {
     @And ("I click to view( the case in) the {string} workstack")
     public void iClickToViewTheWorkstack(String workstackIdentifier) {
         if (!onDashboard()) {
-            goToDECSDashboard();
+            goToDashboard();
         }
         if (workstackIdentifier.equalsIgnoreCase("My Cases")) {
             dashboard.selectMyCases();
