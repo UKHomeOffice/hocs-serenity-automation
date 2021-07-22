@@ -2,7 +2,7 @@ package com.hocs.test.pages.dcu;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class Dispatch extends BasePage {

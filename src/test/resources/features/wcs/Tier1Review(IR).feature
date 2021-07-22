@@ -19,4 +19,4 @@ Feature: Tier 1 Review (IR)
   @Validation
   Scenario: User does not select an option at the Identity Rejected stage
     When I click the "Confirm" button
-    Then an error message is displayed as I have not selected an action on the Tier 1 Review page
+    Then an error message is displayed as I have not selected an action on the Tier 1 IR Review page

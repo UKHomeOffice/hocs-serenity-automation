@@ -8,14 +8,14 @@ public class ArchivedRejectedStepDefs {
 
     ArchivedRejected archivedRejected;
 
-    @When("I select to return the claim to Registration")
+    @When("I select to restore the claim to Registration")
     public void iSelectToReturnTheClaimToRegistration() {
-        archivedRejected.selectToRestoreClaimToRegistration();
+        archivedRejected.selectToRestoreClaim();
     }
 
-    @When("I select to return the claim to Eligibility")
+    @When("I select to restore the claim to Eligibility")
     public void iSelectToReturnTheClaimToEligibility() {
-        archivedRejected.selectToRestoreClaimToEligibility();
+        archivedRejected.selectToRestoreClaim();
     }
 
     @When("I select to permanently close the claim")

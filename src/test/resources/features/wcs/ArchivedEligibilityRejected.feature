@@ -8,7 +8,7 @@ Feature: Archived Eligibility Rejected
 
   @Workflow @WCSRegression
   Scenario: User returns the claim to Eligibility stage
-    When I select to return the claim to Eligibility
+    When I select to restore the claim to Eligibility
     Then the claim should be moved to the "Eligibility" stage
 
   @Workflow @WCSRegression

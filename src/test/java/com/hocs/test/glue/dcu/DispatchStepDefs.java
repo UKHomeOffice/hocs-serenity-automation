@@ -1,8 +1,8 @@
 package com.hocs.test.glue.dcu;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.UnallocatedCaseView;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.Dispatch;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Managed;

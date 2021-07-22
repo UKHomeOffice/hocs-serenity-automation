@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -23,17 +23,17 @@ public class Tier1AwaitingResponse extends BasePage {
     }
 
     public void selectClaimantAcceptsOffer() {
-        clickOn(claimantAcceptsOfferRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Claimant accepts offer");
+        clickTheButton("Confirm");
     }
 
     public void selectClaimantRejectsNonFinalOffer() {
-        clickOn(rejectedInterimOfferRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Rejected interim offer");
+        clickTheButton("Confirm");
     }
 
     public void selectClaimantRejectsFinalOffer() {
-        clickOn(rejectedFinalOfferRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Rejected final offer");
+        clickTheButton("Confirm");
     }
 }

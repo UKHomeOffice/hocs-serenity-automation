@@ -1,6 +1,6 @@
 package com.hocs.test.glue.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.wcs.Tier1AwaitingResponse;
 import com.hocs.test.pages.wcs.Tier1Review;
 import io.cucumber.java.en.And;
@@ -20,7 +20,7 @@ public class Tier1StepDefs extends BasePage {
 
     @Then("an error message is displayed as I have not selected an action on the Tier 1 Review page")
     public void anErrorMessageIsDisplayedAsIHaveNotSelectedAnActionOnTheTierReviewPage() {
-        tier1Review.assertResultOfReviewIsRequiredErrorMessage();
+        tier1Review.assertActionIsRequiredErrorMessage();
     }
 
     @When("I select that the claimant accepted the offer")
@@ -45,31 +45,31 @@ public class Tier1StepDefs extends BasePage {
 
     @And("I enter a Tier 1 review withdrawal outcome and decision date")
     public void iEnterATier1ReviewWithdrawalOutcomeAndDecisionDate() {
-        tier1Review.selectWithdrawDecision("Offer withdrawn");
+        tier1Review.selectAWithdrawDecision();
         tier1Review.enterOfferWithdrawnDate(getTodaysDate());
     }
 
     @And("I enter a interim first outcome and decision date")
     public void iEnterAInterimFirstOutcomeAndDecisionDate() {
-        tier1Review.selectInterimFirstOutcome("Decision revised");
+        tier1Review.selectAInterimFirstOutcome();
         tier1Review.enterInterimFirstDecisionDate(getTodaysDate());
     }
 
     @And("I enter a interim  second outcome and decision date")
     public void iEnterAInterimSecondOutcomeAndDecisionDate() {
-        tier1Review.selectInterimSecondOutcome("Decision revised");
+        tier1Review.selectAInterimSecondOutcome();
         tier1Review.enterInterimSecondDecisionDate(getTodaysDate());
     }
 
     @And("I enter a final first outcome and decision date")
     public void iEnterAFinalFirstOutcomeAndDecisionDate() {
-        tier1Review.selectFinalFirstOutcome("Decision revised");
+        tier1Review.selectAFinalFirstOutcome();
         tier1Review.enterFinalFirstDecisionDate(getTodaysDate());
     }
 
     @And("I enter a final second outcome and decision date")
     public void iEnterAFinalSecondOutcomeAndDecisionDate() {
-        tier1Review.selectFinalSecondOutcome("Decision revised");
+        tier1Review.selectAFinalSecondOutcome();
         tier1Review.enterFinalSecondDecisionDate(getTodaysDate());
     }
 
@@ -90,5 +90,20 @@ public class Tier1StepDefs extends BasePage {
         iEnterAFinalFirstOutcomeAndDecisionDate();
         iEnterAFinalSecondOutcomeAndDecisionDate();
         iSelectToProgressTheClaim();
+    }
+
+    @When("I select to return the claim to Eligibility")
+    public void iSelectToReturnTheClaimToEligibility() {
+        tier1Review.selectToReturnClaim();
+    }
+
+    @When("I select to return the claim to Registration")
+    public void iSelectToReturnTheClaimToRegistration() {
+        tier1Review.selectToReturnClaim();
+    }
+
+    @Then("an error message is displayed as I have not selected an action on the Tier 1 ER/IR Review page")
+    public void anErrorMessageIsDisplayedAsIHaveNotSelectedAnActionOnTheTierERReviewPage() {
+        tier1Review.assertResultOfReviewIsRequiredErrorMessage();
     }
 }

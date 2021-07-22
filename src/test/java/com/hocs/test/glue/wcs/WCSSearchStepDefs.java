@@ -3,14 +3,11 @@ package com.hocs.test.glue.wcs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.Search;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.wcs.WCSSearch;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -91,7 +88,7 @@ public class WCSSearchStepDefs extends BasePage {
 
     @When("I search for the case/claim by reference number")
     public void iSearchForTheCaseByReferenceNumber() {
-        WCSSearch.searchByWCSReference(sessionVariableCalled("caseReference").toString());
+        WCSSearch.searchByWCSReference(getCurrentCaseReference().toString());
     }
 
     @Then("the created case/claim should be displayed as a search result")
@@ -102,7 +99,7 @@ public class WCSSearchStepDefs extends BasePage {
             waitABit(5000);
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
-            WCSSearch.searchByWCSReference(sessionVariableCalled("caseReference"));
+            WCSSearch.searchByWCSReference(getCurrentCaseReference());
             WCSSearch.assertCaseIsVisibleInSearchResults();
         }
     }

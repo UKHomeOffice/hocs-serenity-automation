@@ -1,9 +1,9 @@
 package com.hocs.test.glue.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.wcs.Casework;
-import com.hocs.test.pages.wcs.WCSRegistration;
+import com.hocs.test.pages.wcs.Registration;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +14,7 @@ public class CaseworkStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    WCSRegistration WCSRegistration;
+    Registration registration;
 
     @Then("an error message is displayed as I have not selected a Claim status")
     public void anErrorMessageIsDisplayedAsIHaveNotSelectedAClaimStatus() {

@@ -3,8 +3,8 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.AddCorrespondent;
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

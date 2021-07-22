@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -20,12 +20,12 @@ public class PaymentApproval extends BasePage {
     }
 
     public void selectPaymentApprovedReadyToSend() {
-        clickOn(paymentApprovedAndReadyToSendRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Payment approved");
+        clickTheButton("Confirm");
     }
 
     public void returnToCaseworkTeam() {
-        clickOn(pncFailedSendToCaseworkRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("PNC failed");
+        clickTheButton("Confirm");
     }
 }

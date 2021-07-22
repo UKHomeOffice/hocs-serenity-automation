@@ -1,6 +1,6 @@
 package com.hocs.test.glue.comp;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.CCH;
 import io.cucumber.java.en.And;
 

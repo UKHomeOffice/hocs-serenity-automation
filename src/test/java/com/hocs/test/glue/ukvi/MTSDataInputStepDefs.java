@@ -1,7 +1,7 @@
 package com.hocs.test.glue.ukvi;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.SummaryTab;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.ukvi.MTSDataInput;
 import io.cucumber.java.en.And;
 
@@ -21,6 +21,6 @@ public class MTSDataInputStepDefs extends BasePage {
     @And("the support note should be visible in the summary")
     public void theSupportNoteShouldBeVisibleInTheSummary() {
         summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedContentForGivenHeader("Note to support case", sessionVariableCalled("supportNote"));
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Note to support case", sessionVariableCalled("supportNote"));
     }
 }

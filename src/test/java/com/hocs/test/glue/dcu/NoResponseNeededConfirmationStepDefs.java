@@ -1,6 +1,6 @@
 package com.hocs.test.glue.dcu;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.dcu.NoResponseNeededConfirmation;
 import io.cucumber.java.en.When;
 

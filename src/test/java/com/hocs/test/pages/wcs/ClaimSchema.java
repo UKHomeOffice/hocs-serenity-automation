@@ -3,13 +3,16 @@ package com.hocs.test.pages.wcs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ClaimSchema extends BasePage {
 
     Casework casework;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//input[@id='ReceivedDate-day']")
     public WebElementFacade receivedDateDayTextbox;
@@ -424,120 +427,106 @@ public class ClaimSchema extends BasePage {
 
 
     public void expandCollapseCaseInfoSection() {
-        clickOn(caseInfoAccordionButton);
+        openOrCloseAccordionSection("Case info");
     }
 
     public void expandCollapsePersonalDetailsSection() {
-        clickOn(personalDetailsAccordionButton);
+        openOrCloseAccordionSection("Personal details");
+    }
+
+    public void expandCollapseEligibilityAndStatusSection() {
+        openOrCloseAccordionSection("Eligibility and status");
     }
 
     public void expandCollapseLinkedPersonSection() {
-        clickOn(linkedPersonDetailsAccordionButton);
+        openOrCloseAccordionSection("Linked person details");
     }
 
     public void expandCollapseRepresentativeSection() {
-        clickOn(representativeAccordionButton);
+        openOrCloseAccordionSection("Representative");
     }
 
     public void expandConsentDetailsAccordion() {
-        clickOn(consentDetailsAccordionButton);
+        openOrCloseAccordionSection("Consent details");
     }
 
     public void expandCollapseGovernmentRecordsSection() {
-        clickOn(governmentRecordsAccordionButton);
+        openOrCloseAccordionSection("Government records");
     }
 
     public void expandCollapseVulnerableOrHighProfileSection() {
-        clickOn(vulnerableOrHighProfileAccordionButton);
+        openOrCloseAccordionSection("Vulnerable or high profile");
     }
 
     public void expandCollapseClaimCategoriesSection() {
         waitABit(500);
-        clickOn(claimCategoriesAccordionButton);
+        openOrCloseAccordionSection("Claim categories");
         waitABit(500);
     }
 
-    public void showAndHideDetailsInClaimCategories(int claimCategoryType) {
-        WebElementFacade showHideDetailsButton = findBy("div:nth-child(" + claimCategoryType + ") > div > div"
-                + ".selectable-details-header > div"
-                + ".selectable-details-link > "
-                + "span");
-
-        showHideDetailsButton.click();
+    private void enterReceivedDate() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(),"Date claim was received");
     }
 
-    public void selectPrimaryAsTypeOfClaim(){
-        clickOn(typeOfClaimPrimaryRadioButton);
+    private void enterATaskForceReference() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Windrush Scheme (Task Force) reference");
     }
 
-    public void selectFamilyAsTypeOfClaim(){
-        clickOn(typeOfClaimFamilyRadioButton);
+    public void selectATypeOfClaim(){
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Type of claim");
     }
 
-    public void selectEstateAsTypeOfClaim(){
-        clickOn(typeOfClaimEstateRadioButton);
+    public void selectASubmissionType(){
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("How was the form submitted?");
     }
 
-    public void selectEmailAsSubmissionType(){
-        clickOn(howWasFormSubmittedEmailRadioButton);
+    public void selectOptionForWasFormSentThroughClaimantAssistanceAdviser() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the form sent through Claimant Assistance Adviser?");
     }
 
-    public void selectPostAsSubmissionType(){
-        clickOn(howWasFormSubmittedPostRadioButton);
-    }
-
-    public void selectFormWasSentThroughCitizensAdvice(){
-        clickOn(formSentThroughCitizensAdviceYesRadioButton);
-    }
-
-    public void selectFormWasSentThroughClaimantAssistanceAdviser() {
-        clickOn(formSentThroughClaimantAssistanceAdviserYesRadioButton);
-    }
-
-    public void selectFormWasNotSentThroughCitizensAdvice(){
-        clickOn(formSentThroughCitizensAdviceNoRadioButton);
-    }
-
-    public void selectClaimCameFromWithinTheCountry(){
-        clickOn(whereIsClaimFromInCountryRadioButton);
-    }
-
-    public void selectClaimCameFromOutsideTheCountry(){
-        clickOn(whereIsClaimFromOutCountryRadioButton);
+    public void selectIfClaimCameFromInOrOutOfTheCountry(){
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Where is the claim from?");
     }
 
     public void enterTextIntoLinkedClaimsTextBox(){
-        typeInto(linkedClaimsCaseInfoTextbox, "Test - Linked Claims");
-    }
-
-    private void enterReceivedDate() {
-        typeInto(receivedDateDayTextbox, getCurrentDay());
-        typeInto(receivedDateMonthTextbox, getCurrentMonth());
-        typeInto(receivedDateYearTextbox, getCurrentYear());
+        recordCaseData.enterTextIntoTextAreaWithHeading("Linked claims");
     }
 
     public void enterBroughtForwardDate(String date) {
-        typeIntoDateFields(broughtForwardDateDayTextbox, broughtForwardDateMonthTextbox, broughtForwardDateYearTextbox, date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Brought forward");
+    }
+
+    private void selectWithClaimant(){
+        recordCaseData.checkSpecificCheckbox("With claimant");
+    }
+
+    private void selectOGDsThirdParties(){
+        recordCaseData.checkSpecificCheckbox("OGDs and/or third parties");
+    }
+
+    private void selectPolicy(){
+        recordCaseData.checkSpecificCheckbox("Policy");
     }
 
     public void completeRequiredFieldsInCaseInfoSection(){
         expandCollapseCaseInfoSection();
         enterReceivedDate();
-        selectPrimaryAsTypeOfClaim();
-        selectEmailAsSubmissionType();
-        selectFormWasSentThroughClaimantAssistanceAdviser();
-        selectClaimCameFromWithinTheCountry();
+        selectATypeOfClaim();
+        selectASubmissionType();
+        selectOptionForWasFormSentThroughClaimantAssistanceAdviser();
+        selectIfClaimCameFromInOrOutOfTheCountry();
+        expandCollapseCaseInfoSection();
     }
 
     public void completeCaseInfoSection(){
         expandCollapseCaseInfoSection();
-        enterReceivedDate();
-        selectPrimaryAsTypeOfClaim();
-        selectEmailAsSubmissionType();
-        selectClaimCameFromWithinTheCountry();
-        selectFormWasSentThroughClaimantAssistanceAdviser();
+        enterATaskForceReference();
         enterTextIntoLinkedClaimsTextBox();
         enterBroughtForwardDate(getTodaysDate());
+        selectWithClaimant();
+        selectOGDsThirdParties();
+        selectPolicy();
+        expandCollapseCaseInfoSection();
     }
 
     public void assertCaseInfoFieldsPopulated() {
@@ -549,20 +538,19 @@ public class ClaimSchema extends BasePage {
     }
 
     public void enterNameIntoPersonalDetailsFullName(String name){
-        typeInto(fullNameTextbox, name);
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(name, "Full name");
     }
 
     private void enterPersonalDetailsPreviousName() {
-        typeInto(previousNamesTextbox, "Test - Alias");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Other/previous name or alias");
     }
 
     public void selectAGenderRadioButton() {
-        clickOn(claimantGenderMaleRadioButton);
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
     }
 
     public void enterPersonalDetailsDOB(String date) {
-        typeIntoDateFields(dateOfBirthDayTextbox, dateOfBirthMonthTextbox, dateOfBirthYearTextbox, date);
-
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "Date of birth");
     }
 
     public void enterTodaysDateInPersonalDetailsDOB() {
@@ -570,64 +558,52 @@ public class ClaimSchema extends BasePage {
     }
 
     private void enterPersonalDetailsAddress(){
-        typeInto(buildingAndStreetTextbox, "Test - Street");
-        typeInto(townOrCityTextbox, "Test - City");
-        typeInto(countyTextbox, "Test - County");
-        clickOn(countryDropdown);
-        countryDropdown.selectByVisibleText("USSR");
-        typeInto(postcodeTextbox, "TE1 1ST");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Building and street");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Town or city");
+        recordCaseData.enterTextIntoTextFieldWithHeading("County");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Postcode");
     }
 
     private void selectPersonalDetailsCountryOfBirth(){
-        clickOn(countryOfBirthDropdown);
-        countryOfBirthDropdown.selectByVisibleText("Wake Island");
+        selectRandomOptionFromDropdownWithHeading("Country of birth");
     }
 
-    public void selectPersonalDetailsNationalityDropdown(){
-        clickOn(nationalityDropdown);
-    }
-
-    public void selectFromPersonalDetailsNationalityDropDown(String selection){
-        nationalityDropdown.selectByVisibleText(selection);
-    }
-
-    private void enterPersonalDetailsNationalities(){
-        nationalityDropdown.selectByIndex(15);
-        waitABit(500);
-        countryOfBirthDropdown.selectByIndex(10);
-        waitABit(500);
+    private void selectPersonalDetailsNationality(){
+        selectRandomOptionFromDropdownWithHeading("Nationality");
     }
 
     private void enterPersonalDetailsContactDetails(){
-        typeInto(phoneNumberTextbox, "123456789");
-        typeInto(emailTextbox, "Tester@QA.com");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Telephone number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Email address");
     }
 
     private void enterPersonalDetailsPassportNumbers(){
-        typeInto(passportNumberTextbox, "Test - Passport number");
-        typeInto(expiredPassportNumberTextbox, "Test - Expired Passport number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Passport number");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Expired passport numbers");
     }
 
     private void enterPersonalDetailsNationalInsuranceNumber(){
-        typeInto(nINumberTextbox, "Test - National Insurance number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("National Insurance number");
     }
 
-    public void enterCustomeNationalInsuranceNo(String niNo) {
-        typeInto(nINumberTextbox, niNo);
+    public void enterSpecificNationalInsuranceNumber(String niNo) {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(niNo, "National insurance number");
     }
 
     public void completePersonalDetailsAccordion() {
-        clickOn(personalDetailsAccordionButton);
+        expandCollapsePersonalDetailsSection();
         enterNameIntoPersonalDetailsFullName("Test User");
         enterPersonalDetailsPreviousName();
         selectAGenderRadioButton();
         enterTodaysDateInPersonalDetailsDOB();
         enterPersonalDetailsAddress();
         selectPersonalDetailsCountryOfBirth();
-        enterPersonalDetailsNationalities();
+        selectPersonalDetailsNationality();
         enterPersonalDetailsContactDetails();
         enterPersonalDetailsPassportNumbers();
         enterPersonalDetailsNationalInsuranceNumber();
+        expandCollapsePersonalDetailsSection();
     }
 
     public void assertThatPersonalDetailsFieldsPopulated() {
@@ -644,27 +620,28 @@ public class ClaimSchema extends BasePage {
     }
 
     private void selectAnEligibilityCohort(){
-        eligibilityCohortDropdown.selectByIndex(2);
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Eligibility cohort");
     }
 
     public void selectEligibilityStatus() {
-        eligibilityStatus.selectByIndex(2);
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Status");
     }
 
     public void selectEligibilityStatusOutcome() {
-        eligibilityStatusOutcome.selectByIndex(2);
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Status outcome");
     }
 
     public void selectDateOfEligibilityStatusDecision() {
-        typeIntoDateFields(dateOfEligibilityStatusDecisionDay, dateOfEligibilityStatusDecisionMonth, dateOfEligibilityStatusDecisionYear, getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of status decision");
     }
 
     public void completeEligibilityAccordion() {
-        clickOn(eligibilityAndStatusAccordionButton);
+        expandCollapseEligibilityAndStatusSection();
         selectAnEligibilityCohort();
         selectEligibilityStatus();
         selectEligibilityStatusOutcome();
         selectDateOfEligibilityStatusDecision();
+        expandCollapseEligibilityAndStatusSection();
     }
 
     public void assertThatEligibilityFieldsPopulated() {
@@ -677,75 +654,73 @@ public class ClaimSchema extends BasePage {
     }
 
     private void enterNameIntoLinkedPersonFullName(){
-        typeInto(linkedPersonFullNameTextbox, "Test - LP Full name");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Full name");
     }
 
     private void enterLinkedPersonPreviousName() {
-        typeInto(linkedPersonPreviousNameTextbox, "Test - LP Alias");
-    }
-
-    private void enterLinkedPersonDOB() {
-        typeIntoDateFields(linkedPersonDateOfBirthDayTextbox, linkedPersonDateOfBirthMonthTextbox, linkedPersonDateOfBirthYearTextbox,"02/02/2002");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Previous name or alias");
     }
 
     public void enterLinkedPersonGender() {
-        clickOn(linkedPersonGenderMale);
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
+    }
+
+    private void enterLinkedPersonDOB() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of birth");
     }
 
     private void enterLinkedPersonAddress(){
-        typeInto(linkedPersonBuildingAndStreetTextbox, "Test - LP Street");
-        typeInto(linkedPersonTownOrCityTextbox, "Test - LP City");
-        typeInto(linkedPersonCountyTextbox, "Test - LP County");
-        clickOn(linkedPersonCountryDropdown);
-        linkedPersonCountryDropdown.selectByVisibleText("British Antarctic Territory");
-        typeInto(linkedPersonPostcodeTextbox, "TE2 2ST");
+        enterTextIntoTextFieldWithHeading("Building and street");
+        enterTextIntoTextFieldWithHeading("Town or city");
+        enterTextIntoTextFieldWithHeading("County");
+        selectRandomOptionFromDropdownWithHeading("Country");
+        enterTextIntoTextFieldWithHeading("Postcode");
     }
 
     private void selectLinkedPersonCountryOfBirth(){
-        clickOn(linkedPersonCountryOfBirthDropdown);
-        linkedPersonCountryOfBirthDropdown.selectByVisibleText("Cook Islands");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Country of birth");
     }
 
     private void enterLinkedPersonNationality(){
-        linkedPersonNationalityDropdown.selectByIndex(10);
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Nationality");
     }
 
     private void enterLinkedPersonContactDetails(){
-        typeInto(linkedPersonPhoneNumberTextbox, "987654321");
-        typeInto(linkedPersonEmailTextbox, "LP.Tester@QA.com");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Telephone number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Email address");
     }
 
     private void enterLinkedPersonPassportNumbers(){
-        typeInto(linkedPersonPassportNumberTextbox, "Test- LP Passport number");
-        typeInto(linkedPersonExpiredPassportNumberTextbox, "Test - LP Expired Passport number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Passport number");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Previous passport numbers");
     }
 
     private void enterLinkedPersonNationalInsuranceNumber(){
-        typeInto(linkedPersonNINumberTextbox, "Test - LP National Insurance number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("National Insurance number");
     }
 
     private void selectLinkedPersonIsDeceased(){
-        clickOn(isLinkedPersonDeceasedCheckbox);
+        recordCaseData.checkSpecificCheckbox("Linked person is deceased");
     }
 
     private void enterLinkedPersonCapacity(){
-        typeInto(capacityPersonIsActingInTextbox, "Test - LP Capacity");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Capacity person is acting in");
     }
 
     private void enterDateLinkedPersonBeganActingOnBehalf(){
-        typeIntoDateFields(dateBeganActingOnBehalfOfEstateDayTextbox, dateBeganActingOnBehalfOfEstateMonthTextbox, dateBeganActingOnBehalfOfEstateYearTextbox, "03/03/2003");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date began acting on behalf of estate");
     }
 
     private void enterLinkedPersonDateOfDeath() {
-        typeIntoDateFields(dateOfDeathDayTextbox, dateOfDeathMonthTextbox, dateOfDeathYearTextbox, "04/04/2004");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of death");
     }
 
     private void enterLinkedPersonDeathCertificateNumber(){
-        typeInto(deathCertificateTextbox, "Test - LP Death Certificate number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Death Certificate number");
     }
 
     private void enterLinkedPersonReasonForNoDeathCertificate(){
-        typeInto(reasonForNoDeathCertificateTextbox, "Test - LP Reason");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Reason for no death certificate details");
     }
 
     public void completeLinkedPersonSection(){
@@ -766,6 +741,7 @@ public class ClaimSchema extends BasePage {
         enterLinkedPersonDateOfDeath();
         enterLinkedPersonDeathCertificateNumber();
         enterLinkedPersonReasonForNoDeathCertificate();
+        expandCollapseLinkedPersonSection();
     }
 
     public void assertLinkedPersonFieldsPopulated() {
@@ -799,32 +775,32 @@ public class ClaimSchema extends BasePage {
     }
 
     private void enterNameOfRepresentative(){
-        typeInto(representativeNameTextbox, "Test - Rep full name");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Name of representative");
     }
 
     public void enterRepresentedFromDate() {
-        typeIntoDateFields(representedFromDateDayTextbox, representedFromDateMonthTextbox, representedFromDateYearTextbox, getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Represented from date");
     }
     
     private void enterOrganisation() {
-        typeInto(representativeOrganisationTextbox, "Test - Rep Organisation");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Organisation");
     }
     
     private void enterRepresentativeContactDetails(){
-        typeInto(representativeEmailTextbox, "RepTest@QA.com");
-        typeInto(representativePhoneTextbox, "135792468");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Representative email address");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Representative phone number");
     }
 
     public void enterRepresentativeAddress() {
-        typeInto(representativeStreetTextbox, "1 Test Street");
-        typeInto(representativeCityTextbox, "Test");
-        typeInto(representativeCountyTextbox, "Test");
-        representativeCountryDropdown.selectByIndex(10);
-        typeInto(representativePostcodeTextbox, "TES7 USR");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Building and street");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Town or city");
+        recordCaseData.enterTextIntoTextFieldWithHeading("County");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Postcode");
     }
     
     private void enterOtherRepresentativeDetails(){
-        typeInto(representativeOtherDetailsTextbox, "Test - Rep other details");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Other representative details");
     }
     
     public void completeRepresentativeSection(){
@@ -835,6 +811,7 @@ public class ClaimSchema extends BasePage {
         enterRepresentativeContactDetails();
         enterRepresentativeAddress();
         enterOtherRepresentativeDetails();
+        expandCollapseRepresentativeSection();
     }
 
     public void assertThatRepresentativeFieldsPopulated() {
@@ -854,19 +831,19 @@ public class ClaimSchema extends BasePage {
     }
 
     public void enterConsentPersonWhoPaid() {
-        typeInto(consentPersonWhoPaidTextbox, "Test 1");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Person who paid");
     }
 
     public void enterAwardToBePaid() {
-        typeInto(consentAwardToBePaidToTextbox, "User 2");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Award to be paid to");
     }
 
     public void enterConsentFormSignedBy() {
-        typeInto(consentSignedByTextbox, "User 2");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Consent form signed by");
     }
 
     public void enterConsentFormSignedDate() {
-        typeIntoDateFields(consentSignedByDateDay, consentSignedByDateMonth, consentSignedByDateYear, getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Consent form signed date");
     }
 
     public void completeConsentAccordion() {
@@ -875,6 +852,7 @@ public class ClaimSchema extends BasePage {
         enterAwardToBePaid();
         enterConsentFormSignedBy();
         enterConsentFormSignedDate();
+        expandConsentDetailsAccordion();
     }
 
     public void assertThatConsentFieldsPopulated() {
@@ -887,35 +865,35 @@ public class ClaimSchema extends BasePage {
     }
 
     private void enterPreviousHOCSReference(){
-        typeInto(previousHOCSReferenceTextbox, "Test - Previous HOCS reference");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Previous HOCS reference");
     }
 
-    public void enterCustomPreviousHOCSReference(String ref) {
-        typeInto(previousHOCSReferenceTextbox, ref);
+    public void enterSpecificPreviousHOCSReference(String ref) {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(ref, "Previous HOCS reference");
     }
 
     private void enterNHSNumber() {
-        typeInto(nhsNumberTextbox, "Test- NHS number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("NHS number");
     }
 
     private void enterDrivingLicenceNumber(){
-        typeInto(drivingLicenceNumberTextbox, "Test - Driving Licence number");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Driving licence number");
     }
 
     private void enterCID(){
-        typeInto(cidTextbox, "Test - CID");
+        recordCaseData.enterTextIntoTextFieldWithHeading("CID");
     }
 
     private void enterCRS(){
-        typeInto(crsTextbox, "Test - CRS");
+        recordCaseData.enterTextIntoTextFieldWithHeading("CRS");
     }
 
     private void enterWarehouse(){
-        typeInto(warehouseTextbox, "Test - Warehouse");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Warehouse");
     }
 
     private void enterOther(){
-        typeInto(otherTextbox, "Test - Other");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Other");
     }
 
     public void completeGovernmentRecordsSection(){
@@ -927,6 +905,7 @@ public class ClaimSchema extends BasePage {
         enterCRS();
         enterWarehouse();
         enterOther();
+        expandCollapseGovernmentRecordsSection();
     }
 
     public void assertThatGovernmentRecordFieldsPopulated() {
@@ -940,39 +919,51 @@ public class ClaimSchema extends BasePage {
     }
 
     public void selectClaimantIsVulnerable(){
-        clickOn(claimantIsVulnerableCheckbox);
+        recordCaseData.checkSpecificCheckbox("Claimant is vulnerable");
     }
 
     public void enterDateReferredToVulnerableTeam() {
-        typeIntoDateFields(vulnerableReferralDateDay, vulnerableReferralDateMonth, vulnerableReferralDateYear, getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date referred to vulnerable person team");
     }
 
     private void enterVulnerableClaimantDetails(){
-        typeInto(vulnerableClaimantDetailsTextbox, "Test - Vulnerable claimant details");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Vulnerable claimant details (including any exceptional payments)");
     }
 
     public void selectHighProfileClaim(){
-        clickOn(claimIsHighProfileCheckbox);
+        recordCaseData.checkSpecificCheckbox("Claim is high profile");
     }
 
     public void selectHighProfileMP() {
-        clickOn(highProfileMPCheckbox);
+        recordCaseData.checkSpecificCheckbox("MP");
     }
 
     public void selectHighProfileMedia() {
-        clickOn(highProfileMediaCheckbox);
+        recordCaseData.checkSpecificCheckbox("Media");
+    }
+
+    public void selectHighProfileDetainedAndDeported() {
+        recordCaseData.checkSpecificCheckbox("Detained and deported");
+    }
+
+    public void selectHighProfileDataBreach() {
+        recordCaseData.checkSpecificCheckbox("Data Breach");
+    }
+
+    public void selectHighProfileApologyFromHomeSec() {
+        recordCaseData.checkSpecificCheckbox("Apology from Home Secretary");
     }
 
     private void enterHighProfileClaimDetails(){
-        typeInto(highProfileClaimDetailsTextbox, "Test - High profile claim details");
+        enterTextIntoTextAreaWithHeading("High profile claim details (For example, MP name and contact details, media outlets)");
     }
 
     public void selectJudicialReview() {
-        clickOn(vulnerableJudicialReviewCheckbox);
+        recordCaseData.checkSpecificCheckbox("Judicial review");
     }
 
     public void enterJudicialReviewDetails() {
-        typeInto(vulnerableJudicialReviewDetailsTextbox, "test 1");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Judicial review details");
     }
 
     public void completeVulnerableOrHighProfileSection(){
@@ -983,6 +974,9 @@ public class ClaimSchema extends BasePage {
         selectHighProfileClaim();
         selectHighProfileMP();
         selectHighProfileMedia();
+        selectHighProfileDetainedAndDeported();
+        selectHighProfileDataBreach();
+        selectHighProfileApologyFromHomeSec();
         enterHighProfileClaimDetails();
         selectJudicialReview();
         enterJudicialReviewDetails();
@@ -998,21 +992,80 @@ public class ClaimSchema extends BasePage {
         assertThat(vulnerableJudicialReviewDetailsTextbox.getValue().equals(""), is(false));
     }
 
+    public void clickOnImmigrationAndLegalFeesCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Immigration and legal fees");
+    }
+
+    public void clickOnDetentionAndDeportationAndRemovalCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Detention deportation and removal");
+    }
+
+    public void clickOnEmploymentCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Employment");
+    }
+
+    public void clickOnChildBenefitCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Child benefit/tax credits");
+    }
+
+    public void clickOnBenefitsCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Benefits");
+    }
+
+    public void clickOnHousingCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Housing");
+    }
+
+    public void clickOnHealthCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Health");
+    }
+
+    public void clickOnBankingCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Banking");
+    }
+
+    public void clickOnEducationCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Education");
+    }
+
+    public void clickOnHomelessnessCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Homelessness");
+    }
+
+    public void clickOnImpactOnDailyLifeCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Impact on daily life");
+    }
+
+    public void clickOnDiscretionaryCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Discretionary");
+    }
+
+    public void clickOnDrivingLicenceCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Driving licence");
+    }
+
+    public void clickOnUrgentExceptionalPaymentCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Urgent Exceptional Payment (UEP)");
+
+    }
+
     public void selectAllClaimCategories(){
         expandCollapseClaimCategoriesSection();
-        clickOn(immigrationAndLegalFeesCheckbox);
-        clickOn(detentionDeportationAndRemovalCheckbox);
-        clickOn(employmentCheckbox);
-        clickOn(childBenefitTaxCreditsCheckbox);
-        clickOn(benefitsCheckbox);
-        clickOn(housingCheckbox);
-        clickOn(healthCheckbox);
-        clickOn(bankingCheckbox);
-        clickOn(educationCheckbox);
-        clickOn(homelessCheckbox);
-        clickOn(impactOnDailyLifeCheckbox);
-        clickOn(discretionaryCheckbox);
-        clickOn(drivingLicenceCheckbox);
+        clickOnImmigrationAndLegalFeesCheckbox();
+        clickOnDetentionAndDeportationAndRemovalCheckbox();
+        clickOnEmploymentCheckbox();
+        clickOnChildBenefitCheckbox();
+        clickOnBenefitsCheckbox();
+        clickOnHousingCheckbox();
+        clickOnHealthCheckbox();
+        clickOnBankingCheckbox();
+        clickOnEducationCheckbox();
+        clickOnHomelessnessCheckbox();
+        clickOnImpactOnDailyLifeCheckbox();
+        clickOnDiscretionaryCheckbox();
+        clickOnDrivingLicenceCheckbox();
+        clickOnUrgentExceptionalPaymentCheckbox();
+        expandCollapseClaimCategoriesSection();
     }
 
     public void completeAllFieldsInClaimSchema(){
@@ -1037,61 +1090,5 @@ public class ClaimSchema extends BasePage {
         assertThatConsentFieldsPopulated();
         assertThatGovernmentRecordFieldsPopulated();
         assertThatClaimantIsVulnerableFieldsPopulated();
-    }
-
-    public void clickOnImmigrationAndLegalFeesCheckbox() {
-        clickOn(immigrationAndLegalFeesCheckbox);
-    }
-
-    public void clickOnDetentionAndDeportationAndRemovalCheckbox() {
-        clickOn(detentionDeportationAndRemovalCheckbox);
-    }
-
-    public void clickOnEmploymentCheckbox() {
-        clickOn(employmentCheckbox);
-    }
-
-    public void clickOnChildBenefitCheckbox() {
-        clickOn(childBenefitTaxCreditsCheckbox);
-    }
-
-    public void clickOnBenefitsCheckbox() {
-        clickOn(benefitsCheckbox);
-    }
-
-    public void clickOnHousingCheckbox() {
-        clickOn(housingCheckbox);
-    }
-
-    public void clickOnHealthCheckbox() {
-        clickOn(healthCheckbox);
-    }
-
-    public void clickOnBankingCheckbox() {
-        clickOn(bankingCheckbox);
-    }
-
-    public void clickOnEducationCheckbox() {
-        clickOn(educationCheckbox);
-    }
-
-    public void clickOnHomelessnessCheckbox() {
-        clickOn(homelessCheckbox);
-    }
-
-    public void clickOnImpactOnDailyLifeCheckbox() {
-        clickOn(impactOnDailyLifeCheckbox);
-    }
-
-    public void clickOnDiscretionaryCheckbox() {
-        clickOn(discretionaryCheckbox);
-    }
-
-    public void clickOnDrivingLicenceCheckbox() {
-        clickOn(drivingLicenceCheckbox);
-    }
-
-    public void clickOnUrgentExceptionalPaymentCheckbox() {
-        clickOn(urgentExceptonalPaymentCheckbox);
     }
 }

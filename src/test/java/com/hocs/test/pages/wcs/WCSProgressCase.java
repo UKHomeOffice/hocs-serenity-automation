@@ -1,7 +1,7 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 
 public class WCSProgressCase extends BasePage {
     
@@ -9,13 +9,7 @@ public class WCSProgressCase extends BasePage {
 
     ClaimSchema claimSchema;
 
-    RegistrationTaskForceCheck registrationTaskForceCheck;
-
-    RegistrationIdentityConfirmation registrationIdentityConfirmation;
-
-    RegistrationIdentityStage1 registrationIdentityStage1;
-
-    WCSRegistration WCSRegistration;
+    Registration registration;
 
     Rejected rejected;
 
@@ -48,25 +42,25 @@ public class WCSProgressCase extends BasePage {
     AwaitingPaymentConfirmation awaitingPaymentConfirmation;
 
     public void moveRegistrationCaseToEligibility() {
-        registrationTaskForceCheck.selectClaimHasNotGoneTroughTaskForce();
+        registration.selectIfClaimHasGoneThroughTaskForce("No");
         claimSchema.completeRequiredFieldsInCaseInfoSection();
-        registrationIdentityConfirmation.confirmClaimantsIdentity();
+        registration.confirmClaimantsIdentity();
         System.out.println("Case moved from Registration to Eligibility");
     }
 
     public void moveRegistrationCaseToIdentityRejected() {
-        registrationTaskForceCheck.selectClaimHasNotGoneTroughTaskForce();
+        registration.selectIfClaimHasGoneThroughTaskForce("No");
         claimSchema.completeRequiredFieldsInCaseInfoSection();
-        registrationIdentityConfirmation.passTheClaimToStage1IdentityCheck();
-        registrationIdentityStage1.failIdentityCheck();
+        registration.passTheClaimToStage1IdentityCheck();
+        registration.failIdentityCheck();
         System.out.println("Case moved from Registration to Identity Rejected");
     }
 
     public void moveRegistrationCaseToTriage() {
-        registrationTaskForceCheck.selectClaimHasGoneThroughTaskForce();
+        registration.selectIfClaimHasGoneThroughTaskForce("Yes");
         claimSchema.completeRequiredFieldsInCaseInfoSection();
-        WCSRegistration.confirmClaimantsID();
-        WCSRegistration.selectIDAndEligibilityConfirmed();
+        registration.confirmClaimantsID();
+        registration.selectIDAndEligibilityConfirmed();
         System.out.println("Case moved from Registration to Triage");
     }
 
@@ -103,13 +97,8 @@ public class WCSProgressCase extends BasePage {
     }
 
     public void moveTriageCaseToCasework() {
-        triage.selectCaseworkingTeam("WCS Casework Team 1");
+        triage.selectACaseworkingTeam();
         System.out.println("Case moved from Triage to Casework");
-    }
-
-    public void moveTriageCaseToCaseworkTeam(String teamName) {
-        triage.selectCaseworkingTeam(teamName);
-        System.out.println("Case moved from Triage to Casework, assigned to " + teamName + " workstack");
     }
 
     public void moveCaseworkCaseToQA() {

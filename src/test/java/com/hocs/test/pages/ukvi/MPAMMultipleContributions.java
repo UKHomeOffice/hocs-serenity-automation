@@ -5,9 +5,9 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.ContributionRequests;
-import com.hocs.test.pages.platform.Dashboard;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ContributionRequests;
+import com.hocs.test.pages.decs.Dashboard;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;

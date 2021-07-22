@@ -40,13 +40,9 @@ Feature: Tier 2
     Then an error message is displayed as I have not selected an option on the Tier 2 Coordination page
 
   @WCSRegression
-  Scenario Outline: User enters information for adjudicators decision and checks it is recorded in case details
+  Scenario: User enters information for adjudicators decision and checks it is recorded in case details
     And I move the claim to the "Tier 2" stage
     And I enter a Tier 2 review withdrawal outcome and decision date
-    And I select that the adjudicators office has "<decision>" their decision
+    And I enter a Tier 2 adjudicators office decision and decision date
     And I load the current claim
     Then the adjudicators office decision details are correctly displayed in the case details accordion
-    Examples:
-    |decision|
-    |Upheld  |
-    |Revised |

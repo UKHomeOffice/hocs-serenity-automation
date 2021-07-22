@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -20,12 +20,12 @@ public class SendPayment extends BasePage {
     }
 
     public void selectFinalPaymentSent() {
-        clickOn(paymentSentFinalRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Payment sent (full & final)");
+        clickTheButton("Confirm");
     }
 
     public void selectInterimPaymentSent() {
-        clickOn(paymentSentInterimRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Payment sent (preliminary, or interim)");
+        clickTheButton("Confirm");
     }
 }

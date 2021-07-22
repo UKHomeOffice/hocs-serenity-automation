@@ -241,7 +241,7 @@ public class ClaimCategoriesStepDefs {
         claimCategories.saveChanges();
     }
 
-    @Then("the Totals fields should display the correct amounts")
+    @Then("the displayed totals should match the values I have recorded")
     public void theTotalAwardedFieldShouldDisplayTheCorrectAmount() {
         claimCategories.assertThatCorrectTotalsAreDisplayed();
     }
@@ -254,5 +254,11 @@ public class ClaimCategoriesStepDefs {
     @And("All fields should be populated in the read-only case info accordion")
     public void readOnlyFieldsAllPopulated() {
         claimSchema.assertAllFieldsPopulated();
+    }
+
+    @And("I record the amounts I enter for each claim category")
+    public void iRecordTheAmountsIEnterForEachClaimCategory() {
+        setSessionVariable("totalAwarded").to(0);
+        setSessionVariable("totalPaid").to(0);
     }
 }

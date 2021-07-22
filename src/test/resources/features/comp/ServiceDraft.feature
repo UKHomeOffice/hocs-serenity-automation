@@ -1,5 +1,5 @@
 @ServiceDraft @COMP
-Feature: Service Draft
+Feature: Service D raft
 
   Background:
     Given I am logged into "DECS" as user "COMP_USER"
@@ -13,6 +13,7 @@ Feature: Service Draft
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
 #    HOCS-3695
   @COMPWorkflow @COMPRegression
@@ -21,6 +22,7 @@ Feature: Service Draft
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Service QA" stage
     And the summary should display the owning team as "CCT Stage 1 Response QA"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User is able to escalate a case to WFM at Service Draft stage
@@ -28,6 +30,8 @@ Feature: Service Draft
     Then the case should be moved to the "Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
     And a escalation note should be visible showing the reason for escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
+
 
 #    HOCS-3076
   @Validation

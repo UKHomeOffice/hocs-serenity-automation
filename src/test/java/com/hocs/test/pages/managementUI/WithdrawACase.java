@@ -2,7 +2,7 @@ package com.hocs.test.pages.managementUI;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 

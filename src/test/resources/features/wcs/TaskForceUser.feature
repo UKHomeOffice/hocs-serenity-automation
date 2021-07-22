@@ -2,13 +2,13 @@
 Feature: Task Force User
 
   Background:
-    Given I am logged into "WCS" as user "WCS_USER"
+    Given I log in to "WCS" as user "WCS_USER"
 
   Scenario: A task force user can search for the WCS reference of a claim created by a non-task force user
     And I create a single "WCS" claim
     And I move the claim to the "CASEWORK" stage
     When I logout of the application
-    And I enter the login credentials for user "TASK_FORCE_USER" and click the login button
+    And I enter the login credentials for user "WCS_TASKFORCE_USER" and click the login button
     And I navigate to the "SEARCH" page
     And I search for the claim by reference number
     Then the created claim should be displayed as a search result
@@ -17,7 +17,7 @@ Feature: Task Force User
     And I create a WCS claim and enter the claimant name "Micky Mouse"
     And I create a WCS claim and enter the claimant name "Minny Mouse"
     When I logout of the application
-    And I enter the login credentials for user "TASK_FORCE_USER" and click the login button
+    And I enter the login credentials for user "WCS_TASKFORCE_USER" and click the login button
     And I navigate to the "search" page
     And I search by the claimant name "Mouse"
     Then all search results should have a claimant name that contains "Mouse"
@@ -30,7 +30,7 @@ Feature: Task Force User
     And I choose the document type "Matrix"
     And I upload a file of type "docx"
     When I logout of the application
-    And I enter the login credentials for user "TASK_FORCE_USER" and click the login button
+    And I enter the login credentials for user "WCS_TASKFORCE_USER" and click the login button
     And I navigate to the "SEARCH" page
     And I search for the claim by reference number
     And I click the reference of the claim in search results

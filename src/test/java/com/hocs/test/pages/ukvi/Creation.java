@@ -3,8 +3,8 @@ package com.hocs.test.pages.ukvi;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.AddCorrespondent;
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -88,13 +88,13 @@ public class Creation extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        safeClickRadioButtonByVisibleText(businessArea);
+        selectSpecificRadioButton(businessArea);
         setSessionVariable("businessArea").to(businessArea);
         System.out.println(businessArea + " is the business area");
     }
 
     public void selectRefType(String refType) {
-        safeClickRadioButtonByVisibleText(refType);
+        selectSpecificRadioButton(refType);
         setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
     }
@@ -115,12 +115,12 @@ public class Creation extends BasePage {
     }
 
     public void selectUrgency(String urgency) {
-        safeClickRadioButtonByVisibleText(urgency);
+        selectSpecificRadioButton(urgency);
         setSessionVariable("urgency").to(urgency);
     }
 
     public void selectInboundChannel(String inboundChannel) {
-        safeClickRadioButtonByVisibleText(inboundChannel);
+        selectSpecificRadioButton(inboundChannel);
         setSessionVariable("inboundChannel").to(inboundChannel);
     }
 

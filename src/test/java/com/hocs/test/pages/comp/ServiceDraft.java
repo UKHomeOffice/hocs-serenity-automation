@@ -1,7 +1,8 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Documents;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -12,6 +13,8 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 public class ServiceDraft extends BasePage {
 
     Documents documents;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//a[contains(text(),'Add a')]")
     public WebElementFacade addADocumentHypertext;
@@ -37,13 +40,13 @@ public class ServiceDraft extends BasePage {
     public void selectActionAtServiceDraft(String action) {
         switch (action.toUpperCase()) {
             case "RESPONSE IS READY TO SEND":
-                safeClickOn(responseIsReadyToSendRadioButton);
+                recordCaseData.selectSpecificRadioButton("Response is ready to send");
                 break;
             case "SEND CASE TO QA":
-                safeClickOn(sendCaseToQARadioButton);
+                recordCaseData.selectSpecificRadioButton("Send case to QA");
                 break;
             case "ESCALATE CASE TO WFM":
-                safeClickOn(escalateCaseToWFMRadioButton);
+                recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -51,15 +54,9 @@ public class ServiceDraft extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void moveCaseFromServiceDraftToServiceQA() {
-        documents.addADraftDocumentAtDraftStage();
-        selectActionAtServiceDraft("Send Case to QA");
-    }
-
-    public void moveCaseFromServiceDraftToServiceEscalated() {
-        selectActionAtServiceDraft("Escalate case to WFM");
-        reasonForEscalationTextField.sendKeys("Test Escalation Reason");
-        setSessionVariable("escalationReason").to("Test Escalation Reason");
+    public void submitEscalationReason() {
+        String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
+        setSessionVariable("escalationReason").to(enteredText);
         clickTheButton("Escalate case");
     }
 

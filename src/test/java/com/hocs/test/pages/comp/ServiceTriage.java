@@ -1,6 +1,7 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -12,6 +13,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ServiceTriage extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
@@ -89,91 +92,69 @@ public class ServiceTriage extends BasePage {
     public WebElementFacade permanentlyCloseCaseNoRadioButton;
 
     public void selectAcceptCase() {
-        safeClickOn(acceptTheComplaintRadioButton);
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint","Can your team respond to this complaint?");
+        clickTheButton("Continue");
         waitABit(500);
     }
 
     public void selectTransferComplaint() {
-        safeClickOn(transferTheComplaintRadioButton);
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint","Can your team respond to this complaint?");
+        clickTheButton("Continue");
     }
 
     public void enterTransferReason() {
-        transferReasonTextArea.sendKeys("Test Transfer Reason");
-        setSessionVariable("rejectionReason").to("Test Transfer Reason");
+        String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+        setSessionVariable("rejectionReason").to(enteredText);
     }
 
     public void selectTransferToCCH() {
-        safeClickOn(transferToCCHRadioButton);
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButton("CCH");
+        clickTheButton("Continue");
     }
 
     public void enterDetailsOnTriageCaptureReasonPage() {
-        businessAreaDropdown.selectByVisibleText("Asylum");
-        enquiryReasonDropdown.selectByVisibleText("Accommodation");
-        safeClickOn(loaRequiredYesRadioButton);
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
+        selectIfLOARequired("Yes");
+    }
+
+    public void selectIfLOARequired(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
     public void selectLOAReceived() {
-        safeClickOn(loaReceivedCheckbox);
+        recordCaseData.checkSpecificCheckbox("Has Letter of Authority been received?");
         setSessionVariable("loaReceived").to("Yes");
-        typeIntoDateFields(loaReceivedDayField, loaReceivedMonthField, loaReceivedYearField, "01/01/2021");
-        setSessionVariable("loaReceivedDate").to("01/01/2021");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Letter of Authority");
+        setSessionVariable("loaReceivedDate").to(getTodaysDate());
     }
 
     public void selectReadyForDrafting() {
-        safeClickOn(readyForDraftingRadioButton);
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButton("All information collected - case ready for drafting");
+        clickTheButton("Continue");
     }
 
     public void escalateCaseToWFM() {
-        safeClickOn(escalateToWFMRadioButton);
-        safeClickOn(continueButton);
-        reasonForEscalationTextField.sendKeys("Test Escalation Reason");
-        setSessionVariable("escalationReason").to("Test Escalation Reason");
-        safeClickOn(escalateCaseButton);
+        recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
+        clickTheButton("Continue");
+        String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
+        setSessionVariable("escalationReason").to(enteredText);
+        clickTheButton("Escalate case");
     }
 
     public void selectCompleteTheCase() {
-        safeClickOn(noResponseCloseCaseRadioButton);
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButton("No response - complete the case (close permanently)");
+        clickTheButton("Continue");
     }
 
     public void enterCompletionReason() {
-        completionReasonTextField.sendKeys("Test Completion Reason");
-        setSessionVariable("closureReason").to("Test Completion Reason");
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
+        setSessionVariable("closureReason").to(enteredText);
     }
 
     public void selectPermanentlyCloseCase(String yesNo) {
-        if (yesNo.equalsIgnoreCase("Yes")) {
-            safeClickOn(permanentlyCloseCaseYesRadioButton);
-        } else if (yesNo.equalsIgnoreCase("No")) {
-            safeClickOn(permanentlyCloseCaseNoRadioButton);
-        }
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromServiceTriageToServiceDraft() {
-        selectAcceptCase();
-        safeClickOn(continueButton);
-        enterDetailsOnTriageCaptureReasonPage();
-        safeClickOn(continueButton);
-        selectReadyForDrafting();
-    }
-
-    public void moveCaseFromServiceTriageToServiceEscalated() {
-        selectAcceptCase();
-        safeClickOn(continueButton);
-        enterDetailsOnTriageCaptureReasonPage();
-        safeClickOn(continueButton);
-        escalateCaseToWFM();
-    }
-
-    public void moveCaseFromServiceTriageToCCH() {
-        selectTransferComplaint();
-        enterTransferReason();
-        selectTransferToCCH();
+        selectSpecificRadioButton(yesNo);
+        clickTheButton("Confirm");
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {

@@ -3,27 +3,15 @@ package com.hocs.test.pages.wcs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 
 public class Eligibility extends BasePage {
 
-    @FindBy(css = "label[for='EligibilityConfirmed-OnHold']")
-    public WebElementFacade canYouConfirmTheClaimantsEligibilityOnHoldRadioButton;
-
-    @FindBy(css = "label[for='EligibilityConfirmed-Yes']")
-    public WebElementFacade canYouConfirmTheClaimantsEligibilityYesRadioButton;
-
-    @FindBy(css = "label[for='EligibilityConfirmed-No']")
-    public WebElementFacade canYouConfirmTheClaimantsEligibilityNoRadioButton;
-
-    @FindBy(css = "label[for='EligibilityConfirmed-Pending']")
-    public WebElementFacade canYouConfirmTheClaimantsEligibilityOffHoldRadioButton;
-
-    @FindBy(css = "label[for='EligibilityConfirmed-No-Response']")
-    public WebElementFacade canYouConfirmTheClaimantsEligibilityNoResponseRadioButton;
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//a[@href='#EligibilityConfirmed-error']")
     public WebElementFacade canYouConfirmClaimantEligibilityErrorMessage;
@@ -34,34 +22,31 @@ public class Eligibility extends BasePage {
     @FindBy(id = "EligibilityRejReason")
     public WebElementFacade rejectionReasonDropdown;
 
-    @FindBy(css = "label[for*='Confirm-Yes']")
-    public WebElementFacade closeClaimYesRadioButton;
-
-    @FindBy(css = "label[for*='Confirm-No']")
-    public WebElementFacade closeClaimNoRadioButton;
-
     public void confirmEligibility() {
-        clickOn(canYouConfirmTheClaimantsEligibilityYesRadioButton);
+        selectSpecificRadioButton("Eligible, send to next team");
+        recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's eligibility", "Yes");
         clickOn(confirmButton);
     }
 
     public void cannotConfirmEligibility() {
-        clickOn(canYouConfirmTheClaimantsEligibilityNoRadioButton);
+        selectSpecificRadioButton("Not eligible");
+        recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's eligibility", "No");
         clickOn(confirmButton);
+        waitFor(rejectionReasonDropdown);
     }
 
     public void putTheClaimOnHold() {
-        clickOn(canYouConfirmTheClaimantsEligibilityOnHoldRadioButton);
+        selectSpecificRadioButton("On hold");
         clickOn(confirmButton);
     }
 
     public void takeTheClaimOffHold() {
-        clickOn(canYouConfirmTheClaimantsEligibilityOffHoldRadioButton);
+        selectSpecificRadioButton("Off hold");
         clickOn(confirmButton);
     }
 
     public void noResponseFromClaimantCloseClaim() {
-        clickOn(canYouConfirmTheClaimantsEligibilityNoResponseRadioButton);
+        selectSpecificRadioButton("No response from claimant - close claim");
         clickOn(confirmButton);
     }
 
@@ -78,7 +63,7 @@ public class Eligibility extends BasePage {
     }
 
     public void confirmClaimShouldBeClosed() {
-        clickOn(closeClaimYesRadioButton);
+        selectSpecificRadioButton("Yes - close the claim");
         try {
             clickOn(confirmButton);
         } catch (ElementShouldBeEnabledException e) {
@@ -87,7 +72,7 @@ public class Eligibility extends BasePage {
     }
 
     public void selectToNotCloseTheClaim() {
-        clickOn(closeClaimNoRadioButton);
+        selectSpecificRadioButtonFromGroupWithHeading("No", "No response from the claimant. Close the claim?");
         try {
             clickOn(confirmButton);
         } catch (ElementShouldBeEnabledException e) {

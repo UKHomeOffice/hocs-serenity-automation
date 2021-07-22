@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -17,8 +17,8 @@ public class PaymentPreparation extends BasePage {
     }
 
     public void selectToSendClaimToOfferApproval() {
-        clickOn(sendToOfferApprovalRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Send for payment approval");
+        clickTheButton("Confirm");
     }
 
 }

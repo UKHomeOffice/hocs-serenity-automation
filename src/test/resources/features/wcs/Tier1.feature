@@ -31,24 +31,11 @@ Feature: Tier 1
     Then the claim should be moved to the "Payment Preparation" stage
 
   @Workflow @WCSRegression
-  Scenario: User records that the claimants has rejected the interim offer and send the claim back to casework team 1
-    And I move the claim to the "Tier 1" stage via Casework Team: "WCS Casework Team 1"
+  Scenario: User records that the claimants has rejected the interim offer and send the claim back to Casework stage
+    And I move the claim to the "Tier 1" stage
     And I complete the Tier 1 Review page
     When I select that the claimant rejected the interim or preliminary offer, or the offer was rejected
     Then the claim should be moved to the "Casework" stage
-
-  @Workflow
-  Scenario Outline: User records that the claimants has rejected the interim offer and send the claim back to a casework team
-    And I move the claim to the "Tier 1" stage via Casework Team: "<teamName>"
-    And I complete the Tier 1 Review page
-    When I select that the claimant rejected the interim or preliminary offer, or the offer was rejected
-    Then the claim should be moved to the "Casework" stage
-    Examples:
-      | teamName                       |
-      | Initial Consideration Casework |
-      | WCS Casework Team 2            |
-      | WCS Casework Team 3            |
-      | WCS Casework Team 4            |
 
   @Workflow @WCSRegression
   Scenario: User records that the claimants has rejected the final offer

@@ -5,10 +5,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.UnallocatedCaseView;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;

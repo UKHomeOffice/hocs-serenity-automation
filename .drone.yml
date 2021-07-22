@@ -129,7 +129,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: DECS-Regression
+name: CS-Regression
 depends_on:
   - SMOKE
 trigger:
@@ -142,7 +142,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
-      - sh bin/decs.sh
+      - sh bin/cs.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password

@@ -14,6 +14,7 @@ Feature: Service Triage
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a rejection note should be visible showing the reason for rejection
+    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @COMPWorkflow @COMPRegression
@@ -25,6 +26,7 @@ Feature: Service Triage
     When I send the case to drafting
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
 #    HOCS-3028
   @COMPWorkflow @COMPRegression
@@ -37,6 +39,8 @@ Feature: Service Triage
       Then the case should be moved to the "Service Escalated" stage
       And the summary should display the owning team as "CCT Stage 1 Escalated"
       And a escalation note should be visible showing the reason for escalation
+      And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+
 
 #    HCOS-3026
   @COMPWorkflow @COMPRegression
@@ -51,6 +55,7 @@ Feature: Service Triage
     And I confirm I want to close the case at Service Triage
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
+    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
@@ -90,8 +95,7 @@ Feature: Service Triage
     And I can mark that the LoA was received and enter the LoA date
     And I send the case to drafting
     And I load the current case
-    Then the "Service Triage" COMP accordion in case details should display the correct information for "Has LoA Been Received"
-    And the "Service Triage" COMP accordion in case details should display the correct information for "Date Of LoA"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @Validation
   Scenario Outline: User tests the validation at the Service Triage stage

@@ -12,7 +12,7 @@ Feature: Initial Draft
     And I select to reply by "phone"
     When I "complete" the call details
     And I select "no" to choosing another Response Type
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be closed
     Examples:
       | caseType  |
@@ -29,7 +29,7 @@ Feature: Initial Draft
     And I select the "draft" document as the primary draft
     And I click the "continue" button
     And I select "no" to QA offline
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be moved to the "QA RESPONSE" stage
     And the "draft" document should be tagged as the primary draft
     Examples:
@@ -46,7 +46,7 @@ Feature: Initial Draft
     And I select the "draft" document as the primary draft
     And I click the "continue" button
     And I select "no" to QA offline
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be moved to the "QA RESPONSE" stage
     And the "draft" document should be tagged as the primary draft
 
@@ -61,7 +61,7 @@ Feature: Initial Draft
     And I click the "continue" button
     And I select "yes" to QA offline
     And I select "DECS_USER" as the offline QA
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be moved to the "Private Office Approval" stage
     And the "draft" document should be tagged as the primary draft
 
@@ -75,7 +75,7 @@ Feature: Initial Draft
     And I click the "continue" button
     And I select "yes" to QA offline
     And I select "DECS_USER" as the offline QA
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be moved to the "Private Office Approval" stage
     And the "draft" document should be tagged as the primary draft
 
@@ -90,7 +90,7 @@ Feature: Initial Draft
     And I click the "continue" button
     And I select "yes" to QA offline
     And I select "DECS_USER" as the offline QA
-    Then I am returned to my home screen
+    Then I am returned to the dashboard
     And the case should be moved to the "Dispatch" stage
     And the "draft" document should be tagged as the primary draft
 

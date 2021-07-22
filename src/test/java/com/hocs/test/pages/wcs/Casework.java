@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -46,34 +46,34 @@ public class Casework extends BasePage {
     }
 
     public void selectClaimStatusReadyToQA() {
-        clickOn(offerReadyToQARadioButton);
+        selectSpecificRadioButton("Send offer to QA");
         clickOn(confirmButton);
     }
 
     public void putTheClaimOnHold() {
-        clickOn(caseworkingOnHoldRadioButton);
+        selectSpecificRadioButton("On hold");
         clickOn(confirmButton);
         System.out.println("Case moved from Casework to Casework On Hold");
     }
 
     public void takeTheClaimOffHold() {
-        clickOn(caseworkingOffHoldRadioButton);
+        selectSpecificRadioButton("Off hold");
         clickOn(confirmButton);
         System.out.println("Case moved from Casework On Hold to Casework");
     }
 
     public void selectToSendClaimToEligibility() {
-        clickOn(sendToEligibilityRadioButton);
+        selectSpecificRadioButton("Return to Eligibility team");
         clickOn(confirmButton);
     }
 
     public void selectToSendClaimToRegistration() {
-        clickOn(sendToRegistrationRadioButton);
+        selectSpecificRadioButton("Return to Registration team");
         clickOn(confirmButton);
     }
 
     public void selectToSendClaimToTriage() {
-        clickOn(sendToTriageRadioButton);
+        selectSpecificRadioButton("Return to Triage team");
         clickOn(confirmButton);
     }
 

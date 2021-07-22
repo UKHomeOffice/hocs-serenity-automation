@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -20,12 +20,12 @@ public class PaymentPreOfferChecklist extends BasePage {
     }
 
     public void selectPaymentSendForApproval() {
-        clickOn(sendForOfferApprovalRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Send for offer approval");
+        clickTheButton("Confirm");
     }
 
     public void returnToQAForCorrections() {
-        clickOn(returnToQAForCorrectionsRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Return to QA for corrections");
+        clickTheButton("Confirm");
     }
 }

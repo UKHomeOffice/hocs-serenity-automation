@@ -1,7 +1,7 @@
 package com.hocs.test.glue.wcs;
 
 import com.hocs.test.pages.wcs.ClaimSchema;
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.wcs.Tier2Coordination;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -37,11 +37,6 @@ public class Tier2StepDefs extends BasePage {
         tier2Coordination.assertTier2ReviewResultIsRequiredErrorMessage();
     }
 
-    @And("I select that the adjudicators office has {string} their decision")
-    public void selectAdjudicatorsOfficeDecision(String decision) {
-        tier2Coordination.enterAdjudicatorOfficeDecisionInformation("01/01/2001", decision);
-    }
-
     @Then("the adjudicators office decision details are correctly displayed in the case details accordion")
     public void adjudicatorsDecisionDetailsAreCorrectlyDisplayedInCaseDetails() {
         clickOn(claimSchema.caseDetailsAccordion);
@@ -50,7 +45,14 @@ public class Tier2StepDefs extends BasePage {
 
     @And("I enter a Tier 2 review withdrawal outcome and decision date")
     public void iEnterATier2ReviewWithdrawalOutcomeAndDecisionDate() {
-        tier2Coordination.selectWithdrawDecision("Offer withdrawn");
+        tier2Coordination.selectAWithdrawDecision();
         tier2Coordination.enterOfferWithdrawnDate(getTodaysDate());
+    }
+
+    @And("I enter a Tier 2 adjudicators office decision and decision date")
+    public void iEnterATierAdjudicatorsOfficeDecisionAndDecisionDate() {
+        tier2Coordination.selectAAdjudicatorsOfficeDecision();
+        tier2Coordination.enterTier2AdjudicatorOfficeDecisionDate(getTodaysDate());
+        tier2Coordination.selectClaimantAcceptsUpheldOffer();
     }
 }

@@ -2,10 +2,10 @@ package com.hocs.test.glue.ukvi;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.platform.AddCorrespondent;
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.ukvi.Creation;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

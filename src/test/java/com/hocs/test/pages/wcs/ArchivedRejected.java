@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -21,19 +21,14 @@ public class ArchivedRejected extends BasePage {
     @FindBy(xpath = "//a[@href='#ArchEROutcome-error']")
     public WebElementFacade archiveEligibilityRejectedIsRequiredErrorMessage;
 
-    public void selectToRestoreClaimToRegistration() {
-        clickOn(restoreToRegistrationRadioButton);
-        clickOn(confirmButton);
-    }
-
-    public void selectToRestoreClaimToEligibility() {
-        clickOn(restoreToEligibilityRadioButton);
-        clickOn(confirmButton);
+    public void selectToRestoreClaim() {
+        selectSpecificRadioButton("Restore claim");
+        clickTheButton("Confirm");
     }
 
     public void selectToPermanentlyCloseClaim() {
-        clickOn(closeClaimRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Close claim permanently");
+        clickTheButton("Confirm");
     }
 
     public void assertArchiveIdentityRejectedIsRequiredErrorMessage() {

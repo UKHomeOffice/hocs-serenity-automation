@@ -6,22 +6,10 @@ Feature: Payment Approval
     And I create a single "WCS" claim
 
   @Workflow @WCSRegression
-  Scenario: User sends claim back to Casework team 1
-    And I move the claim to the "Payment Approval" stage via Casework Team: "WCS Casework Team 1"
+  Scenario: User sends claim back to Casework stage
+    And I move the claim to the "Payment Approval" stage
     When I select to return claim to the Casework team due to PNC failure
     Then the claim should be returned to the correct WCS Casework team
-
-  @Workflow
-  Scenario Outline: User sends claim back to other Casework teams
-    And I move the claim to the "Payment Approval" stage via Casework Team: "<teamName>"
-    When I select to return claim to the Casework team due to PNC failure
-    Then the claim should be returned to the correct WCS Casework team
-    Examples:
-      | teamName                       |
-      | Initial Consideration Casework |
-      | WCS Casework Team 2            |
-      | WCS Casework Team 3            |
-      | WCS Casework Team 4            |
 
   @Workflow @WCSRegression
   Scenario: User approves the payment and progresses claim to Send Payment stage

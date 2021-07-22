@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -20,13 +20,13 @@ public class NilOfferAcceptance extends BasePage {
     }
 
     public void selectPaymentNoChallenge() {
-        clickOn(noChallengeRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("No response after 2 months - close case");
+        clickTheButton("Confirm");
     }
 
     public void selectPaymentNilOfferRejected() {
-        clickOn(nilPaymentRejectedRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("nil payment rejected");
+        clickTheButton("Confirm");
     }
 
 }

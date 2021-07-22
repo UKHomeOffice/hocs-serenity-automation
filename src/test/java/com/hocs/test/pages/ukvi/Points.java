@@ -1,6 +1,6 @@
 package com.hocs.test.pages.ukvi;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

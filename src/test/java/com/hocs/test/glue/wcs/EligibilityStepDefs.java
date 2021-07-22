@@ -1,6 +1,6 @@
 package com.hocs.test.glue.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.wcs.Eligibility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

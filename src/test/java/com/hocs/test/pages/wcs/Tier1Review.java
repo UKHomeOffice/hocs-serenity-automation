@@ -1,13 +1,13 @@
 package com.hocs.test.pages.wcs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Tier1Review extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(css = "label[for='Tier1Status-Progress']")
     public WebElementFacade progressCaseRadioButton;
@@ -27,8 +27,11 @@ public class Tier1Review extends BasePage {
     @FindBy(xpath = "//a[@href='#Tier1OutcomeFinal2-error']")
     public WebElementFacade finalSecondOutcomeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#Tier1Status-error']")
+    @FindBy(xpath = "//a[contains(@href,'Outcome-error')]")
     public WebElementFacade actionIsRequired;
+
+    @FindBy(xpath = "//a[@href='#Tier1Status-error']")
+    public WebElementFacade resultOfReviewIsRequired;
 
     @FindBy(css = "label[for='Tier1Withdrawn-NA']")
     public WebElementFacade reviewOfferNARadioButton;
@@ -118,21 +121,77 @@ public class Tier1Review extends BasePage {
     public WebElementFacade finalOutcome2DateYearTextbox;
 
     public void completeTier1ReviewPage() {
-        selectWithdrawDecision("Offer withdrawn");
+        selectAWithdrawDecision();
         enterOfferWithdrawnDate(getTodaysDate());
-        selectInterimFirstOutcome("Decision revised");
+        selectAInterimFirstOutcome();
         enterInterimFirstDecisionDate(getTodaysDate());
-        selectInterimSecondOutcome("Decision revised");
+        selectAInterimSecondOutcome();
         enterInterimSecondDecisionDate(getTodaysDate());
-        selectFinalFirstOutcome("Decision revised");
+        selectAFinalFirstOutcome();
         enterFinalFirstDecisionDate(getTodaysDate());
-        selectFinalSecondOutcome("Decision revised");
+        selectAFinalSecondOutcome();
         enterFinalSecondDecisionDate(getTodaysDate());
         selectToProgressClaim();
     }
 
-    public void assertResultOfReviewIsRequiredErrorMessage() {
+    public void selectAWithdrawDecision() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Review/Offer withdrawn at Tier 1");
+    }
+
+    public void enterOfferWithdrawnDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Review/Offer withdrawn at Tier 1 date");
+    }
+
+    public void selectAInterimFirstOutcome() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Tier 1 interim first outcome");
+    }
+
+    public void enterInterimFirstDecisionDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Tier 1 interim first decision date");
+    }
+
+    public void selectAInterimSecondOutcome() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Tier 1 interim second outcome");
+    }
+
+    public void enterInterimSecondDecisionDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Tier 1 interim second decision date");
+    }
+
+    public void selectAFinalFirstOutcome() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Tier 1 full & final first outcome");
+    }
+
+    public void enterFinalFirstDecisionDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Tier 1 full & final first decision date");
+    }
+
+    public void selectAFinalSecondOutcome() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Tier 1 full & final second outcome");
+    }
+
+    public void enterFinalSecondDecisionDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Tier 1 full & final second decision date");
+    }
+
+    public void selectToProgressClaim() {
+        selectSpecificRadioButton("progress the case");
+        clickTheButton("Confirm");
+    }
+
+    public void selectToReturnClaim() {
+        selectSpecificRadioButton("Decision revised");
+        clickTheButton("Confirm");
+    }
+
+    //Assertions
+
+    public void assertActionIsRequiredErrorMessage() {
         actionIsRequired.shouldContainText("Action is required");
+    }
+
+    public void assertResultOfReviewIsRequiredErrorMessage() {
+        actionIsRequired.shouldContainText("Result of review is required");
     }
 
     public void assertWithdrawnOutcomeIsRequiredErrorMessage() {
@@ -153,107 +212,5 @@ public class Tier1Review extends BasePage {
 
     public void assertFinalSecondOutcomeIsRequiredErrorMessage() {
         finalSecondOutcomeIsRequiredErrorMessage.shouldContainText("Tier 1 full & final second outcome is required");
-    }
-
-    public void selectToProgressClaim() {
-        clickOn(progressCaseRadioButton);
-        clickOn(confirmButton);
-    }
-
-    public void selectInterimFirstOutcome(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(interimDecision1NARadioButton);
-                break;
-            case "DECISION REVISED":
-                clickOn(interimDecision1RevisedRadioButton);
-                break;
-            case "DECISION UPHELD":
-                clickOn(interimDecision1UpheldRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void selectInterimSecondOutcome(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(interimDecision2NARadioButton);
-                break;
-            case "DECISION REVISED":
-                clickOn(interimDecision2RevisedRadioButton);
-                break;
-            case "DECISION UPHELD":
-                clickOn(interimDecision2UpheldRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterInterimFirstDecisionDate(String date) {
-        typeIntoDateFields(interimOutcome1DateDayTextbox, interimOutcome1DateMonthTextbox, interimOutcome1DateYearTextbox, date);
-    }
-
-    public void enterInterimSecondDecisionDate(String date) {
-        typeIntoDateFields(interimOutcome2DateDayTextbox, interimOutcome2DateMonthTextbox, interimOutcome2DateYearTextbox, date);
-    }
-
-    public void selectFinalFirstOutcome(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(finalDecision1NARadioButton);
-                break;
-            case "DECISION REVISED":
-                clickOn(finalDecision1RevisedRadioButton);
-                break;
-            case "DECISION UPHELD":
-                clickOn(finalDecision1UpheldRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void selectFinalSecondOutcome(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(finalDecision2NARadioButton);
-                break;
-            case "DECISION REVISED":
-                clickOn(finalDecision2RevisedRadioButton);
-                break;
-            case "DECISION UPHELD":
-                clickOn(finalDecision2UpheldRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterFinalFirstDecisionDate(String date) {
-        typeIntoDateFields(finalOutcome1DateDayTextbox, finalOutcome1DateMonthTextbox, finalOutcome1DateYearTextbox, date);
-    }
-
-    public void enterFinalSecondDecisionDate(String date) {
-        typeIntoDateFields(finalOutcome2DateDayTextbox, finalOutcome2DateMonthTextbox, finalOutcome2DateYearTextbox, date);
-    }
-
-    public void selectWithdrawDecision(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(reviewOfferNARadioButton);
-                break;
-            case "OFFER WITHDRAWN":
-                clickOn(reviewOfferWithdrawnRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterOfferWithdrawnDate(String date) {
-        typeIntoDateFields(reviewOfferWithdrawnDateDayTextbox, reviewOfferWithdrawnDateMonthTextbox, reviewOfferWithdrawnDateYearTextbox, date);
     }
 }

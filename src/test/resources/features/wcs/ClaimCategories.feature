@@ -5,15 +5,16 @@ Feature: Claim Categories
     Given I am logged into "WCS" as user "WCS_USER"
     And I create a single "WCS" claim
     And I move the claim to the "Send Offer" stage
-    And I open the claim categories accordion
+    And I open the "Claim categories" accordion section
+    And I record the amounts I enter for each claim category
 
   @Data
   Scenario: User inputs a value into amount awarded and amount paid in a claim category
     And I select the "BENEFITS" checkbox
     And I choose a full payment for the "BENEFITS" and enter 100 into the Amount Awarded field, and 100 into the Amount Paid field
     And I save changes to the claim
-    And I open the claim categories accordion
-    Then the Totals fields should display the correct amounts
+    And I open the "Claim categories" accordion section
+    Then the displayed totals should match the values I have recorded
 
   @Data @WCSRegression
   Scenario: User inputs values into every amount awarded, amount paid addition, additional amount paid and preliminary offer field in the claim category
@@ -48,19 +49,19 @@ Feature: Claim Categories
     And I select the "URGENT EXCEPTIONAL PAYMENT" checkbox
     And I enter 5 into amount awarded and 100 into amount deducted for the Urgent Exceptional Payment
     And I save changes to the claim
-    And I open the claim categories accordion
-    Then the Totals fields should display the correct amounts
+    And I open the "Claim categories" accordion section
+    Then the displayed totals should match the values I have recorded
 
   @Data @WCSRegression
   Scenario: User inputs an amount awarded into a field then deletes it and checks if the total updates
     And I select the "BENEFITS" checkbox
     And I choose a full payment for the "BENEFITS" and enter 100 into the Amount Awarded field, and 100 into the Amount Paid field
     And I save changes to the claim
-    And I open the claim categories accordion
-    Then the Totals fields should display the correct amounts
+    And I open the "Claim categories" accordion section
+    Then the displayed totals should match the values I have recorded
     And I delete the "BENEFITS" amount awarded
     And I save changes to the claim
-    Then the Totals fields should display the correct amounts
+    Then the displayed totals should match the values I have recorded
 
   @Data
   Scenario: User inputs an amount awarded into multiple claim categories and deletes them to see if the totals update
@@ -69,9 +70,9 @@ Feature: Claim Categories
     And I choose a full payment for the "BENEFITS" and enter 10 into the Amount Awarded field, and 100 into the Amount Paid field
     And I choose a full payment for the "CHILD BENEFIT AND TAX CREDIT" and enter 100 into the Amount Awarded field, and 100 into the Amount Paid field
     And I save changes to the claim
-    And I open the claim categories accordion
-    Then the Totals fields should display the correct amounts
+    And I open the "Claim categories" accordion section
+    Then the displayed totals should match the values I have recorded
     And I delete the "BENEFITS" amount awarded
     And I delete the "CHILD BENEFIT AND TAX CREDIT" amount awarded
     And I save changes to the claim
-    Then the Totals fields should display the correct amounts
+    Then the displayed totals should match the values I have recorded

@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -23,17 +23,17 @@ public class SendOffer extends BasePage {
     }
 
     public void selectOfferSentToClaimant() {
-        clickOn(offerSentToClaimantReapprovalRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Offer sent");
+        clickTheButton("Confirm");
     }
 
     public void selectNilOfferSentToClaimant() {
-        clickOn(nilPaymentSentToClaimantRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Nil payment sent");
+        clickTheButton("Confirm");
     }
 
     public void returnToOfferApproval() {
-        clickOn(pncFailedSendForReapprovalRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("PNC failed");
+        clickTheButton("Confirm");
     }
 }

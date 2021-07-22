@@ -17,6 +17,7 @@ public class BroughtForwardDateStepDefs {
     @And("I fill in the case info including the Brought Forward Date: {string}")
     public void iFillInTheCaseInfoIncludingTheBroughtForwardDate(String broughtForwardDate) {
         claimSchema.completeRequiredFieldsInCaseInfoSection();
+        claimSchema.expandCollapseCaseInfoSection();
         claimSchema.enterBroughtForwardDate(broughtForwardDate);
     }
 

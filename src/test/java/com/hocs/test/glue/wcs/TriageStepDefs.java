@@ -1,8 +1,8 @@
 package com.hocs.test.glue.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.wcs.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -15,9 +15,9 @@ public class TriageStepDefs extends BasePage {
 
     Triage triage;
 
-    @And("I select {string} as the casework team")
-    public void selectCaseworkTeamFromDropdown(String teamName) {
-        triage.selectCaseworkingTeam(teamName);
+    @And("I select a casework team")
+    public void selectCaseworkTeamFromDropdown() {
+        triage.selectACaseworkingTeam();
     }
 
     @Then("an error message is displayed as I have not selected a caseworking team")

@@ -12,6 +12,7 @@ Feature: Service Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
 
 #    HOCS-3076, HOCS-3028
   @COMPWorkflow @COMPRegression
@@ -19,6 +20,7 @@ Feature: Service Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
 
 #    HOCS-2870, HOCS-3096
   @COMPRegression

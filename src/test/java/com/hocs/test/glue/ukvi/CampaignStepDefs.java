@@ -2,9 +2,9 @@ package com.hocs.test.glue.ukvi;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.ContributionRequests;
-import com.hocs.test.pages.platform.SummaryTab;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ContributionRequests;
+import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.ukvi.Campaign;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

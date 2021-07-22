@@ -23,7 +23,7 @@ Feature: Registration
   @Validation
   Scenario: User saves a claim without completing the mandatory Case Details fields
     And I progress to the Registration page
-    And I select 'Save changes'
+    And I select that I can confirm the claimants ID
     When I click the "Confirm" button
     Then an error message for each mandatory claim details field should be displayed as I have not completed them
 
@@ -104,12 +104,6 @@ Feature: Registration
     When I pass the claim to stage 1 identity check
     And I select that identity cannot be confirmed
     Then the claim should be moved to the "Identity Rejected" stage
-
-  @Data
-  Scenario: User can see a list of countries to select from for the Primary claimants nationality
-    And I progress to the Registration page
-    When I select the primary claimants nationality dropdown
-    Then "Tanzania" should be visible as an option to select from the dropdown list
 
 
 

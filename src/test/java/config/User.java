@@ -8,6 +8,7 @@ public enum User {
     WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
     COMP_USER("comp automated regression user", "Password1!", "COMP Regression (compregression@test.com)"),
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
+    WCS_TASKFORCE_USER("wcs taskforce user", "Password1!", "WCS Taskforce User (wcstaskforceuser@test.com)"),
     TEST_USER_1("test user 1", "Password1!", "Test User 1 (testuser1@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
     CAMERON("cameron.page@ten10.com", "Password1!", "Cameron Page (cameron.page@ten10.com)"),

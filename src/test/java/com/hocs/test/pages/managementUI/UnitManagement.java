@@ -3,7 +3,7 @@ package com.hocs.test.pages.managementUI;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;

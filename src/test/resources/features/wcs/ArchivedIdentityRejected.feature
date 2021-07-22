@@ -8,7 +8,7 @@ Feature: Archived Identity Rejected
 
   @Workflow @WCSRegression
   Scenario: User returns the claim to Registration stage
-    When I select to return the claim to Registration
+    When I select to restore the claim to Registration
     Then the claim should be moved to the "Registration" stage
 
   @Workflow @WCSRegression

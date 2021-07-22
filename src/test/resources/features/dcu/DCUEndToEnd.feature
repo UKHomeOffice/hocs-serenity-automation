@@ -110,7 +110,7 @@ Feature: DCU End To End
 
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: Dispatch a case with Copy to Number Ten selected
-    Given I create a single "MIN" case and return to the dashboard
+    When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage and send a copy to Number Ten
     And I complete the Markup stage

@@ -3,7 +3,7 @@ package com.hocs.test.pages.ukvi;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -27,7 +27,7 @@ public class CloseCaseTelephone extends BasePage {
     }
 
     public void selectResponseChannel(String responseChannel) {
-        safeClickRadioButtonByVisibleText(responseChannel);
+        selectSpecificRadioButton(responseChannel);
     }
 
     public void enterExplanationForClosingCase(String text) {

@@ -3,7 +3,7 @@ Feature: Eligibility
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a WCS claim
+    And I create a single "WCS" claim
     And I move the claim to the "Eligibility" stage
 
   @Workflow @WCSRegression
@@ -47,7 +47,7 @@ Feature: Eligibility
   @Validation
   Scenario: User select that they cant confirm claimant eligibility but dont give a reason why
     When I select that I cannot confirm the candidates eligibility
-    And I click the "CONFIRM" button
+    And I click the "Confirm" button
     Then an error message should be displayed as I have not selected a rejection reason
 
   @Workflow @WCSRegression

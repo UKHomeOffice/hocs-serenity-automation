@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -19,13 +19,13 @@ public class Rejected extends BasePage {
     public WebElementFacade reviewEligibilityDecisionIsRequiredErrorMessage;
 
     public void selectToSendClaimToTier1Review() {
-        clickOn(sendToTier1ReviewRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Yes, send to Tier 1 review");
+        clickTheButton("Confirm");
     }
 
     public void selectToArchiveClaim() {
-        clickOn(archiveClaimRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("archive claim");
+        clickTheButton("Confirm");
     }
 
     public void assertReviewIdentityDecisionIsRequiredErrorMessage() {

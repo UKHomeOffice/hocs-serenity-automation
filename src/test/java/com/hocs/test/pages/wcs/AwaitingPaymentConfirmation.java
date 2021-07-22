@@ -1,6 +1,6 @@
 package com.hocs.test.pages.wcs;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -23,13 +23,13 @@ public class AwaitingPaymentConfirmation extends BasePage {
     }
 
     public void selectClaimCompletePaymentConfirmed() {
-        clickOn(paymentConfirmedRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Payment confirmed - close claim");
+        clickTheButton("Confirm");
     }
 
     public void yesCloseClaim() {
-        clickOn(closeClaimYesRadioButton);
-        clickOn(confirmButton);
+        selectSpecificRadioButton("Yes - close the claim");
+        clickTheButton("Confirm");
     }
 
 }

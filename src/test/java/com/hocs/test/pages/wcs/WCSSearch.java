@@ -5,10 +5,10 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.SummaryTab;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.Workstacks;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,7 +118,7 @@ public class WCSSearch extends BasePage {
     }
 
     public void assertCaseIsVisibleInSearchResults() {
-        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + sessionVariableCalled("caseReference") +"']");
+        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + getCurrentCaseReference() +"']");
         assertThat(currentCaseSearchResult.isVisible(), is(true));
 
     }

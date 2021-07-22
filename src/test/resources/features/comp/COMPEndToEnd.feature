@@ -36,7 +36,7 @@ Feature: COMP End To End
     When I create a "COMP" case and move it to the "Complaint Closed" stage
     Then the case should be moved to the "Complaint Closed" stage
 
-  @COMPRegression
+  @COMPRegression @Smoketests
   Scenario: User can complete and close a COMP case
     When I create a "COMP" case and move it to "Case Closed"
     Then the case should be closed

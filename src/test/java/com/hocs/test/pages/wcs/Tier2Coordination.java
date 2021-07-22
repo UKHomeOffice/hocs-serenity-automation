@@ -7,13 +7,16 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.platform.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Tier2Coordination extends BasePage {
 
     ClaimSchema claimSchema;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(css = "label[for='Tier2Coord-Revise-Accept']")
     public WebElementFacade revisedOfferAcceptedByTheClaimantRadioButton;
@@ -60,51 +63,46 @@ public class Tier2Coordination extends BasePage {
     @FindBy(xpath = "//input[@id='Tier2WithdrawnDate-year']")
     public WebElementFacade reviewOfferWithdrawnDateYearTextbox;
 
-
-    public void assertTier2ReviewResultIsRequiredErrorMessage() {
-        tier2ReviewResultIsRequiredErrorMessage.shouldContainText("Tier 2 review result is required");
+    public void selectAWithdrawDecision() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Review/Offer withdrawn at Tier 2");
     }
 
-    public void selectClaimantAcceptsRevisedOffer() {
-        clickOn(revisedOfferAcceptedByTheClaimantRadioButton);
-        clickOn(confirmButton);
+    public void enterOfferWithdrawnDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date,"Review/Offer withdrawn at Tier 2 date");
     }
 
-    public void selectClaimantRejectsRevisedOffer() {
-        clickOn(revisedOfferRejectedByTheClaimantRadioButton);
-        clickOn(confirmButton);
-    }
-
-    public void selectClaimantAcceptsUpheldOffer() {
-        clickOn(upheldOfferIsAcceptedByTheClaimantRadioButton);
-        clickOn(confirmButton);
-    }
-
-    public void selectClaimantRejectsUpheldOffer() {
-        clickOn(upheldOfferIsRejectedByTheClaimantRadioButton);
-        clickOn(confirmButton);
+    public void selectAAdjudicatorsOfficeDecision() {
+        String selectedDecision = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Tier 2 adjudicator's office decision");
+        setSessionVariable("adjudicatorsOfficeDecision").to(selectedDecision);
     }
 
     public void enterTier2AdjudicatorOfficeDecisionDate(String date) {
-        typeIntoDateFields(tier2AdjudicatorDecisionDateDayTextField, tier2AdjudicatorDecisionDateMonthTextField, tier2AdjudicatorDecisionYearTextField, date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "Tier 2 adjudicator's office decision date");
         setSessionVariable("adjudicatorsOfficeDecisionDate").to(date);
     }
 
-    public void enterAdjudicatorOfficeDecisionInformation(String date, String decision) {
-        enterTier2AdjudicatorOfficeDecisionDate(date);
-        switch (decision.toUpperCase()) {
-            case "UPHELD":
-                clickOn(tier2AdjudicatorDecisionUpheldRadioButton);
-                selectClaimantAcceptsUpheldOffer();
-                break;
-            case "REVISED":
-                clickOn(tier2AdjudicatorDecisionRevisedRadioButton);
-                selectClaimantAcceptsRevisedOffer();
-                break;
-            default:
-                pendingStep(decision + " is not defined within " + getMethodName());
-        }
-        setSessionVariable("adjudicatorsOfficeDecision").to(decision);
+    public void selectClaimantAcceptsRevisedOffer() {
+        selectSpecificRadioButton("Revised offer accepted");
+        clickTheButton("Confirm");
+    }
+
+    public void selectClaimantRejectsRevisedOffer() {
+        selectSpecificRadioButton("Revised offer rejected");
+        clickTheButton("Confirm");
+    }
+
+    public void selectClaimantAcceptsUpheldOffer() {
+        selectSpecificRadioButton("Upheld offer is accepted");
+        clickTheButton("Confirm");
+    }
+
+    public void selectClaimantRejectsUpheldOffer() {
+        selectSpecificRadioButton("Upheld offer is rejected");
+        clickTheButton("Confirm");
+    }
+
+    public void assertTier2ReviewResultIsRequiredErrorMessage() {
+        tier2ReviewResultIsRequiredErrorMessage.shouldContainText("Tier 2 review result is required");
     }
 
     public void assertTier2AdjudicatorsOfficeDecisionInformationIsCorrectInAccordion() {
@@ -115,22 +113,5 @@ public class Tier2Coordination extends BasePage {
         String decisionDate = decisionDateDay + "/" + decisionDateMonth + "/" + decisionDateYear;
         assertThat(decisionDate.equals(sessionVariableCalled("adjudicatorsOfficeDecisionDate")), is(true));
         assertThat(decision.equals(sessionVariableCalled("adjudicatorsOfficeDecision")), is(true));
-    }
-
-    public void selectWithdrawDecision(String outcome) {
-        switch (outcome.toUpperCase()) {
-            case "N/A":
-                clickOn(reviewOfferNARadioButton);
-                break;
-            case "OFFER WITHDRAWN":
-                clickOn(reviewOfferWithdrawnRadioButton);
-                break;
-            default:
-                pendingStep(outcome + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterOfferWithdrawnDate(String date) {
-        typeIntoDateFields(reviewOfferWithdrawnDateDayTextbox, reviewOfferWithdrawnDateMonthTextbox, reviewOfferWithdrawnDateYearTextbox, date);
     }
 }

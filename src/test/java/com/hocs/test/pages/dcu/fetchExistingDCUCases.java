@@ -5,11 +5,11 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.platform.BasePage;
-import com.hocs.test.pages.platform.CreateCase;
-import com.hocs.test.pages.platform.Dashboard;
-import com.hocs.test.pages.platform.UnallocatedCaseView;
-import com.hocs.test.pages.platform.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.openqa.selenium.NoSuchElementException;
