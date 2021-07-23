@@ -35,7 +35,7 @@ public class CCH extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void enterReasonForCaseCompletion() {
+    public void submitReasonForCaseCompletion() {
         String enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
         setSessionVariable("closureReason").to(enteredText);
         clickTheButton("Complete case");

@@ -416,7 +416,8 @@ public class BasePage extends PageObject {
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
         List<WebElementFacade> radioButtonElements = findAll(
-                "//span[contains(@class,'govuk-fieldset__heading')][text() ='" + headingText + "']/ancestor::fieldset//input/following-sibling::label");
+                "//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
+                        + "//input/following-sibling::label");
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -425,19 +426,21 @@ public class BasePage extends PageObject {
     public String selectSpecificRadioButton(String radioButtonText) {
         WebElementFacade radioButtonElement = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
         safeClickOn(radioButtonElement);
-        String heading = findBy("//label[contains(text(),'" + radioButtonText + "')]/ancestor::fieldset/legend/span").getText();
+        String heading =
+                findBy("//label[contains(text()," + sanitiseXpathAttributeString(radioButtonText) + ")]/ancestor::fieldset/legend/span").getText();
         return heading;
     }
 
     public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
         waitForHeadingToBeVisible(headingText);
-        WebElementFacade radioButtonElement = findBy("//span[contains(@class,'govuk-fieldset__heading')][text() ='" + headingText + "']/ancestor"
-                + "::fieldset//input/following-sibling::label[text()='" + radioButtonText + "']");
+        WebElementFacade radioButtonElement =
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]");
         safeClickOn(radioButtonElement);
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
-        return findBy("//input/following-sibling::label[contains(text(),'" + elementText + "')]");
+        return findBy("//input/following-sibling::label[contains(text()," + sanitiseXpathAttributeString(elementText) + ")]");
     }
 
     //Date fields
@@ -451,18 +454,20 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getVisibleDayFieldWithMatchingHeading(String headingText) {
-        List<WebElementFacade> dayFieldsWithMatchingHeading = findAll("//legend[text()='" + headingText + "']/following-sibling::div/div[1]//input");
+        List<WebElementFacade> dayFieldsWithMatchingHeading = findAll("//legend[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+                + "-sibling::div/div[1]//input");
         return getOnlyCurrentlyVisibleElementFromList(dayFieldsWithMatchingHeading);
     }
 
     private WebElementFacade getVisibleMonthFieldWithMatchingHeading(String headingText) {
-        List<WebElementFacade> monthFieldsWithMatchingHeading = findAll("//legend[text()='" + headingText + "']/following-sibling::div/div[2"
-                + "]//input");
+        List<WebElementFacade> monthFieldsWithMatchingHeading = findAll("//legend[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling::div/div[2]//input");
         return getOnlyCurrentlyVisibleElementFromList(monthFieldsWithMatchingHeading);
     }
 
     private WebElementFacade getVisibleYearFieldWithMatchingHeading(String headingText) {
-        List<WebElementFacade> yearFieldsWithMatchingHeading = findAll("//legend[text()='" + headingText + "']/following-sibling::div/div[3]//input");
+        List<WebElementFacade> yearFieldsWithMatchingHeading = findAll("//legend[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling::div/div[3]//input");
         return getOnlyCurrentlyVisibleElementFromList(yearFieldsWithMatchingHeading);
     }
 
@@ -481,7 +486,8 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getVisibleTextFieldWithMatchingHeading(String headingText) {
-        List<WebElementFacade> textFieldsWithMatchingHeading = findAll("//label[text()='" + headingText + "']/following-sibling::div/input");
+        List<WebElementFacade> textFieldsWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+                + "-sibling::div/input");
         return getOnlyCurrentlyVisibleElementFromList(textFieldsWithMatchingHeading);
     }
 
@@ -500,7 +506,8 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getVisibleTextAreaWithMatchingHeading(String headingText) {
-        List<WebElementFacade> textAreasWithMatchingHeading = findAll("//label[text()='" + headingText + "']/following-sibling::textarea");
+        List<WebElementFacade> textAreasWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+                + "-sibling::textarea");
         return getOnlyCurrentlyVisibleElementFromList(textAreasWithMatchingHeading);
     }
 
@@ -508,8 +515,9 @@ public class BasePage extends PageObject {
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()='" + headingText + "']/following-sibling::select"
-                + "/option");
+        List<WebElementFacade> optionElements =
+                findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling"
+                + "::select/option");
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
         safeClickOn(optionElementToSelect);
@@ -519,7 +527,8 @@ public class BasePage extends PageObject {
     public void selectSpecificOptionFromDropdownWithHeading(String optionText, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade optionElement =
-                findBy("//div[@class='govuk-form-group']//*[text()='" + headingText + "']/following-sibling::select/option[text()='" + optionText + "']");
+                findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
+                        + "/option[text()='" + optionText + "']");
         safeClickOn(optionElement);
     }
 
@@ -532,7 +541,8 @@ public class BasePage extends PageObject {
     }
 
     public void checkSpecificCheckbox(String checkboxLabelText) {
-        WebElementFacade checkbox = findBy("//input[@type='checkbox']/following-sibling::label[text()='" + checkboxLabelText + "']");
+        WebElementFacade checkbox =
+                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
         safeClickOn(checkbox);
     }
 
@@ -541,7 +551,8 @@ public class BasePage extends PageObject {
     private void waitForHeadingToBeVisible(String headingText) {
         List<WebElementFacade> matchingHeadings;
         int i = 0;
-        while (i<20) { matchingHeadings = findAll("//div[contains(@class,'govuk-form-group')]//*[text()='" + headingText + "']");
+        while (i<20) { matchingHeadings = findAll("//div[contains(@class,'govuk-form-group')]//*[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]");
             if (matchingHeadings.size() > 0) {
                 try {
                     getOnlyCurrentlyVisibleElementFromList(matchingHeadings);
@@ -572,5 +583,15 @@ public class BasePage extends PageObject {
         }
         assert(optionElements.size() == 1);
         return optionElements.get(0);
+    }
+
+    private String sanitiseXpathAttributeString(String attribute){
+        if (attribute.contains("'")) {
+            attribute = attribute.replaceAll("'", "',\"'\",'");
+            attribute = "concat('" + attribute + "')";
+        } else {
+            attribute = "'" + attribute + "'";
+        }
+        return attribute;
     }
 }

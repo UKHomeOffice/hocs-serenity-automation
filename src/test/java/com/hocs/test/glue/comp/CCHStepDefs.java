@@ -15,7 +15,7 @@ public class CCHStepDefs extends BasePage {
 
     @And("I enter a completion note at CCH")
     public void iEnterACompletionNoteAtCCH() {
-        cch.enterReasonForCaseCompletion();
+        cch.submitReasonForCaseCompletion();
     }
 
     @And("I confirm I want to close the case at CCH")

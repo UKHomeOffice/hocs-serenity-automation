@@ -1313,7 +1313,7 @@ public class ValidationStepDefs extends BasePage {
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
                                 safeClickOn(cch.completeTheCaseClosePermanentlyRadioButton);
                                 safeClickOn(continueButton);
-                                cch.enterReasonForCaseCompletion();
+                                cch.submitReasonForCaseCompletion();
                                 clickTheButton("Confirm");
                                 break;
                             default:

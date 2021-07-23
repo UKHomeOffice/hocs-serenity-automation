@@ -413,7 +413,7 @@ public class ClaimSchema extends BasePage {
     @FindBy(xpath = ".//button[contains(text(), 'Case Details')]")
     public WebElementFacade caseDetailsAccordion;
 
-    @FindBy(xpath = "//p[text()='Tier 2 review']/following-sibling::div[1]//input")
+    @FindBy(xpath = "//input[@id='Tier2AdjudicatorsOfficeDecision']")
     public WebElementFacade tier2AdjudicatorsOfficeDecision;
 
     @FindBy(xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Day']/following-sibling::input")

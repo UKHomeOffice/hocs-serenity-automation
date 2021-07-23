@@ -31,6 +31,6 @@ Feature: CCH
     Then the "<errorType>" error message is displayed at "CCH"
     Examples:
       | errorType                                   |
-#      | TRANSFER TO REQUIRED                        |
-#      | COMPLETE CASE NOTE REQUIRED                 |
+      | TRANSFER TO REQUIRED                        |
+      | COMPLETE CASE NOTE REQUIRED                 |
       | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED |
