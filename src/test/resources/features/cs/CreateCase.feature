@@ -1,11 +1,11 @@
-@CreateCase @DECS
+@CreateCase @CS
 Feature: Create case
 
   Background:
-    Given I am logged into "DECS" as user "DECS_USER"
+    Given I am logged into "CS" as user "DECS_USER"
     When I navigate to the "CREATE SINGLE CASE" page
 
-  @Regression
+  @CSRegression
   Scenario Outline: I can create a case
     When I create a "<case>" case "<with / without>" a document
     Then A case is created successfully "<with / without>" a document
@@ -41,12 +41,12 @@ Feature: Create case
     And I click to view the "Summary" tab
     Then the case should be allocated to the previously selected user in the summary
 
-  @Workflow @Regression @SmokeTests
+  @Workflow @CSRegression @SmokeTests
   Scenario: I can bulk upload cases
     When I bulk create 40 "MIN" cases
     Then bulk cases are created successfully
 
-  @Workflow @Regression
+  @Workflow @CSRegression
   Scenario Outline: Newly created cases should move to the correct first stage of the workflow
     And I create a single "<caseType>" case and return to the dashboard
     Then the case should be moved to the "<stage>" stage

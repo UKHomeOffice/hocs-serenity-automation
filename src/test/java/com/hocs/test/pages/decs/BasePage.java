@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -29,8 +28,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BasePage extends PageObject {
-
-    static HashMap<String, String> dataRecords = new HashMap<>();
 
     public static String currentPlatform = "";
 
@@ -61,7 +58,7 @@ public class BasePage extends PageObject {
     protected WebElementFacade errorMessage;
 
     @FindBy(linkText = "Correspondence System")
-    public WebElementFacade decsDashboardLink;
+    public WebElementFacade csDashboardLink;
 
     @FindBy(linkText = "Windrush Compensation")
     public WebElementFacade wcsDashboardLink;
@@ -178,8 +175,8 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    private void goToDECSDashboard() {
-        safeClickOn(decsDashboardLink);
+    private void goToCSDashboard() {
+        safeClickOn(csDashboardLink);
         waitForDashboard();
     }
 
@@ -202,13 +199,13 @@ public class BasePage extends PageObject {
 
     public void goToDashboard() {
         switch (currentPlatform.toUpperCase()) {
-            case "DECS":
-                goToDECSDashboard();
+            case "CS":
+                goToCSDashboard();
                 break;
             case "WCS":
                 goToWCSDashboard();
                 break;
-            case "DECS MANAGEMENT UI":
+            case "CS MANAGEMENT UI":
             case "WCS MANAGEMENT UI":
                 goToMUIDashboard();
                 break;

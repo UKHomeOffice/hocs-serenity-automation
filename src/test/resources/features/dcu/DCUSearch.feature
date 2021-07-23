@@ -2,7 +2,7 @@
 Feature: DCU Search
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @DCURegression
   Scenario Outline: User tests DCU search criteria

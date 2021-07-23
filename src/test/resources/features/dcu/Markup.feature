@@ -2,7 +2,7 @@
 Feature: Markup
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
 
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ

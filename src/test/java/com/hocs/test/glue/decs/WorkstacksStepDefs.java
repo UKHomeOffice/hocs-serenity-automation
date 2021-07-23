@@ -135,7 +135,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
-        createCase.createDECSCaseOfType("MIN");
+        createCase.createCSCaseOfType("MIN");
         goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
         waitABit(1000);
@@ -164,15 +164,15 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
-        createCase.createDECSCaseOfType("TRO");
+        createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference1").to(getCurrentCaseReference());
         goToDashboard();
         waitABit(1000);
-        createCase.createDECSCaseOfType("TRO");
+        createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference2").to(getCurrentCaseReference());
         goToDashboard();
         waitABit(1000);
-        createCase.createDECSCaseOfType("TRO");
+        createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference3").to(getCurrentCaseReference());
         goToDashboard();
         waitABit(1000);
@@ -193,7 +193,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void iCreateThreeCasesAndAssignToUser(String user) {
         int n = 0;
         while (n < 3) {
-            createCase.createDECSCaseOfType("TRO");
+            createCase.createCSCaseOfType("TRO");
             safeClickOn(createCaseSuccessPage.newCaseReference);
             workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
             goToDashboard();
@@ -375,7 +375,7 @@ public class WorkstacksStepDefs extends BasePage {
                 if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
                     dashboard.selectMyCases();
                 } else {
-                    createCase.createDECSCaseOfType("MIN");
+                    createCase.createCSCaseOfType("MIN");
                     createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
                     goToDashboard();
                     dashboard.selectMyCases();
@@ -385,7 +385,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
-                    createCase.createDECSCaseOfType("MIN");
+                    createCase.createCSCaseOfType("MIN");
                     goToDashboard();
                     dashboard.selectPerformanceProcessTeam();
                 }
@@ -394,7 +394,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
-                    createCase.createDECSCaseOfType("MPAM");
+                    createCase.createCSCaseOfType("MPAM");
                     goToDashboard();
                     dashboard.selectMyCases();
                 }
@@ -403,7 +403,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createDECSCaseOfType("MTS");
+                    createCase.createCSCaseOfType("MTS");
                     goToDashboard();
                     dashboard.selectMTSTeam();
                 }

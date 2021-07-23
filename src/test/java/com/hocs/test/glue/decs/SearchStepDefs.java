@@ -53,7 +53,7 @@ public class SearchStepDefs extends BasePage {
 
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
-        createCase.createDECSCaseOfType("MIN");
+        createCase.createCSCaseOfType("MIN");
         goToDashboard();
         dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();

@@ -79,13 +79,13 @@ public class LoginStepDefs extends BasePage {
         setCurrentUser(targetUser);
     }
 
-    @Given("I am on the DECS Login Page")
-    public void iAmOnTheDECSLoginPage() {
-        loginPage.navigateToPlatform("DECS");
+    @Given("I am on the Correspondence System Login Page")
+    public void iAmOnTheCSLoginPage() {
+        loginPage.navigateToPlatform("CS");
     }
 
-    @Given("I am on the WCS Login Page")
-    public void homeUrl() {
+    @Given("I am on the Windrush Compensation Scheme Login Page")
+    public void iAmOnTheWCSLoginPage() {
         loginPage.navigateToPlatform("WCS");
     }
 
@@ -167,8 +167,8 @@ public class LoginStepDefs extends BasePage {
             goToDashboard();
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
-                if (currentPlatform.equals("DECS")){
-                createCase.createDECSCaseOfType("ANY");
+                if (currentPlatform.equals("CS")){
+                createCase.createCSCaseOfType("ANY");
                 dashboard.getAndClaimCurrentCase();
                 }
                 else if (currentPlatform.equals("WCS")) {

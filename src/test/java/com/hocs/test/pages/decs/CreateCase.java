@@ -151,7 +151,7 @@ public class CreateCase extends BasePage {
 
     // Multi Step Methods
 
-    public void createDECSCaseOfType(String caseType) {
+    public void createCSCaseOfType(String caseType) {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
         if (!nextButton.isVisible()) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();

@@ -1,10 +1,10 @@
-@PeopleTab @DECS
+@PeopleTab @CS
 Feature: PeopleTab
 
   Background:
-    Given I am logged into "DECS" as user "DECS_USER"
+    Given I am logged into "CS" as user "DECS_USER"
 
-  @Regression
+  @CSRegression
   Scenario Outline: User changes the primary correspondent of the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
@@ -17,7 +17,7 @@ Feature: PeopleTab
       | Theresa May     |
       | Nicola Sturgeon |
 
-  @Regression
+  @CSRegression
   Scenario: User is able to remove non-primary correspondents from the case
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
@@ -26,7 +26,7 @@ Feature: PeopleTab
     And I remove "Nicola Sturgeon" as a correspondent of the case
     Then "Nicola Sturgeon" should be removed as a correspondent on the case
 
-  @Regression
+  @CSRegression
   Scenario Outline: User is able to add a correspondent to the case through the people tab
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
@@ -37,7 +37,7 @@ Feature: PeopleTab
       | Member            |
       | Public            |
 
-  @Regression
+  @CSRegression
   Scenario Outline: User can add a Member of Parliament as a Correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case

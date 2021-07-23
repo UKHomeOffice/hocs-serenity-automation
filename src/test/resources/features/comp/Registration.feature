@@ -2,7 +2,7 @@
 Feature: Registration
 
   Background:
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
     And I allocate the case to myself via the successful case creation screen
 

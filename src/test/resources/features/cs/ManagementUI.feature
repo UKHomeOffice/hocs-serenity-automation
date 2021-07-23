@@ -1,8 +1,8 @@
-@ManagementUI @DECS
+@ManagementUI @CS
 Feature: ManagementUI
 
   Background:
-    Given I am logged into "DECS Management UI" as user "DECS_USER"
+    Given I am logged into "CS Management UI" as user "DECS_USER"
 
   @Navigation
   Scenario Outline: User navigates to a management page
@@ -23,7 +23,7 @@ Feature: ManagementUI
     When I search for a team with no assigned users
     Then no users should be shown in user list
 
-  @TeamManagement @Regression
+  @TeamManagement @CSRegression
   Scenario: Adding a new user to a team displays that user in the team list
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
@@ -37,7 +37,7 @@ Feature: ManagementUI
     And I add the users "CAMERON" and "CASEY" to the team
     Then the users should be visible in the team list
 
-  @TeamManagement @Regression
+  @TeamManagement @CSRegression
   Scenario: Users should no longer be visible in team page when removed
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
@@ -288,7 +288,7 @@ Feature: ManagementUI
     And I load the teams of which "Cameron" is a member
     Then the teams the user is a part of are displayed
 
-  @UserManagement @Regression
+  @UserManagement @CSRegression
   Scenario: A user can be added and removed from a team through User Management
     Given I navigate to the "User Management" Management page
     And I load the teams of which "Cameron" is a member
@@ -333,7 +333,7 @@ Feature: ManagementUI
     And I load the "created" DCU Drafting team through team management
     Then the "created" DCU Drafting team is displayed
 
-  @TeamManagement @Regression
+  @TeamManagement @CSRegression
   Scenario: User is able to rename teams through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
@@ -356,7 +356,7 @@ Feature: ManagementUI
     And I add the user "DCU_USER" to the team
     Then "DCU_USER" should be visible in the team list
 
-  @TeamManagement @Regression
+  @TeamManagement @CSRegression
   Scenario: User is able to assign cases to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
@@ -366,7 +366,7 @@ Feature: ManagementUI
     And I load the current case
     Then the case should be assigned to the DCU draft team created in Management UI
 
-  @TeamManagement @Regression
+  @TeamManagement @CSRegression
   Scenario: User is able to move a team to a different unit
     Given I navigate to the "Team" Management page
     When I select the "Detention Services" team from the dropdown

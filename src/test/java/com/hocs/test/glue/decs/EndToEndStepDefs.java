@@ -245,7 +245,7 @@ public class EndToEndStepDefs extends BasePage {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDECSCaseOfType(caseType);
+                        createCase.createCSCaseOfType(caseType);
                         goToDashboard();
                         break;
                     case "MARKUP":
@@ -291,7 +291,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDECSCaseOfType(caseType);
+                        createCase.createCSCaseOfType(caseType);
                         goToDashboard();
                         break;
                     case "MARKUP":
@@ -329,7 +329,7 @@ public class EndToEndStepDefs extends BasePage {
             case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createDECSCaseOfType(caseType);
+                        createCase.createCSCaseOfType(caseType);
                         goToDashboard();
                         break;
                     case "MARKUP":
@@ -371,7 +371,7 @@ public class EndToEndStepDefs extends BasePage {
             case "MPAM":
                 switch (stage.toUpperCase()) {
                     case "CREATION":
-                        createCase.createDECSCaseOfType(caseType);
+                        createCase.createCSCaseOfType(caseType);
                         goToDashboard();
                         break;
                     case "TRIAGE":
@@ -403,13 +403,13 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "MTS":
-                createCase.createDECSCaseOfType(caseType);
+                createCase.createCSCaseOfType(caseType);
                 goToDashboard();
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
-                        createCase.createDECSCaseOfType(caseType);
+                        createCase.createCSCaseOfType(caseType);
                         goToDashboard();
                         break;
                     case "SERVICE TRIAGE":

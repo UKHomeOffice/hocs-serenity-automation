@@ -2,7 +2,7 @@
 Feature: DCU End To End
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @DCUWorkflow
   Scenario Outline: New case moves to Data Input stage

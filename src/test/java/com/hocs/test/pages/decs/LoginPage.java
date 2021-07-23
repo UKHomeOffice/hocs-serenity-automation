@@ -46,14 +46,14 @@ public class LoginPage extends BasePage {
 
     public void navigateToPlatform(String platform) {
         switch (platform.toUpperCase()) {
-            case "DECS":
-                navigateToDECS();
+            case "CS":
+                navigateToCS();
                 break;
             case "WCS":
                 navigateToWCS();
                 break;
-            case "DECS MANAGEMENT UI":
-                navigateToDECSManagementUI();
+            case "CS MANAGEMENT UI":
+                navigateToCSManagementUI();
                 break;
             case "WCS MANAGEMENT UI":
                 navigateToWCSManagementUI();
@@ -64,7 +64,7 @@ public class LoginPage extends BasePage {
         currentPlatform = platform;
     }
 
-    private void navigateToDECS() {
+    private void navigateToCS() {
         String env = System.getProperty("environment");
         String baseUrl = "";
 
@@ -104,7 +104,7 @@ public class LoginPage extends BasePage {
         getDriver().get(baseUrl);
     }
 
-    public void navigateToDECSManagementUI() {
+    public void navigateToCSManagementUI() {
         String env = System.getProperty("environment");
         String baseUrl = "";
         if (env == null) {

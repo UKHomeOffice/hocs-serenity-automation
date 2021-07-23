@@ -1,8 +1,8 @@
-@Deadlines @DECS
+@Deadlines @CS
 Feature: Deadlines
 
   Background:
-    Given I am logged into "DECS" as user "DECS_USER"
+    Given I am logged into "CS" as user "DECS_USER"
 
   @DCURegression
   Scenario Outline: User creates a case and checks that the stage deadlines are correct

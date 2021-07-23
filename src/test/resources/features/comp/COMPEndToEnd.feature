@@ -2,7 +2,7 @@
 Feature: COMP End To End
 
   Background:
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
 
   Scenario: User moves a COMP case to the Registration stage
     When I create a "COMP" case and move it to the "Registration" stage

@@ -1,33 +1,33 @@
-@Workstacks @DECS
+@Workstacks @CS
 Feature: Workstacks
 
   Background:
-    Given I am logged into "DECS" as user "DECS_USER"
+    Given I am logged into "CS" as user "DECS_USER"
 
-  @Regression
+  @CSRegression
   Scenario: User creates a case and allocates to another user
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
-  @Regression
+  @CSRegression
   Scenario: User creates a case and assigns it to themselves from the workstack
     And I create a new case and view it in the Performance and Process team workstack
     When I assign this case to me, and check if it has been correctly allocated
 
-  @Regression
+  @CSRegression
   Scenario: User creates 3 cases and allocates these cases to another User
     And I create three cases, and view them in performance and process workstack
     Then I assign these three cases to "CASEY"
     And I check that the three cases created have been correctly assigned to "CASEY"
 
-  @Regression
+  @CSRegression
   Scenario: User creates and allocates 3 cases to another User then unallocates these cases
     And I create three cases, and assign them to "CASEY"
     Then I view these cases in Performance and Process workstack, and unallocate from "CASEY"
     And I then check whether the correct cases have been unallocated
 
-  @Regression
+  @CSRegression
   Scenario Outline: User only sees the selected case type after clicking a case type filter card
     And I create a single "<case type>" case and return to the dashboard
     When I enter the correct Data Input team workstack for "<case type>" cases
@@ -110,7 +110,7 @@ Feature: Workstacks
       | Telephone Surgery Official Engagement | Lowest to Highest |
       | Telephone Surgery Official Engagement | Highest to Lowest |
 
-  @Regression
+  @CSRegression
   Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline date
     When I create a single "MPAM" case with the correspondence received date set 15 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack

@@ -2,7 +2,7 @@
 Feature: Login
 
   Background:
-    Given I am on the WCS Login Page
+    Given I am on the Windrush Compensation Scheme Login Page
     And I am prompted to log in
 
 

@@ -2,7 +2,7 @@
 Feature: Contribution Request
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
 
   Scenario Outline: User requests a contribution at Triage stage
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage

@@ -2,7 +2,7 @@
 Feature: DCU Data Input
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence

@@ -2,7 +2,7 @@
 Feature: Service Send
 
   Background:
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Send" stage
     And I load and claim the current case
 

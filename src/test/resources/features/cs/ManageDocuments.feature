@@ -1,10 +1,10 @@
-@ManageDocuments @DECS
+@ManageDocuments @CS
 Feature: Manage Documents
 
   Background:
-    Given I am logged into "DECS" as user "DECS_USER"
+    Given I am logged into "CS" as user "DECS_USER"
 
-  @Regression
+  @CSRegression
   Scenario Outline: User can upload and preview a file of allowed file types
     And I click to manage the documents of a new "MIN" case
     And I click add documents
@@ -92,7 +92,7 @@ Feature: Manage Documents
     And I upload a file that is 5MB in size
     Then the document should have the Pending tag
 
-  @Regression
+  @CSRegression
   Scenario: User can select which document to preview
     And I click to manage the documents of a new "MIN" case
     And I upload a 5MB and a 10MB file
@@ -100,7 +100,7 @@ Feature: Manage Documents
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane
 
-  @Regression
+  @CSRegression
   Scenario Outline: User can remove any document
     And I click to manage the documents of a new "MPAM" case
     And I add a "<fileType>" document to the case
