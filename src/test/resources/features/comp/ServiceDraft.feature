@@ -1,5 +1,5 @@
 @ServiceDraft @COMP
-Feature: Service D raft
+Feature: Service Draft
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"
