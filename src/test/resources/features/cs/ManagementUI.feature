@@ -192,10 +192,10 @@ Feature: ManagementUI
     And a success message is displayed
 
   @AddChildTopic @LinkTopicToTeam @DCURegression
-  Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in DECS
+  Scenario: User can create a new child topic in Management UI and assign that topic to a case during Markup stage in CS
     And I have created a new child topic
     And I have linked teams to the new child topic
-    And I navigate to "DECS"
+    And I navigate to "CS"
     And I create a "MIN" case and move it to the "Markup" stage
     And I progress the case to the point of adding a topic
     When I add the new child topic
@@ -204,7 +204,7 @@ Feature: ManagementUI
   @AddChildTopic @Validation
   Scenario: User cannot select a new child topic in HOCS if it has not had team links assigned in Management UI
     And I have created a new child topic
-    And I navigate to "DECS"
+    And I navigate to "CS"
     And I create a "MIN" case and move it to the "Markup" stage
     And I progress the case to the point of adding a topic
     When I add the new child topic
@@ -261,7 +261,7 @@ Feature: ManagementUI
   Scenario: Teams linked to new child topic in Management UI are displayed as default teams in HOCS for that topic
     And I have created a new child topic
     And I have linked teams to the new child topic
-    And I navigate to "DECS"
+    And I navigate to "CS"
     And I create a single "MIN" case and return to the dashboard
     And I complete the Data Input Stage
     When I assign the Topic "NEW CHILD TOPIC"
@@ -270,15 +270,15 @@ Feature: ManagementUI
 
   @LinkTopicToTeam
   Scenario: A topic with existing team links can have those links amended in Management UI
-    Given I navigate to "DECS"
+    Given I navigate to "CS"
     And I discover the current default team links for a topic
-    And I navigate to "DECS Management UI"
+    And I navigate to "CS Management UI"
     And I select to amend the team links for the topic
     And I select a different "INITIAL DRAFT AND QA RESPONSE STAGES" team
     And I select a different "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES" team
     And I click the "Submit" button
     And I click the "Submit" button
-    When I check the default team links in DECS again
+    When I check the default team links in CS again
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
 
@@ -316,7 +316,7 @@ Feature: ManagementUI
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
-    And I navigate to "DECS"
+    And I navigate to "CS"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
     And I add the case to the new campaign
@@ -328,7 +328,7 @@ Feature: ManagementUI
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
     Then the success message for team "Creation" should be displayed
-    And I navigate to "DECS Management UI"
+    And I navigate to "CS Management UI"
     And I navigate to the "Team" Management page
     And I load the "created" DCU Drafting team through team management
     Then the "created" DCU Drafting team is displayed
@@ -337,11 +337,11 @@ Feature: ManagementUI
   Scenario: User is able to rename teams through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
-    And I navigate to "DECS Management UI"
+    And I navigate to "CS Management UI"
     And I navigate to the "Team" Management page
     And I edit the name of the created DCU drafting team
     Then the success message for team "Rename" should be displayed
-    And I navigate to "DECS Management UI"
+    And I navigate to "CS Management UI"
     And I navigate to the "Team" Management page
     And I load the "renamed" DCU Drafting team through team management
     Then the "renamed" DCU Drafting team is displayed
@@ -350,7 +350,7 @@ Feature: ManagementUI
   Scenario: User is able to assign users to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
-    And I navigate to "DECS Management UI"
+    And I navigate to "CS Management UI"
     And I navigate to the "Team" Management page
     And I load the "created" DCU Drafting team through team management
     And I add the user "DCU_USER" to the team
@@ -360,7 +360,7 @@ Feature: ManagementUI
   Scenario: User is able to assign cases to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
-    And I navigate to "DECS"
+    And I navigate to "CS"
     And I create a "MIN" case with "Cyber Stalking And Harassment" as the primary topic
     And I override the initial draft team of the case to the team created in Management UI
     And I load the current case

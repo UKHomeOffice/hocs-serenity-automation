@@ -337,9 +337,9 @@ public class ManagementUIStepDefs extends BasePage {
         }
     }
 
-    @When("I check the default team links in DECS again")
-    public void iCheckTheDefaultTeamLinksInDECSAgain() {
-        loginPage.navigateToPlatform("DECS");
+    @When("I check the default team links in CS again")
+    public void iCheckTheDefaultTeamLinksInCSAgain() {
+        loginPage.navigateToPlatform("CS");
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopic("101 non-emergency number (cost)");
