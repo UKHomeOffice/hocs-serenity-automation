@@ -60,6 +60,24 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "//button[text()='Add']")
     public WebElementFacade addTeamButton;
 
+    @FindBy(xpath = "//button[text()='Deactivate team']")
+    public WebElementFacade deactivateTeamButton;
+
+    @FindBy(xpath = "//button[text()='Deactivate Team']")
+    public WebElementFacade deactivateTeamConfirmationButton;
+
+    @FindBy(xpath = "//button[text()='Reactivate team']")
+    public WebElementFacade reactivateTeamButton;
+
+    @FindBy(xpath = "//button[text()='Reactivate Team']")
+    public WebElementFacade reactivateTeamConfirmationButton;
+
+    @FindBy(xpath = "//a[text()='Reactivate team']")
+    public WebElementFacade reactivateTeamHypertext;
+
+    @FindBy(xpath = "//strong[text()='Inactive']")
+    public WebElementFacade inactiveTag;
+
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
     }
@@ -147,6 +165,18 @@ public class TeamManagement extends BasePage {
         safeClickOn(updateButton);
     }
 
+    public void deactivateTeam(String team) {
+        selectATeam(team);
+        safeClickOn(deactivateTeamButton);
+        safeClickOn(deactivateTeamConfirmationButton);
+    }
+
+    public void reactivateTeam(String team) {
+        selectATeam(team);
+        safeClickOn(reactivateTeamButton);
+        safeClickOn(reactivateTeamConfirmationButton);
+    }
+
     public void assertNewTeamIsDisplayed() {
         waitABit(1000);
         String displayedTeam = teamNameHeader.getText().split(": ")[1];
@@ -200,5 +230,13 @@ public class TeamManagement extends BasePage {
         String initialTeamName = sessionVariableCalled("initialDraftingTeamName");
         String finalTeamName = sessionVariableCalled("newDraftingTeamName");
         successMessage.shouldContainText("Team name changed from " + initialTeamName + " to " + finalTeamName + ".");
+    }
+
+    public void assertActiveStatusOfTeam(String status) {
+        if (status.equalsIgnoreCase("INACTIVE")) {
+            assertThat(inactiveTag.isCurrentlyVisible(), is(true));
+        } else if (status.equalsIgnoreCase("ACTIVE")) {
+            assertThat(inactiveTag.isCurrentlyVisible(), is(false));
+        }
     }
 }
