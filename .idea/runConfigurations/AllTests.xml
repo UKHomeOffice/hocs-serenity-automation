@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.filter.tags=@UKVI or @DECS or @DCU" />
+              <option value="-Dcucumber.filter.tags=@UKVI or @CS or @DCU or @WCS or @COMP" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>

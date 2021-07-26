@@ -2,7 +2,7 @@
 Feature: Private Office Approval
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the Private Office response stage

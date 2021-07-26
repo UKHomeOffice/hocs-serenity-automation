@@ -3,7 +3,7 @@ package com.hocs.test.glue.ukvi;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.ukvi.QA;
 import io.cucumber.java.en.And;
 

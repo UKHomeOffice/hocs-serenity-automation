@@ -1,7 +1,7 @@
 package com.hocs.test.glue.ukvi;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.TimelineTab;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.ukvi.Misallocations;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

@@ -5,13 +5,14 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.PeopleTab;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.TimelineTab;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.PeopleTab;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.TimelineTab;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -25,6 +26,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.StaleElementReferenceException;
 
 public class BaseStepDefs extends BasePage {
 
@@ -57,6 +59,8 @@ public class BaseStepDefs extends BasePage {
     TimelineTab timelineTab;
 
     User originalUser;
+
+    UnallocatedCaseView unallocatedCaseView;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -187,8 +191,22 @@ public class BaseStepDefs extends BasePage {
 
     @When("I click the {string} button")
     public void iClickTheButton(String buttonLabel) {
-        clickTheButton(buttonLabel);
+        try {
+            clickTheButton(buttonLabel);
+        } catch (StaleElementReferenceException sE) {
+            waitABit(500);
+            clickTheButton(buttonLabel);
+        }
+    }
 
+    @When("I open/close the {string} accordion section")
+    public void iOpenCloseTheAccordionSection(String accordionLabel) {
+        try {
+            openOrCloseAccordionSection(accordionLabel);
+        } catch (StaleElementReferenceException sE) {
+            waitABit(500);
+            openOrCloseAccordionSection(accordionLabel);
+        }
     }
 
     @When("I attempt to reject the {string} case without reason")
@@ -231,6 +249,11 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
+    @And("I select 'Save changes'")
+    public void iSelectSaveChanges() {
+        safeClickOn(saveChangesRadioButton);
+    }
+
     @But("I do not enter a {string}")
     public void iDoNotEnterA(String fieldName) {
         switch (fieldName.toUpperCase()) {
@@ -250,9 +273,15 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @Then("the case should be closed")
+    @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
-        dashboard.assertCaseIsClosedViaLoadCase();
+        dashboard.getCurrentCase();
+        unallocatedCaseView.assertCaseCannotBeAssigned();
+        if (!sessionVariableCalled("caseType").equals("WCS")) {
+            timelineTab.selectTimelineTab();
+            timelineTab.assertCaseClosedNoteVisible();
+        }
+        System.out.println("The case is closed");
     }
 
     @Then("{string} link is displayed")
@@ -281,92 +310,12 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @Then("the case should be moved to (the ){string}( stage)")
-    public void assertCaseTypeReturnedToStage(String stage) {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                    case "DISPATCH":
-                        safeClickOn(dashboard.performanceProcessTeam);
-                        break;
-                    case "MARKUP":
-                        safeClickOn(dashboard.centralDraftingTeam);
-                        break;
-                    case "INITIAL DRAFT":
-                    case "QA RESPONSE":
-                        safeClickOn(dashboard.animalsInScienceTeam);
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                    case "MINISTERIAL SIGN OFF":
-                        safeClickOn(dashboard.ministerForLordsTeam);
-                        break;
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                    case "TRANSFER CONFIRMATION":
-                    case "COPY TO NUMBER 10":
-                        safeClickOn(dashboard.transferN10Team);
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                workstacks.assertCaseStage(stage);
-                break;
-            case "TRO":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                        safeClickOn(dashboard.performanceProcessTeam);
-                        break;
-                    case "MARKUP":
-                        safeClickOn(dashboard.centralDraftingTeam);
-                        break;
-                    case "INITIAL DRAFT":
-                    case "QA RESPONSE":
-                    case "DISPATCH":
-                        safeClickOn(dashboard.animalsInScienceTeam);
-                        break;
-                    case "TRANSFER CONFIRMATION":
-                    case "COPY TO NUMBER 10":
-                        safeClickOn(dashboard.transferN10Team);
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                workstacks.assertCaseStage(stage);
-                break;
-            case "DTEN":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                    case "MARKUP":
-                    case "TRANSFER CONFIRMATION":
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                    case "DISPATCH":
-                        safeClickOn(dashboard.transferN10Team);
-                        break;
-                    case "INITIAL DRAFT":
-                    case "QA RESPONSE":
-                        safeClickOn(dashboard.animalsInScienceTeam);
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                        safeClickOn(dashboard.ministerForLordsTeam);
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                workstacks.assertCaseStage(stage);
-                break;
-            case "MPAM":
-            case "MTS":
-            case "COMP":
-                dashboard.goToDECSDashboard();
+    @Then("the case/claim should be moved/returned to (the ){string}( stage)")
+    public void assertCaseTypeMovedOrReturnedToStage(String stage) {
+                dashboard.goToDashboard();
                 dashboard.getCurrentCase();
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCaseStage(stage);
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
     }
 
     @And("I reject the case at the {string} stage")
@@ -483,9 +432,16 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertAllocatedUKVITeam(stage);
     }
 
+    @Then("the claim should be sent/returned to the correct WCS Casework team")
+    public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
+        dashboard.getCurrentCase();
+        summaryTab.selectSummaryTab();
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Team", sessionVariableCalled("selectedCaseworkTeam"));
+    }
+
     @And("I record the case reference of this case as {string}")
     public void iRecordTheCaseReferenceOfThisCaseAs(String sessionVariableName) {
-        setSessionVariable(sessionVariableName).to(sessionVariableCalled("caseReference"));
+        setSessionVariable(sessionVariableName).to(getCurrentCaseReference());
     }
 
     @Then("the header tags in the HTML of the page are properly structured")
@@ -500,7 +456,7 @@ public class BaseStepDefs extends BasePage {
 
     @And("the summary should display the owning team as {string}")
     public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
-        summaryTab.assertSummaryContainsExpectedContentForGivenHeader("Team", teamName);
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Team", teamName);
     }
 }
 

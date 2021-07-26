@@ -3,8 +3,8 @@ package com.hocs.test.pages.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -12,7 +12,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Registration extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//input[@name='ComplainantDOB-day']")
     public WebElementFacade complainantDOBDayField;
@@ -167,9 +167,31 @@ public class Registration extends BasePage {
     @FindBy(id = "OwningCSU")
     private WebElementFacade owningCSUDropdown;
 
-    public void moveCaseFromRegistrationToServiceTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+    public void enterComplainantDOB(String complainantDOB) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
+    }
+
+    public void selectAGender() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
+    }
+
+    public void selectANationality() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Nationality");
+    }
+
+    public void enterACompanyName() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+    }
+
+    public void enterAHomeOfficeReference() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Home Office Reference");
+    }
+
+    public void enterAPortReference() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
+    }
+
+    public void enterComplainantDetails() {
         enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
         selectAGender();
         selectANationality();
@@ -177,58 +199,20 @@ public class Registration extends BasePage {
         enterAHomeOfficeReference();
         enterAPortReference();
         clickTheButton("Continue");
-        selectComplaintType("Service");
-        clickTheButton("Continue");
-        selectAChannel();
-        enterADescriptionOfTheComplaint();
-        selectASeverity();
-        selectSafeGuardingAndVulnerableIfPossible();
-        enterAPreviousUKVIComplaintReference();
-        enterAThirdPartyReference();
-        clickTheButton("Continue");
-        openTheServiceComplaintCategoryAccordion();
-        waitABit(1000);
-        selectAVisibleClaimCategory();
-        selectAnOwningCSU();
-        safeClickOn(finishButton);
     }
-
-    public void enterComplainantDOB(String complainantDOB) {
-        enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
-    }
-
-    public void selectAGender() {
-        selectRandomRadioButtonFromGroupWithHeading("Gender");
-    }
-
-    public void selectANationality() {
-        selectRandomOptionFromDropdownWithHeading("Nationality");
-    }
-
-    public void enterACompanyName() {
-        enterRandomTextIntoTextFieldWithHeading("Company Name");
-    }
-
-    public void enterAHomeOfficeReference() {
-        enterRandomTextIntoTextFieldWithHeading("Home Office Reference");
-    }
-
-    public void enterAPortReference() {
-        enterRandomTextIntoTextFieldWithHeading("Port Reference");
-    }
-
 
     public void selectComplaintType(String complaintType) {
         switch (complaintType.toUpperCase()) {
             case "SERVICE":
-                selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
+                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
                 break;
             case "MINOR MISCONDUCT":
-                selectSpecificRadioButtonFromGroupWithHeading("Minor Misconduct", "Complaint Type");
+                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Minor Misconduct", "Complaint Type");
                 break;
             default:
                 pendingStep(complaintType + " is not defined within " + getMethodName());
         }
+        clickTheButton("Continue");
     }
 
     public void selectAChannel() {
@@ -236,39 +220,43 @@ public class Registration extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint() {
-        enterRandomTextIntoTextAreaWithHeading("Case Summary");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
     }
 
     public void selectASeverity() {
-        selectRandomRadioButtonFromGroupWithHeading("Severity");
-    }
-
-    public void selectSafeGuardingAndVulnerableIfPossible() {
-        waitABit(500);
-        if (safeGuardingCheckbox.isCurrentlyVisible()) {
-            checkSpecificCheckbox("Safe Guarding");
-            checkSpecificCheckbox("Vulnerable");
+        String selectedSeverity = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Severity");
+        if (selectedSeverity.equalsIgnoreCase("Very high")| selectedSeverity.equalsIgnoreCase("High")) {
+            recordCaseData.checkSpecificCheckbox("Safe Guarding");
+            recordCaseData.checkSpecificCheckbox("Vulnerable");
         }
     }
 
     public void enterAPreviousUKVIComplaintReference() {
-        enterRandomTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
+        recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
     }
 
-    public void enterAThirdPartyReference() {
-        enterRandomTextIntoTextFieldWithHeading("Third Party Reference");
+    public void enterAThirdPartyReference() { recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
+    }
+
+    public void enterComplaintDetails() {
+        selectAChannel();
+        enterADescriptionOfTheComplaint();
+        selectASeverity();
+        enterAPreviousUKVIComplaintReference();
+        enterAThirdPartyReference();
+        clickTheButton("Continue");
     }
 
     public void openTheServiceComplaintCategoryAccordion() {
-        openAccordionSection("Service");
+        openOrCloseAccordionSection("Service");
     }
 
     public void openTheSeriousAndMinorComplaintCategoryAccordion() {
-        openAccordionSection("Serious and Minor");
+        openOrCloseAccordionSection("Serious and Minor");
     }
 
     public void openTheSeriousComplaintCategoryAccordion() {
-        openAccordionSection("Serious");
+        openOrCloseAccordionSection("Serious");
     }
 
     public void selectAVisibleClaimCategory() {
@@ -279,10 +267,10 @@ public class Registration extends BasePage {
                 visibleClaimCategories.add(claimCategory);
             }
         }
-        checkRandomCheckboxFromList(visibleClaimCategories);
+        recordCaseData.checkRandomCheckboxFromList(visibleClaimCategories);
     }
 
     public void selectAnOwningCSU() {
-        selectRandomOptionFromDropdownWithHeading("Owning CSU");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
     }
 }

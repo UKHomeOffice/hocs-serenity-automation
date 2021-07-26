@@ -2,7 +2,7 @@
 Feature: QA
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
 
   @Navigation
   Scenario: User should be on the MPAM QA Page
@@ -103,7 +103,7 @@ Feature: QA
     And I load and claim the current case
     And I record the user who completed the previous stages
     And I logout of the application
-    And I am logged into "DECS" as user "CAMERON"
+    And I am logged into "CS" as user "CAMERON"
     And I load and claim the current case
     And I complete the "<actions>" action at QA
     And I load the current case

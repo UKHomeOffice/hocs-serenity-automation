@@ -2,7 +2,7 @@
 Feature: No Response Needed Confirmation
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User confirms the case does not require a response

@@ -3,8 +3,7 @@ package com.hocs.test.glue.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.Registration;
 import io.cucumber.java.en.And;
 
@@ -26,7 +25,6 @@ public class RegistrationStepDefs extends BasePage {
     @And("I select {string} as the Complaint Type")
     public void iSelectAsTheComplaintType(String complaintType) {
         registration.selectComplaintType(complaintType);
-        clickTheButton("Continue");
     }
 
     @And("I enter the complaint details on the Complaint Input page")
@@ -34,7 +32,6 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectAChannel();
         registration.enterADescriptionOfTheComplaint();
         registration.selectASeverity();
-        registration.selectSafeGuardingAndVulnerableIfPossible();
         registration.enterAPreviousUKVIComplaintReference();
         registration.enterAThirdPartyReference();
         clickTheButton("Continue");

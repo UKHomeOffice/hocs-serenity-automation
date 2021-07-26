@@ -3,10 +3,10 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Documents;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -122,7 +122,7 @@ public class DocumentsStepDefs extends BasePage {
         documents.waitForFileToUpload(fileSize2);
     }
 
-    @Then("the {string} document should be select to be displayed in the preview pane")
+    @Then("the {string} document should be selected to be displayed in the preview pane")
     public void theFileShouldBeDisplayedInThePreviewPane(String fileIdentifier) {
         documents.assertDocumentIsDisplayedInPreviewPane(fileIdentifier);
     }
@@ -132,7 +132,7 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickPreviewButtonForFile(fileIdentifier);
     }
 
-    @And("I add a {string} document to the case")
+    @And("I add a {string} document to the case/claim")
     public void iAddADocumentToTheCase(String fileIdentifier) {
         iClickAddDocuments();
         iChooseTheDocumentType("Original correspondence");

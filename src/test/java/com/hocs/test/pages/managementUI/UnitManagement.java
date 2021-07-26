@@ -3,7 +3,7 @@ package com.hocs.test.pages.managementUI;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -106,12 +106,13 @@ public class UnitManagement extends BasePage {
         setSessionVariable("originalUnit").to(unitTypeBox.getText());
         if (unitTypeBox.containsText("Immigration Enforcement")) {
             unitTypeBox.click();
+            setSessionVariable("newUnit").to(unitBorderForceOption.getText());
             unitBorderForceOption.click();
         } else {
             unitTypeBox.click();
+            setSessionVariable("newUnit").to(unitImmigrationEnforcementOption.getText());
             unitImmigrationEnforcementOption.click();
         }
-        setSessionVariable("newUnit").to(unitTypeBox.getText());
         updateUnitButton.click();
     }
 

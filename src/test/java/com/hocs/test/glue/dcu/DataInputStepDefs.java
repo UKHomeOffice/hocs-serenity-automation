@@ -5,11 +5,11 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.UnallocatedCaseView;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import io.cucumber.java.en.And;
@@ -126,7 +126,7 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I enter an invalid date")
     public void enterAnInvalidDate() {
-        dataInput.typeIntoDateField(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
+        dataInput.typeIntoDateFields(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
                 dataInput.dateCorrespondenceReceivedYearField,
                 "29/02/2019");
     }
