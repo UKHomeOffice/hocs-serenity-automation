@@ -624,5 +624,19 @@ public class ManagementUIStepDefs extends BasePage {
         withdrawACase.enterWithdrawalDate();
         withdrawACase.enterWithdrawalNotes("Test withdrawal notes");
     }
+
+    @And("I {string} the team in team management")
+    public void iTheTeamInTeamManagement(String action) {
+        if (action.equalsIgnoreCase("Deactivate")) {
+            teamManagement.deactivateTeam();
+        } else if (action.equalsIgnoreCase("Reactivate")) {
+            teamManagement.reactivateTeam();
+        }
+    }
+
+    @Then("the team should be displayed as {string} in team management")
+    public void theTeamShouldBeDisplayedAsInTeamManagement(String status) {
+        teamManagement.assertActiveStatusOfTeam(status);
+    }
 }
 

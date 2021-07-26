@@ -374,11 +374,21 @@ Feature: ManagementUI
     And I change to a different unit
     Then success message is displayed
 
+  @TeamManagement
+  Scenario: User is able to deactivate a team through Team Management
+    And I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    And I navigate to the "Team" Management page
+    And I load the "created" DCU Drafting team through team management
+    And I "Deactivate" the team in team management
+    Then the team should be displayed as "Inactive" in team management
 
-
-
-
-
-
-
-
+  @TeamManagement
+  Scenario: User is able to reactivate a team through Team Management
+    And I navigate to the "Create DCU Drafting Team" Management page
+    And I create a new DCU drafting team
+    And I navigate to the "Team" Management page
+    And I load the "created" DCU Drafting team through team management
+    And I "Deactivate" the team in team management
+    And I "Reactivate" the team in team management
+    Then the team should be displayed as "Active" in team management

@@ -165,14 +165,12 @@ public class TeamManagement extends BasePage {
         safeClickOn(updateButton);
     }
 
-    public void deactivateTeam(String team) {
-        selectATeam(team);
+    public void deactivateTeam() {
         safeClickOn(deactivateTeamButton);
         safeClickOn(deactivateTeamConfirmationButton);
     }
 
-    public void reactivateTeam(String team) {
-        selectATeam(team);
+    public void reactivateTeam() {
         safeClickOn(reactivateTeamButton);
         safeClickOn(reactivateTeamConfirmationButton);
     }
