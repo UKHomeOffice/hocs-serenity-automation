@@ -1,11 +1,17 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ServiceQA extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='Accept - send response to complainant']")
     public WebElementFacade sendResponseToComplainantRadioButton;
@@ -16,16 +22,23 @@ public class ServiceQA extends BasePage {
     @FindBy(id = "CaseNote_QaReject")
     public WebElementFacade rejectionReasonTextField;
 
-    public void moveCaseFromServiceQAToServiceSend() {
-        safeClickOn(sendResponseToComplainantRadioButton);
-        safeClickOn(continueButton);
+    public void selectActionAtServiceQA(String action) {
+        switch (action.toUpperCase()) {
+            case "ACCEPT":
+                recordCaseData.selectSpecificRadioButton("Accept - send response to complainant");
+                break;
+            case "REJECT":
+                recordCaseData.selectSpecificRadioButton("Reject - return response to draft");
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+        clickTheButton("Continue");
     }
 
-    public void moveCaseFromServiceQAToServiceDraft() {
-        safeClickOn(returnResponseToDraftRadioButton);
-        safeClickOn(continueButton);
-        rejectionReasonTextField.sendKeys("Test Rejection Reason");
-        setSessionVariable("rejectionReason").to("Test Rejection Reason");
+    public void submitRejectionReason() {
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for rejection");
+        setSessionVariable("rejectionReason").to(enteredText);
         clickTheButton("Reject");
     }
 }

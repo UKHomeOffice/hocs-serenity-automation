@@ -2,7 +2,7 @@
 Feature: QA Response
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Initial Draft stage when rejected by QA Response Team

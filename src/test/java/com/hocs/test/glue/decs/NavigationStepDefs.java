@@ -3,11 +3,12 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Search;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.LoginPage;
+import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import io.cucumber.java.en.And;
@@ -28,21 +29,22 @@ public class NavigationStepDefs extends BasePage {
 
     Search search;
 
+    LoginPage loginPage;
+
     @When("I navigate to the {string} page")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "DASHBOARD":
-                safeClickOn(dashboard.dashboardLink);
-                waitForDashboard();
+                dashboard.goToDashboard();
                 break;
             case "CREATE SINGLE CASE":
-                safeClickOn(dashboard.createSingleCase);
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 break;
             case "CREATE BULK CASES":
-                safeClickOn(dashboard.createBulkCases);
+                dashboard.selectCreateBulkCasesLinkFromMenuBar();
                 break;
             case "SEARCH":
-                safeClickOn(dashboard.searchPage);
+                dashboard.selectSearchLinkFromMenuBar();
                 search.waitForSearchCriteriaPage();
                 break;
             default:
@@ -50,10 +52,15 @@ public class NavigationStepDefs extends BasePage {
         }
     }
 
-    @And ("I click to view( the case in) the {string} workstack")
+    @And("I navigate to {string}")
+    public void iNavigateTo(String platform) {
+        loginPage.navigateToPlatform(platform);
+    }
+
+    @And ("I click to view( the case/claim in) the {string} workstack")
     public void iClickToViewTheWorkstack(String workstackIdentifier) {
         if (!onDashboard()) {
-            goToDECSDashboard();
+            goToDashboard();
         }
         if (workstackIdentifier.equalsIgnoreCase("My Cases")) {
             dashboard.selectMyCases();
@@ -62,12 +69,12 @@ public class NavigationStepDefs extends BasePage {
         }
     }
 
-    @And("I load the current case")
+    @And("I load the current case/claim")
     public void loadCase() {
         dashboard.getCurrentCase();
     }
 
-    @And("I load and claim the current case")
+    @And("I load and claim the current case/claim")
     public void loadAndClaimCase() {
         dashboard.getAndClaimCurrentCase();
     }
@@ -77,9 +84,9 @@ public class NavigationStepDefs extends BasePage {
         dashboard.claimCurrentCase();
     }
 
-    @Then("I am returned to my home screen")
-    public void returnedToHomeScreen() {
-        dashboard.assertElementIsDisplayed(dashboard.createSingleCase);
+    @Then("I am returned to the dashboard")
+    public void iAmReturnedToTheDashboard() {
+        dashboard.assertAtDashboard();
     }
 
     @When("I get a {string} case at {string} stage")

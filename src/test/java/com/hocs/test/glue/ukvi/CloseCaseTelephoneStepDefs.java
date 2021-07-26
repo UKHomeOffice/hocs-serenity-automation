@@ -2,14 +2,11 @@ package com.hocs.test.glue.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.ukvi.CloseCaseTelephone;
 import com.hocs.test.pages.ukvi.DispatchStages;
-import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.QA;
 import com.hocs.test.pages.ukvi.Triage;
 import io.cucumber.java.en.And;
 

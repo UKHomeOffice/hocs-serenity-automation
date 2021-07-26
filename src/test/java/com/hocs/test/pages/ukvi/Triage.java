@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -83,13 +83,13 @@ public class Triage extends BasePage {
 
     public void selectEnquirySubject(String subject) {
         waitForPageWithTitle("Enquiry subject");
-        safeClickRadioButtonByVisibleText(subject);
+        selectSpecificRadioButton(subject);
         setSessionVariable("enquirySubject").to(subject);
         safeClickOn(continueButton);
     }
 
     public void selectEnquiryReason(String reason) {
-        safeClickRadioButtonByVisibleText(reason);
+        selectSpecificRadioButton(reason);
         setSessionVariable("enquiryReason").to(reason);
         safeClickOn(continueButton);
     }
@@ -170,7 +170,7 @@ public class Triage extends BasePage {
     }
 
     public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {
-        assertThat(pageTitle.getText().contains(ministerialOrOfficial), is(true));
+        assertThat(header1.getText().contains(ministerialOrOfficial), is(true));
     }
 
     public void assertCasesCurrentRefTypeIs(String ministerialOrOfficial) {

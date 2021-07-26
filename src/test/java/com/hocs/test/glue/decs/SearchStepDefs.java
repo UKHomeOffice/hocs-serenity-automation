@@ -5,12 +5,12 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Search;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Search;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -35,6 +35,17 @@ public class SearchStepDefs extends BasePage {
         search.waitForResultsPage();
     }
 
+    @When("I enter a non-hocs format case reference")
+    public void iEnterANonHocsFormatCaseReference() {
+        dashboard.enterCaseReferenceIntoSearchBar("MIN0000000019");
+        dashboard.hitEnterCaseReferenceSearchBar();
+    }
+
+    @Then("an error message should be displayed stating that the case reference entered is an invalid format")
+    public void anErrorMessageShouldBeDisplayedStatingThatTheCaseReferenceEnteredIsAnInvalidFormat() {
+        dashboard.assertCaseReferenceIsInvalidFormatErrorMessage();
+    }
+
     @Then("an error message should be displayed as I have not entered any search criteria")
     public void assertThatNoSearchCriteriaErrorMessageIsShown() {
         search.assertNoSearchCriteriaErrorMessage();
@@ -42,9 +53,9 @@ public class SearchStepDefs extends BasePage {
 
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
-        createCase.createCaseOfType("MIN");
-        goToDECSDashboard();
-        dashboard.enterCaseReferenceIntoSearchBar(sessionVariableCalled("caseReference"));
+        createCase.createCSCaseOfType("MIN");
+        goToDashboard();
+        dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();
     }
 
@@ -58,7 +69,7 @@ public class SearchStepDefs extends BasePage {
         }
     }
 
-    @When("I enter a non-existent case reference")
+    @When("I enter a non-existent (case )reference")
     public void enterInvalidCaseReferenceForSearch() {
         dashboard.enterCaseReferenceIntoSearchBar("MIN/0000000/19");
         dashboard.hitEnterCaseReferenceSearchBar();
@@ -100,7 +111,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                safeClickOn(dashboard.searchPage);
+                dashboard.selectSearchLinkFromMenuBar();
                 search.enterDCUSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
                 safeClickOn(searchButton);
             }
@@ -128,7 +139,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I search for a case by it's case reference")
     public void searchForCaseByReference() {
-        String caseRef = sessionVariableCalled("caseReference");
+        String caseRef = getCurrentCaseReference();
         searchForMPAMCaseWith(caseRef, "Case Reference");
         safeClickOn(searchButton);
     }
@@ -144,7 +155,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                safeClickOn(dashboard.searchPage);
+                dashboard.selectSearchLinkFromMenuBar();
                 searchForMPAMCaseWith(sessionVariableCalled("infoType"), "infoValue");
                 safeClickOn(searchButton);
             }
@@ -152,9 +163,9 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
-    @And("I click the case reference of the case in search results")
+    @And("I click the (case )reference of the case/claim in search results")
     public void iClickTheReferenceOfARandomSearchResult() {
-        WebElementFacade caseReference = findBy("//a[text()='" + sessionVariableCalled("caseReference") + "']");
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
         safeClickOn(caseReference);
     }
 
@@ -182,7 +193,7 @@ public class SearchStepDefs extends BasePage {
     @And("I search for the COMP case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         waitABit(10);
-        search.enterCOMPSearchCriteria("Case Reference", sessionVariableCalled("caseReference"));
+        search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
         safeClickOn(searchButton);
     }
 

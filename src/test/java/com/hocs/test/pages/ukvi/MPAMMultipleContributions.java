@@ -2,13 +2,12 @@ package com.hocs.test.pages.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.ContributionRequests;
-import com.hocs.test.pages.Dashboard;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ContributionRequests;
+import com.hocs.test.pages.decs.Dashboard;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -117,7 +116,7 @@ public class MPAMMultipleContributions extends BasePage {
                 dashboard.getAndClaimCurrentCase();
                 safeClickOn(contributionRequests.editHypertext);
                 safeClickOn(contributionRequests.completeRadioButton);
-                typeIntoDateField(contributionRequests.contributionReceivedDateDayField, contributionRequests.contributionReceivedDateMonthField,
+                typeIntoDateFields(contributionRequests.contributionReceivedDateDayField, contributionRequests.contributionReceivedDateMonthField,
                         contributionRequests.contributionReceivedDateYearField,
                         getDatePlusMinusNDaysAgo(-1));
                 contributionRequests.contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");

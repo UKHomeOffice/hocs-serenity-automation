@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import config.User;
 import java.time.Duration;
 import java.util.List;
@@ -163,7 +163,7 @@ public class TeamManagement extends BasePage {
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
         waitABit(1000);
-        String removedUser = sessionVariableCalled("user").toString();
+        String removedUser = sessionVariableCalled("removedUser").toString();
         $("//body").shouldNotContainText(removedUser);
     }
 

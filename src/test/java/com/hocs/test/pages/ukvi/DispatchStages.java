@@ -2,14 +2,12 @@ package com.hocs.test.pages.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import java.util.List;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -81,7 +79,7 @@ public class DispatchStages extends BasePage {
     public WebElementFacade followUpDetailsTextArea;
 
     public void inputDispatchedDate(String date) {
-        typeIntoDateField(dispatchedDateDayTextField, dispatchedDateMonthTextField, dispatchedDateYearTextField,
+        typeIntoDateFields(dispatchedDateDayTextField, dispatchedDateMonthTextField, dispatchedDateYearTextField,
                 date);
     }
 
@@ -204,7 +202,7 @@ public class DispatchStages extends BasePage {
     }
 
     public void followUpDateInput(String date) {
-        typeIntoDateField(dueDateDayTextField, dueDateMonthTextField, dueDateYearTextField, date);
+        typeIntoDateFields(dueDateDayTextField, dueDateMonthTextField, dueDateYearTextField, date);
         setSessionVariable("dueDate").to(date);
     }
 

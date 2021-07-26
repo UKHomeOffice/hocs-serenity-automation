@@ -12,7 +12,7 @@
             <list>
               <option value="clean" />
               <option value="verify" />
-              <option value="-Dcucumber.filter.tags=@DCURegression or @UKVIRegression1 or @UKVIRegression2 or @Regression" />
+              <option value="-Dcucumber.filter.tags=@DCURegression or @UKVIRegression1 or @UKVIRegression2 or @COMPRegression or @WCSRegression or @CSRegression" />
               <option value="-Dchrome.switches=--headless" />
               <option value="-Denvironment=QA" />
             </list>

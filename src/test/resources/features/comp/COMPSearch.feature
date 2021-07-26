@@ -2,7 +2,7 @@
 Feature: COMP Search
 
   Background:
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
 
 #    HOCS-2838, HOCS-3036
   @COMPRegression
@@ -32,7 +32,7 @@ Feature: COMP Search
 #     HOCS-2847 HOCS-3161
   @COMPRegression
   Scenario: COMP User sees the required information when viewing search
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
     And I navigate to the "search" page
     And I click the search button on the search page
     Then the "COMP Search" workstack should contain only the expected columns

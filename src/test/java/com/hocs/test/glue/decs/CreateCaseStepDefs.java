@@ -5,16 +5,15 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.CreateCase_SuccessPage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Documents;
-import com.hocs.test.pages.SummaryTab;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
-import com.hocs.test.pages.comp.AccordionCOMP;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
@@ -30,8 +29,6 @@ import io.cucumber.java.en.When;
 import java.text.ParseException;
 
 public class CreateCaseStepDefs extends BasePage {
-
-    AccordionCOMP accordionCOMP;
 
     Documents documents;
 
@@ -63,20 +60,27 @@ public class CreateCaseStepDefs extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
-    @When("I create a single {string} case")
+    com.hocs.test.pages.wcs.Registration wcsRegistration;
+
+    @When("I create a single {string} case/claim")
     public void createNewCase(String caseType) {
-        createCase.createCaseOfType(caseType.toUpperCase());
+        if (caseType.equalsIgnoreCase("WCS")) {
+            createCase.createWCSCase();
+            waitFor(wcsRegistration.registrationSchemeCheckTitle);
+        } else {
+            createCase.createCSCaseOfType(caseType.toUpperCase());
+        }
     }
 
     @Given("I create a single {string} case and return to the dashboard")
     public void createACaseTypeSpecificCase(String caseType) {
-        createCase.createCaseOfType(caseType.toUpperCase());
-        goToDECSDashboard();
+        createCase.createCSCaseOfType(caseType.toUpperCase());
+        goToDashboard();
     }
 
     @When("I create a {string} case {string} a document")
     public void createCaseWithDocument(String caseType, String document) {
-        safeClickOn(dashboard.createSingleCase);
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
         createCase.selectCaseType(caseType);
         safeClickOn(createCase.nextButton);
         switch (document.toUpperCase()) {
@@ -95,7 +99,7 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I bulk create {int} {string} cases")
     public void bulkCreateCases(int cases, String caseType) {
         setSessionVariable("bulkCaseNumber").to(cases);
-        safeClickOn(dashboard.createBulkCases);
+        dashboard.selectCreateBulkCasesLinkFromMenuBar();
         createCase.selectCaseType(caseType);
         safeClickOn(createCase.nextButton);
         documents.bulkUploadDocuments(cases);
@@ -115,13 +119,14 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I do not select a type of correspondence when creating a case")
     public void doNotSelectCorrespondenceWhenCreatingCase() {
-        createCase.createCaseWithoutSelectingCorrespondenceType();
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        clickTheButton("Next");
     }
 
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
-        createCase.createCaseOfType(caseType);
-        safeClickOn(dashboard.dashboardLink);
+        createCase.createCSCaseOfType(caseType);
+        safeClickOn(dashboard.csDashboardLink);
         dashboard.getAndClaimCurrentCase();
         dataInput.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
@@ -142,7 +147,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @Then("the case should be visible in the Performance and Process Team workstack")
     public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
-        safeClickOn(dashboard.dashboardLink);
+        safeClickOn(dashboard.csDashboardLink);
         safeClickOn(dashboard.performanceProcessTeam);
         workstacks.assertVisibilityOfCaseReference(true);
     }
@@ -155,18 +160,18 @@ public class CreateCaseStepDefs extends BasePage {
         setSessionVariable("caseReference").to(newCaseReference);
         switch (workstack.toUpperCase()) {
             case "PERFORMANCE AND PROCESS TEAM":
-                safeClickOn(dashboard.dashboardLink);
+                safeClickOn(dashboard.csDashboardLink);
                 safeClickOn(dashboard.performanceProcessTeam);
                 workstacks.clickCheckboxRelevantToCaseReference();
                 safeClickOn(workstacks.allocateSelectedToMeButton);
-                safeClickOn(workstacks.dashboardLink);
+                safeClickOn(workstacks.csDashboardLink);
                 break;
             case "TRANSFERS AND N10 TEAM":
-                safeClickOn(dashboard.dashboardLink);
+                safeClickOn(dashboard.csDashboardLink);
                 safeClickOn(dashboard.transferN10Team);
                 workstacks.clickCheckboxRelevantToCaseReference();
                 safeClickOn(workstacks.allocateSelectedToMeButton);
-                safeClickOn(workstacks.dashboardLink);
+                safeClickOn(workstacks.csDashboardLink);
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
@@ -176,13 +181,13 @@ public class CreateCaseStepDefs extends BasePage {
     @Then("A case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
         createCaseSuccessPage.assertCaseCreatedSuccess();
-        createCaseSuccessPage.getCaseReference();
+        createCaseSuccessPage.storeCaseReference();
     }
 
     @Then("A case is created successfully {string} a document")
     public void aCaseIsCreatedSuccessfullyWithWithoutADocument(String withWithout) {
         createCaseSuccessPage.assertCaseCreatedSuccess();
-        createCaseSuccessPage.getCaseReference();
+        createCaseSuccessPage.storeCaseReference();
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         if (withWithout.equals("with")) {
             documents.assertFileIsVisible(sessionVariableCalled("docType"));
@@ -234,7 +239,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
-        createCase.createCaseOfType(caseType.toUpperCase());
+        createCase.createCSCaseOfType(caseType.toUpperCase());
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(unallocatedCaseView.allocateToMeLink);
         dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
@@ -283,8 +288,8 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
     public void iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
-        createCase.createCaseOfType("MPAM");
-        goToDECSDashboard();
+        createCase.createCSCaseOfType("MPAM");
+        goToDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
         waitForDashboard();
@@ -292,8 +297,8 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the Triage stage")
     public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam) {
-        createCase.createCaseOfType("MPAM");
-        goToDECSDashboard();
+        createCase.createCSCaseOfType("MPAM");
+        goToDashboard();
         dashboard.getAndClaimCurrentCase();
         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
         waitForDashboard();
@@ -305,7 +310,7 @@ public class CreateCaseStepDefs extends BasePage {
             case "DCU":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
-                        createCase.createCaseOfType(infoValue);
+                        createCase.createCSCaseOfType(infoValue);
                         break;
                     case "RECEIVED ON OR AFTER DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
@@ -314,14 +319,14 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
-                        createCase.createCaseOfType("MIN");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MIN");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
-                        createCase.createCaseOfType("MIN");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MIN");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         dataInput.completeDataInputStageWithPublicCorrespondent();
                         waitForDashboard();
@@ -335,11 +340,11 @@ public class CreateCaseStepDefs extends BasePage {
                         iCreateACaseWithAsIts("DCU", "Animal alternatives (3Rs)", "Topic");
                         break;
                     case "ACTIVE CASES ONLY":
-                        createCase.createCaseOfType("MIN");
+                        createCase.createCSCaseOfType("MIN");
                         break;
                     case "HOME SECRETARY INTEREST":
-                        createCase.createCaseOfType("MIN");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MIN");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         if (infoValue.equalsIgnoreCase("YES")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
@@ -355,30 +360,30 @@ public class CreateCaseStepDefs extends BasePage {
                 switch (infoType.toUpperCase()) {
                     case "CASE REFERENCE":
                     case "ACTIVE CASES ONLY":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         break;
                     case "REFERENCE TYPE":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage("UKVI", infoValue);
                         break;
                     case "MINISTERIAL SIGN OFF TEAM":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(infoValue);
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
                         break;
                     case "CORRESPONDENT REFERENCE NUMBER":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseWithCorrespondentReferenceNumber(infoValue);
                         break;
@@ -389,23 +394,23 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
                         break;
                     case "CAMPAIGN":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.moveCaseFromCreationToTriage();
                         dashboard.getAndClaimCurrentCase();
                         campaign.moveCaseFromAStageToCampaign(infoValue);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
-                        createCase.createCaseOfType("MPAM");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MPAM");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         creation.triggerMPCorrespondentIsMandatoryScreen();
-                        goToDECSDashboard();
+                        goToDashboard();
                         break;
                     case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                        createCase.createCaseOfType("MTS");
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType("MTS");
+                        goToDashboard();
                         dashboard.getAndClaimCurrentCase();
                         mtsDataInput.completeDataInputStageAndCloseMTSCase();
                         break;
@@ -418,13 +423,13 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT FULL NAME":
                     case "CORRESPONDENT POSTCODE":
                     case "CORRESPONDENT EMAIL ADDRESS":
-                        createCase.createCaseOfType("COMP");
+                        createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
                         addCorrespondent.addAPublicCorrespondentOfType("Complainant");
                         safeClickOn(continueButton);
                         break;
                     case "COMPLAINANT DATE OF BIRTH":
-                        createCase.createCaseOfType("COMP");
+                        createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
                         addCorrespondent.addAPublicCorrespondentOfType("Complainant");
                         safeClickOn(continueButton);
@@ -435,20 +440,19 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
                         registration.selectComplaintType("Service");
-                        safeClickOn(continueButton);
                         registration.selectAChannel();
                         registration.selectASeverity();
                         safeClickOn(continueButton);
-                        safeClickOn(accordionCOMP.serviceAccordionButton);
-                        safeClickOn(accordionCOMP.delayCheckbox);
+                        registration.openTheServiceComplaintCategoryAccordion();
+                        registration.selectAVisibleClaimCategory();
                         registration.selectAnOwningCSU();
                         safeClickOn(finishButton);
                         break;
                     case "CASE REFERENCE":
-                        createCase.createCaseOfType("COMP");
+                        createCase.createCSCaseOfType("COMP");
                         break;
                     case "COMPLAINANT HOME OFFICE REFERENCE":
-                        createCase.createCaseOfType("COMP");
+                        createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
                         addCorrespondent.addAPublicCorrespondentOfType("Complainant");
                         safeClickOn(continueButton);

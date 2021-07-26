@@ -2,7 +2,7 @@
 Feature: MTS Data Input
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
     And I create a single "MTS" case and return to the dashboard
     And I load and claim the current case
 

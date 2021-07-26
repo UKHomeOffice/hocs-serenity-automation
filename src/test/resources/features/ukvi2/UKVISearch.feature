@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
 
   @UKVIRegression2
   Scenario Outline: User tests UKVI search criteria
@@ -22,7 +22,7 @@ Feature: UKVI Search
       | Ministerial Sign Off Team             | Home Secretary |
       | Public Correspondent Name             | Sam McTester   |
 
-  @OtherTests
+
   Scenario: User searches by case reference from the search page
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I navigate to the "Search" page

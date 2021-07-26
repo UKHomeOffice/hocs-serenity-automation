@@ -1,6 +1,6 @@
 package com.hocs.test.glue.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.ComplaintClosed;
 import io.cucumber.java.en.And;
 
@@ -15,7 +15,7 @@ public class ComplaintClosedStepDefs extends BasePage {
 
     @And("I enter a completion note at Complaint Closed")
     public void iEnterACompletionNoteAtComplaintClosed() {
-        complaintClosed.enterReasonForCaseCompletion();
+        complaintClosed.submitReasonForCaseCompletion();
     }
 
     @And("I confirm I want to close the case at Complaint Closed")

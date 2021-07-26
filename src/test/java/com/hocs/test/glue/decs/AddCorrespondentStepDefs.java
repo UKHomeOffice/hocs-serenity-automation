@@ -1,6 +1,6 @@
 package com.hocs.test.glue.decs;
 
-import com.hocs.test.pages.AddCorrespondent;
+import com.hocs.test.pages.decs.AddCorrespondent;
 import io.cucumber.java.en.And;
 
 public class AddCorrespondentStepDefs {
