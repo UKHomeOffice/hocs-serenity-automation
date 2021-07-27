@@ -573,10 +573,18 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I load the {string} DCU Drafting team through team management")
     public void iLoadTheNewlyDCUDraftingTeamThroughTeamManagement(String action) {
-        if (action.equalsIgnoreCase("CREATED")) {
-            teamManagement.selectATeam(sessionVariableCalled("draftingTeamName"));
-        } else if (action.equalsIgnoreCase("RENAMED")) {
-            teamManagement.selectATeam(sessionVariableCalled("newDraftingTeamName"));
+        switch (action.toUpperCase()) {
+            case "CREATED":
+                teamManagement.selectATeam(sessionVariableCalled("draftingTeamName"));
+                break;
+            case "RENAMED":
+                teamManagement.selectATeam(sessionVariableCalled("newDraftingTeamName"));
+                break;
+            case "DEACTIVATED":
+                teamManagement.selectATeam(sessionVariableCalled("deactivatedTeamName"));
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
         }
     }
 
@@ -634,9 +642,28 @@ public class ManagementUIStepDefs extends BasePage {
         }
     }
 
+    @And("I select to include deactivated teams in teams typeahead")
+    public void iSelectToIncludeDeactivatedTeamsInTeamsTypeahead() {
+        teamManagement.selectShowDeactivatedTeamCheckbox();
+    }
+
     @Then("the team should be displayed as {string} in team management")
     public void theTeamShouldBeDisplayedAsInTeamManagement(String status) {
         teamManagement.assertActiveStatusOfTeam(status);
+    }
+
+    @Then("a message should be displayed stating that the team has been successfully {string}")
+    public void aMessageShouldBeDisplayedStatingThatTheTeamHasBeenSuccessfully(String message) {
+        if (message.equalsIgnoreCase("Deactivated")) {
+            teamManagement.assertSuccessMessageOfDeactivation();
+        } else if (message.equalsIgnoreCase("Reactivated")) {
+            teamManagement.assertSuccessMessageOfReactivation();
+        }
+    }
+
+    @Then("the deactivated team should be displayed")
+    public void theDeactivatedTeamShouldBeDisplayed() {
+        teamManagement.assertDeactivatedTeamIsDisplayed();
     }
 }
 

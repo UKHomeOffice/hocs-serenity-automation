@@ -30,7 +30,7 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
     public WebElementFacade addSelectedUsersButton;
 
-    @FindBy(xpath = "//h2[@class='govuk-heading-l']")
+    @FindBy(xpath = "//span[contains(text(), 'Team:')]")
     public WebElementFacade teamNameHeader;
 
     @FindBy(xpath = "(//td//a)[1]")
@@ -77,6 +77,9 @@ public class TeamManagement extends BasePage {
 
     @FindBy(xpath = "//strong[text()='Inactive']")
     public WebElementFacade inactiveTag;
+
+    @FindBy(id = "showDeactivated")
+    public WebElementFacade showDeactivatedTeamsCheckbox;
 
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
@@ -168,11 +171,18 @@ public class TeamManagement extends BasePage {
     public void deactivateTeam() {
         safeClickOn(deactivateTeamButton);
         safeClickOn(deactivateTeamConfirmationButton);
+        waitABit(500);
+        String teamName = teamNameHeader.getText().split(": ")[1];
+        setSessionVariable("deactivatedTeamName").to(teamName);
     }
 
     public void reactivateTeam() {
         safeClickOn(reactivateTeamButton);
         safeClickOn(reactivateTeamConfirmationButton);
+    }
+
+    public void selectShowDeactivatedTeamCheckbox() {
+        safeClickOn(showDeactivatedTeamsCheckbox);
     }
 
     public void assertNewTeamIsDisplayed() {
@@ -230,11 +240,25 @@ public class TeamManagement extends BasePage {
         successMessage.shouldContainText("Team name changed from " + initialTeamName + " to " + finalTeamName + ".");
     }
 
+    public void assertSuccessMessageOfDeactivation() {
+        successMessage.shouldContainText("has been deactivated successfully");
+    }
+
+    public void assertSuccessMessageOfReactivation() {
+        successMessage.shouldContainText("has been reactivated successfully");
+    }
+
     public void assertActiveStatusOfTeam(String status) {
+        waitABit(1500);
         if (status.equalsIgnoreCase("INACTIVE")) {
             assertThat(inactiveTag.isCurrentlyVisible(), is(true));
         } else if (status.equalsIgnoreCase("ACTIVE")) {
             assertThat(inactiveTag.isCurrentlyVisible(), is(false));
         }
+    }
+
+    public void assertDeactivatedTeamIsDisplayed() {
+        waitABit(500);
+        teamNameHeader.shouldContainText(sessionVariableCalled("deactivatedTeamName"));
     }
 }
