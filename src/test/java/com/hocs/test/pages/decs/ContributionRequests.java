@@ -104,23 +104,25 @@ public class ContributionRequests extends BasePage {
         typeIntoDateFields(contributionRequestDateDayField, contributionRequestDateMonthField, contributionRequestDateYearField,
                 requestDate);
         typeIntoDateFields(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, dueDate);
-        try {
-            contributionDueDate = new SimpleDateFormat("dd/MM/yyyy").parse(dueDate);
-            currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(getDatePlusMinusNDaysAgo(0));
-        } catch (ParseException pE) {
-            System.out.println("Could not parse dates");
-        }
-        assert contributionDueDate != null;
-        if ((contributionDueDate.after(currentDate) || contributionDueDate.equals(currentDate)) && sessionVariableCalled(
-                "expectedContributionRequestStatus") != ("Overdue")) {
-            expectedStatus = "Due";
-        } else if (contributionDueDate.before(currentDate)) {
-            expectedStatus = "Overdue";
-        }
         setSessionVariable("contributionDueDate").to(dueDate);
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP")) {
+            try {
+                contributionDueDate = new SimpleDateFormat("dd/MM/yyyy").parse(dueDate);
+                currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(getDatePlusMinusNDaysAgo(0));
+            } catch (ParseException pE) {
+                System.out.println("Could not parse dates");
+            }
+            assert contributionDueDate != null;
+            if ((contributionDueDate.after(currentDate) || contributionDueDate.equals(currentDate)) && sessionVariableCalled(
+                    "expectedContributionRequestStatus") != ("Overdue")) {
+                expectedStatus = "Due";
+            } else if (contributionDueDate.before(currentDate)) {
+                expectedStatus = "Overdue";
+            }
+            setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
+        }
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
-        setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
     }
 
     public void editContributionDueDate() {
