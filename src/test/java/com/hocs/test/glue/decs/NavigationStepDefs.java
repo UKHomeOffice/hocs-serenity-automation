@@ -31,7 +31,7 @@ public class NavigationStepDefs extends BasePage {
 
     LoginPage loginPage;
 
-    @When("I navigate to the {string} page")
+    @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
         switch (hocsPage.toUpperCase()) {
             case "DASHBOARD":
