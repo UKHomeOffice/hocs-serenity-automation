@@ -2,7 +2,7 @@
 Feature: ManagementUI
 
   Background:
-    Given I am logged into "CS Management UI" as user "DCU_USER"
+    Given I am logged into "CS Management UI" as user "DECS_USER"
 
   @Navigation
   Scenario Outline: User navigates to a management page
