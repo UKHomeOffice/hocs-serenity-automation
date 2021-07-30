@@ -816,4 +816,17 @@ public class Workstacks extends BasePage {
         waitABit(1000);
         assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
     }
+
+    public void assertOverdueContributionRequestIsHighlighted() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade label = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td//span[contains(text(), 'Overdue')]");
+        String value = label.getCssValue("background-color");
+        assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
+    }
+
+    public void assertContributionRequestStatus() {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade contributionRequestField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[2]");
+        contributionRequestField.shouldContainText(sessionVariableCalled("expectedWorkstackCRStatus"));
+    }
 }

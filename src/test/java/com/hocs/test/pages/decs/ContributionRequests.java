@@ -2,11 +2,17 @@ package com.hocs.test.pages.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ContributionRequests extends BasePage {
@@ -75,6 +81,9 @@ public class ContributionRequests extends BasePage {
     public WebElementFacade updateButton;
 
     public void addAContribution(String contributionType, String requestDate, String dueDate) {
+        Date contributionDueDate = null;
+        Date currentDate = null;
+        String expectedStatus = "";
         switch (contributionType.toUpperCase()) {
             case "CASE":
                 safeClickOn(addAContributionHypertext);
@@ -96,6 +105,22 @@ public class ContributionRequests extends BasePage {
                 requestDate);
         typeIntoDateFields(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, dueDate);
         setSessionVariable("contributionDueDate").to(dueDate);
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP")) {
+            try {
+                contributionDueDate = new SimpleDateFormat("dd/MM/yyyy").parse(dueDate);
+                currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(getDatePlusMinusNDaysAgo(0));
+            } catch (ParseException pE) {
+                System.out.println("Could not parse dates");
+            }
+            assert contributionDueDate != null;
+            if ((contributionDueDate.after(currentDate) || contributionDueDate.equals(currentDate)) && sessionVariableCalled(
+                    "expectedContributionRequestStatus") != ("Overdue")) {
+                expectedStatus = "Due";
+            } else if (contributionDueDate.before(currentDate)) {
+                expectedStatus = "Overdue";
+            }
+            setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
+        }
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
     }
