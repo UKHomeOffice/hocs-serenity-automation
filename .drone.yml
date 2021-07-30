@@ -153,7 +153,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_DECS_$(date
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_CS_$(date
         +'%Y-%m-%d_%H-%M-%S')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
