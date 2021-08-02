@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
@@ -28,6 +29,7 @@ import io.cucumber.java.en.When;
 public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
+    MuiLoginPage muiLoginPage;
 
     fetchExistingDCUCases fetchExistingDCUCases;
 
@@ -289,10 +291,10 @@ public class ManagementUIStepDefs extends BasePage {
     public void iNavigateTo(String site) {
         switch (site.toUpperCase()) {
             case "DECS":
-                loginPage.navigateToDECS();
+                loginPage.open();
                 break;
             case "MANAGEMENT UI":
-                loginPage.navigateToDECSManagementUI();
+                muiLoginPage.open();
                 break;
             default:
                 pendingStep(site + " is not defined within " + getMethodName());

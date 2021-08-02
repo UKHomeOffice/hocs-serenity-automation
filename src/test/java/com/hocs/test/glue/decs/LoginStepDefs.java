@@ -12,18 +12,22 @@ import com.hocs.test.pages.BasePage;
 import com.hocs.test.pages.CreateCase;
 import com.hocs.test.pages.Dashboard;
 import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.Workstacks;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.screenplay.actions.Open;
 
 public class LoginStepDefs extends BasePage {
 
     Dashboard dashboard;
 
     LoginPage loginPage;
+
+    MuiLoginPage muiLoginPage;
 
     Workstacks workstacks;
 
@@ -35,7 +39,7 @@ public class LoginStepDefs extends BasePage {
     public void iAmLoggedIntoAs(String platform, String user) {
         targetUser = User.valueOf(user);
         checkForOverrideUser();
-        loginPage.navigateToPlatform(platform);
+        login(platform);
         if (loginPage.onLoginPage()) {
             loginPage.logInAsUser(targetUser);
         } else {
@@ -50,10 +54,21 @@ public class LoginStepDefs extends BasePage {
         setCurrentUser(targetUser);
     }
 
+    private void login(String platform) {
+        if (platform.equalsIgnoreCase("DECS")) {
+            loginPage.open();
+        } else if (platform.equalsIgnoreCase("MANAGEMENT UI")) {
+            muiLoginPage.open();
+
+        } else {
+            System.err.println("Platform : " + platform + "Not Found");
+        }
+    }
+
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
         targetUser = User.valueOf(user);
-        loginPage.navigateToDECS();
+        loginPage.open();
         if (!loginPage.onLoginPage()) {
             System.out.println("Session still active, logging out");
             selectLogoutButton();
@@ -64,7 +79,7 @@ public class LoginStepDefs extends BasePage {
 
     @Given("I am on the Home Office Correspondence Login Page")
     public void homeUrl() {
-        loginPage.navigateToDECS();
+        loginPage.open();
     }
 
     @When("I enter the login credentials for user {string} and click the login button")
@@ -103,7 +118,7 @@ public class LoginStepDefs extends BasePage {
 
     @When("I enter the login credentials of another user {string} and click the login button")
     public void loginAsDifferentUserAfterLogout(String user) {
-        loginPage.navigateToDECS();
+        loginPage.open();
         loginPage.enterUsername(User.valueOf(user).getUsername());
         loginPage.enterPassword(User.valueOf(user).getPassword());
         safeClickOn(loginPage.continueButton);
@@ -113,7 +128,7 @@ public class LoginStepDefs extends BasePage {
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             safeClickOn(dashboard.logoutButton);
-            loginPage.navigateToDECS();
+            loginPage.open();
         }
     }
 
@@ -140,8 +155,7 @@ public class LoginStepDefs extends BasePage {
                 targetUserLoggedIn = createCase.checkTargetUserIsLoggedInUsingCaseOptions(targetUser);
                 goToDECSDashboard();
             }
-        }
-        else {
+        } else {
             goToDECSDashboard();
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {

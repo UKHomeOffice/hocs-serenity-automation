@@ -3,8 +3,6 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -76,8 +74,6 @@ name: DCU
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
@@ -133,8 +129,6 @@ name: DECSRegression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -189,8 +183,6 @@ name: UKVI-1-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -245,8 +237,6 @@ name: UKVI-2-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -302,8 +292,6 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
