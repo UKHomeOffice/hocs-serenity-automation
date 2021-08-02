@@ -200,4 +200,8 @@ public class LoginStepDefs extends BasePage {
         }
         return targetUserLoggedIn;
     }
+    @And("I navigate to {string}")
+    public void iNavigateTo(String platform) {
+        navigateToPlatform(platform);
+    }
 }
