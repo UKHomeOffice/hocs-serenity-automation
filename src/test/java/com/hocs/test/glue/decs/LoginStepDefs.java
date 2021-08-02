@@ -83,6 +83,7 @@ public class LoginStepDefs extends BasePage {
         } else {
             System.err.println("Platform : " + platform + "Not Found");
         }
+        currentPlatform = platform;
     }
 
     @Given("I switch to user {string}")
