@@ -412,7 +412,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case should be allocated to the original user")
     public void caseShouldBeAllocatedTo() {
-        safeClickOn(summaryTab.summaryTab);
+        summaryTab.selectSummaryTab();
         int retest = 0;
         while (retest < 5) {
             try {
@@ -420,8 +420,8 @@ public class BaseStepDefs extends BasePage {
                 break;
             } catch (AssertionError a) {
                 retest ++;
-                safeClickOn(timelineTab.timelineTab);
-                safeClickOn(summaryTab.summaryTab);
+                timelineTab.selectTimelineTab();
+                summaryTab.selectSummaryTab();
             }
         }
         summaryTab.assertAllocatedUserIs(originalUser);

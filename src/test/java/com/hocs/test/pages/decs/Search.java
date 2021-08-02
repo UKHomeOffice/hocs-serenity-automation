@@ -380,7 +380,7 @@ public class Search extends BasePage {
         Date searchDate = null;
         Date caseDate = null;
         boolean trueFalse;
-        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
         setSessionVariable("randomCaseRef").to(randomSearchResult.getText());
@@ -466,7 +466,7 @@ public class Search extends BasePage {
 
     public void assertMPAMInformationRandomSearchResult(String criteria) {
         waitForResultsPage();
-        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
         int randomNumber = (new Random().nextInt(numberOfCasesDisplayed)) + 1;
         WebElementFacade randomSearchResult = findBy("//tr[" + randomNumber + "]/td/a");
         System.out.print(randomSearchResult.getText() + " is the case reference of the randomly selected case");
@@ -483,7 +483,7 @@ public class Search extends BasePage {
                 break;
             case "REFERENCE TYPE":
                 safeClickOn(randomSearchResult);
-                safeClickOn(summaryTab.summaryTab);
+                summaryTab.selectSummaryTab();
                 summaryTab.isMinisterialResponseRequired.shouldContainText(sessionVariableCalled("searchReferenceType"));
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
@@ -517,7 +517,7 @@ public class Search extends BasePage {
                 break;
             case "CAMPAIGN":
                 safeClickOn(randomSearchResult);
-                safeClickOn(summaryTab.summaryTab);
+                summaryTab.selectSummaryTab();
                 summaryTab.assertCampaignInSummaryTabIsCorrect(sessionVariableCalled("searchCampaign"));
                 break;
             case "PUBLIC CORRESPONDENT NAME":
@@ -541,7 +541,7 @@ public class Search extends BasePage {
         WebElementFacade cell = null;
         String displayedValue;
         String expectedValue = null;
-        int numberOfCasesDisplayed = Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
         String randomSearchResult = randomSearchResultHypertext.getText();
@@ -573,7 +573,7 @@ public class Search extends BasePage {
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
                 openOrCloseAccordionSection("Registration");
-                unallocatedCaseView.getValueFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth");
+                unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth");
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
@@ -601,5 +601,13 @@ public class Search extends BasePage {
 
     public void waitForSearchCriteriaPage() {
         searchButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+    }
+
+    public int getNumberOfSearchResults() {
+        return Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+    }
+
+    public boolean zeroSearchResultsReturned() {
+        return getNumberOfSearchResults() == 0;
     }
 }

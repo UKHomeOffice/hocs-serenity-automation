@@ -165,13 +165,13 @@ public class InitialDraftStepDefs extends BasePage {
 
     @And("the {string} document should be tagged as the primary draft")
     public void theDocumentShouldBeTaggedAsThePrimaryDraft(String document) {
-        workstacks.goToCurrentCaseFromWorkstack();
+        documents.selectDocumentsTab();
         initialDraft.assertThatPrimaryDraftIs(sessionVariableCalled(document));
     }
 
     @And("the case should be assigned to the DCU draft team created in Management UI")
     public void theCaseShouldBeAssignedToTheDCUDraftTeamCreatedInMUI() {
-        safeClickOn(summaryTab.summaryTab);
+        summaryTab.selectSummaryTab();
         summaryTab.assertAllocatedDCUTeam(sessionVariableCalled("draftingTeamName"));
     }
 }

@@ -3,6 +3,7 @@ package com.hocs.test.pages.decs;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -28,10 +29,13 @@ public class UnallocatedCaseView extends BasePage {
         return allocateToMeLink.isVisible();
     }
 
-    public String getValueFromOpenCaseDetailsAccordionSectionForGivenHeading(String heading) {
+    public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(String heading) {
         List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
-        WebElementFacade visibleValue = getOnlyCurrentlyVisibleElementFromList(valuesForMatchingHeadings);
-        return visibleValue.getText();
+        List<String> valuesText = new ArrayList<>();
+        for (WebElementFacade value : valuesForMatchingHeadings) {
+            valuesText.add(value.getText());
+        }
+        return valuesText;
     }
 
     //assertions

@@ -5,13 +5,14 @@ Feature: Manage Documents
     Given I am logged into "CS" as user "DECS_USER"
 
   @CSRegression
-  Scenario Outline: User can upload and preview a file of allowed file types
-    And I click to manage the documents of a new "MIN" case
-    And I click add documents
-    When I choose the document type "Original"
-    And I upload a file of type "<fileType>"
+  Scenario Outline: User can upload, preview and remove a file of any allowed file type
+    And I click to manage the documents of a new "MPAM" case
+    And I add a "<fileType>" document to the case
     Then I can see the "<fileType>" file in the uploaded document list
     And the "<fileType>" document should be selected to be displayed in the preview pane
+    When I click manage documents
+    And I select to remove the "<fileType>" document
+    Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:
       | fileType |
       | docx     |
@@ -100,7 +101,6 @@ Feature: Manage Documents
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane
 
-  @CSRegression
   Scenario Outline: User can remove any document
     And I click to manage the documents of a new "MPAM" case
     And I add a "<fileType>" document to the case
