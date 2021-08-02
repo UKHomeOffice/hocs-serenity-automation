@@ -2,7 +2,7 @@
 Feature: Multiple Contributions
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
 
   @UKVIRegression1 @UKVIWorkflow
   Scenario: User can send a Triage case to the Triage (Contribution Requested) stage

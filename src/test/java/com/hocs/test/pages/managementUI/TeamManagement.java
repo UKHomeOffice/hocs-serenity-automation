@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import config.User;
 import java.time.Duration;
 import java.util.List;
@@ -30,7 +30,7 @@ public class TeamManagement extends BasePage {
     @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
     public WebElementFacade addSelectedUsersButton;
 
-    @FindBy(xpath = "//h2[@class='govuk-heading-l']")
+    @FindBy(xpath = "//span[contains(text(), 'Team:')]")
     public WebElementFacade teamNameHeader;
 
     @FindBy(xpath = "(//td//a)[1]")
@@ -59,6 +59,27 @@ public class TeamManagement extends BasePage {
 
     @FindBy(xpath = "//button[text()='Add']")
     public WebElementFacade addTeamButton;
+
+    @FindBy(xpath = "//button[text()='Deactivate team']")
+    public WebElementFacade deactivateTeamButton;
+
+    @FindBy(xpath = "//button[text()='Deactivate Team']")
+    public WebElementFacade deactivateTeamConfirmationButton;
+
+    @FindBy(xpath = "//button[text()='Reactivate team']")
+    public WebElementFacade reactivateTeamButton;
+
+    @FindBy(xpath = "//button[text()='Reactivate Team']")
+    public WebElementFacade reactivateTeamConfirmationButton;
+
+    @FindBy(xpath = "//a[text()='Reactivate team']")
+    public WebElementFacade reactivateTeamHypertext;
+
+    @FindBy(xpath = "//strong[text()='Inactive']")
+    public WebElementFacade inactiveTag;
+
+    @FindBy(id = "showDeactivated")
+    public WebElementFacade showDeactivatedTeamsCheckbox;
 
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
@@ -147,6 +168,23 @@ public class TeamManagement extends BasePage {
         safeClickOn(updateButton);
     }
 
+    public void deactivateTeam() {
+        safeClickOn(deactivateTeamButton);
+        safeClickOn(deactivateTeamConfirmationButton);
+        waitABit(500);
+        String teamName = teamNameHeader.getText().split(": ")[1];
+        setSessionVariable("deactivatedTeamName").to(teamName);
+    }
+
+    public void reactivateTeam() {
+        safeClickOn(reactivateTeamButton);
+        safeClickOn(reactivateTeamConfirmationButton);
+    }
+
+    public void selectShowDeactivatedTeamCheckbox() {
+        safeClickOn(showDeactivatedTeamsCheckbox);
+    }
+
     public void assertNewTeamIsDisplayed() {
         waitABit(1000);
         String displayedTeam = teamNameHeader.getText().split(": ")[1];
@@ -163,7 +201,7 @@ public class TeamManagement extends BasePage {
 
     public void assertThatRemovedUserIsNoLongerVisibleInList() {
         waitABit(1000);
-        String removedUser = sessionVariableCalled("user").toString();
+        String removedUser = sessionVariableCalled("removedUser").toString();
         $("//body").shouldNotContainText(removedUser);
     }
 
@@ -200,5 +238,27 @@ public class TeamManagement extends BasePage {
         String initialTeamName = sessionVariableCalled("initialDraftingTeamName");
         String finalTeamName = sessionVariableCalled("newDraftingTeamName");
         successMessage.shouldContainText("Team name changed from " + initialTeamName + " to " + finalTeamName + ".");
+    }
+
+    public void assertSuccessMessageOfDeactivation() {
+        successMessage.shouldContainText("has been deactivated successfully");
+    }
+
+    public void assertSuccessMessageOfReactivation() {
+        successMessage.shouldContainText("has been reactivated successfully");
+    }
+
+    public void assertActiveStatusOfTeam(String status) {
+        waitABit(1500);
+        if (status.equalsIgnoreCase("INACTIVE")) {
+            assertThat(inactiveTag.isCurrentlyVisible(), is(true));
+        } else if (status.equalsIgnoreCase("ACTIVE")) {
+            assertThat(inactiveTag.isCurrentlyVisible(), is(false));
+        }
+    }
+
+    public void assertDeactivatedTeamIsDisplayed() {
+        waitABit(500);
+        teamNameHeader.shouldContainText(sessionVariableCalled("deactivatedTeamName"));
     }
 }

@@ -3,10 +3,10 @@ package com.hocs.test.glue.dcu;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.UnallocatedCaseView;
-import com.hocs.test.pages.Workstacks;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;

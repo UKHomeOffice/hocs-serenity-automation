@@ -2,7 +2,7 @@
 Feature: Triage
 
   Background:
-    Given I am logged into "DECS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "UKVI_USER"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
 
@@ -34,7 +34,7 @@ Feature: Triage
     And I select an enquiry reason and continue
     Then the set enquiry subject and reason should be displayed on the MPAM Triage page
 
-  @OtherTests
+
   Scenario: User views the Business Units for different Business Areas
     And I select to change the Business Area
     And I record the current options for Business Unit

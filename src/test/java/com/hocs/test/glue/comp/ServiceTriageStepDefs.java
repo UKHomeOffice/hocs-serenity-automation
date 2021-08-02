@@ -1,9 +1,8 @@
 package com.hocs.test.glue.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.ServiceTriage;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 
 public class ServiceTriageStepDefs extends BasePage {
 
@@ -66,7 +65,7 @@ public class ServiceTriageStepDefs extends BasePage {
     }
 
     @And("the overdue contribution request should be highlighted")
-    public void highlightingcheck() {
+    public void highlightingCheckAtServiceTriage() {
         serviceTriage.assertOverdueContributionRequestIsHighlighted();
     }
 }

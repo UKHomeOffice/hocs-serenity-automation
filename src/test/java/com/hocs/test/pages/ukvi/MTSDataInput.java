@@ -1,12 +1,9 @@
 package com.hocs.test.pages.ukvi;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.AddCorrespondent;
-import com.hocs.test.pages.BasePage;
-import java.util.List;
+import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -79,7 +76,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        safeClickRadioButtonByVisibleText(businessArea);
+        selectSpecificRadioButton(businessArea);
     }
 
     public void selectUrgency() {
@@ -87,7 +84,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectUrgency(String urgency) {
-        safeClickRadioButtonByVisibleText(urgency);
+        selectSpecificRadioButton(urgency);
     }
 
     public void selectChannelReceived() {
@@ -95,7 +92,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectChannelReceived(String channelReceived) {
-        safeClickRadioButtonByVisibleText(channelReceived);
+        selectSpecificRadioButton(channelReceived);
     }
 
     public void selectEnquirySubject() {
@@ -103,7 +100,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void selectEnquirySubject(String enquirySubject) {
-        safeClickRadioButtonByVisibleText(enquirySubject);
+        selectSpecificRadioButton(enquirySubject);
     }
 
     private void enterASupportNote(String supportNoteText) {

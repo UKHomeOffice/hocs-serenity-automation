@@ -2,9 +2,9 @@ package com.hocs.test.glue.decs;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.TimelineTab;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.TimelineTab;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -13,6 +13,8 @@ import io.cucumber.java.en.When;
 public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
+
+    Dashboard dashboard;
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
@@ -95,7 +97,7 @@ public class TimelineStepDefs extends BasePage {
 
     @And("I edit the top case note")
     public void iEditTopCaseNote() {
-        timelineTab.editACase("Test 1");
+        timelineTab.editACaseNote("Test 1");
     }
 
     @And("the case note should appear between the {string} logs")
@@ -141,5 +143,10 @@ public class TimelineStepDefs extends BasePage {
     @And("a conversion note should be visible showing the entered notes on conversion")
     public void aConversionNoteShouldBeVisibleShowingTheEnteredNotesOnConversion() {
         timelineTab.assertConversionNoteVisible();
+    }
+
+    @And("a case withdrawn note should be visible showing the entered withdrawal reason")
+    public void aCaseWithdrawnNoteContainingThePreviouslyEnteredNotesShouldBeVisibleInTheTimeline() {
+        timelineTab.assertCaseWithDrawnNoteVisible();
     }
 }

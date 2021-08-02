@@ -4,16 +4,12 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.CreateCase;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.Workdays;
-import com.hocs.test.pages.comp.ComplaintClosed;
-import com.hocs.test.pages.comp.Registration;
-import com.hocs.test.pages.comp.ServiceDraft;
-import com.hocs.test.pages.comp.ServiceQA;
-import com.hocs.test.pages.comp.ServiceSend;
-import com.hocs.test.pages.comp.ServiceTriage;
+import com.hocs.test.pages.comp.COMPProgressCase;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -25,6 +21,7 @@ import com.hocs.test.pages.ukvi.DispatchStages;
 import com.hocs.test.pages.ukvi.Draft;
 import com.hocs.test.pages.ukvi.QA;
 import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -60,26 +57,18 @@ public class EndToEndStepDefs extends BasePage {
 
     Workdays workdays;
 
-    Registration registration;
+    WCSProgressCase wcsProgressCase;
 
-    ServiceTriage serviceTriage;
-
-    ServiceDraft serviceDraft;
-
-    ServiceQA serviceQA;
-
-    ServiceSend serviceSend;
-
-    ComplaintClosed complaintClosed;
+    COMPProgressCase compProgressCase;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        dashboard.getAndClaimCurrentCase();
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
             case "DTEN":
             case "TRO":
+                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         dataInput.moveCaseFromDataInputToMarkup();
@@ -113,6 +102,7 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "MPAM":
+                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         creation.moveCaseFromCreationToTriage();
@@ -137,30 +127,106 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "COMP":
+                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
-                        registration.moveCaseFromRegistrationToServiceTriage();
+                        compProgressCase.moveCaseFromRegistrationToServiceTriage();
                         break;
                     case "SERVICE TRIAGE (TO SERVICE DRAFT)":
-                        serviceTriage.moveCaseFromServiceTriageToServiceDraft();
+                        compProgressCase.moveCaseFromServiceTriageToServiceDraft();
                         break;
                     case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
-                        serviceTriage.moveCaseFromServiceTriageToServiceEscalated();
+                        compProgressCase.moveCaseFromServiceTriageToServiceEscalated();
                         break;
                     case "SERVICE TRIAGE (TO CCH)":
-                        serviceTriage.moveCaseFromServiceTriageToCCH();
+                        compProgressCase.moveCaseFromServiceTriageToCCH();
                         break;
                     case "SERVICE DRAFT":
-                        serviceDraft.moveCaseFromServiceDraftToServiceQA();
+                        compProgressCase.moveCaseFromServiceDraftToServiceQA();
                         break;
                     case "SERVICE QA":
-                        serviceQA.moveCaseFromServiceQAToServiceSend();
+                        compProgressCase.moveCaseFromServiceQAToServiceSend();
                         break;
                     case "SERVICE SEND":
-                        serviceSend.moveCaseFromServiceSendToComplaintClosed();
+                        compProgressCase.moveCaseFromServiceSendToComplaintClosed();
                         break;
                     case "COMPLAINT CLOSED (TO CASE CLOSED)":
-                        complaintClosed.moveCaseFromComplaintClosedToCaseClosed();
+                        compProgressCase.moveCaseFromComplaintClosedToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "WCS":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION (TO TRIAGE)":
+                        wcsProgressCase.moveRegistrationCaseToTriage();
+                        break;
+                    case "REGISTRATION (TO ELIGIBILITY)":
+                        wcsProgressCase.moveRegistrationCaseToEligibility();
+                        break;
+                    case "REGISTRATION (TO IDENTITY REJECTED)":
+                        wcsProgressCase.moveRegistrationCaseToIdentityRejected();
+                        break;
+                    case "IDENTITY REJECTED (TO ARCHIVED)":
+                        wcsProgressCase.moveIdentityRejectedCaseToArchivedIdentityRejected();
+                        break;
+                    case "IDENTITY REJECTED (TO TIER 1)":
+                        wcsProgressCase.moveIdentityRejectedCaseToTier1IR();
+                        break;
+                    case "ELIGIBILITY (TO TRIAGE)":
+                        wcsProgressCase.moveEligibilityCaseToTriage();
+                        break;
+                    case "ELIGIBILITY (TO ELIGIBILITY REJECTED)":
+                        wcsProgressCase.moveEligibilityCaseToEligibilityRejected();
+                        break;
+                    case "ELIGIBILITY REJECTED (TO ARCHIVED)":
+                        wcsProgressCase.moveEligibilityRejectedCaseToArchivedEligibilityRejected();
+                        break;
+                    case "ELIGIBILITY REJECTED (TO TIER 1)":
+                        wcsProgressCase.moveEligibilityRejectedCaseToTier1ER();
+                        break;
+                    case "TRIAGE":
+                        wcsProgressCase.moveTriageCaseToCasework();
+                        break;
+                    case "CASEWORK":
+                        wcsProgressCase.moveCaseworkCaseToQA();
+                        break;
+                    case "QA":
+                        wcsProgressCase.moveQACaseToPaymentPreOfferChecklist();
+                        break;
+                    case "PAYMENT PRE-OFFER CHECKLIST":
+                        wcsProgressCase.movePaymentPreOfferChecklistCaseToOfferApproval();
+                        break;
+                    case "OFFER APPROVAL":
+                        wcsProgressCase.moveOfferApprovalCaseToSendOffer();
+                        break;
+                    case "SEND OFFER (TO OFFER ACCEPTANCE)":
+                        wcsProgressCase.moveSendOfferCaseToOfferAcceptance();
+                        break;
+                    case "SEND OFFER (TO NIL OFFER ACCEPTANCE)":
+                        wcsProgressCase.moveSendOfferCaseToNilOfferAcceptance();
+                        break;
+                    case "OFFER ACCEPTANCE (TO PAYMENT PREPARATION)":
+                        wcsProgressCase.moveOfferAcceptanceCaseToPaymentPreparation();
+                        break;
+                    case "OFFER ACCEPTANCE (TO TIER 1)":
+                        wcsProgressCase.moveOfferAcceptanceCaseToTier1();
+                        break;
+                    case "PAYMENT PREPARATION":
+                        wcsProgressCase.movePaymentPreparationCaseToPaymentApproval();
+                        break;
+                    case "PAYMENT APPROVAL":
+                        wcsProgressCase.movePaymentApprovalCaseToSendPayment();
+                        break;
+                    case "SEND PAYMENT":
+                        wcsProgressCase.moveSendPaymentCaseToAwaitingPaymentConfirmation();
+                        break;
+                    case "AWAITING PAYMENT CONFIRMATION":
+                        wcsProgressCase.moveAwaitingPaymentConfirmationCaseToCompleteState();
+                        break;
+                    case "TIER 1":
+                        wcsProgressCase.moveTier1CaseToTier2();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -170,6 +236,7 @@ public class EndToEndStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         waitForDashboard();
+        RecordCaseData.resetDataRecords();
     }
 
     @And("I create a {string} case and move it to (the ){string}( stage)")
@@ -178,8 +245,8 @@ public class EndToEndStepDefs extends BasePage {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createCaseOfType(caseType);
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType(caseType);
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -224,8 +291,8 @@ public class EndToEndStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createCaseOfType(caseType);
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType(caseType);
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -262,8 +329,8 @@ public class EndToEndStepDefs extends BasePage {
             case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        createCase.createCaseOfType(caseType);
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType(caseType);
+                        goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -304,8 +371,8 @@ public class EndToEndStepDefs extends BasePage {
             case "MPAM":
                 switch (stage.toUpperCase()) {
                     case "CREATION":
-                        createCase.createCaseOfType(caseType);
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType(caseType);
+                        goToDashboard();
                         break;
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "CREATION");
@@ -336,14 +403,14 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "MTS":
-                createCase.createCaseOfType(caseType);
-                goToDECSDashboard();
+                createCase.createCSCaseOfType(caseType);
+                goToDashboard();
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
-                        createCase.createCaseOfType(caseType);
-                        goToDECSDashboard();
+                        createCase.createCSCaseOfType(caseType);
+                        goToDashboard();
                         break;
                     case "SERVICE TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
@@ -438,7 +505,7 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
-                goToDECSDashboard();
+                goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
                 waitForDashboard();
@@ -449,6 +516,102 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I move the case/claim to the {string} stage")
+    public void getCaseToSpecifiedStage(String stage) {
+        switch (stage.toUpperCase()) {
+            case "IDENTITY REJECTED":
+                iCompleteTheStage("Registration (to Identity Rejected)");
+                break;
+            case "TIER 1 REVIEW (IR)":
+                getCaseToSpecifiedStage("Identity Rejected");
+                iCompleteTheStage("Identity Rejected (to Tier 1)");
+                break;
+            case "ARCHIVED IDENTITY REJECTED":
+                getCaseToSpecifiedStage("Identity Rejected");
+                iCompleteTheStage("Identity Rejected (to Archived)");
+                break;
+            case "ELIGIBILITY":
+                iCompleteTheStage("Registration (to Eligibility)");
+                break;
+            case "ELIGIBILITY REJECTED":
+                getCaseToSpecifiedStage("Eligibility");
+                iCompleteTheStage("Eligibility (to Eligibility Rejected)");
+                break;
+            case "TIER 1 REVIEW (ER)":
+                getCaseToSpecifiedStage("Eligibility Rejected");
+                iCompleteTheStage("Eligibility Rejected (to Tier 1)");
+                break;
+            case "ARCHIVED ELIGIBILITY REJECTED":
+                getCaseToSpecifiedStage("Eligibility Rejected");
+                iCompleteTheStage("Eligibility Rejected (to Archived)");
+                break;
+            case "TRIAGE":
+                iCompleteTheStage("Registration (to Triage)");
+                break;
+            case "CASEWORK":
+                getCaseToSpecifiedStage("Triage");
+                iCompleteTheStage("Triage");
+                break;
+            case "QA":
+                getCaseToSpecifiedStage("Casework");
+                iCompleteTheStage("Casework");
+                break;
+            case "PAYMENT PRE-OFFER CHECKLIST":
+                getCaseToSpecifiedStage("QA");
+                iCompleteTheStage("QA");
+                break;
+            case "OFFER APPROVAL":
+                getCaseToSpecifiedStage("Payment Pre-offer Checklist");
+                iCompleteTheStage("Payment Pre-offer Checklist");
+                break;
+            case "SEND OFFER":
+                getCaseToSpecifiedStage("Offer Approval");
+                iCompleteTheStage("Offer Approval");
+                break;
+            case "OFFER ACCEPTANCE":
+                getCaseToSpecifiedStage("Send Offer");
+                iCompleteTheStage("Send Offer (to Offer Acceptance)");
+                break;
+            case "NIL OFFER ACCEPTANCE":
+                getCaseToSpecifiedStage("Send Offer");
+                iCompleteTheStage("Send Offer (to Nil Offer Acceptance)");
+                break;
+            case "TIER 1":
+                getCaseToSpecifiedStage("Offer Acceptance");
+                iCompleteTheStage("Offer Acceptance (to Tier 1)");
+                break;
+            case "TIER 2":
+                getCaseToSpecifiedStage("Tier 1");
+                iCompleteTheStage("Tier 1");
+                break;
+            case "PAYMENT PREPARATION":
+                getCaseToSpecifiedStage("Offer Acceptance");
+                iCompleteTheStage("Offer Acceptance (to Payment Preparation)");
+                break;
+            case "PAYMENT APPROVAL":
+                getCaseToSpecifiedStage("Payment Preparation");
+                iCompleteTheStage("Payment Preparation");
+                break;
+            case "SEND PAYMENT":
+                getCaseToSpecifiedStage("Payment Approval");
+                iCompleteTheStage("Payment Approval");
+                break;
+            case "AWAITING PAYMENT CONFIRMATION":
+                getCaseToSpecifiedStage("Send Payment");
+                iCompleteTheStage("Send Payment");
+                break;
+            case "CLOSED":
+                getCaseToSpecifiedStage("Awaiting Payment Confirmation");
+                iCompleteTheStage("Awaiting Payment Confirmation");
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        if (!stage.equalsIgnoreCase("CLOSED")) {
+            dashboard.getAndClaimCurrentCase();
         }
     }
 }

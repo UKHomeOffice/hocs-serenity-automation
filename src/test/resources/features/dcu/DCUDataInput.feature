@@ -2,7 +2,7 @@
 Feature: DCU Data Input
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
 
   @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
@@ -65,7 +65,7 @@ Feature: DCU Data Input
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @OtherTests
+
   Scenario: User adds more than one correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
@@ -73,7 +73,7 @@ Feature: DCU Data Input
     When I add an additional correspondent
     Then both correspondents are listed
 
-  @OtherTests
+
   Scenario: User chooses to make a secondary correspondent the primary correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
@@ -117,7 +117,7 @@ Feature: DCU Data Input
     And I click the add button when creating a case note
     Then an error message should be displayed as I have not entered text in the Case Note text box
 
-  @OtherTests
+
   Scenario: User removes a correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
@@ -127,7 +127,7 @@ Feature: DCU Data Input
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
-  @OtherTests
+
   Scenario: User edits an existing correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case

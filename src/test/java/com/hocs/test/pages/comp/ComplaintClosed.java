@@ -1,11 +1,14 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ComplaintClosed extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='Re-open the case, send to CCT Stage 2']")
     public WebElementFacade reopenCaseSendToCCTStage2RadioButton;
@@ -26,32 +29,18 @@ public class ComplaintClosed extends BasePage {
     public WebElementFacade completeCasePermanentlyCloseNoRadioButton;
 
     public void selectActionAtComplaintClosed(String action) {
-        if (action.equalsIgnoreCase("RE-OPEN THE CASE")) {
-            safeClickOn(reopenCaseSendToCCTStage2RadioButton);
-        } else if (action.equalsIgnoreCase("COMPLETE THE CASE")) {
-            safeClickOn(completeTheCaseClosePermanentlyRadioButton);
-        }
-        safeClickOn(continueButton);
+        recordCaseData.selectSpecificRadioButton(action);
+        clickTheButton("Continue");
     }
 
-    public void enterReasonForCaseCompletion() {
-        caseCompletionReasonTextField.sendKeys("Test Completion Reason");
-        setSessionVariable("closureReason").to("Test Completion Reason");
-        safeClickOn(completeCaseButton);
+    public void submitReasonForCaseCompletion() {
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
+        setSessionVariable("closureReason").to(enteredText);
+        clickTheButton("Complete case");
     }
 
     public void selectActionAtCompleteConfirmation(String action) {
-        if (action.equalsIgnoreCase("YES")) {
-            safeClickOn(completeCasePermanentlyCloseYesRadioButton);
-        } else if (action.equalsIgnoreCase("NO")) {
-            safeClickOn(completeCasePermanentlyCloseNoRadioButton);
-        }
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromComplaintClosedToCaseClosed() {
-        selectActionAtComplaintClosed("Complete the Case");
-        enterReasonForCaseCompletion();
-        selectActionAtCompleteConfirmation("Yes");
+        selectSpecificRadioButton(action);
+        clickTheButton("Confirm");
     }
 }

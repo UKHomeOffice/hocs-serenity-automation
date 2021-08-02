@@ -1,8 +1,8 @@
-@AccordionDCU  @DCU @OtherTests
+@AccordionDCU  @DCU
 Feature: Case Details Accordion
 
   Background:
-    Given I am logged into "DECS" as user "DCU_USER"
+    Given I am logged into "CS" as user "DCU_USER"
     And I create a single "MIN" case
 
   Scenario: Data Input accordion should contain the same information entered at the Case Creation stage

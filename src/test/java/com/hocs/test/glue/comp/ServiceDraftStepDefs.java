@@ -1,6 +1,6 @@
 package com.hocs.test.glue.comp;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.ServiceDraft;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -16,7 +16,8 @@ public class ServiceDraftStepDefs extends BasePage {
 
     @And("I escalate the case to WFM at Service Draft stage")
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
-        serviceDraft.moveCaseFromServiceDraftToServiceEscalated();
+        serviceDraft.selectActionAtServiceDraft("Escalate case to WFM");
+        serviceDraft.submitEscalationReason();
     }
 
     @Then("an error message is displayed as I have not uploaded a document")

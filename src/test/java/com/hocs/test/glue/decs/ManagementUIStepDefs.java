@@ -5,9 +5,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.Dashboard;
-import com.hocs.test.pages.LoginPage;
+import com.hocs.test.pages.managementUI.WithdrawACase;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
@@ -54,6 +55,8 @@ public class ManagementUIStepDefs extends BasePage {
     ListsManagement listsManagement;
 
     Dashboard dashboard;
+
+    WithdrawACase withdrawACase;
 
     @When("I navigate to the {string} Management page")
     public void navigateToSelectedManagementPage(String managementPage) {
@@ -139,7 +142,7 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I remove the user {string} from the team")
     public void removeUserFromTeamAndStoreUserName(String user) {
         teamManagement.clearTeamMember(user);
-        setSessionVariable("user").to(user);
+        setSessionVariable("removedUser").to(user);
     }
 
     @Then("that user should no longer appear in the list of team members")
@@ -162,7 +165,7 @@ public class ManagementUIStepDefs extends BasePage {
         teamManagement.removeUserFromTeamWithAssignedCases(User.valueOf(user).getAllocationText());
     }
 
-    @Then("an error message should be displayed as they have cases assigned in that team")
+    @Then("an error message should be displayed as they have cases/claims assigned in that team")
     public void assertThatCasesAssignedErrorMessageIsDisplayed() {
         teamManagement.assertUserHasCasesErrorMessage();
     }
@@ -287,22 +290,6 @@ public class ManagementUIStepDefs extends BasePage {
         clickTheButton("Submit");
     }
 
-    @And("I navigate to {string}")
-    public void iNavigateTo(String site) {
-        switch (site.toUpperCase()) {
-            case "DECS":
-                loginPage.open();
-                break;
-            case "MANAGEMENT UI":
-                muiLoginPage.open();
-                break;
-            default:
-                pendingStep(site + " is not defined within " + getMethodName());
-        }
-
-    }
-
-
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
@@ -352,9 +339,9 @@ public class ManagementUIStepDefs extends BasePage {
         }
     }
 
-    @When("I check the default team links in DECS again")
-    public void iCheckTheDefaultTeamLinksInDECSAgain() {
-        iNavigateTo("DECS");
+    @When("I check the default team links in CS again")
+    public void iCheckTheDefaultTeamLinksInCSAgain() {
+        loginPage.open();
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopic("101 non-emergency number (cost)");
@@ -588,10 +575,18 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I load the {string} DCU Drafting team through team management")
     public void iLoadTheNewlyDCUDraftingTeamThroughTeamManagement(String action) {
-        if (action.equalsIgnoreCase("CREATED")) {
-            teamManagement.selectATeam(sessionVariableCalled("draftingTeamName"));
-        } else if (action.equalsIgnoreCase("RENAMED")) {
-            teamManagement.selectATeam(sessionVariableCalled("newDraftingTeamName"));
+        switch (action.toUpperCase()) {
+            case "CREATED":
+                teamManagement.selectATeam(sessionVariableCalled("draftingTeamName"));
+                break;
+            case "RENAMED":
+                teamManagement.selectATeam(sessionVariableCalled("newDraftingTeamName"));
+                break;
+            case "DEACTIVATED":
+                teamManagement.selectATeam(sessionVariableCalled("deactivatedTeamName"));
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
         }
     }
 
@@ -631,6 +626,46 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("success message is displayed")
     public void successMessageIsDisplayed() {
         unitManagement.assertCorrectSuccessMessageDisplayed();
+    }
+
+    @And("I enter the (cases )reference, a valid withdrawal date and text into the note field")
+    public void iEnterTheCasesReferenceAValidWithdrawalDateAndTextIntoTheNoteField() {
+        withdrawACase.enterCaseReference(getCurrentCaseReference());
+        withdrawACase.enterWithdrawalDate();
+        withdrawACase.enterWithdrawalNotes("Test withdrawal notes");
+    }
+
+    @And("I {string} the team in team management")
+    public void iTheTeamInTeamManagement(String action) {
+        if (action.equalsIgnoreCase("Deactivate")) {
+            teamManagement.deactivateTeam();
+        } else if (action.equalsIgnoreCase("Reactivate")) {
+            teamManagement.reactivateTeam();
+        }
+    }
+
+    @And("I select to include deactivated teams in teams typeahead")
+    public void iSelectToIncludeDeactivatedTeamsInTeamsTypeahead() {
+        teamManagement.selectShowDeactivatedTeamCheckbox();
+    }
+
+    @Then("the team should be displayed as {string} in team management")
+    public void theTeamShouldBeDisplayedAsInTeamManagement(String status) {
+        teamManagement.assertActiveStatusOfTeam(status);
+    }
+
+    @Then("a message should be displayed stating that the team has been successfully {string}")
+    public void aMessageShouldBeDisplayedStatingThatTheTeamHasBeenSuccessfully(String message) {
+        if (message.equalsIgnoreCase("Deactivated")) {
+            teamManagement.assertSuccessMessageOfDeactivation();
+        } else if (message.equalsIgnoreCase("Reactivated")) {
+            teamManagement.assertSuccessMessageOfReactivation();
+        }
+    }
+
+    @Then("the deactivated team should be displayed")
+    public void theDeactivatedTeamShouldBeDisplayed() {
+        teamManagement.assertDeactivatedTeamIsDisplayed();
     }
 }
 

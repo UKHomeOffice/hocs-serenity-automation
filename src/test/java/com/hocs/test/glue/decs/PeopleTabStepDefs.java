@@ -3,8 +3,8 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.BasePage;
-import com.hocs.test.pages.PeopleTab;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.PeopleTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 

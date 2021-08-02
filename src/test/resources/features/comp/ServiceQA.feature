@@ -2,7 +2,7 @@
 Feature: Service QA
 
   Background:
-    Given I am logged into "DECS" as user "COMP_USER"
+    Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
 
@@ -12,6 +12,7 @@ Feature: Service QA
     When I "accept" the response at the Service QA stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
 #    HOCS-3039
   @COMPWorkflow @COMPRegression
@@ -20,6 +21,7 @@ Feature: Service QA
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And a rejection note should be visible showing the reason for rejection
+    And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
   @Validation
   Scenario Outline: User tests the validation at the Service QA stage

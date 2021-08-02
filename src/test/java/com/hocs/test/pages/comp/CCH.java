@@ -2,11 +2,14 @@ package com.hocs.test.pages.comp;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.BasePage;
+import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CCH extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='CCT']")
     public WebElementFacade transferToCCTRadioButton;
@@ -25,25 +28,21 @@ public class CCH extends BasePage {
 
     public void selectActionAtCCH(String action) {
         if (action.equalsIgnoreCase("TRANSFER TO CCT")) {
-            safeClickOn(transferToCCTRadioButton);
+            recordCaseData.selectSpecificRadioButton("CCT");
         } else if (action.equalsIgnoreCase("COMPLETE THE CASE")) {
-            safeClickOn(completeTheCaseClosePermanentlyRadioButton);
+            recordCaseData.selectSpecificRadioButton("Complete the case");
         }
         safeClickOn(continueButton);
     }
 
-    public void enterReasonForCaseCompletion() {
-        completionReasonTextField.sendKeys("Test Completion Reason");
-        setSessionVariable("closureReason").to("Test Completion Reason");
+    public void submitReasonForCaseCompletion() {
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
+        setSessionVariable("closureReason").to(enteredText);
         clickTheButton("Complete case");
     }
 
     public void selectActionAtCompleteConfirmation(String action) {
-        if (action.equalsIgnoreCase("YES")) {
-            safeClickOn(completeCasePermanentlyCloseCaseYesRadioButton);
-        } else if (action.equalsIgnoreCase("NO")) {
-            safeClickOn(completeCasePermanentlyCloseCaseNoRadioButton);
-        }
-        safeClickOn(confirmButton);
+        selectSpecificRadioButton(action);
+        clickTheButton("Confirm");
     }
 }
