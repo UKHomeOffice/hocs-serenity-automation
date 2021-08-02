@@ -99,10 +99,17 @@ public class RecordCaseData extends BasePage{
             List<String> visibleDisplayValues = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
             String recordedValue = entry.getValue();
             String expectedDisplayValue = recordedValue.replace("\n", " ");
-            if (!visibleDisplayValues.contains(expectedDisplayValue)) {
-                System.out.println("'" + entry.getKey() + ": " + entry.getValue() + "' not found in accordion");
-                assert(false);
+            boolean expectedValueIsDisplayed = false;
+            for (String visibleDisplayValue : visibleDisplayValues) {
+                if (visibleDisplayValue.contains(expectedDisplayValue)) {
+                    expectedValueIsDisplayed = true;
+                    break;
+                }
             }
+            if (!expectedValueIsDisplayed) {
+                System.out.println("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
+            }
+            assert(expectedValueIsDisplayed);
         }
     }
 

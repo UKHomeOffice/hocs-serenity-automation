@@ -33,7 +33,9 @@ public class UnallocatedCaseView extends BasePage {
         List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
-            valuesText.add(value.getText());
+            if (value.isCurrentlyVisible()) {
+                valuesText.add(value.getText());
+            }
         }
         return valuesText;
     }
