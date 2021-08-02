@@ -1,8 +1,9 @@
-package com.hocs.test.pages;
+package com.hocs.test.pages.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.BasePage;
 import config.Environment;
 import config.Service;
 import config.User;

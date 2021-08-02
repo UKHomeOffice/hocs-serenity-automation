@@ -8,24 +8,25 @@ import static config.User.UKVI_USER;
 import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
-import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.wcs.WcsLoginPage;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.serenitybdd.screenplay.actions.Open;
 
 public class LoginStepDefs extends BasePage {
 
     Dashboard dashboard;
 
     LoginPage loginPage;
+    WcsLoginPage wcsLoginPage;
 
     MuiLoginPage muiLoginPage;
 
@@ -39,7 +40,7 @@ public class LoginStepDefs extends BasePage {
     public void iAmLoggedIntoAs(String platform, String user) {
         targetUser = User.valueOf(user);
         checkForOverrideUser();
-        login(platform);
+        navigateToPlatform(platform);
         if (loginPage.onLoginPage()) {
             loginPage.logInAsUser(targetUser);
         } else if (platform.contains("Management UI")) {
@@ -62,7 +63,7 @@ public class LoginStepDefs extends BasePage {
     public void iLogInToAsUser(String platform, String user) {
         targetUser = User.valueOf(user);
         checkForOverrideUser();
-        loginPage.navigateToPlatform(platform);
+        navigateToPlatform(platform);
         if (!loginPage.onLoginPage()) {
             System.out.println("Session still active, logging out");
             selectLogoutButton();
@@ -71,9 +72,11 @@ public class LoginStepDefs extends BasePage {
         setCurrentUser(targetUser);
     }
 
-    private void login(String platform) {
+    private void navigateToPlatform(String platform) {
         if (platform.equalsIgnoreCase("CS")) {
             loginPage.open();
+        } else if (platform.equalsIgnoreCase("WCS")) {
+            wcsLoginPage.open();
         } else if (platform.equalsIgnoreCase("MANAGEMENT UI")) {
             muiLoginPage.open();
 
@@ -85,9 +88,7 @@ public class LoginStepDefs extends BasePage {
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
         targetUser = User.valueOf(user);
-        loginPage.navigateToPlatform(currentPlatform);
-        // add wcs
-        loginPage.open();
+        navigateToPlatform(currentPlatform);
         if (!loginPage.onLoginPage()) {
             System.out.println("Session still active, logging out");
             selectLogoutButton();
@@ -103,7 +104,7 @@ public class LoginStepDefs extends BasePage {
 
     @Given("I am on the Windrush Compensation Scheme Login Page")
     public void iAmOnTheWCSLoginPage() {
-        WcsloginPage.open();
+        wcsLoginPage.open();
     }
 
     @When("I enter the login credentials for user {string} and click the login button")
@@ -152,7 +153,6 @@ public class LoginStepDefs extends BasePage {
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             safeClickOn(dashboard.logoutButton);
-            //add wcs (sessionVariableCalled("currentPlatform"))
             loginPage.open();
         }
     }
