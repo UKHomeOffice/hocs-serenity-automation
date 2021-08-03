@@ -96,10 +96,20 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
-            String visibleDisplayValue = unallocatedCaseView.getValueFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
+            List<String> visibleDisplayValues = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
             String recordedValue = entry.getValue();
             String expectedDisplayValue = recordedValue.replace("\n", " ");
-            assert(visibleDisplayValue.contains(expectedDisplayValue));
+            boolean expectedValueIsDisplayed = false;
+            for (String visibleDisplayValue : visibleDisplayValues) {
+                if (visibleDisplayValue.contains(expectedDisplayValue)) {
+                    expectedValueIsDisplayed = true;
+                    break;
+                }
+            }
+            if (!expectedValueIsDisplayed) {
+                System.out.println("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
+            }
+            assert(expectedValueIsDisplayed);
         }
     }
 

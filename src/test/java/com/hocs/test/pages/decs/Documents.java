@@ -15,6 +15,9 @@ public class Documents extends BasePage {
 
     RecordCaseData recordCaseData;
 
+    @FindBy(xpath = "//a[text()='Documents']")
+    public WebElementFacade documentsTab;
+
     @FindBy(xpath = "//a[text() = 'Manage Documents']")
     public WebElementFacade manageDocumentsLink;
 
@@ -55,6 +58,16 @@ public class Documents extends BasePage {
     public WebElementFacade primaryDraftDocumentTag;
 
     //Simple methods
+
+    public void selectDocumentsTab() {
+        if(!documentsTabIsActiveTab()) {
+            safeClickOn(documentsTab);
+        }
+    }
+
+    public boolean documentsTabIsActiveTab() {
+        return documentsTab.getAttribute("class").contains("active");
+    }
 
     public void selectDocumentTypeByText(String docType) {
         String caseType = sessionVariableCalled("caseType");

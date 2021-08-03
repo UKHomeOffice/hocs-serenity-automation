@@ -181,7 +181,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("{int} cases should be displayed")
     public void numberOfCasesShouldBeDisplayed(int number) {
-        int numberOfCasesDisplayed = Integer.parseInt(search.numberOfSearchResults.getText().split("\\s+")[0]);
+        int numberOfCasesDisplayed = search.getNumberOfSearchResults();
         assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
@@ -192,9 +192,18 @@ public class SearchStepDefs extends BasePage {
 
     @And("I search for the COMP case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
-        waitABit(10);
-        search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
-        safeClickOn(searchButton);
+        int i = 0;
+        while (i < 6) {
+            dashboard.selectSearchLinkFromMenuBar();
+            search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
+            safeClickOn(searchButton);
+            search.waitForResultsPage();
+            if(!search.zeroSearchResultsReturned()) {
+                break;
+            }
+            waitABit(10000);
+            i++;
+        }
     }
 
     @Then("I check that the COMP search results have the correct {string}")
