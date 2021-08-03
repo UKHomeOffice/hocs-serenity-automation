@@ -539,7 +539,7 @@ public class Search extends BasePage {
     public void assertCOMPInformationRandomSearchResult(String criteria) {
         waitForResultsPage();
         WebElementFacade cell = null;
-        String displayedValue;
+        String displayedValue = "";
         String expectedValue = null;
         int numberOfCasesDisplayed = getNumberOfSearchResults();
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
@@ -573,7 +573,7 @@ public class Search extends BasePage {
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
                 openOrCloseAccordionSection("Registration");
-                unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth");
+                displayedValue = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
@@ -588,7 +588,7 @@ public class Search extends BasePage {
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
         if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
-            displayedValue = cell.getText().split(": ")[1];
+            displayedValue = displayedValue.split(": ")[1];
         } else {
             displayedValue = cell.getText();
         }

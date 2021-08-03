@@ -24,7 +24,7 @@ public class CaseDataStepDefs extends BasePage {
     public void theReadOnlyCaseDetailsAccordionShouldContainAllCaseInformationEnteredDuringTheStage(String stageName) {
         if (!accordionSectionIsVisible(stageName)) {
             summaryTab.selectSummaryTab();
-            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User", getCurrentUser().getUsername());
             String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
             goToDashboard();
             dashboard.selectWorkstackByTeamName(assignedTeam);
