@@ -67,6 +67,8 @@ public class CreateCaseStepDefs extends BasePage {
         if (caseType.equalsIgnoreCase("WCS")) {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
+        } else if (caseType.equalsIgnoreCase("FOI")) {
+            createCase.createFOICase();
         } else {
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }

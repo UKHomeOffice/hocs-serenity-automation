@@ -50,6 +50,9 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
 
+    @FindBy(xpath = "//label[text()='FOI Request']/preceding-sibling::input")
+    public WebElementFacade foiRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -79,6 +82,45 @@ public class CreateCase extends BasePage {
 
     @FindBy(css = "[value = 'Create claim']")
     public WebElementFacade createClaimButton;
+
+    @FindBy(id = "KimuDateReceived-day")
+    public WebElementFacade dateKIMUReceivedDayField;
+
+    @FindBy(id = "KimuDateReceived-month")
+    public WebElementFacade dateKIMUReceivedMonthField;
+
+    @FindBy(id = "KimuDateReceived-year")
+    public WebElementFacade dateKIMUReceivedYearField;
+
+    @FindBy(xpath = "//label[text()='Email']/preceding-sibling::input")
+    public WebElementFacade requestReceivedEmailRadioButton;
+
+    @FindBy(xpath = "//label[text()='Post']/preceding-sibling::input")
+    public WebElementFacade requestReceivedPostRadioButton;
+
+    @FindBy(id = "RequestQuestion")
+    public WebElementFacade requestQuestionTextField;
+
+    @FindBy(id = "Fullname")
+    public WebElementFacade fullNameTextField;
+
+    @FindBy(id = "Address1")
+    public WebElementFacade buildingTextField;
+
+    @FindBy(id = "Address2")
+    public WebElementFacade streetTextField;
+
+    @FindBy(id = "Address3")
+    public WebElementFacade townOrCityTextField;
+
+    @FindBy(id = "Postcode")
+    public WebElementFacade postcodeTextField;
+
+    @FindBy(id = "Email")
+    public WebElementFacade emailTextField;
+
+    @FindBy(id = "Reference")
+    public WebElementFacade requesterReferenceTextField;
 
     // Basic Methods
 
@@ -110,6 +152,10 @@ public class CreateCase extends BasePage {
         safeClickOn(compRadioButton);
     }
 
+    private void clickFoiRadioButton() {
+        safeClickOn(foiRadioButton);
+    }
+
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
@@ -137,6 +183,9 @@ public class CreateCase extends BasePage {
             case "COMP":
                 clickCompRadioButton();
                 break;
+            case "FOI":
+                clickFoiRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -161,6 +210,28 @@ public class CreateCase extends BasePage {
         documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
+        createCaseSuccessPage.storeCaseReference();
+    }
+
+    public void createFOICase() {
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        if (!nextButton.isVisible()) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        }
+        selectCaseType("FOI");
+        safeClickOn(nextButton);
+        documents.uploadDocumentOfType("docx");
+        safeClickOn(requestReceivedEmailRadioButton);
+        typeInto(fullNameTextField, "Test McTester");
+        selectRandomOptionFromDropdownWithHeading("Country");
+        typeInto(emailTextField, "test.email@test.com");
+        typeInto(requesterReferenceTextField, "TEST/REF/123");
+        selectRandomOptionFromDropdownWithHeading("FOI Type");
+        selectRandomOptionFromDropdownWithHeading("Case Topic");
+        typeInto(requestQuestionTextField, "Test request question");
+        storeCorrespondenceReceivedDate();
+        storeCorrespondenceReceivedInKIMUDate();
+        clickTheButton("Submit");
         createCaseSuccessPage.storeCaseReference();
     }
 
@@ -224,6 +295,16 @@ public class CreateCase extends BasePage {
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
         setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+    }
+
+    public void storeCorrespondenceReceivedInKIMUDate() {
+        String correspondenceDay = dateKIMUReceivedDayField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUDay").to(correspondenceDay);
+        String correspondenceMonth = dateKIMUReceivedMonthField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUMonth").to(correspondenceMonth);
+        String correspondenceYear = dateKIMUReceivedYearField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUYear").to(correspondenceYear);
+        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {
