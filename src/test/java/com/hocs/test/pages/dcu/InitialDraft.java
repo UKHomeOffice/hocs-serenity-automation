@@ -192,6 +192,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void assertThatPrimaryDraftIs(String fileIdentifier) {
+        primaryDraftDocumentName.waitUntilVisible();
         primaryDraftDocumentName.shouldContainText(fileIdentifier);
     }
 }

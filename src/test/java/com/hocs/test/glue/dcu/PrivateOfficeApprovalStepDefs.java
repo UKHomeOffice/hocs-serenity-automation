@@ -79,16 +79,14 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
     public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
-        safeClickOn(timelineTab.timelineTab);
+        timelineTab.selectTimelineTab();
         privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
     }
 
     @Then("the {string} of the case should be updated to {string} in the summary tab")
     public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
         WebElementFacade summaryTabField = null;
-        if (!summaryTab.activeStage.isVisible()) {
-            safeClickOn(summaryTab.summaryTab);
-        }
+        summaryTab.selectSummaryTab();
         waitABit(1000);
         switch (category.toUpperCase()) {
             case "PRIMARY TOPIC":
