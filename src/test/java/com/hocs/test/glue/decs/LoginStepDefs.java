@@ -77,7 +77,9 @@ public class LoginStepDefs extends BasePage {
             loginPage.open();
         } else if (platform.equalsIgnoreCase("WCS")) {
             wcsLoginPage.open();
-        } else if (platform.equalsIgnoreCase("MANAGEMENT UI")) {
+        } else if (platform.equalsIgnoreCase("CS MANAGEMENT UI")) {
+            muiLoginPage.open();
+        } else if (platform.equalsIgnoreCase("WCS Management UI")) {
             muiLoginPage.open();
 
         } else {
@@ -154,7 +156,7 @@ public class LoginStepDefs extends BasePage {
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
             safeClickOn(dashboard.logoutButton);
-            loginPage.open();
+            navigateToPlatform(currentPlatform);
         }
     }
 
