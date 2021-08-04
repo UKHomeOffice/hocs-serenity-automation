@@ -9,6 +9,7 @@ import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
+import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.dcu.fetchExistingDCUCases;
@@ -29,6 +30,7 @@ import io.cucumber.java.en.When;
 public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
+    MuiLoginPage muiLoginPage;
 
     fetchExistingDCUCases fetchExistingDCUCases;
 
@@ -339,7 +341,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @When("I check the default team links in CS again")
     public void iCheckTheDefaultTeamLinksInCSAgain() {
-        loginPage.navigateToPlatform("CS");
+        loginPage.open();
         fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
         markupDecision.getToMarkupAddATopicScreenPrerequisites();
         markupAddTopics.enterATopic("101 non-emergency number (cost)");

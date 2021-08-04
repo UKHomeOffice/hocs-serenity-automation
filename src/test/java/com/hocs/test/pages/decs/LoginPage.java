@@ -3,12 +3,16 @@ package com.hocs.test.pages.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.BasePage;
 import config.Environment;
 import config.Service;
 import config.User;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.screenplay.actions.Open;
+import net.thucydides.core.annotations.DefaultUrl;
 
+@DefaultUrl("page:login.page")
 public class LoginPage extends BasePage {
 
     @FindBy(id = "username")
@@ -43,167 +47,6 @@ public class LoginPage extends BasePage {
         enterLoginDetails(user);
         safeClickOn(continueButton);
     }
-
-    public void navigateToPlatform(String platform) {
-        switch (platform.toUpperCase()) {
-            case "CS":
-                navigateToCS();
-                break;
-            case "WCS":
-                navigateToWCS();
-                break;
-            case "CS MANAGEMENT UI":
-                navigateToCSManagementUI();
-                break;
-            case "WCS MANAGEMENT UI":
-                navigateToWCSManagementUI();
-                break;
-            default:
-                pendingStep(platform + " is not defined within " + getMethodName());
-        }
-        currentPlatform = platform;
-    }
-
-    private void navigateToCS() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.QAX.getEnvironmentURL();
-        } else {
-            switch (env.toUpperCase()) {
-                case "LOCAL":
-                    baseUrl = Environment.LOCAL.getEnvironmentURL() + Service.HOCS.getPort();
-                    break;
-                case "QA":
-                    baseUrl = Environment.CS_QA.getEnvironmentURL();
-                    break;
-                case "DEV":
-                    baseUrl = Environment.CS_DEV.getEnvironmentURL();
-                    break;
-                case "DEMO":
-                    baseUrl = Environment.CS_DEMO.getEnvironmentURL();
-                    break;
-                case "QAX":
-                    baseUrl = Environment.QAX.getEnvironmentURL();
-                    break;
-                case "DELTA":
-                    baseUrl = Environment.DELTA.getEnvironmentURL();
-                    break;
-                case "GAMMA":
-                    baseUrl = Environment.GAMMA.getEnvironmentURL();
-                    break;
-                case "EPSILON":
-                    baseUrl = Environment.EPSILON.getEnvironmentURL();
-                    break;
-                default:
-                    pendingStep(env + " is not defined within " + getMethodName());
-            }
-        }
-        getDriver().get(baseUrl);
-    }
-
-    public void navigateToCSManagementUI() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.QAX_MUI.getEnvironmentURL();
-        } else {
-            switch (env.toUpperCase()) {
-                case "DEV":
-                    baseUrl = Environment.CS_DEV_MUI.getEnvironmentURL();
-                    break;
-                case "QA":
-                    baseUrl = Environment.CS_QA_MUI.getEnvironmentURL();
-                    break;
-                case "DEMO":
-                    baseUrl = Environment.CS_DEMO_MUI.getEnvironmentURL();
-                    break;
-                case "QAX":
-                    baseUrl = Environment.QAX_MUI.getEnvironmentURL();
-                    break;
-                case "DELTA":
-                    baseUrl = Environment.DELTA_MUI.getEnvironmentURL();
-                    break;
-                case "GAMMA":
-                    baseUrl = Environment.GAMMA_MUI.getEnvironmentURL();
-                    break;
-                case "EPSILON":
-                    baseUrl = Environment.EPSILON_MUI.getEnvironmentURL();
-                    break;
-                default:
-                    pendingStep(env + " is not defined within " + getMethodName());
-            }
-        }
-        getDriver().get(baseUrl);
-    }
-
-    public void navigateToWCS() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.WCS_QA.getEnvironmentURL();
-        } else {
-            switch (env.toUpperCase()) {
-                case "LOCAL":
-                    baseUrl = Environment.LOCAL.getEnvironmentURL() + Service.HOCS.getPort();
-                    break;
-                case "DEV":
-                    baseUrl = Environment.WCS_DEV.getEnvironmentURL();
-                    break;
-                case "QA":
-                    baseUrl = Environment.WCS_QA.getEnvironmentURL();
-                    break;
-                case "DEMO":
-                    baseUrl = Environment.WCS_DEMO.getEnvironmentURL();
-                case "QAX":
-                case "DELTA":
-                case "GAMMA":
-                case "EPSILON":
-                    pendingStep("There is no WCS instance for environment " + env.toUpperCase());
-                    break;
-                default:
-                    pendingStep(env + " is not defined within " + getMethodName());
-            }
-        }
-        getDriver().get(baseUrl);
-    }
-
-    public void navigateToWCSManagementUI() {
-        String env = System.getProperty("environment");
-        String baseUrl = "";
-        if (env == null) {
-            System.out.println("Environment parameter not set. Defaulting to 'QA'");
-            baseUrl = Environment.WCS_QA_MUI.getEnvironmentURL();
-        } else {
-            switch (env.toUpperCase()) {
-                case "DEV":
-                    baseUrl = Environment.WCS_DEV_MUI.getEnvironmentURL();
-                    break;
-                case "QA":
-                    baseUrl = Environment.WCS_QA_MUI.getEnvironmentURL();
-                    break;
-                case "DEMO":
-                    baseUrl = Environment.WCS_DEMO_MUI.getEnvironmentURL();
-                    break;
-                case "QAX":
-                case "DELTA":
-                case "GAMMA":
-                case "EPSILON":
-                    pendingStep("There is no WCS MUI instance for environment " + env.toUpperCase());
-                    break;
-                default:
-                    pendingStep(env + " is not defined within " + getMethodName());
-            }
-        }
-        getDriver().get(baseUrl);
-    }
-
-    // Assertions
 
     public void assertLoginErrorMessage() {
         invalidUsernameOrPasswordErrorMessage.shouldContainText("Invalid username or password.");

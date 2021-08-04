@@ -52,11 +52,6 @@ public class NavigationStepDefs extends BasePage {
         }
     }
 
-    @And("I navigate to {string}")
-    public void iNavigateTo(String platform) {
-        loginPage.navigateToPlatform(platform);
-    }
-
     @And ("I click to view( the case/claim in) the {string} workstack")
     public void iClickToViewTheWorkstack(String workstackIdentifier) {
         if (!onDashboard()) {
