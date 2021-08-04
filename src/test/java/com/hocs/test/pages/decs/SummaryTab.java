@@ -109,9 +109,7 @@ public class SummaryTab extends BasePage {
 
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
-            summaryTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilClickable();
             safeClickOn(summaryTab);
-            waitABit(1500);
         }
     }
 

@@ -39,7 +39,7 @@ public class MisallocationsStepDefs extends BasePage {
 
     @Then("the reason for transfer is displayed in a case note in the case timeline")
     public void theReasonForTransferIsDisplayedInACaseNoteInTheCaseTimeline() {
-        safeClickOn(timelineTab.timelineTab);
+        timelineTab.selectTimelineTab();
         timelineTab.assertCaseTransferReason();
     }
 }

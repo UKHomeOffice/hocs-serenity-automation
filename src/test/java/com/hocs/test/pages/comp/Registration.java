@@ -216,7 +216,7 @@ public class Registration extends BasePage {
     }
 
     public void selectAChannel() {
-        selectRandomRadioButtonFromGroupWithHeading("Channel");
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
     }
 
     public void enterADescriptionOfTheComplaint() {
