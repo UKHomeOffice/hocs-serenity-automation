@@ -69,7 +69,7 @@ public class FOIProgressCase extends BasePage {
         clickTheButton("Continue");
     }
 
-    public void moveFromDispatchToSoftClose() {
+    public void moveCaseFromDispatchToSoftClose() {
         selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
         clickTheButton("Continue");
     }

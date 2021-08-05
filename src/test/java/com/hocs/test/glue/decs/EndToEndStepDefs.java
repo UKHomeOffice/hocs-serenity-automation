@@ -16,6 +16,7 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.DispatchStages;
 import com.hocs.test.pages.ukvi.Draft;
@@ -60,6 +61,8 @@ public class EndToEndStepDefs extends BasePage {
     WCSProgressCase wcsProgressCase;
 
     COMPProgressCase compProgressCase;
+
+    FOIProgressCase foiProgressCase;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -157,6 +160,29 @@ public class EndToEndStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
+            case "FOI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        foiProgressCase.moveCaseFromCaseCreationToKIMUAllocation();
+                        break;
+                    case "KIMU ALLOCATION":
+                        foiProgressCase.moveCaseFromKIMUAllocationToAcceptance();
+                        break;
+                    case "ACCEPTANCE":
+                        foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
+                        break;
+                    case "CONSIDER AND DRAFT":
+                        foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
+                        break;
+                    case "APPROVAL":
+                        foiProgressCase.moveCaseFromApprovalToDispatch();
+                        break;
+                    case "DISPATCH":
+                        foiProgressCase.moveCaseFromDispatchToSoftClose();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
             case "WCS":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO TRIAGE)":
@@ -443,6 +469,40 @@ public class EndToEndStepDefs extends BasePage {
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED");
                         iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "FOI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        createCase.createFOICase();
+                        goToDashboard();
+                        break;
+                    case "KIMU ALLOCATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
+                        iCompleteTheStage("CASE CREATION");
+                        break;
+                    case "ACCEPTANCE":
+                        iCreateACaseAndMoveItToAStage(caseType, "KIMU ALLOCATION");
+                        iCompleteTheStage("KIMU ALLOCATION");
+                        break;
+                    case "CONSIDER AND DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "ACCEPTANCE");
+                        iCompleteTheStage("ACCEPTANCE");
+                        break;
+                    case "APPROVAL":
+                        iCreateACaseAndMoveItToAStage(caseType, "CONSIDER AND DRAFT");
+                        iCompleteTheStage("CONSIDER AND DRAFT");
+                        break;
+                    case "DISPATCH":
+                        iCreateACaseAndMoveItToAStage(caseType, "APPROVAL");
+                        iCompleteTheStage("APPROVAL");
+                        break;
+                    case "SOFT CLOSE":
+                        iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
+                        iCompleteTheStage("DISPATCH");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
