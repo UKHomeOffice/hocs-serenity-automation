@@ -198,6 +198,7 @@ public class BasePage extends PageObject {
     }
 
     public void goToDashboard() {
+
         switch (currentPlatform.toUpperCase()) {
             case "CS":
                 goToCSDashboard();
