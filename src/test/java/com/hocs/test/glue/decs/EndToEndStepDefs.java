@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.comp.COMPProgressCase;
+import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -44,7 +45,7 @@ public class EndToEndStepDefs extends BasePage {
 
     MinisterialSignOff ministerialSignOff;
 
-    com.hocs.test.pages.dcu.Dispatch dispatch;
+    Dispatch dispatch;
 
     Creation creation;
 
