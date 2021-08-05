@@ -92,12 +92,6 @@ public class CreateCase extends BasePage {
     @FindBy(id = "KimuDateReceived-year")
     public WebElementFacade dateKIMUReceivedYearField;
 
-    @FindBy(xpath = "//label[text()='Email']/preceding-sibling::input")
-    public WebElementFacade requestReceivedEmailRadioButton;
-
-    @FindBy(xpath = "//label[text()='Post']/preceding-sibling::input")
-    public WebElementFacade requestReceivedPostRadioButton;
-
     @FindBy(id = "RequestQuestion")
     public WebElementFacade requestQuestionTextField;
 
@@ -153,7 +147,7 @@ public class CreateCase extends BasePage {
     }
 
     private void clickFoiRadioButton() {
-        safeClickOn(foiRadioButton);
+        selectSpecificRadioButton("FOI Request");
     }
 
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
@@ -219,16 +213,15 @@ public class CreateCase extends BasePage {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
         }
         selectCaseType("FOI");
-        safeClickOn(nextButton);
+        clickTheButton("Next");
         documents.uploadDocumentOfType("docx");
-        safeClickOn(requestReceivedEmailRadioButton);
-        typeInto(fullNameTextField, "Test McTester");
+        selectSpecificRadioButtonFromGroupWithHeading("Email", "How was the request received?");
+        enterSpecificTextIntoTextAreaWithHeading("Test McTester", "Full Name");
         selectRandomOptionFromDropdownWithHeading("Country");
-        typeInto(emailTextField, "test.email@test.com");
-        typeInto(requesterReferenceTextField, "TEST/REF/123");
-        selectRandomOptionFromDropdownWithHeading("FOI Type");
+        enterSpecificTextIntoTextAreaWithHeading("test.email@test.com", "Email Address");
+        enterSpecificTextIntoTextAreaWithHeading("TEST/REF/123", "Requester's Reference (Optional)");
         selectRandomOptionFromDropdownWithHeading("Case Topic");
-        typeInto(requestQuestionTextField, "Test request question");
+        enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
         storeCorrespondenceReceivedDate();
         storeCorrespondenceReceivedInKIMUDate();
         clickTheButton("Submit");
