@@ -216,10 +216,10 @@ public class CreateCase extends BasePage {
         clickTheButton("Next");
         documents.uploadDocumentOfType("docx");
         selectSpecificRadioButtonFromGroupWithHeading("Email", "How was the request received?");
-        enterSpecificTextIntoTextAreaWithHeading("Test McTester", "Full Name");
+        enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
         selectRandomOptionFromDropdownWithHeading("Country");
-        enterSpecificTextIntoTextAreaWithHeading("test.email@test.com", "Email Address");
-        enterSpecificTextIntoTextAreaWithHeading("TEST/REF/123", "Requester's Reference (Optional)");
+        enterSpecificTextIntoTextFieldWithHeading("test.email@test.com", "Email Address");
+        enterSpecificTextIntoTextFieldWithHeading("TEST/REF/123", "Requester's Reference (Optional)");
         selectRandomOptionFromDropdownWithHeading("Case Topic");
         enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
         storeCorrespondenceReceivedDate();

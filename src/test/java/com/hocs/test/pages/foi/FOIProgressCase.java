@@ -12,16 +12,14 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromCaseCreationToKIMUAllocation() {
         clickTheButton("Confirm");
         selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this a valid request?");
-        safeClickOn(documents.addDocumentLink);
-        documents.selectDocumentTypeByText("Initial response");
-        documents.uploadDocumentOfType("docx");
-        clickTheButton("Add");
-        clickTheButton("Continue");
+        safeClickOn(continueButton);
+        waitABit(250);
+        safeClickOn(continueButton);
     }
 
     public void moveCaseFromKIMUAllocationToAcceptance() {
-        selectRandomOptionFromDropdownWithHeading("Type of request");
-        clickTheButton("Continue");
+        selectRandomRadioButtonFromGroupWithHeading("Type of request");
+        safeClickOn(continueButton);
         selectRandomOptionFromDropdownWithHeading("Directorate");
         selectRandomOptionFromDropdownWithHeading("Acceptance Team");
         enterSpecificTextIntoTextAreaWithHeading("Test support transfer comment", "Comment to support transfer");
@@ -40,13 +38,10 @@ public class FOIProgressCase extends BasePage {
         clickTheButton("Continue");
         selectSpecificRadioButtonFromGroupWithHeading("No", "Do you need to request contributions?");
         clickTheButton("Continue");
-        selectRandomRadioButtonFromGroupWithHeading("What is the response type?");
-        if (!documents.addDocumentLink.isVisible()) {
-            selectRandomRadioButtonFromGroupWithHeading("What is the reason for the exemption?");
-            clickTheButton("Continue");
-        }
-        safeClickOn(documents.addDocumentLink);
-        documents.selectDocumentTypeByText("Draft response");
+        selectSpecificRadioButtonFromGroupWithHeading("Full disclosure", "What is the response type?");
+        clickTheButton("Continue");
+        safeClickOn(documents.addDocumentsButton);
+        selectSpecificOptionFromDropdownWithHeading("Draft response", "Document type");
         documents.uploadDocumentOfType("docx");
         clickTheButton("Add");
         clickTheButton("Continue");
@@ -62,7 +57,7 @@ public class FOIProgressCase extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading("Complete", "Approval Status");
         selectRandomRadioButtonFromGroupWithHeading("Decision");
         enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Approval received date");
-        enterSpecificTextIntoTextAreaWithHeading("Test Approver", "Approver Name");
+        enterSpecificTextIntoTextFieldWithHeading("Test Approver", "Approver Name");
         enterSpecificTextIntoTextAreaWithHeading("Test Details Text", "Details");
         clickTheButton("Update");
         waitABit(250);

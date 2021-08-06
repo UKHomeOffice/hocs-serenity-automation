@@ -162,6 +162,7 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "FOI":
+                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         foiProgressCase.moveCaseFromCaseCreationToKIMUAllocation();
@@ -184,6 +185,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                break;
             case "WCS":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO TRIAGE)":
