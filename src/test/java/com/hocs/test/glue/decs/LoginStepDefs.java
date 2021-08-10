@@ -13,22 +13,31 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.managementUI.MUIDashboard;
 import com.hocs.test.pages.wcs.WcsLoginPage;
+import com.hocs.test.pages.wcs.WcsMuiLoginPage;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import jxl.read.biff.Record;
 
 public class LoginStepDefs extends BasePage {
 
     Dashboard dashboard;
 
+    MUIDashboard muiDashboard;
+
     LoginPage loginPage;
+
     WcsLoginPage wcsLoginPage;
 
     MuiLoginPage muiLoginPage;
+
+    WcsMuiLoginPage wcsMuiLoginPage;
 
     Workstacks workstacks;
 
@@ -80,12 +89,12 @@ public class LoginStepDefs extends BasePage {
         } else if (platform.equalsIgnoreCase("CS MANAGEMENT UI")) {
             muiLoginPage.open();
         } else if (platform.equalsIgnoreCase("WCS Management UI")) {
-            muiLoginPage.open();
-
+            wcsMuiLoginPage.open();
         } else {
             System.err.println("Platform : " + platform + "Not Found");
         }
         currentPlatform = platform;
+        RecordCaseData.resetDataRecords();
     }
 
     @Given("I switch to user {string}")
@@ -142,7 +151,11 @@ public class LoginStepDefs extends BasePage {
 
     @When("I logout of the application")
     public void selectLogoutButton() {
-        safeClickOn(dashboard.logoutButton);
+        if (currentPlatform.contains("Management UI")){
+            safeClickOn(muiDashboard.logoutButton);
+        } else {
+            safeClickOn(dashboard.logoutButton);
+        }
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")

@@ -42,6 +42,12 @@ public class MUIDashboard extends BasePage {
     @FindBy(xpath = "//a[text()='Create a DCU drafting team']")
     public WebElementFacade createDCUDraftingTeamHypertext;
 
+    @FindBy (xpath = "//a[@href='/case-withdraw']")
+    public WebElementFacade withdrawACaseHypertext;
+
+    @FindBy(xpath = "//a[contains(text(),'Log out')]")
+    public WebElementFacade logoutButton;
+
     public void assertSuccessMessageDisplayed() {
         assertElementIsDisplayed(successMessage);
     }

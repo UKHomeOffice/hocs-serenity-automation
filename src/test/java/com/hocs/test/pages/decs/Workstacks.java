@@ -154,7 +154,19 @@ public class Workstacks extends BasePage {
     }
 
     public boolean ownerOfTopCaseInWorkstackIs(User user) {
-        return ownerOfTopCaseInWorkstack.getText().contains(user.getUsername());
+        return getOwnerOfTopCaseInWorkstack().contains(user.getUsername());
+    }
+
+    private String getOwnerOfTopCaseInWorkstack() {
+        int i = 0;
+        boolean ownerHeaderFound = false;
+        while (!ownerHeaderFound) {
+            i++;
+            WebElementFacade header = findBy("//thead/tr/th[" + i + "]");
+            ownerHeaderFound = header.getText().equals("Owner");
+        }
+        WebElementFacade ownerName = findBy("//tbody/tr/td[" + i + "]");
+        return ownerName.getText();
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
@@ -463,7 +475,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertOwnerIs(User owner) {
-        ownerOfTopCaseInWorkstack.shouldContainText(owner.getUsername());
+        assert (getOwnerOfTopCaseInWorkstack().contains(owner.getUsername()));
     }
 
     private String getStageFromWorkstacksTable() {

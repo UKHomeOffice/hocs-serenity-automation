@@ -77,6 +77,10 @@ public class Documents extends BasePage {
         documentTypeDropDown.selectByVisibleText(docType);
     }
 
+    public void selectADocumentType() {
+        selectRandomOptionFromDropdownWithHeading("Document type");
+    }
+
     public void uploadDocumentOfSize(int fileSize) {
         System.err.println(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator  + fileSize + "MB.docx");

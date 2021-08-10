@@ -588,7 +588,7 @@ public class ClaimSchema extends BasePage {
     }
 
     public void enterSpecificNationalInsuranceNumber(String niNo) {
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(niNo, "National insurance number");
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(niNo, "National Insurance number");
     }
 
     public void completePersonalDetailsAccordion() {

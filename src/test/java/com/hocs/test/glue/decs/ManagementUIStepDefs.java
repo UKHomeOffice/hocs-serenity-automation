@@ -91,6 +91,9 @@ public class ManagementUIStepDefs extends BasePage {
             case "CAMPAIGN MANAGEMENT":
                 safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
                 break;
+            case "WITHDRAW A CASE":
+                safeClickOn(MUIDashboard.withdrawACaseHypertext);
+                break;
             default:
                 pendingStep(managementPage + " is not defined within " + getMethodName());
         }
@@ -135,8 +138,8 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @Then("{string} should be visible in the team list")
-    public void assertThatUserIsVisibleInTeamList(User user) {
-        teamManagement.assertThatUserIsVisibleInTeamList(user);
+    public void assertThatUserIsVisibleInTeamList(String user) {
+        teamManagement.assertThatUserIsVisibleInTeamList(User.valueOf(user));
     }
 
     @And("I remove the user {string} from the team")
