@@ -356,7 +356,7 @@ Feature: ManagementUI
     And I add the user "DCU_USER" to the team
     Then "DCU_USER" should be visible in the team list
 
-  @TeamManagement @CSRegression
+  @TeamManagement
   Scenario: User is able to assign cases to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
