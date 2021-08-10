@@ -8,9 +8,9 @@ Feature: FOI End To End
     When I create a "FOI" case and move it to the "Case Creation" stage
     Then the case should be moved to the "Case Creation" stage
 
-  Scenario: User moves an FOI case to the KIMU Allocation stage
-    When I create a "FOI" case and move it to the "KIMU Allocation" stage
-    Then the case should be moved to the "KIMU Allocation" stage
+  Scenario: User moves an FOI case to the Allocation stage
+    When I create a "FOI" case and move it to the "Allocation" stage
+    Then the case should be moved to the "Allocation" stage
 
   Scenario: User moves an FOI case to the Acceptance stage
     When I create a "FOI" case and move it to the "Acceptance" stage

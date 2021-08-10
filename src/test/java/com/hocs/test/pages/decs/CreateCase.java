@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.foi.FOICaseCreation;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,6 +25,8 @@ public class CreateCase extends BasePage {
     CreateCase_SuccessPage createCaseSuccessPage;
 
     Dashboard dashboard;
+
+    FOICaseCreation foiCaseCreation;
 
     Workdays workdays;
 
@@ -82,15 +85,6 @@ public class CreateCase extends BasePage {
 
     @FindBy(css = "[value = 'Create claim']")
     public WebElementFacade createClaimButton;
-
-    @FindBy(id = "KimuDateReceived-day")
-    public WebElementFacade dateKIMUReceivedDayField;
-
-    @FindBy(id = "KimuDateReceived-month")
-    public WebElementFacade dateKIMUReceivedMonthField;
-
-    @FindBy(id = "KimuDateReceived-year")
-    public WebElementFacade dateKIMUReceivedYearField;
 
     @FindBy(id = "RequestQuestion")
     public WebElementFacade requestQuestionTextField;
@@ -214,18 +208,8 @@ public class CreateCase extends BasePage {
         }
         selectCaseType("FOI");
         clickTheButton("Next");
-        documents.uploadDocumentOfType("docx");
-        selectSpecificRadioButtonFromGroupWithHeading("Email", "How was the request received?");
-        enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
-        selectRandomOptionFromDropdownWithHeading("Country");
-        enterSpecificTextIntoTextFieldWithHeading("test.email@test.com", "Email Address");
-        enterSpecificTextIntoTextFieldWithHeading("TEST/REF/123", "Requester's Reference (Optional)");
-        selectRandomOptionFromDropdownWithHeading("Case Topic");
-        enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
         storeCorrespondenceReceivedDate();
-        storeCorrespondenceReceivedInKIMUDate();
-        clickTheButton("Submit");
-        createCaseSuccessPage.storeCaseReference();
+        foiCaseCreation.storeCorrespondenceReceivedInKIMUDate();
     }
 
     public void createCaseOfTypeWithoutDocument(String caseType) {
@@ -288,16 +272,6 @@ public class CreateCase extends BasePage {
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
         setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
-    }
-
-    public void storeCorrespondenceReceivedInKIMUDate() {
-        String correspondenceDay = dateKIMUReceivedDayField.getValue();
-        setSessionVariable("correspondenceReceivedByKIMUDay").to(correspondenceDay);
-        String correspondenceMonth = dateKIMUReceivedMonthField.getValue();
-        setSessionVariable("correspondenceReceivedByKIMUMonth").to(correspondenceMonth);
-        String correspondenceYear = dateKIMUReceivedYearField.getValue();
-        setSessionVariable("correspondenceReceivedByKIMUYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {

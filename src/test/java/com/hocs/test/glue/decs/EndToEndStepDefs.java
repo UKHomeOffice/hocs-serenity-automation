@@ -162,24 +162,28 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "FOI":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        foiProgressCase.moveCaseFromCaseCreationToKIMUAllocation();
+                        foiProgressCase.moveCaseFromCaseCreationToAllocation();
                         break;
-                    case "KIMU ALLOCATION":
-                        foiProgressCase.moveCaseFromKIMUAllocationToAcceptance();
+                    case "ALLOCATION":
+                        dashboard.getAndClaimCurrentCase();
+                        foiProgressCase.moveCaseFromAllocationToAcceptance();
                         break;
                     case "ACCEPTANCE":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
                         break;
                     case "CONSIDER AND DRAFT":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
                         break;
                     case "APPROVAL":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromApprovalToDispatch();
                         break;
                     case "DISPATCH":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromDispatchToSoftClose();
                         break;
                     default:
@@ -481,15 +485,14 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         createCase.createFOICase();
-                        goToDashboard();
                         break;
-                    case "KIMU ALLOCATION":
+                    case "ALLOCATION":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
                         iCompleteTheStage("CASE CREATION");
                         break;
                     case "ACCEPTANCE":
-                        iCreateACaseAndMoveItToAStage(caseType, "KIMU ALLOCATION");
-                        iCompleteTheStage("KIMU ALLOCATION");
+                        iCreateACaseAndMoveItToAStage(caseType, "ALLOCATION");
+                        iCompleteTheStage("ALLOCATION");
                         break;
                     case "CONSIDER AND DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "ACCEPTANCE");

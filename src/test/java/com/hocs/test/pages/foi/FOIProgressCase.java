@@ -1,26 +1,45 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
 
+    CreateCase_SuccessPage createCaseSuccessPage;
+
+    CreateCase createCase;
+
+    Dashboard dashboard;
+
     RecordCaseData recordCaseData;
+
+    FOICaseCreation foiCaseCreation;
 
     FOIApproval foiApproval;
 
     Documents documents;
 
-    public void moveCaseFromCaseCreationToKIMUAllocation() {
+    public void moveCaseFromCaseCreationToAllocation() {
+        documents.uploadDocumentOfType("docx");
+        foiCaseCreation.selectCorrespondenceInboundChannel();
+        foiCaseCreation.enterCorrespondentDetails();
+        foiCaseCreation.selectFOITopic();
+        foiCaseCreation.enterRequestQuestion();
+        clickTheButton("Submit");
+        createCaseSuccessPage.storeCaseReference();
+        dashboard.getCurrentCase();
         clickTheButton("Confirm");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this a valid request?");
+        foiCaseCreation.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
         safeClickOn(continueButton);
     }
 
-    public void moveCaseFromKIMUAllocationToAcceptance() {
+    public void moveCaseFromAllocationToAcceptance() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Type of request");
         safeClickOn(continueButton);
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");

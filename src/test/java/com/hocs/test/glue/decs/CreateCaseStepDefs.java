@@ -180,7 +180,7 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
-    @Then("A case is created successfully")
+    @Then("a case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
         createCaseSuccessPage.assertCaseCreatedSuccess();
         createCaseSuccessPage.storeCaseReference();
