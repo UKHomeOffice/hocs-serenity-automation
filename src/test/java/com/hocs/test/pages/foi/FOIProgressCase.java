@@ -17,24 +17,15 @@ public class FOIProgressCase extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    FOICaseCreation foiCaseCreation;
+    CaseCreationStage caseCreationStage;
 
     FOIApproval foiApproval;
 
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
-        documents.uploadDocumentOfType("docx");
-        foiCaseCreation.selectCorrespondenceInboundChannel();
-        foiCaseCreation.enterCorrespondentDetails();
-        foiCaseCreation.selectFOITopic();
-        foiCaseCreation.enterRequestQuestion();
-        clickTheButton("Submit");
-        createCaseSuccessPage.storeCaseReference();
-        goToDashboard();
-        dashboard.getCurrentCase();
-        clickTheButton("Continue");
-        foiCaseCreation.selectValidityOfRequest("Yes");
+        safeClickOn(continueButton);
+        caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
         safeClickOn(continueButton);

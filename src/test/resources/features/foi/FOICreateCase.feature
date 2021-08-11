@@ -1,0 +1,18 @@
+@CreateCase @FOI @FOIWorkflow
+Feature: FOI Create Case
+
+  Background:
+    Given I am logged into "CS" as user "FOI_USER"
+    When I navigate to the "Create Single Case" page
+    And I select "FOI" case type and continue
+
+  Scenario: User is able to create an FOI Case
+    And I select how the request was received
+    And I enter the correspondent details
+    And I select the FOI topic
+    And I enter the Request Question
+    And I click the "Submit" button
+    Then a case is created successfully
+    And I navigate to the "Dashboard" page
+    Then the case should be moved to the "Case Creation" stage
+    And the case "Should" be allocated to me in the summary

@@ -18,6 +18,7 @@ import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
+import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.ukvi.Campaign;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.MTSDataInput;
@@ -39,6 +40,8 @@ public class CreateCaseStepDefs extends BasePage {
     Campaign campaign;
 
     DataInput dataInput;
+
+    FOICreateCase foiCreateCase;
 
     MTSDataInput mtsDataInput;
 
@@ -68,7 +71,7 @@ public class CreateCaseStepDefs extends BasePage {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else if (caseType.equalsIgnoreCase("FOI")) {
-            createCase.createFOICase();
+            foiCreateCase.createFOICase();
         } else {
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }

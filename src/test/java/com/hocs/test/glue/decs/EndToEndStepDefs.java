@@ -17,6 +17,7 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.DispatchStages;
@@ -34,6 +35,8 @@ public class EndToEndStepDefs extends BasePage {
     CreateCase createCase;
 
     DataInput dataInput;
+
+    FOICreateCase foiCreateCase;
 
     Markup markup;
 
@@ -162,28 +165,24 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 break;
             case "FOI":
+                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         foiProgressCase.moveCaseFromCaseCreationToAllocation();
                         break;
                     case "ALLOCATION":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAllocationToAcceptance();
                         break;
                     case "ACCEPTANCE":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
                         break;
                     case "CONSIDER AND DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
                         break;
                     case "APPROVAL":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromApprovalToDispatch();
                         break;
                     case "DISPATCH":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromDispatchToSoftClose();
                         break;
                     default:
@@ -484,7 +483,8 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        createCase.createFOICase();
+                        foiCreateCase.createFOICase();
+                        goToDashboard();
                         break;
                     case "ALLOCATION":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");

@@ -1,6 +1,10 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -8,7 +12,15 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class FOICaseCreation extends BasePage {
+public class FOICreateCase extends BasePage {
+
+    CreateCase createCase;
+
+    CreateCase_SuccessPage createCaseSuccessPage;
+
+    Dashboard dashboard;
+
+    Documents documents;
 
     RecordCaseData recordCaseData;
 
@@ -63,7 +75,21 @@ public class FOICaseCreation extends BasePage {
         recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
     }
 
-    public void selectValidityOfRequest(String validity) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(validity, "Is this a valid request?");
+    public void createFOICase() {
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        if (!nextButton.isVisible()) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        }
+        createCase.selectCaseType("FOI");
+        clickTheButton("Next");
+        createCase.storeCorrespondenceReceivedDate();
+        storeCorrespondenceReceivedInKIMUDate();
+        documents.uploadDocumentOfType("docx");
+        selectCorrespondenceInboundChannel();
+        enterCorrespondentDetails();
+        selectFOITopic();
+        enterRequestQuestion();
+        clickTheButton("Submit");
+        createCaseSuccessPage.storeCaseReference();
     }
 }

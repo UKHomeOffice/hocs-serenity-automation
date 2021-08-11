@@ -4,7 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.foi.FOICaseCreation;
+import com.hocs.test.pages.foi.FOICreateCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,8 +25,6 @@ public class CreateCase extends BasePage {
     CreateCase_SuccessPage createCaseSuccessPage;
 
     Dashboard dashboard;
-
-    FOICaseCreation foiCaseCreation;
 
     Workdays workdays;
 
@@ -199,17 +197,6 @@ public class CreateCase extends BasePage {
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.storeCaseReference();
-    }
-
-    public void createFOICase() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectCaseType("FOI");
-        clickTheButton("Next");
-        storeCorrespondenceReceivedDate();
-        foiCaseCreation.storeCorrespondenceReceivedInKIMUDate();
     }
 
     public void createCaseOfTypeWithoutDocument(String caseType) {
