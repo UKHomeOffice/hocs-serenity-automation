@@ -14,7 +14,7 @@ Feature: FOI Case Creation
     Then a case is created successfully
     And I navigate to the "Dashboard" page
     And I load the current case
-    And I click the "Confirm" button
+    And I click the "Continue" button
     And I select "Yes" for the validity of the request and continue
     And I click the "Continue" button
     Then the case should be moved to the "Allocation" stage

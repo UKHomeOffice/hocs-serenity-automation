@@ -31,8 +31,9 @@ public class FOIProgressCase extends BasePage {
         foiCaseCreation.enterRequestQuestion();
         clickTheButton("Submit");
         createCaseSuccessPage.storeCaseReference();
+        goToDashboard();
         dashboard.getCurrentCase();
-        clickTheButton("Confirm");
+        clickTheButton("Continue");
         foiCaseCreation.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
