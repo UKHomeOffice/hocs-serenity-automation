@@ -24,11 +24,13 @@ Feature: ManagementUI
     Then no users should be shown in user list
 
   @TeamManagement @CSRegression
-  Scenario: Adding a new user to a team displays that user in the team list
+  Scenario: Users can be added and removed from teams in CS Management UI
     And I navigate to the "TEAM" Management page
     When I select the "UK Central Authority" team from the dropdown
-    And I add the user "CAMERON" to the team
-    Then "CAMERON" should be visible in the team list
+    And I add the user "TEST_USER_1" to the team
+    Then the user "should" be visible in the team list
+    When I remove the user "TEST_USER_1" from the team
+    Then the user "should not" be visible in the team list
 
   @TeamManagement
   Scenario: User can add multiple users to a team
@@ -36,13 +38,6 @@ Feature: ManagementUI
     When I select the "Animals in Science Regulation Unit" team from the dropdown
     And I add the users "CAMERON" and "CASEY" to the team
     Then the users should be visible in the team list
-
-  @TeamManagement @CSRegression
-  Scenario: Users should no longer be visible in team page when removed
-    And I navigate to the "TEAM" Management page
-    When I select the "UK Central Authority" team from the dropdown
-    And I remove the user "CAMERON" from the team
-    Then that user should no longer appear in the list of team members
 
   @TeamManagement @Validation
   Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
@@ -346,7 +341,7 @@ Feature: ManagementUI
     And I load the "renamed" DCU Drafting team through team management
     Then the "renamed" DCU Drafting team is displayed
 
-  @TeamManagement
+  @TeamManagement @CSRegression
   Scenario: User is able to assign users to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team
@@ -354,9 +349,9 @@ Feature: ManagementUI
     And I navigate to the "Team" Management page
     And I load the "created" DCU Drafting team through team management
     And I add the user "DCU_USER" to the team
-    Then "DCU_USER" should be visible in the team list
+    Then the user "should" be visible in the team list
 
-  @TeamManagement @CSRegression
+  @TeamManagement
   Scenario: User is able to assign cases to a DCU drafting team created through team management
     Given I navigate to the "Create DCU Drafting Team" Management page
     And I create a new DCU drafting team

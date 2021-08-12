@@ -81,6 +81,8 @@ public class TeamManagement extends BasePage {
     @FindBy(id = "showDeactivated")
     public WebElementFacade showDeactivatedTeamsCheckbox;
 
+    User addedOrRemovedUser;
+
     public void assertTeamManagementPageTitle() {
         managementUIPageTitle.shouldContainText("Team search");
     }
@@ -104,6 +106,21 @@ public class TeamManagement extends BasePage {
         waitABit(2000);
     }
 
+    public void addTeamMember(User user) {
+        addTeamMembersButton.waitUntilClickable().click();
+        userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
+        waitABit(6000);
+        userSearchBar.sendKeys(Keys.ENTER);
+        clickOn(addSelectedUsersButton);
+        addedOrRemovedUser = user;
+    }
+
+    public void removeTeamMember(User user) {
+        WebElementFacade removeUserButton = $("//td[contains (text(), '" + user.getAllocationText() + "')]/parent::tr//a[text() = 'Remove']");
+        clickOn(removeUserButton);
+        addedOrRemovedUser = user;
+    }
+
     public void clickAddSelectedUsers() {
         safeClickOn(addTeamMembersButton);
         safeClickOn(addSelectedUsersButton);
@@ -116,28 +133,6 @@ public class TeamManagement extends BasePage {
 
     public void assertTeamName() {
         teamNameHeader.shouldContainText("Team: " + sessionVariableCalled("teamName"));
-    }
-
-    public void assertThatUserIsVisibleInTeamList(User user) {
-        int n = 0;
-        boolean trueFalse = false;
-        List<WebElementFacade> membersInTeamTable = findAll("//tr[@class='govuk-table__row']");
-        while (n <= membersInTeamTable.size() && !trueFalse) {
-            n++;
-            String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-            teamNameHeader.shouldContainText(nameOfTeamInHeader);
-            if (membersInTeamTable.get(n).containsText(user.getAllocationText())) {
-                trueFalse = true;
-            }
-        }
-        membersInTeamTable.get(n).shouldContainText(user.getAllocationText());
-    }
-
-    public void removeFirstUserInListAndStoreName() {
-        WebElementFacade firstMemberInTeamTable = findBy("(//td[@class='govuk-table__cell'])[1]");
-        String nameAndEmailOfFirstUser = firstMemberInTeamTable.getText();
-        setSessionVariable("userNameAndEmail").to(nameAndEmailOfFirstUser);
-        safeClickOn(firstRemoveButtonInList);
     }
 
     public void clearTeamMember(String name) {
@@ -199,12 +194,6 @@ public class TeamManagement extends BasePage {
         assertThat(displayedTeam.equalsIgnoreCase(renamedTeam), is(true));
     }
 
-    public void assertThatRemovedUserIsNoLongerVisibleInList() {
-        waitABit(1000);
-        String removedUser = sessionVariableCalled("removedUser").toString();
-        $("//body").shouldNotContainText(removedUser);
-    }
-
     public void assertThatTeamContainsNoUsers() {
         waitABit(1000);
         assertThat(isElementDisplayed(firstRemoveButtonInList), is(false));
@@ -260,5 +249,17 @@ public class TeamManagement extends BasePage {
     public void assertDeactivatedTeamIsDisplayed() {
         waitABit(500);
         teamNameHeader.shouldContainText(sessionVariableCalled("deactivatedTeamName"));
+    }
+
+    public void assertThatUserVisibleInTeamListIs(boolean assertion) {
+        String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
+        assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
+        WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]");
+        if (assertion) {
+            successMessage.waitUntilVisible();
+        } else {
+            userInTeamList.waitUntilNotVisible();
+        }
+        assertThat(userInTeamList.isVisible(), is(assertion));
     }
 }

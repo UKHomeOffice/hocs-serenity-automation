@@ -83,6 +83,7 @@ public class UserManagement extends BasePage {
     }
 
     public void assertTeamHasBeenRemoved() {
+        waitABit(1000);
         WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]");
         waitABit(1000);
         assertThat(teamRemoveHypertext.isVisible(), is(false));

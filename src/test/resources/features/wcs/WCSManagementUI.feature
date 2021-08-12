@@ -8,17 +8,17 @@ Feature: Management UI
     Then I should be taken to the "TEAM" Management page
 
   @TeamManagement @WCSRegression
-  Scenario: Users can be added and removed from teams in Management UI
+  Scenario: Users can be added and removed from teams in WCS Management UI
     Given I am logged into "WCS Management UI" as user "WCS_USER"
     And I navigate to the "TEAM" Management page
     When I select the "Initial Consideration Casework" team from the dropdown
     And I add the user "TEST_USER_1" to the team
-    Then the users should be visible in the team list
+    Then the user "should" be visible in the team list
     When I remove the user "TEST_USER_1" from the team
-    Then that user should no longer appear in the list of team members
+    Then the user "should not" be visible in the team list
 
   @Validation
-  Scenario: User should see an error when attempting to remove user from team that they currently have assigned cases in
+  Scenario: User should see an error when attempting to remove user from a team that they currently have assigned cases in
     Given I am logged into "WCS Management UI" as user "WCS_USER"
     And I navigate to the "TEAM" Management page
     When I select the "WCS Registration Team" team from the dropdown

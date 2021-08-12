@@ -112,12 +112,12 @@ public class DocumentsStepDefs extends BasePage {
     @And("I upload a {int}MB and a {int}MB file")
     public void iUploadTwoFilesOfSizes(int fileSize1, int fileSize2) {
         iClickAddDocuments();
-        iChooseTheDocumentType("Draft");
+        documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize1);
         documents.waitForFileToUpload(fileSize1);
         iClickManageDocuments();
         iClickAddDocuments();
-        iChooseTheDocumentType("Draft");
+        documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize2);
         documents.waitForFileToUpload(fileSize2);
     }
@@ -135,7 +135,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I add a {string} document to the case/claim")
     public void iAddADocumentToTheCase(String fileIdentifier) {
         iClickAddDocuments();
-        iChooseTheDocumentType("Original correspondence");
+        documents.selectADocumentType();
         iUploadAFileOfType(fileIdentifier);
         iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
     }
