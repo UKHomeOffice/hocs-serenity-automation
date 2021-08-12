@@ -134,23 +134,26 @@ public class ManagementUIStepDefs extends BasePage {
     public void addUserToSelectedTeam(String user) {
         waitABit(1000);
         teamManagement.assertTeamName();
-        teamManagement.selectAUser(User.valueOf(user));
-    }
-
-    @Then("{string} should be visible in the team list")
-    public void assertThatUserIsVisibleInTeamList(String user) {
-        teamManagement.assertThatUserIsVisibleInTeamList(User.valueOf(user));
+        teamManagement.addTeamMember(User.valueOf(user));
     }
 
     @And("I remove the user {string} from the team")
     public void removeUserFromTeamAndStoreUserName(String user) {
-        teamManagement.clearTeamMember(user);
-        setSessionVariable("removedUser").to(user);
+        teamManagement.removeTeamMember(User.valueOf(user));
     }
 
-    @Then("that user should no longer appear in the list of team members")
-    public void assertThatUserHasBeenRemovedFromTeam() {
-        teamManagement.assertThatRemovedUserIsNoLongerVisibleInList();
+    @Then("the user {string} be visible in the team list")
+    public void assertUserVisiblityInTeamList(String shouldShouldNot) {
+        switch (shouldShouldNot.toUpperCase()) {
+            case "SHOULD":
+                teamManagement.assertThatUserVisibleInTeamListIs(true);
+                break;
+            case "SHOULD NOT":
+                teamManagement.assertThatUserVisibleInTeamListIs(false);
+                break;
+            default:
+                pendingStep(shouldShouldNot + " is not defined within " + getMethodName());
+        }
     }
 
     @When("I search for a team with no assigned users")
