@@ -51,6 +51,9 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
 
+    @FindBy(xpath = "//td/strong[contains(text(), 'FAILED_CONVERSION')]")
+    public WebElementFacade failedConversionTag;
+
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
 
@@ -93,6 +96,12 @@ public class Documents extends BasePage {
         addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "test."  + type).to(addDocument);
+    }
+
+    public void uploadDocumentThatFailsConversion() {
+        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                "documents" +  File.separator + "broken.jpg").to(addDocument);
     }
 
 
@@ -236,6 +245,10 @@ public class Documents extends BasePage {
         }
     }
 
+    public void assertFailedConversionTagVisible() {
+        failedConversionTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
     public void waitForFileToUpload(Object fileIdentifier) {
         WebElementFacade documentUploadedTag =
                 findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a[@download]");
@@ -249,4 +262,5 @@ public class Documents extends BasePage {
     public void assertVisibilityOfPrimaryDraftDocumentTag() {
         assertThat(primaryDraftDocumentTag.isVisible(), is(true));
     }
+
 }

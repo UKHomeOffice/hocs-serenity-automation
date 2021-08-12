@@ -21,7 +21,14 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
-        createCase.createCaseOfTypeWithoutDocument(caseType);
+        createCase.createCSCaseOfTypeWithoutDocument(caseType);
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new case")
+    public void iManageTheDocumentsOfANewCase() {
+        createCase.createCSCaseOfTypeWithoutDocument("CS");
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
@@ -140,8 +147,9 @@ public class DocumentsStepDefs extends BasePage {
         iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
     }
 
-    @And("I select to remove the {string} document")
+    @And("I remove the {string} document")
     public void iClickTheRemoveLinkForTheFile(String fileIdentifier) {
+        safeClickOn(documents.manageDocumentsLink);
         documents.clickRemoveLinkForFile(fileIdentifier);
         documents.clickRemoveButton();
     }
@@ -160,5 +168,23 @@ public class DocumentsStepDefs extends BasePage {
     @Then("the primary draft tag is next to the primary draft document")
     public void primaryDraftTagNextToPrimaryDraftDocument() {
         documents.assertVisibilityOfPrimaryDraftDocumentTag();
+    }
+
+    @And("I select a document type")
+    public void iSelectADocumentType() {
+        documents.selectADocumentType();
+    }
+
+    @And("I upload a file that fails to convert to PDF")
+    public void iUploadAFileThatWillFailToConvertToPDF() {
+        safeClickOn(documents.addDocumentLink);
+        documents.selectADocumentType();
+        documents.uploadDocumentThatFailsConversion();
+        clickTheButton("Add");
+    }
+
+    @Then("document should have the Failed Conversion tag")
+    public void documentShouldHaveTheFailedConversionTag() {
+        documents.assertFailedConversionTagVisible();
     }
 }

@@ -49,8 +49,7 @@ Feature: WCS Manage Documents
   @WCSRegression
   Scenario: User can remove a document
     And I add a "docx" document to the claim
-    And I click manage documents
-    And I select to remove the "docx" document
+    When I remove the "docx" document
     Then I cannot see the "docx" file in the uploaded document list
 
   @Validation
@@ -82,8 +81,7 @@ Feature: WCS Manage Documents
 
   Scenario Outline: User can remove any document
     And I add a "<fileType>" document to the claim
-    And I click manage documents
-    And I select to remove the "<fileType>" document
+    When I remove the "<fileType>" document
     Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:
       | fileType |
