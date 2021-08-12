@@ -33,6 +33,12 @@ public class FOICreateCase extends BasePage {
     @FindBy(id = "KimuDateReceived-year")
     public WebElementFacade dateKIMUReceivedYearField;
 
+    @FindBy(id = "fullname")
+    public WebElementFacade fullNameTextField;
+
+    @FindBy(id = "RequestQuestion")
+    public WebElementFacade requestQuestionTextArea;
+
     public void storeCorrespondenceReceivedInKIMUDate() {
         String correspondenceDay = dateKIMUReceivedDayField.getValue();
         setSessionVariable("correspondenceReceivedByKIMUDay").to(correspondenceDay);
@@ -52,11 +58,13 @@ public class FOICreateCase extends BasePage {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (inboundChannel.equalsIgnoreCase("EMAIL")) {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            setSessionVariable("requesterFullName").to("Test McTester");
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            setSessionVariable("requesterFullName").to("Test McTester");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
@@ -68,11 +76,13 @@ public class FOICreateCase extends BasePage {
     }
 
     public void selectFOITopic() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Topic");
+        String foiTopic = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Topic");
+        setSessionVariable("foiTopic").to(foiTopic);
     }
 
     public void enterRequestQuestion() {
         recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
+        setSessionVariable("requestQuestion").to("Test Request Question");
     }
 
     public void createFOICase() {
