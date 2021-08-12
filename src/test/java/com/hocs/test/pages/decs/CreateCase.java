@@ -84,30 +84,6 @@ public class CreateCase extends BasePage {
     @FindBy(css = "[value = 'Create claim']")
     public WebElementFacade createClaimButton;
 
-    @FindBy(id = "RequestQuestion")
-    public WebElementFacade requestQuestionTextField;
-
-    @FindBy(id = "Fullname")
-    public WebElementFacade fullNameTextField;
-
-    @FindBy(id = "Address1")
-    public WebElementFacade buildingTextField;
-
-    @FindBy(id = "Address2")
-    public WebElementFacade streetTextField;
-
-    @FindBy(id = "Address3")
-    public WebElementFacade townOrCityTextField;
-
-    @FindBy(id = "Postcode")
-    public WebElementFacade postcodeTextField;
-
-    @FindBy(id = "Email")
-    public WebElementFacade emailTextField;
-
-    @FindBy(id = "Reference")
-    public WebElementFacade requesterReferenceTextField;
-
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
