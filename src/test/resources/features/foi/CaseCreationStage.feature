@@ -6,12 +6,14 @@ Feature: Case Creation Stage
     When I create a "FOI" case and move it to the "Case Creation" stage
     And I load the current case
 
+  #HOCS-3408
   Scenario: User is able to complete the Case Creation stage
     And I click the "Continue" button
     And I select "Yes" for the validity of the request and continue
     And I click the "Continue" button
     Then the case should be moved to the "Allocation" stage
 
+  #HOCS-3482
   Scenario: User is able to send an invalid request to Dispatch
     And I click the "Continue" button
     And I select "No" for the validity of the request and continue
