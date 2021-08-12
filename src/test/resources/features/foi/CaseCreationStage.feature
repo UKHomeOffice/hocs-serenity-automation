@@ -18,9 +18,11 @@ Feature: Case Creation Stage
     And I click the "Continue" button
     Then the case should be moved to the "Dispatch" stage
 
+  #HOCS-3249
   Scenario: User is able to see the information entered when creating the FOI request
     Then the details entered when creating the case are displayed
 
+  #HOCS-3249
   Scenario Outline: User is able to edit the Case Details of the request at the Case Creation stage
     And I edit the "<value>" case details value at the Case Creation stage
     Then the details entered when editing the case are displayed

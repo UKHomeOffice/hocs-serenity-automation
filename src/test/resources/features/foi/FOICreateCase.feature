@@ -6,6 +6,7 @@ Feature: FOI Create Case
     When I navigate to the "Create Single Case" page
     And I select "FOI" case type and continue
 
+  #HOCS-3251, HOCS-3248, HOCS-3247, HOCS-3252
   Scenario: User is able to create an FOI Case
     And I select how the request was received
     And I enter the correspondent details
