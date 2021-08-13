@@ -26,7 +26,7 @@ Feature: Create case
 
   @Allocation
   Scenario: A single case is allocated to the current user
-    And I create a single "ANY" case
+    And I create a single "CS" case
     When I allocate the case to myself via the successful case creation screen
     And I click to view the "Summary" tab
     Then the case "Should" be allocated to me in the summary
@@ -34,7 +34,7 @@ Feature: Create case
 
   @Allocation
   Scenario: A single case is allocated to another user
-    And I create a single "ANY" case
+    And I create a single "CS" case
     And I go to the case from the successful case creation screen
     When I allocate the case to another user on the case details accordion screen
     And I load the current case
@@ -71,14 +71,14 @@ Feature: Create case
 
   @Validation
   Scenario: When creating a single case the date received is required
-    And I select "Any" case type and continue
+    And I select a case type and continue
     And I enter a blank date
     And I click the "Create case" button
     Then an error message should be displayed as I have not entered the correspondence received date
 
   @Validation
   Scenario: When creating a Single MIN case a valid date must be entered
-    And I select "Any" case type and continue
+    And I select a case type and continue
     And I enter an invalid date
     And I click the "Create case" button
     Then an error message should be displayed as I have entered an invalid date
