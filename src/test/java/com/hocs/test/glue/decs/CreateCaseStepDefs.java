@@ -230,9 +230,9 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.assertDateReceivedIsInvalidErrorMessage();
     }
 
-    @When("I select {string} case type and continue")
-    public void getToWhenWasCorrespondenceReceivedPage(String caseType) {
-        createCase.selectCaseType(caseType);
+    @When("I select a case type and continue")
+    public void getToWhenWasCorrespondenceReceivedPage() {
+        createCase.selectCaseType("CS");
         safeClickOn(nextButton);
         waitABit(100);
     }

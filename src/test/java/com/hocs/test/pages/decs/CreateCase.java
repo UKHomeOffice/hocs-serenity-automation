@@ -123,41 +123,36 @@ public class CreateCase extends BasePage {
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
 
     public void selectCaseType(String caseType) {
-        if (caseType.equalsIgnoreCase("ANY")) {
-            caseType = getRandomCaseType();
-        }
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                clickDcuMinRadioButton();
-                break;
-            case "TRO":
-                clickDcuTroRadioButton();
-                break;
-            case "DTEN":
-                clickDcuDtenRadioButton();
-                break;
-            case "MPAM":
-                clickMpamRadioButton();
-                break;
-            case "MTS":
-                clickMtsRadioButton();
-                break;
-            case "COMP":
-                clickCompRadioButton();
-                break;
-            case "FOI":
-                clickFoiRadioButton();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+        if (caseType.equalsIgnoreCase("CS")) {
+            caseType = selectRandomRadioButtonFromGroupWithHeading("What type of correspondence do you have?");
+        } else {
+            switch (caseType.toUpperCase()) {
+                case "MIN":
+                    clickDcuMinRadioButton();
+                    break;
+                case "TRO":
+                    clickDcuTroRadioButton();
+                    break;
+                case "DTEN":
+                    clickDcuDtenRadioButton();
+                    break;
+                case "MPAM":
+                    clickMpamRadioButton();
+                    break;
+                case "MTS":
+                    clickMtsRadioButton();
+                    break;
+                case "COMP":
+                    clickCompRadioButton();
+                    break;
+                case "FOI":
+                    clickFoiRadioButton();
+                    break;
+                default:
+                    pendingStep(caseType + " is not defined within " + getMethodName());
+            }
         }
         setSessionVariable("caseType").to(caseType);
-    }
-
-    public String getRandomCaseType() {
-        List<String> caseTypes = Arrays.asList("MIN", "DTEN", "TRO", "MPAM", "MTS", "COMP");
-        Random rand = new Random();
-        return caseTypes.get(rand.nextInt(caseTypes.size()));
     }
 
     // Multi Step Methods
@@ -175,8 +170,11 @@ public class CreateCase extends BasePage {
         createCaseSuccessPage.storeCaseReference();
     }
 
-    public void createCaseOfTypeWithoutDocument(String caseType) {
+    public void createCSCaseOfTypeWithoutDocument(String caseType) {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        if (!nextButton.isVisible()) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        }
         selectCaseType(caseType);
         safeClickOn(nextButton);
         clickCreateCaseButton();
