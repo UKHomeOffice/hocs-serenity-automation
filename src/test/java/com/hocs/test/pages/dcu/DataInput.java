@@ -83,6 +83,14 @@ public class DataInput extends BasePage {
         safeClickOn(finishButton);
     }
 
+    public void selectSpecificHomeSecReplyOption(String yesOrNo) {
+        selectSpecificRadioButtonFromGroupWithHeading(yesOrNo,"Is this a potential Home Secretary Reply case?");
+    }
+
+    public void selectAHomeSecReplyOption() {
+        selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
+    }
+
     public void dataInputFullFlowWithCopyToN10() {
         fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
         safeClickOn(continueButton);
@@ -119,6 +127,7 @@ public class DataInput extends BasePage {
             safeClickOn(emailOriginalChannelRadioButton);
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
             safeClickOn(homeSecInterestYesRadioButton);
+            selectAHomeSecReplyOption();
         }
     }
 
@@ -128,6 +137,7 @@ public class DataInput extends BasePage {
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
         safeClickOn(homeSecInterestYesRadioButton);
+        selectAHomeSecReplyOption();
     }
 
     public void invalidCorrespondenceReceivedDate() {
