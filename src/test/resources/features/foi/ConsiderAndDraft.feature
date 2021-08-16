@@ -48,6 +48,5 @@ Feature: Consider and Draft
     And I click the "Continue" button
     And I select that the case "Does" require a contribution
     And I click the "Continue" button
-    And I add a "Case" contribution request
-
-    
+    And I add 2 contribution requests to the case and move the case to the Contribution Request stage
+    Then there are 2 contribution requests added to the case

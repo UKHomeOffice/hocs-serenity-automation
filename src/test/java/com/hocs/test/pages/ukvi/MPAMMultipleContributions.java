@@ -2,6 +2,7 @@ package com.hocs.test.pages.ukvi;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -51,8 +52,14 @@ public class MPAMMultipleContributions extends BasePage {
     }
 
     public void addMultipleContributionRequests(int numberOfContributions) {
-        selectToAddContributionsToAnMPAMCase();
-        contributionRequests.addMultipleContributionRequests(numberOfContributions, "CASE");
+        String contributionType = "";
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("MPAM")) {
+            selectToAddContributionsToAnMPAMCase();
+            contributionType = "CASE";
+        } else if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("FOI")) {
+            contributionType = "FOI";
+        }
+        contributionRequests.addMultipleContributionRequests(numberOfContributions, contributionType);
     }
 
     public void selectActionAtContributionRequestedStage(String action) {
