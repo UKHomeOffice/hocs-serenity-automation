@@ -53,7 +53,11 @@ public class DocumentsStepDefs extends BasePage {
 
     @When("I click add documents")
     public void iClickAddDocuments() {
-        safeClickOn(documents.addDocumentLink);
+        if (documents.addDocumentLink.isVisible()) {
+            safeClickOn(documents.addDocumentLink);
+        } else if (documents.addDocumentsButton.isVisible()) {
+            safeClickOn(documents.addDocumentsButton);
+        }
     }
 
     @And("I choose the document type {string}")

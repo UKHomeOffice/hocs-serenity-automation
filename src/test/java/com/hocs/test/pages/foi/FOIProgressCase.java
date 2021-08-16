@@ -28,16 +28,15 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
-        safeClickOn(continueButton);
+        clickTheButton("Finish");
     }
 
     public void moveCaseFromAllocationToAcceptance() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Type of request");
-        safeClickOn(continueButton);
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
-        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test support transfer comment", "Comment to support transfer");
-        clickTheButton("Finish");
+        clickTheButton("Allocate Case");
+        waitABit(250);
+        clickTheButton("Return to Dashboard");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
