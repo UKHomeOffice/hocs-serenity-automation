@@ -326,7 +326,7 @@ public class SummaryTab extends BasePage {
         assertThat(allocatedUser.getText().contains(getCurrentUser().getUsername()), is(trueFalse));
     }
 
-    public void assertAllocatedDCUTeam(String team) {
+    public void assertAllocatedTeam(String team) {
         currentTeam.shouldContainText(team);
     }
 

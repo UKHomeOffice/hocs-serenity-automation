@@ -172,6 +172,6 @@ public class InitialDraftStepDefs extends BasePage {
     @And("the case should be assigned to the DCU draft team created in Management UI")
     public void theCaseShouldBeAssignedToTheDCUDraftTeamCreatedInMUI() {
         summaryTab.selectSummaryTab();
-        summaryTab.assertAllocatedDCUTeam(sessionVariableCalled("draftingTeamName"));
+        summaryTab.assertAllocatedTeam(sessionVariableCalled("draftingTeamName"));
     }
 }
