@@ -61,7 +61,7 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromApprovalToDispatch() {
-        approval.addAnApprovalRequestWithStatus("Complete5");
+        approval.addAnApprovalRequestWithStatus("Complete");
         clickTheButton("Continue");
     }
 

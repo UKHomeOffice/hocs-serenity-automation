@@ -23,7 +23,7 @@ public class Acceptance extends BasePage {
     }
 
     public void enterRejectionReason() {
-        enterSpecificTextIntoTextAreaWithHeading("Test Rejection Reason", "Reason");
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Rejection Reason", "Reason");
         setSessionVariable("rejectionReason").to("Test Rejection Reason");
     }
 }
