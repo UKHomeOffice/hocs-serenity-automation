@@ -24,7 +24,7 @@ Feature: Consider and Draft
     And I select that the case "Isn't" in the correct drafting team
     And I enter a reason for the case to be returned to Acceptance
     And I click the "Continue" button
-    Then the case should be moved to the "Acceptance" stage
+    Then the case should be returned to the "Acceptance" stage
     And a rejection note should be visible showing the reason for rejection
 
   Scenario: User is able to move a case with the exemption response type to Dispatch

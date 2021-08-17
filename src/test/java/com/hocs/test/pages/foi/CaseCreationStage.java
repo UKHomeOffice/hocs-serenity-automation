@@ -74,7 +74,7 @@ public class CaseCreationStage extends BasePage {
         WebElementFacade changeHyperTextForValue = findBy("//span[text()='" + xpathText + "']/parent::div//following-sibling::div[2]/a");
         safeClickOn(changeHyperTextForValue);
         if (valueToBeEdited.equalsIgnoreCase("DATE FOI RECEIVED") || valueToBeEdited.equalsIgnoreCase("DATE RECEIVED IN KIMU")) {
-            enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-10), fieldHeader);
+            recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-10), fieldHeader);
             if (valueToBeEdited.equalsIgnoreCase("DATE FOI RECEIVED")) {
                 setSessionVariable("correspondenceReceivedDate").to(getDatePlusMinusNDaysAgo(-10));
             } else {
@@ -85,15 +85,15 @@ public class CaseCreationStage extends BasePage {
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {
-            String editedFOITopic = selectRandomOptionFromDropdownWithHeading(fieldHeader);
+            String editedFOITopic = recordCaseData.selectRandomOptionFromDropdownWithHeading(fieldHeader);
             setSessionVariable("foiTopic").to(editedFOITopic);
         } else if (valueToBeEdited.equalsIgnoreCase("REQUEST QUESTION")) {
             foiCreateCase.requestQuestionTextArea.clear();
-            enterSpecificTextIntoTextAreaWithHeading("Edited Test Request Question", fieldHeader);
+            recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Edited Test Request Question", fieldHeader);
             setSessionVariable("requestQuestion").to("Edited Test Request Question");
         } else if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             foiCreateCase.fullNameTextField.clear();
-            enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
+            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
             setSessionVariable("requesterFullName").to("Edited Test McTester");
         }
         if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {

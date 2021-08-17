@@ -19,7 +19,7 @@ public class FOIProgressCase extends BasePage {
 
     CaseCreationStage caseCreationStage;
 
-    FOIApproval foiApproval;
+    Approval approval;
 
     Documents documents;
 
@@ -61,19 +61,7 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromApprovalToDispatch() {
-        safeClickOn(foiApproval.addAnApprovalRequestHypertext);
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Approver Role");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Approval request date");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(10), "Approval due date");
-        clickTheButton("Add");
-        safeClickOn(foiApproval.editHypertext);
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Complete", "Approval Status");
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Decision");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Approval received date");
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Approver", "Approver Name");
-        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Details Text", "Details");
-        clickTheButton("Update");
-        waitABit(250);
+        approval.addAnApprovalRequestWithStatus("Complete");
         clickTheButton("Continue");
     }
 
