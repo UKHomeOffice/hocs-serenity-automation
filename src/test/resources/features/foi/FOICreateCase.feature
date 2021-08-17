@@ -4,7 +4,7 @@ Feature: FOI Create Case
   Background:
     Given I am logged into "CS" as user "FOI_USER"
     When I navigate to the "Create Single Case" page
-    And I select "FOI" case type and continue
+    And I select the FOI case type and continue
 
   #HOCS-3251, HOCS-3248, HOCS-3247, HOCS-3252
   Scenario: User is able to create an FOI Case

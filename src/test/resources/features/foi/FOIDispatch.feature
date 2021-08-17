@@ -1,4 +1,4 @@
-@Acceptance @FOI @FOIWorkflow
+@FOIDispatch @FOI @FOIWorkflow
 Feature: FOI Dispatch
 
   Background:

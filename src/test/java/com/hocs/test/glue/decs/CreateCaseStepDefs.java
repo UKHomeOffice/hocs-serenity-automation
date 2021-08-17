@@ -236,6 +236,12 @@ public class CreateCaseStepDefs extends BasePage {
         safeClickOn(nextButton);
         waitABit(100);
     }
+    @When("I select the FOI case type and continue")
+    public void iSelectFOICaseTypeAndContinue() {
+        createCase.selectCaseType("FOI");
+        safeClickOn(nextButton);
+        waitABit(100);
+    }
 
     @When("I enter a blank date")
     public void enterInvalidDateOnCaseCreateScreen() {
