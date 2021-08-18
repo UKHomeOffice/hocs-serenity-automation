@@ -8,6 +8,7 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
@@ -23,6 +24,9 @@ public class FOICreateCase extends BasePage {
     Documents documents;
 
     RecordCaseData recordCaseData;
+
+    @FindBy(xpath = "//label[text()='Case Topic']//following-sibling::div//input")
+    public WebElementFacade caseTopicTypeahead;
 
     @FindBy(id = "KimuDateReceived-day")
     public WebElementFacade dateKIMUReceivedDayField;
@@ -75,9 +79,10 @@ public class FOICreateCase extends BasePage {
         }
     }
 
-    public void selectFOITopic() {
-        String foiTopic = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Topic");
-        setSessionVariable("foiTopic").to(foiTopic);
+    public void selectFOITopic(String topic) {
+        caseTopicTypeahead.sendKeys(topic);
+        caseTopicTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("foiTopic").to(topic);
     }
 
     public void enterRequestQuestion() {
@@ -97,7 +102,7 @@ public class FOICreateCase extends BasePage {
         documents.uploadDocumentOfType("docx");
         selectCorrespondenceInboundChannel();
         enterCorrespondentDetails();
-        selectFOITopic();
+        selectFOITopic("Animal alternatives (3Rs)");
         enterRequestQuestion();
         clickTheButton("Submit");
         createCaseSuccessPage.storeCaseReference();

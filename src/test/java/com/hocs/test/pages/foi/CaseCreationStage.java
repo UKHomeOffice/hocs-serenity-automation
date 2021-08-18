@@ -4,6 +4,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -85,8 +86,9 @@ public class CaseCreationStage extends BasePage {
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {
-            String editedFOITopic = recordCaseData.selectRandomOptionFromDropdownWithHeading(fieldHeader);
-            setSessionVariable("foiTopic").to(editedFOITopic);
+            foiCreateCase.caseTopicTypeahead.sendKeys("Alcohol industry");
+            foiCreateCase.caseTopicTypeahead.sendKeys(Keys.RETURN);
+            setSessionVariable("foiTopic").to("Alcohol industry");
         } else if (valueToBeEdited.equalsIgnoreCase("REQUEST QUESTION")) {
             foiCreateCase.requestQuestionTextArea.clear();
             recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Edited Test Request Question", fieldHeader);

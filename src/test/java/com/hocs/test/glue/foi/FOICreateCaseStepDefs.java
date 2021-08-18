@@ -18,9 +18,9 @@ public class FOICreateCaseStepDefs extends BasePage {
         foiCreateCase.enterCorrespondentDetails();
     }
 
-    @And("I select the FOI topic")
-    public void iSelectTheFOITopic() {
-        foiCreateCase.selectFOITopic();
+    @And("I select the {string} FOI topic")
+    public void iSelectTheFOITopic(String topic) {
+        foiCreateCase.selectFOITopic(topic);
     }
 
     @And("I enter the Request Question")

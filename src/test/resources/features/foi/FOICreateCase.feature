@@ -10,7 +10,7 @@ Feature: FOI Create Case
   Scenario: User is able to create an FOI Case
     And I select how the request was received
     And I enter the correspondent details
-    And I select the FOI topic
+    And I select the "Animal alternatives (3Rs)" FOI topic
     And I enter the Request Question
     And I click the "Submit" button
     Then a case is created successfully

@@ -35,13 +35,13 @@ public class CreateCaseStepDefs extends BasePage {
 
     CreateCase createCase;
 
+    FOICreateCase foiCreateCase;
+
     CreateCase_SuccessPage createCaseSuccessPage;
 
     Campaign campaign;
 
     DataInput dataInput;
-
-    FOICreateCase foiCreateCase;
 
     MTSDataInput mtsDataInput;
 
@@ -473,6 +473,29 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterAHomeOfficeReference();
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "FOI":
+                switch (infoType.toUpperCase()) {
+                    case "CASE TYPE":
+                    case "CASE REFERENCE":
+                        foiCreateCase.createFOICase();
+                        goToDashboard();
+                        break;
+                    case "RECEIVED ON OR AFTER":
+
+                        break;
+                    case "RECEIVED ON OR BEFORE":
+
+                        break;
+                    case "CORRESPONDENT (NON-MP)":
+
+                        break;
+                    case "ACTIVE CASES ONLY":
+
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());
