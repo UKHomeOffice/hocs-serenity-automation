@@ -25,7 +25,7 @@ public class FOICreateCase extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//label[text()='Case Topic']//following-sibling::div//input")
+    @FindBy(xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
     public WebElementFacade caseTopicTypeahead;
 
     @FindBy(id = "KimuDateReceived-day")
