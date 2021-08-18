@@ -155,6 +155,10 @@ public class CreateCase extends BasePage {
         setSessionVariable("caseType").to(caseType);
     }
 
+    public void editReceivedDate(String date) {
+        enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
+    }
+
     // Multi Step Methods
 
     public void createCSCaseOfType(String caseType) {
@@ -186,7 +190,7 @@ public class CreateCase extends BasePage {
         selectCaseType(caseType);
         safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
-        typeIntoDateFields(correspondenceReceivedDayField, correspondenceReceivedMonthField, correspondenceReceivedYearField, date);
+        editReceivedDate(date);
         documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();

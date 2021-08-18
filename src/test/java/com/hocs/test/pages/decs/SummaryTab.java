@@ -107,6 +107,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
 
+    @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
+    public WebElementFacade foiTopic;
+
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);

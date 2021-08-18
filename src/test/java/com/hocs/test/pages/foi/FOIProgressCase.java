@@ -24,7 +24,7 @@ public class FOIProgressCase extends BasePage {
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
-        safeClickOn(continueButton);
+        clickTheButton("Confirm");
         caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
@@ -36,7 +36,7 @@ public class FOIProgressCase extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
         clickTheButton("Allocate Case");
         waitABit(250);
-        clickTheButton("Return to Dashboard");
+        clickTheButton("Confirm Allocation");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {

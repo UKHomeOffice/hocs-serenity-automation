@@ -481,21 +481,47 @@ public class CreateCaseStepDefs extends BasePage {
             case "FOI":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
-                    case "CASE REFERENCE":
+                    case "CORRESPONDENT (NON-MP)":
+                    case "TOPIC":
+                    case "ACTIVE CASES ONLY":
                         foiCreateCase.createFOICase();
                         goToDashboard();
                         break;
                     case "RECEIVED ON OR AFTER":
-
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        createCase.selectCaseType("FOI");
+                        clickTheButton("Next");
+                        createCase.editReceivedDate(getTodaysDate());
+                        createCase.storeCorrespondenceReceivedDate();
+                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadDocumentOfType("docx");
+                        foiCreateCase.selectCorrespondenceInboundChannel();
+                        foiCreateCase.enterCorrespondentDetails();
+                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
+                        foiCreateCase.enterRequestQuestion();
+                        clickTheButton("Submit");
+                        goToDashboard();
                         break;
                     case "RECEIVED ON OR BEFORE":
-
-                        break;
-                    case "CORRESPONDENT (NON-MP)":
-
-                        break;
-                    case "ACTIVE CASES ONLY":
-
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        createCase.selectCaseType("FOI");
+                        clickTheButton("Next");
+                        createCase.editReceivedDate("01/01/2010");
+                        createCase.storeCorrespondenceReceivedDate();
+                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadDocumentOfType("docx");
+                        foiCreateCase.selectCorrespondenceInboundChannel();
+                        foiCreateCase.enterCorrespondentDetails();
+                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
+                        foiCreateCase.enterRequestQuestion();
+                        clickTheButton("Submit");
+                        goToDashboard();
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());
