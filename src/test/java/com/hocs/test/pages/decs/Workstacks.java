@@ -257,19 +257,19 @@ public class Workstacks extends BasePage {
     }
 
     private String getNthCasesReference(int n) {
-        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[2]").getText();
+        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[2]").getText();
     }
 
     private String getNthCasesOwner(int n) {
-        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[4]").getText();
+        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[4]").getText();
     }
 
     private String getNthCasesUrgency(int n) {
-        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[7]").getText();
+        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[7]").getText();
     }
 
     private String getNthCasesDays(int n) {
-        return findBy("//th[text()='Owner']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[8]").getText();
+        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[8]").getText();
     }
 
     public void allocateThreeCasesCreated(User user) {
@@ -786,7 +786,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
                 break;
             case "UKVI MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Current Stage", "Deadline", "Urgency",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "Current Stage", "Deadline", "Urgency",
                         "Days"));
                 break;
             case "UKVI SEARCH":
@@ -798,7 +798,8 @@ public class Workstacks extends BasePage {
                         "Telephone Surgery Official Engagement"));
                 break;
             case "CAMPAIGN":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Ref Type", "Business Area", "Owner", "Campaign", "Days"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "MP/Owner", "Campaign",
+                        "Days"));
                 break;
             case "COMPLAINT REGISTRATION":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
@@ -808,11 +809,12 @@ public class Workstacks extends BasePage {
                 break;
             case "TRIAGE":
             case "DRAFT":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "MP/Owner", "Minister Sign Off",
+                        "Deadline", "Urgency",
                         "Days", "Rejected"));
                 break;
             case "CREATION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
                         "Days"));
                 break;
             default:
