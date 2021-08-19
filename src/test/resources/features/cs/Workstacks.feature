@@ -170,9 +170,9 @@ Feature: Workstacks
     Then the "<workstack>" workstack should contain only the expected columns
     Examples:
       | workstack     |
-      | UKVI My Cases |
-      | Creation      |
-      | Draft         |
-      | Triage        |
-      | Campaign      |
+      | MPAM My Cases |
+      | MPAM Creation |
+      | MPAM Draft    |
+      | MPAM Triage   |
+      | MPAM Campaign |
       | MTS Team      |

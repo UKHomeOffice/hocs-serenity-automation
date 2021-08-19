@@ -191,7 +191,7 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-       totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
+        totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
     }
@@ -233,19 +233,20 @@ public class Workstacks extends BasePage {
         int n = 1;
         int totalOfCases = getTotalOfCases();
         while (n <= totalOfCases) {
-            if (getNthCasesOwner(n).equals("")) {
-                caseReferencesList.add(getNthCasesReference(n));
+            if (getNthMPAMCasesOwner(n).equals("")) {
+                caseReferencesList.add(getNthMPAMCasesReference(n));
                 break;
             }
             n++;
         }
-        String highestPriorityUrgency = getNthCasesUrgency(n);
-        String highestPriorityDays = getNthCasesDays(n);
+        String highestPriorityUrgency = getNthMPAMCasesUrgency(n);
+        String highestPriorityDays = getNthMPAMCasesDays(n);
         if (totalOfCases > 1) {
             n++;
-            while (n <= totalOfCases && getNthCasesUrgency(n).equals(highestPriorityUrgency) && getNthCasesDays(n).equals(highestPriorityDays)) {
-                if (getNthCasesOwner(n).equals("")) {
-                    caseReferencesList.add(getNthCasesReference(n));
+            while (n <= totalOfCases && getNthMPAMCasesUrgency(n).equals(highestPriorityUrgency) && getNthMPAMCasesDays(n)
+                    .equals(highestPriorityDays)) {
+                if (getNthMPAMCasesOwner(n).equals("")) {
+                    caseReferencesList.add(getNthMPAMCasesReference(n));
                 }
                 n++;
             }
@@ -256,20 +257,20 @@ public class Workstacks extends BasePage {
         safeClickOn(takeNextCaseButton);
     }
 
-    private String getNthCasesReference(int n) {
-        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[2]").getText();
+    private String getNthMPAMCasesReference(int n) {
+        return findBy("//tbody/tr[" + n + "]/td[2]/a").getText();
     }
 
-    private String getNthCasesOwner(int n) {
-        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[4]").getText();
+    private String getNthMPAMCasesOwner(int n) {
+        return findBy("//tbody/tr[" + n + "]/td[4]/div").getText();
     }
 
-    private String getNthCasesUrgency(int n) {
-        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[7]").getText();
+    private String getNthMPAMCasesUrgency(int n) {
+        return findBy("//tbody/tr[" + n + "]/td[7]").getText();
     }
 
-    private String getNthCasesDays(int n) {
-        return findBy("//th[text()='Days']/ancestor::thead/following-sibling::tbody/tr[" + n + "]/td[8]").getText();
+    private String getNthMPAMCasesDays(int n) {
+        return findBy("//tbody/tr[" + n + "]/td[8]").getText();
     }
 
     public void allocateThreeCasesCreated(User user) {
@@ -533,7 +534,7 @@ public class Workstacks extends BasePage {
 
     public void assertCaseIsAssignedToMe() {
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[2][text"
-                + "()='"+ getCurrentUser().getUsername()+ "']");
+                + "()='" + getCurrentUser().getUsername() + "']");
         caseOwner.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
         assert caseOwner.isVisible();
     }
@@ -543,13 +544,13 @@ public class Workstacks extends BasePage {
         waitABit(1000);
         int totalCases = getTotalOfCases();
         workstackFilter.clear();
-        return (totalCases!=0);
+        return (totalCases != 0);
     }
 
     public void assertThatTheOnlyDCUCaseTypePresentIs(String caseType) {
-        assertThat(areCasesOfCaseTypePresent("MIN")==(caseType.equals("MIN")), is(true));
-        assertThat(areCasesOfCaseTypePresent("DTEN")==(caseType.equals("DTEN")), is(true));
-        assertThat(areCasesOfCaseTypePresent("TRO")==(caseType.equals("TRO")), is(true));
+        assertThat(areCasesOfCaseTypePresent("MIN") == (caseType.equals("MIN")), is(true));
+        assertThat(areCasesOfCaseTypePresent("DTEN") == (caseType.equals("DTEN")), is(true));
+        assertThat(areCasesOfCaseTypePresent("TRO") == (caseType.equals("TRO")), is(true));
     }
 
     public void assertPrimaryCorrespondentIs(String name) {
@@ -785,37 +786,36 @@ public class Workstacks extends BasePage {
             case "DCU SEARCH":
                 requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
                 break;
-            case "UKVI MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "Current Stage", "Deadline", "Urgency",
-                        "Days"));
+            case "MPAM MY CASES":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "Current Stage", "Deadline",
+                        "Urgency", "Days"));
                 break;
-            case "UKVI SEARCH":
+            case "MPAM SEARCH":
                 requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Deadline", "Members of Parliament",
                         "Constituents/Applicants"));
+                break;
+            case "MPAM CAMPAIGN":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "MP/Owner", "Campaign",
+                        "Days"));
+                break;
+            case "MPAM TRIAGE":
+            case "MPAM DRAFT":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "MP/Owner", "Minister Sign Off",
+                        "Deadline", "Urgency", "Days", "Rejected"));
+                break;
+            case "MPAM CREATION":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline",
+                        "Urgency", "Days"));
                 break;
             case "MTS TEAM":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Business Area", "Current Stage", "Owner", "Deadline", "Urgency",
                         "Telephone Surgery Official Engagement"));
-                break;
-            case "CAMPAIGN":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "MP/Owner", "Campaign",
-                        "Days"));
                 break;
             case "COMPLAINT REGISTRATION":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref"));
-                break;
-            case "TRIAGE":
-            case "DRAFT":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "MP/Owner", "Minister Sign Off",
-                        "Deadline", "Urgency",
-                        "Days", "Rejected"));
-                break;
-            case "CREATION":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline", "Urgency",
-                        "Days"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());

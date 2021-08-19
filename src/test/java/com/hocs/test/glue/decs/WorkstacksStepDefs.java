@@ -390,7 +390,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectPerformanceProcessTeam();
                 }
                 break;
-            case "UKVI MY CASES":
+            case "MPAM MY CASES":
                 try {
                     dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
@@ -408,18 +408,19 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMTSTeam();
                 }
                 break;
-            case "CAMPAIGN":
-            case "TRIAGE":
-            case "DRAFT":
-            case "CREATION":
+            case "MPAM CAMPAIGN":
+            case "MPAM TRIAGE":
+            case "MPAM DRAFT":
+            case "MPAM CREATION":
+                String stage = workstack.split(" ")[1];
                 setSessionVariable("businessArea").to("UKVI");
                 setSessionVariable("refType").to("Ministerial");
                 try {
-                    dashboard.selectCorrectMPAMTeamByStage(workstack);
+                    dashboard.selectCorrectMPAMTeamByStage(stage);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", workstack);
+                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
                     goToDashboard();
-                    dashboard.selectCorrectMPAMTeamByStage(workstack);
+                    dashboard.selectCorrectMPAMTeamByStage(stage);
                 }
                 break;
             default:
