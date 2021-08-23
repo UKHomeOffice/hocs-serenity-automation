@@ -21,5 +21,6 @@ Feature: FOI Search
 
   Scenario: User can search for a FOI case by its case reference
     When I create a single "FOI" case
+    And I navigate to the "Search" page
     And I search for the "FOI" case by its case reference
     Then I check that the FOI search results have the correct "Case Reference"
