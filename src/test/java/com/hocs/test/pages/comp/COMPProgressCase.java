@@ -53,6 +53,7 @@ public class COMPProgressCase extends BasePage {
         serviceTriage.selectAcceptCase();
         waitABit(500);
         clickTheButton("Continue");
+        clickTheButton("Continue");
         serviceTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         serviceTriage.escalateCaseToWFM();
