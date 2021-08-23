@@ -18,3 +18,8 @@ Feature: FOI Search
     | Correspondent (non-MP)  | Test McTester             |
 #    | Topic                   | Animal alternatives (3Rs) | Topic search criteria doesn't work properly
 #    | Active Cases Only       | Yes                       | In FOI no cases are technically 'closed' so active search isn't really necessary
+
+  Scenario: User can search for a FOI case by its case reference
+    When I create a single "FOI" case
+    And I search for the "FOI" case by its case reference
+    Then I check that the FOI search results have the correct "Case Reference"

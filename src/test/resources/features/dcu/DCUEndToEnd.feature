@@ -24,7 +24,7 @@ Feature: DCU End To End
       | caseType |
       | MIN      |
       | TRO      |
-      | DTEN     |
+#      | DTEN     |
 
   @DCUWorkflow
   Scenario Outline: New case moves to Initial Draft stage

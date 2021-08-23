@@ -40,6 +40,8 @@ public class COMPProgressCase extends BasePage {
     public void moveCaseFromServiceTriageToServiceDraft() {
         serviceTriage.selectAcceptCase();
         clickTheButton("Continue");
+        waitABit(500);
+        clickTheButton("Continue");
         serviceTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         serviceTriage.selectReadyForDrafting();

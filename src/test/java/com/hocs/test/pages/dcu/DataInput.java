@@ -215,8 +215,10 @@ public class DataInput extends BasePage {
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
         if (interest) {
             safeClickOn(homeSecInterestYesRadioButton);
+            selectAHomeSecReplyOption();
         } else {
             safeClickOn(homeSecInterestNoRadioButton);
+            selectAHomeSecReplyOption();
         }
         safeClickOn(continueButton);
         addCorrespondent.addAPublicCorrespondentOfType("Constituent");
