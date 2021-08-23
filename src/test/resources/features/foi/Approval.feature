@@ -1,4 +1,4 @@
-@Approval @FOI @FOIWorkflow
+@FOIApproval @FOI @FOIWorkflow
 Feature: Approval
 
   Background:

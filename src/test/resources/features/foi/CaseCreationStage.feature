@@ -1,4 +1,4 @@
-@CaseCreationStage @FOI @FOIWorkflow
+@FOICaseCreationStage @FOI @FOIWorkflow
 Feature: Case Creation Stage
 
   Background:

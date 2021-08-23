@@ -1,4 +1,4 @@
-@ConsiderAndDraft @FOI @FOIWorkflow
+@FOIConsiderAndDraft @FOI @FOIWorkflow
 Feature: Consider and Draft
 
   Background:

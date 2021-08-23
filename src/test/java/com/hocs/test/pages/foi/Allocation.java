@@ -34,7 +34,7 @@ public class Allocation extends BasePage {
     }
 
     public void assertAllocationText() {
-        waitABit(3000);
+        waitForPageWithTitle("FOI Allocation");
         String displayedAllocationText = allocationText.getText();
         String acceptanceTeam = sessionVariableCalled("acceptanceTeam");
         String expectedAllocationText = "Case " + getCurrentCaseReference() +" will be allocated to "+ acceptanceTeam;

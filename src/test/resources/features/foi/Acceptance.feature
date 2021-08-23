@@ -1,4 +1,4 @@
-@Acceptance @FOI @FOIWorkflow
+@FOIAcceptance @FOI @FOIWorkflow
 Feature: Acceptance
 
   Background:

@@ -1,4 +1,4 @@
-@SoftClose @FOI @FOIWorkflow
+@FOISoftClose @FOI @FOIWorkflow
 Feature: Soft Close
 
   Background:

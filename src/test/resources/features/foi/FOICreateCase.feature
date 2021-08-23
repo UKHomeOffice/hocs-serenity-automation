@@ -1,4 +1,4 @@
-@CreateCase @FOI @FOIWorkflow
+@FOICreateCase @FOI @FOIWorkflow
 Feature: FOI Create Case
 
   Background:
