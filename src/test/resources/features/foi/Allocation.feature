@@ -7,6 +7,7 @@ Feature: Allocation
     And I load and claim the current case
 
   #HOCS-3626 #HOCS-3268 #HOCS-2326
+  @FOIRegression
   Scenario: User is able to complete the Allocation stage
     And the Requested Question should be displayed in the summary tab
     And I select "HMPO" as the Directorate

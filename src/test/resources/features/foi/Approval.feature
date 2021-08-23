@@ -11,6 +11,7 @@ Feature: Approval
     And I click the "Continue" button
     Then the case should be moved to the "Dispatch" stage
 
+  @FOIRegression
   Scenario Outline: User is able to see the status of Approval requests at the Approval stage
     And I add an Approval request to the case with the "<status>" status
     Then the status of the approval request should be displayed as "<status>"

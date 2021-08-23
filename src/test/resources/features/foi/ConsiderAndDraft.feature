@@ -20,6 +20,7 @@ Feature: Consider and Draft
     Then the case should be moved to the "Approval" stage
 
   #HOCS-2804, HOCS-2768
+  @FOIRegression
   Scenario: User is able to reject an FOI request at Consider and Draft
     And I select that the case "Isn't" in the correct drafting team
     And I enter a reason for the case to be returned to Acceptance
@@ -27,6 +28,7 @@ Feature: Consider and Draft
     Then the case should be returned to the "Acceptance" stage
     And a rejection note should be visible showing the reason for rejection
 
+  @FOIRegression
   Scenario: User is able to move a case with the exemption response type to Dispatch
     And I select that the case "Is" in the correct drafting team
     And I click the "Continue" button
@@ -43,6 +45,7 @@ Feature: Consider and Draft
     Then the case should be moved to the "Dispatch" stage
     
   #HOCS-2809, HOCS-2930
+  @FOIRegression
   Scenario: User is able to request multiple contributions at the Consider and Draft stage
     And I select that the case "Is" in the correct drafting team
     And I click the "Continue" button

@@ -1,4 +1,4 @@
-@FOISearch @FOI @FOIWorkflow
+@FOISearch @FOI @FOIWorkflow @FOIRegression
 Feature: FOI Search
 
   Background:

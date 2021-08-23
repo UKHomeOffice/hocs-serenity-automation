@@ -7,7 +7,7 @@ Feature: Acceptance
     And I load and claim the current case
 
   #HOCS-2586, HOCS-2723
-  Scenario: User ia able to complete the Acceptance stage
+  Scenario: User is able to complete the Acceptance stage
     And I select that the case "Does" belong to this Directorate
     And I click the "Continue" button
     And I select the drafting team required to respond to the request
@@ -16,6 +16,7 @@ Feature: Acceptance
     And the case should be assigned to the Drafting team selected at Acceptance
 
   #HOCS-2753, HOCS-2741
+  @FOIRegression
   Scenario: User rejects a case at the Acceptance stage
     And I select that the case "Doesn't" belong to this Directorate
     And I enter a rejection reason at the Acceptance stage

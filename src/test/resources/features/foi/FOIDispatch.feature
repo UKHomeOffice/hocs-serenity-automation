@@ -11,6 +11,7 @@ Feature: FOI Dispatch
     And I click the "Continue" button
     Then the case should be moved to the "Soft Close" stage
 
+  @FOIRegression
   Scenario: User is able to reject a case at the Dispatch stage
     And I select "No" to do you want to dispatch the case
     And I click the "Continue" button
