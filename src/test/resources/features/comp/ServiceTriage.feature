@@ -21,6 +21,7 @@ Feature: Service Triage
   Scenario: User completes the Service Triage stage
     And I accept the case at Service Triage stage
     And I click the "Continue" button
+    And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I send the case to drafting
