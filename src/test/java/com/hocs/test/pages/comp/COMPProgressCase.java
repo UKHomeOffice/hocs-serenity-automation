@@ -12,13 +12,13 @@ public class COMPProgressCase extends BasePage {
 
     Registration registration;
 
-    ServiceTriage serviceTriage;
+    COMPTriage COMPTriage;
 
-    ServiceDraft serviceDraft;
+    COMPDraft COMPDraft;
 
-    ServiceQA serviceQA;
+    COMPQA COMPQA;
 
-    ServiceSend serviceSend;
+    COMPSend COMPSend;
 
     ComplaintClosed complaintClosed;
 
@@ -28,71 +28,131 @@ public class COMPProgressCase extends BasePage {
         registration.enterComplainantDetails();
         registration.selectComplaintType("Service");
         registration.enterComplaintDetails();
+        clickTheButton("Continue");
         registration.openTheServiceComplaintCategoryAccordion();
         waitABit(1000);
         registration.selectAVisibleClaimCategory();
         registration.selectAnOwningCSU();
         clickTheButton("Finish");
         System.out.println("Case moved from Registration to Service Triage");
+    }
 
+    public void moveCaseFromRegistrationToExGratiaTriage() {
+        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        clickTheButton("Continue");
+        registration.enterComplainantDetails();
+        registration.selectComplaintType("Ex-Gratia");
+        registration.enterComplaintDetails();
+        clickTheButton("Finish");
+        System.out.println("Case moved from Registration to Ex-Gratia Triage");
     }
 
     public void moveCaseFromServiceTriageToServiceDraft() {
-        serviceTriage.selectAcceptCase();
+        COMPTriage.selectAcceptCase();
         clickTheButton("Continue");
         waitABit(500);
         clickTheButton("Continue");
-        serviceTriage.enterDetailsOnTriageCaptureReasonPage();
+        waitABit(500);
         clickTheButton("Continue");
-        serviceTriage.selectReadyForDrafting();
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        COMPTriage.selectReadyForDrafting();
         System.out.println("Case moved from Service Triage to Service Draft");
+    }
 
+    public void moveCaseFromExGratiaTriageToExGratiaResponseDraft() {
+        COMPTriage.selectAcceptCase();
+        COMPTriage.enterDateOfAcceptance();
+        clickTheButton("Continue");
+        registration.openTheServiceComplaintCategoryAccordion();
+        waitABit(1000);
+        registration.selectAVisibleClaimCategory();
+        registration.selectAnOwningCSU();
+        clickTheButton("Continue");
+        clickTheButton("Continue");
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        COMPTriage.selectReadyForDrafting();
+        System.out.println("Case moved from Ex-Gratia Triage to Ex-Gratia Response Draft");
     }
 
     public void moveCaseFromServiceTriageToServiceEscalated() {
-        serviceTriage.selectAcceptCase();
+        COMPTriage.selectAcceptCase();
+        clickTheButton("Continue");
         waitABit(500);
         clickTheButton("Continue");
         clickTheButton("Continue");
-        serviceTriage.enterDetailsOnTriageCaptureReasonPage();
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
-        serviceTriage.escalateCaseToWFM();
+        COMPTriage.escalateCaseToWFM();
         System.out.println("Case moved from Service Triage to Service Escalated");
     }
 
+    public void moveCaseFromExGratiaTriageToExGratiaEscalate() {
+        COMPTriage.selectAcceptCase();
+        COMPTriage.enterDateOfAcceptance();
+        clickTheButton("Continue");
+        registration.openTheServiceComplaintCategoryAccordion();
+        waitABit(1000);
+        registration.selectAVisibleClaimCategory();
+        registration.selectAnOwningCSU();
+        clickTheButton("Continue");
+        clickTheButton("Continue");
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        COMPTriage.escalateCaseToWFM();
+        System.out.println("Case moved from Ex-Gratia Triage to Ex-Gratia Escalate");
+    }
+
     public void moveCaseFromServiceTriageToCCH() {
-        serviceTriage.selectTransferComplaint();
-        serviceTriage.enterTransferReason();
-        serviceTriage.selectTransferToCCH();
+        COMPTriage.selectTransferComplaint();
+        COMPTriage.enterTransferReason();
+        COMPTriage.selectTransferToCCH();
         System.out.println("Case moved from Service Triage to CCH");
     }
 
     public void moveCaseFromServiceDraftToServiceQA() {
         documents.addADraftDocumentAtDraftStage();
-        serviceDraft.selectActionAtServiceDraft("Send Case to QA");
+        COMPDraft.selectActionAtServiceDraft("Send Case to QA");
         System.out.println("Case moved from Service Draft to Service QA");
     }
 
+    public void moveCaseFromExGratiaResponseDraftToExGratiaQA() {
+        documents.addADraftDocumentAtDraftStage();
+        COMPDraft.selectActionAtServiceDraft("Send Case to QA");
+        System.out.println("Case moved from Ex-Gratia Response Draft to Ex-Gratia QA");
+    }
+
     public void moveCaseFromServiceDraftToServiceEscalated() {
-        serviceDraft.selectActionAtServiceDraft("Escalate case to WFM");
-        serviceDraft.submitEscalationReason();
+        COMPDraft.selectActionAtServiceDraft("Escalate case to WFM");
+        COMPDraft.submitEscalationReason();
         System.out.println("Case moved from Service Draft to Service Escalated");
     }
 
     public void moveCaseFromServiceQAToServiceSend() {
-        serviceQA.selectActionAtServiceQA("ACCEPT");
+        COMPQA.selectActionAtServiceQA("ACCEPT");
         System.out.println("Case moved from Service QA to Service Send");
     }
 
+    public void moveCaseFromExGratiaQAToExGratiaSend() {
+        COMPQA.selectActionAtServiceQA("ACCEPT");
+        System.out.println("Case moved from Ex-Gratia QA to Ex-Gratia Send");
+    }
+
     public void moveCaseFromServiceQAToServiceDraft() {
-        serviceQA.selectActionAtServiceQA("REJECT");
-        serviceQA.submitRejectionReason();
+        COMPQA.selectActionAtServiceQA("REJECT");
+        COMPQA.submitRejectionReason();
         System.out.println("Case moved from Service QA to Service Escalated");
     }
 
     public void moveCaseFromServiceSendToComplaintClosed() {
-        serviceSend.submitASelectedOutcome();
+        COMPSend.submitASelectedOutcome();
         System.out.println("Case moved from Service Send to Complaint Closed");
+    }
+
+    public void moveCaseFromExGratiaSendToComplaintClosed() {
+        COMPSend.submitASelectedOutcome();
+        System.out.println("Case moved from Ex-Gratia Send to Complaint Closed");
     }
 
     public void moveCaseFromComplaintClosedToCaseClosed() {

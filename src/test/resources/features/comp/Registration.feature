@@ -14,6 +14,7 @@ Feature: Registration
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
     And I select a "Service" Complaint Category
     And I select a Owning CSU
     When I click the "Finish" button
@@ -27,6 +28,15 @@ Feature: Registration
     And I add a "Third Party Representative" correspondent
     When I click the "Continue" button
     Then the "Complaint Correspondents Invalid" page should be displayed
+
+  Scenario: User can complete the Registration stage for an Ex-Gratia complaint
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Ex-Gratia" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Finish" button
+    Then the case should be moved to the "Ex-Gratia Triage" stage
 
   @Validation
   Scenario Outline: User tests the validation at the Registration stage

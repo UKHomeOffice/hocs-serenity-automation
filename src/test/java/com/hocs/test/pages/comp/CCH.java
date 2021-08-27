@@ -1,5 +1,7 @@
 package com.hocs.test.pages.comp;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
@@ -27,10 +29,18 @@ public class CCH extends BasePage {
     public WebElementFacade completeCasePermanentlyCloseCaseNoRadioButton;
 
     public void selectActionAtCCH(String action) {
-        if (action.equalsIgnoreCase("TRANSFER TO CCT")) {
-            recordCaseData.selectSpecificRadioButton("CCT");
-        } else if (action.equalsIgnoreCase("COMPLETE THE CASE")) {
-            recordCaseData.selectSpecificRadioButton("Complete the case");
+        switch (action.toUpperCase()) {
+            case "TRANSFER TO CCT":
+                recordCaseData.selectSpecificRadioButton("CCT");
+                break;
+            case "TRANSFER TO EX-GRATIA":
+                recordCaseData.selectSpecificRadioButton("Ex-Gratia");
+                break;
+            case "COMPLETE THE CASE":
+                recordCaseData.selectSpecificRadioButton("Complete the case");
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
         }
         safeClickOn(continueButton);
     }
