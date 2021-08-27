@@ -21,6 +21,7 @@ Feature: Service Triage
   Scenario: User completes the Service Triage stage
     And I accept the case at Service Triage stage
     And I click the "Continue" button
+    And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I send the case to drafting
@@ -32,6 +33,7 @@ Feature: Service Triage
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Service Triage stage
       And I accept the case at Service Triage stage
+      And I click the "Continue" button
       And I click the "Continue" button
       And I enter details on the Triage Capture Reason page
       And I click the "Continue" button
@@ -47,6 +49,7 @@ Feature: Service Triage
   Scenario: User can hard close a case at Service Triage stage
     And I accept the case at Service Triage stage
     And I click the "Continue" button
+    And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I select to complete the case at Service Triage
@@ -61,6 +64,7 @@ Feature: Service Triage
   @COMPRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
     When I accept the case at Service Triage stage
+    And I click the "Continue" button
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
@@ -79,6 +83,7 @@ Feature: Service Triage
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
     When I accept the case at Service Triage stage
     And I click the "Continue" button
+    And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     And I add a "complainant" contribution with a due date in the past
@@ -89,6 +94,7 @@ Feature: Service Triage
   @COMPRegression
   Scenario: User can select that a Letter of Authority is required for this complaint
     When I accept the case at Service Triage stage
+    And I click the "Continue" button
     And I click the "Continue" button
     And I select that a Letter of Authority is required
     And I click the "Continue" button
