@@ -1,15 +1,15 @@
 package com.hocs.test.glue.comp;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.comp.ServiceSend;
+import com.hocs.test.pages.comp.COMPSend;
 import io.cucumber.java.en.And;
 
-public class ServiceSendStepDefs extends BasePage {
+public class COMPSendStepDefs extends BasePage {
 
-    ServiceSend serviceSend;
+    COMPSend COMPSend;
 
     @And("I select a Case Outcome at the Service Send stage")
     public void iSelectACaseOutcomeAtTheServiceSendStage() {
-        serviceSend.submitASelectedOutcome();
+        COMPSend.submitASelectedOutcome();
     }
 }

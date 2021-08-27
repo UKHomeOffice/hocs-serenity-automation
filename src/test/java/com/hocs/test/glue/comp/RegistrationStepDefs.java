@@ -34,7 +34,6 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectASeverity();
         registration.enterAPreviousUKVIComplaintReference();
         registration.enterAThirdPartyReference();
-        clickTheButton("Continue");
     }
 
     @And("I select a {string} Complaint Category")
