@@ -29,7 +29,8 @@ Feature: Registration
     When I click the "Continue" button
     Then the "Complaint Correspondents Invalid" page should be displayed
 
-  Scenario: User can complete the Registration stage for an Ex-Gratia complaint
+  #HOCS-3441, HOCS-3442
+  Scenario: User can complete the Registration stage for a Ex-Gratia complaint
     And I add a "Complainant" correspondent
     And I click the "Continue" button
     And I enter the Complainant Details
@@ -37,6 +38,8 @@ Feature: Registration
     And I enter the complaint details on the Complaint Input page
     And I click the "Finish" button
     Then the case should be moved to the "Ex-Gratia Triage" stage
+    And the summary should display the owning team as "Ex-Gratia"
+    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
   @Validation
   Scenario Outline: User tests the validation at the Registration stage
