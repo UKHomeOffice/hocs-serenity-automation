@@ -108,22 +108,22 @@ Feature: COMP Triage
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @COMPWorkflow @COMPRegression
-#  Scenario: User can hard close a case at Ex-Gratia Triage stage
-    When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
-    And I load and claim the current case
-    And I accept the case at "Ex-Gratia" Triage stage
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
-    And I click the "Continue" button
-    And I click the "Continue" button
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
-    When I select to complete the case at Service Triage
-    And I enter a completion note at Service Triage
-    And I click the "Complete case" button
-    And I confirm I want to close the case at Service Triage
-    Then the case should be closed
-    And a case closure note should be visible showing the reason for closure
+#  Scenario: User can hard close a case at Ex-Gratia Triage stage # Functionality is different on decs not sure if correct
+#    When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
+#    And I load and claim the current case
+#    And I accept the case at "Ex-Gratia" Triage stage
+#    And I select a "Service" Complaint Category
+#    And I select a Owning CSU
+#    And I click the "Continue" button
+#    And I click the "Continue" button
+#    And I enter details on the Triage Capture Reason page
+#    And I click the "Continue" button
+#    When I select to complete the case at Service Triage
+#    And I enter a completion note at Service Triage
+#    And I click the "Complete case" button
+#    And I confirm I want to close the case at Service Triage
+#    Then the case should be closed
+#    And a case closure note should be visible showing the reason for closure
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
