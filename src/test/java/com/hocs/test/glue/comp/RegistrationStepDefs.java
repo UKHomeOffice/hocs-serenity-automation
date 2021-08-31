@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.Registration;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 
 public class RegistrationStepDefs extends BasePage {
 

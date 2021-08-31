@@ -177,4 +177,17 @@ public class RegistrationStepDefs extends BasePage {
     public void iSelectThatICanConfirmTheClaimantsID() {
         registration.selectConfirmTheClaimantsIDRadioButton();
     }
+
+    @When("I mark the case as unworkable")
+    public void iMarkTheCaseAsUnworkable() {
+        registration.selectIfClaimHasGoneThroughTaskForce("Yes");
+        claimSchema.completeRequiredFieldsInCaseInfoSection();
+        claimSchema.selectUnworkable();
+    }
+
+    @And("I send the unworkable case to Triage stage")
+    public void iSendTheUnworkableCaseToTriageStage() {
+        registration.confirmClaimantsID();
+        registration.selectIDAndEligibilityConfirmed();
+    }
 }
