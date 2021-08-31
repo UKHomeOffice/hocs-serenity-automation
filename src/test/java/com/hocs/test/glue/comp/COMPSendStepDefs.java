@@ -8,8 +8,8 @@ public class COMPSendStepDefs extends BasePage {
 
     COMPSend COMPSend;
 
-    @And("I select a Case Outcome at the Service Send stage")
-    public void iSelectACaseOutcomeAtTheServiceSendStage() {
+    @And("I select a Case Outcome at the {string} Send stage")
+    public void iSelectACaseOutcomeAtTheServiceSendStage(String complaintType) {
         COMPSend.submitASelectedOutcome();
     }
 }

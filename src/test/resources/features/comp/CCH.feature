@@ -24,6 +24,7 @@ Feature: CCH
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
+  @COMPWorkflow @COMPRegression
   Scenario: User can transfer the case to Ex-Gratia
     When I select the "Transfer to Ex-Gratia" action at CCH
     Then the case should be moved to the "Ex-Gratia Triage" stage
