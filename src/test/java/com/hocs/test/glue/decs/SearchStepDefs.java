@@ -202,7 +202,7 @@ public class SearchStepDefs extends BasePage {
         search.enterCOMPSearchCriteria(criteria, value);
     }
 
-    @And("I search for the {string} case by its case reference")
+    @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference(String caseType) {
         int i = 0;
         while (i < 6) {
