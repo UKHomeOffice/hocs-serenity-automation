@@ -234,6 +234,12 @@ public class Dashboard extends BasePage {
         return Integer.parseInt(caseCount.getText());
     }
 
+    public int getNumberOfUnallocatedCasesInWorkstackFromDashboardCard(String workstackName) {
+        WebElementFacade caseCount = findBy("//span[text()=\"" + workstackName + "\"]/ancestor::li/div/span");
+        String totalOfUnallocatedCases = caseCount.getText().split(" ")[0];
+        return Integer.parseInt(totalOfUnallocatedCases);
+    }
+
     public boolean checkTargetUserIsLoggedInUsingVisibleTeams(User targetUser) {
         boolean correctUser = false;
         caseReferenceSearchBar.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));

@@ -508,6 +508,12 @@ public class ClaimSchema extends BasePage {
         recordCaseData.checkSpecificCheckbox("Policy");
     }
 
+    public void selectUnworkable() {
+        expandCollapseCaseInfoSection();
+        recordCaseData.checkSpecificCheckbox("Unworkable");
+        expandCollapseCaseInfoSection();
+    }
+
     public void completeRequiredFieldsInCaseInfoSection(){
         expandCollapseCaseInfoSection();
         enterReceivedDate();

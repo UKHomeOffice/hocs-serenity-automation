@@ -447,10 +447,8 @@ public class Workstacks extends BasePage {
 
     public void assertVisibilityOfCaseReference(boolean trueFalse) {
         String caseReferenceNumber
-                = getCurrentCaseReference().toString();
-        System.out.println(caseReferenceNumber);
+                = getCurrentCaseReference();
         WebElementFacade thisReference = findBy("//a[text()='" + caseReferenceNumber + "']");
-        System.out.println(thisReference);
         assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
