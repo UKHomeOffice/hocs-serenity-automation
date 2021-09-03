@@ -18,6 +18,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
 import org.openqa.selenium.NoSuchElementException;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 public class WorkstacksStepDefs extends BasePage {
 
@@ -462,5 +464,31 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the displayed contribution request status of the case should be correct")
     public void theDisplayedContributionRequestStatusOfTheCaseShouldBeCorrect() {
         workstacks.assertContributionRequestStatus();
+    }
+
+    @And("I record the number of cases currently in the {string} workstack, and how many of those are unallocated")
+    public void iRecordTheNumberOfCasesCurrentlyInTheTriageWorkstackAndHowManyOfThoseAreUnassigned(String teamName) {
+        setSessionVariable("totalOfCases").to(dashboard.getNumberOfCasesInWorkstackFromDashboardCard(teamName));
+        setSessionVariable("totalOfUnallocatedCases").to(dashboard.getNumberOfUnallocatedCasesInWorkstackFromDashboardCard(teamName));
+    }
+
+    @Then("the number of cases in the {string} workstack should not have increased")
+    public void theNumberOfCasesInTheTriageWorkstackShouldNotHaveIncreased(String teamName) {
+        int previousTotal = sessionVariableCalled("totalOfCases");
+        int currentTotal = dashboard.getNumberOfCasesInWorkstackFromDashboardCard(teamName);
+        assertThat(currentTotal == previousTotal, is(true));
+    }
+
+    @And("the number of unassigned cases in the {string} workstack should not have increased")
+    public void theNumberOfUnassignedCasesInTheTriageWorkstackShouldNotHaveIncreased(String teamName) {
+        int previousTotal = sessionVariableCalled("totalOfUnallocatedCases");
+        int currentTotal = dashboard.getNumberOfUnallocatedCasesInWorkstackFromDashboardCard(teamName);
+        assertThat(currentTotal == previousTotal, is(true));
+    }
+
+    @And("I shouldn't be able to see the case in the {string} workstack")
+    public void iShouldnTBeAbleToSeeTheCaseInTheTriageWorkstack(String teamName) {
+        dashboard.selectWorkstackByTeamName(teamName);
+        workstacks.assertVisibilityOfCaseReference(false);
     }
 }

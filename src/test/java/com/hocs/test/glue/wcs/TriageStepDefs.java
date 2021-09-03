@@ -9,10 +9,6 @@ import io.cucumber.java.en.Then;
 
 public class TriageStepDefs extends BasePage {
 
-    Dashboard dashboard;
-
-    Workstacks workstacks;
-
     Triage triage;
 
     @And("I select a casework team")
