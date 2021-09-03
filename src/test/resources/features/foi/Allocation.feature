@@ -4,7 +4,6 @@ Feature: Allocation
   Background:
     Given I am logged into "CS" as user "FOI_USER"
     When I create a "FOI" case and move it to the "Allocation" stage
-    And I load and claim the current case
 
   #HOCS-3626 #HOCS-3268 #HOCS-2326
   @FOIRegression

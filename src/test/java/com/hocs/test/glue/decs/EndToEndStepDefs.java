@@ -107,6 +107,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             case "MPAM":
                 dashboard.getAndClaimCurrentCase();
@@ -132,6 +133,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             case "COMP":
                 dashboard.getAndClaimCurrentCase();
@@ -163,20 +165,25 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             case "FOI":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromCaseCreationToAllocation();
                         break;
                     case "ALLOCATION":
                         foiProgressCase.moveCaseFromAllocationToAcceptance();
+                        waitForDashboard();
                         break;
                     case "ACCEPTANCE":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
+                        waitForDashboard();
                         break;
                     case "CONSIDER AND DRAFT":
+                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
                         break;
                     case "APPROVAL":
@@ -263,11 +270,11 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        waitForDashboard();
         RecordCaseData.resetDataRecords();
     }
 

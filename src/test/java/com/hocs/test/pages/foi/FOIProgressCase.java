@@ -47,11 +47,7 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this case for your drafting team?");
-        clickTheButton("Continue");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Do you need to request contributions?");
-        clickTheButton("Continue");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Full disclosure", "What is the response type?");
         clickTheButton("Continue");
         safeClickOn(documents.addDocumentsButton);
         recordCaseData.selectSpecificOptionFromDropdownWithHeading("Draft response", "Document type");
