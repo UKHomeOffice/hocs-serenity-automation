@@ -64,10 +64,9 @@ public class COMPProgressCase extends BasePage {
         COMPTriage.selectAcceptCase();
         COMPTriage.enterDateOfAcceptance();
         clickTheButton("Continue");
-        registration.openTheServiceComplaintCategoryAccordion();
+        COMPTriage.openExGratiaAccordion();
         waitABit(1000);
         registration.selectAVisibleClaimCategory();
-        registration.selectAnOwningCSU();
         clickTheButton("Continue");
         clickTheButton("Continue");
         COMPTriage.enterDetailsOnTriageCaptureReasonPage();

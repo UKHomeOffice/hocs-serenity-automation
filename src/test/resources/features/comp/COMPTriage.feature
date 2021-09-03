@@ -47,12 +47,12 @@ Feature: COMP Triage
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
+    And I select a "Ex-Gratia" Complaint Category
     And I click the "Continue" button
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
+    And I send the case to drafting
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
@@ -78,13 +78,12 @@ Feature: COMP Triage
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
+    And I select a "Ex-Gratia" Complaint Category
     And I click the "Continue" button
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    When I escalate the case to WFM at Service Triage stage
+    And I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
     And a escalation note should be visible showing the reason for escalation
@@ -112,8 +111,7 @@ Feature: COMP Triage
 #    When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
 #    And I load and claim the current case
 #    And I accept the case at "Ex-Gratia" Triage stage
-#    And I select a "Service" Complaint Category
-#    And I select a Owning CSU
+#    And I select a "Ex-Gratia" Complaint Category
 #    And I click the "Continue" button
 #    And I click the "Continue" button
 #    And I enter details on the Triage Capture Reason page

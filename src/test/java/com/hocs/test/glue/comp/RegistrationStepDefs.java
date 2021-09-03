@@ -3,6 +3,7 @@ package com.hocs.test.glue.comp;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.comp.COMPTriage;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.Registration;
 import io.cucumber.java.en.And;
@@ -10,6 +11,8 @@ import io.cucumber.java.en.And;
 public class RegistrationStepDefs extends BasePage {
 
     Registration registration;
+
+    COMPTriage compTriage;
 
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
@@ -47,6 +50,9 @@ public class RegistrationStepDefs extends BasePage {
                 break;
             case "SERIOUS":
                 registration.openTheSeriousComplaintCategoryAccordion();
+                break;
+            case "EX-GRATIA":
+                compTriage.openExGratiaAccordion();
                 break;
             default:
                 pendingStep(complaintCategory + " is not defined within " + getMethodName());

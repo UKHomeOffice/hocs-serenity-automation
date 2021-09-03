@@ -16,6 +16,8 @@ public class COMPTriage extends BasePage {
 
     RecordCaseData recordCaseData;
 
+    Registration registration;
+
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
 
@@ -161,6 +163,10 @@ public class COMPTriage extends BasePage {
     public void selectPermanentlyCloseCase(String yesNo) {
         selectSpecificRadioButton(yesNo);
         clickTheButton("Confirm");
+    }
+
+    public void openExGratiaAccordion() {
+        registration.openOrCloseAccordionSection("Ex-Gratia");
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {
