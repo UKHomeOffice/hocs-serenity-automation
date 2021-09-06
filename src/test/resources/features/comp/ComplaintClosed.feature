@@ -16,8 +16,30 @@ Feature: Complaint Closed
 
 #    HOCS-3025
   @COMPWorkflow @COMPRegression
-  Scenario: User can hard close a case at Complaint Closed stage
+  Scenario: User can hard close a Service COMP case at Complaint Closed stage
     When I create a "COMP" case and move it to the "Complaint Closed (from Service Send)" stage
+    And I load and claim the current case
+    And I select the "Complete the case" action at Complaint Closed
+    And I enter a completion note at Complaint Closed
+    And I confirm I want to close the case at Complaint Closed
+    Then the case should be closed
+    And a case closure note should be visible showing the reason for closure
+    And the read-only Case Details accordion should contain all case information entered during the "Complaint Closed" stage
+
+  @COMPWorkflow @COMPRegression
+  Scenario: User can hard close an Ex-Gratia COMP case at Complaint Closed stage
+    When I create a "COMP" case and move it to the "Complaint Closed (from Ex-Gratia Send)" stage
+    And I load and claim the current case
+    And I select the "Complete the case" action at Complaint Closed
+    And I enter a completion note at Complaint Closed
+    And I confirm I want to close the case at Complaint Closed
+    Then the case should be closed
+    And a case closure note should be visible showing the reason for closure
+    And the read-only Case Details accordion should contain all case information entered during the "Complaint Closed" stage
+
+  @COMPWorkflow @COMPRegression
+  Scenario: User can hard close a Minor Misconduct COMP case at Complaint Closed stage
+    When I create a "COMP" case and move it to the "Complaint Closed (from Minor Misconduct Send)" stage
     And I load and claim the current case
     And I select the "Complete the case" action at Complaint Closed
     And I enter a completion note at Complaint Closed

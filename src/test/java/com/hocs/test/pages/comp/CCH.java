@@ -36,6 +36,9 @@ public class CCH extends BasePage {
             case "TRANSFER TO EX-GRATIA":
                 recordCaseData.selectSpecificRadioButton("Ex-Gratia");
                 break;
+            case "TRANSFER TO MINOR MISCONDUCT":
+                recordCaseData.selectSpecificRadioButton("Minor Misconduct");
+                break;
             case "COMPLETE THE CASE":
                 recordCaseData.selectSpecificRadioButton("Complete the case");
                 break;

@@ -11,7 +11,7 @@ public class COMPTriageStepDefs extends BasePage {
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
         COMPTriage.selectAcceptCase();
-        if (complaintType.equalsIgnoreCase("EX-GRATIA")) {
+        if (!complaintType.equalsIgnoreCase("SERVICE")) {
             COMPTriage.enterDateOfAcceptance();
         }
         waitABit(500);

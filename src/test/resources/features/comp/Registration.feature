@@ -41,6 +41,17 @@ Feature: Registration
     And the summary should display the owning team as "Ex-Gratia"
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
+  Scenario: User can complete the Registration stage for a Minor Misconduct complaint
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Minor Misconduct" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Finish" button
+    Then the case should be moved to the "Minor Misconduct Triage" stage
+    And the summary should display the owning team as "Minor Misconduct"
+    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+
   @Validation
   Scenario Outline: User tests the validation at the Registration stage
     When I trigger the "<errorType>" error message at the "Registration" stage
