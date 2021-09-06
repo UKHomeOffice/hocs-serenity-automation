@@ -47,6 +47,16 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Registration to Ex-Gratia Triage");
     }
 
+    public void moveCaseFromRegistrationToMinorMisconductTriage() {
+        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        clickTheButton("Continue");
+        registration.enterComplainantDetails();
+        registration.selectComplaintType("Minor Misconduct");
+        registration.enterComplaintDetails();
+        clickTheButton("Finish");
+        System.out.println("Case moved from Registration to Minor Misconduct Triage");
+    }
+
     public void moveCaseFromServiceTriageToServiceDraft() {
         COMPTriage.selectAcceptCase();
         clickTheButton("Continue");
@@ -75,6 +85,18 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Ex-Gratia Triage to Ex-Gratia Response Draft");
     }
 
+    public void moveCaseFromMinorMisconductTriageToMinorMisconductResponseDraft() {
+        COMPTriage.selectAcceptCase();
+        COMPTriage.enterDateOfAcceptance();
+        clickTheButton("Continue");
+        waitABit(500);
+        clickTheButton("Continue");
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        COMPTriage.selectReadyForDrafting();
+        System.out.println("Case moved from Minor Misconduct Triage to Minor Misconduct Response Draft");
+    }
+
     public void moveCaseFromServiceTriageToServiceEscalated() {
         COMPTriage.selectAcceptCase();
         clickTheButton("Continue");
@@ -91,10 +113,9 @@ public class COMPProgressCase extends BasePage {
         COMPTriage.selectAcceptCase();
         COMPTriage.enterDateOfAcceptance();
         clickTheButton("Continue");
-        registration.openTheServiceComplaintCategoryAccordion();
+        COMPTriage.openExGratiaAccordion();
         waitABit(1000);
         registration.selectAVisibleClaimCategory();
-        registration.selectAnOwningCSU();
         clickTheButton("Continue");
         clickTheButton("Continue");
         COMPTriage.enterDetailsOnTriageCaptureReasonPage();
@@ -103,11 +124,37 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Ex-Gratia Triage to Ex-Gratia Escalate");
     }
 
+    public void moveCaseFromMinorMisconductTriageToMinorMisconductEscalate() {
+        COMPTriage.selectAcceptCase();
+        COMPTriage.enterDateOfAcceptance();
+        clickTheButton("Continue");
+        waitABit(500);
+        clickTheButton("Continue");
+        COMPTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        COMPTriage.escalateCaseToWFM();
+        System.out.println("Case moved from Minor Misconduct Triage to Minor Misconduct Escalate");
+    }
+
     public void moveCaseFromServiceTriageToCCH() {
         COMPTriage.selectTransferComplaint();
         COMPTriage.enterTransferReason();
         COMPTriage.selectTransferToCCH();
         System.out.println("Case moved from Service Triage to CCH");
+    }
+
+    public void moveCaseFromExGratiaTriageToCCH() {
+        COMPTriage.selectTransferComplaint();
+        COMPTriage.enterTransferReason();
+        COMPTriage.selectTransferToCCH();
+        System.out.println("Case moved from Ex-Gratia Triage to CCH");
+    }
+
+    public void moveCaseFromMinorMisconductTriageToCCH() {
+        COMPTriage.selectTransferComplaint();
+        COMPTriage.enterTransferReason();
+        COMPTriage.selectTransferToCCH();
+        System.out.println("Case moved from Minor Misconduct Triage to CCH");
     }
 
     public void moveCaseFromServiceDraftToServiceQA() {
@@ -120,6 +167,12 @@ public class COMPProgressCase extends BasePage {
         documents.addADraftDocumentAtDraftStage();
         COMPDraft.selectActionAtServiceDraft("Send Case to QA");
         System.out.println("Case moved from Ex-Gratia Response Draft to Ex-Gratia QA");
+    }
+
+    public void moveCaseFromMinorMisconductResponseDraftToMinorMisconductQA() {
+        documents.addADraftDocumentAtDraftStage();
+        COMPDraft.selectActionAtServiceDraft("Send Case to QA");
+        System.out.println("Case moved from Minor Misconduct Response Draft to Minor Misconduct QA");
     }
 
     public void moveCaseFromServiceDraftToServiceEscalated() {
@@ -138,6 +191,11 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Ex-Gratia QA to Ex-Gratia Send");
     }
 
+    public void moveCaseFromMinorMisconductQAToMinorMisconductSend() {
+        COMPQA.selectActionAtServiceQA("ACCEPT");
+        System.out.println("Case moved from Minor Misconduct QA to Minor Misconduct Send");
+    }
+
     public void moveCaseFromServiceQAToServiceDraft() {
         COMPQA.selectActionAtServiceQA("REJECT");
         COMPQA.submitRejectionReason();
@@ -152,6 +210,11 @@ public class COMPProgressCase extends BasePage {
     public void moveCaseFromExGratiaSendToComplaintClosed() {
         COMPSend.submitASelectedOutcome();
         System.out.println("Case moved from Ex-Gratia Send to Complaint Closed");
+    }
+
+    public void moveCaseFromMinorMisconductSendToComplaintClosed() {
+        COMPSend.submitASelectedOutcome();
+        System.out.println("Case moved from Minor Misconduct Send to Complaint Closed");
     }
 
     public void moveCaseFromComplaintClosedToCaseClosed() {
