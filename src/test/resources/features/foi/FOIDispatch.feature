@@ -17,3 +17,4 @@ Feature: FOI Dispatch
     And I click the "Continue" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Approval" stage
+    And the rejected column of the case in the "FOI Approval" workstack should display rejected by "Dispatch"

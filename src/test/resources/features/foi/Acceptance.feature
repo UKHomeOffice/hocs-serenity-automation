@@ -23,3 +23,4 @@ Feature: Acceptance
     And I click the "Continue" button
     Then the case should be returned to the "Allocation" stage
     And a rejection note should be visible showing the reason for rejection
+    And the rejected column of the case in the "FOI Allocation" workstack should display rejected by "Acceptance"
