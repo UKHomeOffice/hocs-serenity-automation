@@ -841,4 +841,11 @@ public class Workstacks extends BasePage {
         WebElementFacade contributionRequestField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[2]");
         contributionRequestField.shouldContainText(sessionVariableCalled("expectedWorkstackCRStatus"));
     }
+
+    public void assertRejectedColumnContainsStage(String stage) {
+        String caseRef = sessionVariableCalled("caseReference");
+        WebElementFacade rejectedField = findBy("//a[text()='" + caseRef + "']/ancestor::td/following-sibling::td[contains(text(), 'By')]");
+        String rejectionStage = rejectedField.getText().split(" ")[1];
+        assertThat(stage.toUpperCase().equals(rejectionStage.toUpperCase()), is(true));
+    }
 }

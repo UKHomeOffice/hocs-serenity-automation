@@ -140,6 +140,9 @@ public class Search extends BasePage {
     @FindBy(id = "ComplainantHORef")
     public WebElementFacade complainantHomeOfficeReferenceTextField;
 
+    @FindBy(xpath = "//label[text()='FOI Request']")
+    public WebElementFacade foiRequestCheckbox;
+
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -315,6 +318,40 @@ public class Search extends BasePage {
         }
     }
 
+    public void enterFOISearchCriteria(String criteria, String value) {
+        switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                safeClickOn(foiRequestCheckbox);
+                break;
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "RECEIVED ON OR AFTER":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
+                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
+                break;
+            case "RECEIVED ON OR BEFORE":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
+                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
+                break;
+            case "CORRESPONDENT (NON-MP)":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent (non-MP)");
+                setSessionVariable("searchCorrespondentName").to(value);
+                break;
+            case "TOPIC":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Topic");
+                setSessionVariable("searchTopic").to(value);
+                break;
+            case "ACTIVE CASES ONLY":
+                //This doesn't really work since the 'soft closed' cases are still technically active
+                safeClickOn(caseStatusActiveCheckbox);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
     public void searchBySubstringOfCaseReference() {
         int n = 0;
         String substring = null;
@@ -449,7 +486,7 @@ public class Search extends BasePage {
                         is(true));
                 break;
             case "ACTIVE CASES ONLY":
-                List activeCases = findAll("//td[2][not(text() = 'Closed')]");
+                List<WebElementFacade> activeCases = findAll("//td[2][not(text() = 'Closed')]");
                 if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
                     assertThat(!activeCases.isEmpty(), is(true));
                 }
@@ -593,6 +630,76 @@ public class Search extends BasePage {
             displayedValue = cell.getText();
         }
         assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+    }
+
+    public void assertFOIInformationRandomSearchResult(String criteria) {
+        int n = 0;
+        Date searchDate = null;
+        Date caseDate = null;
+        boolean trueFalse;
+        List<WebElementFacade> listOfReceivedDates = findAll("//td[3]");
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                List<WebElementFacade> listOfCaseRefs = findAll("//a[contains(text(), 'FOI')]");
+                assertThat(listOfCaseRefs.size()==numberOfCasesDisplayed, is(true));
+                break;
+            case "CASE REFERENCE":
+                String caseRef = sessionVariableCalled("searchCaseReference");
+                assertThat(randomSearchResult.equals(caseRef), is(true));
+                break;
+            case "RECEIVED ON OR AFTER":
+                while (n < numberOfCasesDisplayed) {
+                    try {
+                        searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                        caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(listOfReceivedDates.get(n).getText());
+                    } catch (ParseException pE) {
+                        System.out.println("Could not parse dates");
+                    }
+                    assert caseDate != null;
+                    trueFalse = (caseDate.after(searchDate) || caseDate.equals(searchDate));
+                    assertThat(trueFalse, is(true));
+                    n++;
+                }
+                break;
+            case "RECEIVED ON OR BEFORE":
+                while (n < numberOfCasesDisplayed) {
+                    try {
+                        searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
+                        caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(listOfReceivedDates.get(n).getText());
+                    } catch (ParseException pE) {
+                        System.out.println("Could not parse dates");
+                    }
+                    assert caseDate != null;
+                    trueFalse = (caseDate.before(searchDate) || caseDate.equals(searchDate));
+                    assertThat(trueFalse, is(true));
+                    n++;
+                }
+                break;
+            case "CORRESPONDENT (NON-MP)":
+                String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
+                List<WebElementFacade> listOfCasesWithCorrespondent = findAll("//td[contains(text(), '" + correspondentName + "')]");
+                while (n < listOfCasesWithCorrespondent.size()) {
+                    assertThat(listOfCasesWithCorrespondent.get(n).equals(numberOfSearchResults), is(true));
+                    n++;
+                }
+                break;
+            case "TOPIC":
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                String displayedTopic = summaryTab.foiTopic.getText();
+                String searchedTopic = sessionVariableCalled("searchTopic");
+                assertThat(displayedTopic.equals(searchedTopic), is(true));
+                break;
+            case "ACTIVE CASES ONLY":
+                //This doesn't really work since the 'soft closed' cases are still technically active
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
     }
 
     public void waitForResultsPage() {

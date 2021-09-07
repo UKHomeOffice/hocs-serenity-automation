@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.comp.COMPProgressCase;
+import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -16,6 +17,8 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
+import com.hocs.test.pages.foi.FOICreateCase;
+import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.DispatchStages;
 import com.hocs.test.pages.ukvi.Draft;
@@ -33,6 +36,8 @@ public class EndToEndStepDefs extends BasePage {
 
     DataInput dataInput;
 
+    FOICreateCase foiCreateCase;
+
     Markup markup;
 
     InitialDraft initialDraft;
@@ -43,7 +48,7 @@ public class EndToEndStepDefs extends BasePage {
 
     MinisterialSignOff ministerialSignOff;
 
-    com.hocs.test.pages.dcu.Dispatch dispatch;
+    Dispatch dispatch;
 
     Creation creation;
 
@@ -60,6 +65,8 @@ public class EndToEndStepDefs extends BasePage {
     WCSProgressCase wcsProgressCase;
 
     COMPProgressCase compProgressCase;
+
+    FOIProgressCase foiProgressCase;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -100,6 +107,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             case "MPAM":
                 dashboard.getAndClaimCurrentCase();
@@ -125,6 +133,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             case "COMP":
                 dashboard.getAndClaimCurrentCase();
@@ -152,6 +161,36 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     case "COMPLAINT CLOSED (TO CASE CLOSED)":
                         compProgressCase.moveCaseFromComplaintClosedToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                waitForDashboard();
+                break;
+            case "FOI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        dashboard.getAndClaimCurrentCase();
+                        foiProgressCase.moveCaseFromCaseCreationToAllocation();
+                        break;
+                    case "ALLOCATION":
+                        foiProgressCase.moveCaseFromAllocationToAcceptance();
+                        waitForDashboard();
+                        break;
+                    case "ACCEPTANCE":
+                        dashboard.getAndClaimCurrentCase();
+                        foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
+                        waitForDashboard();
+                        break;
+                    case "CONSIDER AND DRAFT":
+                        dashboard.getAndClaimCurrentCase();
+                        foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
+                        break;
+                    case "APPROVAL":
+                        foiProgressCase.moveCaseFromApprovalToDispatch();
+                        break;
+                    case "DISPATCH":
+                        foiProgressCase.moveCaseFromDispatchToSoftClose();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -231,11 +270,11 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
+                waitForDashboard();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        waitForDashboard();
         RecordCaseData.resetDataRecords();
     }
 
@@ -443,6 +482,40 @@ public class EndToEndStepDefs extends BasePage {
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED");
                         iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "FOI":
+                switch (stage.toUpperCase()) {
+                    case "CASE CREATION":
+                        foiCreateCase.createFOICase();
+                        goToDashboard();
+                        break;
+                    case "ALLOCATION":
+                        iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
+                        iCompleteTheStage("CASE CREATION");
+                        break;
+                    case "ACCEPTANCE":
+                        iCreateACaseAndMoveItToAStage(caseType, "ALLOCATION");
+                        iCompleteTheStage("ALLOCATION");
+                        break;
+                    case "CONSIDER AND DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "ACCEPTANCE");
+                        iCompleteTheStage("ACCEPTANCE");
+                        break;
+                    case "APPROVAL":
+                        iCreateACaseAndMoveItToAStage(caseType, "CONSIDER AND DRAFT");
+                        iCompleteTheStage("CONSIDER AND DRAFT");
+                        break;
+                    case "DISPATCH":
+                        iCreateACaseAndMoveItToAStage(caseType, "APPROVAL");
+                        iCompleteTheStage("APPROVAL");
+                        break;
+                    case "SOFT CLOSE":
+                        iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
+                        iCompleteTheStage("DISPATCH");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());

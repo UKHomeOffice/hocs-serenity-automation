@@ -7,6 +7,7 @@ public enum User {
     DCU_USER("dcu automated regression user", "Password1!", "DCU Regression (dcuregression@test.com)"),
     WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
     COMP_USER("comp automated regression user", "Password1!", "COMP Regression (compregression@test.com)"),
+    FOI_USER("foi automated regression user", "Password1!", "FOI Regression (foiregressiont@test.com)"),
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     COMP_SUPERUSER("comp super user", "Password1!", "COMP Super User (compsuperuser@test.com)"),
     WCS_TASKFORCE_USER("wcs taskforce user", "Password1!", "WCS Taskforce User (wcstaskforceuser@test.com)"),

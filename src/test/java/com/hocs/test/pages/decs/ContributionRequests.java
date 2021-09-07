@@ -98,6 +98,10 @@ public class ContributionRequests extends BasePage {
                 safeClickOn(addBusinessContributionHypertext);
                 contributionRequestBusinessArea.selectByIndex(1);
                 break;
+            case "FOI":
+                safeClickOn(addAContributionHypertext);
+                selectRandomOptionFromDropdownWithHeading("Business Unit");
+                break;
             default:
                 pendingStep(contributionType + " is not defined within " + getMethodName());
         }
@@ -157,7 +161,9 @@ public class ContributionRequests extends BasePage {
             addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
             count++;
         }
-        safeClickOn(continueButton);
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("MPAM")) {
+            safeClickOn(continueButton);
+        }
         setSessionVariable("numberOfContributions").to(numberOfContributionRequests);
     }
 

@@ -18,6 +18,7 @@ import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
+import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.ukvi.Campaign;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.MTSDataInput;
@@ -33,6 +34,8 @@ public class CreateCaseStepDefs extends BasePage {
     Documents documents;
 
     CreateCase createCase;
+
+    FOICreateCase foiCreateCase;
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
@@ -67,6 +70,8 @@ public class CreateCaseStepDefs extends BasePage {
         if (caseType.equalsIgnoreCase("WCS")) {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
+        } else if (caseType.equalsIgnoreCase("FOI")) {
+            foiCreateCase.createFOICase();
         } else {
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
@@ -178,7 +183,7 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
-    @Then("A case is created successfully")
+    @Then("a case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
         createCaseSuccessPage.assertCaseCreatedSuccess();
         createCaseSuccessPage.storeCaseReference();
@@ -228,6 +233,12 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I select a case type and continue")
     public void getToWhenWasCorrespondenceReceivedPage() {
         createCase.selectCaseType("CS");
+        safeClickOn(nextButton);
+        waitABit(100);
+    }
+    @When("I select the FOI case type and continue")
+    public void iSelectFOICaseTypeAndContinue() {
+        createCase.selectCaseType("FOI");
         safeClickOn(nextButton);
         waitABit(100);
     }
@@ -462,6 +473,55 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterAHomeOfficeReference();
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "FOI":
+                switch (infoType.toUpperCase()) {
+                    case "CASE TYPE":
+                    case "CORRESPONDENT (NON-MP)":
+                    case "TOPIC":
+                    case "ACTIVE CASES ONLY":
+                        foiCreateCase.createFOICase();
+                        goToDashboard();
+                        break;
+                    case "RECEIVED ON OR AFTER":
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        createCase.selectCaseType("FOI");
+                        clickTheButton("Next");
+                        createCase.editReceivedDate(getTodaysDate());
+                        createCase.storeCorrespondenceReceivedDate();
+                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadDocumentOfType("docx");
+                        foiCreateCase.selectCorrespondenceInboundChannel();
+                        foiCreateCase.enterCorrespondentDetails();
+                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
+                        foiCreateCase.enterRequestQuestion();
+                        clickTheButton("Submit");
+                        goToDashboard();
+                        break;
+                    case "RECEIVED ON OR BEFORE":
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        createCase.selectCaseType("FOI");
+                        clickTheButton("Next");
+                        createCase.editReceivedDate("01/01/2010");
+                        createCase.storeCorrespondenceReceivedDate();
+                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadDocumentOfType("docx");
+                        foiCreateCase.selectCorrespondenceInboundChannel();
+                        foiCreateCase.enterCorrespondentDetails();
+                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
+                        foiCreateCase.enterRequestQuestion();
+                        clickTheButton("Submit");
+                        goToDashboard();
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());

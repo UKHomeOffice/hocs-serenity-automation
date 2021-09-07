@@ -97,9 +97,21 @@ public class SearchStepDefs extends BasePage {
         search.enterDCUSearchCriteria(criteria, value);
     }
 
+    @And("I enter {string} into the {string} FOI search criteria")
+    public void iEnterIntoTheFOISearchCriteria(String value, String criteria) {
+        setSessionVariable("searchCriteria").to(criteria);
+        setSessionVariable("searchValue").to(value);
+        search.enterFOISearchCriteria(criteria, value);
+    }
+
     @Then("I check that the DCU search results have the correct {string}")
     public void assertThatSearchResultsContainCorrectValue(String dataType) {
         search.assertDCUInformationRandomSearchResult(dataType);
+    }
+
+    @Then("I check that the FOI search results have the correct {string}")
+    public void iCheckThatTheFOISearchResultsHaveTheCorrect(String dataType) {
+        search.assertFOIInformationRandomSearchResult(dataType);
     }
 
     @Then("the created DCU case should be visible in the search results")
@@ -190,7 +202,7 @@ public class SearchStepDefs extends BasePage {
         search.enterCOMPSearchCriteria(criteria, value);
     }
 
-    @And("I search for the COMP case by its case reference")
+    @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
         while (i < 6) {

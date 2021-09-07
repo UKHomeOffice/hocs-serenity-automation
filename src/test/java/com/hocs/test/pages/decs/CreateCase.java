@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.foi.FOICreateCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -49,6 +50,9 @@ public class CreateCase extends BasePage {
 
     @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
+
+    @FindBy(xpath = "//label[text()='FOI Request']/preceding-sibling::input")
+    public WebElementFacade foiRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -110,6 +114,10 @@ public class CreateCase extends BasePage {
         safeClickOn(compRadioButton);
     }
 
+    private void clickFoiRadioButton() {
+        selectSpecificRadioButton("FOI Request");
+    }
+
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
@@ -137,11 +145,18 @@ public class CreateCase extends BasePage {
                 case "COMP":
                     clickCompRadioButton();
                     break;
+                case "FOI":
+                    clickFoiRadioButton();
+                    break;
                 default:
                     pendingStep(caseType + " is not defined within " + getMethodName());
             }
         }
         setSessionVariable("caseType").to(caseType);
+    }
+
+    public void editReceivedDate(String date) {
+        enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
     }
 
     // Multi Step Methods
@@ -175,7 +190,7 @@ public class CreateCase extends BasePage {
         selectCaseType(caseType);
         safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
-        typeIntoDateFields(correspondenceReceivedDayField, correspondenceReceivedMonthField, correspondenceReceivedYearField, date);
+        editReceivedDate(date);
         documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();

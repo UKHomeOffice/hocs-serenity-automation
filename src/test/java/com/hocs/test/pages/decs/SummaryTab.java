@@ -107,6 +107,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
 
+    @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
+    public WebElementFacade foiTopic;
+
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
@@ -326,7 +329,7 @@ public class SummaryTab extends BasePage {
         assertThat(allocatedUser.getText().contains(getCurrentUser().getUsername()), is(trueFalse));
     }
 
-    public void assertAllocatedDCUTeam(String team) {
+    public void assertAllocatedTeam(String team) {
         currentTeam.shouldContainText(team);
     }
 
