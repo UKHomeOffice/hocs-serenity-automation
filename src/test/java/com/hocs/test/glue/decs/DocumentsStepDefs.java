@@ -151,6 +151,13 @@ public class DocumentsStepDefs extends BasePage {
         iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
     }
 
+    @And("I add a {string} type document to the case")
+    public void iAddATypeDocumentToTheCase(String docType) {
+        iClickAddDocuments();
+        documents.selectDocumentTypeByText(docType);
+        iUploadAFileOfType("docx");
+    }
+
     @And("I remove the {string} document")
     public void iClickTheRemoveLinkForTheFile(String fileIdentifier) {
         safeClickOn(documents.manageDocumentsLink);

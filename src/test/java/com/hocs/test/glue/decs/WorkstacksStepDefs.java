@@ -491,4 +491,11 @@ public class WorkstacksStepDefs extends BasePage {
         dashboard.selectWorkstackByTeamName(teamName);
         workstacks.assertVisibilityOfCaseReference(false);
     }
+
+    @Then("the rejected column of the case in the {string} workstack should display rejected by {string}")
+    public void theRejectedColumnOfTheCaseInTheWorkstackShouldDisplayRejectedBy(String workstack, String rejectionStage) {
+        goToDashboard();
+        dashboard.selectWorkstackByTeamName(workstack);
+        workstacks.assertRejectedColumnContainsStage(rejectionStage);
+    }
 }

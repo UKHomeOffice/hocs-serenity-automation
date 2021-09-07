@@ -97,20 +97,15 @@ public class TeamManagement extends BasePage {
     }
 
     public void selectAUser(User user) {
-        addTeamMembersButton.waitUntilClickable().click();
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
-        waitABit(6000);
-        userSearchBar.sendKeys(Keys.RETURN);
+        WebElementFacade userOption = findBy("//div[contains(@class, 'govuk-typeahead__option')][text()='" + user.getAllocationText() + "']");
+        userOption.withTimeoutOf(Duration.ofSeconds(10)).waitUntilClickable().click();
         waitABit(1000);
-        safeClickOn(addSelectedUsersButton);
-        waitABit(2000);
     }
 
     public void addTeamMember(User user) {
         addTeamMembersButton.waitUntilClickable().click();
-        userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
-        waitABit(6000);
-        userSearchBar.sendKeys(Keys.ENTER);
+        selectAUser(user);
         clickOn(addSelectedUsersButton);
         addedOrRemovedUser = user;
     }

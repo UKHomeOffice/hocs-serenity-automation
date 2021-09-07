@@ -25,7 +25,7 @@ Feature: COMP Search
   @COMPRegression
   Scenario: User can search for a COMP case by its case reference
     When I create a single "COMP" case
-    And I search for the "COMP" case by its case reference
+    And I search for the case by its case reference
     Then I check that the COMP search results have the correct "Case Reference"
 
 #     HOCS-2847 HOCS-3161

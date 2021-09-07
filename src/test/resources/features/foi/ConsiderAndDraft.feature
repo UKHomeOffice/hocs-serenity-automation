@@ -7,49 +7,16 @@ Feature: Consider and Draft
     And I load and claim the current case
 
   Scenario: User is able to complete the Consider and Draft stage
-    And I select that the case "Is" in the correct drafting team
-    And I click the "Continue" button
     And I select that the case "Doesn't" require a contribution
+    And I add a "Draft response" type document to the case
     And I click the "Continue" button
-    And I select "Full disclosure" as the response type
-    And I click the "Continue" button
-    And I click add documents
-    And I choose the document type "Draft response"
-    And I upload a file of type "docx"
-    And I click the "Continue" button
+    And I navigate to the "Dashboard" page
     Then the case should be moved to the "Approval" stage
+    And the summary should display the owning team as "CCT Stage 1 Triage Team"
 
-  #HOCS-2804, HOCS-2768
-  @FOIRegression
-  Scenario: User is able to reject an FOI request at Consider and Draft
-    And I select that the case "Isn't" in the correct drafting team
-    And I enter a reason for the case to be returned to Acceptance
-    And I click the "Continue" button
-    Then the case should be returned to the "Acceptance" stage
-    And a rejection note should be visible showing the reason for rejection
-
-  @FOIRegression
-  Scenario: User is able to move a case with the exemption response type to Dispatch
-    And I select that the case "Is" in the correct drafting team
-    And I click the "Continue" button
-    And I select that the case "Doesn't" require a contribution
-    And I click the "Continue" button
-    And I select "Exemption" as the response type
-    And I click the "Continue" button
-    And I select a reason for exemption
-    And I click the "Continue" button
-    And I click add documents
-    And I choose the document type "Draft response"
-    And I upload a file of type "docx"
-    And I click the "Continue" button
-    Then the case should be moved to the "Dispatch" stage
-    
   #HOCS-2809, HOCS-2930
   @FOIRegression
   Scenario: User is able to request multiple contributions at the Consider and Draft stage
-    And I select that the case "Is" in the correct drafting team
-    And I click the "Continue" button
     And I select that the case "Does" require a contribution
-    And I click the "Continue" button
     And I add 2 contribution requests to the case and move the case to the Contribution Request stage
     Then there are 2 contribution requests added to the case
