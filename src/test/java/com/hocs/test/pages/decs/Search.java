@@ -683,7 +683,7 @@ public class Search extends BasePage {
                 String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
                 List<WebElementFacade> listOfCasesWithCorrespondent = findAll("//td[contains(text(), '" + correspondentName + "')]");
                 while (n < listOfCasesWithCorrespondent.size()) {
-                    assertThat(listOfCasesWithCorrespondent.get(n).getText().toUpperCase().contains(correspondentName), is(true));
+                    assertThat(listOfCasesWithCorrespondent.get(n).equals(numberOfSearchResults), is(true));
                     n++;
                 }
                 break;
