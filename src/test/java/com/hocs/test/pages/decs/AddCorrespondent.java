@@ -21,7 +21,7 @@ public class AddCorrespondent extends BasePage {
     @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='Yes']")
     public WebElementFacade correspondentMemberYesRadioButton;
 
-    @FindBy(xpath = "//input[contains(@id,'react-select')]")
+    @FindBy(xpath = "//input[@id='member']")
     private WebElementFacade selectMPDropdown;
 
     @FindBy(id = "reference")
