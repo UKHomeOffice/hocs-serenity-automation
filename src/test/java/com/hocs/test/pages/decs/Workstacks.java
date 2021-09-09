@@ -310,7 +310,7 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForWorkstackToLoad() {
-        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public void orderMPAMWorkstackColumn(String column, String order) {
@@ -682,6 +682,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
+        waitForWorkstackToLoad();
         WebElementFacade deadlineOfCurrentCase =
                 findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td/span[contains(text(), '"
                         + getCurrentYear() + "')"
