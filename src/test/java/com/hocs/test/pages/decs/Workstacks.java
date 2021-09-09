@@ -310,7 +310,7 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForWorkstackToLoad() {
-        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public void orderMPAMWorkstackColumn(String column, String order) {
