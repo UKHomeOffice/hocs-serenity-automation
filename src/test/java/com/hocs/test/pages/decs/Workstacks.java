@@ -502,10 +502,10 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUser(User user) {
+        waitABit(7500);
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
                 + "']/../following-sibling::td[2]");
-        waitForAnyTextToAppear(caseOwner, user.getUsername());
-        assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
+        assertThat(caseOwner.getText().equals(user.getUsername()), is(true));
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
