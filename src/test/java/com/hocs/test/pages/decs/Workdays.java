@@ -55,4 +55,18 @@ public class Workdays extends BasePage{
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
         return targetDay.format(formatters);
     }
+
+    public String getDateXWorkdaysFromToday(int targetAmount) {
+        int totalWorkDays = 0;
+        assert totalWorkDays <= targetAmount;
+        LocalDate targetDay = LocalDate.now();
+        while (totalWorkDays < targetAmount) {
+            targetDay = targetDay.plusDays(1);
+            if (isWorkday(targetDay)) {
+                totalWorkDays ++;
+            }
+        }
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        return targetDay.format(formatters);
+    }
 }

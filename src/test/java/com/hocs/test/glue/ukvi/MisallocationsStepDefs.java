@@ -2,6 +2,7 @@ package com.hocs.test.glue.ukvi;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.TimelineTab;
+import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.ukvi.Misallocations;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -12,14 +13,16 @@ public class MisallocationsStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
+    Workdays workdays;
+
     @And("I select to transfer a case to {string} at the {string} stage")
     public void iSelectToTransferACaseTo(String transferTo, String stage) {
         misallocations.transferCaseFromStageTo(stage, transferTo);
     }
 
-    @And("I amend the Transfer due date of the case to {string}")
-    public void iAmendTheTransferDueDateOfTheCaseTo(String date) {
-        misallocations.updateTransferDueDate(date);
+    @And("I amend the Transfer due date of the case")
+    public void iAmendTheTransferDueDateOfTheCaseTo() {
+        misallocations.updateTransferDueDate(workdays.getDateXWorkdaysFromToday(10));
     }
 
     @And("I select the {string} action at the Awaiting Transfer stage")
