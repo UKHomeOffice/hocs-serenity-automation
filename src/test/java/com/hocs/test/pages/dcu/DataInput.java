@@ -84,7 +84,7 @@ public class DataInput extends BasePage {
     }
 
     public void selectSpecificHomeSecReplyOption(String yesOrNo) {
-        selectSpecificRadioButtonFromGroupWithHeading(yesOrNo,"Is this a potential Home Secretary Reply case?");
+        selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Is this a potential Home Secretary Reply case?");
     }
 
     public void selectAHomeSecReplyOption() {
@@ -115,18 +115,18 @@ public class DataInput extends BasePage {
         if (caseType.equals("DTEN")) {
             typeIntoDateFields(dtenDraftingDeadlineDayField, dtenDraftingDeadlineMonthField, dtenDraftingDeadlineYearField, "01/01/2019");
             setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
-            typeIntoDateFields(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField,"01/01/2019");
+            typeIntoDateFields(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField, "01/01/2019");
             setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
             safeClickOn(continueButton);
-            typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                    getDatePlusMinusNDaysAgo(-2));
-            safeClickOn(emailOriginalChannelRadioButton);
-        } else {
-            typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                    getDatePlusMinusNDaysAgo(-2));
-            safeClickOn(emailOriginalChannelRadioButton);
+        }
+        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
+                getDatePlusMinusNDaysAgo(-2));
+        safeClickOn(emailOriginalChannelRadioButton);
+        if (caseType.equals("MIN") | caseType.equals("TRO")) {
             safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
             safeClickOn(homeSecInterestYesRadioButton);
+        }
+        if (caseType.equals("MIN")) {
             selectAHomeSecReplyOption();
         }
     }

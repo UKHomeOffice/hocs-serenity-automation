@@ -682,6 +682,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
+        waitForWorkstackToLoad();
         WebElementFacade deadlineOfCurrentCase =
                 findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td/span[contains(text(), '"
                         + getCurrentYear() + "')"
