@@ -184,15 +184,17 @@ public class DataInput extends BasePage {
     }
 
     public void completeDataInputStageSpecifyingHomeSecInterest(boolean interest) {
+        String caseType = sessionVariableCalled("caseType");
         typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
                 getDatePlusMinusNDaysAgo(-2));
         safeClickOn(emailOriginalChannelRadioButton);
         safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
         if (interest) {
             safeClickOn(homeSecInterestYesRadioButton);
-            selectAHomeSecReplyOption();
         } else {
             safeClickOn(homeSecInterestNoRadioButton);
+        }
+        if (caseType.equals("MIN")) {
             selectAHomeSecReplyOption();
         }
         safeClickOn(continueButton);
