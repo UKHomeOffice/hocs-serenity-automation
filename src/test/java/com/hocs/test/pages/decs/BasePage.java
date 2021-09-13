@@ -451,6 +451,12 @@ public class BasePage extends PageObject {
         typeIntoDateFields(dayField, monthField, yearField, date);
     }
 
+    public void clearDateFieldsWithHeading(String headingText) {
+        getVisibleDayFieldWithMatchingHeading(headingText).clear();
+        getVisibleMonthFieldWithMatchingHeading(headingText).clear();
+        getVisibleYearFieldWithMatchingHeading(headingText).clear();
+    }
+
     private WebElementFacade getVisibleDayFieldWithMatchingHeading(String headingText) {
         List<WebElementFacade> dayFieldsWithMatchingHeading = findAll("//legend[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
                 + "-sibling::div/div[1]//input");

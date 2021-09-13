@@ -253,7 +253,10 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCSCaseOfType(caseType.toUpperCase());
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(unallocatedCaseView.allocateToMeLink);
-        dataInput.completeDataInputStageWithMPCorrespondent(correspondent);
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAMemberCorrespondent(correspondent);
+        safeClickOn(finishButton);
     }
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
@@ -333,13 +336,19 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
+                        dataInput.fillAllMandatoryCorrespondenceFields();
+                        clickContinueButton();
+                        addCorrespondent.addAMemberCorrespondent(infoValue);
+                        safeClickOn(finishButton);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
                         createCase.createCSCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        dataInput.completeDataInputStageWithPublicCorrespondent();
+                        dataInput.fillAllMandatoryCorrespondenceFields();
+                        clickContinueButton();
+                        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+                        safeClickOn(finishButton);
                         waitForDashboard();
                         break;
                     case "TOPIC":
@@ -357,11 +366,20 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
+
+
+
                         if (infoValue.equalsIgnoreCase("YES")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
                         } else if (infoValue.equalsIgnoreCase("NO")) {
                             dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
                         }
+
+                        safeClickOn(continueButton);
+                        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+                        safeClickOn(finishButton);
+
+
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());

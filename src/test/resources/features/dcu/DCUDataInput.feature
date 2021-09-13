@@ -4,6 +4,15 @@ Feature: DCU Data Input
   Background:
     Given I am logged into "CS" as user "DCU_USER"
 
+  @DCUWorkflow @DCURegression
+  Scenario: As a Data Input user, I want to be able to mark a MIN case as a potential Home Secretary Reply, so Markup users can prioritise the case
+    When I create a "MIN" case and move it to the "Data Input" stage
+    And I load and claim the current case
+    And I complete the Data Input stage, selecting that the case is a potential Home Secretary Reply case
+    Then the case should be moved to the "Markup" stage
+    And the summary should display the owning team as "CCT Stage 1 Triage Team"
+    And the workstack should display a HS symbol next to the case reference
+
   @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I create a "MIN" case and move it to the "Data Input" stage

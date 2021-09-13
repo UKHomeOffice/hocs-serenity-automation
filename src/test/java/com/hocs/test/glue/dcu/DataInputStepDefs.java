@@ -32,7 +32,14 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I complete the Data Input stage and send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
-        dataInput.dataInputFullFlowWithCopyToN10();
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("Yes");
+        dataInput.selectAHomeSecInterestOption();
+        dataInput.selectAHomeSecReplyOption();
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        safeClickOn(finishButton);
     }
 
     @When("I complete the Data Input Stage")
@@ -155,12 +162,22 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I complete the Data Input stage adding 3 member correspondents")
     public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
-        dataInput.completeDataInputStageWithThreeMPCorrespondents();
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon");
+        addCorrespondent.addAMemberCorrespondent("Theresa May");
+        safeClickOn(finishButton);
     }
 
     @And("I complete the Data Input stage adding 3 public correspondents")
     public void iCompleteDataInputStageWithThreePublicCorrespondents() {
-        dataInput.completeDataInputWithThreePublicCorrespondents();
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        safeClickOn(finishButton);
     }
 
     @And("I add the member of parliament {string}")
@@ -269,5 +286,11 @@ public class DataInputStepDefs extends BasePage {
     public void assertHomeSecInterestInputMatchesSummaryTab() {
         summaryTab.selectSummaryTab();
         summaryTab.assertHomeSecInterestMatchesDecisionAtDataInput();
+    }
+
+    @And("I complete the Data Input stage, selecting that the case is a potential Home Secretary Reply case")
+    public void iCompleteTheDataInputStageSelectingThatTheCaseIsAPotentialHomeSecretaryReplyCase() {
+        dataInput.fillAllMandatoryCorrespondenceFields();
+
     }
 }

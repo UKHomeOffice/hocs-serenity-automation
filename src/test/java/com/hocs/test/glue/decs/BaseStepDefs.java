@@ -88,10 +88,10 @@ public class BaseStepDefs extends BasePage {
     public void iEnterAnInvalidDate(String dateField) {
         switch (dateField.toUpperCase()) {
             case "CORRESPONDENCE RECEIVED":
-                dataInput.invalidCorrespondenceReceivedDate();
+                dataInput.overwriteCorrespondenceReceivedDate(getDatePlusMinusNDaysAgo(1));
                 break;
             case "CORRESPONDENCE SENT":
-                dataInput.invalidCorrespondenceSentDate();
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(1));
                 break;
             default:
                 pendingStep(dateField + " is not defined within " + getMethodName());
