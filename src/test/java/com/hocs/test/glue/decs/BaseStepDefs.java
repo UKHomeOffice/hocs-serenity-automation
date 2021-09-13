@@ -312,8 +312,10 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case/claim should be moved/returned to (the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
-        dashboard.goToDashboard();
-        dashboard.getCurrentCase();
+        if (caseReferenceSearchBar.isVisible()) {
+            dashboard.goToDashboard();
+            dashboard.getCurrentCase();
+        }
         summaryTab.selectSummaryTab();
         summaryTab.assertCaseStage(stage);
     }

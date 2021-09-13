@@ -14,7 +14,6 @@ Feature: CCH
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
-
 #    HOCS-3025
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at CCH stage

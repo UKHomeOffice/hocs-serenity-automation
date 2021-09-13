@@ -11,8 +11,9 @@ Feature: Case Creation Stage
     And I click the "Confirm" button
     And I select "Yes" for the validity of the request and continue
     And I click the "Continue" button
-    And I navigate to the "Dashboard" page
     Then the case should be moved to the "Allocation" stage
+    And the summary should display the owning team as "CCT Stage 1 Triage Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
 
   #HOCS-3482
   @FOIRegression
