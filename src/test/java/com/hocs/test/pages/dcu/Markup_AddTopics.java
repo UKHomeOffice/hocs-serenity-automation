@@ -1,6 +1,7 @@
 package com.hocs.test.pages.dcu;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.Workstacks;
 import java.time.Duration;
@@ -18,6 +19,8 @@ public class Markup_AddTopics extends BasePage {
 
     TimelineTab timelineTab;
 
+    RecordCaseData recordCaseData;
+
     @FindBy(xpath = "//th[contains(text(),'Primary topic')]/following-sibling::td")
     public WebElementFacade primaryTopicInSummary;
 
@@ -26,9 +29,6 @@ public class Markup_AddTopics extends BasePage {
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicLink;
-
-    @FindBy(xpath = "//label")
-    public WebElementFacade assignedTopic;
 
     @FindBy(xpath = "//div[contains(@class, 'govuk-typeahead__single-value')]")
     public WebElementFacade selectedTopicName;
@@ -61,18 +61,18 @@ public class Markup_AddTopics extends BasePage {
         topicsTextField.sendKeys(Keys.RETURN);
     }
 
-    public void selectOverridePrivateOfficeTeamByVisibleText(String newPrivateOfficeTeam) {
-        overridePrivateOfficeTeamDropdown.selectByVisibleText(newPrivateOfficeTeam);
+    public void selectSpecificOverridePrivateOfficeTeam(String newPrivateOfficeTeam) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(newPrivateOfficeTeam, "Override Private Office Team");
     }
 
-    public void selectOverrideInitialDraftTeamByVisibleText(String newInitialDraftTeam) {
-        overrideInitialDraftTeamDropdown.selectByVisibleText(newInitialDraftTeam);
+    public void selectSpecificOverrideInitialDraftTeam(String newInitialDraftTeam) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(newInitialDraftTeam, "Override Initial Draft Team");
     }
 
     // Multi Step Methods
 
     public void enterATopic(String topic) {
-        safeClickOn(addTopicLink);
+        clickAddTopicLink();
         topicsTextField.click();
         topicsTextField.sendKeys(topic);
         waitABit(1000);
@@ -83,7 +83,7 @@ public class Markup_AddTopics extends BasePage {
     }
 
     public void enterATopicWithoutHittingFinish(String topic) {
-        safeClickOn(addTopicLink);
+        clickAddTopicLink();
         safeClickOn(topicsTextField);
         topicsTextField.sendKeys(topic);
         waitABit(1000);
@@ -93,7 +93,7 @@ public class Markup_AddTopics extends BasePage {
     }
 
     public void enterATopicWithoutContinuingToTheDraftStage(String topic) {
-        safeClickOn(addTopicLink);
+        clickAddTopicLink();
         safeClickOn(topicsTextField);
         topicsTextField.sendKeys(topic);
         waitABit(1000);

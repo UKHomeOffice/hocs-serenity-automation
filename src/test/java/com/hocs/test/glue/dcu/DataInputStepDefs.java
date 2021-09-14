@@ -42,40 +42,23 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(finishButton);
     }
 
-    @When("I complete the Data Input Stage")
+    @When("I complete the Data Input stage")
     public void completeDataInputPerCaseType() {
-        if (!dataInput.continueButton.isVisible()) {
+        if (!continueButton.isVisible()) {
             dashboard.getCurrentCase();
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
-        dataInput.moveCaseFromDataInputToMarkup();
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        safeClickOn(finishButton);
     }
 
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
         addCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
-        dataInput.clickAddButton();
-    }
-
-    @And("I set the correspondence channel to {string}")
-    public void iSetTheCorrespondenceChannelTo(String channel) {
-        switch (channel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                break;
-            case "POST":
-                safeClickOn(dataInput.postOriginalChannelRadioButton);
-                break;
-            case "PHONE":
-                safeClickOn(dataInput.phoneOriginalChannelRadioButton);
-                break;
-            case "NO. 10":
-                safeClickOn(dataInput.numberTenOriginalChannelRadioButton);
-                break;
-            default:
-                pendingStep(channel + " is not defined within " + getMethodName());
-        }
+        clickAddButton();
     }
 
     @When("I select to add a correspondent that {string} a member of parliament")
@@ -133,9 +116,7 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I enter an invalid date")
     public void enterAnInvalidDate() {
-        dataInput.typeIntoDateFields(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                dataInput.dateCorrespondenceReceivedYearField,
-                "29/02/2019");
+        dataInput.overwriteCorrespondenceReceivedDate("29/02/2019");
     }
 
     @Then("both correspondents are listed")
@@ -153,11 +134,6 @@ public class DataInputStepDefs extends BasePage {
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         dashboard.getCurrentCase();
         accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
-    }
-
-    @And("I complete the Data Input stage of the displayed case")
-    public void iCompleteTheDataInputStageOfTheDisplayedCase() {
-        dataInput.moveCaseFromDataInputToMarkup();
     }
 
     @And("I complete the Data Input stage adding 3 member correspondents")
@@ -269,17 +245,18 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I select {string} for Home Secretary interest and complete the data input stage")
     public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
+        String caseType = sessionVariableCalled("caseType");
         setSessionVariable("homeSecInterest").to(interest);
-        switch (interest.toUpperCase()) {
-            case "YES":
-                dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
-                break;
-            case "NO":
-                dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
-                break;
-            default:
-                pendingStep(interest + " is not defined within " + getMethodName());
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("No");
+        dataInput.selectASpecificHomeSecInterestOption(interest);
+        if (caseType.equals("MIN")) {
+            dataInput.selectAHomeSecReplyOption();
         }
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        safeClickOn(finishButton);
     }
 
     @Then("the Home Secretary interest decision should match the one displayed in the summary tab")
@@ -290,7 +267,13 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I complete the Data Input stage, selecting that the case is a potential Home Secretary Reply case")
     public void iCompleteTheDataInputStageSelectingThatTheCaseIsAPotentialHomeSecretaryReplyCase() {
-        dataInput.fillAllMandatoryCorrespondenceFields();
-
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("No");
+        dataInput.selectAHomeSecInterestOption();
+        dataInput.selectASpecificHomeSecReplyOption("Yes");
+        safeClickOn(continueButton);
+        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        safeClickOn(finishButton);
     }
 }

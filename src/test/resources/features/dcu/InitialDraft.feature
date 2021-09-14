@@ -133,3 +133,8 @@ Feature: Initial Draft
     | DTEN      | PRIMARY DRAFT DOCUMENT REQUIRED             |
     | MIN       | QA THIS OFFLINE REQUIRED                    |
     | TRO       | WHO HAS DONE QA OFFLINE REQUIRED            |
+
+  @DCURegression
+  Scenario: As a Data Input user, I want to see a symbol that tells me a case is a Home Secretary Reply case, so I can prioritise the case
+    And I create a "MIN" case and move it to the "MARKUP" stage
+    And I complete the Markup stage, with the Home Secretary team selected as the Drafting team

@@ -77,25 +77,18 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='No']")
     public WebElementFacade homeSecInterestNoRadioButton;
 
-    // Multi Step Methods
-
-    public void moveCaseFromDataInputToMarkup() {
-        fillAllMandatoryCorrespondenceFields();
-        safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
-    }
+    // Basic Methods
 
     public void enterDTENDraftingDeadline(String date) {
-        recordCaseData.enterDateIntoDateFieldsWithHeading("What is the drafting deadline?", date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the drafting deadline?");
     }
 
     public void enterDTENDispatchDeadline(String date) {
-        recordCaseData.enterDateIntoDateFieldsWithHeading("What is the dispatch deadline?", date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the dispatch deadline?");
     }
 
     public void enterCorrespondenceSentDate(String date) {
-        recordCaseData.enterDateIntoDateFieldsWithHeading("When was the correspondence sent?", date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "When was the correspondence sent?");
     }
 
     public void clearDateCorrespondenceSent() {
@@ -104,7 +97,7 @@ public class DataInput extends BasePage {
 
     public void overwriteCorrespondenceReceivedDate(String date) {
         clearDateFieldsWithHeading("When was the correspondence received?");
-        recordCaseData.enterDateIntoDateFieldsWithHeading("When was the correspondence received?", date);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
     }
 
     public void clearDateCorrespondenceReceived() {
@@ -116,7 +109,7 @@ public class DataInput extends BasePage {
     }
 
     public void selectASpecificCopyToNoTenOption(String yesOrNo) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Should the response be copied to Number 10?", yesOrNo);
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Should the response be copied to Number 10?");
     }
 
     public void selectACopyToNoTenOption() {
@@ -124,20 +117,22 @@ public class DataInput extends BasePage {
     }
 
     public void selectASpecificHomeSecInterestOption(String yesOrNo) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Does the Home Secretary have an interest in this case?", yesOrNo);
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Does the Home Secretary have an interest in this case?");
     }
 
     public void selectAHomeSecInterestOption() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Does the Home Secretary have an interest in this case?");
     }
 
-    public void selectSpecificHomeSecReplyOption(String yesOrNo) {
+    public void selectASpecificHomeSecReplyOption(String yesOrNo) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Is this a potential Home Secretary Reply case?");
     }
 
     public void selectAHomeSecReplyOption() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
     }
+
+    // Multi Step Methods
 
     public void fillAllMandatoryCorrespondenceFields() {
         String caseType = sessionVariableCalled("caseType");
@@ -155,51 +150,6 @@ public class DataInput extends BasePage {
         if (caseType.equals("MIN")) {
             selectAHomeSecReplyOption();
         }
-    }
-
-    public void completeDataInputStageAndStoreEnteredInformation() {
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
-        String currentDay = dateCorrespondenceSentDayField.getValue();
-        setSessionVariable("currentDay").to(currentDay);
-        String currentMonth = dateCorrespondenceSentMonthField.getValue();
-        setSessionVariable("currentMonth").to(currentMonth);
-        String currentYear = dateCorrespondenceSentYearField.getValue();
-        setSessionVariable("currentYear").to(currentYear);
-
-        safeClickOn(emailOriginalChannelRadioButton);
-        String selectedCorrespondenceReceivedRadioButton = emailOriginalChannelRadioButton.getText();
-        setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
-
-        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getTextContent();
-        setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
-        safeClickOn(homeSecInterestYesRadioButton);
-        String selectedHomeSecInterest = homeSecInterestYesRadioButton.getText();
-        setSessionVariable("selectedHomeSecInterestRadioButton").to(selectedHomeSecInterest);
-        safeClickOn(continueButton);
-        waitABit(1000);
-        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputStageSpecifyingHomeSecInterest(boolean interest) {
-        String caseType = sessionVariableCalled("caseType");
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getDatePlusMinusNDaysAgo(-2));
-        safeClickOn(emailOriginalChannelRadioButton);
-        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        if (interest) {
-            safeClickOn(homeSecInterestYesRadioButton);
-        } else {
-            safeClickOn(homeSecInterestNoRadioButton);
-        }
-        if (caseType.equals("MIN")) {
-            selectAHomeSecReplyOption();
-        }
-        safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
     }
 
     // Assertions

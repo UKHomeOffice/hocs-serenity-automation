@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,13 +22,9 @@ public class NavigationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
-
     AddCorrespondent initialDraftRecordCorrespondentDetails;
 
     Search search;
-
-    LoginPage loginPage;
 
     @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
@@ -82,12 +77,6 @@ public class NavigationStepDefs extends BasePage {
     @Then("I am returned to the dashboard")
     public void iAmReturnedToTheDashboard() {
         dashboard.assertAtDashboard();
-    }
-
-    @When("I get a {string} case at {string} stage")
-    public void getMeACase(String caseType, String stage) {
-        fetchExistingDCUCases.giveMeACase(caseType, stage);
-        setCaseReferenceFromAssignedCase();
     }
 
     @Then("I am taken to the {string} page")

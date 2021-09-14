@@ -498,4 +498,10 @@ public class WorkstacksStepDefs extends BasePage {
         dashboard.selectWorkstackByTeamName(workstack);
         workstacks.assertRejectedColumnContainsStage(rejectionStage);
     }
+
+    @And("the {string} workstack should display a HS symbol next to the case reference")
+    public void theWorkstackShouldDisplayAHSSymbolNextToTheCaseReference(String workstack) {
+        dashboard.selectWorkstackByTeamName(workstack);
+        workstacks.assertHomeSecretarySymbolVisibleForCase(sessionVariableCalled("caseReference"));
+    }
 }

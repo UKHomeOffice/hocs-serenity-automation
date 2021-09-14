@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -38,6 +39,8 @@ public class CreateCaseStepDefs extends BasePage {
     FOICreateCase foiCreateCase;
 
     CreateCase_SuccessPage createCaseSuccessPage;
+
+    DCUProgressCase dcuProgressCase;
 
     Campaign campaign;
 
@@ -133,9 +136,11 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCSCaseOfType(caseType);
         safeClickOn(dashboard.csDashboardLink);
         dashboard.getAndClaimCurrentCase();
-        dataInput.moveCaseFromDataInputToMarkup();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
-        markup.getToMarkupAddATopicScreenPrerequisites();
+        markup.selectPolicyResponseRadioButton();
+safeClickOn(continueButton);
+waitABit(1000);
         markupAddTopics.enterATopic(topic);
         setSessionVariable("searchTopic").to(topic);
     }
@@ -366,20 +371,14 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-
-
-
-                        if (infoValue.equalsIgnoreCase("YES")) {
-                            dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
-                        } else if (infoValue.equalsIgnoreCase("NO")) {
-                            dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
-                        }
-
+                        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                        dataInput.selectACorrespondenceReceivedChannel();
+                        dataInput.selectASpecificCopyToNoTenOption("No");
+                        dataInput.selectASpecificHomeSecInterestOption(infoValue);
+                        dataInput.selectAHomeSecReplyOption();
                         safeClickOn(continueButton);
                         addCorrespondent.addAPublicCorrespondentOfType("Constituent");
                         safeClickOn(finishButton);
-
-
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());

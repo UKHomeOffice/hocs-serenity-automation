@@ -89,38 +89,34 @@ public class ValidationStepDefs extends BasePage {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -142,7 +138,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -150,13 +146,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -320,38 +316,35 @@ public class ValidationStepDefs extends BasePage {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -373,7 +366,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -381,13 +374,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -488,50 +481,40 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
-                    }
+                }
                 break;
             case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "DRAFTING DEADLINE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
                                 break;
                             case "DISPATCH DEADLINE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
                                 break;
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                typeIntoDateFields(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, getDatePlusMinusNDaysAgo(0));
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -553,7 +536,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -561,13 +544,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -1337,12 +1320,12 @@ public class ValidationStepDefs extends BasePage {
                         }
                         break;
                     case "SERVICE SEND":
-                            if (errorMessage.equalsIgnoreCase("CASE OUTCOME REQUIRED")) {
-                                waitABit(500);
-                                clickTheButton("Complete");
-                            } else {
-                                pendingStep(errorMessage + " is not defined within " + getMethodName());
-                            }
+                        if (errorMessage.equalsIgnoreCase("CASE OUTCOME REQUIRED")) {
+                            waitABit(500);
+                            clickTheButton("Complete");
+                        } else {
+                            pendingStep(errorMessage + " is not defined within " + getMethodName());
+                        }
                         break;
                     case "COMPLAINT CLOSED":
                         switch (errorMessage.toUpperCase()) {

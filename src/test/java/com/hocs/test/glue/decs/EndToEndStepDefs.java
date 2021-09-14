@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.comp.COMPProgressCase;
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -62,6 +63,8 @@ public class EndToEndStepDefs extends BasePage {
 
     Workdays workdays;
 
+    DCUProgressCase dcuProgressCase;
+
     WCSProgressCase wcsProgressCase;
 
     COMPProgressCase compProgressCase;
@@ -78,7 +81,7 @@ public class EndToEndStepDefs extends BasePage {
                 dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        dataInput.moveCaseFromDataInputToMarkup();
+                        dcuProgressCase.moveCaseFromDataInputToMarkup();
                         break;
                     case "MARKUP":
                         markup.moveCaseFromMarkupToInitialDraft();

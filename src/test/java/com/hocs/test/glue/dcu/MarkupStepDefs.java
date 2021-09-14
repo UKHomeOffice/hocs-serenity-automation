@@ -35,7 +35,7 @@ public class MarkupStepDefs extends BasePage {
 
     @When("I complete the Markup stage")
     public void completeTheMarkupStage() {
-        if (!markup.policyResponseRadioButton.isVisible()) {
+        if (!continueButton.isVisible()) {
             dashboard.getCurrentCase();
             safeClickOn(unallocatedCaseView.allocateToMeLink);
         }
@@ -45,9 +45,9 @@ public class MarkupStepDefs extends BasePage {
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
         dashboard.getAndClaimCurrentCase();
-        safeClickOn(markup.policyResponseRadioButton);
-        safeClickOn(markup.continueButton);
-        if (topic.toUpperCase().equals("NEW CHILD TOPIC")) {
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        if (topic.equalsIgnoreCase("NEW CHILD TOPIC")) {
             markupAddTopics.enterATopic(sessionVariableCalled("newChildTopic").toString());
         } else {
             markupAddTopics.enterATopic(topic);
@@ -69,11 +69,11 @@ public class MarkupStepDefs extends BasePage {
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
-                markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(overrideTeam);
+                markupAddTopics.selectSpecificOverrideInitialDraftTeam(overrideTeam);
                 safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE":
-                markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(overrideTeam);
+                markupAddTopics.selectSpecificOverridePrivateOfficeTeam(overrideTeam);
                 setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
                 safeClickOn(finishButton);
                 dashboard.getAndClaimCurrentCase();
@@ -87,7 +87,7 @@ public class MarkupStepDefs extends BasePage {
 
     @And("I override the initial draft team of the case to the team created in Management UI")
     public void iOverrideTheInitialDraftTeamOfTheCaseToTheTeamCreatedInMUI() {
-        markupAddTopics.selectOverrideInitialDraftTeamByVisibleText(sessionVariableCalled("draftingTeamName"));
+        markupAddTopics.selectSpecificOverrideInitialDraftTeam(sessionVariableCalled("draftingTeamName"));
         safeClickOn(finishButton);
     }
 
@@ -190,43 +190,9 @@ public class MarkupStepDefs extends BasePage {
         markupAddTopics.assertTopicsTextFieldDisplayed();
     }
 
-    @When("I close the case with a decision of {string}")
-    public void iCloseTheCaseWithADecisionOf(String status) {
-        switch (status.toUpperCase()) {
-            case "REFER TO OGD":
-                safeClickOn(markup.referToOgdRadioButton);
-                break;
-            case "NO REPLY NEEDED":
-                safeClickOn(markup.noReplyNeededRadioButton);
-                break;
-            default:
-                pendingStep(status + " is not defined within " + getMethodName());
-        }
-        safeClickOn(markup.continueButton);
-        safeClickOn(finishButton);
-    }
-
     @When("I select an initial decision of {string}")
     public void iSelectAnInitialDecisionOf(String decision) {
-        switch (decision.toUpperCase()) {
-            case "FAQ":
-                markup.selectFAQRadioButton();
-                break;
-            case "NO RESPONSE NEEDED":
-                markup.selectNoReplyNeededRadioButton();
-                break;
-            case "POLICY RESPONSE":
-                markup.selectPolicyResponseRadioButton();
-                break;
-            case "REFER TO OGD":
-                markup.selectReferToOGDRadioButton();
-                break;
-            case "REJECT TO DATA INPUT":
-                markup.selectRejectToDataInput();
-                break;
-            default:
-                pendingStep(decision + " is not defined within " + getMethodName());
-        }
+        markup.selectASpecificResponseType(decision);
     }
 
     @And("I click the Add a topic link")
@@ -236,21 +202,35 @@ public class MarkupStepDefs extends BasePage {
 
     @And("I enter a transfer destination and transfer reason")
     public void iEnterATransferDestinationAndTransferReason() {
-        markup.enterOGDDestinationAndReason();
+        markup.enterAOGDDestination();
+        markup.enterAOGDReason();
     }
 
     @And("I enter a reason that no response is needed")
     public void iEnterAReasonThatNoResponseIsNeeded() {
-        markup.enterNRNreason();
+        markup.enterANoResponseNeededReason();
     }
 
     @And("I complete Markup with {string} selected as the Private Office team")
     public void iCompleteMarkupWithAsThePrivateOfficeTeam(String privateOfficeTeam) {
-        markup.getToMarkupEnterANewTopicScreenPrerequisites();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        markupAddTopics.clickAddTopicLink();
         markupAddTopics.enterRealTopic();
         safeClickOn(addButton);
         safeClickOn(continueButton);
-        markupAddTopics.selectOverridePrivateOfficeTeamByVisibleText(privateOfficeTeam);
+        markupAddTopics.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
+        safeClickOn(finishButton);
+    }
+
+    @And("I complete the Markup stage, with the Home Secretary team selected as the Drafting team")
+    public void iCompleteTheMarkupStageWithTheHomeSecretaryTeamSelectedAsTheDraftingTeam() {
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        markupAddTopics.clickAddTopicLink();
+        markupAddTopics.enterRealTopic();
+        safeClickOn(addButton);
+        safeClickOn(continueButton);
         safeClickOn(finishButton);
     }
 }

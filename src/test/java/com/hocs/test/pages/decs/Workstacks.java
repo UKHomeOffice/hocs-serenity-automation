@@ -849,4 +849,10 @@ public class Workstacks extends BasePage {
         String rejectionStage = rejectedField.getText().split(" ")[1];
         assertThat(stage.toUpperCase().equals(rejectionStage.toUpperCase()), is(true));
     }
+
+    public void assertHomeSecretarySymbolVisibleForCase(String caseReference) {
+        waitForWorkstackToLoad();
+        WebElementFacade homeSecSymbol = findBy("//a[text()='" + caseReference + "']/preceding-sibling::span[text()='HS']");
+        assertThat(homeSecSymbol.isCurrentlyVisible(), is(true));
+    }
 }

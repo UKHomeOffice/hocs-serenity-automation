@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
@@ -37,6 +38,8 @@ public class BaseStepDefs extends BasePage {
     Workstacks workstacks;
 
     Markup markup;
+
+    Markup_AddTopics markupAddTopics;
 
     InitialDraft initialDraft;
 
@@ -124,10 +127,14 @@ public class BaseStepDefs extends BasePage {
                 addCorrespondent.selectCorrespondentIsNotMP();
                 break;
             case "ADD A TOPIC":
-                markup.getToMarkupAddATopicScreenPrerequisites();
+                markup.selectPolicyResponseRadioButton();
+                safeClickOn(continueButton);
+                waitABit(1000);
                 break;
             case "ENTER A NEW TOPIC":
-                markup.getToMarkupEnterANewTopicScreenPrerequisites();
+                markup.selectPolicyResponseRadioButton();
+                safeClickOn(continueButton);
+                markupAddTopics.clickAddTopicLink();
                 break;
             case "CASE REJECTION":
                 initialDraft.getToDraftCaseRejectionScreenPrerequisites();
@@ -354,7 +361,7 @@ public class BaseStepDefs extends BasePage {
             case "MARKUP":
                 markup.selectRejectToDataInput();
                 safeClickOn(continueButton);
-                markup.enterRejectToDataInputReasonIntoTextBox();
+                markup.enterARejectionReason();
                 safeClickOn(finishButton);
                 break;
             default:
@@ -419,7 +426,7 @@ public class BaseStepDefs extends BasePage {
                 summaryTab.assertAllocatedUserIs(originalUser);
                 break;
             } catch (AssertionError a) {
-                retest ++;
+                retest++;
                 timelineTab.selectTimelineTab();
                 summaryTab.selectSummaryTab();
             }

@@ -5,6 +5,8 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
@@ -12,7 +14,6 @@ import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
@@ -30,11 +31,12 @@ import io.cucumber.java.en.When;
 public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
-    MuiLoginPage muiLoginPage;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
+    CreateCase createCase;
 
-    Markup markupDecision;
+    DCUProgressCase dcuProgressCase;
+
+    Markup markup;
 
     Markup_AddTopics markupAddTopics;
 
@@ -298,8 +300,13 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
         markupAddTopics.enterATopicWithoutHittingFinish("101 non-emergency number (cost)");
         markupAddTopics.getCurrentDefaultTeamsForTopic();
     }
@@ -348,8 +355,13 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I check the default team links in CS again")
     public void iCheckTheDefaultTeamLinksInCSAgain() {
         loginPage.open();
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+safeClickOn(continueButton);
+waitABit(1000);
         markupAddTopics.enterATopic("101 non-emergency number (cost)");
     }
 
@@ -402,7 +414,9 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        markup.selectPolicyResponseRadioButton();
+safeClickOn(continueButton);
+waitABit(1000);
     }
 
     @And("a success message is displayed")

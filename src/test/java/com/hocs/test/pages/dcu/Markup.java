@@ -4,12 +4,16 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class Markup extends BasePage {
 
     Markup_AddTopics markupAddTopics;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='Policy Response']")
     public WebElementFacade policyResponseRadioButton;
@@ -33,7 +37,7 @@ public class Markup extends BasePage {
     public WebElementFacade OGDReasonTextBox;
 
     @FindBy(xpath = "//a[text()='Add a ']")
-    public WebElementFacade addATopicButton;
+    public WebElementFacade addATopicLink;
 
     @FindBy(id = "CaseNote_NRN")
     public WebElementFacade noResponseNeededTextField;
@@ -44,50 +48,54 @@ public class Markup extends BasePage {
     @FindBy(id = "POTeamName")
     public WebElementFacade privateOfficeTeamTextField;
 
+    @FindBy(xpath = "//a[text()='Add a ']")
+    public WebElementFacade addTopicLink;
+
     //Basic Methods
 
-    public void selectFAQRadioButton() {
-        safeClickOn(faqRadioButton);
+    public void selectASpecificResponseType(String responseType) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(responseType, "What sort of response is required?");
     }
 
-    public void selectNoReplyNeededRadioButton() {
-        safeClickOn(noReplyNeededRadioButton);
+    public void selectFAQRadioButton() {
+        selectASpecificResponseType("FAQ Response");
+    }
+
+    public void selectNoResponseNeededRadioButton() {
+        selectASpecificResponseType("No Response Needed");
     }
 
     public void selectPolicyResponseRadioButton() {
-        safeClickOn(policyResponseRadioButton);
+        selectASpecificResponseType("Policy Response");
     }
 
     public void selectReferToOGDRadioButton() {
-        safeClickOn(referToOgdRadioButton);
+        selectASpecificResponseType("Refer to OGD");
     }
 
     public void selectRejectToDataInput() {
-        safeClickOn(rejectToDataInputRadioButton);
+        selectASpecificResponseType("Reject To Data Input");;
     }
 
-    public void clickPolicyResponseRadioButton() {
-        safeClickOn(policyResponseRadioButton);
+    public void enterAOGDDestination() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Where should this case be transferred to?");
     }
 
-    //Multi Step Methods
-
-    public void getToMarkupAddATopicScreenPrerequisites() {
-        safeClickOn(policyResponseRadioButton);
-        safeClickOn(continueButton);
-        waitABit(1000);
+    public void enterAOGDReason() {
+        recordCaseData.enterTextIntoTextAreaWithHeading("Why should this case be transferred here?");
     }
 
-    public void getToMarkupEnterANewTopicScreenPrerequisites() {
-        safeClickOn(policyResponseRadioButton);
-        safeClickOn(continueButton);
-        safeClickOn(addATopicButton);
+    public void enterANoResponseNeededReason() {
+        recordCaseData.enterTextIntoTextAreaWithHeading("Why is no response needed?");
     }
 
-    public void chooseResponseTypeAndRecordDecision() {
-        safeClickOn(policyResponseRadioButton);
-        String whatSortOfResponseRadioButton = policyResponseRadioButton.getTextContent();
-        setSessionVariable("selectedWhatSortOfResponseRadioButton").to(whatSortOfResponseRadioButton);
+    public void enterARejectionReason() {
+        String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why should this case be rejected?");
+        setSessionVariable("rejectionReason").to(rejectionReason);
+    }
+
+    public void clickAddTopicLink() {
+        safeClickOn(addTopicLink);
     }
 
     //Assertions
@@ -102,63 +110,5 @@ public class Markup extends BasePage {
 
     public void assertOGDDestinationTextBoxIsDisplayed() {
         assertThat(isElementDisplayed(OGDDestinationTextBox), is(true));
-    }
-
-    public void enterRejectToDataInputReasonIntoTextBox() {
-        waitFor(rejectToDataInputTextField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectToDataInputTextField.sendKeys(rejectionReason);
-        setSessionVariable("rejectionReason").to(rejectionReason);
-    }
-
-    public void moveCaseFromMarkupToInitialDraft() {
-        safeClickOn(policyResponseRadioButton);
-        safeClickOn(continueButton);
-        markupAddTopics.clickAddTopicLink();
-        markupAddTopics.enterRealTopic();
-        safeClickOn(addButton);
-        safeClickOn(continueButton);
-        safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromMarkupToNRNConfirmation() {
-        safeClickOn(noReplyNeededRadioButton);
-        safeClickOn(continueButton);
-        noResponseNeededTextField.sendKeys("Test reason for NRN");
-        safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromMarkupToTransferConfirmation() {
-        safeClickOn(referToOgdRadioButton);
-        safeClickOn(continueButton);
-        enterOGDDestinationAndReason();
-        safeClickOn(finishButton);
-    }
-
-    public void completeMarkupStageAndStoreEnteredInformation() {
-        chooseResponseTypeAndRecordDecision();
-        safeClickOn(continueButton);
-        markupAddTopics.clickAddTopicLink();
-        markupAddTopics.enterRealTopic();
-        safeClickOn(addButton);
-        safeClickOn(continueButton);
-        markupAddTopics.recordSelectedDraftingAndPrivateOfficeTeams();
-        safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
-        safeClickOn(policyResponseRadioButton);
-        safeClickOn(continueButton);
-        markupAddTopics.enterATopic(topic);
-        safeClickOn(finishButton);
-    }
-
-    public void enterOGDDestinationAndReason() {
-        OGDDestinationTextBox.sendKeys("Test other Dept.");
-        OGDReasonTextBox.sendKeys("Test reason for transfer");
-    }
-
-    public void enterNRNreason() {
-        noResponseNeededTextField.waitUntilVisible().sendKeys("Test reason for NRN");
     }
 }

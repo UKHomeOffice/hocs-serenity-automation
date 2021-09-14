@@ -34,7 +34,6 @@ public class COMPProgressCase extends BasePage {
         registration.selectAnOwningCSU();
         clickTheButton("Finish");
         System.out.println("Case moved from Registration to Service Triage");
-
     }
 
     public void moveCaseFromServiceTriageToServiceDraft() {

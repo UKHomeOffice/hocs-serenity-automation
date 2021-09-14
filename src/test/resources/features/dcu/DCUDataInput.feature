@@ -5,13 +5,25 @@ Feature: DCU Data Input
     Given I am logged into "CS" as user "DCU_USER"
 
   @DCUWorkflow @DCURegression
+  Scenario Outline: As a Data Input user, I want to be able to complete the Data Input stage, so the case can progress to the Markup stage
+    When I create a "<caseType>" case and move it to the "Data Input" stage
+    And I load and claim the current case
+    And I complete the Data Input stage
+    Then the case should be moved to the "Markup" stage
+    And the summary should display the owning team as "<markupTeam>"
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+    Examples:
+      | caseType | markupTeam                                       |
+      | MIN      | Direct Communications Unit Central Drafting Team |
+      | TRO      | Direct Communications Unit Central Drafting Team |
+      | DTEN     | Transfers & No10 Team                            |
+
+  @DCURegression
   Scenario: As a Data Input user, I want to be able to mark a MIN case as a potential Home Secretary Reply, so Markup users can prioritise the case
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
     And I complete the Data Input stage, selecting that the case is a potential Home Secretary Reply case
-    Then the case should be moved to the "Markup" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"
-    And the workstack should display a HS symbol next to the case reference
+    And the "Direct Communications Unit Central Drafting Team" workstack should display a HS symbol next to the case reference
 
   @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
@@ -22,21 +34,6 @@ Feature: DCU Data Input
     Then "Add a correspondent" link is displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
-
-  @Navigation
-  Scenario Outline: DCU data entry user select different correspondence channels
-    When I create a "MIN" case and move it to the "Data Input" stage
-    And I load and claim the current case
-    And I fill all mandatory fields on the "Data Input" page with valid data
-    And I set the correspondence channel to "<channel>"
-    And I click the "Continue" button
-    Then "Add a correspondent" link is displayed
-    Examples:
-      | channel |
-      | Email   |
-      | Post    |
-      | Phone   |
-      | No. 10  |
 
   @Validation
   Scenario Outline: DCU data entry user must enter valid dates on Data Input
@@ -154,11 +151,11 @@ Feature: DCU Data Input
     And I load the current case
     Then the Home Secretary interest decision should match the one displayed in the summary tab
     Examples:
-    | caseType  | homeSecInterest |
-    | MIN       | Yes             |
-    | MIN       | No              |
-    | TRO       | Yes             |
-    | TRO       | No              |
+      | caseType | homeSecInterest |
+      | MIN      | Yes             |
+      | MIN      | No              |
+      | TRO      | Yes             |
+      | TRO      | No              |
 
   @Validation
   Scenario Outline: User tests the validation at the DCU Data Input stage
@@ -167,11 +164,11 @@ Feature: DCU Data Input
     And I trigger the "<errorMessage>" error message at the "Data Input" stage
     Then the "<errorMessage>" error message is displayed at the "Data Input" stage
     Examples:
-      | caseType  | errorMessage                      |
-      | MIN       | CORRESPONDENCE SENT DATE REQUIRED |
-      | MIN       | INBOUND CHANNEL REQUIRED          |
-      | TRO       | COPY TO NUMBER 10 REQUIRED        |
-      | TRO       | HOME SECRETARY INTEREST REQUIRED  |
-      | DTEN      | PRIMARY CORRESPONDENT REQUIRED    |
-      | DTEN      | DRAFTING DEADLINE REQUIRED        |
-      | DTEN      | DISPATCH DEADLINE REQUIRED        |
+      | caseType | errorMessage                      |
+      | MIN      | CORRESPONDENCE SENT DATE REQUIRED |
+      | MIN      | INBOUND CHANNEL REQUIRED          |
+      | TRO      | COPY TO NUMBER 10 REQUIRED        |
+      | TRO      | HOME SECRETARY INTEREST REQUIRED  |
+      | DTEN     | PRIMARY CORRESPONDENT REQUIRED    |
+      | DTEN     | DRAFTING DEADLINE REQUIRED        |
+      | DTEN     | DISPATCH DEADLINE REQUIRED        |

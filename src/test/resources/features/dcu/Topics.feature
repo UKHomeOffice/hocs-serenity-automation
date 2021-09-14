@@ -7,7 +7,7 @@ Feature: Topics
   @DataValidation @Ignore
   Scenario Outline: Topics are assigned to the correct team
     When I create a single "MIN" case and return to the dashboard
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I assign the Topic "<Topic>"
     Then the case should be assigned to the "<draftingTeam>" for drafting
     And the case should be assigned to the "<privateOfficeTeam>" for approval

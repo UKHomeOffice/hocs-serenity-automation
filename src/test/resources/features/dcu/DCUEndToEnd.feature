@@ -18,19 +18,19 @@ Feature: DCU End To End
   Scenario Outline: New case moves to Markup stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     Then the case should be moved to the "MARKUP" stage
     Examples:
       | caseType |
       | MIN      |
       | TRO      |
-#      | DTEN     |
+      | DTEN     |
 
   @DCUWorkflow
   Scenario Outline: New case moves to Initial Draft stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     Then the case should be moved to the "INITIAL DRAFT" stage
     Examples:
@@ -43,7 +43,7 @@ Feature: DCU End To End
   Scenario Outline: New case moves to QA Response stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     Then the case should be moved to the "QA RESPONSE" stage
@@ -57,7 +57,7 @@ Feature: DCU End To End
   Scenario Outline: New case moves to Private Office stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -71,7 +71,7 @@ Feature: DCU End To End
   Scenario Outline: New case moves to Ministerial Sign Off stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -85,7 +85,7 @@ Feature: DCU End To End
   Scenario: MIN case moves to Dispatch stage
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -97,7 +97,7 @@ Feature: DCU End To End
   Scenario Outline: TRO and DTEN case moves to Dispatch stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -125,7 +125,7 @@ Feature: DCU End To End
   Scenario: End to end flow with DCU MIN CaseType
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -138,7 +138,7 @@ Feature: DCU End To End
   Scenario: End to end flow with DCU N10 CaseType
     When I create a single "DTEN" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
@@ -150,7 +150,7 @@ Feature: DCU End To End
   Scenario: End to end flow with DCU TRO CaseType
     When I create a single "TRO" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input Stage
+    And I complete the Data Input stage
     And I complete the Markup stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
