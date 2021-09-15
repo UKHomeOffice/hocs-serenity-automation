@@ -4,11 +4,11 @@ Feature: Awaiting Dispatch (Local)
   Background:
     Given I am logged into "CS" as user "UKVI_USER"
     And I create a "MPAM" case and move it to the "Awaiting Dispatch (Local)" stage
-    And I load the current case
+    And I load and claim the current case
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User completes the Awaiting Dispatch (Local) stage and closes the case
-    When I enter the required dispatch information and confirm the closure of the case
+    When I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
   @Validation

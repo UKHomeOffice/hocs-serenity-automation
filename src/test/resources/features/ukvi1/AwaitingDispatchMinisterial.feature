@@ -8,7 +8,7 @@ Feature: Awaiting Dispatch (Ministerial)
 
   @UKVIWorkflow @UKVIRegression1
   Scenario: User completes the Awaiting Dispatch (Ministerial) stage and closes the case
-    When I enter the required dispatch information and confirm the closure of the case
+    When I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
   @Validation
