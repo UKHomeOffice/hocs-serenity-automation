@@ -10,7 +10,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class ServiceDraft extends BasePage {
+public class COMPDraft extends BasePage {
 
     Documents documents;
 

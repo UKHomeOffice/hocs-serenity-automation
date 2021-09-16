@@ -2,6 +2,7 @@ package com.hocs.test.pages.comp;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -205,9 +206,15 @@ public class Registration extends BasePage {
         switch (complaintType.toUpperCase()) {
             case "SERVICE":
                 recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
+                setSessionVariable("complaintType").to("Service");
                 break;
             case "MINOR MISCONDUCT":
                 recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Minor Misconduct", "Complaint Type");
+                setSessionVariable("complaintType").to("Minor Misconduct");
+                break;
+            case "EX-GRATIA":
+                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Ex-Gratia", "Complaint Type");
+                setSessionVariable("complaintType").to("Ex-Gratia");
                 break;
             default:
                 pendingStep(complaintType + " is not defined within " + getMethodName());
@@ -244,7 +251,6 @@ public class Registration extends BasePage {
         selectASeverity();
         enterAPreviousUKVIComplaintReference();
         enterAThirdPartyReference();
-        clickTheButton("Continue");
     }
 
     public void openTheServiceComplaintCategoryAccordion() {
