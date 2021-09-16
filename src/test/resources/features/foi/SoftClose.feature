@@ -9,4 +9,3 @@ Feature: Soft Close
   Scenario: User is able to reopen a case at Soft Close
     And I click the "Reopen" button
     Then the case should be moved to the "Case Creation" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"

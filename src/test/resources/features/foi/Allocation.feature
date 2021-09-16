@@ -19,5 +19,4 @@ Feature: Allocation
     And the Allocation text is displayed
     And I click the "Confirm Allocation" button
     Then the case should be moved to the "Acceptance" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "Allocation" stage

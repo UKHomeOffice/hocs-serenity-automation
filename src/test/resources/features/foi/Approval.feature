@@ -10,7 +10,6 @@ Feature: Approval
     And I click the "Continue" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Dispatch" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "Approval" stage
 
   @FOIRegression

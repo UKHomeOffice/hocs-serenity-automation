@@ -10,7 +10,6 @@ Feature: FOI Dispatch
     And I click the "Continue" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Soft Close" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"
 
   @FOIRegression
   Scenario: User is able to reject a case at the Dispatch stage
