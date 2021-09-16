@@ -14,6 +14,7 @@ Feature: Acceptance
     And I click the "Finish" button
     Then the case should be moved to the "Consider and Draft" stage
     And the case should be assigned to the Drafting team selected at Acceptance
+    And the read-only Case Details accordion should contain all case information entered during the "Acceptance" stage
 
   #HOCS-2753, HOCS-2741
   @FOIRegression
