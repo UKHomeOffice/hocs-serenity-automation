@@ -124,8 +124,14 @@ public class EndToEndStepDefs extends BasePage {
                     case "QA":
                         qa.moveCaseFromQAToNextStage();
                         break;
-                    case "PRIVATE OFFICE":
+                    case "PRIVATE OFFICE (TO CASE CLOSED)":
                         dispatchStages.moveCaseFromPrivateOfficeToCaseClosed();
+                        break;
+                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))":
+                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchLocal();
+                        break;
+                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))":
+                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial();
                         break;
                     case "AWAITING DISPATCH":
                         dispatchStages.moveCaseFromAwaitingDispatchToCaseClosed();
@@ -475,9 +481,17 @@ public class EndToEndStepDefs extends BasePage {
                         moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official", "QA");
                         iCompleteTheStage("QA");
                         break;
+                    case "AWAITING DISPATCH (LOCAL)":
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))");
+                        break;
+                    case "AWAITING DISPATCH (MINISTERIAL)":
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))");
+                        break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -659,7 +673,7 @@ public class EndToEndStepDefs extends BasePage {
             case "CASE CLOSED":
                 if (refType.toUpperCase().equals("MINISTERIAL")) {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
-                    iCompleteTheStage("PRIVATE OFFICE");
+                    iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
                 } else {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
                             "AWAITING DISPATCH");

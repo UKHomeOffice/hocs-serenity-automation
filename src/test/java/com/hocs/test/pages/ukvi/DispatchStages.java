@@ -8,12 +8,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DispatchStages extends BasePage {
 
     Dashboard dashboard;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(id = "DateDispatched-day")
     public WebElementFacade dispatchedDateDayTextField;
@@ -78,9 +81,16 @@ public class DispatchStages extends BasePage {
     @FindBy(id = "CaseNote_DispatchFollowUpRequest")
     public WebElementFacade followUpDetailsTextArea;
 
+    public void selectActionAtPrivateOffice(String action) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
+        if (action.toUpperCase().equals("DRAFT REJECTED BY PRIVATE OFFICE")) {
+            setSessionVariable("rejectionStage").to("PO");
+        }
+        safeClickOn(confirmButton);
+    }
+
     public void inputDispatchedDate(String date) {
-        typeIntoDateFields(dispatchedDateDayTextField, dispatchedDateMonthTextField, dispatchedDateYearTextField,
-                date);
+        enterDateIntoDateFieldsWithHeading(date, "Dispatched date");
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
@@ -89,6 +99,18 @@ public class DispatchStages extends BasePage {
         safeClickOn(confirmButton);
         inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(confirmAndCloseCaseButton);
+    }
+
+    public void moveCaseFromPrivateOfficeToAwaitingDispatchLocal() {
+        selectAResponseChannel();
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Approved (local dispatch)", "Actions");
+        safeClickOn(confirmButton);
+    }
+
+    public void moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial() {
+        selectAResponseChannel();
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Approved (ministerial dispatch)", "Actions");
+        safeClickOn(confirmButton);
     }
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {

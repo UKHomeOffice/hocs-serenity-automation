@@ -28,7 +28,8 @@ Feature: PrivateOffice
   Scenario: User rejects a UKVI business area MPAM case at Private Office
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    When I select the "Draft rejected by Private Office" action at Private Office stage
+    And I select a response channel
+    When I select the "Draft rejected by private office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
     Then the case should be moved to the "QA" stage
     And a rejection note should be visible showing the reason for rejection
@@ -37,7 +38,8 @@ Feature: PrivateOffice
   Scenario: User rejects a EUSS business area MPAM case at Private Office
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    When I select the "Draft rejected by Private Office" action at Private Office stage
+    And I select a response channel
+    When I select the "Draft rejected by private office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
     Then the case should be moved to the "Draft" stage
     And a rejection note should be visible showing the reason for rejection
@@ -46,8 +48,26 @@ Feature: PrivateOffice
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
   @UKVIWorkflow @UKVIRegression2
-  Scenario: User enters a date of dispatch and closes the case
-    And I create a "MPAM" case and move it to the "Private Office" stage
+  Scenario: As a Private Office user, I want to approve an eligible case for a Ministerial Dispatch, so that the reply can be dispatched
+    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
+    And I load and claim the current case
+    And I select a response channel
+    When I select the "Approved (ministerial dispatch)" action at Private Office stage
+    Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
+    And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
+
+  @UKVIWorkflow @UKVIRegression2
+  Scenario: As a Private Office user, I want to approve an eligible case for a Local Dispatch, so that the reply can be dispatched
+    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
+    And I load and claim the current case
+    And I select a response channel
+    When I select the "Approved (local dispatch)" action at Private Office stage
+    Then the case should be moved to the "Awaiting Dispatch (Local)" stage
+    And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
+
+  @UKVIWorkflow @UKVIRegression2
+  Scenario: As a Private Office user, I want to dispatch an elibigle case, so that the case can be closed
+    And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     When I select a response channel
     And I select the "Dispatched" action at Private Office stage
@@ -55,8 +75,8 @@ Feature: PrivateOffice
     Then the case should be closed
 
   @UKVIWorkflow @UKVIRegression2
-  Scenario: User selects that the case requires follow-up actions after being dispatched
-    And I create a "MPAM" case and move it to the "Private Office" stage
+  Scenario: As a Private Office user, I want to dispatch an eligible case with a follow-up action set, so that I record the need for the follow-up##
+    And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage
@@ -71,7 +91,7 @@ Feature: PrivateOffice
 
   @UKVIWorkflow @UKVIRegression2
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
-    And I create a "MPAM" case and move it to the "Private Office" stage
+    And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage
@@ -84,7 +104,7 @@ Feature: PrivateOffice
 
   @UKVIWorkflow @UKVIRegression2
   Scenario: User selects to close the case without completing follow-up action
-    And I create a "MPAM" case and move it to the "Private Office" stage
+    And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     When I select a response channel
     And I select the "Dispatched (follow-up)" action at Private Office stage
@@ -99,7 +119,7 @@ Feature: PrivateOffice
 
   @Validation
   Scenario Outline: User tests validation at the Private Office stage
-    And I create a "MPAM" case and move it to the "Private Office" stage
+    And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     And I trigger the "<errorType>" error message at the "Private Office" stage
     Then the "<errorType>" error message is displayed at the "Private Office" stage
