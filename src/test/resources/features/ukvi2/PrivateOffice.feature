@@ -35,24 +35,6 @@ Feature: PrivateOffice
     And a rejection note should be visible showing the reason for rejection
 
   @UKVIWorkflow @UKVIRegression2
-  Scenario: User approves a UKVI business area MPAM case at Private Office and moves the case to Ministerial Dispatch
-    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
-    And I load and claim the current case
-    And I select a response channel
-    When I select the "Approved (ministerial dispatch)" action at Private Office stage
-    Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
-    And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
-
-  @UKVIWorkflow @UKVIRegression2
-  Scenario: User approves a UKVI business area MPAM case at Private Office and moves the case to Local Dispatch
-    And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
-    And I load and claim the current case
-    And I select a response channel
-    When I select the "Approved (local dispatch)" action at Private Office stage
-    Then the case should be moved to the "Awaiting Dispatch (Local)" stage
-    And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
-
-  @UKVIWorkflow @UKVIRegression2
   Scenario: User rejects a EUSS business area MPAM case at Private Office
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -70,12 +52,12 @@ Feature: PrivateOffice
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     And I select a response channel
-    When I select the "Dispatched" action at Private Office stage
-    And I enter a date of dispatch and confirm to close the case
-    Then the case should be closed
+    When I select the "Approved (ministerial dispatch)" action at Private Office stage
+    Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
+    And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
 
   @UKVIWorkflow @UKVIRegression2
-  Scenario: As a Private Office user, I want to approve an eligible case for a Local Disptach, so that the reply can be dispatched
+  Scenario: As a Private Office user, I want to approve an eligible case for a Local Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     And I select a response channel
