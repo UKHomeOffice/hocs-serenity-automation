@@ -166,7 +166,7 @@ public class COMPTriage extends BasePage {
     }
 
     public void openExGratiaAccordion() {
-        registration.openOrCloseAccordionSection("Ex-Gratia");
+        openOrCloseAccordionSection("Ex-Gratia");
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {
