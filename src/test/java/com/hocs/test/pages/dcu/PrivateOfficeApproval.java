@@ -9,7 +9,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApproval extends BasePage {
 
-    Markup_AddTopics markup_addTopics;
+    Markup markup;
 
     TimelineTab timelineTab;
 
@@ -90,13 +90,7 @@ public class PrivateOfficeApproval extends BasePage {
     public void changeTopicAtPOStage(String topic) {
         safeClickOn(changeTopicRadioButton);
         safeClickOn(continueButton);
-        safeClickOn(markup_addTopics.addTopicLink);
-        markup_addTopics.topicsTextField.click();
-        markup_addTopics.topicsTextField.sendKeys(topic);
-        waitABit(1000);
-        markup_addTopics.hitReturnToSendTopic();
-        waitABit(1000);
-        safeClickOn(addButton);
+        markup.addTopicToCase(topic);
         WebElementFacade selectedPrimaryTopic = findBy("//input[@checked]/following-sibling::label");
         if (!selectedPrimaryTopic.getText().toUpperCase().equals(topic.toUpperCase())) {
             WebElementFacade newTopicRadioButton = findBy("//label[text()='" + topic + "']/parent::div/input");

@@ -52,8 +52,6 @@ public class CreateCaseStepDefs extends BasePage {
 
     Markup markup;
 
-    Markup_AddTopics markupAddTopics;
-
     Workstacks workstacks;
 
     UnallocatedCaseView unallocatedCaseView;
@@ -139,9 +137,10 @@ public class CreateCaseStepDefs extends BasePage {
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-safeClickOn(continueButton);
-waitABit(1000);
-        markupAddTopics.enterATopic(topic);
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase(topic);
+        markup.confirmPrimaryTopic();
         setSessionVariable("searchTopic").to(topic);
     }
 
@@ -359,7 +358,7 @@ waitABit(1000);
                     case "TOPIC":
                         iCreateACaseWithAsIts("DCU", "Gordon Freeman", "Public Correspondent Name");
                         dashboard.getAndClaimCurrentCase();
-                        markup.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
+                        dcuProgressCase.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
                         break;
                     case "SIGN OFF TEAM":
                         iCreateACaseWithAsIts("DCU", "Animal alternatives (3Rs)", "Topic");

@@ -30,8 +30,8 @@ Feature: DCU End To End
   Scenario Outline: New case moves to Initial Draft stage
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
-    And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Data Input" stage
+    And I complete the "Markup" stage
     Then the case should be moved to the "INITIAL DRAFT" stage
     Examples:
       | caseType |
@@ -44,7 +44,7 @@ Feature: DCU End To End
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     Then the case should be moved to the "QA RESPONSE" stage
     Examples:
@@ -58,7 +58,7 @@ Feature: DCU End To End
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
@@ -72,7 +72,7 @@ Feature: DCU End To End
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -86,7 +86,7 @@ Feature: DCU End To End
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -98,7 +98,7 @@ Feature: DCU End To End
     When I create a single "<caseType>" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -113,7 +113,7 @@ Feature: DCU End To End
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage and send a copy to Number Ten
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -126,7 +126,7 @@ Feature: DCU End To End
     When I create a single "MIN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -139,7 +139,7 @@ Feature: DCU End To End
     When I create a single "DTEN" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the Private Office stage
@@ -151,7 +151,7 @@ Feature: DCU End To End
     When I create a single "TRO" case and return to the dashboard
     And I load and claim the current case
     And I complete the Data Input stage
-    And I complete the Markup stage
+    And I complete the "Markup" stage
     And I complete the Initial Draft stage
     And I complete the QA response stage
     And I complete the dispatch stage

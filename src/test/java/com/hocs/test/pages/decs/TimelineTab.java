@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import config.User;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.hamcrest.core.Is;
 
 public class TimelineTab extends BasePage {
 
@@ -246,5 +247,11 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String withdrawalNotes = sessionVariableCalled("withdrawalNotes");
         assertThat(caseWithdrawnNoteContents.getText().contains(withdrawalNotes), is(true));
+    }
+
+    public void assertTopicAddedLogVisible() {
+        String testTopic = sessionVariableCalled("topic").toString();
+        String renameTopic = topCaseNoteOrLog.getText().substring(7, 27);
+        assertThat(renameTopic.equals(testTopic), Is.is(true));
     }
 }

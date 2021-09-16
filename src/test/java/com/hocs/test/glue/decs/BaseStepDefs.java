@@ -39,8 +39,6 @@ public class BaseStepDefs extends BasePage {
 
     Markup markup;
 
-    Markup_AddTopics markupAddTopics;
-
     InitialDraft initialDraft;
 
     MinisterialSignOff ministerialSignOff;
@@ -134,7 +132,7 @@ public class BaseStepDefs extends BasePage {
             case "ENTER A NEW TOPIC":
                 markup.selectPolicyResponseRadioButton();
                 safeClickOn(continueButton);
-                markupAddTopics.clickAddTopicLink();
+                markup.clickAddTopicLink();
                 break;
             case "CASE REJECTION":
                 initialDraft.getToDraftCaseRejectionScreenPrerequisites();
@@ -372,13 +370,6 @@ public class BaseStepDefs extends BasePage {
     @Then("an error message should be displayed as I have not entered text in the Case Note text box")
     public void anErrorMessageShouldBeDisplayedAsIHaveNotEnteredTextInTheCaseNoteTextbox() {
         workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
-    }
-
-    @Then("I print the stage name")
-    public void iPrintTheStageName() {
-        dashboard.getCurrentCase();
-        workstacks.selectSummaryTab();
-        workstacks.summaryPrintActiveStage();
     }
 
     @And("I click to view the {string} tab")

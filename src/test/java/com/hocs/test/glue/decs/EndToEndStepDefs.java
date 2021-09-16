@@ -84,13 +84,13 @@ public class EndToEndStepDefs extends BasePage {
                         dcuProgressCase.moveCaseFromDataInputToMarkup();
                         break;
                     case "MARKUP":
-                        markup.moveCaseFromMarkupToInitialDraft();
+                        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
                         break;
                     case "MARKUP TO NRN CONFIRMATION":
-                        markup.moveCaseFromMarkupToNRNConfirmation();
+                        dcuProgressCase.moveCaseFromMarkupToNRNConfirmation();
                         break;
                     case "MARKUP TO TRANSFER CONFIRMATION":
-                        markup.moveCaseFromMarkupToTransferConfirmation();
+                        dcuProgressCase.moveCaseFromMarkupToTransferConfirmation();
                         break;
                     case "INITIAL DRAFT":
                         initialDraft.moveCaseFromInitialDraftToQaResponse();

@@ -7,6 +7,8 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.UnallocatedCaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -21,8 +23,6 @@ public class MarkupStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    Markup_AddTopics markupAddTopics;
-
     Workstacks workstacks;
 
     Markup markup;
@@ -31,16 +31,9 @@ public class MarkupStepDefs extends BasePage {
 
     QAResponse qaResponse;
 
-    UnallocatedCaseView unallocatedCaseView;
+    SummaryTab summaryTab;
 
-    @When("I complete the Markup stage")
-    public void completeTheMarkupStage() {
-        if (!continueButton.isVisible()) {
-            dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
-        }
-        markup.moveCaseFromMarkupToInitialDraft();
-    }
+    TimelineTab timelineTab;
 
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
@@ -48,15 +41,15 @@ public class MarkupStepDefs extends BasePage {
         markup.selectPolicyResponseRadioButton();
         safeClickOn(continueButton);
         if (topic.equalsIgnoreCase("NEW CHILD TOPIC")) {
-            markupAddTopics.enterATopic(sessionVariableCalled("newChildTopic").toString());
-        } else {
-            markupAddTopics.enterATopic(topic);
+            topic = sessionVariableCalled("newChildTopic").toString();
         }
+        markup.addTopicToCase(topic);
+        markup.confirmPrimaryTopic();
     }
 
     @When("I add the topic {string}")
     public void enterTheTopic(String topic) {
-        markupAddTopics.enterATopicWithoutContinuingToTheDraftStage(topic);
+        markup.addTopicToCase(topic);
         setSessionVariable("topic").to(topic);
     }
 
@@ -69,12 +62,12 @@ public class MarkupStepDefs extends BasePage {
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
-                markupAddTopics.selectSpecificOverrideInitialDraftTeam(overrideTeam);
+                markup.selectSpecificOverrideInitialDraftTeam(overrideTeam);
                 safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE":
-                markupAddTopics.selectSpecificOverridePrivateOfficeTeam(overrideTeam);
-                setSessionVariable("draftTeam").to(markupAddTopics.autoAssignedDraftTeam.getValue());
+                markup.selectSpecificOverridePrivateOfficeTeam(overrideTeam);
+                setSessionVariable("draftTeam").to(markup.defaultDraftTeam.getValue());
                 safeClickOn(finishButton);
                 dashboard.getAndClaimCurrentCase();
                 initialDraft.moveCaseFromInitialDraftToQaResponse();
@@ -87,38 +80,40 @@ public class MarkupStepDefs extends BasePage {
 
     @And("I override the initial draft team of the case to the team created in Management UI")
     public void iOverrideTheInitialDraftTeamOfTheCaseToTheTeamCreatedInMUI() {
-        markupAddTopics.selectSpecificOverrideInitialDraftTeam(sessionVariableCalled("draftingTeamName"));
+        markup.selectSpecificOverrideInitialDraftTeam(sessionVariableCalled("draftingTeamName"));
         safeClickOn(finishButton);
     }
 
     @Then("the topic should be added to the case")
     public void assertTopicOnCase() {
         markup.clickContinueButton();
-        markupAddTopics.assertTopicsAssigned();
+        summaryTab.selectSummaryTab();
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Primary topic", sessionVariableCalled("topic"));
     }
 
     @Then("the topic can be viewed in the case timeline")
     public void assertTopicIsInTimelines() {
         markup.clickContinueButton();
-        markupAddTopics.assertTopicIsAssignedThroughTimeline();
+        timelineTab.selectTimelineTab();
+        timelineTab.assertTopicAddedLogVisible();
     }
 
     @Then("the case should be assigned to the {string} for drafting")
     public void theCaseShouldBeAssignedToTheDraftTeam(String draftingTeam) {
-        if (draftingTeam.toUpperCase().equals("NEW DRAFTING AND QA TEAM")) {
-            assertElementTextIs(markupAddTopics.autoAssignedDraftTeam, sessionVariableCalled("chosenDraftAndQATeam").toString());
+        if (draftingTeam.equalsIgnoreCase("NEW DRAFTING AND QA TEAM")) {
+            assertElementTextIs(markup.defaultDraftTeam, sessionVariableCalled("chosenDraftAndQATeam").toString());
         } else {
-            assertElementTextIs(markupAddTopics.autoAssignedDraftTeam, draftingTeam);
+            assertElementTextIs(markup.defaultDraftTeam, draftingTeam);
         }
     }
 
     @Then("the case should be assigned to the {string} for approval")
     public void theCaseShouldBeAssignedToThePrivateOfficeTeam(String privateOfficeTeam) {
-        if (privateOfficeTeam.toUpperCase().equals("NEW PRIVATE AND MINISTERIAL TEAM")) {
-            assertElementTextIs(markupAddTopics.autoAssignedPrivateOfficeTeam,
+        if (privateOfficeTeam.equalsIgnoreCase("NEW PRIVATE AND MINISTERIAL TEAM")) {
+            assertElementTextIs(markup.defaultPrivateOfficeTeam,
                     sessionVariableCalled("chosenPrivateAndMinisterTeam").toString());
         } else {
-            assertElementTextIs(markupAddTopics.autoAssignedPrivateOfficeTeam, privateOfficeTeam);
+            assertElementTextIs(markup.defaultPrivateOfficeTeam, privateOfficeTeam);
         }
     }
 
@@ -187,7 +182,7 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("a mandatory Topic free text field is displayed")
     public void aMandatoryFreeTextFieldIsAvailable() {
-        markupAddTopics.assertTopicsTextFieldDisplayed();
+        markup.assertTopicsTextFieldDisplayed();
     }
 
     @When("I select an initial decision of {string}")
@@ -197,7 +192,7 @@ public class MarkupStepDefs extends BasePage {
 
     @And("I click the Add a topic link")
     public void iClickTheAddATopicLink() {
-        markupAddTopics.clickAddTopicLink();
+        markup.clickAddTopicLink();
     }
 
     @And("I enter a transfer destination and transfer reason")
@@ -215,22 +210,9 @@ public class MarkupStepDefs extends BasePage {
     public void iCompleteMarkupWithAsThePrivateOfficeTeam(String privateOfficeTeam) {
         markup.selectPolicyResponseRadioButton();
         safeClickOn(continueButton);
-        markupAddTopics.clickAddTopicLink();
-        markupAddTopics.enterRealTopic();
-        safeClickOn(addButton);
-        safeClickOn(continueButton);
-        markupAddTopics.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
-        safeClickOn(finishButton);
-    }
-
-    @And("I complete the Markup stage, with the Home Secretary team selected as the Drafting team")
-    public void iCompleteTheMarkupStageWithTheHomeSecretaryTeamSelectedAsTheDraftingTeam() {
-        markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
-        markupAddTopics.clickAddTopicLink();
-        markupAddTopics.enterRealTopic();
-        safeClickOn(addButton);
-        safeClickOn(continueButton);
+        markup.addTopicToCase("Animal alternatives (3Rs)");
+        markup.confirmPrimaryTopic();
+        markup.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
         safeClickOn(finishButton);
     }
 }

@@ -56,12 +56,6 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//a[@class='tab'][text()='Summary']")
-    public WebElementFacade caseSummaryTab;
-
-    @FindBy(xpath = "//a[@class='tab'][text()='Timeline']")
-    public WebElementFacade caseTimelineTab;
-
     @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
     public WebElementFacade addCaseNoteButton;
 
@@ -82,15 +76,6 @@ public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade ownerOfTopCaseInWorkstack;
-
-    @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
-    public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
-
-    @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
-    public WebElementFacade summaryPrimaryCorrespondent;
-
-    @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
-    public WebElementFacade summaryActiveStage;
 
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
@@ -194,15 +179,6 @@ public class Workstacks extends BasePage {
         totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
-    }
-
-    public void selectSummaryTab() {
-        safeClickOn(caseSummaryTab);
-    }
-
-    public String getCorrespondenceReceivedDateFromSummary() {
-        selectSummaryTab();
-        return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 
     public void clickCheckboxRelevantToCaseReference() {
@@ -549,14 +525,6 @@ public class Workstacks extends BasePage {
         assertThat(areCasesOfCaseTypePresent("MIN") == (caseType.equals("MIN")), is(true));
         assertThat(areCasesOfCaseTypePresent("DTEN") == (caseType.equals("DTEN")), is(true));
         assertThat(areCasesOfCaseTypePresent("TRO") == (caseType.equals("TRO")), is(true));
-    }
-
-    public void assertPrimaryCorrespondentIs(String name) {
-        summaryPrimaryCorrespondent.shouldContainText(name);
-    }
-
-    public void summaryPrintActiveStage() {
-        System.out.println(summaryActiveStage.getText());
     }
 
     public double getPointsOfCurrentCase() {

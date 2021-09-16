@@ -430,7 +430,8 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResult);
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }
@@ -444,7 +445,8 @@ public class Search extends BasePage {
                 caseDate = null;
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }

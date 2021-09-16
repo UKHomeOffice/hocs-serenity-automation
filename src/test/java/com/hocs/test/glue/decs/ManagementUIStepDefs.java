@@ -11,7 +11,6 @@ import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
-import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.managementUI.AddChildTopic;
@@ -37,8 +36,6 @@ public class ManagementUIStepDefs extends BasePage {
     DCUProgressCase dcuProgressCase;
 
     Markup markup;
-
-    Markup_AddTopics markupAddTopics;
 
     MUIDashboard MUIDashboard;
 
@@ -307,8 +304,9 @@ public class ManagementUIStepDefs extends BasePage {
         markup.selectPolicyResponseRadioButton();
         safeClickOn(continueButton);
         waitABit(1000);
-        markupAddTopics.enterATopicWithoutHittingFinish("101 non-emergency number (cost)");
-        markupAddTopics.getCurrentDefaultTeamsForTopic();
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
+        markup.recordDefaultTeamsForTopic();
     }
 
     @And("I select to amend the team links for the topic")
@@ -360,9 +358,10 @@ public class ManagementUIStepDefs extends BasePage {
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-safeClickOn(continueButton);
-waitABit(1000);
-        markupAddTopics.enterATopic("101 non-emergency number (cost)");
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
     }
 
     @When("I enter a display name")

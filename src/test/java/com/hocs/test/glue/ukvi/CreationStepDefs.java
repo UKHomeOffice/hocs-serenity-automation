@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.ukvi.Creation;
 import io.cucumber.java.en.And;
@@ -19,7 +20,7 @@ public class CreationStepDefs extends BasePage {
 
     Creation creation;
 
-    AddCorrespondent addCorrespondent;
+    SummaryTab summaryTab;
 
     @When("I complete all required fields for Creation stage")
     public void iCompleteAllRequiredFieldsForCaseCreation() {
@@ -43,8 +44,8 @@ public class CreationStepDefs extends BasePage {
     @Then("the case summary should list the correct primary correspondent")
     public void theSummaryShouldListTheCorrectPrimaryCorrespondent() {
         dashboard.getCurrentCase();
-        workstacks.selectSummaryTab();
-        workstacks.assertPrimaryCorrespondentIs(sessionVariableCalled("primaryCorrespondent"));
+        summaryTab.selectSummaryTab();
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Primary correspondent", sessionVariableCalled("primaryCorrespondent"));
     }
 
     @When("I select {string} as the Urgency and {string} as the Reference Type")

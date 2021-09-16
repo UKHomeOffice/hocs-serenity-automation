@@ -11,8 +11,6 @@ import org.openqa.selenium.Keys;
 
 public class Markup extends BasePage {
 
-    Markup_AddTopics markupAddTopics;
-
     RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='Policy Response']")
@@ -50,6 +48,15 @@ public class Markup extends BasePage {
 
     @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicLink;
+
+    @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
+    public WebElementFacade topicsTextField;
+
+    @FindBy(id = "DraftingTeamName")
+    public WebElementFacade defaultDraftTeam;
+
+    @FindBy(id = "POTeamName")
+    public WebElementFacade defaultPrivateOfficeTeam;
 
     //Basic Methods
 
@@ -98,7 +105,46 @@ public class Markup extends BasePage {
         safeClickOn(addTopicLink);
     }
 
-    //Assertions
+    public void selectSpecificOverridePrivateOfficeTeam(String newPrivateOfficeTeam) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(newPrivateOfficeTeam, "Override Private Office Team");
+    }
+
+    public void selectSpecificOverrideInitialDraftTeam(String newInitialDraftTeam) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(newInitialDraftTeam, "Override Initial Draft Team");
+    }
+
+    // Multi Step Methods
+
+    public void addTopicToCase(String topic) {
+        clickAddTopicLink();
+        topicsTextField.click();
+        topicsTextField.sendKeys(topic);
+        waitABit(1000);
+        topicsTextField.sendKeys(Keys.RETURN);
+        waitABit(1000);
+        safeClickOn(addButton);
+    }
+
+    public void confirmPrimaryTopic() {
+        WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
+        recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
+        safeClickOn(continueButton);
+    }
+
+    public void selectPrimaryTopic(String topic) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(topic, "Which is the primary topic?");
+        safeClickOn(continueButton);
+    }
+
+    public void recordDefaultTeamsForTopic() {
+        waitABit(2000);
+        setSessionVariable("defaultDraftTeam").to(defaultDraftTeam.getValue());
+        recordCaseData.addHeadingAndValueRecord("Initial Draft Team", defaultDraftTeam.getValue());
+        setSessionVariable("defaultPrivateOfficeTeam").to(defaultPrivateOfficeTeam.getValue());
+        recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultDraftTeam.getValue());
+    }
+
+    // Assertions
 
     public void assertNRNTextBoxIsDisplayed() {
         assertThat(isElementDisplayed(noResponseNeededTextField), is(true));
@@ -110,5 +156,9 @@ public class Markup extends BasePage {
 
     public void assertOGDDestinationTextBoxIsDisplayed() {
         assertThat(isElementDisplayed(OGDDestinationTextBox), is(true));
+    }
+
+    public void assertTopicsTextFieldDisplayed() {
+        isElementDisplayed(topicsTextField);
     }
 }

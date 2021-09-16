@@ -21,32 +21,31 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromMarkupToInitialDraft() {
         markup.selectPolicyResponseRadioButton();
         safeClickOn(continueButton);
-        markup.clickAddTopicLink();
-        markupAddTopics.enterRealTopic();
-        safeClickOn(addButton);
-        safeClickOn(continueButton);
-        safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromMarkupToNRNConfirmation() {
-        selectNoResponseNeededRadioButton();
-        safeClickOn(continueButton);
-        enterANoResponseNeededReason();
-        safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromMarkupToTransferConfirmation() {
-        selectReferToOGDRadioButton();
-        safeClickOn(continueButton);
-        enterAOGDDestination();
-        enterAOGDReason();
+        markup.addTopicToCase("Animal alternatives (3Rs)");
+        markup.confirmPrimaryTopic();
         safeClickOn(finishButton);
     }
 
     public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
-        selectPolicyResponseRadioButton();
+        markup.selectPolicyResponseRadioButton();
         safeClickOn(continueButton);
-        markupAddTopics.enterATopic(topic);
+        markup.addTopicToCase(topic);
+        markup.confirmPrimaryTopic();
+        safeClickOn(finishButton);
+    }
+
+    public void moveCaseFromMarkupToNRNConfirmation() {
+        markup.selectNoResponseNeededRadioButton();
+        safeClickOn(continueButton);
+        markup.enterANoResponseNeededReason();
+        safeClickOn(finishButton);
+    }
+
+    public void moveCaseFromMarkupToTransferConfirmation() {
+        markup.selectReferToOGDRadioButton();
+        safeClickOn(continueButton);
+        markup.enterAOGDDestination();
+        markup.enterAOGDReason();
         safeClickOn(finishButton);
     }
 }

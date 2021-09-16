@@ -135,6 +135,8 @@ Feature: Initial Draft
     | TRO       | WHO HAS DONE QA OFFLINE REQUIRED            |
 
   @DCURegression
-  Scenario: As a Data Input user, I want to see a symbol that tells me a case is a Home Secretary Reply case, so I can prioritise the case
+  Scenario: As a Data Input user, I want to see a symbol that tells me a case is a Home Secretary Reply case, so I can prioritise it
     And I create a "MIN" case and move it to the "MARKUP" stage
-    And I complete the Markup stage, with the Home Secretary team selected as the Drafting team
+    And I load and claim the current case
+    And I complete Markup with "Home Secretary" selected as the Private Office team
+    And the "Animals in Science Regulation Unit" workstack should display a HS symbol next to the case reference
