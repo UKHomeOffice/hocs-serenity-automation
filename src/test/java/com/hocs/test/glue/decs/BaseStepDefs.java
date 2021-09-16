@@ -26,6 +26,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class BaseStepDefs extends BasePage {
@@ -312,11 +313,26 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case/claim should be moved/returned to (the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
-        if (onDashboard()) {
-            dashboard.getCurrentCase();
-        }
+        goToDashboard();
+        dashboard.getCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertCaseStage(stage);
+    }
+
+    @Then("the FOI case should be moved/returned to (the ){string}( stage)")
+    public void theFOICaseShouldBeMovedReturnedToTheStage(String stage) {
+        if (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE")) {
+            try {
+                summaryTab.selectSummaryTab();
+            } catch (ElementNotVisibleException e) {
+                timelineTab.selectTimelineTab();
+                waitABit(500);
+                summaryTab.selectSummaryTab();
+            }
+            summaryTab.assertCaseStage(stage);
+        } else {
+            assertCaseTypeMovedOrReturnedToStage(stage);
+        }
     }
 
     @And("I reject the case at the {string} stage")

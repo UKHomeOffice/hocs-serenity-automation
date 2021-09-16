@@ -18,5 +18,5 @@ Feature: Allocation
     And I click the "Allocate Case" button
     And the Allocation text is displayed
     And I click the "Confirm Allocation" button
-    Then the case should be moved to the "Acceptance" stage
+    Then the FOI case should be moved to the "Acceptance" stage
     And the read-only Case Details accordion should contain all case information entered during the "Allocation" stage

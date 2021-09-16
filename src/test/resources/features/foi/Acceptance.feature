@@ -12,7 +12,7 @@ Feature: Acceptance
     And I click the "Continue" button
     And I select the drafting team required to respond to the request
     And I click the "Finish" button
-    Then the case should be moved to the "Consider and Draft" stage
+    Then the FOI case should be moved to the "Consider and Draft" stage
     And the case should be assigned to the Drafting team selected at Acceptance
     And the read-only Case Details accordion should contain all case information entered during the "Acceptance" stage
 
