@@ -1,5 +1,5 @@
-@ServiceSend @COMP
-Feature: Service Send
+@COMPSend @COMP
+Feature: COMP Send
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"

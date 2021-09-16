@@ -1,5 +1,5 @@
-@ServiceEscalated @COMP
-Feature: Service Escalated
+@COMPEscalated @COMP
+Feature: COMP Escalated
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"

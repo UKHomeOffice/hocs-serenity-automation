@@ -6,10 +6,10 @@ import io.cucumber.java.en.And;
 
 public class COMPSendStepDefs extends BasePage {
 
-    COMPSend COMPSend;
+    COMPSend compSend;
 
     @And("I select a Case Outcome at the {string} Send stage")
     public void iSelectACaseOutcomeAtTheServiceSendStage(String complaintType) {
-        COMPSend.submitASelectedOutcome();
+        compSend.submitASelectedOutcome();
     }
 }

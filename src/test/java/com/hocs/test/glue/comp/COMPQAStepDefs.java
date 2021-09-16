@@ -6,13 +6,13 @@ import io.cucumber.java.en.And;
 
 public class COMPQAStepDefs extends BasePage {
 
-    COMPQA COMPQA;
+    COMPQA compQA;
 
     @And("I {string} the response at the Service QA stage")
     public void responseAtServiceQAStage(String action) {
-        COMPQA.selectActionAtServiceQA(action);
+        compQA.selectActionAtServiceQA(action);
         if (action.equalsIgnoreCase("REJECT")) {
-            COMPQA.submitRejectionReason();
+            compQA.submitRejectionReason();
         }
     }
 

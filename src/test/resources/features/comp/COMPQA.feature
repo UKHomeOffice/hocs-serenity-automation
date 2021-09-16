@@ -1,5 +1,5 @@
-@ServiceQA @COMP
-Feature: Service QA
+@COMPQA @COMP
+Feature: COMP QA
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"

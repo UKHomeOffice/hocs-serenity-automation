@@ -3,7 +3,7 @@ Feature: CCH
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "CCH (From Service Triage)" stage
+    And I create a "COMP" case and move it to the "CCH (From Service Triage)" stage
     And I load and claim the current case
 
 #    HOCS-2944
