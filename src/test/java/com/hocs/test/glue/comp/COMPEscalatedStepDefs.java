@@ -6,15 +6,15 @@ import io.cucumber.java.en.And;
 
 public class COMPEscalatedStepDefs extends BasePage {
 
-    COMPEscalated COMPEscalated;
+    COMPEscalated compEscalated;
 
     @And("I select to return the case to Triage")
     public void iSelectToReturnTheCaseToTriage() {
-        COMPEscalated.selectActionAtServiceEscalated("Return case to Triage");
+        compEscalated.selectActionAtServiceEscalated("Return case to Triage");
     }
 
     @And("I select to send the case to drafting")
     public void iSelectToSendTheCaseToDrafting() {
-        COMPEscalated.selectActionAtServiceEscalated("Case ready for drafting");
+        compEscalated.selectActionAtServiceEscalated("Case ready for drafting");
     }
 }

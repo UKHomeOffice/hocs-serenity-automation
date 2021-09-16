@@ -7,21 +7,21 @@ import io.cucumber.java.en.Then;
 
 public class COMPDraftStepDefs extends BasePage {
 
-    COMPDraft COMPDraft;
+    COMPDraft compDraft;
 
     @And("I select the {string} action at the Service Draft stage")
     public void iSendTheCaseToQA(String action) {
-        COMPDraft.selectActionAtServiceDraft(action);
+        compDraft.selectActionAtServiceDraft(action);
     }
 
     @And("I escalate the case to WFM at Service Draft stage")
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
-        COMPDraft.selectActionAtServiceDraft("Escalate case to WFM");
-        COMPDraft.submitEscalationReason();
+        compDraft.selectActionAtServiceDraft("Escalate case to WFM");
+        compDraft.submitEscalationReason();
     }
 
     @Then("an error message is displayed as I have not uploaded a document")
     public void anErrorMessageIsDisabledAsIHaveNotUploadedADocument() {
-        COMPDraft.assertErrorMessageIsDisplayed("Primary Draft Document");
+        compDraft.assertErrorMessageIsDisplayed("Primary Draft Document");
     }
 }
