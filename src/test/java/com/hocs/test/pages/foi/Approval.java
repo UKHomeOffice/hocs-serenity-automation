@@ -38,15 +38,15 @@ public class Approval extends BasePage {
     }
 
     public void selectApprovalRequestDecision() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Decision");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Approve","Decision");
     }
 
     public void enterApprovalReceivedDate() {
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Approval received date");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date response received");
     }
 
     public void enterApproverName() {
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Mr Test Approver", "Approver Name");
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Mr Test Approver", "Respondents name");
     }
 
     public void enterApprovalReceivedDetails() {

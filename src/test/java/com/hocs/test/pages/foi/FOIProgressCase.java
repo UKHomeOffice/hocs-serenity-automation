@@ -28,7 +28,7 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
-        clickTheButton("Finish");
+        clickTheButton("Complete Create");
     }
 
     public void moveCaseFromAllocationToAcceptance() {
@@ -43,7 +43,7 @@ public class FOIProgressCase extends BasePage {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Does this case belong to your Directorate?");
         clickTheButton("Continue");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Please select the team required for drafting the response");
-        clickTheButton("Finish");
+        clickTheButton("Complete Acceptance");
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
@@ -53,16 +53,20 @@ public class FOIProgressCase extends BasePage {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading("Draft response", "Document type");
         documents.uploadDocumentOfType("docx");
         clickTheButton("Add");
-        clickTheButton("Continue");
+        clickTheButton("Complete Draft");
     }
 
     public void moveCaseFromApprovalToDispatch() {
         approval.addAnApprovalRequestWithStatus("Complete");
-        clickTheButton("Continue");
+        clickTheButton("Complete Approval");
     }
 
     public void moveCaseFromDispatchToSoftClose() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading( "What type of case is this?");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Information released in full","What was the outcome of this case?");
         clickTheButton("Continue");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
+        clickTheButton("Complete Dispatch");
     }
 }

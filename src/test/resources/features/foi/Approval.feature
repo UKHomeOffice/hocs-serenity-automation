@@ -7,7 +7,7 @@ Feature: Approval
 
   Scenario: User is able to complete the Approval stage
     And I add an Approval request to the case with the "Complete" status
-    And I click the "Continue" button
+    And I click the "Complete Approval" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Dispatch" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"

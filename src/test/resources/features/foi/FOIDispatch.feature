@@ -6,6 +6,7 @@ Feature: FOI Dispatch
     When I create a "FOI" case and move it to the "Dispatch" stage
 
   Scenario: User is able to complete the Dispatch stage
+
     And I select "Yes" to do you want to dispatch the case
     And I click the "Continue" button
     And I navigate to the "Dashboard" page

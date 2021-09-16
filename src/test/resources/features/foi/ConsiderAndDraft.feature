@@ -9,7 +9,7 @@ Feature: Consider and Draft
   Scenario: User is able to complete the Consider and Draft stage
     And I select that the case "Doesn't" require a contribution
     And I add a "Draft response" type document to the case
-    And I click the "Continue" button
+    And I click the "Complete Draft" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Approval" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
