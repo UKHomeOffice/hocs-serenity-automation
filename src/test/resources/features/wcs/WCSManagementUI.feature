@@ -1,5 +1,5 @@
 @ManagementUI @WCS
-Feature: Management UI
+Feature: WCS Management UI
 
   @Navigation
   Scenario: User navigates to a management page

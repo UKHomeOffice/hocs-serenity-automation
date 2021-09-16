@@ -17,7 +17,7 @@ Feature: Triage
     When I click the "Set enquiry subject/reason" link
     Then the "Enquiry subject" page should be displayed
     And the header tags in the HTML of the page are properly structured
-    And the accessibility statement link should be visible
+    And the accessibility statement link should be visibleu
 
   @Navigation
   Scenario: User should be on the Enquiry Reason Page

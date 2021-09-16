@@ -310,7 +310,7 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForWorkstackToLoad() {
-        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public void orderMPAMWorkstackColumn(String column, String order) {
@@ -502,10 +502,10 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUser(User user) {
+        waitABit(7500);
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
                 + "']/../following-sibling::td[2]");
-        waitForAnyTextToAppear(caseOwner, user.getUsername());
-        assertThat(getAllocatedUserFromWorkstacksTable().equals(user.getUsername()), is(true));
+        assertThat(caseOwner.getText().equals(user.getUsername()), is(true));
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
@@ -682,6 +682,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertThatDeadlineHighlightedIs(boolean condition) {
+        waitForWorkstackToLoad();
         WebElementFacade deadlineOfCurrentCase =
                 findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td/span[contains(text(), '"
                         + getCurrentYear() + "')"

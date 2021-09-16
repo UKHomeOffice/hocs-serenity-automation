@@ -89,7 +89,7 @@ public class Search extends BasePage {
     @FindBy(id = "RefType")
     public WebElementFacade mpamRefTypeDropdown;
 
-    @FindBy(xpath = "//input[@id='react-select-3-input']")
+    @FindBy(xpath = "//input[@id='correspondentExternalKey']")
     public WebElementFacade memberOfParliamentSearchBox;
 
     @FindBy(id = "correspondentReference")
