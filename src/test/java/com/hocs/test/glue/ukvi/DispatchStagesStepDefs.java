@@ -65,6 +65,12 @@ public class DispatchStagesStepDefs extends BasePage {
         dispatchStages.assertThatRejectionReasonTextAreaVisible();
     }
 
+    @And("I enter a date of dispatch and confirm to close the case")
+    public void iEnterADispatchedDateAndConfirmToCloseTheCase() {
+        dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
+        safeClickOn(dispatchStages.confirmAndCloseCaseButton);
+    }
+
     @And("the follow-up due date should be visible in the summary")
     public void theFollowUpDueDateShouldBeVisibleInTheSummary() {
         summaryTab.assertFollowUpDueDateVisible();

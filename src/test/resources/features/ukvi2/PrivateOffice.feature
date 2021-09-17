@@ -47,7 +47,7 @@ Feature: PrivateOffice
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow @UKVIRegression2
+  @UKVIWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Ministerial Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -56,7 +56,7 @@ Feature: PrivateOffice
     Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
     And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
 
-  @UKVIWorkflow @UKVIRegression2
+  @UKVIWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Local Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -133,7 +133,7 @@ Feature: PrivateOffice
       | DETAILS OF FOLLOW-UP REQUIRED |
       | REJECTION REASON REQUIRED     |
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User moves a case into a Campaign from the Private Office stage
     And I create a "MPAM" case and move it to the "Private Office" stage
     And I load and claim the current case
