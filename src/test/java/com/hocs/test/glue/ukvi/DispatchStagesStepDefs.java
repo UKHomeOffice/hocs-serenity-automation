@@ -65,12 +65,6 @@ public class DispatchStagesStepDefs extends BasePage {
         dispatchStages.assertThatRejectionReasonTextAreaVisible();
     }
 
-    @And("I enter a date of dispatch and confirm to close the case")
-    public void iEnterADispatchedDateAndConfirmToCloseTheCase() {
-        dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
-        safeClickOn(dispatchStages.confirmAndCloseCaseButton);
-    }
-
     @And("the follow-up due date should be visible in the summary")
     public void theFollowUpDueDateShouldBeVisibleInTheSummary() {
         summaryTab.assertFollowUpDueDateVisible();
@@ -106,5 +100,17 @@ public class DispatchStagesStepDefs extends BasePage {
     @And("I select a response channel")
     public void iSelectAResponseChannel() {
         dispatchStages.selectAResponseChannel();
+    }
+
+    @When("I confirm that the case has been dispatched")
+    public void iConfirmThatTheCaseHasBeenDispatched() {
+        dispatchStages.selectDispatchAndCloseCaseAction();
+        clickTheButton("Confirm");
+    }
+
+    @When("I select to return the case to Private Office")
+    public void iSelectToReturnTheCaseToPrivateOffice() {
+        dispatchStages.selectSendBackToPrivateOfficeAction();
+        clickTheButton("Confirm");
     }
 }

@@ -241,4 +241,12 @@ public class DispatchStages extends BasePage {
     public void selectAResponseChannel() {
         selectRandomRadioButtonFromGroupWithHeading("Response channel");
     }
+
+    public void selectDispatchAndCloseCaseAction() {
+        selectSpecificRadioButton("Dispatch and close case");
+    }
+
+    public void selectSendBackToPrivateOfficeAction() {
+        selectSpecificRadioButton("Move back to Private Office");
+    }
 }
