@@ -28,7 +28,6 @@ Feature: PrivateOffice
   Scenario: User rejects a UKVI business area MPAM case at Private Office
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    And I select a response channel
     When I select the "Draft rejected by private office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
     Then the case should be moved to the "QA" stage
@@ -38,7 +37,6 @@ Feature: PrivateOffice
   Scenario: User rejects a EUSS business area MPAM case at Private Office
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    And I select a response channel
     When I select the "Draft rejected by private office" action at Private Office stage
     And I submit a reason to reject the case back to Draft stage
     Then the case should be moved to the "Draft" stage
@@ -47,20 +45,18 @@ Feature: PrivateOffice
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow @UKVIRegression2
+  @UKVIWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Ministerial Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    And I select a response channel
     When I select the "Approved (ministerial dispatch)" action at Private Office stage
     Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
     And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
 
-  @UKVIWorkflow @UKVIRegression2
+  @UKVIWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Local Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
-    And I select a response channel
     When I select the "Approved (local dispatch)" action at Private Office stage
     Then the case should be moved to the "Awaiting Dispatch (Local)" stage
     And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
@@ -133,7 +129,7 @@ Feature: PrivateOffice
       | DETAILS OF FOLLOW-UP REQUIRED |
       | REJECTION REASON REQUIRED     |
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User moves a case into a Campaign from the Private Office stage
     And I create a "MPAM" case and move it to the "Private Office" stage
     And I load and claim the current case

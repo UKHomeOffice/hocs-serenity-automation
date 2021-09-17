@@ -115,7 +115,7 @@ Feature: QA
       | Rejected, move back to drafting |
       | Approve                         |
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression2
   Scenario: User moves a case into a Campaign from the QA stage
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
@@ -123,7 +123,7 @@ Feature: QA
     And I load the current case
     Then the case is added to the correct Campaign
 
-  @Campaigns
+  @UKVIWorkflow @UKVIRegression2
   Scenario Outline: User moves cases into Campaigns from the QA sub-stages
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
