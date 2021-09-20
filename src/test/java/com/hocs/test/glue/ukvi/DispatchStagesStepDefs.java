@@ -36,22 +36,8 @@ public class DispatchStagesStepDefs extends BasePage {
     }
 
     @When("I select the {string} action at Private Office stage")
-    public void iSelectTheActionAtPrivateOfficeStage(String action) {
-        switch (action.toUpperCase()) {
-            case "DISPATCHED":
-                safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
-                break;
-            case "DRAFT REJECTED BY PRIVATE OFFICE":
-                safeClickOn(dispatchStages.draftRejectedRadioButton);
-                setSessionVariable("rejectionStage").to("PO");
-                break;
-            case "DISPATCHED (FOLLOW-UP)":
-                safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
-        safeClickOn(confirmButton);
+    public void  iSelectTheActionAtPrivateOfficeStage(String action) {
+        dispatchStages.selectActionAtPrivateOffice(action);
     }
 
     @When("I select the {string} action at Dispatched \\(follow-up) stage")
@@ -120,5 +106,17 @@ public class DispatchStagesStepDefs extends BasePage {
     @And("I select a response channel")
     public void iSelectAResponseChannel() {
         dispatchStages.selectAResponseChannel();
+    }
+
+    @When("I confirm that the case has been dispatched")
+    public void iConfirmThatTheCaseHasBeenDispatched() {
+        dispatchStages.selectDispatchAndCloseCaseAction();
+        clickTheButton("Confirm");
+    }
+
+    @When("I select to return the case to Private Office")
+    public void iSelectToReturnTheCaseToPrivateOffice() {
+        dispatchStages.selectSendBackToPrivateOfficeAction();
+        clickTheButton("Confirm");
     }
 }

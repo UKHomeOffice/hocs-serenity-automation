@@ -12,9 +12,11 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ServiceTriage extends BasePage {
+public class COMPTriage extends BasePage {
 
     RecordCaseData recordCaseData;
+
+    Registration registration;
 
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
@@ -91,10 +93,16 @@ public class ServiceTriage extends BasePage {
     @FindBy(xpath = "//label[text()='No']")
     public WebElementFacade permanentlyCloseCaseNoRadioButton;
 
+    @FindBy(xpath = "//legend[text()='Date of Acceptance']")
+    public WebElementFacade dateOfAcceptanceLabel;
+
     public void selectAcceptCase() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint","Can your team respond to this complaint?");
-        clickTheButton("Continue");
         waitABit(500);
+    }
+
+    public void enterDateOfAcceptance() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
     }
 
     public void selectTransferComplaint() {
@@ -155,6 +163,10 @@ public class ServiceTriage extends BasePage {
     public void selectPermanentlyCloseCase(String yesNo) {
         selectSpecificRadioButton(yesNo);
         clickTheButton("Confirm");
+    }
+
+    public void openExGratiaAccordion() {
+        openOrCloseAccordionSection("Ex-Gratia");
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {

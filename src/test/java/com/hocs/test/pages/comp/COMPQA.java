@@ -9,7 +9,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class ServiceQA extends BasePage {
+public class COMPQA extends BasePage {
 
     RecordCaseData recordCaseData;
 

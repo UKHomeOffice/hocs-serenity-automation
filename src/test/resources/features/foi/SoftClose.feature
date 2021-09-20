@@ -8,4 +8,4 @@ Feature: Soft Close
   @FOIRegression
   Scenario: User is able to reopen a case at Soft Close
     And I click the "Reopen" button
-    Then the case should be moved to the "Case Creation" stage
+    Then the FOI case should be moved to the "Case Creation" stage

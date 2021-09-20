@@ -361,7 +361,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
         waitABit(1000);
         goToDashboard();
-        safeClickOn(dashboard.myCases);
+        iEnterAWorkstack("MPAM Draft");
         workstacks.assertDueDateOfContributionRequest();
     }
 
