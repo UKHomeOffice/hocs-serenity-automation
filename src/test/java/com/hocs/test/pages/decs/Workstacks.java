@@ -828,7 +828,9 @@ public class Workstacks extends BasePage {
         String caseRef = getCurrentCaseReference();
         WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
         waitABit(1000);
-        assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
+        String expectedDeadline = sessionVariableCalled("transferDueDate");
+        String displayedDeadline = deadline.getText();
+        assertThat(displayedDeadline.equals(expectedDeadline), is(true));
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {

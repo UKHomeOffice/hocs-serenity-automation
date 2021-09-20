@@ -66,7 +66,7 @@ public class Workdays extends BasePage{
                 totalWorkDays ++;
             }
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
         return targetDay.format(formatters);
     }
 }
