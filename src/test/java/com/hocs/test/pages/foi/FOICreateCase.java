@@ -65,7 +65,7 @@ public class FOICreateCase extends BasePage {
             setSessionVariable("requesterFullName").to("Test McTester");
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
             setSessionVariable("requesterFullName").to("Test McTester");
@@ -75,7 +75,7 @@ public class FOICreateCase extends BasePage {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         }
     }
 

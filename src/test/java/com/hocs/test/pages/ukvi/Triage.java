@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -13,6 +14,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 
 public class Triage extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
@@ -89,7 +92,7 @@ public class Triage extends BasePage {
     }
 
     public void selectEnquiryReason(String reason) {
-        selectSpecificRadioButton(reason);
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
         setSessionVariable("enquiryReason").to(reason);
         safeClickOn(continueButton);
     }
