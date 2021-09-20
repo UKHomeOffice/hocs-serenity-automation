@@ -814,7 +814,8 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref"));
+                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref",
+                        "Escalate Case"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());

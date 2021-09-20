@@ -15,6 +15,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 
 public class SearchStepDefs extends BasePage {
@@ -156,20 +157,24 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("the created MPAM case should be visible in the search results")
-    public void createdMPAMCaseShouldBeVisibleInTheSearchResults(){
+    @And("the created case should be visible in the search results")
+    public void createdCaseShouldBeVisibleInTheSearchResults(){
+        workstacks.filterByCurrentCaseReference();
+        waitABit(1000);
         int numberOfResults = workstacks.getTotalOfCases();
         int retest = 0;
         while (retest < 5) {
-            try {
-                search.assertCurrentCaseIsDisplayed();
-                assertThat(numberOfResults == 1, is(true));
-                break;
-            } catch (AssertionError a) {
+            if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                searchForMPAMCaseWith(sessionVariableCalled("infoType"), "infoValue");
+                searchForMPAMCaseWith(sessionVariableCalled("infoType"), sessionVariableCalled("infoValue"));
                 safeClickOn(searchButton);
+                workstacks.filterByCurrentCaseReference();
+                waitABit(1000);
+            } else if (numberOfResults > 1) {
+                Assert.fail("More than one case has matching case reference");
+            } else {
+                break;
             }
         }
         search.assertCurrentCaseIsDisplayed();

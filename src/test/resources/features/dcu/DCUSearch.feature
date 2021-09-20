@@ -38,7 +38,7 @@ Feature: DCU Search
       | DTEN      |
 
   @SearchByCaseReferenceNumber
-  Scenario: User should be be taken directly to a case when they search for the Case Reference number
+  Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
     When I enter a valid case reference into the load case search bar
     Then I should be taken directly to the case
 
@@ -70,9 +70,9 @@ Feature: DCU Search
     Then the "DCU Search" workstack should contain only the expected columns
     Examples:
     | createCase | searchCase          |
-#    | MIN        | MIN                 | Currently a bug impacting scenarios: #1
-#    | TRO        | TRO                 | #2
-#    | DTEN       | DTEN                | #3
+    | MIN        | MIN                 |
+    | TRO        | TRO                 |
+    | DTEN       | DTEN                |
     | MIN        | MIN + TRO           |
     | MIN        | MIN + DTEN          |
     | TRO        | TRO + DTEN          |

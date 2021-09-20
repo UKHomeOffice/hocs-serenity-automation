@@ -3,6 +3,7 @@ package com.hocs.test.pages.decs;
 import java.util.HashMap;
 import java.util.List;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class RecordCaseData extends BasePage{
 
@@ -107,9 +108,8 @@ public class RecordCaseData extends BasePage{
                 }
             }
             if (!expectedValueIsDisplayed) {
-                System.out.println("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
+                Assert.fail("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
             }
-            assert(expectedValueIsDisplayed);
         }
     }
 
