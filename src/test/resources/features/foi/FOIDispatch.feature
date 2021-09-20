@@ -13,7 +13,6 @@ Feature: FOI Dispatch
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
     And I navigate to the "Dashboard" page
-    And I navigate to the "Dashboard" page
     Then the case should be moved to the "Soft Close" stage
 
   @FOIRegression
