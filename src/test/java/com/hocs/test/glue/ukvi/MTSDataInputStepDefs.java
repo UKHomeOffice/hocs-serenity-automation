@@ -21,6 +21,6 @@ public class MTSDataInputStepDefs extends BasePage {
     @And("the support note should be visible in the summary")
     public void theSupportNoteShouldBeVisibleInTheSummary() {
         summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Note to support case", sessionVariableCalled("supportNote"));
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("supportNote"), "Note to support case");
     }
 }

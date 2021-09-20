@@ -90,7 +90,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void getToPrimaryDraftDocumentScreenPrerequisites() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();
@@ -98,7 +98,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void getToAddDocumentScreenPrerequisites() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();
@@ -107,7 +107,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void getToDoYouWantToQAOfflineScreenPrerequisites() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();
@@ -118,7 +118,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void getToWhoDidTheQAOfflineScreenPrerequisites() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();
@@ -131,7 +131,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void moveCaseFromInitialDraftToPrivateOffice() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();
@@ -158,7 +158,7 @@ public class InitialDraft extends BasePage {
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
-        if (sessionVariableCalled("caseType").equals("DTEN")) {
+        if (dtenCase()) {
             dtenAcceptAndDraftALetter();
         } else {
             acceptAndDraftALetter();

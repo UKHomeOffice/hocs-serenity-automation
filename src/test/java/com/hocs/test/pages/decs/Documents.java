@@ -73,8 +73,7 @@ public class Documents extends BasePage {
     }
 
     public void selectDocumentTypeByText(String docType) {
-        String caseType = sessionVariableCalled("caseType");
-        if(!caseType.equals("MPAM") && !caseType.equals("WCS") && !caseType.equals("FOI")) {
+        if(dcuCase() | compCase()) {
             docType = docType.toUpperCase();
         }
         documentTypeDropDown.selectByVisibleText(docType);

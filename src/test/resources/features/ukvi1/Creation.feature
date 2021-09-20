@@ -2,7 +2,7 @@
 Feature: Creation
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
     And I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
 
@@ -54,7 +54,7 @@ Feature: Creation
     And I click the "Continue" button
     And I select to add a correspondent that "is" a member of parliament
     And I add the member of parliament "Boris Johnson"
-    And I click the "Move to Triage" button
+    And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
 
   @UKVIWorkflow
@@ -64,7 +64,7 @@ Feature: Creation
     And I click the "Continue" button
     And I select to add a correspondent that "is" a member of parliament
     And I add the member of parliament "Boris Johnson"
-    And I click the "Move to Triage" button
+    And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
     Examples:
       | businessArea | refType     |
@@ -125,12 +125,10 @@ Feature: Creation
     And I click the "Move to Triage" button
     Then the case summary should list the correct primary correspondent
 
-
   Scenario: User can select a Ministerial Sign off team for the case
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
     And I load the current case
     Then the "Creation" MPAM accordion in case details should display the correct information for "Ministerial Sign Off Team"
-
 
   Scenario: User can select a Ministerial Sign Off team for a case and the selection is visible in a team workstack
     And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage

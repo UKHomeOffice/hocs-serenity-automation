@@ -10,7 +10,9 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
-public class AddCorrespondent extends BasePage {
+public class Correspondents extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(linkText = "Add a correspondent")
     public WebElementFacade addACorrespondentLink;
@@ -230,7 +232,7 @@ public class AddCorrespondent extends BasePage {
 
     public void addAPublicCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!sessionVariableCalled("caseType").equals("COMP")) {
+        if (!compCase()) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);
@@ -258,6 +260,20 @@ public class AddCorrespondent extends BasePage {
         correspondentFullNameField.clear();
         enterCorrespondentFullName("Edited Correspondent-" + generateRandomString());
         clickTheButton("Save");
+    }
+
+    public void confirmPrimaryCorrespondent() {
+        WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
+        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?\n", selectedPrimaryCorrespondent.getText());
+        if (dcuCase()) {
+            clickTheButton("Finish");
+        }
+        if (mpamCase()) {
+            clickTheButton("Move to Triage");
+        }
+        if (mtsCase() | compCase()) {
+            clickTheButton("Continue");
+        }
     }
 
     public void assertAddACorrespondentLinkIsDisplayed() {

@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -17,7 +17,7 @@ public class Misallocations extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Creation creation;
 
@@ -71,7 +71,7 @@ public class Misallocations extends BasePage {
                 creation.selectAddressee("Home Secretary");
                 creation.selectInboundChannel("Email");
                 safeClickOn(continueButton);
-                addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                correspondents.addAMemberCorrespondent("Boris Johnson");
                 clickTheButton("Move to Transfer");
                 break;
             case "TRIAGE":

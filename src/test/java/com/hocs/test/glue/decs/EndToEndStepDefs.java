@@ -529,6 +529,18 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
+    @And("I get a {string} case at (the ){string}( stage)")
+    public void iGetACaseAtAStage(String caseType, String stage) {
+        iCreateACaseAndMoveItToAStage(caseType, stage);
+        if (!stage.equalsIgnoreCase("CASE CLOSED")) {
+            dashboard.getAndClaimCurrentCase();
+        } else {
+            dashboard.getCurrentCase();
+        }
+    }
+
+
+
     @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "
             + "{string} stage")
     public void moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,

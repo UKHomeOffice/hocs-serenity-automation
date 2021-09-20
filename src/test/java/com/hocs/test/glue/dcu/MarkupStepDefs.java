@@ -9,11 +9,9 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.dcu.QAResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -88,7 +86,7 @@ public class MarkupStepDefs extends BasePage {
     public void assertTopicOnCase() {
         markup.clickContinueButton();
         summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Primary topic", sessionVariableCalled("topic"));
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("topic"), "Primary topic");
     }
 
     @Then("the topic can be viewed in the case timeline")
@@ -188,6 +186,7 @@ public class MarkupStepDefs extends BasePage {
     @When("I select an initial decision of {string}")
     public void iSelectAnInitialDecisionOf(String decision) {
         markup.selectASpecificResponseType(decision);
+        clickTheButton("Continue");
     }
 
     @And("I click the Add a topic link")
@@ -195,15 +194,17 @@ public class MarkupStepDefs extends BasePage {
         markup.clickAddTopicLink();
     }
 
-    @And("I enter a transfer destination and transfer reason")
+    @And("I submit a transfer destination and transfer reason")
     public void iEnterATransferDestinationAndTransferReason() {
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
+        clickTheButton("Finish");
     }
 
-    @And("I enter a reason that no response is needed")
+    @And("I submit a reason that no response is needed")
     public void iEnterAReasonThatNoResponseIsNeeded() {
         markup.enterANoResponseNeededReason();
+        clickTheButton("Finish");
     }
 
     @And("I complete Markup with {string} selected as the Private Office team")
@@ -214,5 +215,26 @@ public class MarkupStepDefs extends BasePage {
         markup.confirmPrimaryTopic();
         markup.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
         safeClickOn(finishButton);
+    }
+
+    @And("I select a Primary topic of {string}")
+    public void iSelectAPrimaryTopicOf(String topic) {
+        markup.addTopicToCase(topic);
+        markup.confirmPrimaryTopic();
+    }
+
+    @And("I override the Initial Draft team to {string}")
+    public void iOverrideTheInitialDraftTeamTo(String initialDraftTeam) {
+        markup.selectSpecificOverrideInitialDraftTeam(initialDraftTeam);
+    }
+
+    @And("I override the Private Office team to {string}")
+    public void iOverrideThePrivateOfficeTeamTo(String privateOfficeTeam) {
+        markup.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
+    }
+
+    @And("I confirm the (Initial Draft)( and )(Private Office) team")
+    public void iAcceptTheSelectedInitialDraftAndPrivateOfficeTeam() {
+        markup.confirmInitialDraftAndOrPrivateOfficeTeam();
     }
 }

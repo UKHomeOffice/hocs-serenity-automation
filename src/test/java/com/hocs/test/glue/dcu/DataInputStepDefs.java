@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
@@ -20,7 +20,7 @@ public class DataInputStepDefs extends BasePage {
 
     DataInput dataInput;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Dashboard dashboard;
 
@@ -38,8 +38,8 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectAHomeSecReplyOption();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @When("I complete the Data Input stage")
@@ -50,46 +50,46 @@ public class DataInputStepDefs extends BasePage {
         }
         dataInput.fillAllMandatoryCorrespondenceFields();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
-        addCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        correspondents.fillMandatoryCorrespondentFieldsForSecondaryContact();
         clickAddButton();
     }
 
     @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
-        addCorrespondent.selectToAddACorrespondent();
+        correspondents.selectToAddACorrespondent();
         if (isOrIsNot.equalsIgnoreCase("IS")) {
-            addCorrespondent.selectCorrespondentIsMP();
+            correspondents.selectCorrespondentIsMP();
         } else if (isOrIsNot.equalsIgnoreCase("IS NOT")) {
-            addCorrespondent.selectCorrespondentIsNotMP();
+            correspondents.selectCorrespondentIsNotMP();
         }
     }
 
     @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentFullNameErrorMessage();
+        correspondents.assertCorrespondentFullNameErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not selected the correspondent type")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentTypeDropDownErrorMessage();
+        correspondents.assertCorrespondentTypeDropDownErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a member of parliament from the drop down")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
-        addCorrespondent.assertMemberIsRequiredErrorMessage();
+        correspondents.assertMemberIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
+        correspondents.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @And("a case has a {string} correspondent")
@@ -99,15 +99,15 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
-                addCorrespondent.fillCorrespondentFields();
+                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
+                correspondents.fillCorrespondentFields();
                 dataInput.clickAddButton();
-                addCorrespondent.assertPrimaryCorrespondent();
+                correspondents.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 aCaseHasACorrespondent("PRIMARY");
                 iAddAnAdditionalCorrespondent();
-                addCorrespondent.assertSecondaryCorrespondent();
+                correspondents.assertSecondaryCorrespondent();
                 break;
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
@@ -121,13 +121,13 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
-        addCorrespondent.assertPrimaryCorrespondent();
-        addCorrespondent.assertSecondaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
+        correspondents.assertSecondaryCorrespondent();
     }
 
     @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        addCorrespondent.setSecondCorrespondentAsPrimaryCorrespondent();
+        correspondents.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
@@ -140,9 +140,9 @@ public class DataInputStepDefs extends BasePage {
     public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon");
-        addCorrespondent.addAMemberCorrespondent("Theresa May");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Nicola Sturgeon");
+        correspondents.addAMemberCorrespondent("Theresa May");
         safeClickOn(finishButton);
     }
 
@@ -150,18 +150,18 @@ public class DataInputStepDefs extends BasePage {
     public void iCompleteDataInputStageWithThreePublicCorrespondents() {
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
         setSessionVariable("correspondentFullName").to(member);
-        addCorrespondent.selectMemberOfParliament(member);
+        correspondents.selectMemberOfParliament(member);
         waitABit(2000);
-        addCorrespondent.clickAddButton();
+        correspondents.clickAddButton();
     }
 
     @When("I fill all mandatory fields on the {string} page with valid data")
@@ -171,8 +171,8 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
             case "CORRESPONDENT DETAILS":
-                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
-                addCorrespondent.fillCorrespondentFields();
+                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
+                correspondents.fillCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:
@@ -182,27 +182,27 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("the submitted correspondent should be visible in the list of correspondents")
     public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
-        addCorrespondent.assertPrimaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
     }
 
     @And("I remove the primary correspondent")
     public void removePrimaryCorrespondent() {
-        addCorrespondent.removePrimaryCorrespondent();
+        correspondents.removePrimaryCorrespondent();
     }
 
     @Then("there shouldn't be a primary correspondent displayed")
     public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
-        addCorrespondent.assertNoPrimaryCorrespondentDisplayed();
+        correspondents.assertNoPrimaryCorrespondentDisplayed();
     }
 
     @And("I edit the primary correspondents name")
     public void iEditThePrimaryCorrespondent() {
-        addCorrespondent.editPrimaryCorrespondent();
+        correspondents.editPrimaryCorrespondent();
     }
 
     @Then("the correspondents name should be updated")
     public void theCorrespondentsNameShouldBeUpdated() {
-        addCorrespondent.assertPrimaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
     }
 
     @And("the stage deadline dates for a {string} case are correct")
@@ -245,18 +245,17 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I select {string} for Home Secretary interest and complete the data input stage")
     public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
-        String caseType = sessionVariableCalled("caseType");
         setSessionVariable("homeSecInterest").to(interest);
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
         dataInput.selectASpecificCopyToNoTenOption("No");
         dataInput.selectASpecificHomeSecInterestOption(interest);
-        if (caseType.equals("MIN")) {
+        if (minCase()) {
             dataInput.selectAHomeSecReplyOption();
         }
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @Then("the Home Secretary interest decision should match the one displayed in the summary tab")
@@ -273,7 +272,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectASpecificHomeSecReplyOption("Yes");
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 }

@@ -2,7 +2,7 @@
 Feature: Close Case (Telephone)
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
 
   @UKVIRegression1
   Scenario Outline: User closes a telephone case at different stages

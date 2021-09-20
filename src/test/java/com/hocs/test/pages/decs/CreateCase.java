@@ -253,7 +253,7 @@ public class CreateCase extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsRadioButton.isVisible() && !dcuMinRadioButton.isVisible()) {
                     correctUser = true;
                 }

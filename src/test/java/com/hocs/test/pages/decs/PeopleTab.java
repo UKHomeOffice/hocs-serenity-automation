@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PeopleTab extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     @FindBy(xpath = "//a[text()='People']")
     public WebElementFacade peopleTab;
@@ -39,13 +39,13 @@ public class PeopleTab extends BasePage {
 
     public void addAMemberCorrespondent(String newCorrespondent) {
         safeClickOn(managePeopleHypertext);
-        addCorrespondent.addAMemberCorrespondent(newCorrespondent);
+        correspondents.addAMemberCorrespondent(newCorrespondent);
         setSessionVariable("correspondentFullName").to(newCorrespondent);
     }
 
     public void addAPublicCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addAPublicCorrespondentOfType("Constituent");
     }
 
     public void editCorrespondent(String detail, String correspondent) {
@@ -54,32 +54,32 @@ public class PeopleTab extends BasePage {
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
             case "FULL NAME":
-                addCorrespondent.correspondentFullNameField.clear();
-                addCorrespondent.correspondentFullNameField.sendKeys("Test - correspondent name");
+                this.correspondents.correspondentFullNameField.clear();
+                this.correspondents.correspondentFullNameField.sendKeys("Test - correspondent name");
                 break;
             case "BUILDING":
-                addCorrespondent.correspondentBuildingField.clear();
-                addCorrespondent.correspondentBuildingField.sendKeys("Test - correspondent building");
+                this.correspondents.correspondentBuildingField.clear();
+                this.correspondents.correspondentBuildingField.sendKeys("Test - correspondent building");
                 break;
             case "STREET":
-                addCorrespondent.correspondentStreetField.clear();
-                addCorrespondent.correspondentStreetField.sendKeys("Test - correspondent street");
+                this.correspondents.correspondentStreetField.clear();
+                this.correspondents.correspondentStreetField.sendKeys("Test - correspondent street");
                 break;
             case "TOWN OR CITY":
-                addCorrespondent.correspondentTownOrCityField.clear();
-                addCorrespondent.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
+                this.correspondents.correspondentTownOrCityField.clear();
+                this.correspondents.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
                 break;
             case "POSTCODE":
-                addCorrespondent.correspondentPostcodeField.clear();
-                addCorrespondent.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
+                this.correspondents.correspondentPostcodeField.clear();
+                this.correspondents.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
                 break;
             case "TELEPHONE":
-                addCorrespondent.correspondentTelephoneField.clear();
-                addCorrespondent.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
+                this.correspondents.correspondentTelephoneField.clear();
+                this.correspondents.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
                 break;
             case "EMAIL ADDRESS":
-                addCorrespondent.correspondentEmailField.clear();
-                addCorrespondent.correspondentEmailField.sendKeys("Test - correspondent email address");
+                this.correspondents.correspondentEmailField.clear();
+                this.correspondents.correspondentEmailField.sendKeys("Test - correspondent email address");
                 break;
             default:
                 pendingStep(detail + " is not defined within " + getMethodName());

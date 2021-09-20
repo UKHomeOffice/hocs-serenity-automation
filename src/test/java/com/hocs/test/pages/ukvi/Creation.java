@@ -3,14 +3,14 @@ package com.hocs.test.pages.ukvi;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Creation extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     @FindBy(xpath = "//label[text()='UKVI']")
     public WebElementFacade businessAreaUKVIRadioButton;
@@ -127,14 +127,14 @@ public class Creation extends BasePage {
     public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
         clickTheButton("Continue");
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
     public void moveCaseWithCorrespondentReferenceNumber(String refNumber) {
         completeRequiredQuestions();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentWithAReferenceNumber(refNumber);
+        correspondents.addAPublicCorrespondentWithAReferenceNumber(refNumber);
         clickTheButton("Move to Triage");
     }
 
@@ -146,7 +146,7 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         clickTheButton("Continue");
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -158,7 +158,7 @@ public class Creation extends BasePage {
         selectUrgency(urgency);
         selectInboundChannel("Email");
         clickTheButton("Continue");
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -170,7 +170,7 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
         clickTheButton("Move to Triage");
     }
 
@@ -180,8 +180,8 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        clickTheButton("Move to Triage");
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {
@@ -192,7 +192,7 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);
-        addCorrespondent.addAMemberCorrespondent(correspondent);
+        this.correspondents.addAMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");
     }
 

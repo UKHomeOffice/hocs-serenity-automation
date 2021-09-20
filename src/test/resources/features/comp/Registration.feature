@@ -10,7 +10,7 @@ Feature: Registration
   @COMPWorkflow @COMPRegression
   Scenario: User can complete the Registration stage for a Service complaint
     And I add a "Complainant" correspondent
-    And I click the "Continue" button
+    And I confirm the primary correspondent
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
@@ -25,7 +25,7 @@ Feature: Registration
   @COMPRegression
   Scenario: User must add a Complainant type correspondent
     And I add a "Third Party Representative" correspondent
-    When I click the "Continue" button
+    When I confirm the primary correspondent
     Then the "Complaint Correspondents Invalid" page should be displayed
 
   @Validation

@@ -120,8 +120,8 @@ public class SummaryTab extends BasePage {
         return summaryTab.getAttribute("class").contains("active");
     }
 
-    public void assertSummaryContainsExpectedValueForGivenHeader(String header, String expectedValue) {
-        assert(getSummaryTabValueForGivenHeader(header).contains(expectedValue));
+    public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
+        assert(getSummaryTabValueForGivenHeader(header).contains(value));
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {

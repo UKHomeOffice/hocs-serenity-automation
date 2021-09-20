@@ -1,9 +1,8 @@
 package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -11,7 +10,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     RecordCaseData recordCaseData;
 
@@ -135,19 +134,18 @@ public class DataInput extends BasePage {
     // Multi Step Methods
 
     public void fillAllMandatoryCorrespondenceFields() {
-        String caseType = sessionVariableCalled("caseType");
-        if (caseType.equals("DTEN")) {
+        if (dtenCase()) {
             enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
             enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
             safeClickOn(continueButton);
         }
         enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         selectACorrespondenceReceivedChannel();
-        if (caseType.equals("MIN") | caseType.equals("TRO")) {
+        if (minCase() | troCase()) {
             selectASpecificCopyToNoTenOption("No");
             selectAHomeSecInterestOption();
         }
-        if (caseType.equals("MIN")) {
+        if (minCase()) {
             selectAHomeSecReplyOption();
         }
     }

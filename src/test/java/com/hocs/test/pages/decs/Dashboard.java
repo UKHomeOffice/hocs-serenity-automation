@@ -254,7 +254,7 @@ public class Dashboard extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
                     correctUser = true;
                 }

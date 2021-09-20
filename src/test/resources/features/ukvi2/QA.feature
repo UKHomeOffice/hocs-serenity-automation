@@ -2,7 +2,7 @@
 Feature: QA
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
 
   @Navigation
   Scenario: User should be on the MPAM QA Page

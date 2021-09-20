@@ -2,7 +2,7 @@
 Feature: Prioritisation
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
 
   @UKVIRegression2
   Scenario: User checks that a Ministerial case is given a higher priority in My Cases workstack than an Offical case

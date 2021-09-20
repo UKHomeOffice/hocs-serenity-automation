@@ -6,7 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.dcu.DCUProgressCase;
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.CreateCase_SuccessPage;
@@ -18,7 +18,6 @@ import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
 import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.ukvi.Campaign;
 import com.hocs.test.pages.ukvi.Creation;
@@ -62,7 +61,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     Registration registration;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     com.hocs.test.pages.wcs.Registration wcsRegistration;
 
@@ -259,7 +258,7 @@ public class CreateCaseStepDefs extends BasePage {
         safeClickOn(unallocatedCaseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        addCorrespondent.addAMemberCorrespondent(correspondent);
+        this.correspondents.addAMemberCorrespondent(correspondent);
         safeClickOn(finishButton);
     }
 
@@ -285,7 +284,7 @@ public class CreateCaseStepDefs extends BasePage {
                 break;
             case "MPAM":
             case "MTS":
-                user = User.UKVI_USER;
+                user = User.MPAM_USER;
                 break;
             case "COMP":
                 user = User.COMP_USER;
@@ -342,7 +341,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.getAndClaimCurrentCase();
                         dataInput.fillAllMandatoryCorrespondenceFields();
                         clickContinueButton();
-                        addCorrespondent.addAMemberCorrespondent(infoValue);
+                        correspondents.addAMemberCorrespondent(infoValue);
                         safeClickOn(finishButton);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
@@ -351,8 +350,8 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.getAndClaimCurrentCase();
                         dataInput.fillAllMandatoryCorrespondenceFields();
                         clickContinueButton();
-                        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-                        safeClickOn(finishButton);
+                        correspondents.addAPublicCorrespondentOfType("Constituent");
+                        correspondents.confirmPrimaryCorrespondent();
                         waitForDashboard();
                         break;
                     case "TOPIC":
@@ -376,8 +375,8 @@ public class CreateCaseStepDefs extends BasePage {
                         dataInput.selectASpecificHomeSecInterestOption(infoValue);
                         dataInput.selectAHomeSecReplyOption();
                         safeClickOn(continueButton);
-                        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-                        safeClickOn(finishButton);
+                        correspondents.addAPublicCorrespondentOfType("Constituent");
+                        correspondents.confirmPrimaryCorrespondent();
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());
@@ -452,14 +451,14 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT EMAIL ADDRESS":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                        safeClickOn(continueButton);
+                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
                         break;
                     case "COMPLAINANT DATE OF BIRTH":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                        safeClickOn(continueButton);
+                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB(infoValue);
                         registration.selectAGender();
                         registration.enterACompanyName();
@@ -481,8 +480,8 @@ public class CreateCaseStepDefs extends BasePage {
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                        safeClickOn(continueButton);
+                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
                         registration.enterACompanyName();

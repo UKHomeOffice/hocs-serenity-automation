@@ -2,7 +2,7 @@
 Feature: UKVI Search
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
 
   @UKVIRegression2
   Scenario Outline: User tests UKVI search criteria

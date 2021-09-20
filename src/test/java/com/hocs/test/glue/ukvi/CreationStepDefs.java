@@ -2,7 +2,6 @@ package com.hocs.test.glue.ukvi;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
@@ -45,7 +44,7 @@ public class CreationStepDefs extends BasePage {
     public void theSummaryShouldListTheCorrectPrimaryCorrespondent() {
         dashboard.getCurrentCase();
         summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Primary correspondent", sessionVariableCalled("primaryCorrespondent"));
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("primaryCorrespondent"), "Primary correspondent");
     }
 
     @When("I select {string} as the Urgency and {string} as the Reference Type")

@@ -165,7 +165,7 @@ Feature: Workstacks
 
   @UKVIRegression2
   Scenario Outline: UKVI User sees the required information when viewing a workstack
-    Given I switch to user "UKVI_USER"
+    Given I switch to user "MPAM_USER"
     And I enter a "<workstack>" workstack
     Then the "<workstack>" workstack should contain only the expected columns
     Examples:

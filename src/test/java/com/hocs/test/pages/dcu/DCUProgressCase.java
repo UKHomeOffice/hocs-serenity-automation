@@ -1,11 +1,11 @@
 package com.hocs.test.pages.dcu;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 
 public class DCUProgressCase extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     DataInput dataInput;
 
@@ -14,8 +14,8 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromDataInputToMarkup() {
         dataInput.fillAllMandatoryCorrespondenceFields();
         safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     public void moveCaseFromMarkupToInitialDraft() {
@@ -23,7 +23,7 @@ public class DCUProgressCase extends BasePage {
         safeClickOn(continueButton);
         markup.addTopicToCase("Animal alternatives (3Rs)");
         markup.confirmPrimaryTopic();
-        safeClickOn(finishButton);
+        markup.confirmInitialDraftAndOrPrivateOfficeTeam();
     }
 
     public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
@@ -31,7 +31,7 @@ public class DCUProgressCase extends BasePage {
         safeClickOn(continueButton);
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
-        safeClickOn(finishButton);
+        markup.confirmInitialDraftAndOrPrivateOfficeTeam();
     }
 
     public void moveCaseFromMarkupToNRNConfirmation() {

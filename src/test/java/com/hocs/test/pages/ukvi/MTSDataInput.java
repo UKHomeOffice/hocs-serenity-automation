@@ -2,14 +2,14 @@ package com.hocs.test.pages.ukvi;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class MTSDataInput extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     @FindBy(id = "BusUnit")
     public WebElementFacade businessUnitDropdown;
@@ -113,7 +113,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void completeDataInputStageAndCloseMTSCase() {
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent("Boris Johnson");
         safeClickOn(continueButton);
         businessUnitDropdown.waitUntilVisible();
         selectBusinessArea();

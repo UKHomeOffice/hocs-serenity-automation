@@ -215,6 +215,42 @@ public class BasePage extends PageObject {
         }
     }
 
+    public boolean dcuCase() {
+        return minCase() | dtenCase() | troCase();
+    }
+
+    public boolean minCase() {
+        return sessionVariableCalled("caseType").toString().equals("MIN");
+    }
+
+    public boolean dtenCase() {
+        return sessionVariableCalled("caseType").toString().equals("DTEN");
+    }
+
+    public boolean troCase() {
+        return sessionVariableCalled("caseType").toString().equals("TRO");
+    }
+
+    public boolean mpamCase() {
+        return sessionVariableCalled("caseType").toString().equals("MPAM");
+    }
+
+    public boolean mtsCase() {
+        return sessionVariableCalled("caseType").toString().equals("MPAM");
+    }
+
+    public boolean compCase() {
+        return sessionVariableCalled("caseType").toString().equals("COMP");
+    }
+
+    public boolean foiCase() {
+        return sessionVariableCalled("caseType").toString().equals("FOI");
+    }
+
+    public boolean wcsCase() {
+        return sessionVariableCalled("caseType").toString().equals("WCS");
+    }
+
     public void clickRejectButton() {
         safeClickOn(rejectButton);
     }

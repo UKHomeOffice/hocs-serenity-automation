@@ -105,6 +105,7 @@ public class Markup extends BasePage {
         safeClickOn(addTopicLink);
     }
 
+
     public void selectSpecificOverridePrivateOfficeTeam(String newPrivateOfficeTeam) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(newPrivateOfficeTeam, "Override Private Office Team");
     }
@@ -125,23 +126,31 @@ public class Markup extends BasePage {
         safeClickOn(addButton);
     }
 
+    public void selectPrimaryTopic(String topic) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(topic, "Which is the primary topic?");
+        safeClickOn(continueButton);
+    }
+
     public void confirmPrimaryTopic() {
         WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
         recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
         safeClickOn(continueButton);
     }
 
-    public void selectPrimaryTopic(String topic) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(topic, "Which is the primary topic?");
-        safeClickOn(continueButton);
+    public void confirmInitialDraftAndOrPrivateOfficeTeam() {
+        if(defaultDraftTeam.isCurrentlyVisible()) {
+            recordCaseData.addHeadingAndValueRecord("Initial Draft Team", defaultDraftTeam.getValue());
+        }
+        if(defaultPrivateOfficeTeam.isCurrentlyVisible()) {
+            recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultPrivateOfficeTeam.getValue());
+        }
+        clickTheButton("Finish");
     }
 
     public void recordDefaultTeamsForTopic() {
         waitABit(2000);
         setSessionVariable("defaultDraftTeam").to(defaultDraftTeam.getValue());
-        recordCaseData.addHeadingAndValueRecord("Initial Draft Team", defaultDraftTeam.getValue());
         setSessionVariable("defaultPrivateOfficeTeam").to(defaultPrivateOfficeTeam.getValue());
-        recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultDraftTeam.getValue());
     }
 
     // Assertions

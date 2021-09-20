@@ -1,12 +1,12 @@
 package com.hocs.test.pages.comp;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
 
 public class COMPProgressCase extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Documents documents;
 
@@ -23,8 +23,8 @@ public class COMPProgressCase extends BasePage {
     ComplaintClosed complaintClosed;
 
     public void moveCaseFromRegistrationToServiceTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        correspondents.addAPublicCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Service");
         registration.enterComplaintDetails();

@@ -3,7 +3,7 @@ package config;
 public enum User {
 
     DECS_USER("decs automated regression user", "Password1!", "DECS Regression (decsregression@test.com)"),
-    UKVI_USER("ukvi automated regression user", "Password1!", "UKVI Regression (ukviregression@test.com)"),
+    MPAM_USER("mpam automated regression user", "Password1!", "MPAM Regression (mpamregression@test.com)"),
     DCU_USER("dcu automated regression user", "Password1!", "DCU Regression (dcuregression@test.com)"),
     WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
     COMP_USER("comp automated regression user", "Password1!", "COMP Regression (compregression@test.com)"),

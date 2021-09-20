@@ -604,7 +604,7 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResultHypertext);
                 if (!unallocatedCaseView.caseCanBeAllocated()) {
                     summaryTab.selectSummaryTab();
-                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User",getCurrentUser().getUsername());
+                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
                     goToDashboard();
                     dashboard.selectWorkstackByTeamName(assignedTeam);

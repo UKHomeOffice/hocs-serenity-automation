@@ -2,7 +2,7 @@
 Feature: Triage
 
   Background:
-    Given I am logged into "CS" as user "UKVI_USER"
+    Given I am logged into "CS" as user "MPAM_USER"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
 

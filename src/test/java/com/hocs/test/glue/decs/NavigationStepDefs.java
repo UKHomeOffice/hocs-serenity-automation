@@ -3,11 +3,10 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
 import io.cucumber.java.en.And;
@@ -22,7 +21,7 @@ public class NavigationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    AddCorrespondent initialDraftRecordCorrespondentDetails;
+    Correspondents initialDraftRecordCorrespondentsDetails;
 
     Search search;
 
@@ -89,7 +88,7 @@ public class NavigationStepDefs extends BasePage {
                 dashboard.assertAtDashboard();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                initialDraftRecordCorrespondentDetails.assertPageTitle();
+                initialDraftRecordCorrespondentsDetails.assertPageTitle();
                 break;
             case "DATA INPUT":
                 dataInput.assertPageTitle();

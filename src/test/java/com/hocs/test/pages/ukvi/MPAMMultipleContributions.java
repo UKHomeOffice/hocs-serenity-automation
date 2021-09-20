@@ -53,10 +53,10 @@ public class MPAMMultipleContributions extends BasePage {
 
     public void addMultipleContributionRequests(int numberOfContributions) {
         String contributionType = "";
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("MPAM")) {
+        if (mpamCase()) {
             selectToAddContributionsToAnMPAMCase();
             contributionType = "CASE";
-        } else if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("FOI")) {
+        } else if (foiCase()) {
             contributionType = "FOI";
         }
         contributionRequests.addMultipleContributionRequests(numberOfContributions, contributionType);

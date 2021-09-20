@@ -5,8 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.PeopleTab;
@@ -49,7 +48,7 @@ public class BaseStepDefs extends BasePage {
 
     Dispatch dispatch;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     SummaryTab summaryTab;
 
@@ -110,19 +109,19 @@ public class BaseStepDefs extends BasePage {
             case "IS THE CORRESPONDENT AN MP":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                addCorrespondent.selectToAddACorrespondent();
+                correspondents.selectToAddACorrespondent();
                 break;
             case "ADD MEMBER OF PARLIAMENT":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                addCorrespondent.selectToAddACorrespondent();
-                addCorrespondent.selectCorrespondentIsMP();
+                correspondents.selectToAddACorrespondent();
+                correspondents.selectCorrespondentIsMP();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 dataInput.clickContinueButton();
-                addCorrespondent.selectToAddACorrespondent();
-                addCorrespondent.selectCorrespondentIsNotMP();
+                correspondents.selectToAddACorrespondent();
+                correspondents.selectCorrespondentIsNotMP();
                 break;
             case "ADD A TOPIC":
                 markup.selectPolicyResponseRadioButton();
@@ -184,7 +183,7 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(backLink);
                 break;
             case "ADD A CORRESPONDENT":
-                addCorrespondent.selectToAddACorrespondent();
+                correspondents.selectToAddACorrespondent();
                 break;
             case "SET ENQUIRY SUBJECT/REASON":
                 safeClickOn(triage.setEnquiryHypertext);
@@ -282,7 +281,7 @@ public class BaseStepDefs extends BasePage {
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
         unallocatedCaseView.assertCaseCannotBeAssigned();
-//        if (!sessionVariableCalled("caseType").equals("WCS")) {
+//        if (!wcsCase()) {
 //            timelineTab.selectTimelineTab();
 //            timelineTab.assertCaseClosedNoteVisible();
 //        }
@@ -293,7 +292,7 @@ public class BaseStepDefs extends BasePage {
     public void linkIsDisplayed(String linkText) {
         switch (linkText.toUpperCase()) {
             case "ADD A CORRESPONDENT":
-                addCorrespondent.assertAddACorrespondentLinkIsDisplayed();
+                correspondents.assertAddACorrespondentLinkIsDisplayed();
                 break;
             default:
                 pendingStep(linkText + " is not defined within " + getMethodName());
@@ -434,7 +433,7 @@ public class BaseStepDefs extends BasePage {
     public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
         dashboard.getCurrentCase();
         summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Team", sessionVariableCalled("selectedCaseworkTeam"));
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectedCaseworkTeam"), "Team");
     }
 
     @And("I record the case reference of this case as {string}")
@@ -454,7 +453,12 @@ public class BaseStepDefs extends BasePage {
 
     @And("the summary should display the owning team as {string}")
     public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Team", teamName);
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
+    @And("the summary should display {string} for {string}")
+    public void theSummaryShouldDisplayFor(String value, String header) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(value, header);
     }
 }
 

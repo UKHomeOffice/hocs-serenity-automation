@@ -4,7 +4,7 @@ import static config.User.COMP_USER;
 import static config.User.DCU_USER;
 import static config.User.DECS_USER;
 import static config.User.FAKE;
-import static config.User.UKVI_USER;
+import static config.User.MPAM_USER;
 import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -188,7 +188,7 @@ public class LoginStepDefs extends BasePage {
 
     private boolean loggedInAsTargetUser() {
         boolean targetUserLoggedIn = false;
-        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER) {
+        if (targetUser == DCU_USER | targetUser == MPAM_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER) {
             if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
                 targetUserLoggedIn = true;
             } else {
