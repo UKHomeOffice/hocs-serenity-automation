@@ -12,7 +12,6 @@ Feature: Consider and Draft
     And I click the "Complete Draft" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Approval" stage
-    And the summary should display the owning team as "CCT Stage 1 Triage Team"
 
   #HOCS-2809, HOCS-2930
   @FOIRegression
