@@ -10,8 +10,7 @@ Feature: Consider and Draft
     And I select that the case "Doesn't" require a contribution
     And I add a "Draft response" type document to the case
     And I click the "Complete Draft" button
-    And I navigate to the "Dashboard" page
-    Then the case should be moved to the "Approval" stage
+    Then the FOI case should be moved to the "Approval" stage
 
   #HOCS-2809, HOCS-2930
   @FOIRegression
