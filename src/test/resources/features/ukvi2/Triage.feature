@@ -48,8 +48,7 @@ Feature: Triage
     And I select the "EU National Compliance Measures" enquiry reason and continue
     And I select the "Education" compliance measure
     And I select the "Other" compliance measure
-    And I enter details of the compliance measures
-    And I click the "Continue" button
+    And I enter details of the compliance measures and continue
     Then the summary tab should display "Education" as a compliance measure
     And the summary tab should display "Other" as a compliance measure
     And the summary tab should display the details entered for EU National Compliance Measures

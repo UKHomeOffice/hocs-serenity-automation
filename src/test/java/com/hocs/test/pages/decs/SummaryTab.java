@@ -362,4 +362,15 @@ public class SummaryTab extends BasePage {
         String homeSecInterestInput = sessionVariableCalled("homeSecInterest");
         assertThat(homeSecInterestInput.equals(homeSecInterest.getText()), is(true));
     }
+
+    public void assertComplianceMeasures(String inputComplianceMeasures) {
+        String displayedComplianceMeasures = getSummaryTabValueForGivenHeader("Compliance Measures");
+        assertThat(displayedComplianceMeasures.toUpperCase().contains(inputComplianceMeasures.toUpperCase()), is(true));
+    }
+
+    public void assertComplianceMeasureDetails() {
+        String inputComplianceMeasureDetails = sessionVariableCalled("complianceMeasureDetails");
+        String displayedComplianceMeasureDetails = getSummaryTabValueForGivenHeader("Compliance measures other details");
+        assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
+    }
 }

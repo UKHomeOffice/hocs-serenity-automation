@@ -147,17 +147,6 @@ public class Triage extends BasePage {
         assertThat(setEnquiryReason.getText(), containsString(enquiryReason));
     }
 
-    public void assertComplianceMeasures(String inputComplianceMeasures) {
-        String displayedComplianceMeasures = summaryTab.getSummaryTabValueForGivenHeader("Compliance Measures");
-        assertThat(displayedComplianceMeasures.toUpperCase().contains(inputComplianceMeasures.toUpperCase()), is(true));
-    }
-
-    public void assertComplianceMeasureDetails() {
-        String inputComplianceMeasureDetails = sessionVariableCalled("complianceMeasureDetails");
-        String displayedComplianceMeasureDetails = summaryTab.getSummaryTabValueForGivenHeader("Compliance measures other details");
-        assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
-    }
-
     public void recordCurrentBusinessUnitOptions() {
         List<WebElementFacade> businessUnitDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessUnitDropdownOptions) {

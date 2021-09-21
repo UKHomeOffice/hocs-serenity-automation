@@ -64,21 +64,22 @@ public class TriageStepDefs extends BasePage {
         triage.selectComplianceMeasure(complianceMeasure);
     }
 
-    @And("I enter details of the compliance measures")
+    @And("I enter details of the compliance measures and continue")
     public void iEnterDetailsOfTheComplianceMeasures() {
         triage.enterComplianceMeasureDetails();
+        clickTheButton("Continue");
     }
 
     @Then("the summary tab should display {string} as a compliance measure")
     public void theSummaryTabShouldDisplayAsAComplianceMeasure(String complianceMeasure) {
         summaryTab.selectSummaryTab();
-        triage.assertComplianceMeasures(complianceMeasure);
+        summaryTab.assertComplianceMeasures(complianceMeasure);
     }
 
     @Then("the summary tab should display the details entered for EU National Compliance Measures")
     public void theSummaryTabShouldDisplayTheDetailsEnteredForEUNationalComplianceMeasures() {
         summaryTab.selectSummaryTab();
-        triage.assertComplianceMeasureDetails();
+        summaryTab.assertComplianceMeasureDetails();
     }
 
     @Then("the set enquiry subject and reason should be displayed on the MPAM Triage page")
