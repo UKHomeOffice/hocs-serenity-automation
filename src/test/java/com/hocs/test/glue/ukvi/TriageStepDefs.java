@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.MPAMMultipleContributions;
@@ -22,6 +23,8 @@ public class TriageStepDefs extends BasePage {
     AccordionMPAM accordionMPAM;
 
     MPAMMultipleContributions MPAMMultipleContributions;
+
+    SummaryTab summaryTab;
 
     @And("I send the Triage case to {string}")
     public void sendTheTriageCaseTo(String stage) {
@@ -46,14 +49,37 @@ public class TriageStepDefs extends BasePage {
         waitForDashboard();
     }
 
-    @And("I select an enquiry subject and continue")
-    public void iSelectAnEnquirySubjectAndContinue() {
-        triage.selectEnquirySubject("Other");
+    @And("I select the {string} enquiry subject and continue")
+    public void iSelectAnEnquirySubjectAndContinue(String enquirySubject) {
+        triage.selectEnquirySubject(enquirySubject);
     }
 
-    @And("I select an enquiry reason and continue")
-    public void iSelectAnEnquiryReasonAndContinue() {
-        triage.selectEnquiryReason("DNA");
+    @And("I select the {string} enquiry reason and continue")
+    public void iSelectAnEnquiryReasonAndContinue(String enquiryReason) {
+        triage.selectEnquiryReason(enquiryReason);
+    }
+
+    @And("I select the {string} compliance measure")
+    public void iSelectTheComplianceMeasure(String complianceMeasure) {
+        triage.selectComplianceMeasure(complianceMeasure);
+    }
+
+    @And("I enter details of the compliance measures and continue")
+    public void iEnterDetailsOfTheComplianceMeasures() {
+        triage.enterComplianceMeasureDetails();
+        clickTheButton("Continue");
+    }
+
+    @Then("the summary tab should display {string} as a compliance measure")
+    public void theSummaryTabShouldDisplayAsAComplianceMeasure(String complianceMeasure) {
+        summaryTab.selectSummaryTab();
+        summaryTab.assertComplianceMeasures(complianceMeasure);
+    }
+
+    @Then("the summary tab should display the details entered for EU National Compliance Measures")
+    public void theSummaryTabShouldDisplayTheDetailsEnteredForEUNationalComplianceMeasures() {
+        summaryTab.selectSummaryTab();
+        summaryTab.assertComplianceMeasureDetails();
     }
 
     @Then("the set enquiry subject and reason should be displayed on the MPAM Triage page")
