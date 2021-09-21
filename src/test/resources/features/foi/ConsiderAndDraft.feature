@@ -9,7 +9,7 @@ Feature: Consider and Draft
   Scenario: User is able to complete the Consider and Draft stage
     And I select that the case "Doesn't" require a contribution
     And I add a "Draft response" type document to the case
-    And I click the "Continue" button
+    And I click the "Complete Draft" button
     Then the FOI case should be moved to the "Approval" stage
 
   #HOCS-2809, HOCS-2930

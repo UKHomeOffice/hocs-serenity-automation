@@ -13,8 +13,8 @@ Feature: FOI Search
     Examples:
     | infoType                | infoValue                 |
     | Case Type               | FOI                       |
-    | Received on or After    | 01/08/2021                |
-    | Received on or Before   | 01/08/2021                |
+    | Received on or After    | 01/09/2021                |
+    | Received on or Before   | 01/09/2021                |
     | Correspondent (non-MP)  | Test McTester             |
 #    | Topic                   | Animal alternatives (3Rs) | Topic search criteria doesn't work properly
 #    | Active Cases Only       | Yes                       | In FOI no cases are technically 'closed' so active search isn't really necessary

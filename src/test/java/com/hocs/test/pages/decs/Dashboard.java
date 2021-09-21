@@ -219,7 +219,7 @@ public class Dashboard extends BasePage {
         } else if (!currentCaseIsLoaded()) {
             getCurrentCase();
         }
-        if (unallocatedCaseView.allocateToMeLink.isCurrentlyVisible()) {
+        if (unallocatedCaseView.caseDetailsAccordionIsVisible()) {
             claimCurrentCase();
         }
     }

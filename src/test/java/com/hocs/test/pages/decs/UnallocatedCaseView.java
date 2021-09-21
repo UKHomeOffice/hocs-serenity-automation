@@ -2,6 +2,7 @@ package com.hocs.test.pages.decs;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,12 @@ public class UnallocatedCaseView extends BasePage {
 
     @FindBy(id = "user-id")
     public WebElementFacade allocateDropdown;
+
+    @FindBy(xpath = "//h2[contains(@class,'govuk-heading')][text()='Case Details']")
+    public WebElementFacade csCaseDetailsAccordion;
+
+    @FindBy(xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
+    public WebElementFacade wcsCaseDetailsAccordion;
 
     // Basic methods
 
@@ -50,5 +57,13 @@ public class UnallocatedCaseView extends BasePage {
         safeClickOn(allocateDropdown);
         allocateDropdown.selectByVisibleText(allocationUser);
         safeClickOn(allocateButton);
+    }
+
+    public boolean caseDetailsAccordionIsVisible() {
+        if (sessionVariableCalled("caseType").equals("WCS")) {
+            return wcsCaseDetailsAccordion.isCurrentlyVisible();
+        } else {
+            return csCaseDetailsAccordion.isCurrentlyVisible();
+        }
     }
 }
