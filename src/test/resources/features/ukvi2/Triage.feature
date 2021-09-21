@@ -17,24 +17,43 @@ Feature: Triage
     When I click the "Set enquiry subject/reason" link
     Then the "Enquiry subject" page should be displayed
     And the header tags in the HTML of the page are properly structured
-    And the accessibility statement link should be visibleu
+    And the accessibility statement link should be visible
 
   @Navigation
   Scenario: User should be on the Enquiry Reason Page
     When I click the "Set enquiry subject/reason" link
-    And I select an enquiry subject and continue
+    And I select the "Other" enquiry subject and continue
     Then the "Enquiry reason" page should be displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
+  @Navigation
+  Scenario: User should be on the EU National Compliance Measures Page
+    When I click the "Set enquiry subject/reason" link
+    And I select the "Person Specific" enquiry subject and continue
+    And I select the "EU National Compliance Measures" enquiry reason and continue
+    Then the "EU National Compliance Measures" page should be displayed
+
   @UKVIRegression2
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     When I click the "Set enquiry subject/reason" link
-    And I select an enquiry subject and continue
-    And I select an enquiry reason and continue
+    And I select the "Other" enquiry subject and continue
+    And I select the "DNA" enquiry reason and continue
     Then the set enquiry subject and reason should be displayed on the MPAM Triage page
 
-
+  @UKVIRegression2
+  Scenario: User can select multiple compliance measures for a case with EU Nationals Compliance Measures as the enquiry reason
+    When I click the "Set enquiry subject/reason" link
+    And I select the "Person Specific" enquiry subject and continue
+    And I select the "EU National Compliance Measures" enquiry reason and continue
+    And I select the "Education" compliance measure
+    And I select the "Other" compliance measure
+    And I enter details of the compliance measures
+    And I click the "Continue" button
+    Then the summary tab should display "Education" as a compliance measure
+    And the summary tab should display "Other" as a compliance measure
+    And the summary tab should display the details entered for EU National Compliance Measures
+    
   Scenario: User views the Business Units for different Business Areas
     And I select to change the Business Area
     And I record the current options for Business Unit

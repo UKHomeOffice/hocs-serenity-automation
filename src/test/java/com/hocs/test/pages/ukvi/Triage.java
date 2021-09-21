@@ -1,5 +1,6 @@
 package com.hocs.test.pages.ukvi;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -7,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.SummaryTab;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -16,6 +18,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class Triage extends BasePage {
 
     RecordCaseData recordCaseData;
+
+    SummaryTab summaryTab;
 
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
@@ -97,6 +101,15 @@ public class Triage extends BasePage {
         safeClickOn(continueButton);
     }
 
+    public void selectComplianceMeasure(String complianceMeasure) {
+        checkSpecificCheckbox(complianceMeasure);
+    }
+
+    public void enterComplianceMeasureDetails() {
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Compliance Measure Details", "Compliance measures other details");
+        setSessionVariable("complianceMeasureDetails").to("Test Compliance Measure Details");
+    }
+
     public void setBusinessUnit() {
         businessUnitDropdown.waitUntilEnabled();
         businessUnitDropdown.selectByIndex(1);
@@ -132,6 +145,17 @@ public class Triage extends BasePage {
 
     public void assertSetEnquiryReason(String enquiryReason) {
         assertThat(setEnquiryReason.getText(), containsString(enquiryReason));
+    }
+
+    public void assertComplianceMeasures(String inputComplianceMeasures) {
+        String displayedComplianceMeasures = summaryTab.getSummaryTabValueForGivenHeader("Compliance Measures");
+        assertThat(displayedComplianceMeasures.toUpperCase().contains(inputComplianceMeasures.toUpperCase()), is(true));
+    }
+
+    public void assertComplianceMeasureDetails() {
+        String inputComplianceMeasureDetails = sessionVariableCalled("complianceMeasureDetails");
+        String displayedComplianceMeasureDetails = summaryTab.getSummaryTabValueForGivenHeader("Compliance measures other details");
+        assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
     }
 
     public void recordCurrentBusinessUnitOptions() {
