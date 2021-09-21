@@ -336,6 +336,8 @@ public class CreateCaseStepDefs extends BasePage {
                         dataInput.completeDataInputStageWithMPCorrespondent(infoValue);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
                         createCase.createCSCaseOfType("MIN");
                         goToDashboard();
                         dashboard.getAndClaimCurrentCase();

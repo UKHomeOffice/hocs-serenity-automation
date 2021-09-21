@@ -181,12 +181,12 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                typeIntoDateFields(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 safeClickOn(searchMINCheckbox);
-                typeIntoDateFields(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
@@ -197,16 +197,23 @@ public class Search extends BasePage {
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
-                applicantOrConstituentFullNameTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent (non-MP)");
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
+            case "CORRESPONDENT POSTCODE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Postcode");
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Email Address");
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
             case "TOPIC":
-                safeClickOn(searchTopicTextbox);
-                searchTopicTextbox.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Topic");
                 setSessionVariable("searchTopic").to(value);
                 break;
             case "SIGN OFF TEAM":
-                searchSignOffTeamDropdown.selectByVisibleText(value);
+                selectSpecificOptionFromDropdownWithHeading(value, "Sign-off team");
                 setSessionVariable("searchSignOffTeam").to(value);
                 break;
             case "ACTIVE CASES ONLY":
@@ -461,6 +468,16 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResult);
                 safeClickOn(peopleTab.peopleTab);
                 peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
+                break;
+            case "CORRESPONDENT POSTCODE":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertCorrespondentPostcode(sessionVariableCalled("searchCorrespondentPostcode"));
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                safeClickOn(randomSearchResult);
+                safeClickOn(peopleTab.peopleTab);
+                peopleTab.assertCorrespondentEmailAddress(sessionVariableCalled("searchCorrespondentEmailAddress"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 safeClickOn(randomSearchResult);

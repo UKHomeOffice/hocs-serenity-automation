@@ -24,11 +24,14 @@ public class PeopleTab extends BasePage {
     @FindBy(xpath = "//a[text()='correspondent']")
     public WebElementFacade addACorrespondentHypertext;
 
-    @FindBy(xpath = "//h2[text()='Member (primary)']/following-sibling::table[1]//th[text()='Name']/following-sibling::td")
+    @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Name']/following-sibling::td")
     public WebElementFacade primaryCorrespondentName;
 
-    @FindBy(xpath = "//h2[text()='Member (primary)']/following-sibling::table[1]//th[text()='Address']/following-sibling::td")
+    @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Address']/following-sibling::td")
     public WebElementFacade primaryCorrespondentAddress;
+
+    @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Email address']/following-sibling::td")
+    public WebElementFacade primaryCorrespondentEmailAddress;
 
     @FindBy(xpath = "//input[@value='Remove']")
     public WebElementFacade removeButton;
@@ -176,5 +179,13 @@ public class PeopleTab extends BasePage {
         }
         assertThat(correspondentPresent, is(true));
 
+    }
+
+    public void assertCorrespondentEmailAddress(String emailAddress) {
+        assertThat(primaryCorrespondentEmailAddress.getText().equalsIgnoreCase(emailAddress), is(true));
+    }
+
+    public void assertCorrespondentPostcode(String postcode) {
+        primaryCorrespondentAddress.shouldContainText(postcode);
     }
 }
