@@ -114,7 +114,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
 
-
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -181,24 +180,28 @@ public class Dashboard extends BasePage {
 
     // Multi Step Methods
 
-    public void getCurrentCase() {
+    public void loadCase(String caseReference) {
+        caseReferenceSearchBar.sendKeys(caseReference);
         try {
-            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
-        } catch (NoSuchElementException e) {
-            goToDashboard();
-            caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
-        }
-        String currentCase = getCurrentCaseReference().toString();
-        try {
-            caseReferenceSearchBar.sendKeys(currentCase);
-            assertThat(caseReferenceSearchBar.getValue().equals(currentCase), is(true));
-            caseReferenceSearchBar.sendKeys(Keys.RETURN);
+            assertThat(caseReferenceSearchBar.getValue().equals(caseReference), is(true));
         } catch (AssertionError a) {
             caseReferenceSearchBar.clear();
-            caseReferenceSearchBar.sendKeys(currentCase);
-            caseReferenceSearchBar.sendKeys(Keys.RETURN);
+            caseReferenceSearchBar.sendKeys(caseReference);
         }
+        waitForCaseToLoad();
+    }
+
+    public void waitForCaseToLoad() {
         documentsTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
+    public void getCurrentCase() {
+        try {
+            waitForDashboard();
+        } catch (NoSuchElementException e) {
+            goToDashboard();
+        }
+        loadCase(getCurrentCaseReference());
     }
 
     public void claimCurrentCase() {
