@@ -206,7 +206,7 @@ public class Workstacks extends BasePage {
     }
 
     public void clickCheckboxRelevantToCaseReference() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
+        waitForWorkstackToLoad();
         String caseReference =
                 getCurrentCaseReference();
         WebDriver webDriver = getDriver();
@@ -773,6 +773,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertExpectedColumnsPresent(String workstack) {
+        waitForWorkstackToLoad();
         visibleColumns = getTableHeadersContent();
         List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {

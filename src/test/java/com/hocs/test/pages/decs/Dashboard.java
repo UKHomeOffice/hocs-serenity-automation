@@ -204,7 +204,7 @@ public class Dashboard extends BasePage {
     public void claimCurrentCase() {
         int attempts = 0;
         while (attempts < 3 && !unallocatedCaseView.caseCanBeAllocated()) {
-            waitABit(2000);
+            waitABit(5000);
             setCaseReferenceFromUnassignedCase();
             goToDashboard();
             getCurrentCase();
