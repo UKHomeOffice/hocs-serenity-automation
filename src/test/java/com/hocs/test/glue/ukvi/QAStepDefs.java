@@ -30,6 +30,9 @@ public class QAStepDefs extends BasePage {
             case "ESCALATE TO WORKFLOW MANAGER":
                 qa.selectEscalateQACaseToWorkflowManager();
                 break;
+            case "REQUEST SECRETARIAT CLEARANCE":
+                qa.selectToRequestSecretariatClearance();
+                break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
@@ -60,6 +63,11 @@ public class QAStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I add a Clearance Request to the case at QA")
+    public void iAddAClearanceRequestToTheCaseAtQA() {
+        qa.addAClearanceRequest();
     }
 
     @And("I select the {string} action at the QA (On Hold) stage")

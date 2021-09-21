@@ -137,6 +137,13 @@ Feature: QA
     | Put On Hold                   | QA-On Hold    |
     | Escalate To Workflow Manager  | QA-Escalated  |
 
+  Scenario: User can request Secretariat clearance for the case at QA
+    When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I load and claim the current case
+    And I select the "Request Secretariat clearance" action at QA
+    And I add a Clearance Request to the case at QA
+    Then the case should be moved to the "QA (Secretariat Clearance Requested)" stage
+
   @Validation
   Scenario Outline: User tests validation at the QA stage
     When I create a "MPAM" case and move it to the "QA" stage

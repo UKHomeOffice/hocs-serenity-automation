@@ -5,10 +5,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class QA extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     //QA Elements
     @FindBy(xpath = "//label[text()='Approve']")
@@ -81,6 +84,22 @@ public class QA extends BasePage {
         safeClickOn(rejectQAToTriageRadioButton);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionStage").to("QA");
+    }
+
+    public void selectToRequestSecretariatClearance() {
+        selectSpecificRadioButtonFromGroupWithHeading("Request Secretariat Clearance", "Actions");
+        safeClickOn(confirmButton);
+    }
+
+    public void addAClearanceRequest() {
+        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        setSessionVariable("clearanceRequestBusinessArea").to(businessArea);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Clearance Request Date");
+        setSessionVariable("clearanceRequestDate").to(getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(5), "Clearance Due Date");
+        setSessionVariable("clearanceDueDate").to(getDatePlusMinusNDaysAgo(5));
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Clearance Request Details", "What are you requesting");
+        clickTheButton("Add");
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
