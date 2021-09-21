@@ -188,6 +188,7 @@ public class Dashboard extends BasePage {
             caseReferenceSearchBar.clear();
             caseReferenceSearchBar.sendKeys(caseReference);
         }
+        hitEnterCaseReferenceSearchBar();
         waitForCaseToLoad();
     }
 
