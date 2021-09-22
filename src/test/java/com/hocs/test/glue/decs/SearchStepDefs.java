@@ -157,7 +157,7 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("the created case should be visible in the search results")
+    @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
         workstacks.filterByCurrentCaseReference();
         waitABit(1000);
@@ -167,7 +167,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                searchForMPAMCaseWith(sessionVariableCalled("infoType"), sessionVariableCalled("infoValue"));
+                searchForMPAMCaseWith(getCurrentCaseReference(), "Case Reference");
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);

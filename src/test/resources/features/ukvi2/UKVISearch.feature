@@ -27,7 +27,7 @@ Feature: UKVI Search
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I navigate to the "Search" page
     And I search for a case by it's case reference
-    Then the created case should be visible in the search results
+    Then the created case should be the only case visible in the search results
 
   @UKVIRegression2
   Scenario: User searches for MPAM cases using a substring of a case reference
