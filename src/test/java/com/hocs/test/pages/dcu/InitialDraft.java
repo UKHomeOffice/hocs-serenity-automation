@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.RecordCaseData;
 import config.User;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -14,6 +15,8 @@ import org.openqa.selenium.By;
 public class InitialDraft extends BasePage {
 
     Documents documents;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='No']")
     public WebElementFacade answeredByMyTeamNoRadioButton;
@@ -52,6 +55,21 @@ public class InitialDraft extends BasePage {
     public WebElementFacade primaryDraftDocumentName;
 
     //Basic Methods
+
+    public void submitCaseCanBeAnsweredByTeam() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Can this correspondence be answered by your team?");
+        clickTheButton("Continue");
+    }
+
+    public void submitCaseCannotBeAnsweredByTeam() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Can this correspondence be answered by your team?");
+        clickTheButton("Continue");
+    }
+
+    public void submitReasonTeamCannotAnswer() {
+        recordCaseData.enterTextIntoTextAreaWithHeading("Why should this not be answered by your team?");
+        clickTheButton("Finish");
+    }
 
     public void enterTextInSummariseCallTextbox() {
         summariseCallTextBox.sendKeys(generateRandomString());
