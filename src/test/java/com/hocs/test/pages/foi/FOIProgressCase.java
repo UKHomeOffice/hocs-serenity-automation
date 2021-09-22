@@ -68,5 +68,6 @@ public class FOIProgressCase extends BasePage {
         clickTheButton("Continue");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
         clickTheButton("Complete Dispatch");
+        waitABit(500);
     }
 }

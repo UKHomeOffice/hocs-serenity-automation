@@ -1,7 +1,5 @@
 package com.hocs.test.glue.foi;
 
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.foi.FOIDispatch;
 import io.cucumber.java.en.And;
@@ -28,5 +26,20 @@ public class FOIDispatchStepDefs extends BasePage {
     @And("I select {string} as outcome of the case")
     public void iSelectAsOutcomeOfTheCase(String outcome) {
         foiDispatch.selectOutcomeOfTheCase(outcome);
+    }
+
+    @And("I select random (?:Exemption|Exception)$")
+    public void iSelectRandomExemption() {
+        foiDispatch.selectRandomExemptionOrException();
+    }
+
+    @And("I select random Exception and Exemption")
+    public void iSelectRandomExceptionAndExemption() {
+        foiDispatch.selectRandomExceptionAndExemption();
+    }
+
+    @And("I select non dispatch option as outcome of the case")
+    public void iSelectNonDispatchOptionAsOutcomeOfTheCase() {
+        foiDispatch.selectNonDispatchOutcomeOfTheCase();
     }
 }
