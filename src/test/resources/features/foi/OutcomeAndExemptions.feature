@@ -1,5 +1,5 @@
 @FOIOutcomesAndExemptions @FOI @FOIWorkflow
-Feature: FOI Dispatch
+Feature: FOIOutcomesAndExemptions
 
   Background:
     Given I am logged into "CS" as user "FOI_USER"
