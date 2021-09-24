@@ -111,14 +111,47 @@ Feature: COMP End To End
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     Then the case should be moved to the "Stage 2 Registration" stage
 
-  Scenario: User moves a COMP case to the Stage 2 Service Triage stage
-    When I create a "COMP2" case and move it to the "Stage 2 Service Triage" stage
-    Then the case should be moved to the "Stage 2 Service Triage" stage
+  Scenario Outline: User moves a COMP case to the Stage 2 Triage stage
+    When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Triage" stage
+    Then the case should be moved to the "Stage 2 <complaintType> Triage" stage
+    Examples:
+    | complaintType |
+    | Service       |
+    | Ex-Gratia     |
+    | MM            |
 
-  Scenario: User moves a COMP case to the Stage 2 Ex-Gratia Triage stage
-    When I create a "COMP2" case and move it to the "Stage 2 Ex-Gratia Triage" stage
-    Then the case should be moved to the "Stage 2 Ex-Gratia Triage" stage
+  Scenario Outline: User moves a COMP case to the Stage 2 Draft stage
+    When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Draft" stage
+    Then the case should be moved to the "Stage 2 <complaintType> Draft" stage
+    Examples:
+      | complaintType      |
+      | Service            |
+      | Ex-Gratia Response |
+      | MM Response        |
 
-  Scenario: User moves a COMP case to the Stage 2 Minor Misconduct Triage stage
-    When I create a "COMP2" case and move it to the "Stage 2 Minor Misconduct Triage" stage
-    Then the case should be moved to the "Stage 2 Minor Misconduct Triage" stage
+  Scenario Outline: User moves a COMP case to the Stage 2 QA stage
+    When I create a "COMP2" case and move it to the "Stage 2 <complaintType> QA" stage
+    Then the case should be moved to the "Stage 2 <complaintType> QA" stage
+    Examples:
+      | complaintType  |
+      | Service        |
+      | Ex-Gratia      |
+      | MM             |
+
+  Scenario Outline: User moves a COMP case to the Stage 2 Send stage
+    When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Send" stage
+    Then the case should be moved to the "Stage 2 <complaintType> Send" stage
+    Examples:
+      | complaintType  |
+      | Service        |
+      | Ex-Gratia      |
+      | MM             |
+
+  Scenario Outline: User moves a COMP case to the Stage 2 Complaint Closed stage
+    When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed (From Stage 2 <complaintType> Send)" stage
+    Then the case should be moved to the "Stage 2 Complaint Closed" stage
+    Examples:
+      | complaintType  |
+      | Service        |
+      | Ex-Gratia      |
+      | MM             |

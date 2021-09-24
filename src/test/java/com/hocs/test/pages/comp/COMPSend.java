@@ -14,6 +14,9 @@ public class COMPSend extends BasePage {
 
     public void submitASelectedOutcome() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
-        clickTheButton("Complete");
+    }
+
+    public void selectResponseChannel() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
     }
 }
