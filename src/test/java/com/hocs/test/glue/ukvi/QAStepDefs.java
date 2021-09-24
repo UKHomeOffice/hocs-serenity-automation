@@ -4,12 +4,15 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.ukvi.QA;
 import io.cucumber.java.en.And;
 
 public class QAStepDefs extends BasePage {
 
     QA qa;
+
+    Dashboard dashboard;
 
     @And("I select the {string} action at QA")
     public void iSelectOptionAtQA(String action) {
@@ -131,6 +134,6 @@ public class QAStepDefs extends BasePage {
     @And("I submit a reason to escalate the case at QA stage")
     public void iSubmitAReasonToEscalateTheCaseAtQAStage() {
         qa.submitReasonToEscalateCase("test reason to escalate case");
-        waitForDashboard();
+        dashboard.waitForDashboard();
     }
 }

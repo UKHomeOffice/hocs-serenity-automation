@@ -4,12 +4,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 
-public class UnallocatedCaseView extends BasePage {
+public class CaseView extends BasePage {
 
     @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeLink;
@@ -25,6 +29,9 @@ public class UnallocatedCaseView extends BasePage {
 
     @FindBy(xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
     public WebElementFacade wcsCaseDetailsAccordion;
+
+    @FindBy(xpath = "//div[@class='tabs']")
+    public WebElementFacade tabs;
 
     // Basic methods
 
@@ -65,5 +72,32 @@ public class UnallocatedCaseView extends BasePage {
         } else {
             return csCaseDetailsAccordion.isCurrentlyVisible();
         }
+    }
+
+    public void waitForCaseToLoad() {
+        tabs.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
+    public boolean currentCaseIsLoaded() {
+        if (!tabs.isCurrentlyVisible()) {
+            return false;
+        }
+        if (header1.isCurrentlyVisible()) {
+            try {
+                if (header1.getText().equals(getCurrentCaseReference())) {
+                    return true;
+                }
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
+                return false;
+            }
+        }
+        if (headerCaption1.isCurrentlyVisible()) {
+            try {
+                return headerCaption1.getText().equals(getCurrentCaseReference());
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
+                return false;
+            }
+        }
+        return false;
     }
 }

@@ -8,7 +8,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import config.User;
@@ -26,7 +26,7 @@ public class InitialDraftStepDefs extends BasePage {
 
     Workstacks workstacks;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     SummaryTab summaryTab;
 
@@ -34,7 +34,7 @@ public class InitialDraftStepDefs extends BasePage {
     public void initialDraftFullFlowPerCaseType() {
         if (!initialDraft.answeredByMyTeamYesRadioButton.isVisible()) {
             dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
+            safeClickOn(caseView.allocateToMeLink);
         }
         String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {

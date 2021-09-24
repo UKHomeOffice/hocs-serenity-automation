@@ -9,7 +9,7 @@ public class RecordCaseData extends BasePage{
 
     static HashMap<String, String> dataRecords = new HashMap<>();
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     public static void resetDataRecords() {
         dataRecords = new HashMap<>();
@@ -97,7 +97,7 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
-            List<String> visibleDisplayValues = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
+            List<String> visibleDisplayValues = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
             String recordedValue = entry.getValue();
             String expectedDisplayValue = recordedValue.replace("\n", " ");
             boolean expectedValueIsDisplayed = false;

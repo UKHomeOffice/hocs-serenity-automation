@@ -2,7 +2,7 @@ package com.hocs.test.glue.dcu;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -13,13 +13,13 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     MinisterialSignOff ministerialSignOff;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @When("I complete the Ministerial Sign Off stage")
     public void completeTheMinisterSignOffStagePerCaseType() {
         if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
             dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
+            safeClickOn(caseView.allocateToMeLink);
         }
         safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
         safeClickOn(continueButton);

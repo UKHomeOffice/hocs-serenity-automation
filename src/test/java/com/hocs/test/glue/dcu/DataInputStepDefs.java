@@ -9,7 +9,7 @@ import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import io.cucumber.java.en.And;
@@ -24,7 +24,7 @@ public class DataInputStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     AccordionDCU accordionDCU;
 
@@ -39,7 +39,7 @@ public class DataInputStepDefs extends BasePage {
     public void completeDataInputPerCaseType() {
         if (!dataInput.continueButton.isVisible()) {
             dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
+            safeClickOn(caseView.allocateToMeLink);
         }
         dataInput.moveCaseFromDataInputToMarkup();
     }
