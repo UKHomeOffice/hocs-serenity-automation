@@ -2,13 +2,17 @@ package com.hocs.test.pages.comp;
 
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.Search;
 
 public class COMPProgressCase extends BasePage {
 
     AddCorrespondent addCorrespondent;
 
     Documents documents;
+
+    Dashboard dashboard;
 
     Registration registration;
 
@@ -21,6 +25,8 @@ public class COMPProgressCase extends BasePage {
     COMPSend compSend;
 
     ComplaintClosed complaintClosed;
+
+    Search search;
 
     public void moveCaseFromRegistrationToServiceTriage() {
         addCorrespondent.addAPublicCorrespondentOfType("Complainant");
@@ -222,5 +228,24 @@ public class COMPProgressCase extends BasePage {
         complaintClosed.submitReasonForCaseCompletion();
         complaintClosed.selectActionAtCompleteConfirmation("Yes");
         System.out.println("Case moved from Complaint Closed to Closed");
+    }
+
+    public void escalateCOMPCaseToStage2() {
+        dashboard.selectSearchLinkFromMenuBar();
+        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" +getCurrentYear());
+        search.clickTheButton("Search");
+        search.clickEscalateCOMPCaseToCOMP2();
+    }
+
+    public void moveCaseFromStage2RegistrationToStage2Triage() {
+        clickTheButton("Continue");
+        waitABit(250);
+        clickTheButton("Continue");
+        waitABit(250);
+        clickTheButton("Continue");
+        waitABit(250);
+        clickTheButton("Continue");
+        waitABit(250);
+        clickTheButton("Finish");
     }
 }

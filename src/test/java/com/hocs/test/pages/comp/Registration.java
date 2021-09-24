@@ -184,8 +184,8 @@ public class Registration extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
     }
 
-    public void enterAHomeOfficeReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Home Office Reference");
+    public void enterAHomeOfficeReference(String HOReference) {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
     }
 
     public void enterAPortReference() {
@@ -197,7 +197,7 @@ public class Registration extends BasePage {
         selectAGender();
         selectANationality();
         enterACompanyName();
-        enterAHomeOfficeReference();
+        enterAHomeOfficeReference(getCurrentMonth() +"/" +getCurrentYear());
         enterAPortReference();
         clickTheButton("Continue");
     }

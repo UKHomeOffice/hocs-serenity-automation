@@ -143,6 +143,9 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRequestCheckbox;
 
+    @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
+    public WebElementFacade escalateCaseHypertext;
+
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -390,6 +393,12 @@ public class Search extends BasePage {
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
         caseReferenceSearchBox.sendKeys(randomCaseRefString);
         safeClickOn(searchButton);
+    }
+
+    public void clickEscalateCOMPCaseToCOMP2() {
+        if (escalateCaseHypertext.isVisible()) {
+            safeClickOn(escalateCaseHypertext);
+        }
     }
 
     //Assertions

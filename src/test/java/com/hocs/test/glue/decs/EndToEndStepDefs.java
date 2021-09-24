@@ -10,6 +10,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -67,6 +68,8 @@ public class EndToEndStepDefs extends BasePage {
     COMPProgressCase compProgressCase;
 
     FOIProgressCase foiProgressCase;
+
+    Search search;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -142,6 +145,7 @@ public class EndToEndStepDefs extends BasePage {
                 waitForDashboard();
                 break;
             case "COMP":
+            case "COMP2":
                 dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
@@ -602,6 +606,40 @@ public class EndToEndStepDefs extends BasePage {
                     case "MINOR MISCONDUCT CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM MINOR MISCONDUCT SEND)");
                         iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "COMP2":
+                switch (stage.toUpperCase()) {
+                    case "STAGE 2 REGISTRATION":
+                        compProgressCase.escalateCOMPCaseToStage2();
+                        if (search.zeroSearchResultsReturned()) {
+                            iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
+                            goToDashboard();
+                            compProgressCase.escalateCOMPCaseToStage2();
+                        }
+                        createCase.createCOMP2Case();
+                        goToDashboard();
+                        break;
+                    case "STAGE 2 SERVICE TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO SERVICE TRIAGE)");
+                        break;
+                    case "STAGE 2 EX-GRATIA TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO EX-GRATIA TRIAGE)");
+                        break;
+                    case "STAGE 2 MINOR MISCONDUCT TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO MINOR MISCONDUCT TRIAGE)");
+                        break;
+                    case "STAGE 2 SERVICE DRAFT":
+                    case "STAGE 2 EX-GRATIA RESPONSE DRAFT":
+                    case "STAGE 2 MINOR MISCONDUCT RESPONSE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 TRIAGE");
+                        iCompleteTheStage("STAGE 2 TRIAGE (TO STAGE 2 DRAFT)");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());

@@ -174,6 +174,13 @@ public class CreateCase extends BasePage {
         createCaseSuccessPage.storeCaseReference();
     }
 
+    public void createCOMP2Case() {
+        documents.uploadDocumentOfType("docx");
+        storeCorrespondenceReceivedDate();
+        clickCreateCaseButton();
+        createCaseSuccessPage.storeCaseReference();
+    }
+
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
         if (!nextButton.isVisible()) {

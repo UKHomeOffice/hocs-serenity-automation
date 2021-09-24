@@ -449,7 +449,7 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterComplainantDOB(infoValue);
                         registration.selectAGender();
                         registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference();
+                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
                         registration.selectComplaintType("Service");
@@ -472,7 +472,7 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
                         registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference();
+                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
                         break;

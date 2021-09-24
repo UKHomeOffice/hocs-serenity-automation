@@ -106,3 +106,19 @@ Feature: COMP End To End
   Scenario: User can complete and close a Minor Misconduct COMP case
     When I create a "COMP" case and move it to "Minor Misconduct Case Closed"
     Then the case should be closed
+
+  Scenario: User moves a COMP case to the Stage 2 Registration stage
+    When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
+    Then the case should be moved to the "Stage 2 Registration" stage
+
+  Scenario: User moves a COMP case to the Stage 2 Service Triage stage
+    When I create a "COMP2" case and move it to the "Stage 2 Service Triage" stage
+    Then the case should be moved to the "Stage 2 Service Triage" stage
+
+  Scenario: User moves a COMP case to the Stage 2 Ex-Gratia Triage stage
+    When I create a "COMP2" case and move it to the "Stage 2 Ex-Gratia Triage" stage
+    Then the case should be moved to the "Stage 2 Ex-Gratia Triage" stage
+
+  Scenario: User moves a COMP case to the Stage 2 Minor Misconduct Triage stage
+    When I create a "COMP2" case and move it to the "Stage 2 Minor Misconduct Triage" stage
+    Then the case should be moved to the "Stage 2 Minor Misconduct Triage" stage
