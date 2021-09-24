@@ -11,7 +11,7 @@ Feature: FOIOutcomesAndExemptions
     And I select non dispatch option as outcome of the case
     And I click the "Continue" button
     Then the "Which exemptions were applied?" page should be displayed
-    And I select random Exemption
+    And I select an Exemption
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
@@ -23,7 +23,7 @@ Feature: FOIOutcomesAndExemptions
     And I select non dispatch option as outcome of the case
     And I click the "Continue" button
     Then the "Which exceptions were applied?" page should be displayed
-    And I select random Exception
+    And I select an Exception
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
@@ -35,7 +35,7 @@ Feature: FOIOutcomesAndExemptions
     And I select non dispatch option as outcome of the case
     And I click the "Continue" button
     Then the "Which exemptions and exceptions were applied?" page should be displayed
-    And I select random Exception and Exemption
+    And I select an Exception and an Exemption
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button

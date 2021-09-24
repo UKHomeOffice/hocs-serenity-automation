@@ -538,6 +538,15 @@ public class BasePage extends PageObject {
         return checkboxToCheck.getText();
     }
 
+    public String checkRandomCheckboxUnderHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        List<WebElementFacade> checkboxElements =
+                findAll("//h2[contains(text(), " + sanitiseXpathAttributeString(headingText) + ")]/parent::div//label");
+        WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxElements);
+        safeClickOn(checkboxToCheck);
+        return checkboxToCheck.getText();
+    }
+
     public void checkSpecificCheckbox(String checkboxLabelText) {
         WebElementFacade checkbox =
                 findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");

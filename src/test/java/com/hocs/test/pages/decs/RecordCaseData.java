@@ -14,6 +14,8 @@ public class RecordCaseData extends BasePage{
         dataRecords = new HashMap<>();
     }
 
+    //Radio buttons
+
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         String radioButtonText = super.selectRandomRadioButtonFromGroupWithHeading(headingText);
         addHeadingAndValueRecord(headingText, radioButtonText);
@@ -77,6 +79,12 @@ public class RecordCaseData extends BasePage{
 
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
+        addValueRecord(checkboxLabelText);
+        return checkboxLabelText;
+    }
+
+    public String checkRandomCheckboxUnderHeading(String headingText) {
+        String checkboxLabelText = super.checkRandomCheckboxUnderHeading(headingText);
         addValueRecord(checkboxLabelText);
         return checkboxLabelText;
     }

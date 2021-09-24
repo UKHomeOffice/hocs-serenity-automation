@@ -31,18 +31,12 @@ public class FOIDispatch extends BasePage {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading( outcome,"What was the outcome of this case?");
     }
 
-    public void selectRandomExemptionOrException() {
-        List<WebElementFacade> exemptionsList =
-                findAll("//div[@class='govuk-checkboxes__item']");
-        recordCaseData.checkRandomCheckboxFromList(exemptionsList);
+    public void selectRandomExemption() {
+        recordCaseData.checkRandomCheckboxUnderHeading("Select Exemptions");
     }
 
-    //To-DO
-    public void selectRandomExceptionAndExemption() {
-        List<WebElementFacade> exemptionsList =
-                findAll("//div[@class='govuk-checkboxes__item']");
-        recordCaseData.checkRandomCheckboxFromList(exemptionsList);
-//        recordCaseData.checkRandomCheckboxFromList(exemptionsList);
+    public void selectRandomException() {
+        recordCaseData.checkRandomCheckboxUnderHeading("Select Exceptions");
     }
 
     public void selectNonDispatchOutcomeOfTheCase() {

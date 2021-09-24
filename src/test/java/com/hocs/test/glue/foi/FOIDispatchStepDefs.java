@@ -28,14 +28,20 @@ public class FOIDispatchStepDefs extends BasePage {
         foiDispatch.selectOutcomeOfTheCase(outcome);
     }
 
-    @And("I select random (?:Exemption|Exception)$")
-    public void iSelectRandomExemption() {
-        foiDispatch.selectRandomExemptionOrException();
+    @And("I select an Exception")
+    public void iSelectRandomException() {
+        foiDispatch.selectRandomException();
     }
 
-    @And("I select random Exception and Exemption")
+    @And("I select an Exemption")
+    public void iSelectRandomExemption() {
+        foiDispatch.selectRandomExemption();
+    }
+
+    @And("I select an Exception and an Exemption")
     public void iSelectRandomExceptionAndExemption() {
-        foiDispatch.selectRandomExceptionAndExemption();
+        foiDispatch.selectRandomException();
+        foiDispatch.selectRandomExemption();
     }
 
     @And("I select non dispatch option as outcome of the case")
