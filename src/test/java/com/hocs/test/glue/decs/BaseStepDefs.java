@@ -134,7 +134,8 @@ public class BaseStepDefs extends BasePage {
                 markup.clickAddTopicLink();
                 break;
             case "CASE REJECTION":
-                initialDraft.getToDraftCaseRejectionScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
+                clickTheButton("Continue");
                 break;
             case "HOW DO YOU INTEND TO RESPOND":
                 initialDraft.getToHowDoYouIntendToRespondScreenPrerequisites();

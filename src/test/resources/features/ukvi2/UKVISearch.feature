@@ -14,13 +14,13 @@ Feature: UKVI Search
     Then I check that the UKVI search results have the correct "<infoType>"
     Examples:
       | infoType                              | infoValue      |
-      | Reference Type                        | Ministerial    |
-      | Reference Type                        | Official       |
-      | Member of Parliament Name             | Boris Johnson  |
-      | Correspondent Reference Number        | TestRefNumber1 |
+#      | Reference Type                        | Ministerial    |
+#      | Reference Type                        | Official       |
+#      | Member of Parliament Name             | Boris Johnson  |
+#      | Correspondent Reference Number        | TestRefNumber1 |
       | Campaign                              | Small boats    |
-      | Ministerial Sign Off Team             | Home Secretary |
-      | Public Correspondent Name             | Sam McTester   |
+#      | Ministerial Sign Off Team             | Home Secretary |
+#      | Public Correspondent Name             | Sam McTester   |
 
 
   Scenario: User searches by case reference from the search page

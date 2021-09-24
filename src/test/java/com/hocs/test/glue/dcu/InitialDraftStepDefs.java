@@ -97,7 +97,7 @@ public class InitialDraftStepDefs extends BasePage {
     public void iTheCallDetails(String callDetails) {
         switch (callDetails.toUpperCase()) {
             case "COMPLETE":
-                initialDraft.enterTextInSummariseCallTextbox();
+                initialDraft.enterCallSummary();
                 safeClickOn(initialDraft.continueButton);
                 break;
             case "DO NOT COMPLETE":

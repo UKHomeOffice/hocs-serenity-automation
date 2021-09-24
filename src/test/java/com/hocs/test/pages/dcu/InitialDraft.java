@@ -56,23 +56,36 @@ public class InitialDraft extends BasePage {
 
     //Basic Methods
 
-    public void submitCaseCanBeAnsweredByTeam() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Can this correspondence be answered by your team?");
-        clickTheButton("Continue");
+    public void selectIfCaseCanBeAnsweredByTeam(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
-    public void submitCaseCannotBeAnsweredByTeam() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Can this correspondence be answered by your team?");
-        clickTheButton("Continue");
-    }
-
-    public void submitReasonTeamCannotAnswer() {
+    public void enterReasonTeamCannotAnswer() {
         recordCaseData.enterTextIntoTextAreaWithHeading("Why should this not be answered by your team?");
-        clickTheButton("Finish");
     }
 
-    public void enterTextInSummariseCallTextbox() {
-        summariseCallTextBox.sendKeys(generateRandomString());
+    public void selectSpecificResponseChannel(String responseChannel) {
+        recordCaseData.selectSpecificRadioButton(responseChannel);
+    }
+
+    public void enterCallSummary() {
+        recordCaseData.enterTextIntoTextAreaWithHeading("Please summarise your call.");
+    }
+
+    public void selectIfAnotherResponseTypeRequired(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
+    }
+
+    public void selectPrimaryDraftDocument(String documentTitle) {
+        recordCaseData.selectSpecificRadioButton(documentTitle);
+    }
+
+    public void selectQAOfflineDecision(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
+    }
+
+    public void selectWhoDidOfflineQA(String individual) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(individual, "Who has done the Offline QA for this case?");
     }
 
     // Multi Step Methods
