@@ -190,10 +190,10 @@ Feature: COMP Triage
     Then the "<contributionType>" contribution request should be marked as "<action>"
     Examples:
       | contributionType | action   |
-#      | Complainant      | Complete |
+      | Complainant      | Complete |
       | Business         | Cancel   |
-#      | Complainant      | Complete |
-#      | Business         | Cancel   |
+      | Complainant      | Complete |
+      | Business         | Cancel   |
 
 #    HOCS-3103
   @COMPRegression
