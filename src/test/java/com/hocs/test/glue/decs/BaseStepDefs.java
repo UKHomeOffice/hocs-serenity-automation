@@ -194,7 +194,6 @@ public class BaseStepDefs extends BasePage {
     public void iClickTheButton(String buttonLabel) {
         try {
             clickTheButton(buttonLabel);
-            waitABit(500);
         } catch (StaleElementReferenceException sE) {
             waitABit(500);
             clickTheButton(buttonLabel);
