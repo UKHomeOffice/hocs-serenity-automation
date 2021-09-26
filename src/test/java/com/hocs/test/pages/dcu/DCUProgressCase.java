@@ -2,6 +2,7 @@ package com.hocs.test.pages.dcu;
 
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Documents;
 
 public class DCUProgressCase extends BasePage {
 
@@ -10,6 +11,10 @@ public class DCUProgressCase extends BasePage {
     DataInput dataInput;
 
     Markup markup;
+
+    InitialDraft initialDraft;
+
+    Documents documents;
 
     public void moveCaseFromDataInputToMarkup() {
         dataInput.fillAllMandatoryCorrespondenceFields();
@@ -47,5 +52,19 @@ public class DCUProgressCase extends BasePage {
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
         safeClickOn(finishButton);
+    }
+
+    public void moveCaseFromInitialDraftToQaResponse() {
+        if (dtenCase()) {
+            initialDraft.dtenAcceptAndDraftALetter();
+        } else {
+            initialDraft.acceptAndDraftALetter();
+        }
+        documents.addADraftDocumentAtDraftStage();
+        waitABit(1000);
+        initialDraft.dontQAOffline();
+    }
+
+    public void moveCaseFromQAResponseToPrivateOfficeApproval() {
     }
 }

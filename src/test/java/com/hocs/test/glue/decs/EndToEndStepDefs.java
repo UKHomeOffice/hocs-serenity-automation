@@ -93,7 +93,7 @@ public class EndToEndStepDefs extends BasePage {
                         dcuProgressCase.moveCaseFromMarkupToTransferConfirmation();
                         break;
                     case "INITIAL DRAFT":
-                        initialDraft.moveCaseFromInitialDraftToQaResponse();
+                        dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
                         break;
                     case "QA RESPONSE":
                         qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
@@ -538,8 +538,6 @@ public class EndToEndStepDefs extends BasePage {
             dashboard.getCurrentCase();
         }
     }
-
-
 
     @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "
             + "{string} stage")

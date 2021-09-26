@@ -25,10 +25,6 @@ public class MarkupStepDefs extends BasePage {
 
     Markup markup;
 
-    InitialDraft initialDraft;
-
-    QAResponse qaResponse;
-
     SummaryTab summaryTab;
 
     TimelineTab timelineTab;
@@ -56,24 +52,24 @@ public class MarkupStepDefs extends BasePage {
         enterTheTopic(sessionVariableCalled("newChildTopic").toString());
     }
 
-    @When("I override the {string} team to {string}")
+    @When("I complete the Markup stage overriding the {string} team to {string}")
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        markup.addTopicToCase("Animal Alternatives (3Rs)");
+        markup.confirmPrimaryTopic();
         switch (defaultTeam.toUpperCase()) {
             case "INITIAL DRAFT":
                 markup.selectSpecificOverrideInitialDraftTeam(overrideTeam);
-                safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE":
                 markup.selectSpecificOverridePrivateOfficeTeam(overrideTeam);
                 setSessionVariable("draftTeam").to(markup.defaultDraftTeam.getValue());
-                safeClickOn(finishButton);
-                dashboard.getAndClaimCurrentCase();
-                initialDraft.moveCaseFromInitialDraftToQaResponse();
-                qaResponse.qaResponseFullFlow();
                 break;
             default:
                 pendingStep(defaultTeam + " is not defined within " + getMethodName());
         }
+        clickTheButton("Finish");
     }
 
     @And("I override the initial draft team of the case to the team created in Management UI")

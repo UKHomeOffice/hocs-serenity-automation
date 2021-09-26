@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
@@ -32,25 +33,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    @When("I complete the Private Office stage")
-    public void completePrivateOfficeStagePerCaseType() {
-        String caseType = sessionVariableCalled("caseType");
-        switch(caseType.toUpperCase()) {
-            case "MIN" :
-            case "DTEN":
-                if (!privateOfficeApproval.privateOfficeAcceptRadioButton.isVisible()) {
-                    dashboard.getCurrentCase();
-                    safeClickOn(unallocatedCaseView.allocateToMeLink);
-                }
-                safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
-                safeClickOn(continueButton);
-                break;
-            case "TRO" :
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
+    DCUProgressCase dcuProgressCase;
 
     @And("I override the Primary Topic of the case at the Private Office stage to {string}")
     public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String input) {
@@ -83,35 +66,18 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
     }
 
-    @Then("the {string} of the case should be updated to {string} in the summary tab")
-    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
-        WebElementFacade summaryTabField = null;
-        summaryTab.selectSummaryTab();
-        waitABit(1000);
-        switch (category.toUpperCase()) {
-            case "PRIMARY TOPIC":
-                summaryTabField = summaryTab.primaryTopic;
-                break;
-            case "TEAM":
-                summaryTabField = summaryTab.currentTeam;
-                break;
-            case "PRIVATE OFFICE TEAM":
-                summaryTabField = summaryTab.privateOfficeTeam;
-                break;
-            case "OVERRIDE PRIVATE OFFICE TEAM":
-                summaryTabField = summaryTab.overridePrivateOfficeTeam;
-                break;
-            default:
-                pendingStep(category + " is not defined within " + getMethodName());
-        }
-        assertThat(summaryTabField.getText().toUpperCase().contains(input.toUpperCase()), is(true));
-    }
-
     @And("I change the minister to {string}")
     public void iChangeTheMinisterTo(String minister) {
         privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
         privateOfficeApproval.enterAReasonForChangingPOTeam("Test change deadlines at PO stage");
         clickTheButton("Finish");
+    }
+
+    @And("I advance the case to the Private Office Approval stage")
+    public void iAdvanceTheCaseToThePrivateOfficeApprovalStage() {
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
+        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApproval();
     }
 }

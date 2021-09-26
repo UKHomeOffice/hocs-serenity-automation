@@ -4,10 +4,10 @@ Feature: Topics
   Background:
     Given I am logged into "CS" as user "DCU_USER"
 
-  @DataValidation @Ignore
+  @DataValidation
   Scenario Outline: Topics are assigned to the correct team
     When I create a single "MIN" case and return to the dashboard
-    And I complete the Data Input stage
+    And I complete the "Data Input" stage
     And I assign the Topic "<Topic>"
     Then the case should be assigned to the "<draftingTeam>" for drafting
     And the case should be assigned to the "<privateOfficeTeam>" for approval
@@ -27,7 +27,7 @@ Feature: Topics
   @DCUWorkflow
   Scenario Outline: The user overrides the default drafting team
     When I create a "<caseType>" case with "<Topic>" as the primary topic
-    And I override the "<defaultTeam>" team to "<overrideTeam>"
+    And I complete the Markup stage overriding the "<defaultTeam>" team to "<overrideTeam>"
     Then the case should be found in the "<overrideTeam>" team
     Examples:
       | caseType | Topic                         | defaultTeam   | overrideTeam                                             |

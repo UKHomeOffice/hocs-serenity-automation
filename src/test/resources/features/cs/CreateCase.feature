@@ -48,7 +48,7 @@ Feature: Create case
 
   @Workflow @CSRegression
   Scenario Outline: Newly created cases should move to the correct first stage of the workflow
-    And I create a single "<caseType>" case and return to the dashboard
+    And I create a single "<caseType>" case
     Then the case should be moved to the "<stage>" stage
     Examples:
       | caseType | stage        |

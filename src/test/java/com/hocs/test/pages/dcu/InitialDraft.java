@@ -188,17 +188,6 @@ public class InitialDraft extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void moveCaseFromInitialDraftToQaResponse() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-        documents.addADraftDocumentAtDraftStage();
-        waitABit(1000);
-        dontQAOffline();
-    }
-
     public void completeInitialDraftStageAndStoreEnteredInformation() {
         safeClickOn(answeredByMyTeamYesRadioButton);
         setSessionVariable("selectedCanMyTeamAnswerRadioButton").to(answeredByMyTeamYesRadioButton.getTextContent());

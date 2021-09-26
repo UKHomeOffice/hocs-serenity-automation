@@ -258,7 +258,7 @@ Feature: ManagementUI
     And I have linked teams to the new child topic
     And I navigate to "CS"
     And I create a single "MIN" case and return to the dashboard
-    And I complete the Data Input stage
+    And I complete the "Data Input" stage
     When I assign the Topic "NEW CHILD TOPIC"
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval

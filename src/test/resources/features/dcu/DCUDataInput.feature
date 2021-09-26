@@ -7,7 +7,7 @@ Feature: DCU Data Input
   @DCUWorkflow @DCURegression
   Scenario Outline: As a Data Input user, I want to be able to complete the Data Input stage, so the case can progress to the Markup stage
     When I get a "<caseType>" case at the "Data Input" stage
-    And I complete the Data Input stage
+    And I complete the "Data Input" stage
     Then the case should be moved to the "Markup" stage
     And the summary should display the owning team as "<markupTeam>"
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage

@@ -30,25 +30,13 @@ public class DataInputStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @When("I complete the Data Input stage and send a copy to Number Ten")
+    @When("I complete the Data Input stage selecting to send a copy to Number Ten")
     public void completeDataInputStageWCopyToN10() {
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
         dataInput.selectASpecificCopyToNoTenOption("Yes");
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectAHomeSecReplyOption();
-        safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
-        correspondents.confirmPrimaryCorrespondent();
-    }
-
-    @When("I complete the Data Input stage")
-    public void completeDataInputPerCaseType() {
-        if (!continueButton.isVisible()) {
-            dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
-        }
-        dataInput.fillAllMandatoryCorrespondenceFields();
         safeClickOn(continueButton);
         correspondents.addAPublicCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();

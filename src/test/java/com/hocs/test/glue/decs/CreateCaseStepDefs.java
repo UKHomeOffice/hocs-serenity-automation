@@ -77,9 +77,16 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
+    @And("I get a new {string} case")
+    public void iGetANewCase(String caseType) {
+        createNewCase(caseType);
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        dashboard.claimCurrentCase();
+    }
+
     @Given("I create a single {string} case and return to the dashboard")
     public void createACaseTypeSpecificCase(String caseType) {
-        createCase.createCSCaseOfType(caseType.toUpperCase());
+        createNewCase(caseType);
         goToDashboard();
     }
 

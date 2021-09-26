@@ -20,39 +20,9 @@ public class InitialDraftStepDefs extends BasePage {
 
     InitialDraft initialDraft;
 
-    Dashboard dashboard;
-
     Documents documents;
 
-    Workstacks workstacks;
-
-    UnallocatedCaseView unallocatedCaseView;
-
     SummaryTab summaryTab;
-
-    @When("I complete the Initial Draft stage")
-    public void initialDraftFullFlowPerCaseType() {
-        if (!initialDraft.answeredByMyTeamYesRadioButton.isVisible()) {
-            dashboard.getCurrentCase();
-            safeClickOn(unallocatedCaseView.allocateToMeLink);
-        }
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-            case "TRO":
-                initialDraft.acceptAndDraftALetter();
-                documents.addADraftDocumentAtDraftStage();
-                initialDraft.dontQAOffline();
-                break;
-            case "DTEN":
-                initialDraft.dtenAcceptAndDraftALetter();
-                documents.addADraftDocumentAtDraftStage();
-                initialDraft.dontQAOffline();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
 
     @Then("an error message should be displayed as I have not selected a document type and added a document")
     public void assertThatAddDocumentErrorMessagesAreShown() {
