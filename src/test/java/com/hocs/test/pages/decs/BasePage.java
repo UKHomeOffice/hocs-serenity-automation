@@ -387,26 +387,6 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseReference");
     }
 
-    public boolean currentCaseIsLoaded() {
-        if (header1.isCurrentlyVisible()) {
-            try {
-                if (header1.getText().equals(getCurrentCaseReference())) {
-                    return true;
-                }
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        if (headerCaption1.isCurrentlyVisible()) {
-            try {
-                return headerCaption1.getText().equals(getCurrentCaseReference());
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        return false;
-    }
-
     public void safeClickOn(WebElementFacade webElementFacade) {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
         javascriptScrollToElem(webElementFacade);

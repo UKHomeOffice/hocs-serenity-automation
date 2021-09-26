@@ -9,12 +9,13 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 
 public class SearchStepDefs extends BasePage {
@@ -27,7 +28,7 @@ public class SearchStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
@@ -54,7 +55,7 @@ public class SearchStepDefs extends BasePage {
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
         createCase.createCSCaseOfType("MIN");
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();
     }
@@ -62,7 +63,7 @@ public class SearchStepDefs extends BasePage {
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
         workstacks.waitABit(500);
-        if (workstacks.isElementDisplayed(unallocatedCaseView.allocateToMeLink)) {
+        if (workstacks.isElementDisplayed(caseView.allocateToMeLink)) {
             workstacks.assertCaseReferenceBeforeAllocation();
         } else {
             workstacks.assertCaseReferenceAfterAllocation();
@@ -156,20 +157,24 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("the created MPAM case should be visible in the search results")
-    public void createdMPAMCaseShouldBeVisibleInTheSearchResults(){
+    @And("the created case should be the only case visible in the search results")
+    public void createdCaseShouldBeVisibleInTheSearchResults(){
+        workstacks.filterByCurrentCaseReference();
+        waitABit(1000);
         int numberOfResults = workstacks.getTotalOfCases();
         int retest = 0;
         while (retest < 5) {
-            try {
-                search.assertCurrentCaseIsDisplayed();
-                assertThat(numberOfResults == 1, is(true));
-                break;
-            } catch (AssertionError a) {
+            if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                searchForMPAMCaseWith(sessionVariableCalled("infoType"), "infoValue");
+                searchForMPAMCaseWith(getCurrentCaseReference(), "Case Reference");
                 safeClickOn(searchButton);
+                workstacks.filterByCurrentCaseReference();
+                waitABit(1000);
+            } else if (numberOfResults > 1) {
+                Assert.fail("More than one case has matching case reference");
+            } else {
+                break;
             }
         }
         search.assertCurrentCaseIsDisplayed();

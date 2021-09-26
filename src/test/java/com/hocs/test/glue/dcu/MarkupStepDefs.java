@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
@@ -28,6 +29,8 @@ public class MarkupStepDefs extends BasePage {
     SummaryTab summaryTab;
 
     TimelineTab timelineTab;
+
+    CaseView caseView;
 
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
@@ -113,7 +116,7 @@ public class MarkupStepDefs extends BasePage {
 
     @Then("the case should be found in the {string} team")
     public void theCaseShouldBeFoundInTheTeamTeam(String team) {
-        goToDashboard();
+        dashboard.goToDashboard();
         switch (team.toUpperCase()) {
             case "PUBLIC PROTECTION UNIT":
                 safeClickOn(dashboard.publicProtectionUnit);

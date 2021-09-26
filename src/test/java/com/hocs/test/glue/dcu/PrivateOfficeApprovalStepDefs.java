@@ -11,7 +11,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
@@ -27,7 +27,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     AccordionDCU accordionDCU;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     SummaryTab summaryTab;
 

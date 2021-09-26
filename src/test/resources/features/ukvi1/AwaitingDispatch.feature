@@ -74,7 +74,7 @@ Feature: Awaiting Dispatch
       | FOLLOW-UP DUE DATE REQUIRED      |
       | DETAILS OF FOLLOW-UP REQUIRED    |
 
-  @Campaigns @UKVIRegression1
+  @UKVIWorkflow @UKVIRegression1
   Scenario: User moves a case into a Campaign from the Awaiting Dispatch stage
     When I move the case into a Campaign from the "Awaiting Dispatch" stage
     And I load the current case

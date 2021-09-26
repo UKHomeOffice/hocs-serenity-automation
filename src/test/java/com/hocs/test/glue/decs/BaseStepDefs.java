@@ -11,7 +11,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
@@ -26,6 +26,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class BaseStepDefs extends BasePage {
@@ -60,7 +61,7 @@ public class BaseStepDefs extends BasePage {
 
     User originalUser;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -281,7 +282,7 @@ public class BaseStepDefs extends BasePage {
     @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
-        unallocatedCaseView.assertCaseCannotBeAssigned();
+        caseView.assertCaseCannotBeAssigned();
 //        if (!wcsCase()) {
 //            timelineTab.selectTimelineTab();
 //            timelineTab.assertCaseClosedNoteVisible();
@@ -321,6 +322,22 @@ public class BaseStepDefs extends BasePage {
         dashboard.getCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertCaseStage(stage);
+    }
+
+    @Then("the FOI case should be moved/returned to (the ){string}( stage)")
+    public void theFOICaseShouldBeMovedReturnedToTheStage(String stage) {
+        if (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE")) {
+            try {
+                summaryTab.selectSummaryTab();
+            } catch (ElementNotVisibleException e) {
+                timelineTab.selectTimelineTab();
+                waitABit(500);
+                summaryTab.selectSummaryTab();
+            }
+            summaryTab.assertCaseStage(stage);
+        } else {
+            assertCaseTypeMovedOrReturnedToStage(stage);
+        }
     }
 
     @And("I reject the case at the {string} stage")

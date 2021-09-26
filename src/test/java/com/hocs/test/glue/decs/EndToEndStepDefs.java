@@ -110,7 +110,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "MPAM":
                 dashboard.getAndClaimCurrentCase();
@@ -127,8 +127,14 @@ public class EndToEndStepDefs extends BasePage {
                     case "QA":
                         qa.moveCaseFromQAToNextStage();
                         break;
-                    case "PRIVATE OFFICE":
+                    case "PRIVATE OFFICE (TO CASE CLOSED)":
                         dispatchStages.moveCaseFromPrivateOfficeToCaseClosed();
+                        break;
+                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))":
+                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchLocal();
+                        break;
+                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))":
+                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial();
                         break;
                     case "AWAITING DISPATCH":
                         dispatchStages.moveCaseFromAwaitingDispatchToCaseClosed();
@@ -136,7 +142,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "COMP":
                 dashboard.getAndClaimCurrentCase();
@@ -144,23 +150,65 @@ public class EndToEndStepDefs extends BasePage {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
                         compProgressCase.moveCaseFromRegistrationToServiceTriage();
                         break;
+                    case "REGISTRATION (TO EX-GRATIA TRIAGE)":
+                        compProgressCase.moveCaseFromRegistrationToExGratiaTriage();
+                        break;
+                    case "REGISTRATION (TO MINOR MISCONDUCT TRIAGE)":
+                        compProgressCase.moveCaseFromRegistrationToMinorMisconductTriage();
+                        break;
                     case "SERVICE TRIAGE (TO SERVICE DRAFT)":
                         compProgressCase.moveCaseFromServiceTriageToServiceDraft();
+                        break;
+                    case "EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)":
+                        compProgressCase.moveCaseFromExGratiaTriageToExGratiaResponseDraft();
+                        break;
+                    case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)":
+                        compProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductResponseDraft();
                         break;
                     case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
                         compProgressCase.moveCaseFromServiceTriageToServiceEscalated();
                         break;
+                    case "EX-GRATIA TRIAGE (TO EX-GRATIA ESCALATE)":
+                        compProgressCase.moveCaseFromExGratiaTriageToExGratiaEscalate();
+                        break;
+                    case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT ESCALATE)":
+                        compProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductEscalate();
+                        break;
                     case "SERVICE TRIAGE (TO CCH)":
                         compProgressCase.moveCaseFromServiceTriageToCCH();
+                        break;
+                    case "EX-GRATIA TRIAGE (TO CCH)":
+                        compProgressCase.moveCaseFromExGratiaTriageToCCH();
+                        break;
+                    case "MINOR MISCONDUCT TRIAGE (TO CCH)":
+                        compProgressCase.moveCaseFromMinorMisconductTriageToCCH();
                         break;
                     case "SERVICE DRAFT":
                         compProgressCase.moveCaseFromServiceDraftToServiceQA();
                         break;
+                    case "EX-GRATIA RESPONSE DRAFT":
+                        compProgressCase.moveCaseFromExGratiaResponseDraftToExGratiaQA();
+                        break;
+                    case "MINOR MISCONDUCT RESPONSE DRAFT":
+                        compProgressCase.moveCaseFromMinorMisconductResponseDraftToMinorMisconductQA();
+                        break;
                     case "SERVICE QA":
                         compProgressCase.moveCaseFromServiceQAToServiceSend();
                         break;
+                    case "EX-GRATIA QA":
+                        compProgressCase.moveCaseFromExGratiaQAToExGratiaSend();
+                        break;
+                    case "MINOR MISCONDUCT QA":
+                        compProgressCase.moveCaseFromMinorMisconductQAToMinorMisconductSend();
+                        break;
                     case "SERVICE SEND":
                         compProgressCase.moveCaseFromServiceSendToComplaintClosed();
+                        break;
+                    case "EX-GRATIA SEND":
+                        compProgressCase.moveCaseFromExGratiaSendToComplaintClosed();
+                        break;
+                    case "MINOR MISCONDUCT SEND":
+                        compProgressCase.moveCaseFromMinorMisconductSendToComplaintClosed();
                         break;
                     case "COMPLAINT CLOSED (TO CASE CLOSED)":
                         compProgressCase.moveCaseFromComplaintClosedToCaseClosed();
@@ -168,7 +216,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "FOI":
                 switch (stage.toUpperCase()) {
@@ -178,12 +226,12 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     case "ALLOCATION":
                         foiProgressCase.moveCaseFromAllocationToAcceptance();
-                        waitForDashboard();
+                        dashboard.waitForDashboard();
                         break;
                     case "ACCEPTANCE":
                         dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
-                        waitForDashboard();
+                        dashboard.waitForDashboard();
                         break;
                     case "CONSIDER AND DRAFT":
                         dashboard.getAndClaimCurrentCase();
@@ -273,7 +321,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -288,7 +336,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -334,7 +382,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -372,7 +420,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -414,7 +462,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "CREATION");
@@ -436,9 +484,17 @@ public class EndToEndStepDefs extends BasePage {
                         moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official", "QA");
                         iCompleteTheStage("QA");
                         break;
+                    case "AWAITING DISPATCH (LOCAL)":
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))");
+                        break;
+                    case "AWAITING DISPATCH (MINISTERIAL)":
+                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))");
+                        break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE");
+                        iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -446,44 +502,108 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "MTS":
                 createCase.createCSCaseOfType(caseType);
-                goToDashboard();
+                dashboard.goToDashboard();
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "SERVICE TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
                         iCompleteTheStage("REGISTRATION (TO SERVICE TRIAGE)");
                         break;
+                    case "EX-GRATIA TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO EX-GRATIA TRIAGE)");
+                        break;
+                    case "MINOR MISCONDUCT TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO MINOR MISCONDUCT TRIAGE)");
+                        break;
                     case "SERVICE DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
                         iCompleteTheStage("SERVICE TRIAGE (TO SERVICE DRAFT)");
+                        break;
+                    case "EX-GRATIA RESPONSE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA TRIAGE");
+                        iCompleteTheStage("EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)");
+                        break;
+                    case "MINOR MISCONDUCT RESPONSE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT TRIAGE");
+                        iCompleteTheStage("MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)");
                         break;
                     case "SERVICE ESCALATED":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
                         iCompleteTheStage("SERVICE TRIAGE (TO SERVICE ESCALATED)");
                         break;
-                    case "CCH":
+                    case "EX-GRATIA ESCALATE":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA TRIAGE");
+                        iCompleteTheStage("EX-GRATIA TRIAGE (TO EX-GRATIA ESCALATE)");
+                        break;
+                    case "MINOR MISCONDUCT ESCALATE":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT TRIAGE");
+                        iCompleteTheStage("MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT ESCALATE)");
+                        break;
+                    case "CCH (FROM SERVICE TRIAGE)":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE TRIAGE");
                         iCompleteTheStage("SERVICE TRIAGE (TO CCH)");
+                        break;
+                    case "CCH (FROM EX-GRATIA TRIAGE)":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA TRIAGE");
+                        iCompleteTheStage("EX-GRATIA TRIAGE (TO CCH)");
+                        break;
+                    case "CCH (FROM MINOR MISCONDUCT TRIAGE)":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT TRIAGE");
+                        iCompleteTheStage("MINOR MISCONDUCT TRIAGE (TO CCH)");
                         break;
                     case "SERVICE QA":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE DRAFT");
                         iCompleteTheStage("SERVICE DRAFT");
                         break;
+                    case "EX-GRATIA QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA RESPONSE DRAFT");
+                        iCompleteTheStage("EX-GRATIA RESPONSE DRAFT");
+                        break;
+                    case "MINOR MISCONDUCT QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT RESPONSE DRAFT");
+                        iCompleteTheStage("MINOR MISCONDUCT RESPONSE DRAFT");
+                        break;
                     case "SERVICE SEND":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE QA");
                         iCompleteTheStage("SERVICE QA");
                         break;
-                    case "COMPLAINT CLOSED":
+                    case "EX-GRATIA SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA QA");
+                        iCompleteTheStage("EX-GRATIA QA");
+                        break;
+                    case "MINOR MISCONDUCT SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT QA");
+                        iCompleteTheStage("MINOR MISCONDUCT QA");
+                        break;
+                    case "COMPLAINT CLOSED (FROM SERVICE SEND)":
                         iCreateACaseAndMoveItToAStage(caseType, "SERVICE SEND");
                         iCompleteTheStage("SERVICE SEND");
                         break;
-                    case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED");
+                    case "COMPLAINT CLOSED (FROM EX-GRATIA SEND)":
+                        iCreateACaseAndMoveItToAStage(caseType, "EX-GRATIA SEND");
+                        iCompleteTheStage("EX-GRATIA SEND");
+                        break;
+                    case "COMPLAINT CLOSED (FROM MINOR MISCONDUCT SEND)":
+                        iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT SEND");
+                        iCompleteTheStage("MINOR MISCONDUCT SEND");
+                        break;
+                    case "SERVICE CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM SERVICE SEND)");
+                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    case "EX-GRATIA CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM EX-GRATIA SEND)");
+                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    case "MINOR MISCONDUCT CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM MINOR MISCONDUCT SEND)");
                         iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
                         break;
                     default:
@@ -494,7 +614,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         foiCreateCase.createFOICase();
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "ALLOCATION":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
@@ -548,7 +668,7 @@ public class EndToEndStepDefs extends BasePage {
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "DRAFT":
                 moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
@@ -564,9 +684,9 @@ public class EndToEndStepDefs extends BasePage {
                 iCompleteTheStage("QA");
                 break;
             case "CASE CLOSED":
-                if (refType.toUpperCase().equals("MINISTERIAL")) {
+                if (refType.equalsIgnoreCase("MINISTERIAL")) {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
-                    iCompleteTheStage("PRIVATE OFFICE");
+                    iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
                 } else {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType,
                             "AWAITING DISPATCH");
@@ -591,10 +711,10 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
-                goToDashboard();
+                dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "DRAFT":
                 moveHighPriorityNewMPAMCaseToStage("TRIAGE");

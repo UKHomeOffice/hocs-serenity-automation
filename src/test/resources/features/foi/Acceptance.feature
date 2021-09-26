@@ -11,9 +11,10 @@ Feature: Acceptance
     And I select that the case "Does" belong to this Directorate
     And I click the "Continue" button
     And I select the drafting team required to respond to the request
-    And I click the "Finish" button
-    Then the case should be moved to the "Consider and Draft" stage
+    And I click the "Complete Acceptance" button
+    Then the FOI case should be moved to the "Consider and Draft" stage
     And the case should be assigned to the Drafting team selected at Acceptance
+    And the read-only Case Details accordion should contain all case information entered during the "Acceptance" stage
 
   #HOCS-2753, HOCS-2741
   @FOIRegression

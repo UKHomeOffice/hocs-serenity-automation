@@ -1,11 +1,14 @@
 package com.hocs.test.pages.ukvi;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.SummaryTab;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -13,6 +16,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 
 public class Triage extends BasePage {
+
+    RecordCaseData recordCaseData;
+
+    SummaryTab summaryTab;
 
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
@@ -89,9 +96,18 @@ public class Triage extends BasePage {
     }
 
     public void selectEnquiryReason(String reason) {
-        selectSpecificRadioButton(reason);
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
         setSessionVariable("enquiryReason").to(reason);
         safeClickOn(continueButton);
+    }
+
+    public void selectComplianceMeasure(String complianceMeasure) {
+        checkSpecificCheckbox(complianceMeasure);
+    }
+
+    public void enterComplianceMeasureDetails() {
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Compliance Measure Details", "Compliance measures other details");
+        setSessionVariable("complianceMeasureDetails").to("Test Compliance Measure Details");
     }
 
     public void setBusinessUnit() {

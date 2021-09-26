@@ -36,7 +36,7 @@ public class Workstacks extends BasePage {
     public WebElementFacade unallocateButton;
 
     @FindBy(id = "workstack-filter")
-    public WebElementFacade workstackFilter;
+    public WebElementFacade caseFilter;
 
     @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
@@ -182,7 +182,7 @@ public class Workstacks extends BasePage {
     }
 
     public void clickCheckboxRelevantToCaseReference() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(15)).waitUntilVisible();
+        waitForWorkstackToLoad();
         String caseReference =
                 getCurrentCaseReference();
         WebDriver webDriver = getDriver();
@@ -201,8 +201,8 @@ public class Workstacks extends BasePage {
     }
 
     public void refineWorkstackSearchResults(String workstackInput) {
-        safeClickOn(workstackFilter);
-        workstackFilter.sendKeys(workstackInput);
+        safeClickOn(caseFilter);
+        caseFilter.sendKeys(workstackInput);
     }
 
     public void recordHighestPriorityCases() {
@@ -286,7 +286,7 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForWorkstackToLoad() {
-        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void orderMPAMWorkstackColumn(String column, String order) {
@@ -360,7 +360,7 @@ public class Workstacks extends BasePage {
     }
 
     public void unallocateSelectedCase(String caseRef) {
-        workstackFilter.sendKeys(caseRef);
+        caseFilter.sendKeys(caseRef);
         waitABit(500);
         WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label");
         safeClickOn(selectedCaseCheckBox);
@@ -454,7 +454,7 @@ public class Workstacks extends BasePage {
     }
 
     private String getStageFromWorkstacksTable() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         WebElement caseReferenceStage = getDriver().findElement(
                 By.xpath("//a[text()='" + getCurrentCaseReference()
                         + "']/../following-sibling::td[1]"));
@@ -474,7 +474,7 @@ public class Workstacks extends BasePage {
     }
 
     public void filterByCurrentCaseReference() {
-        workstackFilter.sendKeys(getCurrentCaseReference());
+        caseFilter.sendKeys(getCurrentCaseReference());
     }
 
     public void assertAssignedUser(User user) {
@@ -517,7 +517,7 @@ public class Workstacks extends BasePage {
         refineWorkstackSearchResults(caseType);
         waitABit(1000);
         int totalCases = getTotalOfCases();
-        workstackFilter.clear();
+        caseFilter.clear();
         return (totalCases != 0);
     }
 
@@ -677,7 +677,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         String highPriorityReference = sessionVariableCalled(highPriorityCase);
         String lowPriorityReference = sessionVariableCalled(lowPriorityCase);
 
@@ -708,7 +708,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertDueDateOfContributionRequest() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         String caseRef = getCurrentCaseReference();
         WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
                 + "Requested) due:')]");
@@ -724,7 +724,7 @@ public class Workstacks extends BasePage {
     }
 
     private List<String> getTableHeadersContent() {
-        waitFor(workstackFilter);
+        waitFor(caseFilter);
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
@@ -741,6 +741,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertExpectedColumnsPresent(String workstack) {
+        waitForWorkstackToLoad();
         visibleColumns = getTableHeadersContent();
         List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {
@@ -782,7 +783,8 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref"));
+                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref",
+                        "Escalate Case"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
@@ -795,7 +797,9 @@ public class Workstacks extends BasePage {
         String caseRef = getCurrentCaseReference();
         WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
         waitABit(1000);
-        assertThat(deadline.getText().equals(sessionVariableCalled("transferDueDate")), is(true));
+        String expectedDeadline = sessionVariableCalled("transferDueDate");
+        String displayedDeadline = deadline.getText();
+        assertThat(displayedDeadline.equals(expectedDeadline), is(true));
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {

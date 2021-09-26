@@ -68,12 +68,12 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the Case Reference type {string} into the filter")
     public void enterCaseReferenceType(String caseReferenceType) {
-        safeClickOn(workstacks.workstackFilter);
+        safeClickOn(workstacks.caseFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
             case "DTEN":
             case "TRO":
-                workstacks.workstackFilter.sendKeys(caseReferenceType);
+                workstacks.caseFilter.sendKeys(caseReferenceType);
                 break;
             default:
                 pendingStep(caseReferenceType + " is not defined within " + getMethodName());
@@ -110,8 +110,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the current stage {string} into the filter")
     public void enterCurrentStage(String currentStage) {
-        safeClickOn(workstacks.workstackFilter);
-        workstacks.workstackFilter.sendKeys(currentStage.toUpperCase());
+        safeClickOn(workstacks.caseFilter);
+        workstacks.caseFilter.sendKeys(currentStage.toUpperCase());
     }
 
     @Then("all cases should be allocated to the user {string}")
@@ -138,7 +138,7 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createCSCaseOfType("MIN");
-        goToDashboard();
+        dashboard.goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
         waitABit(1000);
     }
@@ -168,15 +168,15 @@ public class WorkstacksStepDefs extends BasePage {
     public void createThreeCasesAndReassign() {
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference1").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference2").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference3").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         safeClickOn(dashboard.performanceProcessTeam);
     }
@@ -198,7 +198,7 @@ public class WorkstacksStepDefs extends BasePage {
             createCase.createCSCaseOfType("TRO");
             safeClickOn(createCaseSuccessPage.newCaseReference);
             workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-            goToDashboard();
+            dashboard.goToDashboard();
             n++;
         }
     }
@@ -307,7 +307,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I view the MPAM case in the appropriate {string} stage workstack")
     public void iViewTheCaseInTheWorkstack(String stage) {
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.selectCorrectMPAMTeamByStage(stage);
     }
 
@@ -360,8 +360,8 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
         waitABit(1000);
-        goToDashboard();
-        safeClickOn(dashboard.myCases);
+        dashboard.goToDashboard();
+        iEnterAWorkstack("MPAM Draft");
         workstacks.assertDueDateOfContributionRequest();
     }
 
@@ -379,7 +379,7 @@ public class WorkstacksStepDefs extends BasePage {
                 } else {
                     createCase.createCSCaseOfType("MIN");
                     createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -388,7 +388,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MIN");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectPerformanceProcessTeam();
                 }
                 break;
@@ -397,7 +397,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MPAM");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -406,7 +406,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MTS");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectMTSTeam();
                 }
                 break;
@@ -421,7 +421,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 } catch (NoSuchElementException e) {
                     endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 }
                 break;
@@ -494,7 +494,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the rejected column of the case in the {string} workstack should display rejected by {string}")
     public void theRejectedColumnOfTheCaseInTheWorkstackShouldDisplayRejectedBy(String workstack, String rejectionStage) {
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.selectWorkstackByTeamName(workstack);
         workstacks.assertRejectedColumnContainsStage(rejectionStage);
     }

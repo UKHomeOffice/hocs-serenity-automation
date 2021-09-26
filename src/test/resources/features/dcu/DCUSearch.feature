@@ -13,16 +13,18 @@ Feature: DCU Search
     And I click the search button on the search page
     Then I check that the DCU search results have the correct "<infoType>"
     Examples:
-      | infoType                              | infoValue                  |
-      | Case Type                             | MIN                        |
-      | Received on or Before date            | 01/01/2021                 |
-      | Received on or After date             | 01/01/2021                 |
-      | Member of Parliament Name             | Boris Johnson              |
-      | Public Correspondent Name             | Sam McTester               |
-      | Topic                                 | Animal alternatives (3Rs)  |
-      | Sign off team                         | Minister for Lords         |
-      | Home Secretary Interest               | Yes                        |
-      | Active Cases Only                     | Yes                        |
+      | infoType                    | infoValue                 |
+      | Case Type                   | MIN                       |
+      | Received on or Before date  | 01/01/2021                |
+      | Received on or After date   | 01/01/2021                |
+      | Member of Parliament Name   | Boris Johnson             |
+      | Public Correspondent Name   | Sam McTester              |
+      | Correspondent Postcode      | AB1 2CD                   |
+      | Correspondent Email Address | SamMcTester@Test.com      |
+      | Topic                       | Animal alternatives (3Rs) |
+      | Sign off team               | Minister for Lords        |
+      | Home Secretary Interest     | Yes                       |
+      | Active Cases Only           | Yes                       |
 
   Scenario Outline: User can search for DCU case types
     When I create a "DCU" case with "<infoValue>" as its "Case Type"
@@ -38,7 +40,7 @@ Feature: DCU Search
       | DTEN      |
 
   @SearchByCaseReferenceNumber
-  Scenario: User should be be taken directly to a case when they search for the Case Reference number
+  Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
     When I enter a valid case reference into the load case search bar
     Then I should be taken directly to the case
 
@@ -70,9 +72,9 @@ Feature: DCU Search
     Then the "DCU Search" workstack should contain only the expected columns
     Examples:
     | createCase | searchCase          |
-#    | MIN        | MIN                 | Currently a bug impacting scenarios: #1
-#    | TRO        | TRO                 | #2
-#    | DTEN       | DTEN                | #3
+    | MIN        | MIN                 |
+    | TRO        | TRO                 |
+    | DTEN       | DTEN                |
     | MIN        | MIN + TRO           |
     | MIN        | MIN + DTEN          |
     | TRO        | TRO + DTEN          |
