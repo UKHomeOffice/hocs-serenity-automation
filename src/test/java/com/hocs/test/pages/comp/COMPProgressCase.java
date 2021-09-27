@@ -214,7 +214,7 @@ public class COMPProgressCase extends BasePage {
         compSend.selectACaseOutcome();
         compSend.selectAResponseChannel();
         compSend.enterADateOfResponse();
-        clickTheButton("Continue");
+        clickTheButton("Complete");
         System.out.println("Case moved from Ex-Gratia Send to Complaint Closed");
     }
 

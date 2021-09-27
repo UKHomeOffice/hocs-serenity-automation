@@ -107,7 +107,7 @@ Feature: Contribution Request
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
-    And I load and claim the current case
+    And I load the current case
     And I select the "Contributions Requested" action at the Triage-Escalated stage
     Then the case should be moved to the "Triage - Escalated (Contribution Requested)" stage
 
@@ -115,7 +115,7 @@ Feature: Contribution Request
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Triage case to "Workflow Manager"
-    And I load and claim the current case
+    And I load the current case
     And I select the "Contributions Requested" action at the Triage-Escalated stage
     Then the case should be moved to the "<stage> - Escalated (Contribution Requested)" stage
     Examples:
@@ -139,7 +139,7 @@ Feature: Contribution Request
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
-    And I load and claim the current case
+    And I load the current case
     And I select the "Contributions Requested" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft - Escalated (Contribution Requested)" stage
 
@@ -147,7 +147,7 @@ Feature: Contribution Request
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
     When I send the Draft case to "Workflow Manager"
-    And I load and claim the current case
+    And I load the current case
     And I select the "Contributions Requested" action at the Draft-Escalated stage
     Then the case should be moved to the "<stage> - Escalated (Contribution Requested)" stage
     Examples:
