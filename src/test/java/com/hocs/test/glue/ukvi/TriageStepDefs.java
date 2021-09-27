@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.ukvi.AccordionMPAM;
 import com.hocs.test.pages.ukvi.Creation;
@@ -26,6 +27,8 @@ public class TriageStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
+    Dashboard dashboard;
+
     @And("I send the Triage case to {string}")
     public void sendTheTriageCaseTo(String stage) {
         switch (stage.toUpperCase()) {
@@ -46,7 +49,7 @@ public class TriageStepDefs extends BasePage {
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
-        waitForDashboard();
+        dashboard.waitForDashboard();
     }
 
     @And("I select the {string} enquiry subject and continue")

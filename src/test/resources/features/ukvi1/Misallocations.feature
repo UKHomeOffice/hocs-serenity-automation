@@ -9,7 +9,7 @@ Feature: Misallocations
     When I create a "MPAM" case and move it to the "<stage>" stage
     And I load and claim the current case
     And I select to transfer a case to "<transferTo>" at the "<stage>" stage
-    And I load and claim the current case
+    And I load the current case
     Then the case should be moved to the "Awaiting Transfer" stage
     And the reason for transfer is displayed in a case note in the case timeline
     Examples:
@@ -26,7 +26,7 @@ Feature: Misallocations
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
     And I select to transfer a case to "OGD" at the "Creation" stage
-    And I load and claim the current case
+    And I load the current case
     And I select the "Transfer Rejected (Move to Triage)" action at the Awaiting Transfer stage
     And I complete the required fields for Triage and move the case to Triage
     Then the case should be moved to the "Triage" stage
@@ -36,7 +36,7 @@ Feature: Misallocations
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
     And I select to transfer a case to "OGD" at the "Creation" stage
-    And I load and claim the current case
+    And I load the current case
     And I select the "Transfer Accepted (Close Case)" action at the Awaiting Transfer stage
     Then the case should be closed
 
@@ -45,7 +45,7 @@ Feature: Misallocations
     And I create a single "MPAM" case and return to the dashboard
     And I load and claim the current case
     And I select to transfer a case to "OGD" at the "Creation" stage
-    And I load and claim the current case
+    And I load the current case
     And I amend the Transfer due date of the case
     And I select the "Save Deadline for Transfer" action at the Awaiting Transfer stage
     And I navigate to the "Dashboard" page

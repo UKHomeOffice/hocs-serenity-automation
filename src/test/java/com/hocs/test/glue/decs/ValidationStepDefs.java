@@ -1,5 +1,6 @@
 package com.hocs.test.glue.decs;
 
+import com.hocs.test.pages.comp.COMPSend;
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
@@ -79,6 +80,8 @@ public class ValidationStepDefs extends BasePage {
     ComplaintClosed complaintClosed;
 
     CCH cch;
+
+    COMPSend compSend;
 
     @And("I trigger the {string} error message at (the ){string}( stage)")
     public void iTriggerTheErrorMessageAtTheStage(String errorMessage, String stage) {
@@ -1337,12 +1340,28 @@ public class ValidationStepDefs extends BasePage {
                         }
                         break;
                     case "SERVICE SEND":
-                            if (errorMessage.equalsIgnoreCase("CASE OUTCOME REQUIRED")) {
+                        switch (errorMessage.toUpperCase()) {
+                            case "CASE OUTCOME REQUIRED":
                                 waitABit(500);
+                                compSend.selectAResponseChannel();
+                                compSend.enterADateOfResponse();
                                 clickTheButton("Complete");
-                            } else {
+                                break;
+                            case "RESPONSE CHANNEL REQUIRED":
+                                waitABit(500);
+                                compSend.selectACaseOutcome();
+                                compSend.enterADateOfResponse();
+                                clickTheButton("Complete");
+                                break;
+                            case "DATE OF RESPONSE REQUIRED":
+                                waitABit(500);
+                                compSend.selectACaseOutcome();
+                                compSend.selectAResponseChannel();
+                                clickTheButton("Complete");
+                                break;
+                            default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
-                            }
+                        }
                         break;
                     case "COMPLAINT CLOSED":
                         switch (errorMessage.toUpperCase()) {

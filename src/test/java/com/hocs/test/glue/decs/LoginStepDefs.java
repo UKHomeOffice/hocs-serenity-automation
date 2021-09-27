@@ -58,7 +58,7 @@ public class LoginStepDefs extends BasePage {
         }
         else {
             System.out.println("Session still active, checking active user matches target user");
-            goToDashboard();
+            dashboard.goToDashboard();
             if (!loggedInAsTargetUser()) {
                 System.out.println("Active user does not match target user, logging out");
                 selectLogoutButton();
@@ -194,11 +194,11 @@ public class LoginStepDefs extends BasePage {
             } else {
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 targetUserLoggedIn = createCase.checkTargetUserIsLoggedInUsingCreateCasePage(targetUser);
-                goToDashboard();
+                dashboard.goToDashboard();
             }
         }
         else {
-            goToDashboard();
+            dashboard.goToDashboard();
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 if (currentPlatform.equals("CS")){
@@ -208,7 +208,7 @@ public class LoginStepDefs extends BasePage {
                 else if (currentPlatform.equals("WCS")) {
                     createCase.createWCSCase();
                 }
-                goToDashboard();
+                dashboard.goToDashboard();
                 dashboard.selectMyCases();
             }
             targetUserLoggedIn = workstacks.ownerOfTopCaseInWorkstackIs(targetUser);

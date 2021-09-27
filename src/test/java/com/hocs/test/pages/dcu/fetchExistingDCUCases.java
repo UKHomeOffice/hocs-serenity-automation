@@ -8,7 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
@@ -34,7 +34,7 @@ public class fetchExistingDCUCases extends BasePage {
 
     Workstacks workstacks;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     private void getFirstUnallocatedMINCaseDataInputStage() {
         workstacks.waitForWorkstackToLoad();
@@ -43,7 +43,7 @@ public class fetchExistingDCUCases extends BasePage {
                         + "Input')]][following-sibling::td[2]"
                         + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedTROCaseDataInputStage() {
@@ -51,7 +51,7 @@ public class fetchExistingDCUCases extends BasePage {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Data Input')"
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         safeClickOn(firstUnallocatedTROCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCaseDataInputStage() {
@@ -60,7 +60,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCaseMarkupStage() {
@@ -69,10 +69,10 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Markup')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         String caseRef = firstUnallocatedMINCase.getText().split("\\r?\\n")[1];
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.caseReferenceSearchBar.sendKeys(caseRef);
         dashboard.hitEnterCaseReferenceSearchBar();
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedTROCaseMarkupStage() {
@@ -80,7 +80,7 @@ public class fetchExistingDCUCases extends BasePage {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Markup')"
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         safeClickOn(firstUnallocatedTROCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCaseMarkupStage() {
@@ -89,7 +89,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCaseInitialDraftStage() {
@@ -98,7 +98,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Initial Draft')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedTROCaseInitialDraftStage() {
@@ -107,7 +107,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "Draft')]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')"
                 + "]]").get(0);
         safeClickOn(firstUnallocatedTROCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCaseInitialDraftStage() {
@@ -116,7 +116,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCaseQAResponseStage() {
@@ -125,7 +125,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'QA Response')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedTROCaseQAResponse() {
@@ -133,7 +133,7 @@ public class fetchExistingDCUCases extends BasePage {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'QA Response')"
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         safeClickOn(firstUnallocatedTROCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCaseQAResponseStage() {
@@ -142,7 +142,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'DTEN')]]")
                 .get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCasePrivateOfficeStage() {
@@ -151,7 +151,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Private Office Approval')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCasePrivateOfficeStage() {
@@ -160,7 +160,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Private Office')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'DTEN')]]").get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCaseMinisterialSignOffStage() {
@@ -169,7 +169,7 @@ public class fetchExistingDCUCases extends BasePage {
                 + "'Ministerial Sign off')]][following-sibling::td[2]"
                 + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedMINCaseDispatchStage() {
@@ -178,7 +178,7 @@ public class fetchExistingDCUCases extends BasePage {
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(text())]][descendant::a[contains(text(), 'MIN')]]").get(0);
         safeClickOn(firstUnallocatedMINCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedTROCaseDispatchStage() {
@@ -186,7 +186,7 @@ public class fetchExistingDCUCases extends BasePage {
         WebElementFacade firstUnallocatedTROCase = findAll("//td[following-sibling::td[1][contains(text(), 'Dispatch')"
                 + "]][following-sibling::td[2][not(text())]][descendant::a[contains(text(), 'TRO')]]").get(0);
         safeClickOn(firstUnallocatedTROCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     private void getFirstUnallocatedDTENCaseDispatchStage() {
@@ -195,7 +195,7 @@ public class fetchExistingDCUCases extends BasePage {
                 "//td[following-sibling::td[1][contains(text(), 'Dispatch')]][following-sibling::td[2]"
                         + "[not(text())]][descendant::a[contains(text(), 'DTEN')]]").get(0);
         safeClickOn(firstUnallocatedDTENCase);
-        safeClickOn(unallocatedCaseView.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
     }
 
     public void giveMeACase(String caseType, String stage) {
@@ -332,7 +332,7 @@ public class fetchExistingDCUCases extends BasePage {
                     safeClickOn(dashboard.centralDraftingTeam);
                 } catch (ElementShouldBeEnabledException e) {
                     System.out.println("Central Drafting Team not available -  Searching for a Data Input case");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     getFirstUnallocatedDataInputCase(caseType);
                     dataInput.moveCaseFromDataInputToMarkup();
                     String thisCaseType = sessionVariableCalled("caseType").toString();

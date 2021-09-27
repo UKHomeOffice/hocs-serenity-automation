@@ -209,23 +209,26 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromServiceSendToComplaintClosed() {
-        compSend.submitASelectedOutcome();
-//        compSend.selectResponseChannel();
-        clickTheButton("Complete");
+        compSend.selectACaseOutcome();
+        compSend.selectAResponseChannel();
+        compSend.enterADateOfResponse();
+        clickTheButton("Continue");
         System.out.println("Case moved from Service Send to Complaint Closed");
     }
 
     public void moveCaseFromExGratiaSendToComplaintClosed() {
-        compSend.submitASelectedOutcome();
-//        compSend.selectResponseChannel();
-        clickTheButton("Complete");
+        compSend.selectACaseOutcome();
+        compSend.selectAResponseChannel();
+        compSend.enterADateOfResponse();
+        clickTheButton("Continue");
         System.out.println("Case moved from Ex-Gratia Send to Complaint Closed");
     }
 
     public void moveCaseFromMinorMisconductSendToComplaintClosed() {
-        compSend.submitASelectedOutcome();
-//        compSend.selectResponseChannel();
-        clickTheButton("Complete");
+        compSend.selectACaseOutcome();
+        compSend.selectAResponseChannel();
+        compSend.enterADateOfResponse();
+        clickTheButton("Continue");
         System.out.println("Case moved from Minor Misconduct Send to Complaint Closed");
     }
 

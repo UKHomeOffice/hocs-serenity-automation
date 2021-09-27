@@ -12,11 +12,15 @@ public class COMPSend extends BasePage {
     @FindBy(id = "CctCaseOutcome")
     public WebElementFacade caseOutcomeDropdown;
 
-    public void submitASelectedOutcome() {
+    public void selectACaseOutcome() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
     }
 
-    public void selectResponseChannel() {
+    public void selectAResponseChannel() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
+    }
+
+    public void enterADateOfResponse() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), "Date of Response");
     }
 }

@@ -26,6 +26,7 @@ public class AllocationStepDefs extends BasePage {
 
     @Then("the Requested Question should be displayed in the summary tab")
     public void theRequestedQuestionShouldBeDisplayedInTheSummaryTab() {
+        waitABit(500);
         summaryTab.selectSummaryTab();
         allocation.assertRequestQuestionIsCorrect();
     }
