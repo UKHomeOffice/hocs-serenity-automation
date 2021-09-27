@@ -40,15 +40,14 @@ public class PeopleTab extends BasePage {
         safeClickOn(peopleTab);
     }
 
-    public void addAMemberCorrespondent(String newCorrespondent) {
+    public void addAMemberCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        correspondents.addAMemberCorrespondent(newCorrespondent);
-        setSessionVariable("correspondentFullName").to(newCorrespondent);
+        correspondents.addAMemberCorrespondent();
     }
 
     public void addAPublicCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
     }
 
     public void editCorrespondent(String detail, String correspondent) {

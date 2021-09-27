@@ -5,13 +5,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
-import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.InitialDraft;
-import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,6 +20,8 @@ public class InitialDraftStepDefs extends BasePage {
     Documents documents;
 
     SummaryTab summaryTab;
+
+    CaseView caseView;
 
     @Then("an error message should be displayed as I have not selected a document type and added a document")
     public void assertThatAddDocumentErrorMessagesAreShown() {
@@ -63,85 +62,58 @@ public class InitialDraftStepDefs extends BasePage {
         safeClickOn(initialDraft.continueButton);
     }
 
-    @When("I {string} the call details")
-    public void iTheCallDetails(String callDetails) {
-        switch (callDetails.toUpperCase()) {
-            case "COMPLETE":
-                initialDraft.enterCallSummary();
-                safeClickOn(initialDraft.continueButton);
-                break;
-            case "DO NOT COMPLETE":
-                safeClickOn(initialDraft.continueButton);
-                break;
-            default:
-                pendingStep(callDetails + " is not defined within " + getMethodName());
-        }
-    }
-
-    @And("I select {string} to choosing another Response Type")
-    public void iSelectToChoosingAnotherResponseType(String decision) {
-        switch (decision.toUpperCase()) {
-            case "YES":
-                safeClickOn(initialDraft.chooseAnotherResponseTypeYesButton);
-                break;
-            case "NO":
-                safeClickOn(initialDraft.chooseAnotherResponseTypeNoButton);
-                break;
-            default:
-                pendingStep(decision + " is not defined within " + getMethodName());
-        }
-        safeClickOn(initialDraft.finishButton);
-    }
-
-    @And("I select {string} to QA offline")
-    public void iSelectToQAOffline(String decision) {
-        switch (decision.toUpperCase()) {
-            case "YES":
-                safeClickOn(initialDraft.offlineQaYesRadioButton);
-                break;
-            case "NO":
-                safeClickOn(initialDraft.offlineQaNoRadioButton);
-                break;
-            default:
-                pendingStep(decision + " is not defined within " + getMethodName());
-        }
+    @When("I complete the call details")
+    public void iTheCallDetails() {
+        initialDraft.enterCallSummary();
         safeClickOn(continueButton);
     }
 
-    @And("I select {string} as the offline QA")
-    public void iSelectAsTheOfflineQA(String teamMember) {
-        switch (teamMember.toUpperCase()) {
-            case "CAMERON":
-                initialDraft.selectOfflineQualityAssurer(User.CAMERON.getAllocationText());
-                safeClickOn(finishButton);
-                break;
-            case "CASEY":
-                initialDraft.selectOfflineQualityAssurer(User.CASEY.getAllocationText());
-                safeClickOn(finishButton);
-                break;
-            case "DECS_USER":
-                initialDraft.selectOfflineQualityAssurer(User.DECS_USER.getAllocationText());
-                safeClickOn(finishButton);
-                break;
-            default:
-                pendingStep(teamMember + " is not defined within " + getMethodName());
-        }
+    @And("I select {string} to choosing another Response Type")
+    public void iSelectToChoosingAnotherResponseType(String yesNo) {
+        initialDraft.selectIfAnotherResponseTypeRequired(yesNo);
+        safeClickOn(finishButton);
+    }
+
+    @And("I record who on my Team completed the offline QA Approval")
+    public void iRecordWhoOnMyTeamCompletedTheOfflineQAApproval() {
+        initialDraft.selectAOfflineQAIndividual();
+        clickTheButton("Finish");
     }
 
     @And("I select the {string} document as the primary draft")
     public void iSelectTheDocumentAsThePrimaryDraft(String document) {
-        initialDraft.selectPrimaryDraft(sessionVariableCalled(document));
-    }
-
-    @And("the {string} document should be tagged as the primary draft")
-    public void theDocumentShouldBeTaggedAsThePrimaryDraft(String document) {
-        documents.selectDocumentsTab();
-        initialDraft.assertThatPrimaryDraftIs(sessionVariableCalled(document));
+        documents.selectPrimaryDraft(sessionVariableCalled(document));
     }
 
     @And("the case should be assigned to the DCU draft team created in Management UI")
     public void theCaseShouldBeAssignedToTheDCUDraftTeamCreatedInMUI() {
         summaryTab.selectSummaryTab();
         summaryTab.assertAllocatedTeam(sessionVariableCalled("draftingTeamName"));
+    }
+
+    @And("the case should still be owned by the drafting team")
+    public void theCaseShouldStillBeOwnedByTheDraftingTeam() {
+        openOrCloseAccordionSection("Markup");
+        String draftingTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Initial Draft Team").get(0);
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(draftingTeam, "Team");
+    }
+
+    @And("I select that the QA Process should be completed on DECS")
+    public void iSelectThatTheQAProcessShouldBeCompletedOnDECS() {
+        initialDraft.selectQAOfflineDecision("No");
+        safeClickOn(continueButton);
+    }
+
+    @And("I select that the QA Process has been completed offline")
+    public void iSelectThatTheQAProcessHasBeenCompletedOffline() {
+        initialDraft.selectQAOfflineDecision("Yes");
+        safeClickOn(continueButton);
+    }
+
+    @And("the case should now be owned be the correct Private Office team")
+    public void theCaseShouldNowBeOwnedBeThePrivateOfficeTeam() {
+        openOrCloseAccordionSection("Markup");
+        String privateOfficeTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Private Office Team").get(0);
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(privateOfficeTeam, "Team");
     }
 }

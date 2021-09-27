@@ -23,7 +23,7 @@ public class COMPProgressCase extends BasePage {
     ComplaintClosed complaintClosed;
 
     public void moveCaseFromRegistrationToServiceTriage() {
-        correspondents.addAPublicCorrespondentOfType("Complainant");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Service");
@@ -38,7 +38,7 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromRegistrationToExGratiaTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         registration.enterComplainantDetails();
         registration.selectComplaintType("Ex-Gratia");
@@ -48,7 +48,7 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromRegistrationToMinorMisconductTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         registration.enterComplainantDetails();
         registration.selectComplaintType("Minor Misconduct");

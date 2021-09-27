@@ -100,18 +100,14 @@ public class Creation extends BasePage {
     }
 
     public void selectMinisterialSignOffTeam(String signOffTeam) {
-        if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
-            ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
-            setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
-            setSessionVariable("signOffTeam").to(signOffTeam);
-        }
+        ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
+        setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
+        setSessionVariable("signOffTeam").to(signOffTeam);
     }
 
     public void selectAddressee(String addressee) {
-        if (sessionVariableCalled("refType").toString().toUpperCase().equals("MINISTERIAL")) {
-            addresseeDropdown.selectByVisibleText(addressee);
-            setSessionVariable("addressee").to(addressee);
-        }
+        addresseeDropdown.selectByVisibleText(addressee);
+        setSessionVariable("addressee").to(addressee);
     }
 
     public void selectUrgency(String urgency) {
@@ -127,61 +123,28 @@ public class Creation extends BasePage {
     public void moveCaseFromCreationToTriage() {
         completeRequiredQuestions();
         clickTheButton("Continue");
-        correspondents.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");
     }
 
-    public void moveCaseWithCorrespondentReferenceNumber(String refNumber) {
+    public void addCorrespondentWithSpecificReferenceToCase(String refNumber) {
         completeRequiredQuestions();
         safeClickOn(continueButton);
         correspondents.addAPublicCorrespondentWithAReferenceNumber(refNumber);
-        clickTheButton("Move to Triage");
     }
 
-    public void moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(String businessArea, String refType) {
+    public void moveCaseWithSpecifiedValuesToTriageStage(String businessArea, String refType, String urgency, String signOffTeam) {
         selectBusinessArea(businessArea);
         selectRefType(refType);
-        selectMinisterialSignOffTeam("Home Secretary");
-        selectAddressee("Home Secretary");
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
-        clickTheButton("Continue");
-        correspondents.addAMemberCorrespondent("Boris Johnson");
-        clickTheButton("Move to Triage");
-    }
-
-    public void moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(String urgency, String refType) {
-        selectBusinessArea("Windrush");
-        selectRefType(refType);
-        selectMinisterialSignOffTeam("Home Secretary");
-        selectAddressee("Home Secretary");
+        if (sessionVariableCalled("refType").toString().equalsIgnoreCase("MINISTERIAL")) {
+            selectMinisterialSignOffTeam(signOffTeam);
+            selectAddressee(signOffTeam);
+        }
         selectUrgency(urgency);
         selectInboundChannel("Email");
         clickTheButton("Continue");
-        correspondents.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");
-    }
-
-    public void moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(String signOffTeam) {
-        selectBusinessArea("UKVI");
-        selectRefType("Ministerial");
-        selectMinisterialSignOffTeam(signOffTeam);
-        selectAddressee(signOffTeam);
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
-        safeClickOn(continueButton);
-        correspondents.addAMemberCorrespondent("Boris Johnson");
-        clickTheButton("Move to Triage");
-    }
-
-    public void triggerMPCorrespondentIsMandatoryScreen() {
-        selectBusinessArea("UKVI");
-        selectRefType("Official");
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
-        safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
-        correspondents.confirmPrimaryCorrespondent();
     }
 
     public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {
@@ -192,8 +155,18 @@ public class Creation extends BasePage {
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);
-        this.correspondents.addAMemberCorrespondent(correspondent);
+        correspondents.addASpecificMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");
+    }
+
+    public void triggerMPCorrespondentIsMandatoryScreen() {
+        selectBusinessArea("UKVI");
+        selectRefType("Official");
+        selectUrgency("Standard");
+        selectInboundChannel("Email");
+        safeClickOn(continueButton);
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     public void assertMPCorrespondentIsRequiredScreenIsDisplayed() {

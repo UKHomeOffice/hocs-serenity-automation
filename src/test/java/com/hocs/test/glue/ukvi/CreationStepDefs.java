@@ -55,7 +55,7 @@ public class CreationStepDefs extends BasePage {
 
     @And("I select {string} as the Ministerial sign off team when completing the creation stage")
     public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
-        creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", signOffTeam);
     }
 
     @And("I try to advance a case with a public correspondent at Creation stage")

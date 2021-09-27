@@ -51,9 +51,6 @@ public class InitialDraft extends BasePage {
     @FindBy(id = "OfflineQaUser")
     public WebElementFacade allocateToOfflineQaDropdown;
 
-    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
-    public WebElementFacade primaryDraftDocumentName;
-
     //Basic Methods
 
     public void selectIfCaseCanBeAnsweredByTeam(String yesNo) {
@@ -73,146 +70,18 @@ public class InitialDraft extends BasePage {
     }
 
     public void selectIfAnotherResponseTypeRequired(String yesNo) {
-        recordCaseData.selectSpecificRadioButton(yesNo);
-    }
-
-    public void selectPrimaryDraftDocument(String documentTitle) {
-        recordCaseData.selectSpecificRadioButton(documentTitle);
+        selectSpecificRadioButton(yesNo);
     }
 
     public void selectQAOfflineDecision(String yesNo) {
         recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
-    public void selectWhoDidOfflineQA(String individual) {
+    public void selectSpecificOfflineQAIndividual(String individual) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(individual, "Who has done the Offline QA for this case?");
     }
 
-    // Multi Step Methods
-
-    public void getToDraftCaseRejectionScreenPrerequisites() {
-        safeClickOn(answeredByMyTeamNoRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void getToHowDoYouIntendToRespondScreenPrerequisites() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        safeClickOn(continueButton);
-        waitABit(1000);
-    }
-
-    public void getToSummariseYouCallScreenPrerequisites() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        safeClickOn(continueButton);
-        safeClickOn(phoneReplyRadioButton);
-        safeClickOn(continueButton);
-
-    }
-
-    public void dontQAOffline() {
-        continueButton.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
-        safeClickOn(continueButton);
-        safeClickOn(offlineQaNoRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void selectOfflineQualityAssurer(String userName) {
-        allocateToOfflineQaDropdown.selectByVisibleText(userName);
-    }
-
-    public void getToPrimaryDraftDocumentScreenPrerequisites() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-    }
-
-    public void getToAddDocumentScreenPrerequisites() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-            documents.addDocumentsButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-    }
-
-    public void getToDoYouWantToQAOfflineScreenPrerequisites() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-            documents.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-            waitABit(1000);
-    }
-
-    public void getToWhoDidTheQAOfflineScreenPrerequisites() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-            documents.addADraftDocumentAtDraftStage();
-            continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-            safeClickOn(offlineQaYesRadioButton);
-            safeClickOn(continueButton);
-            safeClickOn(finishButton);
-    }
-
-    public void moveCaseFromInitialDraftToPrivateOffice() {
-        if (dtenCase()) {
-            dtenAcceptAndDraftALetter();
-        } else {
-            acceptAndDraftALetter();
-        }
-        documents.addADraftDocumentAtDraftStage();
-        safeClickOn(continueButton);
-        safeClickOn(offlineQaYesRadioButton);
-        safeClickOn(continueButton);
-        selectOfflineQualityAssurer(User.CAMERON.getAllocationText());
-        safeClickOn(finishButton);
-    }
-
-    public void acceptAndDraftALetter() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        safeClickOn(continueButton);
-        letterReplyRadioButton.waitUntilVisible();
-        safeClickOn(letterReplyRadioButton);
-        jsClickOn(continueButton);
-    }
-
-    public void dtenAcceptAndDraftALetter() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void completeInitialDraftStageAndStoreEnteredInformation() {
-        safeClickOn(answeredByMyTeamYesRadioButton);
-        setSessionVariable("selectedCanMyTeamAnswerRadioButton").to(answeredByMyTeamYesRadioButton.getTextContent());
-        safeClickOn(continueButton);
-        safeClickOn(letterReplyRadioButton);
-        setSessionVariable("selectedTypeOfResponseRadioButton").to(letterReplyRadioButton.getTextContent());
-        waitABit(1000);
-        jsClickOn(continueButton);
-        documents.addADraftDocumentAtDraftStage();
-        setSessionVariable("uploadedDocumentTitle").to("test.docx");
-        continueButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible().click();
-        safeClickOn(offlineQaNoRadioButton);
-        setSessionVariable("selectedResponseToQAOfflineRadioButton").to(offlineQaNoRadioButton.getTextContent());
-        safeClickOn(continueButton);
-    }
-
-    // Assertions
-
-    public void selectPrimaryDraft(String fileIdentifier) {
-        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
-        safeClickOn(documentToSelect);
-    }
-
-    public void assertThatPrimaryDraftIs(String fileIdentifier) {
-        primaryDraftDocumentName.waitUntilVisible();
-        primaryDraftDocumentName.shouldContainText(fileIdentifier);
+    public void selectAOfflineQAIndividual() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Who has done the Offline QA for this case?");
     }
 }

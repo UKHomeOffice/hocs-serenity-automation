@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
@@ -26,6 +27,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.time.Duration;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -62,6 +64,8 @@ public class BaseStepDefs extends BasePage {
     User originalUser;
 
     CaseView caseView;
+
+    Documents documents;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -139,22 +143,55 @@ public class BaseStepDefs extends BasePage {
                 clickTheButton("Continue");
                 break;
             case "HOW DO YOU INTEND TO RESPOND":
-                initialDraft.getToHowDoYouIntendToRespondScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                clickTheButton("Continue");
                 break;
             case "SUMMARISE YOUR CALL":
-                initialDraft.getToSummariseYouCallScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                safeClickOn(continueButton);
+                initialDraft.selectSpecificResponseChannel("Phone");
+                safeClickOn(continueButton);
                 break;
             case "PRIMARY DRAFT DOCUMENT":
-                initialDraft.getToPrimaryDraftDocumentScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                safeClickOn(continueButton);
+                if (!dtenCase()){
+                    initialDraft.selectSpecificResponseChannel("Letter");
+                    safeClickOn(continueButton);
+                }
                 break;
             case "ADD DOCUMENT":
-                initialDraft.getToAddDocumentScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                safeClickOn(continueButton);
+                if (!dtenCase()){
+                    initialDraft.selectSpecificResponseChannel("Letter");
+                    safeClickOn(continueButton);
+                }
+                safeClickOn(documents.addDocumentsButton);
                 break;
             case "DO YOU WANT TO QA OFFLINE":
-                initialDraft.getToDoYouWantToQAOfflineScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                safeClickOn(continueButton);
+                if (!dtenCase()){
+                    initialDraft.selectSpecificResponseChannel("Letter");
+                    safeClickOn(continueButton);
+                }
+                documents.addADraftDocumentAtDraftStage();
+                safeClickOn(continueButton);
+                waitABit(1000);
                 break;
             case "WHO HAS DONE THE QA OFFLINE":
-                initialDraft.getToWhoDidTheQAOfflineScreenPrerequisites();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
+                safeClickOn(continueButton);
+                if (!dtenCase()){
+                    initialDraft.selectSpecificResponseChannel("Letter");
+                    safeClickOn(continueButton);
+                }
+                documents.addADraftDocumentAtDraftStage();
+                safeClickOn(continueButton);
+                initialDraft.selectQAOfflineDecision("Yes");
+                safeClickOn(continueButton);
+                safeClickOn(finishButton);
                 break;
             case "QA RESPONSE FEEDBACK":
                 qaResponse.getToQAResponseFeedbackScreenPrerequisites();
@@ -301,21 +338,6 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @And("I {string} the rejection note")
-    public void iTheRejectionNote(String rejection) {
-        switch (rejection.toUpperCase()) {
-            case "COMPLETE":
-                enterRejectionNotes();
-                safeClickOn(finishButton);
-                break;
-            case "DO NOT COMPLETE":
-                safeClickOn(finishButton);
-                break;
-            default:
-                pendingStep(rejection + " is not defined within " + getMethodName());
-        }
-    }
-
     @Then("the case/claim should be at/moved/returned (to )(the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
         dashboard.goToDashboard();
@@ -344,9 +366,9 @@ public class BaseStepDefs extends BasePage {
     public void iRejectTheCaseAtTheStage(String stage) {
         switch (stage.toUpperCase()) {
             case "INITIAL DRAFT":
-                safeClickOn(initialDraft.answeredByMyTeamNoRadioButton);
-                safeClickOn(initialDraft.continueButton);
-                initialDraft.enterRejectionNotes();
+                initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
+                safeClickOn(continueButton);
+                initialDraft.enterReasonTeamCannotAnswer();
                 safeClickOn(finishButton);
                 break;
             case "QA RESPONSE":

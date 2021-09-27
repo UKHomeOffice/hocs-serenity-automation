@@ -30,8 +30,6 @@ public class MarkupStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    CaseView caseView;
-
     @When("I assign the Topic {string}")
     public void enterSpecificMarkupTopic(String topic) {
         dashboard.getAndClaimCurrentCase();

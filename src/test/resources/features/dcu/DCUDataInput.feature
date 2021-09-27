@@ -57,7 +57,7 @@ Feature: DCU Data Input
     When I get a "MIN" case at the "Data Input" stage
     And I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    And I add "Nicola Sturgeon" MP as a correspondent
+    And I add a "Member" correspondent
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
@@ -65,7 +65,7 @@ Feature: DCU Data Input
     When I get a "MIN" case at the "Data Input" stage
     And I fill all mandatory fields on the "Data Input" page with valid data
     And I click the "Continue" button
-    And I add "Nicola Sturgeon" MP as a correspondent
+    And I add a "Member" correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 

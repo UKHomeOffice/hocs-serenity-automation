@@ -51,7 +51,7 @@ public class Misallocations extends BasePage {
     public WebElementFacade confirmRadioButton;
 
     public void transferCaseFromStageTo(String stage, String transferTo) {
-        if (stage.toUpperCase().equals("TRIAGE") || stage.equalsIgnoreCase("DRAFT")) {
+        if (stage.equalsIgnoreCase("TRIAGE") || stage.equalsIgnoreCase("DRAFT")) {
             accordionMPAM.openCaseDetailsAccordion();
             safeClickOn(triage.changeBusinessAreaLink);
             waitABit(1000);
@@ -60,7 +60,7 @@ public class Misallocations extends BasePage {
         if (transferTo.equalsIgnoreCase("OGD")) {
             reasonForTransferToOGDTextField.sendKeys("Test - Transfer to OGD reason");
             setSessionVariable("inputReasonForTransfer").to("Test - Transfer to OGD reason");
-        } else if (transferTo.toUpperCase().equals("OTHER")) {
+        } else if (transferTo.equalsIgnoreCase("OTHER")) {
             reasonForTransferToOtherTextField.sendKeys("Test - Transfer to Other reason");
             setSessionVariable("inputReasonForTransfer").to("Test - Transfer to Other reason");
         }
@@ -71,7 +71,7 @@ public class Misallocations extends BasePage {
                 creation.selectAddressee("Home Secretary");
                 creation.selectInboundChannel("Email");
                 safeClickOn(continueButton);
-                correspondents.addAMemberCorrespondent("Boris Johnson");
+                correspondents.addAMemberCorrespondent();
                 clickTheButton("Move to Transfer");
                 break;
             case "TRIAGE":

@@ -113,7 +113,7 @@ public class MTSDataInput extends BasePage {
     }
 
     public void completeDataInputStageAndCloseMTSCase() {
-        correspondents.addAMemberCorrespondent("Boris Johnson");
+        correspondents.addAMemberCorrespondent();
         safeClickOn(continueButton);
         businessUnitDropdown.waitUntilVisible();
         selectBusinessArea();

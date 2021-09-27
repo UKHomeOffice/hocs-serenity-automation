@@ -8,6 +8,7 @@ import java.io.File;
 import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -59,6 +60,9 @@ public class Documents extends BasePage {
 
     @FindBy(xpath = "//strong[text()='Primary Draft']")
     public WebElementFacade primaryDraftDocumentTag;
+
+    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
+    public WebElementFacade primaryDraftDocumentName;
 
     //Simple methods
 
@@ -135,7 +139,6 @@ public class Documents extends BasePage {
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
         setSessionVariable("draft").to("docx");
-        recordCaseData.addHeadingAndValueRecord("Primary draft document", "test.docx");
     }
 
     public void addADraftDocumentAtQAStage() {
@@ -144,7 +147,7 @@ public class Documents extends BasePage {
         selectDocumentTypeByText("DRAFT");
         uploadDocumentOfType("pdf");
         safeClickOn(addButton);
-        setSessionVariable("second draft").to("pdf");
+        setSessionVariable("second draft").to("docx");
     }
 
     public void addAFinalDocument() {
@@ -262,4 +265,25 @@ public class Documents extends BasePage {
         assertThat(primaryDraftDocumentTag.isVisible(), is(true));
     }
 
+    public void selectPrimaryDraft(String fileIdentifier) {
+        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        safeClickOn(documentToSelect);
+    }
+
+    public void confirmOrApprovePrimaryDraft() {
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='DraftDocuments'][@checked]/following-sibling::label");
+        selectedPrimaryDraftDocument.waitUntilVisible();
+        recordCaseData.addHeadingAndValueRecord("Primary draft document", selectedPrimaryDraftDocument.getText());
+        setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
+        if (continueButton.isCurrentlyVisible()) {
+            clickTheButton("Continue");
+        } else {
+            clickTheButton("Approve primary draft");
+        }
+    }
+
+    public void assertThatPrimaryDraftIs(String fileName) {
+        primaryDraftDocumentName.waitUntilVisible();
+        primaryDraftDocumentName.shouldContainText(fileName);
+    }
 }

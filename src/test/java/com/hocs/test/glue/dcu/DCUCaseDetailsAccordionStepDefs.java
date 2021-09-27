@@ -46,12 +46,6 @@ public class DCUCaseDetailsAccordionStepDefs extends BasePage {
     @When("I move that case to the {string} stage and record all entered information")
     public void moveCaseToNextStage(String stage) {
         switch (stage) {
-            case "QA Response":
-                moveCaseToNextStage("Initial Draft");
-                dashboard.getCurrentCase();
-                safeClickOn(caseView.allocateToMeLink);
-                initialDraft.completeInitialDraftStageAndStoreEnteredInformation();
-                break;
             case "Private Office Approval":
                 moveCaseToNextStage("QA Response");
                 dashboard.getCurrentCase();

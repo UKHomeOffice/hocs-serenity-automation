@@ -133,6 +133,7 @@ public class Markup extends BasePage {
 
     public void confirmPrimaryTopic() {
         WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
+        selectedPrimaryTopic.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
         safeClickOn(continueButton);
     }

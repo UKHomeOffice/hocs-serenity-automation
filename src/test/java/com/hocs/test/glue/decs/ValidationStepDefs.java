@@ -1007,7 +1007,7 @@ public class ValidationStepDefs extends BasePage {
                             break;
                         case "BUSINESS AREA REQUIRED":
                         case "BUSINESS UNIT REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectUrgency();
                             mtsDataInput.selectChannelReceived();
@@ -1018,7 +1018,7 @@ public class ValidationStepDefs extends BasePage {
                             clickTheButton("Complete and Close Case");
                             break;
                         case "URGENCY REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
@@ -1030,7 +1030,7 @@ public class ValidationStepDefs extends BasePage {
                             clickTheButton("Complete and Close Case");
                             break;
                         case "CHANNEL RECEIVED REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
@@ -1043,7 +1043,7 @@ public class ValidationStepDefs extends BasePage {
                             break;
                         case "ENQUIRY SUBJECT REQUIRED":
                         case "ENQUIRY REASON REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
@@ -1054,7 +1054,7 @@ public class ValidationStepDefs extends BasePage {
                             clickTheButton("Complete and Close Case");
                             break;
                         case "SUPPORT CASE NOTE REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
@@ -1066,7 +1066,7 @@ public class ValidationStepDefs extends BasePage {
                             clickTheButton("Complete and Close Case");
                             break;
                         case "YOUR BUSINESS AREA REQUIRED":
-                            correspondents.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectBusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
@@ -1093,7 +1093,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "COMPLAINT TYPE REQUIRED":
-                                correspondents.addAPublicCorrespondentOfType("Complainant");
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -1101,7 +1101,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "CHANNEL REQUIRED":
-                                correspondents.addAPublicCorrespondentOfType("Complainant");
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -1110,7 +1110,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "SEVERITY REQUIRED":
-                                correspondents.addAPublicCorrespondentOfType("Complainant");
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -1119,7 +1119,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "OWNING CSU REQUIRED":
-                                correspondents.addAPublicCorrespondentOfType("Complainant");
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -1132,7 +1132,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(finishButton);
                                 break;
                             case "COMPLAINT TYPE OPTION REQUIRED":
-                                correspondents.addAPublicCorrespondentOfType("Complainant");
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);

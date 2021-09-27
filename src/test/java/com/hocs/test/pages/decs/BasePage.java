@@ -255,13 +255,6 @@ public class BasePage extends PageObject {
         safeClickOn(rejectButton);
     }
 
-    public void enterRejectionNotes() {
-        waitFor(rejectReasonTextField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectReasonTextField.sendKeys(rejectionReason);
-        setSessionVariable("rejectionReason").to(rejectionReason);
-    }
-
     public void javascriptScrollToElem(WebElementFacade element) {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
@@ -272,30 +265,26 @@ public class BasePage extends PageObject {
 
     protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
-
+        Random randomGenerator = new Random();
         for (int i = 0; i < 8; i++) {
-            int number = getRandomNumber();
-            char ch = CHAR_LIST.charAt(number);
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
             randStr.append(ch);
         }
+        return randStr.toString();
+    }
 
+    protected String generateRandomStringOfLength(int length) {
+        StringBuilder randStr = new StringBuilder();
+        Random randomGenerator = new Random();
+        for (int i = 1; i <= length; i++) {
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
+            randStr.append(ch);
+        }
         return randStr.toString();
     }
 
     private String getErrorMessageText() {
         return errorMessage.getText();
-    }
-
-    private int getRandomNumber() {
-        Random randomGenerator = new Random();
-
-        int randomInt = randomGenerator.nextInt(CHAR_LIST.length());
-
-        if (randomInt - 1 == -1) {
-            return randomInt;
-        } else {
-            return randomInt - 1;
-        }
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {

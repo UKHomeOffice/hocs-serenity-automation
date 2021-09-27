@@ -6,6 +6,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -204,7 +206,7 @@ public class Correspondents extends BasePage {
         correspondentTypeDropdown.selectByVisibleText(correspondentType);
     }
 
-    public void selectMemberOfParliament(String member) {
+    public void selectSpecificMemberOfParliament(String member) {
         safeClickOn(selectMPDropdown);
         waitABit(200);
         selectMPDropdown.sendKeys(member);
@@ -214,23 +216,41 @@ public class Correspondents extends BasePage {
         clickAddButton();
     }
 
-    public void selectMemberFromDropdownByName(String member) {
-        selectMPDropdown.selectByVisibleText(member);
+    public void selectRandomMemberOfParliament() {
+        safeClickOn(selectMPDropdown);
+        waitABit(200);
+        boolean selectableMemberVisible = false;
+        List<WebElementFacade> memberOptions = null;
+        while (!selectableMemberVisible) {
+            selectMPDropdown.clear();
+            selectMPDropdown.sendKeys(generateRandomStringOfLength(1));
+            waitABit(1000);
+            memberOptions = findAll("//div[contains(@class,'option')]");
+            selectableMemberVisible = memberOptions.size() > 1;
+        }
+        Random random = new Random();
+        safeClickOn(memberOptions.get(random.nextInt(memberOptions.size())));
+        setSessionVariable("correspondentFullName").to(memberOfParliamentName.getText());
+        clickAddButton();
     }
 
-    public void selectMemberFromDropdownByIndex(int index) {
-        selectMPDropdown.selectByIndex(index);
-    }
-
-    public void addAMemberCorrespondent(String member) {
+    public void addASpecificMemberCorrespondent(String member) {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
-        selectMemberOfParliament(member);
+        selectSpecificMemberOfParliament(member);
         correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         clickAddButton();
     }
 
-    public void addAPublicCorrespondentOfType(String correspondentType) {
+    public void addAMemberCorrespondent() {
+        selectToAddACorrespondent();
+        selectCorrespondentIsMP();
+        selectRandomMemberOfParliament();
+        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        clickAddButton();
+    }
+
+    public void addANonMemberCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
         if (!compCase()) {
             selectCorrespondentIsNotMP();
@@ -264,7 +284,8 @@ public class Correspondents extends BasePage {
 
     public void confirmPrimaryCorrespondent() {
         WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
-        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?\n", selectedPrimaryCorrespondent.getText());
+        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", selectedPrimaryCorrespondent.getText());
+        setSessionVariable("primaryCorrespondent").to(selectedPrimaryCorrespondent.getText());
         if (dcuCase()) {
             clickTheButton("Finish");
         }
@@ -314,5 +335,4 @@ public class Correspondents extends BasePage {
     public void assertNoPrimaryCorrespondentDisplayed() {
         assertThat(removeCorrespondentHyperText.isVisible(), is(false));
     }
-
 }

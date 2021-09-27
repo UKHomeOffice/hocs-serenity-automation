@@ -667,7 +667,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
+                creation.moveCaseWithSpecifiedValuesToTriageStage(businessArea, refType, "Standard", "Home Office");
                 dashboard.waitForDashboard();
                 break;
             case "DRAFT":
@@ -713,7 +713,7 @@ public class EndToEndStepDefs extends BasePage {
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
+                creation.moveCaseWithSpecifiedValuesToTriageStage("Windrush", "Ministerial", "Immediate", "Home Secretary");
                 dashboard.waitForDashboard();
                 break;
             case "DRAFT":

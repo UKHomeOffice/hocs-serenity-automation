@@ -262,10 +262,10 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createCSCaseOfType(caseType.toUpperCase());
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
-        safeClickOn(caseview.allocateToMeLink);
+        safeClickOn(caseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        this.correspondents.addAMemberCorrespondent(correspondent);
+        correspondents.addASpecificMemberCorrespondent(correspondent);
         safeClickOn(finishButton);
     }
 
@@ -315,7 +315,7 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCSCaseOfType("MPAM");
         dashboard.goToDashboard();
         dashboard.getAndClaimCurrentCase();
-        creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage(urgency, refType);
+        creation.moveCaseWithSpecifiedValuesToTriageStage("Windrush", refType, urgency, "Home Secretary");
         dashboard.waitForDashboard();
     }
 
@@ -324,7 +324,7 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCSCaseOfType("MPAM");
         dashboard.goToDashboard();
         dashboard.getAndClaimCurrentCase();
-        creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(signOffTeam);
+        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", signOffTeam);
         dashboard.waitForDashboard();
     }
 
@@ -348,7 +348,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.getAndClaimCurrentCase();
                         dataInput.fillAllMandatoryCorrespondenceFields();
                         clickContinueButton();
-                        correspondents.addAMemberCorrespondent(infoValue);
+                        correspondents.addASpecificMemberCorrespondent(infoValue);
                         safeClickOn(finishButton);
                         break;
                     case "PUBLIC CORRESPONDENT NAME":
@@ -359,7 +359,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.getAndClaimCurrentCase();
                         dataInput.fillAllMandatoryCorrespondenceFields();
                         clickContinueButton();
-                        correspondents.addAPublicCorrespondentOfType("Constituent");
+                        correspondents.addANonMemberCorrespondentOfType("Constituent");
                         correspondents.confirmPrimaryCorrespondent();
                         dashboard.waitForDashboard();
                         break;
@@ -384,7 +384,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dataInput.selectASpecificHomeSecInterestOption(infoValue);
                         dataInput.selectAHomeSecReplyOption();
                         safeClickOn(continueButton);
-                        correspondents.addAPublicCorrespondentOfType("Constituent");
+                        correspondents.addANonMemberCorrespondentOfType("Constituent");
                         correspondents.confirmPrimaryCorrespondent();
                         break;
                     default:
@@ -402,13 +402,13 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MPAM");
                         dashboard.goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage("UKVI", infoValue);
+                        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", infoValue, "Standard", "Home Secretary");
                         break;
                     case "MINISTERIAL SIGN OFF TEAM":
                         createCase.createCSCaseOfType("MPAM");
                         dashboard.goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithSpecificMinisterialSignOffTeamToTriageStage(infoValue);
+                        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", infoValue);
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
                         createCase.createCSCaseOfType("MPAM");
@@ -420,7 +420,7 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MPAM");
                         dashboard.goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithCorrespondentReferenceNumber(infoValue);
+                        creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
                         break;
                     case "RECEIVED ON OR BEFORE DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
@@ -460,13 +460,13 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT EMAIL ADDRESS":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         break;
                     case "COMPLAINANT DATE OF BIRTH":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB(infoValue);
                         registration.selectAGender();
@@ -489,7 +489,7 @@ public class CreateCaseStepDefs extends BasePage {
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         createCase.createCSCaseOfType("COMP");
                         createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                        correspondents.addAPublicCorrespondentOfType("Complainant");
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();

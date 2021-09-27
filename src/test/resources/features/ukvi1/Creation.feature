@@ -52,8 +52,7 @@ Feature: Creation
     When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
     And I complete the other required fields for Creation stage
     And I click the "Continue" button
-    And I select to add a correspondent that "is" a member of parliament
-    And I add the member of parliament "Boris Johnson"
+    And I add a "Member" correspondent
     And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
 
@@ -62,8 +61,7 @@ Feature: Creation
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Creation stage
     And I click the "Continue" button
-    And I select to add a correspondent that "is" a member of parliament
-    And I add the member of parliament "Boris Johnson"
+    And I add a "Member" correspondent
     And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
     Examples:
@@ -87,8 +85,7 @@ Feature: Creation
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    When I select to add a correspondent that "is" a member of parliament
-    And I add the member of parliament "Nicola Sturgeon MSP"
+    And I add a "Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
   @UKVIRegression1
@@ -119,7 +116,7 @@ Feature: Creation
   Scenario: User adds a second correspondent and selects them as the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    When I add "Nicola Sturgeon" MP as a correspondent
+    And I add a "Member" correspondent
     And I add a "Constituent" correspondent
     When I select the primary correspondent radio button for a different correspondent
     And I click the "Move to Triage" button

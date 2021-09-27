@@ -8,13 +8,17 @@ public class CorrespondentsStepDefs {
     Correspondents correspondents;
 
     @And("I add a {string} correspondent")
-    public void iAddAPublicCorrespondent(String correspondentType) {
-        correspondents.addAPublicCorrespondentOfType(correspondentType);
+    public void iAddACorrespondent(String correspondentType) {
+        if (correspondentType.equalsIgnoreCase("MEMBER")) {
+            correspondents.addAMemberCorrespondent();
+        } else {
+            correspondents.addANonMemberCorrespondentOfType(correspondentType);
+        }
     }
 
     @And("I add {string} MP as a correspondent")
     public void IAddMPCorrespondent(String name) {
-        correspondents.addAMemberCorrespondent(name);
+        correspondents.addASpecificMemberCorrespondent(name);
     }
 
     @And("I confirm the primary correspondent")

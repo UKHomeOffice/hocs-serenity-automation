@@ -38,7 +38,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectAHomeSecReplyOption();
         safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 
@@ -128,9 +128,9 @@ public class DataInputStepDefs extends BasePage {
     public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        correspondents.addAMemberCorrespondent("Boris Johnson");
-        correspondents.addAMemberCorrespondent("Nicola Sturgeon");
-        correspondents.addAMemberCorrespondent("Theresa May");
+        correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+        correspondents.addASpecificMemberCorrespondent("Nicola Sturgeon");
+        correspondents.addASpecificMemberCorrespondent("Theresa May");
         safeClickOn(finishButton);
     }
 
@@ -138,16 +138,16 @@ public class DataInputStepDefs extends BasePage {
     public void iCompleteDataInputStageWithThreePublicCorrespondents() {
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
-        correspondents.addAPublicCorrespondentOfType("Constituent");
-        correspondents.addAPublicCorrespondentOfType("Constituent");
-        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
         setSessionVariable("correspondentFullName").to(member);
-        correspondents.selectMemberOfParliament(member);
+        correspondents.selectSpecificMemberOfParliament(member);
         waitABit(2000);
         correspondents.clickAddButton();
     }
@@ -242,7 +242,7 @@ public class DataInputStepDefs extends BasePage {
             dataInput.selectAHomeSecReplyOption();
         }
         safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 
@@ -260,7 +260,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectASpecificHomeSecReplyOption("Yes");
         safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 }

@@ -23,9 +23,9 @@ Feature: QA Response
       And I select to modify the primary draft
       And I upload a "second draft" document
       And I select the "second draft" document as the primary draft
-      And I click the "Approve primary draft" button
+      And I approve the Primary Draft document
       Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
-      And the "second draft" document should be tagged as the primary draft
+      And the selected document should be tagged as the primary draft
 
   @Validation
   Scenario: User must enter text in the text box when creating a Case note at the QA Response stage

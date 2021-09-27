@@ -2,6 +2,7 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -197,5 +198,16 @@ public class DocumentsStepDefs extends BasePage {
     @Then("document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
+    }
+
+    @And("I confirm/approve the Primary Draft document")
+    public void iConfirmThePrimaryDraftDocument() {
+        documents.confirmOrApprovePrimaryDraft();
+    }
+
+    @And("the selected document should be tagged as the primary draft")
+    public void theSelectedDocumentShouldBeTaggedAsThePrimaryDraft() {
+        documents.selectDocumentsTab();
+        documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
     }
 }
