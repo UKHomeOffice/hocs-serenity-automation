@@ -175,46 +175,6 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    private void goToCSDashboard() {
-        safeClickOn(csDashboardLink);
-        waitForDashboard();
-    }
-
-    private void goToWCSDashboard() {
-        safeClickOn(wcsDashboardLink);
-        waitForDashboard();
-    }
-
-    public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
-    }
-
-    public boolean onDashboard() {
-        return caseReferenceSearchBar.isCurrentlyVisible();
-    }
-
-    public void goToMUIDashboard() {
-        safeClickOn(muiDashboardLink);
-    }
-
-    public void goToDashboard() {
-
-        switch (currentPlatform.toUpperCase()) {
-            case "CS":
-                goToCSDashboard();
-                break;
-            case "WCS":
-                goToWCSDashboard();
-                break;
-            case "CS MANAGEMENT UI":
-            case "WCS MANAGEMENT UI":
-                goToMUIDashboard();
-                break;
-            default:
-                pendingStep(currentPlatform + " is not defined within " + getMethodName());
-        }
-    }
-
     public void clickRejectButton() {
         safeClickOn(rejectButton);
     }
@@ -349,26 +309,6 @@ public class BasePage extends PageObject {
 
     public String getCurrentCaseReference() {
         return sessionVariableCalled("caseReference");
-    }
-
-    public boolean currentCaseIsLoaded() {
-        if (header1.isCurrentlyVisible()) {
-            try {
-                if (header1.getText().equals(getCurrentCaseReference())) {
-                    return true;
-                }
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        if (headerCaption1.isCurrentlyVisible()) {
-            try {
-                return headerCaption1.getText().equals(getCurrentCaseReference());
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        return false;
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {

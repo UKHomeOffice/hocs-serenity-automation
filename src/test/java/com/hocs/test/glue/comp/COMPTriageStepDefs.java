@@ -73,4 +73,16 @@ public class COMPTriageStepDefs extends BasePage {
     public void highlightingCheckAtServiceTriage() {
         compTriage.assertOverdueContributionRequestIsHighlighted();
     }
+
+    @And("I accept the previous Claim Category selection")
+    public void iAcceptThePreviousClaimCatagorySelection() {
+        waitForPageWithTitle("Complaint Category");
+        clickTheButton("Continue");
+    }
+
+    @And("I accept the previous Severity selection")
+    public void iAcceptThePreviousSeveritySelection() {
+        waitForPageWithTitle("Triage Case Details");
+        clickTheButton("Continue");
+    }
 }

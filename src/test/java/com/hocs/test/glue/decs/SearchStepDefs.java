@@ -9,7 +9,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -28,7 +28,7 @@ public class SearchStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
@@ -55,7 +55,7 @@ public class SearchStepDefs extends BasePage {
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
         createCase.createCSCaseOfType("MIN");
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();
     }
@@ -63,7 +63,7 @@ public class SearchStepDefs extends BasePage {
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
         workstacks.waitABit(500);
-        if (workstacks.isElementDisplayed(unallocatedCaseView.allocateToMeLink)) {
+        if (workstacks.isElementDisplayed(caseView.allocateToMeLink)) {
             workstacks.assertCaseReferenceBeforeAllocation();
         } else {
             workstacks.assertCaseReferenceAfterAllocation();

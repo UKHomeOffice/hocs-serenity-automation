@@ -12,12 +12,13 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
 public class Dashboard extends BasePage {
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCaseLink;
@@ -93,9 +94,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Finance']")
     public WebElementFacade financeTeam;
 
-    @FindBy(xpath = "//a[text()='Documents']")
-    public WebElementFacade documentsTab;
-
     @FindBy(xpath = "//span[text()='MTS Team']")
     public WebElementFacade mtsTeamWorkstack;
 
@@ -141,6 +139,46 @@ public class Dashboard extends BasePage {
     }
 
     // Select Workstack Methods
+
+    private void goToCSDashboard() {
+        safeClickOn(csDashboardLink);
+        waitForDashboard();
+    }
+
+    private void goToWCSDashboard() {
+        safeClickOn(wcsDashboardLink);
+        waitForDashboard();
+    }
+
+    public void goToMUIDashboard() {
+        safeClickOn(muiDashboardLink);
+    }
+
+    public void goToDashboard() {
+        switch (currentPlatform.toUpperCase()) {
+            case "CS":
+                goToCSDashboard();
+                break;
+            case "WCS":
+                goToWCSDashboard();
+                break;
+            case "CS MANAGEMENT UI":
+            case "WCS MANAGEMENT UI":
+                goToMUIDashboard();
+                break;
+            default:
+                pendingStep(currentPlatform + " is not defined within " + getMethodName());
+        }
+        waitForDashboard();
+    }
+
+    public boolean onDashboard() {
+        return caseReferenceSearchBar.isCurrentlyVisible();
+    }
+
+    public void waitForDashboard() {
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
 
     public void selectMyCases() {
         safeClickOn(myCases);
@@ -189,11 +227,7 @@ public class Dashboard extends BasePage {
             caseReferenceSearchBar.sendKeys(caseReference);
         }
         hitEnterCaseReferenceSearchBar();
-        waitForCaseToLoad();
-    }
-
-    public void waitForCaseToLoad() {
-        documentsTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        caseView.waitForCaseToLoad();
     }
 
     public void getCurrentCase() {
@@ -206,27 +240,23 @@ public class Dashboard extends BasePage {
     }
 
     public void claimCurrentCase() {
+        assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
-        while (attempts < 6 && !unallocatedCaseView.caseCanBeAllocated()) {
+        while (attempts < 6 && !caseView.caseCanBeAllocated()) {
             waitABit(5000);
             setCaseReferenceFromUnassignedCase();
             goToDashboard();
             getCurrentCase();
+            assertThat(caseView.currentCaseIsLoaded(), is(true));
             attempts++;
         }
-        assertThat(unallocatedCaseView.caseCanBeAllocated(), is(true));
-        unallocatedCaseView.clickAllocateToMeLink();
+        assertThat(caseView.caseCanBeAllocated(), is(true));
+        caseView.clickAllocateToMeLink();
     }
 
     public void getAndClaimCurrentCase() {
-        if (!documentsTab.isCurrentlyVisible()) {
-            getCurrentCase();
-        } else if (!currentCaseIsLoaded()) {
-            getCurrentCase();
-        }
-        if (unallocatedCaseView.caseDetailsAccordionIsVisible()) {
-            claimCurrentCase();
-        }
+        getCurrentCase();
+        claimCurrentCase();
     }
 
     public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {

@@ -28,7 +28,7 @@ public class Search extends BasePage {
 
     AccordionMPAM accordionMPAM;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     Dashboard dashboard;
 
@@ -528,7 +528,7 @@ public class Search extends BasePage {
             case "CASE REFERENCE":
                 String caseRef;
                 safeClickOn(randomSearchResult);
-                if (unallocatedCaseView.allocateToMeLink.isVisible()) {
+                if (caseView.allocateToMeLink.isVisible()) {
                     caseRef = header1.getText();
                 } else {
                     caseRef = headerCaption1.getText();
@@ -617,17 +617,17 @@ public class Search extends BasePage {
                 break;
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
-                if (!unallocatedCaseView.caseCanBeAllocated()) {
+                if (!caseView.caseCanBeAllocated()) {
                     summaryTab.selectSummaryTab();
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User",getCurrentUser().getUsername());
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(assignedTeam);
                     workstacks.unallocateSelectedCase(randomSearchResult);
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
                 openOrCloseAccordionSection("Registration");
-                displayedValue = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":

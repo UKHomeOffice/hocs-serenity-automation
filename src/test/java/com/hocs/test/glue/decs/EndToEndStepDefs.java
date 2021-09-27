@@ -107,7 +107,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "MPAM":
                 dashboard.getAndClaimCurrentCase();
@@ -139,7 +139,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "COMP":
                 dashboard.getAndClaimCurrentCase();
@@ -213,7 +213,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "FOI":
                 switch (stage.toUpperCase()) {
@@ -223,12 +223,12 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     case "ALLOCATION":
                         foiProgressCase.moveCaseFromAllocationToAcceptance();
-                        waitForDashboard();
+                        dashboard.waitForDashboard();
                         break;
                     case "ACCEPTANCE":
                         dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
-                        waitForDashboard();
+                        dashboard.waitForDashboard();
                         break;
                     case "CONSIDER AND DRAFT":
                         dashboard.getAndClaimCurrentCase();
@@ -318,7 +318,7 @@ public class EndToEndStepDefs extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -333,7 +333,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -379,7 +379,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -417,7 +417,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "MARKUP":
                         iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
@@ -459,7 +459,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "CREATION");
@@ -499,13 +499,13 @@ public class EndToEndStepDefs extends BasePage {
                 break;
             case "MTS":
                 createCase.createCSCaseOfType(caseType);
-                goToDashboard();
+                dashboard.goToDashboard();
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         createCase.createCSCaseOfType(caseType);
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "SERVICE TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
@@ -611,7 +611,7 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
                         foiCreateCase.createFOICase();
-                        goToDashboard();
+                        dashboard.goToDashboard();
                         break;
                     case "ALLOCATION":
                         iCreateACaseAndMoveItToAStage(caseType, "CASE CREATION");
@@ -655,7 +655,7 @@ public class EndToEndStepDefs extends BasePage {
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "DRAFT":
                 moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "TRIAGE");
@@ -671,7 +671,7 @@ public class EndToEndStepDefs extends BasePage {
                 iCompleteTheStage("QA");
                 break;
             case "CASE CLOSED":
-                if (refType.toUpperCase().equals("MINISTERIAL")) {
+                if (refType.equalsIgnoreCase("MINISTERIAL")) {
                     moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(businessArea, refType, "PRIVATE OFFICE");
                     iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
                 } else {
@@ -698,10 +698,10 @@ public class EndToEndStepDefs extends BasePage {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
-                goToDashboard();
+                dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
-                waitForDashboard();
+                dashboard.waitForDashboard();
                 break;
             case "DRAFT":
                 moveHighPriorityNewMPAMCaseToStage("TRIAGE");

@@ -11,7 +11,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
@@ -61,7 +61,7 @@ public class BaseStepDefs extends BasePage {
 
     User originalUser;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -277,7 +277,7 @@ public class BaseStepDefs extends BasePage {
     @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
-        unallocatedCaseView.assertCaseCannotBeAssigned();
+        caseView.assertCaseCannotBeAssigned();
 //        if (!sessionVariableCalled("caseType").equals("WCS")) {
 //            timelineTab.selectTimelineTab();
 //            timelineTab.assertCaseClosedNoteVisible();
@@ -313,7 +313,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case/claim should be moved/returned to (the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.getCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertCaseStage(stage);
