@@ -266,7 +266,7 @@ public class Registration extends BasePage {
     }
 
     public void selectAVisibleClaimCategory() {
-        List<WebElementFacade> claimCategories = findAll("//label[contains(@for,'Cat')]");
+        List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory: claimCategories) {
             if (claimCategory.isCurrentlyVisible()) {
