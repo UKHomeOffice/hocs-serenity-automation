@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.comp.COMPProgressCase;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -71,14 +72,22 @@ public class EndToEndStepDefs extends BasePage {
 
     Search search;
 
+    CaseView caseView;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
+        if (!caseView.currentCaseIsLoaded()) {
+            dashboard.goToDashboard();
+            dashboard.getCurrentCase();
+        }
+        if (caseView.caseCanBeAllocated()) {
+            dashboard.claimCurrentCase();
+        }
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
             case "DTEN":
             case "TRO":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         dataInput.moveCaseFromDataInputToMarkup();
@@ -113,7 +122,6 @@ public class EndToEndStepDefs extends BasePage {
                 dashboard.waitForDashboard();
                 break;
             case "MPAM":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         creation.moveCaseFromCreationToTriage();
@@ -148,91 +156,69 @@ public class EndToEndStepDefs extends BasePage {
             case "COMP2":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromRegistrationToServiceTriage();
                         break;
                     case "REGISTRATION (TO EX-GRATIA TRIAGE)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromRegistrationToExGratiaTriage();
                         break;
                     case "REGISTRATION (TO MINOR MISCONDUCT TRIAGE)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromRegistrationToMinorMisconductTriage();
                         break;
                     case "SERVICE TRIAGE (TO SERVICE DRAFT)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromServiceTriageToServiceDraft();
                         break;
                     case "EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromExGratiaTriageToExGratiaResponseDraft();
                         break;
                     case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductResponseDraft();
                         break;
                     case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromServiceTriageToServiceEscalated();
                         break;
                     case "EX-GRATIA TRIAGE (TO EX-GRATIA ESCALATE)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromExGratiaTriageToExGratiaEscalate();
                         break;
                     case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT ESCALATE)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductEscalate();
                         break;
                     case "SERVICE TRIAGE (TO CCH)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromServiceTriageToCCH();
                         break;
                     case "EX-GRATIA TRIAGE (TO CCH)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromExGratiaTriageToCCH();
                         break;
                     case "MINOR MISCONDUCT TRIAGE (TO CCH)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductTriageToCCH();
                         break;
                     case "SERVICE DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromServiceDraftToServiceQA();
                         break;
                     case "EX-GRATIA RESPONSE DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromExGratiaResponseDraftToExGratiaQA();
                         break;
                     case "MINOR MISCONDUCT RESPONSE DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductResponseDraftToMinorMisconductQA();
                         break;
                     case "SERVICE QA":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromServiceQAToServiceSend();
                         break;
                     case "EX-GRATIA QA":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromExGratiaQAToExGratiaSend();
                         break;
                     case "MINOR MISCONDUCT QA":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductQAToMinorMisconductSend();
                         break;
                     case "SERVICE SEND":
-                        dashboard.getCurrentCase();
                         compProgressCase.moveCaseFromServiceSendToComplaintClosed();
                         break;
                     case "EX-GRATIA SEND":
-                        dashboard.getCurrentCase();
                         compProgressCase.moveCaseFromExGratiaSendToComplaintClosed();
                         break;
                     case "MINOR MISCONDUCT SEND":
-                        dashboard.getCurrentCase();
                         compProgressCase.moveCaseFromMinorMisconductSendToComplaintClosed();
                         break;
                     case "COMPLAINT CLOSED (TO CASE CLOSED)":
-                        dashboard.getAndClaimCurrentCase();
                         compProgressCase.moveCaseFromComplaintClosedToCaseClosed();
                         break;
                     default:
@@ -243,7 +229,6 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        dashboard.getCurrentCase();
                         foiProgressCase.moveCaseFromCaseCreationToAllocation();
                         break;
                     case "ALLOCATION":
@@ -251,12 +236,10 @@ public class EndToEndStepDefs extends BasePage {
                         dashboard.waitForDashboard();
                         break;
                     case "ACCEPTANCE":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
                         dashboard.waitForDashboard();
                         break;
                     case "CONSIDER AND DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
                         break;
                     case "APPROVAL":
