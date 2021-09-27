@@ -248,7 +248,7 @@ public class TeamManagement extends BasePage {
 
     public void assertThatUserVisibleInTeamListIs(boolean assertion) {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-        waitABit(500);
+        waitABit(2500);
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
         WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]");
         if (assertion) {

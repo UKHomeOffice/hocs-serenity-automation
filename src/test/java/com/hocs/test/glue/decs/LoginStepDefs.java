@@ -111,12 +111,12 @@ public class LoginStepDefs extends BasePage {
 
     @Given("I am on the Correspondence System Login Page")
     public void iAmOnTheCSLoginPage() {
-        loginPage.open();
+        navigateToPlatform("CS");
     }
 
     @Given("I am on the Windrush Compensation Scheme Login Page")
     public void iAmOnTheWCSLoginPage() {
-        wcsLoginPage.open();
+        navigateToPlatform("WCS");
     }
 
     @When("I enter the login credentials for user {string} and click the login button")
