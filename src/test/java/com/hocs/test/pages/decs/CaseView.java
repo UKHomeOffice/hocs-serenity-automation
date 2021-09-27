@@ -37,10 +37,12 @@ public class CaseView extends BasePage {
 
     public void clickAllocateToMeLink() {
         safeClickOn(allocateToMeLink);
+        allocateToMeLink.waitUntilNotVisible();
+        tabs.waitUntilVisible();
     }
 
     public boolean caseCanBeAllocated() {
-        return allocateToMeLink.isVisible();
+        return allocateToMeLink.isCurrentlyVisible();
     }
 
     public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(String heading) {
