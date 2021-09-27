@@ -16,7 +16,14 @@ Feature: Close Case (Telephone)
     | Triage            |
     | Draft             |
     | QA                |
-    | Awaiting Dispatch |
+
+  @UKVIRegression1
+  Scenario: User closes a telephone case at Awaiting Dispatch stage
+    And I create a MPAM case with "Official" as the Reference Type and move it to the "Awaiting Dispatch" stage
+    And I load the current case
+    And I select the Close Case Telephone radio button at the "Awaiting Dispatch" stage and confirm
+    And I enter the mandatory information at the Close Case Telephone screen and close the case
+    Then the case should be closed
 
   @Validation
   Scenario Outline: User tests the validation of the Close Case (Telephone) screen

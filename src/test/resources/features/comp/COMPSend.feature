@@ -8,7 +8,7 @@ Feature: COMP Send
   @COMPWorkflow @COMPRegression
   Scenario: User can complete service send stage
     When I create a "COMP" case and move it to the "Service Send" stage
-    And I load and claim the current case
+    And I load the current case
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be moved to the "Complaint Closed" stage
@@ -18,7 +18,7 @@ Feature: COMP Send
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Ex-Gratia send stage
     When I create a "COMP" case and move it to the "Ex-Gratia Send" stage
-    And I load and claim the current case
+    And I load the current case
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be moved to the "Complaint Closed" stage
@@ -27,7 +27,7 @@ Feature: COMP Send
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Minor Misconduct send stage
     When I create a "COMP" case and move it to the "Minor Misconduct Send" stage
-    And I load and claim the current case
+    And I load the current case
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be moved to the "Complaint Closed" stage
