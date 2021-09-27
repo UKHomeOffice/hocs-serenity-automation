@@ -212,7 +212,7 @@ public class COMPProgressCase extends BasePage {
         compSend.selectACaseOutcome();
         compSend.selectAResponseChannel();
         compSend.enterADateOfResponse();
-        clickTheButton("Continue");
+        clickTheButton("Complete");
         System.out.println("Case moved from Service Send to Complaint Closed");
     }
 
