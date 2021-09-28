@@ -9,13 +9,15 @@ public class DCUProgressCase extends BasePage {
 
     Correspondents correspondents;
 
+    Documents documents;
+
     DataInput dataInput;
 
     Markup markup;
 
     InitialDraft initialDraft;
 
-    Documents documents;
+    QAResponse qaResponse;
 
     public void moveCaseFromDataInputToMarkup() {
         dataInput.fillAllMandatoryCorrespondenceFields();
@@ -86,6 +88,8 @@ public class DCUProgressCase extends BasePage {
         safeClickOn(finishButton);
     }
 
-    public void moveCaseFromQAResponseToPrivateOfficeApproval() {
+    public void moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch() {
+        qaResponse.selectApprovePrimaryDraftRadioButton();
+        clickTheButton("Continue");
     }
 }

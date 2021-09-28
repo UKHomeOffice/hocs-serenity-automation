@@ -105,10 +105,10 @@ public class EndToEndStepDefs extends BasePage {
                         dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
                         break;
                     case "QA RESPONSE":
-                        qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
+                        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
+                        privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOffOrDispatch();
                         break;
                     case "MINISTERIAL SIGN OFF":
                         ministerialSignOff.moveCaseFromMinisterToDispatch();

@@ -61,7 +61,7 @@ public class PrivateOfficeApproval extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void moveCaseFromPrivateOfficeToMinisterSignOff() {
+    public void moveCaseFromPrivateOfficeToMinisterSignOffOrDispatch() {
         safeClickOn(privateOfficeAcceptRadioButton);
         safeClickOn(continueButton);
     }
@@ -92,7 +92,7 @@ public class PrivateOfficeApproval extends BasePage {
         safeClickOn(continueButton);
         markup.addTopicToCase(topic);
         WebElementFacade selectedPrimaryTopic = findBy("//input[@checked]/following-sibling::label");
-        if (!selectedPrimaryTopic.getText().toUpperCase().equals(topic.toUpperCase())) {
+        if (!selectedPrimaryTopic.getText().equalsIgnoreCase(topic)) {
             WebElementFacade newTopicRadioButton = findBy("//label[text()='" + topic + "']/parent::div/input");
             waitFor(newTopicRadioButton);
             safeClickOn(newTopicRadioButton);

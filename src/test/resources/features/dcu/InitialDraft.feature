@@ -25,7 +25,7 @@ Feature: Initial Draft
     And I select to reply by "email"
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
-    And I confirm the Primary Draft document
+    And I confirm the primary draft document
     And I select that the QA Process should be completed on DECS
     Then the case should be moved to the "QA Response" stage
     And the case should still be owned by the drafting team
@@ -42,7 +42,7 @@ Feature: Initial Draft
     When I select a case "should" be answered by my team
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
-    And I confirm the Primary Draft document
+    And I confirm the primary draft document
     And I select that the QA Process should be completed on DECS
     Then I am returned to the dashboard
     And the case should be moved to the "QA Response" stage
@@ -57,7 +57,7 @@ Feature: Initial Draft
     And I select to reply by "email"
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
-    And I confirm the Primary Draft document
+    And I confirm the primary draft document
     And I select that the QA Process has been completed offline
     And I record who on my Team completed the offline QA Approval
     Then I am returned to the dashboard
@@ -72,7 +72,7 @@ Feature: Initial Draft
     When I select a case "should" be answered by my team
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
-    And I confirm the Primary Draft document
+    And I confirm the primary draft document
     And I select that the QA Process has been completed offline
     And I record who on my Team completed the offline QA Approval
     Then I am returned to the dashboard
@@ -88,7 +88,7 @@ Feature: Initial Draft
     And I select to reply by "email"
     And I upload a "draft" document
     And I select the "draft" document as the primary draft
-    And I confirm the Primary Draft document
+    And I confirm the primary draft document
     And I select that the QA Process has been completed offline
     And I record who on my Team completed the offline QA Approval
     Then I am returned to the dashboard

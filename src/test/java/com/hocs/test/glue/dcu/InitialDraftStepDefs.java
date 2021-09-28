@@ -91,7 +91,7 @@ public class InitialDraftStepDefs extends BasePage {
         summaryTab.assertAllocatedTeam(sessionVariableCalled("draftingTeamName"));
     }
 
-    @And("the case should still be owned by the drafting team")
+    @And("the case should (still be owned by)(be returned to) the drafting team")
     public void theCaseShouldStillBeOwnedByTheDraftingTeam() {
         openOrCloseAccordionSection("Markup");
         String draftingTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Initial Draft Team").get(0);

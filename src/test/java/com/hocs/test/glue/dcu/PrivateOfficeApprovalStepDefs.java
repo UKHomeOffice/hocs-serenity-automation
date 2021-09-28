@@ -1,8 +1,5 @@
 package com.hocs.test.glue.dcu;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -16,8 +13,6 @@ import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -78,6 +73,6 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     public void iAdvanceTheCaseToThePrivateOfficeApprovalStage() {
         dashboard.getAndClaimCurrentCase();
         dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
-        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApproval();
+        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
     }
 }

@@ -3,22 +3,13 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
-import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.Managed;
 
 public class QAResponse extends BasePage {
 
-    @Managed
-
-    Dashboard dashboard;
-
-    CreateCase_SuccessPage createCaseSuccessPage;
-
-    Workstacks workstacks;
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//label[text()='Approve primary draft']")
     public WebElementFacade QAAcceptRadioButton;
@@ -34,60 +25,20 @@ public class QAResponse extends BasePage {
 
     // Basic Methods
 
-    public void clickQAResponseAcceptRadioButton() {
-        safeClickOn(QAAcceptRadioButton);
-        System.out.println("Response accepted");
+    public void selectApprovePrimaryDraftRadioButton() {
+        recordCaseData.selectSpecificRadioButton("Approve primary draft");
     }
 
-    public void clickQAResponseRejectRadioButton() {
-        safeClickOn(QARejectRadioButton);
-        System.out.println("Response rejected");
+    public void selectReturnCaseToDraftingTeamRadioButton() {
+        recordCaseData.selectSpecificRadioButton("Return case to drafting team");
     }
 
-    public void clickQAResponseModifyRadioButton() {
-        safeClickOn(QAModifyRadioButton);
-        System.out.println("Modifying Response");
+    public void selectModifyPrimaryDraftRadioButton() {
+        recordCaseData.selectSpecificRadioButton("Modify primary draft");
     }
 
-    // Multi Step Methods
-
-    public void rejectCaseWithoutReason() {
-        clickQAResponseRejectRadioButton();
-        safeClickOn(continueButton);
-        safeClickOn(finishButton);
-    }
-
-    public void enterQARejectionNote() {
-        String QARejectionNote = generateRandomString();
-        QARejectionNoteField.sendKeys(QARejectionNote);
-        setSessionVariable("QARejectionNote").to(QARejectionNote);
-    }
-
-    public void qaResponseFullFlow() {
-        dashboard.getAndClaimCurrentCase();
-        clickQAResponseAcceptRadioButton();
-        System.out.println("Finished QA Response, returning to home page.");
-        clickContinueButton();
-    }
-
-    public void getToQAResponseFeedbackScreenPrerequisites() {
-        safeClickOn(QARejectRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void moveTROCaseFromQAResponseToDispatch() {
-        safeClickOn(QAAcceptRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void moveCaseFromQaResponseToPrivateOfficeApproval() {
-        safeClickOn(QAAcceptRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void completeQAResponseStageAndStoreEnteredInformation() {
-        safeClickOn(QAAcceptRadioButton);
-        setSessionVariable("chosenQAResponse").to(QAAcceptRadioButton.getTextContent());
-        safeClickOn(continueButton);
+    public void enterRejectionReason() {
+        String rejectionNote = recordCaseData.enterTextIntoTextAreaWithHeading("What is your feedback about the response?");
+        setSessionVariable("QARejectionNote").to(rejectionNote);
     }
 }

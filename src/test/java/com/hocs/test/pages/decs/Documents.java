@@ -147,7 +147,7 @@ public class Documents extends BasePage {
         selectDocumentTypeByText("DRAFT");
         uploadDocumentOfType("pdf");
         safeClickOn(addButton);
-        setSessionVariable("second draft").to("docx");
+        setSessionVariable("replacement draft").to("docx");
     }
 
     public void addAFinalDocument() {

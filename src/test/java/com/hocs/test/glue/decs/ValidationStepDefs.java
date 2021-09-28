@@ -229,7 +229,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -457,7 +457,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -619,7 +619,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);

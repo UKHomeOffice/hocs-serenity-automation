@@ -43,7 +43,7 @@ public class DocumentsStepDefs extends BasePage {
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
-            case "SECOND DRAFT":
+            case "REPLACEMENT DRAFT":
                 documents.addADraftDocumentAtQAStage();
                 break;
             case "FINAL":
@@ -200,7 +200,7 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertFailedConversionTagVisible();
     }
 
-    @And("I confirm/approve the Primary Draft document")
+    @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
         documents.confirmOrApprovePrimaryDraft();
     }

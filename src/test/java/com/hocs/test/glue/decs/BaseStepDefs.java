@@ -27,7 +27,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.time.Duration;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -194,7 +193,8 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(finishButton);
                 break;
             case "QA RESPONSE FEEDBACK":
-                qaResponse.getToQAResponseFeedbackScreenPrerequisites();
+                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
+                safeClickOn(continueButton);
                 break;
             case "CHANGE MINISTER":
                 privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
@@ -262,7 +262,9 @@ public class BaseStepDefs extends BasePage {
                 }
                 break;
             case "QA RESPONSE":
-                qaResponse.rejectCaseWithoutReason();
+                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
+                safeClickOn(continueButton);
+                safeClickOn(finishButton);
                 break;
             case "DISPATCH":
                 dispatch.rejectCaseWithoutReason();
@@ -372,20 +374,20 @@ public class BaseStepDefs extends BasePage {
                 safeClickOn(finishButton);
                 break;
             case "QA RESPONSE":
-                safeClickOn(qaResponse.QARejectRadioButton);
-                safeClickOn(qaResponse.continueButton);
-                qaResponse.enterQARejectionNote();
+                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
+                safeClickOn(continueButton);
+                qaResponse.enterRejectionReason();
                 safeClickOn(finishButton);
                 break;
             case "PRIVATE OFFICE APPROVAL":
                 safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
-                safeClickOn(privateOfficeApproval.continueButton);
+                safeClickOn(continueButton);
                 privateOfficeApproval.enterPORejectNotes();
                 safeClickOn(finishButton);
                 break;
             case "MINISTERIAL SIGN OFF":
                 safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
-                safeClickOn(ministerialSignOff.continueButton);
+                safeClickOn(continueButton);
                 ministerialSignOff.enterMinisterRejectionNote();
                 safeClickOn(ministerialSignOff.continueButton);
                 break;
