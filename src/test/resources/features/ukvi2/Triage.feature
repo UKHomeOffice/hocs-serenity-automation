@@ -91,7 +91,7 @@ Feature: Triage
   @UKVIWorkflow @UKVIRegression2
   Scenario: User takes a Triage On Hold case off hold
     And I send the Triage case to "On Hold"
-    And I load and claim the current case
+    And I load the current case
     When I take the Triage (On Hold) case off hold
     Then the case should be moved to the "Triage" stage
     And the case "should" be allocated to me in the summary
@@ -99,7 +99,7 @@ Feature: Triage
   @UKVIWorkflow @UKVIRegression2
   Scenario: User de-escalates a Triage (Escalated) case
     When I send the Triage case to "Workflow Manager"
-    And I load and claim the current case
+    And I load the current case
     When I select the "De-Escalate" action at the Triage-Escalated stage
     Then the case should be moved to the "Triage" stage
     And the case "should" be allocated to me in the summary
@@ -107,7 +107,7 @@ Feature: Triage
   @UKVIWorkflow @UKVIRegression2
   Scenario: User closes a Triage (Escalated) case
     And I send the Triage case to "Workflow Manager"
-    When I load and claim the current case
+    When I load the current case
     And I select the "Close Case" action at the Triage-Escalated stage
     And I click the "Close case" button
     Then the case should be closed

@@ -57,7 +57,7 @@ Feature: Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
-    When I load and claim the current case
+    When I load the current case
     And I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
@@ -67,7 +67,7 @@ Feature: Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Workflow Manager"
-    When I load and claim the current case
+    When I load the current case
     And I select the "Close Case" action at the Draft-Escalated stage
     And I click the "Close case" button
     Then the case should be closed

@@ -57,7 +57,7 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
-    And I load and claim the current case
+    And I load the current case
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Contributions Received" action at the contributions requested stage
     And I select to "<retention>" the case that has been completed at the Draft-Contribution Request stage
@@ -101,7 +101,7 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
-    And I load and claim the current case
+    And I load the current case
     And I select the "Escalate to workflow manager" action at the contributions requested stage
     Then the case should be moved to the "Draft - Escalated (Contribution Requested)" stage
 
@@ -122,10 +122,10 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
-    And I load and claim the current case
+    And I load the current case
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Escalate to workflow manager" action at the contributions requested stage
-    And I load and claim the current case
+    And I load the current case
     And I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft (Contribution Requested)" stage
 
@@ -146,7 +146,7 @@ Feature: Multiple Contributions
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "Contributions Requested"
-    And I load and claim the current case
+    And I load the current case
     And I choose to "Complete" the contribution request at the multiple contribution stage
     And I select the "Put Case into Campaign" action at the contributions requested stage
     Then the case should be moved to the "Campaign" stage

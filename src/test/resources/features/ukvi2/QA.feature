@@ -70,7 +70,7 @@ Feature: QA
     And I create a "MPAM" case and move it to the "QA" stage
     And I load and claim the current case
     And I select the "Put on hold" action at QA
-    And I load and claim the current case
+    And I load the current case
     When I select the "Take off hold" action at the QA On Hold stage
     Then the case should be moved to the "QA" stage
     And the case "should" be allocated to me in the summary
@@ -81,7 +81,7 @@ Feature: QA
     And I load and claim the current case
     And I select the "Escalate to Workflow Manager" action at QA
     And I submit a reason to escalate the case at QA stage
-    And I load and claim the current case
+    And I load the current case
     When I select the "Escalation Complete" action at the QA Escalated stage
     Then the case should be moved to the "QA" stage
     And the case "should" be allocated to me in the summary
@@ -92,7 +92,7 @@ Feature: QA
     And I load and claim the current case
     And I select the "Escalate to Workflow Manager" action at QA
     And I submit a reason to escalate the case at QA stage
-    When I load and claim the current case
+    When I load the current case
     And I select to close the QA (Escalated) case
     And I click the "Close case" button
     Then the case should be closed

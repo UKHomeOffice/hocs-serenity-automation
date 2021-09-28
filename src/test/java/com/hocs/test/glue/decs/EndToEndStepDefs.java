@@ -8,6 +8,7 @@ import com.hocs.test.pages.comp.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -71,14 +72,22 @@ public class EndToEndStepDefs extends BasePage {
 
     FOIProgressCase foiProgressCase;
 
+    CaseView caseView;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
+        if (!caseView.currentCaseIsLoaded()) {
+            dashboard.goToDashboard();
+            dashboard.getCurrentCase();
+        }
+        if (caseView.caseCanBeAllocated()) {
+            dashboard.claimCurrentCase();
+        }
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
             case "DTEN":
             case "TRO":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         dcuProgressCase.moveCaseFromDataInputToMarkup();
@@ -113,7 +122,6 @@ public class EndToEndStepDefs extends BasePage {
                 dashboard.waitForDashboard();
                 break;
             case "MPAM":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         creation.moveCaseFromCreationToTriage();
@@ -145,7 +153,6 @@ public class EndToEndStepDefs extends BasePage {
                 dashboard.waitForDashboard();
                 break;
             case "COMP":
-                dashboard.getAndClaimCurrentCase();
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
                         compProgressCase.moveCaseFromRegistrationToServiceTriage();
@@ -221,7 +228,6 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromCaseCreationToAllocation();
                         break;
                     case "ALLOCATION":
@@ -229,12 +235,10 @@ public class EndToEndStepDefs extends BasePage {
                         dashboard.waitForDashboard();
                         break;
                     case "ACCEPTANCE":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
                         dashboard.waitForDashboard();
                         break;
                     case "CONSIDER AND DRAFT":
-                        dashboard.getAndClaimCurrentCase();
                         foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
                         break;
                     case "APPROVAL":

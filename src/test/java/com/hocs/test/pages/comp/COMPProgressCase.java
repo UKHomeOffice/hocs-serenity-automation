@@ -60,9 +60,9 @@ public class COMPProgressCase extends BasePage {
     public void moveCaseFromServiceTriageToServiceDraft() {
         compTriage.selectAcceptCase();
         clickTheButton("Continue");
-        waitABit(500);
+        waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");
-        waitABit(500);
+        waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         compTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
@@ -78,6 +78,7 @@ public class COMPProgressCase extends BasePage {
         waitABit(1000);
         registration.selectAVisibleClaimCategory();
         clickTheButton("Continue");
+        waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         compTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
@@ -89,7 +90,7 @@ public class COMPProgressCase extends BasePage {
         compTriage.selectAcceptCase();
         compTriage.enterDateOfAcceptance();
         clickTheButton("Continue");
-        waitABit(500);
+        waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         compTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
@@ -206,7 +207,7 @@ public class COMPProgressCase extends BasePage {
         compSend.selectACaseOutcome();
         compSend.selectAResponseChannel();
         compSend.enterADateOfResponse();
-        clickTheButton("Continue");
+        clickTheButton("Complete");
         System.out.println("Case moved from Service Send to Complaint Closed");
     }
 
@@ -214,7 +215,7 @@ public class COMPProgressCase extends BasePage {
         compSend.selectACaseOutcome();
         compSend.selectAResponseChannel();
         compSend.enterADateOfResponse();
-        clickTheButton("Continue");
+        clickTheButton("Complete");
         System.out.println("Case moved from Ex-Gratia Send to Complaint Closed");
     }
 
@@ -222,7 +223,7 @@ public class COMPProgressCase extends BasePage {
         compSend.selectACaseOutcome();
         compSend.selectAResponseChannel();
         compSend.enterADateOfResponse();
-        clickTheButton("Continue");
+        clickTheButton("Complete");
         System.out.println("Case moved from Minor Misconduct Send to Complaint Closed");
     }
 
