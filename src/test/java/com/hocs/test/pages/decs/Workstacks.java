@@ -23,6 +23,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Workstacks extends BasePage {
 
@@ -502,10 +504,10 @@ public class Workstacks extends BasePage {
     }
 
     public void assertAssignedUser(User user) {
-        waitABit(7500);
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
                 + "']/../following-sibling::td[2]");
-        assertThat(caseOwner.getText().equals(user.getUsername()), is(true));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 30);
+        wait.until((ExpectedCondition<Boolean>) driver -> (caseOwner.getText().equals(user.getUsername())));
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
