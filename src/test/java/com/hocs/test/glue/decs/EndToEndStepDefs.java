@@ -10,6 +10,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workdays;
@@ -73,6 +74,8 @@ public class EndToEndStepDefs extends BasePage {
     Search search;
 
     CaseView caseView;
+
+    Documents documents;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -621,6 +624,11 @@ public class EndToEndStepDefs extends BasePage {
                         compProgressCase.escalateCOMPCaseToStage2();
                         if (!search.escalateCaseHypertext.isVisible()) {
                             iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
+                            dashboard.goToDashboard();
+                            compProgressCase.escalateCOMPCaseToStage2();
+                        }
+                        waitABit(500);
+                        if (!documents.addDocument.isVisible()) {
                             dashboard.goToDashboard();
                             compProgressCase.escalateCOMPCaseToStage2();
                         }
