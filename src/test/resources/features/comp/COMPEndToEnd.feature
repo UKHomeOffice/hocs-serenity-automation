@@ -143,8 +143,8 @@ Feature: COMP End To End
     Then the case should be moved to the "Stage 2 <complaintType> Send" stage
     Examples:
       | complaintType  |
-      | Service        |
-      | Ex-Gratia      |
+#      | Service        |
+#      | Ex-Gratia      |
       | MM             |
 
   Scenario Outline: User moves a COMP case to the Stage 2 Complaint Closed stage

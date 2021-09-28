@@ -241,7 +241,7 @@ public class COMPProgressCase extends BasePage {
 
     public void escalateCOMPCaseToStage2() {
         dashboard.selectSearchLinkFromMenuBar();
-        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" +getCurrentYear());
+        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getTodaysDate());
         search.clickTheButton("Search");
         search.clickEscalateCOMPCaseToCOMP2();
     }
