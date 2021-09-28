@@ -197,7 +197,7 @@ public class Registration extends BasePage {
         selectAGender();
         selectANationality();
         enterACompanyName();
-        enterAHomeOfficeReference(getTodaysDate());
+        enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
         enterAPortReference();
         clickTheButton("Continue");
     }

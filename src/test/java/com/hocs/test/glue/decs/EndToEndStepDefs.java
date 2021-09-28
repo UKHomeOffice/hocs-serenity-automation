@@ -622,16 +622,12 @@ public class EndToEndStepDefs extends BasePage {
                 switch (stage.toUpperCase()) {
                     case "STAGE 2 REGISTRATION":
                         compProgressCase.escalateCOMPCaseToStage2();
-                        if (!search.escalateCaseHypertext.isVisible()) {
+                        if (!documents.addDocument.isVisible()) {
                             iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
                             dashboard.goToDashboard();
                             compProgressCase.escalateCOMPCaseToStage2();
                         }
                         waitABit(500);
-                        if (!documents.addDocument.isVisible()) {
-                            dashboard.goToDashboard();
-                            compProgressCase.escalateCOMPCaseToStage2();
-                        }
                         createCase.createCOMP2Case();
                         dashboard.goToDashboard();
                         break;
