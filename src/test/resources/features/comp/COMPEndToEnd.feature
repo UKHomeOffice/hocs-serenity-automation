@@ -155,6 +155,7 @@ Feature: COMP End To End
       | Ex-Gratia      |
       | MM             |
 
+  @COMPRegression
   Scenario: User is able to close a COMP2 case
     When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed (From Stage 2 Service Send)" stage
     Then the case should be closed
