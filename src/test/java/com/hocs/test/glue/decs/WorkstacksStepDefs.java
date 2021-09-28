@@ -309,6 +309,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void iViewTheCaseInTheWorkstack(String stage) {
         dashboard.goToDashboard();
         dashboard.selectCorrectMPAMTeamByStage(stage);
+        workstacks.waitForWorkstackToLoad();
     }
 
     @And("I select to take the next unallocated case from the team workstack")
