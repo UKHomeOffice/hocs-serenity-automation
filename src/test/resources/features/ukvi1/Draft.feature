@@ -47,7 +47,7 @@ Feature: Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     And I send the Draft case to "On Hold"
-    When I load and claim the current case
+    When I load the current case
     And I take the Draft (On Hold) case off hold
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
