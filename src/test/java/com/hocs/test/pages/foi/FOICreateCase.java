@@ -61,20 +61,20 @@ public class FOICreateCase extends BasePage {
     public void enterCorrespondentDetails() {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (inboundChannel.equalsIgnoreCase("EMAIL")) {
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
             setSessionVariable("requesterFullName").to("Test McTester");
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
+            selectRandomOptionFromDropdownWithHeading("Country");
+            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
             enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
             setSessionVariable("requesterFullName").to("Test McTester");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Country");
-            recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
+            enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
+            enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
+            enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
+            enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
+            selectRandomOptionFromDropdownWithHeading("Country");
+            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
             enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         }
     }

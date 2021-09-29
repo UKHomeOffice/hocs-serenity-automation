@@ -21,7 +21,7 @@ public class AddCorrespondent extends BasePage {
     @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='Yes']")
     public WebElementFacade correspondentMemberYesRadioButton;
 
-    @FindBy(xpath = "//input[@id='member']")
+    @FindBy(xpath = "//label[text()='Member']/following-sibling::div//input")
     private WebElementFacade selectMPDropdown;
 
     @FindBy(id = "reference")
@@ -230,7 +230,7 @@ public class AddCorrespondent extends BasePage {
 
     public void addAPublicCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!sessionVariableCalled("caseType").equals("COMP")) {
+        if (!sessionVariableCalled("caseType").toString().contains("COMP")) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);

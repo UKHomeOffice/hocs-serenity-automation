@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
@@ -142,6 +143,9 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRequestCheckbox;
+
+    @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
+    public WebElementFacade escalateCaseHypertext;
 
     //Enter search criteria
 
@@ -390,6 +394,14 @@ public class Search extends BasePage {
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
         caseReferenceSearchBox.sendKeys(randomCaseRefString);
         safeClickOn(searchButton);
+    }
+
+    public boolean checkVisibilityOfEscalationHypertext() {
+        return escalateCaseHypertext.isVisible();
+    }
+
+    public void clickEscalateCOMPCaseToCOMP2() {
+       safeClickOn(escalateCaseHypertext);
     }
 
     //Assertions

@@ -21,7 +21,7 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectAGender();
         registration.selectANationality();
         registration.enterACompanyName();
-        registration.enterAHomeOfficeReference();
+        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
         registration.enterAPortReference();
         clickTheButton("Continue");
     }
