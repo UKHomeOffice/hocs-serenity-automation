@@ -230,7 +230,7 @@ public class AddCorrespondent extends BasePage {
 
     public void addAPublicCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!sessionVariableCalled("caseType").equals("COMP")) {
+        if (!sessionVariableCalled("caseType").toString().contains("COMP")) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);

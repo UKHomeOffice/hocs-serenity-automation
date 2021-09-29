@@ -240,23 +240,15 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Complaint Closed to Closed");
     }
 
-    public void escalateCOMPCaseToStage2() {
+    public void attemptEscalateCOMPCaseToStage2() throws Exception {
         dashboard.selectSearchLinkFromMenuBar();
         search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" + getCurrentYear());
         search.clickTheButton("Search");
         waitABit(500);
-        search.clickEscalateCOMPCaseToCOMP2();
-    }
-
-    public void moveCaseFromStage2RegistrationToStage2Triage() {
-        clickTheButton("Continue");
-        waitABit(250);
-        clickTheButton("Continue");
-        waitABit(250);
-        clickTheButton("Continue");
-        waitABit(250);
-        clickTheButton("Continue");
-        waitABit(250);
-        clickTheButton("Finish");
+        if (search.checkVisibilityOfEscalationHypertext()) {
+            search.clickEscalateCOMPCaseToCOMP2();
+        } else {
+            throw new Exception("Escalation hypertext not visible");
+        }
     }
 }

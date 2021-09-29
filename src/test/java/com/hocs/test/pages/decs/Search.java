@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
@@ -395,10 +396,12 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
+    public boolean checkVisibilityOfEscalationHypertext() {
+        return escalateCaseHypertext.isVisible();
+    }
+
     public void clickEscalateCOMPCaseToCOMP2() {
-        if (escalateCaseHypertext.isVisible()) {
-            safeClickOn(escalateCaseHypertext);
-        }
+       safeClickOn(escalateCaseHypertext);
     }
 
     //Assertions

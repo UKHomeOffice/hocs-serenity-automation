@@ -178,6 +178,7 @@ public class CreateCase extends BasePage {
         documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
+        setSessionVariable("caseType").to("COMP2");
         createCaseSuccessPage.storeCaseReference();
     }
 

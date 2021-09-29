@@ -30,6 +30,7 @@ import com.hocs.test.pages.ukvi.Triage;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class EndToEndStepDefs extends BasePage {
 
@@ -621,11 +622,15 @@ public class EndToEndStepDefs extends BasePage {
             case "COMP2":
                 switch (stage.toUpperCase()) {
                     case "STAGE 2 REGISTRATION":
-                        compProgressCase.escalateCOMPCaseToStage2();
-                        if (!documents.addDocument.isVisible()) {
+                        try {
+                            compProgressCase.attemptEscalateCOMPCaseToStage2();
+                        } catch (Exception a) {
                             iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
-                            dashboard.goToDashboard();
-                            compProgressCase.escalateCOMPCaseToStage2();
+                            try {
+                                compProgressCase.attemptEscalateCOMPCaseToStage2();
+                            } catch (Exception e) {
+                                Assert.fail("Escalation hypertext not visible on retry");
+                            }
                         }
                         waitABit(500);
                         createCase.createCOMP2Case();
