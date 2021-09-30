@@ -323,6 +323,7 @@ public class BaseStepDefs extends BasePage {
     public void theFOICaseShouldBeMovedReturnedToTheStage(String stage) {
         if (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE")) {
             try {
+                waitABit(500);
                 summaryTab.selectSummaryTab();
             } catch (ElementNotVisibleException e) {
                 timelineTab.selectTimelineTab();
