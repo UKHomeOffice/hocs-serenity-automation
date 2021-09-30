@@ -11,7 +11,9 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -29,6 +31,7 @@ import com.hocs.test.pages.ukvi.Triage;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class EndToEndStepDefs extends BasePage {
 
@@ -72,7 +75,11 @@ public class EndToEndStepDefs extends BasePage {
 
     FOIProgressCase foiProgressCase;
 
+    Search search;
+
     CaseView caseView;
+
+    Documents documents;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -153,6 +160,7 @@ public class EndToEndStepDefs extends BasePage {
                 dashboard.waitForDashboard();
                 break;
             case "COMP":
+            case "COMP2":
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION (TO SERVICE TRIAGE)":
                         compProgressCase.moveCaseFromRegistrationToServiceTriage();
@@ -609,6 +617,87 @@ public class EndToEndStepDefs extends BasePage {
                     case "MINOR MISCONDUCT CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM MINOR MISCONDUCT SEND)");
                         iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "COMP2":
+                switch (stage.toUpperCase()) {
+                    case "STAGE 2 REGISTRATION":
+                        try {
+                            compProgressCase.attemptEscalateCOMPCaseToStage2();
+                        } catch (Exception a) {
+                            iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
+                            try {
+                                compProgressCase.attemptEscalateCOMPCaseToStage2();
+                            } catch (Exception e) {
+                                Assert.fail("Escalation hypertext not visible on retry");
+                            }
+                        }
+                        waitABit(500);
+                        createCase.createCOMP2Case();
+                        dashboard.goToDashboard();
+                        break;
+                    case "STAGE 2 SERVICE TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO SERVICE TRIAGE)");
+                        break;
+                    case "STAGE 2 EX-GRATIA TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO EX-GRATIA TRIAGE)");
+                        break;
+                    case "STAGE 2 MM TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO MINOR MISCONDUCT TRIAGE)");
+                        break;
+                    case "STAGE 2 SERVICE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 SERVICE TRIAGE");
+                        iCompleteTheStage("SERVICE TRIAGE (TO SERVICE DRAFT)");
+                        break;
+                    case "STAGE 2 EX-GRATIA RESPONSE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 EX-GRATIA TRIAGE");
+                        iCompleteTheStage("EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)");
+                        break;
+                    case "STAGE 2 MM RESPONSE DRAFT":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 MM TRIAGE");
+                        iCompleteTheStage("MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)");
+                        break;
+                    case "STAGE 2 SERVICE QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 SERVICE DRAFT");
+                        iCompleteTheStage("SERVICE DRAFT");
+                        break;
+                    case "STAGE 2 EX-GRATIA QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 EX-GRATIA RESPONSE DRAFT");
+                        iCompleteTheStage("EX-GRATIA RESPONSE DRAFT");
+                        break;
+                    case "STAGE 2 MM QA":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 MM RESPONSE DRAFT");
+                        iCompleteTheStage("MINOR MISCONDUCT RESPONSE DRAFT");
+                        break;
+                    case "STAGE 2 SERVICE SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 SERVICE QA");
+                        iCompleteTheStage("SERVICE QA");
+                        break;
+                    case "STAGE 2 EX-GRATIA SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 EX-GRATIA QA");
+                        iCompleteTheStage("EX-GRATIA QA");
+                        break;
+                    case "STAGE 2 MM SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 MM QA");
+                        iCompleteTheStage("MINOR MISCONDUCT QA");
+                        break;
+                    case "STAGE 2 COMPLAINT CLOSED (FROM STAGE 2 SERVICE SEND)":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 SERVICE SEND");
+                        iCompleteTheStage("SERVICE SEND");
+                        break;
+                    case "STAGE 2 COMPLAINT CLOSED (FROM STAGE 2 EX-GRATIA SEND)":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 EX-GRATIA SEND");
+                        iCompleteTheStage("EX-GRATIA SEND");
+                        break;
+                    case "STAGE 2 COMPLAINT CLOSED (FROM STAGE 2 MM SEND)":
+                        iCreateACaseAndMoveItToAStage(caseType, "STAGE 2 MM SEND");
+                        iCompleteTheStage("MINOR MISCONDUCT SEND");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());

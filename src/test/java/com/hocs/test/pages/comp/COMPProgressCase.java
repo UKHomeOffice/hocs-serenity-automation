@@ -2,13 +2,17 @@ package com.hocs.test.pages.comp;
 
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.Search;
 
 public class COMPProgressCase extends BasePage {
 
     Correspondents correspondents;
 
     Documents documents;
+
+    Dashboard dashboard;
 
     Registration registration;
 
@@ -21,6 +25,8 @@ public class COMPProgressCase extends BasePage {
     COMPSend compSend;
 
     ComplaintClosed complaintClosed;
+
+    Search search;
 
     public void moveCaseFromRegistrationToServiceTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -232,5 +238,17 @@ public class COMPProgressCase extends BasePage {
         complaintClosed.submitReasonForCaseCompletion();
         complaintClosed.selectActionAtCompleteConfirmation("Yes");
         System.out.println("Case moved from Complaint Closed to Closed");
+    }
+
+    public void attemptEscalateCOMPCaseToStage2() throws Exception {
+        dashboard.selectSearchLinkFromMenuBar();
+        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" + getCurrentYear());
+        search.clickTheButton("Search");
+        waitABit(500);
+        if (search.checkVisibilityOfEscalationHypertext()) {
+            search.clickEscalateCOMPCaseToCOMP2();
+        } else {
+            throw new Exception("Escalation hypertext not visible");
+        }
     }
 }

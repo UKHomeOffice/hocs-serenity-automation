@@ -353,7 +353,7 @@ public class BaseStepDefs extends BasePage {
         if (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE")) {
             try {
                 summaryTab.selectSummaryTab();
-            } catch (ElementNotVisibleException e) {
+            } catch (ElementNotVisibleException | StaleElementReferenceException e) {
                 timelineTab.selectTimelineTab();
                 waitABit(500);
                 summaryTab.selectSummaryTab();
