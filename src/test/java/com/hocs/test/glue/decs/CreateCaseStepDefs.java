@@ -433,6 +433,9 @@ public class CreateCaseStepDefs extends BasePage {
                 break;
             case "COMP":
                 switch (infoType.toUpperCase()) {
+                    case "CASE TYPE":
+                        createCase.createCSCaseOfType(infoValue);
+                        break;
                     case "CORRESPONDENT FULL NAME":
                     case "CORRESPONDENT POSTCODE":
                     case "CORRESPONDENT EMAIL ADDRESS":
