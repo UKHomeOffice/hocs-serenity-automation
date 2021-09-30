@@ -4,6 +4,7 @@ Feature: FOI Search
   Background:
     Given I am logged into "CS" as user "FOI_USER"
 
+  @FOIRegression
   Scenario Outline: User tests FOI search
     When I create a "FOI" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Search" page
@@ -19,6 +20,7 @@ Feature: FOI Search
 #    | Topic                   | Animal alternatives (3Rs) | Topic search criteria doesn't work properly
 #    | Active Cases Only       | Yes                       | In FOI no cases are technically 'closed' so active search isn't really necessary
 
+  @FOIRegression
   Scenario: User can search for a FOI case by its case reference
     When I create a single "FOI" case
     And I navigate to the "Search" page
