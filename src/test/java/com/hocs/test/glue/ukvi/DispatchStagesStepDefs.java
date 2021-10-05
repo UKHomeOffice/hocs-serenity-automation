@@ -6,7 +6,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.ukvi.DispatchStages;
+import com.hocs.test.pages.mpam.DispatchStages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 

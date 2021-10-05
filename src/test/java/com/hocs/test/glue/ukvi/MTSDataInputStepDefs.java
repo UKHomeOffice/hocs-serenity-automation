@@ -2,7 +2,7 @@ package com.hocs.test.glue.ukvi;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.ukvi.MTSDataInput;
+import com.hocs.test.pages.mpam.MTSDataInput;
 import io.cucumber.java.en.And;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;

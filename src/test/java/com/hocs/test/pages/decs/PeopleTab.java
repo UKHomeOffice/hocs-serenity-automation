@@ -56,32 +56,32 @@ public class PeopleTab extends BasePage {
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
             case "FULL NAME":
-                this.correspondents.correspondentFullNameField.clear();
-                this.correspondents.correspondentFullNameField.sendKeys("Test - correspondent name");
+                correspondents.correspondentFullNameField.clear();
+                correspondents.correspondentFullNameField.sendKeys("Test - correspondent name");
                 break;
             case "BUILDING":
-                this.correspondents.correspondentBuildingField.clear();
-                this.correspondents.correspondentBuildingField.sendKeys("Test - correspondent building");
+                correspondents.correspondentBuildingField.clear();
+                correspondents.correspondentBuildingField.sendKeys("Test - correspondent building");
                 break;
             case "STREET":
-                this.correspondents.correspondentStreetField.clear();
-                this.correspondents.correspondentStreetField.sendKeys("Test - correspondent street");
+                correspondents.correspondentStreetField.clear();
+                correspondents.correspondentStreetField.sendKeys("Test - correspondent street");
                 break;
             case "TOWN OR CITY":
-                this.correspondents.correspondentTownOrCityField.clear();
-                this.correspondents.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
+                correspondents.correspondentTownOrCityField.clear();
+                correspondents.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
                 break;
             case "POSTCODE":
-                this.correspondents.correspondentPostcodeField.clear();
-                this.correspondents.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
+                correspondents.correspondentPostcodeField.clear();
+                correspondents.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
                 break;
             case "TELEPHONE":
-                this.correspondents.correspondentTelephoneField.clear();
-                this.correspondents.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
+                correspondents.correspondentTelephoneField.clear();
+                correspondents.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
                 break;
             case "EMAIL ADDRESS":
-                this.correspondents.correspondentEmailField.clear();
-                this.correspondents.correspondentEmailField.sendKeys("Test - correspondent email address");
+                correspondents.correspondentEmailField.clear();
+                correspondents.correspondentEmailField.sendKeys("Test - correspondent email address");
                 break;
             default:
                 pendingStep(detail + " is not defined within " + getMethodName());

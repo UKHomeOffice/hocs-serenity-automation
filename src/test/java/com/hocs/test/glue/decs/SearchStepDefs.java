@@ -132,7 +132,7 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
-    @And("I enter {string} into the {string} UKVI search criteria")
+    @And("I enter {string} into the {string} MPAM search criteria")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
         if (search.mpamCaseCheckbox.isCurrentlyVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
@@ -145,7 +145,7 @@ public class SearchStepDefs extends BasePage {
         setSessionVariable("infoType").to(infoType);
     }
 
-    @And("I check that the UKVI search results have the correct {string}")
+    @And("I check that the MPAM search results have the correct {string}")
     public void checkMPAMCaseHasCorrect(String infoType) {
         search.assertMPAMInformationRandomSearchResult(infoType);
     }

@@ -1,4 +1,4 @@
-package com.hocs.test.pages.ukvi;
+package com.hocs.test.pages.mpam;
 
 import com.hocs.test.pages.decs.BasePage;
 import java.text.SimpleDateFormat;

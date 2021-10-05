@@ -1,17 +1,17 @@
-@Search @UKVI
-Feature: UKVI Search
+@Search @MPAM
+Feature: MPAM Search
 
   Background:
     Given I am logged into "CS" as user "MPAM_USER"
 
-  @UKVIRegression2
-  Scenario Outline: User tests UKVI search criteria
-    When I create a "UKVI" case with "<infoValue>" as its "<infoType>"
+  @MPAMRegression2
+  Scenario Outline: User tests MPAM search criteria
+    When I create a "MPAM" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Dashboard" page
     And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" UKVI search criteria
+    And I enter "<infoValue>" into the "<infoType>" MPAM search criteria
     And I click the search button on the search page
-    Then I check that the UKVI search results have the correct "<infoType>"
+    Then I check that the MPAM search results have the correct "<infoType>"
     Examples:
       | infoType                              | infoValue      |
       | Reference Type                        | Ministerial    |
@@ -29,15 +29,15 @@ Feature: UKVI Search
     And I search for a case by it's case reference
     Then the created case should be the only case visible in the search results
 
-  @UKVIRegression2
+  @MPAMRegression2
   Scenario: User searches for MPAM cases using a substring of a case reference
     And I create a single "MPAM" case and return to the dashboard
     And I navigate to the "Search" page
     And I search for a case using a random substring of a case reference
     Then the displayed cases all contain the input substring case reference
 
-  @Workstacks @UKVIRegression2
-  Scenario: UKVI Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
+  @Workstacks @MPAMRegression2
+  Scenario: MPAM Search workstack should contain the Case Reference, Current Stage, Owner, Team, Deadline, MPs and Correspondents
     And I create a single "MPAM" case
     And I navigate to the "search" page
     And I click the search button on the search page

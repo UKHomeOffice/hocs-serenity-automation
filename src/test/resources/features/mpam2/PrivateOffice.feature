@@ -1,4 +1,4 @@
-@PrivateOffice @UKVI
+@PrivateOffice @MPAM
 Feature: PrivateOffice
 
   Background:
@@ -24,7 +24,7 @@ Feature: PrivateOffice
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: User rejects a UKVI business area MPAM case at Private Office
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -33,7 +33,7 @@ Feature: PrivateOffice
     Then the case should be moved to the "QA" stage
     And a note should be visible in the timeline showing the reason for rejection
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: User rejects a EUSS business area MPAM case at Private Office
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -45,7 +45,7 @@ Feature: PrivateOffice
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
 
-  @UKVIWorkflow
+  @MPAMWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Ministerial Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -53,7 +53,7 @@ Feature: PrivateOffice
     Then the case should be moved to the "Awaiting Dispatch (Ministerial)" stage
     And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
 
-  @UKVIWorkflow
+  @MPAMWorkflow
   Scenario: As a Private Office user, I want to approve an eligible case for a Local Dispatch, so that the reply can be dispatched
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -61,7 +61,7 @@ Feature: PrivateOffice
     Then the case should be moved to the "Awaiting Dispatch (Local)" stage
     And the summary should display the owning team as "Awaiting Dispatch: UKVI/BF/IE Ministerial"
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: As a Private Office user, I want to dispatch an elibigle case, so that the case can be closed
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -70,7 +70,7 @@ Feature: PrivateOffice
     And I enter a date of dispatch and confirm to close the case
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: As a Private Office user, I want to dispatch an eligible case with a follow-up action set, so that I record the need for the follow-up##
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -85,7 +85,7 @@ Feature: PrivateOffice
     And the follow-up due date should be visible in the summary
     And a details of follow-up note should be visible showing the entered details
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -98,7 +98,7 @@ Feature: PrivateOffice
     When I select the "Follow-up completed" action at Dispatched (follow-up) stage
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: User selects to close the case without completing follow-up action
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
@@ -129,7 +129,7 @@ Feature: PrivateOffice
       | DETAILS OF FOLLOW-UP REQUIRED |
       | REJECTION REASON REQUIRED     |
 
-  @UKVIWorkflow @UKVIRegression2
+  @MPAMWorkflow @MPAMRegression2
   Scenario: User moves a case into a Campaign from the Private Office stage
     And I create a "MPAM" case and move it to the "Private Office" stage
     And I load and claim the current case

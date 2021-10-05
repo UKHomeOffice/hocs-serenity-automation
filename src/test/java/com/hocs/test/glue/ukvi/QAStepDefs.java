@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.ukvi.QA;
+import com.hocs.test.pages.mpam.QA;
 import io.cucumber.java.en.And;
 
 public class QAStepDefs extends BasePage {

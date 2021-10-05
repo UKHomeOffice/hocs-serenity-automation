@@ -19,9 +19,9 @@ import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.foi.FOICreateCase;
-import com.hocs.test.pages.ukvi.Campaign;
-import com.hocs.test.pages.ukvi.Creation;
-import com.hocs.test.pages.ukvi.MTSDataInput;
+import com.hocs.test.pages.mpam.Campaign;
+import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.MTSDataInput;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -85,7 +85,7 @@ public class CreateCaseStepDefs extends BasePage {
     }
 
     @Given("I create a single {string} case and return to the dashboard")
-    public void createACaseTypeSpecificCase(String caseType) {
+    public void createCaseAndReturnToDashboard(String caseType) {
         createNewCase(caseType);
         dashboard.goToDashboard();
     }
@@ -373,7 +373,7 @@ public class CreateCaseStepDefs extends BasePage {
                         pendingStep(infoType + " is not defined within " + getMethodName());
                 }
                 break;
-            case "UKVI":
+            case "MPAM":
                 switch (infoType.toUpperCase()) {
                     case "CASE REFERENCE":
                     case "ACTIVE CASES ONLY":

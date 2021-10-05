@@ -6,7 +6,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.Workstacks;
-import com.hocs.test.pages.ukvi.Creation;
+import com.hocs.test.pages.mpam.Creation;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

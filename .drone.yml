@@ -185,7 +185,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: UKVI-1-Regression
+name: MPAM-1-Regression
 depends_on:
   - SMOKE
 trigger:
@@ -198,7 +198,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
-      - sh bin/ukvi1.sh
+      - sh bin/mpam1.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
@@ -209,7 +209,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_UKVI1_$(date
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM1_$(date
         +'%Y-%m-%d_%H-%M-%S')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
@@ -241,7 +241,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: UKVI-2-Regression
+name: MPAM-2-Regression
 depends_on:
   - SMOKE
 trigger:
@@ -254,7 +254,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
-      - sh bin/ukvi2.sh
+      - sh bin/mpam2.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
@@ -266,7 +266,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_UKVI2_$(date
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM2_$(date
         +'%Y-%m-%d_%H-%M-%S')/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}

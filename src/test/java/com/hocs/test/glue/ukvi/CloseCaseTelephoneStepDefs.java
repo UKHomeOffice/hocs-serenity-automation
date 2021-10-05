@@ -5,9 +5,9 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.ukvi.CloseCaseTelephone;
-import com.hocs.test.pages.ukvi.DispatchStages;
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.CloseCaseTelephone;
+import com.hocs.test.pages.mpam.DispatchStages;
+import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 
 public class CloseCaseTelephoneStepDefs extends BasePage {

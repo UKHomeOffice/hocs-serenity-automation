@@ -1,6 +1,5 @@
-package com.hocs.test.pages.ukvi;
+package com.hocs.test.pages.mpam;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;

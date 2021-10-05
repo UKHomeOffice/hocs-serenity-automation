@@ -5,8 +5,8 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.MPAMMultipleContributions;
+import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.MPAMMultipleContributions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 

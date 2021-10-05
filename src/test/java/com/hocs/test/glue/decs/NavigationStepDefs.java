@@ -21,7 +21,7 @@ public class NavigationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    Correspondents initialDraftRecordCorrespondentsDetails;
+    Correspondents correspondents;
 
     Search search;
 
@@ -88,7 +88,7 @@ public class NavigationStepDefs extends BasePage {
                 dashboard.assertAtDashboard();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                initialDraftRecordCorrespondentsDetails.assertPageTitle();
+                correspondents.assertPageTitle();
                 break;
             case "DATA INPUT":
                 dataInput.assertPageTitle();

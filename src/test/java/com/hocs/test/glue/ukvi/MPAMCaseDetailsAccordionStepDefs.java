@@ -4,7 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.ukvi.AccordionMPAM;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 

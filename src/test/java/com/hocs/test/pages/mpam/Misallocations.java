@@ -1,4 +1,4 @@
-package com.hocs.test.pages.ukvi;
+package com.hocs.test.pages.mpam;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
