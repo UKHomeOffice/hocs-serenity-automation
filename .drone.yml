@@ -4,7 +4,7 @@ type: kubernetes
 name: SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 
@@ -77,7 +77,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 steps:
@@ -134,7 +134,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 
@@ -190,7 +190,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 
@@ -246,7 +246,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 
@@ -303,7 +303,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 
@@ -360,7 +360,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - main
+    - HOCS-3311_home_sec_reply
   event:
     - push
 steps:
