@@ -172,46 +172,6 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    private void goToCSDashboard() {
-        safeClickOn(csDashboardLink);
-        waitForDashboard();
-    }
-
-    private void goToWCSDashboard() {
-        safeClickOn(wcsDashboardLink);
-        waitForDashboard();
-    }
-
-    public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
-    }
-
-    public boolean onDashboard() {
-        return caseReferenceSearchBar.isCurrentlyVisible();
-    }
-
-    public void goToMUIDashboard() {
-        safeClickOn(muiDashboardLink);
-    }
-
-    public void goToDashboard() {
-
-        switch (currentPlatform.toUpperCase()) {
-            case "CS":
-                goToCSDashboard();
-                break;
-            case "WCS":
-                goToWCSDashboard();
-                break;
-            case "CS MANAGEMENT UI":
-            case "WCS MANAGEMENT UI":
-                goToMUIDashboard();
-                break;
-            default:
-                pendingStep(currentPlatform + " is not defined within " + getMethodName());
-        }
-    }
-
     public boolean dcuCase() {
         return minCase() | dtenCase() | troCase();
     }
