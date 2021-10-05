@@ -50,5 +50,5 @@ Feature: COMP Search
     And I navigate to the "Dashboard" page
     And I navigate to the "Search" page
     And I search for the COMP case escalated to COMP2 by it's case reference
-    And I load the COMP2 case by selecting the case reference in the Escalate Case column
+    And I load the COMP2 case by selecting its case reference from the Escalate Case column
     Then the case should be loaded

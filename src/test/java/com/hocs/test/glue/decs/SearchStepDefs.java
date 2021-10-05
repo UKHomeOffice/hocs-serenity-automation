@@ -236,7 +236,7 @@ public class SearchStepDefs extends BasePage {
         search.assertCOMPInformationRandomSearchResult(criteria);
     }
 
-    @And("I load the COMP2 case by selecting the case reference in the Escalate Case column")
+    @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")
     public void iLoadTheCOMP2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
         search.selectCOMP2CaseRefOfEscalatedCOMPCase(sessionVariableCalled("compCaseReference"));
     }
