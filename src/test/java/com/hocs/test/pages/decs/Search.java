@@ -628,7 +628,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 expectedValue = sessionVariableCalled("searchCaseType");
-                List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "')]");
+                List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
                 assertThat(numberOfCasesDisplayed==listOfCaseRefs.size(), is(true));
                 break;
             case "CORRESPONDENT FULL NAME":
