@@ -15,7 +15,7 @@ Feature: FOIOutcomesAndExemptions
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage
 
   Scenario: User is able to navigate to Exceptions page
     And I select "EIR" as the case type
@@ -27,7 +27,7 @@ Feature: FOIOutcomesAndExemptions
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage
 
   Scenario: User is able to navigate to Exemptions and Exceptions page
     And I select "FOI & EIR" as the case type
@@ -39,4 +39,4 @@ Feature: FOIOutcomesAndExemptions
     And I click the "Continue" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage

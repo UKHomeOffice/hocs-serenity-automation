@@ -19,8 +19,25 @@ public class DCUProgressCase extends BasePage {
 
     QAResponse qaResponse;
 
+    PrivateOfficeApproval privateOfficeApproval;
+
+    MinisterialSignOff ministerialSignOff;
+
+    Dispatch dispatch;
+
     public void moveCaseFromDataInputToMarkup() {
         dataInput.fillAllMandatoryCorrespondenceFields();
+        safeClickOn(continueButton);
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
+    }
+
+    public void moveCaseFromDataInputToMarkupWithCopyToNumber10() {
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("Yes");
+        dataInput.selectAHomeSecInterestOption();
+        dataInput.selectAHomeSecReplyOption();
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
@@ -71,7 +88,7 @@ public class DCUProgressCase extends BasePage {
         clickTheButton("Continue");
     }
 
-    public void moveCaseFromInitialDraftToPrivateOffice() {
+    public void moveCaseFromInitialDraftToPrivateOfficeApproval() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
         safeClickOn(continueButton);
         if (!dtenCase()){
@@ -81,8 +98,7 @@ public class DCUProgressCase extends BasePage {
         documents.addADraftDocumentAtDraftStage();
         waitABit(1000);
         documents.confirmOrApprovePrimaryDraft();
-        initialDraft.selectQAOfflineDecision("No");
-        clickTheButton("Continue");
+        initialDraft.selectQAOfflineDecision("Yes");
         safeClickOn(continueButton);
         initialDraft.selectAOfflineQAIndividual();
         safeClickOn(finishButton);
@@ -91,5 +107,20 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch() {
         qaResponse.selectApprovePrimaryDraftRadioButton();
         clickTheButton("Continue");
+    }
+
+    public void moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch() {
+        privateOfficeApproval.selectIfApproveResponse("Yes");
+        safeClickOn(continueButton);
+    }
+
+    public void moveCaseFromMinisterialSignOffToDispatch() {
+        ministerialSignOff.selectToApproveResponse("Yes");
+        safeClickOn(continueButton);
+    }
+
+    public void moveCaseFromDispatchToCaseClosedOrCopyToNumber10() {
+        dispatch.selectAbleToDispatch("Yes");
+        safeClickOn(continueButton);
     }
 }

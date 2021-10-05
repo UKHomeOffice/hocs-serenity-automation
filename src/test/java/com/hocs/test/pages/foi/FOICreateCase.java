@@ -2,7 +2,7 @@ package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -17,7 +17,7 @@ public class FOICreateCase extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     Dashboard dashboard;
 

@@ -124,6 +124,35 @@ public class ValidationStepDefs extends BasePage {
                                 waitABit(500);
                                 safeClickOn(finishButton);
                                 break;
+                            case "CORRESPONDENT TYPE MUST BE PROVIDED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                safeClickOn(continueButton);
+                                break;
+                            case "MEMBER IS REQUIRED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsMP();
+                                safeClickOn(addButton);
+                                break;
+                            case "CORRESPONDENT MUST HAVE TYPE":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsNotMP();
+                                correspondents.enterCorrespondentFullName("Han Solo");
+                                safeClickOn(addButton);
+                                break;
+                            case "CORRESPONDENT NAME REQUIRED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsNotMP();
+                                correspondents.selectCorrespondentTypeFromDropdown("Applicant");
+                                safeClickOn(addButton);
+                                break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
@@ -245,25 +274,25 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
+                                privateOfficeApproval.selectIfApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
                                 break;
                             case "OVERRIDE PRIVATE OFFICE TEAM REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeChangeMinisterRadioButton);
+                                privateOfficeApproval.selectToChangeMinister();
                                 safeClickOn(continueButton);
-                                typeInto(privateOfficeApproval.privateOfficeOverrideNoteField, "Test");
+                                privateOfficeApproval.enterAReasonForChangingPOTeam();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR CHANGE MINISTER REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeChangeMinisterRadioButton);
+                                privateOfficeApproval.selectToChangeMinister();
                                 safeClickOn(continueButton);
                                 privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown("Home Secretary");
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TOPIC CHANGE REQUIRED":
-                                safeClickOn(privateOfficeApproval.changeTopicRadioButton);
+                                privateOfficeApproval.selectToChangeTopic();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -279,13 +308,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION TO DRAFT NOTE REQUIRED":
-                                safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
+                                ministerialSignOff.selectToApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION TO PRIVATE OFFICE NOTE REQUIRED":
-                                safeClickOn(ministerialSignOff.notApplicableRadioButton);
+                                ministerialSignOff.selectNotApplicableToApproveResponse();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -301,7 +330,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -473,7 +502,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -635,7 +664,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
+                                privateOfficeApproval.selectIfApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -651,7 +680,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -1402,6 +1431,18 @@ public class ValidationStepDefs extends BasePage {
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 errorText = "Which is the primary correspondent?";
+                                break;
+                            case "CORRESPONDENT TYPE MUST BE PROVIDED":
+                                errorText = "The correspondent type must be provided";
+                                break;
+                            case "MEMBER IS REQUIRED":
+                                errorText = "Member is required";
+                                break;
+                            case "CORRESPONDENT MUST HAVE TYPE":
+                                errorText = "The correspondent must have a type";
+                                break;
+                            case "CORRESPONDENT NAME REQUIRED":
+                                errorText = "The correspondent's full name is required";
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());

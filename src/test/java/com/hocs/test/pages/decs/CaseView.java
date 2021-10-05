@@ -69,7 +69,7 @@ public class CaseView extends BasePage {
     }
 
     public boolean caseDetailsAccordionIsVisible() {
-        if (sessionVariableCalled("caseType").equals("WCS")) {
+        if (wcsCase()) {
             return wcsCaseDetailsAccordion.isCurrentlyVisible();
         } else {
             return csCaseDetailsAccordion.isCurrentlyVisible();
@@ -101,5 +101,9 @@ public class CaseView extends BasePage {
             }
         }
         return false;
+    }
+
+    public void assertExpectedValueIsVisibleInCaseDetailsAccordionForGivenHeading(String expectedValue, String heading) {
+        assertThat(expectedValue.equals(getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(heading).get(0)), is(true));
     }
 }

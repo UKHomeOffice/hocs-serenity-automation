@@ -10,9 +10,9 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -26,21 +26,7 @@ public class DataInputStepDefs extends BasePage {
 
     CaseView caseView;
 
-    AccordionDCU accordionDCU;
-
     SummaryTab summaryTab;
-
-    @When("I complete the Data Input stage selecting to send a copy to Number Ten")
-    public void completeDataInputStageWCopyToN10() {
-        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
-        dataInput.selectACorrespondenceReceivedChannel();
-        dataInput.selectASpecificCopyToNoTenOption("Yes");
-        dataInput.selectAHomeSecInterestOption();
-        dataInput.selectAHomeSecReplyOption();
-        safeClickOn(continueButton);
-        correspondents.addANonMemberCorrespondentOfType("Constituent");
-        correspondents.confirmPrimaryCorrespondent();
-    }
 
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
@@ -121,7 +107,9 @@ public class DataInputStepDefs extends BasePage {
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         dashboard.getCurrentCase();
-        accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
+        caseView.openOrCloseAccordionSection("Data Input");
+        caseView.assertExpectedValueIsVisibleInCaseDetailsAccordionForGivenHeading(sessionVariableCalled("primaryCorrespondent"), "Which is the "
+                        + "primary correspondent?");
     }
 
     @And("I complete the Data Input stage adding 3 member correspondents")
@@ -262,5 +250,57 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
+    }
+
+    @When("I submit an invalid {string} date")
+    public void iSubmitAnInvalidDate(String dateField) {
+        switch (dateField.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED":
+                dataInput.overwriteCorrespondenceReceivedDate(getDatePlusMinusNDaysAgo(1));
+                break;
+            case "CORRESPONDENCE SENT":
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(1));
+                break;
+            default:
+                pendingStep(dateField + " is not defined within " + getMethodName());
+        }
+        safeClickOn(continueButton);
+    }
+
+    @But("I do not enter a {string} date")
+    public void iDoNotEnterA(String fieldName) {
+        switch (fieldName.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED":
+                dataInput.clearDateCorrespondenceReceived();
+                break;
+            case "CORRESPONDENCE SENT":
+                dataInput.clearDateCorrespondenceSent();
+                break;
+            default:
+                pendingStep(fieldName + " is not defined within " + getMethodName());
+        }
+        safeClickOn(continueButton);
+    }
+
+    @Then("{string} error message is displayed")
+    public void errorMessageIsDisplayed(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "INVALID DATE":
+                assertErrorMessageText("must be a date in the past");
+                break;
+            case "CORRESPONDENCE RECEIVED":
+                assertErrorMessageText("When was the correspondence received? is required");
+                break;
+            case "CORRESPONDENCE SENT":
+                assertErrorMessageText("When was the correspondence sent? is required");
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the Add a correspondent link is displayed")
+    public void linkIsDisplayed() {
+        correspondents.assertAddACorrespondentLinkIsDisplayed();
     }
 }

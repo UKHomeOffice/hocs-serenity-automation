@@ -10,7 +10,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class CreateCase_SuccessPage extends BasePage {
+public class CreateCaseSuccessPage extends BasePage {
 
     CaseView caseView;
 

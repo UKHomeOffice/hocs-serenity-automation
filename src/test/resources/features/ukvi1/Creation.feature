@@ -24,7 +24,7 @@ Feature: Creation
   Scenario: User can navigate to the Add Correspondent Page
     When I complete all required fields for Creation stage
     And I click the "Continue" button
-    And I click the "Add a correspondent" link
+    And I select to add a correspondent to the case
     Then the "Add Correspondent" page should be displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible

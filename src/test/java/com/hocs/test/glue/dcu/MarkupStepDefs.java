@@ -15,6 +15,7 @@ import com.hocs.test.pages.dcu.InitialDraft;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.QAResponse;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -112,54 +113,6 @@ public class MarkupStepDefs extends BasePage {
         }
     }
 
-    @Then("the case should be found in the {string} team")
-    public void theCaseShouldBeFoundInTheTeamTeam(String team) {
-        dashboard.goToDashboard();
-        switch (team.toUpperCase()) {
-            case "PUBLIC PROTECTION UNIT":
-                safeClickOn(dashboard.publicProtectionUnit);
-                break;
-            case "ANIMALS IN SCIENCE REGULATION UNIT":
-                safeClickOn(dashboard.animalsInScienceTeam);
-                break;
-            case "POLICE WORKFORCE AND PROFESSIONALISM UNIT":
-                safeClickOn(dashboard.policeWorkforceProfessionalismUnit);
-                break;
-            case "MINISTER FOR LORDS":
-                safeClickOn(dashboard.ministerForLordsTeam);
-                break;
-            case "EXTREMISM ANALYSIS UNIT":
-                safeClickOn(dashboard.extremismAnalysisUnit);
-                break;
-            case "COUNTER EXTREMISM UNIT":
-                safeClickOn(dashboard.counterExtremismUnit);
-            case "COUNTER-TERRORISM LEGISLATION AND INVESTIGATORY POWERS UNIT":
-                safeClickOn(dashboard.counterTerrorismLegislationInvestigatoryPowersUnit);
-                break;
-            case "PRESS OFFICE":
-                safeClickOn(dashboard.pressOffice);
-                break;
-            case "FINANCE":
-                safeClickOn(dashboard.financeTeam);
-                break;
-            case "CHEMICAL, BIOLOGICAL, RADIOLOGICAL, NUCLEAR & EXPLOSIVES":
-                safeClickOn(dashboard.chemBioRadioNuclearExplosives);
-                break;
-            case "MINISTER OF STATE FOR IMMIGRATION":
-                safeClickOn(dashboard.ministerOfStateForImmigrationTeam);
-                break;
-            case "MINISTER OF STATE FOR SECURITY AND ECONOMIC CRIME":
-                safeClickOn(dashboard.ministerOfStateForSecurityAndEconomicCrime);
-                break;
-            case "MINISTER OF STATE FOR POLICING AND FIRE SERVICE":
-                safeClickOn(dashboard.ministerOfStateForPolicingAndFireServiceTeam);
-                break;
-            default:
-                pendingStep(team + " is not defined within " + getMethodName());
-        }
-        workstacks.assertVisibilityOfCaseReference(true);
-    }
-
     @Then("the Other Government Department name free text field is displayed")
     public void assertOtherGvmtDepTBIsDisplayed() {
         markup.assertOGDDestinationTextBoxIsDisplayed();
@@ -233,5 +186,18 @@ public class MarkupStepDefs extends BasePage {
     @And("I confirm the (Initial Draft)( and )(Private Office) team")
     public void iAcceptTheSelectedInitialDraftAndPrivateOfficeTeam() {
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
+    }
+
+    @And("I reject the case at the Markup stage")
+    public void iRejectTheCaseAtTheStage() {
+        markup.selectRejectToDataInput();
+        safeClickOn(continueButton);
+        markup.enterARejectionReason();
+        safeClickOn(finishButton);
+    }
+
+    @But("I do not enter a {string}")
+    public void iDoNotEnterA() {
+        safeClickOn(finishButton);
     }
 }

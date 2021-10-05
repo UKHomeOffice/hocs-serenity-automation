@@ -38,7 +38,7 @@ public class QAResponse extends BasePage {
     }
 
     public void enterRejectionReason() {
-        String rejectionNote = recordCaseData.enterTextIntoTextAreaWithHeading("What is your feedback about the response?");
-        setSessionVariable("QARejectionNote").to(rejectionNote);
+        String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("What is your feedback about the response?");
+        setSessionVariable("rejectionReason").to(rejectionReason);
     }
 }

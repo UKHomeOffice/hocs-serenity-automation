@@ -254,4 +254,8 @@ public class TimelineTab extends BasePage {
         String renameTopic = topCaseNoteOrLog.getText().substring(7, 27);
         assertThat(renameTopic.equals(testTopic), Is.is(true));
     }
+
+    public void assertTopicChangeCaseNoteIsAddedToTimeline() {
+        topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
+    }
 }

@@ -1,18 +1,11 @@
 package com.hocs.test.glue.dcu;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.TimelineTab;
-import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -20,24 +13,24 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     PrivateOfficeApproval privateOfficeApproval;
 
-    AccordionDCU accordionDCU;
-
-    CaseView caseView;
-
-    SummaryTab summaryTab;
-
-    TimelineTab timelineTab;
-
     DCUProgressCase dcuProgressCase;
 
+    Markup markup;
+
     @And("I override the Primary Topic of the case at the Private Office stage to {string}")
-    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String input) {
-        privateOfficeApproval.changeTopicAtPOStage(input);
+    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String topic) {
+        privateOfficeApproval.selectToChangeTopic();
+        safeClickOn(continueButton);
+        markup.addTopicToCase(topic);
+        markup.selectPrimaryTopic(topic);
+        privateOfficeApproval.enterAReasonForChangingTopic();
+        safeClickOn(continueButton);
     }
 
     @And("I select to change minister")
     public void iSelectToChangeMinister() {
-        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectToChangeMinister();
+        safeClickOn(continueButton);
     }
 
     @And("I select {string} as the new Private Office team")
@@ -45,28 +38,19 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(newPOTeam);
     }
 
-    @And("I enter {string} as the reason for changing Private Office team")
-    public void iEnterAsTheReasonForChangingPrivateOfficeTeam(String reason) {
-        privateOfficeApproval.enterAReasonForChangingPOTeam(reason);
-    }
-
-    @Then("the information shown should match what I entered on the change Private Office Team page")
-    public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
-        accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
-    }
-
-    @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
-    public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
-        timelineTab.selectTimelineTab();
-        privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
+    @And("I submit a reason for changing Private Office team")
+    public void iEnterAsTheReasonForChangingPrivateOfficeTeam() {
+        privateOfficeApproval.enterAReasonForChangingPOTeam();
+        safeClickOn(finishButton);
     }
 
     @And("I change the minister to {string}")
     public void iChangeTheMinisterTo(String minister) {
-        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectToChangeMinister();
+        safeClickOn(continueButton);
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
-        privateOfficeApproval.enterAReasonForChangingPOTeam("Test change deadlines at PO stage");
-        clickTheButton("Finish");
+        privateOfficeApproval.enterAReasonForChangingPOTeam();
+        safeClickOn(finishButton);
     }
 
     @And("I advance the case to the Private Office Approval stage")
@@ -74,5 +58,19 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
         dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
         dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
+    }
+
+    @And("I reject the case at the Private Office Approval stage")
+    public void iRejectTheCaseAtThePrivateOfficeApprovalStage() {
+        privateOfficeApproval.selectIfApproveResponse("No");
+        safeClickOn(continueButton);
+        privateOfficeApproval.enterRejectionReason();
+        safeClickOn(finishButton);
+    }
+
+    @And("I approve the case at the Private Office Approval stage")
+    public void iApproveTheCaseAtThePrivateOfficeApprovalStage() {
+        privateOfficeApproval.selectIfApproveResponse("Yes");
+        safeClickOn(continueButton);
     }
 }

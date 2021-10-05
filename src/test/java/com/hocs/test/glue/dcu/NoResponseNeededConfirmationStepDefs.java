@@ -8,13 +8,15 @@ public class NoResponseNeededConfirmationStepDefs extends BasePage {
 
     NoResponseNeededConfirmation noResponseNeededConfirmation;
 
-    @When("I click the NRN yes radio button")
-    public void iClickTheNRNYesRadioButton() {
-        safeClickOn(noResponseNeededConfirmation.noResponseNeededYesRadioButton);
+    @When("I agree that there is no need to respond to this correspondence")
+    public void iAgreeThatThereIsNoNeedToRespondToThisCorrespondence() {
+        noResponseNeededConfirmation.selectAgreeNoResponseNeeded();
+        safeClickOn(finishButton);
     }
 
-    @When("I click the NRN no radio button")
-    public void iClickTheNRNNoRadioButton() {
-        safeClickOn(noResponseNeededConfirmation.noResponseNeededNoRadioButton);
+    @When("I disagree that there is no need to respond to this correspondence")
+    public void iDisagreeThatThereIsNoNeedToRespondToThisCorrespondence() {
+        noResponseNeededConfirmation.selectDisagreeNoResponseNeeded();
+        safeClickOn(finishButton);
     }
 }

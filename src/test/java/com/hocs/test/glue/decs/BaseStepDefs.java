@@ -36,27 +36,9 @@ public class BaseStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    Workstacks workstacks;
-
-    Markup markup;
-
-    InitialDraft initialDraft;
-
-    MinisterialSignOff ministerialSignOff;
-
-    PrivateOfficeApproval privateOfficeApproval;
-
-    QAResponse qaResponse;
-
-    Dispatch dispatch;
-
-    Correspondents correspondents;
-
     SummaryTab summaryTab;
 
     PeopleTab peopleTab;
-
-    Triage triage;
 
     TimelineTab timelineTab;
 
@@ -64,154 +46,14 @@ public class BaseStepDefs extends BasePage {
 
     CaseView caseView;
 
-    Documents documents;
-
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
         assertPageTitle(pageTitle);
     }
 
-    @Then("{string} error message is displayed")
-    public void errorMessageIsDisplayed(String errorMessage) {
-        switch (errorMessage.toUpperCase()) {
-            case "INVALID DATE":
-                assertErrorMessageText("must be a date in the past");
-                break;
-            case "CORRESPONDENCE RECEIVED":
-                assertErrorMessageText("When was the correspondence received? is required");
-                break;
-            case "CORRESPONDENCE SENT":
-                assertErrorMessageText("When was the correspondence sent? is required");
-                break;
-            default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("I enter an invalid {string} date")
-    public void iEnterAnInvalidDate(String dateField) {
-        switch (dateField.toUpperCase()) {
-            case "CORRESPONDENCE RECEIVED":
-                dataInput.overwriteCorrespondenceReceivedDate(getDatePlusMinusNDaysAgo(1));
-                break;
-            case "CORRESPONDENCE SENT":
-                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(1));
-                break;
-            default:
-                pendingStep(dateField + " is not defined within " + getMethodName());
-        }
-    }
-
     @Then("an error message is displayed")
     public void anErrorMessageIsDisplayed() {
         errorMessageIsDisplayed();
-    }
-
-    @When("I click the {string} button on the {string} page")
-    public void selectGenericButtonFromSpecificPage(String buttonLabel, String page) {
-        switch (page.toUpperCase()) {
-            case "IS THE CORRESPONDENT AN MP":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                dataInput.clickContinueButton();
-                correspondents.selectToAddACorrespondent();
-                break;
-            case "ADD MEMBER OF PARLIAMENT":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                dataInput.clickContinueButton();
-                correspondents.selectToAddACorrespondent();
-                correspondents.selectCorrespondentIsMP();
-                break;
-            case "RECORD CORRESPONDENT DETAILS":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                dataInput.clickContinueButton();
-                correspondents.selectToAddACorrespondent();
-                correspondents.selectCorrespondentIsNotMP();
-                break;
-            case "ADD A TOPIC":
-                markup.selectPolicyResponseRadioButton();
-                safeClickOn(continueButton);
-                waitABit(1000);
-                break;
-            case "ENTER A NEW TOPIC":
-                markup.selectPolicyResponseRadioButton();
-                safeClickOn(continueButton);
-                markup.clickAddTopicLink();
-                break;
-            case "CASE REJECTION":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
-                clickTheButton("Continue");
-                break;
-            case "HOW DO YOU INTEND TO RESPOND":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                clickTheButton("Continue");
-                break;
-            case "SUMMARISE YOUR CALL":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                safeClickOn(continueButton);
-                initialDraft.selectSpecificResponseChannel("Phone");
-                safeClickOn(continueButton);
-                break;
-            case "PRIMARY DRAFT DOCUMENT":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                safeClickOn(continueButton);
-                if (!dtenCase()){
-                    initialDraft.selectSpecificResponseChannel("Letter");
-                    safeClickOn(continueButton);
-                }
-                break;
-            case "ADD DOCUMENT":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                safeClickOn(continueButton);
-                if (!dtenCase()){
-                    initialDraft.selectSpecificResponseChannel("Letter");
-                    safeClickOn(continueButton);
-                }
-                safeClickOn(documents.addDocumentsButton);
-                break;
-            case "DO YOU WANT TO QA OFFLINE":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                safeClickOn(continueButton);
-                if (!dtenCase()){
-                    initialDraft.selectSpecificResponseChannel("Letter");
-                    safeClickOn(continueButton);
-                }
-                documents.addADraftDocumentAtDraftStage();
-                safeClickOn(continueButton);
-                waitABit(1000);
-                break;
-            case "WHO HAS DONE THE QA OFFLINE":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-                safeClickOn(continueButton);
-                if (!dtenCase()){
-                    initialDraft.selectSpecificResponseChannel("Letter");
-                    safeClickOn(continueButton);
-                }
-                documents.addADraftDocumentAtDraftStage();
-                safeClickOn(continueButton);
-                initialDraft.selectQAOfflineDecision("Yes");
-                safeClickOn(continueButton);
-                safeClickOn(finishButton);
-                break;
-            case "QA RESPONSE FEEDBACK":
-                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                safeClickOn(continueButton);
-                break;
-            case "CHANGE MINISTER":
-                privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
-                break;
-            case "PO FEEDBACK RESPONSE":
-                privateOfficeApproval.getToPOFeedbackResponseScreenPrerequisites();
-                break;
-            case "MINISTERIAL SIGN OFF FEEDBACK RESPONSE":
-                ministerialSignOff.getToMinisterFeedbackResponseScreenPrerequisites();
-                break;
-            case "UNABLE TO DISPATCH":
-                dispatch.getToUnableToDispatchScreenPrerequisites();
-                break;
-            default:
-                pendingStep(page + " is not defined within " + getMethodName());
-        }
-        clickTheButton(buttonLabel);
     }
 
     @When("I click the {string} link")
@@ -220,12 +62,6 @@ public class BaseStepDefs extends BasePage {
             case "BACK":
             case "CANCEL":
                 safeClickOn(backLink);
-                break;
-            case "ADD A CORRESPONDENT":
-                correspondents.selectToAddACorrespondent();
-                break;
-            case "SET ENQUIRY SUBJECT/REASON":
-                safeClickOn(triage.setEnquiryHypertext);
                 break;
             default:
                 pendingStep(link + " is not defined within " + getMethodName());
@@ -252,70 +88,9 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @When("I attempt to reject the {string} case without reason")
-    public void iAttemptToRejectACaseWithoutReason(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "INITIAL DRAFT":
-                clickRejectButton();
-                while (isElementDisplayed(nextButton)) {
-                    safeClickOn(nextButton);
-                }
-                break;
-            case "QA RESPONSE":
-                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                safeClickOn(continueButton);
-                safeClickOn(finishButton);
-                break;
-            case "DISPATCH":
-                dispatch.rejectCaseWithoutReason();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("I {string} the case")
-    public void iActionTheCase(String action) {
-        setCaseReferenceFromUnassignedCase();
-        switch (action.toUpperCase()) {
-            case "ACCEPT":
-                safeClickOn(acceptButton);
-                safeClickOn(continueButton);
-                break;
-            case "DISPATCH":
-                dispatch.dispatchTheCase();
-                break;
-            case "REJECT":
-                dispatch.selectDispatchRejectButton();
-                clickContinueButton();
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I select 'Save changes'")
     public void iSelectSaveChanges() {
         safeClickOn(saveChangesRadioButton);
-    }
-
-    @But("I do not enter a {string}")
-    public void iDoNotEnterA(String fieldName) {
-        switch (fieldName.toUpperCase()) {
-            case "CORRESPONDENCE RECEIVED DATE":
-                dataInput.clearDateCorrespondenceReceived();
-                break;
-            case "CORRESPONDENCE SENT DATE":
-                dataInput.clearDateCorrespondenceSent();
-                break;
-            case "OTHER GOVERNMENT DEPARTMENT":
-            case "REASON FOR NO RESPONSE NEEDED":
-            case "REASON FOR REJECTING TO DATA INPUT":
-                safeClickOn(finishButton);
-                break;
-            default:
-                pendingStep(fieldName + " is not defined within " + getMethodName());
-        }
     }
 
     @Then("the case/claim should be closed")
@@ -329,28 +104,9 @@ public class BaseStepDefs extends BasePage {
         System.out.println("The case is closed");
     }
 
-    @Then("{string} link is displayed")
-    public void linkIsDisplayed(String linkText) {
-        switch (linkText.toUpperCase()) {
-            case "ADD A CORRESPONDENT":
-                correspondents.assertAddACorrespondentLinkIsDisplayed();
-                break;
-            default:
-                pendingStep(linkText + " is not defined within " + getMethodName());
-        }
-    }
-
     @Then("the case/claim should be at/moved/returned (to )(the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
-        dashboard.goToDashboard();
-        dashboard.getCurrentCase();
-        summaryTab.selectSummaryTab();
-        summaryTab.assertCaseStage(stage);
-    }
-
-    @Then("the FOI case should be moved/returned to (the ){string}( stage)")
-    public void theFOICaseShouldBeMovedReturnedToTheStage(String stage) {
-        if (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE")) {
+        if (foiCase() && (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE"))) {
             try {
                 summaryTab.selectSummaryTab();
             } catch (ElementNotVisibleException | StaleElementReferenceException e) {
@@ -358,62 +114,15 @@ public class BaseStepDefs extends BasePage {
                 waitABit(500);
                 summaryTab.selectSummaryTab();
             }
-            summaryTab.assertCaseStage(stage);
         } else {
-            assertCaseTypeMovedOrReturnedToStage(stage);
+            dashboard.goToDashboard();
+            dashboard.getCurrentCase();
+            summaryTab.selectSummaryTab();
         }
+        summaryTab.assertCaseStage(stage);
     }
 
-    @And("I reject the case at the {string} stage")
-    public void iRejectTheCaseAtTheStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "INITIAL DRAFT":
-                initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
-                safeClickOn(continueButton);
-                initialDraft.enterReasonTeamCannotAnswer();
-                safeClickOn(finishButton);
-                break;
-            case "QA RESPONSE":
-                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                safeClickOn(continueButton);
-                qaResponse.enterRejectionReason();
-                safeClickOn(finishButton);
-                break;
-            case "PRIVATE OFFICE APPROVAL":
-                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
-                safeClickOn(continueButton);
-                privateOfficeApproval.enterPORejectNotes();
-                safeClickOn(finishButton);
-                break;
-            case "MINISTERIAL SIGN OFF":
-                safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
-                safeClickOn(continueButton);
-                ministerialSignOff.enterMinisterRejectionNote();
-                safeClickOn(ministerialSignOff.continueButton);
-                break;
-            case "DISPATCH":
-                safeClickOn(dispatch.dispatchRejectRadioButton);
-                safeClickOn(continueButton);
-                dispatch.enterDispatchRejectionNotes();
-                safeClickOn(finishButton);
-                break;
-            case "MARKUP":
-                markup.selectRejectToDataInput();
-                safeClickOn(continueButton);
-                markup.enterARejectionReason();
-                safeClickOn(finishButton);
-                break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("an error message should be displayed as I have not entered text in the Case Note text box")
-    public void anErrorMessageShouldBeDisplayedAsIHaveNotEnteredTextInTheCaseNoteTextbox() {
-        workstacks.assertCaseNoteMustNotBeBlankErrorMessage();
-    }
-
-    @And("I click to view the {string} tab")
+    @And("I view the {string} tab")
     public void iClickToViewTheTab(String tab) {
         switch (tab.toUpperCase()) {
             case "SUMMARY":
@@ -432,6 +141,7 @@ public class BaseStepDefs extends BasePage {
 
     @And("the case {string} be allocated to me in the summary")
     public void theCaseShouldBeAllocatedToMeInTheSummary(String input) {
+        summaryTab.selectSummaryTab();
         switch (input.toUpperCase()) {
             case "SHOULD":
                 summaryTab.assertAllocatedUserIsMe(true);

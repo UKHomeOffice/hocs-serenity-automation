@@ -81,9 +81,6 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
 
-    @FindBy(id = "CaseNote_RejectionNote")
-    protected WebElementFacade rejectReasonTextField;
-
     @FindBy(css = "[value = 'Save']")
     public WebElementFacade saveButton;
 

@@ -65,8 +65,8 @@ Feature: Multiple Contributions
     And the case "<assertion>" be allocated to me in the summary
     Examples:
       | retention  | assertion  |
-      | retain     | Should     |
-      | unallocate | Should not |
+      | retain     | should     |
+      | unallocate | should not |
 
   @Validation
   Scenario Outline: User tests the validation for the contribution request screens

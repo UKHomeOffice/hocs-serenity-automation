@@ -27,9 +27,10 @@ Feature: QA Response
   @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Initial Draft stage when the Primary Draft is rejected by the QA Response Team
     And I get a "<caseType>" case at the "QA Response" stage
-    When I reject the case at the "QA Response" stage
+    When I reject the case at the QA Response stage
     Then the case should be returned to the "Initial Draft" stage
     And the case should be returned to the drafting team
+    And a note should be visible in the timeline showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "QA Response" stage
     Examples:
       | caseType |

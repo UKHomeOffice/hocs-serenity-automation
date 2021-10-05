@@ -3,15 +3,14 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.TimelineTab;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApproval extends BasePage {
 
-    Markup markup;
-
-    TimelineTab timelineTab;
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Yes']")
     public WebElementFacade privateOfficeAcceptRadioButton;
@@ -43,66 +42,34 @@ public class PrivateOfficeApproval extends BasePage {
     @FindBy(id = "CaseNote_PrivateOfficeTopic")
     public WebElementFacade topicOverrideReasonTextField;
 
-    public void enterPORejectNotes() {
-        waitFor(privateOfficeRejectNoteField);
-        String poRejectNote = "Rejection Reason: " + generateRandomString();
-        privateOfficeRejectNoteField.clear();
-        privateOfficeRejectNoteField.sendKeys(poRejectNote);
-        setSessionVariable("PORejectNote").to(poRejectNote);
+
+    public void selectIfApproveResponse(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
-    public void getToChangeMinisterScreenPrerequisites() {
-        safeClickOn(privateOfficeChangeMinisterRadioButton);
-        safeClickOn(continueButton);
+    public void selectToChangeMinister() {
+        recordCaseData.selectSpecificRadioButton("Change Minister");
     }
 
-    public void getToPOFeedbackResponseScreenPrerequisites() {
-        safeClickOn(privateOfficeRejectRadioButton);
-        safeClickOn(continueButton);
+    public void selectToChangeTopic() {
+        recordCaseData.selectSpecificRadioButton("Change Topic");
     }
 
-    public void moveCaseFromPrivateOfficeToMinisterSignOffOrDispatch() {
-        safeClickOn(privateOfficeAcceptRadioButton);
-        safeClickOn(continueButton);
+    public void enterRejectionReason() {
+        String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("What is your feedback about the response?");
+        setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
-    public void moveDTENCaseFromPrivateOfficeToDispatch() {
-        safeClickOn(privateOfficeAcceptRadioButton);
-        safeClickOn(continueButton);
+    public void selectNewPrivateOfficeTeamFromDropdown(String team) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(team, "Override Private Office Team");
     }
 
-    public void completePrivateOfficeApprovalStageAndStoreEnteredInformation() {
-        safeClickOn(privateOfficeAcceptRadioButton);
-        setSessionVariable("privateOfficeAcceptanceDecision").to(privateOfficeAcceptRadioButton.getTextContent());
-        safeClickOn(continueButton);
+    public void enterAReasonForChangingPOTeam() {
+        recordCaseData.enterTextIntoTextAreaWithHeading("Why should this be approved by this team instead?");
     }
 
-    public void selectNewPrivateOfficeTeamFromDropdown(String newPOTeam) {
-        privateOfficeTeamDropdown.selectByVisibleText(newPOTeam);
-        setSessionVariable("chosenPOTeam").to(newPOTeam);
-    }
-
-    public void enterAReasonForChangingPOTeam(String reason) {
-        privateOfficeOverrideNoteField.sendKeys(reason);
-        setSessionVariable("reasonForOverridePOTeam").to(reason);
-    }
-
-    public void changeTopicAtPOStage(String topic) {
-        safeClickOn(changeTopicRadioButton);
-        safeClickOn(continueButton);
-        markup.addTopicToCase(topic);
-        WebElementFacade selectedPrimaryTopic = findBy("//input[@checked]/following-sibling::label");
-        if (!selectedPrimaryTopic.getText().equalsIgnoreCase(topic)) {
-            WebElementFacade newTopicRadioButton = findBy("//label[text()='" + topic + "']/parent::div/input");
-            waitFor(newTopicRadioButton);
-            safeClickOn(newTopicRadioButton);
-        }
-        topicOverrideReasonTextField.sendKeys( "Test");
-        setSessionVariable("topicOverrideReason").to("Test");
-        safeClickOn(continueButton);
-    }
-
-    public void assertTopicChangeCaseNoteIsAddedToTimeline() {
-        timelineTab.topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
+    public void enterAReasonForChangingTopic() {
+        String topicOverrideReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why is the case topic being changed?");
+        setSessionVariable("topicOverrideReason").to(topicOverrideReason);
     }
 }

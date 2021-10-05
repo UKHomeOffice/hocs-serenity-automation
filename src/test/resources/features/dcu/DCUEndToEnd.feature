@@ -82,19 +82,6 @@ Feature: DCU End To End
     And I complete the "QA response" stage
     Then the case should be moved to the "Dispatch" stage
 
-
-  @DCUWorkflow @DCURegression @SmokeTests
-  Scenario: Dispatch a MIN case with Copy to Number Ten selected
-    When I get a new "MIN" case
-    And I complete the Data Input stage selecting to send a copy to Number Ten
-    And I complete the "Markup" stage
-    And I complete the "Initial Draft" stage
-    And I complete the "QA response" stage
-    And I complete the "Private Office Approval" stage
-    And I complete the "Ministerial Sign Off" stage
-    And I complete the "Dispatch" stage
-    Then the case should be moved to the "COPY TO NUMBER 10" stage
-
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: Dispatch a MIN case with Copy to Number Ten not selected
     When I get a new "MIN" case

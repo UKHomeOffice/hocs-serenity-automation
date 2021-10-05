@@ -28,7 +28,8 @@ Feature: Topics
   Scenario Outline: The user overrides the default drafting team
     When I create a "<caseType>" case with "<Topic>" as the primary topic
     And I complete the Markup stage overriding the "<defaultTeam>" team to "<overrideTeam>"
-    Then the case should be found in the "<overrideTeam>" team
+    And I load the current case
+    Then the summary should display the owning team as "<overrideTeam>"
     Examples:
       | caseType | Topic                         | defaultTeam   | overrideTeam                                             |
       | MIN      | Cyber Stalking And Harassment | Initial Draft | Extremism Analysis Unit                                  |

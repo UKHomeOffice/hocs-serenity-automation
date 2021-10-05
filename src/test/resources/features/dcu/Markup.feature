@@ -83,13 +83,16 @@ Feature: Markup
   @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Data Input stage when rejected at Markup stage
     When I get a "<caseType>" case at the "Markup" stage
-    And I reject the case at the "MARKUP" stage
-    Then the case should be moved to the "DATA INPUT" stage
+    And I reject the case at the Markup stage
+    Then the case should be moved to the "Data Input" stage
+    And the summary should display the owning team as "<dataInputTeam>"
+    And a note should be visible in the timeline showing the reason for rejection
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
     Examples:
-      | caseType |
-      | MIN      |
-      | TRO      |
-      | DTEN     |
+      | caseType | dataInputTeam                |
+      | MIN      | Performance and Process Team |
+      | TRO      | Performance and Process Team |
+      | DTEN     | Transfers & No10 Team        |
 
   @Navigation
   Scenario Outline: Central Drafting Team user selects an initial decision of Policy Response or FAQ
@@ -131,12 +134,6 @@ Feature: Markup
     And I select an initial decision of "FAQ Response"
     And I add the topic "Animal alternatives (3Rs)"
     Then the topic should be added to the case
-
-  @Validation
-  Scenario: User must enter text in the text box when creating a Case note at the Markup stage
-    When I get a "DTEN" case at the "Markup" stage
-    And I click the add button when creating a case note
-    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Validation
   Scenario: User does not enter other government department in free text field

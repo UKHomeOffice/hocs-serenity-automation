@@ -23,12 +23,6 @@ public class InitialDraftStepDefs extends BasePage {
 
     CaseView caseView;
 
-    @Then("an error message should be displayed as I have not selected a document type and added a document")
-    public void assertThatAddDocumentErrorMessagesAreShown() {
-        documents.assertDocumentTypeIsRequiredErrorMessage();
-        documents.assertDocumentIsRequiredErrorMessage();
-    }
-
     @When("I select to reply by {string}")
     public void iClickToAnswerBy(String method) {
         switch (method.toUpperCase()) {
@@ -115,5 +109,13 @@ public class InitialDraftStepDefs extends BasePage {
         openOrCloseAccordionSection("Markup");
         String privateOfficeTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Private Office Team").get(0);
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(privateOfficeTeam, "Team");
+    }
+
+    @And("I reject the case at the Initial Draft stage")
+    public void iRejectTheCaseAtTheInitialDraftStage() {
+        initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
+        safeClickOn(continueButton);
+        initialDraft.enterReasonTeamCannotAnswer();
+        safeClickOn(finishButton);
     }
 }

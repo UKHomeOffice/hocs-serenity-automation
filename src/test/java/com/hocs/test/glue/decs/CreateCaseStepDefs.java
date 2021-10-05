@@ -9,7 +9,7 @@ import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
@@ -37,7 +37,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     FOICreateCase foiCreateCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     DCUProgressCase dcuProgressCase;
 
@@ -88,24 +88,6 @@ public class CreateCaseStepDefs extends BasePage {
     public void createACaseTypeSpecificCase(String caseType) {
         createNewCase(caseType);
         dashboard.goToDashboard();
-    }
-
-    @When("I create a {string} case {string} a document")
-    public void createCaseWithDocument(String caseType, String document) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        createCase.selectCaseType(caseType);
-        safeClickOn(createCase.nextButton);
-        switch (document.toUpperCase()) {
-            case "WITH":
-                documents.uploadDocumentOfType("docx");
-                createCase.clickCreateCaseButton();
-                break;
-            case "WITHOUT":
-                createCase.clickCreateCaseButton();
-                break;
-            default:
-                pendingStep(document + " is not defined within " + getMethodName());
-        }
     }
 
     @When("I bulk create {int} {string} cases")
@@ -558,6 +540,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @Then("the case should be allocated to the previously selected user in the summary")
     public void theCaseShouldBeAllocatedToThePreviouslySelectedUser() {
+        summaryTab.selectSummaryTab();
         summaryTab.assertAllocatedUserIs(sessionVariableCalled("selectedUser"));
     }
 }

@@ -100,7 +100,7 @@ Feature: Initial Draft
   @DCUWorkflow @DCURegression
   Scenario Outline: Case is returned to Markup stage when rejected at Initial Draft stage
     And I get a "<caseType>" case at the "Initial Draft" stage
-    And I reject the case at the "Initial Draft" stage
+    And I reject the case at the Initial Draft stage
     Then the case should be moved to the "Markup" stage
     And the summary should display the owning team as "<markupTeam>"
     And the read-only Case Details accordion should contain all case information entered during the "Initial Draft" stage
@@ -115,18 +115,6 @@ Feature: Initial Draft
     And I get a "MIN" case at the "Markup" stage
     When I complete Markup with "Home Secretary" selected as the Private Office team
     Then the "Animals in Science Regulation Unit" workstack should display a HS symbol next to the case reference
-
-  @Validation
-  Scenario: User must select the Draft document type and add a document on the add document screen at the Draft stage
-    And I get a "MIN" case at the "INITIAL DRAFT" stage
-    And I click the "Add" button on the "ADD DOCUMENT" page
-    Then an error message should be displayed as I have not selected a document type and added a document
-
-  @Validation
-  Scenario: User must enter text in the text box when creating a Case note at the Draft stage
-    And I get a "MIN" case at the "INITIAL DRAFT" stage
-    And I click the add button when creating a case note
-    Then an error message should be displayed as I have not entered text in the Case Note text box
 
   @Validation
   Scenario Outline: User tests the validation at the Initial Draft stage

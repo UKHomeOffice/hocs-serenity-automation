@@ -52,6 +52,11 @@ public class TriageStepDefs extends BasePage {
         dashboard.waitForDashboard();
     }
 
+    @When("I select to set the Enquiry Subject and Reason")
+    public void clickTheLink() {
+        safeClickOn(triage.setEnquiryHypertext);
+    }
+
     @And("I select the {string} enquiry subject and continue")
     public void iSelectAnEnquirySubjectAndContinue(String enquirySubject) {
         triage.selectEnquirySubject(enquirySubject);

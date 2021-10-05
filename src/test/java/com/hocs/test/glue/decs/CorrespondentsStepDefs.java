@@ -7,6 +7,11 @@ public class CorrespondentsStepDefs {
 
     Correspondents correspondents;
 
+    @And("I select to add a correspondent to the case")
+    public void iSelectToAddACorrespondentToTheCase() {
+        correspondents.selectToAddACorrespondent();
+    }
+
     @And("I add a {string} correspondent")
     public void iAddACorrespondent(String correspondentType) {
         if (correspondentType.equalsIgnoreCase("MEMBER")) {

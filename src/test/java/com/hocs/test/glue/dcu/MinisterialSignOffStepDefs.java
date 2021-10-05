@@ -9,24 +9,31 @@ import io.cucumber.java.en.When;
 
 public class MinisterialSignOffStepDefs extends BasePage {
 
-    Dashboard dashboard;
-
     MinisterialSignOff ministerialSignOff;
 
-    CaseView caseView;
-
-    @When("I complete the Ministerial Sign Off stage")
-    public void completeTheMinisterSignOffStagePerCaseType() {
-        if (!ministerialSignOff.ministerSignOffAcceptRadioButton.isVisible()) {
-            dashboard.getCurrentCase();
-            safeClickOn(caseView.allocateToMeLink);
-        }
-        safeClickOn(ministerialSignOff.ministerSignOffAcceptRadioButton);
+    @And("I select that the case is not applicable for Ministerial sign-off")
+    public void iSelectThatTheCaseIsNotApplicableForMinisterialSignOff() {
+        ministerialSignOff.selectNotApplicableToApproveResponse();
         safeClickOn(continueButton);
     }
 
-    @And("I return the case at Ministerial Sign Off to Private Office Approval")
-    public void iReturnCaseAtMinisterialSignOffToPrivateOfficeApproval() {
-        ministerialSignOff.moveCaseFromMinisterSignOffToPrivateOfficeApproval();
+    @And("I do not approve the response at the Ministerial Sign Off stage")
+    public void iDoNotApproveTheResponseAtTheMinisterialSignOffStage() {
+        ministerialSignOff.selectToApproveResponse("No");
+        safeClickOn(continueButton);
+        ministerialSignOff.enterRejectionReason();
+        safeClickOn(continueButton);
+    }
+
+    @When("I approve the response at the Ministerial Sign Off stage")
+    public void iApproveTheResponseAtTheMinisterialSignOffStage() {
+        ministerialSignOff.selectToApproveResponse("Yes");
+        safeClickOn(continueButton);
+    }
+
+    @And("I submit a reason why it is not applicable")
+    public void iSubmitAReasonWhyItIsNotApplicable() {
+        ministerialSignOff.enterNotApplicableReason();
+        safeClickOn(continueButton);
     }
 }

@@ -4,17 +4,13 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.foi.FOICreateCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -22,7 +18,7 @@ public class CreateCase extends BasePage {
 
     Documents documents;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     Dashboard dashboard;
 

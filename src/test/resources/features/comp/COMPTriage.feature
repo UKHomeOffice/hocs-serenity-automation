@@ -13,7 +13,7 @@ Feature: COMP Triage
     And I enter a reason for transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @COMPWorkflow @COMPRegression
@@ -24,7 +24,7 @@ Feature: COMP Triage
     And I enter a reason for transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @COMPWorkflow @COMPRegression
@@ -35,7 +35,7 @@ Feature: COMP Triage
     And I enter a reason for transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
 
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @COMPWorkflow @COMPRegression

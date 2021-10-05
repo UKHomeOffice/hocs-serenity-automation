@@ -24,7 +24,7 @@ public class QAResponseStepDefs extends BasePage {
         safeClickOn(continueButton);
     }
 
-    @And("the case should be owned by the Private Office team")
+    @And("the case should( still)( be owned by)( be returned to) the Private Office team")
     public void theCaseShouldBeOwnedByThePrivateOfficeTeam() {
         openOrCloseAccordionSection("Markup");
         String privateOfficeTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Private Office Team").get(0);
@@ -35,5 +35,13 @@ public class QAResponseStepDefs extends BasePage {
     public void iApproveThePrimaryDraft() {
         qaResponse.selectApprovePrimaryDraftRadioButton();
         safeClickOn(continueButton);
+    }
+
+    @And("I reject the case at the QA Response stage")
+    public void iRejectTheCaseAtTheQAResponseStage() {
+        qaResponse.selectReturnCaseToDraftingTeamRadioButton();
+        safeClickOn(continueButton);
+        qaResponse.enterRejectionReason();
+        safeClickOn(finishButton);
     }
 }

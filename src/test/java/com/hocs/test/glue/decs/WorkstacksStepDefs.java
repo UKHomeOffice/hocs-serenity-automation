@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
@@ -31,7 +31,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     EndToEndStepDefs endToEndStepDefs;
 

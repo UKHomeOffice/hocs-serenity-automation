@@ -58,12 +58,6 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
-    public WebElementFacade addCaseNoteButton;
-
-    @FindBy(xpath = "//span[@id='case-note-error']")
-    public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
@@ -389,10 +383,6 @@ public class Workstacks extends BasePage {
                 "//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference
                         + "')]");
         assertThat(listOfReferences.size(), is(totalNumberOfCases));
-    }
-
-    public void assertCaseNoteMustNotBeBlankErrorMessage() {
-        caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
     public void assertCasesAreFilteredByStage(String currentStage) {

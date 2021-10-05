@@ -55,7 +55,7 @@ Feature: Awaiting Dispatch
     When I select the "Return to Draft" action at Awaiting Dispatch stage
     And I submit a reason to reject the case back to the Draft stage
     Then the case should be moved to the "Draft" stage
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column

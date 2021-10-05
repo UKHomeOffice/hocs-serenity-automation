@@ -22,7 +22,7 @@ Feature: COMP QA
     When I "reject" the response at the Service QA stage
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
   @COMPWorkflow @COMPRegression
@@ -40,7 +40,7 @@ Feature: COMP QA
     And I "reject" the response at the Service QA stage
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
 
   @COMPWorkflow @COMPRegression
   Scenario: User can accept the response and send the case to Minor Misconduct Send stage
@@ -57,7 +57,7 @@ Feature: COMP QA
     And I "reject" the response at the Service QA stage
     Then the case should be moved to the "Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And a rejection note should be visible showing the reason for rejection
+    And a note should be visible in the timeline showing the reason for rejection
 
   @Validation
   Scenario Outline: User tests the validation at the Service QA stage

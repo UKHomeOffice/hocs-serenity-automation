@@ -6,21 +6,13 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.comp.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
-import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workdays;
-import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.MinisterialSignOff;
-import com.hocs.test.pages.dcu.PrivateOfficeApproval;
-import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.ukvi.Creation;
@@ -39,21 +31,13 @@ public class EndToEndStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    DataInput dataInput;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     FOICreateCase foiCreateCase;
 
-    Markup markup;
+    CaseView caseView;
 
-    InitialDraft initialDraft;
-
-    QAResponse qaResponse;
-
-    PrivateOfficeApproval privateOfficeApproval;
-
-    MinisterialSignOff ministerialSignOff;
-
-    Dispatch dispatch;
+    Workdays workdays;
 
     Creation creation;
 
@@ -65,8 +49,6 @@ public class EndToEndStepDefs extends BasePage {
 
     DispatchStages dispatchStages;
 
-    Workdays workdays;
-
     DCUProgressCase dcuProgressCase;
 
     WCSProgressCase wcsProgressCase;
@@ -74,12 +56,6 @@ public class EndToEndStepDefs extends BasePage {
     COMPProgressCase compProgressCase;
 
     FOIProgressCase foiProgressCase;
-
-    Search search;
-
-    CaseView caseView;
-
-    Documents documents;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -115,13 +91,13 @@ public class EndToEndStepDefs extends BasePage {
                         dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOffOrDispatch();
+                        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        ministerialSignOff.moveCaseFromMinisterToDispatch();
+                        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
                         break;
                     case "DISPATCH":
-                        dispatch.moveCaseFromDispatchToCaseClosed();
+                        dcuProgressCase.moveCaseFromDispatchToCaseClosedOrCopyToNumber10();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -381,6 +357,10 @@ public class EndToEndStepDefs extends BasePage {
                     case "DISPATCH":
                         iCreateACaseAndMoveItToAStage(caseType, "MINISTERIAL SIGN OFF");
                         iCompleteTheStage("MINISTERIAL SIGN OFF");
+                        break;
+                    case "COPY TO NUMBER 10":
+                        iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber();
+                        iCompleteTheStage("DISPATCH");
                         break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
@@ -752,6 +732,24 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
+    @And("I get a MIN case at the Dispatch stage that should be copied to Number 10")
+    public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber() {
+        createCase.createCSCaseOfType("MIN");
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        dashboard.claimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkupWithCopyToNumber10();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromInitialDraftToPrivateOfficeApproval();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
+        dashboard.getAndClaimCurrentCase();
+        RecordCaseData.resetDataRecords();
+    }
+
     @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "
             + "{string} stage")
     public void moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
@@ -760,7 +758,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedValuesToTriageStage(businessArea, refType, "Standard", "Home Office");
+                creation.moveCaseWithSpecifiedValuesToTriageStage(businessArea, refType, "Standard", "Home Secretary");
                 dashboard.waitForDashboard();
                 break;
             case "DRAFT":
