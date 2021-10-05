@@ -15,7 +15,7 @@ Feature: Deadlines
     |DTEN    |
     |TRO     |
 
-  @UKVIRegression2
+  @MPAMRegression2
   Scenario: User creates an MPAM case and checks that the stage deadlines are correct
     When I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case

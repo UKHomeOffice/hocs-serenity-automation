@@ -333,7 +333,7 @@ public class SummaryTab extends BasePage {
         currentTeam.shouldContainText(team);
     }
 
-    public void assertAllocatedUKVITeam(String stage) {
+    public void assertAllocatedMPAMTeam(String stage) {
         if(!currentTeam.isVisible()) {
             selectSummaryTab();
         }

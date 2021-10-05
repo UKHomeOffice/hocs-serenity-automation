@@ -168,7 +168,7 @@ public class BaseStepDefs extends BasePage {
 
     @And("the case should be in the correct MPAM {string} team workstack")
     public void theCaseShouldBeInTheCorrectMPAMTeamWorkstack(String stage) {
-        summaryTab.assertAllocatedUKVITeam(stage);
+        summaryTab.assertAllocatedMPAMTeam(stage);
     }
 
     @Then("the claim should be sent/returned to the correct WCS Casework team")

@@ -1,4 +1,4 @@
-@Creation @UKVI
+@Creation @MPAM
 Feature: Creation
 
   Background:
@@ -47,7 +47,7 @@ Feature: Creation
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User completes Case Creation stage
     When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
     And I complete the other required fields for Creation stage
@@ -56,7 +56,7 @@ Feature: Creation
     And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
 
-  @UKVIWorkflow
+  @MPAMWorkflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
     And I complete the other required fields for Creation stage
@@ -81,14 +81,14 @@ Feature: Creation
       | Windrush     | Official    |
       | Coronavirus  | Official    |
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User adds an MP correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
     And I add a "Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User adds a member of public correspondent at Case Creation stage
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -96,7 +96,7 @@ Feature: Creation
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User removes the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -104,7 +104,7 @@ Feature: Creation
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User edits an existing correspondents name
     When I complete all required fields for Creation stage
     And I click the "Continue" button
@@ -112,7 +112,7 @@ Feature: Creation
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User adds a second correspondent and selects them as the primary correspondent
     When I complete all required fields for Creation stage
     And I click the "Continue" button

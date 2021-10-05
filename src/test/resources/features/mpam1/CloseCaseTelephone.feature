@@ -4,7 +4,7 @@ Feature: Close Case (Telephone)
   Background:
     Given I am logged into "CS" as user "MPAM_USER"
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario Outline: User closes a telephone case at different stages
     And I create a MPAM case with "Official" as the Reference Type and move it to the "<stage>" stage
     And I load and claim the current case
@@ -17,7 +17,7 @@ Feature: Close Case (Telephone)
     | Draft             |
     | QA                |
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User closes a telephone case at Awaiting Dispatch stage
     And I create a MPAM case with "Official" as the Reference Type and move it to the "Awaiting Dispatch" stage
     And I load the current case

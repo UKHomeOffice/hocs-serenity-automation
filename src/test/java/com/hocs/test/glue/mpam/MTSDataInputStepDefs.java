@@ -1,4 +1,4 @@
-package com.hocs.test.glue.ukvi;
+package com.hocs.test.glue.mpam;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.SummaryTab;

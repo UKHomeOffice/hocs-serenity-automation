@@ -1,17 +1,17 @@
-@MultipleContributions @UKVI
+@MultipleContributions @MPAM
 Feature: Multiple Contributions
 
   Background:
     Given I am logged into "CS" as user "MPAM_USER"
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can send a Triage case to the Triage (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
     And I send the Triage case to "Contributions Requested"
     Then the case should be moved to the "Triage (Contribution Requested)" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can send a Draft case to the Draft (Contribution Requested) stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -42,7 +42,7 @@ Feature: Multiple Contributions
       | Complete |
       | Cancel   |
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can complete the Triage (Contributions Requested) stage and move the case back to Triage
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -52,7 +52,7 @@ Feature: Multiple Contributions
     And I select the "Contributions Received" action at the contributions requested stage
     Then the case should be moved to the "Triage" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario Outline: User can complete the Draft (Contributions Requested) stage and select allocation actions upon completion
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -87,7 +87,7 @@ Feature: Multiple Contributions
     And I load and claim the current case
     Then there are 5 contribution requests added to the case
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can escalate a case to workflow manager at the Triage-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -96,7 +96,7 @@ Feature: Multiple Contributions
     And I select the "Escalate to workflow manager" action at the contributions requested stage
     Then the case should be moved to the "Triage - Escalated (Contribution Requested)" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can escalate a case to workflow manager at the Draft-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -105,7 +105,7 @@ Feature: Multiple Contributions
     And I select the "Escalate to workflow manager" action at the contributions requested stage
     Then the case should be moved to the "Draft - Escalated (Contribution Requested)" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User de-escalates a case returns it to the Triage-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -117,7 +117,7 @@ Feature: Multiple Contributions
     And I select the "De-Escalate" action at the Triage-Escalated stage
     Then the case should be moved to the "Triage (Contribution Requested)" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User de-escalates a case returns it to the Draft-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -129,7 +129,7 @@ Feature: Multiple Contributions
     And I select the "De-Escalate" action at the Draft-Escalated stage
     Then the case should be moved to the "Draft (Contribution Requested)" stage
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can add a case to a Campaign at the Triage-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -141,7 +141,7 @@ Feature: Multiple Contributions
     And the case is added to the correct Campaign
 
 
-  @UKVIRegression1 @UKVIWorkflow
+  @MPAMRegression1 @MPAMWorkflow
   Scenario: User can add a case to a Campaign at the Draft-Contributions Requested stage
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -152,7 +152,7 @@ Feature: Multiple Contributions
     Then the case should be moved to the "Campaign" stage
     And the case is added to the correct Campaign
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: The earliest contribution request due date updates in workstacks when amended
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

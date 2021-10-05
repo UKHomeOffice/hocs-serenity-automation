@@ -1,4 +1,4 @@
-@Drafting @UKVI
+@Drafting @MPAM
 Feature: Draft
 
   Background:
@@ -12,21 +12,21 @@ Feature: Draft
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User completes the Draft stage
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
     When I complete the "Draft" stage
     Then the case should be moved to the "QA" stage
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User moves an Official case from Draft to Dispatch, bypassing QA
     When I create a MPAM case with "Official" as the Reference Type and move it to the "Draft" stage
     And I load and claim the current case
     And I move a Official case from Draft to Dispatch bypassing QA
     Then the case should be moved to the "Awaiting Dispatch" stage
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User escalates the draft case to workflow manager
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -34,7 +34,7 @@ Feature: Draft
     Then the case should be moved to the "Draft (Escalated)" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User puts the draft case on hold
     When I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -42,7 +42,7 @@ Feature: Draft
     Then the case should be moved to the "Draft (On Hold)" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User takes a Draft On Hold case off hold
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -52,7 +52,7 @@ Feature: Draft
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User de-escalates a Draft (Escalated) case
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -62,7 +62,7 @@ Feature: Draft
     Then the case should be moved to the "Draft" stage
     And the case "should" be allocated to me in the summary
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User closes a Draft (Escalated) case
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -72,7 +72,7 @@ Feature: Draft
     And I click the "Close case" button
     Then the case should be closed
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario: User moves case into a Campaign from Draft
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -80,7 +80,7 @@ Feature: Draft
     And I load the current case
     Then the case is added to the correct Campaign
 
-  @UKVIWorkflow @UKVIRegression1
+  @MPAMWorkflow @MPAMRegression1
   Scenario Outline: User moves cases into Campaigns from draft sub-stages
     And I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case
@@ -94,7 +94,7 @@ Feature: Draft
     | On Hold                 | Draft-On Hold                 |
     | Workflow Manager        | Draft-Escalated               |
 
-  @UKVIRegression1
+  @MPAMRegression1
   Scenario: User rejects a case at Draft back to Triage
     Given I create a "MPAM" case and move it to the "Draft" stage
     And I load and claim the current case

@@ -1,4 +1,4 @@
-@MPAMEndToEnd @UKVI @UKVIWorkflow
+@MPAMEndToEnd @MPAM @MPAMWorkflow
 Feature: MPAM End To End
 
   Background:
@@ -88,7 +88,7 @@ Feature: MPAM End To End
       | Windrush     | Official   | Awaiting Dispatch |
       | Coronavirus  | Official   | Awaiting Dispatch |
 
-  @UKVIRegression1 @SmokeTests
+  @MPAMRegression1 @SmokeTests
   Scenario Outline: User closes a Ministerial case with specific Business Area and Reference Type
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
@@ -102,7 +102,7 @@ Feature: MPAM End To End
       | Windrush     | Ministerial   | Case Closed |
       | Coronavirus  | Ministerial   | Case Closed |
 
-  @UKVIRegression1 @SmokeTests
+  @MPAMRegression1 @SmokeTests
   Scenario Outline: User closes a Official case with specific Business Area and Reference Type
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
     Then the case should be closed
