@@ -41,7 +41,14 @@ Feature: COMP Search
 #     HOCS-2847 HOCS-3161
   @COMPRegression
   Scenario: COMP User sees the required information when viewing search
-    Given I am logged into "CS" as user "COMP_USER"
-    And I navigate to the "search" page
+    When I navigate to the "search" page
     And I click the search button on the search page
     Then the "COMP Search" workstack should contain only the expected columns
+
+  Scenario: User is able to select a COMP2 case reference from the escalate case column of a COMP case
+    When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
+    And I navigate to the "Dashboard" page
+    And I navigate to the "Search" page
+    And I search for the COMP case escalated to COMP2 by it's case reference
+    And I load the COMP2 case by selecting the case reference in the Escalate Case column
+    Then the case should be loaded
