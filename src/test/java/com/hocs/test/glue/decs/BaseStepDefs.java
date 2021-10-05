@@ -108,6 +108,7 @@ public class BaseStepDefs extends BasePage {
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
         if (foiCase() && (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE"))) {
             try {
+                waitABit(500);
                 summaryTab.selectSummaryTab();
             } catch (ElementNotVisibleException | StaleElementReferenceException e) {
                 timelineTab.selectTimelineTab();

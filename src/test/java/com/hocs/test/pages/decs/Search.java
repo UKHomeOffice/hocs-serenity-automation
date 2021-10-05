@@ -300,6 +300,19 @@ public class Search extends BasePage {
 
     public void enterCOMPSearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                switch (value.toUpperCase()) {
+                    case "COMP":
+                        checkSpecificCheckbox("Complaint Case");
+                        break;
+                    case "COMP2":
+                        checkSpecificCheckbox("Complaint Case - Stage 2");
+                        break;
+                    default:
+                        pendingStep(value + " is not defined within " + getMethodName());
+                }
+                setSessionVariable("searchCaseType").to(value);
+                break;
             case "CORRESPONDENT FULL NAME":
                 correspondentFullNameTextField.sendKeys(value);
                 setSessionVariable("searchCorrespondentFullName").to(value);
@@ -615,6 +628,11 @@ public class Search extends BasePage {
         String randomSearchResult = randomSearchResultHypertext.getText();
         setSessionVariable("randomCaseRef").to(randomSearchResult);
         switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                expectedValue = sessionVariableCalled("searchCaseType");
+                List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
+                assertThat(numberOfCasesDisplayed==listOfCaseRefs.size(), is(true));
+                break;
             case "CORRESPONDENT FULL NAME":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
                 expectedValue = sessionVariableCalled("searchCorrespondentFullName");
@@ -655,12 +673,14 @@ public class Search extends BasePage {
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
-            displayedValue = displayedValue.split(": ")[1];
-        } else {
-            displayedValue = cell.getText();
+        if (!criteria.equalsIgnoreCase("CASE TYPE")) {
+            if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+                displayedValue = displayedValue.split(": ")[1];
+            } else {
+                displayedValue = cell.getText();
+            }
+            assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
         }
-        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void assertFOIInformationRandomSearchResult(String criteria) {
