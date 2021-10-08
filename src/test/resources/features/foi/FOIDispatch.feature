@@ -10,6 +10,7 @@ Feature: FOI Dispatch
     And I select "Email" as the response
     And I select "Information released in full" as outcome of the case
     And I click the "Continue" button
+    And I click the "Confirm" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
     Then the FOI case should be moved to the "Soft Close" stage

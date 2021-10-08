@@ -28,6 +28,11 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
+        safeClickOn(documents.addDocumentsButton);
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading("Initial response", "Document type");
+        documents.uploadDocumentOfType("docx");
+        clickTheButton("Add");
+
         clickTheButton("Complete Create");
     }
 
@@ -66,6 +71,7 @@ public class FOIProgressCase extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Information released in full","What was the outcome of this case?");
         clickTheButton("Continue");
+        clickTheButton("Confirm");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
         clickTheButton("Complete Dispatch");
         waitABit(500);

@@ -14,6 +14,7 @@ Feature: FOIOutcomesAndExemptions
     Then the "Which exemptions were applied?" page should be displayed
     And I select an Exemption
     And I click the "Continue" button
+    And I click the "Confirm" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
     Then the FOI case should be moved to the "Soft Close" stage
@@ -27,6 +28,7 @@ Feature: FOIOutcomesAndExemptions
     Then the "Which exceptions were applied?" page should be displayed
     And I select an Exception
     And I click the "Continue" button
+    And I click the "Confirm" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
     Then the FOI case should be moved to the "Soft Close" stage
@@ -40,6 +42,7 @@ Feature: FOIOutcomesAndExemptions
     Then the "Which exemptions and exceptions were applied?" page should be displayed
     And I select an Exception and an Exemption
     And I click the "Continue" button
+    And I click the "Confirm" button
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
     Then the FOI case should be moved to the "Soft Close" stage
