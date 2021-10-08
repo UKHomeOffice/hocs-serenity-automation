@@ -222,9 +222,6 @@ public class EndToEndStepDefs extends BasePage {
                     case "MINOR MISCONDUCT SEND":
                         compProgressCase.moveCaseFromMinorMisconductSendToComplaintClosed();
                         break;
-                    case "COMPLAINT CLOSED (TO CASE CLOSED)":
-                        compProgressCase.moveCaseFromComplaintClosedToCaseClosed();
-                        break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
@@ -603,18 +600,6 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "MINOR MISCONDUCT SEND");
                         iCompleteTheStage("MINOR MISCONDUCT SEND");
                         break;
-                    case "SERVICE CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM SERVICE SEND)");
-                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
-                        break;
-                    case "EX-GRATIA CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM EX-GRATIA SEND)");
-                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
-                        break;
-                    case "MINOR MISCONDUCT CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "COMPLAINT CLOSED (FROM MINOR MISCONDUCT SEND)");
-                        iCompleteTheStage("COMPLAINT CLOSED (TO CASE CLOSED)");
-                        break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
@@ -625,7 +610,7 @@ public class EndToEndStepDefs extends BasePage {
                         try {
                             compProgressCase.attemptEscalateCOMPCaseToStage2();
                         } catch (Exception a) {
-                            iCreateACaseAndMoveItToAStage("COMP", "SERVICE CASE CLOSED");
+                            iCreateACaseAndMoveItToAStage("COMP", "COMPLAINT CLOSED (FROM SERVICE SEND)");
                             try {
                                 compProgressCase.attemptEscalateCOMPCaseToStage2();
                             } catch (Exception e) {
