@@ -134,10 +134,9 @@ Feature: COMP Triage
     And I accept the previous Severity selection
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    When I select to complete the case at Service Triage
+    When I select to complete the case at Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
-    And I confirm I want to close the case at Service Triage
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
@@ -152,10 +151,9 @@ Feature: COMP Triage
     And I accept the previous Severity selection
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    When I select to complete the case at Service Triage
+    When I select to complete the case at Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
-    And I confirm I want to close the case at Service Triage
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
 
@@ -167,13 +165,11 @@ Feature: COMP Triage
     And I click the "Continue" button
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    When I select to complete the case at Service Triage
+    When I select to complete the case at Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
-    And I confirm I want to close the case at Service Triage
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
