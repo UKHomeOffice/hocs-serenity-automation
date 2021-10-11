@@ -25,7 +25,7 @@ public class FOIProgressCase extends BasePage {
 
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");
-        caseCreationStage.selectValidityOfRequest("Yes");
+        caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
         documents.addInitialResponseDocument();
