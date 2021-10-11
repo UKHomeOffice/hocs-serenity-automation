@@ -10,6 +10,7 @@ Feature: Case Creation Stage
   Scenario: User is able to complete the Case Creation stage
     And I click the "Confirm" button
     And I select "Yes" for the validity of the request and continue
+    And I upload a "Initial response" document
     And I click the "Complete Create" button
     Then the FOI case should be moved to the "Allocation" stage
     And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage

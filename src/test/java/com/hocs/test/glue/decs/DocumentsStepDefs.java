@@ -47,6 +47,8 @@ public class DocumentsStepDefs extends BasePage {
                 break;
             case "FINAL":
                 documents.addAFinalDocument();
+            case "INITIAL RESPONSE":
+                documents.addInitialResponseDocument();
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());

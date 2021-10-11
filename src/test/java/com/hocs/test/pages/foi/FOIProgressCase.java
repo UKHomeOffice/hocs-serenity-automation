@@ -28,12 +28,9 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Yes");
         safeClickOn(continueButton);
         waitABit(250);
-        safeClickOn(documents.addDocumentsButton);
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading("Initial response", "Document type");
-        documents.uploadDocumentOfType("docx");
-        clickTheButton("Add");
-
+        documents.addInitialResponseDocument();
         clickTheButton("Complete Create");
+        waitABit(250);
     }
 
     public void moveCaseFromAllocationToAcceptance() {
