@@ -41,10 +41,6 @@ public class CaseCreationStage extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading(validity, "Case Validity");
     }
 
-    public void enterAcknowledgementResponseToValidRequestIssueDate() {
-        selectSpecificRadioButtonFromGroupWithHeading(getDatePlusMinusNDaysAgo(5), "When was the acknowledgement response to the valid request issued?");
-    }
-
     public void editCaseDetail(String valueToBeEdited) {
         String xpathText = "";
         String fieldHeader = "";
@@ -133,5 +129,10 @@ public class CaseCreationStage extends BasePage {
         String displayedRequesterName = primaryCorrespondentValue.getText();
         String enteredRequesterName = sessionVariableCalled("requesterFullName");
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
+    }
+
+    public void fillTheAcknowledgementResponseDate() {
+        String responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
     }
 }

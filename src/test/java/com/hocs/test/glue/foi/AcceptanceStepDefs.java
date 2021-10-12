@@ -41,4 +41,9 @@ public class AcceptanceStepDefs extends BasePage {
     public void theCaseShouldBeAssignedToTheDraftingTeamSelectedAtAcceptance() {
         summaryTab.assertAllocatedTeam(sessionVariableCalled("selectedDraftTeam"));
     }
+
+    @And("I {string} the Acceptance stage")
+    public void iTheAcceptanceStage(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
 }

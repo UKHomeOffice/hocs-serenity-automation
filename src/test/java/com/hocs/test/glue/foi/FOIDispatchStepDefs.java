@@ -48,4 +48,29 @@ public class FOIDispatchStepDefs extends BasePage {
     public void iSelectNonDispatchOptionAsOutcomeOfTheCase() {
         foiDispatch.selectNonDispatchOutcomeOfTheCase();
     }
+
+    @And("I {string} record the case outcome")
+    public void iRecordTheCaseOutcome(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
+
+    @And("I {string} Dispatch stage check your answers")
+    public void iCheckYourAnswers(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
+
+    @And("I {string} selection of Exemptions")
+    public void iSelectionOfExemptions(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
+
+    @And("I {string} selection of Exceptions")
+    public void iSelectionOfExceptions(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
+
+    @And("I {string} selection of Exemptions and Exceptions")
+    public void iSelectionOfExemptionsAndExceptions(String buttonLabel) {
+        clickTheButton(buttonLabel);
+    }
 }
