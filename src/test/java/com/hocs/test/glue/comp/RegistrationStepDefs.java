@@ -21,8 +21,6 @@ public class RegistrationStepDefs extends BasePage {
 
     COMPTriage compTriage;
 
-    SummaryTab summaryTab;
-
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
         registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
