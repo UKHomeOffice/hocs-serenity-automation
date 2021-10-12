@@ -28,6 +28,24 @@ Feature: Case Creation Stage
   Scenario: User is able to see the information entered when creating the FOI request
     Then the details entered when creating the case are displayed
 
+  @FOIRegression
+  Scenario: User is able to extend the deadline of an FOI case
+    And I select the actions tab
+    And I select to extend the deadline of the FOI case
+    And I navigate to the "Dashboard" page
+    And I load the current case
+    And I select the summary tab
+    Then the deadline of the FOI case should be extended
+
+  @FOIRegression
+  Scenario: User is able to add and complete an Appeal for an FOI case
+    And I select the actions tab
+    And I select the manage appeals hypertext
+    And I add an appeal to the FOI case
+    And I enter the appeal information and complete the appeal
+    And I select the summary tab
+    Then the information entered for the FOI appeal should be displayed
+
   #HOCS-3249
   @FOIRegression
   Scenario Outline: User is able to edit the Case Details of the request at the Case Creation stage

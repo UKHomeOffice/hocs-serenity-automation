@@ -20,7 +20,7 @@ public class ActionsTab extends BasePage {
     @FindBy(xpath = "//a[text()='Manage appeals']")
     public WebElementFacade manageAppealsHypertext;
 
-    @FindBy(xpath = "//a[text()='Record an Appeal']")
+    @FindBy(xpath = "//a[text()='Record an appeal']")
     public WebElementFacade recordAnAppealHypertext;
 
     public void selectActionsTab() {
@@ -47,17 +47,28 @@ public class ActionsTab extends BasePage {
         safeClickOn(recordAnAppealHypertext);
         String appealType = recordCaseData.selectRandomOptionFromDropdownWithHeading("Which type of appeal needs to be applied?");
         setSessionVariable("appealType").to(appealType);
+        if (appealType.equalsIgnoreCase("Internal Review")) {
+            String appealOfficerDirectorate = recordCaseData.selectRandomOptionFromDropdownWithHeading("Internal review officer directorate");
+            setSessionVariable("appealOfficerDirectorate").to(appealOfficerDirectorate);
+            String appealOfficerName = recordCaseData.selectRandomOptionFromDropdownWithHeading("Internal review officer name");
+            setSessionVariable("appealOfficerName").to(appealOfficerName);
+        }
         clickTheButton("Log Appeal");
     }
 
-    public void completeSpecificAppeal(String appeal) {
-        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//label[text()='" + appeal + "']/parent::td/following-sibling::td/a");
+    public void completeAppeal() {
+        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//label[text()='" + sessionVariableCalled("appealType") + "']/parent::td/following-sibling::td/a");
         safeClickOn(updateHypertextOfSpecificAppeal);
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Has this been completed?");
+        setSessionVariable("appealComplete").to("Yes");
         recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was this completed?");
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("What was the outcome?");
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the case complex?");
-        recordCaseData.enterTextIntoTextAreaWithHeading("Details");
+        setSessionVariable("appealCompletionDate").to(getTodaysDate());
+        String appealOutcome = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("What was the outcome?");
+        setSessionVariable("appealOutcome").to(appealOutcome);
+        String appealComplexity = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the case complex?");
+        setSessionVariable("appealComplexity").to(appealComplexity);
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Details","Details");
+        setSessionVariable("appealDetails").to("Test Details");
         clickTheButton("Update");
     }
 }
