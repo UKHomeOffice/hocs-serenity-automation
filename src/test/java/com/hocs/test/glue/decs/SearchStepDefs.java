@@ -223,8 +223,21 @@ public class SearchStepDefs extends BasePage {
         }
     }
 
+    @And("I search for the COMP case escalated to COMP2 by it's case reference")
+    public void iSearchForTheEscalatedCOMPCaseByCaseReference() {
+        String compCaseRef = sessionVariableCalled("compCaseReference");
+        search.enterCOMPSearchCriteria("Case Reference", compCaseRef);
+        safeClickOn(searchButton);
+        search.waitForResultsPage();
+    }
+
     @Then("I check that the COMP search results have the correct {string}")
     public void theCOMPSearchResultsHaveTheCorrect(String criteria) {
         search.assertCOMPInformationRandomSearchResult(criteria);
+    }
+
+    @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")
+    public void iLoadTheCOMP2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
+        search.selectCOMP2CaseRefOfEscalatedCOMPCase(sessionVariableCalled("compCaseReference"));
     }
 }

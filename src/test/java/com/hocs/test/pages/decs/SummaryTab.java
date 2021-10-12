@@ -110,6 +110,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
     public WebElementFacade foiTopic;
 
+    @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
+    public WebElementFacade previousCOMPCaseReference;
+
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
@@ -154,6 +157,10 @@ public class SummaryTab extends BasePage {
         boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
         boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
         return areDatesEqual && areDaysEqual;
+    }
+
+    public void selectPreviousCaseReference() {
+        safeClickOn(previousCOMPCaseReference);
     }
 
     public void assertCampaignInSummaryTabIsCorrect(String input) {

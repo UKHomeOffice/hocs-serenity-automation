@@ -5,6 +5,9 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.Search;
+import net.serenitybdd.core.pages.WebElementFacade;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class COMPProgressCase extends BasePage {
 
@@ -237,6 +240,10 @@ public class COMPProgressCase extends BasePage {
         search.clickTheButton("Search");
         search.waitForResultsPage();
         if (search.checkVisibilityOfEscalationHypertext()) {
+            WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+            String compCaseRef = compCaseRefField.getText();
+            setSessionVariable("compCaseReference").to(compCaseRef);
+            System.out.print("Case reference of case being escalated: " + compCaseRef);
             search.clickEscalateCOMPCaseToCOMP2();
         } else {
             throw new Exception("Escalation hypertext not visible");
