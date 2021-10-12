@@ -125,6 +125,7 @@ public class SummaryTab extends BasePage {
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {
+        selectSummaryTab();
         WebElementFacade displayedValueElement = findBy("//th[text()='"+ header +"']/following-sibling::td");
         return displayedValueElement.getText();
     }

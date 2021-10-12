@@ -57,7 +57,7 @@ Feature: Markup
     And the read-only Case Details accordion should contain all case information entered during the "Markup" stage
 
   @DCUWorkflow @DCURegression
-  Scenario Outline: User selects Refer to OGD
+  Scenario Outline: User selects Refer To OGD
     When I get a "<caseType>" case at the "Markup" stage
     And I select an initial decision of "Refer To OGD"
     And I submit a transfer destination and transfer reason
@@ -106,7 +106,7 @@ Feature: Markup
       | FAQ Response    |
 
   @Navigation
-  Scenario: User selects an initial decision of Refer to OGD
+  Scenario: User selects an initial decision of Refer To OGD
     When I get a "DTEN" case at the "Markup" stage
     And I select an initial decision of "Refer To OGD"
     Then the Other Government Department name free text field is displayed

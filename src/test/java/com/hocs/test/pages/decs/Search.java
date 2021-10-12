@@ -459,6 +459,7 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR AFTER DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
                     caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
@@ -472,6 +473,7 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 searchDate = null;
                 caseDate = null;
                 try {

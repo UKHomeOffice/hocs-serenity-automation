@@ -77,7 +77,7 @@ public class Markup extends BasePage {
     }
 
     public void selectReferToOGDRadioButton() {
-        selectASpecificResponseType("Refer to OGD");
+        selectASpecificResponseType("Refer To OGD");
     }
 
     public void selectRejectToDataInput() {

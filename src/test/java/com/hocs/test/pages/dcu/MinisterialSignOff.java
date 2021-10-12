@@ -32,7 +32,7 @@ public class MinisterialSignOff extends BasePage {
     }
 
     public void selectNotApplicableToApproveResponse() {
-        recordCaseData.selectSpecificRadioButton("Not Applicable");
+        recordCaseData.selectSpecificRadioButton("Not applicable");
     }
 
     public void enterRejectionReason() {

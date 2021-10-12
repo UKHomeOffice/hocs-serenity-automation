@@ -47,7 +47,6 @@ Feature: Private Office Approval
   Scenario: User can override the Primary topic at the Private Office stage
     And I get a "MIN" case at the "Private Office Approval" stage
     And I override the Primary Topic of the case at the Private Office stage to "Breeding of research animals"
-    And I load the current case
     Then the summary should display the owning team as "Minister for Lords"
     And the summary should display "Breeding of research animals" for "Primary Topic"
     And the read-only Case Details accordion should contain all case information entered during the "Private Office Approval" stage
@@ -62,8 +61,7 @@ Feature: Private Office Approval
 
   @Validation
   Scenario Outline: User tests the validation at the Private Office Approval stage
-    When I create a "<caseType>" case and move it to the "Private Office Approval" stage
-    And I load and claim the current case
+    And I get a "<caseType>" case at the "Private Office Approval" stage
     And I trigger the "<errorMessage>" error message at the "Private Office Approval" stage
     Then the "<errorMessage>" error message is displayed at the "Private Office Approval" stage
     Examples:
