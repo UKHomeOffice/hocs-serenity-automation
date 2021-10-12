@@ -24,11 +24,15 @@ public class FOIProgressCase extends BasePage {
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
+        String responseDate = getTodaysDate();
         clickTheButton("Confirm");
-        caseCreationStage.selectValidityOfRequest("Yes");
+        caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
+        documents.addInitialResponseDocument();
+        caseCreationStage.fillTheAcknowledgementResponseDate();
         clickTheButton("Complete Create");
+        waitABit(250);
     }
 
     public void moveCaseFromAllocationToAcceptance() {
@@ -66,6 +70,7 @@ public class FOIProgressCase extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Information released in full","What was the outcome of this case?");
         clickTheButton("Continue");
+        clickTheButton("Confirm");
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
         clickTheButton("Complete Dispatch");
         waitABit(500);

@@ -38,7 +38,7 @@ public class CaseCreationStage extends BasePage {
     public WebElementFacade primaryCorrespondentValue;
 
     public void selectValidityOfRequest(String validity) {
-        selectSpecificRadioButtonFromGroupWithHeading(validity, "Is this a valid request?");
+        selectSpecificRadioButtonFromGroupWithHeading(validity, "Case Validity");
     }
 
     public void editCaseDetail(String valueToBeEdited) {
@@ -129,5 +129,10 @@ public class CaseCreationStage extends BasePage {
         String displayedRequesterName = primaryCorrespondentValue.getText();
         String enteredRequesterName = sessionVariableCalled("requesterFullName");
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
+    }
+
+    public void fillTheAcknowledgementResponseDate() {
+        String responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
     }
 }
