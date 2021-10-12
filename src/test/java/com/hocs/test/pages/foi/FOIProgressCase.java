@@ -25,9 +25,13 @@ public class FOIProgressCase extends BasePage {
 
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");
-        caseCreationStage.selectValidityOfRequest("Yes");
+        caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
-        waitABit(250);
+        safeClickOn(documents.addDocumentsButton);
+        documents.selectDocumentTypeByText("Initial Response");
+        documents.uploadDocumentOfType("docx");
+        safeClickOn(addButton);
+        caseCreationStage.enterAcknowledgementResponseToValidRequestIssueDate();
         clickTheButton("Complete Create");
     }
 

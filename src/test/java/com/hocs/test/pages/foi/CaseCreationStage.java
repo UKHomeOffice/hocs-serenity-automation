@@ -38,7 +38,11 @@ public class CaseCreationStage extends BasePage {
     public WebElementFacade primaryCorrespondentValue;
 
     public void selectValidityOfRequest(String validity) {
-        selectSpecificRadioButtonFromGroupWithHeading(validity, "Is this a valid request?");
+        selectSpecificRadioButtonFromGroupWithHeading(validity, "Case Validity");
+    }
+
+    public void enterAcknowledgementResponseToValidRequestIssueDate() {
+        selectSpecificRadioButtonFromGroupWithHeading(getDatePlusMinusNDaysAgo(5), "When was the acknowledgement response to the valid request issued?");
     }
 
     public void editCaseDetail(String valueToBeEdited) {

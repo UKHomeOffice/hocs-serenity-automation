@@ -9,7 +9,7 @@ Feature: Case Creation Stage
   #HOCS-3408
   Scenario: User is able to complete the Case Creation stage
     And I click the "Confirm" button
-    And I select "Yes" for the validity of the request and continue
+    And I select "Valid" for the validity of the request and continue
     And I click the "Complete Create" button
     Then the FOI case should be moved to the "Allocation" stage
     And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
@@ -18,7 +18,7 @@ Feature: Case Creation Stage
   @FOIRegression
   Scenario: User is able to send an invalid request to Dispatch
     And I click the "Confirm" button
-    And I select "No" for the validity of the request and continue
+    And I select "Invalid" for the validity of the request and continue
     And I click the "Complete Create" button
     And I navigate to the "Dashboard" page
     Then the case should be moved to the "Dispatch" stage

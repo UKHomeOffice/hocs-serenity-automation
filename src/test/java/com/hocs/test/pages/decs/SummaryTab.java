@@ -373,4 +373,9 @@ public class SummaryTab extends BasePage {
         String displayedComplianceMeasureDetails = getSummaryTabValueForGivenHeader("Compliance measures other details");
         assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
     }
+
+    public void assertDeadlineOfExtendedFOICase() {
+        String displayedDeadline = deadline.getText();
+        checkCalculatedDeadline(displayedDeadline, 40);
+    }
 }
