@@ -47,7 +47,6 @@ Feature: COMP Search
 
   Scenario: User is able to select a COMP2 case reference from the escalate case column of a COMP case
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
-    And I navigate to the "Dashboard" page
     And I navigate to the "Search" page
     And I search for the COMP case escalated to COMP2 by it's case reference
     And I load the COMP2 case by selecting its case reference from the Escalate Case column
