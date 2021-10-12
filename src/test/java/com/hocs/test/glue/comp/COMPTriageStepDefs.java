@@ -44,7 +44,7 @@ public class COMPTriageStepDefs extends BasePage {
         compTriage.escalateCaseToWFM();
     }
 
-    @And("I select to complete the case at Service Triage")
+    @And("I select to complete the case at Triage")
     public void iSelectToCompleteTheCase() {
         compTriage.selectCompleteTheCase();
     }

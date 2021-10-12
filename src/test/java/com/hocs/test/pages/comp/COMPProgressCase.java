@@ -27,8 +27,6 @@ public class COMPProgressCase extends BasePage {
 
     COMPSend compSend;
 
-    ComplaintClosed complaintClosed;
-
     Search search;
 
     public void moveCaseFromRegistrationToServiceTriage() {
@@ -236,18 +234,11 @@ public class COMPProgressCase extends BasePage {
         System.out.println("Case moved from Minor Misconduct Send to Complaint Closed");
     }
 
-    public void moveCaseFromComplaintClosedToCaseClosed() {
-        complaintClosed.selectActionAtComplaintClosed("Complete the case");
-        complaintClosed.submitReasonForCaseCompletion();
-        complaintClosed.selectActionAtCompleteConfirmation("Yes");
-        System.out.println("Case moved from Complaint Closed to Closed");
-    }
-
     public void attemptEscalateCOMPCaseToStage2() throws Exception {
         dashboard.selectSearchLinkFromMenuBar();
         search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" + getCurrentYear());
         search.clickTheButton("Search");
-        waitABit(500);
+        search.waitForResultsPage();
         if (search.checkVisibilityOfEscalationHypertext()) {
             WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
             String compCaseRef = compCaseRefField.getText();

@@ -5,7 +5,6 @@ import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.comp.CCH;
-import com.hocs.test.pages.comp.ComplaintClosed;
 import com.hocs.test.pages.comp.Registration;
 import com.hocs.test.pages.comp.COMPDraft;
 import com.hocs.test.pages.comp.COMPQA;
@@ -76,8 +75,6 @@ public class ValidationStepDefs extends BasePage {
     COMPDraft COMPDraft;
 
     COMPQA COMPQA;
-
-    ComplaintClosed complaintClosed;
 
     CCH cch;
 
@@ -1358,30 +1355,6 @@ public class ValidationStepDefs extends BasePage {
                                 compSend.selectACaseOutcome();
                                 compSend.selectAResponseChannel();
                                 clickTheButton("Complete");
-                                break;
-                            default:
-                                pendingStep(errorMessage + " is not defined within " + getMethodName());
-                        }
-                        break;
-                    case "COMPLAINT CLOSED":
-                        switch (errorMessage.toUpperCase()) {
-                            case "PROGRESS CASE REQUIRED":
-                                waitABit(500);
-                                safeClickOn(continueButton);
-                                break;
-                            case "COMPLETE CASE NOTE REQUIRED":
-                                safeClickOn(complaintClosed.completeTheCaseClosePermanentlyRadioButton);
-                                safeClickOn(continueButton);
-                                waitABit(500);
-                                clickTheButton("Complete case");
-                                break;
-                            case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
-                                safeClickOn(complaintClosed.completeTheCaseClosePermanentlyRadioButton);
-                                safeClickOn(continueButton);
-                                complaintClosed.submitReasonForCaseCompletion();
-                                clickTheButton("Complete case");
-                                waitABit(500);
-                                safeClickOn(confirmButton);
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());

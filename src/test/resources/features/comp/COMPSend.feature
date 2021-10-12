@@ -11,8 +11,7 @@ Feature: COMP Send
     And I load the current case
     And I select a Case Outcome
     And I submit the Response details
-    Then the case should be moved to the "Complaint Closed" stage
-    And the summary should display the owning team as "CCH Closed Cases"
+    Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Service Send" stage
 
   @COMPWorkflow @COMPRegression
@@ -21,8 +20,7 @@ Feature: COMP Send
     And I load the current case
     And I select a Case Outcome
     And I submit the Response details
-    Then the case should be moved to the "Complaint Closed" stage
-    And the summary should display the owning team as "CCH Closed Cases"
+    Then the case should be closed
 
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Minor Misconduct send stage
@@ -30,8 +28,7 @@ Feature: COMP Send
     And I load the current case
     And I select a Case Outcome
     And I submit the Response details
-    Then the case should be moved to the "Complaint Closed" stage
-    And the summary should display the owning team as "CCH Closed Cases"
+    Then the case should be closed
 
   @Validation
   Scenario Outline: User tests the validation at the Service Send stage
