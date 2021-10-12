@@ -1,6 +1,7 @@
 package com.hocs.test.glue.foi;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.foi.CaseCreationStage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -8,6 +9,7 @@ import io.cucumber.java.en.Then;
 public class CaseCreationStageStepDefs extends BasePage {
 
     CaseCreationStage caseCreationStage;
+    RecordCaseData recordCaseData;
 
     @And("I select {string} for the validity of the request and continue")
     public void iSelectForTheValidityOfTheRequest(String validity) {
@@ -23,5 +25,17 @@ public class CaseCreationStageStepDefs extends BasePage {
     @Then("the details entered when creating/editing the case are displayed")
     public void theDetailsEnteredAreDisplayed() {
         caseCreationStage.assertCaseDetailsAreCorrect();
+    }
+
+    @And("I fill the acknowledgement response date")
+    public void iFillTheAcknowledgementResponseDate() {
+        String responseDate = getTodaysDate();
+        responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
+    }
+
+    @And("I {string} Case Creation check your answers")
+    public void iCaseCreationCheckYourAnswers(String buttonLabel) {
+        clickTheButton(buttonLabel);
     }
 }

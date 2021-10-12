@@ -24,11 +24,14 @@ public class FOIProgressCase extends BasePage {
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
+        String responseDate = getTodaysDate();
         clickTheButton("Confirm");
         caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
         documents.addInitialResponseDocument();
+        responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
         clickTheButton("Complete Create");
         waitABit(250);
     }
