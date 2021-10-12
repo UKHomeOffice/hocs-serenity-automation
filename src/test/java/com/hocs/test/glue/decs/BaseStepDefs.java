@@ -476,10 +476,5 @@ public class BaseStepDefs extends BasePage {
     public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader("Team", teamName);
     }
-
-    @Then("the case should be loaded")
-    public void theCaseShouldBeLoaded() {
-        caseView.currentCaseIsLoaded();
-    }
 }
 
