@@ -75,12 +75,6 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectAnOwningCSU();
     }
 
-    @And("I select the previous COMP case reference from the COMP2 case summary tab")
-    public void thePreviousCOMPCaseReferenceIsDisplayedInTheCOMP2CaseSummaryTab() {
-        summaryTab.selectSummaryTab();
-        summaryTab.selectPreviousCaseReference();
-    }
-
     @Then("the previous COMP case is displayed")
     public void thePreviousCOMPCaseIsDisplayed() {
         String caseRef = sessionVariableCalled("compCaseReference");
