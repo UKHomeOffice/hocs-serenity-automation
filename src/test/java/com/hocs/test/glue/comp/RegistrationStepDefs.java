@@ -2,16 +2,22 @@ package com.hocs.test.glue.comp;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.comp.COMPTriage;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.comp.Registration;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class RegistrationStepDefs extends BasePage {
 
     Registration registration;
+
+    CaseView caseView;
 
     COMPTriage compTriage;
 
@@ -65,5 +71,11 @@ public class RegistrationStepDefs extends BasePage {
     @And("I select a Owning CSU")
     public void iSelectAOwningCSU() {
         registration.selectAnOwningCSU();
+    }
+
+    @Then("the previous COMP case is displayed")
+    public void thePreviousCOMPCaseIsDisplayed() {
+        String caseRef = sessionVariableCalled("compCaseReference");
+        caseView.specificCaseIsLoaded(caseRef);
     }
 }

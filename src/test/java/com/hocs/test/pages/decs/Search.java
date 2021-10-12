@@ -766,4 +766,9 @@ public class Search extends BasePage {
     public boolean zeroSearchResultsReturned() {
         return getNumberOfSearchResults() == 0;
     }
+
+    public void selectCOMP2CaseRefOfEscalatedCOMPCase(String stage1CaseRef) {
+        WebElementFacade comp2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
+        safeClickOn(comp2CaseRef);
+    }
 }
