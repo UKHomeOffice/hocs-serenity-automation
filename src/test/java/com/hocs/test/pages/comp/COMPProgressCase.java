@@ -243,7 +243,7 @@ public class COMPProgressCase extends BasePage {
             WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
             String compCaseRef = compCaseRefField.getText();
             setSessionVariable("compCaseReference").to(compCaseRef);
-            System.out.print(compCaseRef);
+            System.out.print("Case reference of case being escalated: " + compCaseRef);
             search.clickEscalateCOMPCaseToCOMP2();
         } else {
             throw new Exception("Escalation hypertext not visible");
