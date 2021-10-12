@@ -4,10 +4,8 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 
 public class CaseDataStepDefs extends BasePage {
 
