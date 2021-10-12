@@ -29,9 +29,7 @@ public class CaseCreationStageStepDefs extends BasePage {
 
     @And("I fill the acknowledgement response date")
     public void iFillTheAcknowledgementResponseDate() {
-        String responseDate = getTodaysDate();
-        responseDate = getDatePlusMinusNDaysAgo(-10);
-        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
+        caseCreationStage.fillTheAcknowledgementResponseDate();
     }
 
     @And("I {string} Case Creation check your answers")

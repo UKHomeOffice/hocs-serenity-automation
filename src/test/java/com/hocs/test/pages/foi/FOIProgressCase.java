@@ -30,8 +30,7 @@ public class FOIProgressCase extends BasePage {
         safeClickOn(continueButton);
         waitABit(250);
         documents.addInitialResponseDocument();
-        responseDate = getDatePlusMinusNDaysAgo(-10);
-        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
+        caseCreationStage.fillTheAcknowledgementResponseDate();
         clickTheButton("Complete Create");
         waitABit(250);
     }

@@ -129,6 +129,7 @@ public class Documents extends BasePage {
         safeClickOn(addButton);
         waitABit(500);
     }
+
     public void addAOriginalDocument() {
         safeClickOn(addDocumentsButton);
         selectDocumentTypeByText("ORIGINAL");

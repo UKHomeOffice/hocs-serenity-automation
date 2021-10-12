@@ -130,4 +130,9 @@ public class CaseCreationStage extends BasePage {
         String enteredRequesterName = sessionVariableCalled("requesterFullName");
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
     }
+
+    public void fillTheAcknowledgementResponseDate() {
+        String responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
+    }
 }
