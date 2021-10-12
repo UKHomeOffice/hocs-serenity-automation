@@ -378,4 +378,8 @@ public class SummaryTab extends BasePage {
         String displayedDeadline = deadline.getText();
         checkCalculatedDeadline(displayedDeadline, 40);
     }
+
+    public void assertAppealIsDisplayed() {
+
+    }
 }
