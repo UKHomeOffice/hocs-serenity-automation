@@ -83,6 +83,17 @@ Feature: COMP Triage
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
+  @COMPWorkflow @COMPRegression
+  Scenario: User completes the Triage stage for an IEDET case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select the "Transferred to Third Party Supplier" action for an IEDET case at the Triage stage
+    And I enter details on the Triage Capture Reason page
+    And I click the "Continue" button
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "IE Detention"
+
 #    HOCS-3028
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Service Triage stage
@@ -182,6 +193,14 @@ Feature: COMP Triage
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
+  @COMPRegression
+  Scenario: User can close an IEDET case at the Triage stage
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
+    Then the case should be closed
+
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
@@ -233,14 +252,6 @@ Feature: COMP Triage
     And I send the case to drafting
     And I load the current case
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
-
-  @COMPRegression
-  Scenario: User can close an IEDET case at the Triage stage
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
-    Then the case should be closed
 
   @Validation
   Scenario Outline: User tests the validation at the Service Triage stage
