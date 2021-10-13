@@ -27,9 +27,17 @@ public class CaseCreationStageStepDefs extends BasePage {
         caseCreationStage.assertCaseDetailsAreCorrect();
     }
 
-    @And("I fill the acknowledgement response date")
+    @And("I submit a valid request acknowledgement response date")
     public void iFillTheAcknowledgementResponseDate() {
-        caseCreationStage.fillTheAcknowledgementResponseDate();
+        caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
+        clickTheButton("Complete Create");
+    }
+
+    @And("I submit an invalid request response date")
+    public void iEnterAnInvalidRequestResponseDate() {
+        caseCreationStage.enterAnInvalidRequestResponseDate();
+        clickTheButton("Complete Create");
+        waitForPageWithTitle("Case soft closed");
     }
 
     @And("I {string} Case Creation check your answers")

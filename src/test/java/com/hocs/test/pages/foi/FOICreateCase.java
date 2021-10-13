@@ -62,12 +62,14 @@ public class FOICreateCase extends BasePage {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (inboundChannel.equalsIgnoreCase("EMAIL")) {
             enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
             setSessionVariable("requesterFullName").to("Test McTester");
             selectRandomOptionFromDropdownWithHeading("Country");
             enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
             enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
             enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
             setSessionVariable("requesterFullName").to("Test McTester");
             enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
             enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
