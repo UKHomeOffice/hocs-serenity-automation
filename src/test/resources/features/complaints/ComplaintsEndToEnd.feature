@@ -7,8 +7,8 @@ Feature: COMP End To End
     Then the case should be moved to the "Registration" stage
     Examples:
     | caseType  |
-#    | COMP      |
-#    | IEDET     |
+    | COMP      |
+    | IEDET     |
     | SMC       |
 
   Scenario Outline: User moves a COMP case to the Triage stage
