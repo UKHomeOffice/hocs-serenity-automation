@@ -12,6 +12,11 @@ public class SummaryTabStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
+    @And("I select the summary tab")
+    public void iSelectTheSummaryTab() {
+        caseView.waitForCaseToLoad();
+        summaryTab.selectSummaryTab();
+    }
 
     @And("I select the previous COMP case reference from the COMP2 case summary tab")
     public void thePreviousCOMPCaseReferenceIsDisplayedInTheCOMP2CaseSummaryTab() {
@@ -22,5 +27,15 @@ public class SummaryTabStepDefs extends BasePage {
     @Then("the case should be loaded")
     public void theCaseShouldBeLoaded() {
         caseView.currentCaseIsLoaded();
+    }
+
+    @Then("the deadline of the FOI case should be extended")
+    public void theDeadlineOfTheFOICaseShouldBeExtended() {
+        summaryTab.assertDeadlineOfExtendedFOICase();
+    }
+
+    @Then("the information entered for the FOI appeal should be displayed")
+    public void theInformationEnteredForTheFOIAppealShouldBeDisplayed() {
+        summaryTab.assertAppealInformationIsDisplayed();
     }
 }

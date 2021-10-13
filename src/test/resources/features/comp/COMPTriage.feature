@@ -156,6 +156,7 @@ Feature: COMP Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at Minor Misconduct Triage stage
@@ -170,6 +171,7 @@ Feature: COMP Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a case closure note should be visible showing the reason for closure
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
