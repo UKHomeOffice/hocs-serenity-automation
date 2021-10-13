@@ -267,7 +267,7 @@ public class ComplaintsProgressCase extends BasePage {
     }
 
 
-//  IEDET Case Methods
+//  IEDET Case Methods:
 
 
     public void moveIEDETCaseFromRegistrationToTriage() {
@@ -307,4 +307,12 @@ public class ComplaintsProgressCase extends BasePage {
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
     }
+
+//  SMC Case Methods:
+
+    public void moveSMCCaseFromRegistrationToTriage() {
+
+    }
+
+
 }

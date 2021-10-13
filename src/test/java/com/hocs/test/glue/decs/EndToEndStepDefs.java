@@ -248,6 +248,16 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 dashboard.waitForDashboard();
                 break;
+            case "SMC":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION (TO TRIAGE)":
+                        complaintsProgressCase.moveSMCCaseFromRegistrationToTriage();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                dashboard.waitForDashboard();
+                break;
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
@@ -730,6 +740,18 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "SMC":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION":
+                        createCase.createCSCaseOfType(caseType);
+                        dashboard.goToDashboard();
+                        break;
+                    case "TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO TRIAGE)");
+                        break;
                 }
                 break;
             case "FOI":

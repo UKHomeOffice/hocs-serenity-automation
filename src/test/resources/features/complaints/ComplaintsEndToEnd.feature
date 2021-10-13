@@ -9,6 +9,7 @@ Feature: COMP End To End
     | caseType  |
     | COMP      |
     | IEDET     |
+    | SMC       |
 
   Scenario Outline: User moves a COMP case to the Triage stage
     Given I am logged into "CS" as user "COMP_USER"
