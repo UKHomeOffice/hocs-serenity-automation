@@ -289,7 +289,7 @@ public class ComplaintsProgressCase extends BasePage {
     }
 
     public void moveIEDETCaseFromTriageToDraft() {
-        complaintsTriage.selectTransferredToThirdPartySupplier();
+        complaintsTriage.selectTransferredToIEDetentionComplianceTeam();
         clickTheButton("Continue");
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         safeClickOn(continueButton);

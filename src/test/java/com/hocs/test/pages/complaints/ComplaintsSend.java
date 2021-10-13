@@ -15,7 +15,10 @@ public class ComplaintsSend extends BasePage {
     public WebElementFacade caseOutcomeDropdown;
 
     public void selectACaseOutcome() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
+        String caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET") && caseOutcome.equalsIgnoreCase("Other")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
+        }
     }
 
     public void selectAResponseChannel() {
