@@ -310,6 +310,7 @@ public class ComplaintsProgressCase extends BasePage {
 
 //  SMC Case Methods:
 
+
     public void moveSMCCaseFromRegistrationToTriage() {
 
     }
