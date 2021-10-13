@@ -2,7 +2,7 @@
 Feature: COMP End To End
 
   Scenario Outline: User moves a complaints case to the Registration stage
-    Given I am logged into "CS" as user "COMP_USER"
+    Given I am logged into "CS" as user "<caseType>_USER"
     When I create a "<caseType>" case and move it to the "Registration" stage
     Then the case should be moved to the "Registration" stage
     Examples:
