@@ -131,8 +131,13 @@ public class CaseCreationStage extends BasePage {
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
     }
 
-    public void fillTheAcknowledgementResponseDate() {
+    public void enterAValidRequestAcknowledgementResponseDate() {
         String responseDate = getDatePlusMinusNDaysAgo(-10);
         recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the acknowledgement response to the valid request issued?");
+    }
+
+    public void enterAnInvalidRequestResponseDate() {
+        String responseDate = getDatePlusMinusNDaysAgo(-10);
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the response to the invalid request was issued?");
     }
 }
