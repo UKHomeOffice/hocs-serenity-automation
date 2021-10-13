@@ -177,6 +177,7 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectNoFurtherConsideration() {
         recordCaseData.selectSpecificRadioButton("No - no further consideration");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
     }
 
     public void selectTransferComplaintToCCH() {

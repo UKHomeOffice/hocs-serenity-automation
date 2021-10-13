@@ -27,7 +27,8 @@ public class ComplaintsSend extends BasePage {
 
     public void enterADateOfResponse() {
         String headerText = null;
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP")) {
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP") || sessionVariableCalled("caseType").toString().equalsIgnoreCase(
+                "COMP2")) {
             headerText = "Date of Response";
         } else if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
             headerText = "Response date";

@@ -1,5 +1,8 @@
 package com.hocs.test.glue.complaints;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
@@ -75,7 +78,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
     }
 
     @And("I accept the previous Claim Category selection")
-    public void iAcceptThePreviousClaimCatagorySelection() {
+    public void iAcceptThePreviousClaimCategorySelection() {
         waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");
     }
@@ -83,6 +86,27 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I accept the previous Severity selection")
     public void iAcceptThePreviousSeveritySelection() {
         waitForPageWithTitle("Triage Case Details");
+        clickTheButton("Continue");
+    }
+
+    @And("I select the {string} action for an IEDET case at the Triage stage")
+    public void iSelectTheActionForAnIEDETCaseAtTriage(String action) {
+        switch (action.toUpperCase()) {
+            case "TRANSFERRED TO THIRD PARTY SUPPLIER":
+                complaintsTriage.selectTransferredToThirdPartySupplier();
+                break;
+            case "TRANSFERRED TO IE DETENTION COMPLIANCE TEAM":
+                complaintsTriage.selectTransferredToIEDetentionComplianceTeam();
+                break;
+            case "NO FURTHER CONSIDERATION":
+                complaintsTriage.selectNoFurtherConsideration();
+                break;
+            case "TRANSFER COMPLAINT TO CCH":
+                complaintsTriage.selectTransferComplaintToCCH();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
         clickTheButton("Continue");
     }
 }

@@ -1,12 +1,10 @@
 @COMPTriage @COMP
 Feature: COMP Triage
 
-  Background:
-    Given I am logged into "CS" as user "COMP_USER"
-
 #   HOCS-2944, HOCS-2868
   @COMPWorkflow @COMPRegression
   Scenario: User can transfer a case from Service Triage to CCH
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I select to Transfer the case to CCH
@@ -18,6 +16,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can transfer a case from Ex-Gratia Triage to CCH
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I select to Transfer the case to CCH
@@ -29,6 +28,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can transfer a case from Minor Misconduct Triage to CCH
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I select to Transfer the case to CCH
@@ -40,6 +40,7 @@ Feature: COMP Triage
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @COMPWorkflow @COMPRegression
   Scenario: User completes the Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
@@ -54,6 +55,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User completes the Ex-Gratia Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
@@ -69,6 +71,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User completes the Minor Misconduct Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
@@ -83,21 +86,23 @@ Feature: COMP Triage
 #    HOCS-3028
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Service Triage stage
-      When I create a "COMP" case and move it to the "Service Triage" stage
-      And I load and claim the current case
-      And I accept the case at "Service" Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
     And I accept the previous Severity selection
-      And I enter details on the Triage Capture Reason page
-      And I click the "Continue" button
-      When I escalate the case to WFM at Service Triage stage
-      Then the case should be moved to the "Service Escalated" stage
-      And the summary should display the owning team as "CCT Stage 1 Escalated"
-      And a escalation note should be visible showing the reason for escalation
-      And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+    And I enter details on the Triage Capture Reason page
+    And I click the "Continue" button
+    When I escalate the case to WFM at Service Triage stage
+    Then the case should be moved to the "Service Escalated" stage
+    And the summary should display the owning team as "CCT Stage 1 Escalated"
+    And a escalation note should be visible showing the reason for escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Ex-Gratia Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
@@ -113,6 +118,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can escalate a case at Minor Misconduct Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
@@ -127,6 +133,7 @@ Feature: COMP Triage
 #    HOCS-3026
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
@@ -143,6 +150,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at Ex-Gratia Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
@@ -160,6 +168,7 @@ Feature: COMP Triage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can hard close a case at Minor Misconduct Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
@@ -176,6 +185,7 @@ Feature: COMP Triage
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
@@ -196,6 +206,7 @@ Feature: COMP Triage
 #    HOCS-3103
   @COMPRegression
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
@@ -210,6 +221,7 @@ Feature: COMP Triage
 #    HOCS-2979
   @COMPRegression
   Scenario: User can select that a Letter of Authority is required for this complaint
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
@@ -222,8 +234,17 @@ Feature: COMP Triage
     And I load the current case
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
+  @COMPRegression
+  Scenario: User can close an IEDET case at the Triage stage
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
+    Then the case should be closed
+
   @Validation
   Scenario Outline: User tests the validation at the Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
     And I trigger the "<errorType>" error message at the "Service Triage" stage
