@@ -1,14 +1,14 @@
 package com.hocs.test.glue.decs;
 
-import com.hocs.test.pages.comp.COMPSend;
+import com.hocs.test.pages.complaints.ComplaintsSend;
 import com.hocs.test.pages.decs.AddCorrespondent;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
-import com.hocs.test.pages.comp.CCH;
-import com.hocs.test.pages.comp.Registration;
-import com.hocs.test.pages.comp.COMPDraft;
-import com.hocs.test.pages.comp.COMPQA;
-import com.hocs.test.pages.comp.COMPTriage;
+import com.hocs.test.pages.complaints.CCH;
+import com.hocs.test.pages.complaints.Registration;
+import com.hocs.test.pages.complaints.ComplaintsDraft;
+import com.hocs.test.pages.complaints.ComplaintsQA;
+import com.hocs.test.pages.complaints.ComplaintsTriage;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Dispatch;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -70,15 +70,15 @@ public class ValidationStepDefs extends BasePage {
 
     Registration registration;
 
-    COMPTriage COMPTriage;
+    ComplaintsTriage ComplaintsTriage;
 
-    COMPDraft COMPDraft;
+    ComplaintsDraft ComplaintsDraft;
 
-    COMPQA COMPQA;
+    ComplaintsQA ComplaintsQA;
 
     CCH cch;
 
-    COMPSend compSend;
+    ComplaintsSend complaintsSend;
 
     @And("I trigger the {string} error message at (the ){string}( stage)")
     public void iTriggerTheErrorMessageAtTheStage(String errorMessage, String stage) {
@@ -1171,96 +1171,96 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
-                                safeClickOn(COMPTriage.transferTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.transferTheComplaintRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(COMPTriage.transferToCCHRadioButton);
+                                safeClickOn(ComplaintsTriage.transferToCCHRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "TRANSFER TO REQUIRED":
-                                safeClickOn(COMPTriage.transferTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.transferTheComplaintRadioButton);
                                 safeClickOn(continueButton);
-                                typeInto(COMPTriage.transferReasonTextArea, "Test");
+                                typeInto(ComplaintsTriage.transferReasonTextArea, "Test");
                                 safeClickOn(continueButton);
                                 break;
                             case "BUSINESS AREA REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "ENQUIRY REASON REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "IS LETTER OF AUTHORITY REQUIRED RESPONSE REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(continueButton);
                                 break;
                             case "ACTION REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
                             case "ESCALATION REASON REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(COMPTriage.escalateToWFMRadioButton);
+                                safeClickOn(ComplaintsTriage.escalateToWFMRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Escalate case");
                                 break;
                             case "COMPLETE CASE NOTE REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(COMPTriage.noResponseCloseCaseRadioButton);
+                                safeClickOn(ComplaintsTriage.noResponseCloseCaseRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Complete case");
                                 break;
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
-                                safeClickOn(COMPTriage.acceptTheComplaintRadioButton);
+                                safeClickOn(ComplaintsTriage.acceptTheComplaintRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                COMPTriage.businessAreaDropdown.selectByIndex(1);
-                                COMPTriage.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(COMPTriage.loaRequiredYesRadioButton);
+                                ComplaintsTriage.businessAreaDropdown.selectByIndex(1);
+                                ComplaintsTriage.enquiryReasonDropdown.selectByIndex(1);
+                                safeClickOn(ComplaintsTriage.loaRequiredYesRadioButton);
                                 safeClickOn(continueButton);
-                                safeClickOn(COMPTriage.noResponseCloseCaseRadioButton);
+                                safeClickOn(ComplaintsTriage.noResponseCloseCaseRadioButton);
                                 safeClickOn(continueButton);
-                                COMPTriage.enterCompletionReason();
+                                ComplaintsTriage.enterCompletionReason();
                                 clickTheButton("Complete case");
                                 waitABit(500);
                                 safeClickOn(confirmButton);
@@ -1272,7 +1272,7 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE DRAFT":
                         switch (errorMessage.toUpperCase()) {
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
-                                safeClickOn(COMPDraft.sendCaseToQARadioButton);
+                                safeClickOn(ComplaintsDraft.sendCaseToQARadioButton);
                                 safeClickOn(continueButton);
                                 break;
                             case "ACTION REQUIRED":
@@ -1281,7 +1281,7 @@ public class ValidationStepDefs extends BasePage {
                                 break;
                             case "ESCALATION REASON":
                                 documents.addADraftDocumentAtDraftStage();
-                                safeClickOn(COMPDraft.escalateCaseToWFMRadioButton);
+                                safeClickOn(ComplaintsDraft.escalateCaseToWFMRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Escalate case");
@@ -1327,7 +1327,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION REASON REQUIRED":
-                                safeClickOn(COMPQA.returnResponseToDraftRadioButton);
+                                safeClickOn(ComplaintsQA.returnResponseToDraftRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Reject");
@@ -1340,20 +1340,20 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CASE OUTCOME REQUIRED":
                                 waitABit(500);
-                                compSend.selectAResponseChannel();
-                                compSend.enterADateOfResponse();
+                                complaintsSend.selectAResponseChannel();
+                                complaintsSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 waitABit(500);
-                                compSend.selectACaseOutcome();
-                                compSend.enterADateOfResponse();
+                                complaintsSend.selectACaseOutcome();
+                                complaintsSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "DATE OF RESPONSE REQUIRED":
                                 waitABit(500);
-                                compSend.selectACaseOutcome();
-                                compSend.selectAResponseChannel();
+                                complaintsSend.selectACaseOutcome();
+                                complaintsSend.selectAResponseChannel();
                                 clickTheButton("Complete");
                                 break;
                             default:

@@ -1,18 +1,18 @@
-package com.hocs.test.glue.comp;
+package com.hocs.test.glue.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.comp.COMPTriage;
+import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
 
-public class COMPTriageStepDefs extends BasePage {
+public class ComplaintsTriageStepDefs extends BasePage {
 
-    COMPTriage compTriage;
+    ComplaintsTriage complaintsTriage;
 
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
-        compTriage.selectAcceptCase();
+        complaintsTriage.selectAcceptCase();
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
-            compTriage.enterDateOfAcceptance();
+            complaintsTriage.enterDateOfAcceptance();
         }
         waitABit(500);
         clickTheButton("Continue");
@@ -20,58 +20,58 @@ public class COMPTriageStepDefs extends BasePage {
 
     @And("I select to Transfer the case to CCH")
     public void iSelectToTransferTheCaseToCCH() {
-        compTriage.selectTransferComplaint();
+        complaintsTriage.selectTransferComplaint();
     }
 
     @And("I enter a reason for transfer and continue")
     public void iEnterAReasonForTransferAndContinue() {
-        compTriage.enterTransferReason();
-        compTriage.selectTransferToCCH();
+        complaintsTriage.enterTransferReason();
+        complaintsTriage.selectTransferToCCH();
     }
 
     @And("I enter details on the Triage Capture Reason page")
     public void iEnterDetailsOnTheTriageCaptureReasonPage() {
-        compTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
     }
 
     @And("I send the case to drafting")
     public void iSendTheCaseToDrafting() {
-        compTriage.selectReadyForDrafting();
+        complaintsTriage.selectReadyForDrafting();
     }
 
     @And("I escalate the case to WFM at Service Triage stage")
     public void iEscalateTheCaseToWFM() {
-        compTriage.escalateCaseToWFM();
+        complaintsTriage.escalateCaseToWFM();
     }
 
     @And("I select to complete the case at Triage")
     public void iSelectToCompleteTheCase() {
-        compTriage.selectCompleteTheCase();
+        complaintsTriage.selectCompleteTheCase();
     }
 
     @And("I enter a completion note at Service Triage")
     public void iEnterACompletionNote() {
-        compTriage.enterCompletionReason();
+        complaintsTriage.enterCompletionReason();
     }
 
     @And("I confirm I want to close the case at Service Triage")
     public void iConfirmIWantToCloseTheCaseAtServiceTriage() {
-        compTriage.selectPermanentlyCloseCase("Yes");
+        complaintsTriage.selectPermanentlyCloseCase("Yes");
     }
 
     @And("I select that a Letter of Authority is required")
     public void iSelectThatALOAIsRequired() {
-        compTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
     }
 
     @And("I can mark that the LoA was received and enter the LoA date")
     public void iCanMarkThatTheLOAWasReceivedAndEnterTheLOADates() {
-        compTriage.selectLOAReceived();
+        complaintsTriage.selectLOAReceived();
     }
 
     @And("the overdue contribution request should be highlighted")
     public void highlightingCheckAtServiceTriage() {
-        compTriage.assertOverdueContributionRequestIsHighlighted();
+        complaintsTriage.assertOverdueContributionRequestIsHighlighted();
     }
 
     @And("I accept the previous Claim Category selection")

@@ -4,9 +4,14 @@ Feature: COMP End To End
   Background:
     Given I am logged into "CS" as user "COMP_USER"
 
-  Scenario: User moves a COMP case to the Registration stage
-    When I create a "COMP" case and move it to the "Registration" stage
+  Scenario Outline: User moves a complaints case to the Registration stage
+    When I create a "<caseType>" case and move it to the "Registration" stage
     Then the case should be moved to the "Registration" stage
+    Examples:
+    | caseType  |
+    | COMP      |
+    | IEDET     |
+
 
   Scenario Outline: User moves a COMP case to the Triage stage
     When I create a "COMP" case and move it to the "<complaintType> Triage" stage
@@ -16,6 +21,10 @@ Feature: COMP End To End
       | Service           |
       | Ex-Gratia         |
       | Minor Misconduct  |
+
+  Scenario: User moves an IEDET case to the Triage stage
+    When I create a "IEDET" case and move it to the "Triage" stage
+    Then the case should be moved to the "Triage" stage
 
   Scenario Outline: User moves a COMP case to CCH
     When I create a "COMP" case and move it to "CCH (From <complaintType> Triage)"
@@ -44,6 +53,10 @@ Feature: COMP End To End
       | Ex-Gratia Response        |
       | Minor Misconduct Response |
 
+  Scenario: User moves an IEDET case to the Draft stage
+    When I create a "IEDET" case and move it to the "Draft" stage
+    Then the case should be moved to the "Draft" stage
+
   Scenario Outline: User moves a COMP case to the QA stage
     When I create a "COMP" case and move it to the "<complaintType> QA" stage
     Then the case should be moved to the "<complaintType> QA" stage
@@ -62,6 +75,10 @@ Feature: COMP End To End
       | Ex-Gratia         |
       | Minor Misconduct  |
 
+  Scenario: User moves an IEDET case to the Send stage
+    When I create a "IEDET" case and move it to the "Send" stage
+    Then the case should be moved to the "Send" stage
+
   @COMPRegression @Smoketests
   Scenario Outline: User is able to close a COMP case
     When I create a "COMP" case and move it to the "Complaint Closed (from <complaintType> Send)" stage
@@ -71,6 +88,11 @@ Feature: COMP End To End
     | Service           |
     | Ex-Gratia         |
     | Minor Misconduct  |
+
+  @COMPRegression
+  Scenario: User is able to close an IEDET case
+    When I create a "IEDET" case and move it to "Case Closed"
+    Then the case should be closed
 
   Scenario: User moves a COMP case to the Stage 2 Registration stage
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage

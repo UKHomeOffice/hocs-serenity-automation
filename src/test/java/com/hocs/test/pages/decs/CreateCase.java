@@ -118,6 +118,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("FOI Request");
     }
 
+    private void clickIedetRadioButton() {
+        selectSpecificRadioButton("IE Detention Case");
+    }
+
     public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
 
     public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
@@ -147,6 +151,9 @@ public class CreateCase extends BasePage {
                     break;
                 case "FOI":
                     clickFoiRadioButton();
+                    break;
+                case "IEDET":
+                    clickIedetRadioButton();
                     break;
                 default:
                     pendingStep(caseType + " is not defined within " + getMethodName());
