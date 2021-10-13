@@ -18,8 +18,6 @@ public class ComplaintsTriage extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    Registration registration;
-
     @FindBy(xpath = "//button[text()='Case Details']")
     public WebElementFacade caseDetailsAccordionButton;
 

@@ -24,7 +24,6 @@ public class FOIProgressCase extends BasePage {
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
-        String responseDate = getTodaysDate();
         clickTheButton("Confirm");
         caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
