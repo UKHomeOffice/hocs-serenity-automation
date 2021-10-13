@@ -14,7 +14,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("I select the summary tab")
     public void iSelectTheSummaryTab() {
-        waitABit(500);
+        caseView.waitForCaseToLoad();
         summaryTab.selectSummaryTab();
     }
 
