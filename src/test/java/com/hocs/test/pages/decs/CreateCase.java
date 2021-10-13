@@ -51,11 +51,14 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
 
-    @FindBy(xpath = "//label[text()='FOI Request']")
-    public WebElementFacade foiRadioButton;
-
     @FindBy(xpath = "//label[text()='IE Detention Case']")
     public WebElementFacade iedetRadioButton;
+
+    @FindBy(xpath = "//label[text()='Serious Misconduct Case']")
+    public WebElementFacade smcRadioButton;
+
+    @FindBy(xpath = "//label[text()='FOI Request']")
+    public WebElementFacade foiRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -273,13 +276,18 @@ public class CreateCase extends BasePage {
                 if (compRadioButton.isVisible()) {
                     correctUser = true;
                 }
-            case "FOI_USER":
-                if (foiRadioButton.isVisible()) {
+            case "IEDET_USER":
+                if (iedetRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;
-            case "IEDET_USER":
-                if (iedetRadioButton.isVisible()) {
+            case "SMC_USER":
+                if (smcRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "FOI_USER":
+                if (foiRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;

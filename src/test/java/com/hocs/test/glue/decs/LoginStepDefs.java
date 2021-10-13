@@ -6,6 +6,7 @@ import static config.User.DECS_USER;
 import static config.User.FAKE;
 import static config.User.FOI_USER;
 import static config.User.IEDET_USER;
+import static config.User.SMC_USER;
 import static config.User.UKVI_USER;
 import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
@@ -190,7 +191,7 @@ public class LoginStepDefs extends BasePage {
 
     private boolean loggedInAsTargetUser() {
         boolean targetUserLoggedIn = false;
-        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER) {
+        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER) {
             if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
                 targetUserLoggedIn = true;
             } else {
