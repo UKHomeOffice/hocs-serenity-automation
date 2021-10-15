@@ -10,9 +10,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.InitialDraft;
@@ -20,7 +18,6 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.DispatchStages;
@@ -39,8 +36,6 @@ public class EndToEndStepDefs extends BasePage {
     CreateCase createCase;
 
     DataInput dataInput;
-
-    FOICreateCase foiCreateCase;
 
     Markup markup;
 
@@ -72,11 +67,7 @@ public class EndToEndStepDefs extends BasePage {
 
     FOIProgressCase foiProgressCase;
 
-    Search search;
-
     CaseView caseView;
-
-    Documents documents;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -735,7 +726,7 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        foiCreateCase.createFOICase();
+                        createCase.createFOICase();
                         dashboard.goToDashboard();
                         break;
                     case "ALLOCATION":
