@@ -647,6 +647,7 @@ public class Search extends BasePage {
                 break;
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
+                caseView.waitForCaseToLoad();
                 if (!caseView.caseCanBeAllocated()) {
                     summaryTab.selectSummaryTab();
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User",getCurrentUser().getUsername());

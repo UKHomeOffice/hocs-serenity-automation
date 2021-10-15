@@ -199,6 +199,7 @@ public class AddCorrespondent extends BasePage {
     }
 
     public void selectCorrespondentTypeFromDropdown(String correspondentType) {
+        correspondentTypeDropdown.waitUntilVisible();
         correspondentTypeDropdown.selectByVisibleText(correspondentType);
     }
 

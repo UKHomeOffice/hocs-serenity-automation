@@ -2,9 +2,9 @@ package com.hocs.test.pages.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.foi.FOICreateCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +17,7 @@ import java.util.Locale;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 
 public class CreateCase extends BasePage {
 
@@ -27,6 +28,8 @@ public class CreateCase extends BasePage {
     Dashboard dashboard;
 
     Workdays workdays;
+
+    RecordCaseData recordCaseData;
 
     // Elements
 
@@ -90,6 +93,24 @@ public class CreateCase extends BasePage {
     @FindBy(css = "[value = 'Create claim']")
     public WebElementFacade createClaimButton;
 
+    @FindBy(xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
+    public WebElementFacade caseTopicTypeahead;
+
+    @FindBy(id = "KimuDateReceived-day")
+    public WebElementFacade dateKIMUReceivedDayField;
+
+    @FindBy(id = "KimuDateReceived-month")
+    public WebElementFacade dateKIMUReceivedMonthField;
+
+    @FindBy(id = "KimuDateReceived-year")
+    public WebElementFacade dateKIMUReceivedYearField;
+
+    @FindBy(id = "fullname")
+    public WebElementFacade fullNameTextField;
+
+    @FindBy(id = "RequestQuestion")
+    public WebElementFacade requestQuestionTextArea;
+
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
@@ -128,44 +149,49 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("IE Detention Case");
     }
 
-    public void clickCreateCaseButton() {safeClickOn(createCaseButton);}
+    public void clickCreateCaseButton() {
+        safeClickOn(createCaseButton);
+    }
 
-    public void clickCreateCasesButton() {safeClickOn(createCasesButton);}
+    public void clickCreateCasesButton() {
+        safeClickOn(createCasesButton);
+    }
 
     public void selectCaseType(String caseType) {
-        if (caseType.equalsIgnoreCase("CS")) {
-            caseType = selectRandomRadioButtonFromGroupWithHeading("What type of correspondence do you have?");
-        } else {
-            switch (caseType.toUpperCase()) {
-                case "MIN":
-                    clickDcuMinRadioButton();
-                    break;
-                case "TRO":
-                    clickDcuTroRadioButton();
-                    break;
-                case "DTEN":
-                    clickDcuDtenRadioButton();
-                    break;
-                case "MPAM":
-                    clickMpamRadioButton();
-                    break;
-                case "MTS":
-                    clickMtsRadioButton();
-                    break;
-                case "COMP":
-                    clickCompRadioButton();
-                    break;
-                case "FOI":
-                    clickFoiRadioButton();
-                    break;
-                case "IEDET":
-                    clickIedetRadioButton();
-                    break;
-                default:
-                    pendingStep(caseType + " is not defined within " + getMethodName());
-            }
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+                clickDcuMinRadioButton();
+                break;
+            case "TRO":
+                clickDcuTroRadioButton();
+                break;
+            case "DTEN":
+                clickDcuDtenRadioButton();
+                break;
+            case "MPAM":
+                clickMpamRadioButton();
+                break;
+            case "MTS":
+                clickMtsRadioButton();
+                break;
+            case "COMP":
+                clickCompRadioButton();
+                break;
+            case "IEDET":
+                clickIedetRadioButton();
+                break;
+            case "FOI":
+                clickFoiRadioButton();
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
         setSessionVariable("caseType").to(caseType);
+    }
+
+    public void selectRandomCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "FOI");
+        selectCaseType(list.get(new Random().nextInt(list.size())));
     }
 
     public void editReceivedDate(String date) {
@@ -184,6 +210,25 @@ public class CreateCase extends BasePage {
         documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
+        createCaseSuccessPage.storeCaseReference();
+    }
+
+    public void createCSCaseOfRandomType() {
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        if (!nextButton.isVisible()) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        }
+        selectRandomCaseType();
+        safeClickOn(nextButton);
+        if (sessionVariableCalled("caseType").equals("FOI")){
+            selectCorrespondenceInboundChannel();
+            enterCorrespondentDetails();
+            selectFOITopic("Animal alternatives (3Rs)");
+            enterRequestQuestion();
+            clickTheButton("Submit");
+        } else {
+            clickCreateCaseButton();
+        }
         createCaseSuccessPage.storeCaseReference();
     }
 
@@ -257,7 +302,7 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" + correspondenceYear);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {
@@ -299,13 +344,83 @@ public class CreateCase extends BasePage {
                 }
                 break;
             case "WCS_USER":
-                if (createClaimButton.isVisible())
+                if (createClaimButton.isVisible()) {
                     correctUser = true;
+                }
                 break;
             default:
                 pendingStep(targetUser + " is not defined within " + getMethodName());
         }
         return correctUser;
+    }
+
+    //FOI
+
+    public void storeCorrespondenceReceivedInKIMUDate() {
+        String correspondenceDay = dateKIMUReceivedDayField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUDay").to(correspondenceDay);
+        String correspondenceMonth = dateKIMUReceivedMonthField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUMonth").to(correspondenceMonth);
+        String correspondenceYear = dateKIMUReceivedYearField.getValue();
+        setSessionVariable("correspondenceReceivedByKIMUYear").to(correspondenceYear);
+        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+    }
+
+    public void selectCorrespondenceInboundChannel() {
+        String channel = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("How was the request received?");
+        setSessionVariable("foiInboundChannel").to(channel);
+    }
+
+    public void enterCorrespondentDetails() {
+        String inboundChannel = sessionVariableCalled("foiInboundChannel");
+        if (inboundChannel.equalsIgnoreCase("EMAIL")) {
+            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
+            setSessionVariable("requesterFullName").to("Test McTester");
+            selectRandomOptionFromDropdownWithHeading("Country");
+            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
+            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+        } else if (inboundChannel.equalsIgnoreCase("POST")) {
+            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
+            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
+            setSessionVariable("requesterFullName").to("Test McTester");
+            enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
+            enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
+            enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
+            enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
+            selectRandomOptionFromDropdownWithHeading("Country");
+            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
+            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+        }
+    }
+
+    public void selectFOITopic(String topic) {
+        caseTopicTypeahead.sendKeys(topic);
+        caseTopicTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("foiTopic").to(topic);
+    }
+
+    public void enterRequestQuestion() {
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
+        setSessionVariable("requestQuestion").to("Test Request Question");
+    }
+
+    public void createFOICase() {
+        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        if (!nextButton.isVisible()) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        }
+        selectCaseType("FOI");
+        clickTheButton("Next");
+        storeCorrespondenceReceivedDate();
+        storeCorrespondenceReceivedInKIMUDate();
+        documents.uploadDocumentOfType("docx");
+        selectCorrespondenceInboundChannel();
+        enterCorrespondentDetails();
+        selectFOITopic("Animal alternatives (3Rs)");
+        enterRequestQuestion();
+        clickTheButton("Submit");
+        createCaseSuccessPage.storeCaseReference();
     }
 
     //Assertions

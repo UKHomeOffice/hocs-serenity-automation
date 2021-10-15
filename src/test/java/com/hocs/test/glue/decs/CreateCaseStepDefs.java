@@ -18,7 +18,6 @@ import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.ukvi.Campaign;
 import com.hocs.test.pages.ukvi.Creation;
 import com.hocs.test.pages.ukvi.MTSDataInput;
@@ -34,8 +33,6 @@ public class CreateCaseStepDefs extends BasePage {
     Documents documents;
 
     CreateCase createCase;
-
-    FOICreateCase foiCreateCase;
 
     CreateCase_SuccessPage createCaseSuccessPage;
 
@@ -71,7 +68,7 @@ public class CreateCaseStepDefs extends BasePage {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else if (caseType.equalsIgnoreCase("FOI")) {
-            foiCreateCase.createFOICase();
+            createCase.createFOICase();
         } else {
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
@@ -489,7 +486,7 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT (NON-MP)":
                     case "TOPIC":
                     case "ACTIVE CASES ONLY":
-                        foiCreateCase.createFOICase();
+                        createCase.createFOICase();
                         dashboard.goToDashboard();
                         break;
                     case "RECEIVED ON OR AFTER":
@@ -501,12 +498,12 @@ public class CreateCaseStepDefs extends BasePage {
                         clickTheButton("Next");
                         createCase.editReceivedDate(getTodaysDate());
                         createCase.storeCorrespondenceReceivedDate();
-                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        createCase.storeCorrespondenceReceivedInKIMUDate();
                         documents.uploadDocumentOfType("docx");
-                        foiCreateCase.selectCorrespondenceInboundChannel();
-                        foiCreateCase.enterCorrespondentDetails();
-                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
-                        foiCreateCase.enterRequestQuestion();
+                        createCase.selectCorrespondenceInboundChannel();
+                        createCase.enterCorrespondentDetails();
+                        createCase.selectFOITopic("Animal alternatives (3Rs)");
+                        createCase.enterRequestQuestion();
                         clickTheButton("Submit");
                         dashboard.goToDashboard();
                         break;
@@ -519,12 +516,12 @@ public class CreateCaseStepDefs extends BasePage {
                         clickTheButton("Next");
                         createCase.editReceivedDate("01/01/2010");
                         createCase.storeCorrespondenceReceivedDate();
-                        foiCreateCase.storeCorrespondenceReceivedInKIMUDate();
+                        createCase.storeCorrespondenceReceivedInKIMUDate();
                         documents.uploadDocumentOfType("docx");
-                        foiCreateCase.selectCorrespondenceInboundChannel();
-                        foiCreateCase.enterCorrespondentDetails();
-                        foiCreateCase.selectFOITopic("Animal alternatives (3Rs)");
-                        foiCreateCase.enterRequestQuestion();
+                        createCase.selectCorrespondenceInboundChannel();
+                        createCase.enterCorrespondentDetails();
+                        createCase.selectFOITopic("Animal alternatives (3Rs)");
+                        createCase.enterRequestQuestion();
                         clickTheButton("Submit");
                         dashboard.goToDashboard();
                         break;
