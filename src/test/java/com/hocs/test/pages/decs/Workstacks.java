@@ -821,7 +821,7 @@ public class Workstacks extends BasePage {
                         "Escalate Case"));
                 break;
             case "IE DETENTION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Business Area"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
