@@ -14,7 +14,7 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
-import com.hocs.test.pages.comp.Registration;
+import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.Markup_AddTopics;

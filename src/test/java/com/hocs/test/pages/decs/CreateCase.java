@@ -54,7 +54,13 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='Complaint Case']")
     public WebElementFacade compRadioButton;
 
-    @FindBy(xpath = "//label[text()='FOI Request']/preceding-sibling::input")
+    @FindBy(xpath = "//label[text()='IE Detention Case']")
+    public WebElementFacade iedetRadioButton;
+
+    @FindBy(xpath = "//label[text()='Serious Misconduct Case']")
+    public WebElementFacade smcRadioButton;
+
+    @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRadioButton;
 
     @FindBy(id = "DateReceived-day")
@@ -139,6 +145,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("FOI Request");
     }
 
+    private void clickIedetRadioButton() {
+        selectSpecificRadioButton("IE Detention Case");
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -166,6 +176,9 @@ public class CreateCase extends BasePage {
                 break;
             case "COMP":
                 clickCompRadioButton();
+                break;
+            case "IEDET":
+                clickIedetRadioButton();
                 break;
             case "FOI":
                 clickFoiRadioButton();
@@ -315,6 +328,21 @@ public class CreateCase extends BasePage {
                 if (compRadioButton.isVisible()) {
                     correctUser = true;
                 }
+            case "IEDET_USER":
+                if (iedetRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "SMC_USER":
+                if (smcRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "FOI_USER":
+                if (foiRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
             case "WCS_USER":
                 if (createClaimButton.isVisible()) {
                     correctUser = true;

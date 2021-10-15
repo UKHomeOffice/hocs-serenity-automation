@@ -9,12 +9,6 @@ import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
 
-    CreateCase_SuccessPage createCaseSuccessPage;
-
-    CreateCase createCase;
-
-    Dashboard dashboard;
-
     RecordCaseData recordCaseData;
 
     CaseCreationStage caseCreationStage;
@@ -29,7 +23,7 @@ public class FOIProgressCase extends BasePage {
         safeClickOn(continueButton);
         waitABit(250);
         documents.addInitialResponseDocument();
-        caseCreationStage.fillTheAcknowledgementResponseDate();
+        caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
         waitABit(250);
     }

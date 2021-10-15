@@ -1,4 +1,4 @@
-package com.hocs.test.pages.comp;
+package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -8,7 +8,7 @@ import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class COMPEscalated extends BasePage {
+public class ComplaintsEscalated extends BasePage {
 
     RecordCaseData recordCaseData;
 

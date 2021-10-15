@@ -11,19 +11,20 @@ Feature: Case Creation Stage
     And I "Confirm" Case Creation check your answers
     And I select "Valid" for the validity of the request and continue
     And I upload a "Initial response" document
-    And I fill the acknowledgement response date
-    And I click the "Complete Create" button
+    And I submit a valid request acknowledgement response date
     Then the FOI case should be moved to the "Allocation" stage
 #    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
 
-  #HOCS-3482
+  #HOCS-3482 HOCS-3838
   @FOIRegression
-  Scenario: User is able to send an invalid request to Dispatch
+  Scenario: User is able to send an invalid request to Soft Close stage
     And I "Confirm" Case Creation check your answers
-    And I select "No" for the validity of the request and continue
-    And I click the "Complete Create" button
-    And I navigate to the "Dashboard" page
-    Then the case should be moved to the "Dispatch" stage
+    And I select "Invalid" for the validity of the request and continue
+    And I upload a "Initial response" document
+    And I submit an invalid request response date
+    Then the case should be moved to the "Soft Close" stage
+#    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
+
 
   #HOCS-3249
   @FOIRegression

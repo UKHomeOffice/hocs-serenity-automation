@@ -1,4 +1,4 @@
-package com.hocs.test.pages.comp;
+package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -7,12 +7,14 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class COMPTriage extends BasePage {
+public class ComplaintsTriage extends BasePage {
 
     RecordCaseData recordCaseData;
 
@@ -120,7 +122,9 @@ public class COMPTriage extends BasePage {
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
+        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
+        }
         selectIfLOARequired("Yes");
     }
 
@@ -161,6 +165,23 @@ public class COMPTriage extends BasePage {
     public void selectPermanentlyCloseCase(String yesNo) {
         selectSpecificRadioButton(yesNo);
         clickTheButton("Confirm");
+    }
+
+    public void selectTransferredToThirdPartySupplier() {
+        recordCaseData.selectSpecificRadioButton("Yes - transferred to third party supplier");
+    }
+
+    public void selectTransferredToIEDetentionComplianceTeam() {
+        recordCaseData.selectSpecificRadioButton("Yes - transferred to IE Detention Compliance Team");
+    }
+
+    public void selectNoFurtherConsideration() {
+        recordCaseData.selectSpecificRadioButton("No - no further consideration");
+        recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
+    }
+
+    public void selectTransferComplaintToCCH() {
+        recordCaseData.selectSpecificRadioButton("No - transfer the complaint to CCH");
     }
 
     public void openExGratiaAccordion() {
