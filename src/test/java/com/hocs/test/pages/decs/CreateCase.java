@@ -188,7 +188,7 @@ public class CreateCase extends BasePage {
         }
         selectCaseType(caseType);
         safeClickOn(nextButton);
-        documents.uploadDocumentOfType("docx");
+//        documents.uploadDocumentOfType("docx");
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.storeCaseReference();

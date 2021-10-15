@@ -7,8 +7,8 @@ Feature: COMP End To End
     Then the case should be moved to the "Registration" stage
     Examples:
     | caseType  |
-    | COMP      |
-    | IEDET     |
+#    | COMP      |
+#    | IEDET     |
     | SMC       |
 
   Scenario Outline: User moves a COMP case to the Triage stage
@@ -24,6 +24,11 @@ Feature: COMP End To End
   Scenario: User moves an IEDET case to the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
+    Then the case should be moved to the "Triage" stage
+
+  Scenario: User moves an SMC case to the Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
     Then the case should be moved to the "Triage" stage
 
   Scenario Outline: User moves a COMP case to CCH

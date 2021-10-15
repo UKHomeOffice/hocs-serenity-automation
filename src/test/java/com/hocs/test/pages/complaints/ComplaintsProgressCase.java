@@ -312,6 +312,21 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveSMCCaseFromRegistrationToTriage() {
+            addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+            clickTheButton("Continue");
+//            registration.enterComplainantDetails();
+//            registration.selectComplaintType("Service");
+            registration.selectAChannel();
+            registration.selectComplaintOrigin();
+            registration.enterADescriptionOfTheComplaint();
+            registration.enterAThirdPartyReference();
+            clickTheButton("Continue");
+            registration.openTheServiceComplaintCategoryAccordion();
+            waitABit(1000);
+            registration.selectAVisibleClaimCategory();
+            registration.selectAnOwningCSU();
+            clickTheButton("Finish");
+            System.out.println("Case moved from Registration to Triage");
 
     }
 
