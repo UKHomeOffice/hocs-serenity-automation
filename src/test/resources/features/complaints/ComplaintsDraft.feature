@@ -105,6 +105,19 @@ Feature: COMP Draft
     And the summary should display the owning team as "Minor Misconduct"
     And a escalation note should be visible showing the reason for escalation
 
+  #HOCS-3661
+  Scenario Outline: User can select to upload files under certain document type names
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I upload a "<docType>" document
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+    | docType                 |
+    | Acknowledgement letter  |
+    | Interim response        |
+    | Final response          |
+
 #    HOCS-3076
   @Validation
   Scenario: User must upload a document at Service Draft stage
