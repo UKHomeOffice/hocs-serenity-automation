@@ -1,7 +1,7 @@
-package com.hocs.test.glue.comp;
+package com.hocs.test.glue.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.comp.CCH;
+import com.hocs.test.pages.complaints.CCH;
 import io.cucumber.java.en.And;
 
 public class CCHStepDefs extends BasePage {

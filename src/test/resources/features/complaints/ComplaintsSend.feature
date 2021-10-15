@@ -1,12 +1,10 @@
 @COMPSend @COMP
 Feature: COMP Send
 
-  Background:
-    Given I am logged into "CS" as user "COMP_USER"
-
 #    HOCS-2722, HOCS-3076
   @COMPWorkflow @COMPRegression
   Scenario: User can complete service send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Send" stage
     And I load the current case
     And I select a Case Outcome
@@ -16,6 +14,7 @@ Feature: COMP Send
 
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Ex-Gratia send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Send" stage
     And I load the current case
     And I select a Case Outcome
@@ -24,7 +23,17 @@ Feature: COMP Send
 
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Minor Misconduct send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Send" stage
+    And I load the current case
+    And I select a Case Outcome
+    And I submit the Response details
+    Then the case should be closed
+
+  @COMPWorkflow @COMPRegression
+  Scenario: User can complete the Send stage for an IEDET case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Send" stage
     And I load the current case
     And I select a Case Outcome
     And I submit the Response details

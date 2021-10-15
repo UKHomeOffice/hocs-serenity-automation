@@ -1,17 +1,15 @@
-package com.hocs.test.glue.comp;
+package com.hocs.test.glue.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.comp.COMPTriage;
+import com.hocs.test.pages.complaints.ComplaintsTriage;
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.comp.Registration;
+import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
 public class RegistrationStepDefs extends BasePage {
 
@@ -19,7 +17,7 @@ public class RegistrationStepDefs extends BasePage {
 
     CaseView caseView;
 
-    COMPTriage compTriage;
+    ComplaintsTriage complaintsTriage;
 
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
@@ -40,9 +38,14 @@ public class RegistrationStepDefs extends BasePage {
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
         registration.selectAChannel();
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+            registration.selectComplaintOrigin();
+        }
         registration.enterADescriptionOfTheComplaint();
-        registration.selectASeverity();
-        registration.enterAPreviousUKVIComplaintReference();
+        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+            registration.selectASeverity();
+            registration.enterAPreviousUKVIComplaintReference();
+        }
         registration.enterAThirdPartyReference();
     }
 
@@ -59,7 +62,7 @@ public class RegistrationStepDefs extends BasePage {
                 registration.openTheSeriousComplaintCategoryAccordion();
                 break;
             case "EX-GRATIA":
-                compTriage.openExGratiaAccordion();
+                complaintsTriage.openExGratiaAccordion();
                 break;
             default:
                 pendingStep(complaintCategory + " is not defined within " + getMethodName());

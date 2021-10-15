@@ -130,6 +130,14 @@ public class Documents extends BasePage {
         waitABit(500);
     }
 
+    public void addResponseDocument() {
+        safeClickOn(addDocumentsButton);
+        selectDocumentTypeByText("Final response");
+        uploadDocumentOfType("docx");
+        safeClickOn(addButton);
+        waitABit(500);
+    }
+
     public void addAOriginalDocument() {
         safeClickOn(addDocumentsButton);
         selectDocumentTypeByText("ORIGINAL");

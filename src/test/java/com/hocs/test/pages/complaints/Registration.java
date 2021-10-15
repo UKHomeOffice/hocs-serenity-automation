@@ -1,4 +1,4 @@
-package com.hocs.test.pages.comp;
+package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -224,6 +224,10 @@ public class Registration extends BasePage {
 
     public void selectAChannel() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
+    }
+
+    public void selectComplaintOrigin() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
     }
 
     public void enterADescriptionOfTheComplaint() {
