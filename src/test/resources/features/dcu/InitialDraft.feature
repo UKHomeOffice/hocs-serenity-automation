@@ -20,7 +20,7 @@ Feature: Initial Draft
       | TRO       |
 
   @DCUWorkflow @DCURegression
-  Scenario Outline: A user selects not to offline QA
+  Scenario Outline: A user selects not to offline QA a MIN or TRO case
     And I create a "<caseType>" case and move it to the "INITIAL DRAFT" stage
     And I load and claim the current case
     When I select a case "should" be answered by my team
