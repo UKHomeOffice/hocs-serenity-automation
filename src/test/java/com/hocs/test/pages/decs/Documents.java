@@ -123,7 +123,11 @@ public class Documents extends BasePage {
     }
 
     public void addADocumentOfType(String docType) {
-        safeClickOn(addDocumentsButton);
+        if (addDocumentsButton.isVisible()) {
+            safeClickOn(addDocumentsButton);
+        } else if (addDocumentLink.isVisible()) {
+            safeClickOn(addDocumentLink);
+        }
         selectDocumentTypeByText(docType);
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
