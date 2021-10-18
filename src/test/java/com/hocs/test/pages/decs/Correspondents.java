@@ -203,6 +203,7 @@ public class Correspondents extends BasePage {
     }
 
     public void selectCorrespondentTypeFromDropdown(String correspondentType) {
+        correspondentTypeDropdown.waitUntilVisible();
         correspondentTypeDropdown.selectByVisibleText(correspondentType);
     }
 
@@ -252,7 +253,7 @@ public class Correspondents extends BasePage {
 
     public void addANonMemberCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!compCase()) {
+        if (!compCase() && !sessionVariableCalled("caseType").toString().contains("IEDET")) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);

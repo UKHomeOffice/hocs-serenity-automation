@@ -1,4 +1,4 @@
-package com.hocs.test.pages.comp;
+package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -9,7 +9,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class COMPQA extends BasePage {
+public class ComplaintsQA extends BasePage {
 
     RecordCaseData recordCaseData;
 

@@ -1,4 +1,4 @@
-package com.hocs.test.pages.comp;
+package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;

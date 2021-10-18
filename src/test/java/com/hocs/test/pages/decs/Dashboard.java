@@ -60,10 +60,21 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='MTS Team']")
     public WebElementFacade mtsTeamWorkstack;
 
-    // COMP Teams
+    // Complaints Teams
 
     @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
     public WebElementFacade cchClosedCasesWorkstack;
+
+    @FindBy(xpath = "//span[contains(text(),'IE Detention')]")
+    public WebElementFacade ieDetentionWorkstack;
+
+    @FindBy(xpath = "//span[contains(text(),'Serious Misconduct')]")
+    public WebElementFacade seriousMisconductWorkstack;
+
+    // FOI Teams
+
+    @FindBy(xpath = "//span[contains(text(),'FOI Creation')]")
+    public WebElementFacade foiCreationWorkstack;
 
     // WCS Teams
 
@@ -253,6 +264,21 @@ public class Dashboard extends BasePage {
                 break;
             case "COMP_USER":
                 if (cchClosedCasesWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "IEDET_USER":
+                if (ieDetentionWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "SMC_USER":
+                if (seriousMisconductWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "FOI_USER":
+                if (foiCreationWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;

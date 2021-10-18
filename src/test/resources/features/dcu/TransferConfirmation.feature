@@ -13,8 +13,8 @@ Feature: TransferConfirmation
     Examples:
     | caseType  |
     | MIN       |
-    | TRO       |
-    | DTEN      |
+#    | TRO       |
+#    | DTEN      |
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User selects that they dont agree that the case requires no response

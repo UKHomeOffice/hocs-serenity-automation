@@ -110,6 +110,30 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
     public WebElementFacade foiTopic;
 
+    @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
+    public WebElementFacade previousCOMPCaseReference;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Details']/following-sibling::td")
+    public WebElementFacade appealDetails;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Completed Date']/following-sibling::td")
+    public WebElementFacade appealCompletionDate;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complete']/following-sibling::td")
+    public WebElementFacade appealComplete;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Outcome']/following-sibling::td")
+    public WebElementFacade appealOutcome;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complex case']/following-sibling::td")
+    public WebElementFacade appealComplexity;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Officer Name']/following-sibling::td")
+    public WebElementFacade appealOfficerName;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Directorate']/following-sibling::td")
+    public WebElementFacade appealDirectorate;
+
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
@@ -155,6 +179,10 @@ public class SummaryTab extends BasePage {
         boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
         boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
         return areDatesEqual && areDaysEqual;
+    }
+
+    public void selectPreviousCaseReference() {
+        safeClickOn(previousCOMPCaseReference);
     }
 
     public void assertCampaignInSummaryTabIsCorrect(String input) {
@@ -373,5 +401,25 @@ public class SummaryTab extends BasePage {
         String inputComplianceMeasureDetails = sessionVariableCalled("complianceMeasureDetails");
         String displayedComplianceMeasureDetails = getSummaryTabValueForGivenHeader("Compliance measures other details");
         assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
+    }
+
+    public void assertDeadlineOfExtendedFOICase() {
+        String displayedDeadline = deadline.getText();
+        checkCalculatedDeadline(displayedDeadline, 40);
+    }
+
+    public void assertAppealInformationIsDisplayed() {
+        String appealType = sessionVariableCalled("appealType");
+        WebElementFacade appealTypeHeader = findBy("//h2[text()='Appeal']/following-sibling::table/caption");
+        appealTypeHeader.shouldContainText(appealType);
+        if (appealType.equalsIgnoreCase("Internal Review")) {
+            appealDirectorate.shouldContainText(sessionVariableCalled("appealOfficerDirectorate"));
+            appealOfficerName.shouldContainText(sessionVariableCalled("appealOfficerName"));
+        }
+        appealComplete.shouldContainText(sessionVariableCalled("appealComplete"));
+        appealCompletionDate.shouldContainText(sessionVariableCalled("appealCompletionDate"));
+        appealOutcome.shouldContainText(sessionVariableCalled("appealOutcome"));
+        appealComplexity.shouldContainText(sessionVariableCalled("appealComplexity"));
+        appealDetails.shouldContainText(sessionVariableCalled("appealDetails"));
     }
 }

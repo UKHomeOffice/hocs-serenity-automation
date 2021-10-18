@@ -3,10 +3,12 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.CreateCaseSuccessPage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -29,7 +31,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
-        createCase.createCSCaseOfTypeWithoutDocument("CS");
+        createCase.createCSCaseOfRandomType();
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
@@ -48,6 +50,8 @@ public class DocumentsStepDefs extends BasePage {
                 break;
             case "FINAL":
                 documents.addAFinalDocument();
+            case "INITIAL RESPONSE":
+                documents.addInitialResponseDocument();
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());

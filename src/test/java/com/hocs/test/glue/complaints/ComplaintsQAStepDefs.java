@@ -1,12 +1,12 @@
-package com.hocs.test.glue.comp;
+package com.hocs.test.glue.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.comp.COMPQA;
+import com.hocs.test.pages.complaints.ComplaintsQA;
 import io.cucumber.java.en.And;
 
-public class COMPQAStepDefs extends BasePage {
+public class ComplaintsQAStepDefs extends BasePage {
 
-    COMPQA compQA;
+    ComplaintsQA compQA;
 
     @And("I {string} the response at the Service QA stage")
     public void responseAtServiceQAStage(String action) {

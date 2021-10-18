@@ -81,12 +81,16 @@ public class CaseView extends BasePage {
     }
 
     public boolean currentCaseIsLoaded() {
+        return specificCaseIsLoaded(sessionVariableCalled("caseReference"));
+    }
+
+    public boolean specificCaseIsLoaded(String caseRef) {
         if (!tabs.isCurrentlyVisible()) {
             return false;
         }
         if (header1.isCurrentlyVisible()) {
             try {
-                if (header1.getText().equals(getCurrentCaseReference())) {
+                if (header1.getText().equals(caseRef)) {
                     return true;
                 }
             } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
@@ -95,7 +99,7 @@ public class CaseView extends BasePage {
         }
         if (headerCaption1.isCurrentlyVisible()) {
             try {
-                return headerCaption1.getText().equals(getCurrentCaseReference());
+                return headerCaption1.getText().equals(caseRef);
             } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
                 return false;
             }

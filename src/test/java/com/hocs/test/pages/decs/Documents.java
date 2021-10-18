@@ -125,6 +125,22 @@ public class Documents extends BasePage {
         addDocument.sendKeys(allFiles);
     }
 
+    public void addInitialResponseDocument() {
+        safeClickOn(addDocumentsButton);
+        selectDocumentTypeByText("Initial response");
+        uploadDocumentOfType("docx");
+        safeClickOn(addButton);
+        waitABit(500);
+    }
+
+    public void addResponseDocument() {
+        safeClickOn(addDocumentsButton);
+        selectDocumentTypeByText("Final response");
+        uploadDocumentOfType("docx");
+        safeClickOn(addButton);
+        waitABit(500);
+    }
+
     public void addAOriginalDocument() {
         safeClickOn(addDocumentsButton);
         selectDocumentTypeByText("ORIGINAL");

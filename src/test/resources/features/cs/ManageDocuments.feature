@@ -106,9 +106,3 @@ Feature: Manage Documents
     And the "5MB" document should be selected to be displayed in the preview pane
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane
-
-  @DCURegression
-  Scenario: As a DCU user, I want to be able to see a Primary Draft tag next to a document, so I know it is the Primary Draft
-    And I create a "MIN" case and move it to the "QA Response" stage
-    And I load and claim the current case
-    Then the primary draft tag is next to the primary draft document
