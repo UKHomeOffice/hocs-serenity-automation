@@ -74,7 +74,7 @@ public class Documents extends BasePage {
 
     public void selectDocumentTypeByText(String docType) {
         String caseType = sessionVariableCalled("caseType");
-        if(!caseType.equals("MPAM") && !caseType.equals("WCS") && !caseType.equals("FOI")) {
+        if(!caseType.equals("MPAM") && !caseType.equals("WCS") && !caseType.equals("FOI") && !caseType.equals("IEDET")) {
             docType = docType.toUpperCase();
         }
         documentTypeDropDown.selectByVisibleText(docType);
@@ -122,27 +122,16 @@ public class Documents extends BasePage {
         addDocument.sendKeys(allFiles);
     }
 
-    public void addInitialResponseDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("Initial response");
+    public void addADocumentOfType(String docType) {
+        if (addDocumentsButton.isVisible()) {
+            safeClickOn(addDocumentsButton);
+        } else if (addDocumentLink.isVisible()) {
+            safeClickOn(addDocumentLink);
+        }
+        selectDocumentTypeByText(docType);
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
         waitABit(500);
-    }
-
-    public void addResponseDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("Final response");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
-        waitABit(500);
-    }
-
-    public void addAOriginalDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("ORIGINAL");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
     }
 
     public void addADraftDocumentAtDraftStage() {
@@ -153,22 +142,6 @@ public class Documents extends BasePage {
         safeClickOn(addButton);
         setSessionVariable("draft").to("docx");
         recordCaseData.addHeadingAndValueRecord("Primary draft document", "test.docx");
-    }
-
-    public void addADraftDocumentAtQAStage() {
-        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("DRAFT");
-        uploadDocumentOfType("pdf");
-        safeClickOn(addButton);
-        setSessionVariable("second draft").to("pdf");
-    }
-
-    public void addAFinalDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("FINAL");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {
@@ -249,6 +222,7 @@ public class Documents extends BasePage {
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
                 findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
+        waitFor(documentUnderHeader);
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
