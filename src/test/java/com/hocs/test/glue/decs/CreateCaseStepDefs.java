@@ -18,7 +18,6 @@ import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.foi.FOICreateCase;
 import com.hocs.test.pages.mpam.Campaign;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MTSDataInput;
