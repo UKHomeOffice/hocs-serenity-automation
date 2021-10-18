@@ -211,7 +211,7 @@ public class Dashboard extends BasePage {
     public void claimCurrentCase() {
         assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
-        while (attempts < 6 && !caseView.caseCanBeAllocated()) {
+        while (attempts < 12 && !caseView.caseCanBeAllocated()) {
             waitABit(5000);
             goToDashboard();
             getCurrentCase();
