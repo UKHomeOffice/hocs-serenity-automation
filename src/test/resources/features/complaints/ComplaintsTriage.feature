@@ -93,6 +93,7 @@ Feature: COMP Triage
     And I click the "Continue" button
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
 #    HOCS-3028
   @COMPWorkflow @COMPRegression

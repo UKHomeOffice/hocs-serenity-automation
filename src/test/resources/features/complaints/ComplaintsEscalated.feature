@@ -31,6 +31,7 @@ Feature: COMP Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
+#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can send the case to Ex-Gratia Response Draft stage
@@ -39,6 +40,7 @@ Feature: COMP Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
+#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can return the case to Minor Misconduct Triage stage
@@ -47,6 +49,7 @@ Feature: COMP Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can send the case to Minor Misconduct Response Draft stage
@@ -55,6 +58,7 @@ Feature: COMP Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
 #    HOCS-2870, HOCS-3096
   @COMPRegression
