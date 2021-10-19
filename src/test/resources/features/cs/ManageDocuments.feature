@@ -60,6 +60,19 @@ Feature: Manage Documents
       | Final response                              |
       | Additional correspondence (Holding Replies) |
 
+  #HOCS-3661
+  @COMPRegression
+  Scenario Outline: An IEDET User can select to upload files under certain document type names
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I click to manage the documents of a new "IEDET" case
+    And I upload a "<docType>" document
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType                 |
+      | Acknowledgement letter  |
+      | Interim response        |
+      | Final response          |
+
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake
     And I manage the documents of a new case

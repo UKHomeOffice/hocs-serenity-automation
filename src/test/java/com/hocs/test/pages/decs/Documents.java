@@ -125,27 +125,16 @@ public class Documents extends BasePage {
         addDocument.sendKeys(allFiles);
     }
 
-    public void addInitialResponseDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("Initial response");
+    public void addADocumentOfType(String docType) {
+        if (addDocumentsButton.isVisible()) {
+            safeClickOn(addDocumentsButton);
+        } else if (addDocumentLink.isVisible()) {
+            safeClickOn(addDocumentLink);
+        }
+        selectDocumentTypeByText(docType);
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
         waitABit(500);
-    }
-
-    public void addResponseDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("Final response");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
-        waitABit(500);
-    }
-
-    public void addAOriginalDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("ORIGINAL");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
     }
 
     public void addADraftDocumentAtDraftStage() {
@@ -155,22 +144,6 @@ public class Documents extends BasePage {
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
         setSessionVariable("draft").to("docx");
-    }
-
-    public void addADraftDocumentAtQAStage() {
-        availableStandardLineHeader.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("DRAFT");
-        uploadDocumentOfType("pdf");
-        safeClickOn(addButton);
-        setSessionVariable("replacement draft").to("docx");
-    }
-
-    public void addAFinalDocument() {
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("FINAL");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {
@@ -251,6 +224,7 @@ public class Documents extends BasePage {
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
                 findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
+        waitFor(documentUnderHeader);
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 

@@ -40,18 +40,29 @@ public class DocumentsStepDefs extends BasePage {
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
-                documents.addAOriginalDocument();
+                documents.addADocumentOfType("ORIGINAL");
                 break;
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
-            case "REPLACEMENT DRAFT":
-                documents.addADraftDocumentAtQAStage();
+            case "SECOND DRAFT":
+                documents.addADocumentOfType("DRAFT");
+                setSessionVariable("replacement draft").to("docx");
                 break;
             case "FINAL":
-                documents.addAFinalDocument();
+                documents.addADocumentOfType("FINAL");
+                break;
             case "INITIAL RESPONSE":
-                documents.addInitialResponseDocument();
+                documents.addADocumentOfType("Initial response");
+                break;
+            case "INTERIM RESPONSE":
+                documents.addADocumentOfType("Interim response");
+                break;
+            case "ACKNOWLEDGEMENT LETTER":
+                documents.addADocumentOfType("Acknowledgement letter");
+                break;
+            case "FINAL RESPONSE":
+                documents.addADocumentOfType("Final response");
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
