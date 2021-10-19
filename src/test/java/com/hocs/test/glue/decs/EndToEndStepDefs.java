@@ -253,6 +253,12 @@ public class EndToEndStepDefs extends BasePage {
                     case "REGISTRATION (TO TRIAGE)":
                         complaintsProgressCase.moveSMCCaseFromRegistrationToTriage();
                         break;
+                    case "TRIAGE (TO SEND)":
+                        complaintsProgressCase.moveSMCCaseFromTriageToSend();
+                        break;
+                    case "SEND (TO CASE CLOSED)":
+                        complaintsProgressCase.moveSMCCaseFromSendToCaseClosed();
+                        break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
@@ -751,6 +757,14 @@ public class EndToEndStepDefs extends BasePage {
                     case "TRIAGE":
                         iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
                         iCompleteTheStage("REGISTRATION (TO TRIAGE)");
+                        break;
+                    case "SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "TRIAGE");
+                        iCompleteTheStage("TRIAGE (TO SEND)");
+                        break;
+                    case "CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SEND");
+                        iCompleteTheStage("SEND (TO CASE CLOSED)");
                         break;
                 }
                 break;

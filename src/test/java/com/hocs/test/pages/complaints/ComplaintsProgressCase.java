@@ -314,14 +314,15 @@ public class ComplaintsProgressCase extends BasePage {
     public void moveSMCCaseFromRegistrationToTriage() {
             addCorrespondent.addAPublicCorrespondentOfType("Complainant");
             clickTheButton("Continue");
+//            TODO: Uncomment below line once the defect HOCS-3971 is fixed
 //            registration.enterComplainantDetails();
-//            registration.selectComplaintType("Service");
             registration.selectAChannel();
-            registration.selectComplaintOrigin();
+            registration.selectAdditionalInformation();
             registration.enterADescriptionOfTheComplaint();
+            registration.enterAPreviousUKVIComplaintReference();
             registration.enterAThirdPartyReference();
             clickTheButton("Continue");
-            registration.openTheServiceComplaintCategoryAccordion();
+            registration.openTheSeriousComplaintCategoryAccordion();
             waitABit(1000);
             registration.selectAVisibleClaimCategory();
             registration.selectAnOwningCSU();
@@ -330,5 +331,23 @@ public class ComplaintsProgressCase extends BasePage {
 
     }
 
+    public void moveSMCCaseFromTriageToSend(){
+        complaintsTriage.selectAcceptCase();
+        clickTheButton("Continue");
+        waitForPageWithTitle("Complaint Category");
+        clickTheButton("Continue");
+        waitForPageWithTitle("Triage Case Details");
+        clickTheButton("Continue");
+        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        complaintsTriage.selectReadyForDrafting();
+        System.out.println("Case moved from Service Triage to Send");
+    }
+
+    public void moveSMCCaseFromSendToCaseClosed() {
+        complaintsSend.selectACaseOutcome();
+        clickTheButton("Complete");
+        System.out.println("Case moved from Send to Closed");
+    }
 
 }

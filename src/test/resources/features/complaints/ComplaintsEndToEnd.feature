@@ -7,8 +7,8 @@ Feature: COMP End To End
     Then the case should be moved to the "Registration" stage
     Examples:
     | caseType  |
-#    | COMP      |
-#    | IEDET     |
+    | COMP      |
+    | IEDET     |
     | SMC       |
 
   Scenario Outline: User moves a COMP case to the Triage stage
@@ -91,6 +91,11 @@ Feature: COMP End To End
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
+  Scenario: User moves an SMC case to the Send stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Send" stage
+    Then the case should be moved to the "Send" stage
+
   @COMPRegression @Smoketests
   Scenario Outline: User is able to close a COMP case
     Given I am logged into "CS" as user "COMP_USER"
@@ -106,6 +111,12 @@ Feature: COMP End To End
   Scenario: User is able to close an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
+    Then the case should be closed
+
+  @COMPRegression
+  Scenario: User is able to close an SMC case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to "Case Closed"
     Then the case should be closed
 
   Scenario: User moves a COMP case to the Stage 2 Registration stage
