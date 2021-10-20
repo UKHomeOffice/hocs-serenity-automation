@@ -61,7 +61,7 @@ Feature: Manage Documents
       | Additional correspondence (Holding Replies) |
 
   #HOCS-3661
-  @COMPRegression
+  @ComplaintsRegression
   Scenario Outline: An IEDET User can select to upload files under certain document type names
     Given I am logged into "CS" as user "IEDET_USER"
     When I click to manage the documents of a new "IEDET" case

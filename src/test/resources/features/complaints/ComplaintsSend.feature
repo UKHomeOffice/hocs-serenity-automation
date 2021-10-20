@@ -1,8 +1,8 @@
-@COMPSend @COMP
-Feature: COMP Send
+@ComplaintsSend @Complaints
+Feature: Complaints Send
 
 #    HOCS-2722, HOCS-3076
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete service send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Send" stage
@@ -12,7 +12,7 @@ Feature: COMP Send
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Service Send" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete Ex-Gratia send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Send" stage
@@ -21,7 +21,7 @@ Feature: COMP Send
     And I submit the Response details
     Then the case should be closed
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete Minor Misconduct send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Send" stage
@@ -30,7 +30,7 @@ Feature: COMP Send
     And I submit the Response details
     Then the case should be closed
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete the Send stage for an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage

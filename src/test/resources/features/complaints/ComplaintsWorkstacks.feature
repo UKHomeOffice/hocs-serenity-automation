@@ -1,15 +1,33 @@
-@COMPWorkstacks @COMP
-Feature: COMP Workstacks
+@ComplaintsWorkstacks @Complaints
+Feature: Complaints Workstacks
 
 #     HOCS-2865, HOCS-3161
-  @COMPRegression
-  Scenario: COMP User sees the required information when viewing a workstack
+  @ComplaintsRegression
+  Scenario Outline: COMP User sees the required information when viewing a workstack
     Given I am logged into "CS" as user "COMP_USER"
-    And I click to view the "Complaint Registration" workstack
-    Then the "Complaint Registration" workstack should contain only the expected columns
+    And I enter the "<workstack>" workstack
+    Then the "<workstack>" workstack should contain only the expected columns
+    Examples:
+      | workstack              |
+      | Complaint Registration |
+      | Ex-Gratia              |
+      | Minor Misconduct       |
+      | CCT Triage             |
+
+  @ComplaintsRegression
+  Scenario: IEDET User sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "IEDET_USER"
+    And I enter the "IE Detention" workstack
+    Then the "IE Detention" workstack should contain only the expected columns
+
+  @ComplaintsRegression
+  Scenario: Serious Misconduct user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "SMC_USER"
+    And I enter the "Serious Misconduct" workstack
+    Then the "Serious Misconduct" workstack should contain only the expected columns
 
 #     HOCS-3076 HOCS-3161
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User is able to see a yellow highlighted deadline on a COMP case that is close to its deadline date
     Given I am logged into "CS" as user "COMP_USER"
     When I create a single "COMP" case with the correspondence received date set 15 workdays ago
@@ -17,7 +35,7 @@ Feature: COMP Workstacks
     Then the case deadline should be highlighted yellow
 
 #     HOCS-3076 HOCS-3161
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User is able to see a red highlighted deadline on an COMP case that is past its deadline date
     Given I am logged into "CS" as user "COMP_USER"
     When I create a single "COMP" case with the correspondence received date set 21 workdays ago
@@ -52,10 +70,3 @@ Feature: COMP Workstacks
     And I navigate to the "Dashboard"
     And I click to view the "CCT Stage 1 Triage Team" workstack
     Then the displayed contribution request status of the case should be correct
-
-  @COMPRegression
-  Scenario: IEDET User sees the required information when viewing a workstack
-    Given I am logged into "CS" as user "IEDET_USER"
-    And I create a "IEDET" case and move it to the "Triage" stage
-    And I click to view the "IE Detention" workstack
-    Then the "IE Detention" workstack should contain only the expected columns
