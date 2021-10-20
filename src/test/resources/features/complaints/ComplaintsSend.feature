@@ -39,6 +39,15 @@ Feature: COMP Send
     And I submit the Response details
     Then the case should be closed
 
+  @COMPWorkflow @COMPRegression
+  Scenario: User can complete the Send stage for an SMC case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Send" stage
+    And I load and claim the current case
+    And I select a Case Outcome
+    And I Complete the Send stage
+    Then the case should be closed
+
   @Validation
   Scenario Outline: User tests the validation at the Service Send stage
     When I create a "COMP" case and move it to the "Service Send" stage
