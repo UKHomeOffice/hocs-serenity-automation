@@ -22,7 +22,7 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
-        documents.addInitialResponseDocument();
+        documents.addADocumentOfType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
         waitABit(250);

@@ -1,6 +1,7 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -15,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CaseCreationStage extends BasePage {
 
-    FOICreateCase foiCreateCase;
+    CreateCase createCase;
 
     RecordCaseData recordCaseData;
 
@@ -86,15 +87,15 @@ public class CaseCreationStage extends BasePage {
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {
-            foiCreateCase.caseTopicTypeahead.sendKeys("Alcohol industry");
-            foiCreateCase.caseTopicTypeahead.sendKeys(Keys.RETURN);
+            createCase.caseTopicTypeahead.sendKeys("Alcohol industry");
+            createCase.caseTopicTypeahead.sendKeys(Keys.RETURN);
             setSessionVariable("foiTopic").to("Alcohol industry");
         } else if (valueToBeEdited.equalsIgnoreCase("REQUEST QUESTION")) {
-            foiCreateCase.requestQuestionTextArea.clear();
+            createCase.requestQuestionTextArea.clear();
             recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Edited Test Request Question", fieldHeader);
             setSessionVariable("requestQuestion").to("Edited Test Request Question");
         } else if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
-            foiCreateCase.fullNameTextField.clear();
+            createCase.fullNameTextField.clear();
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
             setSessionVariable("requesterFullName").to("Edited Test McTester");
         }

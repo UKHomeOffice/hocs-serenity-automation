@@ -1,12 +1,10 @@
 @COMPDraft @COMP
 Feature: COMP Draft
 
-  Background:
-    Given I am logged into "CS" as user "COMP_USER"
-
 #   HOCS-3695
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Service Send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -17,6 +15,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Ex-Gratia Send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -26,6 +25,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Minor Misconduct Send stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -33,9 +33,19 @@ Feature: COMP Draft
     Then the case should be moved to the "Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
 
+  @COMPWorkflow @COMPRegression
+  Scenario: User completes the Draft stage for an IEDET case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I click the "Proceed to recording outcome" button
+    Then the case should be moved to the "Send" stage
+    And the summary should display the owning team as "IE Detention"
+
 #    HOCS-3695
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Service QA stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -46,6 +56,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Ex-Gratia QA stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -55,6 +66,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User sends the case to Minor Misconduct QA stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
     And I upload a "Draft" document
@@ -64,6 +76,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User is able to escalate a case to WFM at Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
@@ -74,6 +87,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User is able to escalate a case to WFM at Ex-Gratia Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
@@ -83,6 +97,7 @@ Feature: COMP Draft
 
   @COMPWorkflow @COMPRegression
   Scenario: User is able to escalate a case to WFM at Minor Misconduct Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
@@ -93,6 +108,7 @@ Feature: COMP Draft
 #    HOCS-3076
   @Validation
   Scenario: User must upload a document at Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I select the "Response is ready to send" action at the Service Draft stage
@@ -100,6 +116,7 @@ Feature: COMP Draft
 
   @Validation
   Scenario Outline: User tests the validation at the Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     When I trigger the "<errorType>" error message at the "Service Draft" stage

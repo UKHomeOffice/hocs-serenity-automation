@@ -2,10 +2,12 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -28,7 +30,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
-        createCase.createCSCaseOfTypeWithoutDocument("CS");
+        createCase.createCSCaseOfRandomType();
         createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
@@ -37,18 +39,29 @@ public class DocumentsStepDefs extends BasePage {
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
-                documents.addAOriginalDocument();
+                documents.addADocumentOfType("ORIGINAL");
                 break;
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
             case "SECOND DRAFT":
-                documents.addADraftDocumentAtQAStage();
+                documents.addADocumentOfType("DRAFT");
+                setSessionVariable("second draft").to("docx");
                 break;
             case "FINAL":
-                documents.addAFinalDocument();
+                documents.addADocumentOfType("FINAL");
+                break;
             case "INITIAL RESPONSE":
-                documents.addInitialResponseDocument();
+                documents.addADocumentOfType("Initial response");
+                break;
+            case "INTERIM RESPONSE":
+                documents.addADocumentOfType("Interim response");
+                break;
+            case "ACKNOWLEDGEMENT LETTER":
+                documents.addADocumentOfType("Acknowledgement letter");
+                break;
+            case "FINAL RESPONSE":
+                documents.addADocumentOfType("Final response");
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
