@@ -45,6 +45,7 @@ Feature: Complaints Send
     When I create a "SMC" case and move it to the "Send" stage
     And I load and claim the current case
     And I select a Case Outcome
+    And I submit the SMC Send stage
     Then the case should be closed
 
   @Validation
