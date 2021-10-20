@@ -119,3 +119,7 @@ Feature: Manage Documents
     And the "5MB" document should be selected to be displayed in the preview pane
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane
+
+  Scenario: Test download doc
+    When I create a "MIN" case and move it to the "Data Input" stage
+    And I download the MIN case data extract
