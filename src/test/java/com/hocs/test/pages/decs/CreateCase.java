@@ -354,8 +354,9 @@ public class CreateCase extends BasePage {
                 }
                 break;
             case "WCS_USER":
-                if (createClaimButton.isVisible())
+                if (createClaimButton.isVisible()) {
                     correctUser = true;
+                }
                 break;
             default:
                 pendingStep(targetUser + " is not defined within " + getMethodName());
