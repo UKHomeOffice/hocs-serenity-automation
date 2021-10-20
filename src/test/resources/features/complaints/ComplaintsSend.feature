@@ -39,7 +39,7 @@ Feature: Complaints Send
     And I submit the Response details
     Then the case should be closed
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsPWorkflow @ComplaintsRegression
   Scenario: User can complete the Send stage for an SMC case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Send" stage
