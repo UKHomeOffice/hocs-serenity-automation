@@ -188,7 +188,10 @@ public class CreateCase extends BasePage {
         }
         selectCaseType(caseType);
         safeClickOn(nextButton);
-//        documents.uploadDocumentOfType("docx");
+        //TODO : Remove below if statement once the defect HOCS-3933 is closed
+        if(caseType!="SMC") {
+            documents.uploadDocumentOfType("docx");
+        }
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.storeCaseReference();
