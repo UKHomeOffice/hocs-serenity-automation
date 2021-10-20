@@ -1,8 +1,8 @@
-@COMPDraft @COMP
-Feature: COMP Draft
+@ComplaintsDraft @Complaints
+Feature: Complaints Draft
 
 #   HOCS-3695
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Service Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -13,7 +13,7 @@ Feature: COMP Draft
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Ex-Gratia Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -23,7 +23,7 @@ Feature: COMP Draft
     Then the case should be moved to the "Ex-Gratia Send" stage
     And the summary should display the owning team as "Ex-Gratia"
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Minor Misconduct Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
@@ -33,7 +33,7 @@ Feature: COMP Draft
     Then the case should be moved to the "Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User completes the Draft stage for an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
@@ -43,7 +43,7 @@ Feature: COMP Draft
     And the summary should display the owning team as "IE Detention"
 
 #    HOCS-3695
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Service QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -54,7 +54,7 @@ Feature: COMP Draft
     And the summary should display the owning team as "CCT Stage 1 Response QA"
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Ex-Gratia QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -64,7 +64,7 @@ Feature: COMP Draft
     Then the case should be moved to the "Ex-Gratia QA" stage
     And the summary should display the owning team as "Ex-Gratia"
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Minor Misconduct QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
@@ -74,7 +74,7 @@ Feature: COMP Draft
     Then the case should be moved to the "Minor Misconduct QA" stage
     And the summary should display the owning team as "Minor Misconduct"
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a case to WFM at Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -85,7 +85,7 @@ Feature: COMP Draft
     And a escalation note should be visible showing the reason for escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a case to WFM at Ex-Gratia Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -95,7 +95,7 @@ Feature: COMP Draft
     And the summary should display the owning team as "Ex-Gratia"
     And a escalation note should be visible showing the reason for escalation
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a case to WFM at Minor Misconduct Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage

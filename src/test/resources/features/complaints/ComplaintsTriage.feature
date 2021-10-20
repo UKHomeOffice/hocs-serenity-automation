@@ -1,8 +1,8 @@
-@COMPTriage @COMP
-Feature: COMP Triage
+@ComplaintsTriage @Complaints
+Feature: Complaints Triage
 
 #   HOCS-2944, HOCS-2868
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a case from Service Triage to CCH
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -14,7 +14,7 @@ Feature: COMP Triage
     And a rejection note should be visible showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a case from Ex-Gratia Triage to CCH
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
@@ -26,7 +26,7 @@ Feature: COMP Triage
     And a rejection note should be visible showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a case from Minor Misconduct Triage to CCH
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
@@ -38,7 +38,7 @@ Feature: COMP Triage
     And a rejection note should be visible showing the reason for rejection
 
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User completes the Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -53,7 +53,7 @@ Feature: COMP Triage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User completes the Ex-Gratia Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
@@ -69,7 +69,7 @@ Feature: COMP Triage
     And the summary should display the owning team as "Ex-Gratia"
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User completes the Minor Misconduct Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
@@ -83,7 +83,7 @@ Feature: COMP Triage
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User completes the Triage stage for an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -95,7 +95,7 @@ Feature: COMP Triage
     And the summary should display the owning team as "IE Detention"
 
 #    HOCS-3028
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -111,7 +111,7 @@ Feature: COMP Triage
     And a escalation note should be visible showing the reason for escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Ex-Gratia Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
@@ -127,7 +127,7 @@ Feature: COMP Triage
     And the summary should display the owning team as "Ex-Gratia"
     And a escalation note should be visible showing the reason for escalation
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Minor Misconduct Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
@@ -142,7 +142,7 @@ Feature: COMP Triage
     And a escalation note should be visible showing the reason for escalation
 
 #    HOCS-3026
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can hard close a case at Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -159,7 +159,7 @@ Feature: COMP Triage
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can hard close a case at Ex-Gratia Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
@@ -177,7 +177,7 @@ Feature: COMP Triage
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can hard close a case at Minor Misconduct Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
@@ -193,7 +193,7 @@ Feature: COMP Triage
     And a case closure note should be visible showing the reason for closure
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User can close an IEDET case at the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -202,7 +202,7 @@ Feature: COMP Triage
     Then the case should be closed
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
-  @COMPRegression
+  @ComplaintsRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -223,7 +223,7 @@ Feature: COMP Triage
       | Business         | Cancel   |
 
 #    HOCS-3103
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User can tell if a contribution is overdue on the Triage Contributions page
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
@@ -238,7 +238,7 @@ Feature: COMP Triage
     And the overdue contribution request should be highlighted
 
 #    HOCS-2979
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User can select that a Letter of Authority is required for this complaint
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage

@@ -1,5 +1,5 @@
-@COMPEndToEnd @COMP @COMPWorkflow
-Feature: COMP End To End
+@ComplaintsEndToEnd @ComplaintsWorkflow @Complaints
+Feature: Complaints End To End
 
   Scenario Outline: User moves a complaints case to the Registration stage
     Given I am logged into "CS" as user "<caseType>_USER"
@@ -96,7 +96,7 @@ Feature: COMP End To End
     When I create a "SMC" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @COMPRegression @Smoketests
+  @ComplaintsRegression @Smoketests
   Scenario Outline: User is able to close a COMP case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Complaint Closed (from <complaintType> Send)" stage
@@ -107,13 +107,13 @@ Feature: COMP End To End
     | Ex-Gratia         |
     | Minor Misconduct  |
 
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User is able to close an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
     Then the case should be closed
 
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User is able to close an SMC case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to "Case Closed"
@@ -173,7 +173,7 @@ Feature: COMP End To End
       | Ex-Gratia      |
       | MM             |
 
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User is able to close a COMP2 case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed (From Stage 2 Service Send)" stage
