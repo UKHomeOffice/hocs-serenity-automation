@@ -12,6 +12,9 @@ public class ComplaintsSendStepDefs extends BasePage {
     @And("I select a Case Outcome")
     public void iSelectACaseOutcome() {
         complaintsSend.selectACaseOutcome();
+        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("SMC")) {
+            clickTheButton("Complete");
+        }
     }
 
     @And("I submit the Response details")
@@ -20,11 +23,6 @@ public class ComplaintsSendStepDefs extends BasePage {
             complaintsSend.selectAResponseChannel();
         }
         complaintsSend.enterADateOfResponse();
-        clickTheButton("Complete");
-    }
-
-    @And("I Complete the Send stage")
-    public void iCompleteTheSendStage() {
         clickTheButton("Complete");
     }
 }
