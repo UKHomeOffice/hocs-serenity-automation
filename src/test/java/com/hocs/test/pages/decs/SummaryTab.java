@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class SummaryTab extends BasePage {
 
@@ -145,7 +146,10 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
-        assert(getSummaryTabValueForGivenHeader(header).contains(value));
+        String displayedValue = getSummaryTabValueForGivenHeader(header);
+        if (!displayedValue.contains(value)) {
+            Assert.fail("Expected value was: " + value + "\nDisplayed value was: " + displayedValue);
+        }
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {

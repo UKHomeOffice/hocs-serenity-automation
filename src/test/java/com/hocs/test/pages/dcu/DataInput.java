@@ -1,6 +1,7 @@
 package com.hocs.test.pages.dcu;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -80,10 +81,12 @@ public class DataInput extends BasePage {
 
     public void enterDTENDraftingDeadline(String date) {
         recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the drafting deadline?");
+        setSessionVariable("dtenInitialDraftDeadline").to(date);
     }
 
     public void enterDTENDispatchDeadline(String date) {
         recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the dispatch deadline?");
+        setSessionVariable("dtenDispatchDeadline").to(date);
     }
 
     public void enterCorrespondenceSentDate(String date) {

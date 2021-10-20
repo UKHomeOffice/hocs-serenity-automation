@@ -50,7 +50,10 @@ public class CaseView extends BasePage {
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
             if (value.isCurrentlyVisible()) {
-                valuesText.add(value.getText());
+                String text = value.getText();
+                text = text.split(":")[1];
+                text = text.trim();
+                valuesText.add(text);
             }
         }
         return valuesText;

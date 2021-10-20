@@ -285,6 +285,7 @@ public class Correspondents extends BasePage {
 
     public void confirmPrimaryCorrespondent() {
         WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
+        selectedPrimaryCorrespondent.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", selectedPrimaryCorrespondent.getText());
         setSessionVariable("primaryCorrespondent").to(selectedPrimaryCorrespondent.getText());
         if (dcuCase()) {
@@ -293,7 +294,7 @@ public class Correspondents extends BasePage {
         if (mpamCase()) {
             clickTheButton("Move to Triage");
         }
-        if (mtsCase() | compCase()) {
+        if (mtsCase() | complaintCase()) {
             clickTheButton("Continue");
         }
     }
