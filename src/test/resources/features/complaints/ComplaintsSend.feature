@@ -20,6 +20,7 @@ Feature: COMP Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Send" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can complete Minor Misconduct send stage
@@ -29,6 +30,7 @@ Feature: COMP Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Send" stage
 
   @COMPWorkflow @COMPRegression
   Scenario: User can complete the Send stage for an IEDET case
