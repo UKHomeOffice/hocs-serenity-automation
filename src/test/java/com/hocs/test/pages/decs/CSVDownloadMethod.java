@@ -5,7 +5,7 @@ import java.io.IOException;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class Test extends BasePage {
+public class CSVDownloadMethod extends BasePage {
 
     LoginPage loginPage;
 
