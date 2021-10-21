@@ -371,7 +371,7 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertRejectedFieldOfCurrentCase();
     }
 
-    @And("I enter a {string} workstack")
+    @And("I enter a/the {string} workstack")
     public void iEnterAWorkstack(String workstack) {
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
@@ -424,6 +424,53 @@ public class WorkstacksStepDefs extends BasePage {
                     endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
                     dashboard.goToDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(stage);
+                }
+                break;
+            case "COMPLAINT REGISTRATION":
+                try {
+                    dashboard.selectWorkstackByTeamName(workstack);
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("COMP");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(workstack);
+                }
+                break;
+            case "CCT TRIAGE":
+                try {
+                    dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("COMP");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
+                }
+                break;
+            case "EX-GRATIA":
+            case "MINOR MISCONDUCT":
+                try {
+                    dashboard.selectWorkstackByTeamName(workstack);
+                } catch (NoSuchElementException e) {
+                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("COMP", workstack + " TRIAGE");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(workstack);
+                }
+                break;
+
+            case "IE DETENTION":
+                try {
+                    dashboard.selectIEDETTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("IEDET");
+                    dashboard.goToDashboard();
+                    dashboard.selectIEDETTeam();
+                }
+                break;
+            case "SERIOUS MISCONDUCT":
+                try {
+                    dashboard.selectSMCTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("SMC");
+                    dashboard.goToDashboard();
+                    dashboard.selectSMCTeam();
                 }
                 break;
             default:

@@ -149,6 +149,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("IE Detention Case");
     }
 
+    private void clickSmcRadioButton() {
+        selectSpecificRadioButton("Serious Misconduct Case");
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -183,6 +187,9 @@ public class CreateCase extends BasePage {
             case "FOI":
                 clickFoiRadioButton();
                 break;
+            case "SMC":
+                clickSmcRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -207,7 +214,10 @@ public class CreateCase extends BasePage {
         }
         selectCaseType(caseType);
         safeClickOn(nextButton);
-        documents.uploadDocumentOfType("docx");
+        //TODO : Remove below if statement once the defect HOCS-3933 is closed
+        if(!caseType.equals("SMC")) {
+            documents.uploadDocumentOfType("docx");
+        }
         storeCorrespondenceReceivedDate();
         clickCreateCaseButton();
         createCaseSuccessPage.storeCaseReference();
@@ -302,7 +312,7 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" + correspondenceYear);
+        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {

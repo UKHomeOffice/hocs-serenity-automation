@@ -7,7 +7,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -224,6 +226,13 @@ public class Registration extends BasePage {
 
     public void selectAChannel() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
+    }
+
+    public void selectAdditionalInformation() {
+        List<String> additionalInfoList = Arrays.asList("Safe Guarding","Vulnerable","Case is made by / on behalf of a minor");
+        Random rand = new Random();
+        String additionalInfo = additionalInfoList.get(rand.nextInt(additionalInfoList.size()));
+        recordCaseData.checkSpecificCheckbox(additionalInfo);
     }
 
     public void selectComplaintOrigin() {

@@ -1,11 +1,11 @@
-@COMPSearch @COMP
-Feature: COMP Search
+@ComplaintsSearch @Complaints
+Feature: Complaints Search
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"
 
 #    HOCS-2838, HOCS-3036
-  @COMPRegression
+  @ComplaintsRegression
   Scenario Outline: User tests COMP search criteria
     When I create a "COMP" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Dashboard" page
@@ -22,7 +22,7 @@ Feature: COMP Search
       | Complainant Date Of Birth         | 01/01/2001                           |
 #      | Complainant Home Office Reference | Test entry for Home Office Reference |
 
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User can search for a COMP2 case
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     And I navigate to the "Dashboard" page
@@ -32,14 +32,14 @@ Feature: COMP Search
     Then I check that the COMP search results have the correct "Case Type"
 
 #    HOCS-2838
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User can search for a COMP case by its case reference
     When I create a single "COMP" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
 #     HOCS-2847 HOCS-3161
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: COMP User sees the required information when viewing search
     When I navigate to the "search" page
     And I click the search button on the search page

@@ -180,6 +180,14 @@ public class Dashboard extends BasePage {
         safeClickOn(mtsTeamWorkstack);
     }
 
+    public void selectIEDETTeam() {
+        safeClickOn(ieDetentionWorkstack);
+    }
+
+    public void selectSMCTeam() {
+        safeClickOn(seriousMisconductWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);

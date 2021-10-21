@@ -4,7 +4,7 @@ type: kubernetes
 name: SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 
@@ -41,7 +41,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_$(date +'%Y-%m-%d_%H-%M')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_SMOKE_TEST_FAILURE/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -77,7 +77,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 steps:
@@ -96,8 +96,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_DCU_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_DCU/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -134,7 +133,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 
@@ -153,8 +152,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_CS_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_CS/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -190,7 +188,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 
@@ -209,8 +207,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM1_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM1/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -246,7 +243,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 
@@ -266,8 +263,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM2_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM2/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -303,7 +299,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 
@@ -322,8 +318,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_COMP_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_COMP/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -360,7 +355,7 @@ depends_on:
   - SMOKE
 trigger:
   branch:
-    - HOCS-3311_home_sec_reply
+    - main
   event:
     - push
 steps:
@@ -379,8 +374,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_WCS_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_WCS/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
@@ -435,8 +429,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_FOI_$(date
-        +'%Y-%m-%d_%H-%M-%S')/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_FOI/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:

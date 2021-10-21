@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -746,7 +747,9 @@ public class Workstacks extends BasePage {
 
     private void checkColumnsArePresent(List<String> columns) {
         for (String column : columns) {
-            assertThat(visibleColumns.contains(column), is(true));
+            if (!visibleColumns.contains(column)) {
+                Assert.fail(column + " column is not visible in workstack");
+            }
             visibleColumns.remove(column);
         }
     }
@@ -797,8 +800,16 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref",
                         "Escalate Case"));
                 break;
+            case "CCT TRIAGE":
+            case "EX-GRATIA":
+            case "MINOR MISCONDUCT":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Contributions", "Owner", "Deadline", "Severity"));
+                break;
             case "IE DETENTION":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Business Area"));
+                break;
+            case "SERIOUS MISCONDUCT":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
