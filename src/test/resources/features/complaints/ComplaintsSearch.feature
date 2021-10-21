@@ -15,12 +15,12 @@ Feature: COMP Search
     Then I check that the COMP search results have the correct "<infoType>"
     Examples:
       | infoType                          | infoValue                            |
-      | Case Type                         | COMP                                 |
-      | Correspondent Full Name           | Sam McTester                         |
-      | Correspondent Postcode            | AB1 2CD                              |
-      | Correspondent Email Address       | SamMcTester@Test.com                 |
+#      | Case Type                         | COMP                                 |
+#      | Correspondent Full Name           | Sam McTester                         |
+#      | Correspondent Postcode            | AB1 2CD                              |
+#      | Correspondent Email Address       | SamMcTester@Test.com                 |
       | Complainant Date Of Birth         | 01/01/2001                           |
-      | Complainant Home Office Reference | Test entry for Home Office Reference |
+#      | Complainant Home Office Reference | Test entry for Home Office Reference |
 
   @COMPRegression
   Scenario: User can search for a COMP2 case

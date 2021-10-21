@@ -325,7 +325,8 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField, value);
+                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField,
+                        value);
                 setSessionVariable("searchComplainantDateOfBirth").to(value);
                 break;
             case "CASE REFERENCE":
@@ -381,7 +382,7 @@ public class Search extends BasePage {
         String firstCharOfSubstring = "";
         String caseRef = getCurrentCaseReference();
         String split = caseRef.split("/01")[1];
-        int randomStringLength = (int)(Math.random() * ((5 - 1) + 1)) + 1;
+        int randomStringLength = (int) (Math.random() * ((5 - 1) + 1)) + 1;
         while (n <= randomStringLength) {
             substring = split.substring(n, randomStringLength);
             firstCharOfSubstring = String.valueOf(substring.charAt(0));
@@ -413,7 +414,7 @@ public class Search extends BasePage {
     }
 
     public void clickEscalateCOMPCaseToCOMP2() {
-       safeClickOn(escalateCaseHypertext);
+        safeClickOn(escalateCaseHypertext);
     }
 
     //Assertions
@@ -632,7 +633,7 @@ public class Search extends BasePage {
             case "CASE TYPE":
                 expectedValue = sessionVariableCalled("searchCaseType");
                 List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
-                assertThat(numberOfCasesDisplayed==listOfCaseRefs.size(), is(true));
+                assertThat(numberOfCasesDisplayed == listOfCaseRefs.size(), is(true));
                 break;
             case "CORRESPONDENT FULL NAME":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
@@ -675,14 +676,10 @@ public class Search extends BasePage {
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        if (!criteria.equalsIgnoreCase("CASE TYPE")) {
-            if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
-                displayedValue = displayedValue.split(": ")[1];
-            } else {
-                displayedValue = cell.getText();
-            }
-            assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+        if (!criteria.equalsIgnoreCase("CASE TYPE") && !criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText();
         }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void assertFOIInformationRandomSearchResult(String criteria) {
@@ -698,7 +695,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 List<WebElementFacade> listOfCaseRefs = findAll("//a[contains(text(), 'FOI')]");
-                assertThat(listOfCaseRefs.size()==numberOfCasesDisplayed, is(true));
+                assertThat(listOfCaseRefs.size() == numberOfCasesDisplayed, is(true));
                 break;
             case "CASE REFERENCE":
                 String caseRef = sessionVariableCalled("searchCaseReference");

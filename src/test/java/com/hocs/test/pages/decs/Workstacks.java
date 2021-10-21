@@ -144,10 +144,15 @@ public class Workstacks extends BasePage {
         while (!ownerHeaderFound) {
             i++;
             WebElementFacade header = findBy("//thead/tr/th[" + i + "]");
-            ownerHeaderFound = header.getText().equals("Owner");
+            ownerHeaderFound = header.getText().contains("Owner");
         }
-        WebElementFacade ownerName = findBy("//tbody/tr/td[" + i + "]");
-        return ownerName.getText();
+        String ownerName;
+        if (mpamCase()) {
+            ownerName = findBy("//tbody/tr/td[" + i + "]div").getText();
+        } else {
+            ownerName = findBy("//tbody/tr/td[" + i + "]").getText();
+        }
+        return ownerName;
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
@@ -356,11 +361,25 @@ public class Workstacks extends BasePage {
     }
 
     public void unallocateSelectedCase(String caseRef) {
+        waitForWorkstackToLoad();
         caseFilter.sendKeys(caseRef);
         waitABit(500);
         WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label");
         safeClickOn(selectedCaseCheckBox);
         safeClickOn(unallocateButton);
+        waitForTopCaseToNotBeAllocated();
+    }
+
+    public void waitForTopCaseToNotBeAllocated() {
+        boolean allocated = !getOwnerOfTopCaseInWorkstack().isEmpty();
+        int attempts = 0;
+        while (allocated && attempts<20) {
+            String owner = getOwnerOfTopCaseInWorkstack();
+            allocated = !owner.isEmpty();
+            waitABit(500);
+            attempts++;
+        }
+        System.out.print(attempts);
     }
 
     // Assertions

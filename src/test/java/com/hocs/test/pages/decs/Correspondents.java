@@ -253,7 +253,7 @@ public class Correspondents extends BasePage {
 
     public void addANonMemberCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!compCase() && !sessionVariableCalled("caseType").toString().contains("IEDET")) {
+        if (!complaintCase()) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);
