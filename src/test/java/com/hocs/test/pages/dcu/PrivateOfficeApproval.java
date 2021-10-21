@@ -52,7 +52,8 @@ public class PrivateOfficeApproval extends BasePage {
     }
 
     public void selectToChangeTopic() {
-        recordCaseData.selectSpecificRadioButton("Change Topic");
+        String heading = selectSpecificRadioButton("Change Topic");
+        recordCaseData.addHeadingAndValueRecord(heading, "Change Minister");
     }
 
     public void enterRejectionReason() {

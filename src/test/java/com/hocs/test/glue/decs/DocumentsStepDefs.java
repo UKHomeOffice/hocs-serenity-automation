@@ -45,7 +45,7 @@ public class DocumentsStepDefs extends BasePage {
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
-            case "SECOND DRAFT":
+            case "REPLACEMENT DRAFT":
                 documents.addADocumentOfType("DRAFT");
                 setSessionVariable("replacement draft").to("docx");
                 break;

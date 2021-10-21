@@ -9,7 +9,7 @@ Feature: Ministerial Sign-Off
   Scenario: User can select to approve the response
     When I approve the response at the Ministerial Sign Off stage
     Then the case should be moved to the "Dispatch" stage
-    And the case should be returned to the drafting team
+    And the summary should display the owning team as "Performance and Process Team"
     And the read-only Case Details accordion should contain all case information entered during the "Ministerial Sign off" stage
 
   @DCUWorkflow @DCURegression

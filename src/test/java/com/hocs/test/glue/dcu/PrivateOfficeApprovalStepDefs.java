@@ -3,6 +3,7 @@ package com.hocs.test.glue.dcu;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
@@ -17,14 +18,16 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     Markup markup;
 
+    CaseView caseView;
+
     @And("I override the Primary Topic of the case at the Private Office stage to {string}")
     public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String topic) {
         privateOfficeApproval.selectToChangeTopic();
         safeClickOn(continueButton);
         markup.addTopicToCase(topic);
-        markup.selectPrimaryTopic(topic);
         privateOfficeApproval.enterAReasonForChangingTopic();
-        safeClickOn(continueButton);
+        markup.selectPrimaryTopic(topic);
+        caseView.allocateToMeLink.waitUntilVisible();
     }
 
     @And("I select to change minister")
@@ -42,6 +45,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     public void iEnterAsTheReasonForChangingPrivateOfficeTeam() {
         privateOfficeApproval.enterAReasonForChangingPOTeam();
         safeClickOn(finishButton);
+        finishButton.waitUntilNotVisible();
     }
 
     @And("I change the minister to {string}")

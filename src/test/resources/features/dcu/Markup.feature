@@ -23,13 +23,13 @@ Feature: Markup
 
   @DCUWorkflow @DCURegression
   Scenario: As a Markup user, I want to be able to send a TRO case to the correct teams for a Policy response, so it can be progressed
-    And I get a "MIN" case at the "Markup" stage
+    And I get a "TRO" case at the "Markup" stage
     When I select an initial decision of "Policy Response"
     And I select a Primary topic of "Animal alternatives (3Rs)"
     And I override the Initial Draft team to "Cyber Policy Unit"
     And I confirm the Initial Draft team
     Then the case should be moved to the "Initial Draft" stage
-    And the summary should display the owning team as "Direct Communications Unit Central Drafting Team"
+    And the summary should display the owning team as "Cyber Policy Unit"
     And the read-only Case Details accordion should contain all case information entered during the "Markup" stage
 
   @DCUWorkflow @DCURegression
@@ -87,7 +87,7 @@ Feature: Markup
     Then the case should be moved to the "Data Input" stage
     And the summary should display the owning team as "<dataInputTeam>"
     And a note should be visible in the timeline showing the reason for rejection
-    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Markup" stage
     Examples:
       | caseType | dataInputTeam                |
       | MIN      | Performance and Process Team |

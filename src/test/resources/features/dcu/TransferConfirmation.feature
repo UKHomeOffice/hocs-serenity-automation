@@ -9,12 +9,11 @@ Feature: TransferConfirmation
     And I get a "<caseType>" case at the "Transfer Confirmation" stage
     When I confirm the case should be transferred
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Transfer Confirmation" stage
     Examples:
     | caseType  |
     | MIN       |
-#    | TRO       |
-#    | DTEN      |
+    | TRO       |
+    | DTEN      |
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User selects that they dont agree that the case requires no response
@@ -22,7 +21,6 @@ Feature: TransferConfirmation
     When I confirm the case should not be transferred
     Then the case should be moved to the "Markup" stage
     And the summary should display the owning team as "<markupTeam>"
-    And the read-only Case Details accordion should contain all case information entered during the "Transfer Confirmation" stage
     Examples:
       | caseType | markupTeam                                       |
       | MIN      | Direct Communications Unit Central Drafting Team |

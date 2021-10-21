@@ -148,7 +148,7 @@ public class SummaryTab extends BasePage {
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
         String displayedValue = getSummaryTabValueForGivenHeader(header);
         if (!displayedValue.contains(value)) {
-            Assert.fail("Expected value was: " + value + "\nDisplayed value was: " + displayedValue);
+            Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
         }
     }
 
