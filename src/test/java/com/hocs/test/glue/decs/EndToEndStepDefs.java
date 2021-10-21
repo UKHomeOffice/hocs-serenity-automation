@@ -239,6 +239,22 @@ public class EndToEndStepDefs extends BasePage {
                 }
                 dashboard.waitForDashboard();
                 break;
+            case "SMC":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION (TO TRIAGE)":
+                        complaintsProgressCase.moveSMCCaseFromRegistrationToTriage();
+                        break;
+                    case "TRIAGE (TO SEND)":
+                        complaintsProgressCase.moveSMCCaseFromTriageToSend();
+                        break;
+                    case "SEND (TO CASE CLOSED)":
+                        complaintsProgressCase.moveSMCCaseFromSendToCaseClosed();
+                        break;
+                    default:
+                        pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                dashboard.waitForDashboard();
+                break;
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
@@ -721,6 +737,26 @@ public class EndToEndStepDefs extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "SMC":
+                switch (stage.toUpperCase()) {
+                    case "REGISTRATION":
+                        createCase.createCSCaseOfType(caseType);
+                        dashboard.goToDashboard();
+                        break;
+                    case "TRIAGE":
+                        iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
+                        iCompleteTheStage("REGISTRATION (TO TRIAGE)");
+                        break;
+                    case "SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "TRIAGE");
+                        iCompleteTheStage("TRIAGE (TO SEND)");
+                        break;
+                    case "CASE CLOSED":
+                        iCreateACaseAndMoveItToAStage(caseType, "SEND");
+                        iCompleteTheStage("SEND (TO CASE CLOSED)");
+                        break;
                 }
                 break;
             case "FOI":

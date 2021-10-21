@@ -22,4 +22,9 @@ public class ComplaintsSendStepDefs extends BasePage {
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
     }
+
+    @And("I submit the SMC Send stage")
+    public void iCompleteTheSendStage() {
+        clickTheButton("Complete");
+    }
 }

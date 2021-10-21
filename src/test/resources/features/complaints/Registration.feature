@@ -1,8 +1,8 @@
-@Registration @COMP
+@Registration @Complaints
 Feature: Registration
 
 #   HOCS-2999, HOCS-2858, HOCS-2859, HOCS-2860, HOCS-2862, HOCS-2881, HOCS-2899, HOCS-2648
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete the Registration stage for a Service complaint
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -21,7 +21,7 @@ Feature: Registration
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
 #   HOCS-2709, HOCS-2858
-  @COMPRegression
+  @ComplaintsRegression
   Scenario: User must add a Complainant type correspondent
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -59,7 +59,7 @@ Feature: Registration
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can complete the Registration stage for an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     And I create a single "IEDET" case

@@ -1,11 +1,11 @@
-@COMPQA @COMP
-Feature: COMP QA
+@ComplaintsQA @Complaints
+Feature: Complaints QA
 
   Background:
     Given I am logged into "CS" as user "COMP_USER"
 
 #    HOCS-3695
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can accept the response and send the case to Service Send stage
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
@@ -15,7 +15,7 @@ Feature: COMP QA
     And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
 #    HOCS-3039
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can reject the response and send the case back to Service Draft stage
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
@@ -25,7 +25,7 @@ Feature: COMP QA
     And a rejection note should be visible showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can accept the response and send the case to Ex-Gratia Send stage
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
@@ -34,7 +34,7 @@ Feature: COMP QA
     And the summary should display the owning team as "Ex-Gratia"
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can reject the response and send the case back to Ex-Gratia Response Draft stage
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
@@ -44,7 +44,7 @@ Feature: COMP QA
     And a rejection note should be visible showing the reason for rejection
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can accept the response and send the case to Minor Misconduct Send stage
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
@@ -53,7 +53,7 @@ Feature: COMP QA
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct QA" stage
 
-  @COMPWorkflow @COMPRegression
+  @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can reject the response and send the case back to Minor Misconduct Response Draft stage
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
