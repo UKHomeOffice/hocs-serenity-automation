@@ -12,8 +12,8 @@ Feature: Case Creation Stage
     And I select "Valid" for the validity of the request and continue
     And I upload a "Initial response" document
     And I submit a valid request acknowledgement response date
-    Then the FOI case should be moved to the "Allocation" stage
-#    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
+    Then the case should be moved to the "Allocation" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
 
   #HOCS-3482 HOCS-3838
   @FOIRegression
@@ -23,7 +23,7 @@ Feature: Case Creation Stage
     And I upload a "Initial response" document
     And I submit an invalid request response date
     Then the case should be moved to the "Soft Close" stage
-#    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
 
 
   #HOCS-3249

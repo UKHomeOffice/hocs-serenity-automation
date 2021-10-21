@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class SummaryTab extends BasePage {
 
@@ -144,11 +145,15 @@ public class SummaryTab extends BasePage {
         return summaryTab.getAttribute("class").contains("active");
     }
 
-    public void assertSummaryContainsExpectedValueForGivenHeader(String header, String expectedValue) {
-        assert(getSummaryTabValueForGivenHeader(header).contains(expectedValue));
+    public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
+        String displayedValue = getSummaryTabValueForGivenHeader(header);
+        if (!displayedValue.contains(value)) {
+            Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+        }
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {
+        selectSummaryTab();
         WebElementFacade displayedValueElement = findBy("//th[text()='"+ header +"']/following-sibling::td");
         return displayedValueElement.getText();
     }
@@ -361,7 +366,7 @@ public class SummaryTab extends BasePage {
         currentTeam.shouldContainText(team);
     }
 
-    public void assertAllocatedUKVITeam(String stage) {
+    public void assertAllocatedMPAMTeam(String stage) {
         if(!currentTeam.isVisible()) {
             selectSummaryTab();
         }

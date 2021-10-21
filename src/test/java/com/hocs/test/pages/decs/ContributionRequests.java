@@ -109,7 +109,7 @@ public class ContributionRequests extends BasePage {
                 requestDate);
         typeIntoDateFields(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, dueDate);
         setSessionVariable("contributionDueDate").to(dueDate);
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP")) {
+        if (compCase()) {
             try {
                 contributionDueDate = new SimpleDateFormat("dd/MM/yyyy").parse(dueDate);
                 currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(getDatePlusMinusNDaysAgo(0));
@@ -161,7 +161,7 @@ public class ContributionRequests extends BasePage {
             addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
             count++;
         }
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("MPAM")) {
+        if (mpamCase()) {
             safeClickOn(continueButton);
         }
         setSessionVariable("numberOfContributions").to(numberOfContributionRequests);

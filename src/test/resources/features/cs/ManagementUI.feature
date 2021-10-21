@@ -258,7 +258,7 @@ Feature: ManagementUI
     And I have linked teams to the new child topic
     And I navigate to "CS"
     And I create a single "MIN" case and return to the dashboard
-    And I complete the Data Input Stage
+    And I complete the "Data Input" stage
     When I assign the Topic "NEW CHILD TOPIC"
     Then the case should be assigned to the "NEW DRAFTING AND QA TEAM" for drafting
     And the case should be assigned to the "NEW PRIVATE AND MINISTERIAL TEAM" for approval
@@ -299,7 +299,7 @@ Feature: ManagementUI
     And I add a Campaign with random name and campaign code
     Then the new Campaign has been added to the list of Campaigns
 
-  @CampaignManagement @UKVIRegression2
+  @CampaignManagement @MPAMRegression2
   Scenario: User is able to amend the details of a Campaign through Campaign Management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code
@@ -307,7 +307,7 @@ Feature: ManagementUI
     And I edit a Campaign name
     Then the Campaign name should have changed in the list of Campaigns
 
-  @CampaignManagement @UKVIRegression2
+  @CampaignManagement @MPAMRegression2
   Scenario: User can add a case to a new Campaign that was added through Campaign management
     Given I navigate to the "Campaign Management" Management page
     And I add a Campaign with random name and campaign code

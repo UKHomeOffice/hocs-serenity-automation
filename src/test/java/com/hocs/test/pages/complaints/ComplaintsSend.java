@@ -16,7 +16,7 @@ public class ComplaintsSend extends BasePage {
 
     public void selectACaseOutcome() {
         String caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET") && caseOutcome.equalsIgnoreCase("Other")) {
+        if (iedetCase() && caseOutcome.equalsIgnoreCase("Other")) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
         }
     }
@@ -27,10 +27,9 @@ public class ComplaintsSend extends BasePage {
 
     public void enterADateOfResponse() {
         String headerText = null;
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP") || sessionVariableCalled("caseType").toString().equalsIgnoreCase(
-                "COMP2")) {
+        if (compCase() || comp2Case()) {
             headerText = "Date of Response";
-        } else if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        } else if (iedetCase()) {
             headerText = "Response date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);

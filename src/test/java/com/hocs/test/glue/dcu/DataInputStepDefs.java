@@ -5,14 +5,14 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.dcu.AccordionDCU;
 import com.hocs.test.pages.dcu.DataInput;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -20,86 +20,50 @@ public class DataInputStepDefs extends BasePage {
 
     DataInput dataInput;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Dashboard dashboard;
 
     CaseView caseView;
 
-    AccordionDCU accordionDCU;
-
     SummaryTab summaryTab;
-
-    @When("I complete the Data Input stage and send a copy to Number Ten")
-    public void completeDataInputStageWCopyToN10() {
-        dataInput.dataInputFullFlowWithCopyToN10();
-    }
-
-    @When("I complete the Data Input Stage")
-    public void completeDataInputPerCaseType() {
-        if (!dataInput.continueButton.isVisible()) {
-            dashboard.getCurrentCase();
-            safeClickOn(caseView.allocateToMeLink);
-        }
-        dataInput.moveCaseFromDataInputToMarkup();
-    }
 
     @When("I add an additional correspondent")
     public void iAddAnAdditionalCorrespondent() {
         addACorrespondentThatIsOrIsNotAnMP("Is not");
-        addCorrespondent.fillMandatoryCorrespondentFieldsForSecondaryContact();
-        dataInput.clickAddButton();
-    }
-
-    @And("I set the correspondence channel to {string}")
-    public void iSetTheCorrespondenceChannelTo(String channel) {
-        switch (channel.toUpperCase()) {
-            case "EMAIL":
-                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                break;
-            case "POST":
-                safeClickOn(dataInput.postOriginalChannelRadioButton);
-                break;
-            case "PHONE":
-                safeClickOn(dataInput.phoneOriginalChannelRadioButton);
-                break;
-            case "NO. 10":
-                safeClickOn(dataInput.numberTenOriginalChannelRadioButton);
-                break;
-            default:
-                pendingStep(channel + " is not defined within " + getMethodName());
-        }
+        correspondents.fillMandatoryCorrespondentFieldsForSecondaryContact();
+        clickAddButton();
     }
 
     @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
         waitABit(2000);
-        addCorrespondent.selectToAddACorrespondent();
+        correspondents.selectToAddACorrespondent();
         if (isOrIsNot.equalsIgnoreCase("IS")) {
-            addCorrespondent.selectCorrespondentIsMP();
+            correspondents.selectCorrespondentIsMP();
         } else if (isOrIsNot.equalsIgnoreCase("IS NOT")) {
-            addCorrespondent.selectCorrespondentIsNotMP();
+            correspondents.selectCorrespondentIsNotMP();
         }
     }
 
     @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentFullNameErrorMessage();
+        correspondents.assertCorrespondentFullNameErrorMessage();
     }
 
     @Then("an error message should be displayed as I have not selected the correspondent type")
     public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentTypeDropDownErrorMessage();
+        correspondents.assertCorrespondentTypeDropDownErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a member of parliament from the drop down")
     public void assertThatMemberIsRequiredErrorMessageIsShown() {
-        addCorrespondent.assertMemberIsRequiredErrorMessage();
+        correspondents.assertMemberIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
-        addCorrespondent.assertCorrespondentTypeMustBeSelectedErrorMessage();
+        correspondents.assertCorrespondentTypeMustBeSelectedErrorMessage();
     }
 
     @And("a case has a {string} correspondent")
@@ -109,15 +73,15 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickTheButton("Continue");
                 addACorrespondentThatIsOrIsNotAnMP("Is not");
-                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
-                addCorrespondent.fillCorrespondentFields();
+                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
+                correspondents.fillCorrespondentFields();
                 dataInput.clickAddButton();
-                addCorrespondent.assertPrimaryCorrespondent();
+                correspondents.assertPrimaryCorrespondent();
                 break;
             case "SECONDARY":
                 aCaseHasACorrespondent("PRIMARY");
                 iAddAnAdditionalCorrespondent();
-                addCorrespondent.assertSecondaryCorrespondent();
+                correspondents.assertSecondaryCorrespondent();
                 break;
             default:
                 pendingStep(ordinal + " is not defined within " + getMethodName());
@@ -126,49 +90,54 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I enter an invalid date")
     public void enterAnInvalidDate() {
-        dataInput.typeIntoDateFields(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                dataInput.dateCorrespondenceReceivedYearField,
-                "29/02/2019");
+        dataInput.overwriteCorrespondenceReceivedDate("29/02/2019");
     }
 
     @Then("both correspondents are listed")
     public void bothCorrespondentsAreListed() {
-        addCorrespondent.assertPrimaryCorrespondent();
-        addCorrespondent.assertSecondaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
+        correspondents.assertSecondaryCorrespondent();
     }
 
     @When("I select the primary correspondent radio button for a different correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        addCorrespondent.setSecondCorrespondentAsPrimaryCorrespondent();
+        correspondents.setSecondCorrespondentAsPrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         dashboard.getCurrentCase();
-        accordionDCU.assertThePrimaryContactName(sessionVariableCalled("primaryCorrespondent"));
-    }
-
-    @And("I complete the Data Input stage of the displayed case")
-    public void iCompleteTheDataInputStageOfTheDisplayedCase() {
-        dataInput.moveCaseFromDataInputToMarkup();
+        caseView.openOrCloseAccordionSection("Data Input");
+        caseView.assertExpectedValueIsVisibleInCaseDetailsAccordionForGivenHeading(sessionVariableCalled("primaryCorrespondent"), "Which is the "
+                        + "primary correspondent?");
     }
 
     @And("I complete the Data Input stage adding 3 member correspondents")
     public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
-        dataInput.completeDataInputStageWithThreeMPCorrespondents();
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+        correspondents.addASpecificMemberCorrespondent("Nicola Sturgeon");
+        correspondents.addASpecificMemberCorrespondent("Theresa May");
+        safeClickOn(finishButton);
     }
 
     @And("I complete the Data Input stage adding 3 public correspondents")
     public void iCompleteDataInputStageWithThreePublicCorrespondents() {
-        dataInput.completeDataInputWithThreePublicCorrespondents();
+        dataInput.fillAllMandatoryCorrespondenceFields();
+        clickContinueButton();
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @And("I add the member of parliament {string}")
     public void iAddTheMemberOfParliament(String member) {
         setSessionVariable("correspondentFullName").to(member);
-        addCorrespondent.selectMemberOfParliament(member);
+        correspondents.selectSpecificMemberOfParliament(member);
         waitABit(2000);
-        addCorrespondent.clickAddButton();
+        correspondents.clickAddButton();
     }
 
     @When("I fill all mandatory fields on the {string} page with valid data")
@@ -178,8 +147,8 @@ public class DataInputStepDefs extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 break;
             case "CORRESPONDENT DETAILS":
-                addCorrespondent.selectCorrespondentTypeFromDropdown("Constituent");
-                addCorrespondent.fillCorrespondentFields();
+                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
+                correspondents.fillCorrespondentFields();
                 dataInput.clickAddButton();
                 break;
             default:
@@ -189,27 +158,27 @@ public class DataInputStepDefs extends BasePage {
 
     @Then("the submitted correspondent should be visible in the list of correspondents")
     public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
-        addCorrespondent.assertPrimaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
     }
 
     @And("I remove the primary correspondent")
     public void removePrimaryCorrespondent() {
-        addCorrespondent.removePrimaryCorrespondent();
+        correspondents.removePrimaryCorrespondent();
     }
 
     @Then("there shouldn't be a primary correspondent displayed")
     public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
-        addCorrespondent.assertNoPrimaryCorrespondentDisplayed();
+        correspondents.assertNoPrimaryCorrespondentDisplayed();
     }
 
     @And("I edit the primary correspondents name")
     public void iEditThePrimaryCorrespondent() {
-        addCorrespondent.editPrimaryCorrespondent();
+        correspondents.editPrimaryCorrespondent();
     }
 
     @Then("the correspondents name should be updated")
     public void theCorrespondentsNameShouldBeUpdated() {
-        addCorrespondent.assertPrimaryCorrespondent();
+        correspondents.assertPrimaryCorrespondent();
     }
 
     @And("the stage deadline dates for a {string} case are correct")
@@ -253,21 +222,85 @@ public class DataInputStepDefs extends BasePage {
     @And("I select {string} for Home Secretary interest and complete the data input stage")
     public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
         setSessionVariable("homeSecInterest").to(interest);
-        switch (interest.toUpperCase()) {
-            case "YES":
-                dataInput.completeDataInputStageSpecifyingHomeSecInterest(true);
-                break;
-            case "NO":
-                dataInput.completeDataInputStageSpecifyingHomeSecInterest(false);
-                break;
-            default:
-                pendingStep(interest + " is not defined within " + getMethodName());
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("No");
+        dataInput.selectASpecificHomeSecInterestOption(interest);
+        if (minCase()) {
+            dataInput.selectAHomeSecReplyOption();
         }
+        safeClickOn(continueButton);
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
     }
 
     @Then("the Home Secretary interest decision should match the one displayed in the summary tab")
     public void assertHomeSecInterestInputMatchesSummaryTab() {
         summaryTab.selectSummaryTab();
         summaryTab.assertHomeSecInterestMatchesDecisionAtDataInput();
+    }
+
+    @And("I complete the Data Input stage, selecting that the case is a potential Home Secretary Reply case")
+    public void iCompleteTheDataInputStageSelectingThatTheCaseIsAPotentialHomeSecretaryReplyCase() {
+        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        dataInput.selectACorrespondenceReceivedChannel();
+        dataInput.selectASpecificCopyToNoTenOption("No");
+        dataInput.selectAHomeSecInterestOption();
+        dataInput.selectASpecificHomeSecReplyOption("Yes");
+        safeClickOn(continueButton);
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
+        correspondents.confirmPrimaryCorrespondent();
+    }
+
+    @When("I submit an invalid {string} date")
+    public void iSubmitAnInvalidDate(String dateField) {
+        switch (dateField.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED":
+                dataInput.overwriteCorrespondenceReceivedDate(getDatePlusMinusNDaysAgo(1));
+                break;
+            case "CORRESPONDENCE SENT":
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(1));
+                break;
+            default:
+                pendingStep(dateField + " is not defined within " + getMethodName());
+        }
+        safeClickOn(continueButton);
+    }
+
+    @But("I do not enter a {string} date")
+    public void iDoNotEnterA(String fieldName) {
+        switch (fieldName.toUpperCase()) {
+            case "CORRESPONDENCE RECEIVED":
+                dataInput.clearDateCorrespondenceReceived();
+                break;
+            case "CORRESPONDENCE SENT":
+                dataInput.clearDateCorrespondenceSent();
+                break;
+            default:
+                pendingStep(fieldName + " is not defined within " + getMethodName());
+        }
+        safeClickOn(continueButton);
+    }
+
+    @Then("{string} error message is displayed")
+    public void errorMessageIsDisplayed(String errorMessage) {
+        switch (errorMessage.toUpperCase()) {
+            case "INVALID DATE":
+                assertErrorMessageText("must be a date in the past");
+                break;
+            case "CORRESPONDENCE RECEIVED":
+                assertErrorMessageText("When was the correspondence received? is required");
+                break;
+            case "CORRESPONDENCE SENT":
+                assertErrorMessageText("When was the correspondence sent? is required");
+                break;
+            default:
+                pendingStep(errorMessage + " is not defined within " + getMethodName());
+        }
+    }
+
+    @Then("the Add a correspondent link is displayed")
+    public void linkIsDisplayed() {
+        correspondents.assertAddACorrespondentLinkIsDisplayed();
     }
 }

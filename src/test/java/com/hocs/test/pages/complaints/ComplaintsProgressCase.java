@@ -1,6 +1,6 @@
 package com.hocs.test.pages.complaints;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
@@ -11,7 +11,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ComplaintsProgressCase extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Documents documents;
 
@@ -35,8 +35,8 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveCaseFromCOMPRegistrationToServiceTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Service");
         registration.enterComplaintDetails();
@@ -117,8 +117,8 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveCaseFromRegistrationToExGratiaTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Ex-Gratia");
         registration.enterComplaintDetails();
@@ -188,8 +188,8 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveCaseFromRegistrationToMinorMisconductTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Minor Misconduct");
         registration.enterComplaintDetails();
@@ -271,8 +271,8 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveIEDETCaseFromRegistrationToTriage() {
-        addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
         registration.selectComplaintType("Service");
         registration.selectAChannel();
@@ -312,7 +312,7 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveSMCCaseFromRegistrationToTriage() {
-            addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+            correspondents.addANonMemberCorrespondentOfType("Complainant");
             clickTheButton("Continue");
 //            TODO: Uncomment below line once the defect HOCS-3971 is fixed
 //            registration.enterComplainantDetails();

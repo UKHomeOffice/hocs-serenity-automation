@@ -3,14 +3,12 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,13 +21,9 @@ public class NavigationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
-
-    AddCorrespondent initialDraftRecordCorrespondentDetails;
+    Correspondents correspondents;
 
     Search search;
-
-    LoginPage loginPage;
 
     @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
@@ -84,12 +78,6 @@ public class NavigationStepDefs extends BasePage {
         dashboard.assertAtDashboard();
     }
 
-    @When("I get a {string} case at {string} stage")
-    public void getMeACase(String caseType, String stage) {
-        fetchExistingDCUCases.giveMeACase(caseType, stage);
-        setCaseReferenceFromAssignedCase();
-    }
-
     @Then("I am taken to the {string} page")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
@@ -100,7 +88,7 @@ public class NavigationStepDefs extends BasePage {
                 dashboard.assertAtDashboard();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                initialDraftRecordCorrespondentDetails.assertPageTitle();
+                correspondents.assertPageTitle();
                 break;
             case "DATA INPUT":
                 dataInput.assertPageTitle();

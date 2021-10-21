@@ -52,55 +52,13 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
     public WebElementFacade transferN10Team;
 
-    @FindBy(xpath = "//span[text()='Minister of State for Immigration']")
-    public WebElementFacade ministerOfStateForImmigrationTeam;
-
-    @FindBy(xpath = "//span[text()='Minister for Lords']")
-    public WebElementFacade ministerForLordsTeam;
-
-    @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
-    public WebElementFacade animalsInScienceTeam;
-
-    @FindBy(xpath = "//span[text()='Direct Communications Unit Central Drafting Team']")
-    public WebElementFacade centralDraftingTeam;
-
-    @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
-    public WebElementFacade policeWorkforceProfessionalismUnit;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Policing and Fire Service']")
-    public WebElementFacade ministerOfStateForPolicingAndFireServiceTeam;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Security and Economic Crime']")
-    public WebElementFacade ministerOfStateForSecurityAndEconomicCrime;
-
-    @FindBy(xpath = "//span[text()='Public Protection Unit']")
-    public WebElementFacade publicProtectionUnit;
-
-    @FindBy(xpath = "//span[text()='Counter Extremism Unit']")
-    public WebElementFacade counterExtremismUnit;
-
-    @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
-    public WebElementFacade extremismAnalysisUnit;
-
-    @FindBy(xpath = "//span[text()='Counter-Terrorism Legislation and Investigatory Powers Unit']")
-    public WebElementFacade counterTerrorismLegislationInvestigatoryPowersUnit;
-
-    @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
-    public WebElementFacade chemBioRadioNuclearExplosives;
-
-    @FindBy(xpath = "//span[text()='Press Office']")
-    public WebElementFacade pressOffice;
-
-    @FindBy(xpath = "//span[text()='Finance']")
-    public WebElementFacade financeTeam;
-
-    @FindBy(xpath = "//span[text()='MTS Team']")
-    public WebElementFacade mtsTeamWorkstack;
-
     //MPAM Teams
 
     @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
+
+    @FindBy(xpath = "//span[text()='MTS Team']")
+    public WebElementFacade mtsTeamWorkstack;
 
     // Complaints Teams
 
@@ -261,7 +219,7 @@ public class Dashboard extends BasePage {
     public void claimCurrentCase() {
         assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
-        while (attempts < 6 && !caseView.caseCanBeAllocated()) {
+        while (attempts < 12 && !caseView.caseCanBeAllocated()) {
             waitABit(5000);
             goToDashboard();
             getCurrentCase();
@@ -307,7 +265,7 @@ public class Dashboard extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
                     correctUser = true;
                 }

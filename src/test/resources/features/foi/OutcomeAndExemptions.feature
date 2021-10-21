@@ -17,7 +17,7 @@ Feature: FOIOutcomesAndExemptions
     And I "Confirm" Dispatch stage check your answers
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage
 
   @FOIRegression
   Scenario: User is able to navigate to Exceptions page
@@ -31,7 +31,7 @@ Feature: FOIOutcomesAndExemptions
     And I "Confirm" Dispatch stage check your answers
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage
 
   @FOIRegression
   Scenario: User is able to navigate to Exemptions and Exceptions page
@@ -45,4 +45,4 @@ Feature: FOIOutcomesAndExemptions
     And I "Confirm" Dispatch stage check your answers
     And I select "Yes" to do you want to dispatch the case
     And I click the "Complete Dispatch" button
-    Then the FOI case should be moved to the "Soft Close" stage
+    Then the case should be moved to the "Soft Close" stage

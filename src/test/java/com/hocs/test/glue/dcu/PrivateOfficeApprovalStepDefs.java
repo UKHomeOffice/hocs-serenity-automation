@@ -1,22 +1,12 @@
 package com.hocs.test.glue.dcu;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.dcu.AccordionDCU;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PrivateOfficeApprovalStepDefs extends BasePage {
 
@@ -24,42 +14,26 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
 
     PrivateOfficeApproval privateOfficeApproval;
 
-    AccordionDCU accordionDCU;
+    DCUProgressCase dcuProgressCase;
+
+    Markup markup;
 
     CaseView caseView;
 
-    SummaryTab summaryTab;
-
-    TimelineTab timelineTab;
-
-    @When("I complete the Private Office stage")
-    public void completePrivateOfficeStagePerCaseType() {
-        String caseType = sessionVariableCalled("caseType");
-        switch(caseType.toUpperCase()) {
-            case "MIN" :
-            case "DTEN":
-                if (!privateOfficeApproval.privateOfficeAcceptRadioButton.isVisible()) {
-                    dashboard.getCurrentCase();
-                    safeClickOn(caseView.allocateToMeLink);
-                }
-                safeClickOn(privateOfficeApproval.privateOfficeAcceptRadioButton);
-                safeClickOn(continueButton);
-                break;
-            case "TRO" :
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I override the Primary Topic of the case at the Private Office stage to {string}")
-    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String input) {
-        privateOfficeApproval.changeTopicAtPOStage(input);
+    public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String topic) {
+        privateOfficeApproval.selectToChangeTopic();
+        safeClickOn(continueButton);
+        markup.addTopicToCase(topic);
+        privateOfficeApproval.enterAReasonForChangingTopic();
+        markup.selectPrimaryTopic(topic);
+        caseView.allocateToMeLink.waitUntilVisible();
     }
 
     @And("I select to change minister")
     public void iSelectToChangeMinister() {
-        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectToChangeMinister();
+        safeClickOn(continueButton);
     }
 
     @And("I select {string} as the new Private Office team")
@@ -67,51 +41,40 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(newPOTeam);
     }
 
-    @And("I enter {string} as the reason for changing Private Office team")
-    public void iEnterAsTheReasonForChangingPrivateOfficeTeam(String reason) {
-        privateOfficeApproval.enterAReasonForChangingPOTeam(reason);
-    }
-
-    @Then("the information shown should match what I entered on the change Private Office Team page")
-    public void theInformationShownShouldMatchWhatIEnteredOnTheChangePrivateOfficeTeamPage() {
-        accordionDCU.assertAccordionPrivateOfficeApprovalFieldsAfterPOTeamChange();
-    }
-
-    @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
-    public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
-        timelineTab.selectTimelineTab();
-        privateOfficeApproval.assertTopicChangeCaseNoteIsAddedToTimeline();
-    }
-
-    @Then("the {string} of the case should be updated to {string} in the summary tab")
-    public void theOfTheCaseShouldBeUpdatedToInTheSummaryTab(String category, String input) {
-        WebElementFacade summaryTabField = null;
-        summaryTab.selectSummaryTab();
-        waitABit(1000);
-        switch (category.toUpperCase()) {
-            case "PRIMARY TOPIC":
-                summaryTabField = summaryTab.primaryTopic;
-                break;
-            case "TEAM":
-                summaryTabField = summaryTab.currentTeam;
-                break;
-            case "PRIVATE OFFICE TEAM":
-                summaryTabField = summaryTab.privateOfficeTeam;
-                break;
-            case "OVERRIDE PRIVATE OFFICE TEAM":
-                summaryTabField = summaryTab.overridePrivateOfficeTeam;
-                break;
-            default:
-                pendingStep(category + " is not defined within " + getMethodName());
-        }
-        assertThat(summaryTabField.getText().toUpperCase().contains(input.toUpperCase()), is(true));
+    @And("I submit a reason for changing Private Office team")
+    public void iEnterAsTheReasonForChangingPrivateOfficeTeam() {
+        privateOfficeApproval.enterAReasonForChangingPOTeam();
+        safeClickOn(finishButton);
+        finishButton.waitUntilNotVisible();
     }
 
     @And("I change the minister to {string}")
     public void iChangeTheMinisterTo(String minister) {
-        privateOfficeApproval.getToChangeMinisterScreenPrerequisites();
+        privateOfficeApproval.selectToChangeMinister();
+        safeClickOn(continueButton);
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
-        privateOfficeApproval.enterAReasonForChangingPOTeam("Test change deadlines at PO stage");
-        clickTheButton("Finish");
+        privateOfficeApproval.enterAReasonForChangingPOTeam();
+        safeClickOn(finishButton);
+    }
+
+    @And("I advance the case to the Private Office Approval stage")
+    public void iAdvanceTheCaseToThePrivateOfficeApprovalStage() {
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
+        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
+    }
+
+    @And("I reject the case at the Private Office Approval stage")
+    public void iRejectTheCaseAtThePrivateOfficeApprovalStage() {
+        privateOfficeApproval.selectIfApproveResponse("No");
+        safeClickOn(continueButton);
+        privateOfficeApproval.enterRejectionReason();
+        safeClickOn(finishButton);
+    }
+
+    @And("I approve the case at the Private Office Approval stage")
+    public void iApproveTheCaseAtThePrivateOfficeApprovalStage() {
+        privateOfficeApproval.selectIfApproveResponse("Yes");
+        safeClickOn(continueButton);
     }
 }

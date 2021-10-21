@@ -14,8 +14,6 @@ public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    Dashboard dashboard;
-
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
         waitABit(5000);
@@ -88,13 +86,6 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
 
-    @When("I click the add button when creating a case note")
-    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        timelineTab.selectTimelineTab();
-        timelineTab.clickAddCaseNote();
-        timelineTab.clickAddButton();
-    }
-
     @And("I edit the top case note")
     public void iEditTopCaseNote() {
         timelineTab.editACaseNote("Test 1");
@@ -110,7 +101,7 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertTopNoteContainsEnteredText("Case note 1." + sessionVariableCalled("createdNoteContents"));
     }
 
-    @And("a rejection note should be visible showing the reason for rejection")
+    @And("a note should be visible in the timeline showing the reason for rejection")
     public void aRejectionNoteShouldBeVisibleShowingTheReasonForRejection() {
         timelineTab.assertRejectionNoteVisible();
     }
@@ -148,5 +139,11 @@ public class TimelineStepDefs extends BasePage {
     @And("a case withdrawn note should be visible showing the entered withdrawal reason")
     public void aCaseWithdrawnNoteContainingThePreviouslyEnteredNotesShouldBeVisibleInTheTimeline() {
         timelineTab.assertCaseWithDrawnNoteVisible();
+    }
+
+    @Then("the reason for changing the primary topic of the case should be added as a case note in the timeline")
+    public void theReasonForChangingPrimaryTopicOfCaseShouldBeAddedAsCaseNoteInTheTimeline() {
+        timelineTab.selectTimelineTab();
+        timelineTab.assertTopicChangeCaseNoteIsAddedToTimeline();
     }
 }

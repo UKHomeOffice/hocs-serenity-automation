@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.ukvi.AccordionMPAM;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
@@ -326,7 +325,8 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField, value);
+                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField,
+                        value);
                 setSessionVariable("searchComplainantDateOfBirth").to(value);
                 break;
             case "CASE REFERENCE":
@@ -382,7 +382,7 @@ public class Search extends BasePage {
         String firstCharOfSubstring = "";
         String caseRef = getCurrentCaseReference();
         String split = caseRef.split("/01")[1];
-        int randomStringLength = (int)(Math.random() * ((5 - 1) + 1)) + 1;
+        int randomStringLength = (int) (Math.random() * ((5 - 1) + 1)) + 1;
         while (n <= randomStringLength) {
             substring = split.substring(n, randomStringLength);
             firstCharOfSubstring = String.valueOf(substring.charAt(0));
@@ -414,7 +414,7 @@ public class Search extends BasePage {
     }
 
     public void clickEscalateCOMPCaseToCOMP2() {
-       safeClickOn(escalateCaseHypertext);
+        safeClickOn(escalateCaseHypertext);
     }
 
     //Assertions
@@ -460,9 +460,11 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR AFTER DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }
@@ -472,11 +474,13 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 searchDate = null;
                 caseDate = null;
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }
@@ -629,7 +633,7 @@ public class Search extends BasePage {
             case "CASE TYPE":
                 expectedValue = sessionVariableCalled("searchCaseType");
                 List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
-                assertThat(numberOfCasesDisplayed==listOfCaseRefs.size(), is(true));
+                assertThat(numberOfCasesDisplayed == listOfCaseRefs.size(), is(true));
                 break;
             case "CORRESPONDENT FULL NAME":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
@@ -650,7 +654,7 @@ public class Search extends BasePage {
                 caseView.waitForCaseToLoad();
                 if (!caseView.caseCanBeAllocated()) {
                     summaryTab.selectSummaryTab();
-                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User",getCurrentUser().getUsername());
+                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(assignedTeam);
@@ -672,14 +676,10 @@ public class Search extends BasePage {
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        if (!criteria.equalsIgnoreCase("CASE TYPE")) {
-            if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
-                displayedValue = displayedValue.split(": ")[1];
-            } else {
-                displayedValue = cell.getText();
-            }
-            assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+        if (!criteria.equalsIgnoreCase("CASE TYPE") && !criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText();
         }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void assertFOIInformationRandomSearchResult(String criteria) {
@@ -695,7 +695,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 List<WebElementFacade> listOfCaseRefs = findAll("//a[contains(text(), 'FOI')]");
-                assertThat(listOfCaseRefs.size()==numberOfCasesDisplayed, is(true));
+                assertThat(listOfCaseRefs.size() == numberOfCasesDisplayed, is(true));
                 break;
             case "CASE REFERENCE":
                 String caseRef = sessionVariableCalled("searchCaseReference");

@@ -23,7 +23,7 @@ public class CreateCase extends BasePage {
 
     Documents documents;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     Dashboard dashboard;
 
@@ -230,7 +230,7 @@ public class CreateCase extends BasePage {
         }
         selectRandomCaseType();
         safeClickOn(nextButton);
-        if (sessionVariableCalled("caseType").equals("FOI")){
+        if (foiCase()){
             selectCorrespondenceInboundChannel();
             enterCorrespondentDetails();
             selectFOITopic("Animal alternatives (3Rs)");
@@ -329,7 +329,7 @@ public class CreateCase extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsRadioButton.isVisible() && !dcuMinRadioButton.isVisible()) {
                     correctUser = true;
                 }

@@ -2,11 +2,12 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
@@ -19,7 +20,7 @@ public class DocumentsStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
@@ -44,9 +45,9 @@ public class DocumentsStepDefs extends BasePage {
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
-            case "SECOND DRAFT":
+            case "REPLACEMENT DRAFT":
                 documents.addADocumentOfType("DRAFT");
-                setSessionVariable("second draft").to("docx");
+                setSessionVariable("replacement draft").to("docx");
                 break;
             case "FINAL":
                 documents.addADocumentOfType("FINAL");
@@ -212,5 +213,22 @@ public class DocumentsStepDefs extends BasePage {
     @Then("document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
+    }
+
+    @And("I confirm/approve the (new )primary draft document")
+    public void iConfirmThePrimaryDraftDocument() {
+        documents.confirmOrApprovePrimaryDraft();
+    }
+
+    @And("the selected document should be tagged as the primary draft")
+    public void theSelectedDocumentShouldBeTaggedAsThePrimaryDraft() {
+        documents.selectDocumentsTab();
+        documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+    }
+
+    @And("the document added at case creation should be listed under the {string} document type heading")
+    public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
+        documents.selectDocumentsTab();
+        documents.assertDocumentIsUnderHeader(docType);
     }
 }

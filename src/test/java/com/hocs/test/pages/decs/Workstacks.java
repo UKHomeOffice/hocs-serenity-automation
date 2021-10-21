@@ -59,18 +59,6 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//a[@class='tab'][text()='Summary']")
-    public WebElementFacade caseSummaryTab;
-
-    @FindBy(xpath = "//a[@class='tab'][text()='Timeline']")
-    public WebElementFacade caseTimelineTab;
-
-    @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
-    public WebElementFacade addCaseNoteButton;
-
-    @FindBy(xpath = "//span[@id='case-note-error']")
-    public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
@@ -85,15 +73,6 @@ public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade ownerOfTopCaseInWorkstack;
-
-    @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
-    public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
-
-    @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
-    public WebElementFacade summaryPrimaryCorrespondent;
-
-    @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
-    public WebElementFacade summaryActiveStage;
 
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
@@ -166,10 +145,15 @@ public class Workstacks extends BasePage {
         while (!ownerHeaderFound) {
             i++;
             WebElementFacade header = findBy("//thead/tr/th[" + i + "]");
-            ownerHeaderFound = header.getText().equals("Owner");
+            ownerHeaderFound = header.getText().contains("Owner");
         }
-        WebElementFacade ownerName = findBy("//tbody/tr/td[" + i + "]");
-        return ownerName.getText();
+        String ownerName;
+        if (mpamCase()) {
+            ownerName = findBy("//tbody/tr/td[" + i + "]div").getText();
+        } else {
+            ownerName = findBy("//tbody/tr/td[" + i + "]").getText();
+        }
+        return ownerName;
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
@@ -197,15 +181,6 @@ public class Workstacks extends BasePage {
         totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
-    }
-
-    public void selectSummaryTab() {
-        safeClickOn(caseSummaryTab);
-    }
-
-    public String getCorrespondenceReceivedDateFromSummary() {
-        selectSummaryTab();
-        return summaryWhenWasTheCorrespondenceReceived.getText();
     }
 
     public void clickCheckboxRelevantToCaseReference() {
@@ -387,11 +362,25 @@ public class Workstacks extends BasePage {
     }
 
     public void unallocateSelectedCase(String caseRef) {
+        waitForWorkstackToLoad();
         caseFilter.sendKeys(caseRef);
         waitABit(500);
         WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label");
         safeClickOn(selectedCaseCheckBox);
         safeClickOn(unallocateButton);
+        waitForTopCaseToNotBeAllocated();
+    }
+
+    public void waitForTopCaseToNotBeAllocated() {
+        boolean allocated = !getOwnerOfTopCaseInWorkstack().isEmpty();
+        int attempts = 0;
+        while (allocated && attempts<20) {
+            String owner = getOwnerOfTopCaseInWorkstack();
+            allocated = !owner.isEmpty();
+            waitABit(500);
+            attempts++;
+        }
+        System.out.print(attempts);
     }
 
     // Assertions
@@ -414,10 +403,6 @@ public class Workstacks extends BasePage {
                 "//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference
                         + "')]");
         assertThat(listOfReferences.size(), is(totalNumberOfCases));
-    }
-
-    public void assertCaseNoteMustNotBeBlankErrorMessage() {
-        caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
     public void assertCasesAreFilteredByStage(String currentStage) {
@@ -552,14 +537,6 @@ public class Workstacks extends BasePage {
         assertThat(areCasesOfCaseTypePresent("MIN") == (caseType.equals("MIN")), is(true));
         assertThat(areCasesOfCaseTypePresent("DTEN") == (caseType.equals("DTEN")), is(true));
         assertThat(areCasesOfCaseTypePresent("TRO") == (caseType.equals("TRO")), is(true));
-    }
-
-    public void assertPrimaryCorrespondentIs(String name) {
-        summaryPrimaryCorrespondent.shouldContainText(name);
-    }
-
-    public void summaryPrintActiveStage() {
-        System.out.println(summaryActiveStage.getText());
     }
 
     public double getPointsOfCurrentCase() {
@@ -868,5 +845,11 @@ public class Workstacks extends BasePage {
         WebElementFacade rejectedField = findBy("//a[text()='" + caseRef + "']/ancestor::td/following-sibling::td[contains(text(), 'By')]");
         String rejectionStage = rejectedField.getText().split(" ")[1];
         assertThat(stage.toUpperCase().equals(rejectionStage.toUpperCase()), is(true));
+    }
+
+    public void assertHomeSecretarySymbolVisibleForCase(String caseReference) {
+        waitForWorkstackToLoad();
+        WebElementFacade homeSecSymbol = findBy("//a[text()='" + caseReference + "']/preceding-sibling::span[text()='HS']");
+        assertThat(homeSecSymbol.isCurrentlyVisible(), is(true));
     }
 }

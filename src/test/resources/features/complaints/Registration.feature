@@ -8,7 +8,7 @@ Feature: Registration
     And I create a single "COMP" case
     And I allocate the case to myself via the successful case creation screen
     And I add a "Complainant" correspondent
-    And I click the "Continue" button
+    And I confirm the primary correspondent
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
@@ -27,7 +27,7 @@ Feature: Registration
     And I create a single "COMP" case
     And I allocate the case to myself via the successful case creation screen
     And I add a "Third Party Representative" correspondent
-    When I click the "Continue" button
+    When I confirm the primary correspondent
     Then the "Complaint Correspondents Invalid" page should be displayed
 
   #HOCS-3441, HOCS-3442

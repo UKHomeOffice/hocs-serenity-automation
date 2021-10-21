@@ -81,9 +81,6 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
 
-    @FindBy(id = "CaseNote_RejectionNote")
-    protected WebElementFacade rejectReasonTextField;
-
     @FindBy(css = "[value = 'Save']")
     public WebElementFacade saveButton;
 
@@ -175,15 +172,46 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    public void clickRejectButton() {
-        safeClickOn(rejectButton);
+    public boolean dcuCase() { return minCase() | dtenCase() | troCase(); }
+
+    public boolean minCase() {
+        return sessionVariableCalled("caseType").toString().equals("MIN");
     }
 
-    public void enterRejectionNotes() {
-        waitFor(rejectReasonTextField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectReasonTextField.sendKeys(rejectionReason);
-        setSessionVariable("rejectionReason").to(rejectionReason);
+    public boolean dtenCase() {
+        return sessionVariableCalled("caseType").toString().equals("DTEN");
+    }
+
+    public boolean troCase() {
+        return sessionVariableCalled("caseType").toString().equals("TRO");
+    }
+
+    public boolean mpamCase() {
+        return sessionVariableCalled("caseType").toString().equals("MPAM");
+    }
+
+    public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
+
+    public boolean complaintCase() { return compCase() | iedetCase() | smcCase(); }
+
+    public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
+
+    public boolean comp2Case() { return sessionVariableCalled("caseType").toString().equals("COMP2"); }
+
+    public boolean iedetCase() { return sessionVariableCalled("caseType").toString().equals("IEDET"); }
+
+    public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
+
+    public boolean foiCase() {
+        return sessionVariableCalled("caseType").toString().equals("FOI");
+    }
+
+    public boolean wcsCase() {
+        return sessionVariableCalled("caseType").toString().equals("WCS");
+    }
+
+    public void clickRejectButton() {
+        safeClickOn(rejectButton);
     }
 
     public void javascriptScrollToElem(WebElementFacade element) {
@@ -196,30 +224,26 @@ public class BasePage extends PageObject {
 
     protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
-
+        Random randomGenerator = new Random();
         for (int i = 0; i < 8; i++) {
-            int number = getRandomNumber();
-            char ch = CHAR_LIST.charAt(number);
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
             randStr.append(ch);
         }
+        return randStr.toString();
+    }
 
+    protected String generateRandomStringOfLength(int length) {
+        StringBuilder randStr = new StringBuilder();
+        Random randomGenerator = new Random();
+        for (int i = 1; i <= length; i++) {
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
+            randStr.append(ch);
+        }
         return randStr.toString();
     }
 
     private String getErrorMessageText() {
         return errorMessage.getText();
-    }
-
-    private int getRandomNumber() {
-        Random randomGenerator = new Random();
-
-        int randomInt = randomGenerator.nextInt(CHAR_LIST.length());
-
-        if (randomInt - 1 == -1) {
-            return randomInt;
-        } else {
-            return randomInt - 1;
-        }
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {
@@ -389,6 +413,12 @@ public class BasePage extends PageObject {
         WebElementFacade monthField = getVisibleMonthFieldWithMatchingHeading(headingText);
         WebElementFacade yearField = getVisibleYearFieldWithMatchingHeading(headingText);
         typeIntoDateFields(dayField, monthField, yearField, date);
+    }
+
+    public void clearDateFieldsWithHeading(String headingText) {
+        getVisibleDayFieldWithMatchingHeading(headingText).clear();
+        getVisibleMonthFieldWithMatchingHeading(headingText).clear();
+        getVisibleYearFieldWithMatchingHeading(headingText).clear();
     }
 
     private WebElementFacade getVisibleDayFieldWithMatchingHeading(String headingText) {

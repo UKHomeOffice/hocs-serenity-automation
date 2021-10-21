@@ -5,25 +5,20 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.complaints.ComplaintsProgressCase;
-import com.hocs.test.pages.dcu.Dispatch;
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.CreateCaseSuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Workdays;
-import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.InitialDraft;
-import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.MinisterialSignOff;
-import com.hocs.test.pages.dcu.PrivateOfficeApproval;
-import com.hocs.test.pages.dcu.QAResponse;
 import com.hocs.test.pages.foi.FOIProgressCase;
-import com.hocs.test.pages.ukvi.Creation;
-import com.hocs.test.pages.ukvi.DispatchStages;
-import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.QA;
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.DispatchStages;
+import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.QA;
+import com.hocs.test.pages.mpam.Triage;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -35,19 +30,11 @@ public class EndToEndStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    DataInput dataInput;
+    CreateCaseSuccessPage createCaseSuccessPage;
 
-    Markup markup;
+    CaseView caseView;
 
-    InitialDraft initialDraft;
-
-    QAResponse qaResponse;
-
-    PrivateOfficeApproval privateOfficeApproval;
-
-    MinisterialSignOff ministerialSignOff;
-
-    Dispatch dispatch;
+    Workdays workdays;
 
     Creation creation;
 
@@ -59,15 +46,13 @@ public class EndToEndStepDefs extends BasePage {
 
     DispatchStages dispatchStages;
 
-    Workdays workdays;
+    DCUProgressCase dcuProgressCase;
 
     WCSProgressCase wcsProgressCase;
 
     ComplaintsProgressCase complaintsProgressCase;
 
     FOIProgressCase foiProgressCase;
-
-    CaseView caseView;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -87,31 +72,31 @@ public class EndToEndStepDefs extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        dataInput.moveCaseFromDataInputToMarkup();
+                        dcuProgressCase.moveCaseFromDataInputToMarkup();
                         break;
                     case "MARKUP":
-                        markup.moveCaseFromMarkupToInitialDraft();
+                        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
                         break;
                     case "MARKUP TO NRN CONFIRMATION":
-                        markup.moveCaseFromMarkupToNRNConfirmation();
+                        dcuProgressCase.moveCaseFromMarkupToNRNConfirmation();
                         break;
                     case "MARKUP TO TRANSFER CONFIRMATION":
-                        markup.moveCaseFromMarkupToTransferConfirmation();
+                        dcuProgressCase.moveCaseFromMarkupToTransferConfirmation();
                         break;
                     case "INITIAL DRAFT":
-                        initialDraft.moveCaseFromInitialDraftToQaResponse();
+                        dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
                         break;
                     case "QA RESPONSE":
-                        qaResponse.moveCaseFromQaResponseToPrivateOfficeApproval();
+                        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        privateOfficeApproval.moveCaseFromPrivateOfficeToMinisterSignOff();
+                        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        ministerialSignOff.moveCaseFromMinisterToDispatch();
+                        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
                         break;
                     case "DISPATCH":
-                        dispatch.moveCaseFromDispatchToCaseClosed();
+                        dcuProgressCase.moveCaseFromDispatchToCaseClosedOrCopyToNumber10();
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
@@ -403,6 +388,10 @@ public class EndToEndStepDefs extends BasePage {
                     case "DISPATCH":
                         iCreateACaseAndMoveItToAStage(caseType, "MINISTERIAL SIGN OFF");
                         iCompleteTheStage("MINISTERIAL SIGN OFF");
+                        break;
+                    case "COPY TO NUMBER 10":
+                        iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber();
+                        iCompleteTheStage("DISPATCH");
                         break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
@@ -798,6 +787,34 @@ public class EndToEndStepDefs extends BasePage {
         }
     }
 
+    @And("I get a {string} case at (the ){string}( stage)")
+    public void iGetACaseAtAStage(String caseType, String stage) {
+        iCreateACaseAndMoveItToAStage(caseType, stage);
+        if (!stage.equalsIgnoreCase("CASE CLOSED")) {
+            dashboard.getAndClaimCurrentCase();
+        } else {
+            dashboard.getCurrentCase();
+        }
+    }
+
+    @And("I get a MIN case at the Dispatch stage that should be copied to Number 10")
+    public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber() {
+        createCase.createCSCaseOfType("MIN");
+        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        dashboard.claimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkupWithCopyToNumber10();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromInitialDraftToPrivateOfficeApproval();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
+        dashboard.getAndClaimCurrentCase();
+        RecordCaseData.resetDataRecords();
+    }
+
     @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "
             + "{string} stage")
     public void moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage(String businessArea, String refType,
@@ -806,7 +823,7 @@ public class EndToEndStepDefs extends BasePage {
             case "TRIAGE":
                 iCreateACaseAndMoveItToAStage("MPAM", "CREATION");
                 dashboard.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedBusinessAreaAndRefTypeToTriageStage(businessArea, refType);
+                creation.moveCaseWithSpecifiedValuesToTriageStage(businessArea, refType, "Standard", "Home Secretary");
                 dashboard.waitForDashboard();
                 break;
             case "DRAFT":
@@ -852,7 +869,7 @@ public class EndToEndStepDefs extends BasePage {
                 createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
-                creation.moveCaseWithSpecifiedUrgencyAndRefTypeToTriageStage("Immediate", "Ministerial");
+                creation.moveCaseWithSpecifiedValuesToTriageStage("Windrush", "Ministerial", "Immediate", "Home Secretary");
                 dashboard.waitForDashboard();
                 break;
             case "DRAFT":

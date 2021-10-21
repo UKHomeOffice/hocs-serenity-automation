@@ -42,7 +42,7 @@ Feature: Manage Documents
       | CONTRIBUTION    |
       | BACKGROUND NOTE |
 
-  @UKVIRegression2
+  @MPAMRegression2
   Scenario Outline: As a MPAM user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I click to manage the documents of a new "MPAM" case
     And I click add documents
