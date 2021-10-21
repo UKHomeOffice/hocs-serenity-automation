@@ -16,7 +16,7 @@ public class ComplaintsSendStepDefs extends BasePage {
 
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (!iedetCase()) {
             complaintsSend.selectAResponseChannel();
         }
         complaintsSend.enterADateOfResponse();

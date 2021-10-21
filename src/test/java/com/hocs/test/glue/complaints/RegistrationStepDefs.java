@@ -38,11 +38,11 @@ public class RegistrationStepDefs extends BasePage {
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
         registration.selectAChannel();
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (iedetCase()) {
             registration.selectComplaintOrigin();
         }
         registration.enterADescriptionOfTheComplaint();
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (!iedetCase()) {
             registration.selectASeverity();
             registration.enterAPreviousUKVIComplaintReference();
         }

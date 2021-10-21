@@ -230,7 +230,7 @@ public class CreateCase extends BasePage {
         }
         selectRandomCaseType();
         safeClickOn(nextButton);
-        if (sessionVariableCalled("caseType").equals("FOI")){
+        if (foiCase()){
             selectCorrespondenceInboundChannel();
             enterCorrespondentDetails();
             selectFOITopic("Animal alternatives (3Rs)");

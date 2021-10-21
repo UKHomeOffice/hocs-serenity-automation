@@ -312,7 +312,7 @@ public class ComplaintsProgressCase extends BasePage {
 
 
     public void moveSMCCaseFromRegistrationToTriage() {
-            addCorrespondent.addAPublicCorrespondentOfType("Complainant");
+            correspondents.addANonMemberCorrespondentOfType("Complainant");
             clickTheButton("Continue");
 //            TODO: Uncomment below line once the defect HOCS-3971 is fixed
 //            registration.enterComplainantDetails();

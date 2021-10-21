@@ -122,7 +122,7 @@ public class ComplaintsTriage extends BasePage {
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (!iedetCase()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
         }
         selectIfLOARequired("Yes");
