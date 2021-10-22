@@ -12,19 +12,23 @@ public class FOIDispatch extends BasePage {
     RecordCaseData recordCaseData;
 
     public void selectDoYouWantToDispatch(String response) {
-        if (response.equalsIgnoreCase("YES")) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
-        } else if (response.equalsIgnoreCase("NO")) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Are you sure you want to dispatch this case?");
-        }
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(response, "Are you sure you want to dispatch this case?");
     }
 
-    public void selectCaseType(String caseType) {
+    public void selectASpecificCaseType(String caseType) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading( caseType,"What type of case is this?");
     }
 
-    public void selectResponse(String responseType) {
+    public void selectACaseType() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("What type of case is this?");
+    }
+
+    public void selectASpecificResponseChannel(String responseType) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading( responseType,"How will the response be sent?");
+    }
+
+    public void selectAResponseChannel() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
     }
 
     public void selectOutcomeOfTheCase(String outcome) {
@@ -51,5 +55,9 @@ public class FOIDispatch extends BasePage {
         Random rand = new Random();
         String nonDispatchOutcomeItem = nonDispatchOutcomeList.get(rand.nextInt(nonDispatchOutcomeList.size()));
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading( nonDispatchOutcomeItem,"What was the outcome of this case?");
+    }
+
+    public void enterFinalResponseDate() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "What day was the final response sent?");
     }
 }

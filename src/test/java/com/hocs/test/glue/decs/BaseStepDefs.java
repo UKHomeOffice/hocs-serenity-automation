@@ -95,13 +95,20 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case/claim should be at/moved/returned (to )(the ){string}( stage)")
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
-        if (foiCase() && (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage.equalsIgnoreCase("SOFT CLOSE"))) {
-            try {
-                waitABit(500);
-                summaryTab.selectSummaryTab();
-            } catch (ElementNotVisibleException | StaleElementReferenceException e) {
-                timelineTab.selectTimelineTab();
-                waitABit(500);
+        if (foiCase() && (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage
+                .equalsIgnoreCase("SOFT CLOSE"))) {
+            waitABit(1000);
+            if (caseView.currentCaseIsLoaded()) {
+                try {
+                    summaryTab.selectSummaryTab();
+                } catch (ElementNotVisibleException | StaleElementReferenceException e) {
+                    timelineTab.selectTimelineTab();
+                    waitABit(500);
+                    summaryTab.selectSummaryTab();
+                }
+            } else {
+                dashboard.goToDashboard();
+                dashboard.getCurrentCase();
                 summaryTab.selectSummaryTab();
             }
         } else {

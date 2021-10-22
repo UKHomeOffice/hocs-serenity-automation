@@ -15,12 +15,12 @@ public class AllocationStepDefs extends BasePage {
 
     @And("I select {string} as the Directorate")
     public void iSelectAsTheDirectorate(String directorate) {
-        allocation.selectDirectorate(directorate);
+        allocation.selectASpecificDirectorate(directorate);
     }
 
     @And("I select {string} as the Acceptance Team")
     public void iSelectAsTheAcceptanceTeam(String team) {
-        allocation.selectAcceptanceTeam(team);
+        allocation.selectASpecificAcceptanceTeam(team);
         setSessionVariable("acceptanceTeam").to(team);
     }
 
