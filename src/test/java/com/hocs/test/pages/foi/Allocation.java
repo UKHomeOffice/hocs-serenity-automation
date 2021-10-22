@@ -19,12 +19,20 @@ public class Allocation extends BasePage {
     @FindBy(xpath = "//h2[@class='govuk-heading-m']")
     public WebElementFacade allocationText;
 
-    public void selectDirectorate(String directorate) {
+    public void selectASpecificDirectorate(String directorate) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(directorate,"Directorate");
     }
 
-    public void selectAcceptanceTeam(String team) {
+    public void selectADirectorate() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+    }
+
+    public void selectASpecificAcceptanceTeam(String team) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(team,"Acceptance Team");
+    }
+
+    public void selectAnAcceptanceTeam() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
     }
 
     public void assertRequestQuestionIsCorrect() {
