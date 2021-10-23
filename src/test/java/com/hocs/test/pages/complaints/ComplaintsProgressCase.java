@@ -330,8 +330,10 @@ public class ComplaintsProgressCase extends BasePage {
 
     }
 
-    public void moveSMCCaseFromTriageToSend(){
+    public void moveSMCCaseFromTriageToDraft(){
         complaintsTriage.selectAcceptCase();
+        clickTheButton("Continue");
+        enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");
@@ -340,8 +342,16 @@ public class ComplaintsProgressCase extends BasePage {
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
-        System.out.println("Case moved from Service Triage to Send");
+        System.out.println("Case moved from Service Triage to Draft");
     }
+
+
+    public void moveSMCCaseFromDraftToSend() {
+        documents.addADraftDocumentAtDraftStage();
+        clickTheButton("Response Ready");
+        System.out.println("Case moved from Draft to Send");
+    }
+
 
     public void moveSMCCaseFromSendToCaseClosed() {
         complaintsSend.selectACaseOutcome();
