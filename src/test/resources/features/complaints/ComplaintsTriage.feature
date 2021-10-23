@@ -95,6 +95,23 @@ Feature: Complaints Triage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Triage stage for an SMC case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I accept the case at Triage stage
+    And I enter details on PSU Reference page
+    And I select a "Service" Complaint Category
+    And I click the "Continue" button
+    And I select "Vulnerable" as additional information on Triage Case Details page
+    And I enter details on the Triage Capture Reason page
+    And I click the "Continue" button
+    And I send the case to drafting
+    And I load the current case
+    And the summary should display the owning team as "Serious Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+
 #    HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Service Triage stage

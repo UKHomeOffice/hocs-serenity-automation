@@ -21,6 +21,12 @@ public class ComplaintsTriageStepDefs extends BasePage {
         clickTheButton("Continue");
     }
 
+    @And("I accept the case at Triage stage")
+    public void iAcceptTheCaseAtTriageStage() {
+        complaintsTriage.selectAcceptCase();
+        waitABit(500);
+        clickTheButton("Continue");
+    }
     @And("I select to Transfer the complaint")
     public void iSelectToTransferTheComplaint() {
         complaintsTriage.selectTransferComplaint();
@@ -111,6 +117,18 @@ public class ComplaintsTriageStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        clickTheButton("Continue");
+    }
+
+    @And("I enter details on PSU Reference page")
+    public void iEnterDetailsOnPSUReferencePage() {
+        complaintsTriage.enterPSUReference();
+        clickTheButton("Continue");
+    }
+
+    @And("I select {string} as additional information on Triage Case Details page")
+    public void iSelectAsAdditionalInformationOnTriageCaseDetailsPage(String additionalInformation) {
+        complaintsTriage.selectAdditionalInformation(additionalInformation);
         clickTheButton("Continue");
     }
 }

@@ -333,7 +333,7 @@ public class ComplaintsProgressCase extends BasePage {
     public void moveSMCCaseFromTriageToDraft(){
         complaintsTriage.selectAcceptCase();
         clickTheButton("Continue");
-        enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
+        complaintsTriage.enterPSUReference();
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");

@@ -199,4 +199,12 @@ public class ComplaintsTriage extends BasePage {
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }
+
+    public void enterPSUReference() {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
+    }
+
+    public void selectAdditionalInformation(String additionalInformation) {
+        recordCaseData.checkSpecificCheckbox(additionalInformation);
+    }
 }
