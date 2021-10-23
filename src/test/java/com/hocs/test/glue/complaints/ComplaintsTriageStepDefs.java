@@ -21,15 +21,19 @@ public class ComplaintsTriageStepDefs extends BasePage {
         clickTheButton("Continue");
     }
 
-    @And("I select to Transfer the case to CCH")
-    public void iSelectToTransferTheCaseToCCH() {
+    @And("I select to Transfer the complaint")
+    public void iSelectToTransferTheComplaint() {
         complaintsTriage.selectTransferComplaint();
     }
 
-    @And("I enter a reason for transfer and continue")
-    public void iEnterAReasonForTransferAndContinue() {
+    @And("I enter a reason for {string} transfer and continue")
+    public void iEnterAReasonForTransferAndContinue(String transferTo) {
         complaintsTriage.enterTransferReason();
-        complaintsTriage.selectTransferToCCH();
+        if(transferTo.equals("CCH")){
+            complaintsTriage.selectTransferToCCH();
+        } else if(transferTo.equals("IE Detention")){
+            complaintsTriage.selectTransferToIEDET();
+        }
     }
 
     @And("I enter details on the Triage Capture Reason page")

@@ -120,6 +120,12 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void selectTransferToIEDET() {
+        recordCaseData.selectSpecificRadioButton("IE Detention");
+        clickTheButton("Continue");
+    }
+
+
     public void enterDetailsOnTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         if (!iedetCase()) {
