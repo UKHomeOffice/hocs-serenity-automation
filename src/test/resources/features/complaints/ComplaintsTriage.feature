@@ -7,8 +7,8 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
-    And I select to Transfer the case to CCH
-    And I enter a reason for transfer and continue
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a note should be visible in the timeline showing the reason for rejection
@@ -19,8 +19,8 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
-    And I select to Transfer the case to CCH
-    And I enter a reason for transfer and continue
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a note should be visible in the timeline showing the reason for rejection
@@ -31,8 +31,8 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
-    And I select to Transfer the case to CCH
-    And I enter a reason for transfer and continue
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a note should be visible in the timeline showing the reason for rejection
@@ -94,6 +94,23 @@ Feature: Complaints Triage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Triage stage for an SMC case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I accept the case at Triage stage
+    And I enter details on PSU Reference page
+    And I select a "Service" Complaint Category
+    And I click the "Continue" button
+    And I select "Vulnerable" as additional information on Triage Case Details page
+    And I enter details on the Triage Capture Reason page
+    And I click the "Continue" button
+    And I send the case to drafting
+    And I load the current case
+    And the summary should display the owning team as "Serious Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
 #    HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
@@ -200,6 +217,24 @@ Feature: Complaints Triage
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
     And I select the "No Further Consideration" action for an IEDET case at the Triage stage
+    Then the case should be closed
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can transfer a SMC case from Triage to CCH
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
+    Then the case should be closed
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can transfer a SMC case from Triage to IEDET
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "IE Detention" transfer and continue
     Then the case should be closed
 
 #    HOCS-2870, HOCS-3096, HOCS-3022

@@ -120,6 +120,12 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void selectTransferToIEDET() {
+        recordCaseData.selectSpecificRadioButton("IE Detention");
+        clickTheButton("Continue");
+    }
+
+
     public void enterDetailsOnTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         if (!iedetCase()) {
@@ -192,5 +198,13 @@ public class ComplaintsTriage extends BasePage {
         WebElement label = find(By.xpath("//label[text()='Overdue " + sessionVariableCalled("contributionDueDate") + "']"));
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
+    }
+
+    public void enterPSUReference() {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
+    }
+
+    public void selectAdditionalInformation(String additionalInformation) {
+        recordCaseData.checkSpecificCheckbox(additionalInformation);
     }
 }

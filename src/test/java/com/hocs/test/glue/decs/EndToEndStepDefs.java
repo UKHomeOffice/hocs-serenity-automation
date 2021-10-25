@@ -229,8 +229,11 @@ public class EndToEndStepDefs extends BasePage {
                     case "REGISTRATION (TO TRIAGE)":
                         complaintsProgressCase.moveSMCCaseFromRegistrationToTriage();
                         break;
-                    case "TRIAGE (TO SEND)":
-                        complaintsProgressCase.moveSMCCaseFromTriageToSend();
+                    case "TRIAGE (TO DRAFT)":
+                        complaintsProgressCase.moveSMCCaseFromTriageToDraft();
+                        break;
+                    case "DRAFT (TO SEND)":
+                        complaintsProgressCase.moveSMCCaseFromDraftToSend();
                         break;
                     case "SEND (TO CASE CLOSED)":
                         complaintsProgressCase.moveSMCCaseFromSendToCaseClosed();
@@ -738,9 +741,13 @@ public class EndToEndStepDefs extends BasePage {
                         iCreateACaseAndMoveItToAStage(caseType, "REGISTRATION");
                         iCompleteTheStage("REGISTRATION (TO TRIAGE)");
                         break;
-                    case "SEND":
+                    case "DRAFT":
                         iCreateACaseAndMoveItToAStage(caseType, "TRIAGE");
-                        iCompleteTheStage("TRIAGE (TO SEND)");
+                        iCompleteTheStage("TRIAGE (TO DRAFT)");
+                        break;
+                    case "SEND":
+                        iCreateACaseAndMoveItToAStage(caseType, "DRAFT");
+                        iCompleteTheStage("DRAFT (TO SEND)");
                         break;
                     case "CASE CLOSED":
                         iCreateACaseAndMoveItToAStage(caseType, "SEND");

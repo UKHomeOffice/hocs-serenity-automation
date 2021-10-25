@@ -44,6 +44,16 @@ Feature: Complaints Draft
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "IE Detention"
 
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Draft stage for an SMC case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I upload a "Draft" document
+    And I click the "Response Ready" button
+    Then the case should be moved to the "Send" stage
+    And the summary should display the owning team as "Serious Misconduct"
+
 #    HOCS-3695
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Service QA stage
