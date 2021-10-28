@@ -127,6 +127,11 @@ public class BasePage extends PageObject {
         safeClickOn(button);
     }
 
+    public void clickTheLink(String linkText) {
+        WebElementFacade link = findBy("//a[contains(text(), '" + linkText + "')]");
+        safeClickOn(link);
+    }
+
     public boolean accordionSectionIsVisible(String accordionLabel) {
         WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
         return accordionSectionButton.isCurrentlyVisible();
@@ -147,11 +152,29 @@ public class BasePage extends PageObject {
         assert (pageTitle.isVisible());
     }
 
+    public void assertManagementUIPageTitle(String title) {
+        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
+        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert (pageTitle.isVisible());
+    }
+
     public void waitForPageWithTitle(String pageTitle) {
         int retries = 0;
         while (retries < 3) {
             try {
                 assertPageTitle(pageTitle);
+                break;
+            } catch (AssertionError e) {
+                retries++;
+            }
+        }
+    }
+
+    public void waitForMUIPageWithTitle(String pageTitle) {
+        int retries = 0;
+        while (retries < 3) {
+            try {
+                assertManagementUIPageTitle(pageTitle);
                 break;
             } catch (AssertionError e) {
                 retries++;

@@ -82,8 +82,8 @@ public class StandardLine extends BasePage {
     }
 
     public void selectActionForStandardLine(String topic, String action) {
-        if (action.toUpperCase().equals("EXPIRE")) {
-            setSessionVariable("standardLineExpiryDate").to(getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        if (action.equalsIgnoreCase("EXPIRE")) {
+            setSessionVariable("standardLineExpiryDate").to(getTodaysDate());
         }
         WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
         jsClickOn(hypertext);
