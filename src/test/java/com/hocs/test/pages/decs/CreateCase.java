@@ -374,7 +374,8 @@ public class CreateCase extends BasePage {
     }
 
     public void selectCorrespondenceInboundChannel() {
-        String channel = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("How was the request received?");
+        String channel = selectRandomRadioButtonFromGroupWithHeading("How was the request received?");
+        recordCaseData.addHeadingAndValueRecord("How was the correspondence received?", channel);
         setSessionVariable("foiInboundChannel").to(channel);
     }
 

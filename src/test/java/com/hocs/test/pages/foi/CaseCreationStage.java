@@ -107,6 +107,7 @@ public class CaseCreationStage extends BasePage {
     }
 
     public void assertCaseDetailsAreCorrect() {
+        receivedDateValue.waitUntilVisible();
         String displayedReceivedDate = receivedDateValue.getText();
         String enteredReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
         assertThat(displayedReceivedDate.equals(enteredReceivedDate), is(true));
