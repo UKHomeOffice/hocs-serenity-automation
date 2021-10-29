@@ -36,6 +36,7 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromAllocationToAcceptance() {
         allocation.selectADirectorate();
         allocation.selectAnAcceptanceTeam();
+        allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
         waitABit(250);
         clickTheButton("Confirm Allocation");

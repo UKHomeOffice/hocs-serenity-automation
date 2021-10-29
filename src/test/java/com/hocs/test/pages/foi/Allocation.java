@@ -35,6 +35,8 @@ public class Allocation extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
     }
 
+    public void selectAnAccountManager() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Account Manager"); }
+
     public void assertRequestQuestionIsCorrect() {
         String displayedRequestQuestion = requestQuestion.getText();
         String enteredRequestQuestion = sessionVariableCalled("requestQuestion");

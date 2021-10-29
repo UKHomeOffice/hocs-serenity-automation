@@ -35,4 +35,9 @@ public class AllocationStepDefs extends BasePage {
     public void allocationTextIsDisplayed() {
         allocation.assertAllocationText();
     }
+
+    @And("I select an Account Manager")
+    public void iSelectAnAccountManager() {
+        allocation.selectAnAccountManager();
+    }
 }

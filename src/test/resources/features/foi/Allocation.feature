@@ -15,6 +15,7 @@ Feature: Allocation
   Scenario: User is able to complete the Allocation stage
     And I select "HMPO" as the Directorate
     And I select "FOI HMPO Intelligence Acceptance Team" as the Acceptance Team
+    And I select an Account Manager
     And I click the "Allocate Case" button
     And the Allocation text is displayed
     And I click the "Confirm Allocation" button
