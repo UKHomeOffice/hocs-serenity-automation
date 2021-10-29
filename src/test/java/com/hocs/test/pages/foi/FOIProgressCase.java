@@ -70,7 +70,7 @@ public class FOIProgressCase extends BasePage {
         foiDispatch.selectDoYouWantToDispatch("Yes");
         foiDispatch.enterFinalResponseDate();
         clickTheButton("Continue");
-        documents.uploadDocumentOfType("Final responses");
+        documents.addADocumentOfType("Final responses");
         clickTheButton("Complete Dispatch");
         waitABit(500);
     }
