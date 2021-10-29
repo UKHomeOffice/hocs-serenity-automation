@@ -481,7 +481,10 @@ public class ClaimSchema extends BasePage {
     }
 
     public void selectOptionForWasFormSentThroughClaimantAssistanceAdviser() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the form sent through Claimant Assistance Adviser?");
+        String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the form sent through Claimant Assistance Adviser?");
+        if (selectedOption.equalsIgnoreCase("Yes")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Associated reference");
+        }
     }
 
     public void selectIfClaimCameFromInOrOutOfTheCountry(){
