@@ -56,6 +56,8 @@ services:
 kind: pipeline
 type: kubernetes
 name: CS-Regression
+depends_on:
+  - DCU-Regression
 trigger:
   branch:
     - main
@@ -110,7 +112,7 @@ kind: pipeline
 type: kubernetes
 name: MPAM-1-Regression
 depends_on:
-  - DCU-Regression
+  - CS-Regression
 trigger:
   branch:
     - main
