@@ -240,6 +240,7 @@ public class TimelineTab extends BasePage {
     }
 
     public void assertCaseClosedNoteVisible() {
+        selectTimelineTab();
         caseClosedNote.shouldBeVisible();
     }
 
