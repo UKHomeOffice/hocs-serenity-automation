@@ -45,7 +45,7 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//h2[text()='Active stage']")
     public WebElementFacade activeStageHeader;
 
-    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption")
+    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption[not(contains(text(),'Summary'))]")
     public WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
@@ -147,7 +147,8 @@ public class SummaryTab extends BasePage {
 
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
         String displayedValue = getSummaryTabValueForGivenHeader(header);
-        if (!displayedValue.contains(value)) {
+        String expectedDisplayValue = value.replace("\n", " ");
+        if (!displayedValue.contains(expectedDisplayValue)) {
             Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
         }
     }
@@ -425,5 +426,12 @@ public class SummaryTab extends BasePage {
         appealOutcome.shouldContainText(sessionVariableCalled("appealOutcome"));
         appealComplexity.shouldContainText(sessionVariableCalled("appealComplexity"));
         appealDetails.shouldContainText(sessionVariableCalled("appealDetails"));
+    }
+
+    public void assertThereIsNoActiveStage() {
+        selectSummaryTab();
+        if(activeStage.isVisible()) {
+            Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
+        }
     }
 }
