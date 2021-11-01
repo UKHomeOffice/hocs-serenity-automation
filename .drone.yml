@@ -1,7 +1,79 @@
 ---
 kind: pipeline
 type: kubernetes
+name: SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+
+steps:
+  - name: build & push
+    image: plugins/docker
+    settings:
+      registry: quay.io
+      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
+      tags:
+        - build_${DRONE_BUILD_NUMBER}
+        - ${DRONE_COMMIT_SHA}
+        - latest
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: QUAY_ROBOT_PASSWORD
+      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
+    depends_on: []
+
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/smoke.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+    depends_on:
+      - build & push
+
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_SMOKE_TEST_FAILURE/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+        - execute tests
+    when:
+      status:
+        - failure
+
+services:
+  - name: selenium
+    image: selenium/hub
+
+  - name: chrome22
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+---
+kind: pipeline
+type: kubernetes
 name: DCU-Regression
+depends_on:
+  - SMOKE
 trigger:
   branch:
     - main
@@ -57,7 +129,7 @@ kind: pipeline
 type: kubernetes
 name: CS-Regression
 depends_on:
-  - DCU-Regression
+  - SMOKE
 trigger:
   branch:
     - main
@@ -112,7 +184,7 @@ kind: pipeline
 type: kubernetes
 name: MPAM-1-Regression
 depends_on:
-  - CS-Regression
+  - SMOKE
 trigger:
   branch:
     - main
@@ -157,6 +229,228 @@ services:
     image: selenium/hub
 
   - name: chrome55
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+---
+kind: pipeline
+type: kubernetes
+name: MPAM-2-Regression
+depends_on:
+  - SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+
+steps:
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/mpam2.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_MPAM2/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+      - execute tests
+    when:
+      status:
+        - success
+        - failure
+
+services:
+  - name: selenium
+    image: selenium/hub
+
+  - name: chrome66
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+---
+kind: pipeline
+type: kubernetes
+name: COMP-Regression
+depends_on:
+  - SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+
+steps:
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/comp.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_COMP/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+      - execute tests
+    when:
+      status:
+        - success
+        - failure
+
+services:
+  - name: selenium
+    image: selenium/hub
+
+  - name: chrome77
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+
+---
+kind: pipeline
+type: kubernetes
+name: WCS-Regression
+depends_on:
+  - SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+steps:
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/wcs.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_WCS/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+      - execute tests
+    when:
+      status:
+        - success
+        - failure
+
+services:
+  - name: selenium
+    image: selenium/hub
+
+  - name: chrome88
+    image: selenium/node-chrome
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+---
+kind: pipeline
+type: kubernetes
+name: FOI-Regression
+depends_on:
+  - SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+steps:
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/foi.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_FOI/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+      - execute tests
+    when:
+      status:
+        - success
+        - failure
+
+services:
+  - name: selenium
+    image: selenium/hub
+
+  - name: chrome88
     image: selenium/node-chrome
     environment:
       DISPLAY: :99.0
