@@ -127,8 +127,8 @@ public class ComplaintsTriage extends BasePage {
 
 
     public void enterDetailsOnTriageCaptureReasonPage() {
-        if(sessionVariableCalled("caseType").equals("COMP") && sessionVariableCalled("complaintType").equals("Service") ||
-                sessionVariableCalled("caseType").equals("COMP") && sessionVariableCalled("complaintType").equals("Minor Misconduct")){
+        if(compCase() && sessionVariableCalled("complaintType").equals("Service") ||
+                compCase() && sessionVariableCalled("complaintType").equals("Minor Misconduct")){
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
 
