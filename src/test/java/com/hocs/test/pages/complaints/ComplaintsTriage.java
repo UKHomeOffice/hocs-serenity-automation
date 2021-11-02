@@ -127,6 +127,11 @@ public class ComplaintsTriage extends BasePage {
 
 
     public void enterDetailsOnTriageCaptureReasonPage() {
+        if(sessionVariableCalled("caseType").equals("COMP") && sessionVariableCalled("complaintType").equals("Service") ||
+                sessionVariableCalled("caseType").equals("COMP") && sessionVariableCalled("complaintType").equals("Minor Misconduct")){
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+        }
+
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         if (!iedetCase()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
@@ -206,5 +211,9 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectAdditionalInformation(String additionalInformation) {
         recordCaseData.checkSpecificCheckbox(additionalInformation);
+    }
+
+    public void selectOwningCSU() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
     }
 }
