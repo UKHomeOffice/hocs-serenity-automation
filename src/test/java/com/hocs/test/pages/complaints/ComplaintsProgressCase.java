@@ -201,6 +201,10 @@ public class ComplaintsProgressCase extends BasePage {
         complaintsTriage.selectAcceptCase();
         complaintsTriage.enterDateOfAcceptance();
         clickTheButton("Continue");
+        complaintsTriage.selectOwningCSU();
+        registration.openTheSeriousAndMinorComplaintCategoryAccordion();
+        registration.selectAVisibleClaimCategory();
+        clickTheButton("Continue");
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
