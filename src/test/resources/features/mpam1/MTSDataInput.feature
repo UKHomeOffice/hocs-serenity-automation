@@ -10,6 +10,7 @@ Feature: MTS Data Input
   Scenario: The user is able to complete and close an MTS Case
     And I complete the Data Input stage and close the MTS Case
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
     And the support note should be visible in the summary
 
   @Validation

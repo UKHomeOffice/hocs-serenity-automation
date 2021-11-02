@@ -86,10 +86,10 @@ public class BaseStepDefs extends BasePage {
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAssigned();
-//        if (!wcsCase()) {
-//            timelineTab.selectTimelineTab();
-//            timelineTab.assertCaseClosedNoteVisible();
-//        }
+        summaryTab.assertThereIsNoActiveStage();
+        if (!wcsCase()) {
+            timelineTab.assertCaseClosedNoteVisible();
+        }
         System.out.println("The case is closed");
     }
 

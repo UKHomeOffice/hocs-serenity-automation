@@ -1038,9 +1038,9 @@ public class ValidationStepDefs extends BasePage {
                         case "BUSINESS UNIT REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
@@ -1049,10 +1049,10 @@ public class ValidationStepDefs extends BasePage {
                         case "URGENCY REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
@@ -1061,10 +1061,10 @@ public class ValidationStepDefs extends BasePage {
                         case "CHANNEL RECEIVED REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
@@ -1074,10 +1074,10 @@ public class ValidationStepDefs extends BasePage {
                         case "ENQUIRY REASON REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
@@ -1085,11 +1085,11 @@ public class ValidationStepDefs extends BasePage {
                         case "SUPPORT CASE NOTE REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
@@ -1097,11 +1097,11 @@ public class ValidationStepDefs extends BasePage {
                         case "YOUR BUSINESS AREA REQUIRED":
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             clickTheButton("Complete and Close Case");
