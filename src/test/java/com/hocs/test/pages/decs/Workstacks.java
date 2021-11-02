@@ -148,10 +148,12 @@ public class Workstacks extends BasePage {
             ownerHeaderFound = header.getText().contains("Owner");
         }
         String ownerName;
-        if (mpamCase()) {
-            ownerName = findBy("//tbody/tr/td[" + i + "]div").getText();
+        WebElementFacade ownerNameInCellDiv = findBy("//tbody/tr[1]/td[" + i + "]/div");
+        WebElementFacade ownerNameInCell = findBy("//tbody/tr[1]/td[" + i + "]");
+        if (ownerNameInCellDiv.isCurrentlyVisible()) {
+            ownerName = ownerNameInCellDiv.getText();
         } else {
-            ownerName = findBy("//tbody/tr/td[" + i + "]").getText();
+            ownerName = ownerNameInCell.getText();
         }
         return ownerName;
     }

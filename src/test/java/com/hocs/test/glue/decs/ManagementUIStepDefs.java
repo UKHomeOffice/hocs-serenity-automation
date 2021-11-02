@@ -57,7 +57,7 @@ public class ManagementUIStepDefs extends BasePage {
     WithdrawACase withdrawACase;
 
     @When("I select to {string}")
-    public void navigateToSelectedManagementPage(String linkText) {
+    public void iSelectAManagementUIDashboardLink(String linkText) {
         muiDashboard.selectDashboardLinkWithText(linkText);
     }
 
@@ -182,7 +182,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have created a new child topic")
     public void iHaveCreatedANewChildTopic() {
-        navigateToSelectedManagementPage("ADD CHILD TOPIC");
+        iSelectAManagementUIDashboardLink("Add child topic");
         addChildTopic.selectAParentTopic("Police Website");
         addChildTopic.inputNewChildTopic();
     }
@@ -223,7 +223,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have linked teams to the new child topic")
     public void iHaveLinkedTeamsToTheNewChildTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         clickTheButton("Submit");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
@@ -248,7 +248,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I select to amend the team links for the topic")
     public void iSelectToAmendTheTeamLinksForTheTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES");
         clickTheButton("Submit");
     }

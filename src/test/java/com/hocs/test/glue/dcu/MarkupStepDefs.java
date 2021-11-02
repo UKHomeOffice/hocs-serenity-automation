@@ -165,6 +165,7 @@ public class MarkupStepDefs extends BasePage {
         markup.confirmPrimaryTopic();
         markup.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
         safeClickOn(finishButton);
+        dashboard.waitForDashboard();
     }
 
     @And("I select a Primary topic of {string}")

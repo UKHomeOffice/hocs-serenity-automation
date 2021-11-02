@@ -67,8 +67,8 @@ public class StandardLine extends BasePage {
     }
 
     public void addStandardLineDocument() {
-        upload("src/test/resources/documents/test12.docx").to(standardLineDocumentButton);
-        setSessionVariable("standardLineDocument").to("test12.docx");
+        upload("src/test/resources/documents/Standard line test.docx").to(standardLineDocumentButton);
+        setSessionVariable("standardLineDocument").to("Standard Line test.docx");
     }
 
     public void enterStandardLineExpirationDate() {
