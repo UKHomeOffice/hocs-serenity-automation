@@ -60,14 +60,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
   - name: chrome22
-    image: selenium/node-chrome
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 ---
 kind: pipeline
 type: kubernetes
@@ -115,14 +118,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome33
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -171,14 +177,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome44
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 ---
 kind: pipeline
 type: kubernetes
@@ -226,14 +235,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome55
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 ---
 kind: pipeline
 type: kubernetes
@@ -282,14 +294,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome66
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 ---
 kind: pipeline
 type: kubernetes
@@ -337,14 +352,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome77
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -393,14 +411,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome88
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 ---
 kind: pipeline
 type: kubernetes
@@ -448,11 +469,14 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:latest
 
-  - name: chrome88
-    image: selenium/node-chrome
+  - name: chrome22
+    image: selenium/node-chrome:latest
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
