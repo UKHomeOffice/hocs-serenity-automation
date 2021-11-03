@@ -55,7 +55,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub
+    image: selenium/hub:3.141.59
 
   - name: chrome22
     image: selenium/node-chrome:latest
