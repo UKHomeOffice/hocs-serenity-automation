@@ -55,7 +55,8 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:3.141.59
+    image: selenium/hub
+    ports: [4444]
 
   - name: chrome22
     image: selenium/node-chrome:latest
