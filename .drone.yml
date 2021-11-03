@@ -113,6 +113,7 @@ services:
     image: selenium/node-chrome:95.0
     environment:
       DISPLAY: :99.0
+      SE_EVENT_BUS_HOST: selenium
       HUB_PORT_4444_TCP_ADDR: selenium
       HUB_PORT_4444_TCP_PORT: 4444
 
