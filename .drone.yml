@@ -106,7 +106,8 @@ steps:
 services:
   - name: selenium
     image: selenium/hub
-    ports: 4444:4444
+    ports:
+      - "4444:4444"
 
   - name: chrome33
     image: selenium/node-chrome:95.0
