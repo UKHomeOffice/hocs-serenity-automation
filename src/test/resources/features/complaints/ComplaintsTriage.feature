@@ -1,7 +1,7 @@
 @ComplaintsTriage @Complaints
 Feature: Complaints Triage
 
-#   HOCS-2944, HOCS-2868
+#  HOCS-2944, HOCS-2868
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a case from Service Triage to CCH
     Given I am logged into "CS" as user "COMP_USER"
