@@ -11,7 +11,7 @@ Feature: Misallocations
     And I select to transfer a case to "<transferTo>" at the "<stage>" stage
     And I load the current case
     Then the case should be moved to the "Awaiting Transfer" stage
-    And the reason for transfer is displayed in a case note in the case timeline
+    And a Case transfer reason note is visible in the timeline showing the submitted reason for the transfer request
     Examples:
     | transferTo  | stage     |
     | OGD         | Creation  |

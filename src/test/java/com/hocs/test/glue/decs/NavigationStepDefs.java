@@ -3,6 +3,7 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -24,6 +25,8 @@ public class NavigationStepDefs extends BasePage {
     Correspondents correspondents;
 
     Search search;
+
+    CaseView caseView;
 
     @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
@@ -97,5 +100,10 @@ public class NavigationStepDefs extends BasePage {
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
         System.out.println("I have been taken to " + pageName);
+    }
+
+    @Then("the case should be loaded")
+    public void theCaseShouldBeLoaded() {
+        caseView.currentCaseIsLoaded();
     }
 }

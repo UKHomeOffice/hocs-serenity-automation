@@ -35,7 +35,7 @@ Feature: CCH
     And I enter a completion note at CCH
     And I confirm I want to close the case at CCH
     Then the case should be closed
-    And a case closure note should be visible showing the reason for closure
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @Validation

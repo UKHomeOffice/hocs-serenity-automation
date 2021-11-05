@@ -6,8 +6,9 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCaseSuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
@@ -31,9 +32,11 @@ public class WorkstacksStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCaseSuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     EndToEndStepDefs endToEndStepDefs;
+
+    CaseView caseView;
 
     @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
@@ -196,7 +199,7 @@ public class WorkstacksStepDefs extends BasePage {
         int n = 0;
         while (n < 3) {
             createCase.createCSCaseOfType("TRO");
-            safeClickOn(createCaseSuccessPage.newCaseReference);
+            safeClickOn(confirmationScreens.caseReference);
             workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
             dashboard.goToDashboard();
             n++;
@@ -379,7 +382,8 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMyCases();
                 } else {
                     createCase.createCSCaseOfType("MIN");
-                    createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
                     dashboard.selectMyCases();
                 }

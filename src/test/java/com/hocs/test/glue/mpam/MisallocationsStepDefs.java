@@ -39,10 +39,4 @@ public class MisallocationsStepDefs extends BasePage {
     public void theTransferDueDateOfTheCaseShouldBeUpdated() {
         misallocations.assertDueDateHasBeenUpdated();
     }
-
-    @Then("the reason for transfer is displayed in a case note in the case timeline")
-    public void theReasonForTransferIsDisplayedInACaseNoteInTheCaseTimeline() {
-        timelineTab.selectTimelineTab();
-        timelineTab.assertCaseTransferReason();
-    }
 }

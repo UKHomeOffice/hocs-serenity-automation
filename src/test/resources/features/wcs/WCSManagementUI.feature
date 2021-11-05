@@ -35,7 +35,7 @@ Feature: WCS Management UI
     When I click the "Withdraw" button
     And I navigate to "WCS"
     Then the claim should be closed
-    And a case withdrawn note should be visible showing the entered withdrawal reason
+    And a Case withdrawn note should be visible showing the submitted notes on the withdrawal of the case
 
 
 

@@ -48,7 +48,7 @@ Feature: QA
     And I select the "Rejected, move back to drafting" action at QA
     And I submit a reason to reject the case back to drafting
     Then the case should be moved to the "Draft" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column
@@ -60,7 +60,7 @@ Feature: QA
     And I select the "Rejected, move back to triage" action at QA
     And I submit a reason to reject the case back to triage
     Then the case should be moved to the "Triage" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Triage" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column

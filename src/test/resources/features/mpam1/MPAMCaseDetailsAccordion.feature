@@ -87,7 +87,7 @@ Feature: MPAM Case Details Accordion
     And I change the reference type of the case to "Convert the Case"
     Then the reference type that is displayed should be "<final>"
     And the case should be in the correct MPAM "Triage" team workstack
-    And a conversion note should be visible showing the entered notes on conversion
+    And a Conversion note should be visible in the timeline showing the submitted notes on the conversion of the case
     Examples:
     | initial      |  final       |
     | Ministerial  |  Official    |

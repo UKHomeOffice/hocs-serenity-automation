@@ -69,6 +69,12 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//span[text()='Change note']/parent::p")
     public WebElementFacade topicChangeCaseNoteContents;
 
+    @FindBy(xpath = "//span[text()='Case Extension']/parent::p")
+    public WebElementFacade caseExtensionNoteContents;
+
+    @FindBy(xpath = "//span[text()='Allocation note']/parent::p")
+    public WebElementFacade allocationNoteContents;
+
     @FindBy(xpath = "//li//span[text()='Case withdrawn']/ancestor::p")
     public WebElementFacade caseWithdrawnNoteContents;
 
@@ -135,7 +141,7 @@ public class TimelineTab extends BasePage {
         caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
-    public void assertAllocationLogVisible(User user, String stage) {
+    public void assertAllocationToUserLogVisible(User user, String stage) {
         WebElementFacade logAllocatedUser = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(1)");
         WebElementFacade logCaseStage = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(2)");
         logAllocatedUser.shouldContainText("Allocated to " + user.getUsername());
@@ -164,6 +170,12 @@ public class TimelineTab extends BasePage {
             selectTimelineTab();
             assertThat(stageStartedLog.isVisible(), is(true));
         }
+    }
+
+    public void assertTopicAddedLogVisible() {
+        String testTopic = sessionVariableCalled("topic").toString();
+        String renameTopic = topCaseNoteOrLog.getText().substring(7, 27);
+        assertThat(renameTopic.equals(testTopic), Is.is(true));
     }
 
     public void createAnotherCaseNote() {
@@ -210,12 +222,6 @@ public class TimelineTab extends BasePage {
         assertThat(closureNoteContents.getText().contains(closureReason), is(true));
     }
 
-    public void assertContributionRequestNoteVisible() {
-        selectTimelineTab();
-        String requestDescription = sessionVariableCalled("requestDescription");
-        assertThat(contributionRequestNoteContents.getText().contains(requestDescription), is(true));
-    }
-
     public void assertDetailsOfFollowUpNoteVisible() {
         selectTimelineTab();
         String followUpDetails = sessionVariableCalled("followUpDetails");
@@ -234,29 +240,38 @@ public class TimelineTab extends BasePage {
         assertThat(conversionNoteContents.getText().contains(conversionNotes), is(true));
     }
 
-    public void assertCaseTransferReason() {
+    public void assertCaseTransferReasonNoteVisible() {
+        selectTimelineTab();
         String inputTransferReason = sessionVariableCalled("inputReasonForTransfer");
         assertThat(caseTransferReasonNoteContents.getText().contains(inputTransferReason), is(true));
     }
 
-    public void assertCaseClosedNoteVisible() {
+    public void assertWCSCaseClosedNoteVisible() {
         selectTimelineTab();
         caseClosedNote.shouldBeVisible();
     }
 
-    public void assertCaseWithDrawnNoteVisible() {
+    public void assertCaseWithdrawnNoteVisible() {
         selectTimelineTab();
         String withdrawalNotes = sessionVariableCalled("withdrawalNotes");
         assertThat(caseWithdrawnNoteContents.getText().contains(withdrawalNotes), is(true));
     }
 
-    public void assertTopicAddedLogVisible() {
-        String testTopic = sessionVariableCalled("topic").toString();
-        String renameTopic = topCaseNoteOrLog.getText().substring(7, 27);
-        assertThat(renameTopic.equals(testTopic), Is.is(true));
+    public void assertChangeNoteVisible() {
+        selectTimelineTab();
+        String topicOverrideReason = sessionVariableCalled("topicOverrideReason");
+        assertThat(topicChangeCaseNoteContents.getText().contains(topicOverrideReason), is(true));
     }
 
-    public void assertTopicChangeCaseNoteIsAddedToTimeline() {
-        topicChangeCaseNoteContents.shouldContainText(sessionVariableCalled("topicOverrideReason"));
+    public void assertCaseExtensionNoteVisible() {
+        selectTimelineTab();
+        String extensionReason = sessionVariableCalled("extensionReason");
+        assertThat(caseExtensionNoteContents.getText().contains(extensionReason), is(true));
+    }
+
+    public void assertAllocationNoteVisible() {
+        selectTimelineTab();
+        String allocatedTeam = sessionVariableCalled("acceptanceTeam");
+        assertThat(allocationNoteContents.getText().contains(allocatedTeam), is(true));
     }
 }

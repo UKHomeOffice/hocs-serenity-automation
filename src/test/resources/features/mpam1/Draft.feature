@@ -100,7 +100,7 @@ Feature: Draft
     And I load and claim the current case
     And I send the Draft case to "Triage"
     Then the case should be moved to the "Triage" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Triage" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column

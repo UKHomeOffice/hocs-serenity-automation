@@ -86,7 +86,7 @@ Feature: Markup
     And I reject the case at the Markup stage
     Then the case should be moved to the "Data Input" stage
     And the summary should display the owning team as "<dataInputTeam>"
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Markup" stage
     Examples:
       | caseType | dataInputTeam                |

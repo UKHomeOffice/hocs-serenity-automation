@@ -11,7 +11,7 @@ Feature: Private Office Approval
     Then the case should be moved to the "Initial Draft" stage
     And the case should be returned to the drafting team
     And the read-only Case Details accordion should contain all case information entered during the "Private Office Approval" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     Examples:
       | caseType |
       | MIN  |
@@ -49,7 +49,7 @@ Feature: Private Office Approval
     Then the summary should display the owning team as "Minister for Lords"
     And the summary should display "Breeding of research animals" for "Primary topic"
     And the read-only Case Details accordion should contain all case information entered during the "Private Office Approval" stage
-    And the reason for changing the primary topic of the case should be added as a case note in the timeline
+    And a Change note should be visible in the timeline showing the submitted reason for changing the primary topic
     
   Scenario: User overrides the PO team at Markup and moves the case to the PO stage
     And I get a "MIN" case at the "Markup" stage

@@ -23,7 +23,7 @@ public class CreateCase extends BasePage {
 
     Documents documents;
 
-    CreateCaseSuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     Dashboard dashboard;
 
@@ -196,9 +196,9 @@ public class CreateCase extends BasePage {
         setSessionVariable("caseType").to(caseType);
     }
 
-    public void selectRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "FOI");
-        selectCaseType(list.get(new Random().nextInt(list.size())));
+    public String getRandomCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI");
+        return list.get(new Random().nextInt(list.size()));
     }
 
     public void editReceivedDate(String date) {
@@ -207,27 +207,23 @@ public class CreateCase extends BasePage {
 
     // Multi Step Methods
 
-    public void createCSCaseOfType(String caseType) {
+    private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
         if (!nextButton.isVisible()) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
         }
         selectCaseType(caseType);
         safeClickOn(nextButton);
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
-    }
-
-    public void createCSCaseOfRandomType() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+        waitFor(correspondenceReceivedDayField);
+        if (!receivedDate.equalsIgnoreCase("N/A")) {
+            editReceivedDate(receivedDate);
         }
-        selectRandomCaseType();
-        safeClickOn(nextButton);
-        if (foiCase()){
+        if (addDocument) {
+            documents.uploadDocumentOfType("docx");
+        }
+        storeCorrespondenceReceivedDate();
+        if (caseType.equals("FOI")) {
+            storeCorrespondenceReceivedInKIMUDate();
             selectCorrespondenceInboundChannel();
             enterCorrespondentDetails();
             selectFOITopic("Animal alternatives (3Rs)");
@@ -236,38 +232,23 @@ public class CreateCase extends BasePage {
         } else {
             clickCreateCaseButton();
         }
-        createCaseSuccessPage.storeCaseReference();
+        confirmationScreens.storeCaseReference();
     }
 
-    public void createCOMP2Case() {
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        setSessionVariable("caseType").to("COMP2");
-        createCaseSuccessPage.storeCaseReference();
+    public void createCSCaseOfType(String caseType) {
+        createCSCase(caseType, true, "N/A");
+    }
+
+    public void createCSCaseOfRandomType() {
+        createCSCaseOfType(getRandomCaseType());
     }
 
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
+        createCSCase(caseType, false, "N/A");
     }
 
-    public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String date) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
-        waitFor(correspondenceReceivedDayField);
-        editReceivedDate(date);
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
+    public void createCSCaseOfTypeWithSetCorrespondenceReceivedDate(String caseType, String date) {
+        createCSCase(caseType, true, date);
     }
 
     public void createCaseReceivedFiveDaysBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
@@ -282,11 +263,11 @@ public class CreateCase extends BasePage {
         c.setTime(format.parse(inputDate));
         c.add(Calendar.DAY_OF_WEEK, numberOfDays);
         String date = format.format(c.getTime());
-        createCaseWithSetCorrespondenceReceivedDate(caseType, date);
+        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, date);
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCaseWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
+        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
     }
 
     public void createWCSCase() {
@@ -294,6 +275,14 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
+    }
+
+    public void createCOMP2Case() {
+        documents.uploadDocumentOfType("docx");
+        storeCorrespondenceReceivedDate();
+        clickCreateCaseButton();
+        setSessionVariable("caseType").to("COMP2");
+        confirmationScreens.storeCaseReference();
     }
 
     public void clearCorrespondentReceivedDateFields() {
@@ -309,7 +298,7 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedMonth").to(correspondenceMonth);
         String correspondenceYear = correspondenceReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+        setSessionVariable("correspondenceReceivedDate").to(correspondenceDay + "/" + correspondenceMonth + "/" + correspondenceYear);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {
@@ -370,7 +359,7 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedByKIMUMonth").to(correspondenceMonth);
         String correspondenceYear = dateKIMUReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedByKIMUYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" + correspondenceYear);
     }
 
     public void selectCorrespondenceInboundChannel() {
@@ -411,24 +400,6 @@ public class CreateCase extends BasePage {
     public void enterRequestQuestion() {
         recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
         setSessionVariable("requestQuestion").to("Test Request Question");
-    }
-
-    public void createFOICase() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectCaseType("FOI");
-        clickTheButton("Next");
-        storeCorrespondenceReceivedDate();
-        storeCorrespondenceReceivedInKIMUDate();
-        documents.uploadDocumentOfType("docx");
-        selectCorrespondenceInboundChannel();
-        enterCorrespondentDetails();
-        selectFOITopic("Animal alternatives (3Rs)");
-        enterRequestQuestion();
-        clickTheButton("Submit");
-        createCaseSuccessPage.storeCaseReference();
     }
 
     //Assertions
