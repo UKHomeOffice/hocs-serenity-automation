@@ -11,7 +11,7 @@ Feature: Complaints Triage
     And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -23,7 +23,7 @@ Feature: Complaints Triage
     And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -35,7 +35,7 @@ Feature: Complaints Triage
     And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @ComplaintsWorkflow @ComplaintsRegression
@@ -129,7 +129,7 @@ Feature: Complaints Triage
     When I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -146,7 +146,7 @@ Feature: Complaints Triage
     And I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Minor Misconduct Triage stage
@@ -163,7 +163,7 @@ Feature: Complaints Triage
     And I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
 #    HOCS-3026
   @ComplaintsWorkflow @ComplaintsRegression
@@ -180,7 +180,7 @@ Feature: Complaints Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed
-    And a case closure note should be visible showing the reason for closure
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -198,7 +198,7 @@ Feature: Complaints Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed
-    And a case closure note should be visible showing the reason for closure
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -217,7 +217,7 @@ Feature: Complaints Triage
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed
-    And a case closure note should be visible showing the reason for closure
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
   @ComplaintsRegression

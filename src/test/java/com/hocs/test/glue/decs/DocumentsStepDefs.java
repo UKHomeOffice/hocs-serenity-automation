@@ -7,8 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCaseSuccessPage;
-import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -20,19 +19,19 @@ public class DocumentsStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCaseSuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 

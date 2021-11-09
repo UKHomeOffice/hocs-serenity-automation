@@ -18,7 +18,7 @@ Feature: Ministerial Sign-Off
     Then the case should be returned to the "Initial Draft" stage
     And the case should be returned to the drafting team
     And the read-only Case Details accordion should contain all case information entered during the "Ministerial Sign off" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 
   @DCURegression
   Scenario: User can select that the case is not applicable for Miniterial sign-off
@@ -27,7 +27,7 @@ Feature: Ministerial Sign-Off
     Then the case should be moved to the "Private Office Approval" stage
     And the case should still be owned by the Private Office team
     And the read-only Case Details accordion should contain all case information entered during the "Ministerial Sign off" stage
-    Then a note should be visible in the timeline showing the reason for rejection
+    Then a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 
   @Validation
   Scenario Outline: User tests the validation at the Ministerial Sign Off stage

@@ -23,5 +23,5 @@ Feature: Acceptance
     And I enter a rejection reason at the Acceptance stage
     And I "Continue" the Acceptance stage
     Then the case should be returned to the "Allocation" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the rejected column of the case in the "FOI Allocation" workstack should display rejected by "Acceptance"

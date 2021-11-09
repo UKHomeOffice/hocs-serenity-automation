@@ -24,18 +24,15 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.selectPreviousCaseReference();
     }
 
-    @Then("the case should be loaded")
-    public void theCaseShouldBeLoaded() {
-        caseView.currentCaseIsLoaded();
-    }
-
-    @Then("the deadline of the FOI case should be extended")
+    @Then("the deadline of the FOI case should be extended the correct number of days")
     public void theDeadlineOfTheFOICaseShouldBeExtended() {
+        summaryTab.selectSummaryTab();
         summaryTab.assertDeadlineOfExtendedFOICase();
     }
 
     @Then("the information entered for the FOI appeal should be displayed")
-    public void theInformationEnteredForTheFOIAppealShouldBeDisplayed() {
+    public void theInformationEnteredForTheFOIAppealShouldBeDisplayedInTheSummaryTab() {
+        summaryTab.selectSummaryTab();
         summaryTab.assertAppealInformationIsDisplayed();
     }
 }

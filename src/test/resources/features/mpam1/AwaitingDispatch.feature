@@ -24,7 +24,7 @@ Feature: Awaiting Dispatch
     And the case should be moved to the "Dispatched (follow-up)" stage
     And the case "should" be allocated to me in the summary
     And the follow-up due date should be visible in the summary
-    And a details of follow-up note should be visible showing the entered details
+    And a Details of follow up note should be visible in the timeline showing the submitted details of the required action
 
   @MPAMWorkflow @MPAMRegression1
   Scenario: User selects that the follow up is complete at Dispatched (follow-up) stage
@@ -48,14 +48,14 @@ Feature: Awaiting Dispatch
     When I select the "Close Follow-up actioned not completed" action at Dispatched (follow-up) stage
     And enter a reason for not completing the follow up action
     Then the case should be closed
-    And a follow-up not completed note should be visible showing the entered reason
+    And a Follow up not completed note should be visible in the timeline showing the submitted reason for not completing the action
 
   @MPAMWorkflow @MPAMRegression1
   Scenario: User selects to return the case to the Draft stage
     When I select the "Return to Draft" action at Awaiting Dispatch stage
     And I submit a reason to reject the case back to the Draft stage
     Then the case should be moved to the "Draft" stage
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And I navigate to the "Dashboard" page
     And I view the MPAM case in the appropriate "Draft" stage workstack
     Then the stage that the case was rejected at should be displayed in the rejected workstack column

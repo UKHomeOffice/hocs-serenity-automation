@@ -70,7 +70,7 @@ Feature: Triage
     When I change the reference type of the case to "Correct an error"
     Then the reference type that is displayed should be "Official"
     And the case should be in the correct MPAM "Triage" team workstack
-    And a conversion note should be visible showing the entered notes on conversion
+    And a Conversion note should be visible in the timeline showing the submitted notes on the conversion of the case
 
   @MPAMWorkflow @MPAMRegression2
   Scenario: User completes the Triage stage

@@ -96,7 +96,7 @@ Feature: Complaints Draft
     And I escalate the case to WFM at Service Draft stage
     Then the case should be moved to the "Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -107,7 +107,7 @@ Feature: Complaints Draft
     And I escalate the case to WFM at Service Draft stage
     Then the case should be moved to the "Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -118,7 +118,7 @@ Feature: Complaints Draft
     And I escalate the case to WFM at Service Draft stage
     Then the case should be moved to the "Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And a escalation note should be visible showing the reason for escalation
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
 
 #    HOCS-3076

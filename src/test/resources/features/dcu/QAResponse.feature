@@ -30,7 +30,7 @@ Feature: QA Response
     When I reject the case at the QA Response stage
     Then the case should be returned to the "Initial Draft" stage
     And the case should be returned to the drafting team
-    And a note should be visible in the timeline showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA Response" stage
     Examples:
       | caseType |

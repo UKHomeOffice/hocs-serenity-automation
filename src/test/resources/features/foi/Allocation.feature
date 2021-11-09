@@ -21,3 +21,4 @@ Feature: Allocation
     And I click the "Confirm Allocation" button
     Then the case should be moved to the "Acceptance" stage
     And the read-only Case Details accordion should contain all case information entered during the "Allocation" stage
+    And an Allocation note should be visible in the timeline showing the details of the allocation

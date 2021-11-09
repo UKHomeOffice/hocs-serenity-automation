@@ -140,6 +140,6 @@ public class CaseCreationStage extends BasePage {
 
     public void enterAnInvalidRequestResponseDate() {
         String responseDate = getDatePlusMinusNDaysAgo(-10);
-        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the response to the invalid request was issued?");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "What day was the response sent?");
     }
 }

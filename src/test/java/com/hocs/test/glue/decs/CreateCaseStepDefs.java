@@ -9,7 +9,7 @@ import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCaseSuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
@@ -34,7 +34,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCaseSuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     DCUProgressCase dcuProgressCase;
 
@@ -67,8 +67,6 @@ public class CreateCaseStepDefs extends BasePage {
         if (caseType.equalsIgnoreCase("WCS")) {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
-        } else if (caseType.equalsIgnoreCase("FOI")) {
-            createCase.createFOICase();
         } else {
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
@@ -77,7 +75,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I get a new {string} case")
     public void iGetANewCase(String caseType) {
         createNewCase(caseType);
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         dashboard.claimCurrentCase();
     }
 
@@ -131,12 +129,13 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I allocate the case to myself via the successful case creation screen")
     public void allocateToMe() {
-        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
     }
 
     @When("I go to the case from the successful case creation screen")
     public void goToSuccessfullyCreatedCase() {
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
     }
 
     @Then("the case should be visible in the Performance and Process Team workstack")
@@ -174,15 +173,15 @@ public class CreateCaseStepDefs extends BasePage {
 
     @Then("a case is created successfully")
     public void aCaseIsCreatedSuccessfully() {
-        createCaseSuccessPage.assertCaseCreatedSuccess();
-        createCaseSuccessPage.storeCaseReference();
+        confirmationScreens.assertCaseCreatedConfirmationDisplayed();
+        confirmationScreens.storeCaseReference();
     }
 
     @Then("A case is created successfully {string} a document")
     public void aCaseIsCreatedSuccessfullyWithWithoutADocument(String withWithout) {
-        createCaseSuccessPage.assertCaseCreatedSuccess();
-        createCaseSuccessPage.storeCaseReference();
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.assertCaseCreatedConfirmationDisplayed();
+        confirmationScreens.storeCaseReference();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         if (withWithout.equals("with")) {
             documents.assertFileIsVisible(sessionVariableCalled("docType"));
         }
@@ -193,7 +192,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @Then("bulk cases are created successfully")
     public void BulkCasesAreCreatedSuccessfully() {
-        createCaseSuccessPage.assertBulkCasesCreatedSuccess();
+        confirmationScreens.assertBulkCasesCreatedConfirmationDisplayed();
     }
 
     @Then("an error message should be displayed as I have not selected the case type")
@@ -240,7 +239,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createCSCaseOfType(caseType.toUpperCase());
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(caseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
@@ -250,12 +249,17 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
     public void iCreateACaseWithCorrespondenceDate(String caseType, String date) {
-        createCase.createCaseWithSetCorrespondenceReceivedDate(caseType, date);
+        createCase.createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, date);
     }
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
     public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
         createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+    }
+
+    @And("I create a single {string} case with the correspondence received date set as today")
+    public void iCreateACaseReceivedToday(String caseType) {
+        createCase.createCSCaseOfType(caseType.toUpperCase());
     }
 
     @When("I allocate the case to another user on the case details accordion screen")
@@ -441,13 +445,15 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT POSTCODE":
                     case "CORRESPONDENT EMAIL ADDRESS":
                         createCase.createCSCaseOfType("COMP");
-                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
                         correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         break;
                     case "COMPLAINANT DATE OF BIRTH":
                         createCase.createCSCaseOfType("COMP");
-                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
                         correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB(infoValue);
@@ -470,7 +476,8 @@ public class CreateCaseStepDefs extends BasePage {
                         break;
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         createCase.createCSCaseOfType("COMP");
-                        createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
                         correspondents.addANonMemberCorrespondentOfType("Complainant");
                         correspondents.confirmPrimaryCorrespondent();
                         registration.enterComplainantDOB("01/01/2001");
@@ -490,7 +497,7 @@ public class CreateCaseStepDefs extends BasePage {
                     case "CORRESPONDENT (NON-MP)":
                     case "TOPIC":
                     case "ACTIVE CASES ONLY":
-                        createCase.createFOICase();
+                        createCase.createCSCaseOfType(caseType);
                         dashboard.goToDashboard();
                         break;
                     case "RECEIVED ON OR AFTER":

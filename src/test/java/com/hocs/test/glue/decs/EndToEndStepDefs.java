@@ -9,7 +9,7 @@ import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCaseSuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Workdays;
@@ -30,7 +30,7 @@ public class EndToEndStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCaseSuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     CaseView caseView;
 
@@ -758,7 +758,7 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 switch (stage.toUpperCase()) {
                     case "CASE CREATION":
-                        createCase.createFOICase();
+                        createCase.createCSCaseOfType(caseType);
                         dashboard.goToDashboard();
                         break;
                     case "ALLOCATION":
@@ -807,7 +807,7 @@ public class EndToEndStepDefs extends BasePage {
     @And("I get a MIN case at the Dispatch stage that should be copied to Number 10")
     public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber() {
         createCase.createCSCaseOfType("MIN");
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         dashboard.claimCurrentCase();
         dcuProgressCase.moveCaseFromDataInputToMarkupWithCopyToNumber10();
         dashboard.getAndClaimCurrentCase();
@@ -873,7 +873,7 @@ public class EndToEndStepDefs extends BasePage {
     public void moveHighPriorityNewMPAMCaseToStage(String stage) {
         switch (stage.toUpperCase()) {
             case "TRIAGE":
-                createCase.createCaseWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
+                createCase.createCSCaseOfTypeWithSetCorrespondenceReceivedDate("MPAM", workdays.getDateXWorkdaysAgo(20));
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 creation.moveCaseWithSpecifiedValuesToTriageStage("Windrush", "Ministerial", "Immediate", "Home Secretary");

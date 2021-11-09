@@ -1,6 +1,7 @@
 package com.hocs.test.pages.foi;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,6 +30,7 @@ public class Allocation extends BasePage {
 
     public void selectASpecificAcceptanceTeam(String team) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(team,"Acceptance Team");
+        setSessionVariable("acceptanceTeam").to(team);
     }
 
     public void selectAnAcceptanceTeam() {
