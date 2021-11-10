@@ -123,7 +123,7 @@ public class ContributionRequests extends BasePage {
             } else if (contributionDueDate.before(currentDate)) {
                 expectedStatus = "Overdue";
             }
-            setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
+            setSessionVariable("expectedContributionRequestStatus").to(expectedStatus);
         }
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);

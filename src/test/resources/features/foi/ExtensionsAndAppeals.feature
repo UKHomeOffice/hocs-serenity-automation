@@ -15,6 +15,7 @@ Feature: Case Creation Stage
     Then I should see a confirmation message stating that the case has been extended
     And the deadline of the FOI case should be extended the correct number of days
     And a Case Extension note should be visible in the timeline showing the submitted reason for the extension
+    And the teams workstack should display the new deadline date for the case
 
     #Scenario is waiting on completion of HOCS-4060 for correct behaviour of assertion step
   Scenario: As a FOI User, I dont want to be able to accidentally shorten the deadline, so that we have enough time to casework the request

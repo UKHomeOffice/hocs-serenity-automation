@@ -148,7 +148,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the case should be allocated to me in the workstack")
     public void theCaseShouldBeAllocatedToMeInTheWorkstack() {
-        workstacks.assertOwnerIs(getCurrentUser());
+        workstacks.assertOwnerOfCurrentCaseIs(getCurrentUser());
     }
 
     @When("I allocate the current case to {string}")
@@ -200,7 +200,7 @@ public class WorkstacksStepDefs extends BasePage {
         while (n < 3) {
             createCase.createCSCaseOfType("TRO");
             safeClickOn(confirmationScreens.caseReference);
-            workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
+            caseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
             dashboard.goToDashboard();
             n++;
         }
@@ -347,18 +347,19 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the contribution request deadline should be visible in the {string} workstack")
     public void theContributionRequestDeadlineShouldBeVisibleInTheWorkstack(String stage) {
         dashboard.selectCorrectMPAMTeamByStage(stage);
-        workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage",sessionVariableCalled("requestDeadline"));
     }
 
     @Then("the follow-up due date should be visible in the {string} workstack")
     public void theFollowUpDueDateShouldBeVisibleInTheWorkstack(String stage) {
         dashboard.selectCorrectMPAMTeamByStage(stage);
-        workstacks.assertCaseStageContains(sessionVariableCalled("dueDate"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage",sessionVariableCalled("dueDate"));
+
     }
 
     @Then("the Minister sign off team is correctly displayed")
     public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
-        workstacks.assertMinisterSignOffTeam();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Minister Sign Off", sessionVariableCalled("signOffTeam"));
     }
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
@@ -366,12 +367,13 @@ public class WorkstacksStepDefs extends BasePage {
         waitABit(1000);
         dashboard.goToDashboard();
         iEnterAWorkstack("MPAM Draft");
-        workstacks.assertDueDateOfContributionRequest();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage", sessionVariableCalled("contributionDueDate"));
     }
 
     @Then("the stage that the case was rejected at should be displayed in the rejected workstack column")
     public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
-        workstacks.assertRejectedFieldOfCurrentCase();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Rejected", sessionVariableCalled("rejectionStage"));
+
     }
 
     @And("I enter a/the {string} workstack")
@@ -487,12 +489,6 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertExpectedColumnsPresent(workstack);
     }
 
-
-    @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
-    public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {
-        workstacks.assertTransferDueDateOfCurrentCase();
-    }
-
     @And("I record the highest priority cases in the workstack")
     public void iRecordTheHighestPriorityCasesInTheWorkstack() {
         workstacks.recordHighestPriorityCases();
@@ -515,7 +511,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the displayed contribution request status of the case should be correct")
     public void theDisplayedContributionRequestStatusOfTheCaseShouldBeCorrect() {
-        workstacks.assertContributionRequestStatus();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Contributions", sessionVariableCalled("expectedContributionRequestStatus"));
     }
 
     @And("I record the number of cases currently in the {string} workstack, and how many of those are unallocated")
@@ -548,12 +544,37 @@ public class WorkstacksStepDefs extends BasePage {
     public void theRejectedColumnOfTheCaseInTheWorkstackShouldDisplayRejectedBy(String workstack, String rejectionStage) {
         dashboard.goToDashboard();
         dashboard.selectWorkstackByTeamName(workstack);
-        workstacks.assertRejectedColumnContainsStage(rejectionStage);
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Rejected", rejectionStage);
     }
 
     @And("the {string} workstack should display a HS symbol next to the case reference")
     public void theWorkstackShouldDisplayAHSSymbolNextToTheCaseReference(String workstack) {
         dashboard.selectWorkstackByTeamName(workstack);
         workstacks.assertHomeSecretarySymbolVisibleForCase(sessionVariableCalled("caseReference"));
+    }
+
+    @And("the teams workstack should display the new deadline date for the case")
+    public void theTeamsWorkstackShouldDisplayTheNewDeadlineDateForTheCase() {
+        dashboard.goToDashboard();
+        dashboard.selectWorkstackByTeamName("FOI Creation");
+        workstacks.filterByCurrentCaseReference();
+//        workstacks.assertDeadlineIsCorrect();
+    }
+
+    @Then("I should be able to tell that the case has an overdue contribution")
+    public void theUserShouldBeAbleToTellThatTheCaseHasAnOverdueContribution() {
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Next due contribution date", "Overdue");
+    }
+
+    @Then("I should be able to tell when the contribution request is due")
+    public void theUserShouldBeAbleToTellWhenTheContributionRequestIsDue() {
+        String expectedValue = sessionVariableCalled("contributionDueDate");
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Next due contribution date", expectedValue);
+    }
+
+    @Then("the I can see the new transfer deadline displayed as the cases deadline")
+    public void theICanSeeTheNewTransferDeadlineDisplayedAsTheCasesDeadline() {
+        String expectedValue = sessionVariableCalled("transferDueDate");
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", expectedValue);
     }
 }
