@@ -215,7 +215,7 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
 
-    public boolean complaintCase() { return compCase() | iedetCase() | smcCase(); }
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase(); }
 
     public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
 

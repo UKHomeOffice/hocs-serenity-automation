@@ -180,7 +180,7 @@ public class Workstacks extends BasePage {
     }
 
     public boolean ownerOfTopCaseInWorkstackIs(User user) {
-        return getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference()).contains(user.getUsername());
+        return getValueFromSpecifiedColumnForSpecifiedCase("Owner", topCaseReferenceHypertext.getText()).contains(user.getUsername());
     }
 
     private String getOwnerOfTopCaseInWorkstack() {
