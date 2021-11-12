@@ -278,7 +278,7 @@ Feature: Complaints Triage
     And I accept the previous Severity selection
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    And I add a "complainant" contribution with a due date in the past
+    And I add a "complainant" contribution request with a due date in the past
     Then the "complainant" contribution request should be marked as "overdue"
     And the overdue contribution request should be highlighted
 

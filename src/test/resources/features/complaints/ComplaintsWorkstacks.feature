@@ -42,7 +42,8 @@ Feature: Complaints Workstacks
     And I click to view the case in the "Complaint Registration" workstack
     Then the case deadline should be highlighted red
 
-  Scenario: Overdue Contribution Requests are highlighted in red in team workstacks
+  @ComplaintsRegression
+  Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -51,22 +52,26 @@ Feature: Complaints Workstacks
     And I accept the previous Severity selection
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
-    And I add a "complainant" contribution with a due date in the past
-    And I navigate to the "Dashboard"
-    And I click to view the "CCT Stage 1 Triage Team" workstack
-    Then the overdue contribution request should be highlighted in red
-
-  Scenario: Contribution Request statuses are correctly displayed in team workstacks
-    Given I am logged into "CS" as user "COMP_USER"
-    And I create a "COMP" case and move it to the "Service Triage" stage
-    And I load and claim the current case
-    And I accept the case at "Service" Triage stage
-    And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
-    And I add a "complainant" contribution with a due date in the past
-    And I add a "complainant" contribution request
-    And I navigate to the "Dashboard"
-    And I click to view the "CCT Stage 1 Triage Team" workstack
+    And I add a "complainant" contribution request with a due date in the past
+    And I add a "complainant" contribution request with a due date in the future
+    And I view the "CCT Stage 1 Triage Team" workstack
     Then the displayed contribution request status of the case should be correct
+    And the overdue contribution request should be highlighted in red
+    When I view the "My Cases" workstack
+    Then I should be able to tell that the case has an overdue contribution
+
+  @ComplaintsRegression
+  Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has a due contribution request
+    Given I am logged into "CS" as user "COMP_USER"
+    And I create a "COMP" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I accept the case at "Service" Triage stage
+    And I accept the previous Claim Category selection
+    And I accept the previous Severity selection
+    And I enter details on the Triage Capture Reason page
+    And I click the "Continue" button
+    And I add a "complainant" contribution request with a due date in the future
+    And I view the "CCT Stage 1 Triage Team" workstack
+    Then the displayed contribution request status of the case should be correct
+    And I view the "My Cases" workstack
+    Then I should be able to tell when the contribution request is due
