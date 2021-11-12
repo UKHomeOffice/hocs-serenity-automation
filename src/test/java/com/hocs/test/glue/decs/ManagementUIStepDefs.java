@@ -12,7 +12,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.managementUI.AddChildTopic;
+import com.hocs.test.pages.managementUI.TopicManagement;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
 import com.hocs.test.pages.managementUI.MUIDashboard;
@@ -42,7 +42,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     UnitManagement unitManagement;
 
-    AddChildTopic addChildTopic;
+    TopicManagement topicManagement;
 
     StandardLine standardLine;
 
@@ -183,8 +183,14 @@ public class ManagementUIStepDefs extends BasePage {
     @Given("I have created a new child topic")
     public void iHaveCreatedANewChildTopic() {
         iSelectAManagementUIDashboardLink("Add child topic");
-        addChildTopic.selectAParentTopic("Police Website");
-        addChildTopic.inputNewChildTopic();
+        topicManagement.selectAParentTopic("Police Website");
+        topicManagement.inputNewChildTopic();
+    }
+
+    @And("I can create a child topic with the newly created parent topic linked")
+    public void iCanCreateAChildTopicWithTheNewlyCreatedParentTopicLinked() {
+        topicManagement.selectAParentTopic(sessionVariableCalled("newParentTopic"));
+        topicManagement.inputNewChildTopic();
     }
 
     @And("I select a {string} team")
@@ -303,12 +309,12 @@ public class ManagementUIStepDefs extends BasePage {
 
     @When("I enter a display name")
     public void iEnterADisplayName() {
-        addChildTopic.inputNewChildTopic();
+        topicManagement.inputNewChildTopic();
     }
 
     @When("I select a parent topic")
     public void iSelectAParentTopic() {
-        addChildTopic.selectAParentTopic("Specific Cases");
+        topicManagement.selectAParentTopic("Specific Cases");
     }
 
     @Then("I am returned to the dashboard screen")
@@ -318,41 +324,41 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("an error message should be displayed as no parent topic has been selected")
     public void anErrorMessageShouldBeDisplayedAsNoParentTopicHasBeenSelected() {
-        addChildTopic.assertParentTopicIsRequiredErrorMessage();
+        topicManagement.assertParentTopicIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as no display name has been entered")
     public void anErrorMessageShouldBeDisplayedAsNoDisplayNameHasBeenEntered() {
-        addChildTopic.assertDisplayNameIsRequiredErrorMessage();
+        topicManagement.assertDisplayNameIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed stating that topic already exists")
     public void anErrorMessageShouldBeDisplayedStatingThatTopicAlreadyExists() {
-        addChildTopic.assertDuplicateTopicErrorMessage();
+        topicManagement.assertDuplicateTopicErrorMessage();
     }
 
     @And("I enter a parent topic and display name that duplicate an existing child topic")
     public void iEnterAParentTopicAndDisplayNameThatDuplicateAnExistingChildTopic() {
-        addChildTopic.selectAParentTopic("Biometrics");
-        addChildTopic.inputAChildTopicDisplayName("TEST TOPIC");
+        topicManagement.selectAParentTopic("Biometrics");
+        topicManagement.inputAChildTopicDisplayName("TEST TOPIC");
     }
 
     @And("I select a different parent topic")
     public void iSelectADifferentParentTopic() {
-        addChildTopic.selectAParentTopic("Biometrics");
+        topicManagement.selectAParentTopic("Biometrics");
     }
 
     @And("I enter the same display name")
     public void iEnterTheSameDisplayName() {
-        addChildTopic.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
+        topicManagement.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
     }
 
     @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-safeClickOn(continueButton);
-waitABit(1000);
+        safeClickOn(continueButton);
+        waitABit(1000);
     }
 
     @And("a success message is displayed")
@@ -666,6 +672,18 @@ waitABit(1000);
     @Then("the success message for amending an account manager should be displayed")
     public void theSuccessMessageForAmendingAnAccountManagerShouldBeDisplayed() {
         listsManagement.assertSuccessMessageForAmendingAccountManagerVisible();
+    }
+
+    @And("I enter the details for the new user")
+    public void iEnterTheDetailsForTheNewUser() {
+        userManagement.enterNewUserDetails();
+        clickTheButton("Submit");
+    }
+
+    @And("I create a new parent topic")
+    public void iCreateANewParentTopic() {
+        topicManagement.inputAParentTopicDisplayedName();
+        clickTheButton("Submit");
     }
 }
 

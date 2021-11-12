@@ -232,11 +232,31 @@ Feature: ManagementUI
 
 #    ADD A USER
 
+  @UserManagement
+  Scenario: A new user can be created in DECS through User Management
+    Given I select to "Add a user"
+    When I enter the details for the new user
+    Then a success message is displayed
+
 
 #    MANAGE TEMPLATES
 
 
 #    ADD PARENT TOPIC
+
+  @TopicManagement
+  Scenario: User is able to create a new Parent Topic through Topic Management
+    Given I select to "Add parent topic"
+    When I create a new parent topic
+    Then a success message is displayed
+
+  @TopicManagement  
+  Scenario: User is able to the new Parent Topic to a Child topic during creation
+    Given I select to "Add parent topic"
+    When I create a new parent topic  
+    And I select to "Add child topic"
+    And I can create a child topic with the newly created parent topic linked
+    Then a success message is displayed
 
 
 #    ADD CHILD TOPIC

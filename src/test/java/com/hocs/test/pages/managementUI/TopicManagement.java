@@ -11,7 +11,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
 
-public class AddChildTopic extends BasePage {
+public class TopicManagement extends BasePage {
 
     public void assertAddChildTopicPageTitle() {
         assertThat(managementUIPageTitle.getText(), is("Add Child Topic"));
@@ -29,12 +29,21 @@ public class AddChildTopic extends BasePage {
     @FindBy(xpath = "//input[@id='displayName']")
     public WebElementFacade childTopicDisplayNameInputBar;
 
+    @FindBy(id = "displayName")
+    public WebElementFacade topicNameTextField;
+
     public void selectAParentTopic(String parentTopic) {
         waitABit(1000);
         safeClickOn(parentTopicSearchBar);
         parentTopicSearchBar.sendKeys(parentTopic);
         setSessionVariable("parentTopic").to(parentTopic);
         parentTopicSearchBar.sendKeys(Keys.ENTER);
+    }
+
+    public void inputAParentTopicDisplayedName() {
+        String parentTopicName = "Parent Topic - " + generateRandomString();
+        topicNameTextField.sendKeys(parentTopicName);
+        setSessionVariable("newParentTopic").to(parentTopicName);
     }
 
     public void inputAChildTopicDisplayName(String childTopic) {
