@@ -72,9 +72,9 @@ public class ActionsTab extends BasePage {
         String appealType = recordCaseData.selectRandomOptionFromDropdownWithHeading("Which type of appeal needs to be applied?");
         setSessionVariable("appealType").to(appealType);
         if (appealType.equalsIgnoreCase("Internal Review")) {
-            String appealOfficerDirectorate = recordCaseData.selectRandomOptionFromDropdownWithHeading("Internal review officer directorate");
+            String appealOfficerDirectorate = recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
             setSessionVariable("appealOfficerDirectorate").to(appealOfficerDirectorate);
-            String appealOfficerName = recordCaseData.selectRandomOptionFromDropdownWithHeading("Internal review officer name");
+            String appealOfficerName = recordCaseData.selectRandomOptionFromDropdownWithHeading("Officer");
             setSessionVariable("appealOfficerName").to(appealOfficerName);
         }
         clickTheButton("Add Appeal");

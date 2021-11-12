@@ -189,39 +189,39 @@ public class SummaryTab extends BasePage {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        displayedDeadline = dataInputDeadlineDate.getText();
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        displayedDeadline = markupDeadlineDate.getText();
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        displayedDeadline = initialDraftDeadlineDate.getText();
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "QA RESPONSE":
-                        displayedDeadline = qaResponseDeadlineDate.getText();
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        displayedDeadline = privateOfficeApprovalDeadlineDate.getText();
+                        displayedDeadline = privateOfficeApprovalDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 19;
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        displayedDeadline = ministerialSignOffDeadlineDate.getText();
+                        displayedDeadline = ministerialSignOffDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 19;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        displayedDeadline = transferConfirmationDeadlineDate.getText();
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.getText();
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "DISPATCH":
-                        displayedDeadline = dispatchDeadlineDate.getText();
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     default:
@@ -233,11 +233,11 @@ public class SummaryTab extends BasePage {
                 String inputDeadline = null;
                 switch (stage.toUpperCase()) {
                     case "DISPATCH":
-                        displayedDeadline = dispatchDeadlineDate.getText();
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
                         inputDeadline = sessionVariableCalled("dtenDispatchDeadline");
                         break;
                     case "INITIAL DRAFT":
-                        displayedDeadline = initialDraftDeadlineDate.getText();
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
                         inputDeadline = sessionVariableCalled("dtenInitialDraftDeadline");
                         break;
                     default:
@@ -248,35 +248,35 @@ public class SummaryTab extends BasePage {
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        displayedDeadline = dataInputDeadlineDate.getText();
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        displayedDeadline = markupDeadlineDate.getText();
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        displayedDeadline = initialDraftDeadlineDate.getText();
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "QA RESPONSE":
-                        displayedDeadline = qaResponseDeadlineDate.getText();
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        displayedDeadline = transferConfirmationDeadlineDate.getText();
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.getText();
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "DISPATCH":
-                        displayedDeadline = dispatchDeadlineDate.getText();
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "COPY TO NUMBER 10":
-                        displayedDeadline = copyToNumber10DeadlineDate.getText();
+                        displayedDeadline = copyToNumber10DeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     default:
@@ -285,46 +285,46 @@ public class SummaryTab extends BasePage {
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "MPAM":
-                displayedDeadline = mpamDeadlineDate.getText();
+                displayedDeadline = mpamDeadlineDate.waitUntilVisible().getText();
                 expectedNumberOfWorkdaysTillDeadline = 20;
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "HOME SECRETARY SIGN-OFF":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        displayedDeadline = dataInputDeadlineDate.getText();
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        displayedDeadline = markupDeadlineDate.getText();
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        displayedDeadline = initialDraftDeadlineDate.getText();
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 7;
                         break;
                     case "QA RESPONSE":
-                        displayedDeadline = qaResponseDeadlineDate.getText();
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 7;
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        displayedDeadline = privateOfficeApprovalDeadlineDate.getText();
+                        displayedDeadline = privateOfficeApprovalDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 9;
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        displayedDeadline = ministerialSignOffDeadlineDate.getText();
+                        displayedDeadline = ministerialSignOffDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 9;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        displayedDeadline = transferConfirmationDeadlineDate.getText();
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.getText();
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "DISPATCH":
-                        displayedDeadline = dispatchDeadlineDate.getText();
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
                         expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     default:

@@ -55,6 +55,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
         privateOfficeApproval.enterAReasonForChangingPOTeam();
         safeClickOn(finishButton);
+        waitABit(2000);
     }
 
     @And("I advance the case to the Private Office Approval stage")

@@ -240,7 +240,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createCSCaseOfRandomType() {
-        createCSCaseOfType(getRandomCaseType());
+        createCSCaseOfTypeWithoutDocument(getRandomCaseType());
     }
 
     public void createCSCaseOfTypeWithoutDocument(String caseType) {

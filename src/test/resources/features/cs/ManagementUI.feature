@@ -41,6 +41,7 @@ Feature: ManagementUI
   @StandardLines @DCURegression
   Scenario: User is able to amend the expiry date of a standard line
     When I select to "Manage standard lines"
+    And I add a new Standard Line with "Animal alternatives (3Rs)" as the topic
     And I amend the expiry date of the "Animal alternatives (3Rs)" standard line to 5 days from today
     Then the standard line expiry date has been correctly amended
 
