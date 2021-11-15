@@ -12,12 +12,13 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
 public class Dashboard extends BasePage {
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCaseLink;
@@ -51,63 +52,29 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
     public WebElementFacade transferN10Team;
 
-    @FindBy(xpath = "//span[text()='Minister of State for Immigration']")
-    public WebElementFacade ministerOfStateForImmigrationTeam;
-
-    @FindBy(xpath = "//span[text()='Minister for Lords']")
-    public WebElementFacade ministerForLordsTeam;
-
-    @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
-    public WebElementFacade animalsInScienceTeam;
-
-    @FindBy(xpath = "//span[text()='Direct Communications Unit Central Drafting Team']")
-    public WebElementFacade centralDraftingTeam;
-
-    @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
-    public WebElementFacade policeWorkforceProfessionalismUnit;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Policing and Fire Service']")
-    public WebElementFacade ministerOfStateForPolicingAndFireServiceTeam;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Security and Economic Crime']")
-    public WebElementFacade ministerOfStateForSecurityAndEconomicCrime;
-
-    @FindBy(xpath = "//span[text()='Public Protection Unit']")
-    public WebElementFacade publicProtectionUnit;
-
-    @FindBy(xpath = "//span[text()='Counter Extremism Unit']")
-    public WebElementFacade counterExtremismUnit;
-
-    @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
-    public WebElementFacade extremismAnalysisUnit;
-
-    @FindBy(xpath = "//span[text()='Counter-Terrorism Legislation and Investigatory Powers Unit']")
-    public WebElementFacade counterTerrorismLegislationInvestigatoryPowersUnit;
-
-    @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
-    public WebElementFacade chemBioRadioNuclearExplosives;
-
-    @FindBy(xpath = "//span[text()='Press Office']")
-    public WebElementFacade pressOffice;
-
-    @FindBy(xpath = "//span[text()='Finance']")
-    public WebElementFacade financeTeam;
-
-    @FindBy(xpath = "//a[text()='Documents']")
-    public WebElementFacade documentsTab;
-
-    @FindBy(xpath = "//span[text()='MTS Team']")
-    public WebElementFacade mtsTeamWorkstack;
-
     //MPAM Teams
 
     @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
 
-    // COMP Teams
+    @FindBy(xpath = "//span[text()='MTS Team']")
+    public WebElementFacade mtsTeamWorkstack;
+
+    // Complaints Teams
 
     @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
     public WebElementFacade cchClosedCasesWorkstack;
+
+    @FindBy(xpath = "//span[contains(text(),'IE Detention')]")
+    public WebElementFacade ieDetentionWorkstack;
+
+    @FindBy(xpath = "//span[contains(text(),'Serious Misconduct')]")
+    public WebElementFacade seriousMisconductWorkstack;
+
+    // FOI Teams
+
+    @FindBy(xpath = "//span[contains(text(),'FOI Creation')]")
+    public WebElementFacade foiCreationWorkstack;
 
     // WCS Teams
 
@@ -142,6 +109,46 @@ public class Dashboard extends BasePage {
 
     // Select Workstack Methods
 
+    private void goToCSDashboard() {
+        safeClickOn(csDashboardLink);
+        waitForDashboard();
+    }
+
+    private void goToWCSDashboard() {
+        safeClickOn(wcsDashboardLink);
+        waitForDashboard();
+    }
+
+    public void goToMUIDashboard() {
+        safeClickOn(muiDashboardLink);
+    }
+
+    public void goToDashboard() {
+        switch (currentPlatform.toUpperCase()) {
+            case "CS":
+                goToCSDashboard();
+                break;
+            case "WCS":
+                goToWCSDashboard();
+                break;
+            case "CS MANAGEMENT UI":
+            case "WCS MANAGEMENT UI":
+                goToMUIDashboard();
+                break;
+            default:
+                pendingStep(currentPlatform + " is not defined within " + getMethodName());
+        }
+        waitForDashboard();
+    }
+
+    public boolean onDashboard() {
+        return caseReferenceSearchBar.isCurrentlyVisible();
+    }
+
+    public void waitForDashboard() {
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
     public void selectMyCases() {
         safeClickOn(myCases);
     }
@@ -173,6 +180,14 @@ public class Dashboard extends BasePage {
         safeClickOn(mtsTeamWorkstack);
     }
 
+    public void selectIEDETTeam() {
+        safeClickOn(ieDetentionWorkstack);
+    }
+
+    public void selectSMCTeam() {
+        safeClickOn(seriousMisconductWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
@@ -189,11 +204,7 @@ public class Dashboard extends BasePage {
             caseReferenceSearchBar.sendKeys(caseReference);
         }
         hitEnterCaseReferenceSearchBar();
-        waitForCaseToLoad();
-    }
-
-    public void waitForCaseToLoad() {
-        documentsTab.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        caseView.waitForCaseToLoad();
     }
 
     public void getCurrentCase() {
@@ -206,26 +217,22 @@ public class Dashboard extends BasePage {
     }
 
     public void claimCurrentCase() {
+        assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
-        while (attempts < 3 && !unallocatedCaseView.caseCanBeAllocated()) {
+        while (attempts < 12 && !caseView.caseCanBeAllocated()) {
             waitABit(5000);
-            setCaseReferenceFromUnassignedCase();
             goToDashboard();
             getCurrentCase();
+            assertThat(caseView.currentCaseIsLoaded(), is(true));
             attempts++;
         }
-        unallocatedCaseView.clickAllocateToMeLink();
+        assertThat(caseView.caseCanBeAllocated(), is(true));
+        caseView.clickAllocateToMeLink();
     }
 
     public void getAndClaimCurrentCase() {
-        if (!documentsTab.isCurrentlyVisible()) {
-            getCurrentCase();
-        } else if (!currentCaseIsLoaded()) {
-            getCurrentCase();
-        }
-        if (unallocatedCaseView.caseDetailsAccordionIsVisible()) {
-            claimCurrentCase();
-        }
+        getCurrentCase();
+        claimCurrentCase();
     }
 
     public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {
@@ -258,13 +265,28 @@ public class Dashboard extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
                     correctUser = true;
                 }
                 break;
             case "COMP_USER":
                 if (cchClosedCasesWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "IEDET_USER":
+                if (ieDetentionWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "SMC_USER":
+                if (seriousMisconductWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "FOI_USER":
+                if (foiCreationWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;

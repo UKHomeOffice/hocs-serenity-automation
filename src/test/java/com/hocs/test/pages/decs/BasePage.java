@@ -81,9 +81,6 @@ public class BasePage extends PageObject {
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
 
-    @FindBy(id = "CaseNote_RejectionNote")
-    protected WebElementFacade rejectReasonTextField;
-
     @FindBy(css = "[value = 'Save']")
     public WebElementFacade saveButton;
 
@@ -130,6 +127,11 @@ public class BasePage extends PageObject {
         safeClickOn(button);
     }
 
+    public void clickTheLink(String linkText) {
+        WebElementFacade link = findBy("//a[contains(text(), '" + linkText + "')]");
+        safeClickOn(link);
+    }
+
     public boolean accordionSectionIsVisible(String accordionLabel) {
         WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
         return accordionSectionButton.isCurrentlyVisible();
@@ -150,11 +152,29 @@ public class BasePage extends PageObject {
         assert (pageTitle.isVisible());
     }
 
+    public void assertManagementUIPageTitle(String title) {
+        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
+        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert (pageTitle.isVisible());
+    }
+
     public void waitForPageWithTitle(String pageTitle) {
         int retries = 0;
         while (retries < 3) {
             try {
                 assertPageTitle(pageTitle);
+                break;
+            } catch (AssertionError e) {
+                retries++;
+            }
+        }
+    }
+
+    public void waitForMUIPageWithTitle(String pageTitle) {
+        int retries = 0;
+        while (retries < 3) {
+            try {
+                assertManagementUIPageTitle(pageTitle);
                 break;
             } catch (AssertionError e) {
                 retries++;
@@ -175,55 +195,46 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    private void goToCSDashboard() {
-        safeClickOn(csDashboardLink);
-        waitForDashboard();
+    public boolean dcuCase() { return minCase() | dtenCase() | troCase(); }
+
+    public boolean minCase() {
+        return sessionVariableCalled("caseType").toString().equals("MIN");
     }
 
-    private void goToWCSDashboard() {
-        safeClickOn(wcsDashboardLink);
-        waitForDashboard();
+    public boolean dtenCase() {
+        return sessionVariableCalled("caseType").toString().equals("DTEN");
     }
 
-    public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    public boolean troCase() {
+        return sessionVariableCalled("caseType").toString().equals("TRO");
     }
 
-    public boolean onDashboard() {
-        return caseReferenceSearchBar.isCurrentlyVisible();
+    public boolean mpamCase() {
+        return sessionVariableCalled("caseType").toString().equals("MPAM");
     }
 
-    public void goToMUIDashboard() {
-        safeClickOn(muiDashboardLink);
+    public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
+
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase(); }
+
+    public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
+
+    public boolean comp2Case() { return sessionVariableCalled("caseType").toString().equals("COMP2"); }
+
+    public boolean iedetCase() { return sessionVariableCalled("caseType").toString().equals("IEDET"); }
+
+    public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
+
+    public boolean foiCase() {
+        return sessionVariableCalled("caseType").toString().equals("FOI");
     }
 
-    public void goToDashboard() {
-
-        switch (currentPlatform.toUpperCase()) {
-            case "CS":
-                goToCSDashboard();
-                break;
-            case "WCS":
-                goToWCSDashboard();
-                break;
-            case "CS MANAGEMENT UI":
-            case "WCS MANAGEMENT UI":
-                goToMUIDashboard();
-                break;
-            default:
-                pendingStep(currentPlatform + " is not defined within " + getMethodName());
-        }
+    public boolean wcsCase() {
+        return sessionVariableCalled("caseType").toString().equals("WCS");
     }
 
     public void clickRejectButton() {
         safeClickOn(rejectButton);
-    }
-
-    public void enterRejectionNotes() {
-        waitFor(rejectReasonTextField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectReasonTextField.sendKeys(rejectionReason);
-        setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void javascriptScrollToElem(WebElementFacade element) {
@@ -236,30 +247,26 @@ public class BasePage extends PageObject {
 
     protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
-
+        Random randomGenerator = new Random();
         for (int i = 0; i < 8; i++) {
-            int number = getRandomNumber();
-            char ch = CHAR_LIST.charAt(number);
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
             randStr.append(ch);
         }
+        return randStr.toString();
+    }
 
+    protected String generateRandomStringOfLength(int length) {
+        StringBuilder randStr = new StringBuilder();
+        Random randomGenerator = new Random();
+        for (int i = 1; i <= length; i++) {
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
+            randStr.append(ch);
+        }
         return randStr.toString();
     }
 
     private String getErrorMessageText() {
         return errorMessage.getText();
-    }
-
-    private int getRandomNumber() {
-        Random randomGenerator = new Random();
-
-        int randomInt = randomGenerator.nextInt(CHAR_LIST.length());
-
-        if (randomInt - 1 == -1) {
-            return randomInt;
-        } else {
-            return randomInt - 1;
-        }
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {
@@ -351,26 +358,6 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseReference");
     }
 
-    public boolean currentCaseIsLoaded() {
-        if (header1.isCurrentlyVisible()) {
-            try {
-                if (header1.getText().equals(getCurrentCaseReference())) {
-                    return true;
-                }
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        if (headerCaption1.isCurrentlyVisible()) {
-            try {
-                return headerCaption1.getText().equals(getCurrentCaseReference());
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
-                return false;
-            }
-        }
-        return false;
-    }
-
     public void safeClickOn(WebElementFacade webElementFacade) {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
         javascriptScrollToElem(webElementFacade);
@@ -449,6 +436,12 @@ public class BasePage extends PageObject {
         WebElementFacade monthField = getVisibleMonthFieldWithMatchingHeading(headingText);
         WebElementFacade yearField = getVisibleYearFieldWithMatchingHeading(headingText);
         typeIntoDateFields(dayField, monthField, yearField, date);
+    }
+
+    public void clearDateFieldsWithHeading(String headingText) {
+        getVisibleDayFieldWithMatchingHeading(headingText).clear();
+        getVisibleMonthFieldWithMatchingHeading(headingText).clear();
+        getVisibleYearFieldWithMatchingHeading(headingText).clear();
     }
 
     private WebElementFacade getVisibleDayFieldWithMatchingHeading(String headingText) {
@@ -534,6 +527,15 @@ public class BasePage extends PageObject {
 
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxes);
+        safeClickOn(checkboxToCheck);
+        return checkboxToCheck.getText();
+    }
+
+    public String checkRandomCheckboxUnderHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        List<WebElementFacade> checkboxElements =
+                findAll("//h2[contains(text(), " + sanitiseXpathAttributeString(headingText) + ")]/parent::div//label");
+        WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxElements);
         safeClickOn(checkboxToCheck);
         return checkboxToCheck.getText();
     }

@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
 public class ListsManagement extends BasePage {
@@ -28,6 +29,18 @@ public class ListsManagement extends BasePage {
 
     @FindBy(xpath = "//label[text()='New campaign name']/following-sibling::input")
     private WebElementFacade newCampaignNameTextBox;
+
+    @FindBy(xpath = "//input[@id='title']")
+    private WebElementFacade accountManagerNameTextBox;
+
+    @FindBy(xpath = "//input[@id='simpleName']")
+    private WebElementFacade accountManagerCodeTextBox;
+
+    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
+    public WebElementFacade successMessage;
+
+    @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
+    public WebElementFacade addNewAccountManagerButton;
 
     public void addANewCampaign() {
         String campaignName = generateRandomString();
@@ -55,5 +68,43 @@ public class ListsManagement extends BasePage {
         }
         WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
         newCampaignInList.shouldBeVisible();
+    }
+
+    public void clickTheAddNewAccountManagerButton() {
+        safeClickOn(addNewAccountManagerButton);
+    }
+
+    public void enterAccountManagerName() {
+        String name = "Automated test name " + generateRandomString();
+        accountManagerNameTextBox.sendKeys(name);
+        setSessionVariable("accountManagerName").to(name);
+    }
+
+    public void enterAccountManagerCode() {
+        String code = "Automated test code " + generateRandomString();
+        accountManagerCodeTextBox.sendKeys(code);
+    }
+
+
+    public void selectToAmendAnAccountManager() {
+        clickTheLink("Amend");
+    }
+
+    public void assertSuccessMessageForAddingAccountManagerVisible() {
+        successMessage.shouldContainText("The account manager was added successfully");
+    }
+
+    public void assertSuccessMessageForAmendingAccountManagerVisible() {
+        successMessage.shouldContainText("The account manager was amended successfully");
+    }
+
+    public void assertAccountManagerIsVisible() {
+        waitForMUIPageWithTitle("View and edit account managers");
+        String accountManagerName = sessionVariableCalled("accountManagerName");
+        WebElementFacade accountManagerInTable = findBy("//td[contains(text(), '" + accountManagerName + "')]");
+        if (!accountManagerInTable.isCurrentlyVisible()) {
+            Assert.fail(accountManagerName + " is not visible in table");
+        }
+
     }
 }

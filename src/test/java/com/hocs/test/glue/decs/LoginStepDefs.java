@@ -4,7 +4,10 @@ import static config.User.COMP_USER;
 import static config.User.DCU_USER;
 import static config.User.DECS_USER;
 import static config.User.FAKE;
-import static config.User.UKVI_USER;
+import static config.User.MPAM_USER;
+import static config.User.FOI_USER;
+import static config.User.IEDET_USER;
+import static config.User.SMC_USER;
 import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -58,7 +61,7 @@ public class LoginStepDefs extends BasePage {
         }
         else {
             System.out.println("Session still active, checking active user matches target user");
-            goToDashboard();
+            dashboard.goToDashboard();
             if (!loggedInAsTargetUser()) {
                 System.out.println("Active user does not match target user, logging out");
                 selectLogoutButton();
@@ -111,12 +114,12 @@ public class LoginStepDefs extends BasePage {
 
     @Given("I am on the Correspondence System Login Page")
     public void iAmOnTheCSLoginPage() {
-        loginPage.open();
+        navigateToPlatform("CS");
     }
 
     @Given("I am on the Windrush Compensation Scheme Login Page")
     public void iAmOnTheWCSLoginPage() {
-        wcsLoginPage.open();
+        navigateToPlatform("WCS");
     }
 
     @When("I enter the login credentials for user {string} and click the login button")
@@ -176,7 +179,8 @@ public class LoginStepDefs extends BasePage {
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
         targetUser = User.valueOf(user);
-        assert loggedInAsTargetUser();
+        Boolean loggedInAsCorrectUser = loggedInAsTargetUser();
+        assert loggedInAsCorrectUser;
     }
 
     private void checkForOverrideUser() {
@@ -188,17 +192,17 @@ public class LoginStepDefs extends BasePage {
 
     private boolean loggedInAsTargetUser() {
         boolean targetUserLoggedIn = false;
-        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER) {
+        if (targetUser == DCU_USER | targetUser == MPAM_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER) {
             if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
                 targetUserLoggedIn = true;
             } else {
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 targetUserLoggedIn = createCase.checkTargetUserIsLoggedInUsingCreateCasePage(targetUser);
-                goToDashboard();
+                dashboard.goToDashboard();
             }
         }
         else {
-            goToDashboard();
+            dashboard.goToDashboard();
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 if (currentPlatform.equals("CS")){
@@ -208,13 +212,14 @@ public class LoginStepDefs extends BasePage {
                 else if (currentPlatform.equals("WCS")) {
                     createCase.createWCSCase();
                 }
-                goToDashboard();
+                dashboard.goToDashboard();
                 dashboard.selectMyCases();
             }
             targetUserLoggedIn = workstacks.ownerOfTopCaseInWorkstackIs(targetUser);
         }
         return targetUserLoggedIn;
     }
+
     @And("I navigate to {string}")
     public void iNavigateTo(String platform) {
         navigateToPlatform(platform);

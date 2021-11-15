@@ -3,14 +3,15 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,13 +24,15 @@ public class NavigationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
-
-    AddCorrespondent initialDraftRecordCorrespondentDetails;
+    Correspondents correspondents;
 
     Search search;
 
-    LoginPage loginPage;
+    CaseView caseView;
+
+    SummaryTab summaryTab;
+
+    Workstacks workstacks;
 
     @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
@@ -52,10 +55,10 @@ public class NavigationStepDefs extends BasePage {
         }
     }
 
-    @And ("I click to view( the case/claim in) the {string} workstack")
+    @And ("I (click to )view( the case/claim in) the {string} workstack")
     public void iClickToViewTheWorkstack(String workstackIdentifier) {
-        if (!onDashboard()) {
-            goToDashboard();
+        if (!dashboard.onDashboard()) {
+            dashboard.goToDashboard();
         }
         if (workstackIdentifier.equalsIgnoreCase("My Cases")) {
             dashboard.selectMyCases();
@@ -84,12 +87,6 @@ public class NavigationStepDefs extends BasePage {
         dashboard.assertAtDashboard();
     }
 
-    @When("I get a {string} case at {string} stage")
-    public void getMeACase(String caseType, String stage) {
-        fetchExistingDCUCases.giveMeACase(caseType, stage);
-        setCaseReferenceFromAssignedCase();
-    }
-
     @Then("I am taken to the {string} page")
     public void iAmTakenToThePage(String pageName) {
         switch (pageName.toUpperCase()) {
@@ -100,7 +97,7 @@ public class NavigationStepDefs extends BasePage {
                 dashboard.assertAtDashboard();
                 break;
             case "RECORD CORRESPONDENT DETAILS":
-                initialDraftRecordCorrespondentDetails.assertPageTitle();
+                correspondents.assertPageTitle();
                 break;
             case "DATA INPUT":
                 dataInput.assertPageTitle();
@@ -109,5 +106,20 @@ public class NavigationStepDefs extends BasePage {
                 pendingStep(pageName + " is not defined within " + getMethodName());
         }
         System.out.println("I have been taken to " + pageName);
+    }
+
+    @Then("the case should be loaded")
+    public void theCaseShouldBeLoaded() {
+        caseView.currentCaseIsLoaded();
+    }
+
+    @And("I view the case/claim whilst not being the current owner")
+    public void iViewTheCaseWhilstNotBeingTheCurrentOwner() {
+        summaryTab.selectSummaryTab();
+        String currentTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+        dashboard.goToDashboard();
+        dashboard.selectWorkstackByTeamName(currentTeam);
+        workstacks.unallocateSelectedCase(getCurrentCaseReference());
+        workstacks.selectSpecificCaseReferenceLink(getCurrentCaseReference());
     }
 }

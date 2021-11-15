@@ -15,7 +15,7 @@ Feature: Deadlines
     |DTEN    |
     |TRO     |
 
-  @UKVIRegression2
+  @MPAMRegression2
   Scenario: User creates an MPAM case and checks that the stage deadlines are correct
     When I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
@@ -31,12 +31,10 @@ Feature: Deadlines
 
   @DCURegression
   Scenario: User changes Minister from Home Secretary to another PO Team at Private office stage
-    When I create a "MIN" case and move it to the "Markup" stage
-    And I load and claim the current case
+    When I get a "MIN" case at the "Markup" stage
     And I complete Markup with "Home Secretary" selected as the Private Office team
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
+    And I complete the "Initial Draft" stage
+    And I complete the "QA response" stage
     And I load and claim the current case
     And I change the minister to "Minister for Lords"
-    And I load and claim the current case
     Then the stage deadline dates for a "MIN" case are correct

@@ -5,14 +5,13 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
-import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
 import com.hocs.test.pages.managementUI.AddChildTopic;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
@@ -30,15 +29,14 @@ import io.cucumber.java.en.When;
 public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
-    MuiLoginPage muiLoginPage;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
+    CreateCase createCase;
 
-    Markup markupDecision;
+    DCUProgressCase dcuProgressCase;
 
-    Markup_AddTopics markupAddTopics;
+    Markup markup;
 
-    MUIDashboard MUIDashboard;
+    MUIDashboard muiDashboard;
 
     TeamManagement teamManagement;
 
@@ -58,71 +56,9 @@ public class ManagementUIStepDefs extends BasePage {
 
     WithdrawACase withdrawACase;
 
-    @When("I navigate to the {string} Management page")
-    public void navigateToSelectedManagementPage(String managementPage) {
-        switch (managementPage.toUpperCase()) {
-            case "ADD A STANDARD LINE":
-                safeClickOn(MUIDashboard.addStandardLineButton);
-                break;
-            case "MANAGE STANDARD LINES":
-                safeClickOn(MUIDashboard.manageStandardLinesHypertext);
-                break;
-            case "TEAM":
-                safeClickOn(MUIDashboard.manageATeamButton);
-                break;
-            case "CREATE DCU DRAFTING TEAM":
-                safeClickOn(MUIDashboard.createDCUDraftingTeamHypertext);
-                break;
-            case "ADD CHILD TOPIC":
-                safeClickOn(MUIDashboard.addChildTopicButton);
-                break;
-            case "ADD A UNIT":
-                safeClickOn(MUIDashboard.addUnitButton);
-                break;
-            case "VIEW UNITS":
-                safeClickOn(MUIDashboard.viewUnitsButton);
-                break;
-            case "LINK TOPIC TO TEAM":
-                safeClickOn(MUIDashboard.linkTopicToTeamButton);
-                break;
-            case "USER MANAGEMENT":
-                safeClickOn(MUIDashboard.userManagementHypertext);
-                break;
-            case "CAMPAIGN MANAGEMENT":
-                safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
-                break;
-            case "WITHDRAW A CASE":
-                safeClickOn(MUIDashboard.withdrawACaseHypertext);
-                break;
-            default:
-                pendingStep(managementPage + " is not defined within " + getMethodName());
-        }
-    }
-
-    @Then("I should be taken to the {string} Management page")
-    public void assertThatTheUserIsTakenToTheSelectedManagementPage(String managementPage) {
-        switch (managementPage.toUpperCase()) {
-            case "ADD A STANDARD LINE":
-                standardLine.assertAddStandardLinePageTitle();
-                break;
-            case "TEAM":
-                teamManagement.assertTeamManagementPageTitle();
-                break;
-            case "ADD A UNIT":
-                unitManagement.assertAddUnitPageTitle();
-                break;
-            case "VIEW UNITS":
-                unitManagement.assertViewUnitPageTitle();
-                break;
-            case "ADD CHILD TOPIC":
-                addChildTopic.assertAddChildTopicPageTitle();
-                break;
-            case "LINK TOPIC TO TEAM":
-                linkTopicToTeam.assertLinkTopicToTeamPageTitle();
-                break;
-            default:
-                pendingStep(managementPage + " is not defined within " + getMethodName());
-        }
+    @When("I select to {string}")
+    public void iSelectAManagementUIDashboardLink(String linkText) {
+        muiDashboard.selectDashboardLinkWithText(linkText);
     }
 
     @When("I select the {string} team from the dropdown")
@@ -246,7 +182,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have created a new child topic")
     public void iHaveCreatedANewChildTopic() {
-        navigateToSelectedManagementPage("ADD CHILD TOPIC");
+        iSelectAManagementUIDashboardLink("Add child topic");
         addChildTopic.selectAParentTopic("Police Website");
         addChildTopic.inputNewChildTopic();
     }
@@ -287,7 +223,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have linked teams to the new child topic")
     public void iHaveLinkedTeamsToTheNewChildTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         clickTheButton("Submit");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
@@ -298,15 +234,21 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopicWithoutHittingFinish("101 non-emergency number (cost)");
-        markupAddTopics.getCurrentDefaultTeamsForTopic();
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
+        markup.recordDefaultTeamsForTopic();
     }
 
     @And("I select to amend the team links for the topic")
     public void iSelectToAmendTheTeamLinksForTheTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES");
         clickTheButton("Submit");
     }
@@ -348,9 +290,15 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I check the default team links in CS again")
     public void iCheckTheDefaultTeamLinksInCSAgain() {
         loginPage.open();
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopic("101 non-emergency number (cost)");
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
     }
 
     @When("I enter a display name")
@@ -365,7 +313,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("I am returned to the dashboard screen")
     public void iAmReturnedToTheDashboardScreen() {
-        MUIDashboard.assertElementIsDisplayed(MUIDashboard.subheading);
+        muiDashboard.assertElementIsDisplayed(muiDashboard.subheading);
     }
 
     @Then("an error message should be displayed as no parent topic has been selected")
@@ -402,16 +350,21 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        markup.selectPolicyResponseRadioButton();
+safeClickOn(continueButton);
+waitABit(1000);
     }
 
     @And("a success message is displayed")
     public void aSuccessMessageIsDisplayed() {
-        MUIDashboard.assertSuccessMessageDisplayed();
+        muiDashboard.assertSuccessMessageDisplayed();
     }
 
     @When("I add a new Standard Line with {string} as the topic")
     public void userAddsANewStandardLine(String topic) {
+        if (standardLine.addNewStandardLineButton.isCurrentlyVisible()) {
+            safeClickOn(standardLine.addNewStandardLineButton);
+        }
         standardLine.enterStandardLineTopic(topic);
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();
@@ -672,6 +625,50 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the deactivated team should be displayed")
     public void theDeactivatedTeamShouldBeDisplayed() {
         teamManagement.assertDeactivatedTeamIsDisplayed();
+    }
+
+    @Then("the {string} management page should be displayed")
+    public void theManagementPageShouldBeDisplayed(String pageTitle) {
+        assertManagementUIPageTitle(pageTitle);
+    }
+
+    @And("I select to add a new account manager")
+    public void iSelectToAddANewAccountMananger() {
+        listsManagement.clickTheAddNewAccountManagerButton();
+    }
+
+    @And("I submit details for the new account manager")
+    public void iSubmitDetailsForTheNewAccountManager() {
+        listsManagement.enterAccountManagerName();
+        listsManagement.enterAccountManagerCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding an account manager should be displayed")
+    public void theSuccessMessageForAddingAnAccountManagerShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingAccountManagerVisible();
+    }
+
+    @And("I should be able to view the new/renamed account manager in the table of account managers")
+    public void iShouldBeAbleToViewTheNewAccountManagerOnTheViewAndEditAccountManagersPage() {
+        muiDashboard.selectDashboardLinkWithText("Manage FOI Account Managers");
+        listsManagement.assertAccountManagerIsVisible();
+    }
+
+    @And("I select to amend an existing account manager")
+    public void iSelectToAmendAnExistingAccountManager() {
+        listsManagement.selectToAmendAnAccountManager();
+    }
+
+    @And("I submit a new name for the account manager")
+    public void iSubmitANewNameForTheAccountManager() {
+        listsManagement.enterAccountManagerName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending an account manager should be displayed")
+    public void theSuccessMessageForAmendingAnAccountManagerShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingAccountManagerVisible();
     }
 }
 

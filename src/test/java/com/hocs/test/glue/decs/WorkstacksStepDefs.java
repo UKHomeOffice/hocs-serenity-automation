@@ -6,8 +6,9 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
@@ -31,9 +32,11 @@ public class WorkstacksStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     EndToEndStepDefs endToEndStepDefs;
+
+    CaseView caseView;
 
     @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
@@ -68,12 +71,12 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the Case Reference type {string} into the filter")
     public void enterCaseReferenceType(String caseReferenceType) {
-        safeClickOn(workstacks.workstackFilter);
+        safeClickOn(workstacks.caseFilter);
         switch (caseReferenceType.toUpperCase()) {
             case "MIN":
             case "DTEN":
             case "TRO":
-                workstacks.workstackFilter.sendKeys(caseReferenceType);
+                workstacks.caseFilter.sendKeys(caseReferenceType);
                 break;
             default:
                 pendingStep(caseReferenceType + " is not defined within " + getMethodName());
@@ -110,8 +113,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I enter the current stage {string} into the filter")
     public void enterCurrentStage(String currentStage) {
-        safeClickOn(workstacks.workstackFilter);
-        workstacks.workstackFilter.sendKeys(currentStage.toUpperCase());
+        safeClickOn(workstacks.caseFilter);
+        workstacks.caseFilter.sendKeys(currentStage.toUpperCase());
     }
 
     @Then("all cases should be allocated to the user {string}")
@@ -138,14 +141,14 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
         createCase.createCSCaseOfType("MIN");
-        goToDashboard();
+        dashboard.goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
         waitABit(1000);
     }
 
     @Then("the case should be allocated to me in the workstack")
     public void theCaseShouldBeAllocatedToMeInTheWorkstack() {
-        workstacks.assertOwnerIs(getCurrentUser());
+        workstacks.assertOwnerOfCurrentCaseIs(getCurrentUser());
     }
 
     @When("I allocate the current case to {string}")
@@ -168,15 +171,15 @@ public class WorkstacksStepDefs extends BasePage {
     public void createThreeCasesAndReassign() {
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference1").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference2").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         createCase.createCSCaseOfType("TRO");
         setSessionVariable("caseReference3").to(getCurrentCaseReference());
-        goToDashboard();
+        dashboard.goToDashboard();
         waitABit(1000);
         safeClickOn(dashboard.performanceProcessTeam);
     }
@@ -196,9 +199,9 @@ public class WorkstacksStepDefs extends BasePage {
         int n = 0;
         while (n < 3) {
             createCase.createCSCaseOfType("TRO");
-            safeClickOn(createCaseSuccessPage.newCaseReference);
-            workstacks.caseDetailsSelectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
-            goToDashboard();
+            safeClickOn(confirmationScreens.caseReference);
+            caseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
+            dashboard.goToDashboard();
             n++;
         }
     }
@@ -307,8 +310,9 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I view the MPAM case in the appropriate {string} stage workstack")
     public void iViewTheCaseInTheWorkstack(String stage) {
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.selectCorrectMPAMTeamByStage(stage);
+        workstacks.waitForWorkstackToLoad();
     }
 
     @And("I select to take the next unallocated case from the team workstack")
@@ -343,34 +347,36 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the contribution request deadline should be visible in the {string} workstack")
     public void theContributionRequestDeadlineShouldBeVisibleInTheWorkstack(String stage) {
         dashboard.selectCorrectMPAMTeamByStage(stage);
-        workstacks.assertCaseStageContains(sessionVariableCalled("requestDeadline"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage",sessionVariableCalled("requestDeadline"));
     }
 
     @Then("the follow-up due date should be visible in the {string} workstack")
     public void theFollowUpDueDateShouldBeVisibleInTheWorkstack(String stage) {
         dashboard.selectCorrectMPAMTeamByStage(stage);
-        workstacks.assertCaseStageContains(sessionVariableCalled("dueDate"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage",sessionVariableCalled("dueDate"));
+
     }
 
     @Then("the Minister sign off team is correctly displayed")
     public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
-        workstacks.assertMinisterSignOffTeam();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Minister Sign Off", sessionVariableCalled("signOffTeam"));
     }
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
         waitABit(1000);
-        goToDashboard();
+        dashboard.goToDashboard();
         iEnterAWorkstack("MPAM Draft");
-        workstacks.assertDueDateOfContributionRequest();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage", sessionVariableCalled("contributionDueDate"));
     }
 
     @Then("the stage that the case was rejected at should be displayed in the rejected workstack column")
     public void theStageThatTheCaseWasRejectedAtShouldBeDisplayedInTheRejectedWorkstackColumn() {
-        workstacks.assertRejectedFieldOfCurrentCase();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Rejected", sessionVariableCalled("rejectionStage"));
+
     }
 
-    @And("I enter a {string} workstack")
+    @And("I enter a/the {string} workstack")
     public void iEnterAWorkstack(String workstack) {
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
@@ -378,8 +384,9 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMyCases();
                 } else {
                     createCase.createCSCaseOfType("MIN");
-                    createCaseSuccessPage.allocateToMeViaSuccessfulCreationScreen();
-                    goToDashboard();
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
+                    dashboard.goToDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -388,7 +395,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MIN");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectPerformanceProcessTeam();
                 }
                 break;
@@ -397,7 +404,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMyCases();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MPAM");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectMyCases();
                 }
                 break;
@@ -406,7 +413,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfType("MTS");
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectMTSTeam();
                 }
                 break;
@@ -421,8 +428,55 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 } catch (NoSuchElementException e) {
                     endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
-                    goToDashboard();
+                    dashboard.goToDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(stage);
+                }
+                break;
+            case "COMPLAINT REGISTRATION":
+                try {
+                    dashboard.selectWorkstackByTeamName(workstack);
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("COMP");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(workstack);
+                }
+                break;
+            case "CCT TRIAGE":
+                try {
+                    dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("COMP");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
+                }
+                break;
+            case "EX-GRATIA":
+            case "MINOR MISCONDUCT":
+                try {
+                    dashboard.selectWorkstackByTeamName(workstack);
+                } catch (NoSuchElementException e) {
+                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("COMP", workstack + " TRIAGE");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(workstack);
+                }
+                break;
+
+            case "IE DETENTION":
+                try {
+                    dashboard.selectIEDETTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("IEDET");
+                    dashboard.goToDashboard();
+                    dashboard.selectIEDETTeam();
+                }
+                break;
+            case "SERIOUS MISCONDUCT":
+                try {
+                    dashboard.selectSMCTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("SMC");
+                    dashboard.goToDashboard();
+                    dashboard.selectSMCTeam();
                 }
                 break;
             default:
@@ -433,12 +487,6 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the {string} workstack should contain only the expected columns")
     public void theWorkstackShouldContainOnlyTheExpectedColumns(String workstack) {
         workstacks.assertExpectedColumnsPresent(workstack);
-    }
-
-
-    @Then("the Transfer deadline date is correct in the Awaiting Transfer team workstack")
-    public void theTransferDeadlineDateIsCorrectInTheAwaitingTransferTeamWorkstack() {
-        workstacks.assertTransferDueDateOfCurrentCase();
     }
 
     @And("I record the highest priority cases in the workstack")
@@ -463,7 +511,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the displayed contribution request status of the case should be correct")
     public void theDisplayedContributionRequestStatusOfTheCaseShouldBeCorrect() {
-        workstacks.assertContributionRequestStatus();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Contributions", sessionVariableCalled("expectedContributionRequestStatus"));
     }
 
     @And("I record the number of cases currently in the {string} workstack, and how many of those are unallocated")
@@ -494,8 +542,39 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the rejected column of the case in the {string} workstack should display rejected by {string}")
     public void theRejectedColumnOfTheCaseInTheWorkstackShouldDisplayRejectedBy(String workstack, String rejectionStage) {
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.selectWorkstackByTeamName(workstack);
-        workstacks.assertRejectedColumnContainsStage(rejectionStage);
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Rejected", rejectionStage);
+    }
+
+    @And("the {string} workstack should display a HS symbol next to the case reference")
+    public void theWorkstackShouldDisplayAHSSymbolNextToTheCaseReference(String workstack) {
+        dashboard.selectWorkstackByTeamName(workstack);
+        workstacks.assertHomeSecretarySymbolVisibleForCase(sessionVariableCalled("caseReference"));
+    }
+
+    @And("the teams workstack should display the new deadline date for the case")
+    public void theTeamsWorkstackShouldDisplayTheNewDeadlineDateForTheCase() {
+        dashboard.goToDashboard();
+        dashboard.selectWorkstackByTeamName("FOI Creation");
+        workstacks.filterByCurrentCaseReference();
+//        workstacks.assertDeadlineIsCorrect();
+    }
+
+    @Then("I should be able to tell that the case has an overdue contribution")
+    public void theUserShouldBeAbleToTellThatTheCaseHasAnOverdueContribution() {
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Next due contribution date", "Overdue");
+    }
+
+    @Then("I should be able to tell when the contribution request is due")
+    public void theUserShouldBeAbleToTellWhenTheContributionRequestIsDue() {
+        String expectedValue = sessionVariableCalled("contributionDueDate");
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Next due contribution date", expectedValue);
+    }
+
+    @Then("the I can see the new transfer deadline displayed as the cases deadline")
+    public void theICanSeeTheNewTransferDeadlineDisplayedAsTheCasesDeadline() {
+        String expectedValue = sessionVariableCalled("transferDueDate");
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", expectedValue);
     }
 }

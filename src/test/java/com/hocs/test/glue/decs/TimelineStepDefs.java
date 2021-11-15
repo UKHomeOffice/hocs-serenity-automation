@@ -3,18 +3,14 @@ package com.hocs.test.glue.decs;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.TimelineTab;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
 public class TimelineStepDefs extends BasePage {
 
     TimelineTab timelineTab;
-
-    Dashboard dashboard;
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
@@ -49,7 +45,7 @@ public class TimelineStepDefs extends BasePage {
 
     @Then("there should be a log showing the case was allocated to user {string} at stage {string}")
     public void thereShouldBeALogShowingTheCaseWasAllocatedToUserAtStage(String user, String stage) {
-        timelineTab.assertAllocationLogVisible(User.valueOf(user), stage);
+        timelineTab.assertAllocationToUserLogVisible(User.valueOf(user), stage);
     }
 
     @And("a log should be visible for completing the {string} stage")
@@ -88,13 +84,6 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
 
-    @When("I click the add button when creating a case note")
-    public void userDoesNotEnterTextIntoTheCaseNoteTextBox() {
-        timelineTab.selectTimelineTab();
-        timelineTab.clickAddCaseNote();
-        timelineTab.clickAddButton();
-    }
-
     @And("I edit the top case note")
     public void iEditTopCaseNote() {
         timelineTab.editACaseNote("Test 1");
@@ -110,43 +99,58 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertTopNoteContainsEnteredText("Case note 1." + sessionVariableCalled("createdNoteContents"));
     }
 
-    @And("a rejection note should be visible showing the reason for rejection")
-    public void aRejectionNoteShouldBeVisibleShowingTheReasonForRejection() {
+    @And("a Rejection note should be visible in the timeline showing the submitted reason for the return of the case")
+    public void aRejectionNoteShouldBeVisibleInTheTimelineShowingTheReasonForTheReturnOfTheCase() {
         timelineTab.assertRejectionNoteVisible();
     }
 
-    @And("a escalation note should be visible showing the reason for escalation")
-    public void aEscalationNoteShouldBeVisibleShowingTheReasonForEscalation() {
+    @And("an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation")
+    public void anEscalationNoteShouldBeVisibleInTheTimelineShowingTheReasonForTheCasesEscalation() {
         timelineTab.assertEscalationNoteVisible();
     }
 
-    @And("a case closure note should be visible showing the reason for closure")
-    public void aCaseClosureNoteShouldBeVisibleShowingTheReasonForClosure() {
+    @And("a Case closure note should be visible in the timeline showing the submitted reason for closing the case")
+    public void aCaseClosureNoteShouldBeVisibleInTheTimelineShowingTheReasonForClosingTheCase() {
         timelineTab.assertClosureNoteVisible();
     }
 
-    @And("a contribution request note should be visible showing the description of the request")
-    public void aContributionRequestNoteShouldBeVisibleShowingTheDescriptionOfThRequest() {
-        timelineTab.assertContributionRequestNoteVisible();
-    }
-
-    @And("a details of follow-up note should be visible showing the entered details")
-    public void aDetailsOfFollowUpNoteShouldBeVisibleShowingTheEnteredDetails() {
+    @And("a Details of follow up note should be visible in the timeline showing the submitted details of the required action")
+    public void aDetailsOfFollowUpNoteShouldBeVisibleInTheTimelineShowingTheSubmittedDetailsOfTheRequiredAction() {
         timelineTab.assertDetailsOfFollowUpNoteVisible();
     }
 
-    @And("a follow-up not completed note should be visible showing the entered reason")
-    public void aFollowUpNotCompletedNoteShouldBeVisibleShowingTheEnteredReason() {
+    @And("a Follow up not completed note should be visible in the timeline showing the submitted reason for not completing the action")
+    public void aFollowUpNotCompletedNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForNotCompletingTheAction() {
         timelineTab.assertFollowUpNotCompletedNoteVisible();
     }
 
-    @And("a conversion note should be visible showing the entered notes on conversion")
-    public void aConversionNoteShouldBeVisibleShowingTheEnteredNotesOnConversion() {
+    @And("a Conversion note should be visible in the timeline showing the submitted notes on the conversion of the case")
+    public void aConversionNoteShouldBeVisibleInTheTimelineShowingTheSubmittedNotesOnTheConversionOfTheCase() {
         timelineTab.assertConversionNoteVisible();
     }
 
-    @And("a case withdrawn note should be visible showing the entered withdrawal reason")
-    public void aCaseWithdrawnNoteContainingThePreviouslyEnteredNotesShouldBeVisibleInTheTimeline() {
-        timelineTab.assertCaseWithDrawnNoteVisible();
+    @And("a Case withdrawn note should be visible showing the submitted notes on the withdrawal of the case")
+    public void aCaseWithdrawnNoteShouldBeVisibleInTheTimelineShowingTheSubmittedNotesOnTheWithdrawalOfTheCase() {
+        timelineTab.assertCaseWithdrawnNoteVisible();
+    }
+
+    @Then("a Change note should be visible in the timeline showing the submitted reason for changing the primary topic")
+    public void aChangeNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForChangingThePrimaryTopic() {
+        timelineTab.assertChangeNoteVisible();
+    }
+
+    @Then("a Case transfer reason note is visible in the timeline showing the submitted reason for the transfer request")
+    public void aCaseTransferReasonNoteIsVisibleInTheTimelineShowingTheSubmittedReasonForTheTransferRequest() {
+        timelineTab.assertCaseTransferReasonNoteVisible();
+    }
+
+    @And("a Case Extension note should be visible in the timeline showing the submitted reason for the extension")
+    public void aCaseExtensionNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForTheExtension() {
+        timelineTab.assertCaseExtensionNoteVisible();
+    }
+
+    @And("an Allocation note should be visible in the timeline showing the details of the allocation")
+    public void aAllocationNoteShouldBeVisibleInTheTimelineShowingTheDetailsOfTheAllocation() {
+        timelineTab.assertAllocationNoteVisible();
     }
 }

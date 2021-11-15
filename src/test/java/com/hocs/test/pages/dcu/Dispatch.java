@@ -1,11 +1,14 @@
 package com.hocs.test.pages.dcu;
 
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import com.hocs.test.pages.decs.BasePage;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class Dispatch extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='Yes']")
     public WebElementFacade dispatchAcceptRadioButton;
@@ -19,44 +22,12 @@ public class Dispatch extends BasePage {
     @FindBy(css = "input[id='ResponseChannel']")
     public WebElementFacade responseTypeField;
 
-    public void moveCaseFromDispatchToCaseClosed() {
-        safeClickOn(dispatchAcceptRadioButton);
-        safeClickOn(continueButton);
+    public void selectAbleToDispatch(String yesNo) {
+        recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
-    public void selectDispatchRejectButton() {
-        safeClickOn(dispatchRejectRadioButton);
-    }
-
-    public void dispatchTheCase() {
-        safeClickOn(dispatchAcceptRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void getToUnableToDispatchScreenPrerequisites() {
-        safeClickOn(dispatchRejectRadioButton);
-        safeClickOn(continueButton);
-    }
-
-    public void rejectCaseWithoutReason() {
-        safeClickOn(dispatchRejectRadioButton);
-        safeClickOn(continueButton);
-        safeClickOn(finishButton);
-    }
-
-    public void enterDispatchRejectionNotes() {
-        waitFor(dispatchRejectNoteField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        dispatchRejectNoteField.sendKeys(rejectionReason);
+    public void enterReasonUnableToDispatch() {
+        String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why are you unable to dispatch this?");
         setSessionVariable("rejectionReason").to(rejectionReason);
-    }
-
-    public void completeDispatchStageAndStoreEnteredInformation() {
-        String chosenResponseMethod = responseTypeField.getValue();
-        setSessionVariable("chosenResponseMethod").to(chosenResponseMethod);
-        safeClickOn(dispatchAcceptRadioButton);
-        String dispatchAbleDecision = dispatchAcceptRadioButton.getAttribute("for").substring(17);
-        setSessionVariable("dispatchAbleDecision").to(dispatchAbleDecision);
-        safeClickOn(continueButton);
     }
 }

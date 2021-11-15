@@ -9,7 +9,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
-import com.hocs.test.pages.decs.UnallocatedCaseView;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -28,7 +28,7 @@ public class SearchStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
@@ -55,7 +55,7 @@ public class SearchStepDefs extends BasePage {
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
         createCase.createCSCaseOfType("MIN");
-        goToDashboard();
+        dashboard.goToDashboard();
         dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();
     }
@@ -63,7 +63,7 @@ public class SearchStepDefs extends BasePage {
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
         workstacks.waitABit(500);
-        if (workstacks.isElementDisplayed(unallocatedCaseView.allocateToMeLink)) {
+        if (workstacks.isElementDisplayed(caseView.allocateToMeLink)) {
             workstacks.assertCaseReferenceBeforeAllocation();
         } else {
             workstacks.assertCaseReferenceAfterAllocation();
@@ -132,7 +132,7 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
-    @And("I enter {string} into the {string} UKVI search criteria")
+    @And("I enter {string} into the {string} MPAM search criteria")
     public void searchForMPAMCaseWith(String infoValue, String infoType) {
         if (search.mpamCaseCheckbox.isCurrentlyVisible()) {
             safeClickOn(search.mpamCaseCheckbox);
@@ -145,7 +145,7 @@ public class SearchStepDefs extends BasePage {
         setSessionVariable("infoType").to(infoType);
     }
 
-    @And("I check that the UKVI search results have the correct {string}")
+    @And("I check that the MPAM search results have the correct {string}")
     public void checkMPAMCaseHasCorrect(String infoType) {
         search.assertMPAMInformationRandomSearchResult(infoType);
     }
@@ -157,7 +157,7 @@ public class SearchStepDefs extends BasePage {
         safeClickOn(searchButton);
     }
 
-    @And("the created case should be visible in the search results")
+    @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
         workstacks.filterByCurrentCaseReference();
         waitABit(1000);
@@ -167,7 +167,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                searchForMPAMCaseWith(sessionVariableCalled("infoType"), sessionVariableCalled("infoValue"));
+                searchForMPAMCaseWith(getCurrentCaseReference(), "Case Reference");
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
@@ -223,8 +223,21 @@ public class SearchStepDefs extends BasePage {
         }
     }
 
+    @And("I search for the COMP case escalated to COMP2 by it's case reference")
+    public void iSearchForTheEscalatedCOMPCaseByCaseReference() {
+        String compCaseRef = sessionVariableCalled("compCaseReference");
+        search.enterCOMPSearchCriteria("Case Reference", compCaseRef);
+        safeClickOn(searchButton);
+        search.waitForResultsPage();
+    }
+
     @Then("I check that the COMP search results have the correct {string}")
     public void theCOMPSearchResultsHaveTheCorrect(String criteria) {
         search.assertCOMPInformationRandomSearchResult(criteria);
+    }
+
+    @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")
+    public void iLoadTheCOMP2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
+        search.selectCOMP2CaseRefOfEscalatedCOMPCase(sessionVariableCalled("compCaseReference"));
     }
 }

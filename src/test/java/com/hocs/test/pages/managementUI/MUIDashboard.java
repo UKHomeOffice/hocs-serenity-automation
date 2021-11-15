@@ -1,8 +1,10 @@
 package com.hocs.test.pages.managementUI;
 
 import com.hocs.test.pages.decs.BasePage;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 public class MUIDashboard extends BasePage {
 
@@ -31,7 +33,10 @@ public class MUIDashboard extends BasePage {
     public WebElementFacade successMessage;
 
     @FindBy(xpath = "//a[text()='Manage a user']")
-    public WebElementFacade userManagementHypertext;
+    public WebElementFacade manageAUserHypertext;
+
+    @FindBy(xpath = "//a[text()='Add a user']")
+    public WebElementFacade addAUserHypertext;
 
     @FindBy(xpath = "//a[text()='Manage MPAM campaigns']")
     public WebElementFacade manageMPAMCampaignsHypertext;
@@ -53,4 +58,8 @@ public class MUIDashboard extends BasePage {
     }
 
 
+    public void selectDashboardLinkWithText(String linkText) {
+        WebElementFacade link = findBy("//a[text()='" + linkText + "']");
+        safeClickOn(link);
+    }
 }

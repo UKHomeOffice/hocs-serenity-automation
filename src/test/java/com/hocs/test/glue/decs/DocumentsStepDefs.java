@@ -2,10 +2,12 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -17,19 +19,19 @@ public class DocumentsStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
-        createCase.createCSCaseOfTypeWithoutDocument("CS");
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        createCase.createCSCaseOfRandomType();
+        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
@@ -37,16 +39,29 @@ public class DocumentsStepDefs extends BasePage {
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
-                documents.addAOriginalDocument();
+                documents.addADocumentOfType("ORIGINAL");
                 break;
             case "DRAFT":
                 documents.addADraftDocumentAtDraftStage();
                 break;
-            case "SECOND DRAFT":
-                documents.addADraftDocumentAtQAStage();
+            case "REPLACEMENT DRAFT":
+                documents.addADocumentOfType("DRAFT");
+                setSessionVariable("replacement draft").to("docx");
                 break;
             case "FINAL":
-                documents.addAFinalDocument();
+                documents.addADocumentOfType("FINAL");
+                break;
+            case "INITIAL RESPONSE":
+                documents.addADocumentOfType("Initial response");
+                break;
+            case "INTERIM RESPONSE":
+                documents.addADocumentOfType("Interim response");
+                break;
+            case "ACKNOWLEDGEMENT LETTER":
+                documents.addADocumentOfType("Acknowledgement letter");
+                break;
+            case "FINAL RESPONSE":
+                documents.addADocumentOfType("Final response");
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
@@ -197,5 +212,22 @@ public class DocumentsStepDefs extends BasePage {
     @Then("document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
+    }
+
+    @And("I confirm/approve the (new )primary draft document")
+    public void iConfirmThePrimaryDraftDocument() {
+        documents.confirmOrApprovePrimaryDraft();
+    }
+
+    @And("the selected document should be tagged as the primary draft")
+    public void theSelectedDocumentShouldBeTaggedAsThePrimaryDraft() {
+        documents.selectDocumentsTab();
+        documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+    }
+
+    @And("the document added at case creation should be listed under the {string} document type heading")
+    public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
+        documents.selectDocumentsTab();
+        documents.assertDocumentIsUnderHeader(docType);
     }
 }

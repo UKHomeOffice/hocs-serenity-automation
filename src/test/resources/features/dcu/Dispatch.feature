@@ -6,40 +6,47 @@ Feature: Dispatch
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User dispatches a case
-    And I create a "<caseType>" case and move it to the "Dispatch" stage
-    And I load and claim the current case
-    When I complete the dispatch stage
+    And I get a "<caseType>" case at the "Dispatch" stage
+    When I submit that I am able to dispatch the case
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
     Examples:
     | caseType  |
     | MIN       |
     | TRO       |
     | DTEN      |
 
-  @Validation
-  Scenario: User must enter text in the text box when creating a Case note at the Dispatch stage
-    And I create a "DTEN" case and move it to the "Dispatch" stage
-    And I load and claim the current case
-    And I click the add button when creating a case note
-    Then an error message should be displayed as I have not entered text in the Case Note text box
+  @DCUWorkflow @DCURegression
+  Scenario: User dispatches a MIN case that should be copied to Number 10
+    And I get a MIN case at the Dispatch stage that should be copied to Number 10
+    When I submit that I am able to dispatch the case
+    Then the case should be moved to the "Copy To Number 10" stage
+    And the summary should display the owning team as "Transfers & No10 Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
 
   @DCUWorkflow @DCURegression
-  Scenario Outline: User can return a case to Private Office Approval stage
-    And I create a "<caseType>" case and move it to the "Dispatch" stage
-    And I load and claim the current case
-    And I reject the case at the "Dispatch" stage
+  Scenario Outline: User is unable to dispatch a MIN or DTEN case
+    And I get a "<caseType>" case at the "Dispatch" stage
+    And I select that I am unable to dispatch the case
+    And I submit a reason why I am unable to dispatch the case
     Then the case should be moved to the "Private Office Approval" stage
+    And the case should be returned to the Private Office team
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     Examples:
       | caseType |
       | MIN      |
       | DTEN     |
 
-  @DCURegression
-  Scenario: User returns a TRO case to initial draft when rejected at Dispatch
-    And I create a "TRO" case and move it to the "Dispatch" stage
-    And I load and claim the current case
-    And I reject the case at the "Dispatch" stage
+  @DCUWorkflow @DCURegression
+  Scenario: User is unable to dispatch a TRO case
+    And I get a "TRO" case at the "Dispatch" stage
+    And I select that I am unable to dispatch the case
+    And I submit a reason why I am unable to dispatch the case
     Then the case should be moved to the "Initial Draft" stage
+    And the case should be returned to the drafting team
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 
   @Validation
   Scenario Outline: User tests the validation at the Dispatch stage

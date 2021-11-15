@@ -3,10 +3,12 @@ package config;
 public enum User {
 
     DECS_USER("decs automated regression user", "Password1!", "DECS Regression (decsregression@test.com)"),
-    UKVI_USER("ukvi automated regression user", "Password1!", "UKVI Regression (ukviregression@test.com)"),
+    MPAM_USER("mpam automated regression user", "Password1!", "MPAM Regression (mpamregression@test.com)"),
     DCU_USER("dcu automated regression user", "Password1!", "DCU Regression (dcuregression@test.com)"),
     WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
     COMP_USER("comp automated regression user", "Password1!", "COMP Regression (compregression@test.com)"),
+    IEDET_USER("iedet automated regression user", "Password1!", "IEDET Regression (iedetregressiont@test.com)"),
+    SMC_USER("smc automated regression user", "Password1!", "SMC Regression (smcregressiont@test.com)"),
     FOI_USER("foi automated regression user", "Password1!", "FOI Regression (foiregressiont@test.com)"),
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     COMP_SUPERUSER("comp super user", "Password1!", "COMP Super User (compsuperuser@test.com)"),

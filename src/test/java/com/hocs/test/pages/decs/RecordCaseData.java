@@ -9,11 +9,13 @@ public class RecordCaseData extends BasePage{
 
     static HashMap<String, String> dataRecords = new HashMap<>();
 
-    UnallocatedCaseView unallocatedCaseView;
+    CaseView caseView;
 
     public static void resetDataRecords() {
         dataRecords = new HashMap<>();
     }
+
+    //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         String radioButtonText = super.selectRandomRadioButtonFromGroupWithHeading(headingText);
@@ -82,6 +84,12 @@ public class RecordCaseData extends BasePage{
         return checkboxLabelText;
     }
 
+    public String checkRandomCheckboxUnderHeading(String headingText) {
+        String checkboxLabelText = super.checkRandomCheckboxUnderHeading(headingText);
+        addValueRecord(checkboxLabelText);
+        return checkboxLabelText;
+    }
+
     public void checkSpecificCheckbox(String checkboxLabelText) {
         super.checkSpecificCheckbox(checkboxLabelText);
         addValueRecord(checkboxLabelText);
@@ -97,7 +105,7 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
-            List<String> visibleDisplayValues = unallocatedCaseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
+            List<String> visibleDisplayValues = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
             String recordedValue = entry.getValue();
             String expectedDisplayValue = recordedValue.replace("\n", " ");
             boolean expectedValueIsDisplayed = false;

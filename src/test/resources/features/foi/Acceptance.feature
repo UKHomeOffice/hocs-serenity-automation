@@ -9,10 +9,10 @@ Feature: Acceptance
   #HOCS-2586, HOCS-2723
   Scenario: User is able to complete the Acceptance stage
     And I select that the case "Does" belong to this Directorate
-    And I click the "Continue" button
+    And I "Continue" the Acceptance stage
     And I select the drafting team required to respond to the request
     And I click the "Complete Acceptance" button
-    Then the FOI case should be moved to the "Consider and Draft" stage
+    Then the case should be moved to the "Consider and Draft" stage
     And the case should be assigned to the Drafting team selected at Acceptance
     And the read-only Case Details accordion should contain all case information entered during the "Acceptance" stage
 
@@ -21,7 +21,7 @@ Feature: Acceptance
   Scenario: User rejects a case at the Acceptance stage
     And I select that the case "Doesn't" belong to this Directorate
     And I enter a rejection reason at the Acceptance stage
-    And I click the "Continue" button
+    And I "Continue" the Acceptance stage
     Then the case should be returned to the "Allocation" stage
-    And a rejection note should be visible showing the reason for rejection
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the rejected column of the case in the "FOI Allocation" workstack should display rejected by "Acceptance"

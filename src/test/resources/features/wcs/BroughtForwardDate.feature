@@ -19,10 +19,7 @@ Feature: Brought Forward Date
   Scenario: User enters a brought forward date and view it in read-only case info
     When I fill in the case info including the Brought Forward Date: "01/01/2001"
     And I save changes to the claim
-    And I navigate to the "Dashboard" page
-    And I click to view the claim in the "My Cases" workstack
-    And I select the claim and unallocate it
-    And I click the link for the current case in the workstack
+    And I view the claim whilst not being the current owner
     And I open the case details accordion
     Then I check that the read-only case details accordion displays "01/01/2001" as the brought forward date
 

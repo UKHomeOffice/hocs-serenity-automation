@@ -17,7 +17,7 @@ public class PeopleTabStepDefs extends BasePage {
         safeClickOn(peopleTab.peopleTab);
         switch (correspondentType.toUpperCase()) {
             case "MEMBER":
-                peopleTab.addAMemberCorrespondent("Boris Johnson");
+                peopleTab.addAMemberCorrespondent();
                 break;
             case "PUBLIC":
                 peopleTab.addAPublicCorrespondent();

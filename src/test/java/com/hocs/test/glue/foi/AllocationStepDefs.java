@@ -15,17 +15,18 @@ public class AllocationStepDefs extends BasePage {
 
     @And("I select {string} as the Directorate")
     public void iSelectAsTheDirectorate(String directorate) {
-        allocation.selectDirectorate(directorate);
+        allocation.selectASpecificDirectorate(directorate);
     }
 
     @And("I select {string} as the Acceptance Team")
     public void iSelectAsTheAcceptanceTeam(String team) {
-        allocation.selectAcceptanceTeam(team);
+        allocation.selectASpecificAcceptanceTeam(team);
         setSessionVariable("acceptanceTeam").to(team);
     }
 
     @Then("the Requested Question should be displayed in the summary tab")
     public void theRequestedQuestionShouldBeDisplayedInTheSummaryTab() {
+        waitABit(500);
         summaryTab.selectSummaryTab();
         allocation.assertRequestQuestionIsCorrect();
     }
@@ -33,5 +34,10 @@ public class AllocationStepDefs extends BasePage {
     @Then("the Allocation text is displayed")
     public void allocationTextIsDisplayed() {
         allocation.assertAllocationText();
+    }
+
+    @And("I select an Account Manager")
+    public void iSelectAnAccountManager() {
+        allocation.selectAnAccountManager();
     }
 }

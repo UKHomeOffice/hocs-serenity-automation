@@ -20,9 +20,12 @@ import java.util.List;
 import java.util.Locale;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Workstacks extends BasePage {
 
@@ -36,7 +39,7 @@ public class Workstacks extends BasePage {
     public WebElementFacade unallocateButton;
 
     @FindBy(id = "workstack-filter")
-    public WebElementFacade workstackFilter;
+    public WebElementFacade caseFilter;
 
     @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
@@ -56,18 +59,6 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//a[@class='tab'][text()='Summary']")
-    public WebElementFacade caseSummaryTab;
-
-    @FindBy(xpath = "//a[@class='tab'][text()='Timeline']")
-    public WebElementFacade caseTimelineTab;
-
-    @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
-    public WebElementFacade addCaseNoteButton;
-
-    @FindBy(xpath = "//span[@id='case-note-error']")
-    public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
-
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
@@ -82,15 +73,6 @@ public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//tbody/tr/td[4]")
     public WebElementFacade ownerOfTopCaseInWorkstack;
-
-    @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
-    public WebElementFacade summaryWhenWasTheCorrespondenceReceived;
-
-    @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
-    public WebElementFacade summaryPrimaryCorrespondent;
-
-    @FindBy(xpath = "//h2[text() = 'Active stage']/following-sibling::table[1]/caption")
-    public WebElementFacade summaryActiveStage;
 
     @FindBy(xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
@@ -147,14 +129,58 @@ public class Workstacks extends BasePage {
 
     List<String> caseReferencesList = new ArrayList<>();
 
-    // Basic Methods
+    public void filterByCurrentCaseReference() {
+        caseFilter.sendKeys(getCurrentCaseReference());
+    }
+
+    public String getValueFromSpecifiedColumnForSpecifiedCase(String columnTitle, String caseReference) {
+        filterWorkstackBy(caseReference);
+        waitForOnlyOneCaseToBeDisplayed();
+        int i = getSpecificColumnsPositionInTable(columnTitle);
+        String displayedValue = "";
+        WebElementFacade cell = findBy("//tbody/tr[1]/td[" + i + "]");
+        WebElementFacade strongInCell = findBy("//tbody/tr[1]/td[" + i + "]/strong");
+        WebElementFacade divInCell = findBy("//tbody/tr[1]/td[" + i + "]/div");
+        switch (columnTitle.toUpperCase()) {
+            case "OWNER":
+                if (divInCell.isCurrentlyVisible()) {
+                    displayedValue = divInCell.getText();
+                } else {
+                    displayedValue = cell.getText();
+                }
+                break;
+            case "MP":
+            case "Correspondent":
+                if (strongInCell.isCurrentlyVisible()) {
+                    displayedValue = strongInCell.getText();
+                } else {
+                    displayedValue = cell.getText();
+                }
+                break;
+            default:
+                displayedValue = cell.getText();
+                break;
+        }
+        return displayedValue;
+    }
+
+    private int getSpecificColumnsPositionInTable(String columnTitle) {
+        int i = 0;
+        boolean columnFound = false;
+        while (!columnFound) {
+            i++;
+            WebElementFacade coloumnHeader = findBy("//thead/tr/th[" + i + "]");
+            columnFound = coloumnHeader.getText().contains(columnTitle);
+        }
+        return i;
+    }
 
     public void clickAllocateSelectedToMeButton() {
         safeClickOn(allocateSelectedToMeButton);
     }
 
     public boolean ownerOfTopCaseInWorkstackIs(User user) {
-        return getOwnerOfTopCaseInWorkstack().contains(user.getUsername());
+        return getValueFromSpecifiedColumnForSpecifiedCase("Owner", topCaseReferenceHypertext.getText()).contains(user.getUsername());
     }
 
     private String getOwnerOfTopCaseInWorkstack() {
@@ -163,10 +189,17 @@ public class Workstacks extends BasePage {
         while (!ownerHeaderFound) {
             i++;
             WebElementFacade header = findBy("//thead/tr/th[" + i + "]");
-            ownerHeaderFound = header.getText().equals("Owner");
+            ownerHeaderFound = header.getText().contains("Owner");
         }
-        WebElementFacade ownerName = findBy("//tbody/tr/td[" + i + "]");
-        return ownerName.getText();
+        String ownerName;
+        WebElementFacade ownerNameInCellDiv = findBy("//tbody/tr[1]/td[" + i + "]/div");
+        WebElementFacade ownerNameInCell = findBy("//tbody/tr[1]/td[" + i + "]");
+        if (ownerNameInCellDiv.isCurrentlyVisible()) {
+            ownerName = ownerNameInCellDiv.getText();
+        } else {
+            ownerName = ownerNameInCell.getText();
+        }
+        return ownerName;
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
@@ -184,25 +217,18 @@ public class Workstacks extends BasePage {
         safeClickOn(caseReferenceLink);
     }
 
-    public void caseDetailsSelectAllocationUserByVisibleText(String allocationUser) {
-        safeClickOn(caseDetailsAllocateDropdown);
-        caseDetailsAllocateDropdown.selectByVisibleText(allocationUser);
-        safeClickOn(caseDetailsAllocateButton);
-    }
-
     public int getTotalOfCases() {
         totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
     }
 
-    public void selectSummaryTab() {
-        safeClickOn(caseSummaryTab);
-    }
-
-    public String getCorrespondenceReceivedDateFromSummary() {
-        selectSummaryTab();
-        return summaryWhenWasTheCorrespondenceReceived.getText();
+    private void waitForOnlyOneCaseToBeDisplayed() {
+        int attempts = 0;
+        while(!(getTotalOfCases() == 1) && attempts < 10) {
+            waitABit(500);
+            attempts ++;
+        }
     }
 
     public void clickCheckboxRelevantToCaseReference() {
@@ -217,16 +243,15 @@ public class Workstacks extends BasePage {
 
     public void clickAllWorkstackCheckboxes() {
         List<WebElementFacade> checkboxList = findAll(By.xpath("//td//input[@class='govuk-checkboxes__input']"));
-
         for (WebElementFacade boxes : checkboxList) {
-
             boxes.click();
         }
     }
 
-    public void refineWorkstackSearchResults(String workstackInput) {
-        safeClickOn(workstackFilter);
-        workstackFilter.sendKeys(workstackInput);
+    public void filterWorkstackBy(String filterString) {
+        safeClickOn(caseFilter);
+        caseFilter.clear();
+        caseFilter.sendKeys(filterString);
     }
 
     public void recordHighestPriorityCases() {
@@ -310,7 +335,7 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForWorkstackToLoad() {
-        allocateSelectedToMeButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void orderMPAMWorkstackColumn(String column, String order) {
@@ -384,11 +409,25 @@ public class Workstacks extends BasePage {
     }
 
     public void unallocateSelectedCase(String caseRef) {
-        workstackFilter.sendKeys(caseRef);
+        waitForWorkstackToLoad();
+        caseFilter.sendKeys(caseRef);
         waitABit(500);
         WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label");
         safeClickOn(selectedCaseCheckBox);
         safeClickOn(unallocateButton);
+        waitForTopCaseToNotBeAllocated();
+    }
+
+    public void waitForTopCaseToNotBeAllocated() {
+        boolean allocated = !getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference()).isEmpty();
+        int attempts = 0;
+        while (allocated && attempts<20) {
+            String owner = getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference());
+            allocated = !owner.isEmpty();
+            waitABit(500);
+            attempts++;
+        }
+        System.out.print(attempts);
     }
 
     // Assertions
@@ -411,10 +450,6 @@ public class Workstacks extends BasePage {
                 "//tbody[@class='govuk-table__body']/tr/td[2]/a[contains(text(), '" + caseReference
                         + "')]");
         assertThat(listOfReferences.size(), is(totalNumberOfCases));
-    }
-
-    public void assertCaseNoteMustNotBeBlankErrorMessage() {
-        caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
     public void assertCasesAreFilteredByStage(String currentStage) {
@@ -473,39 +508,16 @@ public class Workstacks extends BasePage {
         assertThat(userAllocated.size() == totalNumberOfCases, is(true));
     }
 
-    public void assertOwnerIs(User owner) {
+    public void assertOwnerOfCurrentCaseIs(User owner) {
+        filterByCurrentCaseReference();
         assert (getOwnerOfTopCaseInWorkstack().contains(owner.getUsername()));
     }
 
-    private String getStageFromWorkstacksTable() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
-        WebElement caseReferenceStage = getDriver().findElement(
-                By.xpath("//a[text()='" + getCurrentCaseReference()
-                        + "']/../following-sibling::td[1]"));
-        System.out.println("The case is at the " + caseReferenceStage.getText() + " stage");
-        return caseReferenceStage.getText();
-    }
-
-    public void assertCaseStage(String stage) {
-        assertThat(getStageFromWorkstacksTable().toUpperCase(), is(stage.toUpperCase()));
-    }
-
-    public String getAllocatedUserFromWorkstacksTable() {
-        WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
-                + "']/../following-sibling::td[2]");
-
-        return caseOwner.getText();
-    }
-
-    public void filterByCurrentCaseReference() {
-        workstackFilter.sendKeys(getCurrentCaseReference());
-    }
-
     public void assertAssignedUser(User user) {
-        waitABit(7500);
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
                 + "']/../following-sibling::td[2]");
-        assertThat(caseOwner.getText().equals(user.getUsername()), is(true));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 30);
+        wait.until((ExpectedCondition<Boolean>) driver -> (caseOwner.getText().equals(user.getUsername())));
     }
 
     public void assertAssignedUserOnThreeCases(User user) {
@@ -538,10 +550,10 @@ public class Workstacks extends BasePage {
     }
 
     private boolean areCasesOfCaseTypePresent(String caseType) {
-        refineWorkstackSearchResults(caseType);
+        filterWorkstackBy(caseType);
         waitABit(1000);
         int totalCases = getTotalOfCases();
-        workstackFilter.clear();
+        caseFilter.clear();
         return (totalCases != 0);
     }
 
@@ -549,14 +561,6 @@ public class Workstacks extends BasePage {
         assertThat(areCasesOfCaseTypePresent("MIN") == (caseType.equals("MIN")), is(true));
         assertThat(areCasesOfCaseTypePresent("DTEN") == (caseType.equals("DTEN")), is(true));
         assertThat(areCasesOfCaseTypePresent("TRO") == (caseType.equals("TRO")), is(true));
-    }
-
-    public void assertPrimaryCorrespondentIs(String name) {
-        summaryPrimaryCorrespondent.shouldContainText(name);
-    }
-
-    public void summaryPrintActiveStage() {
-        System.out.println(summaryActiveStage.getText());
     }
 
     public double getPointsOfCurrentCase() {
@@ -709,7 +713,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertHigherPriorityCaseIsFirstInWorkstack(String highPriorityCase, String lowPriorityCase) {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        caseFilter.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         String highPriorityReference = sessionVariableCalled(highPriorityCase);
         String lowPriorityReference = sessionVariableCalled(lowPriorityCase);
 
@@ -727,36 +731,8 @@ public class Workstacks extends BasePage {
         assertThat(highPriorityFirst && lowPrioritySecond, is(true));
     }
 
-    public void assertCaseStageContains(String contents) {
-        assertThat(getStageFromWorkstacksTable().toUpperCase().contains(contents), is(true));
-    }
-
-    public void assertMinisterSignOffTeam() {
-        String caseRef = getCurrentCaseReference();
-        String signOffTeam = sessionVariableCalled("signOffTeam");
-        WebElementFacade caseSignOffTeamField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[text()='" + signOffTeam +
-                "']");
-        caseSignOffTeamField.shouldBeVisible();
-    }
-
-    public void assertDueDateOfContributionRequest() {
-        workstackFilter.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
-        String caseRef = getCurrentCaseReference();
-        WebElementFacade caseWithDueDate = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), '(Contribution "
-                + "Requested) due:')]");
-        String dueDate = caseWithDueDate.getText().split("due: ")[1];
-        assertThat(dueDate.equals(sessionVariableCalled("contributionDueDate")), is(true));
-    }
-
-    public void assertRejectedFieldOfCurrentCase() {
-        String caseRef = getCurrentCaseReference();
-        WebElementFacade rejectedStageField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[contains(text(), 'By ')]");
-        waitFor(rejectedStageField).withTimeoutOf(Duration.ofSeconds(30));
-        assertThat(rejectedStageField.getText().contains(sessionVariableCalled("rejectionStage")), is(true));
-    }
-
     private List<String> getTableHeadersContent() {
-        waitFor(workstackFilter);
+        waitFor(caseFilter);
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
@@ -767,7 +743,9 @@ public class Workstacks extends BasePage {
 
     private void checkColumnsArePresent(List<String> columns) {
         for (String column : columns) {
-            assertThat(visibleColumns.contains(column), is(true));
+            if (!visibleColumns.contains(column)) {
+                Assert.fail(column + " column is not visible in workstack");
+            }
             visibleColumns.remove(column);
         }
     }
@@ -818,6 +796,17 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref",
                         "Escalate Case"));
                 break;
+            case "CCT TRIAGE":
+            case "EX-GRATIA":
+            case "MINOR MISCONDUCT":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Contributions", "Owner", "Deadline", "Severity"));
+                break;
+            case "IE DETENTION":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Business Area"));
+                break;
+            case "SERIOUS MISCONDUCT":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
@@ -825,32 +814,23 @@ public class Workstacks extends BasePage {
         assertThat(visibleColumns.isEmpty(), is(true));
     }
 
-    public void assertTransferDueDateOfCurrentCase() {
-        String caseRef = getCurrentCaseReference();
-        WebElementFacade deadline = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[4]");
-        waitABit(1000);
-        String expectedDeadline = sessionVariableCalled("transferDueDate");
-        String displayedDeadline = deadline.getText();
-        assertThat(displayedDeadline.equals(expectedDeadline), is(true));
-    }
-
     public void assertOverdueContributionRequestIsHighlighted() {
-        String caseRef = sessionVariableCalled("caseReference");
-        WebElementFacade label = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td//span[contains(text(), 'Overdue')]");
+        WebElementFacade label = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td//span[contains(text(), 'Overdue')]");
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }
 
-    public void assertContributionRequestStatus() {
-        String caseRef = sessionVariableCalled("caseReference");
-        WebElementFacade contributionRequestField = findBy("//a[text()='" + caseRef + "']/parent::td/following-sibling::td[2]");
-        contributionRequestField.shouldContainText(sessionVariableCalled("expectedWorkstackCRStatus"));
+    public void assertHomeSecretarySymbolVisibleForCase(String caseReference) {
+        waitForWorkstackToLoad();
+        WebElementFacade homeSecSymbol = findBy("//a[text()='" + caseReference + "']/preceding-sibling::span[text()='HS']");
+        assertThat(homeSecSymbol.isCurrentlyVisible(), is(true));
     }
 
-    public void assertRejectedColumnContainsStage(String stage) {
-        String caseRef = sessionVariableCalled("caseReference");
-        WebElementFacade rejectedField = findBy("//a[text()='" + caseRef + "']/ancestor::td/following-sibling::td[contains(text(), 'By')]");
-        String rejectionStage = rejectedField.getText().split(" ")[1];
-        assertThat(stage.toUpperCase().equals(rejectionStage.toUpperCase()), is(true));
+    public void assertSpecifiedColumnContainsValueForCurrentCase(String columnTitle, String expectedValue) {
+        waitForWorkstackToLoad();
+        String displayedValue = getValueFromSpecifiedColumnForSpecifiedCase(columnTitle, getCurrentCaseReference());
+        if (!displayedValue.contains(expectedValue)) {
+            Assert.fail("Expected '" + columnTitle + "' column to contain '" + expectedValue + "', but column value was '" + displayedValue + "'");
+        }
     }
 }

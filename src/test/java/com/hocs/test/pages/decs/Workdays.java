@@ -1,5 +1,8 @@
 package com.hocs.test.pages.decs;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,21 +55,24 @@ public class Workdays extends BasePage{
                 totalWorkDays ++;
             }
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
         return targetDay.format(formatters);
     }
 
     public String getDateXWorkdaysFromToday(int targetAmount) {
+        return getDateXWorkdaysFromSetDate(targetAmount, getTodaysDate());
+    }
+
+    public String getDateXWorkdaysFromSetDate(int targetAmount, String startDate) {
         int totalWorkDays = 0;
-        assert totalWorkDays <= targetAmount;
-        LocalDate targetDay = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(startDate, formatter);
         while (totalWorkDays < targetAmount) {
-            targetDay = targetDay.plusDays(1);
-            if (isWorkday(targetDay)) {
-                totalWorkDays ++;
+            date = date.plusDays(1);
+            if (isWorkday(date)) {
+                totalWorkDays += 1;
             }
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        return targetDay.format(formatters);
+        return date.format(formatter);
     }
 }

@@ -1,58 +1,58 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
-import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
 
-    CreateCase_SuccessPage createCaseSuccessPage;
-
-    CreateCase createCase;
-
-    Dashboard dashboard;
-
     RecordCaseData recordCaseData;
 
     CaseCreationStage caseCreationStage;
 
+    Allocation allocation;
+
+    Acceptance acceptance;
+
     Approval approval;
+
+    ConsiderAndDraft considerAndDraft;
+
+    FOIDispatch foiDispatch;
 
     Documents documents;
 
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");
-        caseCreationStage.selectValidityOfRequest("Yes");
+        caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
+        documents.addADocumentOfType("Initial response");
+        caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
+        waitABit(250);
     }
 
     public void moveCaseFromAllocationToAcceptance() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
+        allocation.selectADirectorate();
+        allocation.selectAnAcceptanceTeam();
+        allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
         waitABit(250);
         clickTheButton("Confirm Allocation");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Does this case belong to your Directorate?");
+        acceptance.selectIfCaseIsInCorrectDirectorate("Yes");
         clickTheButton("Continue");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Please select the team required for drafting the response");
+        acceptance.selectDraftTeam();
         clickTheButton("Complete Acceptance");
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Do you need to request contributions?");
+        considerAndDraft.isContributionRequestNeeded("No");
         clickTheButton("Continue");
-        safeClickOn(documents.addDocumentsButton);
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading("Draft response", "Document type");
-        documents.uploadDocumentOfType("docx");
-        clickTheButton("Add");
+        documents.addADocumentOfType("Draft response");
         clickTheButton("Complete Draft");
     }
 
@@ -62,11 +62,16 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromDispatchToSoftClose() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading( "What type of case is this?");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Information released in full","What was the outcome of this case?");
+        foiDispatch.selectACaseType();
+        foiDispatch.selectAResponseChannel();
+        foiDispatch.selectOutcomeOfTheCase("Information released in full");
         clickTheButton("Continue");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
+        clickTheButton("Confirm");
+        foiDispatch.selectDoYouWantToDispatch("Yes");
+        foiDispatch.enterFinalResponseDate();
+        clickTheButton("Continue");
+        documents.addADocumentOfType("Final responses");
         clickTheButton("Complete Dispatch");
+        waitABit(500);
     }
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class SummaryTab extends BasePage {
 
@@ -44,7 +45,7 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//h2[text()='Active stage']")
     public WebElementFacade activeStageHeader;
 
-    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption")
+    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption[not(contains(text(),'Summary'))]")
     public WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
@@ -110,6 +111,30 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
     public WebElementFacade foiTopic;
 
+    @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
+    public WebElementFacade previousCOMPCaseReference;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Details']/following-sibling::td")
+    public WebElementFacade appealDetails;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Completed Date']/following-sibling::td")
+    public WebElementFacade appealCompletionDate;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complete']/following-sibling::td")
+    public WebElementFacade appealComplete;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Outcome']/following-sibling::td")
+    public WebElementFacade appealOutcome;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complex case']/following-sibling::td")
+    public WebElementFacade appealComplexity;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Officer Name']/following-sibling::td")
+    public WebElementFacade appealOfficerName;
+
+    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Directorate']/following-sibling::td")
+    public WebElementFacade appealDirectorate;
+
     public void selectSummaryTab() {
         if(!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
@@ -120,11 +145,16 @@ public class SummaryTab extends BasePage {
         return summaryTab.getAttribute("class").contains("active");
     }
 
-    public void assertSummaryContainsExpectedValueForGivenHeader(String header, String expectedValue) {
-        assert(getSummaryTabValueForGivenHeader(header).contains(expectedValue));
+    public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
+        String displayedValue = getSummaryTabValueForGivenHeader(header);
+        String expectedDisplayValue = value.replace("\n", " ");
+        if (!displayedValue.contains(expectedDisplayValue)) {
+            Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+        }
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {
+        selectSummaryTab();
         WebElementFacade displayedValueElement = findBy("//th[text()='"+ header +"']/following-sibling::td");
         return displayedValueElement.getText();
     }
@@ -137,23 +167,13 @@ public class SummaryTab extends BasePage {
         return activeStage.getText();
     }
 
-    public boolean checkCalculatedDeadline(String deadlineString, int expectedNumberOfDays) {
-        int workingDaysAfterReceived = 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        String receivedDateString  = sessionVariableCalled("correspondenceReceivedDate");
-        LocalDate receivedDate = LocalDate.parse(receivedDateString, formatter);
-        LocalDate displayedDeadlineDate = LocalDate.parse(deadlineString, formatter);
-        LocalDate newDate = receivedDate;
-        assertThat(newDate.isBefore(displayedDeadlineDate), is(true));
-        while (newDate.isBefore(displayedDeadlineDate) && workingDaysAfterReceived <= expectedNumberOfDays) {
-            newDate = newDate.plusDays(1);
-            if (workdays.isWorkday(newDate)) {
-                workingDaysAfterReceived += 1;
-            }
-        }
-        boolean areDatesEqual = newDate.equals(displayedDeadlineDate);
-        boolean areDaysEqual = workingDaysAfterReceived == expectedNumberOfDays;
-        return areDatesEqual && areDaysEqual;
+    public boolean checkDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
+        String expectedDeadline = workdays.getDateXWorkdaysFromSetDate(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate);
+        return displayedDeadline.equals(expectedDeadline);
+    }
+
+    public void selectPreviousCaseReference() {
+        safeClickOn(previousCOMPCaseReference);
     }
 
     public void assertCampaignInSummaryTabIsCorrect(String input) {
@@ -162,154 +182,155 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertDeadlineDateOfStage(String caseType, String stage) {
-        int expectedNumberOfDays = 0;
-        String deadlineString = null;
+        int expectedNumberOfWorkdaysTillDeadline = 0;
+        String displayedDeadline = null;
+        String correspondenceReceivedDate  = sessionVariableCalled("correspondenceReceivedDate");
         switch (caseType.toUpperCase()) {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        deadlineString = dataInputDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        deadlineString = markupDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        deadlineString = initialDraftDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "QA RESPONSE":
-                        deadlineString = qaResponseDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        deadlineString = privateOfficeApprovalDeadlineDate.getText();
-                        expectedNumberOfDays = 19;
+                        displayedDeadline = privateOfficeApprovalDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 19;
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        deadlineString = ministerialSignOffDeadlineDate.getText();
-                        expectedNumberOfDays = 19;
+                        displayedDeadline = ministerialSignOffDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 19;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        deadlineString = transferConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        deadlineString = noResponseNeededConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "DISPATCH":
-                        deadlineString = dispatchDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                     }
-                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "DTEN":
                 String inputDeadline = null;
                 switch (stage.toUpperCase()) {
                     case "DISPATCH":
-                        deadlineString = dispatchDeadlineDate.getText();
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
                         inputDeadline = sessionVariableCalled("dtenDispatchDeadline");
                         break;
                     case "INITIAL DRAFT":
-                        deadlineString = initialDraftDeadlineDate.getText();
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
                         inputDeadline = sessionVariableCalled("dtenInitialDraftDeadline");
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(deadlineString.equals(inputDeadline), is(true));
+                assertThat(displayedDeadline.equals(inputDeadline), is(true));
                 break;
             case "TRO":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        deadlineString = dataInputDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        deadlineString = markupDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        deadlineString = initialDraftDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "QA RESPONSE":
-                        deadlineString = qaResponseDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        deadlineString = transferConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        deadlineString = noResponseNeededConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "DISPATCH":
-                        deadlineString = dispatchDeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     case "COPY TO NUMBER 10":
-                        deadlineString = copyToNumber10DeadlineDate.getText();
-                        expectedNumberOfDays = 20;
+                        displayedDeadline = copyToNumber10DeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 20;
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "MPAM":
-                deadlineString = mpamDeadlineDate.getText();
-                expectedNumberOfDays = 20;
-                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                displayedDeadline = mpamDeadlineDate.waitUntilVisible().getText();
+                expectedNumberOfWorkdaysTillDeadline = 20;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "HOME SECRETARY SIGN-OFF":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
-                        deadlineString = dataInputDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = dataInputDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "MARKUP":
-                        deadlineString = markupDeadlineDate.getText();
-                        expectedNumberOfDays = 2;
+                        displayedDeadline = markupDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 2;
                         break;
                     case "INITIAL DRAFT":
-                        deadlineString = initialDraftDeadlineDate.getText();
-                        expectedNumberOfDays = 7;
+                        displayedDeadline = initialDraftDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 7;
                         break;
                     case "QA RESPONSE":
-                        deadlineString = qaResponseDeadlineDate.getText();
-                        expectedNumberOfDays = 7;
+                        displayedDeadline = qaResponseDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 7;
                         break;
                     case "PRIVATE OFFICE APPROVAL":
-                        deadlineString = privateOfficeApprovalDeadlineDate.getText();
-                        expectedNumberOfDays = 9;
+                        displayedDeadline = privateOfficeApprovalDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 9;
                         break;
                     case "MINISTERIAL SIGN OFF":
-                        deadlineString = ministerialSignOffDeadlineDate.getText();
-                        expectedNumberOfDays = 9;
+                        displayedDeadline = ministerialSignOffDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 9;
                         break;
                     case "TRANSFER CONFIRMATION":
-                        deadlineString = transferConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        displayedDeadline = transferConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
-                        deadlineString = noResponseNeededConfirmationDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        displayedDeadline = noResponseNeededConfirmationDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     case "DISPATCH":
-                        deadlineString = dispatchDeadlineDate.getText();
-                        expectedNumberOfDays = 10;
+                        displayedDeadline = dispatchDeadlineDate.waitUntilVisible().getText();
+                        expectedNumberOfWorkdaysTillDeadline = 10;
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(checkCalculatedDeadline(deadlineString, expectedNumberOfDays), is(true));
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -333,7 +354,7 @@ public class SummaryTab extends BasePage {
         currentTeam.shouldContainText(team);
     }
 
-    public void assertAllocatedUKVITeam(String stage) {
+    public void assertAllocatedMPAMTeam(String stage) {
         if(!currentTeam.isVisible()) {
             selectSummaryTab();
         }
@@ -372,5 +393,32 @@ public class SummaryTab extends BasePage {
         String inputComplianceMeasureDetails = sessionVariableCalled("complianceMeasureDetails");
         String displayedComplianceMeasureDetails = getSummaryTabValueForGivenHeader("Compliance measures other details");
         assertThat(displayedComplianceMeasureDetails.toUpperCase().contains(inputComplianceMeasureDetails.toUpperCase()), is(true));
+    }
+
+    public void assertDeadlineOfExtendedFOICase() {
+        String displayedDeadline = deadline.getText();
+        checkDeadline(displayedDeadline, getTodaysDate(), sessionVariableCalled("numberOfDays"));
+    }
+
+    public void assertAppealInformationIsDisplayed() {
+        String appealType = sessionVariableCalled("appealType");
+        WebElementFacade appealTypeHeader = findBy("//h2[text()='Appeal']/following-sibling::table/caption");
+        appealTypeHeader.shouldContainText(appealType);
+        if (appealType.equalsIgnoreCase("Internal Review")) {
+            appealDirectorate.shouldContainText(sessionVariableCalled("appealOfficerDirectorate"));
+            appealOfficerName.shouldContainText(sessionVariableCalled("appealOfficerName"));
+        }
+        appealComplete.shouldContainText(sessionVariableCalled("appealComplete"));
+        appealCompletionDate.shouldContainText(sessionVariableCalled("appealCompletionDate"));
+        appealOutcome.shouldContainText(sessionVariableCalled("appealOutcome"));
+        appealComplexity.shouldContainText(sessionVariableCalled("appealComplexity"));
+        appealDetails.shouldContainText(sessionVariableCalled("appealDetails"));
+    }
+
+    public void assertThereIsNoActiveStage() {
+        selectSummaryTab();
+        if(activeStage.isVisible()) {
+            Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
+        }
     }
 }
