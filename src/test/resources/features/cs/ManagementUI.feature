@@ -242,7 +242,7 @@ Feature: ManagementUI
 #    MANAGE TEMPLATES
 
 
-#    ADD PARENT TOPICse
+#    ADD PARENT TOPIC
 
   @TopicManagement
   Scenario: User is able to create a new Parent Topic through Topic Management
