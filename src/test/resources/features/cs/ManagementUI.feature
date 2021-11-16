@@ -241,6 +241,11 @@ Feature: ManagementUI
 
 #    MANAGE TEMPLATES
 
+  @TemplateManagement
+  Scenario: User is able to add a new template to a case type
+    Given I select to "Manage templates"
+    When
+
 
 #    ADD PARENT TOPIC
 
@@ -473,9 +478,28 @@ Feature: ManagementUI
 
 #    MANAGE MPAM BUSINESS UNITS
 
+  @ListsManagement
+  Scenario: User is able to create new business units through Lists management
+    When I select to "Manage MPAM Business Units"
+    And I load the business units for the "UKVI" business area
+    And I create a new business unit
+    Then a success message is displayed
+    And I select to "Manage MPAM Business Units"
+    And I load the business units for the "UKVI" business area
+    Then the new business unit is added to the list of business units
+
 
 #    MANAGE MPAM ENQUIRY REASONS
 
+  @ListsManagement
+  Scenario: User is able to create new enquiry reason through Lists management
+    When I select to "Manage MPAM Enquiry Reasons"
+    And I load the enquiry reasons for the "Person Specific" enquiry subject
+    And I create a new enquiry reason
+    Then a success message is displayed
+    And I select to "Manage MPAM Enquiry Reasons"
+    And I load the enquiry reasons for the "Person Specific" enquiry subject
+    Then the new enquiry reason is added to the list of enquiry reasons
 
 #    MANAGE FOI ACCOUNT MANAGERS
 
@@ -494,6 +518,3 @@ Feature: ManagementUI
     And I submit a new name for the account manager
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
-
-
-

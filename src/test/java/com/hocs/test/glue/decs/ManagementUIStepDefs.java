@@ -685,5 +685,35 @@ public class ManagementUIStepDefs extends BasePage {
         topicManagement.inputAParentTopicDisplayedName();
         clickTheButton("Submit");
     }
+
+    @And("I load the business units for the {string} business area")
+    public void iLoadTheBusinessUnitsForTheBusinessArea(String businessArea) {
+        listsManagement.selectABusinessArea(businessArea);
+    }
+
+    @And("I load the enquiry reasons for the {string} enquiry subject")
+    public void iLoadTheEnquiryReasonsForTheEnquirySubject(String enquirySubject) {
+        listsManagement.selectAnEnquirySubject(enquirySubject);
+    }
+
+    @And("I create a new business unit")
+    public void iCreateANewBusinessUnit() {
+        listsManagement.addABusinessUnit();
+    }
+
+    @And("I create a new enquiry reason")
+    public void iCreateANewEnquiryReason() {
+        listsManagement.addAnEnquiryReason();
+    }
+
+    @Then("the new business unit is added to the list of business units")
+    public void theNewBusinessUnitIsAddedToTheListOfBusinessUnits() {
+        listsManagement.assertVisibilityOfNewBusinessUnit();
+    }
+
+    @Then("the new enquiry reason is added to the list of enquiry reasons")
+    public void theNewEnquiryReasonIsAddedToTheListOfEnquiryReasons() {
+        listsManagement.assertVisibilityOfNewEnquiryReason();
+    }
 }
 
