@@ -342,6 +342,7 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromAssignedCase() {
+        headerCaption1.waitUntilVisible();
         waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
                 .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());
@@ -493,6 +494,7 @@ public class BasePage extends PageObject {
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(headingText);
+        textArea.clear();
         textArea.sendKeys(textToEnter);
     }
 

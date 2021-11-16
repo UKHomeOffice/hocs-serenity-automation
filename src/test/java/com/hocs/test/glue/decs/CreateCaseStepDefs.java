@@ -75,7 +75,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I get a new {string} case")
     public void iGetANewCase(String caseType) {
         createNewCase(caseType);
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         dashboard.claimCurrentCase();
     }
 
@@ -135,7 +135,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I go to the case from the successful case creation screen")
     public void goToSuccessfullyCreatedCase() {
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
     }
 
     @Then("the case should be visible in the Performance and Process Team workstack")
@@ -181,7 +181,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void aCaseIsCreatedSuccessfullyWithWithoutADocument(String withWithout) {
         confirmationScreens.assertCaseCreatedConfirmationDisplayed();
         confirmationScreens.storeCaseReference();
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         if (withWithout.equals("with")) {
             documents.assertFileIsVisible(sessionVariableCalled("docType"));
         }
@@ -239,7 +239,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createCSCaseOfType(caseType.toUpperCase());
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(caseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();

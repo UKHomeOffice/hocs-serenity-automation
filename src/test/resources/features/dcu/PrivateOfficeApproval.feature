@@ -32,7 +32,7 @@ Feature: Private Office Approval
     Then the case should be moved to the "Dispatch" stage
     And the summary should display the owning team as "Transfers & No10 Team"
     And the read-only Case Details accordion should contain all case information entered during the "Private Office Approval" stage
-    
+
   @DCURegression
   Scenario: User can change the minister for the case
     And I get a "MIN" case at the "Private Office Approval" stage

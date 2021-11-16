@@ -24,14 +24,14 @@ public class DocumentsStepDefs extends BasePage {
     @And("I click to manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 

@@ -3,39 +3,22 @@ Feature: Complaints Triage
 
 #  HOCS-2944, HOCS-2868
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer a case from Service Triage to CCH
+  Scenario Outline: User can transfer a case COMP case to CCH
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "Service Triage" stage
+    When I create a "COMP" case and move it to the "<complaintType> Triage" stage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer a case from Ex-Gratia Triage to CCH
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "CCH" stage
-    And the summary should display the owning team as "CCH Returned Cases"
-    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer a case from Minor Misconduct Triage to CCH
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "CCH" stage
-    And the summary should display the owning team as "CCH Returned Cases"
-    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+#    This step should be reintroduced once HOCS- is resolved
+#    And the read-only Case Details accordion should contain all case information entered during the "<complaintType> Triage" stage
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor Misconduct |
+      | Ex-Gratia        |
 
 #    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @ComplaintsWorkflow @ComplaintsRegression

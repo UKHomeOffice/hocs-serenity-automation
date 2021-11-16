@@ -9,8 +9,9 @@ Feature: Deadlines
     When I create a "<caseType>" case and move it to the "Markup" stage
     And I load and claim the current case
     Then the stage deadline dates for a "<caseType>" case are correct
-    Examples:
-    |caseType|
+    Examples:User can add and complete or cancel contributions as part of Service Escalated stage
+
+      |caseType|
     |MIN     |
     |DTEN    |
     |TRO     |
