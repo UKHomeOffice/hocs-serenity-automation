@@ -244,7 +244,9 @@ Feature: ManagementUI
   @TemplateManagement
   Scenario: User is able to add a new template to a case type
     Given I select to "Manage templates"
-    When
+    When I load the templates for the "DCU Ministerial" case type
+    And I add a new template to the case type
+    Then a success message is displayed
 
 
 #    ADD PARENT TOPIC

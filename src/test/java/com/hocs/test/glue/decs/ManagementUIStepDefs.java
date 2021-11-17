@@ -696,6 +696,11 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.selectAnEnquirySubject(enquirySubject);
     }
 
+    @And("I load the templates for the {string} case type")
+    public void iLoadTheTemplatesForTheCaseType(String caseType) {
+        listsManagement.selectACaseType(caseType);
+    }
+
     @And("I create a new business unit")
     public void iCreateANewBusinessUnit() {
         listsManagement.addABusinessUnit();
@@ -704,6 +709,11 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I create a new enquiry reason")
     public void iCreateANewEnquiryReason() {
         listsManagement.addAnEnquiryReason();
+    }
+
+    @And("I add a new template to the case type")
+    public void iAddANewTemplateToTheCaseType() {
+        listsManagement.addTemplate();
     }
 
     @Then("the new business unit is added to the list of business units")

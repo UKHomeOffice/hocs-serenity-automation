@@ -4,6 +4,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Documents;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
@@ -12,6 +13,8 @@ import org.openqa.selenium.support.FindBy;
 public class ListsManagement extends BasePage {
 
     MUIDashboard MUIDashboard;
+
+    Documents documents;
 
     @FindBy(xpath = "//h1[text()='View and edit campaigns']")
     private WebElementFacade viewAndEditCampaignsHeader;
@@ -49,6 +52,9 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//input[@id='enquiry-subject-input']")
     public WebElementFacade enquirySubjectTypeahead;
 
+    @FindBy(xpath = "//input[@id='case-types-input']")
+    public WebElementFacade caseTypeTypeahead;
+
     @FindBy(xpath = "//label[text()='Business Unit name']/following-sibling::input")
     public WebElementFacade businessUnitNameTextField;
 
@@ -57,6 +63,9 @@ public class ListsManagement extends BasePage {
 
     @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
+
+    @FindBy(xpath = "//button[text()='Add template']")
+    public WebElementFacade addTemplateButton;
 
     @FindBy(xpath = "//label[text()='Enquiry Reason']/following-sibling::input")
     public WebElementFacade enquiryReasonTextField;
@@ -105,14 +114,23 @@ public class ListsManagement extends BasePage {
     }
 
     public void selectABusinessArea(String businessArea) {
+        waitFor(businessAreaTypeahead);
         businessAreaTypeahead.sendKeys(businessArea);
         businessAreaTypeahead.sendKeys(Keys.RETURN);
         clickTheButton("Submit");
     }
 
     public void selectAnEnquirySubject(String enquirySubject) {
+        waitFor(enquirySubjectTypeahead);
         enquirySubjectTypeahead.sendKeys(enquirySubject);
         enquirySubjectTypeahead.sendKeys(Keys.RETURN);
+        clickTheButton("Submit");
+    }
+
+    public void selectACaseType(String caseType) {
+        waitFor(caseTypeTypeahead);
+        caseTypeTypeahead.sendKeys(caseType);
+        caseTypeTypeahead.sendKeys(Keys.RETURN);
         clickTheButton("Submit");
     }
 
@@ -130,6 +148,12 @@ public class ListsManagement extends BasePage {
         setSessionVariable("enquiryReasonName").to(newEnquiryReason);
         enquiryReasonTextField.sendKeys(newEnquiryReason);
         clickTheButton("Add");
+    }
+
+    public void addTemplate() {
+        safeClickOn(addTemplateButton);
+        documents.uploadDocumentOfType("docx");
+        clickTheButton("Submit");
     }
 
     public void selectToAmendAnAccountManager() {
