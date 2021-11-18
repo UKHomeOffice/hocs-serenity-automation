@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.managementUI.TemplateManagement;
 import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
@@ -55,6 +56,8 @@ public class ManagementUIStepDefs extends BasePage {
     Dashboard dashboard;
 
     WithdrawACase withdrawACase;
+
+    TemplateManagement templateManagement;
 
     @When("I select to {string}")
     public void iSelectAManagementUIDashboardLink(String linkText) {
@@ -698,7 +701,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I load the templates for the {string} case type")
     public void iLoadTheTemplatesForTheCaseType(String caseType) {
-        listsManagement.selectACaseType(caseType);
+        templateManagement.selectACaseType(caseType);
     }
 
     @And("I create a new business unit")
@@ -713,7 +716,12 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I add a new template to the case type")
     public void iAddANewTemplateToTheCaseType() {
-        listsManagement.addTemplate();
+        templateManagement.addTemplate();
+    }
+
+    @And("I remove a template from the case type")
+    public void iRemoveATemplateFromTheCaseType() {
+        templateManagement.removeTemplate();
     }
 
     @Then("the new business unit is added to the list of business units")
@@ -724,6 +732,11 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the new enquiry reason is added to the list of enquiry reasons")
     public void theNewEnquiryReasonIsAddedToTheListOfEnquiryReasons() {
         listsManagement.assertVisibilityOfNewEnquiryReason();
+    }
+
+    @Then("the template should be removed from the case type")
+    public void theTemplateShouldBeRemovedFromTheCaseType() {
+        templateManagement.assertTemplateRemoval();
     }
 }
 

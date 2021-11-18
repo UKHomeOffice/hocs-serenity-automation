@@ -52,9 +52,6 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//input[@id='enquiry-subject-input']")
     public WebElementFacade enquirySubjectTypeahead;
 
-    @FindBy(xpath = "//input[@id='case-types-input']")
-    public WebElementFacade caseTypeTypeahead;
-
     @FindBy(xpath = "//label[text()='Business Unit name']/following-sibling::input")
     public WebElementFacade businessUnitNameTextField;
 
@@ -63,9 +60,6 @@ public class ListsManagement extends BasePage {
 
     @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
-
-    @FindBy(xpath = "//button[text()='Add template']")
-    public WebElementFacade addTemplateButton;
 
     @FindBy(xpath = "//label[text()='Enquiry Reason']/following-sibling::input")
     public WebElementFacade enquiryReasonTextField;
@@ -127,13 +121,6 @@ public class ListsManagement extends BasePage {
         clickTheButton("Submit");
     }
 
-    public void selectACaseType(String caseType) {
-        waitFor(caseTypeTypeahead);
-        caseTypeTypeahead.sendKeys(caseType);
-        caseTypeTypeahead.sendKeys(Keys.RETURN);
-        clickTheButton("Submit");
-    }
-
     public void addABusinessUnit() {
         safeClickOn(addBusinessUnitButton);
         String newBusinessUnit = "Business Unit " + generateRandomString();
@@ -148,12 +135,6 @@ public class ListsManagement extends BasePage {
         setSessionVariable("enquiryReasonName").to(newEnquiryReason);
         enquiryReasonTextField.sendKeys(newEnquiryReason);
         clickTheButton("Add");
-    }
-
-    public void addTemplate() {
-        safeClickOn(addTemplateButton);
-        documents.uploadDocumentOfType("docx");
-        clickTheButton("Submit");
     }
 
     public void selectToAmendAnAccountManager() {
