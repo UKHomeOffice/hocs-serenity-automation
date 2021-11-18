@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
@@ -524,12 +525,14 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResult);
                 summaryTab.selectSummaryTab();
                 if (summaryTab.overridePrivateOfficeTeam.isVisible()) {
-                    signOffTeam = summaryTab.overridePrivateOfficeTeam.getText().toUpperCase();
+                    signOffTeam = summaryTab.overridePrivateOfficeTeam.getText();
                 } else {
-                    signOffTeam = summaryTab.privateOfficeTeam.getText().toUpperCase();
+                    signOffTeam = summaryTab.privateOfficeTeam.getText();
                 }
-                assertThat(signOffTeam.equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()),
-                        is(true));
+                String expectedSignOffTeam = sessionVariableCalled("searchSignOffTeam");
+                if (!signOffTeam.equalsIgnoreCase(expectedSignOffTeam)) {
+                    Assert.fail("Displayed sign off team '" + signOffTeam + "' did not match expected sign off team '" + expectedSignOffTeam + "'");
+                }
                 break;
             case "ACTIVE CASES ONLY":
                 List<WebElementFacade> activeCases = findAll("//td[2][not(text() = 'Closed')]");

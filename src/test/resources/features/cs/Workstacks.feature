@@ -116,7 +116,6 @@ Feature: Workstacks
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should" be highlighted
 
-
   Scenario: User is unable to see a highlighted deadline on an MPAM case that is 6 days from its deadline date
     When I create a single "MPAM" case with the correspondence received date set 14 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack

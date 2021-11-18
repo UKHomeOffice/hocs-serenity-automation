@@ -10,10 +10,10 @@ Feature: Deadlines
     And I load and claim the current case
     Then the stage deadline dates for a "<caseType>" case are correct
     Examples:
-    |caseType|
-    |MIN     |
-    |DTEN    |
-    |TRO     |
+      | caseType |
+      | MIN      |
+      | DTEN     |
+      | TRO      |
 
   @MPAMRegression2
   Scenario: User creates an MPAM case and checks that the stage deadlines are correct

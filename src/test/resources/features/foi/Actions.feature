@@ -1,5 +1,5 @@
-@FOIExtensionsAndAppeals @FOI
-Feature: Case Creation Stage
+@FOIActions @FOI
+Feature: Actions
 
   Background:
     Given I am logged into "CS" as user "FOI_USER"
@@ -18,7 +18,7 @@ Feature: Case Creation Stage
     And the teams workstack should display the new deadline date for the case
 
     #Scenario is waiting on completion of HOCS-4060 for correct behaviour of assertion step
-  Scenario: As a FOI User, I dont want to be able to accidentally shorten the deadline, so that we have enough time to casework the request
+  Scenario: As a FOI User, I want to be stopped from bringing the deadline forward, so that we always have enough time to casework the request
     And I create a single "FOI" case with the correspondence received date set as today
     And I view the actions tab of the case
     When I select to extend the deadline of the FOI case
@@ -40,3 +40,15 @@ Feature: Case Creation Stage
     And the registered appeal should have the status "Complete" in the actions tab
       #This following step is broken until HOCS-4058 is completed (might need refactoring after)
 #    And the information entered for the FOI appeal should be displayed
+
+  @FOIRegression
+  Scenario: User is able to add and update a Registered Interest in an FOI case
+    And I create a single "FOI" case
+    And I view the actions tab of the case
+    When I select to record an interest in the case
+    And I submit details of the interest the external party has in the case
+    Then I should see a confirmation message stating that the external interest has been registered
+    And the details of the interest should be visible in the actions tab
+    When I update the registered interest
+    Then I should see a confirmation message stating that the external interest has been updated
+    And the updated details of the interest should be visible in the actions tab

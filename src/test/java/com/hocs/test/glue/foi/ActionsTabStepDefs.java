@@ -15,13 +15,13 @@ public class ActionsTabStepDefs extends BasePage {
 
     @And("I view the actions tab of the case")
     public void iSelectTheActionsTab() {
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         actionsTab.selectActionsTab();
     }
 
     @And("I select to extend the deadline of the FOI case")
     public void iSelectToExtendTheDeadlineOfTheFOICase() {
-        actionsTab.clickExtendCaseHypertext();
+        actionsTab.clickExtendThisCase();
     }
 
     @And("I select a type of extension")
@@ -88,5 +88,43 @@ public class ActionsTabStepDefs extends BasePage {
 
     @Then("I am unable to extend the case by this amount")
     public void iAmUnableToExtendTheCaseByThisAmount() {
+    }
+
+    @When("I select to record an interest in the case")
+    public void iSelectToRecordAnInterestInTheCase() {
+        actionsTab.clickRecordInterest();
+    }
+
+    @And("I submit details of the interest the external party has in the case")
+    public void iSubmitDetailsOfTheInterestTheExternalPartyHasInTheCase() {
+        actionsTab.selectSpecificTypeOfInterest("External Interest");
+        actionsTab.selectAInterestedParty();
+        actionsTab.enterDetailsOfInterest("Test Details of Interest");
+        clickTheButton("Add");
+    }
+
+    @Then("I should see a confirmation message stating that the external interest has been registered")
+    public void iShouldSeeAConfirmationMessageStatingThatTheExternalInterestHasBeenRegistered() {
+        confirmationScreens.assertExternalInterestRegisteredConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("the( updated) details of the interest should be visible in the actions tab")
+    public void theDetailsOfTheInterestShouldBeVisibleInTheActionsTab() {
+        actionsTab.selectActionsTab();
+        actionsTab.assertDetailsOfRecordedInterestVisible();
+    }
+
+    @When("I update the registered interest")
+    public void iUpdateTheRegisteredInterest() {
+        actionsTab.selectToUpdateRecordedInterest();
+        actionsTab.enterDetailsOfInterest("Test Details of Interest - Amended");
+        clickTheButton("Update");
+    }
+
+    @Then("I should see a confirmation message stating that the external interest has been updated")
+    public void iShouldSeeAConfirmationMessageStatingThatTheExternalInterestHasBeenUpdated() {
+        confirmationScreens.assertExternalInterestUpdatedConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
     }
 }
