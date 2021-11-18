@@ -38,8 +38,7 @@ Feature: Actions
     When I update and complete the registered appeal
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab
-      #This following step is broken until HOCS-4058 is completed (might need refactoring after)
-#    And the information entered for the FOI appeal should be displayed
+    And the information entered for the FOI appeal should be displayed
 
   @FOIRegression
   Scenario: User is able to add and update a Registered Interest in an FOI case
