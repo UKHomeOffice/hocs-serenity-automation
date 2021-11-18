@@ -48,7 +48,7 @@ public class ConfirmationScreens extends BasePage {
     public String storeCaseReference() {
         caseReference.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
         String caseReference = this.caseReference.getAttribute("value");
-        System.out.println(caseReference + " is the case reference");
+        System.out.println("Case created: " + caseReference);
         setSessionVariable("caseReference").to(caseReference);
         return caseReference;
     }

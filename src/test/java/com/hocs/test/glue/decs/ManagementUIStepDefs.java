@@ -371,6 +371,9 @@ public class ManagementUIStepDefs extends BasePage {
 
     @When("I add a new Standard Line with {string} as the topic")
     public void userAddsANewStandardLine(String topic) {
+        if (standardLine.addNewStandardLineButton.isCurrentlyVisible()) {
+            safeClickOn(standardLine.addNewStandardLineButton);
+        }
         standardLine.enterStandardLineTopic(topic);
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();

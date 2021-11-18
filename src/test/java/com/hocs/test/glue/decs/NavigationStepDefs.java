@@ -10,6 +10,8 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.dcu.DataInput;
+import com.hocs.test.pages.decs.SummaryTab;
+import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,6 +29,10 @@ public class NavigationStepDefs extends BasePage {
     Search search;
 
     CaseView caseView;
+
+    SummaryTab summaryTab;
+
+    Workstacks workstacks;
 
     @When("I navigate to the {string}( page)")
     public void iNavigateToThePage(String hocsPage) {
@@ -105,5 +111,15 @@ public class NavigationStepDefs extends BasePage {
     @Then("the case should be loaded")
     public void theCaseShouldBeLoaded() {
         caseView.currentCaseIsLoaded();
+    }
+
+    @And("I view the case/claim whilst not being the current owner")
+    public void iViewTheCaseWhilstNotBeingTheCurrentOwner() {
+        summaryTab.selectSummaryTab();
+        String currentTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+        dashboard.goToDashboard();
+        dashboard.selectWorkstackByTeamName(currentTeam);
+        workstacks.unallocateSelectedCase(getCurrentCaseReference());
+        workstacks.selectSpecificCaseReferenceLink(getCurrentCaseReference());
     }
 }
