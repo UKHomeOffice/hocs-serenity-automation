@@ -9,12 +9,11 @@ Feature: Deadlines
     When I create a "<caseType>" case and move it to the "Markup" stage
     And I load and claim the current case
     Then the stage deadline dates for a "<caseType>" case are correct
-    Examples:User can add and complete or cancel contributions as part of Service Escalated stage
-
-      |caseType|
-    |MIN     |
-    |DTEN    |
-    |TRO     |
+    Examples:
+      | caseType |
+      | MIN      |
+      | DTEN     |
+      | TRO      |
 
   @MPAMRegression2
   Scenario: User creates an MPAM case and checks that the stage deadlines are correct
