@@ -807,7 +807,7 @@ public class EndToEndStepDefs extends BasePage {
     @And("I get a MIN case at the Dispatch stage that should be copied to Number 10")
     public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber() {
         createCase.createCSCaseOfType("MIN");
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         dashboard.claimCurrentCase();
         dcuProgressCase.moveCaseFromDataInputToMarkupWithCopyToNumber10();
         dashboard.getAndClaimCurrentCase();
