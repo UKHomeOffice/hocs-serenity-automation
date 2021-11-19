@@ -71,6 +71,7 @@ public class ActionsTabStepDefs extends BasePage {
 
     @When("I update and complete the registered appeal")
     public void iUpdateAndCompleteTheRegisteredAppeal() {
+        actionsTab.selectActionsTab();
         actionsTab.completeAppeal();
     }
 

@@ -35,11 +35,13 @@ Feature: Actions
     And I submit details of the appeal type
     Then I should see a confirmation message stating that the appeal has been registered
     And the registered appeal should have the status "Pending" in the actions tab
+    And an Appeal Created note should be visible in the timeline for the selected appeal type.
     When I update and complete the registered appeal
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab
-      #This following step is broken until HOCS-4058 is completed (might need refactoring after)
-#    And the information entered for the FOI appeal should be displayed
+    And the information entered for the FOI appeal should be displayed in the summary
+    And an Appeal Updated note should be visible in the timeline for the selected appeal type.
+
 
   @FOIRegression
   Scenario: User is able to add and update a Registered Interest in an FOI case

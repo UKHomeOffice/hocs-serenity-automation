@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -245,6 +246,10 @@ public class BasePage extends PageObject {
         assertThat(isElementDisplayed(errorMessage), is(true));
     }
 
+    private String getErrorMessageText() {
+        return errorMessage.getText();
+    }
+
     protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
         Random randomGenerator = new Random();
@@ -255,6 +260,11 @@ public class BasePage extends PageObject {
         return randStr.toString();
     }
 
+    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
+        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
+    }
+
+
     protected String generateRandomStringOfLength(int length) {
         StringBuilder randStr = new StringBuilder();
         Random randomGenerator = new Random();
@@ -263,10 +273,6 @@ public class BasePage extends PageObject {
             randStr.append(ch);
         }
         return randStr.toString();
-    }
-
-    private String getErrorMessageText() {
-        return errorMessage.getText();
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {
