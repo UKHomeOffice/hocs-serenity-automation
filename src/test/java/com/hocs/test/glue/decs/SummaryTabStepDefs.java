@@ -30,7 +30,7 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertDeadlineOfExtendedFOICase();
     }
 
-    @Then("the information entered for the FOI appeal should be displayed")
+    @Then("the information entered for the FOI appeal should be displayed in the summary")
     public void theInformationEnteredForTheFOIAppealShouldBeDisplayedInTheSummaryTab() {
         summaryTab.selectSummaryTab();
         summaryTab.assertAppealInformationIsDisplayed();
