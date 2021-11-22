@@ -57,7 +57,6 @@ public class MUIDashboard extends BasePage {
         assertElementIsDisplayed(successMessage);
     }
 
-
     public void selectDashboardLinkWithText(String linkText) {
         WebElementFacade link = findBy("//a[text()='" + linkText + "']");
         safeClickOn(link);

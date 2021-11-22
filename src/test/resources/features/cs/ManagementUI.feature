@@ -233,11 +233,46 @@ Feature: ManagementUI
 
 #    ADD A USER
 
+  @UserManagement
+  Scenario: A new user can be created in DECS through User Management
+    Given I select to "Add a user"
+    When I submit the details for the new user
+    Then a success message is displayed
+
 
 #    MANAGE TEMPLATES
 
+  @TemplateManagement
+  Scenario: User is able to add a new template to a case type
+    Given I select to "Manage templates"
+    When I load the templates for the "DCU Ministerial" case type
+    And I add a new template to the case type
+    Then a success message is displayed
+
+  @TemplateManagement
+  Scenario: User is able to remove a template from a case type
+    Given I select to "Manage templates"
+    When I load the templates for the "DCU Ministerial" case type
+    And I add a new template to the case type
+    And I remove a template from the case type
+    Then the template should be removed from the case type
+
 
 #    ADD PARENT TOPIC
+
+  @TopicManagement
+  Scenario: User is able to create a new Parent Topic through Topic Management
+    Given I select to "Add parent topic"
+    When I create a new parent topic
+    Then a success message is displayed
+
+  @TopicManagement  
+  Scenario: User is able to link the new Parent Topic to a Child topic during creation
+    Given I select to "Add parent topic"
+    When I create a new parent topic  
+    And I select to "Add child topic"
+    And I can create a child topic with the newly created parent topic linked
+    Then a success message is displayed
 
 
 #    ADD CHILD TOPIC
@@ -454,9 +489,24 @@ Feature: ManagementUI
 
 #    MANAGE MPAM BUSINESS UNITS
 
+  @ListsManagement
+  Scenario: User is able to create new business units through Lists management
+    When I select to "Manage MPAM Business Units"
+    And I load the business units for the "UKVI" business area
+    And I create a new business unit
+    Then a success message is displayed
+    Then the new business unit is added to the list of business units
+
 
 #    MANAGE MPAM ENQUIRY REASONS
 
+  @ListsManagement
+  Scenario: User is able to create new enquiry reason through Lists management
+    When I select to "Manage MPAM Enquiry Reasons"
+    And I load the enquiry reasons for the "Person Specific" enquiry subject
+    And I create a new enquiry reason
+    Then a success message is displayed
+    Then the new enquiry reason is added to the list of enquiry reasons
 
 #    MANAGE FOI ACCOUNT MANAGERS
 
@@ -475,6 +525,3 @@ Feature: ManagementUI
     And I submit a new name for the account manager
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
-
-
-

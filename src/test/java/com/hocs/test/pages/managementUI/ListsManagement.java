@@ -4,8 +4,10 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Documents;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 public class ListsManagement extends BasePage {
@@ -41,6 +43,24 @@ public class ListsManagement extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
     public WebElementFacade addNewAccountManagerButton;
+
+    @FindBy(xpath = "//input[@id='business-areas-input']")
+    public WebElementFacade businessAreaTypeahead;
+
+    @FindBy(xpath = "//input[@id='enquiry-subject-input']")
+    public WebElementFacade enquirySubjectTypeahead;
+
+    @FindBy(xpath = "//label[text()='Business Unit name']/following-sibling::input")
+    public WebElementFacade businessUnitNameTextField;
+
+    @FindBy(xpath = "//button[text()='Add Business Unit']")
+    public WebElementFacade addBusinessUnitButton;
+
+    @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
+    public WebElementFacade addEnquiryReasonButton;
+
+    @FindBy(xpath = "//label[text()='Enquiry Reason']/following-sibling::input")
+    public WebElementFacade enquiryReasonTextField;
 
     public void addANewCampaign() {
         String campaignName = generateRandomString();
@@ -85,6 +105,37 @@ public class ListsManagement extends BasePage {
         accountManagerCodeTextBox.sendKeys(code);
     }
 
+    public void selectABusinessArea(String businessArea) {
+        waitFor(businessAreaTypeahead);
+        businessAreaTypeahead.sendKeys(businessArea);
+        businessAreaTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("businessArea").to(businessArea);
+        clickTheButton("Submit");
+    }
+
+    public void selectAnEnquirySubject(String enquirySubject) {
+        waitFor(enquirySubjectTypeahead);
+        enquirySubjectTypeahead.sendKeys(enquirySubject);
+        enquirySubjectTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("enquirySubject").to(enquirySubject);
+        clickTheButton("Submit");
+    }
+
+    public void addABusinessUnit() {
+        safeClickOn(addBusinessUnitButton);
+        String newBusinessUnit = "Business Unit " + generateRandomString();
+        setSessionVariable("businessUnitName").to(newBusinessUnit);
+        businessUnitNameTextField.sendKeys(newBusinessUnit);
+        clickTheButton("Submit");
+    }
+
+    public void addAnEnquiryReason() {
+        safeClickOn(addEnquiryReasonButton);
+        String newEnquiryReason = "Enquiry Reason " + generateRandomString();
+        setSessionVariable("enquiryReasonName").to(newEnquiryReason);
+        enquiryReasonTextField.sendKeys(newEnquiryReason);
+        clickTheButton("Add");
+    }
 
     public void selectToAmendAnAccountManager() {
         clickTheLink("Amend");
@@ -105,6 +156,17 @@ public class ListsManagement extends BasePage {
         if (!accountManagerInTable.isCurrentlyVisible()) {
             Assert.fail(accountManagerName + " is not visible in table");
         }
+    }
 
+    public void assertVisibilityOfNewBusinessUnit() {
+        String newBusinessUnitName = sessionVariableCalled("businessUnitName");
+        WebElementFacade businessUnit = findBy("//tr/td[1][text()='" + newBusinessUnitName + "']");
+        businessUnit.shouldBeVisible();
+    }
+
+    public void assertVisibilityOfNewEnquiryReason() {
+        String newEnquiryReasonName = sessionVariableCalled("enquiryReasonName");
+        WebElementFacade enquiryReason = findBy("//tr/td[1][text()='" + newEnquiryReasonName + "']");
+        enquiryReason.shouldBeVisible();
     }
 }
