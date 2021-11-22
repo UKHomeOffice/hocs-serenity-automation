@@ -208,7 +208,7 @@ public class DispatchStages extends BasePage {
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
-        rejectionReasonTextArea.sendKeys(rejectionReason);
+        rejectionReasonTextArea.waitUntilVisible().sendKeys(rejectionReason);
         safeClickOn(confirmButton);
         setSessionVariable("rejectionReason").to(rejectionReason);
     }

@@ -97,7 +97,7 @@ public class ComplaintsTriage extends BasePage {
     public WebElementFacade dateOfAcceptanceLabel;
 
     public void selectAcceptCase() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
         waitABit(500);
     }
 
@@ -106,7 +106,7 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void selectTransferComplaint() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
         clickTheButton("Continue");
     }
 
@@ -127,8 +127,8 @@ public class ComplaintsTriage extends BasePage {
 
 
     public void enterDetailsOnTriageCaptureReasonPage() {
-        if(compCase() && sessionVariableCalled("complaintType").equals("Service") ||
-                compCase() && sessionVariableCalled("complaintType").equals("Minor Misconduct")){
+        String complaintType = sessionVariableCalled("complaintType");
+        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
 
@@ -206,7 +206,7 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void enterPSUReference() {
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234", "PSU Reference");
     }
 
     public void selectAdditionalInformation(String additionalInformation) {

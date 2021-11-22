@@ -86,7 +86,7 @@ public class Approval extends BasePage {
 
     public void assertStatusOfApprovalRequest(String status) {
         WebElementFacade requestStatusField = findBy("//legend[@id='ApprovalRequests-legend']/following-sibling::table//td[2]");
-        String displayedStatus = requestStatusField.getText();
+        String displayedStatus = requestStatusField.waitUntilVisible().getText();
         assertThat(displayedStatus.contains(status), is(true));
     }
 }

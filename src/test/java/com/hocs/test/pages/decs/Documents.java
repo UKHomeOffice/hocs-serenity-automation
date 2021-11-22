@@ -80,7 +80,7 @@ public class Documents extends BasePage {
         if(dcuCase() | compCase()) {
             docType = docType.toUpperCase();
         }
-        documentTypeDropDown.selectByVisibleText(docType);
+        documentTypeDropDown.waitUntilVisible().selectByVisibleText(docType);
     }
 
     public void selectADocumentType() {
