@@ -236,7 +236,7 @@ Feature: ManagementUI
   @UserManagement
   Scenario: A new user can be created in DECS through User Management
     Given I select to "Add a user"
-    When I enter the details for the new user
+    When I submit the details for the new user
     Then a success message is displayed
 
 
@@ -267,7 +267,7 @@ Feature: ManagementUI
     Then a success message is displayed
 
   @TopicManagement  
-  Scenario: User is able to the new Parent Topic to a Child topic during creation
+  Scenario: User is able to link the new Parent Topic to a Child topic during creation
     Given I select to "Add parent topic"
     When I create a new parent topic  
     And I select to "Add child topic"
@@ -495,8 +495,6 @@ Feature: ManagementUI
     And I load the business units for the "UKVI" business area
     And I create a new business unit
     Then a success message is displayed
-    And I select to "Manage MPAM Business Units"
-    And I load the business units for the "UKVI" business area
     Then the new business unit is added to the list of business units
 
 
@@ -508,8 +506,6 @@ Feature: ManagementUI
     And I load the enquiry reasons for the "Person Specific" enquiry subject
     And I create a new enquiry reason
     Then a success message is displayed
-    And I select to "Manage MPAM Enquiry Reasons"
-    And I load the enquiry reasons for the "Person Specific" enquiry subject
     Then the new enquiry reason is added to the list of enquiry reasons
 
 #    MANAGE FOI ACCOUNT MANAGERS

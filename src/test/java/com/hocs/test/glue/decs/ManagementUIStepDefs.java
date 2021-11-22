@@ -680,7 +680,7 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.assertSuccessMessageForAmendingAccountManagerVisible();
     }
 
-    @And("I enter the details for the new user")
+    @And("I submit the details for the new user")
     public void iEnterTheDetailsForTheNewUser() {
         userManagement.enterNewUserDetails();
         clickTheButton("Submit");
@@ -729,11 +729,15 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("the new business unit is added to the list of business units")
     public void theNewBusinessUnitIsAddedToTheListOfBusinessUnits() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Business Units");
+        listsManagement.selectABusinessArea(sessionVariableCalled("businessArea"));
         listsManagement.assertVisibilityOfNewBusinessUnit();
     }
 
     @Then("the new enquiry reason is added to the list of enquiry reasons")
     public void theNewEnquiryReasonIsAddedToTheListOfEnquiryReasons() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+        listsManagement.selectAnEnquirySubject(sessionVariableCalled("enquirySubject"));
         listsManagement.assertVisibilityOfNewEnquiryReason();
     }
 

@@ -14,8 +14,6 @@ public class ListsManagement extends BasePage {
 
     MUIDashboard MUIDashboard;
 
-    Documents documents;
-
     @FindBy(xpath = "//h1[text()='View and edit campaigns']")
     private WebElementFacade viewAndEditCampaignsHeader;
 
@@ -111,6 +109,7 @@ public class ListsManagement extends BasePage {
         waitFor(businessAreaTypeahead);
         businessAreaTypeahead.sendKeys(businessArea);
         businessAreaTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("businessArea").to(businessArea);
         clickTheButton("Submit");
     }
 
@@ -118,6 +117,7 @@ public class ListsManagement extends BasePage {
         waitFor(enquirySubjectTypeahead);
         enquirySubjectTypeahead.sendKeys(enquirySubject);
         enquirySubjectTypeahead.sendKeys(Keys.RETURN);
+        setSessionVariable("enquirySubject").to(enquirySubject);
         clickTheButton("Submit");
     }
 
