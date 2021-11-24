@@ -63,6 +63,9 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRadioButton;
 
+    @FindBy(xpath = "//label[text()='Border Force Case']")
+    public WebElementFacade bfRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -204,7 +207,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "BF");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -343,6 +346,11 @@ public class CreateCase extends BasePage {
                 break;
             case "FOI_USER":
                 if (foiRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "BF_USER":
+                if (bfRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;
