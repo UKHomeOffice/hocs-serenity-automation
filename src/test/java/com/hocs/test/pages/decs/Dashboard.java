@@ -81,6 +81,11 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
 
+    // BF Teams
+
+    @FindBy(xpath = "//span[text()='Border Force']")
+    public WebElementFacade borderForceWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -287,6 +292,11 @@ public class Dashboard extends BasePage {
                 break;
             case "FOI_USER":
                 if (foiCreationWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "BF_USER":
+                if (borderForceWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;
