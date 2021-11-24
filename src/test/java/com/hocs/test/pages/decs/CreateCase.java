@@ -153,6 +153,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("Serious Misconduct Case");
     }
 
+    private void clickBfRadioButton() {
+        selectSpecificRadioButton("Border Force Case");
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -189,6 +193,9 @@ public class CreateCase extends BasePage {
                 break;
             case "SMC":
                 clickSmcRadioButton();
+                break;
+            case "BF":
+                clickBfRadioButton();
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
