@@ -1,12 +1,19 @@
 package com.hocs.test.pages.foi;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
 
-    RecordCaseData recordCaseData;
+    Dashboard dashboard;
+
+    CaseView caseView;
 
     CaseCreationStage caseCreationStage;
 
@@ -21,6 +28,38 @@ public class FOIProgressCase extends BasePage {
     FOIDispatch foiDispatch;
 
     Documents documents;
+
+    public void completeTheFOIStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stage.toUpperCase()) {
+            case "CASE CREATION":
+                moveCaseFromCaseCreationToAllocation();
+                break;
+            case "ALLOCATION":
+                moveCaseFromAllocationToAcceptance();
+                break;
+            case "ACCEPTANCE":
+                moveCaseFromAcceptanceToConsiderAndDraft();
+                break;
+            case "CONSIDER AND DRAFT":
+                moveCaseFromConsiderAndDraftToApproval();
+                break;
+            case "APPROVAL":
+                moveCaseFromApprovalToDispatch();
+                break;
+            case "DISPATCH":
+                moveCaseFromDispatchToSoftClose();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        if (stage.equalsIgnoreCase("ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION")) {
+            dashboard.waitForDashboard();
+        } else {
+            caseView.waitForCaseToLoad();
+        }
+        RecordCaseData.resetDataRecords();
+    }
 
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");

@@ -12,7 +12,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -238,6 +237,19 @@ public class Dashboard extends BasePage {
     public void getAndClaimCurrentCase() {
         getCurrentCase();
         claimCurrentCase();
+    }
+
+    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
+        if (!caseView.currentCaseIsLoaded()) {
+                goToDashboard();
+                waitForDashboard();
+                getCurrentCase();
+            }
+        if (caseView.caseCanBeAllocated()) {
+            claimCurrentCase();
+            caseView.waitForCaseToLoad();
+            caseView.assertCaseCannotBeAllocated();
+        }
     }
 
     public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {

@@ -7,7 +7,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import com.hocs.test.pages.complaints.ComplaintsProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
@@ -15,10 +14,7 @@ import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.Creation;
-import com.hocs.test.pages.mpam.DispatchStages;
-import com.hocs.test.pages.mpam.Draft;
-import com.hocs.test.pages.mpam.QA;
-import com.hocs.test.pages.mpam.Triage;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -32,503 +28,63 @@ public class EndToEndStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    CaseView caseView;
-
     Workdays workdays;
 
     Creation creation;
 
-    Triage triage;
-
-    Draft draft;
-
-    QA qa;
-
-    DispatchStages dispatchStages;
-
     DCUProgressCase dcuProgressCase;
 
-    WCSProgressCase wcsProgressCase;
+    MPAMProgressCase mpamProgressCase;
 
     ComplaintsProgressCase complaintsProgressCase;
 
     FOIProgressCase foiProgressCase;
 
+    WCSProgressCase wcsProgressCase;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        if (!caseView.currentCaseIsLoaded()) {
-            dashboard.goToDashboard();
-            dashboard.waitForDashboard();
-            dashboard.getCurrentCase();
-        }
-        if (caseView.caseCanBeAllocated()) {
-            dashboard.claimCurrentCase();
-            caseView.waitForCaseToLoad();
-        }
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
             case "DTEN":
             case "TRO":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                        dcuProgressCase.moveCaseFromDataInputToMarkup();
-                        break;
-                    case "MARKUP":
-                        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
-                        break;
-                    case "MARKUP TO NRN CONFIRMATION":
-                        dcuProgressCase.moveCaseFromMarkupToNRNConfirmation();
-                        break;
-                    case "MARKUP TO TRANSFER CONFIRMATION":
-                        dcuProgressCase.moveCaseFromMarkupToTransferConfirmation();
-                        break;
-                    case "INITIAL DRAFT":
-                        dcuProgressCase.moveCaseFromInitialDraftToQaResponse();
-                        break;
-                    case "QA RESPONSE":
-                        dcuProgressCase.moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
-                        break;
-                    case "MINISTERIAL SIGN OFF":
-                        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
-                        break;
-                    case "DISPATCH":
-                        dcuProgressCase.moveCaseFromDispatchToCaseClosedOrCopyToNumber10();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                dcuProgressCase.completeTheCurrentStageSoThatCaseMovesToTargetStage(stage);
                 break;
             case "MPAM":
-                switch (stage.toUpperCase()) {
-                    case "CREATION":
-                        creation.moveCaseFromCreationToTriage();
-                        break;
-                    case "TRIAGE":
-                        triage.moveCaseFromTriageToDraft();
-                        break;
-                    case "DRAFT":
-                        draft.moveCaseFromDraftToQA();
-                        break;
-                    case "QA":
-                        qa.moveCaseFromQAToNextStage();
-                        break;
-                    case "PRIVATE OFFICE (TO CASE CLOSED)":
-                        dispatchStages.moveCaseFromPrivateOfficeToCaseClosed();
-                        break;
-                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))":
-                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchLocal();
-                        break;
-                    case "PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))":
-                        dispatchStages.moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial();
-                        break;
-                    case "AWAITING DISPATCH":
-                        dispatchStages.moveCaseFromAwaitingDispatchToCaseClosed();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                mpamProgressCase.completeTheMPAMStage(stage);
                 break;
             case "COMP":
             case "COMP2":
-                switch (stage.toUpperCase()) {
-                    case "REGISTRATION (TO SERVICE TRIAGE)":
-                        complaintsProgressCase.moveCaseFromCOMPRegistrationToServiceTriage();
-                        break;
-                    case "REGISTRATION (TO EX-GRATIA TRIAGE)":
-                        complaintsProgressCase.moveCaseFromRegistrationToExGratiaTriage();
-                        break;
-                    case "REGISTRATION (TO MINOR MISCONDUCT TRIAGE)":
-                        complaintsProgressCase.moveCaseFromRegistrationToMinorMisconductTriage();
-                        break;
-                    case "SERVICE TRIAGE (TO SERVICE DRAFT)":
-                        complaintsProgressCase.moveCaseFromServiceTriageToServiceDraft();
-                        break;
-                    case "EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)":
-                        complaintsProgressCase.moveCaseFromExGratiaTriageToExGratiaResponseDraft();
-                        break;
-                    case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)":
-                        complaintsProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductResponseDraft();
-                        break;
-                    case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
-                        complaintsProgressCase.moveCaseFromServiceTriageToServiceEscalated();
-                        break;
-                    case "EX-GRATIA TRIAGE (TO EX-GRATIA ESCALATE)":
-                        complaintsProgressCase.moveCaseFromExGratiaTriageToExGratiaEscalate();
-                        break;
-                    case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT ESCALATE)":
-                        complaintsProgressCase.moveCaseFromMinorMisconductTriageToMinorMisconductEscalate();
-                        break;
-                    case "SERVICE TRIAGE (TO CCH)":
-                        complaintsProgressCase.moveCaseFromServiceTriageToCCH();
-                        break;
-                    case "EX-GRATIA TRIAGE (TO CCH)":
-                        complaintsProgressCase.moveCaseFromExGratiaTriageToCCH();
-                        break;
-                    case "MINOR MISCONDUCT TRIAGE (TO CCH)":
-                        complaintsProgressCase.moveCaseFromMinorMisconductTriageToCCH();
-                        break;
-                    case "SERVICE DRAFT":
-                        complaintsProgressCase.moveCaseFromServiceDraftToServiceQA();
-                        break;
-                    case "EX-GRATIA RESPONSE DRAFT":
-                        complaintsProgressCase.moveCaseFromExGratiaResponseDraftToExGratiaQA();
-                        break;
-                    case "MINOR MISCONDUCT RESPONSE DRAFT":
-                        complaintsProgressCase.moveCaseFromMinorMisconductResponseDraftToMinorMisconductQA();
-                        break;
-                    case "SERVICE QA":
-                        complaintsProgressCase.moveCaseFromServiceQAToServiceSend();
-                        break;
-                    case "EX-GRATIA QA":
-                        complaintsProgressCase.moveCaseFromExGratiaQAToExGratiaSend();
-                        break;
-                    case "MINOR MISCONDUCT QA":
-                        complaintsProgressCase.moveCaseFromMinorMisconductQAToMinorMisconductSend();
-                        break;
-                    case "SERVICE SEND":
-                        complaintsProgressCase.moveCaseFromServiceSendToComplaintClosed();
-                        break;
-                    case "EX-GRATIA SEND":
-                        complaintsProgressCase.moveCaseFromExGratiaSendToComplaintClosed();
-                        break;
-                    case "MINOR MISCONDUCT SEND":
-                        complaintsProgressCase.moveCaseFromMinorMisconductSendToComplaintClosed();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                complaintsProgressCase.completeTheCOMPStage(stage);
                 break;
             case "IEDET":
-                switch (stage.toUpperCase()) {
-                    case "REGISTRATION (TO TRIAGE)":
-                        complaintsProgressCase.moveIEDETCaseFromRegistrationToTriage();
-                        break;
-                    case "TRIAGE (TO DRAFT)":
-                        complaintsProgressCase.moveIEDETCaseFromTriageToDraft();
-                        break;
-                    case "DRAFT (TO SEND)":
-                        complaintsProgressCase.moveIEDETCaseFromDraftToSend();
-                        break;
-                    case "SEND (TO CASE CLOSED)":
-                        complaintsProgressCase.moveIEDETCaseFromSendToCaseClosed();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                complaintsProgressCase.completeTheIEDETStage(stage);
                 break;
             case "SMC":
-                switch (stage.toUpperCase()) {
-                    case "REGISTRATION (TO TRIAGE)":
-                        complaintsProgressCase.moveSMCCaseFromRegistrationToTriage();
-                        break;
-                    case "TRIAGE (TO DRAFT)":
-                        complaintsProgressCase.moveSMCCaseFromTriageToDraft();
-                        break;
-                    case "DRAFT (TO SEND)":
-                        complaintsProgressCase.moveSMCCaseFromDraftToSend();
-                        break;
-                    case "SEND (TO CASE CLOSED)":
-                        complaintsProgressCase.moveSMCCaseFromSendToCaseClosed();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                complaintsProgressCase.completeTheSMCStage(stage);
                 break;
             case "FOI":
-                switch (stage.toUpperCase()) {
-                    case "CASE CREATION":
-                        foiProgressCase.moveCaseFromCaseCreationToAllocation();
-                        break;
-                    case "ALLOCATION":
-                        foiProgressCase.moveCaseFromAllocationToAcceptance();
-                        dashboard.waitForDashboard();
-                        break;
-                    case "ACCEPTANCE":
-                        foiProgressCase.moveCaseFromAcceptanceToConsiderAndDraft();
-                        dashboard.waitForDashboard();
-                        break;
-                    case "CONSIDER AND DRAFT":
-                        foiProgressCase.moveCaseFromConsiderAndDraftToApproval();
-                        break;
-                    case "APPROVAL":
-                        foiProgressCase.moveCaseFromApprovalToDispatch();
-                        break;
-                    case "DISPATCH":
-                        foiProgressCase.moveCaseFromDispatchToSoftClose();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
+                foiProgressCase.completeTheFOIStage(stage);
                 break;
             case "WCS":
-                switch (stage.toUpperCase()) {
-                    case "REGISTRATION (TO TRIAGE)":
-                        wcsProgressCase.moveRegistrationCaseToTriage();
-                        break;
-                    case "REGISTRATION (TO ELIGIBILITY)":
-                        wcsProgressCase.moveRegistrationCaseToEligibility();
-                        break;
-                    case "REGISTRATION (TO IDENTITY REJECTED)":
-                        wcsProgressCase.moveRegistrationCaseToIdentityRejected();
-                        break;
-                    case "IDENTITY REJECTED (TO ARCHIVED)":
-                        wcsProgressCase.moveIdentityRejectedCaseToArchivedIdentityRejected();
-                        break;
-                    case "IDENTITY REJECTED (TO TIER 1)":
-                        wcsProgressCase.moveIdentityRejectedCaseToTier1IR();
-                        break;
-                    case "ELIGIBILITY (TO TRIAGE)":
-                        wcsProgressCase.moveEligibilityCaseToTriage();
-                        break;
-                    case "ELIGIBILITY (TO ELIGIBILITY REJECTED)":
-                        wcsProgressCase.moveEligibilityCaseToEligibilityRejected();
-                        break;
-                    case "ELIGIBILITY REJECTED (TO ARCHIVED)":
-                        wcsProgressCase.moveEligibilityRejectedCaseToArchivedEligibilityRejected();
-                        break;
-                    case "ELIGIBILITY REJECTED (TO TIER 1)":
-                        wcsProgressCase.moveEligibilityRejectedCaseToTier1ER();
-                        break;
-                    case "TRIAGE":
-                        wcsProgressCase.moveTriageCaseToCasework();
-                        break;
-                    case "CASEWORK":
-                        wcsProgressCase.moveCaseworkCaseToQA();
-                        break;
-                    case "QA":
-                        wcsProgressCase.moveQACaseToPaymentPreOfferChecklist();
-                        break;
-                    case "PAYMENT PRE-OFFER CHECKLIST":
-                        wcsProgressCase.movePaymentPreOfferChecklistCaseToOfferApproval();
-                        break;
-                    case "OFFER APPROVAL":
-                        wcsProgressCase.moveOfferApprovalCaseToSendOffer();
-                        break;
-                    case "SEND OFFER (TO OFFER ACCEPTANCE)":
-                        wcsProgressCase.moveSendOfferCaseToOfferAcceptance();
-                        break;
-                    case "SEND OFFER (TO NIL OFFER ACCEPTANCE)":
-                        wcsProgressCase.moveSendOfferCaseToNilOfferAcceptance();
-                        break;
-                    case "OFFER ACCEPTANCE (TO PAYMENT PREPARATION)":
-                        wcsProgressCase.moveOfferAcceptanceCaseToPaymentPreparation();
-                        break;
-                    case "OFFER ACCEPTANCE (TO TIER 1)":
-                        wcsProgressCase.moveOfferAcceptanceCaseToTier1();
-                        break;
-                    case "PAYMENT PREPARATION":
-                        wcsProgressCase.movePaymentPreparationCaseToPaymentApproval();
-                        break;
-                    case "PAYMENT APPROVAL":
-                        wcsProgressCase.movePaymentApprovalCaseToSendPayment();
-                        break;
-                    case "SEND PAYMENT":
-                        wcsProgressCase.moveSendPaymentCaseToAwaitingPaymentConfirmation();
-                        break;
-                    case "AWAITING PAYMENT CONFIRMATION":
-                        wcsProgressCase.moveAwaitingPaymentConfirmationCaseToCompleteState();
-                        break;
-                    case "TIER 1":
-                        wcsProgressCase.moveTier1CaseToTier2();
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                dashboard.waitForDashboard();
+                wcsProgressCase.completeTheWCSStage(stage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        RecordCaseData.resetDataRecords();
     }
 
     @And("I create a {string} case and move it to (the ){string}( stage)")
     public void iCreateACaseAndMoveItToAStage(String caseType, String stage) {
         switch (caseType.toUpperCase()) {
             case "MIN":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                        createCase.createCSCaseOfType(caseType);
-                        dashboard.goToDashboard();
-                        break;
-                    case "MARKUP":
-                        iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
-                        iCompleteTheStage("DATA INPUT");
-                        break;
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
-                        break;
-                    case "TRANSFER CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
-                        break;
-                    case "INITIAL DRAFT":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP");
-                        break;
-                    case "QA RESPONSE":
-                        iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
-                        iCompleteTheStage("INITIAL DRAFT");
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                        iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
-                        iCompleteTheStage("QA RESPONSE");
-                        break;
-                    case "MINISTERIAL SIGN OFF":
-                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE APPROVAL");
-                        iCompleteTheStage("PRIVATE OFFICE APPROVAL");
-                        break;
-                    case "DISPATCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "MINISTERIAL SIGN OFF");
-                        iCompleteTheStage("MINISTERIAL SIGN OFF");
-                        break;
-                    case "COPY TO NUMBER 10":
-                        iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber();
-                        iCompleteTheStage("DISPATCH");
-                        break;
-                    case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
-                        iCompleteTheStage("DISPATCH");
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                break;
             case "TRO":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                        createCase.createCSCaseOfType(caseType);
-                        dashboard.goToDashboard();
-                        break;
-                    case "MARKUP":
-                        iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
-                        iCompleteTheStage("DATA INPUT");
-                        break;
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
-                        break;
-                    case "TRANSFER CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
-                        break;
-                    case "INITIAL DRAFT":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP");
-                        break;
-                    case "QA RESPONSE":
-                        iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
-                        iCompleteTheStage("INITIAL DRAFT");
-                        break;
-                    case "DISPATCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
-                        iCompleteTheStage("QA RESPONSE");
-                        break;
-                    case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
-                        iCompleteTheStage("DISPATCH");
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                break;
             case "DTEN":
-                switch (stage.toUpperCase()) {
-                    case "DATA INPUT":
-                        createCase.createCSCaseOfType(caseType);
-                        dashboard.goToDashboard();
-                        break;
-                    case "MARKUP":
-                        iCreateACaseAndMoveItToAStage(caseType, "DATA INPUT");
-                        iCompleteTheStage("DATA INPUT");
-                        break;
-                    case "NO RESPONSE NEEDED CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO NRN CONFIRMATION");
-                        break;
-                    case "TRANSFER CONFIRMATION":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP TO TRANSFER CONFIRMATION");
-                        break;
-                    case "INITIAL DRAFT":
-                        iCreateACaseAndMoveItToAStage(caseType, "MARKUP");
-                        iCompleteTheStage("MARKUP");
-                        break;
-                    case "QA RESPONSE":
-                        iCreateACaseAndMoveItToAStage(caseType, "INITIAL DRAFT");
-                        iCompleteTheStage("INITIAL DRAFT");
-                        break;
-                    case "PRIVATE OFFICE APPROVAL":
-                        iCreateACaseAndMoveItToAStage(caseType, "QA RESPONSE");
-                        iCompleteTheStage("QA RESPONSE");
-                        break;
-                    case "DISPATCH":
-                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE APPROVAL");
-                        iCompleteTheStage("PRIVATE OFFICE APPROVAL");
-                        break;
-                    case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "DISPATCH");
-                        iCompleteTheStage("DISPATCH");
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
+                dcuProgressCase.createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, stage);
                 break;
             case "MPAM":
-                switch (stage.toUpperCase()) {
-                    case "CREATION":
-                        createCase.createCSCaseOfType(caseType);
-                        dashboard.goToDashboard();
-                        break;
-                    case "TRIAGE":
-                        iCreateACaseAndMoveItToAStage(caseType, "CREATION");
-                        iCompleteTheStage("CREATION");
-                        break;
-                    case "DRAFT":
-                        iCreateACaseAndMoveItToAStage(caseType, "TRIAGE");
-                        iCompleteTheStage("TRIAGE");
-                        break;
-                    case "QA":
-                        iCreateACaseAndMoveItToAStage(caseType, "DRAFT");
-                        iCompleteTheStage("DRAFT");
-                        break;
-                    case "PRIVATE OFFICE":
-                        iCreateACaseAndMoveItToAStage(caseType, "QA");
-                        iCompleteTheStage("QA");
-                        break;
-                    case "AWAITING DISPATCH":
-                        moveNewMPAMCaseWithSpecifiedBusinessAreaAndReferenceTypeToStage("UKVI", "Official", "QA");
-                        iCompleteTheStage("QA");
-                        break;
-                    case "AWAITING DISPATCH (LOCAL)":
-                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (LOCAL))");
-                        break;
-                    case "AWAITING DISPATCH (MINISTERIAL)":
-                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE (TO AWAITING DISPATCH (MINISTERIAL))");
-                        break;
-                    case "CASE CLOSED":
-                        iCreateACaseAndMoveItToAStage(caseType, "PRIVATE OFFICE");
-                        iCompleteTheStage("PRIVATE OFFICE (TO CASE CLOSED)");
-                        break;
-                    default:
-                        pendingStep(stage + " is not defined within " + getMethodName());
-                }
-                break;
-            case "MTS":
-                createCase.createCSCaseOfType(caseType);
-                dashboard.goToDashboard();
+                mpamProgressCase.CreateMPAMCaseAndMoveItToTheSpecifiedStage(stage);
                 break;
             case "COMP":
                 switch (stage.toUpperCase()) {
@@ -797,29 +353,17 @@ public class EndToEndStepDefs extends BasePage {
     @And("I get a {string} case at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);
-        if (!stage.equalsIgnoreCase("CASE CLOSED")) {
-            dashboard.getAndClaimCurrentCase();
-        } else {
+        if (stage.equalsIgnoreCase("CASE CLOSED")) {
             dashboard.getCurrentCase();
+        } else {
+            dashboard.getAndClaimCurrentCase();
         }
     }
 
-    @And("I get a MIN case at the Dispatch stage that should be copied to Number 10")
-    public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber() {
-        createCase.createCSCaseOfType("MIN");
-        confirmationScreens.goToCaseFromConfirmationScreen();
-        dashboard.claimCurrentCase();
-        dcuProgressCase.moveCaseFromDataInputToMarkupWithCopyToNumber10();
+    @And("I get a DCU {string} case at the {string} stage that should be copied to Number 10")
+    public void iGetAMINCaseAtTheDisptachStageThatShouldBeCopiedToNumber(String caseType, String stage) {
+        dcuProgressCase.createDCUCaseOfTypeAndMoveItToTheSpecifiedStageWithCopyToNo10SetToYes(caseType, stage);
         dashboard.getAndClaimCurrentCase();
-        dcuProgressCase.moveCaseFromMarkupToInitialDraft();
-        dashboard.getAndClaimCurrentCase();
-        dcuProgressCase.moveCaseFromInitialDraftToPrivateOfficeApproval();
-        dashboard.getAndClaimCurrentCase();
-        dcuProgressCase.moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
-        dashboard.getAndClaimCurrentCase();
-        dcuProgressCase.moveCaseFromMinisterialSignOffToDispatch();
-        dashboard.getAndClaimCurrentCase();
-        RecordCaseData.resetDataRecords();
     }
 
     @When("I create a MPAM case with {string} as the Business Area and {string} as the Reference Type and move it to the "

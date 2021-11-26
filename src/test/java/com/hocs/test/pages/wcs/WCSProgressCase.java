@@ -1,7 +1,11 @@
 package com.hocs.test.pages.wcs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.RecordCaseData;
 
 public class WCSProgressCase extends BasePage {
     
@@ -40,6 +44,85 @@ public class WCSProgressCase extends BasePage {
     SendPayment sendPayment;
 
     AwaitingPaymentConfirmation awaitingPaymentConfirmation;
+
+    public void completeTheWCSStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stage.toUpperCase()) {
+            case "REGISTRATION (TO TRIAGE)":
+                moveRegistrationCaseToTriage();
+                break;
+            case "REGISTRATION (TO ELIGIBILITY)":
+                moveRegistrationCaseToEligibility();
+                break;
+            case "REGISTRATION (TO IDENTITY REJECTED)":
+                moveRegistrationCaseToIdentityRejected();
+                break;
+            case "IDENTITY REJECTED (TO ARCHIVED)":
+                moveIdentityRejectedCaseToArchivedIdentityRejected();
+                break;
+            case "IDENTITY REJECTED (TO TIER 1)":
+                moveIdentityRejectedCaseToTier1IR();
+                break;
+            case "ELIGIBILITY (TO TRIAGE)":
+                moveEligibilityCaseToTriage();
+                break;
+            case "ELIGIBILITY (TO ELIGIBILITY REJECTED)":
+                moveEligibilityCaseToEligibilityRejected();
+                break;
+            case "ELIGIBILITY REJECTED (TO ARCHIVED)":
+                moveEligibilityRejectedCaseToArchivedEligibilityRejected();
+                break;
+            case "ELIGIBILITY REJECTED (TO TIER 1)":
+                moveEligibilityRejectedCaseToTier1ER();
+                break;
+            case "TRIAGE":
+                moveTriageCaseToCasework();
+                break;
+            case "CASEWORK":
+                moveCaseworkCaseToQA();
+                break;
+            case "QA":
+                moveQACaseToPaymentPreOfferChecklist();
+                break;
+            case "PAYMENT PRE-OFFER CHECKLIST":
+                movePaymentPreOfferChecklistCaseToOfferApproval();
+                break;
+            case "OFFER APPROVAL":
+                moveOfferApprovalCaseToSendOffer();
+                break;
+            case "SEND OFFER (TO OFFER ACCEPTANCE)":
+                moveSendOfferCaseToOfferAcceptance();
+                break;
+            case "SEND OFFER (TO NIL OFFER ACCEPTANCE)":
+                moveSendOfferCaseToNilOfferAcceptance();
+                break;
+            case "OFFER ACCEPTANCE (TO PAYMENT PREPARATION)":
+                moveOfferAcceptanceCaseToPaymentPreparation();
+                break;
+            case "OFFER ACCEPTANCE (TO TIER 1)":
+                moveOfferAcceptanceCaseToTier1();
+                break;
+            case "PAYMENT PREPARATION":
+                movePaymentPreparationCaseToPaymentApproval();
+                break;
+            case "PAYMENT APPROVAL":
+                movePaymentApprovalCaseToSendPayment();
+                break;
+            case "SEND PAYMENT":
+                moveSendPaymentCaseToAwaitingPaymentConfirmation();
+                break;
+            case "AWAITING PAYMENT CONFIRMATION":
+                moveAwaitingPaymentConfirmationCaseToCompleteState();
+                break;
+            case "TIER 1":
+                moveTier1CaseToTier2();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        RecordCaseData.resetDataRecords();
+    }
 
     public void moveRegistrationCaseToEligibility() {
         registration.selectIfClaimHasGoneThroughTaskForce("No");
@@ -221,5 +304,4 @@ public class WCSProgressCase extends BasePage {
         awaitingPaymentConfirmation.yesCloseClaim();
         System.out.println("Case moved from Awaiting Payment Confirmation to case complete state");
     }
-
 }

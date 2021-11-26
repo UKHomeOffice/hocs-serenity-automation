@@ -4,9 +4,12 @@ import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ComplaintsProgressCase extends BasePage {
@@ -30,6 +33,79 @@ public class ComplaintsProgressCase extends BasePage {
     Search search;
 
 // COMP Case Methods:
+
+    public void completeTheCOMPStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stage.toUpperCase()) {
+            case "REGISTRATION (TO SERVICE TRIAGE)":
+                moveCaseFromCOMPRegistrationToServiceTriage();
+                break;
+            case "REGISTRATION (TO EX-GRATIA TRIAGE)":
+                moveCaseFromRegistrationToExGratiaTriage();
+                break;
+            case "REGISTRATION (TO MINOR MISCONDUCT TRIAGE)":
+                moveCaseFromRegistrationToMinorMisconductTriage();
+                break;
+            case "SERVICE TRIAGE (TO SERVICE DRAFT)":
+                moveCaseFromServiceTriageToServiceDraft();
+                break;
+            case "EX-GRATIA TRIAGE (TO EX-GRATIA RESPONSE DRAFT)":
+                moveCaseFromExGratiaTriageToExGratiaResponseDraft();
+                break;
+            case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT RESPONSE DRAFT)":
+                moveCaseFromMinorMisconductTriageToMinorMisconductResponseDraft();
+                break;
+            case "SERVICE TRIAGE (TO SERVICE ESCALATED)":
+                moveCaseFromServiceTriageToServiceEscalated();
+                break;
+            case "EX-GRATIA TRIAGE (TO EX-GRATIA ESCALATE)":
+                moveCaseFromExGratiaTriageToExGratiaEscalate();
+                break;
+            case "MINOR MISCONDUCT TRIAGE (TO MINOR MISCONDUCT ESCALATE)":
+                moveCaseFromMinorMisconductTriageToMinorMisconductEscalate();
+                break;
+            case "SERVICE TRIAGE (TO CCH)":
+                moveCaseFromServiceTriageToCCH();
+                break;
+            case "EX-GRATIA TRIAGE (TO CCH)":
+                moveCaseFromExGratiaTriageToCCH();
+                break;
+            case "MINOR MISCONDUCT TRIAGE (TO CCH)":
+                moveCaseFromMinorMisconductTriageToCCH();
+                break;
+            case "SERVICE DRAFT":
+                moveCaseFromServiceDraftToServiceQA();
+                break;
+            case "EX-GRATIA RESPONSE DRAFT":
+                moveCaseFromExGratiaResponseDraftToExGratiaQA();
+                break;
+            case "MINOR MISCONDUCT RESPONSE DRAFT":
+                moveCaseFromMinorMisconductResponseDraftToMinorMisconductQA();
+                break;
+            case "SERVICE QA":
+                moveCaseFromServiceQAToServiceSend();
+                break;
+            case "EX-GRATIA QA":
+                moveCaseFromExGratiaQAToExGratiaSend();
+                break;
+            case "MINOR MISCONDUCT QA":
+                moveCaseFromMinorMisconductQAToMinorMisconductSend();
+                break;
+            case "SERVICE SEND":
+                moveCaseFromServiceSendToComplaintClosed();
+                break;
+            case "EX-GRATIA SEND":
+                moveCaseFromExGratiaSendToComplaintClosed();
+                break;
+            case "MINOR MISCONDUCT SEND":
+                moveCaseFromMinorMisconductSendToComplaintClosed();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        RecordCaseData.resetDataRecords();
+    }
 
 //      Service Complaint Type:
 
@@ -277,6 +353,27 @@ public class ComplaintsProgressCase extends BasePage {
 
 //  IEDET Case Methods:
 
+    public void completeTheIEDETStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stage.toUpperCase()) {
+            case "REGISTRATION (TO TRIAGE)":
+                moveIEDETCaseFromRegistrationToTriage();
+                break;
+            case "TRIAGE (TO DRAFT)":
+                moveIEDETCaseFromTriageToDraft();
+                break;
+            case "DRAFT (TO SEND)":
+                moveIEDETCaseFromDraftToSend();
+                break;
+            case "SEND (TO CASE CLOSED)":
+                moveIEDETCaseFromSendToCaseClosed();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        RecordCaseData.resetDataRecords();
+    }
 
     public void moveIEDETCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -318,6 +415,27 @@ public class ComplaintsProgressCase extends BasePage {
 
 //  SMC Case Methods:
 
+    public void completeTheSMCStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stage.toUpperCase()) {
+            case "REGISTRATION (TO TRIAGE)":
+                moveSMCCaseFromRegistrationToTriage();
+                break;
+            case "TRIAGE (TO DRAFT)":
+                moveSMCCaseFromTriageToDraft();
+                break;
+            case "DRAFT (TO SEND)":
+                moveSMCCaseFromDraftToSend();
+                break;
+            case "SEND (TO CASE CLOSED)":
+                moveSMCCaseFromSendToCaseClosed();
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        RecordCaseData.resetDataRecords();
+    }
 
     public void moveSMCCaseFromRegistrationToTriage() {
             correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -366,5 +484,4 @@ public class ComplaintsProgressCase extends BasePage {
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
     }
-
 }

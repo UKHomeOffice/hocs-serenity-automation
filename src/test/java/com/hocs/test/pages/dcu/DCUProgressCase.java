@@ -1,11 +1,20 @@
 package com.hocs.test.pages.dcu;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
-import config.User;
+import com.hocs.test.pages.decs.RecordCaseData;
 
 public class DCUProgressCase extends BasePage {
+
+    Dashboard dashboard;
+
+    CreateCase createCase;
 
     Correspondents correspondents;
 
@@ -25,17 +34,120 @@ public class DCUProgressCase extends BasePage {
 
     Dispatch dispatch;
 
-    public void moveCaseFromDataInputToMarkup() {
-        dataInput.fillAllMandatoryCorrespondenceFields();
-        safeClickOn(continueButton);
-        correspondents.addANonMemberCorrespondentOfType("Constituent");
-        correspondents.confirmPrimaryCorrespondent();
+    Boolean copyToNumber10 = false;
+
+    public void createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(String caseType, String stage) {
+        switch (stage.toUpperCase()) {
+            case "DATA INPUT":
+                createCase.createCSCaseOfType(caseType);
+                dashboard.goToDashboard();
+                break;
+            case "MARKUP":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "DATA INPUT");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("DATA INPUT", stage);
+                break;
+            case "INITIAL DRAFT":
+            case "TRANSFER CONFIRMATION":
+            case "NO RESPONSE NEEDED CONFIRMATION":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "MARKUP");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("MARKUP", stage);
+                break;
+            case "QA RESPONSE":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "INITIAL DRAFT");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("INITIAL DRAFT", stage);
+                break;
+            case "PRIVATE OFFICE APPROVAL":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "QA RESPONSE");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("QA RESPONSE", stage);
+                break;
+            case "MINISTERIAL SIGN OFF":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "PRIVATE OFFICE APPROVAL");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("PRIVATE OFFICE APPROVAL", stage);
+                break;
+            case "DISPATCH":
+                switch (caseType) {
+                    case "MIN":
+                        createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "MINISTERIAL SIGN OFF");
+                        completeTheCurrentStageSoThatCaseMovesToTargetStage("MINISTERIAL SIGN OFF", stage);
+                        break;
+                    case"DTEN":
+                        createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "PRIVATE OFFICE APPROVAL");
+                        completeTheCurrentStageSoThatCaseMovesToTargetStage("PRIVATE OFFICE APPROVAL", stage);
+                        break;
+                    case "TRO":
+                        createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "QA RESPONSE");
+                        completeTheCurrentStageSoThatCaseMovesToTargetStage("QA RESPONSE", stage);
+                        break;
+                }
+                break;
+            case "COPY TO NUMBER 10":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStageWithCopyToNo10SetToYes(caseType, "DISPATCH");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("DISPATCH", stage);
+                break;
+            case "CASE CLOSED":
+                createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, "DISPATCH");
+                completeTheCurrentStageSoThatCaseMovesToTargetStage("DISPATCH", stage);
+                break;
+            default:
+                pendingStep(stage + " is not defined within " + getMethodName());
+        }
     }
 
-    public void moveCaseFromDataInputToMarkupWithCopyToNumber10() {
+    public void createDCUCaseOfTypeAndMoveItToTheSpecifiedStageWithCopyToNo10SetToYes(String caseType, String stage) {
+        copyToNumber10 = true;
+        createDCUCaseOfTypeAndMoveItToTheSpecifiedStage(caseType, stage);
+    }
+
+    public void completeTheCurrentStageSoThatCaseMovesToTargetStage(String currentStage, String targetStage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (currentStage.toUpperCase()) {
+            case "DATA INPUT":
+                moveCaseFromDataInputToMarkup();
+                break;
+            case "MARKUP":
+                switch (targetStage.toUpperCase()) {
+                    case "INITIAL DRAFT":
+                        moveCaseFromMarkupToInitialDraft();
+                        break;
+                    case "NO RESPONSE NEEDED CONFIRMATION":
+                        moveCaseFromMarkupToNRNConfirmation();
+                        break;
+                    case "TRANSFER CONFIRMATION":
+                        moveCaseFromMarkupToTransferConfirmation();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
+            case "INITIAL DRAFT":
+                moveCaseFromInitialDraftToQaResponse();
+                break;
+            case "QA RESPONSE":
+                moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch();
+                break;
+            case "PRIVATE OFFICE APPROVAL":
+                moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch();
+                break;
+            case "MINISTERIAL SIGN OFF":
+                moveCaseFromMinisterialSignOffToDispatch();
+                break;
+            case "DISPATCH":
+                moveCaseFromDispatchToCaseClosedOrCopyToNumber10();
+                break;
+            default:
+                pendingStep(currentStage + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        RecordCaseData.resetDataRecords();
+    }
+
+    public void moveCaseFromDataInputToMarkup() {
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
-        dataInput.selectASpecificCopyToNoTenOption("Yes");
+        if (copyToNumber10) {
+            dataInput.selectASpecificCopyToNoTenOption("Yes");
+        } else {
+            dataInput.selectASpecificCopyToNoTenOption("No");
+        }
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectAHomeSecReplyOption();
         safeClickOn(continueButton);

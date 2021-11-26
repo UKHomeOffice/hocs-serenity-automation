@@ -18,7 +18,7 @@ Feature: Dispatch
 
   @DCUWorkflow @DCURegression
   Scenario: User dispatches a MIN case that should be copied to Number 10
-    And I get a MIN case at the Dispatch stage that should be copied to Number 10
+    And I get a DCU "MIN" case at the "Dispatch" stage that should be copied to Number 10
     When I submit that I am able to dispatch the case
     Then the case should be moved to the "Copy To Number 10" stage
     And the summary should display the owning team as "Transfers & No10 Team"
