@@ -11,6 +11,7 @@ public enum User {
     SMC_USER("smc automated regression user", "Password1!", "SMC Regression (smcregressiont@test.com)"),
     FOI_USER("foi automated regression user", "Password1!", "FOI Regression (foiregressiont@test.com)"),
     BF_USER("bf automated regression user", "Password1!", "BF Regression (bfregression@test.com)"),
+    TO_USER("to automated regression user", "Password1!", "TO Regression (toregression@test.com)"),
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     COMP_SUPERUSER("comp super user", "Password1!", "COMP Super User (compsuperuser@test.com)"),
     FOI_SUPERUSER("foi super user", "Password1!", "FOI Super User (foisuperuser@test.com)"),

@@ -66,6 +66,9 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='Border Force Case']")
     public WebElementFacade bfRadioButton;
 
+    @FindBy(xpath = "//label[text()='Treat Official']")
+    public WebElementFacade treatOfficialRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -156,6 +159,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("Serious Misconduct Case");
     }
 
+    private void clickToRadioButton() {
+        selectSpecificRadioButton("Treat Official");
+    }
+
     private void clickBfRadioButton() {
         selectSpecificRadioButton("Border Force Case");
     }
@@ -200,6 +207,9 @@ public class CreateCase extends BasePage {
             case "BF":
                 clickBfRadioButton();
                 break;
+            case "TO":
+                clickToRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -207,7 +217,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "BF");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "BF", "TO");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -351,6 +361,11 @@ public class CreateCase extends BasePage {
                 break;
             case "BF_USER":
                 if (bfRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "TO_USER":
+                if (treatOfficialRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;
