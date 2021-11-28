@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
-import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.Creation;
@@ -49,7 +48,7 @@ public class EndToEndStepDefs extends BasePage {
             case "MIN":
             case "DTEN":
             case "TRO":
-                dcuProgressCase.completeTheCurrentStageSoThatCaseMovesToTargetStage(stage);
+                dcuProgressCase.completeSpecifiedStageSoThatCaseMovesToSpecifiedTargetStage(stage, "Happy Path");
                 break;
             case "MPAM":
                 mpamProgressCase.completeTheMPAMStage(stage);
