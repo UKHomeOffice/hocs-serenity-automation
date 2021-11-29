@@ -160,7 +160,7 @@ public class CreateCase extends BasePage {
     }
 
     private void clickToRadioButton() {
-        selectSpecificRadioButton("Treat Official");
+        safeClickOn(treatOfficialRadioButton);
     }
 
     private void clickBfRadioButton() {
