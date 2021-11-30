@@ -84,6 +84,17 @@ Feature: ManagementUI
     When I select the checkbox to include expired standard lines
     Then the standard line "is" visible
 
+  @StandardLines
+  Scenario: User is able to see a standard line created through MUI when drafting a MIN case
+    When I select to "Add a standard line"
+    And I add a new Standard Line with "Animal alternatives (3Rs)" as the topic
+    And I navigate to "CS"
+    And I create a "MIN" case and move it to the "Initial Draft" stage
+    And I load and claim the current case
+    And I select a case "should" be answered by my team
+    And I select to reply by "post"
+    Then the document added through MUI should be displayed in the list of available standard line documents
+
 
 #    MANAGE A TEAM
 
@@ -256,6 +267,16 @@ Feature: ManagementUI
     And I add a new template to the case type
     And I remove a template from the case type
     Then the template should be removed from the case type
+
+  @TemplateManagement
+  Scenario: User is able to see a template added through MUI when drafting a COMP case
+    Given I select to "Manage templates"
+    When I load the templates for the "Complaint Case" case type
+    And I add a new template to the case type
+    And I navigate to "CS"
+    And I create a "COMP" case and move it to the "Service Draft" stage
+    And I load and claim the current case
+    Then the template should be displayed in the list of available templates
 
 
 #    ADD PARENT TOPIC
