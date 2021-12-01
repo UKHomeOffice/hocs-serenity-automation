@@ -3,8 +3,7 @@ Feature: Claim Categories
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Send Offer" stage
+    And I get a "WCS" claim at the "Send Offer" stage
     And I open the "Claim categories" accordion section
     And I record the amounts I enter for each claim category
 

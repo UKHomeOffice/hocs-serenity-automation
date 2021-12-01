@@ -3,8 +3,7 @@ Feature: Awaiting Payment Confirmation
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And  I create a single "WCS" claim
-    And I move the claim to the "Awaiting Payment Confirmation" stage
+    And I get a "WCS" claim at the "Awaiting Payment Confirmation" stage
 
   @Workflow @WCSRegression
   Scenario: User selects that payment confirmation has been received

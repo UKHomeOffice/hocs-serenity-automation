@@ -40,7 +40,8 @@ public class COMPProgressCase extends BasePage {
 
     public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
         setComplaintTypeFromStageName(targetStage);
-        targetStage = getSimplifiedTargetStage(targetStage);
+        targetStage = getSimplifiedStageName(targetStage);
+        currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
             switch (caseType) {
@@ -74,10 +75,13 @@ public class COMPProgressCase extends BasePage {
         }
     }
 
-    private String getSimplifiedTargetStage(String targetStage) {
+    private String getSimplifiedStageName(String targetStage) {
         String[] words = targetStage.split(" ");
         String simplifiedStage = words[words.length-1];
-
+        if (simplifiedStage.equalsIgnoreCase("Escalate")) {
+            simplifiedStage = "Escalated";
+        }
+        return simplifiedStage;
     }
 
     private void setComplaintTypeFromStageName(String targetStage) {
@@ -94,214 +98,24 @@ public class COMPProgressCase extends BasePage {
         String precedingStage = "";
         switch (targetStage.toUpperCase()) {
             case "REGISTRATION":
-            case "STAGE 2 REGISTRATION":
                 precedingStage = "CREATE NEW CASE";
-                break;
-            case "SERVICE TRIAGE":
-                complaintType = "Service";
-                precedingStage = "REGISTRATION";
-                break;
-            case "EX-GRATIA TRIAGE":
-                complaintType = "Ex-Gratia";
-                precedingStage = "REGISTRATION";
-                break;
-            case "MINOR MISCONDUCT TRIAGE":
-                complaintType = "Minor Misconduct";
-                precedingStage = "REGISTRATION";
-                break;
-            case "SERVICE DRAFT":
-            case "SERVICE ESCALATED":
-                precedingStage = "SERVICE TRIAGE";
-                break;
-            case "EX-GRATIA RESPONSE DRAFT":
-            case "EX-GRATIA ESCALATE":
-                precedingStage = "EX-GRATIA TRIAGE";
-                break;
-            case "MINOR MISCONDUCT RESPONSE DRAFT":
-            case "MINOR MISCONDUCT ESCALATE":
-                precedingStage = "MINOR MISCONDUCT TRIAGE";
-                break;
-            case "CCH":
-                precedingStage = complaintType.toUpperCase() + " TRIAGE";
-                break;
-            case "SERVICE QA":
-                precedingStage = "SERVICE DRAFT";
-                break;
-            case "EX-GRATIA QA":
-                precedingStage = "EX-GRATIA RESPONSE DRAFT";
-                break;
-            case "MINOR MISCONDUCT QA":
-                precedingStage = "MINOR MISCONDUCT RESPONSE DRAFT";
-                break;
-            case "SERVICE SEND":
-                precedingStage = "SERVICE QA";
-                break;
-            case "EX-GRATIA SEND":
-                precedingStage = "EX-GRATIA QA";
-                break;
-            case "MINOR MISCONDUCT SEND":
-                precedingStage = "MINOR MISCONDUCT QA";
-                break;
-            case "COMPLAINT CLOSED":
-                precedingStage = complaintType.toUpperCase() + " SEND";
-                break;
-            case "STAGE 2 SERVICE TRIAGE":
-                complaintType = "Service";
-                precedingStage = "STAGE 2 REGISTRATION";
-                break;
-            case "STAGE 2 EX-GRATIA TRIAGE":
-                complaintType = "Ex-Gratia";
-                precedingStage = "STAGE 2 REGISTRATION";
-                break;
-            case "STAGE 2 MM TRIAGE":
-                complaintType = "Minor Misconduct";
-                precedingStage = "STAGE 2 REGISTRATION";
-                break;
-            case "STAGE 2 SERVICE DRAFT":
-            case "STAGE 2 SERVICE ESCALATED":
-                precedingStage = "STAGE 2 SERVICE TRIAGE";
-                break;
-            case "STAGE 2 EX-GRATIA RESPONSE DRAFT":
-                precedingStage = "STAGE 2 EX-GRATIA TRIAGE";
-                break;
-            case "STAGE 2 MM RESPONSE DRAFT":
-                precedingStage = "STAGE 2 MM TRIAGE";
-                break;
-            case "STAGE 2 SERVICE QA":
-                precedingStage = "STAGE 2 SERVICE DRAFT";
-                break;
-            case "STAGE 2 EX-GRATIA QA":
-                precedingStage = "STAGE 2 EX-GRATIA RESPONSE DRAFT";
-                break;
-            case "STAGE 2 MM QA":
-                precedingStage = "STAGE 2 MM RESPONSE DRAFT";
-                break;
-            case "STAGE 2 SERVICE SEND":
-                precedingStage = "STAGE 2 SERVICE QA";
-                break;
-            case "STAGE 2 EX-GRATIA SEND":
-                precedingStage = "STAGE 2 EX-GRATIA QA";
-                break;
-            case "STAGE 2 MM SEND":
-                precedingStage = "STAGE 2 MM QA";
-                break;
-            case "STAGE 2 COMPLAINT CLOSED":
-                switch (complaintType) {
-                    case "SERVICE":
-                    case "EX-GRATIA":
-                        precedingStage = "STAGE 2 " + complaintType + " SEND";
-                        break;
-                    case "MINOR MISCONDUCT":
-                        precedingStage = "STAGE 2 MM SEND";
-                        break;
-                }
-                break;
-            default:
-                pendingStep(targetStage + " is not defined within " + getMethodName());
-        }
-        return precedingStage;
-    }
-
-    private String getStageThatPrecedesTargetStage(String targetStage) {
-        String precedingStage = "";
-        switch (targetStage.toUpperCase()) {
-            case "REGISTRATION":
-                precedingStage = "CREATE NEW CASE";
-                break;
-            case "TRIAGE":
-                precedingStage = "REGISTRATION";
-                break;
-            case "TRIAGE":
-                precedingStage = "REGISTRATION";
                 break;
             case "TRIAGE":
                 precedingStage = "REGISTRATION";
                 break;
             case "DRAFT":
             case "ESCALATED":
-                precedingStage = "TRIAGE";
-                break;
-            case "DRAFT":
-            case "ESCALATE":
-                precedingStage = "TRIAGE";
-                break;
-            case "DRAFT":
-            case "ESCALATE":
-                precedingStage = "TRIAGE";
-                break;
             case "CCH":
-                precedingStage = complaintType.toUpperCase() + " TRIAGE";
+                precedingStage = "TRIAGE";
                 break;
             case "QA":
                 precedingStage = "DRAFT";
-                break;
-            case "QA":
-                precedingStage = "DRAFT";
-                break;
-            case "QA":
-                precedingStage = "DRAFT";
-                break;
-            case "SEND":
-                precedingStage = "QA";
-                break;
-            case "SEND":
-                precedingStage = "QA";
                 break;
             case "SEND":
                 precedingStage = "QA";
                 break;
             case "CLOSED":
                 precedingStage = "SEND";
-                break;
-            case "TRIAGE":
-                precedingStage = "REGISTRATION";
-                break;
-            case "STAGE 2 EX-GRATIA TRIAGE":
-                complaintType = "Ex-Gratia";
-                precedingStage = "STAGE 2 REGISTRATION";
-                break;
-            case "STAGE 2 MM TRIAGE":
-                complaintType = "Minor Misconduct";
-                precedingStage = "STAGE 2 REGISTRATION";
-                break;
-            case "STAGE 2 SERVICE DRAFT":
-            case "STAGE 2 SERVICE ESCALATED":
-                precedingStage = "STAGE 2 SERVICE TRIAGE";
-                break;
-            case "STAGE 2 EX-GRATIA RESPONSE DRAFT":
-                precedingStage = "STAGE 2 EX-GRATIA TRIAGE";
-                break;
-            case "STAGE 2 MM RESPONSE DRAFT":
-                precedingStage = "STAGE 2 MM TRIAGE";
-                break;
-            case "STAGE 2 SERVICE QA":
-                precedingStage = "STAGE 2 SERVICE DRAFT";
-                break;
-            case "STAGE 2 EX-GRATIA QA":
-                precedingStage = "STAGE 2 EX-GRATIA RESPONSE DRAFT";
-                break;
-            case "STAGE 2 MM QA":
-                precedingStage = "STAGE 2 MM RESPONSE DRAFT";
-                break;
-            case "STAGE 2 SERVICE SEND":
-                precedingStage = "STAGE 2 SERVICE QA";
-                break;
-            case "STAGE 2 EX-GRATIA SEND":
-                precedingStage = "STAGE 2 EX-GRATIA QA";
-                break;
-            case "STAGE 2 MM SEND":
-                precedingStage = "STAGE 2 MM QA";
-                break;
-            case "STAGE 2 COMPLAINT CLOSED":
-                switch (complaintType) {
-                    case "SERVICE":
-                    case "EX-GRATIA":
-                        precedingStage = "STAGE 2 " + complaintType + " SEND";
-                        break;
-                    case "MINOR MISCONDUCT":
-                        precedingStage = "STAGE 2 MM SEND";
-                        break;
-                }
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -318,18 +132,14 @@ public class COMPProgressCase extends BasePage {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stage.toUpperCase()) {
             case "REGISTRATION":
-            case "STAGE 2 REGISTRATION":
                 moveCaseFromRegistrationToTriage();
                 break;
-            case "SERVICE TRIAGE":
-            case "STAGE 2 SERVICE TRIAGE":
+            case "TRIAGE":
                 switch (targetStage.toUpperCase()) {
-                    case "SERVICE DRAFT":
-                    case "STAGE 2 SERVICE DRAFT":
+                    case "DRAFT":
                         moveCaseFromTriageToDraft();
                         break;
-                    case "SERVICE ESCALATED":
-                    case "STAGE 2 SERVICE ESCALATED":
+                    case "ESCALATED":
                         moveCaseFromTriageToEscalated();
                         break;
                     case "CCH":
@@ -339,50 +149,14 @@ public class COMPProgressCase extends BasePage {
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "EX-GRATIA TRIAGE":
-                switch (targetStage.toUpperCase()) {
-                    case "EX-GRATIA RESPONSE DRAFT":
-                        moveCaseFromTriageToDraft();
-                        break;
-                    case "EX-GRATIA ESCALATE":
-                        moveCaseFromTriageToEscalated();
-                        break;
-                    case "CCH":
-                        moveCaseFromTriageToCCH();
-                        break;
-                    default:
-                        pendingStep(targetStage + " is not defined within " + getMethodName());
-                }
-                break;
-            case "MINOR MISCONDUCT TRIAGE":
-                switch (targetStage.toUpperCase()) {
-                    case "MINOR MISCONDUCT RESPONSE DRAFT":
-                        moveCaseFromTriageToDraft();
-                        break;
-                    case "MINOR MISCONDUCT ESCALATE":
-                        moveCaseFromTriageToEscalated();
-                        break;
-                    case "CCH":
-                        moveCaseFromTriageToCCH();
-                        break;
-                    default:
-                        pendingStep(targetStage + " is not defined within " + getMethodName());
-                }
-                break;
-            case "SERVICE DRAFT":
-            case "EX-GRATIA RESPONSE DRAFT":
-            case "MINOR MISCONDUCT RESPONSE DRAFT":
+            case "DRAFT":
                 moveCaseFromDraftToQA();
                 break;
-            case "SERVICE QA":
-            case "EX-GRATIA QA":
-            case "MINOR MISCONDUCT QA":
+            case "QA":
                 moveCaseFromQAToSend();
                 break;
-            case "SERVICE SEND":
-            case "EX-GRATIA SEND":
-            case "MINOR MISCONDUCT SEND":
-                moveCaseFromSendToComplaintClosed();
+            case "SEND":
+                moveCaseFromSendToClosed();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -479,7 +253,7 @@ public class COMPProgressCase extends BasePage {
         System.out.println(complaintType + " complaint moved from QA to Send");
     }
 
-    public void moveCaseFromSendToComplaintClosed() {
+    public void moveCaseFromSendToClosed() {
         complaintsSend.selectACaseOutcome();
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();

@@ -4,10 +4,13 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class WCSProgressCase extends BasePage {
+
+    CreateCase createCase;
     
     Dashboard dashboard;
 
@@ -45,35 +48,136 @@ public class WCSProgressCase extends BasePage {
 
     AwaitingPaymentConfirmation awaitingPaymentConfirmation;
 
-    public void completeTheWCSStage(String stage) {
+    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+        String precedingStage = getStageThatPrecedesTargetStage(targetStage);
+        if (precedingStage.equals("CREATE NEW CASE")) {
+            createCase.createWCSCase();
+            dashboard.goToDashboard();
+        } else {
+            if (!precedingStage.equalsIgnoreCase(currentStage)) {
+                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
+            }
+            completeTheWCSStageSoThatCaseMovesToTargetStage(precedingStage, targetStage);
+        }
+    }
+
+    private String getStageThatPrecedesTargetStage(String targetStage) {
+        String precedingStage = "";
+        switch (targetStage.toUpperCase()) {
+            case "IDENTITY REJECTED":
+            case "ELIGIBILITY":
+            case "TRIAGE":
+                precedingStage = "REGISTRATION";
+                break;
+            case "TIER 1 REVIEW (IR)":
+            case "ARCHIVED IDENTITY REJECTED":
+                precedingStage = "IDENTITY REJECTED";
+                break;
+            case "ELIGIBILITY REJECTED":
+                precedingStage = "ELIGIBILITY";
+                break;
+            case "TIER 1 REVIEW (ER)":
+            case "ARCHIVED ELIGIBILITY REJECTED":
+                precedingStage = "ELIGIBILITY REJECTED";
+                break;
+            case "CASEWORK":
+                precedingStage = "TRIAGE";
+                break;
+            case "QA":
+                precedingStage = "CASEWORK";
+                break;
+            case "PAYMENT PRE-OFFER CHECKLIST":
+                precedingStage = "QA";
+                break;
+            case "OFFER APPROVAL":
+                precedingStage = "PAYMENT PRE-OFFER CHECKLIST";
+                break;
+            case "SEND OFFER":
+                precedingStage = "OFFER APPROVAL";
+                break;
+            case "OFFER ACCEPTANCE":
+            case "NIL OFFER ACCEPTANCE":
+                precedingStage = "SEND OFFER";
+                break;
+            case "TIER 1":
+            case "PAYMENT PREPARATION":
+                precedingStage = "OFFER ACCEPTANCE";
+                break;
+            case "TIER 2":
+                precedingStage = "TIER 1";
+                break;
+            case "PAYMENT APPROVAL":
+                precedingStage = "PAYMENT PREPARATION";
+                break;
+            case "SEND PAYMENT":
+                precedingStage = "PAYMENT APPROVAL";
+                break;
+            case "AWAITING PAYMENT CONFIRMATION":
+                precedingStage = "SEND PAYMENT";
+                break;
+            case "CLOSED":
+                precedingStage = "AWAITING PAYMENT CONFIRMATION";
+                break;
+            default:
+                pendingStep(targetStage + " is not defined within " + getMethodName());
+        }
+        return precedingStage;
+    }
+
+    public void completeTheWCSStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-        switch (stage.toUpperCase()) {
-            case "REGISTRATION (TO TRIAGE)":
-                moveRegistrationCaseToTriage();
+        switch (stageToComplete.toUpperCase()) {
+            case "REGISTRATION":
+                switch (targetStage.toUpperCase()) {
+                    case "TRIAGE":
+                    case "HAPPY PATH":
+                        moveRegistrationCaseToTriage();
+                        break;
+                    case "ELIGIBILITY":
+                        moveRegistrationCaseToEligibility();
+                        break;
+                    case "IDENTITY REJECTED":
+                        moveRegistrationCaseToIdentityRejected();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "REGISTRATION (TO ELIGIBILITY)":
-                moveRegistrationCaseToEligibility();
+            case "IDENTITY REJECTED":
+                switch (targetStage.toUpperCase()) {
+                    case "ARCHIVE IDENTITY REJECTED":
+                        moveIdentityRejectedCaseToArchivedIdentityRejected();
+                        break;
+                    case "TIER 1 REVIEW (IR)":
+                        moveIdentityRejectedCaseToTier1IR();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "REGISTRATION (TO IDENTITY REJECTED)":
-                moveRegistrationCaseToIdentityRejected();
+            case "ELIGIBILITY":
+                switch (targetStage.toUpperCase()) {
+                    case "TRIAGE":
+                        moveEligibilityCaseToTriage();
+                        break;
+                    case "ELIGIBILITY REJECTED":
+                        moveEligibilityCaseToEligibilityRejected();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "IDENTITY REJECTED (TO ARCHIVED)":
-                moveIdentityRejectedCaseToArchivedIdentityRejected();
-                break;
-            case "IDENTITY REJECTED (TO TIER 1)":
-                moveIdentityRejectedCaseToTier1IR();
-                break;
-            case "ELIGIBILITY (TO TRIAGE)":
-                moveEligibilityCaseToTriage();
-                break;
-            case "ELIGIBILITY (TO ELIGIBILITY REJECTED)":
-                moveEligibilityCaseToEligibilityRejected();
-                break;
-            case "ELIGIBILITY REJECTED (TO ARCHIVED)":
-                moveEligibilityRejectedCaseToArchivedEligibilityRejected();
-                break;
-            case "ELIGIBILITY REJECTED (TO TIER 1)":
-                moveEligibilityRejectedCaseToTier1ER();
+            case "ELIGIBILITY REJECTED":
+                switch (targetStage.toUpperCase()) {
+                    case "ARCHIVED ELIGIBILITY REJECTED":
+                        moveEligibilityRejectedCaseToArchivedEligibilityRejected();
+                        break;
+                    case "TIER 1 REVIEW (ER)":
+                        moveEligibilityRejectedCaseToTier1ER();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
             case "TRIAGE":
                 moveTriageCaseToCasework();
@@ -90,17 +194,34 @@ public class WCSProgressCase extends BasePage {
             case "OFFER APPROVAL":
                 moveOfferApprovalCaseToSendOffer();
                 break;
-            case "SEND OFFER (TO OFFER ACCEPTANCE)":
-                moveSendOfferCaseToOfferAcceptance();
+            case "SEND OFFER":
+                switch (targetStage.toUpperCase()) {
+                    case "OFFER ACCEPTANCE":
+                    case "HAPPY PATH":
+                        moveSendOfferCaseToOfferAcceptance();
+                        break;
+                    case "NIL OFFER ACCEPTANCE":
+                        moveSendOfferCaseToNilOfferAcceptance();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "SEND OFFER (TO NIL OFFER ACCEPTANCE)":
-                moveSendOfferCaseToNilOfferAcceptance();
+            case "OFFER ACCEPTANCE":
+                switch (targetStage.toUpperCase()) {
+                    case "PAYMENT PREPARATION":
+                    case "HAPPY PATH":
+                        moveOfferAcceptanceCaseToPaymentPreparation();
+                        break;
+                    case "TIER 1":
+                        moveOfferAcceptanceCaseToTier1();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
-            case "OFFER ACCEPTANCE (TO PAYMENT PREPARATION)":
-                moveOfferAcceptanceCaseToPaymentPreparation();
-                break;
-            case "OFFER ACCEPTANCE (TO TIER 1)":
-                moveOfferAcceptanceCaseToTier1();
+            case "TIER 1":
+                moveTier1CaseToTier2();
                 break;
             case "PAYMENT PREPARATION":
                 movePaymentPreparationCaseToPaymentApproval();
@@ -114,11 +235,8 @@ public class WCSProgressCase extends BasePage {
             case "AWAITING PAYMENT CONFIRMATION":
                 moveAwaitingPaymentConfirmationCaseToCompleteState();
                 break;
-            case "TIER 1":
-                moveTier1CaseToTier2();
-                break;
             default:
-                pendingStep(stage + " is not defined within " + getMethodName());
+                pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
         RecordCaseData.resetDataRecords();
@@ -194,54 +312,6 @@ public class WCSProgressCase extends BasePage {
         System.out.println("Case moved from QA to Payment Pre-Offer Checklist");
     }
 
-    public void moveQACaseToOfferApproval() {
-        moveQACaseToPaymentPreOfferChecklist();
-        dashboard.getAndClaimCurrentCase();
-        movePaymentPreOfferChecklistCaseToOfferApproval();
-    }
-
-    public void moveQACaseToSendOffer() {
-        moveQACaseToOfferApproval();
-        dashboard.getAndClaimCurrentCase();
-        moveOfferApprovalCaseToSendOffer();
-    }
-
-    public void moveQACaseToOfferAcceptance() {
-        moveQACaseToSendOffer();
-        dashboard.getAndClaimCurrentCase();
-        moveSendOfferCaseToOfferAcceptance();
-    }
-
-    public void moveQACaseToNilOfferAcceptance() {
-        moveQACaseToSendOffer();
-        dashboard.getAndClaimCurrentCase();
-        moveSendOfferCaseToNilOfferAcceptance();
-    }
-
-    public void moveQACaseToPaymentPreparation() {
-        moveQACaseToOfferAcceptance();
-        dashboard.getAndClaimCurrentCase();
-        moveOfferAcceptanceCaseToPaymentPreparation();
-    }
-
-    public void moveQACaseToPaymentApproval() {
-        moveQACaseToPaymentPreparation();
-        dashboard.getAndClaimCurrentCase();
-        movePaymentPreparationCaseToPaymentApproval();
-    }
-
-    public void moveQACaseToSendPayment() {
-        moveQACaseToPaymentApproval();
-        dashboard.getAndClaimCurrentCase();
-        movePaymentApprovalCaseToSendPayment();
-    }
-
-    public void moveQACaseToAwaitingPaymentConfirmation() {
-        moveQACaseToSendPayment();
-        dashboard.getAndClaimCurrentCase();
-        moveSendPaymentCaseToAwaitingPaymentConfirmation();
-    }
-
     public void movePaymentPreOfferChecklistCaseToOfferApproval() {
         paymentPreOfferChecklist.selectPaymentSendForApproval();
         System.out.println("Case moved from Payment Pre-Offer Checklist to Offer Approval");
@@ -270,12 +340,6 @@ public class WCSProgressCase extends BasePage {
     public void moveOfferAcceptanceCaseToTier1() {
         offerAcceptance.selectPaymentOfferRejected();
         System.out.println("Case moved from Offer Acceptance to Tier 1");
-    }
-
-    public void moveOfferAcceptanceCaseToTier2() {
-        moveOfferAcceptanceCaseToTier1();
-        dashboard.getAndClaimCurrentCase();
-        moveTier1CaseToTier2();
     }
 
     public void moveTier1CaseToTier2() {

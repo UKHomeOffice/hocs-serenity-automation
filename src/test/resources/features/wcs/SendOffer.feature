@@ -3,8 +3,7 @@ Feature: Send Offer
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the case to the "Send Offer" stage
+    And I get a "WCS" claim at the "Send Offer" stage
 
   @Workflow @WCSRegression
   Scenario: User records that monetary offer sent to claimant

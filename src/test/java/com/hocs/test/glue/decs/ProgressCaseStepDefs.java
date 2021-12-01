@@ -19,11 +19,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class EndToEndStepDefs extends BasePage {
+public class ProgressCaseStepDefs extends BasePage {
 
     Dashboard dashboard;
-
-    CreateCase createCase;
 
     Workdays workdays;
 
@@ -67,16 +65,16 @@ public class EndToEndStepDefs extends BasePage {
                 foiProgressCase.completeTheFOIStage(stage);
                 break;
             case "WCS":
-                wcsProgressCase.completeTheWCSStage(stage);
+                wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
-    @And("I create a {string} case and move it to (the ){string}( stage)")
+    @And("I create a {string} case/claim and move it to (the ){string}( stage)")
     public void iCreateACaseAndMoveItToAStage(String caseType, String stage) {
-        String startPoint = "CREATE NEW CASE";
+        String startPoint = "N/A";
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "TRO":
@@ -99,12 +97,14 @@ public class EndToEndStepDefs extends BasePage {
             case "FOI":
                 foiProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
                 break;
+            case "WCS":
+                wcsProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
     }
 
-    @And("I get a {string} case at (the ){string}( stage)")
+    @And("I get a {string} case/claim at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);
         if (stage.equalsIgnoreCase("CASE CLOSED")) {
@@ -138,101 +138,5 @@ public class EndToEndStepDefs extends BasePage {
     @When("I create a {string} case for a {string} complaint and move it to {string}( stage)")
     public void iCreateACOMPCaseForAComplaintAndMoveItToStage(String caseType, String complaintType, String stage) {
         compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
-    }
-
-    @And("I move the case/claim to the {string} stage")
-    public void getCaseToSpecifiedStage(String stage) {
-        switch (stage.toUpperCase()) {
-            case "IDENTITY REJECTED":
-                iCompleteTheStage("Registration (to Identity Rejected)");
-                break;
-            case "TIER 1 REVIEW (IR)":
-                getCaseToSpecifiedStage("Identity Rejected");
-                iCompleteTheStage("Identity Rejected (to Tier 1)");
-                break;
-            case "ARCHIVED IDENTITY REJECTED":
-                getCaseToSpecifiedStage("Identity Rejected");
-                iCompleteTheStage("Identity Rejected (to Archived)");
-                break;
-            case "ELIGIBILITY":
-                iCompleteTheStage("Registration (to Eligibility)");
-                break;
-            case "ELIGIBILITY REJECTED":
-                getCaseToSpecifiedStage("Eligibility");
-                iCompleteTheStage("Eligibility (to Eligibility Rejected)");
-                break;
-            case "TIER 1 REVIEW (ER)":
-                getCaseToSpecifiedStage("Eligibility Rejected");
-                iCompleteTheStage("Eligibility Rejected (to Tier 1)");
-                break;
-            case "ARCHIVED ELIGIBILITY REJECTED":
-                getCaseToSpecifiedStage("Eligibility Rejected");
-                iCompleteTheStage("Eligibility Rejected (to Archived)");
-                break;
-            case "TRIAGE":
-                iCompleteTheStage("Registration (to Triage)");
-                break;
-            case "CASEWORK":
-                getCaseToSpecifiedStage("Triage");
-                iCompleteTheStage("Triage");
-                break;
-            case "QA":
-                getCaseToSpecifiedStage("Casework");
-                iCompleteTheStage("Casework");
-                break;
-            case "PAYMENT PRE-OFFER CHECKLIST":
-                getCaseToSpecifiedStage("QA");
-                iCompleteTheStage("QA");
-                break;
-            case "OFFER APPROVAL":
-                getCaseToSpecifiedStage("Payment Pre-offer Checklist");
-                iCompleteTheStage("Payment Pre-offer Checklist");
-                break;
-            case "SEND OFFER":
-                getCaseToSpecifiedStage("Offer Approval");
-                iCompleteTheStage("Offer Approval");
-                break;
-            case "OFFER ACCEPTANCE":
-                getCaseToSpecifiedStage("Send Offer");
-                iCompleteTheStage("Send Offer (to Offer Acceptance)");
-                break;
-            case "NIL OFFER ACCEPTANCE":
-                getCaseToSpecifiedStage("Send Offer");
-                iCompleteTheStage("Send Offer (to Nil Offer Acceptance)");
-                break;
-            case "TIER 1":
-                getCaseToSpecifiedStage("Offer Acceptance");
-                iCompleteTheStage("Offer Acceptance (to Tier 1)");
-                break;
-            case "TIER 2":
-                getCaseToSpecifiedStage("Tier 1");
-                iCompleteTheStage("Tier 1");
-                break;
-            case "PAYMENT PREPARATION":
-                getCaseToSpecifiedStage("Offer Acceptance");
-                iCompleteTheStage("Offer Acceptance (to Payment Preparation)");
-                break;
-            case "PAYMENT APPROVAL":
-                getCaseToSpecifiedStage("Payment Preparation");
-                iCompleteTheStage("Payment Preparation");
-                break;
-            case "SEND PAYMENT":
-                getCaseToSpecifiedStage("Payment Approval");
-                iCompleteTheStage("Payment Approval");
-                break;
-            case "AWAITING PAYMENT CONFIRMATION":
-                getCaseToSpecifiedStage("Send Payment");
-                iCompleteTheStage("Send Payment");
-                break;
-            case "CLOSED":
-                getCaseToSpecifiedStage("Awaiting Payment Confirmation");
-                iCompleteTheStage("Awaiting Payment Confirmation");
-                break;
-            default:
-                pendingStep(stage + " is not defined within " + getMethodName());
-        }
-        if (!stage.equalsIgnoreCase("CLOSED")) {
-            dashboard.getAndClaimCurrentCase();
-        }
     }
 }
