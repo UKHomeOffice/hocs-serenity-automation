@@ -128,9 +128,9 @@ public class COMPProgressCase extends BasePage {
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
-    public void completeTheCOMPStageSoThatCaseMovesToTargetStage(String stage, String targetStage) {
+    public void completeTheCOMPStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-        switch (stage.toUpperCase()) {
+        switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 moveCaseFromRegistrationToTriage();
                 break;
@@ -159,9 +159,10 @@ public class COMPProgressCase extends BasePage {
                 moveCaseFromSendToClosed();
                 break;
             default:
-                pendingStep(stage + " is not defined within " + getMethodName());
+                pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
+        System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.resetDataRecords();
     }
 
@@ -195,7 +196,6 @@ public class COMPProgressCase extends BasePage {
             registration.selectAnOwningCSU();
         }
         clickTheButton("Finish");
-        System.out.println(complaintType + " complaint moved from Registration to Triage");
     }
 
     public void moveCaseFromTriageToDraft() {
@@ -213,7 +213,6 @@ public class COMPProgressCase extends BasePage {
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
-        System.out.println(complaintType + " complaint moved from Triage to Draft/Response Draft");
     }
 
     public void moveCaseFromTriageToEscalated() {
@@ -231,26 +230,22 @@ public class COMPProgressCase extends BasePage {
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.escalateCaseToWFM();
-        System.out.println(complaintType + " complaint moved from Triage to Escalate/Escalated");
     }
 
     public void moveCaseFromTriageToCCH() {
         complaintsTriage.selectTransferComplaint();
         complaintsTriage.enterTransferReason();
         complaintsTriage.selectTransferToCCH();
-        System.out.println(complaintType + " complaint moved from Triage to CCH");
     }
 
     public void moveCaseFromDraftToQA() {
         documents.addADraftDocumentAtDraftStage();
         complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
-        System.out.println(complaintType + " complaint moved from Draft/Response Draft to QA");
     }
 
 
     public void moveCaseFromQAToSend() {
         compQA.selectActionAtServiceQA("ACCEPT");
-        System.out.println(complaintType + " complaint moved from QA to Send");
     }
 
     public void moveCaseFromSendToClosed() {
@@ -258,6 +253,5 @@ public class COMPProgressCase extends BasePage {
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
-        System.out.println(complaintType + " complaint moved from Send to Case Closed");
     }
 }

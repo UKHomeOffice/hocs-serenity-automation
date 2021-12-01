@@ -126,6 +126,7 @@ public class DCUProgressCase extends BasePage {
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
+                break;
             case "INITIAL DRAFT":
                 moveCaseFromInitialDraftToQaResponse();
                 break;
@@ -145,6 +146,7 @@ public class DCUProgressCase extends BasePage {
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
+        System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.resetDataRecords();
     }
 
@@ -156,8 +158,12 @@ public class DCUProgressCase extends BasePage {
         } else {
             dataInput.selectASpecificCopyToNoTenOption("No");
         }
-        dataInput.selectAHomeSecInterestOption();
-        dataInput.selectAHomeSecReplyOption();
+        if (minCase() || troCase()) {
+            dataInput.selectAHomeSecInterestOption();
+        }
+        if (minCase()) {
+            dataInput.selectAHomeSecReplyOption();
+        }
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();

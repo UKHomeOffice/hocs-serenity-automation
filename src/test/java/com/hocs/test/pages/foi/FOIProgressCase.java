@@ -103,7 +103,9 @@ public class FOIProgressCase extends BasePage {
             dashboard.waitForDashboard();
         } else {
             caseView.waitForCaseToLoad();
-        }        RecordCaseData.resetDataRecords();
+        }
+        System.out.println(stageToComplete + " stage completed");
+        RecordCaseData.resetDataRecords();
     }
 
     public void moveCaseFromCaseCreationToAllocation() {

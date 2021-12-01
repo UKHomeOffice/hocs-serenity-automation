@@ -83,7 +83,7 @@ Feature: DCU End To End
     Then the case should be moved to the "Dispatch" stage
 
   @DCUWorkflow @DCURegression @SmokeTests
-  Scenario: Dispatch a MIN case with Copy to Number Ten not selected
+  Scenario: End to end flow with DCU MIN CaseType
     When I get a new "MIN" case
     And I complete the "Data Input" stage
     And I complete the "Markup" stage

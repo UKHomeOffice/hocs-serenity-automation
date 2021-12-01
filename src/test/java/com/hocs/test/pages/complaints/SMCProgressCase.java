@@ -82,6 +82,7 @@ public class SMCProgressCase extends BasePage {
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
+        System.out.println(stageToComplete + " stage completed");
         RecordCaseData.resetDataRecords();
     }
 

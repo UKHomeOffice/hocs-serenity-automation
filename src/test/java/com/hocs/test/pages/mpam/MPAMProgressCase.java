@@ -150,6 +150,7 @@ public class MPAMProgressCase extends BasePage {
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
+        System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.resetDataRecords();
     }
 
