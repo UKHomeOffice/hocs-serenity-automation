@@ -5,11 +5,14 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
+
+    CreateCase createCase;
 
     Dashboard dashboard;
 
@@ -29,9 +32,52 @@ public class FOIProgressCase extends BasePage {
 
     Documents documents;
 
-    public void completeTheFOIStage(String stage) {
+    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+        String precedingStage = getStageThatPrecedesTargetStage(targetStage);
+        if (precedingStage.equals("CREATE NEW CASE")) {
+            createCase.createCSCaseOfType("FOI");
+            dashboard.goToDashboard();
+        } else {
+            if (!precedingStage.equalsIgnoreCase(currentStage)) {
+                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
+            }
+            completeTheFOIStage(precedingStage);
+        }
+    }
+
+    private String getStageThatPrecedesTargetStage(String targetStage) {
+        String precedingStage = "";
+        switch (targetStage.toUpperCase()) {
+            case "CASE CREATION":
+                precedingStage = "CREATE NEW CASE";
+                break;
+            case "ALLOCATION":
+                precedingStage = "CASE CREATION";
+                break;
+            case "ACCEPTANCE":
+                precedingStage = "ALLOCATION";
+                break;
+            case "CONSIDER AND DRAFT":
+                precedingStage = "ACCEPTANCE";
+                break;
+            case "APPROVAL":
+                precedingStage = "CONSIDER AND DRAFT";
+                break;
+            case "DISPATCH":
+                precedingStage = "APPROVAL";
+                break;
+            case "SOFT CLOSE":
+                precedingStage = "DISPATCH";
+                break;
+            default:
+                pendingStep(targetStage + " is not defined within " + getMethodName());
+        }
+        return precedingStage;
+    }
+
+    public void completeTheFOIStage(String stageToComplete) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-        switch (stage.toUpperCase()) {
+        switch (stageToComplete.toUpperCase()) {
             case "CASE CREATION":
                 moveCaseFromCaseCreationToAllocation();
                 break;
@@ -51,14 +97,13 @@ public class FOIProgressCase extends BasePage {
                 moveCaseFromDispatchToSoftClose();
                 break;
             default:
-                pendingStep(stage + " is not defined within " + getMethodName());
+                pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
-        if (stage.equalsIgnoreCase("ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION")) {
+        if (stageToComplete.equalsIgnoreCase("ACCEPTANCE") || stageToComplete.equalsIgnoreCase("ALLOCATION")) {
             dashboard.waitForDashboard();
         } else {
             caseView.waitForCaseToLoad();
-        }
-        RecordCaseData.resetDataRecords();
+        }        RecordCaseData.resetDataRecords();
     }
 
     public void moveCaseFromCaseCreationToAllocation() {

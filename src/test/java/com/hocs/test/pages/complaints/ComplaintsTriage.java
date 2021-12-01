@@ -2,6 +2,8 @@ package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.util.ArrayList;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -125,6 +127,33 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void openTheSeriousAndMinorComplaintCategoryAccordion() {
+        openOrCloseAccordionSection("Serious and Minor");
+    }
+
+    public void selectAVisibleClaimCategory() {
+        List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
+        List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
+        for (WebElementFacade claimCategory: claimCategories) {
+            if (claimCategory.isCurrentlyVisible()) {
+                visibleClaimCategories.add(claimCategory);
+            }
+        }
+        recordCaseData.checkRandomCheckboxFromList(visibleClaimCategories);
+    }
+
+    public void enterDetailsOnComplaintCategoryPage() {
+        String complaintType = sessionVariableCalled("complaintType");
+        if (complaintType.equalsIgnoreCase("MINOR MISCONDUCT")) {
+            selectOwningCSU();
+            openTheSeriousAndMinorComplaintCategoryAccordion();
+            selectAVisibleClaimCategory();
+        }
+        if (complaintType.equalsIgnoreCase("EX-GRATIA")) {
+            openExGratiaAccordion();
+            selectAVisibleClaimCategory();
+        }
+    }
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");

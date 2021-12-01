@@ -4,7 +4,7 @@ Feature: Superuser
   @ComplaintsRegression
   Scenario: A Complaints Admin User can complete the COMP workflow
     Given I log in to "CS" as user "COMP_SUPERUSER"
-    When I create a "COMP" case and move it to "COMPLAINT CLOSED (FROM SERVICE SEND)"
+    When I create a "COMP" case and move it to "COMPLAINT CLOSED"
     Then the case should be closed
 
   @ComplaintsRegression

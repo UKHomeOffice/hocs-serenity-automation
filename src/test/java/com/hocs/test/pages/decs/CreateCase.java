@@ -257,7 +257,7 @@ public class CreateCase extends BasePage {
         createCSCase(caseType, false, "N/A");
     }
 
-    public void createCSCaseOfTypeWithSetCorrespondenceReceivedDate(String caseType, String date) {
+    public void createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(String caseType, String date) {
         createCSCase(caseType, true, date);
     }
 
@@ -273,11 +273,11 @@ public class CreateCase extends BasePage {
         c.setTime(format.parse(inputDate));
         c.add(Calendar.DAY_OF_WEEK, numberOfDays);
         String date = format.format(c.getTime());
-        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, date);
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
     }
 
     public void createWCSCase() {
