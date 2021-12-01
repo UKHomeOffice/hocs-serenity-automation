@@ -165,7 +165,6 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectCompleteTheCase() {
         recordCaseData.selectSpecificRadioButton("No response - complete the case (close permanently)");
-        clickTheButton("Continue");
     }
 
     public void enterCompletionReason() {
@@ -215,5 +214,13 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectOwningCSU() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
+    }
+
+    public void selectACloseReason() {
+        String closeReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
+        if (closeReason.equals("Other")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
+        }
+        clickTheButton("Continue");
     }
 }
