@@ -3,7 +3,7 @@ Feature: Eligibility
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I get a "WCS" claim at the "Eligibility" stag
+    And I get a "WCS" claim at the "Eligibility" stage
 
   @Workflow @WCSRegression
   Scenario: User put a claim on hold at Eligibility stage

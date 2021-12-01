@@ -64,6 +64,9 @@ public class WCSProgressCase extends BasePage {
     private String getStageThatPrecedesTargetStage(String targetStage) {
         String precedingStage = "";
         switch (targetStage.toUpperCase()) {
+            case "REGISTRATION":
+                precedingStage = "CREATE NEW CASE";
+                break;
             case "IDENTITY REJECTED":
             case "ELIGIBILITY":
             case "TRIAGE":
