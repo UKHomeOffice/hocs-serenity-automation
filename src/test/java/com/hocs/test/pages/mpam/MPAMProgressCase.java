@@ -122,6 +122,7 @@ public class MPAMProgressCase extends BasePage {
     }
 
     public void completeTheMPAMStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "CREATION":
                 moveCaseFromCreationToTriage();

@@ -64,6 +64,7 @@ public class SMCProgressCase extends BasePage {
     }
 
     public void completeTheSMCStage(String stageToComplete) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 moveSMCCaseFromRegistrationToTriage();

@@ -106,6 +106,7 @@ public class DCUProgressCase extends BasePage {
     }
 
     public void completeTheDCUStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "DATA INPUT":
                 moveCaseFromDataInputToMarkup();

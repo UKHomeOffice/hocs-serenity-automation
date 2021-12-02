@@ -128,6 +128,7 @@ public class WCSProgressCase extends BasePage {
     }
 
     public void completeTheWCSStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 switch (targetStage.toUpperCase()) {

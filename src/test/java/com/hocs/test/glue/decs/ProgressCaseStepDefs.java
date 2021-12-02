@@ -40,7 +40,6 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
