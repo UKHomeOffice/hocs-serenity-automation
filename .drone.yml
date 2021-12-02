@@ -3,6 +3,8 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 
@@ -51,7 +53,7 @@ steps:
       AWS_KMS_KEY:
         from_secret: aws_kms_key_id
     depends_on:
-        - execute tests
+      - execute tests
     when:
       status:
         - failure
@@ -76,6 +78,8 @@ name: DCU-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 steps:
@@ -133,6 +137,8 @@ name: CS-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 
@@ -189,6 +195,8 @@ name: MPAM-1-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 
@@ -245,6 +253,8 @@ name: MPAM-2-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 
@@ -302,6 +312,8 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 
@@ -359,6 +371,8 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 steps:
@@ -415,6 +429,8 @@ name: FOI-Regression
 depends_on:
   - SMOKE
 trigger:
+  branch:
+    - main
   event:
     - push
 steps:
