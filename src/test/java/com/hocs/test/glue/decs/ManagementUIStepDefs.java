@@ -745,5 +745,10 @@ public class ManagementUIStepDefs extends BasePage {
     public void theTemplateShouldBeRemovedFromTheCaseType() {
         templateManagement.assertTemplateRemoval();
     }
+
+    @Then("the template should be displayed in the list of available templates")
+    public void theTemplateShouldBeDisplayedInTheListOfAvailableTemplates() {
+        templateManagement.assertTemplateIsDisplayedInDECS();
+    }
 }
 

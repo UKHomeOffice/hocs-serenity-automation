@@ -160,6 +160,7 @@ Feature: Complaints Triage
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I select to complete the case at Triage
+    And I select a Close Reason
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed
@@ -178,6 +179,7 @@ Feature: Complaints Triage
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I select to complete the case at Triage
+    And I select a Close Reason
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed
@@ -197,6 +199,7 @@ Feature: Complaints Triage
     And I enter details on the Triage Capture Reason page
     And I click the "Continue" button
     When I select to complete the case at Triage
+    And I select a Close Reason
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
     Then the case should be closed

@@ -131,4 +131,9 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.selectAdditionalInformation(additionalInformation);
         clickTheButton("Continue");
     }
+
+    @And("I select a Close Reason")
+    public void iSelectACloseReason() {
+        complaintsTriage.selectACloseReason();
+    }
 }

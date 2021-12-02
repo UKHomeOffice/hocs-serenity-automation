@@ -19,6 +19,8 @@ Feature: Create case
       | MTS      | Data Input    | Original correspondence |
       | COMP     | Registration  | To document             |
       | FOI      | Case Creation | Request                 |
+#      | BF       | Registration  | ORIGINAL                |
+#      | TO       | Data Input    | ORIGINAL                |
 
   @Allocation
   Scenario: A single case is allocated to the current user
