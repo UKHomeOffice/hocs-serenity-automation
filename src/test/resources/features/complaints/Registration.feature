@@ -43,6 +43,7 @@ Feature: Registration
     And I click the "Finish" button
     Then the case should be moved to the "Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
+    And
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
   Scenario: User can complete the Registration stage for a Minor Misconduct complaint

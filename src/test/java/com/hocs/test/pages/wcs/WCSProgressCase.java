@@ -148,7 +148,7 @@ public class WCSProgressCase extends BasePage {
                 break;
             case "IDENTITY REJECTED":
                 switch (targetStage.toUpperCase()) {
-                    case "ARCHIVE IDENTITY REJECTED":
+                    case "ARCHIVED IDENTITY REJECTED":
                         moveIdentityRejectedCaseToArchivedIdentityRejected();
                         break;
                     case "TIER 1 REVIEW (IR)":
