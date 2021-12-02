@@ -98,6 +98,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "WCS":
                 wcsProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
