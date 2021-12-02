@@ -116,7 +116,7 @@ public class SummaryTab extends BasePage {
 
 
     public void selectSummaryTab() {
-        if(!summaryTabIsActiveTab()) {
+        if (!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
         }
     }
@@ -129,13 +129,13 @@ public class SummaryTab extends BasePage {
         String displayedValue = getSummaryTabValueForGivenHeader(header);
         String expectedDisplayValue = value.replace("\n", " ");
         if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
-            Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+            Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
         }
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {
         selectSummaryTab();
-        WebElementFacade displayedValueElement = findBy("//th[text()='"+ header +"']/following-sibling::td");
+        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
         return displayedValueElement.getText();
     }
 
@@ -161,11 +161,45 @@ public class SummaryTab extends BasePage {
         assertThat(input.toUpperCase().equals(displayedCampaign), is(true));
     }
 
-    public void assertDeadlineDateOfStage(String caseType, String stage) {
+    public void assertDeadlineDateOfCase(String deadlineDecidingFactor) {
+        int expectedNumberOfWorkdaysTillDeadline = 0;
+        String displayedDeadline = getSummaryTabValueForGivenHeader("Deadline");
+        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+        switch (deadlineDecidingFactor.toUpperCase()) {
+            case "HOME SECRETARY SIGN-OFF":
+                expectedNumberOfWorkdaysTillDeadline = 10;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                break;
+            case "MIN":
+            case "TRO":
+            case "MPAM":
+            case "MTS":
+            case "COMP":
+            case "COMP2":
+            case "IEDET":
+            case "FOI":
+                expectedNumberOfWorkdaysTillDeadline = 20;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+
+                break;
+            case "EX-GRATIA":
+            case "SMC":
+                expectedNumberOfWorkdaysTillDeadline = 60;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                break;
+            case "DTEN":
+                assertThat(displayedDeadline.equalsIgnoreCase(sessionVariableCalled("dtenDispatchDeadline")), is(true));
+                break;
+            default:
+                pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertDeadlineDateOfStage(String deadlineDecidingFactor, String stage) {
         int expectedNumberOfWorkdaysTillDeadline = 0;
         String displayedDeadline = null;
-        String correspondenceReceivedDate  = sessionVariableCalled("correspondenceReceivedDate");
-        switch (caseType.toUpperCase()) {
+        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+        switch (deadlineDecidingFactor.toUpperCase()) {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
@@ -206,7 +240,7 @@ public class SummaryTab extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
-                    }
+                }
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "DTEN":
@@ -264,11 +298,6 @@ public class SummaryTab extends BasePage {
                 }
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
-            case "MPAM":
-                displayedDeadline = mpamDeadlineDate.waitUntilVisible().getText();
-                expectedNumberOfWorkdaysTillDeadline = 20;
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
-                break;
             case "HOME SECRETARY SIGN-OFF":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
@@ -313,7 +342,7 @@ public class SummaryTab extends BasePage {
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
         }
     }
 
@@ -335,7 +364,7 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertAllocatedMPAMTeam(String stage) {
-        if(!currentTeam.isVisible()) {
+        if (!currentTeam.isVisible()) {
             selectSummaryTab();
         }
         String activeTeam = currentTeam.getText();
@@ -397,7 +426,7 @@ public class SummaryTab extends BasePage {
 
     public void assertThereIsNoActiveStage() {
         selectSummaryTab();
-        if(activeStage.isVisible()) {
+        if (activeStage.isVisible()) {
             Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
         }
     }
