@@ -11,6 +11,8 @@ import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class InitialDraft extends BasePage {
 
@@ -51,6 +53,9 @@ public class InitialDraft extends BasePage {
     @FindBy(id = "OfflineQaUser")
     public WebElementFacade allocateToOfflineQaDropdown;
 
+    @FindBy(xpath = "//h2[text()='Available Standard line']/following-sibling::table[1]//td")
+    public WebElementFacade standardLineDocuments;
+
     //Basic Methods
 
     public void selectIfCaseCanBeAnsweredByTeam(String yesNo) {
@@ -83,5 +88,10 @@ public class InitialDraft extends BasePage {
 
     public void selectAOfflineQAIndividual() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Who has done the Offline QA for this case?");
+    }
+
+    public void assertStandardLineDocumentIsVisible() {
+        String standardLineFileName = sessionVariableCalled("standardLineFileName");
+        assertThat(standardLineDocuments.getText().contains(standardLineFileName), is(true));
     }
 }

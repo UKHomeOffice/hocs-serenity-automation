@@ -15,7 +15,7 @@ import org.openqa.selenium.Keys;
 
 public class TemplateManagement extends BasePage {
 
-    @org.openqa.selenium.support.FindBy(xpath = "//input[@id='case-types-input']")
+    @FindBy(xpath = "//input[@id='case-types-input']")
     public WebElementFacade caseTypeTypeahead;
 
     @FindBy(xpath = "//button[text()='Add template']")
@@ -23,6 +23,10 @@ public class TemplateManagement extends BasePage {
 
     @FindBy(id = "files")
     public WebElementFacade muiAddDocument;
+
+    @FindBy(xpath = "//h2[text()='Available Template']/following-sibling::table//td[1]")
+    public WebElementFacade templateDocumentLabel;
+
 
     public void selectACaseType(String caseType) {
         waitFor(caseTypeTypeahead);
@@ -41,6 +45,7 @@ public class TemplateManagement extends BasePage {
     public void addTemplate() {
         safeClickOn(addTemplateButton);
         uploadDocumentOfType("docx");
+        setSessionVariable("templateDocumentFileName").to("test.docx");
         clickTheButton("Submit");
     }
 
@@ -56,5 +61,10 @@ public class TemplateManagement extends BasePage {
         List<WebElementFacade> listOfRemoveButtons = findAll("//a[text()='Remove']");
         int finalNumberOfTemplates = listOfRemoveButtons.size();
         assertThat(initialNumberOfTemplates > finalNumberOfTemplates, is(true));
+    }
+
+    public void assertTemplateIsDisplayedInDECS() {
+        String uploadedTemplateFileName = sessionVariableCalled("templateDocumentFileName");
+        assertThat(templateDocumentLabel.getText().contains(uploadedTemplateFileName), is(true));
     }
 }
