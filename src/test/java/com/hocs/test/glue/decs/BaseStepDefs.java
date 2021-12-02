@@ -85,7 +85,7 @@ public class BaseStepDefs extends BasePage {
     @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
-        caseView.assertCaseCannotBeAssigned();
+        caseView.assertCaseCannotBeAllocated();
         summaryTab.assertThereIsNoActiveStage();
         if (!wcsCase()) {
             timelineTab.assertWCSCaseClosedNoteVisible();

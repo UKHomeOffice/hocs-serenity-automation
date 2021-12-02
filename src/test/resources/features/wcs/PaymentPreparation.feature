@@ -3,8 +3,7 @@ Feature: Payment Preparation
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Payment Preparation" stage
+    And I get a "WCS" claim at the "Payment Preparation" stage
 
   @Workflow @WCSRegression
   Scenario: User approves the offer

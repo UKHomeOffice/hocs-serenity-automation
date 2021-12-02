@@ -5,8 +5,7 @@ Feature: Task Force User
     Given I log in to "WCS" as user "WCS_USER"
 
   Scenario: A task force user can search for the WCS reference of a claim created by a non-task force user
-    And I create a single "WCS" claim
-    And I move the claim to the "CASEWORK" stage
+    And I get a "WCS" claim at the "Casework" stage
     When I logout of the application
     And I enter the login credentials for user "WCS_TASKFORCE_USER" and click the login button
     And I navigate to the "SEARCH" page

@@ -480,6 +480,7 @@ public class BasePage extends PageObject {
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(headingText);
+        textField.clear();
         textField.sendKeys(textToEnter);
     }
 

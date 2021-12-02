@@ -3,8 +3,7 @@ Feature: Archived Eligibility Rejected
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And  I create a single "WCS" claim
-    And I move the claim to the "Archived Eligibility Rejected" stage
+    And I get a "WCS" claim at the "Archived Eligibility Rejected" stage
 
   @Workflow @WCSRegression
   Scenario: User returns the claim to Eligibility stage

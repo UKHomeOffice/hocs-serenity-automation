@@ -2,6 +2,7 @@ package com.hocs.test.glue.mpam;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
@@ -27,7 +28,9 @@ public class DraftStepDefs extends BasePage {
     public void sendDraftCaseTo(String action) {
         switch (action.toUpperCase()) {
             case "QA":
-                draft.moveCaseFromDraftToQA();
+                safeClickOn(draft.moveToQARadioButton);
+                setSessionVariable("action").to("Move to QA");
+                safeClickOn(confirmButton);
                 break;
             case "WORKFLOW MANAGER":
                 draft.selectEscalateDraftCaseToWorkflowManager();
