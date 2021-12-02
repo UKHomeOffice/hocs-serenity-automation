@@ -10,23 +10,24 @@ Feature: Actions
     And I view the actions tab of the case
     When I select to extend the deadline of the FOI case
     And I select a type of extension
-    And I select how many days to extend the deadline by and when to extend it from
+    And I select that the case should be extended from "Today"
+    And I select how many days to extend the deadline by
     And I submit a reason for the extension
     Then I should see a confirmation message stating that the case has been extended
     And the deadline of the FOI case should be extended the correct number of days
     And a Case Extension note should be visible in the timeline showing the submitted reason for the extension
     And the teams workstack should display the new deadline date for the case
 
-    #Scenario is waiting on completion of HOCS-4060 for correct behaviour of assertion step
+  @FOIRegression
   Scenario: As a FOI User, I want to be stopped from bringing the deadline forward, so that we always have enough time to casework the request
     And I create a single "FOI" case with the correspondence received date set as today
     And I view the actions tab of the case
     When I select to extend the deadline of the FOI case
     And I select a type of extension
-    And I select to extend the case by "1" day from "Today"
-    And I submit a reason for the extension
-    Then I am unable to extend the case by this amount
+    And I select that the case should be extended from "Today"
+    Then I am unable to select an amount of days to extend the case by
 
+    #Scenario expected to fail due to HOCS-3884. Will require updating once ticket is completed.
   @FOIRegression
   Scenario: User is able to add and complete an Appeal for an FOI case
     And I create a single "FOI" case

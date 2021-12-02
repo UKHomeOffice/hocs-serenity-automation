@@ -19,6 +19,8 @@ public class ActionsTabStepDefs extends BasePage {
         actionsTab.selectActionsTab();
     }
 
+    // Extensions
+
     @And("I select to extend the deadline of the FOI case")
     public void iSelectToExtendTheDeadlineOfTheFOICase() {
         actionsTab.clickExtendThisCase();
@@ -30,10 +32,15 @@ public class ActionsTabStepDefs extends BasePage {
         waitABit(500);
     }
 
-    @And("I select how many days to extend the deadline by and when to extend it from")
+    @And("I select how many days to extend the deadline by")
     public void iSelectHowManyDaysToExtendTheDeadlineByAndWhenToExtendItFrom() {
         actionsTab.selectHowManyDayToExtendDeadlineBy();
-        actionsTab.selectWhenToExtendDeadlineFrom();
+    }
+
+    @And("I select to extend the case by {string} day(s) from {string}")
+    public void iSelectToExtendTheCaseByDayFrom(String amountOfDays, String startPoint) {
+        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(startPoint);
+        actionsTab.selectASpecificAmountOfDaysToExtendDeadlineBy(amountOfDays);
     }
 
     @And("I submit a reason for the extension")
@@ -47,6 +54,18 @@ public class ActionsTabStepDefs extends BasePage {
         confirmationScreens.assertCaseExtensionConfirmationDisplayed();
         confirmationScreens.goToCaseFromConfirmationScreen();
     }
+
+    @And("I select that the case should be extended from {string}")
+    public void iSelectThatTheCaseShouldBeExtendedFrom(String extensionStartPoint) {
+        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(extensionStartPoint);
+    }
+
+    @Then("I am unable to select an amount of days to extend the case by")
+    public void iAmUnableToSelectAnAmountOfDaysToExtendTheCaseBy() {
+        actionsTab.assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown();
+    }
+
+    // Appeals
 
     @And("I select to add an appeal to the case")
     public void iSelectToAddAnAppealToTheCase() {
@@ -81,15 +100,7 @@ public class ActionsTabStepDefs extends BasePage {
         confirmationScreens.goToCaseFromConfirmationScreen();
     }
 
-    @And("I select to extend the case by {string} day from {string}")
-    public void iSelectToExtendTheCaseByDayFrom(String amountOfDays, String startPoint) {
-        actionsTab.selectASpecificAmountOfDaysToExtendDeadlineBy(amountOfDays);
-        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(startPoint);
-    }
-
-    @Then("I am unable to extend the case by this amount")
-    public void iAmUnableToExtendTheCaseByThisAmount() {
-    }
+    // Record Interest
 
     @When("I select to record an interest in the case")
     public void iSelectToRecordAnInterestInTheCase() {
