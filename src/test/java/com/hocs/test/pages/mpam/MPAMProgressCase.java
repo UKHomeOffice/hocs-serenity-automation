@@ -78,8 +78,14 @@ public class MPAMProgressCase extends BasePage {
                 precedingStage = "PRIVATE OFFICE";
                 break;
             case "CASE CLOSED":
-                businessArea = "EUSS";
-                precedingStage = "PRIVATE OFFICE";
+                switch (refType.toUpperCase()) {
+                    case "MINISTERIAL":
+                        precedingStage = "PRIVATE OFFICE";
+                        break;
+                    case "OFFICIAL":
+                        precedingStage = "AWAITING DISPATCH";
+                        break;
+                }
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -116,7 +122,6 @@ public class MPAMProgressCase extends BasePage {
     }
 
     public void completeTheMPAMStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "CREATION":
                 moveCaseFromCreationToTriage();

@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -41,6 +42,8 @@ public class CreateCaseStepDefs extends BasePage {
 
     MPAMProgressCase mpamProgressCase;
 
+    COMPProgressCase compProgressCase;
+
     Campaign campaign;
 
     DataInput dataInput;
@@ -71,6 +74,9 @@ public class CreateCaseStepDefs extends BasePage {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else {
+            if (caseType.equalsIgnoreCase("COMP2")) {
+                compProgressCase.escalateACOMPCaseToCOMP2();
+            }
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
     }
@@ -379,7 +385,7 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.goToDashboard();
                         break;
                     case "REFERENCE TYPE":
-                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoType, "Triage");
+                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
                         break;
                     case "MINISTERIAL SIGN OFF TEAM":
                         mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
@@ -430,6 +436,9 @@ public class CreateCaseStepDefs extends BasePage {
             case "COMP":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
+                        if (infoValue.equals("COMP2")) {
+                            compProgressCase.escalateACOMPCaseToCOMP2();
+                        }
                         createCase.createCSCaseOfType(infoValue);
                         break;
                     case "CORRESPONDENT FULL NAME":

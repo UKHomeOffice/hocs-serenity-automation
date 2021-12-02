@@ -44,29 +44,11 @@ public class COMPProgressCase extends BasePage {
         currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            switch (caseType) {
-                case "COMP":
-                    createCase.createCSCaseOfType("COMP");
-                    dashboard.goToDashboard();
-                    break;
-                case "COMP2":
-                    try {
-                        attemptEscalateCOMPCaseToStage2();
-                    } catch (Exception a) {
-                        moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", "COMPLAINT CLOSED");
-                        try {
-                            attemptEscalateCOMPCaseToStage2();
-                        } catch (Exception e) {
-                            Assert.fail("Escalation hypertext not visible on retry");
-                        }
-                    }
-                    waitABit(500);
-                    createCase.createCOMP2Case();
-                    dashboard.goToDashboard();
-                    break;
-                default:
-                    pendingStep(caseType + " is not defined within " + getMethodName());
+            if (caseType.equals("COMP2")) {
+                escalateACOMPCaseToCOMP2();
             }
+            createCase.createCSCaseOfType(caseType);
+            dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
                 moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, precedingStage);
@@ -77,7 +59,7 @@ public class COMPProgressCase extends BasePage {
 
     private String getSimplifiedStageName(String targetStage) {
         String[] words = targetStage.split(" ");
-        String simplifiedStage = words[words.length-1];
+        String simplifiedStage = words[words.length - 1];
         if (simplifiedStage.equalsIgnoreCase("Escalate")) {
             simplifiedStage = "Escalated";
         }
@@ -91,6 +73,36 @@ public class COMPProgressCase extends BasePage {
             complaintType = "Ex-Gratia";
         } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
             complaintType = "Minor Misconduct";
+        }
+    }
+
+    public void escalateACOMPCaseToCOMP2() {
+        try {
+            attemptEscalateCOMPCaseToStage2();
+        } catch (Exception a) {
+            moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", "COMPLAINT CLOSED");
+            try {
+                attemptEscalateCOMPCaseToStage2();
+            } catch (Exception e) {
+                Assert.fail("Escalation hypertext not visible on retry");
+            }
+        }
+        waitABit(500);
+    }
+
+    public void attemptEscalateCOMPCaseToStage2() throws Exception {
+        dashboard.selectSearchLinkFromMenuBar();
+        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        search.clickTheButton("Search");
+        search.waitForResultsPage();
+        if (search.checkVisibilityOfEscalationHypertext()) {
+            WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+            String compCaseRef = compCaseRefField.getText();
+            setSessionVariable("compCaseReference").to(compCaseRef);
+            System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
+            search.clickEscalateCOMPCaseToCOMP2();
+        } else {
+            throw new Exception("Escalation hypertext not visible");
         }
     }
 
@@ -164,22 +176,6 @@ public class COMPProgressCase extends BasePage {
         dashboard.waitForDashboard();
         System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.resetDataRecords();
-    }
-
-    public void attemptEscalateCOMPCaseToStage2() throws Exception {
-        dashboard.selectSearchLinkFromMenuBar();
-        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() +"/" + getCurrentYear());
-        search.clickTheButton("Search");
-        search.waitForResultsPage();
-        if (search.checkVisibilityOfEscalationHypertext()) {
-            WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-            String compCaseRef = compCaseRefField.getText();
-            setSessionVariable("compCaseReference").to(compCaseRef);
-            System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
-            search.clickEscalateCOMPCaseToCOMP2();
-        } else {
-            throw new Exception("Escalation hypertext not visible");
-        }
     }
 
     public void moveCaseFromRegistrationToTriage() {

@@ -16,20 +16,12 @@ Feature: Complaints Search
     Examples:
       | infoType                          | infoValue                            |
       | Case Type                         | COMP                                 |
+      | Case Type                         | COMP2                                |
       | Correspondent Full Name           | Sam McTester                         |
       | Correspondent Postcode            | AB1 2CD                              |
       | Correspondent Email Address       | SamMcTester@Test.com                 |
       | Complainant Date Of Birth         | 01/01/2001                           |
       | Complainant Home Office Reference | Test entry for Home Office Reference |
-
-  @ComplaintsRegression
-  Scenario: User can search for a COMP2 case
-    When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
-    And I enter "COMP2" into the "Case Type" COMP search criteria
-    And I click the search button on the search page
-    Then I check that the COMP search results have the correct "Case Type"
 
 #    HOCS-2838
   @ComplaintsRegression

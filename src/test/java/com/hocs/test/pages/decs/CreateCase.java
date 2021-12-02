@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class CreateCase extends BasePage {
@@ -218,12 +220,14 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
+        if (!caseType.equals("COMP2")) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            if (!nextButton.isVisible()) {
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            }
+            selectCaseType(caseType);
+            safeClickOn(nextButton);
         }
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
         if (!receivedDate.equalsIgnoreCase("N/A")) {
             editReceivedDate(receivedDate);
@@ -285,14 +289,6 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
-    }
-
-    public void createCOMP2Case() {
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        setSessionVariable("caseType").to("COMP2");
-        confirmationScreens.storeCaseReference();
     }
 
     public void clearCorrespondentReceivedDateFields() {

@@ -101,8 +101,6 @@ public class FOIProgressCase extends BasePage {
         }
         if (stageToComplete.equalsIgnoreCase("ACCEPTANCE") || stageToComplete.equalsIgnoreCase("ALLOCATION")) {
             dashboard.waitForDashboard();
-        } else {
-            caseView.waitForCaseToLoad();
         }
         System.out.println(stageToComplete + " stage completed");
         RecordCaseData.resetDataRecords();

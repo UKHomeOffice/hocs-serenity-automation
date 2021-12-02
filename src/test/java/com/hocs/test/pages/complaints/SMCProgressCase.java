@@ -29,7 +29,7 @@ public class SMCProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("IEDET");
+            createCase.createCSCaseOfType("SMC");
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -64,7 +64,6 @@ public class SMCProgressCase extends BasePage {
     }
 
     public void completeTheSMCStage(String stageToComplete) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 moveSMCCaseFromRegistrationToTriage();

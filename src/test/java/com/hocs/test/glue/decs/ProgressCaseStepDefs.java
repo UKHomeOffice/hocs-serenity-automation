@@ -3,13 +3,13 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
@@ -17,7 +17,6 @@ import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 
 public class ProgressCaseStepDefs extends BasePage {
 
@@ -41,6 +40,7 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         String caseType = sessionVariableCalled("caseType");
         switch (caseType) {
             case "MIN":
@@ -72,36 +72,42 @@ public class ProgressCaseStepDefs extends BasePage {
         }
     }
 
-    @And("I create a {string} case/claim and move it to (the ){string}( stage)")
-    public void iCreateACaseAndMoveItToAStage(String caseType, String stage) {
-        String startPoint = "N/A";
+    @And("I move the case from {string} stage to {string} stage")
+    public void iMoveTheCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+        String caseType = sessionVariableCalled("caseType");
         switch (caseType.toUpperCase()) {
             case "MIN":
             case "TRO":
             case "DTEN":
-                dcuProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, startPoint, stage);
+                dcuProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             case "MPAM":
-                mpamProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
+                mpamProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "COMP":
             case "COMP2":
-                compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, startPoint, stage);
+                compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             case "IEDET":
-                iedetProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
+                iedetProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "SMC":
-                smcProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
+                smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "FOI":
-                foiProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
+                foiProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "WCS":
-                wcsProgressCase.moveCaseFromCurrentStageToTargetStage(startPoint, stage);
+                wcsProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
+    }
+
+    @And("I create a {string} case/claim and move it to (the ){string}( stage)")
+    public void iCreateACaseAndMoveItToAStage(String caseType, String targetStage) {
+        setSessionVariable("caseType").to(caseType);
+        iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
     @And("I get a {string} case/claim at (the ){string}( stage)")

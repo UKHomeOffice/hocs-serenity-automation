@@ -637,7 +637,7 @@ public class Search extends BasePage {
                 expectedValue = sessionVariableCalled("searchCaseType");
                 List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
                 assertThat(numberOfCasesDisplayed == listOfCaseRefs.size(), is(true));
-                displayedValue = "COMP2";
+                displayedValue = expectedValue;
                 break;
             case "CORRESPONDENT FULL NAME":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");

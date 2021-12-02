@@ -1,13 +1,13 @@
 @Superuser @FOI
 Feature: Superuser
 
-  @ComplaintsRegression
+  @FOIRegression
   Scenario: A FOI Admin User can complete the FOI workflow
     Given I log in to "CS" as user "FOI_SUPERUSER"
     When I create a "FOI" case and move it to "Soft Close"
     Then the case should be at the "Soft Close" stage
 
-  @ComplaintsRegression
+  @FOIRegression
   Scenario: A FOI Admin User can complete a stage whilst case is owned by another user
     Given I log in to "CS" as user "FOI_USER"
     And I create a single "FOI" case

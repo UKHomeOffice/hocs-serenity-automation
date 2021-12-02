@@ -167,7 +167,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a COMP case to the Stage 2 Complaint Closed stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed (From Stage 2 <complaintType> Send)" stage
+    When I create a "COMP2" case for a "<complaintType>" complaint and move it to "Stage 2 Complaint Closed" stage
     Then the case should be moved to the "Stage 2 Complaint Closed" stage
     Examples:
       | complaintType |
@@ -177,5 +177,5 @@ Feature: Complaints End To End
   @ComplaintsRegression
   Scenario: User is able to close a COMP2 case
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed (From Stage 2 Service Send)" stage
+    When I create a "COMP2" case and move it to the "Stage 2 Complaint Closed" stage
     Then the case should be closed

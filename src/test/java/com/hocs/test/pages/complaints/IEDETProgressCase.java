@@ -61,7 +61,6 @@ public class IEDETProgressCase extends BasePage {
     }
 
     public void completeTheIEDETStage(String stageToComplete) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 moveIEDETCaseFromRegistrationToTriage();

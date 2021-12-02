@@ -106,7 +106,6 @@ public class DCUProgressCase extends BasePage {
     }
 
     public void completeTheDCUStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "DATA INPUT":
                 moveCaseFromDataInputToMarkup();
@@ -151,6 +150,11 @@ public class DCUProgressCase extends BasePage {
     }
 
     public void moveCaseFromDataInputToMarkup() {
+        if (dtenCase()) {
+            dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
+            dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
+            safeClickOn(continueButton);
+        }
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
         if (copyToNumber10) {
