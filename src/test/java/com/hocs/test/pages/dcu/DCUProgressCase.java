@@ -158,12 +158,12 @@ public class DCUProgressCase extends BasePage {
         }
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
-        if (copyToNumber10) {
-            dataInput.selectASpecificCopyToNoTenOption("Yes");
-        } else {
-            dataInput.selectASpecificCopyToNoTenOption("No");
-        }
         if (minCase() || troCase()) {
+            if (copyToNumber10) {
+                dataInput.selectASpecificCopyToNoTenOption("Yes");
+            } else {
+                dataInput.selectASpecificCopyToNoTenOption("No");
+            }
             dataInput.selectAHomeSecInterestOption();
         }
         if (minCase()) {
