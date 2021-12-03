@@ -28,6 +28,8 @@ Feature: ManagementUI
       | Manage MPAM Business Units                     | Select a Business Area                           |
       | Manage MPAM Enquiry Reasons                    | Select an Enquiry Subject                        |
       | Manage FOI Account Managers                    | View and edit account managers                   |
+      | Manage FOI Interested Parties                  | View and edit interested parties                 |
+
 
 
 #    MANAGE STANDARD LINES
@@ -287,10 +289,10 @@ Feature: ManagementUI
     When I create a new parent topic
     Then a success message is displayed
 
-  @TopicManagement  
+  @TopicManagement
   Scenario: User is able to link the new Parent Topic to a Child topic during creation
     Given I select to "Add parent topic"
-    When I create a new parent topic  
+    When I create a new parent topic
     And I select to "Add child topic"
     And I can create a child topic with the newly created parent topic linked
     Then a success message is displayed
@@ -546,3 +548,22 @@ Feature: ManagementUI
     And I submit a new name for the account manager
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
+
+#    MANAGE FOI INTERSTED PARTIES
+
+  @ListsManagement @FOIRegression
+  Scenario: User is able to add a new interested party
+    When I select to "Manage FOI Interested Parties"
+    And I select to add a new account manager
+    And I select to add a new interested party
+    And I submit details for the new interested party
+    Then the success message for adding an interested party should be displayed
+    And I should be able to view the new interested party in the table of interested parties
+
+  @ListsManagement @FOIRegression
+  Scenario: User is able to edit an interested parties name
+    When I select to "Manage FOI Interested Parties"
+    And I select to amend an existing interested party
+    And I submit a new name for the interested party
+    Then the success message for amending an interested party should be displayed
+    And I should be able to view the renamed interested party in the table of interested parties
