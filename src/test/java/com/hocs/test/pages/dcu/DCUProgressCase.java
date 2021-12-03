@@ -77,7 +77,7 @@ public class DCUProgressCase extends BasePage {
                     case "MIN":
                         precedingStage = "MINISTERIAL SIGN OFF";
                         break;
-                    case"DTEN":
+                    case "DTEN":
                         precedingStage = "PRIVATE OFFICE APPROVAL";
                         break;
                     case "TRO":
@@ -208,7 +208,7 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromInitialDraftToQaResponse() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
         safeClickOn(continueButton);
-        if (!dtenCase()){
+        if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
             safeClickOn(continueButton);
         }
@@ -222,7 +222,7 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromInitialDraftToPrivateOfficeApprovalOrDispatch() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
         safeClickOn(continueButton);
-        if (!dtenCase()){
+        if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
             safeClickOn(continueButton);
         }

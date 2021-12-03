@@ -181,44 +181,6 @@ public class DataInputStepDefs extends BasePage {
         correspondents.assertPrimaryCorrespondent();
     }
 
-    @And("the stage deadline dates for a {string} case are correct")
-    public void checkStageDeadlineDatesCorrect(String caseType) {
-        summaryTab.selectSummaryTab();
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-            case "HOME SECRETARY SIGN-OFF":
-                summaryTab.assertDeadlineDateOfStage(caseType, "Data Input");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Markup");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                summaryTab.assertDeadlineDateOfStage(caseType, "QA Response");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Private Office Approval");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Ministerial Sign Off");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
-                summaryTab.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
-                break;
-            case "DTEN":
-                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                break;
-            case "TRO":
-                summaryTab.assertDeadlineDateOfStage(caseType, "Data Input");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Markup");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Initial Draft");
-                summaryTab.assertDeadlineDateOfStage(caseType, "QA Response");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Transfer Confirmation");
-                summaryTab.assertDeadlineDateOfStage(caseType, "No Response Needed Confirmation");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Dispatch");
-                summaryTab.assertDeadlineDateOfStage(caseType, "Copy To Number 10");
-                break;
-            case "MPAM":
-                summaryTab.assertDeadlineDateOfStage(caseType, "GENERAL");
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I select {string} for Home Secretary interest and complete the data input stage")
     public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
         setSessionVariable("homeSecInterest").to(interest);

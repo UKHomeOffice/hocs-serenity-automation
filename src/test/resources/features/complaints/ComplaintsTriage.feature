@@ -1,6 +1,7 @@
 @ComplaintsTriage @Complaints
 Feature: Complaints Triage
 
+#    Expected intermittent failure for Minor Misconduct example. Defect HOCS-4309 raised.
 #  HOCS-2944, HOCS-2868
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario Outline: User can transfer a case COMP case to CCH
@@ -12,8 +13,7 @@ Feature: Complaints Triage
     Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-#    This step should be reintroduced once HOCS- is resolved
-#    And the read-only Case Details accordion should contain all case information entered during the "<complaintType> Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "<complaintType> Triage" stage
     Examples:
       | complaintType    |
       | Service          |
@@ -28,9 +28,8 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I send the case to drafting
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
@@ -44,9 +43,8 @@ Feature: Complaints Triage
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I send the case to drafting
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -61,9 +59,8 @@ Feature: Complaints Triage
     And I select a "SERIOUS AND MINOR" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I send the case to drafting
     Then the case should be moved to the "Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -75,8 +72,7 @@ Feature: Complaints Triage
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
     And I select the "Transferred to Third Party Supplier" action for an IEDET case at the Triage stage
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I submit details on the Triage Capture Reason page
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
@@ -88,15 +84,13 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at Triage stage
     And I enter details on PSU Reference page
-    And I select a "Service" Complaint Category
-    And I click the "Continue" button
-    And I select "Vulnerable" as additional information on Triage Case Details page
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I send the case to drafting
     And I load the current case
     And the summary should display the owning team as "Serious Misconduct"
-#    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
 #    HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
@@ -106,9 +100,8 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
@@ -123,9 +116,8 @@ Feature: Complaints Triage
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -140,9 +132,8 @@ Feature: Complaints Triage
     And I select a "SERIOUS AND MINOR" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Service Triage stage
     Then the case should be moved to the "Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -156,9 +147,8 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I select to complete the case at Triage
     And I select a Close Reason
     And I enter a completion note at Service Triage
@@ -175,9 +165,8 @@ Feature: Complaints Triage
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I select to complete the case at Triage
     And I select a Close Reason
     And I enter a completion note at Service Triage
@@ -195,9 +184,8 @@ Feature: Complaints Triage
     And I select a "SERIOUS AND MINOR" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     When I select to complete the case at Triage
     And I select a Close Reason
     And I enter a completion note at Service Triage
@@ -214,6 +202,7 @@ Feature: Complaints Triage
     And I select the "No Further Consideration" action for an IEDET case at the Triage stage
     Then the case should be closed
 
+#    Expected failure. Defect HOCS-3980 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a SMC case from Triage to CCH
     Given I am logged into "CS" as user "SMC_USER"
@@ -223,6 +212,7 @@ Feature: Complaints Triage
     And I enter a reason for "CCH" transfer and continue
     Then the case should be closed
 
+#    Expected failure. Defect HOCS-3980 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a SMC case from Triage to IEDET
     Given I am logged into "CS" as user "SMC_USER"
@@ -240,9 +230,8 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<action>"
@@ -261,9 +250,8 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "complainant" contribution request with a due date in the past
     Then the "complainant" contribution request should be marked as "overdue"
     And the overdue contribution request should be highlighted
@@ -276,7 +264,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
+    And I accept the previous Case Details selection
     And I select that a Letter of Authority is required
     And I click the "Continue" button
     And I can mark that the LoA was received and enter the LoA date

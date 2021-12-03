@@ -4,6 +4,7 @@ Feature: DCU Search
   Background:
     Given I am logged into "CS" as user "DCU_USER"
 
+#    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
   @DCURegression
   Scenario Outline: User tests DCU search criteria
     When I create a "DCU" case with "<infoValue>" as its "<infoType>"
