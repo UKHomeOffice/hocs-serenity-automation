@@ -87,11 +87,13 @@ public class COMPProgressCase extends BasePage {
                 Assert.fail("Escalation hypertext not visible on retry");
             }
         }
+        setSessionVariable("caseType").to("COMP2");
         waitABit(500);
     }
 
     public void attemptEscalateCOMPCaseToStage2() throws Exception {
         dashboard.selectSearchLinkFromMenuBar();
+        checkSpecificCheckbox("Complaint Case");
         search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         search.clickTheButton("Search");
         search.waitForResultsPage();

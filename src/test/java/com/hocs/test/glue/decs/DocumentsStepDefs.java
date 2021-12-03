@@ -21,7 +21,7 @@ public class DocumentsStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    @And("I click to manage the documents of a new {string} case")
+    @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
@@ -31,6 +31,27 @@ public class DocumentsStepDefs extends BasePage {
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new DCU case")
+    public void iManageTheDocumentsOfANewDCUCase() {
+        createCase.createDCUCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new MPAM or MTS case")
+    public void iManageTheDocumentsOfANewMPAMOrMTSCase() {
+        createCase.createMPAMOrMTSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new Complaints case")
+    public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
+        createCase.createComplaintsCaseOfRandomType();
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
