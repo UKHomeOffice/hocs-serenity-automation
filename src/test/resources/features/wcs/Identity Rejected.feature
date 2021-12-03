@@ -3,8 +3,8 @@ Feature: Identity Rejected
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Identity Rejected" stage
+    And I get a "WCS" claim at the "Identity Rejected" stage
+
 
   @Workflow @WCSRegression
   Scenario: User sends the claim to Tier 1 review

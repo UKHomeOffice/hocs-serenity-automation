@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
@@ -12,6 +13,7 @@ import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -34,7 +36,9 @@ public class WorkstacksStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    EndToEndStepDefs endToEndStepDefs;
+    MPAMProgressCase mpamProgressCase;
+
+    COMPProgressCase compProgressCase;
 
     CaseView caseView;
 
@@ -427,7 +431,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
+                    mpamProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", stage);
                     dashboard.goToDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 }
@@ -455,7 +459,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectWorkstackByTeamName(workstack);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("COMP", workstack + " TRIAGE");
+                    compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", workstack + " TRIAGE");
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(workstack);
                 }

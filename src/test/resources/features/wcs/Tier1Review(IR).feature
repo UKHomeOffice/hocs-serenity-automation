@@ -3,8 +3,7 @@ Feature: Tier 1 Review (IR)
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Tier 1 Review (IR)" stage
+    And I get a "WCS" claim at the "Tier 1 Review (IR)" stage
 
   @Workflow @WCSRegression
   Scenario: User returns the claim to Eligibility stage

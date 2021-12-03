@@ -50,12 +50,6 @@ public class Draft extends BasePage {
     @FindBy(id = "CaseNote_DraftReturnToTriage")
     public WebElementFacade returnToTriageReasonTextArea;
 
-    public void moveCaseFromDraftToQA() {
-        safeClickOn(moveToQARadioButton);
-        setSessionVariable("action").to("Move to QA");
-        safeClickOn(confirmButton);
-    }
-
     public void moveBRefCaseFromDraftToDispatch() {
         safeClickOn(readyForDispatchBypassQARadioButton);
         safeClickOn(confirmButton);

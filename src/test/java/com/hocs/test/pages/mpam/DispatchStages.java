@@ -93,33 +93,6 @@ public class DispatchStages extends BasePage {
         enterDateIntoDateFieldsWithHeading(date, "Dispatched date");
     }
 
-    public void moveCaseFromPrivateOfficeToCaseClosed() {
-        selectAResponseChannel();
-        safeClickOn(dispatchedRadioButtonAtPrivateOffice);
-        safeClickOn(confirmButton);
-        inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
-        safeClickOn(confirmAndCloseCaseButton);
-    }
-
-    public void moveCaseFromPrivateOfficeToAwaitingDispatchLocal() {
-        selectAResponseChannel();
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Approved (local dispatch)", "Actions");
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial() {
-        selectAResponseChannel();
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Approved (ministerial dispatch)", "Actions");
-        safeClickOn(confirmButton);
-    }
-
-    public void moveCaseFromAwaitingDispatchToCaseClosed() {
-        selectAResponseChannel();
-        inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
-        safeClickOn(dispatchedRadioButtonAtDispatch);
-        safeClickOn(confirmButton);
-    }
-
     public void triggerAwaitingDispatchErrorMessage(String message) {
         switch (message.toUpperCase()) {
             case "DISPATCHED DATE REQUIRED":

@@ -120,31 +120,10 @@ public class Creation extends BasePage {
         setSessionVariable("inboundChannel").to(inboundChannel);
     }
 
-    public void moveCaseFromCreationToTriage() {
-        completeRequiredQuestions();
-        clickTheButton("Continue");
-        correspondents.addAMemberCorrespondent();
-        clickTheButton("Move to Triage");
-    }
-
     public void addCorrespondentWithSpecificReferenceToCase(String refNumber) {
         completeRequiredQuestions();
         safeClickOn(continueButton);
         correspondents.addAPublicCorrespondentWithAReferenceNumber(refNumber);
-    }
-
-    public void moveCaseWithSpecifiedValuesToTriageStage(String businessArea, String refType, String urgency, String signOffTeam) {
-        selectBusinessArea(businessArea);
-        selectRefType(refType);
-        if (sessionVariableCalled("refType").toString().equalsIgnoreCase("MINISTERIAL")) {
-            selectMinisterialSignOffTeam(signOffTeam);
-            selectAddressee(signOffTeam);
-        }
-        selectUrgency(urgency);
-        selectInboundChannel("Email");
-        clickTheButton("Continue");
-        correspondents.addAMemberCorrespondent();
-        clickTheButton("Move to Triage");
     }
 
     public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {

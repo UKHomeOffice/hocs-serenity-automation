@@ -3,8 +3,7 @@ Feature: Casework
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And  I create a single "WCS" claim
-    And I move the claim to the "Casework" stage
+    And I get a "WCS" claim at the "Casework" stage
 
   @Workflow @WCSRegression
   Scenario: User put a claim on hold at Casework stage

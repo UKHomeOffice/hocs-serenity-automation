@@ -56,10 +56,6 @@ public class QA extends BasePage {
     public WebElementFacade closureReasonTextArea;
 
     //QA Actions
-    public void moveCaseFromQAToNextStage() {
-        safeClickOn(approvedAtQARadioButton);
-        safeClickOn(confirmButton);
-    }
 
     public void putQACaseOnHold() {
         safeClickOn(onHoldRadioButton);

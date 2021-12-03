@@ -77,16 +77,6 @@ public class Triage extends BasePage {
 
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
-    public void moveCaseFromTriageToDraft() {
-        safeClickOn(setEnquiryHypertext);
-        selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
-        setBusinessUnit();
-        safeClickOn(readyToDraftRadioButton);
-        setSessionVariable("action").to("Ready to draft");
-        safeClickOn(confirmButton);
-    }
-
     public void selectEnquirySubject(String subject) {
         waitForPageWithTitle("Enquiry subject");
         selectSpecificRadioButton(subject);

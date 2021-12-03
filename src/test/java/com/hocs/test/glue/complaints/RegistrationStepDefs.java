@@ -56,7 +56,7 @@ public class RegistrationStepDefs extends BasePage {
                 registration.openTheServiceComplaintCategoryAccordion();
                 break;
             case "SERIOUS AND MINOR":
-                registration.openTheSeriousAndMinorComplaintCategoryAccordion();
+                complaintsTriage.openTheSeriousAndMinorComplaintCategoryAccordion();
                 break;
             case "SERIOUS":
                 registration.openTheSeriousComplaintCategoryAccordion();
