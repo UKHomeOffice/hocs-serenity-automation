@@ -18,10 +18,10 @@ Feature: Deadlines
   Scenario: As a DCU user, when I create a DTEN case and enter the deadlines, I want to be able to see these deadlines in the summary
     When I create a "DTEN" case and move it to the "Markup" stage
     And I load the current case
-    Then the stage deadline dates displayed in the summary are correct for a "<caseType>" case
-    Then the case deadline date displayed in the summary is correct for a "<caseType>" case
+    Then the stage deadline dates displayed in the summary are correct for a "DTEN" case
+    Then the case deadline date displayed in the summary is correct for a "DTEN" case
 
-
+#    BF and TO examples are awaiting completion of HOCS-4039 and HOCS-4115 respectively
   @CSRegression
   Scenario Outline: As a CS user, when I create a case, I want to be able to see the correct case deadline in the summary
     When I create a single "<caseType>" case
@@ -36,6 +36,8 @@ Feature: Deadlines
       | IEDET    |
       | SMC      |
       | FOI      |
+#      | BF       |
+#      | TO       |
 
   @DCURegression
   Scenario: As a DCU User, when I select that the Home Secretary is the Private Office team, I expect the cases deadlines to reflect a 10 day SLA

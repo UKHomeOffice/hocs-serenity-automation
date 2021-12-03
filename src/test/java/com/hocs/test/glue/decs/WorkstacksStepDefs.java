@@ -498,14 +498,18 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.recordHighestPriorityCases();
     }
 
-    @Then("the case deadline should be highlighted yellow")
-    public void theCaseDeadlineBeHighlightedYellow() {
-        workstacks.assertThatDeadlineHighlightedIsYellow();
-    }
-
-    @Then("the case deadline should be highlighted red")
-    public void theCaseDeadlineShouldBeHighlightedRed() {
-        workstacks.assertThatDeadlineHighlightedIsRed();
+    @Then("the case deadline should be highlighted {string}")
+    public void theCaseDeadlineShouldBeHighlightedRed(String colour) {
+        switch (colour.toUpperCase()) {
+            case "YELLOW":
+                workstacks.assertThatDeadlineHighlightedIsYellow();
+                break;
+            case "RED":
+                workstacks.assertThatDeadlineHighlightedIsRed();
+                break;
+            default:
+                pendingStep(colour + " is not defined within " + getMethodName());
+        }
     }
 
     @Then("the overdue contribution request should be highlighted in red")

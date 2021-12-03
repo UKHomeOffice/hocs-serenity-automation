@@ -178,9 +178,10 @@ public class SummaryTab extends BasePage {
             case "COMP2":
             case "IEDET":
             case "FOI":
+            case "BF":
+            case "TO":
                 expectedNumberOfWorkdaysTillDeadline = 20;
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
-
                 break;
             case "EX-GRATIA":
             case "SMC":
