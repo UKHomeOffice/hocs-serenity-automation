@@ -24,7 +24,7 @@ public class ActionsTab extends BasePage {
         return actionsTab.getAttribute("class").contains("active");
     }
 
-    //Extensions
+    // Extensions
 
     public void clickExtendThisCase() {
         clickTheLink("Extend this case");
@@ -35,7 +35,7 @@ public class ActionsTab extends BasePage {
     }
 
     public void selectHowManyDayToExtendDeadlineBy() {
-        String numberOfDays = selectRandomOptionFromDropdownWithHeading("How many days do you want to extend the case deadline by?");
+        String numberOfDays = selectRandomOptionFromDropdownWithHeading("How many working days do you want to extend the case by?");
         setSessionVariable("numberOfDays").to(Integer.parseInt(numberOfDays));
     }
 
@@ -48,11 +48,17 @@ public class ActionsTab extends BasePage {
         selectRandomOptionFromDropdownWithHeading("Case will be extended from:");
     }
 
-    public void selectASpecificStartPointToExtendDeadlineFrom(String startPoint) {
-        selectSpecificOptionFromDropdownWithHeading(startPoint,"Case will be extended from:");
+    public void selectASpecificStartPointToExtendDeadlineFrom(String extensionStartPoint) {
+        selectSpecificOptionFromDropdownWithHeading(extensionStartPoint,"Case will be extended from:");
     }
 
-    //Appeals
+    public void assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown() {
+        if (checkSelectableOptionsPresentInDropdownWithHeading("How many days do you want to extend the case deadline by?")) {
+            Assert.fail("Selectable options present in dropdown");
+        }
+    }
+
+    // Appeals
 
     public void clickAddAnAppeal() {
         clickTheLink("Add an appeal");
@@ -108,7 +114,7 @@ public class ActionsTab extends BasePage {
         }
     }
 
-    //Interest
+    // Record Interest
 
     public void clickRecordInterest() {
         clickTheLink("Record Interest");

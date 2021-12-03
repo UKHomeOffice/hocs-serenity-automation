@@ -197,6 +197,10 @@ public class Dashboard extends BasePage {
         safeClickOn(seriousMisconductWorkstack);
     }
 
+    public void selectBFTeam() {
+        safeClickOn(borderForceWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);

@@ -26,6 +26,12 @@ Feature: Complaints Workstacks
     And I enter the "Serious Misconduct" workstack
     Then the "Serious Misconduct" workstack should contain only the expected columns
 
+  @ComplaintsRegression
+  Scenario: User can see the required information when viewing the BF workstack
+    Given I am logged into "CS" as user "BF_USER"
+    And I enter a "Border Force" workstack
+    Then the "Border Force" workstack should contain only the expected columns
+
 #     HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression
   Scenario Outline: User is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
