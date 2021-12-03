@@ -479,6 +479,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectSMCTeam();
                 }
                 break;
+            case "BORDER FORCE":
+                try {
+                    dashboard.selectBFTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("BF");
+                    dashboard.goToDashboard();
+                    dashboard.selectBFTeam();
+                }
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
