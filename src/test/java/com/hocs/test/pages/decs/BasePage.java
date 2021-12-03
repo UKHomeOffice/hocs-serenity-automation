@@ -515,9 +515,7 @@ public class BasePage extends PageObject {
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> optionElements =
-                findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling"
-                + "::select/option");
+        List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(headingText);
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
         safeClickOn(optionElementToSelect);
@@ -530,6 +528,14 @@ public class BasePage extends PageObject {
                 findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
                         + "/option[text()='" + optionText + "']");
         safeClickOn(optionElement);
+    }
+
+    public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+    }
+
+    public Boolean checkSelectableOptionsPresentInDropdownWithHeading(String headingText) {
+        return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }
 
     //Checkboxes
