@@ -13,7 +13,7 @@ Feature: Deadlines
     Examples:
       | caseType |
       | MIN      |
-      | TRO     |
+      | TRO      |
 
   Scenario: As a DCU user, when I create a DTEN case and enter the deadlines, I want to be able to see these deadlines in the summary
     When I create a "DTEN" case and move it to the "Markup" stage
@@ -29,8 +29,8 @@ Feature: Deadlines
     Then the case deadline date displayed in the summary is correct for a "<caseType>" case
     Examples:
       | caseType |
-      | MPAM      |
-      |MTS       |
+      | MPAM     |
+      | MTS      |
       | COMP     |
       | COMP2    |
       | IEDET    |
@@ -55,6 +55,7 @@ Feature: Deadlines
     And I change the minister to "Minister for Lords"
     Then the stage and case deadlines revert back to those for a 20 day SLA
 
+#    Expected failure. Defect HOCS-4230 raised.
   @COMPRegression
   Scenario: As a COMP User, when I have a Ex-Gratia complaint, I expect the deadline to be 60 working days
     When I create a "COMP" case for a "Ex-Gratia" complaint and move it to "Ex-Gratia Triage" stage

@@ -42,9 +42,10 @@ public class ComplaintsTriageStepDefs extends BasePage {
         }
     }
 
-    @And("I enter details on the Triage Capture Reason page")
-    public void iEnterDetailsOnTheTriageCaptureReasonPage() {
+    @And("I submit details on the Triage Capture Reason page")
+    public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        clickTheButton("Continue");
     }
 
     @And("I send the case to drafting")
@@ -93,7 +94,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
         clickTheButton("Continue");
     }
 
-    @And("I accept the previous Severity selection")
+    @And("I accept the previous Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");

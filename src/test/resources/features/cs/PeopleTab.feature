@@ -37,6 +37,7 @@ Feature: PeopleTab
       | Member            |
       | Public            |
 
+#    Expected failure for MLA example. Defect HOCS-4266 raised.
   @CSRegression
   Scenario Outline: User can add a Member of Parliament as a Correspondent
     When I create a "MIN" case and move it to the "Data Input" stage

@@ -49,9 +49,8 @@ Feature: Complaints Workstacks
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "complainant" contribution request with a due date in the past
     And I add a "complainant" contribution request with a due date in the future
     And I view the "CCT Stage 1 Triage Team" workstack
@@ -67,9 +66,8 @@ Feature: Complaints Workstacks
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "complainant" contribution request with a due date in the future
     And I view the "CCT Stage 1 Triage Team" workstack
     Then the displayed contribution request status of the case should be correct

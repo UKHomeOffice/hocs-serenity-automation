@@ -222,6 +222,7 @@ public class Registration extends BasePage {
                 pendingStep(complaintType + " is not defined within " + getMethodName());
         }
         clickTheButton("Continue");
+        System.out.println("Complaint type: " + complaintType);
     }
 
     public void selectAChannel() {
