@@ -230,7 +230,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomComplaintsCaseType() {
-        List<String> list = Arrays.asList("COMP", "SMC", "IEDET");
+        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET");
         return list.get(new Random().nextInt(list.size()));
     }
 

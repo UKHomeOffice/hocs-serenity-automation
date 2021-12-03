@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
@@ -20,6 +21,8 @@ public class DocumentsStepDefs extends BasePage {
     CreateCase createCase;
 
     ConfirmationScreens confirmationScreens;
+
+    COMPProgressCase compProgressCase;
 
     @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
@@ -51,7 +54,11 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I manage the documents of a new Complaints case")
     public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
-        createCase.createComplaintsCaseOfRandomType();
+        String caseType = createCase.getRandomComplaintsCaseType();
+        if (caseType.equalsIgnoreCase("COMP2")) {
+            compProgressCase.escalateACOMPCaseToCOMP2();
+        }
+        createCase.createCSCaseOfType(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
