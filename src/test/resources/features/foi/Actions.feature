@@ -4,6 +4,7 @@ Feature: Actions
   Background:
     Given I am logged into "CS" as user "FOI_USER"
 
+#    HOCS-3835, HOCS-3925
   @FOIRegression
   Scenario: As a FOI User, I want to be able to apply an extension to a case, so that we have enough time to casework the request
     And I create a single "FOI" case with the correspondence received date set 20 workdays ago
@@ -18,6 +19,7 @@ Feature: Actions
     And a Case Extension note should be visible in the timeline showing the submitted reason for the extension
     And the teams workstack should display the new deadline date for the case
 
+#    HOCS-3835, HOCS-3925, HOCS-4060
   @FOIRegression
   Scenario: As a FOI User, I want to be stopped from bringing the deadline forward, so that we always have enough time to casework the request
     And I create a single "FOI" case with the correspondence received date set as today
@@ -27,6 +29,7 @@ Feature: Actions
     And I select that the case should be extended from "Today"
     Then I am unable to select an amount of days to extend the case by
 
+#    HOCS-3644, HOCS-3827, HOCS-3925, HOCS-3884
     #Scenario expected to fail due to HOCS-3884. Will require updating once ticket is completed.
   @FOIRegression
   Scenario: User is able to add and complete an Appeal for an FOI case
@@ -43,7 +46,7 @@ Feature: Actions
     And the information entered for the FOI appeal should be displayed in the summary
     And an Appeal Updated note should be visible in the timeline for the selected appeal type.
 
-
+#    HOCS-3644, HOCS-3871
   @FOIRegression
   Scenario: User is able to add and update a Registered Interest in an FOI case
     And I create a single "FOI" case
