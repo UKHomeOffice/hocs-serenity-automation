@@ -224,6 +224,21 @@ public class CreateCase extends BasePage {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public String getRandomDCUCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomComplaintsCaseType() {
+        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomMPAMOrMTSCaseType() {
+        List<String> list = Arrays.asList("MPAM", "MTS");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
     public void editReceivedDate(String date) {
         enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
     }
@@ -266,6 +281,18 @@ public class CreateCase extends BasePage {
 
     public void createCSCaseOfRandomType() {
         createCSCaseOfTypeWithoutDocument(getRandomCaseType());
+    }
+
+    public void createDCUCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomDCUCaseType());
+    }
+
+    public void createComplaintsCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomComplaintsCaseType());
+    }
+
+    public void createMPAMOrMTSCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomMPAMOrMTSCaseType());
     }
 
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
