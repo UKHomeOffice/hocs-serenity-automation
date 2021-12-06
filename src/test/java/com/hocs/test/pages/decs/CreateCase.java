@@ -218,9 +218,9 @@ public class CreateCase extends BasePage {
         setSessionVariable("caseType").to(caseType);
     }
 
-    // Add BF and TO back to this list once those case types have document types.
+    // Add BF back to this list once case type has document types.
     public String getRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "TO");
         return list.get(new Random().nextInt(list.size()));
     }
 
