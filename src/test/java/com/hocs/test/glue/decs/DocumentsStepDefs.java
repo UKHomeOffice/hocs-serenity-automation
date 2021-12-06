@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
@@ -21,7 +22,9 @@ public class DocumentsStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    @And("I click to manage the documents of a new {string} case")
+    COMPProgressCase compProgressCase;
+
+    @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
@@ -31,6 +34,31 @@ public class DocumentsStepDefs extends BasePage {
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new DCU case")
+    public void iManageTheDocumentsOfANewDCUCase() {
+        createCase.createDCUCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new MPAM or MTS case")
+    public void iManageTheDocumentsOfANewMPAMOrMTSCase() {
+        createCase.createMPAMOrMTSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new Complaints case")
+    public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
+        String caseType = createCase.getRandomComplaintsCaseType();
+        if (caseType.equalsIgnoreCase("COMP2")) {
+            compProgressCase.escalateACOMPCaseToCOMP2();
+        }
+        createCase.createCSCaseOfType(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
