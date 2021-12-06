@@ -35,7 +35,7 @@ public class DocumentsStepDefs extends BasePage {
         safeClickOn(documents.manageDocumentsLink);
     }
 
-    @And("I upload a {string} document")
+    @And("I upload a/an {string} document")
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
@@ -62,6 +62,9 @@ public class DocumentsStepDefs extends BasePage {
                 break;
             case "FINAL RESPONSE":
                 documents.addADocumentOfType("Final response");
+                break;
+            case "APPEAL RESPONSE":
+                documents.addAnAppealResponseDocument();
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());

@@ -94,6 +94,17 @@ public class ActionsTabStepDefs extends BasePage {
         actionsTab.completeAppeal();
     }
 
+    @When("I select to update the appeal")
+    public void iSelectToUpdateTheAppeal() {
+        actionsTab.selectActionsTab();
+        actionsTab.clickUpdateLinkForAppeal();
+    }
+
+    @And("I submit appeal completion details")
+    public void iSubmitAppealCompletionDetails() {
+        actionsTab.completeAppeal();
+    }
+
     @Then("I should see a confirmation message stating that the appeal has been updated")
     public void iShouldSeeAConfirmationMessageStatingThatTheAppealHasBeenUpdated() {
         confirmationScreens.assertAppealUpdatedConfirmationDisplayed();

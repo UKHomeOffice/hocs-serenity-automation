@@ -146,6 +146,12 @@ public class Documents extends BasePage {
         setSessionVariable("draft").to("docx");
     }
 
+    public void addAnAppealResponseDocument() {
+        clickTheLink("Add a document");
+        uploadDocumentOfType("docx");
+        safeClickOn(addButton);
+    }
+
     public void clickPreviewButtonForFile(String fileIdentifier) {
         WebElementFacade previewButton = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
                 + "[contains(text(), 'Preview')]");
