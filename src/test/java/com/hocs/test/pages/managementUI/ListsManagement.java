@@ -38,11 +38,20 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//input[@id='simpleName']")
     private WebElementFacade accountManagerCodeTextBox;
 
+    @FindBy(xpath = "//input[@id='title']")
+    private WebElementFacade interestedPartyNameTextBox;
+
+    @FindBy(xpath = "//input[@id='simpleName']")
+    private WebElementFacade interestedPartyCodeTextBox;
+
     @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
 
     @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
     public WebElementFacade addNewAccountManagerButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Add new interested party')]")
+    public WebElementFacade addNewInterestedPartyButton;
 
     @FindBy(xpath = "//input[@id='business-areas-input']")
     public WebElementFacade businessAreaTypeahead;
@@ -94,8 +103,13 @@ public class ListsManagement extends BasePage {
         safeClickOn(addNewAccountManagerButton);
     }
 
+    public void clickTheAddNewInterestedPartyButton() {
+        safeClickOn(addNewInterestedPartyButton);
+    }
+
     public void enterAccountManagerName() {
         String name = "Automated test name " + generateRandomString();
+        accountManagerNameTextBox.clear();
         accountManagerNameTextBox.sendKeys(name);
         setSessionVariable("accountManagerName").to(name);
     }
@@ -103,6 +117,18 @@ public class ListsManagement extends BasePage {
     public void enterAccountManagerCode() {
         String code = "Automated test code " + generateRandomString();
         accountManagerCodeTextBox.sendKeys(code);
+    }
+
+    public void enterInterestedPartyName() {
+        String name = "Automated test name " + generateRandomString();
+        interestedPartyNameTextBox.clear();
+        interestedPartyNameTextBox.sendKeys(name);
+        setSessionVariable("interestedPartyName").to(name);
+    }
+
+    public void enterInterestedPartyCode() {
+        String code = "Automated test code " + generateRandomString();
+        interestedPartyCodeTextBox.sendKeys(code);
     }
 
     public void selectABusinessArea(String businessArea) {
@@ -141,12 +167,24 @@ public class ListsManagement extends BasePage {
         clickTheLink("Amend");
     }
 
+    public void selectToAmendAnInterestedParty() {
+        clickTheLink("Amend");
+    }
+
     public void assertSuccessMessageForAddingAccountManagerVisible() {
         successMessage.shouldContainText("The account manager was added successfully");
     }
 
+    public void assertSuccessMessageForAddingInterestedPartyVisible() {
+        successMessage.shouldContainText("The interested party was added successfully");
+    }
+
     public void assertSuccessMessageForAmendingAccountManagerVisible() {
         successMessage.shouldContainText("The account manager was amended successfully");
+    }
+
+    public void assertSuccessMessageForAmendingInterestedPartyVisible() {
+        successMessage.shouldContainText(" The interested party was amended successfully");
     }
 
     public void assertAccountManagerIsVisible() {
@@ -155,6 +193,15 @@ public class ListsManagement extends BasePage {
         WebElementFacade accountManagerInTable = findBy("//td[contains(text(), '" + accountManagerName + "')]");
         if (!accountManagerInTable.isCurrentlyVisible()) {
             Assert.fail(accountManagerName + " is not visible in table");
+        }
+    }
+
+    public void assertInterestedPartyIsVisible() {
+        waitForMUIPageWithTitle("View and edit interested parties ");
+        String interestedPartyName = sessionVariableCalled("interestedPartyName");
+        WebElementFacade interestedPartyInTable = findBy("//td[contains(text(), '" + interestedPartyName + "')]");
+        if (!interestedPartyInTable.isCurrentlyVisible()) {
+            Assert.fail(interestedPartyName + " is not visible in table");
         }
     }
 

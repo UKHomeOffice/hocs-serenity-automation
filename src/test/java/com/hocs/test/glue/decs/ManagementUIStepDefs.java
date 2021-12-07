@@ -680,6 +680,45 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.assertSuccessMessageForAmendingAccountManagerVisible();
     }
 
+    @And("I select to add a new interested party")
+    public void iSelectToAddANewIntersetedParty() {
+        listsManagement.clickTheAddNewInterestedPartyButton();
+    }
+
+    @And("I submit details for the new interested party")
+    public void iSubmitDetailsForTheNewInterestedParty() {
+        listsManagement.enterInterestedPartyName();
+        listsManagement.enterInterestedPartyCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding an interested party should be displayed")
+    public void theSuccessMessageForAddingAnInterestedPartyShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingInterestedPartyVisible();
+    }
+
+    @And("I should be able to view the new/renamed interested party in the table of interested parties")
+    public void iShouldBeAbleToViewTheNewInterestedPartyOnTheViewAndEditInterestedPartiesPage() {
+        muiDashboard.selectDashboardLinkWithText("Manage FOI Interested Parties");
+        listsManagement.assertInterestedPartyIsVisible();
+    }
+
+    @And("I select to amend an existing interested party")
+    public void iSelectToAmendAnExistingInterestedParty() {
+        listsManagement.selectToAmendAnAccountManager();
+    }
+
+    @And("I submit a new name for the interested party")
+    public void iSubmitANewNameForTheInterestedParty() {
+        listsManagement.enterInterestedPartyName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending an interested party should be displayed")
+    public void theSuccessMessageForAmendingAnInterestedPartyShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingInterestedPartyVisible();
+    }
+
     @And("I submit the details for the new user")
     public void iEnterTheDetailsForTheNewUser() {
         userManagement.enterNewUserDetails();
