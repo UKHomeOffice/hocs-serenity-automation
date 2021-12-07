@@ -85,19 +85,25 @@ public class ActionsTab extends BasePage {
     }
 
     public void completeAppeal() {
-        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a");
-        safeClickOn(updateHypertextOfSpecificAppeal);
         selectSpecificRadioButtonFromGroupWithHeading("Yes", "Has this been completed?");
         setSessionVariable("appealComplete").to("Yes");
         enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was this completed?");
         setSessionVariable("appealCompletionDate").to(getTodaysDate());
         String appealOutcome = selectRandomRadioButtonFromGroupWithHeading("What was the outcome?");
+        if (appealOutcome.equalsIgnoreCase("Decision Part Upheld")) {
+            appealOutcome = "Decision upheld in part";
+        }
         setSessionVariable("appealOutcome").to(appealOutcome);
         String appealComplexity = selectRandomRadioButtonFromGroupWithHeading("Was the case complex?");
         setSessionVariable("appealComplexity").to(appealComplexity);
         enterSpecificTextIntoTextAreaWithHeading("Test Details","Details");
         setSessionVariable("appealDetails").to("Test Details");
         clickTheButton("Update");
+    }
+
+    public void clickUpdateLinkForAppeal() {
+        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a");
+        safeClickOn(updateHypertextOfSpecificAppeal);
     }
 
     public void enterAReasonForTheExtension() {

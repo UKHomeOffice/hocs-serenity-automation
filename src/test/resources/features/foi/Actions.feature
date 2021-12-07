@@ -30,7 +30,6 @@ Feature: Actions
     Then I am unable to select an amount of days to extend the case by
 
 #    HOCS-3644, HOCS-3827, HOCS-3925, HOCS-3884
-    #Scenario expected to fail due to HOCS-3884. Will require updating once ticket is completed.
   @FOIRegression
   Scenario: User is able to add and complete an Appeal for an FOI case
     And I create a single "FOI" case
@@ -40,7 +39,9 @@ Feature: Actions
     Then I should see a confirmation message stating that the appeal has been registered
     And the registered appeal should have the status "Pending" in the actions tab
     And an Appeal Created note should be visible in the timeline for the selected appeal type.
-    When I update and complete the registered appeal
+    When I select to update the appeal
+    And I upload an "Appeal Response" document
+    And I submit appeal completion details
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab
     And the information entered for the FOI appeal should be displayed in the summary
