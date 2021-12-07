@@ -12,19 +12,19 @@ Feature: Create case
     And the summary should display the owning team as "<team>"
     And the document added at case creation should be listed under the "<documentType>" document type heading
     Examples:
-      | caseType | stage                | documentType            | team                          |
-      | MIN      | Data Input           | ORIGINAL                | Performance and Process Team  |
-      | DTEN     | Data Input           | ORIGINAL                | Transfers & No10 Team         |
-      | TRO      | Data Input           | ORIGINAL                | Performance and Process Team  |
-      | MPAM     | Creation             | Original correspondence | MPAM Creation                 |
-      | MTS      | Data Input           | Original correspondence | MTS Team                      |
-      | COMP     | Registration         | To document             | Complaint Registration        |
+      | caseType | stage                | documentType            | team                           |
+      | MIN      | Data Input           | ORIGINAL                | Performance and Process Team   |
+      | DTEN     | Data Input           | ORIGINAL                | Transfers & No10 Team          |
+      | TRO      | Data Input           | ORIGINAL                | Performance and Process Team   |
+      | MPAM     | Creation             | Original correspondence | MPAM Creation                  |
+      | MTS      | Data Input           | Original correspondence | MTS Team                       |
+      | COMP     | Registration         | To document             | Complaint Registration         |
       | COMP2    | Stage 2 Registration | To document             | Stage 2 Complaint Registration |
-      | IEDET    | Registration         | To document             | IE Detention                  |
-      | SMC      | Registration         | To document             | Serious Misconduct            |
-      | FOI      | Case Creation        | Request                 | FOI Creation                  |
+      | IEDET    | Registration         | To document             | IE Detention                   |
+      | SMC      | Registration         | To document             | Serious Misconduct             |
+      | FOI      | Case Creation        | Request                 | FOI Creation                   |
+      | TO       | Data Input           | Initial Correspondence  | Treat Official Creation        |
 #      | BF       | Registration         |                         | Border Force                  |
-#      | TO       | Data Input           |                         | Treat Official Creation       |
 
   @Allocation
   Scenario: A single case is allocated to the current user
