@@ -80,7 +80,7 @@ public class Documents extends BasePage {
         if(dcuCase() | compCase()) {
             docType = docType.toUpperCase();
         }
-        documentTypeDropDown.selectByVisibleText(docType);
+        documentTypeDropDown.waitUntilVisible().selectByVisibleText(docType);
     }
 
     public void selectADocumentType() {
@@ -144,6 +144,12 @@ public class Documents extends BasePage {
         uploadDocumentOfType("docx");
         safeClickOn(addButton);
         setSessionVariable("draft").to("docx");
+    }
+
+    public void addAnAppealResponseDocument() {
+        clickTheLink("Add a document");
+        uploadDocumentOfType("docx");
+        safeClickOn(addButton);
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {

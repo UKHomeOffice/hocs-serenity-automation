@@ -118,4 +118,9 @@ public class InitialDraftStepDefs extends BasePage {
         initialDraft.enterReasonTeamCannotAnswer();
         safeClickOn(finishButton);
     }
+
+    @Then("the document added through MUI should be displayed in the list of available standard line documents")
+    public void theDocumentAddedThroughMUIShouldBeDisplayedInTheListOfAvailableStandardLineDocuments() {
+        initialDraft.assertStandardLineDocumentIsVisible();
+    }
 }

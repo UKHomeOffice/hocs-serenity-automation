@@ -26,21 +26,37 @@ Feature: Complaints Workstacks
     And I enter the "Serious Misconduct" workstack
     Then the "Serious Misconduct" workstack should contain only the expected columns
 
-#     HOCS-3076 HOCS-3161
   @ComplaintsRegression
-  Scenario: User is able to see a yellow highlighted deadline on a COMP case that is close to its deadline date
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a single "COMP" case with the correspondence received date set 15 workdays ago
-    And I click to view the case in the "Complaint Registration" workstack
-    Then the case deadline should be highlighted yellow
+  Scenario: User can see the required information when viewing the BF workstack
+    Given I am logged into "CS" as user "BF_USER"
+    And I enter a "Border Force" workstack
+    Then the "Border Force" workstack should contain only the expected columns
 
-#     HOCS-3076 HOCS-3161
+#     HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression
-  Scenario: User is able to see a red highlighted deadline on an COMP case that is past its deadline date
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a single "COMP" case with the correspondence received date set 21 workdays ago
-    And I click to view the case in the "Complaint Registration" workstack
-    Then the case deadline should be highlighted red
+  Scenario Outline: User is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
+    Given I am logged into "CS" as user "<caseType>_USER"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "yellow"
+    Examples:
+      | caseType | amountOfDays | workstack                      |
+      | COMP     | 15           | Complaint Registration         |
+      | IEDET    | 15           | IE Detention                   |
+      | SMC      | 55           | Serious Misconduct             |
+
+#     HOCS-3076 HOCS-3161 HOCS-4006
+  @ComplaintsRegression
+  Scenario Outline: User is able to see a red highlighted deadline on an complaint case that is past its deadline date
+    Given I am logged into "CS" as user "<caseType>_USER"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "red"
+    Examples:
+      | caseType | amountOfDays | workstack                      |
+      | COMP     | 21           | Complaint Registration         |
+      | IEDET    | 21           | IE Detention                   |
+      | SMC      | 61           | Serious Misconduct             |
 
   @ComplaintsRegression
   Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
@@ -49,9 +65,8 @@ Feature: Complaints Workstacks
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "complainant" contribution request with a due date in the past
     And I add a "complainant" contribution request with a due date in the future
     And I view the "CCT Stage 1 Triage Team" workstack
@@ -67,9 +82,8 @@ Feature: Complaints Workstacks
     And I load and claim the current case
     And I accept the case at "Service" Triage stage
     And I accept the previous Claim Category selection
-    And I accept the previous Severity selection
-    And I enter details on the Triage Capture Reason page
-    And I click the "Continue" button
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
     And I add a "complainant" contribution request with a due date in the future
     And I view the "CCT Stage 1 Triage Team" workstack
     Then the displayed contribution request status of the case should be correct

@@ -4,7 +4,7 @@ Feature: Superuser
   @ComplaintsRegression
   Scenario: A Complaints Admin User can complete the COMP workflow
     Given I log in to "CS" as user "COMP_SUPERUSER"
-    When I create a "COMP" case and move it to "COMPLAINT CLOSED (FROM SERVICE SEND)"
+    When I create a "COMP" case and move it to "COMPLAINT CLOSED"
     Then the case should be closed
 
   @ComplaintsRegression
@@ -14,6 +14,6 @@ Feature: Superuser
     When I allocate the case to myself via the successful case creation screen
     And I switch to user "COMP_SUPERUSER"
     And I load the current case
-    And I complete the "Registration (to Service Triage)" stage
+    And I move the case from "Registration" stage to "Service Triage" stage
     Then the case should be moved to the "Service Triage" stage
     And I logout of the application

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -245,6 +246,10 @@ public class BasePage extends PageObject {
         assertThat(isElementDisplayed(errorMessage), is(true));
     }
 
+    private String getErrorMessageText() {
+        return errorMessage.getText();
+    }
+
     protected String generateRandomString() {
         StringBuilder randStr = new StringBuilder();
         Random randomGenerator = new Random();
@@ -255,6 +260,11 @@ public class BasePage extends PageObject {
         return randStr.toString();
     }
 
+    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
+        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
+    }
+
+
     protected String generateRandomStringOfLength(int length) {
         StringBuilder randStr = new StringBuilder();
         Random randomGenerator = new Random();
@@ -263,10 +273,6 @@ public class BasePage extends PageObject {
             randStr.append(ch);
         }
         return randStr.toString();
-    }
-
-    private String getErrorMessageText() {
-        return errorMessage.getText();
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {
@@ -342,6 +348,7 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromAssignedCase() {
+        headerCaption1.waitUntilVisible();
         waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
                 .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());
@@ -473,6 +480,7 @@ public class BasePage extends PageObject {
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(headingText);
+        textField.clear();
         textField.sendKeys(textToEnter);
     }
 
@@ -493,6 +501,7 @@ public class BasePage extends PageObject {
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(headingText);
+        textArea.clear();
         textArea.sendKeys(textToEnter);
     }
 
@@ -506,9 +515,7 @@ public class BasePage extends PageObject {
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> optionElements =
-                findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling"
-                + "::select/option");
+        List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(headingText);
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
         safeClickOn(optionElementToSelect);
@@ -521,6 +528,14 @@ public class BasePage extends PageObject {
                 findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
                         + "/option[text()='" + optionText + "']");
         safeClickOn(optionElement);
+    }
+
+    public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+    }
+
+    public Boolean checkSelectableOptionsPresentInDropdownWithHeading(String headingText) {
+        return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }
 
     //Checkboxes

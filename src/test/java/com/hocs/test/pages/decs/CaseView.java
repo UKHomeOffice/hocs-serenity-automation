@@ -61,7 +61,7 @@ public class CaseView extends BasePage {
 
     //assertions
 
-    public void assertCaseCannotBeAssigned() {
+    public void assertCaseCannotBeAllocated() {
         assertThat(caseCanBeAllocated(), is(false));
     }
 

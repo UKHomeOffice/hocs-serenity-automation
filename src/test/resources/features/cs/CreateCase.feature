@@ -9,16 +9,22 @@ Feature: Create case
   Scenario Outline: As a CS user, I want to be able to create a case, so I can start the casework process for the received correspondence
     And I create a single "<caseType>" case
     Then the case should be moved to the "<stage>" stage
+    And the summary should display the owning team as "<team>"
     And the document added at case creation should be listed under the "<documentType>" document type heading
     Examples:
-      | caseType | stage         | documentType            |
-      | MIN      | Data Input    | ORIGINAL                |
-      | DTEN     | Data Input    | ORIGINAL                |
-      | TRO      | Data Input    | ORIGINAL                |
-      | MPAM     | Creation      | Original correspondence |
-      | MTS      | Data Input    | Original correspondence |
-      | COMP     | Registration  | To document             |
-      | FOI      | Case Creation | Request                 |
+      | caseType | stage                | documentType            | team                           |
+      | MIN      | Data Input           | ORIGINAL                | Performance and Process Team   |
+      | DTEN     | Data Input           | ORIGINAL                | Transfers & No10 Team          |
+      | TRO      | Data Input           | ORIGINAL                | Performance and Process Team   |
+      | MPAM     | Creation             | Original correspondence | MPAM Creation                  |
+      | MTS      | Data Input           | Original correspondence | MTS Team                       |
+      | COMP     | Registration         | To document             | Complaint Registration         |
+      | COMP2    | Stage 2 Registration | To document             | Stage 2 Complaint Registration |
+      | IEDET    | Registration         | To document             | IE Detention                   |
+      | SMC      | Registration         | To document             | Serious Misconduct             |
+      | FOI      | Case Creation        | Request                 | FOI Creation                   |
+      | TO       | Data Input           | Initial Correspondence  | Treat Official Creation        |
+#      | BF       | Registration         |                         | Border Force                  |
 
   @Allocation
   Scenario: A single case is allocated to the current user

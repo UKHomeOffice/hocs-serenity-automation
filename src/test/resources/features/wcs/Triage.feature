@@ -3,8 +3,7 @@ Feature: Triage
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Triage" stage
+    And I get a "WCS" claim at the "Triage" stage
 
   @Workflow @WCSRegression
   Scenario: User selects a casework team at Triage stage

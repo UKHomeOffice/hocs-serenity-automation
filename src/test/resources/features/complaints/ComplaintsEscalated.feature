@@ -24,6 +24,7 @@ Feature: Complaints Escalated
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
 
+#    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can return the case to Ex-Gratia Triage stage
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
@@ -31,8 +32,9 @@ Feature: Complaints Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
+#    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send the case to Ex-Gratia Response Draft stage
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
@@ -40,8 +42,9 @@ Feature: Complaints Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
+#    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can return the case to Minor Misconduct Triage stage
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
@@ -49,8 +52,9 @@ Feature: Complaints Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
+#    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send the case to Minor Misconduct Response Draft stage
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
@@ -58,7 +62,7 @@ Feature: Complaints Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
 #    HOCS-2870, HOCS-3096
   @ComplaintsRegression

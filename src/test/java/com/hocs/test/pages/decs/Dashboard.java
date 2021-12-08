@@ -12,7 +12,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -80,6 +79,16 @@ public class Dashboard extends BasePage {
 
     @FindBy(xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
+
+    // BF Teams
+
+    @FindBy(xpath = "//span[text()='Border Force']")
+    public WebElementFacade borderForceWorkstack;
+
+    //TO Teams
+
+    @FindBy(xpath = "//span[text()='Treat Official Creation']")
+    public WebElementFacade treatOfficialCreationWorkstack;
 
     // Basic Methods
 
@@ -188,6 +197,10 @@ public class Dashboard extends BasePage {
         safeClickOn(seriousMisconductWorkstack);
     }
 
+    public void selectBFTeam() {
+        safeClickOn(borderForceWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
@@ -233,6 +246,19 @@ public class Dashboard extends BasePage {
     public void getAndClaimCurrentCase() {
         getCurrentCase();
         claimCurrentCase();
+    }
+
+    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
+        if (!caseView.currentCaseIsLoaded()) {
+                goToDashboard();
+                waitForDashboard();
+                getCurrentCase();
+            }
+        if (caseView.caseCanBeAllocated()) {
+            claimCurrentCase();
+            caseView.waitForCaseToLoad();
+            caseView.assertCaseCannotBeAllocated();
+        }
     }
 
     public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {
@@ -287,6 +313,16 @@ public class Dashboard extends BasePage {
                 break;
             case "FOI_USER":
                 if (foiCreationWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "BF_USER":
+                if (borderForceWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "TO_USER":
+                if (treatOfficialCreationWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;

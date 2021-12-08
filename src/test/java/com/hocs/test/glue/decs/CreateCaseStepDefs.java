@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -20,6 +21,7 @@ import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.Campaign;
 import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.mpam.MTSDataInput;
 import config.User;
 import io.cucumber.java.en.And;
@@ -37,6 +39,10 @@ public class CreateCaseStepDefs extends BasePage {
     ConfirmationScreens confirmationScreens;
 
     DCUProgressCase dcuProgressCase;
+
+    MPAMProgressCase mpamProgressCase;
+
+    COMPProgressCase compProgressCase;
 
     Campaign campaign;
 
@@ -68,6 +74,9 @@ public class CreateCaseStepDefs extends BasePage {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else {
+            if (caseType.equalsIgnoreCase("COMP2")) {
+                compProgressCase.escalateACOMPCaseToCOMP2();
+            }
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
     }
@@ -75,7 +84,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I get a new {string} case")
     public void iGetANewCase(String caseType) {
         createNewCase(caseType);
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         dashboard.claimCurrentCase();
     }
 
@@ -135,7 +144,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I go to the case from the successful case creation screen")
     public void goToSuccessfullyCreatedCase() {
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
     }
 
     @Then("the case should be visible in the Performance and Process Team workstack")
@@ -181,7 +190,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void aCaseIsCreatedSuccessfullyWithWithoutADocument(String withWithout) {
         confirmationScreens.assertCaseCreatedConfirmationDisplayed();
         confirmationScreens.storeCaseReference();
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         if (withWithout.equals("with")) {
             documents.assertFileIsVisible(sessionVariableCalled("docType"));
         }
@@ -239,7 +248,7 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a {string} case with {string} as the correspondent")
     public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
         createCase.createCSCaseOfType(caseType.toUpperCase());
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(caseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
@@ -249,7 +258,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
     public void iCreateACaseWithCorrespondenceDate(String caseType, String date) {
-        createCase.createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, date);
+        createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
     }
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
@@ -295,19 +304,13 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a MPAM case with {string} as the Urgency level and {string} as the Reference Type")
     public void iCreateAMPAMCaseWithAsTheUrgencyLevelAndAsTheReferenceType(String urgency, String refType) {
-        createCase.createCSCaseOfType("MPAM");
-        dashboard.goToDashboard();
-        dashboard.getAndClaimCurrentCase();
-        creation.moveCaseWithSpecifiedValuesToTriageStage("Windrush", refType, urgency, "Home Secretary");
+        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedUrgencyAndReferenceType(urgency, refType, "Triage");
         dashboard.waitForDashboard();
     }
 
-    @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the Triage stage")
-    public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam) {
-        createCase.createCSCaseOfType("MPAM");
-        dashboard.goToDashboard();
-        dashboard.getAndClaimCurrentCase();
-        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", signOffTeam);
+    @And("I create a Ministerial MPAM case with {string} as the Ministerial Sign Off Team and move it to the {string} stage")
+    public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam, String stage) {
+        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(signOffTeam, stage);
         dashboard.waitForDashboard();
     }
 
@@ -382,16 +385,10 @@ public class CreateCaseStepDefs extends BasePage {
                         dashboard.goToDashboard();
                         break;
                     case "REFERENCE TYPE":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", infoValue, "Standard", "Home Secretary");
+                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
                         break;
                     case "MINISTERIAL SIGN OFF TEAM":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", infoValue);
+                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
                         break;
                     case "MEMBER OF PARLIAMENT NAME":
                         createCase.createCSCaseOfType("MPAM");
@@ -415,7 +412,7 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.createCSCaseOfType("MPAM");
                         dashboard.goToDashboard();
                         dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseFromCreationToTriage();
+                        mpamProgressCase.moveCaseFromCreationToTriage();
                         dashboard.getAndClaimCurrentCase();
                         campaign.moveCaseFromAStageToCampaign(infoValue);
                         break;
@@ -439,6 +436,9 @@ public class CreateCaseStepDefs extends BasePage {
             case "COMP":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
+                        if (infoValue.equals("COMP2")) {
+                            compProgressCase.escalateACOMPCaseToCOMP2();
+                        }
                         createCase.createCSCaseOfType(infoValue);
                         break;
                     case "CORRESPONDENT FULL NAME":

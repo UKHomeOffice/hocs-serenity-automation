@@ -75,6 +75,12 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//span[text()='Allocation note']/parent::p")
     public WebElementFacade allocationNoteContents;
 
+    @FindBy(xpath = "//span[text()='Appeal Created']/parent::p")
+    public WebElementFacade appealCreatedNoteContents;
+
+    @FindBy(xpath = "//span[text()='Appeal Updated']/parent::p")
+    public WebElementFacade appealUpdatedNoteContents;
+
     @FindBy(xpath = "//li//span[text()='Case withdrawn']/ancestor::p")
     public WebElementFacade caseWithdrawnNoteContents;
 
@@ -273,5 +279,17 @@ public class TimelineTab extends BasePage {
         selectTimelineTab();
         String allocatedTeam = sessionVariableCalled("acceptanceTeam");
         assertThat(allocationNoteContents.getText().contains(allocatedTeam), is(true));
+    }
+
+    public void assertAppealCreatedNoteVisible() {
+        selectTimelineTab();
+        String appealType = sessionVariableCalled("appealType");
+        assertThat(appealCreatedNoteContents.getText().contains(appealType), is(true));
+    }
+
+    public void assertAppealUpdatedNoteVisible() {
+        selectTimelineTab();
+        String appealType = sessionVariableCalled("appealType");
+        assertThat(appealUpdatedNoteContents.getText().contains(appealType), is(true));
     }
 }

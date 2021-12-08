@@ -1,5 +1,6 @@
 package com.hocs.test.glue.decs;
 
+import static config.User.BF_USER;
 import static config.User.COMP_USER;
 import static config.User.DCU_USER;
 import static config.User.DECS_USER;
@@ -8,6 +9,7 @@ import static config.User.MPAM_USER;
 import static config.User.FOI_USER;
 import static config.User.IEDET_USER;
 import static config.User.SMC_USER;
+import static config.User.TO_USER;
 import static config.User.WCS_USER;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
@@ -192,7 +194,7 @@ public class LoginStepDefs extends BasePage {
 
     private boolean loggedInAsTargetUser() {
         boolean targetUserLoggedIn = false;
-        if (targetUser == DCU_USER | targetUser == MPAM_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER) {
+        if (targetUser == DCU_USER | targetUser == MPAM_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER | targetUser == BF_USER | targetUser == TO_USER) {
             if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
                 targetUserLoggedIn = true;
             } else {

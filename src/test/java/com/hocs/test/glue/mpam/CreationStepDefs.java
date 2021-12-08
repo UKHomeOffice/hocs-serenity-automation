@@ -3,6 +3,7 @@ package com.hocs.test.glue.mpam;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.Workstacks;
@@ -15,9 +16,9 @@ public class CreationStepDefs extends BasePage {
 
     Dashboard dashboard;
 
-    Workstacks workstacks;
-
     Creation creation;
+
+    Correspondents correspondents;
 
     SummaryTab summaryTab;
 
@@ -55,7 +56,12 @@ public class CreationStepDefs extends BasePage {
 
     @And("I select {string} as the Ministerial sign off team when completing the creation stage")
     public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
-        creation.moveCaseWithSpecifiedValuesToTriageStage("UKVI", "Ministerial", "Standard", signOffTeam);
+        creation.completeRequiredQuestions();
+        creation.selectMinisterialSignOffTeam(signOffTeam);
+        creation.selectAddressee(signOffTeam);
+        clickTheButton("Continue");
+        correspondents.addAMemberCorrespondent();
+        clickTheButton("Move to Triage");
     }
 
     @And("I try to advance a case with a public correspondent at Creation stage")

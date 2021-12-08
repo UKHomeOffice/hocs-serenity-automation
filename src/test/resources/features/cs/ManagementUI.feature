@@ -28,6 +28,8 @@ Feature: ManagementUI
       | Manage MPAM Business Units                     | Select a Business Area                           |
       | Manage MPAM Enquiry Reasons                    | Select an Enquiry Subject                        |
       | Manage FOI Account Managers                    | View and edit account managers                   |
+      | Manage FOI Interested Parties                  | View and edit interested parties                 |
+
 
 
 #    MANAGE STANDARD LINES
@@ -83,6 +85,17 @@ Feature: ManagementUI
     Then the standard line "isn't" visible
     When I select the checkbox to include expired standard lines
     Then the standard line "is" visible
+
+  @StandardLines
+  Scenario: User is able to see a standard line created through MUI when drafting a MIN case
+    When I select to "Add a standard line"
+    And I add a new Standard Line with "Animal alternatives (3Rs)" as the topic
+    And I navigate to "CS"
+    And I create a "MIN" case and move it to the "Initial Draft" stage
+    And I load and claim the current case
+    And I select a case "should" be answered by my team
+    And I select to reply by "post"
+    Then the document added through MUI should be displayed in the list of available standard line documents
 
 
 #    MANAGE A TEAM
@@ -233,11 +246,56 @@ Feature: ManagementUI
 
 #    ADD A USER
 
+  @UserManagement
+  Scenario: A new user can be created in DECS through User Management
+    Given I select to "Add a user"
+    When I submit the details for the new user
+    Then a success message is displayed
+
 
 #    MANAGE TEMPLATES
 
+  @TemplateManagement
+  Scenario: User is able to add a new template to a case type
+    Given I select to "Manage templates"
+    When I load the templates for the "DCU Ministerial" case type
+    And I add a new template to the case type
+    Then a success message is displayed
+
+  @TemplateManagement
+  Scenario: User is able to remove a template from a case type
+    Given I select to "Manage templates"
+    When I load the templates for the "DCU Ministerial" case type
+    And I add a new template to the case type
+    And I remove a template from the case type
+    Then the template should be removed from the case type
+
+  @TemplateManagement
+  Scenario: User is able to see a template added through MUI when drafting a COMP case
+    Given I select to "Manage templates"
+    When I load the templates for the "Complaint Case" case type
+    And I add a new template to the case type
+    And I navigate to "CS"
+    And I create a "COMP" case and move it to the "Service Draft" stage
+    And I load and claim the current case
+    Then the template should be displayed in the list of available templates
+
 
 #    ADD PARENT TOPIC
+
+  @TopicManagement
+  Scenario: User is able to create a new Parent Topic through Topic Management
+    Given I select to "Add parent topic"
+    When I create a new parent topic
+    Then a success message is displayed
+
+  @TopicManagement
+  Scenario: User is able to link the new Parent Topic to a Child topic during creation
+    Given I select to "Add parent topic"
+    When I create a new parent topic
+    And I select to "Add child topic"
+    And I can create a child topic with the newly created parent topic linked
+    Then a success message is displayed
 
 
 #    ADD CHILD TOPIC
@@ -454,9 +512,24 @@ Feature: ManagementUI
 
 #    MANAGE MPAM BUSINESS UNITS
 
+  @ListsManagement
+  Scenario: User is able to create new business units through Lists management
+    When I select to "Manage MPAM Business Units"
+    And I load the business units for the "UKVI" business area
+    And I create a new business unit
+    Then a success message is displayed
+    Then the new business unit is added to the list of business units
+
 
 #    MANAGE MPAM ENQUIRY REASONS
 
+  @ListsManagement
+  Scenario: User is able to create new enquiry reason through Lists management
+    When I select to "Manage MPAM Enquiry Reasons"
+    And I load the enquiry reasons for the "Person Specific" enquiry subject
+    And I create a new enquiry reason
+    Then a success message is displayed
+    Then the new enquiry reason is added to the list of enquiry reasons
 
 #    MANAGE FOI ACCOUNT MANAGERS
 
@@ -476,5 +549,21 @@ Feature: ManagementUI
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
 
+#    MANAGE FOI INTERSTED PARTIES
 
+  @ListsManagement @FOIRegression
+  Scenario: User is able to add a new interested party
+    When I select to "Manage FOI Interested Parties"
+    And I select to add a new account manager
+    And I select to add a new interested party
+    And I submit details for the new interested party
+    Then the success message for adding an interested party should be displayed
+    And I should be able to view the new interested party in the table of interested parties
 
+  @ListsManagement @FOIRegression
+  Scenario: User is able to edit an interested parties name
+    When I select to "Manage FOI Interested Parties"
+    And I select to amend an existing interested party
+    And I submit a new name for the interested party
+    Then the success message for amending an interested party should be displayed
+    And I should be able to view the renamed interested party in the table of interested parties

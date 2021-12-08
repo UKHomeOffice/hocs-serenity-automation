@@ -2,6 +2,8 @@ package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.util.ArrayList;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -97,7 +99,7 @@ public class ComplaintsTriage extends BasePage {
     public WebElementFacade dateOfAcceptanceLabel;
 
     public void selectAcceptCase() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
         waitABit(500);
     }
 
@@ -106,12 +108,12 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void selectTransferComplaint() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
         clickTheButton("Continue");
     }
 
     public void enterTransferReason() {
-        String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
         setSessionVariable("rejectionReason").to(enteredText);
     }
 
@@ -125,10 +127,37 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void openTheSeriousAndMinorComplaintCategoryAccordion() {
+        openOrCloseAccordionSection("Serious and Minor");
+    }
+
+    public void selectAVisibleClaimCategory() {
+        List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
+        List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
+        for (WebElementFacade claimCategory: claimCategories) {
+            if (claimCategory.isCurrentlyVisible()) {
+                visibleClaimCategories.add(claimCategory);
+            }
+        }
+        recordCaseData.checkRandomCheckboxFromList(visibleClaimCategories);
+    }
+
+    public void enterDetailsOnComplaintCategoryPage() {
+        String complaintType = sessionVariableCalled("complaintType");
+        if (complaintType.equalsIgnoreCase("MINOR MISCONDUCT")) {
+            selectOwningCSU();
+            openTheSeriousAndMinorComplaintCategoryAccordion();
+            selectAVisibleClaimCategory();
+        }
+        if (complaintType.equalsIgnoreCase("EX-GRATIA")) {
+            openExGratiaAccordion();
+            selectAVisibleClaimCategory();
+        }
+    }
 
     public void enterDetailsOnTriageCaptureReasonPage() {
-        if(compCase() && sessionVariableCalled("complaintType").equals("Service") ||
-                compCase() && sessionVariableCalled("complaintType").equals("Minor Misconduct")){
+        String complaintType = sessionVariableCalled("complaintType");
+        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
 
@@ -165,7 +194,6 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectCompleteTheCase() {
         recordCaseData.selectSpecificRadioButton("No response - complete the case (close permanently)");
-        clickTheButton("Continue");
     }
 
     public void enterCompletionReason() {
@@ -206,7 +234,7 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void enterPSUReference() {
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234","PSU Reference");
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234", "PSU Reference");
     }
 
     public void selectAdditionalInformation(String additionalInformation) {
@@ -215,5 +243,13 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectOwningCSU() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
+    }
+
+    public void selectACloseReason() {
+        String closeReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
+        if (closeReason.equals("Other")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
+        }
+        clickTheButton("Continue");
     }
 }

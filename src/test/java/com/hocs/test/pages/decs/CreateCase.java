@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class CreateCase extends BasePage {
@@ -62,6 +64,12 @@ public class CreateCase extends BasePage {
 
     @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRadioButton;
+
+    @FindBy(xpath = "//label[text()='Border Force Case']")
+    public WebElementFacade bfRadioButton;
+
+    @FindBy(xpath = "//label[text()='Treat Official']")
+    public WebElementFacade treatOfficialRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -153,6 +161,14 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("Serious Misconduct Case");
     }
 
+    private void clickToRadioButton() {
+        safeClickOn(treatOfficialRadioButton);
+    }
+
+    private void clickBfRadioButton() {
+        selectSpecificRadioButton("Border Force Case");
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -190,14 +206,36 @@ public class CreateCase extends BasePage {
             case "SMC":
                 clickSmcRadioButton();
                 break;
+            case "BF":
+                clickBfRadioButton();
+                break;
+            case "TO":
+                clickToRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         setSessionVariable("caseType").to(caseType);
     }
 
+    // Add BF back to this list once case type has document types.
     public String getRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "TO");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomDCUCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomComplaintsCaseType() {
+        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomMPAMOrMTSCaseType() {
+        List<String> list = Arrays.asList("MPAM", "MTS");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -208,12 +246,14 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
+        if (!caseType.equals("COMP2")) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            if (!nextButton.isVisible()) {
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            }
+            selectCaseType(caseType);
+            safeClickOn(nextButton);
         }
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
         waitFor(correspondenceReceivedDayField);
         if (!receivedDate.equalsIgnoreCase("N/A")) {
             editReceivedDate(receivedDate);
@@ -243,11 +283,23 @@ public class CreateCase extends BasePage {
         createCSCaseOfTypeWithoutDocument(getRandomCaseType());
     }
 
+    public void createDCUCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomDCUCaseType());
+    }
+
+    public void createComplaintsCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomComplaintsCaseType());
+    }
+
+    public void createMPAMOrMTSCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomMPAMOrMTSCaseType());
+    }
+
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
         createCSCase(caseType, false, "N/A");
     }
 
-    public void createCSCaseOfTypeWithSetCorrespondenceReceivedDate(String caseType, String date) {
+    public void createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(String caseType, String date) {
         createCSCase(caseType, true, date);
     }
 
@@ -263,11 +315,11 @@ public class CreateCase extends BasePage {
         c.setTime(format.parse(inputDate));
         c.add(Calendar.DAY_OF_WEEK, numberOfDays);
         String date = format.format(c.getTime());
-        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, date);
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCSCaseOfTypeWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
     }
 
     public void createWCSCase() {
@@ -275,14 +327,6 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
-    }
-
-    public void createCOMP2Case() {
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        setSessionVariable("caseType").to("COMP2");
-        confirmationScreens.storeCaseReference();
     }
 
     public void clearCorrespondentReceivedDateFields() {
@@ -336,6 +380,16 @@ public class CreateCase extends BasePage {
                 break;
             case "FOI_USER":
                 if (foiRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "BF_USER":
+                if (bfRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "TO_USER":
+                if (treatOfficialRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;

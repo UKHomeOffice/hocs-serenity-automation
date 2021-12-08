@@ -53,7 +53,7 @@ steps:
       AWS_KMS_KEY:
         from_secret: aws_kms_key_id
     depends_on:
-        - execute tests
+      - execute tests
     when:
       status:
         - failure

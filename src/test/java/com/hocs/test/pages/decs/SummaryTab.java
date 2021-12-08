@@ -114,29 +114,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
     public WebElementFacade previousCOMPCaseReference;
 
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Details']/following-sibling::td")
-    public WebElementFacade appealDetails;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Completed Date']/following-sibling::td")
-    public WebElementFacade appealCompletionDate;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complete']/following-sibling::td")
-    public WebElementFacade appealComplete;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Outcome']/following-sibling::td")
-    public WebElementFacade appealOutcome;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Complex case']/following-sibling::td")
-    public WebElementFacade appealComplexity;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Officer Name']/following-sibling::td")
-    public WebElementFacade appealOfficerName;
-
-    @FindBy(xpath = "//h2[text()='Appeal']/following-sibling::table//th[text()='Directorate']/following-sibling::td")
-    public WebElementFacade appealDirectorate;
 
     public void selectSummaryTab() {
-        if(!summaryTabIsActiveTab()) {
+        if (!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
         }
     }
@@ -148,14 +128,14 @@ public class SummaryTab extends BasePage {
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
         String displayedValue = getSummaryTabValueForGivenHeader(header);
         String expectedDisplayValue = value.replace("\n", " ");
-        if (!displayedValue.contains(expectedDisplayValue)) {
-            Assert.fail("Summary Tab value incorrect for: "+ header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+        if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
+            Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
         }
     }
 
     public String getSummaryTabValueForGivenHeader(String header) {
         selectSummaryTab();
-        WebElementFacade displayedValueElement = findBy("//th[text()='"+ header +"']/following-sibling::td");
+        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
         return displayedValueElement.getText();
     }
 
@@ -181,11 +161,46 @@ public class SummaryTab extends BasePage {
         assertThat(input.toUpperCase().equals(displayedCampaign), is(true));
     }
 
-    public void assertDeadlineDateOfStage(String caseType, String stage) {
+    public void assertDeadlineDateOfCase(String deadlineDecidingFactor) {
+        int expectedNumberOfWorkdaysTillDeadline = 0;
+        String displayedDeadline = getSummaryTabValueForGivenHeader("Deadline");
+        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+        switch (deadlineDecidingFactor.toUpperCase()) {
+            case "HOME SECRETARY SIGN-OFF":
+                expectedNumberOfWorkdaysTillDeadline = 10;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                break;
+            case "MIN":
+            case "TRO":
+            case "MPAM":
+            case "MTS":
+            case "COMP":
+            case "COMP2":
+            case "IEDET":
+            case "FOI":
+            case "BF":
+            case "TO":
+                expectedNumberOfWorkdaysTillDeadline = 20;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                break;
+            case "EX-GRATIA":
+            case "SMC":
+                expectedNumberOfWorkdaysTillDeadline = 60;
+                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                break;
+            case "DTEN":
+                assertThat(displayedDeadline.equalsIgnoreCase(sessionVariableCalled("dtenDispatchDeadline")), is(true));
+                break;
+            default:
+                pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertDeadlineDateOfStage(String deadlineDecidingFactor, String stage) {
         int expectedNumberOfWorkdaysTillDeadline = 0;
         String displayedDeadline = null;
-        String correspondenceReceivedDate  = sessionVariableCalled("correspondenceReceivedDate");
-        switch (caseType.toUpperCase()) {
+        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+        switch (deadlineDecidingFactor.toUpperCase()) {
             case "MIN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
@@ -226,7 +241,7 @@ public class SummaryTab extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
-                    }
+                }
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             case "DTEN":
@@ -284,11 +299,6 @@ public class SummaryTab extends BasePage {
                 }
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
-            case "MPAM":
-                displayedDeadline = mpamDeadlineDate.waitUntilVisible().getText();
-                expectedNumberOfWorkdaysTillDeadline = 20;
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
-                break;
             case "HOME SECRETARY SIGN-OFF":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
@@ -333,7 +343,7 @@ public class SummaryTab extends BasePage {
                 assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
         }
     }
 
@@ -355,7 +365,7 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertAllocatedMPAMTeam(String stage) {
-        if(!currentTeam.isVisible()) {
+        if (!currentTeam.isVisible()) {
             selectSummaryTab();
         }
         String activeTeam = currentTeam.getText();
@@ -402,22 +412,22 @@ public class SummaryTab extends BasePage {
 
     public void assertAppealInformationIsDisplayed() {
         String appealType = sessionVariableCalled("appealType");
-        WebElementFacade appealTypeHeader = findBy("//h2[text()='Appeal']/following-sibling::table/caption");
-        appealTypeHeader.shouldContainText(appealType);
+        WebElementFacade appealTypeHeader = findBy("//h2[text()='Appeals']/following-sibling::table/caption");
+        Assert.assertTrue(appealTypeHeader.getText().equalsIgnoreCase(appealType));
         if (appealType.equalsIgnoreCase("Internal Review")) {
-            appealDirectorate.shouldContainText(sessionVariableCalled("appealOfficerDirectorate"));
-            appealOfficerName.shouldContainText(sessionVariableCalled("appealOfficerName"));
+            assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealOfficerDirectorate"), "Directorate");
+            assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealOfficerName"), "Officer Name");
         }
-        appealComplete.shouldContainText(sessionVariableCalled("appealComplete"));
-        appealCompletionDate.shouldContainText(sessionVariableCalled("appealCompletionDate"));
-        appealOutcome.shouldContainText(sessionVariableCalled("appealOutcome"));
-        appealComplexity.shouldContainText(sessionVariableCalled("appealComplexity"));
-        appealDetails.shouldContainText(sessionVariableCalled("appealDetails"));
+        assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealComplete"), "Completed");
+        assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealCompletionDate"), "Completion date");
+        assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealOutcome"), "Outcome");
+        assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealComplexity"), "Complex case");
+        assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealDetails"), "Details");
     }
 
     public void assertThereIsNoActiveStage() {
         selectSummaryTab();
-        if(activeStage.isVisible()) {
+        if (activeStage.isVisible()) {
             Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
         }
     }

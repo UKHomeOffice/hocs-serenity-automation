@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
@@ -12,6 +13,7 @@ import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -34,7 +36,9 @@ public class WorkstacksStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    EndToEndStepDefs endToEndStepDefs;
+    MPAMProgressCase mpamProgressCase;
+
+    COMPProgressCase compProgressCase;
 
     CaseView caseView;
 
@@ -427,7 +431,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("MPAM", stage);
+                    mpamProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", stage);
                     dashboard.goToDashboard();
                     dashboard.selectCorrectMPAMTeamByStage(stage);
                 }
@@ -455,7 +459,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectWorkstackByTeamName(workstack);
                 } catch (NoSuchElementException e) {
-                    endToEndStepDefs.iCreateACaseAndMoveItToAStage("COMP", workstack + " TRIAGE");
+                    compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", workstack + " TRIAGE");
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(workstack);
                 }
@@ -479,6 +483,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectSMCTeam();
                 }
                 break;
+            case "BORDER FORCE":
+                try {
+                    dashboard.selectBFTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("BF");
+                    dashboard.goToDashboard();
+                    dashboard.selectBFTeam();
+                }
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
@@ -494,14 +507,18 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.recordHighestPriorityCases();
     }
 
-    @Then("the case deadline should be highlighted yellow")
-    public void theCaseDeadlineBeHighlightedYellow() {
-        workstacks.assertThatDeadlineHighlightedIsYellow();
-    }
-
-    @Then("the case deadline should be highlighted red")
-    public void theCaseDeadlineShouldBeHighlightedRed() {
-        workstacks.assertThatDeadlineHighlightedIsRed();
+    @Then("the case deadline should be highlighted {string}")
+    public void theCaseDeadlineShouldBeHighlightedRed(String colour) {
+        switch (colour.toUpperCase()) {
+            case "YELLOW":
+                workstacks.assertThatDeadlineHighlightedIsYellow();
+                break;
+            case "RED":
+                workstacks.assertThatDeadlineHighlightedIsRed();
+                break;
+            default:
+                pendingStep(colour + " is not defined within " + getMethodName());
+        }
     }
 
     @Then("the overdue contribution request should be highlighted in red")

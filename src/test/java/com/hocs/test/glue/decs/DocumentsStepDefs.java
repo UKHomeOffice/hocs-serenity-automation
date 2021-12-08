@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
@@ -21,21 +22,48 @@ public class DocumentsStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    @And("I click to manage the documents of a new {string} case")
+    COMPProgressCase compProgressCase;
+
+    @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
-    @And("I upload a {string} document")
+    @And("I manage the documents of a new DCU case")
+    public void iManageTheDocumentsOfANewDCUCase() {
+        createCase.createDCUCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new MPAM or MTS case")
+    public void iManageTheDocumentsOfANewMPAMOrMTSCase() {
+        createCase.createMPAMOrMTSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new Complaints case")
+    public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
+        String caseType = createCase.getRandomComplaintsCaseType();
+        if (caseType.equalsIgnoreCase("COMP2")) {
+            compProgressCase.escalateACOMPCaseToCOMP2();
+        }
+        createCase.createCSCaseOfType(caseType);
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I upload a/an {string} document")
     public void IUploadADocument(String docType) {
         switch (docType.toUpperCase()) {
             case "ORIGINAL":
@@ -62,6 +90,9 @@ public class DocumentsStepDefs extends BasePage {
                 break;
             case "FINAL RESPONSE":
                 documents.addADocumentOfType("Final response");
+                break;
+            case "APPEAL RESPONSE":
+                documents.addAnAppealResponseDocument();
                 break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());

@@ -15,13 +15,15 @@ public class ActionsTabStepDefs extends BasePage {
 
     @And("I view the actions tab of the case")
     public void iSelectTheActionsTab() {
-        confirmationScreens.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         actionsTab.selectActionsTab();
     }
 
+    // Extensions
+
     @And("I select to extend the deadline of the FOI case")
     public void iSelectToExtendTheDeadlineOfTheFOICase() {
-        actionsTab.clickExtendCaseHypertext();
+        actionsTab.clickExtendThisCase();
     }
 
     @And("I select a type of extension")
@@ -30,10 +32,15 @@ public class ActionsTabStepDefs extends BasePage {
         waitABit(500);
     }
 
-    @And("I select how many days to extend the deadline by and when to extend it from")
+    @And("I select how many days to extend the deadline by")
     public void iSelectHowManyDaysToExtendTheDeadlineByAndWhenToExtendItFrom() {
         actionsTab.selectHowManyDayToExtendDeadlineBy();
-        actionsTab.selectWhenToExtendDeadlineFrom();
+    }
+
+    @And("I select to extend the case by {string} day(s) from {string}")
+    public void iSelectToExtendTheCaseByDayFrom(String amountOfDays, String startPoint) {
+        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(startPoint);
+        actionsTab.selectASpecificAmountOfDaysToExtendDeadlineBy(amountOfDays);
     }
 
     @And("I submit a reason for the extension")
@@ -47,6 +54,18 @@ public class ActionsTabStepDefs extends BasePage {
         confirmationScreens.assertCaseExtensionConfirmationDisplayed();
         confirmationScreens.goToCaseFromConfirmationScreen();
     }
+
+    @And("I select that the case should be extended from {string}")
+    public void iSelectThatTheCaseShouldBeExtendedFrom(String extensionStartPoint) {
+        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(extensionStartPoint);
+    }
+
+    @Then("I am unable to select an amount of days to extend the case by")
+    public void iAmUnableToSelectAnAmountOfDaysToExtendTheCaseBy() {
+        actionsTab.assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown();
+    }
+
+    // Appeals
 
     @And("I select to add an appeal to the case")
     public void iSelectToAddAnAppealToTheCase() {
@@ -71,6 +90,18 @@ public class ActionsTabStepDefs extends BasePage {
 
     @When("I update and complete the registered appeal")
     public void iUpdateAndCompleteTheRegisteredAppeal() {
+        actionsTab.selectActionsTab();
+        actionsTab.completeAppeal();
+    }
+
+    @When("I select to update the appeal")
+    public void iSelectToUpdateTheAppeal() {
+        actionsTab.selectActionsTab();
+        actionsTab.clickUpdateLinkForAppeal();
+    }
+
+    @And("I submit appeal completion details")
+    public void iSubmitAppealCompletionDetails() {
         actionsTab.completeAppeal();
     }
 
@@ -80,13 +111,43 @@ public class ActionsTabStepDefs extends BasePage {
         confirmationScreens.goToCaseFromConfirmationScreen();
     }
 
-    @And("I select to extend the case by {string} day from {string}")
-    public void iSelectToExtendTheCaseByDayFrom(String amountOfDays, String startPoint) {
-        actionsTab.selectASpecificAmountOfDaysToExtendDeadlineBy(amountOfDays);
-        actionsTab.selectASpecificStartPointToExtendDeadlineFrom(startPoint);
+    // Record Interest
+
+    @When("I select to record an interest in the case")
+    public void iSelectToRecordAnInterestInTheCase() {
+        actionsTab.clickRecordInterest();
     }
 
-    @Then("I am unable to extend the case by this amount")
-    public void iAmUnableToExtendTheCaseByThisAmount() {
+    @And("I submit details of the interest the external party has in the case")
+    public void iSubmitDetailsOfTheInterestTheExternalPartyHasInTheCase() {
+        actionsTab.selectSpecificTypeOfInterest("External Interest");
+        actionsTab.selectAInterestedParty();
+        actionsTab.enterDetailsOfInterest("Test Details of Interest");
+        clickTheButton("Add");
+    }
+
+    @Then("I should see a confirmation message stating that the external interest has been registered")
+    public void iShouldSeeAConfirmationMessageStatingThatTheExternalInterestHasBeenRegistered() {
+        confirmationScreens.assertExternalInterestRegisteredConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("the( updated) details of the interest should be visible in the actions tab")
+    public void theDetailsOfTheInterestShouldBeVisibleInTheActionsTab() {
+        actionsTab.selectActionsTab();
+        actionsTab.assertDetailsOfRecordedInterestVisible();
+    }
+
+    @When("I update the registered interest")
+    public void iUpdateTheRegisteredInterest() {
+        actionsTab.selectToUpdateRecordedInterest();
+        actionsTab.enterDetailsOfInterest("Test Details of Interest - Amended");
+        clickTheButton("Update");
+    }
+
+    @Then("I should see a confirmation message stating that the external interest has been updated")
+    public void iShouldSeeAConfirmationMessageStatingThatTheExternalInterestHasBeenUpdated() {
+        confirmationScreens.assertExternalInterestUpdatedConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
     }
 }

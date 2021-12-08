@@ -3,8 +3,7 @@ Feature: Payment Pre Offer Checklist
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "PAYMENT PRE-OFFER CHECKLIST" stage
+    And I get a "WCS" claim at the "Payment Pre-Offer Checklist" stage
 
   @Workflow @WCSRegression
   Scenario: User returns the claim to QA for corrections

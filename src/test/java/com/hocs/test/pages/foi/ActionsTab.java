@@ -11,25 +11,23 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ActionsTab extends BasePage {
 
-    RecordCaseData recordCaseData;
-
     @FindBy(xpath = "//a[text()='Actions']")
-    public WebElementFacade actionsTabButton;
-
-    @FindBy(xpath = "//a[text()='Extend this case']")
-    public WebElementFacade extendThisCaseHypertext;
-
-    @FindBy(xpath = "//a[text()='Record an appeal']")
-    public WebElementFacade recordAnAppealHypertext;
+    public WebElementFacade actionsTab;
 
     public void selectActionsTab() {
-        safeClickOn(actionsTabButton);
+        if(!actionsTabIsActiveTab()) {
+            safeClickOn(actionsTab);
+        }
     }
 
-    //Extensions
+    public boolean actionsTabIsActiveTab() {
+        return actionsTab.getAttribute("class").contains("active");
+    }
 
-    public void clickExtendCaseHypertext() {
-        safeClickOn(extendThisCaseHypertext);
+    // Extensions
+
+    public void clickExtendThisCase() {
+        clickTheLink("Extend this case");
     }
 
     public void selectAnExtensionType() {
@@ -37,7 +35,7 @@ public class ActionsTab extends BasePage {
     }
 
     public void selectHowManyDayToExtendDeadlineBy() {
-        String numberOfDays = selectRandomOptionFromDropdownWithHeading("How many days do you want to extend the case deadline by?");
+        String numberOfDays = selectRandomOptionFromDropdownWithHeading("How many working days do you want to extend the case by?");
         setSessionVariable("numberOfDays").to(Integer.parseInt(numberOfDays));
     }
 
@@ -50,11 +48,17 @@ public class ActionsTab extends BasePage {
         selectRandomOptionFromDropdownWithHeading("Case will be extended from:");
     }
 
-    public void selectASpecificStartPointToExtendDeadlineFrom(String startPoint) {
-        selectSpecificOptionFromDropdownWithHeading(startPoint,"Case will be extended from:");
+    public void selectASpecificStartPointToExtendDeadlineFrom(String extensionStartPoint) {
+        selectSpecificOptionFromDropdownWithHeading(extensionStartPoint,"Case will be extended from:");
     }
 
-    //Appeals
+    public void assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown() {
+        if (checkSelectableOptionsPresentInDropdownWithHeading("How many days do you want to extend the case deadline by?")) {
+            Assert.fail("Selectable options present in dropdown");
+        }
+    }
+
+    // Appeals
 
     public void clickAddAnAppeal() {
         clickTheLink("Add an appeal");
@@ -69,31 +73,37 @@ public class ActionsTab extends BasePage {
     }
 
     public void addAnAppealToTheCase() {
-        String appealType = recordCaseData.selectRandomOptionFromDropdownWithHeading("Which type of appeal needs to be applied?");
+        String appealType = selectRandomOptionFromDropdownWithHeading("Which type of appeal needs to be applied?");
         setSessionVariable("appealType").to(appealType);
         if (appealType.equalsIgnoreCase("Internal Review")) {
-            String appealOfficerDirectorate = recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+            String appealOfficerDirectorate = selectRandomOptionFromDropdownWithHeading("Directorate");
             setSessionVariable("appealOfficerDirectorate").to(appealOfficerDirectorate);
-            String appealOfficerName = recordCaseData.selectRandomOptionFromDropdownWithHeading("Officer");
+            String appealOfficerName = selectRandomOptionFromDropdownWithHeading("Officer");
             setSessionVariable("appealOfficerName").to(appealOfficerName);
         }
         clickTheButton("Add Appeal");
     }
 
     public void completeAppeal() {
-        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a");
-        safeClickOn(updateHypertextOfSpecificAppeal);
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Has this been completed?");
+        selectSpecificRadioButtonFromGroupWithHeading("Yes", "Has this been completed?");
         setSessionVariable("appealComplete").to("Yes");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was this completed?");
+        enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was this completed?");
         setSessionVariable("appealCompletionDate").to(getTodaysDate());
-        String appealOutcome = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("What was the outcome?");
+        String appealOutcome = selectRandomRadioButtonFromGroupWithHeading("What was the outcome?");
+        if (appealOutcome.equalsIgnoreCase("Decision Part Upheld")) {
+            appealOutcome = "Decision upheld in part";
+        }
         setSessionVariable("appealOutcome").to(appealOutcome);
-        String appealComplexity = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the case complex?");
+        String appealComplexity = selectRandomRadioButtonFromGroupWithHeading("Was the case complex?");
         setSessionVariable("appealComplexity").to(appealComplexity);
-        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Details","Details");
+        enterSpecificTextIntoTextAreaWithHeading("Test Details","Details");
         setSessionVariable("appealDetails").to("Test Details");
         clickTheButton("Update");
+    }
+
+    public void clickUpdateLinkForAppeal() {
+        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a");
+        safeClickOn(updateHypertextOfSpecificAppeal);
     }
 
     public void enterAReasonForTheExtension() {
@@ -108,5 +118,40 @@ public class ActionsTab extends BasePage {
         if (!displayedAppealStatus.equalsIgnoreCase(appealStatus)) {
             Assert.fail("Expected appeal status was " + appealStatus + " but actual appeal status was " + displayedAppealStatus);
         }
+    }
+
+    // Record Interest
+
+    public void clickRecordInterest() {
+        clickTheLink("Record Interest");
+    }
+
+    public void selectSpecificTypeOfInterest(String typeOfInterest) {
+        selectSpecificOptionFromDropdownWithHeading(typeOfInterest, "What type of interest do you want to record?");
+    }
+
+    public void selectAInterestedParty() {
+        String interestedParty = selectRandomOptionFromDropdownWithHeading("Interested party");
+        setSessionVariable("interestedParty").to(interestedParty);
+    }
+
+    public void enterDetailsOfInterest(String detailsOfInterest) {
+        enterSpecificTextIntoTextAreaWithHeading(detailsOfInterest, "Details of Interest");
+        setSessionVariable("detailsOfInterest").to(detailsOfInterest);
+    }
+
+    public void assertDetailsOfRecordedInterestVisible() {
+        String interestedParty = sessionVariableCalled("interestedParty");
+        String expectedDetailsOfInterest = sessionVariableCalled("detailsOfInterest");
+        String displayedDetailsOfInterest = findBy("//td[text()='" + interestedParty + "']/following-sibling::td").getText();
+        if (!expectedDetailsOfInterest.equals(displayedDetailsOfInterest)) {
+            Assert.fail("Expected details of interest to be '" + expectedDetailsOfInterest + "' but displayed details of interest were '" + displayedDetailsOfInterest + "'");
+        }
+    }
+
+    public void selectToUpdateRecordedInterest() {
+        String interestedParty = sessionVariableCalled("interestedParty");
+        WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a");
+        safeClickOn(updateLink);
     }
 }

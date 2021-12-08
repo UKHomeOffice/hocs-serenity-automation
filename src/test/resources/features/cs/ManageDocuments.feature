@@ -5,8 +5,8 @@ Feature: Manage Documents
     Given I am logged into "CS" as user "DECS_USER"
 
   @CSRegression
-  Scenario Outline: As a Correspondence System user, I want to be able to upload to, preview, and remove from, a case any document that is of an
-  allowed filetype, so I can complete my work
+  Scenario Outline: As a Correspondence System user, I want to be able to upload, preview, and remove any document that is of an allowed filetype,
+  so I can complete my work
     And I manage the documents of a new case
     And I add a "<fileType>" document to the case
     Then I can see the "<fileType>" file in the uploaded document list
@@ -29,7 +29,7 @@ Feature: Manage Documents
 
   @DCURegression
   Scenario Outline: As a DCU user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I click to manage the documents of a new "MIN" case
+    And I manage the documents of a new DCU case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
@@ -44,7 +44,7 @@ Feature: Manage Documents
 
   @MPAMRegression2
   Scenario Outline: As a MPAM user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I click to manage the documents of a new "MPAM" case
+    And I manage the documents of a new MPAM or MTS case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
@@ -60,18 +60,67 @@ Feature: Manage Documents
       | Final response                              |
       | Additional correspondence (Holding Replies) |
 
+  @ComplaintsRegression
+  Scenario Outline: As a Complaints user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
+    And I manage the documents of a new Complaints case
+    And I click add documents
+    When I choose the document type "<docType>"
+    And I upload a file of type "docx"
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType               |
+      | To document           |
+      | Public correspondence |
+      | Complaint leaflet     |
+      | Complaint letter      |
+      | Email                 |
+      | CRF                   |
+      | DRAFT                 |
+      | Appeal Leaflet        |
+      | IMB Letter            |
+
   #HOCS-3661
   @ComplaintsRegression
-  Scenario Outline: An IEDET User can select to upload files under certain document type names
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I click to manage the documents of a new "IEDET" case
+  Scenario Outline: As an IEDET User, I want to be able to select from additional document types, so the document can be easily identified later
+    When I manage the documents of a new "IEDET" case
     And I upload a "<docType>" document
     Then the "docx" document should be under the "<docType>" header
     Examples:
-      | docType                 |
-      | Acknowledgement letter  |
-      | Interim response        |
-      | Final response          |
+      | docType                |
+      | Acknowledgement letter |
+      | Interim response       |
+      | Final response         |
+
+  @FOIRegression
+  Scenario Outline: As a FOI user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
+    And I manage the documents of a new "FOI" case
+    And I click add documents
+    When I choose the document type "<docType>"
+    And I upload a file of type "docx"
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType          |
+      | Request          |
+      | Initial response |
+      | Draft response   |
+      | Clearances       |
+      | Final responses  |
+      | Correspondence   |
+      | Contribution     |
+      | Miscellaneous    |
+      | Appeal Response  |
+
+  @FOIRegression
+  Scenario Outline: As a UKVI Treat Official user, I want to be able to select the type of an uploaded document, so the document can be easily
+  identified later
+    And I manage the documents of a new "TO" case
+    And I click add documents
+    When I choose the document type "<docType>"
+    And I upload a file of type "docx"
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType                |
+      | Initial Correspondence |
 
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake
