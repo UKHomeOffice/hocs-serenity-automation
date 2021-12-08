@@ -179,14 +179,19 @@ public class DocumentsStepDefs extends BasePage {
         documents.waitForFileToUpload(fileSize2);
     }
 
-    @Then("the {string} document should be selected to be displayed in the preview pane")
+    @Then("the {string} document should be displayed in the preview pane")
     public void theFileShouldBeDisplayedInThePreviewPane(String fileIdentifier) {
         documents.assertDocumentIsDisplayedInPreviewPane(fileIdentifier);
     }
 
-    @And("I click the preview button of the {string} file")
+    @And("I select to preview the {string} document")
     public void iClickThePreviewButtonOfTheFile(String fileIdentifier) {
-        documents.clickPreviewButtonForFile(fileIdentifier);
+        documents.clickPreviewLinkForFile(fileIdentifier);
+    }
+
+    @When("I select to download the {string} document")
+    public void iSelectToDownloadTheDocument(String fileIdentifier) {
+        documents.clickDownloadLinkForFile(fileIdentifier);
     }
 
     @And("I add a {string} document to the case/claim")
@@ -240,7 +245,7 @@ public class DocumentsStepDefs extends BasePage {
         clickTheButton("Add");
     }
 
-    @Then("document should have the Failed Conversion tag")
+    @Then("the document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
     }
@@ -260,5 +265,10 @@ public class DocumentsStepDefs extends BasePage {
     public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
         documents.selectDocumentsTab();
         documents.assertDocumentIsUnderHeader(docType);
+    }
+
+    @Then("a matching file should be downloaded to my machine")
+    public void aMatchingFileShouldBeDownloadedToMyMachine() {
+        documents.assertFileIsSuccessfullyDownloaded(sessionVariableCalled("fileName"));
     }
 }

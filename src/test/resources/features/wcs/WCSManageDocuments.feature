@@ -12,7 +12,7 @@ Feature: WCS Manage Documents
     When I choose the document type "Matrix"
     And I upload a file of type "<fileType>"
     Then I can see the "<fileType>" file in the uploaded document list
-    And the "<fileType>" document should be selected to be displayed in the preview pane
+    And the "<fileType>" document should be displayed in the preview pane
     Examples:
       | fileType |
       | docx     |
@@ -42,9 +42,9 @@ Feature: WCS Manage Documents
   @WCSRegression
   Scenario: User can select which document to preview
     And I upload a 5MB and a 10MB file
-    And the "5MB" document should be selected to be displayed in the preview pane
-    And I click the preview button of the "10MB" file
-    Then the "10MB" document should be selected to be displayed in the preview pane
+    And the "5MB" document should be displayed in the preview pane
+    And I select to preview the "10MB" document
+    Then the "10MB" document should be displayed in the preview pane
 
   @WCSRegression
   Scenario: User can remove a document

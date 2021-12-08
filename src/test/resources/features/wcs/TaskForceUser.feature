@@ -34,4 +34,4 @@ Feature: Task Force User
     And I search for the claim by reference number
     And I click the reference of the claim in search results
     Then I can see the "docx" file in the uploaded document list
-    And the "docx" document should be selected to be displayed in the preview pane
+    And the "docx" document should be displayed in the preview pane

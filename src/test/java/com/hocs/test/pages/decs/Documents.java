@@ -5,12 +5,17 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
+import java.util.Properties;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.junit.Assert.fail;
 
 public class Documents extends BasePage {
 
@@ -152,10 +157,18 @@ public class Documents extends BasePage {
         safeClickOn(addButton);
     }
 
-    public void clickPreviewButtonForFile(String fileIdentifier) {
-        WebElementFacade previewButton = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
+    public void clickPreviewLinkForFile(String fileIdentifier) {
+        WebElementFacade previewLink = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
                 + "[contains(text(), 'Preview')]");
-        safeClickOn(previewButton);
+        safeClickOn(previewLink);
+    }
+
+    public void clickDownloadLinkForFile(String fileIdentifier) {
+        String fullFileName = findBy("//td[contains(text(), '" + fileIdentifier + "')]").getText();
+        setSessionVariable("fileName").to(fullFileName);
+        WebElementFacade downloadLink = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
+                + "[contains(text(), 'Download')]");
+        safeClickOn(downloadLink);
     }
 
     public String getDocumentIDforFile(String fileIdentifier) {
@@ -281,5 +294,58 @@ public class Documents extends BasePage {
     public void assertThatPrimaryDraftIs(String fileName) {
         primaryDraftDocumentName.waitUntilVisible();
         primaryDraftDocumentName.shouldContainText(fileName);
+    }
+
+    public void assertFileIsSuccessfullyDownloaded(String filename) {
+
+        String pathname;
+
+        // figure out how to set path when headless at later point
+//        if (getProperty("headless.mode").equals("true")) {
+//            pathname = filename;
+//        } else
+        if (SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_MAC) {
+            pathname = System.getProperty("user.home") + "/Downloads/" + filename;
+        } else {
+            pathname = System.getProperty("user.home") + "\\Downloads\\" + filename;
+        }
+
+        System.out.println("Downloads Path set to:  " + pathname);
+
+        File document = new File(pathname);
+
+        boolean documentDownloaded = false;
+
+        long timeout = System.currentTimeMillis();
+
+        do {
+            try {
+                assertThat(document.getAbsoluteFile().exists(), is(true));
+                documentDownloaded = true;
+            } catch (AssertionError e) {
+                //no action required
+            }
+        } while (!documentDownloaded && System.currentTimeMillis() - timeout <= 10000);
+
+        assertThat(documentDownloaded, is(true));
+    }
+
+    public String getProperty(String property) {
+        Properties prop = new Properties();
+        String propFileName = "serenity.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+        if (inputStream != null) {
+            try {
+                prop.load(inputStream);
+            } catch (IOException e) {
+                fail("Unable to load Input Stream");
+            }
+        } else {
+            fail("property file '" + propFileName + "' not found in the classpath");
+        }
+
+        property = prop.getProperty(property).replace("\"", "");
+        return property;
     }
 }

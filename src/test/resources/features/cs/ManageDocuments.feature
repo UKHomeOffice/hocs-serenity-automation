@@ -4,28 +4,30 @@ Feature: Manage Documents
   Background:
     Given I am logged into "CS" as user "DECS_USER"
 
-  @CSRegression
+  @CSRegression @test
   Scenario Outline: As a Correspondence System user, I want to be able to upload, preview, and remove any document that is of an allowed filetype,
   so I can complete my work
     And I manage the documents of a new case
     And I add a "<fileType>" document to the case
     Then I can see the "<fileType>" file in the uploaded document list
-    And the "<fileType>" document should be selected to be displayed in the preview pane
+    And the "<fileType>" document should be displayed in the preview pane
+    When I select to download the "<fileType>" document
+    Then a matching file should be downloaded to my machine
     When I remove the "<fileType>" document
     Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:
       | fileType |
       | docx     |
-      | txt      |
-      | pdf      |
-      | tiff     |
-      | xlsx     |
-      | gif      |
-      | html     |
-      | jpg      |
-      | png      |
-      | bmp      |
-      | doc      |
+#      | txt      |
+#      | pdf      |
+#      | tiff     |
+#      | xlsx     |
+#      | gif      |
+#      | html     |
+#      | jpg      |
+#      | png      |
+#      | bmp      |
+#      | doc      |
 
   @DCURegression
   Scenario Outline: As a DCU user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
@@ -159,12 +161,12 @@ Feature: Manage Documents
   Scenario: As a Correspondence System user, when I add a document that fails to convert to PDF, I want to be informed of the failure
     And I manage the documents of a new case
     When I upload a file that fails to convert to PDF
-    Then document should have the Failed Conversion tag
+    Then the document should have the Failed Conversion tag
 
   @CSRegression
   Scenario: As a Correspondence System user, I want to be able to select which document to preview, so I can inspect different uploaded documents
     And I manage the documents of a new case
     And I upload a 5MB and a 10MB file
-    And the "5MB" document should be selected to be displayed in the preview pane
-    And I click the preview button of the "10MB" file
-    Then the "10MB" document should be selected to be displayed in the preview pane
+    And the "5MB" document should be displayed in the preview pane
+    And I select to preview the "10MB" document
+    Then the "10MB" document should be displayed in the preview pane
