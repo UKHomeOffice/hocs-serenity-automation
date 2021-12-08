@@ -554,7 +554,6 @@ Feature: ManagementUI
   @ListsManagement @FOIRegression
   Scenario: User is able to add a new interested party
     When I select to "Manage FOI Interested Parties"
-    And I select to add a new account manager
     And I select to add a new interested party
     And I submit details for the new interested party
     Then the success message for adding an interested party should be displayed

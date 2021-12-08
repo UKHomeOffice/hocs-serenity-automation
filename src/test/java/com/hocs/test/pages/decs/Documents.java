@@ -77,7 +77,7 @@ public class Documents extends BasePage {
     }
 
     public void selectDocumentTypeByText(String docType) {
-        if(dcuCase() | compCase()) {
+        if(dcuCase()) {
             docType = docType.toUpperCase();
         }
         documentTypeDropDown.waitUntilVisible().selectByVisibleText(docType);
