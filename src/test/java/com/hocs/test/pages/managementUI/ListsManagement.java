@@ -184,7 +184,7 @@ public class ListsManagement extends BasePage {
     }
 
     public void assertSuccessMessageForAmendingInterestedPartyVisible() {
-        successMessage.shouldContainText(" The interested party was amended successfully");
+        successMessage.shouldContainText("The interested party was amended successfully");
     }
 
     public void assertAccountManagerIsVisible() {
@@ -197,7 +197,7 @@ public class ListsManagement extends BasePage {
     }
 
     public void assertInterestedPartyIsVisible() {
-        waitForMUIPageWithTitle("View and edit interested parties ");
+        waitForMUIPageWithTitle("View and edit interested parties");
         String interestedPartyName = sessionVariableCalled("interestedPartyName");
         WebElementFacade interestedPartyInTable = findBy("//td[contains(text(), '" + interestedPartyName + "')]");
         if (!interestedPartyInTable.isCurrentlyVisible()) {
