@@ -306,8 +306,7 @@ public class Documents extends BasePage {
 //            pathname = filename;
 //        } else
         if (SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_MAC) {
-//            pathname = System.getProperty("user.home") + "/Downloads/" + filename;
-            pathname = filename;
+            pathname = System.getProperty("user.home") + "/Downloads/" + filename;
         } else {
             pathname = System.getProperty("user.home") + "\\Downloads\\" + filename;
         }
@@ -327,7 +326,7 @@ public class Documents extends BasePage {
             } catch (AssertionError e) {
                 //no action required
             }
-        } while (!documentDownloaded && System.currentTimeMillis() - timeout <= 10000);
+        } while (!documentDownloaded && System.currentTimeMillis() - timeout <= 30000);
 
         assertThat(documentDownloaded, is(true));
     }
