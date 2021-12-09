@@ -5,10 +5,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class QA extends BasePage {
+
+    RecordCaseData recordCaseData;
 
     //QA Elements
     @FindBy(xpath = "//label[text()='Approve']")
@@ -79,6 +82,21 @@ public class QA extends BasePage {
         setSessionVariable("rejectionStage").to("QA");
     }
 
+    public void selectToRequestSecretariatClearance() {
+        selectSpecificRadioButtonFromGroupWithHeading("Request Secretariat Clearance", "Actions");
+        safeClickOn(confirmButton);
+    }
+
+    public void addAClearanceRequest() {
+        String secretariat = recordCaseData.selectRandomOptionFromDropdownWithHeading("Secretariat");
+        setSessionVariable("clearanceRequestBusinessArea").to(secretariat);
+        setSessionVariable("clearanceRequestDate").to(getTodaysDate());
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(5), "Clearance Due Date");
+        setSessionVariable("clearanceDueDate").to(getDatePlusMinusNDaysAgo(5));
+        recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Clearance Request Details", "What are you requesting");
+        clickTheButton("Add");
+    }
+
     public void submitReasonToEscalateCase(String escalationReason) {
         escalationReasonTextArea.sendKeys(escalationReason);
         safeClickOn(confirmButton);
@@ -122,5 +140,30 @@ public class QA extends BasePage {
     public void takeCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    //QA (Secretariat Clearance Requested) Actions
+    public void enterClearanceReceivedDate() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Clearance Received Date");
+        setSessionVariable("clearanceReceivedDate").to(getTodaysDate());
+    }
+
+    public void selectApprovedMoveToPrivateOfficeAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Approve, move to Private Office", "Clearance Status");
+        clickTheButton("Confirm");
+    }
+
+    public void rejectACaseToDraftAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Rejected, move to Draft", "Clearance Status");
+        String rejectionReason = enterTextIntoTextAreaWithHeading("Reason for Rejection");
+        setSessionVariable("rejectionReason").to(rejectionReason);
+        clickTheButton("Confirm");
+    }
+
+    public void cancelTheClearanceRequestAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Cancelled", "Clearance Status");
+        String cancellationDetails = enterTextIntoTextAreaWithHeading("Details");
+        setSessionVariable("cancellationDetails").to(cancellationDetails);
+        clickTheButton("Confirm");
     }
 }

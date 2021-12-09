@@ -33,6 +33,9 @@ public class QAStepDefs extends BasePage {
             case "ESCALATE TO WORKFLOW MANAGER":
                 qa.selectEscalateQACaseToWorkflowManager();
                 break;
+            case "REQUEST SECRETARIAT CLEARANCE":
+                qa.selectToRequestSecretariatClearance();
+                break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
@@ -65,6 +68,11 @@ public class QAStepDefs extends BasePage {
         }
     }
 
+    @And("I add a Clearance Request to the case at QA")
+    public void iAddAClearanceRequestToTheCaseAtQA() {
+        qa.addAClearanceRequest();
+    }
+
     @And("I select the {string} action at the QA (On Hold) stage")
     public void iSelectOptionAtQAOnHold(String action) {
         switch (action.toUpperCase()) {
@@ -87,6 +95,28 @@ public class QAStepDefs extends BasePage {
                 break;
             case "ESCALATION COMPLETE":
                 qa.takeCaseOffEscalation();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I enter the clearance received date for the clearance request")
+    public void iEnterTheClearanceReceivedDateToTheClearanceRequest() {
+        qa.enterClearanceReceivedDate();
+    }
+
+    @And("I {string} the Clearance Request at the QA (Secretariat Clearance Requested) stage")
+    public void iSelectTheActionAtTheQASecretariatClearanceRequestedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "APPROVE":
+                qa.selectApprovedMoveToPrivateOfficeAtQASecretariatClearanceRequested();
+                break;
+            case "REJECT":
+                qa.rejectACaseToDraftAtQASecretariatClearanceRequested();
+                break;
+            case "CANCEL":
+                qa.cancelTheClearanceRequestAtQASecretariatClearanceRequested();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
