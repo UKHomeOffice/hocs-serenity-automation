@@ -88,9 +88,8 @@ public class QA extends BasePage {
     }
 
     public void addAClearanceRequest() {
-        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        setSessionVariable("clearanceRequestBusinessArea").to(businessArea);
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Clearance Request Date");
+        String secretariat = recordCaseData.selectRandomOptionFromDropdownWithHeading("Secretariat");
+        setSessionVariable("clearanceRequestBusinessArea").to(secretariat);
         setSessionVariable("clearanceRequestDate").to(getTodaysDate());
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(5), "Clearance Due Date");
         setSessionVariable("clearanceDueDate").to(getDatePlusMinusNDaysAgo(5));
@@ -141,5 +140,30 @@ public class QA extends BasePage {
     public void takeCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
         safeClickOn(confirmButton);
+    }
+
+    //QA (Secretariat Clearance Requested) Actions
+    public void enterClearanceReceivedDate() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Clearance Received Date");
+        setSessionVariable("clearanceReceivedDate").to(getTodaysDate());
+    }
+
+    public void selectApprovedMoveToPrivateOfficeAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Approve, move to Private Office", "Clearance Status");
+        clickTheButton("Confirm");
+    }
+
+    public void rejectACaseToDraftAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Rejected, move to Draft", "Clearance Status");
+        String rejectionReason = enterTextIntoTextAreaWithHeading("Reason for Rejection");
+        setSessionVariable("rejectionReason").to(rejectionReason);
+        clickTheButton("Confirm");
+    }
+
+    public void cancelTheClearanceRequestAtQASecretariatClearanceRequested() {
+        selectSpecificRadioButtonFromGroupWithHeading("Cancelled", "Clearance Status");
+        String cancellationDetails = enterTextIntoTextAreaWithHeading("Details");
+        setSessionVariable("cancellationDetails").to(cancellationDetails);
+        clickTheButton("Confirm");
     }
 }

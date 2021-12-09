@@ -137,12 +137,47 @@ Feature: QA
     | Put On Hold                   | QA-On Hold    |
     | Escalate To Workflow Manager  | QA-Escalated  |
 
+  #To be added to regression once HOCS-3268 is developed
   Scenario: User can request Secretariat clearance for the case at QA
     When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     And I select the "Request Secretariat clearance" action at QA
     And I add a Clearance Request to the case at QA
     Then the case should be moved to the "QA (Secretariat Clearance Requested)" stage
+
+    #To be added to regression once HOCS-3268 is developed
+  Scenario: User can approve a clearance request at QA (Secretariat Clearance Requested)
+    When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I load and claim the current case
+    And I select the "Request Secretariat clearance" action at QA
+    And I add a Clearance Request to the case at QA
+    And I load the current case
+    And I enter the clearance received date for the clearance request
+    And I "Approve" the Clearance Request at the QA Secretariat Clearance Requested stage
+    Then the case should be moved to the "Private Office" stage
+
+  #To be added to regression once HOCS-3268 is developed
+  Scenario: User can reject a clearance request at QA (Secretariat Clearance Requested)
+    When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I load and claim the current case
+    And I select the "Request Secretariat clearance" action at QA
+    And I add a Clearance Request to the case at QA
+    And I load the current case
+    And I enter the clearance received date for the clearance request
+    And I "Reject" the Clearance Request at the QA Secretariat Clearance Requested stage
+    Then the case should be moved to the "Draft" stage
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+
+    #To be added to regression once HOCS-3268 is developed
+  Scenario: User can cancel a clearance request at QA (Secretariat Clearance Requested)
+    When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
+    And I load and claim the current case
+    And I select the "Request Secretariat clearance" action at QA
+    And I add a Clearance Request to the case at QA
+    And I load the current case
+    And I enter the clearance received date for the clearance request
+    And I "Cancel" the Clearance Request at the QA Secretariat Clearance Requested stage
+    Then the case should be moved to the "QA" stage
 
   @Validation
   Scenario Outline: User tests validation at the QA stage

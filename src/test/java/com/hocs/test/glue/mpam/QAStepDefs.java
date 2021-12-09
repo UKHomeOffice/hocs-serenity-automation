@@ -101,6 +101,28 @@ public class QAStepDefs extends BasePage {
         }
     }
 
+    @And("I enter the clearance received date for the clearance request")
+    public void iEnterTheClearanceReceivedDateToTheClearanceRequest() {
+        qa.enterClearanceReceivedDate();
+    }
+
+    @And("I {string} the Clearance Request at the QA (Secretariat Clearance Requested) stage")
+    public void iSelectTheActionAtTheQASecretariatClearanceRequestedStage(String action) {
+        switch (action.toUpperCase()) {
+            case "APPROVE":
+                qa.selectApprovedMoveToPrivateOfficeAtQASecretariatClearanceRequested();
+                break;
+            case "REJECT":
+                qa.rejectACaseToDraftAtQASecretariatClearanceRequested();
+                break;
+            case "CANCEL":
+                qa.cancelTheClearanceRequestAtQASecretariatClearanceRequested();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
     @And("the user triggers the {string} error message at QA")
     public void triggerErrorMessage(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
