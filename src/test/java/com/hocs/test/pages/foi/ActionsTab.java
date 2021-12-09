@@ -150,6 +150,7 @@ public class ActionsTab extends BasePage {
     }
 
     public void selectToUpdateRecordedInterest() {
+        selectActionsTab();
         String interestedParty = sessionVariableCalled("interestedParty");
         WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a");
         safeClickOn(updateLink);

@@ -38,14 +38,14 @@ Feature: Actions
     And I submit details of the appeal type
     Then I should see a confirmation message stating that the appeal has been registered
     And the registered appeal should have the status "Pending" in the actions tab
-    And an Appeal Created note should be visible in the timeline for the selected appeal type.
+    And an Appeal Created note should be visible in the timeline for the selected appeal type
     When I select to update the appeal
     And I upload an "Appeal Response" document
     And I submit appeal completion details
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab
     And the information entered for the FOI appeal should be displayed in the summary
-    And an Appeal Updated note should be visible in the timeline for the selected appeal type.
+    And an Appeal Updated note should be visible in the timeline for the selected appeal type
 
 #    HOCS-3644, HOCS-3871
   @FOIRegression
@@ -56,6 +56,8 @@ Feature: Actions
     And I submit details of the interest the external party has in the case
     Then I should see a confirmation message stating that the external interest has been registered
     And the details of the interest should be visible in the actions tab
+    And an Interest Recorded note should be visible in the timeline for the interested party
     When I update the registered interest
     Then I should see a confirmation message stating that the external interest has been updated
     And the updated details of the interest should be visible in the actions tab
+    And an Interest Updated note should be visible in the timeline for the interested party
