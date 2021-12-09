@@ -138,7 +138,7 @@ Feature: QA
     | Escalate To Workflow Manager  | QA-Escalated  |
 
   #To be added to regression once HOCS-3268 is developed
-  Scenario: User can request Secretariat clearance for the case at QA
+  Scenario: User can request Secretariat clearance for a UKVI/BF/IE Ministerial case at QA
     When I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
     And I select the "Request Secretariat clearance" action at QA
