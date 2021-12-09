@@ -14,6 +14,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.junit.Assert.fail;
 
@@ -72,7 +73,7 @@ public class Documents extends BasePage {
     //Simple methods
 
     public void selectDocumentsTab() {
-        if(!documentsTabIsActiveTab()) {
+        if (!documentsTabIsActiveTab()) {
             safeClickOn(documentsTab);
         }
     }
@@ -82,7 +83,7 @@ public class Documents extends BasePage {
     }
 
     public void selectDocumentTypeByText(String docType) {
-        if(dcuCase() | compCase()) {
+        if (dcuCase() | compCase()) {
             docType = docType.toUpperCase();
         }
         documentTypeDropDown.waitUntilVisible().selectByVisibleText(docType);
@@ -93,25 +94,25 @@ public class Documents extends BasePage {
     }
 
     public void uploadDocumentOfSize(int fileSize) {
-        System.err.println(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator  + fileSize + "MB.docx");
-        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator  + fileSize + "MB.docx").to(addDocument);
+        System.err.println(
+                System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator +
+                        "documents" + File.separator + fileSize + "MB.docx");
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator +
+                "documents" + File.separator + fileSize + "MB.docx").to(addDocument);
     }
 
     public void uploadDocumentOfType(String type) {
         setSessionVariable("docType").to(type);
         addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
-        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator + "test."  + type).to(addDocument);
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator +
+                "documents" + File.separator + "test." + type).to(addDocument);
     }
 
     public void uploadDocumentThatFailsConversion() {
         addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
-        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator + "broken.jpg").to(addDocument);
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator +
+                "documents" + File.separator + "broken.jpg").to(addDocument);
     }
-
 
     //Multi-step methods
 
@@ -119,9 +120,9 @@ public class Documents extends BasePage {
         String allFiles = "";
         for (int i = 1; i <= documents; i++) {
             String workingDir = System.getProperty("user.dir");
-            String filePath = workingDir + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                    "documents" +  File.separator + "test" + i + ".docx";
-                        if (i != documents) {
+            String filePath = workingDir + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator +
+                    "documents" + File.separator + "test" + i + ".docx";
+            if (i != documents) {
                 allFiles += filePath + "\n";
             } else {
                 allFiles += filePath;
@@ -267,7 +268,7 @@ public class Documents extends BasePage {
     }
 
     public void assertDocumentPresentIs(Boolean condition) {
-        assertThat(uploadedTag.isVisible()||pendingTag.isVisible(), is(condition));
+        assertThat(uploadedTag.isVisible() || pendingTag.isVisible(), is(condition));
     }
 
     public void assertVisibilityOfPrimaryDraftDocumentTag() {
@@ -275,7 +276,7 @@ public class Documents extends BasePage {
     }
 
     public void selectPrimaryDraft(String fileIdentifier) {
-        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'" + fileIdentifier + "')]"));
         safeClickOn(documentToSelect);
     }
 
@@ -305,7 +306,8 @@ public class Documents extends BasePage {
 //            pathname = filename;
 //        } else
         if (SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_MAC) {
-            pathname = System.getProperty("user.home") + "/Downloads/" + filename;
+//            pathname = System.getProperty("user.home") + "/Downloads/" + filename;
+            pathname = filename;
         } else {
             pathname = System.getProperty("user.home") + "\\Downloads\\" + filename;
         }
