@@ -253,7 +253,7 @@ public class Correspondents extends BasePage {
 
     public void addANonMemberCorrespondentOfType(String correspondentType) {
         selectToAddACorrespondent();
-        if (!complaintCase()) {
+        if (!complaintCase() && !toCase()) {
             selectCorrespondentIsNotMP();
         }
         selectCorrespondentTypeFromDropdown(correspondentType);
@@ -294,7 +294,7 @@ public class Correspondents extends BasePage {
         if (mpamCase()) {
             clickTheButton("Move to Triage");
         }
-        if (mtsCase() | complaintCase()) {
+        if (mtsCase() | complaintCase() | toCase()) {
             clickTheButton("Continue");
         }
     }

@@ -230,6 +230,8 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseType").toString().equals("FOI");
     }
 
+    public boolean toCase() { return sessionVariableCalled("caseType").toString().equals("TO"); }
+
     public boolean wcsCase() {
         return sessionVariableCalled("caseType").toString().equals("WCS");
     }

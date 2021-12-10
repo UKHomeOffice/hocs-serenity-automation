@@ -21,8 +21,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 
 public class BaseStepDefs extends BasePage {
 
-    DataInput dataInput;
-
     Dashboard dashboard;
 
     SummaryTab summaryTab;
@@ -136,21 +134,6 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @And("the case {string} be allocated to me in the summary")
-    public void theCaseShouldBeAllocatedToMeInTheSummary(String input) {
-        summaryTab.selectSummaryTab();
-        switch (input.toUpperCase()) {
-            case "SHOULD":
-                summaryTab.assertAllocatedUserIsMe(true);
-                break;
-            case "SHOULD NOT":
-                summaryTab.assertAllocatedUserIsMe(false);
-                break;
-            default:
-                pendingStep(input + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I record the user who completed the previous stages")
     public void iRecordTheUserWhoCompletedThePreviousStages() {
         originalUser = getCurrentUser();
@@ -173,18 +156,6 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertAllocatedUserIs(originalUser);
     }
 
-    @And("the case should be in the correct MPAM {string} team workstack")
-    public void theCaseShouldBeInTheCorrectMPAMTeamWorkstack(String stage) {
-        summaryTab.assertAllocatedMPAMTeam(stage);
-    }
-
-    @Then("the claim should be sent/returned to the correct WCS Casework team")
-    public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
-        dashboard.getCurrentCase();
-        summaryTab.selectSummaryTab();
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectedCaseworkTeam"), "Team");
-    }
-
     @And("I record the case reference of this case as {string}")
     public void iRecordTheCaseReferenceOfThisCaseAs(String sessionVariableName) {
         setSessionVariable(sessionVariableName).to(getCurrentCaseReference());
@@ -198,16 +169,6 @@ public class BaseStepDefs extends BasePage {
     @And("the accessibility statement link should be visible")
     public void accessibilityStatementLinkShouldBeVisible() {
         assertVisibilityOfAccessibilityLink();
-    }
-
-    @And("the summary should display the owning team as {string}")
-    public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
-    }
-
-    @And("the summary should display {string} for {string}")
-    public void theSummaryShouldDisplayFor(String value, String header) {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(value, header);
     }
 }
 
