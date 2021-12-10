@@ -5,6 +5,7 @@ Feature: Data Input
     Given I am logged into "CS" as user "TO_USER"
     And I get a "TO" case at "Data Input" stage
 
+#    Expected failure. HOCS-4353 raised
   @TOWorkflow @TORegression
   Scenario: As a Data Input user, I want to be able to complete the Data Input, so the case can progress to Triage
     When I select which business area the correspondence is for
