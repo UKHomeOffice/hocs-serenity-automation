@@ -15,7 +15,6 @@ Feature: CCH
     And the summary should display "Service" for "Complaint Type"
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
-#    Expected failure. Defect HOCS-4238 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer the case to Ex-Gratia
     And I select the "Transfer to Ex-Gratia" action at CCH
@@ -24,7 +23,6 @@ Feature: CCH
     And the summary should display "Ex-Gratia" for "Complaint Type"
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
-#    Expected failure. Defect HOCS-4238 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer the case to Minor Misconduct
     And I select the "Transfer to Minor Misconduct" action at CCH
