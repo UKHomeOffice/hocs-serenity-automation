@@ -43,21 +43,29 @@ Feature: Manage Documents
       | BACKGROUND NOTE |
 
   @MPAMRegression2
-  Scenario Outline: As a MPAM user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
+  Scenario Outline: As a MPAM/MTS user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new MPAM or MTS case
     And I click add documents
     When I choose the document type "<docType>"
     And I upload a file of type "docx"
     Then the "docx" document should be under the "<docType>" header
     Examples:
+      | docType                                |
+      | Original correspondence                |
+      | Further correspondence from MPs Office |
+      | Contributions requested                |
+      | Contributions received                 |
+      | Draft response (includes QA rejected)  |
+      | Background note                        |
+      | Final response                         |
+
+  @ComplaintsRegression
+  Scenario Outline: As an MPAM User, I want to be able to select from additional document types, so the document can be easily identified later
+    When I manage the documents of a new "MPAM" case
+    And I upload a "<docType>" document
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
       | docType                                     |
-      | Original correspondence                     |
-      | Further correspondence from MPs Office      |
-      | Contributions requested                     |
-      | Contributions received                      |
-      | Draft response (includes QA rejected)       |
-      | Background note                             |
-      | Final response                              |
       | Additional correspondence (Holding Replies) |
 
   @ComplaintsRegression
