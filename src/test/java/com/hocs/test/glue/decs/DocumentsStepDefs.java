@@ -94,6 +94,9 @@ public class DocumentsStepDefs extends BasePage {
             case "APPEAL RESPONSE":
                 documents.addAnAppealResponseDocument();
                 break;
+            case "ADDITIONAL CORRESPONDENCE (HOLDING REPLIES)":
+                documents.addADocumentOfType("Additional correspondence (Holding Replies)");
+                break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
         }

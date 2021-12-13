@@ -59,7 +59,7 @@ Feature: Manage Documents
       | Background note                        |
       | Final response                         |
 
-  @ComplaintsRegression
+  @MPAMRegression2
   Scenario Outline: As an MPAM User, I want to be able to select from additional document types, so the document can be easily identified later
     When I manage the documents of a new "MPAM" case
     And I upload a "<docType>" document
