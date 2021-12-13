@@ -16,8 +16,6 @@ public class FOIProgressCase extends BasePage {
 
     Dashboard dashboard;
 
-    CaseView caseView;
-
     CaseCreationStage caseCreationStage;
 
     Allocation allocation;

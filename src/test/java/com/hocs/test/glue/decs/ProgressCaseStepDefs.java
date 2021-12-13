@@ -14,6 +14,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
+import com.hocs.test.pages.to.TOProgressCase;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -37,6 +38,8 @@ public class ProgressCaseStepDefs extends BasePage {
     FOIProgressCase foiProgressCase;
 
     WCSProgressCase wcsProgressCase;
+
+    TOProgressCase toProgressCase;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -65,6 +68,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "WCS":
                 wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
+                break;
+            case "TO":
+                toProgressCase.completeTheTOStage(stage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -98,6 +104,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "WCS":
                 wcsProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                break;
+            case "TO":
+                toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

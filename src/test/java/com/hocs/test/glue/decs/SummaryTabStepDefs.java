@@ -2,9 +2,11 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -14,6 +16,8 @@ public class SummaryTabStepDefs extends BasePage {
     CaseView caseView;
 
     SummaryTab summaryTab;
+
+    Dashboard dashboard;
 
     @And("I select the summary tab")
     public void iSelectTheSummaryTab() {
@@ -89,5 +93,56 @@ public class SummaryTabStepDefs extends BasePage {
     public void theDeadlineDatesRevertBackToThoseForADaySLA() {
         theStageDeadlineDatesDisplayedInTheSummaryAreCorrectForACase("MIN");
         theCaseDeadlineDateDisplayedInTheSummaryIsCorrectForACaseString("MIN");
+    }
+
+    @And("the case {string} be allocated to me in the summary")
+    public void theCaseShouldBeAllocatedToMeInTheSummary(String input) {
+        summaryTab.selectSummaryTab();
+        switch (input.toUpperCase()) {
+            case "SHOULD":
+                summaryTab.assertAllocatedUserIsMe(true);
+                break;
+            case "SHOULD NOT":
+                summaryTab.assertAllocatedUserIsMe(false);
+                break;
+            default:
+                pendingStep(input + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("the case should be in the correct MPAM {string} team workstack")
+    public void theCaseShouldBeInTheCorrectMPAMTeamWorkstack(String stage) {
+        summaryTab.assertAllocatedMPAMTeam(stage);
+    }
+
+    @Then("the claim should be sent/returned to the correct WCS Casework team")
+    public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
+        dashboard.getCurrentCase();
+        summaryTab.selectSummaryTab();
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectedCaseworkTeam"), "Team");
+    }
+
+    @And("the summary should display the owning team as {string}")
+    public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
+    @And("the summary should display {string} for {string}")
+    public void theSummaryShouldDisplayFor(String value, String header) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(value, header);
+    }
+
+    @And("the summary should display the owning team as the correct Treat Official team for the selected business area")
+    public void theSummaryShouldDisplayTheOwningTeamAsTheCorrectTreatOfficialTeamForTheSelectedBusinessArea() {
+        String teamName = "Treat Official " + sessionVariableCalled("businessArea");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
+    @And("the summary should contain the Business Area, Channel Received, Addressee and Primary Correspondent")
+    public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"),"Business Area");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"),"Channel Received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("primaryCorrespondent"),"Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("addressee"), "Addressee");
     }
 }
