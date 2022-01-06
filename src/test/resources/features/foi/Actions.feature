@@ -56,7 +56,7 @@ Feature: Actions
     And I submit details of the interest the external party has in the case
     Then I should see a confirmation message stating that the external interest has been registered
     And the details of the interest should be visible in the actions tab
-    And an Interest Recorded note should be visible in the timeline for the interested party
+    And an Interest Created note should be visible in the timeline for the interested party
     When I update the registered interest
     Then I should see a confirmation message stating that the external interest has been updated
     And the updated details of the interest should be visible in the actions tab
