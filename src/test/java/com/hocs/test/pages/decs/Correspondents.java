@@ -1,5 +1,7 @@
 package com.hocs.test.pages.decs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
@@ -127,41 +129,66 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        correspondentFullNameField.sendKeys(fullName);
+        enterSpecificTextIntoTextFieldWithHeading(fullName, "Full Name");
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
-    public void enterSecondaryCorrespondentFullName(String fullName) {
-        correspondentFullNameField.sendKeys(fullName);
-        setSessionVariable("secondCorrespondentFullName").to(fullName);
-    }
-
     public void enterCorrespondentBuilding(String building) {
-        correspondentBuildingField.sendKeys(building);
+        enterSpecificTextIntoTextFieldWithHeading(building, "Building");
+        setSessionVariable("correspondentBuilding").to(building);
     }
 
     public void enterCorrespondentStreet(String street) {
-        correspondentStreetField.sendKeys(street);
+        enterSpecificTextIntoTextFieldWithHeading(street, "Street");
+        setSessionVariable("correspondentStreet").to(street);
     }
 
-    public void enterCorrespondentTownOrCity(String location) {
-        correspondentTownOrCityField.sendKeys(location);
+    public void enterCorrespondentTownOrCity(String townOrCity) {
+        enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or City");
+        setSessionVariable("correspondentTownOrCity").to(townOrCity);
     }
 
     public void enterCorrespondentPostcode(String postcode) {
-        correspondentPostcodeField.sendKeys(postcode);
+        enterSpecificTextIntoTextFieldWithHeading(postcode, "Postcode");
+        setSessionVariable("correspondentPostcode").to(postcode);
     }
 
-    public void enterCorrespondentTelephoneNumber(String number) {
-        correspondentTelephoneField.sendKeys(number);
+    public void selectACorrespondentCountry() {
+        String selectedCountry = selectRandomOptionFromDropdownWithHeading("Country");
+        setSessionVariable("correspondentCountry").to(selectedCountry);
+    }
+
+    public void enterCorrespondentTelephoneNumber(String telephoneNumber) {
+        enterSpecificTextIntoTextFieldWithHeading(telephoneNumber, "Telephone");
+        setSessionVariable("correspondentTelephoneNumber").to(telephoneNumber);
     }
 
     public void enterCorrespondentEmailAddress(String email) {
-        correspondentEmailField.sendKeys(email);
+        if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(email, "Email Address (Optional)");
+        } else {
+            enterSpecificTextIntoTextFieldWithHeading(email, "Email Address");
+        }
+        setSessionVariable("correspondentEmail").to(email);
     }
 
     public void enterCorrespondenceReference(String reference) {
-        correspondenceCaseReference.sendKeys(reference);
+        if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(reference, "Requester's Reference (Optional)");
+        } else {
+            enterSpecificTextIntoTextAreaWithHeading(reference, "Enter any references given");
+        }
+        setSessionVariable("correspondentReference").to(reference);
+    }
+
+    public void enterCorrespondentOrganisation() {
+        String organisation;
+        if (foiCase()) {
+            organisation = enterTextIntoTextFieldWithHeading("Organisation (Optional)");
+        } else {
+            organisation = enterTextIntoTextFieldWithHeading("Organisation");
+        }
+        setSessionVariable("correspondentOrganisation").to(organisation);
     }
 
     public String getPrimaryCorrespondent() {
@@ -179,11 +206,14 @@ public class Correspondents extends BasePage {
 
     public void fillCorrespondentFields() {
         enterCorrespondentFullName("Sam McTester");
+        if (toCase() || foiCase()) {
+            enterCorrespondentOrganisation();
+        }
         enterCorrespondentBuilding("1 Test House");
         enterCorrespondentStreet("Test Road");
         enterCorrespondentTownOrCity("Test Town");
         enterCorrespondentPostcode("AB1 2CD");
-        selectCorrespondentCountry("United Kingdom");
+        selectACorrespondentCountry();
         enterCorrespondentTelephoneNumber("01234 567890");
         enterCorrespondentEmailAddress("SamMcTester@Test.com");
         enterCorrespondenceReference("Ref-ABCD-1234");
@@ -191,15 +221,12 @@ public class Correspondents extends BasePage {
 
     public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
         selectCorrespondentTypeFromDropdown("Correspondent");
-        enterSecondaryCorrespondentFullName("Sam McTester");
+        enterCorrespondentFullName("Sam McTester");
+        setSessionVariable("secondCorrespondentFullName").to("Sam McTester");
         enterCorrespondentBuilding("1 Test House");
         enterCorrespondentStreet("Test Road");
         enterCorrespondentTownOrCity("Test Town");
         enterCorrespondentPostcode("AB1 2CD");
-    }
-
-    public void selectCorrespondentCountry(String country) {
-        correspondentCountryDropdown.selectByVisibleText(country);
     }
 
     public void selectCorrespondentTypeFromDropdown(String correspondentType) {

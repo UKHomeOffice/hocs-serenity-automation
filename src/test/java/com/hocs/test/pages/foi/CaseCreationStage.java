@@ -97,7 +97,7 @@ public class CaseCreationStage extends BasePage {
         } else if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             createCase.fullNameTextField.clear();
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
-            setSessionVariable("requesterFullName").to("Edited Test McTester");
+            setSessionVariable("correspondentFullName").to("Edited Test McTester");
         }
         if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             clickTheButton("Save");
@@ -129,7 +129,7 @@ public class CaseCreationStage extends BasePage {
         assertThat(displayedRequestQuestion.equals(enteredRequestQuestion), is(true));
 
         String displayedRequesterName = primaryCorrespondentValue.getText();
-        String enteredRequesterName = sessionVariableCalled("requesterFullName");
+        String enteredRequesterName = sessionVariableCalled("correspondentFullName");
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
     }
 
