@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
@@ -34,6 +35,8 @@ public class ProgressCaseStepDefs extends BasePage {
     IEDETProgressCase iedetProgressCase;
 
     SMCProgressCase smcProgressCase;
+
+    BFProgressCase bfProgressCase;
 
     FOIProgressCase foiProgressCase;
 
@@ -98,6 +101,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "SMC":
                 smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                break;
+            case "BF":
+                bfProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "FOI":
                 foiProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);

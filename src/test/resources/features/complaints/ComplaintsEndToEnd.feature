@@ -4,12 +4,13 @@ Feature: Complaints End To End
   Scenario Outline: User moves a complaints case to the Registration stage
     Given I am logged into "CS" as user "<caseType>_USER"
     When I create a "<caseType>" case and move it to the "Registration" stage
-    Then the case should be moved to the "Registration" stage
+    Then the case should be moved to the "<stageName>" stage
     Examples:
-      | caseType |
-      | COMP     |
-      | IEDET    |
-      | SMC      |
+      | caseType | stageName        |
+      | COMP     | Registration     |
+      | IEDET    | Registration     |
+      | SMC      | Registration     |
+      | BF       | Case Registration|
 
   Scenario Outline: User moves a COMP case to the Triage stage
     Given I am logged into "CS" as user "COMP_USER"
@@ -24,6 +25,11 @@ Feature: Complaints End To End
   Scenario: User moves an IEDET case to the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
+    Then the case should be moved to the "Triage" stage
+
+  Scenario: User moves an BF case to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Triage" stage
     Then the case should be moved to the "Triage" stage
 
   Scenario: User moves an SMC case to the Triage stage
@@ -65,6 +71,11 @@ Feature: Complaints End To End
   Scenario: User moves an IEDET case to the Draft stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
+    Then the case should be moved to the "Draft" stage
+
+  Scenario: User moves an BF case to the Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Draft" stage
     Then the case should be moved to the "Draft" stage
 
   Scenario Outline: User moves a COMP case to the QA stage
