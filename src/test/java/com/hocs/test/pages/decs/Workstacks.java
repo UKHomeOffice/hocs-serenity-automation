@@ -808,8 +808,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
                 break;
             case "BORDER FORCE":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Next due contribution "
-                        + "date"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
