@@ -2,7 +2,6 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
@@ -11,7 +10,6 @@ import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.dcu.DataInput;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -85,9 +83,7 @@ public class BaseStepDefs extends BasePage {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAllocated();
         summaryTab.assertThereIsNoActiveStage();
-        if (!wcsCase()) {
-            timelineTab.assertWCSCaseClosedNoteVisible();
-        }
+        timelineTab.assertCaseClosedNoteVisible();
         System.out.println("The case is closed");
     }
 

@@ -350,7 +350,7 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromAssignedCase() {
-        headerCaption1.waitUntilVisible();
+        headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
                 .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());

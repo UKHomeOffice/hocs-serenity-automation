@@ -164,9 +164,9 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertAppealUpdatedNoteVisible();
     }
 
-    @And("an Interest Recorded note should be visible in the timeline for the interested party")
+    @And("an Interest Created note should be visible in the timeline for the interested party")
     public void anInterestCreatedNoteShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertInterestRecordedNoteVisible();
+        timelineTab.assertInterestCreatedNoteVisible();
     }
 
     @And("an Interest Updated note should be visible in the timeline for the interested party")

@@ -9,6 +9,8 @@ import config.User;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class TimelineTab extends BasePage {
 
@@ -75,17 +77,17 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//span[text()='Allocation note']/parent::p")
     public WebElementFacade allocationNoteContents;
 
-    @FindBy(xpath = "//span[text()='Appeal Created']/parent::p")
-    public WebElementFacade appealCreatedNoteContents;
+    @FindBy(xpath = "//strong[contains(text(),'Appeal Created')]")
+    public WebElementFacade appealCreatedNote;
 
-    @FindBy(xpath = "//span[text()='Appeal Updated']/parent::p")
-    public WebElementFacade appealUpdatedNoteContents;
+    @FindBy(xpath = "//strong[contains(text(),'Appeal Updated')]")
+    public WebElementFacade appealUpdatedNote;
 
-    @FindBy(xpath = "//span[text()='Interest Recorded']/parent::p")
-    public WebElementFacade interestRecordedNoteContents;
+    @FindBy(xpath = "//strong[contains(text(),'Interest Created')]")
+    public WebElementFacade interestCreatedNote;
 
-    @FindBy(xpath = "//span[text()='Interest Updated']/parent::p")
-    public WebElementFacade interestUpdatedNoteContents;
+    @FindBy(xpath = "//strong[contains(text(),'Interest Updated')]")
+    public WebElementFacade interestUpdatedNote;
 
     @FindBy(xpath = "//li//span[text()='Case withdrawn']/ancestor::p")
     public WebElementFacade caseWithdrawnNoteContents;
@@ -258,7 +260,7 @@ public class TimelineTab extends BasePage {
         assertThat(caseTransferReasonNoteContents.getText().contains(inputTransferReason), is(true));
     }
 
-    public void assertWCSCaseClosedNoteVisible() {
+    public void assertCaseClosedNoteVisible() {
         selectTimelineTab();
         caseClosedNote.shouldBeVisible();
     }
@@ -290,26 +292,35 @@ public class TimelineTab extends BasePage {
     public void assertAppealCreatedNoteVisible() {
         selectTimelineTab();
         String appealType = sessionVariableCalled("appealType");
-        assertThat(appealCreatedNoteContents.getText().contains(appealType), is(true));
+        assertThat(appealCreatedNote.getText().contains(appealType), is(true));
     }
 
     public void assertAppealUpdatedNoteVisible() {
         selectTimelineTab();
         String appealType = sessionVariableCalled("appealType");
-        assertThat(appealUpdatedNoteContents.getText().contains(appealType), is(true));
+        assertThat(appealUpdatedNote.getText().contains(appealType), is(true));
     }
 
-    public void assertInterestRecordedNoteVisible() {
+    public void assertInterestCreatedNoteVisible() {
         selectTimelineTab();
+        String typeOfInterest = sessionVariableCalled("typeOfInterest");
         String interestedParty = sessionVariableCalled("interestedParty");
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
-        assertThat(interestRecordedNoteContents.getText().contains(interestedParty + ": " +detailsOfInterest), is(true));
+        WebElementFacade interestCreatedNote = findBy("//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']");
+        interestCreatedNote.shouldBeVisible();
+        WebElementFacade interestCreatedNoteContents = findBy("//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']/ancestor::p/following-sibling::p/p");
+        assertThat(interestCreatedNoteContents.getText().contains(detailsOfInterest), is(true));
     }
 
     public void assertInterestUpdatedNoteVisible() {
         selectTimelineTab();
+        String typeOfInterest = sessionVariableCalled("typeOfInterest");
         String interestedParty = sessionVariableCalled("interestedParty");
+        WebElementFacade interestUpdatedNote = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']");
+        interestUpdatedNote.shouldBeVisible();
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
-        assertThat(interestUpdatedNoteContents.getText().contains(interestedParty + ": " +detailsOfInterest), is(true));
+        WebElementFacade interestUpdatedNoteContents = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']/ancestor"
+                + "::p/following-sibling::p/p");
+        assertThat(interestUpdatedNoteContents.getText().contains(detailsOfInterest), is(true));
     }
 }

@@ -128,6 +128,7 @@ public class ActionsTab extends BasePage {
 
     public void selectSpecificTypeOfInterest(String typeOfInterest) {
         selectSpecificOptionFromDropdownWithHeading(typeOfInterest, "What type of interest do you want to record?");
+        setSessionVariable("typeOfInterest").to(typeOfInterest);
     }
 
     public void selectAInterestedParty() {

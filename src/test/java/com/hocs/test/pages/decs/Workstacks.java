@@ -419,15 +419,14 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForTopCaseToNotBeAllocated() {
-        boolean allocated = !getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference()).isEmpty();
+        boolean allocated = !getOwnerOfTopCaseInWorkstack().isEmpty();
         int attempts = 0;
         while (allocated && attempts<20) {
-            String owner = getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference());
+            String owner = getOwnerOfTopCaseInWorkstack();
             allocated = !owner.isEmpty();
             waitABit(500);
             attempts++;
         }
-        System.out.print(attempts);
     }
 
     // Assertions
