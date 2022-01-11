@@ -138,11 +138,10 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
-    @And("the summary should contain the Business Area, Channel Received, Addressee and Primary Correspondents details")
+    @And("the summary should contain the Business Area, Channel Received and Primary Correspondents details")
     public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"),"Business Area");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"),"Channel Received");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("addressee"), "Addressee");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentFullName"),"Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentOrganisation"),"Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentBuilding"),"Primary correspondent");
@@ -153,5 +152,15 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentTelephoneNumber"),"Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentEmail"),"Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentReference"),"Primary correspondent");
+    }
+
+    @And("the summary should contain the {string} recipient")
+    public void theSummaryShouldContainTheRecipient(String recipientType) {
+        if (recipientType.equalsIgnoreCase("MEMBER")) {
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient (Member of Parliament)");
+        } else {
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient");
+
+        }
     }
 }
