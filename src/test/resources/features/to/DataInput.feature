@@ -16,4 +16,4 @@ Feature: Data Input
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as the correct Treat Official team for the selected business area
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
-    And the summary should contain the Business Area, Channel Received, Addressee and Primary Correspondent
+    And the summary should contain the Business Area, Channel Received, Addressee and Primary Correspondents details
