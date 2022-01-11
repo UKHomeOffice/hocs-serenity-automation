@@ -1,7 +1,5 @@
 package com.hocs.test.pages.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -21,9 +19,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -497,7 +493,8 @@ public class BasePage extends PageObject {
     public String enterTextIntoTextAreaWithHeading(String headingText) {
         String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText + " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
-        return textToEnter;
+        String sanitisedText = textToEnter.replace("\n", " ");
+        return sanitisedText;
     }
 
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
@@ -536,7 +533,7 @@ public class BasePage extends PageObject {
         return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
     }
 
-    public Boolean checkSelectableOptionsPresentInDropdownWithHeading(String headingText) {
+    public Boolean checkIfSelectableOptionsPresentInDropdownWithHeading(String headingText) {
         return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }
 

@@ -6,11 +6,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
 
 public class TimelineTab extends BasePage {
 
@@ -71,17 +71,14 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//span[text()='Change note']/parent::p")
     public WebElementFacade topicChangeCaseNoteContents;
 
-    @FindBy(xpath = "//span[text()='Case Extension']/parent::p")
-    public WebElementFacade caseExtensionNoteContents;
-
     @FindBy(xpath = "//span[text()='Allocation note']/parent::p")
     public WebElementFacade allocationNoteContents;
 
     @FindBy(xpath = "//strong[contains(text(),'Appeal Created')]")
-    public WebElementFacade appealCreatedNote;
+    public WebElementFacade appealCreatedLog;
 
     @FindBy(xpath = "//strong[contains(text(),'Appeal Updated')]")
-    public WebElementFacade appealUpdatedNote;
+    public WebElementFacade appealUpdatedLog;
 
     @FindBy(xpath = "//strong[contains(text(),'Interest Created')]")
     public WebElementFacade interestCreatedNote;
@@ -95,11 +92,11 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li/p/strong[text()='Case Closed']")
     public WebElementFacade caseClosedNote;
 
-    @FindBy(xpath ="//a[@class='tab'][not(@class='tab__active')]")
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
     public WebElementFacade nonActiveTab;
 
     public void selectTimelineTab() {
-        if(!timelineTabIsActiveTab()) {
+        if (!timelineTabIsActiveTab()) {
             safeClickOn(timelineTab);
         }
     }
@@ -207,8 +204,8 @@ public class TimelineTab extends BasePage {
     public void assertEditedCaseNoteAppearInCorrectStage(String stage) {
         String[] words = stage.split("\\s");
         String capitalise = "";
-        for (String w:words) {
-            String first = w.substring(0,1);
+        for (String w : words) {
+            String first = w.substring(0, 1);
             String afterFirst = w.substring(1);
             capitalise += first.toUpperCase() + afterFirst.toLowerCase() + " ";
         }
@@ -277,50 +274,62 @@ public class TimelineTab extends BasePage {
         assertThat(topicChangeCaseNoteContents.getText().contains(topicOverrideReason), is(true));
     }
 
-    public void assertCaseExtensionNoteVisible() {
-        selectTimelineTab();
-        String extensionReason = sessionVariableCalled("extensionReason");
-        assertThat(caseExtensionNoteContents.getText().contains(extensionReason), is(true));
-    }
-
     public void assertAllocationNoteVisible() {
         selectTimelineTab();
         String allocatedTeam = sessionVariableCalled("acceptanceTeam");
         assertThat(allocationNoteContents.getText().contains(allocatedTeam), is(true));
     }
 
-    public void assertAppealCreatedNoteVisible() {
+    public void assertCaseExtensionLogVisible() {
         selectTimelineTab();
-        String appealType = sessionVariableCalled("appealType");
-        assertThat(appealCreatedNote.getText().contains(appealType), is(true));
+        List<WebElementFacade> noteContentsElements = findAll("//strong[text()='Case Extension']/ancestor::p/following-sibling::p/p");
+        String noteContents = "";
+        for (WebElementFacade noteContentsElement : noteContentsElements) {
+            noteContents = noteContents + noteContentsElement.getText() + " ";
+        }
+        String extensionNote = sessionVariableCalled("extensionNote");
+        if (!noteContents.contains(extensionNote)) {
+            Assert.fail("'" + extensionNote + "' is not present in  '" + noteContents + "'");
+        }
+        String extensionReason = sessionVariableCalled("extensionReason");
+        if (!noteContents.contains(extensionReason)) {
+            Assert.fail("'" + extensionReason + "' is not present in  '" + noteContents + "'");
+        }
     }
 
-    public void assertAppealUpdatedNoteVisible() {
+    public void assertAppealCreatedLogVisible() {
         selectTimelineTab();
         String appealType = sessionVariableCalled("appealType");
-        assertThat(appealUpdatedNote.getText().contains(appealType), is(true));
+        assertThat(appealCreatedLog.getText().contains(appealType), is(true));
     }
 
-    public void assertInterestCreatedNoteVisible() {
+    public void assertAppealUpdatedLogVisible() {
+        selectTimelineTab();
+        String appealType = sessionVariableCalled("appealType");
+        assertThat(appealUpdatedLog.getText().contains(appealType), is(true));
+    }
+
+    public void assertInterestCreatedLogVisible() {
         selectTimelineTab();
         String typeOfInterest = sessionVariableCalled("typeOfInterest");
         String interestedParty = sessionVariableCalled("interestedParty");
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
-        WebElementFacade interestCreatedNote = findBy("//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']");
-        interestCreatedNote.shouldBeVisible();
-        WebElementFacade interestCreatedNoteContents = findBy("//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']/ancestor::p/following-sibling::p/p");
-        assertThat(interestCreatedNoteContents.getText().contains(detailsOfInterest), is(true));
+        WebElementFacade interestCreatedLog = findBy("//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']");
+        interestCreatedLog.shouldBeVisible();
+        WebElementFacade interestCreatedLogContents = findBy(
+                "//strong[text()='" + typeOfInterest + " Created: " + interestedParty + "']/ancestor::p/following-sibling::p/p");
+        assertThat(interestCreatedLogContents.getText().contains(detailsOfInterest), is(true));
     }
 
-    public void assertInterestUpdatedNoteVisible() {
+    public void assertInterestUpdatedLogVisible() {
         selectTimelineTab();
         String typeOfInterest = sessionVariableCalled("typeOfInterest");
         String interestedParty = sessionVariableCalled("interestedParty");
-        WebElementFacade interestUpdatedNote = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']");
-        interestUpdatedNote.shouldBeVisible();
+        WebElementFacade interestUpdatedLog = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']");
+        interestUpdatedLog.shouldBeVisible();
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
-        WebElementFacade interestUpdatedNoteContents = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']/ancestor"
+        WebElementFacade interestUpdatedLogContents = findBy("//strong[text()='" + typeOfInterest + " Updated: " + interestedParty + "']/ancestor"
                 + "::p/following-sibling::p/p");
-        assertThat(interestUpdatedNoteContents.getText().contains(detailsOfInterest), is(true));
+        assertThat(interestUpdatedLogContents.getText().contains(detailsOfInterest), is(true));
     }
 }
