@@ -105,7 +105,7 @@ public class Correspondents extends BasePage {
     }
 
     public void selectCorrespondentNotMPRadioButton() {
-        selectSpecificRadioButton("No");;
+        selectSpecificRadioButton("No");
     }
 
     public void selectCorrespondentIsMP() {
@@ -164,7 +164,8 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentEmailAddress(String email) {
-        if (foiCase()) {
+        String inboundChannel = sessionVariableCalled("foiInboundChannel");
+        if (foiCase() && inboundChannel.equalsIgnoreCase("POST")) {
             enterSpecificTextIntoTextFieldWithHeading(email, "Email Address (Optional)");
         } else {
             enterSpecificTextIntoTextFieldWithHeading(email, "Email Address");

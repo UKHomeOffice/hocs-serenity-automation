@@ -97,6 +97,9 @@ public class DocumentsStepDefs extends BasePage {
             case "ADDITIONAL CORRESPONDENCE (HOLDING REPLIES)":
                 documents.addADocumentOfType("Additional correspondence (Holding Replies)");
                 break;
+            case "PIT EXTENSION":
+                documents.uploadDocumentOfType("docx");
+                break;
             default:
                 pendingStep(docType + " is not defined within " + getMethodName());
         }
