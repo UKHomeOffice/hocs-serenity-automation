@@ -384,15 +384,13 @@ public class WorkstacksStepDefs extends BasePage {
     public void iEnterAWorkstack(String workstack) {
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") != 0) {
-                    dashboard.selectMyCases();
-                } else {
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
                     createCase.createCSCaseOfType("MIN");
                     confirmationScreens.goToCaseFromConfirmationScreen();
                     caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
-                    dashboard.selectMyCases();
                 }
+                dashboard.selectMyCases();
                 break;
             case "DCU TEAM":
                 try {
@@ -404,13 +402,13 @@ public class WorkstacksStepDefs extends BasePage {
                 }
                 break;
             case "MPAM MY CASES":
-                try {
-                    dashboard.selectMyCases();
-                } catch (NoSuchElementException e) {
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
                     createCase.createCSCaseOfType("MPAM");
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
-                    dashboard.selectMyCases();
                 }
+                dashboard.selectMyCases();
                 break;
             case "MTS TEAM":
                 try {
@@ -490,6 +488,14 @@ public class WorkstacksStepDefs extends BasePage {
                     createCase.createCSCaseOfType("BF");
                     dashboard.goToDashboard();
                     dashboard.selectBFTeam();
+                }
+            case "FOI TEAM":
+                try {
+                    dashboard.selectFOICreationTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("FOI");
+                    dashboard.goToDashboard();
+                    dashboard.selectFOICreationTeam();
                 }
                 break;
             default:
@@ -593,5 +599,11 @@ public class WorkstacksStepDefs extends BasePage {
     public void theICanSeeTheNewTransferDeadlineDisplayedAsTheCasesDeadline() {
         String expectedValue = sessionVariableCalled("transferDueDate");
         workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", expectedValue);
+    }
+
+    @And("I should be able to tell that the case has been extended")
+    public void iShouldBeAbleToTellThatTheCaseHasBeenExtended() {
+        workstacks.waitForWorkstackToLoad();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Extended", "Yes");
     }
 }

@@ -21,6 +21,7 @@ Feature: Actions
     And the deadline of the FOI case should be extended the correct number of days
     And a Case Extension log with details of the extension should be visible in the timeline
     And the teams workstack should display the new deadline date for the case
+    And I should be able to tell that the case has been extended
 
 #    HOCS-3835, HOCS-3925, HOCS-4060
   @FOIRegression
