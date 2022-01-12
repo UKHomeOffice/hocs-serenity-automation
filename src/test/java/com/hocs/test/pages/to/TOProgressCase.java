@@ -91,6 +91,7 @@ public class TOProgressCase extends BasePage {
     }
 
     private void moveCaseFromTriageToQA() {
+
     }
 
     private void moveCaseFromQAToDispatch() {

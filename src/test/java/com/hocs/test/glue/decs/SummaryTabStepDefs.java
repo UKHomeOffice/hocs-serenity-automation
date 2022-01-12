@@ -138,6 +138,12 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
+    @And("the case should still be owned by the correct Treat Official team for the selected business area")
+    public void theCaseShouldStillBeOwnedByTheCorrectTreatOfficialTeamForTheSelectedBusinessArea() {
+        String teamName = "Treat Official " + sessionVariableCalled("businessArea");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
     @And("the summary should contain the Business Area, Channel Received and Primary Correspondents details")
     public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"),"Business Area");
@@ -160,7 +166,10 @@ public class SummaryTabStepDefs extends BasePage {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient (Member of Parliament)");
         } else {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient");
-
         }
+    }
+
+    @And("the summary should contain the Enquiry Reason and Enquiry Subject")
+    public void theSummaryShouldContainTheEnquiryReasonAndEnquirySubject() {
     }
 }

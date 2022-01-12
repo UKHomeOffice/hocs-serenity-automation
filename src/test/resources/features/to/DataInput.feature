@@ -7,7 +7,7 @@ Feature: Data Input
 
 #    Expected failure. Defect HOCS-4353 raised.
   @TOWorkflow @TORegression
-  Scenario: As a Data Input user, I want to be able to complete the Data Input, so the case can progress to Triage
+  Scenario: As a Data Input user, I want to be able to complete the Data Input stage, so the case can progress to Triaging
     When I select which business area the correspondence is for
     And I select which channel the correspondence was received by
     And I add a "Correspondent" correspondent
