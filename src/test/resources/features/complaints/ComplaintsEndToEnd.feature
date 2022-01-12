@@ -30,7 +30,7 @@ Feature: Complaints End To End
   Scenario: User moves an BF case to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case and move it to the "Triage" stage
-    Then the case should be moved to the "Triage" stage
+    Then the case should be moved to the "CASE TRIAGE" stage
 
   Scenario: User moves an SMC case to the Triage stage
     Given I am logged into "CS" as user "SMC_USER"
@@ -75,8 +75,8 @@ Feature: Complaints End To End
 
   Scenario: User moves an BF case to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Draft" stage
-    Then the case should be moved to the "Draft" stage
+    When I create a "BF" case and move it to the "SEND" stage
+    Then the case should be moved to the "SEND DRAFT RESPONSE" stage
 
   Scenario Outline: User moves a COMP case to the QA stage
     Given I am logged into "CS" as user "COMP_USER"
@@ -103,6 +103,11 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
+#  Scenario: User moves an BF case to the Send stage
+#    Given I am logged into "CS" as user "BF_USER"
+#    When I create a "BF" case and move it to the "Send" stage
+#    Then the case should be moved to the "Send" stage
+
   Scenario: User moves an SMC case to the Send stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Send" stage
@@ -123,6 +128,12 @@ Feature: Complaints End To End
   Scenario: User is able to close an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
+    Then the case should be closed
+
+  @ComplaintsRegression
+  Scenario: User is able to close a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to "Case Closed"
     Then the case should be closed
 
   @ComplaintsRegression
