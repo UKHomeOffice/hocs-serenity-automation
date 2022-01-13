@@ -87,7 +87,7 @@ public class DraftStepDefs extends BasePage {
                 safeClickOn(confirmButton);
                 break;
             default:
-                pendingStep(errorMessage + " is not defined within " + getMethodName());
+                pendingStep(errorMessageList + " is not defined within " + getMethodName());
         }
     }
 }

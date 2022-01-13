@@ -16,9 +16,11 @@ public class TOProgressCase extends BasePage {
 
     Dashboard dashboard;
 
+    Correspondents correspondents;
+
     DataInput dataInput;
 
-    Correspondents correspondents;
+    Triage triage;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -60,11 +62,14 @@ public class TOProgressCase extends BasePage {
     public void completeTheTOStage(String stageToComplete) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
-            case "CASE CREATION":
+            case "DATA INPUT":
                 moveCaseFromDataInputToTriage();
                 break;
             case "TRIAGE":
-                moveCaseFromTriageToQA();
+                moveCaseFromTriageToDraft();
+                break;
+            case "DRAFT":
+                moveCaseFromDraftToQA();
                 break;
             case "QA":
                 moveCaseFromQAToDispatch();
@@ -90,13 +95,26 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Continue");
     }
 
-    private void moveCaseFromTriageToQA() {
+    private void moveCaseFromTriageToDraft() {
+        triage.selectSetEnquirySubjectAndReasonLink();
+        triage.selectAnEnquirySubject();
+        clickTheButton("Continue");
+        triage.selectAnEnquiryReason();
+        clickTheButton("Continue");
+        triage.selectABusinessUnitType();
+        triage.selectTheAction("Ready to draft");
+        clickTheButton("Finish");
+    }
+
+    private void moveCaseFromDraftToQA() {
 
     }
 
     private void moveCaseFromQAToDispatch() {
+
     }
 
     private void moveCaseFromDispatchToCaseClosed() {
+
     }
 }

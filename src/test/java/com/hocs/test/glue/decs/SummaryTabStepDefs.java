@@ -169,7 +169,9 @@ public class SummaryTabStepDefs extends BasePage {
         }
     }
 
-    @And("the summary should contain the Enquiry Reason and Enquiry Subject")
+    @And("the summary should contain the Enquiry Subject and Enquiry Reason")
     public void theSummaryShouldContainTheEnquiryReasonAndEnquirySubject() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquirySubject"),"Enquiry Subject");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquiryReason"),"Enquiry Reason");
     }
 }

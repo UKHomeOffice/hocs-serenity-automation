@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -52,7 +53,7 @@ public class BasePage extends PageObject {
     public WebElementFacade continueButton;
 
     @FindBy(className = "govuk-error-summary")
-    protected WebElementFacade errorMessage;
+    protected WebElementFacade errorMessageList;
 
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade csDashboardLink;
@@ -140,7 +141,7 @@ public class BasePage extends PageObject {
     }
 
     public void assertErrorMessageText(String text) {
-        assertThat(getErrorMessageText(), containsString(text));
+        assertThat(getAllErrorMessageText(), containsString(text));
     }
 
     public void assertPageTitle(String title) {
@@ -240,12 +241,12 @@ public class BasePage extends PageObject {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public void errorMessageIsDisplayed() {
-        assertThat(isElementDisplayed(errorMessage), is(true));
+    public void assertThatAnErrorMessageIsDisplayed() {
+        assertThat(isElementDisplayed(errorMessageList), is(true));
     }
 
-    private String getErrorMessageText() {
-        return errorMessage.getText();
+    private String getAllErrorMessageText() {
+        return errorMessageList.getText();
     }
 
     protected String generateRandomString() {
@@ -397,6 +398,12 @@ public class BasePage extends PageObject {
 
     public void assertVisibilityOfAccessibilityLink() {
         accessibilityLink.shouldBeVisible();
+    }
+
+    public void assertExpectedErrorMessageIsDisplayed(String errorMessageText) {
+        if (!getAllErrorMessageText().contains(errorMessageText)) {
+            Assert.fail("Expected error message '" + errorMessageText + "' is not contained in the displayed list of error messages:\n" + getAllErrorMessageText());
+        }
     }
 
     //Helper methods

@@ -91,4 +91,9 @@ public class MultipleContributionsStepDefs extends BasePage {
     public void theContributionRequestShouldBeMarkedAs(String contributionType, String action) {
         contributionRequests.assertThatContributionRequestOfTypeIsMarkedAs(contributionType, action);
     }
+
+    @Then("an error message is displayed as I have not completed or cancelled all open contribution requests")
+    public void anErrorMessageIsDisplayedAsIHaveNotCompletedOrCancelledAllOpenContributionRequests() {
+        assertExpectedErrorMessageIsDisplayed("Case contributions have to be completed or cancelled");
+    }
 }
