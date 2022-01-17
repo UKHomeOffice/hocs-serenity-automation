@@ -112,6 +112,7 @@ public class BFTriage extends BasePage {
 
     public void selectCompleteTheCase() {
         recordCaseData.selectSpecificRadioButton("No response - complete the case (close permanently)");
+        clickTheButton("Continue");
     }
 
     public void enterCompletionReason() {

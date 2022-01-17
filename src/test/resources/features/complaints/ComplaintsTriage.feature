@@ -92,6 +92,17 @@ Feature: Complaints Triage
     And the summary should display the owning team as "Serious Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User completes the Case Triage stage for a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I submit details on the Triage Capture Reason page
+    And I select the "Ready for Drafting" action at Case Triage
+    Then the case should be moved to the "Send draft response" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
+
 #    HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can escalate a case at Service Triage stage
@@ -138,6 +149,18 @@ Feature: Complaints Triage
     Then the case should be moved to the "Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF case to workflow manager at the Case Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I submit details on the Triage Capture Reason page
+    And I select the "Escalate to WFM" action at Case Triage
+    Then the case should be moved to the "Escalate" stage
+    And the summary should display the owning team as "Border Force"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
 
 #    HOCS-3026
   @ComplaintsWorkflow @ComplaintsRegression
@@ -201,6 +224,17 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select the "No Further Consideration" action for an IEDET case at the Triage stage
     Then the case should be closed
+
+  @ComplaintsRegression
+  Scenario: User can hard close a BF case at the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I submit details on the Triage Capture Reason page
+    And I select the "Complete the Case" action at Case Triage
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
 
 #    Expected failure. Defect HOCS-3980 raised.
   @ComplaintsWorkflow @ComplaintsRegression

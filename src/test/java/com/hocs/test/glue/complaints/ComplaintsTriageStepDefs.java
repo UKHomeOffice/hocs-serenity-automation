@@ -2,12 +2,16 @@ package com.hocs.test.glue.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import com.hocs.test.pages.bf.BFTriage;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
 
 public class ComplaintsTriageStepDefs extends BasePage {
+
+    BFTriage bfTriage;
 
     ComplaintsTriage complaintsTriage;
 
@@ -44,7 +48,11 @@ public class ComplaintsTriageStepDefs extends BasePage {
 
     @And("I submit details on the Triage Capture Reason page")
     public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        if (bfCase()) {
+            bfTriage.enterDetailsOnTriageCaptureReasonPage();
+        } else {
+            complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        }
         clickTheButton("Continue");
     }
 
@@ -136,5 +144,28 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I select a Close Reason")
     public void iSelectACloseReason() {
         complaintsTriage.selectACloseReason();
+    }
+
+    @And("I select the {string} action at Case Triage")
+    public void iSelectTheActionAtCaseTriage(String action) {
+        switch (action.toUpperCase()) {
+            case "READY FOR DRAFTING":
+                bfTriage.selectReadyForDrafting();
+                break;
+            case "ESCALATE TO WFM":
+                bfTriage.escalateCaseToWFM();
+                break;
+            case "COMPLETE THE CASE":
+                bfTriage.selectCompleteTheCase();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I enter a reason for closing the case")
+    public void iEnterAReasonForClosingTheCase() {
+        bfTriage.enterCompletionReason();
+        clickTheButton("Complete case");
     }
 }

@@ -77,6 +77,24 @@ Feature: Registration
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User is able to complete the Registration stage for a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a single "BF" case
+    And I allocate the case to myself via the successful case creation screen
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Service" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    And I select a "Service" Complaint Category
+    And I select a Owning CSU
+    And I click the "Finish" button
+    Then the case should be moved to the "Case Triage" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Registration" stage
+
   Scenario: User can navigate to a COMP case using the case reference displayed in COMP2 summary
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP2" case and move it to the "Stage 2 Registration" stage
