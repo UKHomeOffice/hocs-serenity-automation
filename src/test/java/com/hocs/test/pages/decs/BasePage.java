@@ -24,6 +24,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 public class BasePage extends PageObject {
 
@@ -412,9 +413,7 @@ public class BasePage extends PageObject {
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> radioButtonElements = findAll(
-                "//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
-                        + "//input/following-sibling::label");
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -436,8 +435,34 @@ public class BasePage extends PageObject {
         safeClickOn(radioButtonElement);
     }
 
+    public String selectDifferentRadioButtonFromGroupWithHeading(String headingText) {
+        List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
+        WebElementFacade currentlySelectedRadioButton =
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                        + "::fieldset//input[@checked]/following-sibling::label");
+        radioButtonLabels.remove(currentlySelectedRadioButton.getText());
+        Random random = new Random();
+        String radioButtonLabelToSelect = radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
+        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
+        return radioButtonLabelToSelect;
+    }
+
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
         return findBy("//input/following-sibling::label[contains(text()," + sanitiseXpathAttributeString(elementText) + ")]");
+    }
+
+    private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
+        return findAll("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
+                        + "//input/following-sibling::label");
+    }
+
+    public List<String> getRadioButtonLabelsInGroupWithHeading(String headingText) {
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+        List<String> radioButtonLabels = new ArrayList<>();
+        for (WebElementFacade radioButtonElement : radioButtonElements) {
+            radioButtonLabels.add(radioButtonElement.getText());
+        }
+        return radioButtonLabels;
     }
 
     //Date fields
@@ -536,6 +561,16 @@ public class BasePage extends PageObject {
         safeClickOn(optionElement);
     }
 
+    public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        List<WebElement> options = dropdown.getOptions();
+        options.remove(dropdown.getFirstSelectedOption());
+        Random random = new Random();
+        String optionToSelect = options.get(random.nextInt(options.size())).getText();
+        dropdown.selectByValue(optionToSelect);
+        return optionToSelect;
+    }
+
     public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
         return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
     }
@@ -590,6 +625,7 @@ public class BasePage extends PageObject {
         Random rand = new Random();
         WebElementFacade randomElement = list.get(rand.nextInt(list.size()));
         while (!randomElement.isCurrentlyVisible()) {
+            list.remove(randomElement);
             randomElement = list.get(rand.nextInt(list.size()));
         }
         return randomElement;

@@ -10,7 +10,7 @@ Feature: Case Creation Stage
   Scenario: User is able to complete the Case Creation stage
     And I "Confirm" Case Creation check your answers
     And I select "Valid" for the validity of the request and continue
-    And I upload a "Initial response" document
+    And I add a "Initial response" type document to the case
     And I submit a valid request acknowledgement response date
     Then the case should be moved to the "Allocation" stage
     And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
@@ -20,7 +20,7 @@ Feature: Case Creation Stage
   Scenario: User is able to send an invalid request to Soft Close stage
     And I "Confirm" Case Creation check your answers
     And I select "Invalid" for the validity of the request and continue
-    And I upload a "Initial response" document
+    And I add a "Initial response" type document to the case
     And I submit an invalid request response date
     Then the case should be moved to the "Soft Close" stage
     And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage

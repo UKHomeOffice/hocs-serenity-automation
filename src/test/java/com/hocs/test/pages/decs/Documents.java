@@ -10,7 +10,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Documents extends BasePage {
 
@@ -64,12 +63,20 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
     public WebElementFacade primaryDraftDocumentName;
 
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
+
     //Simple methods
 
     public void selectDocumentsTab() {
         if(!documentsTabIsActiveTab()) {
             safeClickOn(documentsTab);
         }
+    }
+
+    public void refreshDocumentTab() {
+        safeClickOn(nonActiveTab);
+        selectDocumentsTab();
     }
 
     public boolean documentsTabIsActiveTab() {
@@ -94,11 +101,11 @@ public class Documents extends BasePage {
                 "documents" +  File.separator  + fileSize + "MB.docx").to(addDocument);
     }
 
-    public void uploadDocumentOfType(String type) {
-        setSessionVariable("docType").to(type);
+    public void uploadFileOfType(String fileType) {
+        setSessionVariable("fileType").to(fileType);
         addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator + "test."  + type).to(addDocument);
+                "documents" +  File.separator + "test."  + fileType).to(addDocument);
     }
 
     public void uploadDocumentThatFailsConversion() {
@@ -125,31 +132,41 @@ public class Documents extends BasePage {
         addDocument.sendKeys(allFiles);
     }
 
-    public void addADocumentOfType(String docType) {
+    public void addADocumentOfDocumentType(String docType) {
         if (addDocumentsButton.isVisible()) {
             safeClickOn(addDocumentsButton);
         } else if (addDocumentLink.isVisible()) {
             safeClickOn(addDocumentLink);
         }
         selectDocumentTypeByText(docType);
-        uploadDocumentOfType("docx");
+        uploadFileOfType("docx");
+        safeClickOn(addButton);
+        setSessionVariable(docType.toLowerCase()).to("docx");
+        waitABit(500);
+    }
+
+    public void addADocumentOfFileType(String fileType) {
+        if (addDocumentsButton.isVisible()) {
+            safeClickOn(addDocumentsButton);
+        } else if (addDocumentLink.isVisible()) {
+            safeClickOn(addDocumentLink);
+        }
+        selectADocumentType();
+        uploadFileOfType(fileType);
         safeClickOn(addButton);
         waitABit(500);
     }
 
-    public void addADraftDocumentAtDraftStage() {
-        addDocumentsButton.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("DRAFT");
-        uploadDocumentOfType("docx");
+    public void addADocumentOfDocumentTypeAndFileType(String docType, String fileType) {
+        if (addDocumentsButton.isVisible()) {
+            safeClickOn(addDocumentsButton);
+        } else if (addDocumentLink.isVisible()) {
+            safeClickOn(addDocumentLink);
+        }
+        selectDocumentTypeByText(docType);
+        uploadFileOfType(fileType);
         safeClickOn(addButton);
-        setSessionVariable("draft").to("docx");
-    }
-
-    public void addAnAppealResponseDocument() {
-        clickTheLink("Add a document");
-        uploadDocumentOfType("docx");
-        safeClickOn(addButton);
+        waitABit(500);
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {
@@ -266,16 +283,12 @@ public class Documents extends BasePage {
         safeClickOn(documentToSelect);
     }
 
-    public void confirmOrApprovePrimaryDraft() {
+    public void recordPrimaryDraftDocument() {
         WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='DraftDocuments'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='DraftDocuments'][@checked]/ancestor::fieldset//span");
         selectedPrimaryDraftDocument.waitUntilVisible();
-        recordCaseData.addHeadingAndValueRecord("Primary draft document", selectedPrimaryDraftDocument.getText());
+        recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
-        if (continueButton.isCurrentlyVisible()) {
-            clickTheButton("Continue");
-        } else {
-            clickTheButton("Approve primary draft");
-        }
     }
 
     public void assertThatPrimaryDraftIs(String fileName) {

@@ -259,7 +259,7 @@ public class CreateCase extends BasePage {
             editReceivedDate(receivedDate);
         }
         if (addDocument) {
-            documents.uploadDocumentOfType("docx");
+            documents.uploadFileOfType("docx");
         }
         storeCorrespondenceReceivedDate();
         if (caseType.equals("FOI")) {

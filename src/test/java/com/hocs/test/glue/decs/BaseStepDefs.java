@@ -83,7 +83,7 @@ public class BaseStepDefs extends BasePage {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAllocated();
         summaryTab.assertThereIsNoActiveStage();
-        timelineTab.assertCaseClosedNoteVisible();
+        timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
     }
 

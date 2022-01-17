@@ -192,10 +192,10 @@ public class CreateCaseStepDefs extends BasePage {
         confirmationScreens.storeCaseReference();
         confirmationScreens.goToCaseFromConfirmationScreen();
         if (withWithout.equals("with")) {
-            documents.assertFileIsVisible(sessionVariableCalled("docType"));
+            documents.assertFileIsVisible(sessionVariableCalled("fileType"));
         }
         else {
-            documents.assertFileIsNotVisible(sessionVariableCalled("docType"));
+            documents.assertFileIsNotVisible(sessionVariableCalled("fileType"));
         }
     }
 
@@ -510,7 +510,7 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.editReceivedDate(getTodaysDate());
                         createCase.storeCorrespondenceReceivedDate();
                         createCase.storeCorrespondenceReceivedInKIMUDate();
-                        documents.uploadDocumentOfType("docx");
+                        documents.uploadFileOfType("docx");
                         createCase.selectCorrespondenceInboundChannel();
                         createCase.enterCorrespondentDetails();
                         createCase.selectFOITopic("Animal alternatives (3Rs)");
@@ -528,7 +528,7 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.editReceivedDate("01/01/2010");
                         createCase.storeCorrespondenceReceivedDate();
                         createCase.storeCorrespondenceReceivedInKIMUDate();
-                        documents.uploadDocumentOfType("docx");
+                        documents.uploadFileOfType("docx");
                         createCase.selectCorrespondenceInboundChannel();
                         createCase.enterCorrespondentDetails();
                         createCase.selectFOITopic("Animal alternatives (3Rs)");
