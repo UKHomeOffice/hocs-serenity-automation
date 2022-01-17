@@ -86,7 +86,7 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Continue");
         correspondents.addANonMemberCorrespondentOfType("Correspondent");
         correspondents.confirmPrimaryCorrespondent();
-        dataInput.selectAnAdressee();
+        dataInput.selectWhetherToAddRecipient("No");
         clickTheButton("Continue");
     }
 

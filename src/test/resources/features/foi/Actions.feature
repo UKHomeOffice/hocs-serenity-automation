@@ -4,7 +4,7 @@ Feature: Actions
   Background:
     Given I am logged into "CS" as user "FOI_USER"
 
-#    HOCS-3835, HOCS-3925
+#    HOCS-3835, HOCS-3925, HOCS-4103
   @FOIRegression
   Scenario: As a FOI User, I want to be able to apply an extension to a case, so that we have enough time to casework the request
     And I create a single "FOI" case with the correspondence received date set 20 workdays ago
@@ -13,11 +13,15 @@ Feature: Actions
     And I select a type of extension
     And I select that the case should be extended from "Today"
     And I select how many days to extend the deadline by
-    And I submit a reason for the extension
+    And I select a reason for the extension
+    And I enter a note about the extension
+    And I upload a "PIT Extension" document
+    And I confirm the extension
     Then I should see a confirmation message stating that the case has been extended
     And the deadline of the FOI case should be extended the correct number of days
-    And a Case Extension note should be visible in the timeline showing the submitted reason for the extension
+    And a Case Extension log with details of the extension should be visible in the timeline
     And the teams workstack should display the new deadline date for the case
+    And I should be able to tell that the case has been extended
 
 #    HOCS-3835, HOCS-3925, HOCS-4060
   @FOIRegression
@@ -38,14 +42,14 @@ Feature: Actions
     And I submit details of the appeal type
     Then I should see a confirmation message stating that the appeal has been registered
     And the registered appeal should have the status "Pending" in the actions tab
-    And an Appeal Created note should be visible in the timeline for the selected appeal type
+    And an Appeal Created log should be visible in the timeline for the selected appeal type
     When I select to update the appeal
     And I upload an "Appeal Response" document
     And I submit appeal completion details
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab
     And the information entered for the FOI appeal should be displayed in the summary
-    And an Appeal Updated note should be visible in the timeline for the selected appeal type
+    And an Appeal Updated log should be visible in the timeline for the selected appeal type
 
 #    HOCS-3644, HOCS-3871
   @FOIRegression
@@ -56,8 +60,8 @@ Feature: Actions
     And I submit details of the interest the external party has in the case
     Then I should see a confirmation message stating that the external interest has been registered
     And the details of the interest should be visible in the actions tab
-    And an Interest Recorded note should be visible in the timeline for the interested party
+    And an Interest Created log should be visible in the timeline for the interested party
     When I update the registered interest
     Then I should see a confirmation message stating that the external interest has been updated
     And the updated details of the interest should be visible in the actions tab
-    And an Interest Updated note should be visible in the timeline for the interested party
+    And an Interest Updated log should be visible in the timeline for the interested party

@@ -419,15 +419,14 @@ public class Workstacks extends BasePage {
     }
 
     public void waitForTopCaseToNotBeAllocated() {
-        boolean allocated = !getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference()).isEmpty();
+        boolean allocated = !getOwnerOfTopCaseInWorkstack().isEmpty();
         int attempts = 0;
         while (allocated && attempts<20) {
-            String owner = getValueFromSpecifiedColumnForSpecifiedCase("Owner", getCurrentCaseReference());
+            String owner = getOwnerOfTopCaseInWorkstack();
             allocated = !owner.isEmpty();
             waitABit(500);
             attempts++;
         }
-        System.out.print(attempts);
     }
 
     // Assertions
@@ -808,8 +807,11 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
                 break;
             case "BORDER FORCE":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Next due contribution "
-                        + "date"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date"));
+                break;
+            case "FOI TEAM":
+                requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
+                        "Extended"));
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());

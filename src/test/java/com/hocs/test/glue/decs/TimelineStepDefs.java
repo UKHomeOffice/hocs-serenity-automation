@@ -144,9 +144,9 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertCaseTransferReasonNoteVisible();
     }
 
-    @And("a Case Extension note should be visible in the timeline showing the submitted reason for the extension")
-    public void aCaseExtensionNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForTheExtension() {
-        timelineTab.assertCaseExtensionNoteVisible();
+    @And("a Case Extension log with details of the extension should be visible in the timeline")
+    public void aCaseExtensionLogShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForTheExtension() {
+        timelineTab.assertCaseExtensionLogVisible();
     }
 
     @And("an Allocation note should be visible in the timeline showing the details of the allocation")
@@ -154,23 +154,23 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertAllocationNoteVisible();
     }
 
-    @And("an Appeal Created note should be visible in the timeline for the selected appeal type")
-    public void anAppealCreatedNoteShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertAppealCreatedNoteVisible();
+    @And("an Appeal Created log should be visible in the timeline for the selected appeal type")
+    public void anAppealCreatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
+        timelineTab.assertAppealCreatedLogVisible();
     }
 
-    @And("an Appeal Updated note should be visible in the timeline for the selected appeal type")
-    public void anAppealUpdatedNoteShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertAppealUpdatedNoteVisible();
+    @And("an Appeal Updated log should be visible in the timeline for the selected appeal type")
+    public void anAppealUpdatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
+        timelineTab.assertAppealUpdatedLogVisible();
     }
 
-    @And("an Interest Recorded note should be visible in the timeline for the interested party")
-    public void anInterestCreatedNoteShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertInterestRecordedNoteVisible();
+    @And("an Interest Created log should be visible in the timeline for the interested party")
+    public void anInterestCreatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
+        timelineTab.assertInterestCreatedLogVisible();
     }
 
-    @And("an Interest Updated note should be visible in the timeline for the interested party")
-    public void anInterestUpdatedNoteShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertInterestUpdatedNoteVisible();
+    @And("an Interest Updated log should be visible in the timeline for the interested party")
+    public void anInterestUpdatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
+        timelineTab.assertInterestUpdatedLogVisible();
     }
 }

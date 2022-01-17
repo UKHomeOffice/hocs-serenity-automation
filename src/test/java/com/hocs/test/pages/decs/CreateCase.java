@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.complaints.COMPProgressCase;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,7 +17,6 @@ import java.util.Locale;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class CreateCase extends BasePage {
@@ -32,6 +30,8 @@ public class CreateCase extends BasePage {
     Workdays workdays;
 
     RecordCaseData recordCaseData;
+
+    Correspondents correspondents;
 
     // Elements
 
@@ -425,23 +425,21 @@ public class CreateCase extends BasePage {
     public void enterCorrespondentDetails() {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (inboundChannel.equalsIgnoreCase("EMAIL")) {
-            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
-            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
-            setSessionVariable("requesterFullName").to("Test McTester");
-            selectRandomOptionFromDropdownWithHeading("Country");
-            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
-            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            correspondents.enterCorrespondentFullName("Sam McTester");
+            correspondents.enterCorrespondentOrganisation();
+            correspondents.selectACorrespondentCountry();
+            correspondents.enterCorrespondentEmailAddress("SamMcTester@Test.com");
+            correspondents.enterCorrespondenceReference("Ref-ABCD-1234");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
-            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
-            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
-            setSessionVariable("requesterFullName").to("Test McTester");
-            enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
-            enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
-            enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
-            enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
-            selectRandomOptionFromDropdownWithHeading("Country");
-            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
-            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            correspondents.enterCorrespondentFullName("Sam McTester");
+            correspondents.enterCorrespondentOrganisation();
+            correspondents.enterCorrespondentBuilding("1 Test House");
+            correspondents.enterCorrespondentStreet("Test Road");
+            correspondents.enterCorrespondentTownOrCity("Test Town");
+            correspondents.enterCorrespondentPostcode("AB1 2CD");
+            correspondents.selectACorrespondentCountry();
+            correspondents.enterCorrespondentEmailAddress("SamMcTester@Test.com");
+            correspondents.enterCorrespondenceReference("Ref-ABCD-1234");
         }
     }
 

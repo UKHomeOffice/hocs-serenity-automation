@@ -43,10 +43,14 @@ public class ActionsTabStepDefs extends BasePage {
         actionsTab.selectASpecificAmountOfDaysToExtendDeadlineBy(amountOfDays);
     }
 
-    @And("I submit a reason for the extension")
-    public void iSubmitAReasonForTheExtension() {
-        actionsTab.enterAReasonForTheExtension();
-        clickTheButton("Extend Case");
+    @And("I select a reason for the extension")
+    public void iSelectAReasonForTheExtension() {
+        actionsTab.selectAReasonForExtension();
+    }
+
+    @And("I enter a note about the extension")
+    public void iEnterANoteAboutTheExtension() {
+        actionsTab.enterExtensionNote();
     }
 
     @Then("I should see a confirmation message stating that the case has been extended")
@@ -63,6 +67,11 @@ public class ActionsTabStepDefs extends BasePage {
     @Then("I am unable to select an amount of days to extend the case by")
     public void iAmUnableToSelectAnAmountOfDaysToExtendTheCaseBy() {
         actionsTab.assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown();
+    }
+
+    @And("I confirm the extension")
+    public void iConfirmTheExtension() {
+        clickTheButton("Extend Case");
     }
 
     // Appeals

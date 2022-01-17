@@ -43,6 +43,7 @@ public class RecordCaseData extends BasePage{
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
         String textToEnter = super.enterTextIntoTextFieldWithHeading(headingText);
+        addHeadingAndValueRecord(headingText, textToEnter);
         return textToEnter;
     }
 
@@ -55,6 +56,7 @@ public class RecordCaseData extends BasePage{
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
         String textToEnter = super.enterTextIntoTextAreaWithHeading(headingText);
+        addHeadingAndValueRecord(headingText, textToEnter);
         return textToEnter;
     }
 
@@ -106,8 +108,7 @@ public class RecordCaseData extends BasePage{
     public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
             List<String> visibleDisplayValues = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
-            String recordedValue = entry.getValue();
-            String expectedDisplayValue = recordedValue.replace("\n", " ");
+            String expectedDisplayValue = entry.getValue();
             boolean expectedValueIsDisplayed = false;
             for (String visibleDisplayValue : visibleDisplayValues) {
                 if (visibleDisplayValue.contains(expectedDisplayValue)) {

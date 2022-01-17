@@ -1,7 +1,6 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
@@ -44,16 +43,22 @@ public class ActionsTab extends BasePage {
         setSessionVariable("numberOfDays").to(Integer.parseInt(numberOfDays));
     }
 
-    public void selectWhenToExtendDeadlineFrom() {
-        selectRandomOptionFromDropdownWithHeading("Case will be extended from:");
-    }
-
     public void selectASpecificStartPointToExtendDeadlineFrom(String extensionStartPoint) {
         selectSpecificOptionFromDropdownWithHeading(extensionStartPoint,"Case will be extended from:");
     }
 
+    public void selectAReasonForExtension() {
+        String extensionReason = checkRandomCheckboxUnderHeading("Please select the reasons for the extension.");
+        setSessionVariable("extensionReason").to(extensionReason);
+    }
+
+    public void enterExtensionNote() {
+        String extensionNote = enterTextIntoTextAreaWithHeading("Please enter a note for the extension.");
+        setSessionVariable("extensionNote").to(extensionNote);
+    }
+
     public void assertThatNoSelectableOptionsPresentInAmountOfWorkingsDaysDropdown() {
-        if (checkSelectableOptionsPresentInDropdownWithHeading("How many days do you want to extend the case deadline by?")) {
+        if (checkIfSelectableOptionsPresentInDropdownWithHeading("How many days do you want to extend the case deadline by?")) {
             Assert.fail("Selectable options present in dropdown");
         }
     }
@@ -106,11 +111,6 @@ public class ActionsTab extends BasePage {
         safeClickOn(updateHypertextOfSpecificAppeal);
     }
 
-    public void enterAReasonForTheExtension() {
-        String extensionReason = enterTextIntoTextAreaWithHeading("Please enter a reason for the extension.");
-        setSessionVariable("extensionReason").to(extensionReason);
-    }
-
     public void assertStatusOfAppealIs(String appealStatus) {
         selectActionsTab();
         String registeredAppealType = sessionVariableCalled("appealType");
@@ -128,6 +128,7 @@ public class ActionsTab extends BasePage {
 
     public void selectSpecificTypeOfInterest(String typeOfInterest) {
         selectSpecificOptionFromDropdownWithHeading(typeOfInterest, "What type of interest do you want to record?");
+        setSessionVariable("typeOfInterest").to(typeOfInterest);
     }
 
     public void selectAInterestedParty() {

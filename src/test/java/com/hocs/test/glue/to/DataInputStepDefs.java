@@ -3,8 +3,6 @@ package com.hocs.test.glue.to;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.to.DataInput;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.But;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class DataInputStepDefs extends BasePage {
@@ -22,9 +20,23 @@ public class DataInputStepDefs extends BasePage {
         clickTheButton("Continue");
     }
 
-    @And("I select an Addressee")
-    public void iSelectAnAddressee() {
-        dataInput.selectAnAdressee();
+    @And("I choose to not add a recipient")
+    public void iChooseToNotAddARecipient() {
+        dataInput.selectWhetherToAddRecipient("No");
+        clickTheButton("Continue");
+    }
+
+    @When("I add a {string} recipient")
+    public void iAddARecipientTypeRecipient(String recipientType) {
+        dataInput.selectWhetherToAddRecipient("Yes");
+        clickTheButton("Continue");
+        if (recipientType.equalsIgnoreCase("MEMBER")) {
+            dataInput.selectIfRecipientIsMP("Yes");
+            dataInput.selectAMemberRecipient();
+        } else {
+            dataInput.selectIfRecipientIsMP("No");
+            dataInput.selectANonMemberRecipient();
+        }
         clickTheButton("Continue");
     }
 }

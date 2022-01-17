@@ -201,6 +201,10 @@ public class Dashboard extends BasePage {
         safeClickOn(borderForceWorkstack);
     }
 
+    public void selectFOICreationTeam() {
+        safeClickOn(foiCreationWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
