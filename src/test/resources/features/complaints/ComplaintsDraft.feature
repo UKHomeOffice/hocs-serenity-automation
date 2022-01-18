@@ -7,7 +7,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
@@ -18,7 +18,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Ex-Gratia Send" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -29,7 +29,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -49,7 +49,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I click the "Response Ready" button
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "Serious Misconduct"
@@ -60,7 +60,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Service QA" stage
     And the summary should display the owning team as "CCT Stage 1 Response QA"
@@ -71,7 +71,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Ex-Gratia QA" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -82,7 +82,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
-    And I upload a "Draft" document
+    And I add a "Draft" type document to the case
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Minor Misconduct QA" stage
     And the summary should display the owning team as "Minor Misconduct"

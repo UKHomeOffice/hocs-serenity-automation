@@ -35,11 +35,11 @@ public class TemplateManagement extends BasePage {
         clickTheButton("Submit");
     }
 
-    public void uploadDocumentOfType(String type) {
-        setSessionVariable("docType").to(type);
+    public void uploadDocumentOfType(String fileType) {
+        setSessionVariable("fileType").to(fileType);
         muiAddDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator + "test."  + type).to(muiAddDocument);
+                "documents" +  File.separator + "test."  + fileType).to(muiAddDocument);
     }
 
     public void addTemplate() {

@@ -43,11 +43,11 @@ Feature: QA Response
     And I create a "DTEN" case and move it to the "QA RESPONSE" stage
     And I load and claim the current case
     When I select to modify the primary draft
-    And I upload a "replacement draft" document
+    And I upload another "Draft" document as a replacement
     And I select the "replacement draft" document as the primary draft
     And I approve the new primary draft document
     Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
-    And the selected document should be tagged as the primary draft
+    And the replacement document should be tagged as the primary draft
 
   @Validation
   Scenario Outline: User tests the validation at the QA Response stage

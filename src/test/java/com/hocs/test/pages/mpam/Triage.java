@@ -7,7 +7,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
-import com.hocs.test.pages.decs.SummaryTab;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -17,8 +16,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class Triage extends BasePage {
 
     RecordCaseData recordCaseData;
-
-    SummaryTab summaryTab;
 
     @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
