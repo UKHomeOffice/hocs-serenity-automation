@@ -1,6 +1,8 @@
 package com.hocs.test.glue.decs;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.TimelineTab;
@@ -101,76 +103,97 @@ public class TimelineStepDefs extends BasePage {
 
     @And("a Rejection note should be visible in the timeline showing the submitted reason for the return of the case")
     public void aRejectionNoteShouldBeVisibleInTheTimelineShowingTheReasonForTheReturnOfTheCase() {
-        timelineTab.assertRejectionNoteVisible();
+        String rejectionReason = sessionVariableCalled("rejectionReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Rejection note", rejectionReason);
     }
 
     @And("an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation")
     public void anEscalationNoteShouldBeVisibleInTheTimelineShowingTheReasonForTheCasesEscalation() {
-        timelineTab.assertEscalationNoteVisible();
+        String escalationReason = sessionVariableCalled("escalationReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Escalation note", escalationReason);
     }
 
     @And("a Case closure note should be visible in the timeline showing the submitted reason for closing the case")
     public void aCaseClosureNoteShouldBeVisibleInTheTimelineShowingTheReasonForClosingTheCase() {
-        timelineTab.assertClosureNoteVisible();
+        String closureReason = sessionVariableCalled("closureReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Case closure note", closureReason);
     }
 
     @And("a Details of follow up note should be visible in the timeline showing the submitted details of the required action")
     public void aDetailsOfFollowUpNoteShouldBeVisibleInTheTimelineShowingTheSubmittedDetailsOfTheRequiredAction() {
-        timelineTab.assertDetailsOfFollowUpNoteVisible();
+        String followUpDetails = sessionVariableCalled("followUpDetails");
+        timelineTab.assertCaseNoteWithTitleContainsText("Details of follow up", followUpDetails);
     }
 
     @And("a Follow up not completed note should be visible in the timeline showing the submitted reason for not completing the action")
     public void aFollowUpNotCompletedNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForNotCompletingTheAction() {
-        timelineTab.assertFollowUpNotCompletedNoteVisible();
+        String followUpNotCompletedReason = sessionVariableCalled("followUpNotCompletedReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Follow up not completed", followUpNotCompletedReason);
     }
 
     @And("a Conversion note should be visible in the timeline showing the submitted notes on the conversion of the case")
     public void aConversionNoteShouldBeVisibleInTheTimelineShowingTheSubmittedNotesOnTheConversionOfTheCase() {
-        timelineTab.assertConversionNoteVisible();
+        String conversionNotes = sessionVariableCalled("conversionNotes");
+        timelineTab.assertCaseNoteWithTitleContainsText("Conversion note", conversionNotes);
     }
 
     @And("a Case withdrawn note should be visible showing the submitted notes on the withdrawal of the case")
     public void aCaseWithdrawnNoteShouldBeVisibleInTheTimelineShowingTheSubmittedNotesOnTheWithdrawalOfTheCase() {
-        timelineTab.assertCaseWithdrawnNoteVisible();
+        String withdrawalNotes = sessionVariableCalled("withdrawalNotes");
+        timelineTab.assertCaseNoteWithTitleContainsText("Case withdrawn", withdrawalNotes);
     }
 
     @Then("a Change note should be visible in the timeline showing the submitted reason for changing the primary topic")
     public void aChangeNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForChangingThePrimaryTopic() {
-        timelineTab.assertChangeNoteVisible();
+        String topicOverrideReason = sessionVariableCalled("topicOverrideReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Change note", topicOverrideReason);
     }
 
     @Then("a Case transfer reason note is visible in the timeline showing the submitted reason for the transfer request")
     public void aCaseTransferReasonNoteIsVisibleInTheTimelineShowingTheSubmittedReasonForTheTransferRequest() {
-        timelineTab.assertCaseTransferReasonNoteVisible();
+        String inputTransferReason = sessionVariableCalled("inputReasonForTransfer");
+        timelineTab.assertCaseNoteWithTitleContainsText("Case transfer reason", inputTransferReason);
     }
 
     @And("a Case Extension log with details of the extension should be visible in the timeline")
     public void aCaseExtensionLogShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForTheExtension() {
-        timelineTab.assertCaseExtensionLogVisible();
+        String extensionNote = sessionVariableCalled("extensionNote");
+        String extensionReason = sessionVariableCalled("extensionReason");
+        timelineTab.assertCaseLogWithTitleContainsText("Case Extension", extensionNote);
+        timelineTab.assertCaseLogWithTitleContainsText("Case Extension", extensionReason);
     }
 
     @And("an Allocation note should be visible in the timeline showing the details of the allocation")
     public void aAllocationNoteShouldBeVisibleInTheTimelineShowingTheDetailsOfTheAllocation() {
-        timelineTab.assertAllocationNoteVisible();
+        String allocatedTeam = sessionVariableCalled("acceptanceTeam");
+        timelineTab.assertCaseNoteWithTitleContainsText("Allocation note", allocatedTeam);
     }
 
     @And("an Appeal Created log should be visible in the timeline for the selected appeal type")
     public void anAppealCreatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertAppealCreatedLogVisible();
+        String appealType = sessionVariableCalled("appealType");
+        timelineTab.assertCaseLogWithTitleIsVisible("Appeal Created: " + appealType);
     }
 
     @And("an Appeal Updated log should be visible in the timeline for the selected appeal type")
     public void anAppealUpdatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertAppealUpdatedLogVisible();
+        String appealType = sessionVariableCalled("appealType");
+        timelineTab.assertCaseLogWithTitleIsVisible("Appeal Updated: " + appealType);
     }
 
     @And("an Interest Created log should be visible in the timeline for the interested party")
     public void anInterestCreatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertInterestCreatedLogVisible();
+        String typeOfInterest = sessionVariableCalled("typeOfInterest");
+        String interestedParty = sessionVariableCalled("interestedParty");
+        String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
+        timelineTab.assertCaseLogWithTitleContainsText(typeOfInterest + " Created: " + interestedParty, detailsOfInterest);
     }
 
     @And("an Interest Updated log should be visible in the timeline for the interested party")
     public void anInterestUpdatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
-        timelineTab.assertInterestUpdatedLogVisible();
+        String typeOfInterest = sessionVariableCalled("typeOfInterest");
+        String interestedParty = sessionVariableCalled("interestedParty");
+        String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
+        timelineTab.assertCaseLogWithTitleContainsText(typeOfInterest + " Updated: " + interestedParty, detailsOfInterest);
     }
 }

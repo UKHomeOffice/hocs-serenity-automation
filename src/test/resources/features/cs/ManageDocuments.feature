@@ -8,7 +8,7 @@ Feature: Manage Documents
   Scenario Outline: As a Correspondence System user, I want to be able to upload, preview, and remove any document that is of an allowed filetype,
   so I can complete my work
     And I manage the documents of a new case
-    And I add a "<fileType>" document to the case
+    And I add a "<fileType>" type file to the case as a document
     Then I can see the "<fileType>" file in the uploaded document list
     And the "<fileType>" document should be selected to be displayed in the preview pane
     When I remove the "<fileType>" document
@@ -62,7 +62,7 @@ Feature: Manage Documents
   @MPAMRegression2
   Scenario Outline: As an MPAM User, I want to be able to select from additional document types, so the document can be easily identified later
     When I manage the documents of a new "MPAM" case
-    And I upload a "<docType>" document
+    And I add an "<docType>" type document to the case
     Then the "docx" document should be under the "<docType>" header
     Examples:
       | docType                                     |
@@ -73,7 +73,7 @@ Feature: Manage Documents
     And I manage the documents of a new Complaints case
     And I click add documents
     When I choose the document type "<docType>"
-    And I upload a file of type "docx"
+    And I add a "<docType>" type document to the case
     Then the "docx" document should be under the "<docType>" header
     Examples:
       | docType               |
@@ -91,7 +91,7 @@ Feature: Manage Documents
   @ComplaintsRegression
   Scenario Outline: As an IEDET User, I want to be able to select from additional document types, so the document can be easily identified later
     When I manage the documents of a new "IEDET" case
-    And I upload a "<docType>" document
+    And I add a "<docType>" type document to the case
     Then the "docx" document should be under the "<docType>" header
     Examples:
       | docType                |

@@ -1,7 +1,5 @@
 package com.hocs.test.glue.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -63,48 +61,6 @@ public class DocumentsStepDefs extends BasePage {
         safeClickOn(documents.manageDocumentsLink);
     }
 
-    @And("I upload a/an {string} document")
-    public void IUploadADocument(String docType) {
-        switch (docType.toUpperCase()) {
-            case "ORIGINAL":
-                documents.addADocumentOfType("ORIGINAL");
-                break;
-            case "DRAFT":
-                documents.addADraftDocumentAtDraftStage();
-                break;
-            case "REPLACEMENT DRAFT":
-                documents.addADocumentOfType("DRAFT");
-                setSessionVariable("replacement draft").to("docx");
-                break;
-            case "FINAL":
-                documents.addADocumentOfType("FINAL");
-                break;
-            case "INITIAL RESPONSE":
-                documents.addADocumentOfType("Initial response");
-                break;
-            case "INTERIM RESPONSE":
-                documents.addADocumentOfType("Interim response");
-                break;
-            case "ACKNOWLEDGEMENT LETTER":
-                documents.addADocumentOfType("Acknowledgement letter");
-                break;
-            case "FINAL RESPONSE":
-                documents.addADocumentOfType("Final response");
-                break;
-            case "APPEAL RESPONSE":
-                documents.addAnAppealResponseDocument();
-                break;
-            case "ADDITIONAL CORRESPONDENCE (HOLDING REPLIES)":
-                documents.addADocumentOfType("Additional correspondence (Holding Replies)");
-                break;
-            case "PIT EXTENSION":
-                documents.uploadDocumentOfType("docx");
-                break;
-            default:
-                pendingStep(docType + " is not defined within " + getMethodName());
-        }
-    }
-
     @And("I click manage documents")
     public void iClickManageDocuments() {
         safeClickOn(documents.manageDocumentsLink);
@@ -126,7 +82,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a file of type {string}")
     public void iUploadAFileOfType(String fileType) {
-        documents.uploadDocumentOfType(fileType);
+        documents.uploadFileOfType(fileType);
         clickAddButton();
     }
 
@@ -195,19 +151,16 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickPreviewButtonForFile(fileIdentifier);
     }
 
-    @And("I add a {string} document to the case/claim")
-    public void iAddADocumentToTheCase(String fileIdentifier) {
-        iClickAddDocuments();
-        documents.selectADocumentType();
-        iUploadAFileOfType(fileIdentifier);
-        iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
+    @And("I add a {string} type file to the case as a document")
+    public void iAddADocumentToTheCaseClaimByUploadingAFile(String fileType) {
+        documents.addADocumentOfFileType(fileType);
+        iCanSeeTheFileInTheUploadedDocumentList(fileType);
     }
 
-    @And("I add a {string} type document to the case")
+    @And("I add a/an {string} type document to the case")
     public void iAddATypeDocumentToTheCase(String docType) {
-        iClickAddDocuments();
-        documents.selectDocumentTypeByText(docType);
-        iUploadAFileOfType("docx");
+        documents.addADocumentOfDocumentType(docType);
+        iCanSeeTheFileInTheUploadedDocumentList(sessionVariableCalled("fileType"));
     }
 
     @And("I remove the {string} document")
@@ -253,18 +206,46 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
-        documents.confirmOrApprovePrimaryDraft();
+        documents.recordPrimaryDraftDocument();
+        if (continueButton.isCurrentlyVisible()) {
+            clickTheButton("Continue");
+        } else {
+            clickTheButton("Approve primary draft");
+        }
     }
 
-    @And("the selected document should be tagged as the primary draft")
+    @And("the selected/replacement document should be tagged as the primary draft")
     public void theSelectedDocumentShouldBeTaggedAsThePrimaryDraft() {
-        documents.selectDocumentsTab();
-        documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+        documents.refreshDocumentTab();
+        try {
+            documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+        } catch (NullPointerException e) {
+            documents.refreshDocumentTab();
+            documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+        }
     }
 
     @And("the document added at case creation should be listed under the {string} document type heading")
     public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
         documents.selectDocumentsTab();
         documents.assertDocumentIsUnderHeader(docType);
+    }
+
+    @And("I select a file to be uploaded as a PIT Extension document")
+    public void iSelectAFileToBeUploadedAsAPITExtensionDocument() {
+        documents.uploadFileOfType("docx");
+    }
+
+    @And("I select a document to be added to the case as an Appeal Response document")
+    public void iSelectADocumentToBeAddedToTheCaseAsAnAppealResponseDocument() {
+        clickTheLink("Add a document");
+        documents.uploadFileOfType("docx");
+        safeClickOn(addButton);
+    }
+
+    @And("I upload another {string} document as a replacement")
+    public void iUploadAnotherDocumentAsAReplacement(String docType) {
+        documents.addADocumentOfDocumentTypeAndFileType(docType, "txt");
+        setSessionVariable("replacement draft").to("txt");
     }
 }

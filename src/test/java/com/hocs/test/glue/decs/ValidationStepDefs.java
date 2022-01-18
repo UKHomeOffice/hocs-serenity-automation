@@ -227,7 +227,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -237,7 +237,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -455,7 +455,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -465,7 +465,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -617,7 +617,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 safeClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -627,7 +627,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 safeClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -1288,11 +1288,11 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "ACTION REQUIRED":
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 break;
                             case "ESCALATION REASON":
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(ComplaintsDraft.escalateCaseToWFMRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
