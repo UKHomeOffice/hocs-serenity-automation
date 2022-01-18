@@ -141,8 +141,7 @@ public class ContributionRequests extends BasePage {
         switch (action.toUpperCase()) {
             case "COMPLETE":
                 safeClickOn(completeRadioButton);
-                typeIntoDateFields(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
-                        getDatePlusMinusNDaysAgo(-1));
+                enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), "Contribution received date");
                 contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
                 break;
             case "CANCEL":

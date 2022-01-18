@@ -18,11 +18,13 @@ import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 public class BasePage extends PageObject {
 
@@ -52,7 +54,7 @@ public class BasePage extends PageObject {
     public WebElementFacade continueButton;
 
     @FindBy(className = "govuk-error-summary")
-    protected WebElementFacade errorMessage;
+    protected WebElementFacade errorMessageList;
 
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade csDashboardLink;
@@ -140,7 +142,7 @@ public class BasePage extends PageObject {
     }
 
     public void assertErrorMessageText(String text) {
-        assertThat(getErrorMessageText(), containsString(text));
+        assertThat(getAllErrorMessageText(), containsString(text));
     }
 
     public void assertPageTitle(String title) {
@@ -242,12 +244,12 @@ public class BasePage extends PageObject {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public void errorMessageIsDisplayed() {
-        assertThat(isElementDisplayed(errorMessage), is(true));
+    public void assertThatAnErrorMessageIsDisplayed() {
+        assertThat(isElementDisplayed(errorMessageList), is(true));
     }
 
-    private String getErrorMessageText() {
-        return errorMessage.getText();
+    private String getAllErrorMessageText() {
+        return errorMessageList.getText();
     }
 
     protected String generateRandomString() {
@@ -401,15 +403,19 @@ public class BasePage extends PageObject {
         accessibilityLink.shouldBeVisible();
     }
 
+    public void assertExpectedErrorMessageIsDisplayed(String errorMessageText) {
+        if (!getAllErrorMessageText().contains(errorMessageText)) {
+            Assert.fail("Expected error message '" + errorMessageText + "' is not contained in the displayed list of error messages:\n" + getAllErrorMessageText());
+        }
+    }
+
     //Helper methods
 
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> radioButtonElements = findAll(
-                "//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
-                        + "//input/following-sibling::label");
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -431,8 +437,34 @@ public class BasePage extends PageObject {
         safeClickOn(radioButtonElement);
     }
 
+    public String selectDifferentRadioButtonFromGroupWithHeading(String headingText) {
+        List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
+        WebElementFacade currentlySelectedRadioButton =
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                        + "::fieldset//input[@checked]/following-sibling::label");
+        radioButtonLabels.remove(currentlySelectedRadioButton.getText());
+        Random random = new Random();
+        String radioButtonLabelToSelect = radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
+        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
+        return radioButtonLabelToSelect;
+    }
+
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
         return findBy("//input/following-sibling::label[contains(text()," + sanitiseXpathAttributeString(elementText) + ")]");
+    }
+
+    private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
+        return findAll("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
+                        + "//input/following-sibling::label");
+    }
+
+    public List<String> getRadioButtonLabelsInGroupWithHeading(String headingText) {
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+        List<String> radioButtonLabels = new ArrayList<>();
+        for (WebElementFacade radioButtonElement : radioButtonElements) {
+            radioButtonLabels.add(radioButtonElement.getText());
+        }
+        return radioButtonLabels;
     }
 
     //Date fields
@@ -531,6 +563,16 @@ public class BasePage extends PageObject {
         safeClickOn(optionElement);
     }
 
+    public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        List<WebElement> options = dropdown.getOptions();
+        options.remove(dropdown.getFirstSelectedOption());
+        Random random = new Random();
+        String optionToSelect = options.get(random.nextInt(options.size())).getText();
+        dropdown.selectByValue(optionToSelect);
+        return optionToSelect;
+    }
+
     public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
         return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
     }
@@ -585,6 +627,7 @@ public class BasePage extends PageObject {
         Random rand = new Random();
         WebElementFacade randomElement = list.get(rand.nextInt(list.size()));
         while (!randomElement.isCurrentlyVisible()) {
+            list.remove(randomElement);
             randomElement = list.get(rand.nextInt(list.size()));
         }
         return randomElement;

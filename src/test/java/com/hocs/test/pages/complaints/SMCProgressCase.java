@@ -121,7 +121,7 @@ public class SMCProgressCase extends BasePage {
     }
 
     public void moveSMCCaseFromDraftToSend() {
-        documents.addADraftDocumentAtDraftStage();
+        documents.addADocumentOfDocumentType("DRAFT");
         clickTheButton("Response Ready");
         System.out.println("Case moved from Draft to Send");
     }

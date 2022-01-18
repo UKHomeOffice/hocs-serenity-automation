@@ -212,9 +212,10 @@ public class DCUProgressCase extends BasePage {
             initialDraft.selectSpecificResponseChannel("Letter");
             safeClickOn(continueButton);
         }
-        documents.addADraftDocumentAtDraftStage();
+        documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
-        documents.confirmOrApprovePrimaryDraft();
+        documents.recordPrimaryDraftDocument();
+        clickTheButton("Continue");
         initialDraft.selectQAOfflineDecision("No");
         clickTheButton("Continue");
     }
@@ -226,9 +227,10 @@ public class DCUProgressCase extends BasePage {
             initialDraft.selectSpecificResponseChannel("Letter");
             safeClickOn(continueButton);
         }
-        documents.addADraftDocumentAtDraftStage();
+        documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
-        documents.confirmOrApprovePrimaryDraft();
+        documents.recordPrimaryDraftDocument();
+        clickTheButton("Continue");
         initialDraft.selectQAOfflineDecision("Yes");
         safeClickOn(continueButton);
         initialDraft.selectAOfflineQAIndividual();

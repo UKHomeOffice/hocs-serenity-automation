@@ -15,7 +15,7 @@ Feature: Actions
     And I select how many days to extend the deadline by
     And I select a reason for the extension
     And I enter a note about the extension
-    And I upload a "PIT Extension" document
+    And I select a file to be uploaded as a PIT Extension document
     And I confirm the extension
     Then I should see a confirmation message stating that the case has been extended
     And the deadline of the FOI case should be extended the correct number of days
@@ -44,7 +44,7 @@ Feature: Actions
     And the registered appeal should have the status "Pending" in the actions tab
     And an Appeal Created log should be visible in the timeline for the selected appeal type
     When I select to update the appeal
-    And I upload an "Appeal Response" document
+    And I select a document to be added to the case as an Appeal Response document
     And I submit appeal completion details
     Then I should see a confirmation message stating that the appeal has been updated
     And the registered appeal should have the status "Complete" in the actions tab

@@ -78,6 +78,6 @@ public class FOIDispatchStepDefs extends BasePage {
 
     @And("I upload a copy of the Final Response")
     public void iUploadACopyOfTheFinalResponse() {
-        documents.addADocumentOfType("Final responses");
+        documents.addADocumentOfDocumentType("Final responses");
     }
 }
