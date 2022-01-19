@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
@@ -109,7 +108,7 @@ public class FOIProgressCase extends BasePage {
         caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
-        documents.addADocumentOfType("Initial response");
+        documents.addADocumentOfDocumentType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
         waitABit(250);
@@ -134,7 +133,7 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromConsiderAndDraftToApproval() {
         considerAndDraft.isContributionRequestNeeded("No");
         clickTheButton("Continue");
-        documents.addADocumentOfType("Draft response");
+        documents.addADocumentOfDocumentType("Draft response");
         clickTheButton("Complete Draft");
     }
 
@@ -152,7 +151,7 @@ public class FOIProgressCase extends BasePage {
         foiDispatch.selectDoYouWantToDispatch("Yes");
         foiDispatch.enterFinalResponseDate();
         clickTheButton("Continue");
-        documents.addADocumentOfType("Final responses");
+        documents.addADocumentOfDocumentType("Final responses");
         clickTheButton("Complete Dispatch");
         waitABit(500);
     }

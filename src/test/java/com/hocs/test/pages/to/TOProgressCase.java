@@ -8,6 +8,7 @@ import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class TOProgressCase extends BasePage {
@@ -16,9 +17,15 @@ public class TOProgressCase extends BasePage {
 
     Dashboard dashboard;
 
+    Correspondents correspondents;
+
+    Documents documents;
+
     DataInput dataInput;
 
-    Correspondents correspondents;
+    Triage triage;
+
+    Draft draft;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -42,8 +49,11 @@ public class TOProgressCase extends BasePage {
             case "TRIAGE":
                 precedingStage = "DATA INPUT";
                 break;
-            case "QA":
+            case "DRAFT":
                 precedingStage = "TRIAGE";
+                break;
+            case "QA":
+                precedingStage = "DRAFT";
                 break;
             case "DISPATCH":
                 precedingStage = "QA";
@@ -60,11 +70,14 @@ public class TOProgressCase extends BasePage {
     public void completeTheTOStage(String stageToComplete) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
-            case "CASE CREATION":
+            case "DATA INPUT":
                 moveCaseFromDataInputToTriage();
                 break;
             case "TRIAGE":
-                moveCaseFromTriageToQA();
+                moveCaseFromTriageToDraft();
+                break;
+            case "DRAFT":
+                moveCaseFromDraftToQA();
                 break;
             case "QA":
                 moveCaseFromQAToDispatch();
@@ -90,12 +103,30 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Continue");
     }
 
-    private void moveCaseFromTriageToQA() {
+    private void moveCaseFromTriageToDraft() {
+        triage.selectSetEnquirySubjectAndReasonLink();
+        triage.selectAnEnquirySubject();
+        clickTheButton("Continue");
+        triage.selectAnEnquiryReason();
+        clickTheButton("Continue");
+        triage.selectABusinessUnitType();
+        triage.selectABusinessUnit();
+        triage.selectTheAction("Ready to draft");
+        clickTheButton("Finish");
+    }
+
+    private void moveCaseFromDraftToQA() {
+        documents.addADocumentOfDocumentType("Initial Draft");
+        draft.selectTheAction("Move to QA");
+        clickTheButton("Finish");
     }
 
     private void moveCaseFromQAToDispatch() {
+        draft.selectTheAction("Approve");
+        clickTheButton("Finish");
     }
 
     private void moveCaseFromDispatchToCaseClosed() {
+        clickTheButton("Finish");
     }
 }

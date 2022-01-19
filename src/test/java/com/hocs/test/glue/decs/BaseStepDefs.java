@@ -38,7 +38,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("an error message is displayed")
     public void anErrorMessageIsDisplayed() {
-        errorMessageIsDisplayed();
+        assertThatAnErrorMessageIsDisplayed();
     }
 
     @When("I click the {string} link")
@@ -83,7 +83,7 @@ public class BaseStepDefs extends BasePage {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAllocated();
         summaryTab.assertThereIsNoActiveStage();
-        timelineTab.assertCaseClosedNoteVisible();
+        timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
     }
 

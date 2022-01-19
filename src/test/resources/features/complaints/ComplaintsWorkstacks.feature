@@ -40,10 +40,10 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "yellow"
     Examples:
-      | caseType | amountOfDays | workstack                      |
-      | COMP     | 15           | Complaint Registration         |
-      | IEDET    | 15           | IE Detention                   |
-      | SMC      | 55           | Serious Misconduct             |
+      | caseType | amountOfDays | workstack              |
+      | COMP     | 15           | Complaint Registration |
+      | IEDET    | 15           | IE Detention           |
+      | SMC      | 55           | Serious Misconduct     |
 
 #     HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression
@@ -53,10 +53,10 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "red"
     Examples:
-      | caseType | amountOfDays | workstack                      |
-      | COMP     | 21           | Complaint Registration         |
-      | IEDET    | 21           | IE Detention                   |
-      | SMC      | 61           | Serious Misconduct             |
+      | caseType | amountOfDays | workstack              |
+      | COMP     | 21           | Complaint Registration |
+      | IEDET    | 21           | IE Detention           |
+      | SMC      | 61           | Serious Misconduct     |
 
   @ComplaintsRegression
   Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request

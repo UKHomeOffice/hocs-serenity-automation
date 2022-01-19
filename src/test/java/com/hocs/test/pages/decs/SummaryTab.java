@@ -114,11 +114,19 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
     public WebElementFacade previousCOMPCaseReference;
 
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
+
 
     public void selectSummaryTab() {
         if (!summaryTabIsActiveTab()) {
             safeClickOn(summaryTab);
         }
+    }
+
+    public void refreshTimelineTab() {
+        safeClickOn(nonActiveTab);
+        selectSummaryTab();
     }
 
     public boolean summaryTabIsActiveTab() {
