@@ -2,16 +2,12 @@ package com.hocs.test.glue.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-
-import com.hocs.test.pages.bf.BFTriage;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
 
 public class ComplaintsTriageStepDefs extends BasePage {
 
-    BFTriage bfTriage;
 
     ComplaintsTriage complaintsTriage;
 
@@ -49,7 +45,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I submit details on the Triage Capture Reason page")
     public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
         if (bfCase()) {
-            bfTriage.enterDetailsOnTriageCaptureReasonPage();
+            complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         } else {
             complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         }
@@ -150,13 +146,13 @@ public class ComplaintsTriageStepDefs extends BasePage {
     public void iSelectTheActionAtCaseTriage(String action) {
         switch (action.toUpperCase()) {
             case "READY FOR DRAFTING":
-                bfTriage.selectReadyForDrafting();
+                complaintsTriage.selectReadyForDrafting();
                 break;
             case "ESCALATE TO WFM":
-                bfTriage.escalateCaseToWFM();
+                complaintsTriage.escalateCaseToWFM();
                 break;
             case "COMPLETE THE CASE":
-                bfTriage.selectCompleteTheCase();
+                complaintsTriage.selectCompleteTheCase();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -165,7 +161,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
 
     @And("I enter a reason for closing the case")
     public void iEnterAReasonForClosingTheCase() {
-        bfTriage.enterCompletionReason();
+        complaintsTriage.enterCompletionReason();
         clickTheButton("Complete case");
     }
 }

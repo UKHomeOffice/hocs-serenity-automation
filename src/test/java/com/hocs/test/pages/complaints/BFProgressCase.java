@@ -1,11 +1,7 @@
-package com.hocs.test.pages.bf;
+package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-
-import com.hocs.test.pages.complaints.ComplaintsSend;
-import com.hocs.test.pages.complaints.ComplaintsTriage;
-import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
@@ -28,8 +24,6 @@ public class BFProgressCase extends BasePage {
     //TODO replace with complaintsTriage with BFTriage
     ComplaintsTriage complaintsTriage;
     ComplaintsSend complaintsSend;
-
-    BFTriage bfTriage;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -114,7 +108,7 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveBFCaseFromTriageToSend() {
-        bfTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
         System.out.println("Case moved from Service Triage to Send");

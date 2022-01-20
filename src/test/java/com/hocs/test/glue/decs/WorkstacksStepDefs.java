@@ -489,6 +489,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.goToDashboard();
                     dashboard.selectBFTeam();
                 }
+                break;
             case "FOI TEAM":
                 try {
                     dashboard.selectFOICreationTeam();

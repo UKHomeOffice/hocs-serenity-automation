@@ -5,7 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.bf.BFProgressCase;
+import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
