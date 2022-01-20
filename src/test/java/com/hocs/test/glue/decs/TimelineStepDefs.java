@@ -134,7 +134,7 @@ public class TimelineStepDefs extends BasePage {
     @And("a Conversion note should be visible in the timeline showing the submitted notes on the conversion of the case")
     public void aConversionNoteShouldBeVisibleInTheTimelineShowingTheSubmittedNotesOnTheConversionOfTheCase() {
         String conversionNotes = sessionVariableCalled("conversionNotes");
-        timelineTab.assertCaseNoteWithTitleContainsText("Conversion note", conversionNotes);
+        timelineTab.assertCaseNoteWithTitleContainsText("Conversion note: Case Converted to Official", conversionNotes);
     }
 
     @And("a Case withdrawn note should be visible showing the submitted notes on the withdrawal of the case")
