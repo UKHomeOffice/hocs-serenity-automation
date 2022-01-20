@@ -118,7 +118,7 @@ Feature: Manage Documents
       | Miscellaneous    |
       | Appeal Response  |
 
-  @FOIRegression
+  @TORegression
   Scenario Outline: As a UKVI/HMPO/BF Treat Official user, I want to be able to select the type of an uploaded document, so the document can be easily
   identified later
     And I manage the documents of a new "TO" case
