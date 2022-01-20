@@ -48,7 +48,7 @@ Feature: WCS Manage Documents
 
   @WCSRegression
   Scenario: User can remove a document
-    And I add a "docx" type file to the claim as a document
+    And I add a "docx" type file to the case as a document
     When I remove the "docx" document
     Then I cannot see the "docx" file in the uploaded document list
 
