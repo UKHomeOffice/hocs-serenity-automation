@@ -22,15 +22,20 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  Scenario Outline: User moves a BF case to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "<complaintType> Triage" stage
+    Then the case should be moved to the "Case Triage" stage
+#    Then the case should be moved to the "<complaintType> Triage" stage : Check with Enric regarding stage name
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor Misconduct |
+
   Scenario: User moves an IEDET case to the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     Then the case should be moved to the "Triage" stage
-
-  Scenario: User moves an BF case to the Triage stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Triage" stage
-    Then the case should be moved to the "CASE TRIAGE" stage
 
   Scenario: User moves an SMC case to the Triage stage
     Given I am logged into "CS" as user "SMC_USER"
@@ -68,15 +73,21 @@ Feature: Complaints End To End
       | Ex-Gratia        | Response Draft |
       | Minor Misconduct | Response Draft |
 
+  Scenario Outline: User moves a BF case to the Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "<complaintType> Draft" stage
+    Then the case should be moved to "<targetStage>" stage
+#    Then the case should be moved to "<complaintType> <targetStage>" stage: : Check with Enric regarding stage name
+    Examples:
+      | complaintType    | targetStage    |
+      | Service          | Draft          |
+      | Minor Misconduct | Draft          |
+
+
   Scenario: User moves an IEDET case to the Draft stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
     Then the case should be moved to the "Draft" stage
-
-  Scenario: User moves an BF case to the Draft stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "SEND" stage
-    Then the case should be moved to the "SEND DRAFT RESPONSE" stage
 
   Scenario Outline: User moves a COMP case to the QA stage
     Given I am logged into "CS" as user "COMP_USER"
@@ -86,6 +97,16 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
+      | Minor Misconduct |
+
+  Scenario Outline: User moves a BF case to the QA stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "<complaintType> QA" stage
+    Then the case should be moved to the "QA" stage
+#    Then the case should be moved to the "<complaintType> QA" stage: : Check with Enric regarding stage name
+    Examples:
+      | complaintType    |
+      | Service          |
       | Minor Misconduct |
 
   Scenario Outline: User moves a COMP case to the Send stage
@@ -98,15 +119,20 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  Scenario Outline: User moves a BF case to the Send stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "<complaintType> Send" stage
+    Then the case should be moved to the "Send draft response" stage
+    # Then the case should be moved to the "<complaintType> Send" stage: : Check with Enric regarding stage name
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor Misconduct |
+
   Scenario: User moves an IEDET case to the Send stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
-
-#  Scenario: User moves an BF case to the Send stage
-#    Given I am logged into "CS" as user "BF_USER"
-#    When I create a "BF" case and move it to the "Send" stage
-#    Then the case should be moved to the "Send" stage
 
   Scenario: User moves an SMC case to the Send stage
     Given I am logged into "CS" as user "SMC_USER"
@@ -124,16 +150,20 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  @ComplaintsRegression @Smoketests
+  Scenario Outline: User is able to close a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
+    Then the case should be closed
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor Misconduct |
+
   @ComplaintsRegression
   Scenario: User is able to close an IEDET case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
-    Then the case should be closed
-
-  @ComplaintsRegression
-  Scenario: User is able to close a BF case
-    Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to "Case Closed"
     Then the case should be closed
 
   @ComplaintsRegression

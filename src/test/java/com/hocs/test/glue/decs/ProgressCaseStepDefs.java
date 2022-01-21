@@ -103,7 +103,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "BF":
-                bfProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                bfProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType,currentStage, targetStage);
                 break;
             case "FOI":
                 foiProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
@@ -157,7 +157,11 @@ public class ProgressCaseStepDefs extends BasePage {
     }
 
     @When("I create a {string} case for a {string} complaint and move it to {string}( stage)")
-    public void iCreateACOMPCaseForAComplaintAndMoveItToStage(String caseType, String complaintType, String stage) {
-        compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
+    public void iCreateACaseForAComplaintAndMoveItToStage(String caseType, String complaintType, String stage) {
+        if(caseType.equalsIgnoreCase("BF")) {
+            bfProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
+        } else{
+            compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
+        }
     }
 }

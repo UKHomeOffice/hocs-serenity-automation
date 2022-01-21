@@ -21,21 +21,55 @@ public class BFProgressCase extends BasePage {
 
     Registration registration;
 
-    //TODO replace with complaintsTriage with BFTriage
     ComplaintsTriage complaintsTriage;
+
     ComplaintsSend complaintsSend;
 
-    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+    ComplaintsDraft complaintsDraft;
+
+    String complaintType = "Service";
+
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+        setComplaintTypeFromStageName(targetStage);
+        targetStage = getSimplifiedStageName(targetStage);
+        currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("BF");
+            //TODO: Uncomment below code once the stage 2 is implemented
+//            if (caseType.equals("COMP2")) {
+//                escalateACOMPCaseToCOMP2();
+//            }
+            createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
-                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
+                moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, precedingStage);
             }
-            completeTheBFStage(precedingStage);
+            completeTheBFStageSoThatCaseMovesToTargetStage(precedingStage, targetStage);
         }
+    }
+
+
+    private String getSimplifiedStageName(String targetStage) {
+        String[] words = targetStage.split(" ");
+        String simplifiedStage = words[words.length - 1];
+        if (simplifiedStage.equalsIgnoreCase("Escalate")) {
+            simplifiedStage = "Escalated";
+        }
+        return simplifiedStage;
+    }
+
+    private void setComplaintTypeFromStageName(String targetStage) {
+        if (containsIgnoreCase(targetStage, "Service")) {
+            complaintType = "Service";
+        } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
+            complaintType = "Minor Misconduct";
+        }
+    }
+
+    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
+        this.complaintType = complaintType;
+        moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -47,20 +81,61 @@ public class BFProgressCase extends BasePage {
             case "TRIAGE":
                 precedingStage = "REGISTRATION";
                 break;
-            //TODO remove the commented code once the DRAFT/QA stage is implemented
-/*          case "DRAFT":
-                precedingStage = "TRIAGE";
-                break;*/
-            case "SEND":
+            case "DRAFT":
                 precedingStage = "TRIAGE";
                 break;
-            case "CASE CLOSED":
+            case "QA":
+                precedingStage = "DRAFT";
+                break;
+            case "SEND":
+                precedingStage = "QA";
+                break;
+            case "CLOSED":
                 precedingStage = "SEND";
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
         }
         return precedingStage;
+    }
+
+    public void completeTheBFStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stageToComplete.toUpperCase()) {
+            case "REGISTRATION":
+                moveBFCaseFromRegistrationToTriage();
+                break;
+            case "TRIAGE":
+                switch (targetStage.toUpperCase()) {
+                    case "DRAFT":
+                        moveBFCaseFromTriageToDraft();
+                        break;
+                        //TODO check and implement the below stages
+/*                    case "ESCALATED":
+                        moveCaseFromTriageToEscalated();
+                        break;
+                    case "CCH":
+                        moveCaseFromTriageToCCH();
+                        break;*/
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "DRAFT":
+                moveBFCaseFromDraftToQA();
+                break;
+            case "QA":
+                moveCaseFromQAToSend();
+                break;
+            case "SEND":
+                moveBFCaseFromSendToCaseClosed();
+                break;
+            default:
+                pendingStep(stageToComplete + " is not defined within " + getMethodName());
+        }
+        dashboard.waitForDashboard();
+        System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
+        RecordCaseData.resetDataRecords();
     }
 
     public void completeTheBFStage(String stageToComplete) {
@@ -70,12 +145,11 @@ public class BFProgressCase extends BasePage {
                 moveBFCaseFromRegistrationToTriage();
                 break;
             case "TRIAGE":
-                moveBFCaseFromTriageToSend();
+                moveBFCaseFromTriageToDraft();
                 break;
-                //TODO remove the commented code once the DRAFT/QA stage is implemented
-/*            case "DRAFT":
-                moveBFCaseFromDraftToSend();
-                break;*/
+            case "DRAFT":
+                moveBFCaseFromDraftToQA();
+                break;
             case "SEND":
                 moveBFCaseFromSendToCaseClosed();
                 break;
@@ -107,16 +181,21 @@ public class BFProgressCase extends BasePage {
 
     }
 
-    public void moveBFCaseFromTriageToSend() {
+    public void moveBFCaseFromTriageToDraft() {
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
-        System.out.println("Case moved from Service Triage to Send");
+        System.out.println("Case moved from Service Triage to Draft");
     }
 
-    //TODO Uncomment below method once DRAFT/QA stage is implemented
-/*    public void moveBFCaseFromTriageToSend() {
-        documents.addADraftDocumentAtDraftStage();
+    public void moveBFCaseFromDraftToQA() {
+        documents.addADocumentOfDocumentType("DRAFT");
+        complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
+    }
+
+    //TODO: Remove below method at the time of refactoring
+/*    public void moveBFCaseFromDraftToSend() {
+        documents.addADocumentOfDocumentType("DRAFT");
         clickTheButton("Response Ready");
         System.out.println("Case moved from Draft to Send");
     }*/
@@ -128,5 +207,11 @@ public class BFProgressCase extends BasePage {
 //        complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
+    }
+
+    public void moveCaseFromQAToSend() {
+        //TODO: Add the Accept and Reject options once the QA stage is developed
+//        compQA.selectActionAtServiceQA("ACCEPT");
+        clickTheButton("Continue");
     }
 }

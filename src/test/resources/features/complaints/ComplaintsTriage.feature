@@ -99,7 +99,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I submit details on the Triage Capture Reason page
     And I select the "Ready for Drafting" action at Case Triage
-    Then the case should be moved to the "Send draft response" stage
+    Then the case should be moved to the "DRAFT" stage
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
 
@@ -232,6 +232,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I submit details on the Triage Capture Reason page
     And I select the "Complete the Case" action at Case Triage
+    And I click the "Continue" button
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
