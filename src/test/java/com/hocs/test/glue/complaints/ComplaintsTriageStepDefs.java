@@ -57,7 +57,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.selectReadyForDrafting();
     }
 
-    @And("I escalate the case to WFM at Service Triage stage")
+    @And("I escalate the case to WFM at Triage stage")
     public void iEscalateTheCaseToWFM() {
         complaintsTriage.escalateCaseToWFM();
     }
@@ -140,23 +140,6 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I select a Close Reason")
     public void iSelectACloseReason() {
         complaintsTriage.selectACloseReason();
-    }
-
-    @And("I select the {string} action at Case Triage")
-    public void iSelectTheActionAtCaseTriage(String action) {
-        switch (action.toUpperCase()) {
-            case "READY FOR DRAFTING":
-                complaintsTriage.selectReadyForDrafting();
-                break;
-            case "ESCALATE TO WFM":
-                complaintsTriage.escalateCaseToWFM();
-                break;
-            case "COMPLETE THE CASE":
-                complaintsTriage.selectCompleteTheCase();
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
     }
 
     @And("I enter a reason for closing the case")

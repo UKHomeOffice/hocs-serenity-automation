@@ -632,7 +632,6 @@ public class Search extends BasePage {
         WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
         String randomSearchResult = randomSearchResultHypertext.getText();
         setSessionVariable("randomCaseRef").to(randomSearchResult);
-        waitFor(randomSearchResultHypertext);
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 expectedValue = sessionVariableCalled("searchCaseType");

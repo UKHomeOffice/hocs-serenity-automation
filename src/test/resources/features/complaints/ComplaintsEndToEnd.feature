@@ -14,7 +14,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a COMP case to the Triage stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "<complaintType> Triage" stage
+    When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Triage"
     Then the case should be moved to the "<complaintType> Triage" stage
     Examples:
       | complaintType    |
@@ -24,7 +24,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a BF case to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "<complaintType> Triage" stage
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Triage"
     Then the case should be moved to the "Case Triage" stage
 #    Then the case should be moved to the "<complaintType> Triage" stage : Check with Enric regarding stage name
     Examples:
@@ -65,7 +65,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a COMP case to the Draft stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "<complaintType> Draft" stage
+    When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Draft"
     Then the case should be moved to "<complaintType> <targetStage>" stage
     Examples:
       | complaintType    | targetStage    |
@@ -75,7 +75,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a BF case to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "<complaintType> Draft" stage
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Draft"
     Then the case should be moved to "<targetStage>" stage
 #    Then the case should be moved to "<complaintType> <targetStage>" stage: : Check with Enric regarding stage name
     Examples:
@@ -91,7 +91,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a COMP case to the QA stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "<complaintType> QA" stage
+    When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> QA"
     Then the case should be moved to the "<complaintType> QA" stage
     Examples:
       | complaintType    |
@@ -101,7 +101,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a BF case to the QA stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "<complaintType> QA" stage
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "QA"
     Then the case should be moved to the "QA" stage
 #    Then the case should be moved to the "<complaintType> QA" stage: : Check with Enric regarding stage name
     Examples:
@@ -111,7 +111,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a COMP case to the Send stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "<complaintType> Send" stage
+    When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Send"
     Then the case should be moved to the "<complaintType> Send" stage
     Examples:
       | complaintType    |
@@ -121,7 +121,7 @@ Feature: Complaints End To End
 
   Scenario Outline: User moves a BF case to the Send stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "<complaintType> Send" stage
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Send"
     Then the case should be moved to the "Send draft response" stage
     # Then the case should be moved to the "<complaintType> Send" stage: : Check with Enric regarding stage name
     Examples:
@@ -153,7 +153,7 @@ Feature: Complaints End To End
   @ComplaintsRegression @Smoketests
   Scenario Outline: User is able to close a BF case
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Closed"
     Then the case should be closed
     Examples:
       | complaintType    |

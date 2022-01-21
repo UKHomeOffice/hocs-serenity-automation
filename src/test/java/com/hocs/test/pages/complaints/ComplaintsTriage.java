@@ -161,6 +161,7 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 3");
         selectIfLOARequired("Yes");
     }
+    
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
         if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {

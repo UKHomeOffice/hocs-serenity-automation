@@ -30,9 +30,6 @@ public class BFProgressCase extends BasePage {
     String complaintType = "Service";
 
     public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
-        setComplaintTypeFromStageName(targetStage);
-        targetStage = getSimplifiedStageName(targetStage);
-        currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
             //TODO: Uncomment below code once the stage 2 is implemented
@@ -46,24 +43,6 @@ public class BFProgressCase extends BasePage {
                 moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, precedingStage);
             }
             completeTheBFStageSoThatCaseMovesToTargetStage(precedingStage, targetStage);
-        }
-    }
-
-
-    private String getSimplifiedStageName(String targetStage) {
-        String[] words = targetStage.split(" ");
-        String simplifiedStage = words[words.length - 1];
-        if (simplifiedStage.equalsIgnoreCase("Escalate")) {
-            simplifiedStage = "Escalated";
-        }
-        return simplifiedStage;
-    }
-
-    private void setComplaintTypeFromStageName(String targetStage) {
-        if (containsIgnoreCase(targetStage, "Service")) {
-            complaintType = "Service";
-        } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
-            complaintType = "Minor Misconduct";
         }
     }
 
@@ -113,10 +92,7 @@ public class BFProgressCase extends BasePage {
                         //TODO check and implement the below stages
 /*                    case "ESCALATED":
                         moveCaseFromTriageToEscalated();
-                        break;
-                    case "CCH":
-                        moveCaseFromTriageToCCH();
-                        break;*/
+                        break; */
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -168,7 +144,7 @@ public class BFProgressCase extends BasePage {
         registration.selectComplaintType("Service");
         registration.selectAChannel();
         registration.enterADescriptionOfTheComplaint();
-        //TODO remove the below commented line
+        //TODO remove the below commented line after testing manually
 //        registration.enterAPreviousUKVIComplaintReference();
         registration.enterAThirdPartyReference();
         clickTheButton("Continue");

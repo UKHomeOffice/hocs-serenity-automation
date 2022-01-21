@@ -95,10 +95,9 @@ Feature: Complaints Triage
   @ComplaintsRegression @ComplaintsWorkflow
   Scenario: User completes the Case Triage stage for a BF case
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Triage" stage
-    And I load and claim the current case
+    When I get a "BF" case at the "Triage" stage
     And I submit details on the Triage Capture Reason page
-    And I select the "Ready for Drafting" action at Case Triage
+    And I send the case to drafting
     Then the case should be moved to the "DRAFT" stage
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
@@ -113,7 +112,7 @@ Feature: Complaints Triage
     And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
-    When I escalate the case to WFM at Service Triage stage
+    And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
@@ -129,7 +128,7 @@ Feature: Complaints Triage
     And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
-    And I escalate the case to WFM at Service Triage stage
+    And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
@@ -145,7 +144,7 @@ Feature: Complaints Triage
     And I click the "Continue" button
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
-    And I escalate the case to WFM at Service Triage stage
+    And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
@@ -153,10 +152,9 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a BF case to workflow manager at the Case Triage stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Triage" stage
-    And I load and claim the current case
+    When I get a "BF" case at the "Triage" stage
     And I submit details on the Triage Capture Reason page
-    And I select the "Escalate to WFM" action at Case Triage
+    And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalate" stage
     And the summary should display the owning team as "Border Force"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
@@ -228,10 +226,9 @@ Feature: Complaints Triage
   @ComplaintsRegression
   Scenario: User can hard close a BF case at the Triage stage
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Triage" stage
-    And I load and claim the current case
+    When I get a "BF" case at the "Triage" stage
     And I submit details on the Triage Capture Reason page
-    And I select the "Complete the Case" action at Case Triage
+    And I select to complete the case at Triage
     And I click the "Continue" button
     And I enter a reason for closing the case
     Then the case should be closed
