@@ -256,7 +256,7 @@ Feature: Complaints Triage
 
 #    HOCS-2870, HOCS-3096, HOCS-3022
   @ComplaintsRegression
-  Scenario Outline: User can add and complete or cancel contributions as part of Service Triage stage
+  Scenario Outline: User can add and complete or cancel contributions to COMP cases as part of Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -270,9 +270,24 @@ Feature: Complaints Triage
     Examples:
       | contributionType | action   |
       | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
       | Business         | Cancel   |
-      | Complainant      | Complete |
-      | Business         | Cancel   |
+
+  @ComplaintsRegression
+  Scenario Outline: User can add and complete or cancel contributions to BF cases as part of Case Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+    | contributionType  | action    |
+    | Complainant       | Complete  |
+    | Complainant       | Cancel    |
+    | Business          | Complete  |
+    | Business          | Cancel    |
 
 #    HOCS-3103
   @ComplaintsRegression
