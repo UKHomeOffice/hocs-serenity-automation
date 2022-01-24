@@ -2,12 +2,12 @@ package com.hocs.test.glue.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
 
 public class ComplaintsTriageStepDefs extends BasePage {
+
 
     ComplaintsTriage complaintsTriage;
 
@@ -44,7 +44,11 @@ public class ComplaintsTriageStepDefs extends BasePage {
 
     @And("I submit details on the Triage Capture Reason page")
     public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        if (bfCase()) {
+            complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
+        } else {
+            complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        }
         clickTheButton("Continue");
     }
 
@@ -53,7 +57,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.selectReadyForDrafting();
     }
 
-    @And("I escalate the case to WFM at Service Triage stage")
+    @And("I escalate the case to WFM at Triage stage")
     public void iEscalateTheCaseToWFM() {
         complaintsTriage.escalateCaseToWFM();
     }
@@ -136,5 +140,11 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I select a Close Reason")
     public void iSelectACloseReason() {
         complaintsTriage.selectACloseReason();
+    }
+
+    @And("I enter a reason for closing the case")
+    public void iEnterAReasonForClosingTheCase() {
+        complaintsTriage.enterCompletionReason();
+        clickTheButton("Complete case");
     }
 }

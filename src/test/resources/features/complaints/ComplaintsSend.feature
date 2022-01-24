@@ -44,11 +44,19 @@ Feature: Complaints Send
   @ComplaintsPWorkflow @ComplaintsRegression
   Scenario: User can complete the Send stage for an SMC case
     Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Send" stage
-    And I load and claim the current case
+    When I get a "SMC" case at the "Send" stage
     And I select a Case Outcome
     And I submit the SMC Send stage
     Then the case should be closed
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can complete the Send stage for a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Send" stage
+    And I select a Case Outcome
+    And I submit the Response details
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Send draft response" stage
 
   @Validation
   Scenario Outline: User tests the validation at the Service Send stage

@@ -9,8 +9,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
@@ -155,6 +153,15 @@ public class ComplaintsTriage extends BasePage {
         }
     }
 
+    public void enterDetailsOnBFTriageCaptureReasonPage() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 1");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 2");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 3");
+        selectIfLOARequired("Yes");
+    }
+    
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
         if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {

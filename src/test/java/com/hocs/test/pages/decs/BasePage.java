@@ -214,13 +214,15 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
 
-    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase(); }
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase(); }
 
     public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
 
     public boolean comp2Case() { return sessionVariableCalled("caseType").toString().equals("COMP2"); }
 
     public boolean iedetCase() { return sessionVariableCalled("caseType").toString().equals("IEDET"); }
+
+    public boolean bfCase() { return sessionVariableCalled("caseType").toString().equals("BF"); }
 
     public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
 

@@ -27,7 +27,7 @@ public class ComplaintsSend extends BasePage {
 
     public void enterADateOfResponse() {
         String headerText = null;
-        if (compCase() || comp2Case()) {
+        if (compCase() || comp2Case() || bfCase()) {
             headerText = "Date of Response";
         } else if (iedetCase()) {
             headerText = "Response date";
