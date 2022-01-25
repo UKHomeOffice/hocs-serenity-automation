@@ -3,6 +3,7 @@ package com.hocs.test.glue.to;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.to.Draft;
+import com.hocs.test.pages.to.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -11,6 +12,8 @@ public class DraftStepDefs extends BasePage {
     Documents documents;
 
     Draft draft;
+
+    Triage triage;
 
     @And("I send the Treat Official case to Dispatch")
     public void iSendTheTreatOfficialCaseToDispatch() {
@@ -32,8 +35,10 @@ public class DraftStepDefs extends BasePage {
         clickTheButton("Finish");
     }
 
-    @And("I change the business unit of the case")
+    @And("I change the Business Unit Type and Business Unit of the case")
     public void iChangeTheBusinessUnitOfTheCase() {
-        draft.selectADifferentBusinessUnit();
+        draft.selectADifferentBusinessUnitType();
+        waitABit(500);
+        triage.selectABusinessUnit();
     }
 }

@@ -8,7 +8,6 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.TimelineTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -190,8 +189,9 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"),"Channel Received");
     }
 
-    @Then("the amended value for Business Unit should be saved to the case")
+    @Then("the amended value for Business Unit Type and Business Unit should be saved to the case")
     public void theAmendedValueForBusinessUnitShouldBeSavedToTheCase() {
+        waitABit(2000);
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"),"Business Unit");
     }
 }

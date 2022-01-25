@@ -564,13 +564,14 @@ public class BasePage extends PageObject {
     }
 
     public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
         List<WebElement> options = dropdown.getOptions();
         options.remove(0);
         options.remove(dropdown.getFirstSelectedOption());
         Random random = new Random();
         String optionToSelect = options.get(random.nextInt(options.size())).getText();
-        dropdown.selectByValue(optionToSelect);
+        selectSpecificOptionFromDropdownWithHeading(optionToSelect, headingText);
         return optionToSelect;
     }
 
