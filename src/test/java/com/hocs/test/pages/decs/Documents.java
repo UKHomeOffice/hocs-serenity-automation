@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -21,9 +22,6 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//a[text() = 'Manage Documents']")
     public WebElementFacade manageDocumentsLink;
 
-    @FindBy(xpath = "//a[text() = 'Add document']")
-    public WebElementFacade addDocumentLink;
-
     @FindBy(id = "add_document")
     public WebElementFacade addDocument;
 
@@ -35,9 +33,6 @@ public class Documents extends BasePage {
 
     @FindBy(xpath = "//a[@href = '#add_document-error']")
     public WebElementFacade addDocumentErrorMessage;
-
-    @FindBy(xpath = "//a[text()='document']")
-    public WebElementFacade addDocumentsButton;
 
     @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
@@ -133,11 +128,7 @@ public class Documents extends BasePage {
     }
 
     public void addADocumentOfDocumentType(String docType) {
-        if (addDocumentsButton.isVisible()) {
-            safeClickOn(addDocumentsButton);
-        } else if (addDocumentLink.isVisible()) {
-            safeClickOn(addDocumentLink);
-        }
+        clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType("docx");
         safeClickOn(addButton);
@@ -145,12 +136,20 @@ public class Documents extends BasePage {
         waitABit(500);
     }
 
-    public void addADocumentOfFileType(String fileType) {
-        if (addDocumentsButton.isVisible()) {
-            safeClickOn(addDocumentsButton);
-        } else if (addDocumentLink.isVisible()) {
-            safeClickOn(addDocumentLink);
+    public void clickVisibleAddDocumentsLink() {
+        List<WebElementFacade> addDocumentLinks = findAll("//a[contains(text(),'Add') and contains(.,'document')]");
+        for ( WebElementFacade addDocumentLink : addDocumentLinks
+        ) {
+            if (addDocumentLink.isVisible()) {
+                safeClickOn(addDocumentLink);
+                break;
+            }
         }
+        waitForPageWithTitle("Add Documents");
+    }
+
+    public void addADocumentOfFileType(String fileType) {
+        clickVisibleAddDocumentsLink();
         selectADocumentType();
         uploadFileOfType(fileType);
         safeClickOn(addButton);
@@ -158,11 +157,7 @@ public class Documents extends BasePage {
     }
 
     public void addADocumentOfDocumentTypeAndFileType(String docType, String fileType) {
-        if (addDocumentsButton.isVisible()) {
-            safeClickOn(addDocumentsButton);
-        } else if (addDocumentLink.isVisible()) {
-            safeClickOn(addDocumentLink);
-        }
+        clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType(fileType);
         safeClickOn(addButton);
@@ -183,7 +178,7 @@ public class Documents extends BasePage {
     }
 
     public void clickRemoveLinkForFile(String fileIdentifier) {
-        addDocumentLink.waitUntilVisible();
+        waitForPageWithTitle("Manage Documents");
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
@@ -289,6 +284,14 @@ public class Documents extends BasePage {
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
+    }
+
+    public void recordFinalResponseDocument() {
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span");
+        selectedPrimaryDraftDocument.waitUntilVisible();
+        recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
+        setSessionVariable("finalResponse").to(selectedPrimaryDraftDocument.getText());
     }
 
     public void assertThatPrimaryDraftIs(String fileName) {
