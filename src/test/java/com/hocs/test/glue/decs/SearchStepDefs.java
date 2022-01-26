@@ -207,6 +207,11 @@ public class SearchStepDefs extends BasePage {
         search.enterCOMPSearchCriteria(criteria, value);
     }
 
+    @And("I enter {string} into the {string} BF search criteria")
+    public void iEnterIntoTheBfSearchCriteria(String value, String criteria) {
+        search.enterBFSearchCriteria(criteria, value);
+    }
+
     @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
@@ -234,6 +239,11 @@ public class SearchStepDefs extends BasePage {
     @Then("I check that the COMP search results have the correct {string}")
     public void theCOMPSearchResultsHaveTheCorrect(String criteria) {
         search.assertCOMPInformationRandomSearchResult(criteria);
+    }
+
+    @Then("I check that the BF search results have the correct {string}")
+    public void iCheckThatTheBfSearchResultsHaveTheCorrect(String criteria) {
+        search.assertBFInformationRandomSearchResult(criteria);
     }
 
     @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")

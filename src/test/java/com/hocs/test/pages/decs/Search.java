@@ -343,6 +343,37 @@ public class Search extends BasePage {
         }
     }
 
+    public void enterBFSearchCriteria(String criteria, String value) {
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
+                setSessionVariable("searchComplainantDateOfBirth").to(value);
+                break;
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                complainantHomeOfficeReferenceTextField.sendKeys(value);
+                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
     public void enterFOISearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
@@ -681,6 +712,65 @@ public class Search extends BasePage {
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
         if (!criteria.equalsIgnoreCase("CASE TYPE") && !criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText();
+        }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+    }
+
+    public void assertBFInformationRandomSearchResult(String criteria) {
+        waitForResultsPage();
+        WebElementFacade cell = null;
+        String displayedValue = "";
+        String expectedValue = null;
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        setSessionVariable("randomCaseRef").to(randomSearchResult);
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentFullName");
+                break;
+            case "CORRESPONDENT POSTCODE":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[3]");
+                expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                safeClickOn(randomSearchResultHypertext);
+                caseView.waitForCaseToLoad();
+                peopleTab.selectPeopleTab();
+                cell = findBy("//th[text()='Email address']/following-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                safeClickOn(randomSearchResultHypertext);
+                caseView.waitForCaseToLoad();
+                if (!caseView.caseCanBeAllocated()) {
+                    summaryTab.selectSummaryTab();
+                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+                    String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(assignedTeam);
+                    workstacks.unallocateSelectedCase(randomSearchResult);
+                    workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                }
+                openOrCloseAccordionSection("Case Registration");
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
+                expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
+                break;
+            case "CASE REFERENCE":
+                cell = randomSearchResultHypertext;
+                expectedValue = sessionVariableCalled("searchCaseReference");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+        if (!criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
             displayedValue = cell.getText();
         }
         assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));

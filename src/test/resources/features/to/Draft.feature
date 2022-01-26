@@ -38,8 +38,8 @@ Feature: Draft
   @TORegression
   Scenario: As a Draft user, I want to be able to save changes to the case, so corrections can be made
     When I open the "Case Details" accordion section
-    And I change the business unit of the case
+    And I change the Business Unit Type and Business Unit of the case
     And I save the changes
-    Then the amended value for Business Unit should be saved to the case
+    Then the amended value for Business Unit Type and Business Unit should be saved to the case
 
 

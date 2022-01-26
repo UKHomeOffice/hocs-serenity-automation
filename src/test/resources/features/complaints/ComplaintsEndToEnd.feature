@@ -26,7 +26,6 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Triage"
     Then the case should be moved to the "Case Triage" stage
-#    Then the case should be moved to the "<complaintType> Triage" stage : Check with Enric regarding stage name
     Examples:
       | complaintType    |
       | Service          |
@@ -77,7 +76,6 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Draft"
     Then the case should be moved to "<targetStage>" stage
-#    Then the case should be moved to "<complaintType> <targetStage>" stage: : Check with Enric regarding stage name
     Examples:
       | complaintType    | targetStage    |
       | Service          | Draft          |
@@ -103,7 +101,6 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "QA"
     Then the case should be moved to the "QA" stage
-#    Then the case should be moved to the "<complaintType> QA" stage: : Check with Enric regarding stage name
     Examples:
       | complaintType    |
       | Service          |
@@ -123,7 +120,6 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Send"
     Then the case should be moved to the "Send draft response" stage
-    # Then the case should be moved to the "<complaintType> Send" stage: : Check with Enric regarding stage name
     Examples:
       | complaintType    |
       | Service          |

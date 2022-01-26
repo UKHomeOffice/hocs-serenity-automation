@@ -10,8 +10,8 @@ public class Draft extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
     }
 
-    public void selectADifferentBusinessUnit() {
-        String newBusinessUnit = selectDifferentOptionFromDropdownWithHeading("Business Unit");
-        setSessionVariable("businessUnit").to(newBusinessUnit);
+    public void selectADifferentBusinessUnitType() {
+        String newBusinessUnitType = selectDifferentOptionFromDropdownWithHeading("Business Unit Type");
+        setSessionVariable("businessUnitType").to(newBusinessUnitType);
     }
 }
