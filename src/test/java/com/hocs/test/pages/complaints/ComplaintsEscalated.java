@@ -21,10 +21,19 @@ public class ComplaintsEscalated extends BasePage {
     public void selectActionAtServiceEscalated(String action) {
         switch (action.toUpperCase()) {
             case "RETURN CASE TO TRIAGE":
-                recordCaseData.selectSpecificRadioButton("Return case to Triage");
+                if (!bfCase()) {
+                    recordCaseData.selectSpecificRadioButton("Return case to Triage");
+                } else {
+                    selectSpecificRadioButton("Sent to Triage");
+                    //Once HOCS-4487 is completed this needs to be updated to 'Send to Triage'
+                }
                 break;
             case "CASE READY FOR DRAFTING":
-                recordCaseData.selectSpecificRadioButton("Case ready for drafting");
+                if (!bfCase()) {
+                    recordCaseData.selectSpecificRadioButton("Case ready for drafting");
+                } else {
+                    selectSpecificRadioButton("Send to Draft");
+                }
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
