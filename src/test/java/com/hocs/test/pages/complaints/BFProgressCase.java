@@ -64,6 +64,7 @@ public class BFProgressCase extends BasePage {
                 precedingStage = "REGISTRATION";
                 break;
             case "DRAFT":
+            case "ESCALATED TO WFM":
                 precedingStage = "TRIAGE";
                 break;
             case "QA":
@@ -93,9 +94,9 @@ public class BFProgressCase extends BasePage {
                         moveBFCaseFromTriageToDraft();
                         break;
                         //TODO check and implement the below stages
-/*                    case "ESCALATED":
+                    case "ESCALATED TO WFM":
                         moveCaseFromTriageToEscalated();
-                        break; */
+                        break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -165,6 +166,13 @@ public class BFProgressCase extends BasePage {
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
         System.out.println("Case moved from Service Triage to Draft");
+    }
+
+    public void moveCaseFromTriageToEscalated() {
+        waitForPageWithTitle("Triage Capture Reason");
+        complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
+        clickTheButton("Continue");
+        complaintsTriage.escalateCaseToWFM();
     }
 
     public void moveBFCaseFromDraftToQA() {
