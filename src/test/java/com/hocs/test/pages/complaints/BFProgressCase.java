@@ -25,6 +25,9 @@ public class BFProgressCase extends BasePage {
 
     ComplaintsSend complaintsSend;
 
+    ComplaintsQA compQA;
+
+
     ComplaintsDraft complaintsDraft;
 
     String complaintType = "Service";
@@ -186,8 +189,6 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveCaseFromQAToSend() {
-        //TODO: Add the Accept and Reject options once the QA stage is developed
-//        compQA.selectActionAtServiceQA("ACCEPT");
-        clickTheButton("Continue");
+        compQA.selectActionAtServiceQA("ACCEPT");
     }
 }
