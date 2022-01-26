@@ -41,7 +41,8 @@ public class Triage extends BasePage {
     }
 
     public void selectABusinessUnit() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Unit");
+        String businessUnit = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Unit");
+        setSessionVariable("businessUnit").to(businessUnit);
     }
 
     public void selectTheAction(String action) {

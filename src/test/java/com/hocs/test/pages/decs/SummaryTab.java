@@ -124,7 +124,7 @@ public class SummaryTab extends BasePage {
         }
     }
 
-    public void refreshTimelineTab() {
+    public void refreshSummaryTab() {
         safeClickOn(nonActiveTab);
         selectSummaryTab();
     }
@@ -134,10 +134,17 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
-        String displayedValue = getSummaryTabValueForGivenHeader(header);
         String expectedDisplayValue = value.replace("\n", " ");
-        if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
-            Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+        String displayedValue = getSummaryTabValueForGivenHeader(header);
+        try {
+            assertThat(containsIgnoreCase(displayedValue, expectedDisplayValue), is(true));
+        } catch (AssertionError e) {
+            waitABit(100);
+            refreshSummaryTab();
+            displayedValue = getSummaryTabValueForGivenHeader(header);
+            if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
+                Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+            }
         }
     }
 
