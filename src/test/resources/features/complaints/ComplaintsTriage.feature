@@ -155,7 +155,7 @@ Feature: Complaints Triage
     When I get a "BF" case at the "Triage" stage
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Escalate" stage
+    Then the case should be moved to the "Escalated to WFM" stage
     And the summary should display the owning team as "Border Force"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
