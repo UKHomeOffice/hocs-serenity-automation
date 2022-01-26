@@ -62,6 +62,16 @@ Feature: Complaints End To End
       | Ex-Gratia        | Escalate    |
       | Minor Misconduct | Escalate    |
 
+
+  Scenario Outline: User moves a BF case to the Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "<targetStage>" stage
+    Then the case should be moved to "<targetStage>" stage
+    Examples:
+      | complaintType    | targetStage      |
+      | Service          | Escalated to WFM |
+      | Minor Misconduct | Escalated to WFM |
+
   Scenario Outline: User moves a COMP case to the Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Draft"
