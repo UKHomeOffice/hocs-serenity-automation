@@ -8,7 +8,7 @@ public class ComplaintsQAStepDefs extends BasePage {
 
     ComplaintsQA compQA;
 
-    @And("I {string} the response at the Service QA stage")
+    @And("I {string} the response to the complaint at the QA stage")
     public void responseAtServiceQAStage(String action) {
         compQA.selectActionAtServiceQA(action);
         if (action.equalsIgnoreCase("REJECT")) {
