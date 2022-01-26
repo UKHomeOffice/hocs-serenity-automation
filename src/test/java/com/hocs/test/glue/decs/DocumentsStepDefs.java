@@ -68,11 +68,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @When("I click add documents")
     public void iClickAddDocuments() {
-        if (documents.addDocumentLink.isVisible()) {
-            safeClickOn(documents.addDocumentLink);
-        } else if (documents.addDocumentsButton.isVisible()) {
-            safeClickOn(documents.addDocumentsButton);
-        }
+        documents.clickVisibleAddDocumentsLink();
     }
 
     @And("I choose the document type {string}")
@@ -130,12 +126,12 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a {int}MB and a {int}MB file")
     public void iUploadTwoFilesOfSizes(int fileSize1, int fileSize2) {
-        iClickAddDocuments();
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize1);
         documents.waitForFileToUpload(fileSize1);
         iClickManageDocuments();
-        iClickAddDocuments();
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize2);
         documents.waitForFileToUpload(fileSize2);
@@ -159,8 +155,10 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I add a/an {string} type document to the case")
     public void iAddATypeDocumentToTheCase(String docType) {
+        waitForPageWithTitle("Dispatch");
         documents.addADocumentOfDocumentType(docType);
         iCanSeeTheFileInTheUploadedDocumentList(sessionVariableCalled("fileType"));
+        documents.assertDocumentIsUnderHeader(docType);
     }
 
     @And("I remove the {string} document")
@@ -193,7 +191,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a file that fails to convert to PDF")
     public void iUploadAFileThatWillFailToConvertToPDF() {
-        safeClickOn(documents.addDocumentLink);
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         documents.uploadDocumentThatFailsConversion();
         clickTheButton("Add");
