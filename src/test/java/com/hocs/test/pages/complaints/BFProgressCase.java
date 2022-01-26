@@ -93,9 +93,8 @@ public class BFProgressCase extends BasePage {
                     case "DRAFT":
                         moveBFCaseFromTriageToDraft();
                         break;
-                        //TODO check and implement the below stages
                     case "ESCALATED TO WFM":
-                        moveCaseFromTriageToEscalated();
+                        moveBFCaseFromTriageToEscalated();
                         break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -115,29 +114,6 @@ public class BFProgressCase extends BasePage {
         }
         dashboard.waitForDashboard();
         System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
-        RecordCaseData.resetDataRecords();
-    }
-
-    public void completeTheBFStage(String stageToComplete) {
-        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-        switch (stageToComplete.toUpperCase()) {
-            case "REGISTRATION":
-                moveBFCaseFromRegistrationToTriage();
-                break;
-            case "TRIAGE":
-                moveBFCaseFromTriageToDraft();
-                break;
-            case "DRAFT":
-                moveBFCaseFromDraftToQA();
-                break;
-            case "SEND":
-                moveBFCaseFromSendToCaseClosed();
-                break;
-            default:
-                pendingStep(stageToComplete + " is not defined within " + getMethodName());
-        }
-        dashboard.waitForDashboard();
-        System.out.println(stageToComplete + " stage completed");
         RecordCaseData.resetDataRecords();
     }
 
@@ -168,7 +144,7 @@ public class BFProgressCase extends BasePage {
         System.out.println("Case moved from Service Triage to Draft");
     }
 
-    public void moveCaseFromTriageToEscalated() {
+    public void moveBFCaseFromTriageToEscalated() {
         waitForPageWithTitle("Triage Capture Reason");
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
@@ -179,6 +155,12 @@ public class BFProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("DRAFT");
         complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
     }
+
+    //TODO: Remove below method at the time of refactoring
+/*    public void moveBFCaseFromDraftToWFM() {
+        documents.addADocumentOfDocumentType("DRAFT");
+        complaintsTriage.escalateCaseToWFM();
+    }*/
 
     //TODO: Remove below method at the time of refactoring
 /*    public void moveBFCaseFromDraftToSend() {

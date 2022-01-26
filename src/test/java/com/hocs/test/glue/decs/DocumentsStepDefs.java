@@ -155,7 +155,6 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I add a/an {string} type document to the case")
     public void iAddATypeDocumentToTheCase(String docType) {
-        waitForPageWithTitle("Dispatch");
         documents.addADocumentOfDocumentType(docType);
         iCanSeeTheFileInTheUploadedDocumentList(sessionVariableCalled("fileType"));
         documents.assertDocumentIsUnderHeader(docType);

@@ -89,7 +89,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a case to WFM at Service Draft stage
+  Scenario: User is able to escalate a Comp case to WFM at Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -98,6 +98,18 @@ Feature: Complaints Draft
     And the summary should display the owning team as "CCT Stage 1 Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF case to WFM at Service Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I escalate the case to WFM at Service Draft stage
+    Then the case should be moved to the "Escalated to WFM" stage
+    And the summary should display the owning team as "Border Force"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+#    And the read-only Case Details accordion should contain all case information entered during the "Escalated to WFM" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a case to WFM at Ex-Gratia Response Draft stage
