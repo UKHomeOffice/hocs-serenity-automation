@@ -1,12 +1,10 @@
 @ComplaintsEscalated @Complaints
 Feature: Complaints Escalated
 
-  Background:
-    Given I am logged into "CS" as user "COMP_USER"
-
 #    HOCS-3076, HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can return the case to Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to return the case to Triage
@@ -17,6 +15,7 @@ Feature: Complaints Escalated
 #    HOCS-3076, HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send the case to Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to send the case to drafting
@@ -27,6 +26,7 @@ Feature: Complaints Escalated
 #    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can return the case to Ex-Gratia Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
@@ -37,6 +37,7 @@ Feature: Complaints Escalated
 #    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send the case to Ex-Gratia Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
@@ -47,6 +48,7 @@ Feature: Complaints Escalated
 #    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can return the case to Minor Misconduct Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
@@ -57,6 +59,7 @@ Feature: Complaints Escalated
 #    Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send the case to Minor Misconduct Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
@@ -64,9 +67,28 @@ Feature: Complaints Escalated
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
+  #HOCS-4055
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF case to Draft stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I select to send the case to drafting
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "Border Force"
+
+  #HOCS-4055
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF case to Triage stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I select to return the case to Triage
+    Then the case should be moved to the "Case Triage" stage
+    And the summary should display the owning team as "Border Force"
+
 #    HOCS-2870, HOCS-3096
   @ComplaintsRegression
   Scenario Outline: User can add and complete or cancel contributions as part of Service Escalated stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I add a "<contributionType>" contribution request
@@ -75,12 +97,28 @@ Feature: Complaints Escalated
     Examples:
       | contributionType | action   |
       | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
       | Business         | Cancel   |
+
+  #HOCS-4055
+  @ComplaintsRegression
+  Scenario Outline: User can add and complete or cancel contributions for BF cases as part of Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType | action   |
       | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
       | Business         | Cancel   |
 
   @Validation
   Scenario Outline: User tests the validation at the Service Escalated stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I trigger the "<errorType>" error message at the "Service Escalated" stage
