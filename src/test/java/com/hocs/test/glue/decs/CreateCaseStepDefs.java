@@ -483,7 +483,7 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterComplainantDOB("01/01/2001");
                         registration.selectAGender();
                         registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                        registration.enterAHomeOfficeReference(infoValue);
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
                         break;
@@ -491,6 +491,50 @@ public class CreateCaseStepDefs extends BasePage {
                         pendingStep(infoType + " is not defined within " + getMethodName());
                 }
                 break;
+            case "BF":
+                switch (infoType.toUpperCase()) {
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                        createCase.createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    case "COMPLAINANT DATE OF BIRTH":
+                        createCase.createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB(infoValue);
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        break;
+                    case "CASE REFERENCE":
+                        createCase.createCSCaseOfType("BF");
+                        break;
+                    case "COMPLAINANT HOME OFFICE REFERENCE":
+                        createCase.createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB("01/01/2001");
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference(infoValue);
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+            break;
             case "FOI":
                 switch (infoType.toUpperCase()) {
                     case "CASE TYPE":
