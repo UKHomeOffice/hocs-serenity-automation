@@ -14,7 +14,7 @@ public class ComplaintsDraftStepDefs extends BasePage {
         complaintsDraft.selectActionAtServiceDraft(action);
     }
 
-    @And("I escalate the case to WFM at Service Draft stage")
+    @And("I escalate the case to WFM at( Service) Draft stage")
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
         complaintsDraft.selectActionAtServiceDraft("Escalate case to WFM");
         complaintsDraft.submitEscalationReason();
