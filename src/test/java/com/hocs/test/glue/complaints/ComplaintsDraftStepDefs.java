@@ -9,7 +9,7 @@ public class ComplaintsDraftStepDefs extends BasePage {
 
     ComplaintsDraft complaintsDraft;
 
-    @And("I select the {string} action at the Service Draft stage")
+    @And("I select the {string} action at the (Service )Draft stage")
     public void iSendTheCaseToQA(String action) {
         complaintsDraft.selectActionAtServiceDraft(action);
     }
