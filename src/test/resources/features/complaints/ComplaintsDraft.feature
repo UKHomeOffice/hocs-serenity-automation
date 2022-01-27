@@ -54,6 +54,16 @@ Feature: Complaints Draft
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "Serious Misconduct"
 
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Draft stage for a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Draft" stage
+    And I add a "DRAFT" type document to the case
+    And I select the "Response is Ready to Send" action at the Draft stage
+    Then the case should be moved to the "Send draft response" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+
 #    HOCS-3695
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User sends the case to Service QA stage
@@ -87,6 +97,16 @@ Feature: Complaints Draft
     Then the case should be moved to the "Minor Misconduct QA" stage
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User sends a BF case to the QA stage from Draft
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Draft" stage
+    And I add a "DRAFT" type document to the case
+    And I select the "Send case to QA" action at the Draft stage
+    Then the case should be moved to the "QA" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User is able to escalate a COMP case to WFM at Service Draft stage
