@@ -108,7 +108,7 @@ public class DataInputStepDefs extends BasePage {
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
         dashboard.getCurrentCase();
         caseView.openOrCloseAccordionSection("Data Input");
-        caseView.assertExpectedValueIsVisibleInCaseDetailsAccordionForGivenHeading(sessionVariableCalled("primaryCorrespondent"), "Which is the "
+        caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(sessionVariableCalled("primaryCorrespondent"), "Which is the "
                         + "primary correspondent?");
     }
 

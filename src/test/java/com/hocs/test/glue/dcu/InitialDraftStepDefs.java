@@ -88,7 +88,7 @@ public class InitialDraftStepDefs extends BasePage {
     @And("the case should (still be owned by)(be returned to) the drafting team")
     public void theCaseShouldStillBeOwnedByTheDraftingTeam() {
         openOrCloseAccordionSection("Markup");
-        String draftingTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Initial Draft Team").get(0);
+        String draftingTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Initial Draft Team").get(0);
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(draftingTeam, "Team");
     }
 
@@ -107,7 +107,7 @@ public class InitialDraftStepDefs extends BasePage {
     @And("the case should now be owned be the correct Private Office team")
     public void theCaseShouldNowBeOwnedBeThePrivateOfficeTeam() {
         openOrCloseAccordionSection("Markup");
-        String privateOfficeTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Private Office Team").get(0);
+        String privateOfficeTeam = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Private Office Team").get(0);
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(privateOfficeTeam, "Team");
     }
 

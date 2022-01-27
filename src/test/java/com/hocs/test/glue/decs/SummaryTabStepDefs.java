@@ -148,6 +148,9 @@ public class SummaryTabStepDefs extends BasePage {
     @Then("the case should be moved to the correct Treat Official team for the new business area")
     public void theCaseShouldBeMovedToTheCorrectTreatOfficialTeamForTheNewBusinessArea() {
         waitABit(2000);
+        if (!caseView.currentCaseIsLoaded()) {
+            dashboard.loadCase(getCurrentCaseReference());
+        }
         String teamName = "Treat Official " + sessionVariableCalled("businessArea");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
@@ -193,5 +196,10 @@ public class SummaryTabStepDefs extends BasePage {
     public void theAmendedValueForBusinessUnitShouldBeSavedToTheCase() {
         waitABit(2000);
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"),"Business Unit");
+    }
+
+    @And("the summary should contain the selected campaign")
+    public void theSummaryShouldContainTheSelectedCampaign() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("campaign"),"Campaign name");
     }
 }

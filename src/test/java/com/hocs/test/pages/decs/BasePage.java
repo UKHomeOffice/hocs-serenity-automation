@@ -21,6 +21,7 @@ import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -610,6 +611,43 @@ public class BasePage extends PageObject {
         WebElementFacade checkbox =
                 findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
         safeClickOn(checkbox);
+    }
+
+    // Typeaheads
+
+    public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        safeClickOn(typeahead);
+        waitABit(200);
+        boolean selectableOptionVisibleInTypeahead = false;
+        List<WebElementFacade> typeaheadOptions = null;
+        int attempts = 0;
+        while (!selectableOptionVisibleInTypeahead && attempts < 20) {
+            typeahead.clear();
+            typeahead.sendKeys(generateRandomStringOfLength(1));
+            waitABit(1000);
+            typeaheadOptions = findAll("//div[contains(@class,'option')]");
+            selectableOptionVisibleInTypeahead = typeaheadOptions.size() > 1;
+            attempts++;
+        }
+        Random random = new Random();
+        WebElementFacade optionToSelect = typeaheadOptions.get(random.nextInt(typeaheadOptions.size()));
+        safeClickOn(optionToSelect);
+        waitABit(500);
+        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
+        return selectedOption.getText();
+    }
+
+    public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
+        WebElementFacade typeahead = findBy("//label[text()='" + sanitiseXpathAttributeString(headingText) + "']/following-sibling::div//input");
+        safeClickOn(typeahead);
+        waitABit(200);
+        typeahead.sendKeys(optionText);
+        waitABit(500);
+        typeahead.sendKeys(Keys.RETURN);
+        waitABit(500);
+        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
+        return selectedOption.getText();
     }
 
     // Other methods

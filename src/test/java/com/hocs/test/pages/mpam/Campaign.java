@@ -32,10 +32,8 @@ public class Campaign extends BasePage {
     public void moveCaseFromAStageToCampaign(String campaign) {
         safeClickOn(putCaseIntoCampaignRadioButton);
         safeClickOn(confirmButton);
-        safeClickOn(campaignSelectionTypeahead);
-        campaignSelectionTypeahead.sendKeys(campaign);
-        setSessionVariable("campaign").to(campaign);
-        campaignSelectionTypeahead.sendKeys(Keys.RETURN);
+        String selectedCampaign = selectSpecificOptionFromTypeaheadWithHeading(campaign, "Campaign");
+        setSessionVariable("campaign").to(selectedCampaign);
         safeClickOn(confirmButton);
     }
 
