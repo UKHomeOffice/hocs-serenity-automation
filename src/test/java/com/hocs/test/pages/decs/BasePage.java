@@ -639,7 +639,7 @@ public class BasePage extends PageObject {
     }
 
     public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
-        WebElementFacade typeahead = findBy("//label[text()='" + sanitiseXpathAttributeString(headingText) + "']/following-sibling::div//input");
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
         safeClickOn(typeahead);
         waitABit(200);
         typeahead.sendKeys(optionText);

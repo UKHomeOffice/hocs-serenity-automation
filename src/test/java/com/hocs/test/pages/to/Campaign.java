@@ -19,4 +19,10 @@ public class Campaign extends BasePage {
         String selectedCampaign = selectRandomOptionFromTypeaheadWithHeading("Campaign");
         setSessionVariable("campaign").to(selectedCampaign);
     }
+
+    public void selectASpecificCampaign(String campaign) {
+        waitForPageWithTitle("Specify campaign name");
+        String selectedCampaign = selectSpecificOptionFromTypeaheadWithHeading(campaign, "Campaign");
+        setSessionVariable("campaign").to(selectedCampaign);
+    }
 }

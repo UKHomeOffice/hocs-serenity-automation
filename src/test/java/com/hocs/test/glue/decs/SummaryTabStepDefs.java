@@ -198,7 +198,7 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"),"Business Unit");
     }
 
-    @And("the summary should contain the selected campaign")
+    @And("the summary should contain the selected/new campaign")
     public void theSummaryShouldContainTheSelectedCampaign() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("campaign"),"Campaign name");
     }
