@@ -24,7 +24,7 @@ Feature: Create case
       | SMC      | Registration         | To document             | Serious Misconduct             |
       | FOI      | Case Creation        | Request                 | FOI Creation                   |
       | TO       | Data Input           | Initial Correspondence  | Treat Official Creation        |
-#      | BF       | Registration         |                         | Border Force                  |
+      | BF       | Case Registration     | To document            | Border Force                   |
 
   @Allocation
   Scenario: A single case is allocated to the current user

@@ -87,6 +87,23 @@ Feature: Manage Documents
       | Appeal Leaflet        |
       | IMB Letter            |
 
+  @ComplaintsRegression
+  Scenario Outline: As a BF user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
+    And I manage the documents of a new "BF" case
+    And I click add documents
+    When I choose the document type "<docType>"
+    And I add a "<docType>" type document to the case
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType               |
+      | To document           |
+      | Public correspondence |
+      | Complaint leaflet     |
+      | Complaint letter      |
+      | Email                 |
+      | CRF                   |
+      | DRAFT                 |
+
   #HOCS-3661
   @ComplaintsRegression
   Scenario Outline: As an IEDET User, I want to be able to select from additional document types, so the document can be easily identified later
