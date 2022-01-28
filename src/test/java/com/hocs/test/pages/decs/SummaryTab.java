@@ -8,8 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
@@ -163,7 +161,8 @@ public class SummaryTab extends BasePage {
     }
 
     public boolean checkDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
-        String expectedDeadline = workdays.getDateXWorkdaysFromSetDate(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate);
+        String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate,
+                sessionVariableCalled("caseType"));
         return displayedDeadline.equals(expectedDeadline);
     }
 

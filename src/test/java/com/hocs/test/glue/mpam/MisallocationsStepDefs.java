@@ -22,7 +22,7 @@ public class MisallocationsStepDefs extends BasePage {
 
     @And("I amend the Transfer due date of the case")
     public void iAmendTheTransferDueDateOfTheCaseTo() {
-        misallocations.updateTransferDueDate(workdays.getDateXWorkdaysFromToday(10));
+        misallocations.updateTransferDueDate(workdays.getDateXWorkdaysFromTodayForGivenCaseType(10, "MPAM"));
     }
 
     @And("I select the {string} action at the Awaiting Transfer stage")
