@@ -29,7 +29,7 @@ Feature: ManagementUI
       | Manage MPAM Enquiry Reasons                    | Select an Enquiry Subject                        |
       | Manage FOI Account Managers                    | View and edit account managers                   |
       | Manage FOI Interested Parties                  | View and edit interested parties                 |
-
+      | Manage Treat Official campaigns                | View and edit campaigns                          |
 
 
 #    MANAGE STANDARD LINES
@@ -338,6 +338,7 @@ Feature: ManagementUI
     Then I am returned to the dashboard screen
     And a success message is displayed
 
+
 #    LINK TOPIC TO TEAM
 
   @TopicManagement @DCURegression
@@ -485,23 +486,24 @@ Feature: ManagementUI
 #    MANAGE MPAM CAMPAIGNS
 
   @ListsManagement
-  Scenario: User is able to add a Campaign through Campaign management
+  Scenario: User is able to add a MPAM campaign through campaign management
     When I select to "Manage MPAM campaigns"
-    And I add a Campaign with random name and campaign code
-    Then the new Campaign has been added to the list of Campaigns
+    And I add a campaign with random name and campaign code
+    Then the success message for adding a campaign should be displayed
+    And the new "MPAM" campaign has been added to the list of campaigns
 
   @ListsManagement @MPAMRegression2
-  Scenario: User is able to amend the details of a Campaign through Campaign Management
+  Scenario: User is able to amend the details of a MPAM campaign through campaign management
     When I select to "Manage MPAM campaigns"
-    And I add a Campaign with random name and campaign code
+    And I add a campaign with random name and campaign code
     And I select to "Manage MPAM campaigns"
-    And I edit a Campaign name
-    Then the Campaign name should have changed in the list of Campaigns
+    And I edit a campaign name
+    Then the "MPAM" campaign name should have changed in the list of campaigns
 
   @ListsManagement @MPAMRegression2
-  Scenario: User can add a case to a new Campaign that was added through Campaign management
+  Scenario: User can add a MPAM case to a new MPAM campaign that was added through campaign management
     When I select to "Manage MPAM campaigns"
-    And I add a Campaign with random name and campaign code
+    And I add a campaign with random name and campaign code
     And I navigate to "CS"
     And I create a "MPAM" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -531,6 +533,7 @@ Feature: ManagementUI
     Then a success message is displayed
     Then the new enquiry reason is added to the list of enquiry reasons
 
+
 #    MANAGE FOI ACCOUNT MANAGERS
 
   @ListsManagement @FOIRegression
@@ -549,6 +552,7 @@ Feature: ManagementUI
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
 
+
 #    MANAGE FOI INTERSTED PARTIES
 
   @ListsManagement @FOIRegression
@@ -566,3 +570,33 @@ Feature: ManagementUI
     And I submit a new name for the interested party
     Then the success message for amending an interested party should be displayed
     And I should be able to view the renamed interested party in the table of interested parties
+
+
+#    MANAGE TREAT OFFICIAL CAMPAIGNS
+
+  @ListsManagement
+  Scenario: User is able to add a Treat Official campaign through campaign management
+    When I select to "Manage Treat Official campaigns"
+    And I add a campaign with random name and campaign code
+    Then the success message for adding a campaign should be displayed
+    Then the new "TO" campaign has been added to the list of campaigns
+
+#    Awaiting HOCS-4470 to test logic and add to regression run
+#  @ListsManagement @TORegression
+  Scenario: User is able to amend the details of a Treat Official campaign through campaign management
+    When I select to "Manage Treat Official campaigns"
+    And I add a campaign with random name and campaign code
+    And I select to "Manage Treat Official campaigns"
+    And I edit a campaign name
+    Then the "TO" campaign name should have changed in the list of campaigns
+
+  @ListsManagement @TORegression
+  Scenario: User can add a TO case to a new Treat Official campaign that was added through campaign management
+    And I select to "Manage Treat Official campaigns"
+    And I add a campaign with random name and campaign code
+    And I navigate to "CS"
+    When I get a "TO" case at the "Triage" stage
+    And I set an Enquiry Subject and Reason
+    And I select a Business Unit Type and corresponding Business Unit
+    And I put the case into the new campaign
+    Then the case should have been put into the new campaign

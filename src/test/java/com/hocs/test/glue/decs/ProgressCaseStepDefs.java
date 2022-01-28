@@ -73,7 +73,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
                 break;
             case "TO":
-                toProgressCase.completeTheTOStage(stage);
+                toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

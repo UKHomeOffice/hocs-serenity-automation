@@ -15,7 +15,7 @@ public class ListsManagement extends BasePage {
     MUIDashboard MUIDashboard;
 
     @FindBy(xpath = "//h1[text()='View and edit campaigns']")
-    private WebElementFacade viewAndEditCampaignsHeader;
+    public WebElementFacade viewAndEditCampaignsHeader;
 
     @FindBy(xpath = "//button[text()='Add new campaign']")
     private WebElementFacade addNewCampaignButton;
@@ -91,10 +91,7 @@ public class ListsManagement extends BasePage {
         safeClickOn(submitButton);
     }
 
-    public void assertCampaignAddedToCampaignTable() {
-        if (!viewAndEditCampaignsHeader.isVisible()) {
-            safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
-        }
+    public void assertCampaignVisibleInCampaignTable(String caseType) {
         WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
         newCampaignInList.shouldBeVisible();
     }
@@ -185,6 +182,10 @@ public class ListsManagement extends BasePage {
 
     public void assertSuccessMessageForAmendingInterestedPartyVisible() {
         successMessage.shouldContainText("The interested party was amended successfully");
+    }
+
+    public void assertSuccessMessageForAddingCampaignVisible() {
+        successMessage.shouldContainText("The campaign was added successfully");
     }
 
     public void assertAccountManagerIsVisible() {

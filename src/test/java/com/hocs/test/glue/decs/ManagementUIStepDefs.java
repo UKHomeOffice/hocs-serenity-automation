@@ -506,24 +506,36 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.assertListContainsCreatedUnit();
     }
 
-    @And("I add a Campaign with random name and campaign code")
+    @And("I add a campaign with random name and campaign code")
     public void addACampaignWithNameAndCode() {
         listsManagement.addANewCampaign();
     }
 
-    @Then("the new Campaign has been added to the list of Campaigns")
-    public void newCampaignHasBeenAddedToListOfCampaigns() {
-        listsManagement.assertCampaignAddedToCampaignTable();
+    @Then("the new {string} campaign has been added to the list of campaigns")
+    public void newCampaignHasBeenAddedToListOfCampaigns(String caseType) {
+        if (!listsManagement.viewAndEditCampaignsHeader.isVisible()) {
+            switch (caseType.toUpperCase()) {
+                case "MPAM":
+                    muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                    break;
+                case "TO":
+                    muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                    break;
+                default:
+                    pendingStep(caseType + " is not defined within " + getMethodName());
+            }
+        }
+        listsManagement.assertCampaignVisibleInCampaignTable(caseType);
     }
 
-    @And("I edit a Campaign name")
+    @And("I edit a campaign name")
     public void editCampaignNameFrom() {
         listsManagement.amendACampaign();
     }
 
-    @Then("the Campaign name should have changed in the list of Campaigns")
-    public void campaignNameShouldHaveChangedInTheList() {
-        listsManagement.assertCampaignAddedToCampaignTable();
+    @Then("the {string} campaign name should have changed in the list of campaigns")
+    public void campaignNameShouldHaveChangedInTheList(String caseType) {
+        listsManagement.assertCampaignVisibleInCampaignTable(caseType);
     }
 
     @And("I click the view team button")
@@ -788,6 +800,11 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the template should be displayed in the list of available templates")
     public void theTemplateShouldBeDisplayedInTheListOfAvailableTemplates() {
         templateManagement.assertTemplateIsDisplayedInDECS();
+    }
+
+    @Then("the success message for adding a campaign should be displayed")
+    public void theSuccessMessageForAddingACampaignShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingCampaignVisible();
     }
 }
 

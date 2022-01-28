@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -27,6 +26,8 @@ public class TOProgressCase extends BasePage {
 
     Draft draft;
 
+    Campaign campaign;
+
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
@@ -36,7 +37,7 @@ public class TOProgressCase extends BasePage {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
                 moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
             }
-            completeTheTOStage(precedingStage);
+            completeTheTOStageSoThatCaseMovesToTargetStage(precedingStage, targetStage);
         }
     }
 
@@ -50,6 +51,8 @@ public class TOProgressCase extends BasePage {
                 precedingStage = "DATA INPUT";
                 break;
             case "DRAFT":
+            case "CAMPAIGN":
+            case "STOP LIST":
                 precedingStage = "TRIAGE";
                 break;
             case "QA":
@@ -67,14 +70,26 @@ public class TOProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void completeTheTOStage(String stageToComplete) {
+    public void completeTheTOStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "DATA INPUT":
                 moveCaseFromDataInputToTriage();
                 break;
             case "TRIAGE":
-                moveCaseFromTriageToDraft();
+                switch ((targetStage.toUpperCase())) {
+                    case "DRAFT":
+                        moveCaseFromTriageToDraft();
+                        break;
+                    case "CAMPAIGN":
+                        moveCaseFromTriageToCampaign();
+                        break;
+                    case "STOP LIST":
+                        moveCaseFromTriageToStopList();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not a defined target stage from Triage within " + getMethodName());
+                }
                 break;
             case "DRAFT":
                 moveCaseFromDraftToQA();
@@ -113,6 +128,23 @@ public class TOProgressCase extends BasePage {
         triage.selectABusinessUnit();
         triage.selectTheAction("Ready to draft");
         clickTheButton("Finish");
+    }
+
+    private void moveCaseFromTriageToCampaign() {
+        triage.selectSetEnquirySubjectAndReasonLink();
+        triage.selectAnEnquirySubject();
+        clickTheButton("Continue");
+        triage.selectAnEnquiryReason();
+        clickTheButton("Continue");
+        triage.selectABusinessUnitType();
+        triage.selectABusinessUnit();
+        campaign.selectTheAction("Put case into a campaign");
+        clickTheButton("Finish");
+        campaign.selectACampaign();
+        clickTheButton("Confirm");
+    }
+
+    private void moveCaseFromTriageToStopList() {
     }
 
     private void moveCaseFromDraftToQA() {
