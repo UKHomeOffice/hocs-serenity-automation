@@ -32,8 +32,8 @@ public class DataInput extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Do you wish to add a Recipient?");
     }
 
-    public void selectIfRecipientIsMP(String yesNo) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Is the recipient an MP?");
+    public void selectIfRecipientIsMember(String yesNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Is the recipient a Member of Parliament?");
     }
 
     public void selectAMemberRecipient() {

@@ -12,9 +12,9 @@ Feature: Dispatch
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
     Examples:
     | caseType  |
-    | MIN       |
+#    | MIN       |
     | TRO       |
-    | DTEN      |
+#    | DTEN      |
 
   @DCUWorkflow @DCURegression
   Scenario: User dispatches a MIN case that should be copied to Number 10

@@ -23,7 +23,7 @@ Feature: Initial Draft
     And I get a "<caseType>" case at the "Initial Draft" stage
     When I select a case "should" be answered by my team
     And I select to reply by "email"
-    And I add a "draft" type document to the case
+    And I add a "DRAFT" type document to the case
     And I select the "draft" document as the primary draft
     And I confirm the primary draft document
     And I select that the QA Process should be completed on DECS
@@ -40,7 +40,7 @@ Feature: Initial Draft
   Scenario: User selects not to offline QA a DTEN case
     And I get a "DTEN" case at the "Initial Draft" stage
     When I select a case "should" be answered by my team
-    And I add a "draft" type document to the case
+    And I add a "DRAFT" type document to the case
     And I select the "draft" document as the primary draft
     And I confirm the primary draft document
     And I select that the QA Process should be completed on DECS
@@ -55,7 +55,7 @@ Feature: Initial Draft
     And I get a "MIN" case at the "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
     And I select to reply by "email"
-    And I add a "draft" type document to the case
+    And I add a "DRAFT" type document to the case
     And I select the "draft" document as the primary draft
     And I confirm the primary draft document
     And I select that the QA Process has been completed offline
@@ -70,7 +70,7 @@ Feature: Initial Draft
   Scenario: User selects offline QA for a DTEN case
     And I get a "DTEN" case at the "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
-    And I add a "draft" type document to the case
+    And I add a "DRAFT" type document to the case
     And I select the "draft" document as the primary draft
     And I confirm the primary draft document
     And I select that the QA Process has been completed offline
@@ -86,7 +86,7 @@ Feature: Initial Draft
     And I get a "TRO" case at the "INITIAL DRAFT" stage
     When I select a case "should" be answered by my team
     And I select to reply by "email"
-    And I add a "draft" type document to the case
+    And I add a "DRAFT" type document to the case
     And I select the "draft" document as the primary draft
     And I confirm the primary draft document
     And I select that the QA Process has been completed offline

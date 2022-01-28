@@ -11,7 +11,8 @@ Feature: Data Input
     When I select which business area the correspondence is for
     And I select which channel the correspondence was received by
     And I add a "Correspondent" correspondent
-    And I confirm the primary correspondent
+    And I confirm the primary correspondentUser dispatches a case
+
     And I choose to not add a recipient
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as the correct Treat Official team for the selected business area
