@@ -153,7 +153,8 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @When("I create a high priority MPAM case and move it to the {string} stage")
     public void moveHighPriorityNewMPAMCaseToStage(String stage) {
-        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReceivedDateAndUrgency(workdays.getDateXWorkdaysAgo(20), "Immediate", stage);
+        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReceivedDateAndUrgency(workdays.getDateXWorkdaysAgoForGivenCaseType(20, "MPAM"),
+                "Immediate", stage);
     }
 
     @When("I create a {string} case for a {string} complaint and move it to {string}( stage)")

@@ -13,7 +13,14 @@ public class Workdays extends BasePage{
 
     private List<LocalDate> bankHolidays = new ArrayList<>();
 
-    public Workdays(){
+    private void generateBankHolidaysForCaseType(String caseType) {
+        addEnglishAndWelshBankHolidays();
+        if (caseType.equalsIgnoreCase("FOI")) {
+            addAdditionalScottishAndNIBankHolidays();
+        }
+    }
+
+    private void addEnglishAndWelshBankHolidays() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         bankHolidays.add(LocalDate.parse("10/04/2020", formatter));
         bankHolidays.add(LocalDate.parse("13/04/2020", formatter));
@@ -39,9 +46,19 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("29/08/2022", formatter));
         bankHolidays.add(LocalDate.parse("26/12/2022", formatter));
         bankHolidays.add(LocalDate.parse("27/12/2022", formatter));
+        bankHolidays.add(LocalDate.parse("02/01/2023", formatter));
     }
 
-    public boolean isWorkday(LocalDate inputDate) {
+    private void addAdditionalScottishAndNIBankHolidays() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        bankHolidays.add(LocalDate.parse("04/01/2022", formatter));
+        bankHolidays.add(LocalDate.parse("17/03/2022", formatter));
+        bankHolidays.add(LocalDate.parse("12/07/2022", formatter));
+        bankHolidays.add(LocalDate.parse("01/08/2022", formatter));
+        bankHolidays.add(LocalDate.parse("30/11/2020", formatter));
+    }
+
+    private boolean isWorkday(LocalDate inputDate) {
         return (isNotWeekendDay(inputDate) && isNotBankHoliday(inputDate));
     }
 
@@ -53,7 +70,8 @@ public class Workdays extends BasePage{
         return !bankHolidays.contains(inputDate);
     }
 
-    public String getDateXWorkdaysAgo(int targetAmount) {
+    public String getDateXWorkdaysAgoForGivenCaseType(int targetAmount, String caseType) {
+        generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
         assert totalWorkDays <= targetAmount;
         LocalDate targetDay = LocalDate.now();
@@ -67,11 +85,12 @@ public class Workdays extends BasePage{
         return targetDay.format(formatters);
     }
 
-    public String getDateXWorkdaysFromToday(int targetAmount) {
-        return getDateXWorkdaysFromSetDate(targetAmount, getTodaysDate());
+    public String getDateXWorkdaysFromTodayForGivenCaseType(int targetAmount, String caseType) {
+        return getDateXWorkdaysFromSetDateForGivenCaseType(targetAmount, getTodaysDate(), caseType);
     }
 
-    public String getDateXWorkdaysFromSetDate(int targetAmount, String startDate) {
+    public String getDateXWorkdaysFromSetDateForGivenCaseType(int targetAmount, String startDate, String caseType) {
+        generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse(startDate, formatter);

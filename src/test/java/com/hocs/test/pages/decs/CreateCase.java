@@ -319,7 +319,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgoForGivenCaseType(days, caseType));
     }
 
     public void createWCSCase() {
