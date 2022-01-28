@@ -21,7 +21,6 @@ Feature: Deadlines
     Then the stage deadline dates displayed in the summary are correct for a "DTEN" case
     Then the case deadline date displayed in the summary is correct for a "DTEN" case
 
-#    BF example is awaiting completion of HOCS-4039
   @CSRegression
   Scenario Outline: As a CS user, when I create a case, I want to be able to see the correct case deadline in the summary
     When I create a single "<caseType>" case
@@ -37,7 +36,7 @@ Feature: Deadlines
       | SMC      |
       | FOI      |
       | TO       |
-#      | BF       |
+      | BF       |
 
   @DCURegression
   Scenario: As a DCU User, when I select that the Home Secretary is the Private Office team, I expect the cases deadlines to reflect a 10 day SLA
