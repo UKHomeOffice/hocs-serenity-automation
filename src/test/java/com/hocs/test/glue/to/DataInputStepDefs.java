@@ -31,10 +31,10 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectWhetherToAddRecipient("Yes");
         clickTheButton("Continue");
         if (recipientType.equalsIgnoreCase("MEMBER")) {
-            dataInput.selectIfRecipientIsMP("Yes");
+            dataInput.selectIfRecipientIsMember("Yes");
             dataInput.selectAMemberRecipient();
         } else {
-            dataInput.selectIfRecipientIsMP("No");
+            dataInput.selectIfRecipientIsMember("No");
             dataInput.selectANonMemberRecipient();
         }
         clickTheButton("Continue");
