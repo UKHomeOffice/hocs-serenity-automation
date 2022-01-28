@@ -513,17 +513,15 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("the new {string} campaign has been added to the list of campaigns")
     public void newCampaignHasBeenAddedToListOfCampaigns(String caseType) {
-        if (!listsManagement.viewAndEditCampaignsHeader.isVisible()) {
-            switch (caseType.toUpperCase()) {
-                case "MPAM":
-                    muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
-                    break;
-                case "TO":
-                    muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
-                    break;
-                default:
-                    pendingStep(caseType + " is not defined within " + getMethodName());
-            }
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TO":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
         }
         listsManagement.assertCampaignVisibleInCampaignTable(caseType);
     }
@@ -535,6 +533,16 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Then("the {string} campaign name should have changed in the list of campaigns")
     public void campaignNameShouldHaveChangedInTheList(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TO":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
         listsManagement.assertCampaignVisibleInCampaignTable(caseType);
     }
 
@@ -805,6 +813,11 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the success message for adding a campaign should be displayed")
     public void theSuccessMessageForAddingACampaignShouldBeDisplayed() {
         listsManagement.assertSuccessMessageForAddingCampaignVisible();
+    }
+
+    @Then("the success message for amending a campaign should be displayed")
+    public void theSuccessMessageForAmendingACampaignShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingCampaignVisible();
     }
 }
 

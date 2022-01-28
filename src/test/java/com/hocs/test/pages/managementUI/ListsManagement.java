@@ -188,6 +188,11 @@ public class ListsManagement extends BasePage {
         successMessage.shouldContainText("The campaign was added successfully");
     }
 
+    public void assertSuccessMessageForAmendingCampaignVisible() {
+        successMessage.shouldContainText("The campaign was amended successfully");
+    }
+
+
     public void assertAccountManagerIsVisible() {
         waitForMUIPageWithTitle("View and edit account managers");
         String accountManagerName = sessionVariableCalled("accountManagerName");
