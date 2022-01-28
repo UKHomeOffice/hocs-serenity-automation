@@ -697,7 +697,7 @@ public class Search extends BasePage {
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
                 openOrCloseAccordionSection("Registration");
-                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
@@ -756,7 +756,7 @@ public class Search extends BasePage {
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
                 openOrCloseAccordionSection("Case Registration");
-                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":

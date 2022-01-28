@@ -29,6 +29,15 @@ Feature: Draft
     Then the case should be moved to the "Triage" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
 
+  @TOWorkflow @TORegression
+  Scenario: As a Draft user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
+    When I add an "Initial Draft" type document to the case
+    And I put the case into a "Campaign"
+    Then the case should be moved to the "Campaign" stage
+    And the case should still be owned by the correct Treat Official team for the selected business area
+    And the Case Details accordion should contain the selected campaign
+    And the summary should contain the selected campaign
+
   @TORegression
   Scenario:  As a Draft user, I want to be able to change the business area of the case, so that the correct team can casework it
     When I open the "Case Details" accordion section

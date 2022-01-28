@@ -66,9 +66,6 @@ public class Correspondents extends BasePage {
     @FindBy(xpath = "//input[@name='Correspondents'][not(@checked)]/following-sibling::label")
     private WebElementFacade secondaryCorrespondentName;
 
-    @FindBy(xpath = "//div[contains(@class,'govuk-typeahead__single-value')]")
-    public WebElementFacade memberOfParliamentName;
-
     @FindBy(xpath = "//a[text()='The correspondent type must be provided']")
     public WebElementFacade correspondentTypeMustBeProvidedErrorMessage;
 
@@ -236,30 +233,14 @@ public class Correspondents extends BasePage {
     }
 
     public void selectSpecificMemberOfParliament(String member) {
-        safeClickOn(selectMPDropdown);
-        waitABit(200);
-        selectMPDropdown.sendKeys(member);
-        waitABit(1000);
-        selectMPDropdown.sendKeys(Keys.RETURN);
-        setSessionVariable("correspondentFullName").to(memberOfParliamentName.getText());
+        String correspondentFullName = selectSpecificOptionFromTypeaheadWithHeading(member, "Member");
+        setSessionVariable("correspondentFullName").to(correspondentFullName);
         clickAddButton();
     }
 
     public void selectRandomMemberOfParliament() {
-        safeClickOn(selectMPDropdown);
-        waitABit(200);
-        boolean selectableMemberVisible = false;
-        List<WebElementFacade> memberOptions = null;
-        while (!selectableMemberVisible) {
-            selectMPDropdown.clear();
-            selectMPDropdown.sendKeys(generateRandomStringOfLength(1));
-            waitABit(1000);
-            memberOptions = findAll("//div[contains(@class,'option')]");
-            selectableMemberVisible = memberOptions.size() > 1;
-        }
-        Random random = new Random();
-        safeClickOn(memberOptions.get(random.nextInt(memberOptions.size())));
-        setSessionVariable("correspondentFullName").to(memberOfParliamentName.getText());
+        String correspondentFullName = selectRandomOptionFromTypeaheadWithHeading("Member");
+        setSessionVariable("correspondentFullName").to(correspondentFullName);
         clickAddButton();
     }
 

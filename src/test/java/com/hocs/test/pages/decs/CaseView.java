@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -45,7 +46,7 @@ public class CaseView extends BasePage {
         return allocateToMeLink.isCurrentlyVisible();
     }
 
-    public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(String heading) {
+    public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenKey(String heading) {
         List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
@@ -110,7 +111,17 @@ public class CaseView extends BasePage {
         return false;
     }
 
-    public void assertExpectedValueIsVisibleInCaseDetailsAccordionForGivenHeading(String expectedValue, String heading) {
-        assertThat(expectedValue.equals(getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(heading).get(0)), is(true));
+    public void assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(String expectedAccordionValue, String accordionKey) {
+        List<String> visibleDisplayValues = getValuesFromOpenCaseDetailsAccordionSectionForGivenKey(accordionKey);
+        boolean expectedValueIsDisplayed = false;
+        for (String visibleDisplayValue : visibleDisplayValues) {
+            if (visibleDisplayValue.contains(expectedAccordionValue)) {
+                expectedValueIsDisplayed = true;
+                break;
+            }
+        }
+        if (!expectedValueIsDisplayed) {
+            Assert.fail("'" + accordionKey + ": " + expectedAccordionValue + "' is not visible in accordion");
+        }
     }
 }

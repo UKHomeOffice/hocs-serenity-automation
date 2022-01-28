@@ -19,3 +19,13 @@ Feature: Dispatch
     And I change the channel the correspondence was received by
     And I save the changes
     Then the amended value for Channel Received should be saved to the case
+
+  @TOWorkflow @TORegression
+  Scenario: As a Dispatch user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
+    When I add a "Final response" type document to the case
+    And I enter the details of the dispatch
+    And I put the case into a "campaign"
+    Then the case should be moved to the "Campaign" stage
+    And the case should still be owned by the correct Treat Official team for the selected business area
+    And the Case Details accordion should contain the selected campaign
+    And the summary should contain the selected campaign

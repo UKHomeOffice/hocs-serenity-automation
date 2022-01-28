@@ -3,7 +3,6 @@ package com.hocs.test.pages.decs;
 import java.util.HashMap;
 import java.util.List;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 public class RecordCaseData extends BasePage{
 
@@ -97,6 +96,22 @@ public class RecordCaseData extends BasePage{
         addValueRecord(checkboxLabelText);
     }
 
+    // Typeaheads
+
+    public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
+        String optionText = super.selectRandomOptionFromTypeaheadWithHeading(headingText);
+        addHeadingAndValueRecord(headingText,optionText);
+        return optionText;
+    }
+
+    public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
+        String selectedOptionText = super.selectSpecificOptionFromTypeaheadWithHeading(optionText, headingText);
+        addHeadingAndValueRecord(headingText, optionText);
+        return selectedOptionText;
+    }
+
+    // Other methods
+
     public void addHeadingAndValueRecord(String heading, String value) {
         dataRecords.put(heading, value);
     }
@@ -107,18 +122,9 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
-            List<String> visibleDisplayValues = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
-            String expectedDisplayValue = entry.getValue();
-            boolean expectedValueIsDisplayed = false;
-            for (String visibleDisplayValue : visibleDisplayValues) {
-                if (visibleDisplayValue.contains(expectedDisplayValue)) {
-                    expectedValueIsDisplayed = true;
-                    break;
-                }
-            }
-            if (!expectedValueIsDisplayed) {
-                Assert.fail("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
-            }
+            String accordionKey = entry.getKey();
+            String expectedAccordionValue = entry.getValue();
+            caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(expectedAccordionValue, accordionKey);
         }
     }
 
