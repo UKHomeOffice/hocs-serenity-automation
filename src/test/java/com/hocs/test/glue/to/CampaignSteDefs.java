@@ -13,7 +13,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.Keys;
 import io.cucumber.java.en.And;
 
-public class CampaignSteDefs extends BasePage {
+public class CampaignAndStopListSteDefs extends BasePage {
 
     Campaign campaign;
 
@@ -39,6 +39,12 @@ public class CampaignSteDefs extends BasePage {
 
     @When("I select to move the case to triage")
     public void iSelectToMoveTheCaseToTriage() {
+        campaign.selectTheAction("Take out of Campaign, move to triage");
+        clickTheButton("Confirm");
+    }
+
+    @When("I select to move the case from <string> to <string>")
+    public void iSelectToMoveTheCaseFromTo(String currentStage, String targetStage) {
         campaign.selectTheAction("Take out of Campaign, move to triage");
         clickTheButton("Confirm");
     }
