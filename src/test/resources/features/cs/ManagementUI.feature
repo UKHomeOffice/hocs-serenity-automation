@@ -498,6 +498,7 @@ Feature: ManagementUI
     And I add a campaign with random name and campaign code
     And I select to "Manage MPAM campaigns"
     And I edit a campaign name
+    Then the success message for amending a campaign should be displayed
     Then the "MPAM" campaign name should have changed in the list of campaigns
 
   @ListsManagement @MPAMRegression2
@@ -581,13 +582,13 @@ Feature: ManagementUI
     Then the success message for adding a campaign should be displayed
     Then the new "TO" campaign has been added to the list of campaigns
 
-#    Awaiting HOCS-4470 to test logic and add to regression run
-#  @ListsManagement @TORegression
+  @ListsManagement @TORegression
   Scenario: User is able to amend the details of a Treat Official campaign through campaign management
     When I select to "Manage Treat Official campaigns"
     And I add a campaign with random name and campaign code
     And I select to "Manage Treat Official campaigns"
     And I edit a campaign name
+    Then the success message for amending a campaign should be displayed
     Then the "TO" campaign name should have changed in the list of campaigns
 
   @ListsManagement @TORegression
