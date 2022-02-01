@@ -14,8 +14,4 @@ public class Dispatch extends BasePage {
     public void selectAFinalDispatchChannel() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Final response channel");
     }
-
-    public void selectTheAction(String action) {
-        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
-    }
 }

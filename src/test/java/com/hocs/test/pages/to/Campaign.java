@@ -10,10 +10,6 @@ import org.openqa.selenium.Keys;
 
 public class Campaign extends BasePage {
 
-    public void selectTheAction(String action) {
-        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
-    }
-
     public void selectACampaign() {
         waitForPageWithTitle("Specify campaign name");
         String selectedCampaign = selectRandomOptionFromTypeaheadWithHeading("Campaign");

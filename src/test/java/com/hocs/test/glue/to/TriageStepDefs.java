@@ -3,7 +3,6 @@ package com.hocs.test.glue.to;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.to.Triage;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TriageStepDefs extends BasePage {
@@ -27,7 +26,7 @@ public class TriageStepDefs extends BasePage {
 
     @And("I confirm the case is ready to be drafted")
     public void iConfirmTheCaseIsReadyToBeDrafted() {
-        triage.selectTheAction("Ready to draft");
+        selectTheStageAction("Ready to draft");
         clickTheButton("Finish");
     }
 
@@ -46,7 +45,7 @@ public class TriageStepDefs extends BasePage {
 
     @And("I save the changes")
     public void iSaveTheChanges() {
-        triage.selectTheAction("Save changes");
+        selectTheStageAction("Save changes");
         clickTheButton("Finish");
     }
 }

@@ -18,20 +18,20 @@ public class DraftStepDefs extends BasePage {
     @And("I send the Treat Official case to Dispatch")
     public void iSendTheTreatOfficialCaseToDispatch() {
         documents.recordPrimaryDraftDocument();
-        draft.selectTheAction("Send to Dispatch");
+        selectTheStageAction("Send to Dispatch");
         clickTheButton("Finish");
     }
 
     @And("I send the Treat Official case to QA")
     public void iSendTheTreatOfficialCaseToQA() {
         documents.recordPrimaryDraftDocument();
-        draft.selectTheAction("Move to QA");
+        selectTheStageAction("Move to QA");
         clickTheButton("Finish");
     }
 
     @When("I return the case to Triage")
     public void iReturnTheCaseToTriage() {
-        draft.selectTheAction("Return to Triage");
+        selectTheStageAction("Return to Triage");
         clickTheButton("Finish");
     }
 

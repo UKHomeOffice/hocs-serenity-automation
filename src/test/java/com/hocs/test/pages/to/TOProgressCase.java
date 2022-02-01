@@ -2,6 +2,7 @@ package com.hocs.test.pages.to;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Correspondents;
@@ -26,7 +27,11 @@ public class TOProgressCase extends BasePage {
 
     Draft draft;
 
+    Dispatch dispatch;
+
     Campaign campaign;
+
+    StopList stopList;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -126,7 +131,7 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Continue");
         triage.selectABusinessUnitType();
         triage.selectABusinessUnit();
-        triage.selectTheAction("Ready to draft");
+        selectTheStageAction("Ready to draft");
         clickTheButton("Finish");
     }
 
@@ -138,27 +143,43 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Continue");
         triage.selectABusinessUnitType();
         triage.selectABusinessUnit();
-        campaign.selectTheAction("Put case into a campaign");
+        selectTheStageAction("Put case into a campaign");
         clickTheButton("Finish");
         campaign.selectACampaign();
         clickTheButton("Confirm");
     }
 
     private void moveCaseFromTriageToStopList() {
+        triage.selectSetEnquirySubjectAndReasonLink();
+        triage.selectAnEnquirySubject();
+        clickTheButton("Continue");
+        triage.selectAnEnquiryReason();
+        clickTheButton("Continue");
+        triage.selectABusinessUnitType();
+        triage.selectABusinessUnit();
+        selectTheStageAction("Place on a stop list");
+        clickTheButton("Finish");
+        stopList.selectAStopList();
+        clickTheButton("Confirm");
     }
 
     private void moveCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("Initial Draft");
-        draft.selectTheAction("Move to QA");
+        selectTheStageAction("Move to QA");
         clickTheButton("Finish");
     }
 
     private void moveCaseFromQAToDispatch() {
-        draft.selectTheAction("Approve");
+        selectTheStageAction("Approve");
         clickTheButton("Finish");
     }
 
     private void moveCaseFromDispatchToCaseClosed() {
+        documents.addADocumentOfDocumentType("Final response");
+        dispatch.enterDateOfDispatch();
+        dispatch.selectAFinalDispatchChannel();
+        documents.recordFinalResponseDocument();
+        selectTheStageAction("Complete case");
         clickTheButton("Finish");
     }
 }
