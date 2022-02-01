@@ -24,7 +24,7 @@ public class ComplaintsEscalated extends BasePage {
                 if (!bfCase()) {
                     recordCaseData.selectSpecificRadioButton("Return case to Triage");
                 } else {
-                    selectSpecificRadioButton("Sent to Triage");
+                    selectSpecificRadioButton("Send to Triage");
                     //Once HOCS-4487 is completed this needs to be updated to 'Send to Triage'
                 }
                 break;
