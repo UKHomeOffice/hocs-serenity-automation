@@ -143,7 +143,9 @@ Feature: QA
     And I load and claim the current case
     And I select the "Request Secretariat clearance" action at QA
     And I add a Clearance Request to the case at QA
-    Then the case should be moved to the "QA (Secretariat Clearance Requested)" stage
+    And I enter the "MPAM QA" workstack
+    Then the QA Secretariat Clearance Request due date should be displayed in the Current Stage column
+    And the case should be moved to the "QA (Secretariat Clearance Requested)" stage
 
     #To be added to regression once HOCS-3268 is developed
   Scenario: User can approve a clearance request at QA (Secretariat Clearance Requested)
@@ -178,6 +180,10 @@ Feature: QA
     And I enter the clearance received date for the clearance request
     And I "Cancel" the Clearance Request at the QA Secretariat Clearance Requested stage
     Then the case should be moved to the "QA" stage
+
+  Scenario: Overdue Secretariat Clearance Requests are highlighted in red in QA workstack
+    And I enter the "MPAM QA" workstack
+    Then an overdue Secretariat Clearance Request is highlighted in red
 
   @Validation
   Scenario Outline: User tests validation at the QA stage

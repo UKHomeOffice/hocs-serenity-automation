@@ -162,7 +162,6 @@ Feature: Manage Documents
     And I click the "Add" button
     Then an error message should be displayed as I have not selected a file to upload
 
-
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I attempt to upload a file of unsupported filetype, so I can rectify the mistake
     And I manage the documents of a new case
@@ -171,14 +170,6 @@ Feature: Manage Documents
     And I upload a file of type "csv"
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
-
-
-  Scenario: As a Correspondence System user, I want to be able to tell when a document is still pending conversion, so I am informed about its status
-    And I manage the documents of a new case
-    And I click add documents
-    When I select a document type
-    And I upload a file that is 5MB in size
-    Then the document should have the Pending tag
 
   @CSRegression
   Scenario: As a Correspondence System user, when I add a document that fails to convert to PDF, I want to be informed of the failure

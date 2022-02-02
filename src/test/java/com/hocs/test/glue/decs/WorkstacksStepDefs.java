@@ -422,6 +422,7 @@ public class WorkstacksStepDefs extends BasePage {
             case "MPAM CAMPAIGN":
             case "MPAM TRIAGE":
             case "MPAM DRAFT":
+            case "MPAM QA":
             case "MPAM CREATION":
                 String stage = workstack.split(" ")[1];
                 setSessionVariable("businessArea").to("UKVI");
@@ -606,5 +607,15 @@ public class WorkstacksStepDefs extends BasePage {
     public void iShouldBeAbleToTellThatTheCaseHasBeenExtended() {
         workstacks.waitForWorkstackToLoad();
         workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Extended", "Yes");
+    }
+
+    @Then("the QA (Secretariat Clearance Request) due date should be displayed in the Current Stage column")
+    public void thQASecretariatClearanceRequestDueDateShouldBeDisplayedInTheCurrentStageColumn() {
+        workstacks.assertSecretariatClearanceRequestedDueDate();
+    }
+
+    @Then("an overdue Secretariat Clearance Request is highlighted in red")
+    public void anOverdueSecretariatClearanceRequestIsHighlightedInRed() throws ParseException {
+        workstacks.assertOverdueSecretariatClearanceRequestIsHighlighted();
     }
 }

@@ -167,11 +167,6 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickRemoveButton();
     }
 
-    @Then("the document should have the Pending tag")
-    public void theDocumentShouldHaveThePendingTag() {
-        documents.assertPendingTagVisible();
-    }
-
     @Then("the {string} document should be under the {string} header")
     public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
         documents.waitForFileToUpload(fileIdentifier);

@@ -246,15 +246,6 @@ public class Documents extends BasePage {
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
-    public void assertPendingTagVisible() {
-        if (!pendingTag.isVisible()) {
-            assertThat(pendingTag.isVisible(), is(true));
-        } else {
-            WebElementFacade downloadHypertext = findBy("//a[@download]");
-            assertThat(downloadHypertext.isVisible(), is(true));
-        }
-    }
-
     public void assertFailedConversionTagVisible() {
         failedConversionTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
