@@ -832,6 +832,35 @@ public class Workstacks extends BasePage {
         assertThat(homeSecSymbol.isCurrentlyVisible(), is(true));
     }
 
+    public void assertSecretariatClearanceRequestedDueDate() {
+        waitForWorkstackToLoad();
+        String inputClearanceDueDate = sessionVariableCalled("clearanceDueDate");
+        String currentCaseRef = sessionVariableCalled("caseReference");
+        WebElementFacade currentStageCell = findBy("//a[text()='" + currentCaseRef + "']/parent::td/following-sibling::td[1]");
+        String dueDate = currentStageCell.getText().split("due ")[1];
+        assertThat(inputClearanceDueDate.equals(dueDate), is(true));
+    }
+
+    public void assertOverdueSecretariatClearanceRequestIsHighlighted() throws ParseException {
+        int n = 0;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        List<WebElementFacade> allCasesAtSecretariatClearance = findAll("//span[contains(text(), 'Secretariat Clearance Requested')]");
+        while (n < allCasesAtSecretariatClearance.size()) {
+            WebElementFacade highlightCheck = allCasesAtSecretariatClearance.get(n);
+            String backgroundColour = highlightCheck.getCssValue("background-color");
+            if (backgroundColour.equalsIgnoreCase("rgba(212, 53, 28, 1)")) {
+                Date dueDate = formatter.parse(highlightCheck.getText().split("due ")[1]);
+                Date todaysDate = formatter.parse(getTodaysDate());
+                assertThat(dueDate.before(todaysDate), is(true));
+                break;
+            }
+            n++;
+        }
+        if (n == allCasesAtSecretariatClearance.size()) {
+            System.out.println("No Overdue Secretariat Clearance Requests exist, manually verify at later date");
+        }
+    }
+
     public void assertSpecifiedColumnContainsValueForCurrentCase(String columnTitle, String expectedValue) {
         waitForWorkstackToLoad();
         String displayedValue = getValueFromSpecifiedColumnForSpecifiedCase(columnTitle, getCurrentCaseReference());
