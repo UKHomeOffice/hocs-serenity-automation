@@ -835,10 +835,7 @@ public class Workstacks extends BasePage {
     public void assertSecretariatClearanceRequestedDueDate() {
         waitForWorkstackToLoad();
         String inputClearanceDueDate = sessionVariableCalled("clearanceDueDate");
-        String currentCaseRef = sessionVariableCalled("caseReference");
-        WebElementFacade currentStageCell = findBy("//a[text()='" + currentCaseRef + "']/parent::td/following-sibling::td[1]");
-        String dueDate = currentStageCell.getText().split("due ")[1];
-        assertThat(inputClearanceDueDate.equals(dueDate), is(true));
+        assertSpecifiedColumnContainsValueForCurrentCase("Current Stage", inputClearanceDueDate);
     }
 
     public void assertOverdueSecretariatClearanceRequestIsHighlighted() throws ParseException {
