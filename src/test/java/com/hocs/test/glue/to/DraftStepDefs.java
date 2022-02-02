@@ -29,7 +29,7 @@ public class DraftStepDefs extends BasePage {
         clickTheButton("Finish");
     }
 
-    @When("I return the case to Triage")
+    @When("I select to return the TO case to Triage")
     public void iReturnTheCaseToTriage() {
         selectTheStageAction("Return to Triage");
         clickTheButton("Finish");
@@ -40,5 +40,11 @@ public class DraftStepDefs extends BasePage {
         draft.selectADifferentBusinessUnitType();
         waitABit(500);
         triage.selectABusinessUnit();
+    }
+
+    @And("I submit a reason to return the case to Triage")
+    public void iSubmitAReasonToReturnTheCaseToTriage() {
+        draft.enterReasonToReturnCasetoTriage();
+        clickTheButton("Continue");
     }
 }
