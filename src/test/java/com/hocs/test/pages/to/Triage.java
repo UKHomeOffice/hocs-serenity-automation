@@ -45,10 +45,6 @@ public class Triage extends BasePage {
         setSessionVariable("businessUnit").to(businessUnit);
     }
 
-    public void selectTheAction(String action) {
-        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
-    }
-
     public void selectADifferentChannelReceived() {
         String newChannelReceived = selectDifferentRadioButtonFromGroupWithHeading("Channel Received");
         setSessionVariable("channelReceived").to(newChannelReceived);

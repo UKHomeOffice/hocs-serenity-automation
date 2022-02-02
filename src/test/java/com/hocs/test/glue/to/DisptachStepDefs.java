@@ -20,7 +20,7 @@ public class DisptachStepDefs extends BasePage {
 
     @And("I confirm the case is completed")
     public void iConfirmTheCaseIsCompleted() {
-        dispatch.selectTheAction("Complete case");
+        selectTheStageAction("Complete case");
         clickTheButton("Finish");
     }
 }

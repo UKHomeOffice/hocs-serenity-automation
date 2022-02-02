@@ -416,6 +416,10 @@ public class BasePage extends PageObject {
         }
     }
 
+    public void selectTheStageAction(String action) {
+        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
+    }
+
     //Helper methods
 
     //Radio buttons

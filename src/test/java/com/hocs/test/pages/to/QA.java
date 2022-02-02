@@ -9,10 +9,6 @@ public class QA extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    public void selectTheAction(String action) {
-        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
-    }
-
     public void enterARejectionReason() {
         String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why are you rejecting the case?");
         setSessionVariable("rejectionReason").to(rejectionReason);
