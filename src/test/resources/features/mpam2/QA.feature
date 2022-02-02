@@ -181,7 +181,6 @@ Feature: QA
     And I "Cancel" the Clearance Request at the QA Secretariat Clearance Requested stage
     Then the case should be moved to the "QA" stage
 
-    #To be added to regression once HOCS-3268 is developed
   Scenario: Overdue Secretariat Clearance Requests are highlighted in red in QA workstack
     And I enter the "MPAM QA" workstack
     Then an overdue Secretariat Clearance Request is highlighted in red
