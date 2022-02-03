@@ -7,7 +7,7 @@ Feature: Dispatch
 
   @TOWorkflow @TORegression
   Scenario: As a Disptach user, I want to be able to enter the details of dispatch, so the case can be closed
-    When I add a "Final response" type document to the case
+    When I add a "Final Response" type document to the case
     And I enter the details of the dispatch
     And I confirm the case is completed
     Then the case should be closed
@@ -22,7 +22,7 @@ Feature: Dispatch
 
   @TOWorkflow @TORegression
   Scenario: As a Dispatch user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
-    When I add a "Final response" type document to the case
+    When I add a "Final Response" type document to the case
     And I enter the details of the dispatch
     And I put the case into a "campaign"
     Then the case should be moved to the "Campaign" stage
@@ -32,7 +32,7 @@ Feature: Dispatch
 
   @TOWorkflow @TORegression
   Scenario: As a Dispatch user, I want to be able to put a case onto a stop list, so we know not to continue case working the case
-    When I add a "Final response" type document to the case
+    When I add a "Final Response" type document to the case
     And I enter the details of the dispatch
     And I place the case on a stop list
     Then the case should be moved to the "Stop List" stage
