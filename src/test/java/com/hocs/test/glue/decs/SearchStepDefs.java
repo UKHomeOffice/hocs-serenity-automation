@@ -60,7 +60,7 @@ public class SearchStepDefs extends BasePage {
                 search.enterBFSearchCriteria(criteria, value);
                 break;
             case "TO":
-
+                search.enterTOSearchCriteria(criteria, value);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

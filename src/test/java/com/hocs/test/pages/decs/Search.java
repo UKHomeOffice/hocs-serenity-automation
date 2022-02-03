@@ -147,6 +147,9 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
 
+    @FindBy(id = "CampaignType")
+    public WebElementFacade campaignTypeahead;
+
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -402,6 +405,51 @@ public class Search extends BasePage {
             case "ACTIVE CASES ONLY":
                 //This doesn't really work since the 'soft closed' cases are still technically active
                 safeClickOn(caseStatusActiveCheckbox);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void enterTOSearchCriteria(String criteria, String value) {
+        checkSpecificCheckbox("Treat Official");
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "RECEIVED ON OR AFTER":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
+                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
+                break;
+            case "RECEIVED ON OR BEFORE":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
+                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
+                break;
+            case "CORRESPONDENT FULL NAME":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
+                setSessionVariable("searchCorrespondentReferenceNumber").to(value);
+                break;
+            case "ACTIVE CASES":
+                checkSpecificCheckbox("Include Active Cases only");
+                setSessionVariable("searchActiveCases").to(true);
+                break;
+            case "CAMPAIGN":
+                safeClickOn(campaignTypeahead);
+                campaignTypeahead.sendKeys(value);
+                campaignTypeahead.sendKeys(Keys.RETURN);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
