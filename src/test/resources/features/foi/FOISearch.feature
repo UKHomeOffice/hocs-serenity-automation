@@ -8,9 +8,9 @@ Feature: FOI Search
   Scenario Outline: User tests FOI search
     When I create a "FOI" case with "<infoValue>" as its "<infoType>"
     And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" FOI search criteria
+    And I enter "<infoValue>" into the "<infoType>" search field in the "FOI" search configuration
     And I click the search button on the search page
-    Then I check that the FOI search results have the correct "<infoType>"
+    Then I check that the search results have the correct "<infoType>"
     Examples:
     | infoType                | infoValue                 |
     | Case Type               | FOI                       |
@@ -25,4 +25,4 @@ Feature: FOI Search
     When I create a single "FOI" case
     And I navigate to the "Search" page
     And I search for the case by its case reference
-    Then I check that the FOI search results have the correct "Case Reference"
+    Then I check that the search results have the correct "Case Reference"

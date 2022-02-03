@@ -476,7 +476,6 @@ public class Workstacks extends BasePage {
                     pendingStep(elementText + " is not defined within " + getMethodName());
             }
         }
-
     }
 
     public void assertVisibilityOfCaseReference(boolean trueFalse) {
