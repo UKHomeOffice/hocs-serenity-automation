@@ -25,9 +25,12 @@ Feature: Draft
 
   @TOWorkflow @TORegression
   Scenario: As a Draft user, I want to be able to return a case to Triage, so corrections can be made
-    When I return the case to Triage
+    When I select to return the TO case to Triage
+    And I submit a reason to return the case to Triage
     Then the case should be moved to the "Triage" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 
   @TOWorkflow @TORegression
   Scenario: As a Draft user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
