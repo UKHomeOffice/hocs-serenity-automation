@@ -147,9 +147,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
 
-    @FindBy(id = "CampaignType")
-    public WebElementFacade campaignTypeahead;
-
     //Enter search criteria
 
     public void enterDCUSearchCriteria(String criteria, String value) {
@@ -447,9 +444,7 @@ public class Search extends BasePage {
                 setSessionVariable("searchActiveCases").to(true);
                 break;
             case "CAMPAIGN":
-                safeClickOn(campaignTypeahead);
-                campaignTypeahead.sendKeys(value);
-                campaignTypeahead.sendKeys(Keys.RETURN);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
                 setSessionVariable("searchCampaign").to(value);
                 break;
             default:
@@ -971,7 +966,8 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResultHypertext);
                 summaryTab.selectSummaryTab();
                 WebElementFacade randomCaseCampaignName = findBy("//th[text()='Campaign name']/following-sibling::td");
-                randomCaseCampaignName.shouldContainText(searchCampaign);
+                String displayedCampaignName = randomCaseCampaignName.getText();
+                assertThat(displayedCampaignName.toUpperCase().contains(searchCampaign.toUpperCase()), is(true));
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
