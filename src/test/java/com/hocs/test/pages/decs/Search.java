@@ -450,6 +450,7 @@ public class Search extends BasePage {
                 safeClickOn(campaignTypeahead);
                 campaignTypeahead.sendKeys(value);
                 campaignTypeahead.sendKeys(Keys.RETURN);
+                setSessionVariable("searchCampaign").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -888,6 +889,89 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 //This doesn't really work since the 'soft closed' cases are still technically active
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void assertTOInformationRandomSearchResult(String criteria) throws ParseException {
+        int n = 0;
+        Date searchDate = null;
+        Date caseDate = null;
+        WebElementFacade randomResultReceivedDateCell = findBy("//th[text()='Date Received']/following-sibling::td");
+        String displayedReceivedDate;
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                String caseRef = sessionVariableCalled("searchCaseReference");
+                assertThat(randomSearchResult.equals(caseRef), is(true));
+                break;
+            case "RECEIVED ON OR AFTER":
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                displayedReceivedDate = randomResultReceivedDateCell.getText();
+                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
+                assertThat(!caseDate.before(searchDate), is(true));
+                break;
+            case "RECEIVED ON OR BEFORE":
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                displayedReceivedDate = randomResultReceivedDateCell.getText();
+                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
+                assertThat(!caseDate.after(searchDate), is(true));
+                break;
+            case "CORRESPONDENT FULL NAME":
+                String searchCorrespondentFullName = sessionVariableCalled("searchCorrespondentFullName");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentFullName = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Name']/following-sibling::td");
+                primaryCorrespondentFullName.shouldContainText(searchCorrespondentFullName);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                String searchCorrespondentPostcode = sessionVariableCalled("searchCorrespondentPostcode");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentPostcode = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Address']/following-sibling::td/span[4]");
+                primaryCorrespondentPostcode.shouldContainText(searchCorrespondentPostcode);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                String searchCorrespondentEmailAddress = sessionVariableCalled("searchCorrespondentEmailAddress");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentEmailAddress = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Email address']/following-sibling::td");
+                primaryCorrespondentEmailAddress.shouldContainText(searchCorrespondentEmailAddress);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                String searchCorrespondentReferenceNumber = sessionVariableCalled("searchCorrespondentReferenceNumber");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentReferenceNumber = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Reference']/following-sibling::td");
+                primaryCorrespondentReferenceNumber.shouldContainText(searchCorrespondentReferenceNumber);
+                break;
+            case "ACTIVE CASES ONLY":
+                List<WebElementFacade> listOfSearchResultCurrentStage = findAll("//a/parent::td/following-sibling::td[1]");
+                while (n < listOfSearchResultCurrentStage.size()) {
+                    String currentStage = listOfSearchResultCurrentStage.get(n).getText();
+                    if (currentStage.equalsIgnoreCase("Closed")) {
+                        Assert.fail("Closed case displayed in 'Active only' search result");
+                        break;
+                    }
+                    assertThat(!currentStage.equalsIgnoreCase("Closed"), is(true));
+                    n++;
+                }
+                break;
+            case "CAMPAIGN":
+                String searchCampaign = sessionVariableCalled("searchCampaign");
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                WebElementFacade randomCaseCampaignName = findBy("//th[text()='Campaign name']/following-sibling::td");
+                randomCaseCampaignName.shouldContainText(searchCampaign);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
