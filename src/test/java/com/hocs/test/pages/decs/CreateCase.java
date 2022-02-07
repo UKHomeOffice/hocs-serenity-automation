@@ -5,6 +5,13 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.Registration;
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
+import com.hocs.test.pages.mpam.MTSDataInput;
+import com.hocs.test.pages.to.DataInput;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,6 +39,30 @@ public class CreateCase extends BasePage {
     RecordCaseData recordCaseData;
 
     Correspondents correspondents;
+
+    Registration registration;
+
+    CaseView caseView;
+
+    COMPProgressCase compProgressCase;
+
+    DCUProgressCase dcuProgressCase;
+
+    MPAMProgressCase mpamProgressCase;
+
+    Creation creation;
+
+    com.hocs.test.pages.to.DataInput toDataInput;
+
+    com.hocs.test.pages.dcu.DataInput dcuDataInput;
+
+    MTSDataInput mtsDataInput;
+
+    com.hocs.test.pages.to.Triage toTriage;
+
+    com.hocs.test.pages.mpam.Campaign mpamCampaign;
+
+    com.hocs.test.pages.to.Campaign toCampaign;
 
     // Elements
 
@@ -454,6 +485,309 @@ public class CreateCase extends BasePage {
         setSessionVariable("requestQuestion").to("Test Request Question");
     }
 
+    public void generateSearchCaseData(String caseType, String infoValue, String infoType) throws ParseException {
+        if (infoType.equalsIgnoreCase("CASE REFERENCE") || infoType.equalsIgnoreCase("CASE TYPE") || infoType.equalsIgnoreCase("ACTIVE CASES ONLY")) {
+            if (infoValue.equals("COMP2")) {
+                compProgressCase.escalateACOMPCaseToCOMP2();
+            } else {
+                createCSCaseOfType(infoValue);
+            }
+        }
+        switch (caseType.toUpperCase()) {
+            case "DCU":
+                switch (infoType.toUpperCase()) {
+                    case "RECEIVED ON OR AFTER DATE":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
+                        break;
+                    case "RECEIVED ON OR BEFORE DATE":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
+                        break;
+                    case "MEMBER OF PARLIAMENT NAME":
+                        createCSCaseOfType("MIN");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        dcuDataInput.fillAllMandatoryCorrespondenceFields();
+                        clickContinueButton();
+                        correspondents.addASpecificMemberCorrespondent(infoValue);
+                        safeClickOn(finishButton);
+                        break;
+                    case "PUBLIC CORRESPONDENT NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                        createCSCaseOfType("MIN");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        dcuDataInput.fillAllMandatoryCorrespondenceFields();
+                        clickContinueButton();
+                        correspondents.addANonMemberCorrespondentOfType("Constituent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        dashboard.waitForDashboard();
+                        break;
+                    case "TOPIC":
+                        generateSearchCaseData("DCU", "Gordon Freeman", "Public Correspondent Name");
+                        dashboard.getAndClaimCurrentCase();
+                        dcuProgressCase.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
+                        break;
+                    case "SIGN OFF TEAM":
+                        generateSearchCaseData("DCU", "Animal alternatives (3Rs)", "Topic");
+                        break;
+                    case "HOME SECRETARY INTEREST":
+                        createCSCaseOfType("MIN");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        dcuDataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                        dcuDataInput.selectACorrespondenceReceivedChannel();
+                        dcuDataInput.selectASpecificCopyToNoTenOption("No");
+                        dcuDataInput.selectASpecificHomeSecInterestOption(infoValue);
+                        dcuDataInput.selectAHomeSecReplyOption();
+                        safeClickOn(continueButton);
+                        correspondents.addANonMemberCorrespondentOfType("Constituent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "MPAM":
+                switch (infoType.toUpperCase()) {
+                    case "REFERENCE TYPE":
+                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
+                        break;
+                    case "MINISTERIAL SIGN OFF TEAM":
+                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
+                        break;
+                    case "MEMBER OF PARLIAMENT NAME":
+                        createCSCaseOfType("MPAM");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
+                        break;
+                    case "CORRESPONDENT REFERENCE NUMBER":
+                        createCSCaseOfType("MPAM");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
+                        break;
+                    case "RECEIVED ON OR BEFORE DATE":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
+                        break;
+                    case "RECEIVED ON OR AFTER DATE":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
+                        break;
+                    case "CAMPAIGN":
+                        createCSCaseOfType("MPAM");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        mpamProgressCase.moveCaseFromCreationToTriage();
+                        dashboard.getAndClaimCurrentCase();
+                        mpamCampaign.moveCaseFromAStageToCampaign(infoValue);
+                        break;
+                    case "PUBLIC CORRESPONDENT NAME":
+                        createCSCaseOfType("MPAM");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        creation.triggerMPCorrespondentIsMandatoryScreen();
+                        dashboard.goToDashboard();
+                        break;
+                    case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                        createCSCaseOfType("MTS");
+                        dashboard.goToDashboard();
+                        dashboard.getAndClaimCurrentCase();
+                        mtsDataInput.completeDataInputStageAndCloseMTSCase();
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "COMP":
+                switch (infoType.toUpperCase()) {
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                        createCSCaseOfType("COMP");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    case "COMPLAINANT DATE OF BIRTH":
+                        createCSCaseOfType("COMP");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB(infoValue);
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        registration.selectComplaintType("Service");
+                        registration.selectAChannel();
+                        registration.selectASeverity();
+                        safeClickOn(continueButton);
+                        registration.openTheServiceComplaintCategoryAccordion();
+                        registration.selectAVisibleClaimCategory();
+                        registration.selectAnOwningCSU();
+                        safeClickOn(finishButton);
+                        break;
+                    case "COMPLAINANT HOME OFFICE REFERENCE":
+                        createCSCaseOfType("COMP");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB("01/01/2001");
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference(infoValue);
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "BF":
+                switch (infoType.toUpperCase()) {
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                        createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    case "COMPLAINANT DATE OF BIRTH":
+                        createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB(infoValue);
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        break;
+                    case "COMPLAINANT HOME OFFICE REFERENCE":
+                        createCSCaseOfType("BF");
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        caseView.clickAllocateToMeLink();
+                        correspondents.addANonMemberCorrespondentOfType("Complainant");
+                        correspondents.confirmPrimaryCorrespondent();
+                        registration.enterComplainantDOB("01/01/2001");
+                        registration.selectAGender();
+                        registration.enterACompanyName();
+                        registration.enterAHomeOfficeReference(infoValue);
+                        registration.enterAPortReference();
+                        safeClickOn(continueButton);
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "FOI":
+                switch (infoType.toUpperCase()) {
+                    case "CORRESPONDENT (NON-MP)":
+                    case "TOPIC":
+                        createCSCaseOfType(caseType);
+                        dashboard.goToDashboard();
+                        break;
+                    case "RECEIVED ON OR AFTER":
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        selectCaseType("FOI");
+                        clickTheButton("Next");
+                        editReceivedDate(getTodaysDate());
+                        storeCorrespondenceReceivedDate();
+                        storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadFileOfType("docx");
+                        selectCorrespondenceInboundChannel();
+                        enterCorrespondentDetails();
+                        selectFOITopic("Animal alternatives (3Rs)");
+                        enterRequestQuestion();
+                        clickTheButton("Submit");
+                        dashboard.goToDashboard();
+                        break;
+                    case "RECEIVED ON OR BEFORE":
+                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        if (!nextButton.isVisible()) {
+                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                        }
+                        selectCaseType("FOI");
+                        clickTheButton("Next");
+                        editReceivedDate("01/01/2010");
+                        storeCorrespondenceReceivedDate();
+                        storeCorrespondenceReceivedInKIMUDate();
+                        documents.uploadFileOfType("docx");
+                        selectCorrespondenceInboundChannel();
+                        enterCorrespondentDetails();
+                        selectFOITopic("Animal alternatives (3Rs)");
+                        enterRequestQuestion();
+                        clickTheButton("Submit");
+                        dashboard.goToDashboard();
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "TO":
+                switch (infoType) {
+                    case "RECEIVED ON OR AFTER":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate(caseType, "After", infoValue);
+                        break;
+                    case "RECEIVED ON OR BEFORE":
+                        createCaseReceivedFiveDaysBeforeOrAfterDate(caseType, "Before", infoValue);
+                        break;
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                    case "CORRESPONDENT REFERENCE NUMBER":
+                        createCSCaseOfType(caseType.toUpperCase());
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        dashboard.claimCurrentCase();
+                        toDataInput.selectABusinessArea();
+                        toDataInput.selectAChannelRecieved();
+                        clickTheButton("Continue");
+                        correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    case "CAMPAIGN":
+                        createCSCaseOfType(caseType.toUpperCase());
+                        confirmationScreens.goToCaseFromConfirmationScreen();
+                        dashboard.claimCurrentCase();
+                        toDataInput.selectABusinessArea();
+                        toDataInput.selectAChannelRecieved();
+                        clickTheButton("Continue");
+                        correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        toDataInput.selectWhetherToAddRecipient("No");
+                        clickTheButton("Continue");
+                        toTriage.selectSetEnquirySubjectAndReasonLink();
+                        toTriage.selectAnEnquirySubject();
+                        clickTheButton("Continue");
+                        toTriage.selectAnEnquiryReason();
+                        clickTheButton("Continue");
+                        toTriage.selectABusinessUnitType();
+                        toTriage.selectABusinessUnit();
+                        selectTheStageAction("Put case into a campaign");
+                        clickTheButton("Finish");
+                        toCampaign.selectASpecificCampaign(infoValue);
+                        clickTheButton("Confirm");
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+    }
     //Assertions
 
     public void assertPageTitle() {

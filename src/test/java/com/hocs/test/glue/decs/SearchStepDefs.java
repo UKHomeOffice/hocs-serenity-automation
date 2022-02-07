@@ -71,6 +71,9 @@ public class SearchStepDefs extends BasePage {
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String caseType = sessionVariableCalled("searchConfig");
+        if (search.zeroSearchResultsReturned()) {
+            createCase.generateSearchCaseData(caseType, sessionVariableCalled("searchValue"), criteria);
+        }
         switch (caseType.toUpperCase()) {
             case "DCU":
                 search.assertDCUInformationRandomSearchResult(criteria);
