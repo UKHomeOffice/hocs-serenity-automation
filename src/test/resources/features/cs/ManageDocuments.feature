@@ -146,6 +146,11 @@ Feature: Manage Documents
     Examples:
       | docType                |
       | Initial Correspondence |
+      | Initial Draft          |
+      | Final Response         |
+      | Contribution Request   |
+      | Contribution Response  |
+      | Background Note        |
 
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake
