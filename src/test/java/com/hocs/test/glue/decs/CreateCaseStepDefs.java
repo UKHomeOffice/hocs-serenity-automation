@@ -4,6 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
@@ -23,12 +25,17 @@ import com.hocs.test.pages.mpam.Campaign;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.mpam.MTSDataInput;
+import com.hocs.test.pages.to.Triage;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class CreateCaseStepDefs extends BasePage {
 
@@ -67,6 +74,12 @@ public class CreateCaseStepDefs extends BasePage {
     Correspondents correspondents;
 
     com.hocs.test.pages.wcs.Registration wcsRegistration;
+
+    com.hocs.test.pages.to.DataInput toDataInput;
+
+    Triage toTriage;
+
+    com.hocs.test.pages.to.Campaign toCampaign;
 
     @When("I create a single {string} case/claim")
     public void createNewCase(String caseType) {
@@ -579,6 +592,53 @@ public class CreateCaseStepDefs extends BasePage {
                         createCase.enterRequestQuestion();
                         clickTheButton("Submit");
                         dashboard.goToDashboard();
+                        break;
+                    default:
+                        pendingStep(infoType + " is not defined within " + getMethodName());
+                }
+                break;
+            case "TO":
+                switch (infoType) {
+                    case "RECEIVED ON OR AFTER":
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate(caseType, "After", infoValue);
+                        break;
+                    case "RECEIVED ON OR BEFORE":
+                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate(caseType, "Before", infoValue);
+                        break;
+                    case "CORRESPONDENT FULL NAME":
+                    case "CORRESPONDENT POSTCODE":
+                    case "CORRESPONDENT EMAIL ADDRESS":
+                    case "CORRESPONDENT REFERENCE NUMBER":
+                        iGetANewCase("TO");
+                        toDataInput.selectABusinessArea();
+                        toDataInput.selectAChannelRecieved();
+                        clickTheButton("Continue");
+                        correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        break;
+                    case "ACTIVE CASES ONLY":
+                        createCase.createCSCaseOfType(caseType);
+                        break;
+                    case "CAMPAIGN":
+                        iGetANewCase("TO");
+                        toDataInput.selectABusinessArea();
+                        toDataInput.selectAChannelRecieved();
+                        clickTheButton("Continue");
+                        correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                        correspondents.confirmPrimaryCorrespondent();
+                        toDataInput.selectWhetherToAddRecipient("No");
+                        clickTheButton("Continue");
+                        toTriage.selectSetEnquirySubjectAndReasonLink();
+                        toTriage.selectAnEnquirySubject();
+                        clickTheButton("Continue");
+                        toTriage.selectAnEnquiryReason();
+                        clickTheButton("Continue");
+                        toTriage.selectABusinessUnitType();
+                        toTriage.selectABusinessUnit();
+                        selectTheStageAction("Put case into a campaign");
+                        clickTheButton("Finish");
+                        toCampaign.selectASpecificCampaign(infoValue);
+                        clickTheButton("Confirm");
                         break;
                     default:
                         pendingStep(infoType + " is not defined within " + getMethodName());
