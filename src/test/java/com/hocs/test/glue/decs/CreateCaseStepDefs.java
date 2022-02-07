@@ -329,12 +329,16 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a {string} case with {string} as its {string}")
     public void iCreateACaseWithAsIts(String caseType, String infoValue, String infoType) throws ParseException {
+        if (infoType.equalsIgnoreCase("CASE REFERENCE") || infoType.equalsIgnoreCase("CASE TYPE") || infoType.equalsIgnoreCase("ACTIVE CASES ONLY")) {
+            if (infoValue.equals("COMP2")) {
+                compProgressCase.escalateACOMPCaseToCOMP2();
+            } else {
+                createCase.createCSCaseOfType(infoValue);
+            }
+        }
         switch (caseType.toUpperCase()) {
             case "DCU":
                 switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
-                        createCase.createCSCaseOfType(infoValue);
-                        break;
                     case "RECEIVED ON OR AFTER DATE":
                         createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
                         break;
@@ -370,9 +374,6 @@ public class CreateCaseStepDefs extends BasePage {
                     case "SIGN OFF TEAM":
                         iCreateACaseWithAsIts("DCU", "Animal alternatives (3Rs)", "Topic");
                         break;
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType("MIN");
-                        break;
                     case "HOME SECRETARY INTEREST":
                         createCase.createCSCaseOfType("MIN");
                         dashboard.goToDashboard();
@@ -392,11 +393,6 @@ public class CreateCaseStepDefs extends BasePage {
                 break;
             case "MPAM":
                 switch (infoType.toUpperCase()) {
-                    case "CASE REFERENCE":
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        break;
                     case "REFERENCE TYPE":
                         mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
                         break;
@@ -448,12 +444,6 @@ public class CreateCaseStepDefs extends BasePage {
                 break;
             case "COMP":
                 switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
-                        if (infoValue.equals("COMP2")) {
-                            compProgressCase.escalateACOMPCaseToCOMP2();
-                        }
-                        createCase.createCSCaseOfType(infoValue);
-                        break;
                     case "CORRESPONDENT FULL NAME":
                     case "CORRESPONDENT POSTCODE":
                     case "CORRESPONDENT EMAIL ADDRESS":
@@ -483,9 +473,6 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.selectAVisibleClaimCategory();
                         registration.selectAnOwningCSU();
                         safeClickOn(finishButton);
-                        break;
-                    case "CASE REFERENCE":
-                        createCase.createCSCaseOfType("COMP");
                         break;
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         createCase.createCSCaseOfType("COMP");
@@ -528,9 +515,6 @@ public class CreateCaseStepDefs extends BasePage {
                         registration.enterAPortReference();
                         safeClickOn(continueButton);
                         break;
-                    case "CASE REFERENCE":
-                        createCase.createCSCaseOfType("BF");
-                        break;
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         createCase.createCSCaseOfType("BF");
                         confirmationScreens.goToCaseFromConfirmationScreen();
@@ -550,10 +534,8 @@ public class CreateCaseStepDefs extends BasePage {
             break;
             case "FOI":
                 switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
                     case "CORRESPONDENT (NON-MP)":
                     case "TOPIC":
-                    case "ACTIVE CASES ONLY":
                         createCase.createCSCaseOfType(caseType);
                         dashboard.goToDashboard();
                         break;
@@ -615,9 +597,6 @@ public class CreateCaseStepDefs extends BasePage {
                         clickTheButton("Continue");
                         correspondents.addANonMemberCorrespondentOfType("Correspondent");
                         correspondents.confirmPrimaryCorrespondent();
-                        break;
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType(caseType);
                         break;
                     case "CAMPAIGN":
                         iGetANewCase("TO");
