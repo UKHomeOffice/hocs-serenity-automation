@@ -1,19 +1,28 @@
 package com.hocs.test.glue.decs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
+import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.foi.FOIProgressCase;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
+import com.hocs.test.pages.to.TOProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.text.ParseException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 
@@ -29,6 +38,103 @@ public class SearchStepDefs extends BasePage {
     CreateCase createCase;
 
     CaseView caseView;
+
+    DCUProgressCase dcuProgressCase;
+
+    MPAMProgressCase mpamProgressCase;
+
+    COMPProgressCase compProgressCase;
+
+    BFProgressCase bfProgressCase;
+
+    FOIProgressCase foiProgressCase;
+
+    TOProgressCase toProgressCase;
+
+    @And("I enter {string} into the {string} search field in the {string} search configuration")
+    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String searchConfig) {
+        setSessionVariable("searchValue").to(value);
+        setSessionVariable("searchCriteria").to(criteria);
+        setSessionVariable("searchConfig").to(searchConfig);
+        switch (searchConfig.toUpperCase()) {
+            case "DCU":
+                search.enterDCUSearchCriteria(criteria, value);
+                break;
+            case "MPAM":
+                search.enterMPAMSearchCriteria(criteria, value);
+                break;
+            case "COMP":
+                search.enterCOMPSearchCriteria(criteria, value);
+                break;
+            case "FOI":
+                search.enterFOISearchCriteria(criteria, value);
+                break;
+            case "BF":
+                search.enterBFSearchCriteria(criteria, value);
+                break;
+            case "TO":
+                search.enterTOSearchCriteria(criteria, value);
+                break;
+            default:
+                pendingStep(searchConfig + " is not defined within " + getMethodName());
+        }
+    }
+
+    @And("I check that the search results have the correct {string}")
+    public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
+        String searchConfig = sessionVariableCalled("searchConfig");
+        String infoValue = sessionVariableCalled("searchValue");
+        if (search.zeroSearchResultsReturned()) {
+            switch (searchConfig.toUpperCase()) {
+                case "DCU":
+                    dcuProgressCase.generateDCUSearchCaseData(infoValue, criteria);
+                    break;
+                case "MPAM":
+                    mpamProgressCase.generateMPAMSearchCaseData(infoValue, criteria);
+                    break;
+                case "COMP":
+                    compProgressCase.generateCOMPSearchCaseData(infoValue, criteria);
+                    break;
+                case "FOI":
+                    foiProgressCase.generateFOISearchCaseData(infoValue, criteria);
+                    break;
+                case "BF":
+                    bfProgressCase.generateBFSearchCaseData(infoValue, criteria);
+                    break;
+                case "TO":
+                    toProgressCase.generateTOSearchCaseData(infoValue, criteria);
+                    break;
+                default:
+                    pendingStep(searchConfig + " is not defined within " + getMethodName());
+            }
+            dashboard.selectSearchLinkFromMenuBar();
+            search.waitForSearchCriteriaPage();
+            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, searchConfig);
+            clickSearchButtonOnSearchPageWithNoCriteria();
+        }
+        switch (searchConfig.toUpperCase()) {
+            case "DCU":
+                search.assertDCUInformationRandomSearchResult(criteria);
+                break;
+            case "MPAM":
+                search.assertMPAMInformationRandomSearchResult(criteria);
+                break;
+            case "COMP":
+                search.assertCOMPInformationRandomSearchResult(criteria);
+                break;
+            case "FOI":
+                search.assertFOIInformationRandomSearchResult(criteria);
+                break;
+            case "BF":
+                search.assertBFInformationRandomSearchResult(criteria);
+                break;
+            case "TO":
+                search.assertTOInformationRandomSearchResult(criteria);
+                break;
+            default:
+                pendingStep(searchConfig + " is not defined within " + getMethodName());
+        }
+    }
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
@@ -91,30 +197,6 @@ public class SearchStepDefs extends BasePage {
         dashboard.assertCaseReferenceIsRequiredErrorMessage();
     }
 
-    @And("I enter {string} into the {string} DCU search criteria")
-    public void enterIntoTheSearchCriteria(String value, String criteria) {
-        setSessionVariable("searchCriteria").to(criteria);
-        setSessionVariable("searchValue").to(value);
-        search.enterDCUSearchCriteria(criteria, value);
-    }
-
-    @And("I enter {string} into the {string} FOI search criteria")
-    public void iEnterIntoTheFOISearchCriteria(String value, String criteria) {
-        setSessionVariable("searchCriteria").to(criteria);
-        setSessionVariable("searchValue").to(value);
-        search.enterFOISearchCriteria(criteria, value);
-    }
-
-    @Then("I check that the DCU search results have the correct {string}")
-    public void assertThatSearchResultsContainCorrectValue(String dataType) {
-        search.assertDCUInformationRandomSearchResult(dataType);
-    }
-
-    @Then("I check that the FOI search results have the correct {string}")
-    public void iCheckThatTheFOISearchResultsHaveTheCorrect(String dataType) {
-        search.assertFOIInformationRandomSearchResult(dataType);
-    }
-
     @Then("the created DCU case should be visible in the search results")
     public void theCreatedDCUCaseShouldBeVisibleInTheSearchResults() {
         int retest = 0;
@@ -132,31 +214,6 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
-    @And("I enter {string} into the {string} MPAM search criteria")
-    public void searchForMPAMCaseWith(String infoValue, String infoType) {
-        if (search.mpamCaseCheckbox.isCurrentlyVisible()) {
-            safeClickOn(search.mpamCaseCheckbox);
-        }
-        if (search.mtsCaseCheckbox.isCurrentlyVisible()) {
-            safeClickOn(search.mtsCaseCheckbox);
-        }
-        search.enterMPAMSearchCriteria(infoType, infoValue);
-        setSessionVariable("infoValue").to(infoValue);
-        setSessionVariable("infoType").to(infoType);
-    }
-
-    @And("I check that the MPAM search results have the correct {string}")
-    public void checkMPAMCaseHasCorrect(String infoType) {
-        search.assertMPAMInformationRandomSearchResult(infoType);
-    }
-
-    @And("I search for a case by it's case reference")
-    public void searchForCaseByReference() {
-        String caseRef = getCurrentCaseReference();
-        searchForMPAMCaseWith(caseRef, "Case Reference");
-        safeClickOn(searchButton);
-    }
-
     @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
         workstacks.filterByCurrentCaseReference();
@@ -167,7 +224,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                searchForMPAMCaseWith(getCurrentCaseReference(), "Case Reference");
+                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
@@ -202,16 +259,6 @@ public class SearchStepDefs extends BasePage {
         assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
-    @And("I enter {string} into the {string} COMP search criteria")
-    public void iEnterIntoTheCompSearchCriteria(String value, String criteria) {
-        search.enterCOMPSearchCriteria(criteria, value);
-    }
-
-    @And("I enter {string} into the {string} BF search criteria")
-    public void iEnterIntoTheBfSearchCriteria(String value, String criteria) {
-        search.enterBFSearchCriteria(criteria, value);
-    }
-
     @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
@@ -234,16 +281,6 @@ public class SearchStepDefs extends BasePage {
         search.enterCOMPSearchCriteria("Case Reference", compCaseRef);
         safeClickOn(searchButton);
         search.waitForResultsPage();
-    }
-
-    @Then("I check that the COMP search results have the correct {string}")
-    public void theCOMPSearchResultsHaveTheCorrect(String criteria) {
-        search.assertCOMPInformationRandomSearchResult(criteria);
-    }
-
-    @Then("I check that the BF search results have the correct {string}")
-    public void iCheckThatTheBfSearchResultsHaveTheCorrect(String criteria) {
-        search.assertBFInformationRandomSearchResult(criteria);
     }
 
     @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")

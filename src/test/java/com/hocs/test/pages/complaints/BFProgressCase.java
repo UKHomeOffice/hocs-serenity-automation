@@ -3,6 +3,8 @@ package com.hocs.test.pages.complaints;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -10,6 +12,10 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class BFProgressCase extends BasePage {
+
+    CaseView caseView;
+
+    ConfirmationScreens confirmationScreens;
 
     CreateCase createCase;
 
@@ -180,5 +186,50 @@ public class BFProgressCase extends BasePage {
 
     public void moveCaseFromQAToSend() {
         compQA.selectActionAtServiceQA("ACCEPT");
+    }
+
+    public void generateBFSearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+                createCase.createCSCaseOfType("BF");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                createCase.createCSCaseOfType("BF");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB(infoValue);
+                registration.selectAGender();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                registration.enterAPortReference();
+                safeClickOn(continueButton);
+                break;
+            case "CASE REFERENCE":
+                createCase.createCSCaseOfType("BF");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                createCase.createCSCaseOfType("BF");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB("01/01/2001");
+                registration.selectAGender();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference(infoValue);
+                registration.enterAPortReference();
+                safeClickOn(continueButton);
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }

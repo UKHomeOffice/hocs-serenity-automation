@@ -5,6 +5,13 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.Registration;
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
+import com.hocs.test.pages.mpam.MTSDataInput;
+
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;

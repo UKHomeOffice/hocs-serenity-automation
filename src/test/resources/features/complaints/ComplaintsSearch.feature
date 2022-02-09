@@ -5,12 +5,10 @@ Feature: Complaints Search
   @ComplaintsRegression
   Scenario Outline: User tests COMP search criteria
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" COMP search criteria
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "COMP" search configuration
     And I click the search button on the search page
-    Then I check that the COMP search results have the correct "<infoType>"
+    Then I check that the search results have the correct "<infoType>"
     Examples:
       | infoType                          | infoValue                            |
       | Case Type                         | COMP                                 |
@@ -33,12 +31,10 @@ Feature: Complaints Search
   @ComplaintsRegression
   Scenario Outline: User tests BF search criteria
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" BF search criteria
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "BF" search configuration
     And I click the search button on the search page
-    Then I check that the BF search results have the correct "<infoType>"
+    Then I check that the search results have the correct "<infoType>"
     Examples:
     | infoType                          | infoValue                             |
     | Correspondent full name           | Sam McTester                          |

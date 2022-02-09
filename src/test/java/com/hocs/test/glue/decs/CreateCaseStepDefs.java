@@ -4,6 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
@@ -16,19 +18,15 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
-import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.mpam.Campaign;
-import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
-import com.hocs.test.pages.mpam.MTSDataInput;
+
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.text.ParseException;
 
 public class CreateCaseStepDefs extends BasePage {
 
@@ -44,11 +42,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     COMPProgressCase compProgressCase;
 
-    Campaign campaign;
-
     DataInput dataInput;
-
-    MTSDataInput mtsDataInput;
 
     Dashboard dashboard;
 
@@ -58,11 +52,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     CaseView caseView;
 
-    Creation creation;
-
     SummaryTab summaryTab;
-
-    Registration registration;
 
     Correspondents correspondents;
 
@@ -312,281 +302,6 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam, String stage) {
         mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(signOffTeam, stage);
         dashboard.waitForDashboard();
-    }
-
-    @And("I create a {string} case with {string} as its {string}")
-    public void iCreateACaseWithAsIts(String caseType, String infoValue, String infoType) throws ParseException {
-        switch (caseType.toUpperCase()) {
-            case "DCU":
-                switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
-                        createCase.createCSCaseOfType(infoValue);
-                        break;
-                    case "RECEIVED ON OR AFTER DATE":
-                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
-                        break;
-                    case "RECEIVED ON OR BEFORE DATE":
-                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
-                        break;
-                    case "MEMBER OF PARLIAMENT NAME":
-                        createCase.createCSCaseOfType("MIN");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        dataInput.fillAllMandatoryCorrespondenceFields();
-                        clickContinueButton();
-                        correspondents.addASpecificMemberCorrespondent(infoValue);
-                        safeClickOn(finishButton);
-                        break;
-                    case "PUBLIC CORRESPONDENT NAME":
-                    case "CORRESPONDENT POSTCODE":
-                    case "CORRESPONDENT EMAIL ADDRESS":
-                        createCase.createCSCaseOfType("MIN");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        dataInput.fillAllMandatoryCorrespondenceFields();
-                        clickContinueButton();
-                        correspondents.addANonMemberCorrespondentOfType("Constituent");
-                        correspondents.confirmPrimaryCorrespondent();
-                        dashboard.waitForDashboard();
-                        break;
-                    case "TOPIC":
-                        iCreateACaseWithAsIts("DCU", "Gordon Freeman", "Public Correspondent Name");
-                        dashboard.getAndClaimCurrentCase();
-                        dcuProgressCase.moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
-                        break;
-                    case "SIGN OFF TEAM":
-                        iCreateACaseWithAsIts("DCU", "Animal alternatives (3Rs)", "Topic");
-                        break;
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType("MIN");
-                        break;
-                    case "HOME SECRETARY INTEREST":
-                        createCase.createCSCaseOfType("MIN");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
-                        dataInput.selectACorrespondenceReceivedChannel();
-                        dataInput.selectASpecificCopyToNoTenOption("No");
-                        dataInput.selectASpecificHomeSecInterestOption(infoValue);
-                        dataInput.selectAHomeSecReplyOption();
-                        safeClickOn(continueButton);
-                        correspondents.addANonMemberCorrespondentOfType("Constituent");
-                        correspondents.confirmPrimaryCorrespondent();
-                        break;
-                    default:
-                        pendingStep(infoType + " is not defined within " + getMethodName());
-                }
-                break;
-            case "MPAM":
-                switch (infoType.toUpperCase()) {
-                    case "CASE REFERENCE":
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        break;
-                    case "REFERENCE TYPE":
-                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
-                        break;
-                    case "MINISTERIAL SIGN OFF TEAM":
-                        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
-                        break;
-                    case "MEMBER OF PARLIAMENT NAME":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
-                        break;
-                    case "CORRESPONDENT REFERENCE NUMBER":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
-                        break;
-                    case "RECEIVED ON OR BEFORE DATE":
-                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
-                        break;
-                    case "RECEIVED ON OR AFTER DATE":
-                        createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
-                        break;
-                    case "CAMPAIGN":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        mpamProgressCase.moveCaseFromCreationToTriage();
-                        dashboard.getAndClaimCurrentCase();
-                        campaign.moveCaseFromAStageToCampaign(infoValue);
-                        break;
-                    case "PUBLIC CORRESPONDENT NAME":
-                        createCase.createCSCaseOfType("MPAM");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        creation.triggerMPCorrespondentIsMandatoryScreen();
-                        dashboard.goToDashboard();
-                        break;
-                    case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                        createCase.createCSCaseOfType("MTS");
-                        dashboard.goToDashboard();
-                        dashboard.getAndClaimCurrentCase();
-                        mtsDataInput.completeDataInputStageAndCloseMTSCase();
-                        break;
-                    default:
-                        pendingStep(infoType + " is not defined within " + getMethodName());
-                }
-                break;
-            case "COMP":
-                switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
-                        if (infoValue.equals("COMP2")) {
-                            compProgressCase.escalateACOMPCaseToCOMP2();
-                        }
-                        createCase.createCSCaseOfType(infoValue);
-                        break;
-                    case "CORRESPONDENT FULL NAME":
-                    case "CORRESPONDENT POSTCODE":
-                    case "CORRESPONDENT EMAIL ADDRESS":
-                        createCase.createCSCaseOfType("COMP");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        break;
-                    case "COMPLAINANT DATE OF BIRTH":
-                        createCase.createCSCaseOfType("COMP");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        registration.enterComplainantDOB(infoValue);
-                        registration.selectAGender();
-                        registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
-                        registration.enterAPortReference();
-                        safeClickOn(continueButton);
-                        registration.selectComplaintType("Service");
-                        registration.selectAChannel();
-                        registration.selectASeverity();
-                        safeClickOn(continueButton);
-                        registration.openTheServiceComplaintCategoryAccordion();
-                        registration.selectAVisibleClaimCategory();
-                        registration.selectAnOwningCSU();
-                        safeClickOn(finishButton);
-                        break;
-                    case "CASE REFERENCE":
-                        createCase.createCSCaseOfType("COMP");
-                        break;
-                    case "COMPLAINANT HOME OFFICE REFERENCE":
-                        createCase.createCSCaseOfType("COMP");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        registration.enterComplainantDOB("01/01/2001");
-                        registration.selectAGender();
-                        registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference(infoValue);
-                        registration.enterAPortReference();
-                        safeClickOn(continueButton);
-                        break;
-                    default:
-                        pendingStep(infoType + " is not defined within " + getMethodName());
-                }
-                break;
-            case "BF":
-                switch (infoType.toUpperCase()) {
-                    case "CORRESPONDENT FULL NAME":
-                    case "CORRESPONDENT POSTCODE":
-                    case "CORRESPONDENT EMAIL ADDRESS":
-                        createCase.createCSCaseOfType("BF");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        break;
-                    case "COMPLAINANT DATE OF BIRTH":
-                        createCase.createCSCaseOfType("BF");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        registration.enterComplainantDOB(infoValue);
-                        registration.selectAGender();
-                        registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
-                        registration.enterAPortReference();
-                        safeClickOn(continueButton);
-                        break;
-                    case "CASE REFERENCE":
-                        createCase.createCSCaseOfType("BF");
-                        break;
-                    case "COMPLAINANT HOME OFFICE REFERENCE":
-                        createCase.createCSCaseOfType("BF");
-                        confirmationScreens.goToCaseFromConfirmationScreen();
-                        caseView.clickAllocateToMeLink();
-                        correspondents.addANonMemberCorrespondentOfType("Complainant");
-                        correspondents.confirmPrimaryCorrespondent();
-                        registration.enterComplainantDOB("01/01/2001");
-                        registration.selectAGender();
-                        registration.enterACompanyName();
-                        registration.enterAHomeOfficeReference(infoValue);
-                        registration.enterAPortReference();
-                        safeClickOn(continueButton);
-                        break;
-                    default:
-                        pendingStep(infoType + " is not defined within " + getMethodName());
-                }
-            break;
-            case "FOI":
-                switch (infoType.toUpperCase()) {
-                    case "CASE TYPE":
-                    case "CORRESPONDENT (NON-MP)":
-                    case "TOPIC":
-                    case "ACTIVE CASES ONLY":
-                        createCase.createCSCaseOfType(caseType);
-                        dashboard.goToDashboard();
-                        break;
-                    case "RECEIVED ON OR AFTER":
-                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                        if (!nextButton.isVisible()) {
-                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                        }
-                        createCase.selectCaseType("FOI");
-                        clickTheButton("Next");
-                        createCase.editReceivedDate(getTodaysDate());
-                        createCase.storeCorrespondenceReceivedDate();
-                        createCase.storeCorrespondenceReceivedInKIMUDate();
-                        documents.uploadFileOfType("docx");
-                        createCase.selectCorrespondenceInboundChannel();
-                        createCase.enterCorrespondentDetails();
-                        createCase.selectFOITopic("Animal alternatives (3Rs)");
-                        createCase.enterRequestQuestion();
-                        clickTheButton("Submit");
-                        dashboard.goToDashboard();
-                        break;
-                    case "RECEIVED ON OR BEFORE":
-                        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                        if (!nextButton.isVisible()) {
-                            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                        }
-                        createCase.selectCaseType("FOI");
-                        clickTheButton("Next");
-                        createCase.editReceivedDate("01/01/2010");
-                        createCase.storeCorrespondenceReceivedDate();
-                        createCase.storeCorrespondenceReceivedInKIMUDate();
-                        documents.uploadFileOfType("docx");
-                        createCase.selectCorrespondenceInboundChannel();
-                        createCase.enterCorrespondentDetails();
-                        createCase.selectFOITopic("Animal alternatives (3Rs)");
-                        createCase.enterRequestQuestion();
-                        clickTheButton("Submit");
-                        dashboard.goToDashboard();
-                        break;
-                    default:
-                        pendingStep(infoType + " is not defined within " + getMethodName());
-                }
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
     }
 
     @Then("the case should be allocated to the previously selected user in the summary")
