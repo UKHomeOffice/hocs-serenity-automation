@@ -12,12 +12,12 @@ Feature: Complaints Search
     Examples:
       | infoType                          | infoValue                            |
       | Case Type                         | COMP                                 |
-#      | Case Type                         | COMP2                                |
-#      | Correspondent Full Name           | Sam McTester                         |
-#      | Correspondent Postcode            | AB1 2CD                              |
-#      | Correspondent Email Address       | SamMcTester@Test.com                 |
-#      | Complainant Date Of Birth         | 01/01/2001                           |
-#      | Complainant Home Office Reference | Test entry for Home Office Reference |
+      | Case Type                         | COMP2                                |
+      | Correspondent Full Name           | Sam McTester                         |
+      | Correspondent Postcode            | AB1 2CD                              |
+      | Correspondent Email Address       | SamMcTester@Test.com                 |
+      | Complainant Date Of Birth         | 01/01/2001                           |
+      | Complainant Home Office Reference | Test entry for Home Office Reference |
 
 #    HOCS-2838
   @ComplaintsRegression
@@ -31,9 +31,7 @@ Feature: Complaints Search
   @ComplaintsRegression
   Scenario Outline: User tests BF search criteria
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
+    When I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" search field in the "BF" search configuration
     And I click the search button on the search page
     Then I check that the search results have the correct "<infoType>"

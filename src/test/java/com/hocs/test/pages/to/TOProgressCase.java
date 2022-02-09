@@ -5,13 +5,17 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.text.ParseException;
 
 public class TOProgressCase extends BasePage {
+
+    ConfirmationScreens confirmationScreens;
 
     CreateCase createCase;
 
@@ -181,5 +185,58 @@ public class TOProgressCase extends BasePage {
         documents.recordFinalResponseDocument();
         selectTheStageAction("Complete case");
         clickTheButton("Finish");
+    }
+
+    public void generateTOSearchCaseData(String infoValue, String infoType) throws ParseException {
+        switch (infoType.toUpperCase()) {
+            case "CASE REFERENCE":
+            case "ACTIVE CASES ONLY":
+                createCase.createCSCaseOfType("TO");
+                break;
+            case "RECEIVED ON OR AFTER":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("TO", "After", infoValue);
+                break;
+            case "RECEIVED ON OR BEFORE":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("TO", "Before", infoValue);
+                break;
+            case "CORRESPONDENT FULL NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+            case "CORRESPONDENT REFERENCE NUMBER":
+                createCase.createCSCaseOfType("TO");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                dashboard.claimCurrentCase();
+                dataInput.selectABusinessArea();
+                dataInput.selectAChannelRecieved();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "CAMPAIGN":
+                createCase.createCSCaseOfType("TO");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                dashboard.claimCurrentCase();
+                dataInput.selectABusinessArea();
+                dataInput.selectAChannelRecieved();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                correspondents.confirmPrimaryCorrespondent();
+                dataInput.selectWhetherToAddRecipient("No");
+                clickTheButton("Continue");
+                triage.selectSetEnquirySubjectAndReasonLink();
+                triage.selectAnEnquirySubject();
+                clickTheButton("Continue");
+                triage.selectAnEnquiryReason();
+                clickTheButton("Continue");
+                triage.selectABusinessUnitType();
+                triage.selectABusinessUnit();
+                selectTheStageAction("Put case into a campaign");
+                clickTheButton("Finish");
+                campaign.selectASpecificCampaign(infoValue);
+                clickTheButton("Confirm");
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }

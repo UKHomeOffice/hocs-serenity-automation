@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.text.ParseException;
 
 public class DCUProgressCase extends BasePage {
 
@@ -255,5 +256,66 @@ public class DCUProgressCase extends BasePage {
     public void moveCaseFromDispatchToCaseClosedOrCopyToNumber10() {
         dispatch.selectAbleToDispatch("Yes");
         safeClickOn(continueButton);
+    }
+
+    public void generateDCUSearchCaseData(String infoValue, String infoType) throws ParseException {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+                createCase.createCSCaseOfType(infoValue);
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
+                break;
+            case "MEMBER OF PARLIAMENT NAME":
+                createCase.createCSCaseOfType("MIN");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                clickContinueButton();
+                correspondents.addASpecificMemberCorrespondent(infoValue);
+                safeClickOn(finishButton);
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+                createCase.createCSCaseOfType("MIN");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                clickContinueButton();
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                dashboard.waitForDashboard();
+                break;
+            case "TOPIC":
+                generateDCUSearchCaseData("Gordon Freeman", "Public Correspondent Name");
+                dashboard.getAndClaimCurrentCase();
+                moveCaseFromMarkupToInitialDraftWithSpecificTopic(infoValue);
+                break;
+            case "SIGN OFF TEAM":
+                generateDCUSearchCaseData("Animal alternatives (3Rs)", "Topic");
+                break;
+            case "ACTIVE CASES ONLY":
+                createCase.createCSCaseOfType("MIN");
+                break;
+            case "HOME SECRETARY INTEREST":
+                createCase.createCSCaseOfType("MIN");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                dataInput.selectACorrespondenceReceivedChannel();
+                dataInput.selectASpecificCopyToNoTenOption("No");
+                dataInput.selectASpecificHomeSecInterestOption(infoValue);
+                dataInput.selectAHomeSecReplyOption();
+                safeClickOn(continueButton);
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }

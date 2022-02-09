@@ -7,12 +7,18 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
+import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
+import com.hocs.test.pages.foi.FOIProgressCase;
+import com.hocs.test.pages.mpam.MPAMProgressCase;
+import com.hocs.test.pages.to.TOProgressCase;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,6 +38,18 @@ public class SearchStepDefs extends BasePage {
     CreateCase createCase;
 
     CaseView caseView;
+
+    DCUProgressCase dcuProgressCase;
+
+    MPAMProgressCase mpamProgressCase;
+
+    COMPProgressCase compProgressCase;
+
+    BFProgressCase bfProgressCase;
+
+    FOIProgressCase foiProgressCase;
+
+    TOProgressCase toProgressCase;
 
     @And("I enter {string} into the {string} search field in the {string} search configuration")
     public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String caseType) {
@@ -71,8 +89,33 @@ public class SearchStepDefs extends BasePage {
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String caseType = sessionVariableCalled("searchConfig");
+        String infoValue = sessionVariableCalled("searchValue");
         if (search.zeroSearchResultsReturned()) {
-            createCase.generateSearchCaseData(caseType, sessionVariableCalled("searchValue"), criteria);
+            switch (caseType.toUpperCase()) {
+                case "DCU":
+                    dcuProgressCase.generateDCUSearchCaseData(infoValue, criteria);
+                    break;
+                case "MPAM":
+                    mpamProgressCase.generateMPAMSearchCaseData(infoValue, criteria);
+                    break;
+                case "COMP":
+                    compProgressCase.generateCOMPSearchCaseData(infoValue, criteria);
+                    break;
+                case "FOI":
+                    foiProgressCase.generateFOISearchCaseData(infoValue, criteria);
+                    break;
+                case "BF":
+                    bfProgressCase.generateBFSearchCaseData(infoValue, criteria);
+                    break;
+                case "TO":
+                    toProgressCase.generateTOSearchCaseData(infoValue, criteria);
+                    break;
+                default:
+                    pendingStep(caseType + " is not defined within " + getMethodName());
+            }
+            dashboard.selectSearchLinkFromMenuBar();
+            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, caseType);
+            search.waitForResultsPage();
         }
         switch (caseType.toUpperCase()) {
             case "DCU":

@@ -155,4 +155,54 @@ public class FOIProgressCase extends BasePage {
         clickTheButton("Complete Dispatch");
         waitABit(500);
     }
+
+    public void generateFOISearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+            case "CORRESPONDENT (NON-MP)":
+            case "TOPIC":
+            case "ACTIVE CASES ONLY":
+                createCase.createCSCaseOfType("FOI");
+                dashboard.goToDashboard();
+                break;
+            case "RECEIVED ON OR AFTER":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("FOI");
+                clickTheButton("Next");
+                createCase.editReceivedDate(getTodaysDate());
+                createCase.storeCorrespondenceReceivedDate();
+                createCase.storeCorrespondenceReceivedInKIMUDate();
+                documents.uploadFileOfType("docx");
+                createCase.selectCorrespondenceInboundChannel();
+                createCase.enterCorrespondentDetails();
+                createCase.selectFOITopic("Animal alternatives (3Rs)");
+                createCase.enterRequestQuestion();
+                clickTheButton("Submit");
+                dashboard.goToDashboard();
+                break;
+            case "RECEIVED ON OR BEFORE":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("FOI");
+                clickTheButton("Next");
+                createCase.editReceivedDate("01/01/2010");
+                createCase.storeCorrespondenceReceivedDate();
+                createCase.storeCorrespondenceReceivedInKIMUDate();
+                documents.uploadFileOfType("docx");
+                createCase.selectCorrespondenceInboundChannel();
+                createCase.enterCorrespondentDetails();
+                createCase.selectFOITopic("Animal alternatives (3Rs)");
+                createCase.enterRequestQuestion();
+                clickTheButton("Submit");
+                dashboard.goToDashboard();
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
+    }
 }

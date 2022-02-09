@@ -9,12 +9,15 @@ import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.text.ParseException;
 
 public class MPAMProgressCase extends BasePage {
 
     CreateCase createCase;
 
     Dashboard dashboard;
+
+    Campaign campaign;
 
     Correspondents correspondents;
 
@@ -27,6 +30,8 @@ public class MPAMProgressCase extends BasePage {
     QA qa;
 
     DispatchStages dispatchStages;
+
+    MTSDataInput mtsDataInput;
 
     String businessArea = "UKVI";
 
@@ -220,5 +225,62 @@ public class MPAMProgressCase extends BasePage {
         dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.dispatchedRadioButtonAtDispatch);
         safeClickOn(confirmButton);
+    }
+
+    public void generateMPAMSearchCaseData(String infoValue, String infoType) throws ParseException {
+        switch (infoType.toUpperCase()) {
+            case "CASE REFERENCE":
+            case "ACTIVE CASES ONLY":
+                createCase.createCSCaseOfType("MPAM");
+                dashboard.goToDashboard();
+                break;
+            case "REFERENCE TYPE":
+                createCaseAndMoveItToTargetStageWithSpecifiedReferenceType(infoValue, "Triage");
+                break;
+            case "MINISTERIAL SIGN OFF TEAM":
+                createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
+                break;
+            case "MEMBER OF PARLIAMENT NAME":
+                createCase.createCSCaseOfType("MPAM");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                createCase.createCSCaseOfType("MPAM");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
+                break;
+            case "RECEIVED ON OR BEFORE DATE":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
+                break;
+            case "RECEIVED ON OR AFTER DATE":
+                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
+                break;
+            case "CAMPAIGN":
+                createCase.createCSCaseOfType("MPAM");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                moveCaseFromCreationToTriage();
+                dashboard.getAndClaimCurrentCase();
+                campaign.moveCaseFromAStageToCampaign(infoValue);
+                break;
+            case "PUBLIC CORRESPONDENT NAME":
+                createCase.createCSCaseOfType("MPAM");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                creation.triggerMPCorrespondentIsMandatoryScreen();
+                dashboard.goToDashboard();
+                break;
+            case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
+                createCase.createCSCaseOfType("MTS");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                mtsDataInput.completeDataInputStageAndCloseMTSCase();
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.hocs.test.pages.complaints;
 
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -7,6 +9,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
+import java.text.ParseException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 
@@ -15,6 +18,10 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class COMPProgressCase extends BasePage {
+
+    CaseView caseView;
+
+    ConfirmationScreens confirmationScreens;
 
     CreateCase createCase;
 
@@ -251,5 +258,64 @@ public class COMPProgressCase extends BasePage {
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
+    }
+
+    public void generateCOMPSearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+                if (infoValue.equals("COMP2")) {
+                    escalateACOMPCaseToCOMP2();
+                }
+                createCase.createCSCaseOfType(infoValue);
+                break;
+            case "CORRESPONDENT FULL NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+                createCase.createCSCaseOfType("COMP");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                createCase.createCSCaseOfType("COMP");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB(infoValue);
+                registration.selectAGender();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                registration.enterAPortReference();
+                safeClickOn(continueButton);
+                registration.selectComplaintType("Service");
+                registration.selectAChannel();
+                registration.selectASeverity();
+                safeClickOn(continueButton);
+                registration.openTheServiceComplaintCategoryAccordion();
+                registration.selectAVisibleClaimCategory();
+                registration.selectAnOwningCSU();
+                safeClickOn(finishButton);
+                break;
+            case "CASE REFERENCE":
+                createCase.createCSCaseOfType("COMP");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                createCase.createCSCaseOfType("COMP");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB("01/01/2001");
+                registration.selectAGender();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference(infoValue);
+                registration.enterAPortReference();
+                safeClickOn(continueButton);
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }
