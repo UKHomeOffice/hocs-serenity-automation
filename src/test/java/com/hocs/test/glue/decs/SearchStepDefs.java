@@ -216,7 +216,6 @@ public class SearchStepDefs extends BasePage {
 
     @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
-        String caseType = getCurrentCaseReference().split("/")[0];
         workstacks.filterByCurrentCaseReference();
         waitABit(1000);
         int numberOfResults = workstacks.getTotalOfCases();
@@ -225,7 +224,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", caseType.toUpperCase());
+                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
