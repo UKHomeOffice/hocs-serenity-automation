@@ -61,12 +61,6 @@ public class SearchStepDefs extends BasePage {
                 search.enterDCUSearchCriteria(criteria, value);
                 break;
             case "MPAM":
-                if (search.mpamCaseCheckbox.isCurrentlyVisible()) {
-                    safeClickOn(search.mpamCaseCheckbox);
-                }
-                if (search.mtsCaseCheckbox.isCurrentlyVisible()) {
-                    safeClickOn(search.mtsCaseCheckbox);
-                }
                 search.enterMPAMSearchCriteria(criteria, value);
                 break;
             case "COMP":

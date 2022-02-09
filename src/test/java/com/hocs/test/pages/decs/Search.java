@@ -237,6 +237,12 @@ public class Search extends BasePage {
     }
 
     public void enterMPAMSearchCriteria(String criteria, String value) {
+        if (mpamCaseCheckbox.isCurrentlyVisible()) {
+            safeClickOn(mpamCaseCheckbox);
+        }
+        if (mtsCaseCheckbox.isCurrentlyVisible()) {
+            safeClickOn(mtsCaseCheckbox);
+        }
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
                 caseReferenceSearchBox.sendKeys(value);
