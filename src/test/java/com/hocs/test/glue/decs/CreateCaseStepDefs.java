@@ -18,24 +18,15 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
-import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.mpam.Campaign;
-import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
-import com.hocs.test.pages.mpam.MTSDataInput;
-import com.hocs.test.pages.to.Triage;
+
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 public class CreateCaseStepDefs extends BasePage {
 
@@ -311,11 +302,6 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateAMinisterialMPAMCaseWithAsTheMinisterialSignOffTeam(String signOffTeam, String stage) {
         mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(signOffTeam, stage);
         dashboard.waitForDashboard();
-    }
-
-    @And("I create a {string} case with {string} as its {string}")
-    public void iCreateACaseWithAsIts(String caseType, String infoValue, String infoType) throws ParseException {
-        createCase.generateSearchCaseData(caseType, infoValue, infoType);
     }
 
     @Then("the case should be allocated to the previously selected user in the summary")
