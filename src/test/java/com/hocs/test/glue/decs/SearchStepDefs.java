@@ -52,11 +52,11 @@ public class SearchStepDefs extends BasePage {
     TOProgressCase toProgressCase;
 
     @And("I enter {string} into the {string} search field in the {string} search configuration")
-    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String caseType) {
+    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String searchConfig) {
         setSessionVariable("searchValue").to(value);
         setSessionVariable("searchCriteria").to(criteria);
-        setSessionVariable("searchConfig").to(caseType);
-        switch (caseType.toUpperCase()) {
+        setSessionVariable("searchConfig").to(searchConfig);
+        switch (searchConfig.toUpperCase()) {
             case "DCU":
                 search.enterDCUSearchCriteria(criteria, value);
                 break;
@@ -82,16 +82,16 @@ public class SearchStepDefs extends BasePage {
                 search.enterTOSearchCriteria(criteria, value);
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(searchConfig + " is not defined within " + getMethodName());
         }
     }
 
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
-        String caseType = sessionVariableCalled("searchConfig");
+        String searchConfig = sessionVariableCalled("searchConfig");
         String infoValue = sessionVariableCalled("searchValue");
         if (search.zeroSearchResultsReturned()) {
-            switch (caseType.toUpperCase()) {
+            switch (searchConfig.toUpperCase()) {
                 case "DCU":
                     dcuProgressCase.generateDCUSearchCaseData(infoValue, criteria);
                     break;
@@ -111,14 +111,14 @@ public class SearchStepDefs extends BasePage {
                     toProgressCase.generateTOSearchCaseData(infoValue, criteria);
                     break;
                 default:
-                    pendingStep(caseType + " is not defined within " + getMethodName());
+                    pendingStep(searchConfig + " is not defined within " + getMethodName());
             }
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
-            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, caseType);
+            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, searchConfig);
             clickSearchButtonOnSearchPageWithNoCriteria();
         }
-        switch (caseType.toUpperCase()) {
+        switch (searchConfig.toUpperCase()) {
             case "DCU":
                 search.assertDCUInformationRandomSearchResult(criteria);
                 break;
@@ -138,7 +138,7 @@ public class SearchStepDefs extends BasePage {
                 search.assertTOInformationRandomSearchResult(criteria);
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(searchConfig + " is not defined within " + getMethodName());
         }
     }
 
