@@ -6,9 +6,7 @@ Feature: MPAM Search
 
   @MPAMRegression2
   Scenario Outline: User tests MPAM search criteria
-    When I create a "MPAM" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
+    When I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" search field in the "MPAM" search configuration
     And I click the search button on the search page
     Then I check that the search results have the correct "<infoType>"

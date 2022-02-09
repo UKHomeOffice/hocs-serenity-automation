@@ -18,7 +18,7 @@ Feature: Search
     | Correspondent postcode          | AB1 2CD               |
     | Correspondent email address     | SamMcTester@Test.com  |
     | Correspondent reference number  | Ref-ABCD-1234         |
-#    | Active Cases only               | Yes                   | Remove comment when environment is wiped
+    | Active Cases only               | Yes                   |
     | Campaign                        | Test campaign 1       |
 
   @TORegression

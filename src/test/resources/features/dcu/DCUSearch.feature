@@ -7,9 +7,7 @@ Feature: DCU Search
 #    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
   @DCURegression
   Scenario Outline: User tests DCU search criteria
-    When I create a "DCU" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
+    When I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" search field in the "DCU" search configuration
     And I click the search button on the search page
     Then I check that the search results have the correct "<infoType>"
@@ -28,9 +26,7 @@ Feature: DCU Search
       | Active Cases Only           | Yes                       |
 
   Scenario Outline: User can search for DCU case types
-    When I create a "DCU" case with "<infoValue>" as its "Case Type"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
+    When I navigate to the "Search" page
     And I enter "<infoValue>" into the "Case Type" search field in the "DCU" search configuration
     And I click the search button on the search page
     Then I check that the search results have the correct "Case Type"
