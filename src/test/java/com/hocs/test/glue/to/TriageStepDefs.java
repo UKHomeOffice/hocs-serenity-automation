@@ -48,5 +48,22 @@ public class TriageStepDefs extends BasePage {
         selectTheStageAction("Save changes");
         clickTheButton("Finish");
     }
+
+    @When("I select to close the Treat Official case")
+    public void iSelectToCloseTheTreatOfficialCase() {
+        selectTheStageAction("Close case");
+        clickTheButton("Finish");
+    }
+
+    @And("I select a reason to close the case")
+    public void iSelectAReasonToCloseTheCase() {
+        triage.selectAClosureReason();
+    }
+
+    @And("I submit supporting details for the closure")
+    public void iSubmitSupportingDetailsForTheClosure() {
+        triage.enterClosureDetails();
+        clickTheButton("Confirm");
+    }
 }
 

@@ -119,6 +119,12 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertCaseNoteWithTitleContainsText("Case closure note", closureReason);
     }
 
+    @And("a Case closure note should be visible in the timeline showing the submitted supporting details for closing the case")
+    public void aCaseClosureNoteShouldBeVisibleInTheTimelineShowingTheSupportingDetailsForClosingTheCase() {
+        String closureDetails = sessionVariableCalled("closureDetails");
+        timelineTab.assertCaseNoteWithTitleContainsText("Case closure note", closureDetails);
+    }
+
     @And("a Details of follow up note should be visible in the timeline showing the submitted details of the required action")
     public void aDetailsOfFollowUpNoteShouldBeVisibleInTheTimelineShowingTheSubmittedDetailsOfTheRequiredAction() {
         String followUpDetails = sessionVariableCalled("followUpDetails");

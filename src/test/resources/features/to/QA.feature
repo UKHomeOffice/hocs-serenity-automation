@@ -54,3 +54,13 @@ Feature: QA
     And I select the "replacement draft" document as the primary draft
     And I save the change of the primary draft
     And the replacement document should be tagged as the primary draft
+
+  @TORegression
+  Scenario: As a QA user, I want to be able to close the case early, so transferred or duplicate cases can be removed from the teams workstack
+    When I select to close the Treat Official case
+    And I select a reason to close the case
+    And I submit supporting details for the closure
+    Then the case should be closed
+    And the closure reason and details should be visible in the Case Details accordion
+    And the closure reason and details should be visible in the Summary tab
+    And a Case closure note should be visible in the timeline showing the submitted supporting details for closing the case
