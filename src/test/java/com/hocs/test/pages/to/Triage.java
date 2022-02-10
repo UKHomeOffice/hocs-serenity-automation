@@ -49,4 +49,14 @@ public class Triage extends BasePage {
         String newChannelReceived = selectDifferentRadioButtonFromGroupWithHeading("Channel Received");
         setSessionVariable("channelReceived").to(newChannelReceived);
     }
+
+    public void selectAClosureReason() {
+        String closureReason = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Why should this case be closed?");
+        setSessionVariable("closureReason").to(closureReason);
+    }
+
+    public void enterClosureDetails() {
+        String closureDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Please enter a details of why the case is being closed");
+        setSessionVariable("closureDetails").to(closureDetails);
+    }
 }

@@ -1,5 +1,7 @@
 package com.hocs.test.glue.decs;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
@@ -29,6 +31,12 @@ public class CaseDataStepDefs extends BasePage {
             workstacks.selectSpecificCaseReferenceLink(getCurrentCaseReference());
         }
         openOrCloseAccordionSection(stageName);
+        recordCaseData.assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
+    }
+
+    @And("the closure reason and details should be visible in the Case Details accordion")
+    public void theClosureReasonAndDetailsShouldBeVisibleInTheCaseDetailsAccordion() {
+        openOrCloseAccordionSection("Early Closure");
         recordCaseData.assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
     }
 }

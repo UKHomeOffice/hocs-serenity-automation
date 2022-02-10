@@ -157,54 +157,55 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the summary should contain the Business Area, Channel Received and Primary Correspondents details")
     public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"),"Business Area");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"),"Channel Received");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentFullName"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentOrganisation"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentBuilding"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentStreet"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentTownOrCity"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentPostcode"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentCountry"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentTelephoneNumber"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentEmail"),"Primary correspondent");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentReference"),"Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"), "Business Area");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"), "Channel Received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentFullName"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentOrganisation"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentBuilding"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentStreet"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentTownOrCity"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentPostcode"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentCountry"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentTelephoneNumber"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentEmail"), "Primary correspondent");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentReference"), "Primary correspondent");
     }
 
-    @And("the summary should contain the {string} recipient")
-    public void theSummaryShouldContainTheRecipient(String recipientType) {
-        if (recipientType.equalsIgnoreCase("MEMBER")) {
-            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient (Member of Parliament)");
-        } else {
-            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"),"Recipient");
-        }
+    @And("the summary should contain the Recipient")
+    public void theSummaryShouldContainTheRecipient() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("recipient"), "Recipient");
     }
 
     @And("the summary should contain the Enquiry Subject, Enquiry Reason and Business Unit")
     public void theSummaryShouldContainTheEnquiryReasonAndEnquirySubjectAndBusinessUnit() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquirySubject"),"Enquiry Subject");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquiryReason"),"Enquiry Reason");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"),"Business Unit");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquirySubject"), "Enquiry Subject");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquiryReason"), "Enquiry Reason");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"), "Business Unit");
     }
 
     @Then("the amended value for Channel Received should be saved to the case")
     public void theAmendedValueForChannelReceivedShouldBeSavedToTheCase() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"),"Channel Received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"), "Channel Received");
     }
 
     @Then("the amended value for Business Unit Type and Business Unit should be saved to the case")
     public void theAmendedValueForBusinessUnitShouldBeSavedToTheCase() {
         waitABit(2000);
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"),"Business Unit");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"), "Business Unit");
     }
 
     @And("the summary should contain the selected/new campaign")
     public void theSummaryShouldContainTheSelectedCampaign() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("campaign"),"Campaign name");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("campaign"), "Campaign name");
     }
 
     @And("the summary should contain the selected/new stop list")
     public void theSummaryShouldContainTheSelectedStopList() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("stopList"),"Stop List name");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("stopList"), "Stop List name");
+    }
+
+    @And("the closure reason and details should be visible in the Summary tab")
+    public void theClosureReasonAndDetailsShouldBeVisibleInTheSummaryTab() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("closureReason"), "Why should this case be closed?");
     }
 }

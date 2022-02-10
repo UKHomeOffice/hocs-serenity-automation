@@ -20,16 +20,12 @@ Feature: Data Input
 
 #    Expected failure. Defect HOCS-4353 raised.
   @TOWorkflow @TORegression
-  Scenario Outline: As a Data Input user, I want to be able to enter th intended recipient, so the reply can be correctly personalised
+  Scenario: As a Data Input user, I want to be able to enter th intended recipient, so the reply can be correctly personalised
     And I select which business area the correspondence is for
     And I select which channel the correspondence was received by
     And I add a "Third Party Representative" correspondent
     And I confirm the primary correspondent
-    When I add a "<recipientType>" recipient
+    When I add a Recipient to the case
     Then the case should be moved to the "Triage" stage
-    And the summary should contain the "<recipientType>" recipient
+    And the summary should contain the Recipient
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
-    Examples:
-      | recipientType |
-      | Member        |
-      | Non-member    |

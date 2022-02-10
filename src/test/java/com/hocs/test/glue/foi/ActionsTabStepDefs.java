@@ -130,7 +130,7 @@ public class ActionsTabStepDefs extends BasePage {
     @And("I submit details of the interest the external party has in the case")
     public void iSubmitDetailsOfTheInterestTheExternalPartyHasInTheCase() {
         actionsTab.selectSpecificTypeOfInterest("External Interest");
-        actionsTab.selectAInterestedParty();
+        actionsTab.selectAnInterestedParty();
         actionsTab.enterDetailsOfInterest("Test Details of Interest");
         clickTheButton("Add");
     }

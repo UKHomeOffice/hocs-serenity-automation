@@ -26,17 +26,10 @@ public class DataInputStepDefs extends BasePage {
         clickTheButton("Continue");
     }
 
-    @When("I add a {string} recipient")
-    public void iAddARecipientTypeRecipient(String recipientType) {
+    @When("I add a Recipient to the case")
+    public void iAddARecipientTypeRecipient() {
         dataInput.selectWhetherToAddRecipient("Yes");
-        clickTheButton("Continue");
-        if (recipientType.equalsIgnoreCase("MEMBER")) {
-            dataInput.selectIfRecipientIsMember("Yes");
-            dataInput.selectAMemberRecipient();
-        } else {
-            dataInput.selectIfRecipientIsMember("No");
-            dataInput.selectANonMemberRecipient();
-        }
+        dataInput.selectARecipient();
         clickTheButton("Continue");
     }
 }
