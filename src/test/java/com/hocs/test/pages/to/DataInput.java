@@ -32,29 +32,7 @@ public class DataInput extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Do you wish to add a Recipient?");
     }
 
-    public void selectIfRecipientIsMember(String yesNo) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Is the recipient a Member of Parliament?");
-    }
-
-    public void selectAMemberRecipient() {
-        safeClickOn(recipientTypeahead);
-        waitABit(200);
-        boolean selectableMemberVisible = false;
-        List<WebElementFacade> memberOptions = null;
-        while (!selectableMemberVisible) {
-            recipientTypeahead.clear();
-            recipientTypeahead.sendKeys(generateRandomStringOfLength(1));
-            waitABit(1000);
-            memberOptions = findAll("//div[contains(@class,'option')]");
-            selectableMemberVisible = memberOptions.size() > 1;
-        }
-        Random random = new Random();
-        safeClickOn(memberOptions.get(random.nextInt(memberOptions.size())));
-        setSessionVariable("recipient").to(selectedMemberRecipient.getText());
-        recordCaseData.addHeadingAndValueRecord("Recipient (Member of Parliament)", selectedMemberRecipient.getText());
-    }
-
-    public void selectANonMemberRecipient() {
+    public void selectARecipient() {
         String recipient = recordCaseData.selectRandomOptionFromDropdownWithHeading("Recipient");
         setSessionVariable("recipient").to(recipient);
     }

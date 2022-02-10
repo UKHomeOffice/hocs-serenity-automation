@@ -131,7 +131,7 @@ public class ActionsTab extends BasePage {
         setSessionVariable("typeOfInterest").to(typeOfInterest);
     }
 
-    public void selectAInterestedParty() {
+    public void selectAnInterestedParty() {
         String interestedParty = selectRandomOptionFromDropdownWithHeading("Interested party");
         setSessionVariable("interestedParty").to(interestedParty);
     }
