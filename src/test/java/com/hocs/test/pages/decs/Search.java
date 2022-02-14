@@ -445,7 +445,7 @@ public class Search extends BasePage {
                 enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
-            case "ACTIVE CASES":
+            case "ACTIVE CASES ONLY":
                 checkSpecificCheckbox("Include Active Cases only");
                 setSessionVariable("searchActiveCases").to(true);
                 break;
