@@ -923,7 +923,7 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResultHypertext);
                 summaryTab.selectSummaryTab();
                 displayedReceivedDate = randomResultReceivedDateCell.getText();
-                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
                 caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
                 assertThat(!caseDate.after(searchDate), is(true));
                 break;
