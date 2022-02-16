@@ -140,6 +140,9 @@ public class BasePage extends PageObject {
     public void openOrCloseAccordionSection(String accordionLabel) {
         WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
         safeClickOn(accordionSectionButton);
+        WebElementFacade expandedAccordionSection = findBy("//div[contains(@class,'govuk-accordion__section--expanded')]//button[text()='" + accordionLabel +"']");
+        waitFor(expandedAccordionSection);
+
     }
 
     public void assertErrorMessageText(String text) {

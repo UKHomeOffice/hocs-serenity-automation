@@ -141,7 +141,8 @@ public class SummaryTab extends BasePage {
             refreshSummaryTab();
             displayedValue = getSummaryTabValueForGivenHeader(header);
             if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
-                Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: " + value + "\nDisplayed value was: " + displayedValue);
+                Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: \"" + value + "\"\nDisplayed value was: \"" +
+                        displayedValue + "\"");
             }
         }
     }

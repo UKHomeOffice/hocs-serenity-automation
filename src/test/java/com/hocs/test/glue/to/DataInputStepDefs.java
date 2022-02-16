@@ -17,7 +17,6 @@ public class DataInputStepDefs extends BasePage {
     @And("I select which channel the correspondence was received by")
     public void iSelectWhichChannelTheCorrespondenceWasReceivedBy() {
         dataInput.selectAChannelRecieved();
-        clickTheButton("Continue");
     }
 
     @And("I choose to not add a recipient")
@@ -30,6 +29,12 @@ public class DataInputStepDefs extends BasePage {
     public void iAddARecipientTypeRecipient() {
         dataInput.selectWhetherToAddRecipient("Yes");
         dataInput.selectARecipient();
+        clickTheButton("Continue");
+    }
+
+    @And("I select whether the Home Secretary has an interest in the case")
+    public void iSelectWhetherTheHomeSecretaryHasAnInterestInTheCase() {
+        dataInput.selectAHomeSecInterestOption();
         clickTheButton("Continue");
     }
 }

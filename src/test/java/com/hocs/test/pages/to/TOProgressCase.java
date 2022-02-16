@@ -37,6 +37,8 @@ public class TOProgressCase extends BasePage {
 
     StopList stopList;
 
+    Boolean homeSecInterest = false;
+
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
@@ -67,6 +69,10 @@ public class TOProgressCase extends BasePage {
             case "QA":
                 precedingStage = "DRAFT";
                 break;
+            case "HOME SECRETARY INTEREST":
+                homeSecInterest = true;
+                precedingStage = "DRAFT";
+                break;
             case "DISPATCH":
                 precedingStage = "QA";
                 break;
@@ -77,6 +83,11 @@ public class TOProgressCase extends BasePage {
                 pendingStep(targetStage + " is not defined within " + getMethodName());
         }
         return precedingStage;
+    }
+
+    public void createCaseAndMoveItToTargetStageWithHomeSecInterestSetToYes(String targetStage) {
+        homeSecInterest = true;
+        moveCaseFromCurrentStageToTargetStage("CREATE NEW CASE", targetStage);
     }
 
     public void completeTheTOStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
@@ -101,7 +112,16 @@ public class TOProgressCase extends BasePage {
                 }
                 break;
             case "DRAFT":
-                moveCaseFromDraftToQA();
+                switch (targetStage.toUpperCase()) {
+                    case "QA":
+                        moveCaseFromDraftToQA();
+                        break;
+                    case "HOME SECRETARY INTEREST":
+                        moveCaseFromDraftToDispatchOrHomeSecretaryInterest();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not a defined target stage from Draft within " + getMethodName());
+                }
                 break;
             case "QA":
                 moveCaseFromQAToDispatch();
@@ -120,6 +140,11 @@ public class TOProgressCase extends BasePage {
     public void moveCaseFromDataInputToTriage() {
         dataInput.selectABusinessArea();
         dataInput.selectAChannelRecieved();
+        if (homeSecInterest) {
+            dataInput.selectASpecificHomeSecInterestOption("Yes");
+        } else {
+            dataInput.selectASpecificHomeSecInterestOption("No");
+        }
         clickTheButton("Continue");
         correspondents.addANonMemberCorrespondentOfType("Correspondent");
         correspondents.confirmPrimaryCorrespondent();
@@ -170,6 +195,12 @@ public class TOProgressCase extends BasePage {
     private void moveCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("Initial Draft");
         selectTheStageAction("Move to QA");
+        clickTheButton("Finish");
+    }
+
+    private void moveCaseFromDraftToDispatchOrHomeSecretaryInterest() {
+        documents.addADocumentOfDocumentType("Initial Draft");
+        selectTheStageAction("Send to Dispatch");
         clickTheButton("Finish");
     }
 

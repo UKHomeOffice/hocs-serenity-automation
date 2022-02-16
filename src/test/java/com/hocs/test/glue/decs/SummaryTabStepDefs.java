@@ -155,10 +155,11 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
-    @And("the summary should contain the Business Area, Channel Received and Primary Correspondents details")
+    @And("the summary should contain the Business Area, Channel Received, Home Secretary Interest selection, and Primary Correspondents details")
     public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"), "Business Area");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("channelReceived"), "Channel Received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("homeSecInterest"), "Home Secretary Interest");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentFullName"), "Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentOrganisation"), "Primary correspondent");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("correspondentBuilding"), "Primary correspondent");
