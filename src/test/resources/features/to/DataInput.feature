@@ -10,17 +10,18 @@ Feature: Data Input
   Scenario: As a Data Input user, I want to be able to complete the Data Input stage, so the case can progress to Triaging
     When I select which business area the correspondence is for
     And I select which channel the correspondence was received by
+    And I select whether the Home Secretary has an interest in the case
     And I add a "Correspondent" correspondent
     And I confirm the primary correspondent
     And I choose to not add a recipient
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as the correct Treat Official team for the selected business area
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
-    And the summary should contain the Business Area, Channel Received and Primary Correspondents details
+    And the summary should contain the Business Area, Channel Received, Home Secretary Interest selection, and Primary Correspondents details
 
 #    Expected failure. Defect HOCS-4353 raised.
   @TOWorkflow @TORegression
-  Scenario: As a Data Input user, I want to be able to enter th intended recipient, so the reply can be correctly personalised
+  Scenario: As a Data Input user, I want to be able to enter the intended recipient, so the reply can be correctly personalised
     And I select which business area the correspondence is for
     And I select which channel the correspondence was received by
     And I add a "Third Party Representative" correspondent

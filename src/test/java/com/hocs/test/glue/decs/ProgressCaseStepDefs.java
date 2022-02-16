@@ -165,4 +165,11 @@ public class ProgressCaseStepDefs extends BasePage {
             compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
         }
     }
+
+
+    @And("I get a Treat Official case at the {string} stage that has Home Secretary Interest")
+    public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String stage) {
+        toProgressCase.createCaseAndMoveItToTargetStageWithHomeSecInterestSetToYes(stage);
+        dashboard.getAndClaimCurrentCase();
+    }
 }

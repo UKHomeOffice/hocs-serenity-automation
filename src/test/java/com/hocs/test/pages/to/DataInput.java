@@ -28,6 +28,15 @@ public class DataInput extends BasePage {
         setSessionVariable("channelReceived").to(selectedChannelRecieved);
     }
 
+    public void selectASpecificHomeSecInterestOption(String radioButtonText) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(radioButtonText, "Home Secretary Interest");
+    }
+
+    public void selectAHomeSecInterestOption() {
+        String homeSecInterest = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Home Secretary Interest");
+        setSessionVariable("homeSecInterest").to(homeSecInterest);
+    }
+
     public void selectWhetherToAddRecipient(String yesNo) {
         selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Do you wish to add a Recipient?");
     }
