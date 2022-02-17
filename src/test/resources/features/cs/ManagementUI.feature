@@ -606,7 +606,7 @@ Feature: ManagementUI
 
 #    MANAGE TREAT OFFICIAL RECIPIENTS
   
-  @ListsManagement @TORegression
+  @ListsManagement
   Scenario: User is able to add a Treat Official Recipient through Recipient Management
     And I select to "Manage Treat Official Recipients"
     And I add a recipient with a random name and code
