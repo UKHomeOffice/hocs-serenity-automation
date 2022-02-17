@@ -11,7 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 
-public class CampaignSteDefs extends BasePage {
+public class CampaignStepDefs extends BasePage {
 
     Campaign campaign;
 

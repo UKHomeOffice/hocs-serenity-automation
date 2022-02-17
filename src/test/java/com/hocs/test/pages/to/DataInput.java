@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class DataInput extends BasePage {
@@ -43,6 +44,11 @@ public class DataInput extends BasePage {
 
     public void selectARecipient() {
         String recipient = recordCaseData.selectRandomOptionFromDropdownWithHeading("Recipient");
+        setSessionVariable("recipient").to(recipient);
+    }
+
+    public void selectSpecificRecipient(String recipient) {
+        selectSpecificOptionFromDropdownWithHeading(recipient, "Recipient");
         setSessionVariable("recipient").to(recipient);
     }
 }

@@ -30,6 +30,7 @@ Feature: ManagementUI
       | Manage FOI Account Managers                    | View and edit account managers                   |
       | Manage FOI Interested Parties                  | View and edit interested parties                 |
       | Manage Treat Official campaigns                | View and edit campaigns                          |
+      | Manage Treat Official Recipients               | View and edit recipients                         |
 
 
 #    MANAGE STANDARD LINES
@@ -601,3 +602,38 @@ Feature: ManagementUI
     And I select a Business Unit Type and corresponding Business Unit
     And I put the case into the new campaign
     Then the case should have been put into the new campaign
+
+
+#    MANAGE TREAT OFFICIAL RECIPIENTS
+  
+  @ListsManagement @TORegression
+  Scenario: User is able to add a Treat Official Recipient through Recipient Management
+    And I select to "Manage Treat Official Recipients"
+    And I add a recipient with a random name and code
+    Then the success message for adding a new recipient should be displayed
+    And the new recipient details should be displayed in the list of recipients
+
+  @ListsManagement @TORegression
+  Scenario: User is able to amend the details of a Treat Official recipient through recipient management
+    When I select to "Manage Treat Official Recipients"
+    And I add a recipient with a random name and code
+    And I select to "Manage Treat Official Recipients"
+    And I edit the name of a recipient
+    Then the success message for amending a recipient should be displayed
+    And the new recipient details should be displayed in the list of recipients
+
+  @ListsManagement @TORegression
+  Scenario: User can add a newly created Recipient to a TO case
+    And I select to "Manage Treat Official Recipients"
+    And I add a recipient with a random name and code
+    And I navigate to "CS"
+    And I get a "TO" case at "Data Input" stage
+    And I select which business area the correspondence is for
+    And I select which channel the correspondence was received by
+    And I select whether the Home Secretary has an interest in the case
+    And I add a "Correspondent" correspondent
+    And I confirm the primary correspondent
+    And I add the newly created recipient to the case
+    And I load the current case
+    And I select the summary tab
+    Then the newly created recipient details should be displayed in the summary tab
