@@ -446,4 +446,8 @@ public class SummaryTab extends BasePage {
             Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
         }
     }
+
+    public void assertRecipientIsAddedToTOCase(String recipient) {
+        assertSummaryContainsExpectedValueForGivenHeader(recipient, "Recipient");
+    }
 }

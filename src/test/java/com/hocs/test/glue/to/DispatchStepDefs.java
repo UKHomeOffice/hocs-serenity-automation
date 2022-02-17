@@ -5,7 +5,7 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.to.Dispatch;
 import io.cucumber.java.en.And;
 
-public class DisptachStepDefs extends BasePage {
+public class DispatchStepDefs extends BasePage {
 
     Dispatch dispatch;
 

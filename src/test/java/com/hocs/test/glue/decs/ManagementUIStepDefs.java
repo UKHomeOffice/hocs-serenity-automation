@@ -546,6 +546,22 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.assertCampaignVisibleInCampaignTable(caseType);
     }
 
+    @And("I add a recipient with a random name and code")
+    public void iAddARecipientWithARandomNameAndCode() {
+        listsManagement.addANewRecipient();
+    }
+
+    @And("I edit the name of a recipient")
+    public void iEditTheNameOfARecipient() {
+        listsManagement.amendARecipientName();
+    }
+
+    @Then("the new recipient details should be displayed in the list of recipients")
+    public void theNewRecipientDetailsShouldBeDisplayedInTheListOfRecipients() {
+        muiDashboard.selectDashboardLinkWithText("Manage Treat Official Recipients");
+        listsManagement.assertNewRecipientVisibleInRecipientTable();
+    }
+
     @And("I click the view team button")
     public void iClickTheViewTeamButton() {
         safeClickOn(teamManagement.viewTeamButton);
@@ -818,6 +834,16 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the success message for amending a campaign should be displayed")
     public void theSuccessMessageForAmendingACampaignShouldBeDisplayed() {
         listsManagement.assertSuccessMessageForAmendingCampaignVisible();
+    }
+
+    @Then("the success message for adding a new recipient should be displayed")
+    public void theSuccessMessageForAddingANewRecipientShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingRecipientVisible();
+    }
+
+    @Then("the success message for amending a recipient should be displayed")
+    public void theSuccessMessageForAmendingARecipientShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingRecipientVisible();
     }
 }
 

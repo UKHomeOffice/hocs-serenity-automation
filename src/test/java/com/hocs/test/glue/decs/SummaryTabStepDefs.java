@@ -209,4 +209,10 @@ public class SummaryTabStepDefs extends BasePage {
     public void theClosureReasonAndDetailsShouldBeVisibleInTheSummaryTab() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("closureReason"), "Why should this case be closed?");
     }
+
+    @Then("the newly created recipient details should be displayed in the summary tab")
+    public void theNewlyCreatedRecipientShouldBeDisplayedInTheSummaryTab() {
+        String recipient = sessionVariableCalled("newRecipientName");
+        summaryTab.assertRecipientIsAddedToTOCase(recipient);
+    }
 }

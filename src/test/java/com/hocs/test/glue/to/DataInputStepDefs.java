@@ -3,7 +3,10 @@ package com.hocs.test.glue.to;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.to.DataInput;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class DataInputStepDefs extends BasePage {
 
@@ -35,6 +38,14 @@ public class DataInputStepDefs extends BasePage {
     @And("I select whether the Home Secretary has an interest in the case")
     public void iSelectWhetherTheHomeSecretaryHasAnInterestInTheCase() {
         dataInput.selectAHomeSecInterestOption();
+        clickTheButton("Continue");
+    }
+
+    @And("I add the newly created recipient to the case")
+    public void iAddTheNewlyCreatedRecipientToTheCase() {
+        String recipient = sessionVariableCalled("newRecipientName");
+        dataInput.selectWhetherToAddRecipient("Yes");
+        dataInput.selectSpecificRecipient(recipient);
         clickTheButton("Continue");
     }
 }

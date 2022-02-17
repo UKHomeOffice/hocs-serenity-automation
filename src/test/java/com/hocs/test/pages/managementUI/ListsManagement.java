@@ -71,6 +71,15 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//label[text()='Enquiry Reason']/following-sibling::input")
     public WebElementFacade enquiryReasonTextField;
 
+    @FindBy(xpath = "//button[text()='Add new recipient']")
+    public WebElementFacade addNewRecipientButton;
+
+    @FindBy(xpath = "//label[contains(text(), 'ecipient name')]/following-sibling::input")
+    public WebElementFacade recipientNameTextField;
+
+    @FindBy(xpath = "//label[contains(text(), 'Recipient code')]/following-sibling::input")
+    public WebElementFacade recipientCodeTextField;
+
     public void addANewCampaign() {
         String campaignName = generateRandomString();
         String campaignCode = generateRandomString();
@@ -94,6 +103,32 @@ public class ListsManagement extends BasePage {
     public void assertCampaignVisibleInCampaignTable(String caseType) {
         WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
         newCampaignInList.shouldBeVisible();
+    }
+
+    public void addANewRecipient() {
+        String recipientName = generateRandomString();
+        String recipientCode = generateRandomStringOfLength(3);
+        safeClickOn(addNewRecipientButton);
+        recipientNameTextField.sendKeys(recipientName);
+        recipientCodeTextField.sendKeys(recipientCode);
+        setSessionVariable("newRecipientName").to(recipientName);
+        safeClickOn(submitButton);
+    }
+
+    public void amendARecipientName() {
+        String recipientName = sessionVariableCalled("newRecipientName");
+        WebElementFacade amendHypertext = findBy("//td[text()='" + recipientName + "']/following-sibling::td/a");
+        safeClickOn(amendHypertext);
+        recipientNameTextField.clear();
+        recipientNameTextField.sendKeys("Amended " + recipientName);
+        setSessionVariable("newRecipientName").to("Amended " + recipientName);
+        safeClickOn(submitButton);
+    }
+
+    public void assertNewRecipientVisibleInRecipientTable() {
+        String recipientName = sessionVariableCalled("newRecipientName");
+        WebElementFacade newRecipientEntry = findBy("//td[text()='" + recipientName + "']");
+        newRecipientEntry.shouldBeVisible();
     }
 
     public void clickTheAddNewAccountManagerButton() {
@@ -192,6 +227,13 @@ public class ListsManagement extends BasePage {
         successMessage.shouldContainText("The campaign was amended successfully");
     }
 
+    public void assertSuccessMessageForAddingRecipientVisible() {
+        successMessage.shouldContainText("The recipient was added successfully");
+    }
+
+    public void assertSuccessMessageForAmendingRecipientVisible() {
+        successMessage.shouldContainText("The recipient was amended successfully");
+    }
 
     public void assertAccountManagerIsVisible() {
         waitForMUIPageWithTitle("View and edit account managers");
