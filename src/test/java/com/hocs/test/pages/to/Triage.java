@@ -15,6 +15,7 @@ public class Triage extends BasePage {
 
     public void selectToChangeTheBusinessArea() {
         clickTheLink("Change business area");
+        waitForPageWithTitle("Transfer To Business Area");
     }
 
     public void selectADifferentBusinessArea() {
@@ -24,6 +25,7 @@ public class Triage extends BasePage {
 
     public void selectSetEnquirySubjectAndReasonLink() {
         clickTheLink("Set enquiry subject & reason");
+        waitForPageWithTitle("Set Enquiry Subject");
     }
 
     public void selectAnEnquirySubject() {
