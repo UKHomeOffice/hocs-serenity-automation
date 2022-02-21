@@ -36,8 +36,17 @@ public class PeopleTab extends BasePage {
     @FindBy(xpath = "//input[@value='Remove']")
     public WebElementFacade removeButton;
 
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
+
     public void selectPeopleTab() {
         safeClickOn(peopleTab);
+    }
+
+    public void refreshPeopleTab() {
+        waitABit(500);
+        safeClickOn(nonActiveTab);
+        selectPeopleTab();
     }
 
     public void addAMemberCorrespondent() {
@@ -96,10 +105,17 @@ public class PeopleTab extends BasePage {
         safeClickOn(removeButton);
     }
 
-    public void changePrimaryCorrespondent(String newPrimaryCorrespondent) {
+    public void changePrimaryCorrespondentToSpecificCorrespondent(String newPrimaryCorrespondent) {
         safeClickOn(managePeopleHypertext);
         WebElementFacade radioButtonOfNewPrimaryCorrespondent = findBy("//label[contains(text(), '"+ newPrimaryCorrespondent + "')]");
         safeClickOn(radioButtonOfNewPrimaryCorrespondent);
+        safeClickOn(finishButton);
+    }
+
+    public void changePrimaryCorrespondent() {
+        safeClickOn(managePeopleHypertext);
+        WebElementFacade nonCheckedRadioButton = findBy("//input[not(@checked)]/following-sibling::label");
+        safeClickOn(nonCheckedRadioButton);
         safeClickOn(finishButton);
     }
 

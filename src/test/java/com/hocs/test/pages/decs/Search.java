@@ -42,39 +42,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade searchTROCheckbox;
 
-    @FindBy(xpath = "//label[text()='MPAM Case']")
-    public WebElementFacade searchMPAMCheckbox;
-
-    @FindBy(xpath = "//label[text()='MTS Case']")
-    public WebElementFacade searchMTSCheckbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")
-    public WebElementFacade receivedAfterDayTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-month']")
-    public WebElementFacade receivedAfterMonthTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-year']")
-    public WebElementFacade receivedAfterYearTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-day']")
-    public WebElementFacade receivedBeforeDayTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-month']")
-    public WebElementFacade receivedBeforeMonthTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-year']")
-    public WebElementFacade receivedBeforeYearTextbox;
-
-    @FindBy(xpath = "//input[@id='correspondent']")
-    public WebElementFacade searchCorrespondentTextbox;
-
-    @FindBy(xpath = "//input[@id='topic']")
-    public WebElementFacade searchTopicTextbox;
-
-    @FindBy(xpath = "//select[@id='signOffMinister']")
-    public WebElementFacade searchSignOffTeamDropdown;
-
     @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
@@ -93,9 +60,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//input[@id='correspondentExternalKey']")
     public WebElementFacade memberOfParliamentSearchBox;
 
-    @FindBy(id = "correspondentReference")
-    public WebElementFacade correspondentReferenceNumber;
-
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
@@ -104,39 +68,6 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
     public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSearchField;
-
-    @FindBy(id = "MinSignOffTeam")
-    public WebElementFacade ministerialSignOffDropdown;
-
-    @FindBy(id = "correspondentNameNotMember")
-    public WebElementFacade applicantOrConstituentFullNameTextField;
-
-    @FindBy(id = "OfficialEngagement")
-    public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
-
-    @FindBy(id = "correspondent")
-    public WebElementFacade correspondentFullNameTextField;
-
-    @FindBy(id = "correspondentPostcode")
-    public WebElementFacade correspondentPostcodeTextField;
-
-    @FindBy(id = "correspondentEmail")
-    public WebElementFacade correspondentEmailAddressTextField;
-
-    @FindBy(id = "ComplainantDOB-day")
-    public WebElementFacade complainantDateOfBirthDayTextField;
-
-    @FindBy(id = "ComplainantDOB-month")
-    public WebElementFacade complainantDateOfBirthMonthTextField;
-
-    @FindBy(id = "ComplainantDOB-year")
-    public WebElementFacade complainantDateOfBirthYearTextField;
-
-    @FindBy(id = "reference")
-    public WebElementFacade caseReferenceTextField;
 
     @FindBy(id = "ComplainantHORef")
     public WebElementFacade complainantHomeOfficeReferenceTextField;
@@ -184,6 +115,9 @@ public class Search extends BasePage {
                 }
                 setSessionVariable("searchCaseType").to(value);
                 break;
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                break;
             case "RECEIVED ON OR AFTER DATE":
                 enterDateIntoDateFieldsWithHeading(value, "Received on or after");
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
@@ -221,13 +155,13 @@ public class Search extends BasePage {
                 setSessionVariable("searchSignOffTeam").to(value);
                 break;
             case "ACTIVE CASES ONLY":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
                 break;
             case "HOME SECRETARY INTEREST":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
                 }
                 break;
@@ -245,7 +179,7 @@ public class Search extends BasePage {
         }
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
-                caseReferenceSearchBox.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
                 setSessionVariable("searchCaseReference").to(value);
                 break;
             case "REFERENCE TYPE":
@@ -262,39 +196,35 @@ public class Search extends BasePage {
                 setSessionVariable("searchReferenceType").to(value);
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
-                ministerialSignOffDropdown.selectByVisibleText(value);
+                selectSpecificOptionFromDropdownWithHeading(value, "Ministerial sign off team");
                 setSessionVariable("searchMinisterialSignOffTeam").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                safeClickOn(memberOfParliamentSearchBox);
-                memberOfParliamentSearchBox.sendKeys(value);
-                waitABit(5000);
-                memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of parliament name");
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                correspondentReferenceNumber.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                typeIntoDateFields(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                typeIntoDateFields(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "CAMPAIGN":
-                campaignSearchField.sendKeys(value);
-                campaignSearchField.sendKeys(Keys.RETURN);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
                 setSessionVariable("searchCampaign").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
-                applicantOrConstituentFullNameTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name (applicant or constituent)");
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "ACTIVE CASES ONLY":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
@@ -320,28 +250,27 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "CORRESPONDENT FULL NAME":
-                correspondentFullNameTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
                 setSessionVariable("searchCorrespondentFullName").to(value);
                 break;
             case "CORRESPONDENT POSTCODE":
-                correspondentPostcodeTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
                 setSessionVariable("searchCorrespondentPostcode").to(value);
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
-                correspondentEmailAddressTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
                 setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField,
-                        value);
+                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
                 setSessionVariable("searchComplainantDateOfBirth").to(value);
                 break;
             case "CASE REFERENCE":
-                caseReferenceTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
                 setSessionVariable("searchCaseReference").to(value);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                complainantHomeOfficeReferenceTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
                 setSessionVariable("searchComplainantHomeOfficeReference").to(value);
                 break;
             default:
