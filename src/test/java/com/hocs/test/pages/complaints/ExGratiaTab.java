@@ -63,8 +63,8 @@ public class ExGratiaTab extends BasePage {
         setSessionVariable("totalPaymentOfferSentToComplainant").to(amount);
     }
 
-    public void selectComplaintIsAccepted() {
-        checkSpecificCheckbox("Complaint has accepted");
+    public void selectComplainantHasAccepted() {
+        checkSpecificCheckbox("Complainant has accepted");
         setSessionVariable("complainantHasAccepted").to("Yes");
     }
 
