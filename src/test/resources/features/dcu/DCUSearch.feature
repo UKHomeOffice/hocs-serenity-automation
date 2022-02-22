@@ -116,7 +116,6 @@ Feature: DCU Search
     And I load the current case
     And I add a "Member" correspondent to the case
     And I change the primary correspondent of the case
-    And I remove "Boris Johnson" as a correspondent of the case
     And I navigate to the "search" page
     And I enter the current case reference into the case reference search field
     And I search for the case by the newly updated primary correspondent
