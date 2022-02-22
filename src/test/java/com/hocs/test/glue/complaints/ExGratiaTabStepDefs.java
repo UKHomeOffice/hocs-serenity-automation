@@ -67,7 +67,7 @@ public class ExGratiaTabStepDefs extends BasePage {
 
     @And("I select that the complainant has accepted the offer")
     public void iSelectThatTheComplainantHasAcceptedTheOffer() {
-        exGratiaTab.selectComplaintIsAccepted();
+        exGratiaTab.selectComplainantHasAccepted();
     }
 
     @Then("the Ex-Gratia tab summary should contain the correct values")
