@@ -1,9 +1,11 @@
 @ComplaintsQA @Complaints
 Feature: Complaints QA
 
-#    HOCS-3695
+#     UKVI COMPLAINTS
+
+  # HOCS-3695
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can accept the response and send the case to Service Send stage
+  Scenario: User can accept the response and send a UKVI complaint case to Service Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
@@ -12,9 +14,9 @@ Feature: Complaints QA
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
-#    HOCS-3039
+  # HOCS-3039
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can reject the response and send the case back to Service Draft stage
+  Scenario: User can reject the response and send a UKVI complaint case back to Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
@@ -25,7 +27,7 @@ Feature: Complaints QA
     And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can accept the response and send the case to Ex-Gratia Send stage
+  Scenario: User can accept the response and send a UKVI complaint case to Ex-Gratia Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
@@ -35,7 +37,7 @@ Feature: Complaints QA
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can reject the response and send the case back to Ex-Gratia Response Draft stage
+  Scenario: User can reject the response and send a UKVI complaint case back to Ex-Gratia Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
@@ -46,7 +48,7 @@ Feature: Complaints QA
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can accept the response and send the case to Minor Misconduct Send stage
+  Scenario: User can accept the response and send a UKVI complaint case to Minor Misconduct Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
@@ -56,7 +58,7 @@ Feature: Complaints QA
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct QA" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can reject the response and send the case back to Minor Misconduct Response Draft stage
+  Scenario: User can reject the response and send a UKVI complaint case back to Minor Misconduct Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
@@ -66,29 +68,8 @@ Feature: Complaints QA
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct QA" stage
 
-  #HOCS-4064
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can accept the response at the QA stage and send the BF case to the Send Draft Response stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "QA" stage
-    And I "accept" the response to the complaint at the QA stage
-    Then the case should be moved to the "Send Draft Response" stage
-    And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
-
-  #HOCS-4064, HOCS-4065
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can reject the response at the QA stage and send the BF case to the Draft stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "QA" stage
-    And I "reject" the response to the complaint at the QA stage
-    Then the case should be moved to the "Draft" stage
-    And the summary should display the owning team as "Border Force"
-    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
-
   @Validation
-  Scenario Outline: User tests the validation at the Service QA stage
+  Scenario Outline: User tests the validation for a UKVI complaints case at the Service QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
@@ -98,3 +79,27 @@ Feature: Complaints QA
       | errorType                 |
       | QA RESULT REQUIRED        |
       | REJECTION REASON REQUIRED |
+
+
+#     BF COMPLAINTS
+
+  # HOCS-4064
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can accept the response at the QA stage and send a BF complaint case to the Send Draft Response stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "QA" stage
+    And I "accept" the response to the complaint at the QA stage
+    Then the case should be moved to the "Send Draft Response" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
+
+  # HOCS-4064, HOCS-4065
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can reject the response at the QA stage and send a BF complaint case back to the Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "QA" stage
+    And I "reject" the response to the complaint at the QA stage
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "Border Force"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage

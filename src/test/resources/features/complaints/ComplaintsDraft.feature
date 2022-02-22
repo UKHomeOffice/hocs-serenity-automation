@@ -1,9 +1,12 @@
 @ComplaintsDraft @Complaints
 Feature: Complaints Draft
 
-#   HOCS-3695
+
+#     UKVI COMPLAINTS
+
+  # HOCS-3695
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Service Send stage
+  Scenario: User can send a UKVI complaint case to Service Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -14,7 +17,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Ex-Gratia Send stage
+  Scenario: User can send a UKVI complaint case to Ex-Gratia Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
@@ -25,7 +28,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Minor Misconduct Send stage
+  Scenario: User can send a UKVI complaint case to Minor Misconduct Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
@@ -35,38 +38,9 @@ Feature: Complaints Draft
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
 
+  # HOCS-3695
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Draft stage for an IEDET case
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I click the "Proceed to recording outcome" button
-    Then the case should be moved to the "Send" stage
-    And the summary should display the owning team as "IE Detention"
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Draft stage for an SMC case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I add a "DRAFT" type document to the case
-    And I click the "Response Ready" button
-    Then the case should be moved to the "Send" stage
-    And the summary should display the owning team as "Serious Misconduct"
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Draft stage for a BF case
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Draft" stage
-    And I add a "DRAFT" type document to the case
-    And I select the "Response is Ready to Send" action at the Draft stage
-    Then the case should be moved to the "Send draft response" stage
-    And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
-
-#    HOCS-3695
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Service QA stage
+  Scenario: User can send a UKVI complaint case to Service QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -77,7 +51,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Ex-Gratia QA stage
+  Scenario: User can send a UKVI complaint case to Ex-Gratia QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
@@ -88,7 +62,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends the case to Minor Misconduct QA stage
+  Scenario: User can send a UKVI complaint case to Minor Misconduct QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
@@ -99,17 +73,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User sends a BF case to the QA stage from Draft
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Draft" stage
-    And I add a "DRAFT" type document to the case
-    And I select the "Send case to QA" action at the Draft stage
-    Then the case should be moved to the "QA" stage
-    And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a COMP case to WFM at Service Draft stage
+  Scenario: User is able to escalate a UKVI complaint case to WFM at Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -120,19 +84,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a BF case to WFM at Draft stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I add a "DRAFT" type document to the case
-    And I escalate the case to WFM at Draft stage
-    Then the case should be moved to the "Escalated to WFM" stage
-    And the summary should display the owning team as "Border Force"
-    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a case to WFM at Ex-Gratia Response Draft stage
+  Scenario: User is able to escalate a UKVI complaint case to WFM at Ex-Gratia Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
@@ -143,7 +95,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a case to WFM at Minor Misconduct Response Draft stage
+  Scenario: User is able to escalate a UKVI complaint case to WFM at Minor Misconduct Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
@@ -153,9 +105,9 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
 
-#    HOCS-3076
+  # HOCS-3076
   @Validation
-  Scenario: User must upload a document at Service Draft stage
+  Scenario: User must upload a document at Service Draft stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -163,7 +115,7 @@ Feature: Complaints Draft
     Then an error message is displayed as I have not uploaded a document
 
   @Validation
-  Scenario Outline: User tests the validation at the Service Draft stage
+  Scenario Outline: User tests the validation for a UKVI complaint case at the Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
@@ -174,3 +126,63 @@ Feature: Complaints Draft
       | PRIMARY DRAFT DOCUMENT REQUIRED  |
       | ACTION REQUIRED                  |
       | ESCALATION REASON                |
+
+
+#     IEDET COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Draft stage for an IEDET complaint case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I click the "Proceed to recording outcome" button
+    Then the case should be moved to the "Send" stage
+    And the summary should display the owning team as "IE Detention"
+
+
+#     SMC COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Draft stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I click the "Response Ready" button
+    Then the case should be moved to the "Send" stage
+    And the summary should display the owning team as "Serious Misconduct"
+
+
+#     BF COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Draft stage for a BF complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Draft" stage
+    And I add a "DRAFT" type document to the case
+    And I select the "Response is Ready to Send" action at the Draft stage
+    Then the case should be moved to the "Send draft response" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF complaint case to the QA stage from Draft
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Draft" stage
+    And I add a "DRAFT" type document to the case
+    And I select the "Send case to QA" action at the Draft stage
+    Then the case should be moved to the "QA" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF complaint case to WFM at Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I escalate the case to WFM at Draft stage
+    Then the case should be moved to the "Escalated to WFM" stage
+    And the summary should display the owning team as "Border Force"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage

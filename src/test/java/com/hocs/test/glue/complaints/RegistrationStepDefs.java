@@ -32,7 +32,7 @@ public class RegistrationStepDefs extends BasePage {
 
     @And("I select {string} as the Complaint Type")
     public void iSelectAsTheComplaintType(String complaintType) {
-        registration.selectComplaintType(complaintType);
+        registration.selectASpecificComplaintType(complaintType);
     }
 
     @And("I enter the complaint details on the Complaint Input page")

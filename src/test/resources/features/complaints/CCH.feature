@@ -8,7 +8,7 @@ Feature: CCH
 
 #    HOCS-2944
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer the case to CCT
+  Scenario: User can transfer a UKVI complaints case to CCT
     And I select the "Transfer to CCT" action at CCH
     Then the case should be moved to the "Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
@@ -16,7 +16,7 @@ Feature: CCH
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer the case to Ex-Gratia
+  Scenario: User can transfer a UKVI complaints case to Ex-Gratia
     And I select the "Transfer to Ex-Gratia" action at CCH
     Then the case should be moved to the "Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -24,7 +24,7 @@ Feature: CCH
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer the case to Minor Misconduct
+  Scenario: User can transfer a UKVI complaints case to Minor Misconduct
     And I select the "Transfer to Minor Misconduct" action at CCH
     Then the case should be moved to the "Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -33,7 +33,7 @@ Feature: CCH
 
 #    HOCS-3025
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can hard close a case at CCH stage
+  Scenario: User can hard close a UKVI complaints case at CCH stage
     And I select the "Complete the Case" action at CCH
     And I enter a completion note at CCH
     And I confirm I want to close the case at CCH
@@ -42,7 +42,7 @@ Feature: CCH
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @Validation
-  Scenario Outline: User tests the validation at CCH
+  Scenario Outline: User tests the validation for a UKVI complaints case at CCH stage
     And I trigger the "<errorType>" error message at "CCH"
     Then the "<errorType>" error message is displayed at "CCH"
     Examples:

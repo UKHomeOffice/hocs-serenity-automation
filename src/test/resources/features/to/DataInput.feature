@@ -24,6 +24,7 @@ Feature: Data Input
   Scenario: As a Data Input user, I want to be able to enter the intended recipient, so the reply can be correctly personalised
     And I select which business area the correspondence is for
     And I select which channel the correspondence was received by
+    And I select whether the Home Secretary has an interest in the case
     And I add a "Third Party Representative" correspondent
     And I confirm the primary correspondent
     When I add a Recipient to the case

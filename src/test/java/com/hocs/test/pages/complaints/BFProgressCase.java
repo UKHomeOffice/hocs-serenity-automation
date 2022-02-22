@@ -110,7 +110,7 @@ public class BFProgressCase extends BasePage {
                 moveBFCaseFromDraftToQA();
                 break;
             case "QA":
-                moveCaseFromQAToSend();
+                moveBCaseFromQAToSend();
                 break;
             case "SEND":
                 moveBFCaseFromSendToCaseClosed();
@@ -127,27 +127,20 @@ public class BFProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         registration.enterComplainantDetails();
-        registration.selectComplaintType("Service");
+        registration.selectAComplaintType();
         registration.selectAChannel();
         registration.enterADescriptionOfTheComplaint();
-        //TODO remove the below commented line after testing manually
-//        registration.enterAPreviousUKVIComplaintReference();
+        registration.enterAPreviousComplaintReference();
         registration.enterAThirdPartyReference();
         clickTheButton("Continue");
-        registration.openTheServiceComplaintCategoryAccordion();
-        waitABit(1000);
-        registration.selectAVisibleClaimCategory();
-        registration.selectAnOwningCSU();
-        clickTheButton("Finish");
-        System.out.println("Case moved from Registration to Triage");
-
+        System.out.println("Case moved from Case Registration to Case Triage");
     }
 
     public void moveBFCaseFromTriageToDraft() {
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
-        System.out.println("Case moved from Service Triage to Draft");
+        System.out.println("Case moved from Case Triage to Draft");
     }
 
     public void moveBFCaseFromTriageToEscalated() {
@@ -155,37 +148,26 @@ public class BFProgressCase extends BasePage {
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.escalateCaseToWFM();
+        System.out.println("Case moved from Case Triage to Escalated to WFM");
     }
 
     public void moveBFCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("DRAFT");
         complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
+        System.out.println("Case moved from Draft to QA");
     }
 
-    //TODO: Remove below method at the time of refactoring
-/*    public void moveBFCaseFromDraftToWFM() {
-        documents.addADocumentOfDocumentType("DRAFT");
-        complaintsTriage.escalateCaseToWFM();
-    }*/
-
-    //TODO: Remove below method at the time of refactoring
-/*    public void moveBFCaseFromDraftToSend() {
-        documents.addADocumentOfDocumentType("DRAFT");
-        clickTheButton("Response Ready");
-        System.out.println("Case moved from Draft to Send");
-    }*/
+    public void moveBCaseFromQAToSend() {
+        compQA.selectActionAtServiceQA("ACCEPT");
+        System.out.println("Case moved from QA to Send draft response");
+    }
 
     public void moveBFCaseFromSendToCaseClosed() {
         complaintsSend.selectACaseOutcome();
         complaintsSend.selectAResponseChannel();
-        //TODO raise a defect as the date is prepopulated
-//        complaintsSend.enterADateOfResponse();
+        complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
-        System.out.println("Case moved from Send to Closed");
-    }
-
-    public void moveCaseFromQAToSend() {
-        compQA.selectActionAtServiceQA("ACCEPT");
+        System.out.println("Case moved from Send draft response to Case Closed");
     }
 
     public void generateBFSearchCaseData(String infoValue, String infoType) {

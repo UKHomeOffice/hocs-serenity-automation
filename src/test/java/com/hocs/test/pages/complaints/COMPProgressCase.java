@@ -9,7 +9,6 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
-import java.text.ParseException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 
@@ -191,7 +190,7 @@ public class COMPProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
-        registration.selectComplaintType(complaintType);
+        registration.selectASpecificComplaintType(complaintType);
         registration.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("SERVICE")) {
             clickTheButton("Continue");
@@ -289,7 +288,7 @@ public class COMPProgressCase extends BasePage {
                 registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
                 registration.enterAPortReference();
                 safeClickOn(continueButton);
-                registration.selectComplaintType("Service");
+                registration.selectASpecificComplaintType("Service");
                 registration.selectAChannel();
                 registration.selectASeverity();
                 safeClickOn(continueButton);

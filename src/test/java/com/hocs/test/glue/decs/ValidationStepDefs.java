@@ -1134,7 +1134,7 @@ public class ValidationStepDefs extends BasePage {
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);
                                 break;
@@ -1143,7 +1143,7 @@ public class ValidationStepDefs extends BasePage {
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 safeClickOn(continueButton);
                                 break;
@@ -1152,7 +1152,7 @@ public class ValidationStepDefs extends BasePage {
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);
@@ -1165,7 +1165,7 @@ public class ValidationStepDefs extends BasePage {
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);

@@ -2,13 +2,13 @@
 Feature: Superuser
 
   @ComplaintsRegression
-  Scenario: A Complaints Admin User can complete the COMP workflow
+  Scenario: A Complaints Admin User can complete the UKVI stage 1 complaint workflow
     Given I log in to "CS" as user "COMP_SUPERUSER"
     When I create a "COMP" case and move it to "COMPLAINT CLOSED"
     Then the case should be closed
 
   @ComplaintsRegression
-  Scenario: A Complaints Admin User can complete a stage whilst case is owned by another user
+  Scenario: A Complaints Admin User can complete a stage of the UKVI stage 1 workflow whilst the case is owned by another user
     Given I log in to "CS" as user "COMP_USER"
     And I create a single "COMP" case
     When I allocate the case to myself via the successful case creation screen

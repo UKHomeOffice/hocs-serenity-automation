@@ -204,7 +204,7 @@ public class Registration extends BasePage {
         clickTheButton("Continue");
     }
 
-    public void selectComplaintType(String complaintType) {
+    public void selectASpecificComplaintType(String complaintType) {
         switch (complaintType.toUpperCase()) {
             case "SERVICE":
                 recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
@@ -223,6 +223,11 @@ public class Registration extends BasePage {
         }
         clickTheButton("Continue");
         System.out.println("Complaint type: " + complaintType);
+    }
+
+    public void selectAComplaintType() {
+        String complaintType = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Type");
+        setSessionVariable("complaintType").to(complaintType);
     }
 
     public void selectAChannel() {
@@ -254,6 +259,10 @@ public class Registration extends BasePage {
 
     public void enterAPreviousUKVIComplaintReference() {
         recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
+    }
+
+    public void enterAPreviousComplaintReference() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
     }
 
     public void enterAThirdPartyReference() { recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
