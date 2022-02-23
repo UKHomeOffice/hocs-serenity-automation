@@ -304,7 +304,7 @@ public class Search extends BasePage {
         }
     }
 
-    public void enterCOMPSearchCriteria(String criteria, String value) {
+    public void enterComplaintsSearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -313,6 +313,9 @@ public class Search extends BasePage {
                         break;
                     case "COMP2":
                         checkSpecificCheckbox("Complaint Case - Stage 2");
+                        break;
+                    case "IEDET":
+                        checkSpecificCheckbox("IE Detention Case");
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -703,15 +706,16 @@ public class Search extends BasePage {
         }
     }
 
-    public void assertCOMPInformationRandomSearchResult(String criteria) {
+    public void assertComplaintsInformationRandomSearchResult(String criteria) {
         waitForResultsPage();
         WebElementFacade cell = null;
-        String displayedValue = "";
+        String displayedValue = null;
         String expectedValue = null;
         int numberOfCasesDisplayed = getNumberOfSearchResults();
         int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
         WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
         String randomSearchResult = randomSearchResultHypertext.getText();
+        String caseType = randomSearchResult.split("/")[0];
         setSessionVariable("randomCaseRef").to(randomSearchResult);
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
@@ -721,23 +725,35 @@ public class Search extends BasePage {
                 displayedValue = expectedValue;
                 break;
             case "CORRESPONDENT FULL NAME":
-                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    peopleTab.selectPeopleTab();
+                    cell = findBy("//th[text()='Name']/following-sibling::td");
+                }
                 expectedValue = sessionVariableCalled("searchCorrespondentFullName");
                 break;
             case "CORRESPONDENT POSTCODE":
-                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    peopleTab.selectPeopleTab();
+                    cell = findBy("//th[text()='Address']/following-sibling::td/span[4]");
+                }
                 expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
                 safeClickOn(randomSearchResultHypertext);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 cell = findBy("//th[text()='Email address']/following-sibling::td");
                 expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
                 break;
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
-                if (!accordionSectionIsVisible("Registration")) {
+                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration")) {
                     summaryTab.selectSummaryTab();
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
@@ -746,7 +762,11 @@ public class Search extends BasePage {
                     workstacks.unallocateSelectedCase(randomSearchResult);
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
-                openOrCloseAccordionSection("Registration");
+                if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET")) {
+                    openOrCloseAccordionSection("Registration");
+                } else {
+                    openOrCloseAccordionSection("Stage 2 Registration");
+                }
                 displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
@@ -755,13 +775,30 @@ public class Search extends BasePage {
                 expectedValue = sessionVariableCalled("searchCaseReference");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    caseView.waitForCaseToLoad();
+                    if (!accordionSectionIsVisible("Registration")) {
+                        summaryTab.selectSummaryTab();
+                        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+                        String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+                        dashboard.goToDashboard();
+                        dashboard.selectWorkstackByTeamName(assignedTeam);
+                        workstacks.unallocateSelectedCase(randomSearchResult);
+                        workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                    }
+                    openOrCloseAccordionSection("Registration");
+                    displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office Reference").get(0);
+                }
                 expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        if (!criteria.equalsIgnoreCase("CASE TYPE") && !criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+        if (displayedValue == null) {
+            assert cell != null;
             displayedValue = cell.getText();
         }
         assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));

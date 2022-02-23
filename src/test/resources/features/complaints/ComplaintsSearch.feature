@@ -71,3 +71,28 @@ Feature: Complaints Search
     When I create a single "BF" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
+
+
+#     IEDET COMPLAINTS
+
+  @ComplaintsRegression
+  Scenario Outline: User tests IEDET complaint case search criteria
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "IEDET" search configuration
+    And I click the search button on the search page
+    Then I check that the search results have the correct "<infoType>"
+    Examples:
+      | infoType                          | infoValue                            |
+      | Correspondent Full Name           | Sam McTester                         |
+      | Correspondent Postcode            | AB1 2CD                              |
+      | Correspondent Email Address       | SamMcTester@Test.com                 |
+      | Complainant Date Of Birth         | 01/01/2001                           |
+      | Complainant Home Office Reference | Test entry for Home Office Reference |
+
+  @ComplaintsRegression
+  Scenario: User can search for a IEDET complaint case by its case reference
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a single "IEDET" case
+    And I search for the case by its case reference
+    Then the created case should be the only case visible in the search results
