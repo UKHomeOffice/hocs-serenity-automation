@@ -58,7 +58,7 @@ public class Triage extends BasePage {
     }
 
     public void enterClosureDetails() {
-        String closureDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Please enter a details of why the case is being closed");
+        String closureDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Please enter details of why the case is being closed");
         setSessionVariable("closureDetails").to(closureDetails);
     }
 }
