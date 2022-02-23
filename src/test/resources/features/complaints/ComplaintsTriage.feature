@@ -1,10 +1,11 @@
 @ComplaintsTriage @Complaints
 Feature: Complaints Triage
 
-#    Expected intermittent failure for Minor Misconduct example. Defect HOCS-4309 raised.
-#  HOCS-2944, HOCS-2868
+#     UKVI COMPLAINTS
+
+  # HOCS-2944, HOCS-2868
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario Outline: User can transfer a case COMP case to CCH
+  Scenario Outline: User can transfer a Stage 1 UKVI complaint case back to CCH
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "<complaintType> Triage" stage
     And I load and claim the current case
@@ -20,9 +21,9 @@ Feature: Complaints Triage
       | Minor Misconduct |
       | Ex-Gratia        |
 
-#    HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
+  # HOCS-2979, HOCS-3074, HOCS-2868, HOCS-2869, HOCS-3002, HOCS-2913
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Service Triage stage
+  Scenario: User completes the Service Triage stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -36,7 +37,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Ex-Gratia Triage stage
+  Scenario: User completes the Ex-Gratia Triage stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
@@ -51,7 +52,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Minor Misconduct Triage stage
+  Scenario: User completes the Minor Misconduct Triage stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
@@ -66,45 +67,9 @@ Feature: Complaints Triage
     And the summary should display the owning team as "Minor Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
+  # HOCS-3028
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Triage stage for an IEDET case
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select the "Transferred to Third Party Supplier" action for an IEDET case at the Triage stage
-    And I submit details on the Triage Capture Reason page
-    Then the case should be moved to the "Draft" stage
-    And the summary should display the owning team as "IE Detention"
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
-
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User completes the Triage stage for an SMC case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I accept the case at Triage stage
-    And I enter details on PSU Reference page
-    And I accept the previous Claim Category selection
-    And I accept the previous Case Details selection
-    And I submit details on the Triage Capture Reason page
-    And I send the case to drafting
-    And I load the current case
-    And the summary should display the owning team as "Serious Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
-
-  @ComplaintsRegression @ComplaintsWorkflow
-  Scenario: User completes the Case Triage stage for a BF case
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Triage" stage
-    And I submit details on the Triage Capture Reason page
-    And I send the case to drafting
-    Then the case should be moved to the "DRAFT" stage
-    And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
-
-#    HOCS-3028
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can escalate a case at Service Triage stage
+  Scenario: User can escalate a UKVI complaint case at Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -119,7 +84,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can escalate a case at Ex-Gratia Triage stage
+  Scenario: User can escalate a UKVI complaint case at Ex-Gratia Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
@@ -134,7 +99,7 @@ Feature: Complaints Triage
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can escalate a case at Minor Misconduct Triage stage
+  Scenario: User can escalate a UKVI complaint case at Minor Misconduct Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
@@ -149,20 +114,9 @@ Feature: Complaints Triage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
+  # HOCS-3026
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User is able to escalate a BF case to workflow manager at the Case Triage stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Triage" stage
-    And I submit details on the Triage Capture Reason page
-    And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Escalated to WFM" stage
-    And the summary should display the owning team as "Border Force"
-    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
-
-#    HOCS-3026
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can hard close a case at Service Triage stage
+  Scenario: User can hard close a UKVI complaint case at Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -179,7 +133,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can hard close a case at Ex-Gratia Triage stage
+  Scenario: User can hard close a UKVI complaint case at Ex-Gratia Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Triage" stage
     And I load and claim the current case
@@ -197,7 +151,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can hard close a case at Minor Misconduct Triage stage
+  Scenario: User can hard close a UKVI complaint case at Minor Misconduct Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
@@ -215,48 +169,9 @@ Feature: Complaints Triage
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
 
+  # HOCS-2870, HOCS-3096, HOCS-3022
   @ComplaintsRegression
-  Scenario: User can close an IEDET case at the Triage stage
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
-    Then the case should be closed
-
-  @ComplaintsRegression
-  Scenario: User can hard close a BF case at the Triage stage
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Triage" stage
-    And I submit details on the Triage Capture Reason page
-    And I select to complete the case at Triage
-    And I click the "Continue" button
-    And I enter a reason for closing the case
-    Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
-
-#    Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer a SMC case from Triage to CCH
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "CCH" transfer and continue
-    Then the case should be closed
-
-#    Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @ComplaintsRegression
-  Scenario: User can transfer a SMC case from Triage to IEDET
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "IE Detention" transfer and continue
-    Then the case should be closed
-
-#    HOCS-2870, HOCS-3096, HOCS-3022
-  @ComplaintsRegression
-  Scenario Outline: User can add and complete or cancel contributions to COMP cases as part of Service Triage stage
+  Scenario Outline: User can add and complete or cancel contributions to UKVI complaint cases as part of Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -274,24 +189,9 @@ Feature: Complaints Triage
       | Business         | Complete |
       | Business         | Cancel   |
 
+  # HOCS-3103
   @ComplaintsRegression
-  Scenario Outline: User can add and complete or cancel contributions to BF cases as part of Case Triage
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF" case at the "Triage" stage
-    And I submit details on the Triage Capture Reason page
-    And I add a "<contributionType>" contribution request
-    And I "<action>" the contribution request
-    Then the "<contributionType>" contribution request should be marked as "<action>"
-    Examples:
-    | contributionType  | action    |
-    | Complainant       | Complete  |
-    | Complainant       | Cancel    |
-    | Business          | Complete  |
-    | Business          | Cancel    |
-
-#    HOCS-3103
-  @ComplaintsRegression
-  Scenario: User can tell if a contribution is overdue on the Triage Contributions page
+  Scenario: User can tell if a contribution to a UKVI complaint case is overdue on the Triage Contributions page
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -303,9 +203,9 @@ Feature: Complaints Triage
     Then the "complainant" contribution request should be marked as "overdue"
     And the overdue contribution request should be highlighted
 
-#    HOCS-2979
+  # HOCS-2979
   @ComplaintsRegression
-  Scenario: User can select that a Letter of Authority is required for this complaint
+  Scenario: User can select that a Letter of Authority is required for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -320,7 +220,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
 
   @Validation
-  Scenario Outline: User tests the validation at the Service Triage stage
+  Scenario Outline: User tests the validation for a UKVI complaint case at the Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -338,3 +238,113 @@ Feature: Complaints Triage
       | ESCALATION REASON REQUIRED                        |
       | COMPLETE CASE NOTE REQUIRED                       |
       | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED       |
+
+
+#     IEDET COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Triage stage for an IEDET complaint case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select the "Transferred to Third Party Supplier" action for an IEDET case at the Triage stage
+    And I submit details on the Triage Capture Reason page
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "IE Detention"
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+
+  @ComplaintsRegression
+  Scenario: User can close an IEDET complaint case at the Triage stage
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
+    Then the case should be closed
+
+
+#     SMC COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Triage stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I accept the case at Triage stage
+    And I enter details on PSU Reference page
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
+    And I send the case to drafting
+    And I load the current case
+    And the summary should display the owning team as "Serious Misconduct"
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+
+  # Expected failure. Defect HOCS-3980 raised.
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can transfer a SMC complaint case to a UKVI complaint case at Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
+    Then the case should be closed
+
+  # Expected failure. Defect HOCS-3980 raised.
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can transfer a SMC complaint case to an IEDET complaint case at Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "IE Detention" transfer and continue
+    Then the case should be closed
+
+
+#     BF COMPLAINTS
+
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User completes the Case Triage stage for a BF complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I send the case to drafting
+    Then the case should be moved to the "DRAFT" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF complaint case to workflow manager at the Case Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I escalate the case to WFM at Triage stage
+    Then the case should be moved to the "Escalated to WFM" stage
+    And the summary should display the owning team as "Border Force"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
+
+  @ComplaintsRegression
+  Scenario: User can hard close a BF complaint case at the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I select to complete the case at Triage
+    And I click the "Continue" button
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
+
+  @ComplaintsRegression
+  Scenario Outline: User can add and complete or cancel contributions to BF complaint cases as part of Case Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+    | contributionType  | action    |
+    | Complainant       | Complete  |
+    | Complainant       | Cancel    |
+    | Business          | Complete  |
+    | Business          | Cancel    |

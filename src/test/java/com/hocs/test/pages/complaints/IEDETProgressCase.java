@@ -87,7 +87,7 @@ public class IEDETProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         registration.enterComplainantDetails();
-        registration.selectComplaintType("Service");
+        registration.selectASpecificComplaintType("Service");
         registration.selectAChannel();
         registration.selectComplaintOrigin();
         registration.enterADescriptionOfTheComplaint();

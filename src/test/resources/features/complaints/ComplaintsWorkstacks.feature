@@ -1,9 +1,11 @@
 @ComplaintsWorkstacks @Complaints
 Feature: Complaints Workstacks
 
-#     HOCS-2865, HOCS-3161
+#     UKVI COMPLAINTS
+
+  # HOCS-2865, HOCS-3161
   @ComplaintsRegression
-  Scenario Outline: COMP User sees the required information when viewing a workstack
+  Scenario Outline: UKVI complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "COMP_USER"
     And I enter the "<workstack>" workstack
     Then the "<workstack>" workstack should contain only the expected columns
@@ -15,51 +17,7 @@ Feature: Complaints Workstacks
       | CCT Triage             |
 
   @ComplaintsRegression
-  Scenario: IEDET User sees the required information when viewing a workstack
-    Given I am logged into "CS" as user "IEDET_USER"
-    And I enter the "IE Detention" workstack
-    Then the "IE Detention" workstack should contain only the expected columns
-
-  @ComplaintsRegression
-  Scenario: Serious Misconduct user sees the required information when viewing a workstack
-    Given I am logged into "CS" as user "SMC_USER"
-    And I enter the "Serious Misconduct" workstack
-    Then the "Serious Misconduct" workstack should contain only the expected columns
-
-  @ComplaintsRegression
-  Scenario: User can see the required information when viewing the BF workstack
-    Given I am logged into "CS" as user "BF_USER"
-    And I enter a "Border Force" workstack
-    Then the "Border Force" workstack should contain only the expected columns
-
-#     HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression
-  Scenario Outline: User is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
-    Given I am logged into "CS" as user "<caseType>_USER"
-    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "yellow"
-    Examples:
-      | caseType | amountOfDays | workstack              |
-      | COMP     | 15           | Complaint Registration |
-      | IEDET    | 15           | IE Detention           |
-      | SMC      | 55           | Serious Misconduct     |
-
-#     HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression
-  Scenario Outline: User is able to see a red highlighted deadline on an complaint case that is past its deadline date
-    Given I am logged into "CS" as user "<caseType>_USER"
-    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "red"
-    Examples:
-      | caseType | amountOfDays | workstack              |
-      | COMP     | 21           | Complaint Registration |
-      | IEDET    | 21           | IE Detention           |
-      | SMC      | 61           | Serious Misconduct     |
-
-  @ComplaintsRegression
-  Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
+  Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -76,7 +34,7 @@ Feature: Complaints Workstacks
     Then I should be able to tell that the case has an overdue contribution
 
   @ComplaintsRegression
-  Scenario: As a COMP user, when I view cases in a workstack, I want to be able to tell if a case has a due contribution request
+  Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has a due contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
     And I load and claim the current case
@@ -89,3 +47,59 @@ Feature: Complaints Workstacks
     Then the displayed contribution request status of the case should be correct
     And I view the "My Cases" workstack
     Then I should be able to tell when the contribution request is due
+
+
+#     IEDET COMPLAINTS
+
+  @ComplaintsRegression
+  Scenario: IEDET complaints user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "IEDET_USER"
+    And I enter the "IE Detention" workstack
+    Then the "IE Detention" workstack should contain only the expected columns
+
+
+#     SMC COMPLAINTS
+
+  @ComplaintsRegression
+  Scenario: Serious Misconduct complaints user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "SMC_USER"
+    And I enter the "Serious Misconduct" workstack
+    Then the "Serious Misconduct" workstack should contain only the expected columns
+
+
+#     BF COMPLAINTS
+
+  @ComplaintsRegression
+  Scenario: Border Force complaints user can see the required information when viewing a workstack
+    Given I am logged into "CS" as user "BF_USER"
+    And I enter a "Border Force" workstack
+    Then the "Border Force" workstack should contain only the expected columns
+
+
+#     ALL COMPLAINTS
+
+  # HOCS-3076 HOCS-3161 HOCS-4006
+  @ComplaintsRegression
+  Scenario Outline: Complaints user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
+    Given I am logged into "CS" as user "<caseType>_USER"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "yellow"
+    Examples:
+      | caseType | amountOfDays | workstack              |
+      | COMP     | 15           | Complaint Registration |
+      | IEDET    | 15           | IE Detention           |
+      | SMC      | 55           | Serious Misconduct     |
+
+  # HOCS-3076 HOCS-3161 HOCS-4006
+  @ComplaintsRegression
+  Scenario Outline: Complaints user is able to see a red highlighted deadline on an complaint case that is past its deadline date
+    Given I am logged into "CS" as user "<caseType>_USER"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "red"
+    Examples:
+      | caseType | amountOfDays | workstack              |
+      | COMP     | 21           | Complaint Registration |
+      | IEDET    | 21           | IE Detention           |
+      | SMC      | 61           | Serious Misconduct     |
