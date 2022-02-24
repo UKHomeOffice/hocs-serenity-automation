@@ -123,6 +123,9 @@ Feature: Registration
     And I click the "Finish" button
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as "Serious Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+  #This step seems to fail due to missing data values in the Registration accordion upon that stages completion, will investigate further and raise
+  # a bug if necessary
 
 
 #     BF COMPLAINTS
