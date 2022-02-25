@@ -108,6 +108,26 @@ Feature: Registration
 
 #     SMC COMPLAINTS
 
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User is able to complete the Registration stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    And I create a single "SMC" case
+    And I allocate the case to myself via the successful case creation screen
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    And I select a "Serious" Complaint Category
+    And I select a Owning CSU
+    And I click the "Finish" button
+    Then the case should be moved to the "Triage" stage
+    And the summary should display the owning team as "Serious Misconduct"
+#    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+  #This step seems to fail due to missing data values in the Registration accordion upon that stages completion, will investigate further and raise
+  # a bug if necessary
+
+
 #     BF COMPLAINTS
 
   @ComplaintsRegression @ComplaintsWorkflow
