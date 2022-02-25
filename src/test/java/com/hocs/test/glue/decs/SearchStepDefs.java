@@ -232,7 +232,12 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
+                if (getCurrentCaseType().equalsIgnoreCase("MIN") || getCurrentCaseType().equalsIgnoreCase("TRO") || getCurrentCaseType().equalsIgnoreCase("DTEN")) {
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", "DCU");
+
+                } else {
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
+                }
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
@@ -267,6 +272,11 @@ public class SearchStepDefs extends BasePage {
         assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
+    @And("I enter the current case reference into the case reference search field")
+    public void iEnterTheCurrentCaseReferenceIntoTheCaseReferenceSearchField() {
+        search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
+    }
+
     @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
@@ -294,5 +304,12 @@ public class SearchStepDefs extends BasePage {
     @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")
     public void iLoadTheCOMP2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
         search.selectCOMP2CaseRefOfEscalatedCOMPCase(sessionVariableCalled("compCaseReference"));
+    }
+
+    @And("I search for the case by the newly updated primary correspondent")
+    public void iSearchForTheCaseByTheNewlyUpdatedPrimaryCorrespondent() {
+        String correspondent = sessionVariableCalled("correspondentFullName");
+        search.enterDCUSearchCriteria("Member of Parliament Name", correspondent);
+        safeClickOn(searchButton);
     }
 }
