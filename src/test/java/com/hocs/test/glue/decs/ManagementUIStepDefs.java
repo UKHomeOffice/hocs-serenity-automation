@@ -506,7 +506,7 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.assertListContainsCreatedUnit();
     }
 
-    @And("I add a campaign with random name and campaign code")
+    @And("I submit details for the new campaign")
     public void addACampaignWithNameAndCode() {
         listsManagement.addANewCampaign();
     }
@@ -523,12 +523,12 @@ public class ManagementUIStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        listsManagement.assertCampaignVisibleInCampaignTable(caseType);
+        listsManagement.assertVisibilityOfCampaignInCampaignTable();
     }
 
-    @And("I edit a campaign name")
+    @And("I edit the campaigns name")
     public void editCampaignNameFrom() {
-        listsManagement.amendACampaign();
+        listsManagement.amendTheCampaign();
     }
 
     @Then("the {string} campaign name should have changed in the list of campaigns")
@@ -543,7 +543,7 @@ public class ManagementUIStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        listsManagement.assertCampaignVisibleInCampaignTable(caseType);
+        listsManagement.assertVisibilityOfCampaignInCampaignTable();
     }
 
     @And("I add a recipient with a random name and code")
@@ -559,7 +559,7 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the new recipient details should be displayed in the list of recipients")
     public void theNewRecipientDetailsShouldBeDisplayedInTheListOfRecipients() {
         muiDashboard.selectDashboardLinkWithText("Manage Treat Official Recipients");
-        listsManagement.assertNewRecipientVisibleInRecipientTable();
+        listsManagement.assertVisibilityOfRecipientInRecipientTable();
     }
 
     @And("I click the view team button")
@@ -697,7 +697,7 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I should be able to view the new/renamed account manager in the table of account managers")
     public void iShouldBeAbleToViewTheNewAccountManagerOnTheViewAndEditAccountManagersPage() {
         muiDashboard.selectDashboardLinkWithText("Manage FOI Account Managers");
-        listsManagement.assertAccountManagerIsVisible();
+        listsManagement.assertVisibilityOfAccountManagerInAccountManagerTable();
     }
 
     @And("I select to amend an existing account manager")
@@ -736,7 +736,7 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I should be able to view the new/renamed interested party in the table of interested parties")
     public void iShouldBeAbleToViewTheNewInterestedPartyOnTheViewAndEditInterestedPartiesPage() {
         muiDashboard.selectDashboardLinkWithText("Manage FOI Interested Parties");
-        listsManagement.assertInterestedPartyIsVisible();
+        listsManagement.assertVisibilityOfInterestedPartyInInterestedPartyTable();
     }
 
     @And("I select to amend an existing interested party")
@@ -765,11 +765,6 @@ public class ManagementUIStepDefs extends BasePage {
     public void iCreateANewParentTopic() {
         topicManagement.inputAParentTopicDisplayedName();
         clickTheButton("Submit");
-    }
-
-    @And("I load the business units for the {string} business area")
-    public void iLoadTheBusinessUnitsForTheBusinessArea(String businessArea) {
-        listsManagement.selectABusinessArea(businessArea);
     }
 
     @And("I load the enquiry reasons for the {string} enquiry subject")
@@ -805,15 +800,16 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the new business unit is added to the list of business units")
     public void theNewBusinessUnitIsAddedToTheListOfBusinessUnits() {
         iSelectAManagementUIDashboardLink("Manage MPAM Business Units");
-        listsManagement.selectABusinessArea(sessionVariableCalled("businessArea"));
-        listsManagement.assertVisibilityOfNewBusinessUnit();
+        listsManagement.selectASpecificBusinessArea(sessionVariableCalled("businessArea"));
+        clickTheButton("Submit");
+        listsManagement.assertVisibilityOfBusinessUnitInBusinessUnitTable();
     }
 
     @Then("the new enquiry reason is added to the list of enquiry reasons")
     public void theNewEnquiryReasonIsAddedToTheListOfEnquiryReasons() {
         iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
         listsManagement.selectAnEnquirySubject(sessionVariableCalled("enquirySubject"));
-        listsManagement.assertVisibilityOfNewEnquiryReason();
+        listsManagement.assertVisibilityOfEnquiryReasonInEnquiryReasonTable();
     }
 
     @Then("the template should be removed from the case type")
@@ -844,6 +840,23 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the success message for amending a recipient should be displayed")
     public void theSuccessMessageForAmendingARecipientShouldBeDisplayed() {
         listsManagement.assertSuccessMessageForAmendingRecipientVisible();
+    }
+
+    @And("I select to add a new representative")
+    public void iSelectToAddANewRepresentative() {
+        listsManagement.clickTheAddNewRepresentativeButton();
+    }
+
+    @And("I submit details for the new representative")
+    public void iSubmitDetailsForTheNewRepresentative() {
+        listsManagement.enterRepresentativeName();
+        clickTheButton("Submit");
+    }
+
+    @And("I select a Business Area to add a new Business Unit to")
+    public void iSelectABusinessAreaToAddABusinessUnitTo() {
+        listsManagement.selectABusinessArea();
+        clickTheButton("Submit");
     }
 }
 

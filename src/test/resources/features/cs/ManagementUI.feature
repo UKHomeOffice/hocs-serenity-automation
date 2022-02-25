@@ -489,16 +489,64 @@ Feature: ManagementUI
   @ListsManagement
   Scenario: User is able to add a MPAM campaign through campaign management
     When I select to "Manage MPAM campaigns"
-    And I add a campaign with random name and campaign code
+    And I submit details for the new campaign
     Then the success message for adding a campaign should be displayed
     And the new "MPAM" campaign has been added to the list of campaigns
 
   @ListsManagement @MPAMRegression2
   Scenario: User is able to amend the details of a MPAM campaign through campaign management
     When I select to "Manage MPAM campaigns"
-    And I add a campaign with random name and campaign code
+    And I submit details for the new campaign
     And I select to "Manage MPAM campaigns"
-    And I edit a campaign name
+    And I edit the campaigns name
+    Then the success message for amending a campaign should be displayed
+    Then the "MPAM" campaign name should have changed in the list of campaigns
+
+  @ListsManagement @MPAMRegression2
+  Scenario: User can add a MPAM case to a new MPAM campaign that was added through campaign management
+    When I select to "Manage MPAM campaigns"
+    And I submit details for the new campaign
+    And I navigate to "CS"
+    And I create a "MPAM" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I add the case to the new campaign
+    And I load the current case
+    Then the case is added to the correct Campaign
+
+#    MANAGE EX-GRATIA BUSINESS AREA REPRESENTATIVES
+
+  @ListsManagement @COMPRegression
+  Scenario: User can add and delete an Ex-Gratia Business Area Representative
+    When I select to "Manage Ex-Gratia Business Area Representatives"
+    And I select to add a new representative
+    And I submit details for the new representative
+    Then the success message for adding a business area representative should be displayed
+    And I should be able to view the new representative in the table of representatives
+
+#    MANAGE MPAM BUSINESS UNITS
+
+  @ListsManagement
+  Scenario: User is able to create new business units through Lists management
+    When I select to "Manage MPAM Business Units"
+    And I load the business units for the "UKVI" business area
+    And I create a new business unit
+    Then a success message is displayed
+    Then the new business unit is added to the list of business units
+
+  @ListsManagement
+  Scenario: User is able to add a MPAM campaign through campaign management
+    When I select to "Manage MPAM Business Units"
+    And I select a Business Area to add a new Business Unit to
+    And I add a campaign with random name and campaign code
+    Then the success message for adding a campaign should be displayed
+    And the new "MPAM" campaign has been added to the list of campaigns
+
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to amend the details of a MPAM campaign through campaign management
+    When I select to "Manage MPAM Business Units"
+    And I add a campaign with random name and campaign code
+    And I select to "Manage MPAM Business Units"
+    And I edit the campaigns name
     Then the success message for amending a campaign should be displayed
     Then the "MPAM" campaign name should have changed in the list of campaigns
 
@@ -512,17 +560,6 @@ Feature: ManagementUI
     And I add the case to the new campaign
     And I load the current case
     Then the case is added to the correct Campaign
-
-
-#    MANAGE MPAM BUSINESS UNITS
-
-  @ListsManagement
-  Scenario: User is able to create new business units through Lists management
-    When I select to "Manage MPAM Business Units"
-    And I load the business units for the "UKVI" business area
-    And I create a new business unit
-    Then a success message is displayed
-    Then the new business unit is added to the list of business units
 
 
 #    MANAGE MPAM ENQUIRY REASONS

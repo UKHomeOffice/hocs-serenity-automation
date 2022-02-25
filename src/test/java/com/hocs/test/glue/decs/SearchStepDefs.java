@@ -110,7 +110,8 @@ public class SearchStepDefs extends BasePage {
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
             iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, searchConfig);
-            clickSearchButtonOnSearchPageWithNoCriteria();
+            safeClickOn(search.searchButton);
+            search.waitForResultsPage();
         }
         switch (searchConfig.toUpperCase()) {
             case "DCU":
