@@ -4,6 +4,8 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -22,6 +24,10 @@ public class IEDETProgressCase extends BasePage {
     ComplaintsTriage complaintsTriage;
 
     ComplaintsSend complaintsSend;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -119,5 +125,53 @@ public class IEDETProgressCase extends BasePage {
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
+    }
+
+    public void generateIEDETSearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+            case "CASE REFERENCE":
+                createCase.createCSCaseOfType("IEDET");
+                break;
+            case "CORRESPONDENT FULL NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+                createCase.createCSCaseOfType("IEDET");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                createCase.createCSCaseOfType("IEDET");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB(infoValue);
+                registration.selectAGender();
+                registration.selectANationality();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
+                registration.enterAPortReference();
+                clickTheButton("Continue");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                createCase.createCSCaseOfType("IEDET");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+                registration.selectAGender();
+                registration.selectANationality();
+                registration.enterACompanyName();
+                registration.enterAHomeOfficeReference(infoValue);
+                registration.enterAPortReference();
+                clickTheButton("Continue");
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }
