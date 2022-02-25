@@ -274,7 +274,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I enter the current case reference into the case reference search field")
     public void iEnterTheCurrentCaseReferenceIntoTheCaseReferenceSearchField() {
-        search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
+        search.enterComplaintsSearchCriteria("Case Reference", getCurrentCaseReference());
     }
 
     @And("I search for the case by its case reference")
