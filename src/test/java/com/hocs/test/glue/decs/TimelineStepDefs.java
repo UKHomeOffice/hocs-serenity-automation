@@ -20,7 +20,7 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.selectTimelineTab();
     }
 
-    @And("I create a case note with random content")
+    @And("I add a new case note to the timeline")
     public void iCreateACaseNoteWithRandomContent() {
         timelineTab.createACaseNote();
     }
@@ -86,14 +86,14 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertSecondNoteContainsEnteredText(sessionVariableCalled("createdNoteContents"));
     }
 
-    @And("I edit the top case note")
+    @And("I edit the case note")
     public void iEditTopCaseNote() {
-        timelineTab.editACaseNote("Test 1");
+        timelineTab.editACaseNote("Edited " + sessionVariableCalled("createdNoteContents"));
     }
 
-    @And("the case note should appear between the {string} logs")
-    public void editedCaseNoteDisplaysCorrectValue(String stage) {
-        timelineTab.assertEditedCaseNoteAppearInCorrectStage(stage);
+    @Then("the case note should still be in the same position in the timeline")
+    public void theCaseNoteShouldStillBeInTheSamePositionInTheTimeline() {
+        timelineTab.assertCaseNoteAppearsBetweenLogsForStage("Data Input");
     }
 
     @And("the case note should contain the edited content")
