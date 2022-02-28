@@ -144,3 +144,20 @@ Feature: Registration
     Then the case should be moved to the "Case Triage" stage
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Case Registration" stage
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User is able to complete the Registration stage for a BF stage 2 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Registration" stage
+    And I navigate to the "Dashboard" page
+    And I load and claim the current case
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Registration (Stage 2)" stage

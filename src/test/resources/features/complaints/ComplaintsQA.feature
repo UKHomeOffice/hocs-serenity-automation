@@ -103,3 +103,25 @@ Feature: Complaints QA
     And the summary should display the owning team as "Border Force"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA" stage
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can accept the response at the QA stage and send a BF Stage 2 complaint case to the Send Draft Response stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "QA" stage
+    And I "accept" the response to the complaint at the QA stage
+    Then the case should be moved to the "Send (Stage 2)" stage
+    And the summary should display the owning team as "Border Force"
+    And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can reject the response at the QA stage and send a BF Stage 2 complaint case back to the Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "QA" stage
+    And I "reject" the response to the complaint at the QA stage
+    Then the case should be moved to the "Draft (Stage 2)" stage
+    And the summary should display the owning team as "Border Force"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage

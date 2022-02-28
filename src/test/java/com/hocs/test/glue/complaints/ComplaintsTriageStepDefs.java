@@ -44,7 +44,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
 
     @And("I submit details on the Triage Capture Reason page")
     public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
-        if (bfCase()) {
+        if (bfCase() || bf2Case()) {
             complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         } else {
             complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
