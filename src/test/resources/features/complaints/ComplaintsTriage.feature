@@ -309,7 +309,7 @@ Feature: Complaints Triage
     And I submit details on the Triage Capture Reason page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -319,7 +319,7 @@ Feature: Complaints Triage
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
 

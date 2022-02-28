@@ -159,5 +159,5 @@ Feature: Registration
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
     Then the case should be moved to the "Case Triage (Stage 2)" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "Case Registration (Stage 2)" stage

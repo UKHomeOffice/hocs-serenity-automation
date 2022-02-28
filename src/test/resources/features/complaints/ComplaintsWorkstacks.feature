@@ -70,10 +70,19 @@ Feature: Complaints Workstacks
 #     BF COMPLAINTS
 
   @ComplaintsRegression
-  Scenario: Border Force complaints user can see the required information when viewing a workstack
+  Scenario: Border Force complaints user can see the required information when viewing the Border Force workstack
     Given I am logged into "CS" as user "BF_USER"
     And I enter a "Border Force" workstack
     Then the "Border Force" workstack should contain only the expected columns
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsRegression
+  Scenario: Border Force complaints user can see the required information when viewing the Border Force (Stage 2) workstack
+    Given I am logged into "CS" as user "BF_USER"
+    And I enter a "Border Force (Stage 2)" workstack
+    Then the "Border Force (Stage 2)" workstack should contain only the expected columns
 
 
 #     ALL COMPLAINTS

@@ -85,7 +85,7 @@ public class BFProgressCase extends BasePage {
         try {
             attemptEscalateBFCaseToStage2();
         } catch (Exception a) {
-            moveCaseOfTypeFromCurrentStageToTargetStage("BF", "N/A", "COMPLAINT CLOSED");
+            moveCaseOfTypeFromCurrentStageToTargetStage("BF", "N/A", "CLOSED");
             try {
                 attemptEscalateBFCaseToStage2();
             } catch (Exception e) {

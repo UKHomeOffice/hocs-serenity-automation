@@ -141,7 +141,7 @@ Feature: Complaints Escalated
     When I get a "BF2" case at the "Escalated to WFM" stage
     And I select to send the case to drafting
     Then the case should be moved to the "Draft (Stage 2)" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
 
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can send a BF stage 2 complaint case to Triage stage from Escalated
@@ -149,7 +149,7 @@ Feature: Complaints Escalated
     When I get a "BF2" case at the "Escalated to WFM" stage
     And I select to return the case to Triage
     Then the case should be moved to the "Case Triage (Stage 2)" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
 
   Scenario Outline: User can add and complete or cancel contributions to a BF stage 2 complaint cases as part of Escalated stage
     Given I am logged into "CS" as user "BF_USER"

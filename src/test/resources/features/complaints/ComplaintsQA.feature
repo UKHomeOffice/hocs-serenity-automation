@@ -113,7 +113,7 @@ Feature: Complaints QA
     When I get a "BF2" case at the "QA" stage
     And I "accept" the response to the complaint at the QA stage
     Then the case should be moved to the "Send (Stage 2)" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage
 
   @ComplaintsWorkflow @ComplaintsRegression
@@ -122,6 +122,6 @@ Feature: Complaints QA
     When I get a "BF2" case at the "QA" stage
     And I "reject" the response to the complaint at the QA stage
     Then the case should be moved to the "Draft (Stage 2)" stage
-    And the summary should display the owning team as "Border Force"
+    And the summary should display the owning team as "Border Force (Stage 2)"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage
