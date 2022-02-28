@@ -253,7 +253,7 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
-        if (!caseType.equals("COMP2")) {
+        if (!caseType.equals("COMP2") && !caseType.equalsIgnoreCase("BF2")) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
             if (!nextButton.isVisible()) {
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();

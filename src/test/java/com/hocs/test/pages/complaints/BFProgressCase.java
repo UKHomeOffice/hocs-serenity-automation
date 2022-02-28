@@ -2,6 +2,8 @@ package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
@@ -10,6 +12,9 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.Search;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class BFProgressCase extends BasePage {
 
@@ -33,6 +38,7 @@ public class BFProgressCase extends BasePage {
 
     ComplaintsQA compQA;
 
+    Search search;
 
     ComplaintsDraft complaintsDraft;
 
@@ -41,10 +47,9 @@ public class BFProgressCase extends BasePage {
     public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            //TODO: Uncomment below code once the stage 2 is implemented
-//            if (caseType.equals("COMP2")) {
-//                escalateACOMPCaseToCOMP2();
-//            }
+            if (caseType.equals("BF2")) {
+                escalateABFCaseToBF2();
+            }
             createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
         } else {
@@ -58,6 +63,37 @@ public class BFProgressCase extends BasePage {
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
+    }
+
+    public void attemptEscalateBFCaseToStage2() throws Exception {
+        dashboard.selectSearchLinkFromMenuBar();
+        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        search.clickTheButton("Search");
+        search.waitForResultsPage();
+        if (search.checkVisibilityOfEscalationHypertext()) {
+            WebElementFacade bfCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+            String bfCaseRef = bfCaseRefField.getText();
+            setSessionVariable("bfCaseReference").to(bfCaseRef);
+            System.out.print("Case reference of case being escalated: " + bfCaseRef + "\n");
+            search.clickEscalateComplaintsCaseToStage2();
+        } else {
+            throw new Exception("Escalation hypertext not visible");
+        }
+    }
+
+    public void escalateABFCaseToBF2() {
+        try {
+            attemptEscalateBFCaseToStage2();
+        } catch (Exception a) {
+            moveCaseOfTypeFromCurrentStageToTargetStage("BF", "N/A", "COMPLAINT CLOSED");
+            try {
+                attemptEscalateBFCaseToStage2();
+            } catch (Exception e) {
+                Assert.fail("Escalation hypertext not visible on retry");
+            }
+        }
+        setSessionVariable("caseType").to("BF2");
+        waitABit(500);
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -127,8 +163,10 @@ public class BFProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         registration.enterComplainantDetails();
-        registration.selectAComplaintType();
-        clickTheButton("Continue");
+        if (getCurrentCaseType().equalsIgnoreCase("BF")) {
+            registration.selectAComplaintType();
+            clickTheButton("Continue");
+        }
         registration.selectAChannel();
         registration.enterADescriptionOfTheComplaint();
         registration.enterAPreviousComplaintReference();

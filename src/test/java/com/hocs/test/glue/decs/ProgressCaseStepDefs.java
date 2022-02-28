@@ -103,6 +103,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "BF":
+            case "BF2":
                 bfProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType,currentStage, targetStage);
                 break;
             case "FOI":

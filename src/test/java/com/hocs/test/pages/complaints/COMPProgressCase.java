@@ -108,7 +108,7 @@ public class COMPProgressCase extends BasePage {
             String compCaseRef = compCaseRefField.getText();
             setSessionVariable("compCaseReference").to(compCaseRef);
             System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
-            search.clickEscalateCOMPCaseToCOMP2();
+            search.clickEscalateComplaintsCaseToStage2();
         } else {
             throw new Exception("Escalation hypertext not visible");
         }

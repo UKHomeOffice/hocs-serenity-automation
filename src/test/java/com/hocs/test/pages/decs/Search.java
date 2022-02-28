@@ -427,7 +427,7 @@ public class Search extends BasePage {
         return escalateCaseHypertext.isVisible();
     }
 
-    public void clickEscalateCOMPCaseToCOMP2() {
+    public void clickEscalateComplaintsCaseToStage2() {
         safeClickOn(escalateCaseHypertext);
     }
 

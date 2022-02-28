@@ -254,3 +254,12 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Minor Misconduct |
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsRegression @Smoketests
+  Scenario: User is able to close a BF stage 2 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Closed" stage
+    Then the case should be closed
