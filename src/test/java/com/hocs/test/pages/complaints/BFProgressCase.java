@@ -73,7 +73,7 @@ public class BFProgressCase extends BasePage {
         if (search.checkVisibilityOfEscalationHypertext()) {
             WebElementFacade bfCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
             String bfCaseRef = bfCaseRefField.getText();
-            setSessionVariable("bfCaseReference").to(bfCaseRef);
+            setSessionVariable("complaintsCaseReference").to(bfCaseRef);
             System.out.print("Case reference of case being escalated: " + bfCaseRef + "\n");
             search.clickEscalateComplaintsCaseToStage2();
         } else {

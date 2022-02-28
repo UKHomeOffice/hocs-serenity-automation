@@ -41,8 +41,8 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     And I navigate to the "Search" page
-    And I search for the COMP case escalated to COMP2 by it's case reference
-    And I load the COMP2 case by selecting its case reference from the Escalate Case column
+    And I search for the complaints case escalated to stage 2 by it's case reference
+    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
 
 
@@ -71,6 +71,25 @@ Feature: Complaints Search
     When I create a single "BF" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
+
+  #HOCS-4079, HOCS-4222
+  @ComplaintsRegression
+  Scenario: BF user sees the required information when viewing search results
+    Given I am logged into "CS" as user "BF_USER"
+    When I navigate to the "search" page
+    And I click the search button on the search page
+    Then the "BF Search" workstack should contain only the expected columns
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  Scenario: User is able to select a BF2 case reference from the escalate case column of a BF case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Registration" stage
+    And I navigate to the "Search" page
+    And I search for the complaints case escalated to stage 2 by it's case reference
+    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
+    Then the case should be loaded
 
 
 #     IEDET COMPLAINTS
