@@ -106,7 +106,7 @@ public class COMPProgressCase extends BasePage {
         if (search.checkVisibilityOfEscalationHypertext()) {
             WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
             String compCaseRef = compCaseRefField.getText();
-            setSessionVariable("complaintsCaseReference").to(compCaseRef);
+            setSessionVariable("stage2CaseReference").to(compCaseRef);
             System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
             search.clickEscalateComplaintsCaseToStage2();
         } else {
