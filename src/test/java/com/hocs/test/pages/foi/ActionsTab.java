@@ -136,6 +136,10 @@ public class ActionsTab extends BasePage {
         setSessionVariable("interestedParty").to(interestedParty);
     }
 
+    public void selectASpecificInterestedParty(String interestedParty) {
+        selectSpecificOptionFromDropdownWithHeading(interestedParty, "Interested party");
+    }
+
     public void enterDetailsOfInterest(String detailsOfInterest) {
         enterSpecificTextIntoTextAreaWithHeading(detailsOfInterest, "Details of Interest");
         setSessionVariable("detailsOfInterest").to(detailsOfInterest);

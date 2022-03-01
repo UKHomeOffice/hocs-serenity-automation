@@ -128,11 +128,15 @@ public class ProgressCaseStepDefs extends BasePage {
     @And("I get a {string} case/claim at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);
-        if (stage.equalsIgnoreCase("CASE CLOSED")) {
-            dashboard.getCurrentCase();
-        } else {
-            dashboard.getAndClaimCurrentCase();
-        }
+        boolean previousStageWasSticky;
+        previousStageWasSticky = (caseType.equals("FOI") && (stage.equalsIgnoreCase("CASE CREATION") || stage.equalsIgnoreCase(
+                "ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION")));
+            if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWasSticky) {
+                dashboard.getCurrentCase();
+            } else {
+                dashboard.getAndClaimCurrentCase();
+            }
+
     }
 
     @And("I get a DCU {string} case at the {string} stage that should be copied to Number 10")

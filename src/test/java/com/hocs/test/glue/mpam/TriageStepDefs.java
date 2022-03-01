@@ -182,5 +182,15 @@ public class TriageStepDefs extends BasePage {
         accordionMPAM.openCaseDetailsAccordion();
         accordionMPAM.assertCorrectBusinessAreaSelected();
     }
+
+    @And("I select the appropriate Enquiry Subject")
+    public void iSelectTheAppropriateEnquirySubject() {
+        triage.selectEnquirySubject(sessionVariableCalled("enquirySubject"));
+    }
+
+    @Then("I should be able to select the new Enquiry Reason")
+    public void iShouldBeAbleToSelectTheNewEnquiryReason() {
+        triage.selectEnquiryReason(sessionVariableCalled("enquiryReasonName"));
+    }
 }
 
