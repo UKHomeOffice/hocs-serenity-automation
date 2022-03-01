@@ -42,7 +42,7 @@ Feature: Complaints Search
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     And I navigate to the "Search" page
     And I search for the complaints case escalated to stage 2 by it's case reference
-    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
+    And I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
 
 
@@ -88,7 +88,7 @@ Feature: Complaints Search
     When I create a "BF2" case and move it to the "Registration" stage
     And I navigate to the "Search" page
     And I search for the complaints case escalated to stage 2 by it's case reference
-    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
+    And I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
 
 
