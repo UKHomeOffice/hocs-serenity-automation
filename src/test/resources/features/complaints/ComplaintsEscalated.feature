@@ -131,3 +131,35 @@ Feature: Complaints Escalated
       | Complainant      | Cancel   |
       | Business         | Complete |
       | Business         | Cancel   |
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF stage 2 complaint case to Draft stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I select to send the case to drafting
+    Then the case should be moved to the "Draft (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF stage 2 complaint case to Triage stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I select to return the case to Triage
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+
+  Scenario Outline: User can add and complete or cancel contributions to a BF stage 2 complaint cases as part of Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |

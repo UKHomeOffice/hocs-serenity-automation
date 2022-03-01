@@ -186,3 +186,27 @@ Feature: Complaints Draft
     And the summary should display the owning team as "Border Force"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a BF stage 2 complaint case to the QA stage from Draft
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Draft" stage
+    And I add a "DRAFT" type document to the case
+    And I select the "Send case to QA" action at the Draft stage
+    Then the case should be moved to the "QA (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF stage 2 complaint case to WFM at Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I escalate the case to WFM at Draft stage
+    Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage

@@ -491,6 +491,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectBFTeam();
                 }
                 break;
+            case "BORDER FORCE (STAGE 2)":
+                try {
+                    dashboard.selectBF2Team();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("BF2");
+                    dashboard.goToDashboard();
+                    dashboard.selectBF2Team();
+                }
+                break;
             case "FOI TEAM":
                 try {
                     dashboard.selectFOICreationTeam();

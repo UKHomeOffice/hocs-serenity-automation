@@ -85,6 +85,9 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Border Force']")
     public WebElementFacade borderForceWorkstack;
 
+    @FindBy(xpath = "//span[text()='Border Force (Stage 2)']")
+    public WebElementFacade borderForceStage2Workstack;
+
     //TO Teams
 
     @FindBy(xpath = "//span[text()='Treat Official Creation']")
@@ -199,6 +202,10 @@ public class Dashboard extends BasePage {
 
     public void selectBFTeam() {
         safeClickOn(borderForceWorkstack);
+    }
+
+    public void selectBF2Team() {
+        safeClickOn(borderForceStage2Workstack);
     }
 
     public void selectFOICreationTeam() {

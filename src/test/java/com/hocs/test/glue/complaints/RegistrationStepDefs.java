@@ -42,7 +42,7 @@ public class RegistrationStepDefs extends BasePage {
             registration.selectComplaintOrigin();
         }
         registration.enterADescriptionOfTheComplaint();
-        if (!iedetCase() && !bfCase() && !smcCase()) {
+        if (!iedetCase() && !bfCase() && !smcCase() && !bf2Case()) {
             registration.selectASeverity();
             registration.enterAPreviousUKVIComplaintReference();
         } else if (smcCase()) {

@@ -427,7 +427,7 @@ public class Search extends BasePage {
         return escalateCaseHypertext.isVisible();
     }
 
-    public void clickEscalateCOMPCaseToCOMP2() {
+    public void clickEscalateComplaintsCaseToStage2() {
         safeClickOn(escalateCaseHypertext);
     }
 
@@ -962,8 +962,8 @@ public class Search extends BasePage {
         return getNumberOfSearchResults() == 0;
     }
 
-    public void selectCOMP2CaseRefOfEscalatedCOMPCase(String stage1CaseRef) {
-        WebElementFacade comp2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
-        safeClickOn(comp2CaseRef);
+    public void selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(String stage1CaseRef) {
+        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
+        safeClickOn(stage2CaseRef);
     }
 }

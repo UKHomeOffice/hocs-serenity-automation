@@ -254,3 +254,42 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Minor Misconduct |
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  Scenario: User escalates a BF complaint case to stage 2 and it starts at the Registration stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Registration" stage
+    Then the case should be moved to the "Case Registration (Stage 2)" stage
+
+  Scenario: User escalates a BF complaint case to stage 2 and moves it to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Triage" stage
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
+
+  Scenario: User escalates a BF complaint case to stage 2 and moves it to the Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Escalated to WFM" stage
+    Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
+
+  Scenario: User escalates a BF complaint case to stage 2 and moves it to the Draft stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Draft" stage
+    Then the case should be moved to the "Draft (Stage 2)" stage
+
+  Scenario: User escalates a BF complaint case to stage 2 and moves it to the QA stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "QA" stage
+    Then the case should be moved to the "QA (Stage 2)" stage
+
+  Scenario: User escalates a BF complaint case to stage 2 and moves it to the Send stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Send" stage
+    Then the case should be moved to the "Send (Stage 2)" stage
+
+  @ComplaintsRegression @Smoketests
+  Scenario: User is able to close a BF stage 2 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF2" case and move it to the "Closed" stage
+    Then the case should be closed

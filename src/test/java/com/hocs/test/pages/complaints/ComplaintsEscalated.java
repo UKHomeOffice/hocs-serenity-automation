@@ -21,7 +21,7 @@ public class ComplaintsEscalated extends BasePage {
     public void selectActionAtServiceEscalated(String action) {
         switch (action.toUpperCase()) {
             case "RETURN CASE TO TRIAGE":
-                if (!bfCase()) {
+                if (!bfCase() && !bf2Case()) {
                     recordCaseData.selectSpecificRadioButton("Return case to Triage");
                 } else {
                     selectSpecificRadioButton("Send to Triage");
@@ -29,7 +29,7 @@ public class ComplaintsEscalated extends BasePage {
                 }
                 break;
             case "CASE READY FOR DRAFTING":
-                if (!bfCase()) {
+                if (!bfCase() && !bf2Case()) {
                     recordCaseData.selectSpecificRadioButton("Case ready for drafting");
                 } else {
                     selectSpecificRadioButton("Send to Draft");

@@ -348,3 +348,53 @@ Feature: Complaints Triage
     | Complainant       | Cancel    |
     | Business          | Complete  |
     | Business          | Cancel    |
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsRegression @ComplaintsWorkflow
+  Scenario: User completes the Case Triage stage for a BF stage 2 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I send the case to drafting
+    Then the case should be moved to the "DRAFT (STAGE 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a BF stage 2 complaint case to workflow manager at the Case Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I escalate the case to WFM at Triage stage
+    Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
+
+  @ComplaintsRegression
+  Scenario: User can hard close a BF stage 2 complaint case at the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I select to complete the case at Triage
+    And I click the "Continue" button
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
+
+  @ComplaintsRegression
+  Scenario Outline: User can add and complete or cancel contributions to BF stage 2 complaint cases as part of Case Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I submit details on the Triage Capture Reason page
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType  | action    |
+      | Complainant       | Complete  |
+      | Complainant       | Cancel    |
+      | Business          | Complete  |
+      | Business          | Cancel    |
