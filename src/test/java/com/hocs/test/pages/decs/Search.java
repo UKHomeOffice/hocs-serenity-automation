@@ -963,7 +963,7 @@ public class Search extends BasePage {
     }
 
     public void selectComplaintsStage2CaseRefOfEscalatedCOMPCase(String stage1CaseRef) {
-        WebElementFacade comp2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
-        safeClickOn(comp2CaseRef);
+        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
+        safeClickOn(stage2CaseRef);
     }
 }
