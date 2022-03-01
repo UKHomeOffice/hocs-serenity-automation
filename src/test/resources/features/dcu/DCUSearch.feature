@@ -32,7 +32,6 @@ Feature: DCU Search
     Then I check that the search results have the correct "Case Type"
     Examples:
       | infoValue |
-      | MIN       |
       | TRO       |
       | DTEN      |
 
@@ -110,3 +109,14 @@ Feature: DCU Search
       | MIN      |
       | DTEN     |
       | TRO      |
+
+  @DCURegression
+  Scenario: User is able to search for case that has changed it's primary correspondent
+    And I create a "MIN" case with "Boris Johnson" as the correspondent
+    And I load the current case
+    And I add a "Member" correspondent to the case
+    And I change the primary correspondent of the case
+    And I navigate to the "search" page
+    And I enter the current case reference into the case reference search field
+    And I search for the case by the newly updated primary correspondent
+    Then the created case should be the only case visible in the search results

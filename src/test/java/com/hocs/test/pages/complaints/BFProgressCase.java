@@ -128,6 +128,7 @@ public class BFProgressCase extends BasePage {
         clickTheButton("Continue");
         registration.enterComplainantDetails();
         registration.selectAComplaintType();
+        clickTheButton("Continue");
         registration.selectAChannel();
         registration.enterADescriptionOfTheComplaint();
         registration.enterAPreviousComplaintReference();

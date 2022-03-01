@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -51,6 +52,8 @@ public class SearchStepDefs extends BasePage {
 
     TOProgressCase toProgressCase;
 
+    IEDETProgressCase iedetProgressCase;
+
     @And("I enter {string} into the {string} search field in the {string} search configuration")
     public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String searchConfig) {
         setSessionVariable("searchValue").to(value);
@@ -64,7 +67,8 @@ public class SearchStepDefs extends BasePage {
                 search.enterMPAMSearchCriteria(criteria, value);
                 break;
             case "COMP":
-                search.enterCOMPSearchCriteria(criteria, value);
+            case "IEDET":
+                search.enterComplaintsSearchCriteria(criteria, value);
                 break;
             case "FOI":
                 search.enterFOISearchCriteria(criteria, value);
@@ -95,6 +99,9 @@ public class SearchStepDefs extends BasePage {
                 case "COMP":
                     compProgressCase.generateCOMPSearchCaseData(infoValue, criteria);
                     break;
+                case "IEDET":
+                    iedetProgressCase.generateIEDETSearchCaseData(infoValue, criteria);
+                    break;
                 case "FOI":
                     foiProgressCase.generateFOISearchCaseData(infoValue, criteria);
                     break;
@@ -121,7 +128,8 @@ public class SearchStepDefs extends BasePage {
                 search.assertMPAMInformationRandomSearchResult(criteria);
                 break;
             case "COMP":
-                search.assertCOMPInformationRandomSearchResult(criteria);
+            case "IEDET":
+                search.assertComplaintsInformationRandomSearchResult(criteria);
                 break;
             case "FOI":
                 search.assertFOIInformationRandomSearchResult(criteria);
@@ -225,7 +233,12 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
+                if (getCurrentCaseType().equalsIgnoreCase("MIN") || getCurrentCaseType().equalsIgnoreCase("TRO") || getCurrentCaseType().equalsIgnoreCase("DTEN")) {
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", "DCU");
+
+                } else {
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
+                }
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
@@ -260,12 +273,17 @@ public class SearchStepDefs extends BasePage {
         assertThat(number == numberOfCasesDisplayed, is(true));
     }
 
+    @And("I enter the current case reference into the case reference search field")
+    public void iEnterTheCurrentCaseReferenceIntoTheCaseReferenceSearchField() {
+        search.enterComplaintsSearchCriteria("Case Reference", getCurrentCaseReference());
+    }
+
     @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
         while (i < 6) {
             dashboard.selectSearchLinkFromMenuBar();
-            search.enterCOMPSearchCriteria("Case Reference", getCurrentCaseReference());
+            search.enterComplaintsSearchCriteria("Case Reference", getCurrentCaseReference());
             safeClickOn(searchButton);
             search.waitForResultsPage();
             if(!search.zeroSearchResultsReturned()) {
@@ -279,7 +297,7 @@ public class SearchStepDefs extends BasePage {
     @And("I search for the COMP case escalated to COMP2 by it's case reference")
     public void iSearchForTheEscalatedCOMPCaseByCaseReference() {
         String compCaseRef = sessionVariableCalled("compCaseReference");
-        search.enterCOMPSearchCriteria("Case Reference", compCaseRef);
+        search.enterComplaintsSearchCriteria("Case Reference", compCaseRef);
         safeClickOn(searchButton);
         search.waitForResultsPage();
     }
@@ -287,5 +305,12 @@ public class SearchStepDefs extends BasePage {
     @And("I load the COMP2 case by selecting its case reference from the Escalate Case column")
     public void iLoadTheCOMP2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
         search.selectCOMP2CaseRefOfEscalatedCOMPCase(sessionVariableCalled("compCaseReference"));
+    }
+
+    @And("I search for the case by the newly updated primary correspondent")
+    public void iSearchForTheCaseByTheNewlyUpdatedPrimaryCorrespondent() {
+        String correspondent = sessionVariableCalled("correspondentFullName");
+        search.enterDCUSearchCriteria("Member of Parliament Name", correspondent);
+        safeClickOn(searchButton);
     }
 }

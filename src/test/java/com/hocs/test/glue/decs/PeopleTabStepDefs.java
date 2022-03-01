@@ -4,13 +4,19 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.PeopleTab;
+import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 public class PeopleTabStepDefs extends BasePage {
 
+    CaseView caseView;
+
     PeopleTab peopleTab;
+
+    SummaryTab summaryTab;
 
     @And("I add a {string} correspondent to the case")
     public void iAddANewCorrespondent(String correspondentType) {
@@ -34,14 +40,23 @@ public class PeopleTabStepDefs extends BasePage {
 
     @And("I remove {string} as a correspondent of the case")
     public void iRemoveACorrespondentFromTheCase(String correspondent) {
-        safeClickOn(peopleTab.peopleTab);
+        caseView.waitForCaseToLoad();
+        peopleTab.refreshPeopleTab();
         peopleTab.removeCorrespondent(correspondent);
     }
 
     @And("I change the primary correspondent of the case to {string}")
     public void iChangePrimaryCorrespondent(String correspondent) {
-        safeClickOn(peopleTab.peopleTab);
-        peopleTab.changePrimaryCorrespondent(correspondent);
+        caseView.waitForCaseToLoad();
+        peopleTab.refreshPeopleTab();
+        peopleTab.changePrimaryCorrespondentToSpecificCorrespondent(correspondent);
+    }
+
+    @And("I change the primary correspondent of the case")
+    public void iChangeThePrimaryCorrespondentOfTheCase() {
+        caseView.waitForCaseToLoad();
+        peopleTab.refreshPeopleTab();
+        peopleTab.changePrimaryCorrespondent();
     }
 
     @Then("the new correspondent is added to the case")

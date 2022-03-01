@@ -247,7 +247,7 @@ Feature: ManagementUI
 
 #    ADD A USER
 
-  @UserManagement
+  @UserManagement @CSRegression
   Scenario: A new user can be created in DECS through User Management
     Given I select to "Add a user"
     When I submit the details for the new user
@@ -600,7 +600,7 @@ Feature: ManagementUI
     And I should be able to view the renamed account manager in the table of account managers
 
 
-#    MANAGE FOI INTERSTED PARTIES
+#    MANAGE FOI INTERESTED PARTIES
 
   @ListsManagement @FOIRegression
   Scenario: User is able to add a FOI Interested Party through Lists Management

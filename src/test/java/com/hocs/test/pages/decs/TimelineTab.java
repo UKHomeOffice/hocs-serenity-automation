@@ -173,6 +173,15 @@ public class TimelineTab extends BasePage {
         assertThat(fullCaseNote.contains("Case note "), is(true));
     }
 
+    public void assertCaseNoteAppearsBetweenLogsForStage(String stage) {
+        WebElementFacade precedingLog = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/following-sibling::li");
+        WebElementFacade followingLog = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/preceding-sibling::li");
+        assert precedingLog.getText().contains(stage);
+        assert followingLog.getText().contains(stage);
+    }
+
     public void assertCaseClosedNoteVisible() {
         selectTimelineTab();
         caseClosedNote.shouldBeVisible();

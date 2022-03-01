@@ -100,7 +100,7 @@ public class COMPProgressCase extends BasePage {
     public void attemptEscalateCOMPCaseToStage2() throws Exception {
         dashboard.selectSearchLinkFromMenuBar();
         checkSpecificCheckbox("Complaint Case");
-        search.enterCOMPSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         search.clickTheButton("Search");
         search.waitForResultsPage();
         if (search.checkVisibilityOfEscalationHypertext()) {
