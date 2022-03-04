@@ -165,13 +165,6 @@ public class TOProgressCase extends BasePage {
     }
 
     private void moveCaseFromTriageToCampaign() {
-        triage.selectSetEnquirySubjectAndReasonLink();
-        triage.selectAnEnquirySubject();
-        clickTheButton("Continue");
-        triage.selectAnEnquiryReason();
-        clickTheButton("Continue");
-        triage.selectABusinessUnitType();
-        triage.selectABusinessUnit();
         selectTheStageAction("Put case into a campaign");
         clickTheButton("Finish");
         campaign.selectACampaign();
@@ -179,13 +172,6 @@ public class TOProgressCase extends BasePage {
     }
 
     private void moveCaseFromTriageToStopList() {
-        triage.selectSetEnquirySubjectAndReasonLink();
-        triage.selectAnEnquirySubject();
-        clickTheButton("Continue");
-        triage.selectAnEnquiryReason();
-        clickTheButton("Continue");
-        triage.selectABusinessUnitType();
-        triage.selectABusinessUnit();
         selectTheStageAction("Place on a stop list");
         clickTheButton("Finish");
         stopList.selectAStopList();
