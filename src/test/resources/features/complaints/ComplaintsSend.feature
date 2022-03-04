@@ -47,6 +47,19 @@ Feature: Complaints Send
       | DATE OF RESPONSE REQUIRED |
 
 
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can complete service send stage for a UKVI stage 2 complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Send" stage
+    And I load the current case
+    And I select a Case Outcome
+    And I submit the Response details
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Send" stage
+
+
 #     IEDET COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression

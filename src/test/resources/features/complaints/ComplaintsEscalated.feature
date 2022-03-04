@@ -97,6 +97,29 @@ Feature: Complaints Escalated
       | Action Required |
 
 
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can return a UKVI stage 2 complaint case to Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Escalated" stage
+    And I load and claim the current case
+    And I select to return the case to Triage
+    Then the case should be moved to the "Stage 2 Service Triage" stage
+    And the summary should display the owning team as "Stage 2 CCT Triage Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a UKVI stage 2 complaint case to Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Escalated" stage
+    And I load and claim the current case
+    And I select to send the case to drafting
+    Then the case should be moved to the "Stage 2 Service Draft" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+
+
 #     BF COMPLAINTS
 
   # HOCS-4055

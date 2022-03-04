@@ -240,6 +240,67 @@ Feature: Complaints Triage
       | COMPLETE CASE PERMANENTLY RESPONSE REQUIRED       |
 
 
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User completes the Service Triage stage for a UKVI stage 2 complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I accept the case at "Service" Triage stage
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
+    When I send the case to drafting
+    Then the case should be moved to the "Stage 2 Service Draft" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can escalate a UKVI stage 2 complaint case at Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I accept the case at "Service" Triage stage
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
+    And I escalate the case to WFM at Triage stage
+    Then the case should be moved to the "Stage 2 Service Escalate" stage
+    And the summary should display the owning team as "Stage 2 CCT Escalated"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can hard close a UKVI stage 2 complaint case at Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I accept the case at "Service" Triage stage
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
+    When I select to complete the case at Triage
+    And I select a Close Reason
+    And I enter a completion note at Service Triage
+    And I click the "Complete case" button
+    Then the case should be closed
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can transfer a Stage 2 UKVI complaint case back to CCH
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
+    Then the case should be moved to the "Stage 2 CCH" stage
+    And the summary should display the owning team as "Stage 2 CCH Returned Cases"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+
+
 #     IEDET COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression
