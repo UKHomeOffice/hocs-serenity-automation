@@ -163,7 +163,7 @@ public class BFProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         registration.enterComplainantDetails();
-        if (getCurrentCaseType().equalsIgnoreCase("BF")) {
+        if (bfCase()) {
             registration.selectAComplaintType();
             clickTheButton("Continue");
         }
@@ -171,7 +171,7 @@ public class BFProgressCase extends BasePage {
         registration.enterADescriptionOfTheComplaint();
         registration.enterAPreviousComplaintReference();
         registration.enterAThirdPartyReference();
-        clickTheButton("Continue");
+        clickTheButton("Finish");
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 
