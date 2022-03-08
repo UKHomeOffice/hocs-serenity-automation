@@ -5,13 +5,6 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.complaints.COMPProgressCase;
-import com.hocs.test.pages.complaints.Registration;
-import com.hocs.test.pages.dcu.DCUProgressCase;
-import com.hocs.test.pages.mpam.Creation;
-import com.hocs.test.pages.mpam.MPAMProgressCase;
-import com.hocs.test.pages.mpam.MTSDataInput;
-
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -225,9 +218,8 @@ public class CreateCase extends BasePage {
         setSessionVariable("caseType").to(caseType);
     }
 
-    // Add BF back to this list once case type has document types.
-    public String getRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "FOI", "TO");
+    public String getRandomCSCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "TO", "BF");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -283,11 +275,14 @@ public class CreateCase extends BasePage {
     }
 
     public void createCSCaseOfType(String caseType) {
+        if (caseType.equals("CS")) {
+            caseType = getRandomCSCaseType();
+        }
         createCSCase(caseType, true, "N/A");
     }
 
     public void createCSCaseOfRandomType() {
-        createCSCaseOfTypeWithoutDocument(getRandomCaseType());
+        createCSCaseOfTypeWithoutDocument(getRandomCSCaseType());
     }
 
     public void createDCUCaseOfRandomType() {
