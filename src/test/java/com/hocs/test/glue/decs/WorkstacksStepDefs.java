@@ -20,6 +20,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -244,26 +245,6 @@ public class WorkstacksStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
                 break;
         }
-        workstacks.waitForWorkstackToLoad();
-    }
-
-    @When("I narrow down the visible cases using the {string} filter card")
-    public void iNarrowDownTheVisibleCasesInThePerformanceAndProcessTeamWorkstackUsingTheFilterCard(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-                workstacks.clickDCUMINFilterCard();
-                break;
-            case "TRO":
-                workstacks.clickDCUTROFilterCard();
-                break;
-            case "DTEN":
-                workstacks.clickDCUTENFilterCard();
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-                break;
-        }
-        waitABit(3000);
         workstacks.waitForWorkstackToLoad();
     }
 
@@ -626,5 +607,21 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("an overdue Secretariat Clearance Request is highlighted in red")
     public void anOverdueSecretariatClearanceRequestIsHighlightedInRed() throws ParseException {
         workstacks.assertOverdueSecretariatClearanceRequestIsHighlighted();
+    }
+
+    @And("I enter a random team workstack from the dashboard")
+    public void iEnterARandomTeamWorkstackFromTheDashboard() {
+        dashboard.selectARandomWorkstack();
+        workstacks.waitForWorkstackToLoad();
+    }
+
+    @When("I select a Workflow/Stage filter card")
+    public void iSelectACaseTypeFilterCard() {
+        workstacks.selectAFilterCard();
+    }
+
+    @Then("only cases of/at that Workflow/Stage should be displayed in the workstack")
+    public void onlyCasesOfThatWorkflowShouldBeDisplayedInTheWorkstack() {
+        workstacks.assertCaseTotalIs(Integer.parseInt(sessionVariableCalled("filterCardCaseTotal")));
     }
 }

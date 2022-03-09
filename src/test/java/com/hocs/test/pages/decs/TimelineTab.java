@@ -174,12 +174,13 @@ public class TimelineTab extends BasePage {
     }
 
     public void assertCaseNoteAppearsBetweenLogsForStage(String stage) {
-        WebElementFacade precedingLog = findBy(
-                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/following-sibling::li");
-        WebElementFacade followingLog = findBy(
-                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/preceding-sibling::li");
-        assert precedingLog.getText().contains(stage);
-        assert followingLog.getText().contains(stage);
+        WebElementFacade stageLogFollowingCaseNote = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/preceding-sibling::li//*[contains(text(),'" + stage + "')]");
+        WebElementFacade stageLogPrecedingCaseNote = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/following-sibling::li//*[contains(text(),'" + stage + "')]");
+        if (!stageLogFollowingCaseNote.isCurrentlyVisible() || !stageLogPrecedingCaseNote.isCurrentlyVisible()) {
+            Assert.fail(stage + " stage log are not visible either side of the case note int he timeline");
+        }
     }
 
     public void assertCaseClosedNoteVisible() {

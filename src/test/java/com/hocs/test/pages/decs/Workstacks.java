@@ -322,16 +322,11 @@ public class Workstacks extends BasePage {
         safeClickOn(unallocateButton);
     }
 
-    public void clickDCUMINFilterCard() {
-        safeClickOn(dcuMINFilterCard);
-    }
-
-    public void clickDCUTENFilterCard() {
-        safeClickOn(dcuN10FilterCard);
-    }
-
-    public void clickDCUTROFilterCard() {
-        safeClickOn(dcuTROFilterCard);
+    public void selectAFilterCard() {
+        WebElementFacade workflowFilterCardCaseTotal = findBy("//li[contains(@class, 'card')]/a/span[1]");
+        setSessionVariable("filterCardCaseTotal").to(workflowFilterCardCaseTotal.getText());
+        safeClickOn(workflowFilterCardCaseTotal);
+        workflowFilterCardCaseTotal.waitUntilNotVisible();
     }
 
     public void waitForWorkstackToLoad() {
@@ -868,6 +863,13 @@ public class Workstacks extends BasePage {
         String displayedValue = getValueFromSpecifiedColumnForSpecifiedCase(columnTitle, getCurrentCaseReference());
         if (!displayedValue.contains(expectedValue)) {
             Assert.fail("Expected '" + columnTitle + "' column to contain '" + expectedValue + "', but column value was '" + displayedValue + "'");
+        }
+    }
+
+    public void assertCaseTotalIs(int expectedTotalOfCases) {
+        int totalOfCases = getTotalOfCases();
+        if(!(totalOfCases == expectedTotalOfCases)) {
+           Assert.fail("Expected total of cases was " + expectedTotalOfCases + ", but displayed total of cases was " + totalOfCases);
         }
     }
 }

@@ -28,18 +28,17 @@ Feature: Workstacks
     And I then check whether the correct cases have been unallocated
 
   @CSRegression
-  Scenario Outline: User only sees the selected case type after clicking a case type filter card
-    And I create a single "<case type>" case and return to the dashboard
-    When I enter the correct Data Input team workstack for "<case type>" cases
-    And I narrow down the visible cases using the "<case type>" filter card
-    Then only "<case type>" cases should be visible
-    And the created case should be visible in the workstack
-    Examples:
-      | case type |
-      | MIN       |
-      | DTEN      |
-      | TRO       |
+  Scenario: User only sees cases of the selected Workflow after clicking a Workflow filter card
+    And I enter a random team workstack from the dashboard
+    When I select a Workflow filter card
+    Then only cases of that Workflow should be displayed in the workstack
 
+  @CSRegression
+  Scenario: User only sees cases at the selected stage after clicking a stage filter card
+    And I enter a random team workstack from the dashboard
+    When I select a Workflow filter card
+    And I select a Stage filter card
+    Then only cases at that Stage should be displayed in the workstack
 
   Scenario Outline: User is able to order MPAM workstack columns
     And I create a "MPAM" case and move it to the "Triage" stage
