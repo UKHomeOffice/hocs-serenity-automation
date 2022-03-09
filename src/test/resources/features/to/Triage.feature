@@ -18,9 +18,7 @@ Feature: Triage
 
   @TOWorkflow @TORegression
   Scenario: As a Triage user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
-    When I set an Enquiry Subject and Reason
-    And I select a Business Unit Type and corresponding Business Unit
-    And I put the case into a "campaign"
+    When I put the case into a "campaign"
     Then the case should be moved to the "Campaign" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
     And the Case Details accordion should contain the selected campaign
@@ -28,9 +26,7 @@ Feature: Triage
 
   @TOWorkflow @TORegression
   Scenario: As a Triage user, I want to be able to put a case onto a stop list, so we know not to continue case working the case
-    When I set an Enquiry Subject and Reason
-    And I select a Business Unit Type and corresponding Business Unit
-    And I place the case on a stop list
+    When I place the case on a stop list
     Then the case should be moved to the "Stop List" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
     And the Case Details accordion should contain the selected stop list

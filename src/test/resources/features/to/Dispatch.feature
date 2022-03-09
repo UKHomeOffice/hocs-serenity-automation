@@ -22,9 +22,7 @@ Feature: Dispatch
 
   @TOWorkflow @TORegression
   Scenario: As a Dispatch user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
-    When I add a "Final Response" type document to the case
-    And I enter the details of the dispatch
-    And I put the case into a "campaign"
+    When I put the case into a "campaign"
     Then the case should be moved to the "Campaign" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
     And the Case Details accordion should contain the selected campaign
@@ -32,9 +30,7 @@ Feature: Dispatch
 
   @TOWorkflow @TORegression
   Scenario: As a Dispatch user, I want to be able to put a case onto a stop list, so we know not to continue case working the case
-    When I add a "Final Response" type document to the case
-    And I enter the details of the dispatch
-    And I place the case on a stop list
+    When I place the case on a stop list
     Then the case should be moved to the "Stop List" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
     And the Case Details accordion should contain the selected stop list
