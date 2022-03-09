@@ -14,7 +14,9 @@ Feature: Stop List
 
   @TORegression
   Scenario: As a Stop List user, I want to be able to send the case to Draft, so the case can progress
-    When I select to take the case off of the stop list and move it to draft
+    When I set an Enquiry Subject and Reason
+    And I select a Business Unit Type and corresponding Business Unit
+    And I select to take the case off of the stop list and move it to draft
     Then the case should be moved to the "Draft" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
 

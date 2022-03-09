@@ -8,6 +8,8 @@ import static org.hamcrest.core.Is.is;
 
 import config.User;
 import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
@@ -215,6 +217,14 @@ public class Dashboard extends BasePage {
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
+    }
+
+    public void selectARandomWorkstack() {
+        List<WebElementFacade> visibleWorkstackCards = findAll("//h2[text()='Team Cases']/following-sibling::ul[contains(@class,'dashboard__teams')"
+                + "]/li[contains(@class,'card')]/a");
+        Random rand = new Random();
+        WebElementFacade randomWorkstack = visibleWorkstackCards.get(rand.nextInt(visibleWorkstackCards.size()));
+        safeClickOn(randomWorkstack);
     }
 
     // Multi Step Methods

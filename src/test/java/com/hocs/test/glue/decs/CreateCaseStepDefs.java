@@ -286,6 +286,21 @@ public class CreateCaseStepDefs extends BasePage {
             case "COMP":
                 user = User.COMP_USER;
                 break;
+            case "IEDET":
+                user = User.IEDET_USER;
+                break;
+            case "SMC":
+                user = User.SMC_USER;
+                break;
+            case "FOI":
+                user = User.FOI_USER;
+                break;
+            case "TO":
+                user = User.TO_USER;
+                break;
+            case "BF":
+                user = User.BF_USER;
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
