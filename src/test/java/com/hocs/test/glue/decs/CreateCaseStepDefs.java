@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
@@ -42,6 +43,8 @@ public class CreateCaseStepDefs extends BasePage {
 
     COMPProgressCase compProgressCase;
 
+    BFProgressCase bfProgressCase;
+
     DataInput dataInput;
 
     Dashboard dashboard;
@@ -65,7 +68,10 @@ public class CreateCaseStepDefs extends BasePage {
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else {
             if (caseType.equalsIgnoreCase("COMP2")) {
-                compProgressCase.escalateACOMPCaseToCOMP2();
+                compProgressCase.escalateAStage1CaseToStage2();
+            }
+            if (caseType.equals("BF2")) {
+                bfProgressCase.escalateAStage1CaseToStage2();
             }
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }

@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.Registration;
 import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.managementUI.MUI;
 import com.hocs.test.pages.mpam.Creation;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.mpam.MTSDataInput;
@@ -39,6 +40,10 @@ public class CreateCase extends BasePage {
     RecordCaseData recordCaseData;
 
     Correspondents correspondents;
+
+    MUI mui;
+
+    LoginPage loginPage;
 
     // Elements
 
@@ -334,6 +339,12 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
+    }
+
+    public void createAndWithDrawACSCaseOfType(String caseType) {
+        createCSCaseOfType(caseType);
+        mui.withdrawACaseInMUI(getCurrentCaseReference());
+        loginPage.navigateToCS();
     }
 
     public void clearCorrespondentReceivedDateFields() {

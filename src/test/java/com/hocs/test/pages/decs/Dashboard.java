@@ -105,6 +105,7 @@ public class Dashboard extends BasePage {
 
     public void selectSearchLinkFromMenuBar() {
         safeClickOn(searchLink);
+        waitForPageWithTitle("Search");
     }
 
     public void selectCreateSingleCaseLinkFromMenuBar() {
