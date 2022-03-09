@@ -125,7 +125,7 @@ public class COMPProgressCase extends BasePage {
                 break;
             case "DRAFT":
             case "ESCALATED":
-            case "CCH":
+            case "CCHReturns":
                 precedingStage = "TRIAGE";
                 break;
             case "QA":
@@ -162,7 +162,7 @@ public class COMPProgressCase extends BasePage {
                     case "ESCALATED":
                         moveCaseFromTriageToEscalated();
                         break;
-                    case "CCH":
+                    case "CCHReturns":
                         moveCaseFromTriageToCCH();
                         break;
                     default:

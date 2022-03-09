@@ -30,11 +30,11 @@ public class TriageStepDefs extends BasePage {
         clickTheButton("Finish");
     }
 
-    @And("I change the Business Area of the case")
-    public void iChangeTheBusinessAreaOfTheCase() {
+    @And("I change the Business Area of the TO case to {string}")
+    public void iChangeTheBusinessAreaOfTheCase(String businessArea) {
         triage.selectToChangeTheBusinessArea();
         waitForPageWithTitle("Transfer To Business Area");
-        triage.selectADifferentBusinessArea();
+        triage.selectADifferentBusinessArea(businessArea);
         clickTheButton("Finish");
     }
 

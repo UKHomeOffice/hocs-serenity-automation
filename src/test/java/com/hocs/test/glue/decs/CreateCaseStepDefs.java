@@ -22,6 +22,7 @@ import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 
+import com.hocs.test.pages.to.TOProgressCase;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -41,6 +42,8 @@ public class CreateCaseStepDefs extends BasePage {
     MPAMProgressCase mpamProgressCase;
 
     COMPProgressCase compProgressCase;
+
+    TOProgressCase toProgressCase;
 
     DataInput dataInput;
 
@@ -124,6 +127,11 @@ public class CreateCaseStepDefs extends BasePage {
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
         setSessionVariable("searchTopic").to(topic);
+    }
+
+    @And("I get a TO case with {string} as the business area and move the case to the {string} stage")
+    public void iCreateATOCaseWithAsTheBusinessAreaAndMoveTheCaseToTheStage(String businessArea, String targetStage) {
+        toProgressCase.createCaseWithSpecificBusinessAreaAndMoveItToTargetStage(businessArea, targetStage);
     }
 
     @When("I allocate the case to myself via the successful case creation screen")

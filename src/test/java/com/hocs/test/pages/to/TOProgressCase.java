@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
@@ -12,10 +13,15 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.text.ParseException;
+import java.util.List;
+import java.util.Random;
+import net.serenitybdd.core.pages.WebElementFacade;
 
 public class TOProgressCase extends BasePage {
 
     ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     CreateCase createCase;
 
@@ -38,6 +44,8 @@ public class TOProgressCase extends BasePage {
     StopList stopList;
 
     Boolean homeSecInterest = false;
+
+    String businessArea = null;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -62,6 +70,7 @@ public class TOProgressCase extends BasePage {
                 precedingStage = "DATA INPUT";
                 break;
             case "DRAFT":
+            case "CCH RETURNS":
             case "CAMPAIGN":
             case "STOP LIST":
                 precedingStage = "TRIAGE";
@@ -90,6 +99,11 @@ public class TOProgressCase extends BasePage {
         moveCaseFromCurrentStageToTargetStage("CREATE NEW CASE", targetStage);
     }
 
+    public void createCaseWithSpecificBusinessAreaAndMoveItToTargetStage(String businessArea, String targetStage) {
+        this.businessArea = businessArea;
+        moveCaseFromCurrentStageToTargetStage("CREATE NEW CASE", targetStage);
+    }
+
     public void completeTheTOStageSoThatCaseMovesToTargetStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
@@ -106,6 +120,9 @@ public class TOProgressCase extends BasePage {
                         break;
                     case "STOP LIST":
                         moveCaseFromTriageToStopList();
+                        break;
+                    case "CCH RETURNS":
+                        moveCaseFromTriageToCCH();
                         break;
                     default:
                         pendingStep(targetStage + " is not a defined target stage from Triage within " + getMethodName());
@@ -138,7 +155,11 @@ public class TOProgressCase extends BasePage {
     }
 
     public void moveCaseFromDataInputToTriage() {
-        dataInput.selectABusinessArea();
+        if (this.businessArea == null) {
+            dataInput.selectABusinessArea();
+        } else {
+            dataInput.selectSpecificBusinessArea(businessArea);
+        }
         dataInput.selectAChannelRecieved();
         if (homeSecInterest) {
             dataInput.selectASpecificHomeSecInterestOption("Yes");
@@ -190,6 +211,28 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Finish");
         stopList.selectAStopList();
         clickTheButton("Confirm");
+    }
+
+    public void moveCaseFromTriageToCCH() {
+        String currentBusinessArea = sessionVariableCalled("businessArea");
+        openOrCloseAccordionSection("Case Details");
+        clickTheLink("Change business area");
+        waitABit(500);
+        if (currentBusinessArea.equalsIgnoreCase("UKVI")) {
+            List<WebElementFacade> listOfNonCheckedBusinessAreas = findAll("//input[not(@checked)]/following-sibling::label");
+            Random rand = new Random();
+            WebElementFacade randomBusinessArea = listOfNonCheckedBusinessAreas.get(rand.nextInt(listOfNonCheckedBusinessAreas.size()));
+            listOfNonCheckedBusinessAreas.remove(randomBusinessArea);
+            randomBusinessArea = listOfNonCheckedBusinessAreas.get(rand.nextInt(listOfNonCheckedBusinessAreas.size()));
+            safeClickOn(randomBusinessArea);
+            safeClickOn(finishButton);
+            caseView.clickAllocateToMeLink();
+            openOrCloseAccordionSection("Case Details");
+            clickTheLink("Change business area");
+            waitABit(500);
+        }
+        selectSpecificRadioButtonFromGroupWithHeading("UKVI", "Business Area");
+        safeClickOn(finishButton);
     }
 
     private void moveCaseFromDraftToQA() {
