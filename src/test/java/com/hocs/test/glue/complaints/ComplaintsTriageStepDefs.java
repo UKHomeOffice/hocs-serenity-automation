@@ -35,7 +35,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I enter a reason for {string} transfer and continue")
     public void iEnterAReasonForTransferAndContinue(String transferTo) {
         complaintsTriage.enterTransferReason();
-        if(transferTo.equals("CCHReturns")){
+        if(transferTo.equals("CCH")){
             complaintsTriage.selectTransferToCCH();
         } else if(transferTo.equals("IE Detention")){
             complaintsTriage.selectTransferToIEDET();
@@ -116,7 +116,7 @@ public class ComplaintsTriageStepDefs extends BasePage {
             case "NO FURTHER CONSIDERATION":
                 complaintsTriage.selectNoFurtherConsideration();
                 break;
-            case "TRANSFER COMPLAINT TO CCHReturns":
+            case "TRANSFER COMPLAINT TO CCH":
                 complaintsTriage.selectTransferComplaintToCCH();
                 break;
             default:

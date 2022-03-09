@@ -63,7 +63,7 @@ public class Dashboard extends BasePage {
 
     // Complaints Teams
 
-    @FindBy(xpath = "//span[contains(text(),'CCHReturns Closed Cases')]")
+    @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
     public WebElementFacade cchClosedCasesWorkstack;
 
     @FindBy(xpath = "//span[contains(text(),'IE Detention')]")

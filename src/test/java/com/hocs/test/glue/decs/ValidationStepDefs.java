@@ -1310,7 +1310,7 @@ public class ValidationStepDefs extends BasePage {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
                         break;
-                    case "CCHReturns":
+                    case "CCH":
                         switch (errorMessage.toUpperCase()) {
                             case "TRANSFER TO REQUIRED":
                                 waitABit(500);
@@ -2062,7 +2062,7 @@ public class ValidationStepDefs extends BasePage {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
                         break;
-                    case "CCHReturns":
+                    case "CCH":
                         switch (errorMessage.toUpperCase()) {
                             case "TRANSFER TO REQUIRED":
                                 errorText = "Transfer to";

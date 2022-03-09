@@ -33,7 +33,7 @@ public class ComplaintsTriage extends BasePage {
     @FindBy(xpath = "//textarea[@name='CaseNote_TriageTransfer']")
     public WebElementFacade transferReasonTextArea;
 
-    @FindBy(xpath = "//label[contains(text(),'CCHReturns')]")
+    @FindBy(xpath = "//label[contains(text(),'CCH')]")
     public WebElementFacade transferToCCHRadioButton;
 
     @FindBy(css = "label[for='CctCompType-Minor']")
@@ -116,7 +116,7 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void selectTransferToCCH() {
-        recordCaseData.selectSpecificRadioButton("CCHReturns");
+        recordCaseData.selectSpecificRadioButton("CCH");
         clickTheButton("Continue");
     }
 
@@ -227,7 +227,7 @@ public class ComplaintsTriage extends BasePage {
     }
 
     public void selectTransferComplaintToCCH() {
-        recordCaseData.selectSpecificRadioButton("No - transfer the complaint to CCHReturns");
+        recordCaseData.selectSpecificRadioButton("No - transfer the complaint to CCH");
     }
 
     public void openExGratiaAccordion() {
