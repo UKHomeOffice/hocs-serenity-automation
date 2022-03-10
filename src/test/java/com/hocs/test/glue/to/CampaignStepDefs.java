@@ -51,7 +51,7 @@ public class CampaignStepDefs extends BasePage {
     public void iPutTheCaseIntoTheNewCampaign() {
         selectTheStageAction("Put case into a campaign");
         clickTheButton("Finish");
-        campaign.selectASpecificCampaign(sessionVariableCalled("newCampaign"));
+        campaign.selectASpecificCampaign(sessionVariableCalled("campaignName"));
         clickTheButton("Confirm");
     }
 

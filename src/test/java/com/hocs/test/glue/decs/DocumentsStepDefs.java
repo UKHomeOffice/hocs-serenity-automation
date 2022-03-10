@@ -54,7 +54,7 @@ public class DocumentsStepDefs extends BasePage {
     public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
         String caseType = createCase.getRandomComplaintsCaseType();
         if (caseType.equalsIgnoreCase("COMP2")) {
-            compProgressCase.escalateACOMPCaseToCOMP2();
+            compProgressCase.escalateAStage1CaseToStage2();
         }
         createCase.createCSCaseOfType(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();

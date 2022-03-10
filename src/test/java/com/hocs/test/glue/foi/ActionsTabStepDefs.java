@@ -3,6 +3,7 @@ package com.hocs.test.glue.foi;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.foi.ActionsTab;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,8 +14,13 @@ public class ActionsTabStepDefs extends BasePage {
 
     ConfirmationScreens confirmationScreens;
 
-    @And("I view the actions tab of the case")
+    @And("I select the actions tab")
     public void iSelectTheActionsTab() {
+        actionsTab.selectActionsTab();
+    }
+
+    @And("I view the actions tab of the case")
+    public void iViewTheActionsTabOfTheCase() {
         confirmationScreens.goToCaseFromConfirmationScreen();
         actionsTab.selectActionsTab();
     }
@@ -158,5 +164,12 @@ public class ActionsTabStepDefs extends BasePage {
     public void iShouldSeeAConfirmationMessageStatingThatTheExternalInterestHasBeenUpdated() {
         confirmationScreens.assertExternalInterestUpdatedConfirmationDisplayed();
         confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @Then("I should be able to select that the interested party is the one I created in MUI")
+    public void iShouldBeAbleToSelectThatTheInterestedPartyIsTheOneICreatedInMUI() {
+        actionsTab.selectSpecificTypeOfInterest("External Interest");
+        actionsTab.selectASpecificInterestedParty(sessionVariableCalled("interestedPartyName"));
+
     }
 }

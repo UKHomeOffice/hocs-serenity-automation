@@ -14,7 +14,6 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 public class BFProgressCase extends BasePage {
 
@@ -48,7 +47,7 @@ public class BFProgressCase extends BasePage {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
             if (caseType.equals("BF2")) {
-                escalateABFCaseToBF2();
+                escalateAStage1CaseToStage2();
             }
             createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
@@ -65,35 +64,42 @@ public class BFProgressCase extends BasePage {
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
-    public void attemptEscalateBFCaseToStage2() throws Exception {
+    public void escalateAStage1CaseToStage2() {
+        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+            getStage1CaseEligibleForEscalation();
+        }
+        escalateEligibleStage1CaseToStage2();
+        setSessionVariable("caseType").to("BF2");
+        waitABit(500);
+    }
+
+    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
         dashboard.selectSearchLinkFromMenuBar();
+        if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
+            checkSpecificCheckbox("Border Force Case");
+        }
         search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         search.clickTheButton("Search");
         search.waitForResultsPage();
-        if (search.checkVisibilityOfEscalationHypertext()) {
-            WebElementFacade bfCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-            String bfCaseRef = bfCaseRefField.getText();
-            setSessionVariable("stage2CaseReference").to(bfCaseRef);
-            System.out.print("Case reference of case being escalated: " + bfCaseRef + "\n");
-            search.clickEscalateComplaintsCaseToStage2();
-        } else {
-            throw new Exception("Escalation hypertext not visible");
-        }
+        return search.checkVisibilityOfEscalationHypertext();
     }
 
-    public void escalateABFCaseToBF2() {
-        try {
-            attemptEscalateBFCaseToStage2();
-        } catch (Exception a) {
-            moveCaseOfTypeFromCurrentStageToTargetStage("BF", "N/A", "CLOSED");
-            try {
-                attemptEscalateBFCaseToStage2();
-            } catch (Exception e) {
-                Assert.fail("Escalation hypertext not visible on retry");
-            }
+    private void getStage1CaseEligibleForEscalation() {
+        createCase.createAndWithDrawACSCaseOfType("BF");
+        dashboard.selectSearchLinkFromMenuBar();
+        if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
+            checkSpecificCheckbox("Border Force Case");
         }
-        setSessionVariable("caseType").to("BF2");
-        waitABit(500);
+        search.searchByCaseReference(getCurrentCaseReference());
+        search.waitForResultsPage();
+    }
+
+    private void escalateEligibleStage1CaseToStage2() {
+        WebElementFacade bfCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+        String bfCaseRef = bfCaseRefField.getText();
+        setSessionVariable("stage2CaseReference").to(bfCaseRef);
+        System.out.print("Case reference of case being escalated: " + bfCaseRef + "\n");
+        search.clickEscalateComplaintsCaseToStage2();
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {

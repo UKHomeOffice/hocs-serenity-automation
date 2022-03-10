@@ -26,7 +26,13 @@ public class LoginPage extends BasePage {
 
     //Basic methods
 
-    public boolean onLoginPage() { return isElementDisplayed(usernameField);}
+    public void navigateToCS() {
+        open();
+    }
+
+    public boolean onLoginPage() {
+        return isElementDisplayed(usernameField);
+    }
 
     public void enterUsername(String username) {
         usernameField.sendKeys(username);
