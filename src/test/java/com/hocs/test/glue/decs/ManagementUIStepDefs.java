@@ -594,7 +594,7 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I enter the (cases )reference, a valid withdrawal date and text into the note field")
     public void iEnterTheCasesReferenceAValidWithdrawalDateAndTextIntoTheNoteField() {
         withdrawACase.enterCaseReference(getCurrentCaseReference());
-        withdrawACase.enterWithdrawalDate();
+        withdrawACase.enterWithdrawalDate(getTodaysDate());
         withdrawACase.enterWithdrawalNotes("Test withdrawal notes");
     }
 

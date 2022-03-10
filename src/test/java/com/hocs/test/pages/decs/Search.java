@@ -390,6 +390,12 @@ public class Search extends BasePage {
         }
     }
 
+    public void searchByCaseReference(String caseReference) {
+        enterSpecificTextIntoTextFieldWithHeading(caseReference, "Case reference");
+        safeClickOn(searchButton);
+    }
+
+
     public void searchBySubstringOfCaseReference() {
         int n = 0;
         String substring = null;
@@ -419,8 +425,7 @@ public class Search extends BasePage {
         }
         String randomCaseRefString = "/012" + randomCaseIntToString;
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
-        caseReferenceSearchBox.sendKeys(randomCaseRefString);
-        safeClickOn(searchButton);
+        searchByCaseReference(randomCaseRefString);
     }
 
     public boolean checkVisibilityOfEscalationHypertext() {
@@ -897,28 +902,32 @@ public class Search extends BasePage {
                 String searchCorrespondentFullName = sessionVariableCalled("searchCorrespondentFullName");
                 safeClickOn(randomSearchResultHypertext);
                 peopleTab.selectPeopleTab();
-                WebElementFacade primaryCorrespondentFullName = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Name']/following-sibling::td");
+                WebElementFacade primaryCorrespondentFullName = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Name']/following-sibling::td");
                 primaryCorrespondentFullName.shouldContainText(searchCorrespondentFullName);
                 break;
             case "CORRESPONDENT POSTCODE":
                 String searchCorrespondentPostcode = sessionVariableCalled("searchCorrespondentPostcode");
                 safeClickOn(randomSearchResultHypertext);
                 peopleTab.selectPeopleTab();
-                WebElementFacade primaryCorrespondentPostcode = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Address']/following-sibling::td/span[4]");
+                WebElementFacade primaryCorrespondentPostcode = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Address']/following-sibling::td/span[4]");
                 primaryCorrespondentPostcode.shouldContainText(searchCorrespondentPostcode);
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
                 String searchCorrespondentEmailAddress = sessionVariableCalled("searchCorrespondentEmailAddress");
                 safeClickOn(randomSearchResultHypertext);
                 peopleTab.selectPeopleTab();
-                WebElementFacade primaryCorrespondentEmailAddress = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Email address']/following-sibling::td");
+                WebElementFacade primaryCorrespondentEmailAddress = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Email address']/following-sibling::td");
                 primaryCorrespondentEmailAddress.shouldContainText(searchCorrespondentEmailAddress);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 String searchCorrespondentReferenceNumber = sessionVariableCalled("searchCorrespondentReferenceNumber");
                 safeClickOn(randomSearchResultHypertext);
                 peopleTab.selectPeopleTab();
-                WebElementFacade primaryCorrespondentReferenceNumber = findBy("//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Reference']/following-sibling::td");
+                WebElementFacade primaryCorrespondentReferenceNumber = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Reference']/following-sibling::td");
                 primaryCorrespondentReferenceNumber.shouldContainText(searchCorrespondentReferenceNumber);
                 break;
             case "ACTIVE CASES ONLY":

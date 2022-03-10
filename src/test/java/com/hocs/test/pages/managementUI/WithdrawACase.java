@@ -27,12 +27,20 @@ public class WithdrawACase extends BasePage {
         typeInto(caseReferenceTextField, caseReference);
     }
 
-    public void enterWithdrawalDate() {
-        typeIntoDateFields(withdrawalDateDayTextbox, withdrawalDateMonthTextbox, withdrawalDateYearTextbox, getTodaysDate());
+    public void enterWithdrawalDate(String date) {
+        enterDateIntoDateFieldsWithHeading(date, "Withdrawal Date");
     }
 
     public void enterWithdrawalNotes(String notes) {
         typeInto(notesTextArea, notes);
         setSessionVariable("withdrawalNotes").to(notes);
+    }
+
+    public void withdrawACase(String caseReference, String date, String withdrawalNotes) {
+        enterCaseReference(caseReference);
+        enterWithdrawalDate(date);
+        enterWithdrawalNotes(withdrawalNotes);
+        clickTheButton("Withdraw");
+        waitABit(500);
     }
 }

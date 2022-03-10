@@ -616,6 +616,12 @@ public class BasePage extends PageObject {
         safeClickOn(checkbox);
     }
 
+    public boolean checkboxWithLabelIsCurrentlyVisible(String checkboxLabelText) {
+        WebElementFacade checkbox =
+                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
+        return  checkbox.isCurrentlyVisible();
+    }
+
     // Typeaheads
 
     public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {

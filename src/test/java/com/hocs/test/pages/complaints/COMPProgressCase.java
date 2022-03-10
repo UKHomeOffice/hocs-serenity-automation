@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.Search;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -51,7 +50,7 @@ public class COMPProgressCase extends BasePage {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
             if (caseType.equals("COMP2")) {
-                escalateACOMPCaseToCOMP2();
+                escalateAStage1CaseToStage2();
             }
             createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
@@ -82,36 +81,38 @@ public class COMPProgressCase extends BasePage {
         }
     }
 
-    public void escalateACOMPCaseToCOMP2() {
-        try {
-            attemptEscalateCOMPCaseToStage2();
-        } catch (Exception a) {
-            moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", "COMPLAINT CLOSED");
-            try {
-                attemptEscalateCOMPCaseToStage2();
-            } catch (Exception e) {
-                Assert.fail("Escalation hypertext not visible on retry");
-            }
+    public void escalateAStage1CaseToStage2() {
+        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+            getStage1CaseEligibleForEscalation();
         }
+        escalateEligibleStage1CaseToStage2();
         setSessionVariable("caseType").to("COMP2");
         waitABit(500);
     }
 
-    public void attemptEscalateCOMPCaseToStage2() throws Exception {
+    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
         dashboard.selectSearchLinkFromMenuBar();
         checkSpecificCheckbox("Complaint Case");
         search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         search.clickTheButton("Search");
         search.waitForResultsPage();
-        if (search.checkVisibilityOfEscalationHypertext()) {
-            WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-            String compCaseRef = compCaseRefField.getText();
-            setSessionVariable("stage2CaseReference").to(compCaseRef);
-            System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
-            search.clickEscalateComplaintsCaseToStage2();
-        } else {
-            throw new Exception("Escalation hypertext not visible");
-        }
+        return search.checkVisibilityOfEscalationHypertext();
+    }
+
+    private void getStage1CaseEligibleForEscalation() {
+        createCase.createAndWithDrawACSCaseOfType("COMP");
+        dashboard.selectSearchLinkFromMenuBar();
+        checkSpecificCheckbox("Complaint Case");
+        search.searchByCaseReference(getCurrentCaseReference());
+        search.waitForResultsPage();
+    }
+
+    private void escalateEligibleStage1CaseToStage2() {
+        WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+        String compCaseRef = compCaseRefField.getText();
+        setSessionVariable("stage2CaseReference").to(compCaseRef);
+        System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
+        search.clickEscalateComplaintsCaseToStage2();
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -263,7 +264,7 @@ public class COMPProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
                 if (infoValue.equals("COMP2")) {
-                    escalateACOMPCaseToCOMP2();
+                    escalateAStage1CaseToStage2();
                 }
                 createCase.createCSCaseOfType(infoValue);
                 break;
