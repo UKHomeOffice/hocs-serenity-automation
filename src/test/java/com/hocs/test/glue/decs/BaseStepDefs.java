@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
-import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -80,7 +79,7 @@ public class BaseStepDefs extends BasePage {
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAllocated();
-        summaryTab.asserNoActiveStageVisible();
+        summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
     }

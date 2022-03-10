@@ -206,31 +206,31 @@ public class TimelineStepDefs extends BasePage {
 
     @Then("I should not be able to see the case note added by the previous user")
     public void iShouldNotBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
-        timelineTab.AssertCaseNotesAuthoredByUserAreNotVisible(getPreviousUser());
+        timelineTab.assertCaseNotesAuthoredByUserAreNotVisible(getPreviousUser());
     }
 
     @And("I should be able to see the case note added by the current user")
     public void iShouldBeAbleToSeeTheCaseNoteAddedByTheCurrentUser() {
-        timelineTab.AssertCaseNotesAuthoredByUserAreVisible(getCurrentUser());
+        timelineTab.assertCaseNotesAuthoredByUserAreVisible(getCurrentUser());
     }
 
     @Then("I should be able to see the case note added by the previous user")
     public void iShouldBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
-        timelineTab.AssertCaseNotesAuthoredByUserAreVisible(getPreviousUser());
+        timelineTab.assertCaseNotesAuthoredByUserAreVisible(getPreviousUser());
     }
 
     @Then("I should be able to see logs for case actions taken by the current user")
     public void iShouldBeAbleToSeeLogsForCaseActionsTakenByTheCurrentUser() {
-        timelineTab.AssertTimelineLogsAttributedToUserAreVisible(getCurrentUser());
+        timelineTab.assertTimelineLogsAttributedToUserAreVisible(getCurrentUser());
     }
 
     @And("I should not be able to see logs for case actions taken by the previous user")
     public void iShouldNotBeAbleToSeeLogsForCaseActionsTakenByThePreviousUser() {
-        timelineTab.AssertTimelineLogsAttributedToUserAreNotVisible(getPreviousUser());
+        timelineTab.assertTimelineLogsAttributedToUserAreNotVisible(getPreviousUser());
     }
 
     @And("I should be able to see logs for case actions taken by the previous user")
     public void iShouldBeAbleToSeeLogsForCaseActionsTakenByThePreviousUser() {
-        timelineTab.AssertTimelineLogsAttributedToUserAreVisible(getPreviousUser());
+        timelineTab.assertTimelineLogsAttributedToUserAreVisible(getPreviousUser());
     }
 }

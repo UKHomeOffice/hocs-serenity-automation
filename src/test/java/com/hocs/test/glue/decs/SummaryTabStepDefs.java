@@ -227,7 +227,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("I should not be able to see which stage the case is at")
     public void iShouldNotBeAbleToSeeWhichStageTheCaseIsAt() {
-        summaryTab.asserNoActiveStageVisible();
+        summaryTab.assertNoActiveStageVisible();
     }
 
     @And("I should not be able to see which team the case is currently assigned to")

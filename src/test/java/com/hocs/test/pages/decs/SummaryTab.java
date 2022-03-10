@@ -443,7 +443,7 @@ public class SummaryTab extends BasePage {
         assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealDetails"), "Details");
     }
 
-    public void asserNoActiveStageVisible() {
+    public void assertNoActiveStageVisible() {
         selectSummaryTab();
         if (activeStage.isVisible()) {
             Assert.fail("Expected no active stage to be visible, but active stage " + activeStage.getText() + " is visible");

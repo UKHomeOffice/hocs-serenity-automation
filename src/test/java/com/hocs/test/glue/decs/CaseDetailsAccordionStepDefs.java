@@ -48,7 +48,7 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
         if (!accordionSectionIsVisible("Registration")) {
             Assert.fail("Registration section not visible");
         }
-        if (accordionSectionIsVisible("TRIAGE") || accordionSectionIsVisible("DRAFT") ||accordionSectionIsVisible("SEND")) {
+        if (accordionSectionIsVisible("TRIAGE") || accordionSectionIsVisible("DRAFT") || accordionSectionIsVisible("SEND")) {
             Assert.fail("Section other than Registration is visible");
         }
     }
