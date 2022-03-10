@@ -3,7 +3,8 @@ Feature: CCH Returns
 
   Background:
     Given I am logged into "CS" as user "TO_USER"
-    And I get a "TO" case at "CCH Returns" stage
+    When I get a TO case with "HMPO" as the business area and move the case to the "CCH Returns" stage
+    And I load and claim the current case
 
   Scenario: As a CCH User, I want to be able to close a case, so that case working stops on cases that don't require case working
     When I select to close the case at CCH Returns

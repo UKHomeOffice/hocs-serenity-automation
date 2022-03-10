@@ -200,23 +200,9 @@ public class TOProgressCase extends BasePage {
     }
 
     public void moveCaseFromTriageToCCH() {
-        String currentBusinessArea = sessionVariableCalled("businessArea");
         openOrCloseAccordionSection("Case Details");
         clickTheLink("Change business area");
         waitABit(500);
-        if (currentBusinessArea.equalsIgnoreCase("UKVI")) {
-            List<WebElementFacade> listOfNonCheckedBusinessAreas = findAll("//input[not(@checked)]/following-sibling::label");
-            Random rand = new Random();
-            WebElementFacade randomBusinessArea = listOfNonCheckedBusinessAreas.get(rand.nextInt(listOfNonCheckedBusinessAreas.size()));
-            listOfNonCheckedBusinessAreas.remove(randomBusinessArea);
-            randomBusinessArea = listOfNonCheckedBusinessAreas.get(rand.nextInt(listOfNonCheckedBusinessAreas.size()));
-            safeClickOn(randomBusinessArea);
-            safeClickOn(finishButton);
-            caseView.clickAllocateToMeLink();
-            openOrCloseAccordionSection("Case Details");
-            clickTheLink("Change business area");
-            waitABit(500);
-        }
         selectSpecificRadioButtonFromGroupWithHeading("UKVI", "Business Area");
         safeClickOn(finishButton);
     }

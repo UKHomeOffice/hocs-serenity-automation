@@ -18,11 +18,6 @@ public class Triage extends BasePage {
         waitForPageWithTitle("Transfer To Business Area");
     }
 
-    public void selectADifferentBusinessArea(String businessArea) {
-        selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
-        setSessionVariable("businessArea").to(businessArea);
-    }
-
     public void selectSetEnquirySubjectAndReasonLink() {
         clickTheLink("Set enquiry subject & reason");
         waitForPageWithTitle("Set Enquiry Subject");
