@@ -27,8 +27,6 @@ public class BaseStepDefs extends BasePage {
 
     TimelineTab timelineTab;
 
-    User originalUser;
-
     CaseView caseView;
 
     @Then("the {string} page should be displayed")
@@ -130,18 +128,13 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @And("I record the user who completed the previous stages")
-    public void iRecordTheUserWhoCompletedThePreviousStages() {
-        originalUser = getCurrentUser();
-    }
-
-    @Then("the case should be allocated to the original user")
-    public void caseShouldBeAllocatedTo() {
+    @Then("the case should be allocated to the previous user")
+    public void caseShouldBeAllocatedToThePreviousUser() {
         summaryTab.selectSummaryTab();
         int retest = 0;
         while (retest < 5) {
             try {
-                summaryTab.assertAllocatedUserIs(originalUser);
+                summaryTab.assertAllocatedUserIs(getPreviousUser());
                 break;
             } catch (AssertionError a) {
                 retest++;
@@ -149,7 +142,7 @@ public class BaseStepDefs extends BasePage {
                 summaryTab.selectSummaryTab();
             }
         }
-        summaryTab.assertAllocatedUserIs(originalUser);
+        summaryTab.assertAllocatedUserIs(getPreviousUser());
     }
 
     @And("I record the case reference of this case as {string}")

@@ -23,10 +23,10 @@ Feature: SMC Permissions
   @COMPRegression
   Scenario: As a SMC Casework user, when viewing a case, I should be able to see all case data
     Given I am logged into "CS" as user "SMC_USER"
-    And I create a "SMC" case and move it to the "CASE CLOSED" stage
+    And I create a "SMC" case and move it to the "CASE CLOSED" stage, recording all case data
     When I switch to user "SMC_CASEWORK_USER"
     And I load the current case
-    Then I can view all case data in the Case Details accordion
+    Then all case data should be visible in the read-only Case Details accordion
     And I can see all of the cases Summary data
 
   @COMPRegression
@@ -65,8 +65,10 @@ Feature: SMC Permissions
   Scenario: As a SMC Casework user, when I view a case, I should be able to see all case notes that have been added to the timeline
     Given I am logged into "CS" as user "SMC_REGISTRATION_USER_1"
     And I create a single "SMC" case
+    And I go to the case from the successful case creation screen
     And I add a new case note to the timeline
     When I switch to user "SMC_CASEWORK_USER"
+    And I load the current case
     And I add a new case note to the timeline
     Then I should be able to see the case note added by the previous user
     And I should be able to see the case note added by the current user
@@ -75,7 +77,6 @@ Feature: SMC Permissions
   Scenario: As a SMC Registration user, when I view a cases timeline, I should only be able to see logs for case actions I took
     Given I am logged into "CS" as user "SMC_USER"
     And I create a single "SMC" case
-    And I add a document to the case
     And I switch to user "SMC_REGISTRATION_USER_1"
     And I move the case from "REGISTRATION" stage to "TRIAGE" stage
     And I load the current case
@@ -84,7 +85,7 @@ Feature: SMC Permissions
     And I should not be able to see logs for case actions taken by the previous user
 
   @COMPRegression
-  Scenario: As a SMC Registration user, when I view a cases timeline, I should only be able to see logs for case actions I took
+  Scenario: As a SMC Casework user, when I view a cases timeline, I should only be able to see all of the logs
     Given I am logged into "CS" as user "SMC_REGISTRATION_USER_1"
     And I create a "SMC" case and move it to the "Triage" stage
     And I switch to user "SMC_CASEWORK_USER"

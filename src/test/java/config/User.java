@@ -32,6 +32,8 @@ public enum User {
 
     private User currentUser;
 
+    private User previousUser;
+
     User(String username, String password, String allocationText) {
         this.username = username;
         this.password = password;
@@ -48,13 +50,5 @@ public enum User {
 
     public String getAllocationText() {
         return allocationText;
-    }
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
-
-    public User getCurrentUser() {
-        return this.currentUser;
     }
 }

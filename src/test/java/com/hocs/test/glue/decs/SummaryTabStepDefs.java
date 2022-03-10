@@ -222,7 +222,7 @@ public class SummaryTabStepDefs extends BasePage {
     public void iCanOnlySeeRegistrationInformationInTheSummary() {
         summaryTab.selectSummaryTab();
         List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel");
-        summaryTab.assertSummaryOnlyContainsExpectedHeaders(expectedHeaders);
+        summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 
     @Then("I should not be able to see which stage the case is at")
@@ -238,5 +238,13 @@ public class SummaryTabStepDefs extends BasePage {
     @And("I should not be able to see which user is currently assigned to the case")
     public void iShouldNotBeAbleToSeeWhichUserIsCurrentlyAssignedToTheCase() {
         summaryTab.assertNoAllocatedUserVisible();
+    }
+
+    @And("I can see all of the cases Summary data")
+    public void iCanSeeAllOfTheCasesSummaryData() {
+        summaryTab.selectSummaryTab();
+        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel", "Business Area", "Case Outcome",
+                "Enquiry Reason", "Is a Letter of Authority required?", "When was the correspondence received?");
+        summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 }

@@ -1,7 +1,5 @@
 package com.hocs.test.glue.decs;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
@@ -36,13 +34,13 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
             workstacks.selectSpecificCaseReferenceLink(getCurrentCaseReference());
         }
         openOrCloseAccordionSection(stageName);
-        recordCaseData.assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
+        recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
 
     @And("the closure reason and details should be visible in the Case Details accordion")
     public void theClosureReasonAndDetailsShouldBeVisibleInTheCaseDetailsAccordion() {
         openOrCloseAccordionSection("Early Closure");
-        recordCaseData.assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
+        recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
 
     @Then("I can only view the Registration section of the Case Details accordion")
@@ -53,5 +51,11 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
         if (accordionSectionIsVisible("TRIAGE") || accordionSectionIsVisible("DRAFT") ||accordionSectionIsVisible("SEND")) {
             Assert.fail("Section other than Registration is visible");
         }
+    }
+
+    @Then("all case data should be visible in the read-only Case Details accordion")
+    public void allCaseDataShouldBeVisibleInTheReadOnlyCaseDetailsAccordion() {
+        caseView.expandAllCaseDetailsAccordionSections();
+        recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
 }

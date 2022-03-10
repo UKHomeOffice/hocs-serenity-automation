@@ -8,6 +8,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -466,12 +468,24 @@ public class SummaryTab extends BasePage {
         assertSummaryContainsExpectedValueForGivenHeader(recipient, "Recipient");
     }
 
-    public void assertSummaryOnlyContainsExpectedHeaders(List<String> expectedSummarySectionHeaders) {
-        List<WebElementFacade> allSummarySectionHeaders = findAll("//caption[text()='Summary']/ancestor::table//th");
-        for (WebElementFacade header : allSummarySectionHeaders) {
-            if (!expectedSummarySectionHeaders.contains(header.getText())) {
-                Assert.fail("Summary was only expected to contain " + expectedSummarySectionHeaders.toString() + ", but also contained " + header.getText());
+    public void assertSummaryContainsOnlyExpectedHeaders(List<String> expectedSummarySectionHeaders) {
+        List<String> remainingHeadersToCheck = new LinkedList<>(expectedSummarySectionHeaders);
+        List<WebElementFacade> allVisibleSummarySectionHeaderElements = findAll("//caption[text()='Summary']/ancestor::table//th");
+        List<String> allVisibleSummarySectionHeaders = new ArrayList<>();
+        for (WebElementFacade visibleSummarySectionHeaderElement : allVisibleSummarySectionHeaderElements) {
+            allVisibleSummarySectionHeaders.add(visibleSummarySectionHeaderElement.getText());
+        }
+        for (String visibleSummarySectionHeader : allVisibleSummarySectionHeaders) {
+            if (!remainingHeadersToCheck.contains(visibleSummarySectionHeader)) {
+                Assert.fail("Summary was only expected to contain " + expectedSummarySectionHeaders.toString() + ", but also contained "
+                        + visibleSummarySectionHeader);
             }
+            remainingHeadersToCheck.remove(visibleSummarySectionHeader);
+        }
+        if (!(remainingHeadersToCheck.size() == 0)) {
+            Assert.fail(
+                    "Summary was expected to contain " + expectedSummarySectionHeaders.toString() + ", but did not contain " + remainingHeadersToCheck
+                            .toString());
         }
     }
 }

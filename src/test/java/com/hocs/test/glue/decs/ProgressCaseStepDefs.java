@@ -126,6 +126,13 @@ public class ProgressCaseStepDefs extends BasePage {
         iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
+    @And("I create a {string} case and move it to the {string} stage, recording all case data")
+    public void iCreateACaseAndMoveItToTheStageRecordingAllCaseData(String caseType, String targetStage) {
+        keepAllCaseDataWhenProgressingCase();
+        setSessionVariable("caseType").to(caseType);
+        iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
+    }
+
     @And("I get a {string} case/claim at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);

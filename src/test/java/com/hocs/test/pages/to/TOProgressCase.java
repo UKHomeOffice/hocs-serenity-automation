@@ -2,7 +2,6 @@ package com.hocs.test.pages.to;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.ConfirmationScreens;
@@ -134,7 +133,7 @@ public class TOProgressCase extends BasePage {
         }
         dashboard.waitForDashboard();
         System.out.println(stageToComplete + " stage completed");
-        RecordCaseData.resetDataRecords();
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
     public void moveCaseFromDataInputToTriage() {
