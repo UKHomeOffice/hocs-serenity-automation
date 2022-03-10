@@ -69,7 +69,7 @@ public class BFProgressCase extends BasePage {
             getStage1CaseEligibleForEscalation();
         }
         escalateEligibleStage1CaseToStage2();
-        setSessionVariable("caseType").to("COMP2");
+        setSessionVariable("caseType").to("BF2");
         waitABit(500);
     }
 
