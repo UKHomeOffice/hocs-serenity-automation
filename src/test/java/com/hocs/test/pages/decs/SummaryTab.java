@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
 import java.time.Duration;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
@@ -47,7 +48,7 @@ public class SummaryTab extends BasePage {
     public WebElementFacade activeStage;
 
     @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
-    public WebElementFacade currentTeam;
+    public WebElementFacade allocatedTeam;
 
     @FindBy(xpath = "//th[text()='Private Office Team']/following-sibling::td")
     public WebElementFacade privateOfficeTeam;
@@ -376,14 +377,14 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertAllocatedTeam(String team) {
-        currentTeam.shouldContainText(team);
+        allocatedTeam.shouldContainText(team);
     }
 
     public void assertAllocatedMPAMTeam(String stage) {
-        if (!currentTeam.isVisible()) {
+        if (!allocatedTeam.isVisible()) {
             selectSummaryTab();
         }
-        String activeTeam = currentTeam.getText();
+        String activeTeam = allocatedTeam.getText();
         switch (stage) {
             case "Private Office":
                 assertThat(activeTeam.contains("PO"), is(true));
@@ -440,14 +441,37 @@ public class SummaryTab extends BasePage {
         assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealDetails"), "Details");
     }
 
-    public void assertThereIsNoActiveStage() {
+    public void asserNoActiveStageVisible() {
         selectSummaryTab();
         if (activeStage.isVisible()) {
-            Assert.fail("Case is at " + activeStage.getText() + " stage when expected to be closed");
+            Assert.fail("Expected no active stage to be visible, but active stage " + activeStage.getText() + " is visible");
+        }
+    }
+
+    public void assertNoAllocatedTeamVisible() {
+        selectSummaryTab();
+        if (allocatedTeam.isVisible()) {
+            Assert.fail("Expected no allocated team to be visible, but allocated team " + allocatedTeam.getText() + " is visible");
+        }
+    }
+
+    public void assertNoAllocatedUserVisible() {
+        selectSummaryTab();
+        if (allocatedUser.isVisible()) {
+            Assert.fail("Expected no allocated user to be visible, but allocated user " + allocatedUser.getText() + " is visible");
         }
     }
 
     public void assertRecipientIsAddedToTOCase(String recipient) {
         assertSummaryContainsExpectedValueForGivenHeader(recipient, "Recipient");
+    }
+
+    public void assertSummaryOnlyContainsExpectedHeaders(List<String> expectedSummarySectionHeaders) {
+        List<WebElementFacade> allSummarySectionHeaders = findAll("//caption[text()='Summary']/ancestor::table//th");
+        for (WebElementFacade header : allSummarySectionHeaders) {
+            if (!expectedSummarySectionHeaders.contains(header.getText())) {
+                Assert.fail("Summary was only expected to contain " + expectedSummarySectionHeaders.toString() + ", but also contained " + header.getText());
+            }
+        }
     }
 }

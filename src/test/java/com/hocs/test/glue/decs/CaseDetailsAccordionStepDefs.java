@@ -3,13 +3,16 @@ package com.hocs.test.glue.decs;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import org.junit.Assert;
 
-public class CaseDataStepDefs extends BasePage {
+public class CaseDetailsAccordionStepDefs extends BasePage {
 
     RecordCaseData recordCaseData;
 
@@ -18,6 +21,8 @@ public class CaseDataStepDefs extends BasePage {
     Dashboard dashboard;
 
     Workstacks workstacks;
+
+    CaseView caseView;
 
     @And("the read-only Case Details accordion should contain all case information entered during the {string} stage")
     public void theReadOnlyCaseDetailsAccordionShouldContainAllCaseInformationEnteredDuringTheStage(String stageName) {
@@ -38,5 +43,15 @@ public class CaseDataStepDefs extends BasePage {
     public void theClosureReasonAndDetailsShouldBeVisibleInTheCaseDetailsAccordion() {
         openOrCloseAccordionSection("Early Closure");
         recordCaseData.assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection();
+    }
+
+    @Then("I can only view the Registration section of the Case Details accordion")
+    public void iCanOnlyViewTheRegistrationSectionOfTheCaseDetailsAccordion() {
+        if (!accordionSectionIsVisible("Registration")) {
+            Assert.fail("Registration section not visible");
+        }
+        if (accordionSectionIsVisible("TRIAGE") || accordionSectionIsVisible("DRAFT") ||accordionSectionIsVisible("SEND")) {
+            Assert.fail("Section other than Registration is visible");
+        }
     }
 }

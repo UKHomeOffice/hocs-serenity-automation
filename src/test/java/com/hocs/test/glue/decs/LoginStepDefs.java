@@ -162,6 +162,7 @@ public class LoginStepDefs extends BasePage {
             safeClickOn(dashboard.logoutButton);
         }
         loginPage.usernameField.waitUntilVisible();
+
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")

@@ -22,6 +22,7 @@ public class TimelineStepDefs extends BasePage {
 
     @And("I add a new case note to the timeline")
     public void iCreateACaseNoteWithRandomContent() {
+        timelineTab.selectTimelineTab();
         timelineTab.createACaseNote();
     }
 
@@ -201,5 +202,14 @@ public class TimelineStepDefs extends BasePage {
         String interestedParty = sessionVariableCalled("interestedParty");
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
         timelineTab.assertCaseLogWithTitleContainsText(typeOfInterest + " Updated: " + interestedParty, detailsOfInterest);
+    }
+
+    @Then("I should not be able to see the case note added by the previous user")
+    public void iShouldNotBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
+        
+    }
+
+    @And("I should be able to see the case note added by the current user")
+    public void iShouldBeAbleToSeeTheCaseNoteAddedByTheCurrentUser() {
     }
 }

@@ -279,6 +279,13 @@ Feature: Complaints Triage
     And the summary should display the owning team as "Serious Misconduct"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
+    Scenario: Amending data at Triage that was entered at Registration does not alter the Registration section of the Case Details accordion
+      Given I am logged into "CS" as user "SMC_USER"
+      And I create a "SMC" case and move it to the "Triage" stage
+      And I amend the Case Summary
+      And I choose different Complaint Categories
+      And I select a different Owning CSU
+
   # Expected failure. Defect HOCS-3980 raised.
   @ComplaintsWorkflow @ComplaintsRegression
   Scenario: User can transfer a SMC complaint case to a UKVI complaint case at Triage stage

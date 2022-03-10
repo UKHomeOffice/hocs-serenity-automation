@@ -289,4 +289,8 @@ public class Documents extends BasePage {
         primaryDraftDocumentName.waitUntilVisible();
         primaryDraftDocumentName.shouldContainText(fileName);
     }
+
+    public void selectToManageDocuments() {
+        safeClickOn(manageDocumentsLink);
+    }
 }

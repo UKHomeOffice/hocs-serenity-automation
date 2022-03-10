@@ -219,7 +219,7 @@ public class AccordionMPAM extends BasePage {
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
         summaryTab.selectSummaryTab();
         waitABit(2500);
-        assertThat(summaryTab.currentTeam.getText().contains(newBusinessArea), is(true));
+        assertThat(summaryTab.allocatedTeam.getText().contains(newBusinessArea), is(true));
     }
 
     public void assertInputMatchesCaseDetailsResponse(String responseType) {
