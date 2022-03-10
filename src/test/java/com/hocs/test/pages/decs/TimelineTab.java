@@ -221,4 +221,32 @@ public class TimelineTab extends BasePage {
             Assert.fail("The '" + caseLogTitle + "' case log was expected to have text: '" + caseLogContents + "' but had text: '" + text + "'");
         }
     }
+
+    public void assertCaseNotesAuthoredByUserAreNotVisible(User user) {
+        WebElementFacade caseNoteAuthoredByUser = findBy("//li[@class='case-note']//span[text()='" + user.getUsername() + "']");
+        if (caseNoteAuthoredByUser.isCurrentlyVisible()) {
+            Assert.fail("Case notes authored by " + user.getUsername() + " are visible in the timeline");
+        }
+    }
+
+    public void assertCaseNotesAuthoredByUserAreVisible(User user) {
+        WebElementFacade caseNoteAuthoredByUser = findBy("//li[@class='case-note']//span[text()='" + user.getUsername() + "']");
+        if (!caseNoteAuthoredByUser.isCurrentlyVisible()) {
+            Assert.fail("Case notes authored by " + user.getUsername() + " are not visible in the timeline");
+        }
+    }
+
+    public void assertTimelineLogsAttributedToUserAreVisible(User user) {
+        WebElementFacade logAttributedToUser = findBy("//div[@class='timeline']//li[not(@class='case-note')]//span[text()='" + user.getUsername() + "']");
+        if (!logAttributedToUser.isCurrentlyVisible()) {
+            Assert.fail("Logs attributed to " + user.getUsername() + " are not visible in the timeline");
+        }
+    }
+
+    public void assertTimelineLogsAttributedToUserAreNotVisible(User user) {
+        WebElementFacade logAttributedToUser = findBy("//div[@class='timeline']//li[not(@class='case-note')]//span[text()='" + user.getUsername() + "']");
+        if (logAttributedToUser.isCurrentlyVisible()) {
+            Assert.fail("Logs attributed to " + user.getUsername() + " are visible in the timeline");
+        }
+    }
 }

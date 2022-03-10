@@ -7,6 +7,7 @@ import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -22,11 +23,13 @@ public class DocumentsStepDefs extends BasePage {
 
     COMPProgressCase compProgressCase;
 
+    Dashboard dashboard;
+
     @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
         createCase.createCSCaseOfTypeWithoutDocument(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
-        safeClickOn(documents.manageDocumentsLink);
+        documents.selectToManageDocuments();
     }
 
     @And("I manage the documents of a new case")
@@ -239,5 +242,33 @@ public class DocumentsStepDefs extends BasePage {
     public void iUploadAnotherDocumentAsAReplacement(String docType) {
         documents.addADocumentOfDocumentTypeAndFileType(docType, "txt");
         setSessionVariable("replacement draft").to("txt");
+    }
+
+    @And("I add a document to the case as the (first )Registration user")
+    public void iAddADocumentToTheCaseAsTheFirstRegistrationUser() {
+        documents.addADocumentOfFileType("docx");
+    }
+
+    @And("I add a document to the case as the (second Registration )/(Casework )user")
+    public void iAddADocumentToTheCaseAsTheSecondRegistrationUser() {
+        dashboard.getCurrentCase();
+        documents.selectDocumentsTab();
+        documents.selectToManageDocuments();
+        documents.addADocumentOfFileType("txt");
+    }
+
+    @Then("I should not be able to see the document uploaded by the previous user")
+    public void iShouldNotBeAbleToSeeTheDocumentUploadedByThePreviousUser() {
+        documents.assertFileIsNotVisible("docx");
+    }
+
+    @And("I should be able to see the document uploaded by the current user")
+    public void iShouldBeAbleToSeeTheDocumentUploadedByTheCurrentUser() {
+        documents.assertFileIsVisible("txt");
+    }
+
+    @Then("I should be able to see the document uploaded by the previous user")
+    public void iShouldBeAbleToSeeTheDocumentUploadedByThePreviousUser() {
+        documents.assertFileIsVisible("docx");
     }
 }

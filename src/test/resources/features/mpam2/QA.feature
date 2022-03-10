@@ -101,13 +101,11 @@ Feature: QA
   Scenario Outline: User tests the auto-assign functionality of different actions at QA using multiple user accounts
     And I create a MPAM case with "Official" as the Reference Type and move it to the "QA" stage
     And I load and claim the current case
-    And I record the user who completed the previous stages
-    And I logout of the application
-    And I am logged into "CS" as user "CAMERON"
+    And I switch to user "CAMERON"
     And I load and claim the current case
     And I complete the "<actions>" action at QA
     And I load the current case
-    Then the case should be allocated to the original user
+    Then the case should be allocated to the previous user
     And I logout of the application
     Examples:
       | actions                         |

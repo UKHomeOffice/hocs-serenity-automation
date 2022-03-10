@@ -11,7 +11,6 @@ import static config.User.IEDET_USER;
 import static config.User.SMC_USER;
 import static config.User.TO_USER;
 import static config.User.WCS_USER;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.BasePage;
@@ -28,7 +27,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jxl.read.biff.Record;
 
 public class LoginStepDefs extends BasePage {
 
@@ -99,11 +97,12 @@ public class LoginStepDefs extends BasePage {
             System.err.println("Platform : " + platform + "Not Found");
         }
         currentPlatform = platform;
-        RecordCaseData.resetDataRecords();
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
+        setPreviousUser(getCurrentUser());
         targetUser = User.valueOf(user);
         navigateToPlatform(currentPlatform);
         if (!loginPage.onLoginPage()) {
@@ -162,6 +161,7 @@ public class LoginStepDefs extends BasePage {
             safeClickOn(dashboard.logoutButton);
         }
         loginPage.usernameField.waitUntilVisible();
+
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")

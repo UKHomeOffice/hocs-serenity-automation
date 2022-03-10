@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
-import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -26,8 +25,6 @@ public class BaseStepDefs extends BasePage {
     PeopleTab peopleTab;
 
     TimelineTab timelineTab;
-
-    User originalUser;
 
     CaseView caseView;
 
@@ -82,7 +79,7 @@ public class BaseStepDefs extends BasePage {
     public void theCaseShouldBeClosed() {
         dashboard.getCurrentCase();
         caseView.assertCaseCannotBeAllocated();
-        summaryTab.assertThereIsNoActiveStage();
+        summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
     }
@@ -130,18 +127,13 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @And("I record the user who completed the previous stages")
-    public void iRecordTheUserWhoCompletedThePreviousStages() {
-        originalUser = getCurrentUser();
-    }
-
-    @Then("the case should be allocated to the original user")
-    public void caseShouldBeAllocatedTo() {
+    @Then("the case should be allocated to the previous user")
+    public void caseShouldBeAllocatedToThePreviousUser() {
         summaryTab.selectSummaryTab();
         int retest = 0;
         while (retest < 5) {
             try {
-                summaryTab.assertAllocatedUserIs(originalUser);
+                summaryTab.assertAllocatedUserIs(getPreviousUser());
                 break;
             } catch (AssertionError a) {
                 retest++;
@@ -149,7 +141,7 @@ public class BaseStepDefs extends BasePage {
                 summaryTab.selectSummaryTab();
             }
         }
-        summaryTab.assertAllocatedUserIs(originalUser);
+        summaryTab.assertAllocatedUserIs(getPreviousUser());
     }
 
     @And("I record the case reference of this case as {string}")
