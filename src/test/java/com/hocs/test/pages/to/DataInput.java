@@ -24,6 +24,11 @@ public class DataInput extends BasePage {
         setSessionVariable("businessArea").to(selectedBusinessArea);
     }
 
+    public void selectSpecificBusinessArea(String businessArea) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
+        setSessionVariable("businessArea").to(businessArea);
+    }
+
     public void selectAChannelRecieved() {
         String selectedChannelRecieved = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel Received");
         setSessionVariable("channelReceived").to(selectedChannelRecieved);

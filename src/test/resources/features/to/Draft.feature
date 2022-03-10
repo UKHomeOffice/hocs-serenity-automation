@@ -49,10 +49,31 @@ Feature: Draft
     And the summary should contain the selected stop list
 
   @TORegression
-  Scenario:  As a Draft user, I want to be able to change the business area of the case, so that the correct team can casework it
-    When I open the "Case Details" accordion section
-    And I change the Business Area of the case
+  Scenario Outline: As a Draft user, I want to be able to change the business area of the case to UKVI, so that the case is moved to the CCH stage
+    When I get a TO case with "<businessArea>" as the business area and move the case to the "Draft" stage
+    And I load and claim the current case
+    And I open the "Case Details" accordion section
+    And I change the Business Area of the TO case to "UKVI"
+    Then the case should be moved to the "CCH Returns" stage
+    And the summary should display the owning team as "Treat Official CCH"
+    Examples:
+      | businessArea  |
+      | HMPO          |
+      | BF            |
+
+  @TORegression
+  Scenario Outline: As a Draft user, I want to be able to change the business area of the case, so that the correct team can casework it
+    When I get a TO case with "<initialBusinessArea>" as the business area and move the case to the "Draft" stage
+    And I load and claim the current case
+    And I open the "Case Details" accordion section
+    And I change the Business Area of the TO case to "<finalBusinessArea>"
     Then the case should be moved to the correct Treat Official team for the new business area
+    Examples:
+      | initialBusinessArea | finalBusinessArea |
+      | UKVI                | HMPO              |
+      | UKVI                | BF                |
+      | HMPO                | BF                |
+      | BF                  | HMPO              |
 
   @TORegression
   Scenario: As a Draft user, I want to be able to save changes to the case, so corrections can be made

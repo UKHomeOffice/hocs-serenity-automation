@@ -1,11 +1,14 @@
 package com.hocs.test.glue.to;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.to.DataInput;
 import com.hocs.test.pages.to.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 public class TriageStepDefs extends BasePage {
+
+    DataInput dataInput;
 
     Triage triage;
 
@@ -30,11 +33,11 @@ public class TriageStepDefs extends BasePage {
         clickTheButton("Finish");
     }
 
-    @And("I change the Business Area of the case")
-    public void iChangeTheBusinessAreaOfTheCase() {
+    @And("I change the Business Area of the TO case to {string}")
+    public void iChangeTheBusinessAreaOfTheCase(String businessArea) {
         triage.selectToChangeTheBusinessArea();
         waitForPageWithTitle("Transfer To Business Area");
-        triage.selectADifferentBusinessArea();
+        dataInput.selectSpecificBusinessArea(businessArea);
         clickTheButton("Finish");
     }
 
