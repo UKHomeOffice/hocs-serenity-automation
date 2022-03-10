@@ -212,7 +212,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the newly created recipient details should be displayed in the summary tab")
     public void theNewlyCreatedRecipientShouldBeDisplayedInTheSummaryTab() {
-        String recipient = sessionVariableCalled("newRecipientName");
+        String recipient = sessionVariableCalled("recipientName");
         summaryTab.assertRecipientIsAddedToTOCase(recipient);
     }
 }

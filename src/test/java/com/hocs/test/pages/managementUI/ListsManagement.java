@@ -12,40 +12,17 @@ import org.openqa.selenium.support.FindBy;
 
 public class ListsManagement extends BasePage {
 
-    MUIDashboard MUIDashboard;
-
-    @FindBy(xpath = "//h1[text()='View and edit campaigns']")
-    public WebElementFacade viewAndEditCampaignsHeader;
-
-    @FindBy(xpath = "//button[text()='Add new campaign']")
-    private WebElementFacade addNewCampaignButton;
-
-    @FindBy(xpath = "//label[text()='Campaign name']/following-sibling::input")
-    private WebElementFacade campaignNameTextBox;
-
-    @FindBy(xpath = "//label[text()='Campaign code']/following-sibling::input")
-    private WebElementFacade campaignCodeTextBox;
-
-    @FindBy(css = "[value='Submit']")
-    private WebElementFacade submitButton;
-
-    @FindBy(xpath = "//label[text()='New campaign name']/following-sibling::input")
-    private WebElementFacade newCampaignNameTextBox;
-
     @FindBy(xpath = "//input[@id='title']")
-    private WebElementFacade accountManagerNameTextBox;
+    private WebElementFacade titleTextField;
 
     @FindBy(xpath = "//input[@id='simpleName']")
-    private WebElementFacade accountManagerCodeTextBox;
-
-    @FindBy(xpath = "//input[@id='title']")
-    private WebElementFacade interestedPartyNameTextBox;
-
-    @FindBy(xpath = "//input[@id='simpleName']")
-    private WebElementFacade interestedPartyCodeTextBox;
+    private WebElementFacade simpleNameTextField;
 
     @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
+
+    @FindBy(xpath = "//button[text()='Add new campaign']")
+    private WebElementFacade addNewCampaignButton;
 
     @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
     public WebElementFacade addNewAccountManagerButton;
@@ -53,14 +30,8 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Add new interested party')]")
     public WebElementFacade addNewInterestedPartyButton;
 
-    @FindBy(xpath = "//input[@id='business-areas-input']")
-    public WebElementFacade businessAreaTypeahead;
-
-    @FindBy(xpath = "//input[@id='enquiry-subject-input']")
-    public WebElementFacade enquirySubjectTypeahead;
-
-    @FindBy(xpath = "//label[text()='Business Unit name']/following-sibling::input")
-    public WebElementFacade businessUnitNameTextField;
+    @FindBy(xpath = "//button[contains(text(),'Add new representative')]")
+    public WebElementFacade addNewRepresentativeButton;
 
     @FindBy(xpath = "//button[text()='Add Business Unit']")
     public WebElementFacade addBusinessUnitButton;
@@ -68,68 +39,43 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
 
-    @FindBy(xpath = "//label[text()='Enquiry Reason']/following-sibling::input")
-    public WebElementFacade enquiryReasonTextField;
-
     @FindBy(xpath = "//button[text()='Add new recipient']")
     public WebElementFacade addNewRecipientButton;
 
-    @FindBy(xpath = "//label[contains(text(), 'ecipient name')]/following-sibling::input")
-    public WebElementFacade recipientNameTextField;
-
-    @FindBy(xpath = "//label[contains(text(), 'Recipient code')]/following-sibling::input")
-    public WebElementFacade recipientCodeTextField;
-
-    public void addANewCampaign() {
-        String campaignName = generateRandomString();
-        String campaignCode = generateRandomString();
-        safeClickOn(addNewCampaignButton);
-        campaignNameTextBox.sendKeys(campaignName);
-        setSessionVariable("newCampaign").to(campaignName);
-        campaignCodeTextBox.sendKeys(campaignCode);
-        safeClickOn(submitButton);
+    private String enterName() {
+        String name = "Automated test name " + generateRandomString();
+        titleTextField.clear();
+        titleTextField.sendKeys(name);
+        return name;
     }
 
-    public void amendACampaign() {
-        String campaignName = generateRandomString();
-        WebElementFacade amendLink = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']/following-sibling::td/a[text()='Amend']");
+    private String enterCode() {
+        String code = "Automated test code " + generateRandomString();
+        simpleNameTextField.sendKeys(code);
+        return code;
+    }
+
+    public void clickAmendLinkFor(String nameOrCode) {
+        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Amend']");
         safeClickOn(amendLink);
-        newCampaignNameTextBox.clear();
-        newCampaignNameTextBox.sendKeys(campaignName);
-        setSessionVariable("newCampaign").to(campaignName);
-        safeClickOn(submitButton);
     }
 
-    public void assertCampaignVisibleInCampaignTable(String caseType) {
-        WebElementFacade newCampaignInList = findBy("//td[text()='" + sessionVariableCalled("newCampaign") + "']");
-        newCampaignInList.shouldBeVisible();
+    public void clickDeleteLinkFor(String nameOrCode) {
+        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Delete']");
+        safeClickOn(amendLink);
     }
 
-    public void addANewRecipient() {
-        String recipientName = generateRandomString();
-        String recipientCode = generateRandomStringOfLength(3);
-        safeClickOn(addNewRecipientButton);
-        recipientNameTextField.sendKeys(recipientName);
-        recipientCodeTextField.sendKeys(recipientCode);
-        setSessionVariable("newRecipientName").to(recipientName);
-        safeClickOn(submitButton);
+    public void clickTheAddNewCampaignButton() {
+        safeClickOn(addNewCampaignButton);
     }
 
-    public void amendARecipientName() {
-        String recipientName = sessionVariableCalled("newRecipientName");
-        WebElementFacade amendHypertext = findBy("//td[text()='" + recipientName + "']/following-sibling::td/a");
-        safeClickOn(amendHypertext);
-        recipientNameTextField.clear();
-        recipientNameTextField.sendKeys("Amended " + recipientName);
-        setSessionVariable("newRecipientName").to("Amended " + recipientName);
-        safeClickOn(submitButton);
+    public void clickTheAddNewRepresentativeButton() {
+        safeClickOn(addNewRepresentativeButton);
     }
 
-    public void assertNewRecipientVisibleInRecipientTable() {
-        String recipientName = sessionVariableCalled("newRecipientName");
-        WebElementFacade newRecipientEntry = findBy("//td[text()='" + recipientName + "']");
-        newRecipientEntry.shouldBeVisible();
-    }
+    public void clickTheAddNewBusinessUnitButton() { safeClickOn(addBusinessUnitButton); }
+
+    public void clickTheAddNewEnquiryReasonButton() { safeClickOn(addEnquiryReasonButton); }
 
     public void clickTheAddNewAccountManagerButton() {
         safeClickOn(addNewAccountManagerButton);
@@ -139,68 +85,68 @@ public class ListsManagement extends BasePage {
         safeClickOn(addNewInterestedPartyButton);
     }
 
+    public void clickTheAddNewRecipientButton() { safeClickOn(addNewRecipientButton); }
+
+    public void selectABusinessArea() {
+        String selectedBusinessArea = selectRandomOptionFromTypeaheadWithHeading("Business Areas");
+        setSessionVariable("businessArea").to(selectedBusinessArea);
+    }
+
+    public void selectASpecificBusinessArea(String businessArea) {
+        selectSpecificOptionFromTypeaheadWithHeading(businessArea, "Business Areas");
+    }
+
+    public void selectAnEnquirySubject() {
+        String selectedEnquirySubject = selectRandomOptionFromTypeaheadWithHeading("Enquiry Subjects");
+        setSessionVariable("enquirySubject").to(selectedEnquirySubject);
+    }
+
+    public void selectASpecificEnquirySubject(String enquirySubject) {
+        selectSpecificOptionFromTypeaheadWithHeading(enquirySubject, "Enquiry Subjects");
+    }
+
+    public void enterCampaignName() {
+        setSessionVariable("campaignName").to(enterName());
+    }
+
+    public void enterCampaignCode() {
+        setSessionVariable("campaignCode").to(enterCode());
+    }
+
+    public void enterRepresentativeName() {
+        setSessionVariable("representativeName").to(enterName());
+    }
+
+    public void enterBusinessUnitName() {
+        setSessionVariable("businessUnitName").to(enterName());
+    }
+
+    public void enterEnquiryReasonName() {
+        setSessionVariable("enquiryReasonName").to(enterName());
+    }
+
+    public void enterRecipientName() {
+        setSessionVariable("recipientName").to(enterName());
+    }
+
+    public void enterRecipientCode() {
+        setSessionVariable("recipientCode").to(enterCode());
+    }
+
     public void enterAccountManagerName() {
-        String name = "Automated test name " + generateRandomString();
-        accountManagerNameTextBox.clear();
-        accountManagerNameTextBox.sendKeys(name);
-        setSessionVariable("accountManagerName").to(name);
+        setSessionVariable("accountManagerName").to(enterName());
     }
 
     public void enterAccountManagerCode() {
-        String code = "Automated test code " + generateRandomString();
-        accountManagerCodeTextBox.sendKeys(code);
+        setSessionVariable("accountManagerCode").to(enterCode());
     }
 
     public void enterInterestedPartyName() {
-        String name = "Automated test name " + generateRandomString();
-        interestedPartyNameTextBox.clear();
-        interestedPartyNameTextBox.sendKeys(name);
-        setSessionVariable("interestedPartyName").to(name);
+        setSessionVariable("interestedPartyName").to(enterName());
     }
 
     public void enterInterestedPartyCode() {
-        String code = "Automated test code " + generateRandomString();
-        interestedPartyCodeTextBox.sendKeys(code);
-    }
-
-    public void selectABusinessArea(String businessArea) {
-        waitFor(businessAreaTypeahead);
-        businessAreaTypeahead.sendKeys(businessArea);
-        businessAreaTypeahead.sendKeys(Keys.RETURN);
-        setSessionVariable("businessArea").to(businessArea);
-        clickTheButton("Submit");
-    }
-
-    public void selectAnEnquirySubject(String enquirySubject) {
-        waitFor(enquirySubjectTypeahead);
-        enquirySubjectTypeahead.sendKeys(enquirySubject);
-        enquirySubjectTypeahead.sendKeys(Keys.RETURN);
-        setSessionVariable("enquirySubject").to(enquirySubject);
-        clickTheButton("Submit");
-    }
-
-    public void addABusinessUnit() {
-        safeClickOn(addBusinessUnitButton);
-        String newBusinessUnit = "Business Unit " + generateRandomString();
-        setSessionVariable("businessUnitName").to(newBusinessUnit);
-        businessUnitNameTextField.sendKeys(newBusinessUnit);
-        clickTheButton("Submit");
-    }
-
-    public void addAnEnquiryReason() {
-        safeClickOn(addEnquiryReasonButton);
-        String newEnquiryReason = "Enquiry Reason " + generateRandomString();
-        setSessionVariable("enquiryReasonName").to(newEnquiryReason);
-        enquiryReasonTextField.sendKeys(newEnquiryReason);
-        clickTheButton("Add");
-    }
-
-    public void selectToAmendAnAccountManager() {
-        clickTheLink("Amend");
-    }
-
-    public void selectToAmendAnInterestedParty() {
-        clickTheLink("Amend");
+        setSessionVariable("interestedPartyCode").to(enterCode());
     }
 
     public void assertSuccessMessageForAddingAccountManagerVisible() {
@@ -227,6 +173,30 @@ public class ListsManagement extends BasePage {
         successMessage.shouldContainText("The campaign was amended successfully");
     }
 
+    public void assertSuccessMessageForAddingRepresentativeVisible() {
+        successMessage.shouldContainText("The representative was added successfully");
+    }
+
+    public void assertSuccessMessageForDeletingRepresentativeVisible() {
+        successMessage.shouldContainText("The representative was deleted successfully");
+    }
+
+    public void assertSuccessMessageForAddingBusinessUnitVisible() {
+        successMessage.shouldContainText("The business unit was added successfully");
+    }
+
+    public void assertSuccessMessageForAmendingBusinessUnitVisible() {
+        successMessage.shouldContainText("The business unit was amended successfully");
+    }
+
+    public void assertSuccessMessageForAddingEnquiryReasonVisible() {
+        successMessage.shouldContainText("The enquiry reason was added successfully");
+    }
+
+    public void assertSuccessMessageForAmendingEnquiryReasonVisible() {
+        successMessage.shouldContainText("The enquiry reason was amended successfully");
+    }
+
     public void assertSuccessMessageForAddingRecipientVisible() {
         successMessage.shouldContainText("The recipient was added successfully");
     }
@@ -235,33 +205,80 @@ public class ListsManagement extends BasePage {
         successMessage.shouldContainText("The recipient was amended successfully");
     }
 
-    public void assertAccountManagerIsVisible() {
+    public void assertVisibilityOfCampaignInCampaignTable() {
+        waitForMUIPageWithTitle("View and edit campaigns");
+        String campaignName = sessionVariableCalled("campaignName");
+        String campaignCode = sessionVariableCalled("campaignCode");
+        WebElementFacade campaignInTable = findBy("//td[text()='" + campaignName + "']/following-sibling::td[text()='" + campaignCode + "']");
+        if (!campaignInTable.isCurrentlyVisible()) {
+            Assert.fail(campaignName + " is not visible in table");
+        }
+    }
+
+    public void assertVisibilityOfRepresentativeInRepresentativeTable() {
+        waitForMUIPageWithTitle("View and edit Ex-Gratia Business Representatives");
+        String representativeName = sessionVariableCalled("representativeName");
+        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']");
+        if (!representativeInTable.isCurrentlyVisible()) {
+            Assert.fail(representativeName + " is not visible in table");
+        }
+    }
+
+    public void assertRepresentativeNotVisibleInRepresentativeTable() {
+        waitForMUIPageWithTitle("View and edit Ex-Gratia Business Representatives");
+        String representativeName = sessionVariableCalled("representativeName");
+        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']");
+        if (representativeInTable.isCurrentlyVisible()) {
+            Assert.fail(representativeName + " is still visible in table");
+        }
+    }
+
+    public void assertVisibilityOfBusinessUnitInBusinessUnitTable() {
+        waitForMUIPageWithTitle("View and Edit Business Units for ");
+        String businessUnitName = sessionVariableCalled("businessUnitName");
+        WebElementFacade businessUnitInTable = findBy("//tr/td[1][text()='" + businessUnitName + "']");
+        if (!businessUnitInTable.isCurrentlyVisible()) {
+            Assert.fail(businessUnitName + " is not visible in table");
+        }
+    }
+
+    public void assertVisibilityOfEnquiryReasonInEnquiryReasonTable() {
+        waitForMUIPageWithTitle("View and Edit Enquiry Reasons for ");
+        String enquiryReasonName = sessionVariableCalled("enquiryReasonName");
+        WebElementFacade enquiryReasonInTable = findBy("//tr/td[1][text()='" + enquiryReasonName + "']");
+        if (!enquiryReasonInTable.isCurrentlyVisible()) {
+            Assert.fail(enquiryReasonName + " is not visible in table");
+        }
+    }
+
+    public void assertVisibilityOfAccountManagerInAccountManagerTable() {
         waitForMUIPageWithTitle("View and edit account managers");
         String accountManagerName = sessionVariableCalled("accountManagerName");
-        WebElementFacade accountManagerInTable = findBy("//td[contains(text(), '" + accountManagerName + "')]");
+        String accountManagerCode = sessionVariableCalled("accountManagerCode");
+        WebElementFacade accountManagerInTable = findBy(
+                "//td[text()='" + accountManagerName + "']/following-sibling::td[text()='" + accountManagerCode + "']");
         if (!accountManagerInTable.isCurrentlyVisible()) {
             Assert.fail(accountManagerName + " is not visible in table");
         }
     }
 
-    public void assertInterestedPartyIsVisible() {
+    public void assertVisibilityOfInterestedPartyInInterestedPartyTable() {
         waitForMUIPageWithTitle("View and edit interested parties");
         String interestedPartyName = sessionVariableCalled("interestedPartyName");
-        WebElementFacade interestedPartyInTable = findBy("//td[contains(text(), '" + interestedPartyName + "')]");
+        String interestedPartyCode = sessionVariableCalled("interestedPartyCode");
+        WebElementFacade interestedPartyInTable = findBy(
+                "//td[text()='" + interestedPartyName + "']/following-sibling::td[text()='" + interestedPartyCode + "']");
         if (!interestedPartyInTable.isCurrentlyVisible()) {
             Assert.fail(interestedPartyName + " is not visible in table");
         }
     }
 
-    public void assertVisibilityOfNewBusinessUnit() {
-        String newBusinessUnitName = sessionVariableCalled("businessUnitName");
-        WebElementFacade businessUnit = findBy("//tr/td[1][text()='" + newBusinessUnitName + "']");
-        businessUnit.shouldBeVisible();
-    }
-
-    public void assertVisibilityOfNewEnquiryReason() {
-        String newEnquiryReasonName = sessionVariableCalled("enquiryReasonName");
-        WebElementFacade enquiryReason = findBy("//tr/td[1][text()='" + newEnquiryReasonName + "']");
-        enquiryReason.shouldBeVisible();
+    public void assertVisibilityOfRecipientInRecipientTable() {
+        waitForMUIPageWithTitle("View and edit recipients");
+        String recipientName = sessionVariableCalled("recipientName");
+        WebElementFacade recipientInTable = findBy("//td[text()='" + recipientName + "']");
+        if (!recipientInTable.isCurrentlyVisible()) {
+            Assert.fail(recipientName + " is not visible in table");
+        }
     }
 }

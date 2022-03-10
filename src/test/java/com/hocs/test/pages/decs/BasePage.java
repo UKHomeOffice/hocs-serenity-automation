@@ -256,19 +256,8 @@ public class BasePage extends PageObject {
     }
 
     protected String generateRandomString() {
-        StringBuilder randStr = new StringBuilder();
-        Random randomGenerator = new Random();
-        for (int i = 0; i < 8; i++) {
-            char ch = (char) ('a' + randomGenerator.nextInt(26));
-            randStr.append(ch);
-        }
-        return randStr.toString();
+        return generateRandomStringOfLength(8);
     }
-
-    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
-        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
-    }
-
 
     protected String generateRandomStringOfLength(int length) {
         StringBuilder randStr = new StringBuilder();
@@ -278,6 +267,10 @@ public class BasePage extends PageObject {
             randStr.append(ch);
         }
         return randStr.toString();
+    }
+
+    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
+        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {

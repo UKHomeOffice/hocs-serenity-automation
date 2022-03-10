@@ -27,7 +27,7 @@ public class CampaignStepDefs extends BasePage {
 
     @And("I add the case to the new campaign")
     public void moveCaseFromStageToSpecificCampaign() {
-        campaign.moveCaseFromAStageToCampaign(sessionVariableCalled("newCampaign"));
+        campaign.moveCaseFromAStageToCampaign(sessionVariableCalled("campaignName"));
     }
 
     @And("I move the case from Campaign to {string}")

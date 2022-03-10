@@ -20,7 +20,7 @@ Feature: Create case
       | COMP     | Registration         | To document             | Complaint Registration         |
       | COMP2    | Stage 2 Registration        | To document  | Stage 2 Complaint Registration |
       | IEDET    | Registration         | To document             | IE Detention                   |
-      | SMC      | Registration         | To document             | Serious Misconduct             |
+      | SMC      | Registration         | To document             | SMC Registration               |
       | FOI      | Case Creation        | Request                 | FOI Creation                   |
       | TO       | Data Input           | Initial Correspondence  | Treat Official Creation        |
       | BF       | Case Registration    | To document             | Border Force                   |
@@ -32,7 +32,7 @@ Feature: Create case
     When I allocate the case to myself via the successful case creation screen
     Then the case "should" be allocated to me in the summary
 
-  @Allocation
+  @CSRegression @Allocation
   Scenario: A single case is allocated to another user
     And I create a single "CS" case
     And I go to the case from the successful case creation screen

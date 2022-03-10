@@ -486,60 +486,104 @@ Feature: ManagementUI
 
 #    MANAGE MPAM CAMPAIGNS
 
-  @ListsManagement
-  Scenario: User is able to add a MPAM campaign through campaign management
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to add a MPAM Campaign through Lists Management
     When I select to "Manage MPAM campaigns"
-    And I add a campaign with random name and campaign code
+    And I select to add a new campaign
+    And I submit details for the new campaign
     Then the success message for adding a campaign should be displayed
-    And the new "MPAM" campaign has been added to the list of campaigns
+    And I should be able to view the new "MPAM" campaign in the table of campaigns
 
   @ListsManagement @MPAMRegression2
-  Scenario: User is able to amend the details of a MPAM campaign through campaign management
+  Scenario: User is able to amend the details of a MPAM campaign through Lists Management
+    And I have an existing "MPAM" campaign I want to amend
     When I select to "Manage MPAM campaigns"
-    And I add a campaign with random name and campaign code
-    And I select to "Manage MPAM campaigns"
-    And I edit a campaign name
+    And I select to amend the campaign
+    And I submit a new name for the campaign
     Then the success message for amending a campaign should be displayed
-    Then the "MPAM" campaign name should have changed in the list of campaigns
+    And I should be able to view the renamed "MPAM" campaign in the table of campaigns
 
   @ListsManagement @MPAMRegression2
-  Scenario: User can add a MPAM case to a new MPAM campaign that was added through campaign management
-    When I select to "Manage MPAM campaigns"
-    And I add a campaign with random name and campaign code
-    And I navigate to "CS"
-    And I create a "MPAM" case and move it to the "Triage" stage
-    And I load and claim the current case
+  Scenario: User can add a MPAM case to a new MPAM campaign that was added through Lists Management
+    And I have added a new "MPAM" campaign in MUI
+    When I navigate to "CS"
+    And I get a "MPAM" case at the "Triage" stage
     And I add the case to the new campaign
     And I load the current case
     Then the case is added to the correct Campaign
 
 
+#    MANAGE EX-GRATIA BUSINESS AREA REPRESENTATIVES
+
+  @ListsManagement @COMPRegression
+  Scenario: User can add and delete an Ex-Gratia Business Area Representative through Lists Management
+    When I select to "Manage Ex-Gratia Business Area Representatives"
+    And I select to add a new representative
+    And I submit details for the new representative
+    Then the success message for adding a representative should be displayed
+    And I should be able to view the new representative in the table of representatives
+    When I select to delete the representative
+    Then the success message for deleting a representative should be displayed
+    And I should not be able to view the deleted representative in the table of representatives
+
+
 #    MANAGE MPAM BUSINESS UNITS
 
-  @ListsManagement
-  Scenario: User is able to create new business units through Lists management
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to add an MPAM Business Unit through Lists Management
     When I select to "Manage MPAM Business Units"
-    And I load the business units for the "UKVI" business area
-    And I create a new business unit
-    Then a success message is displayed
-    Then the new business unit is added to the list of business units
+    And I select a Business Area to add a new Business Unit to
+    And I select to add a new Business Unit
+    And I submit details for the new Business Unit
+    Then the success message for adding a Business Unit should be displayed
+    And I should be able to view the new Business Unit in the table of Business Units
+
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to amend the details of an MPAM Business Unit through Lists Management
+    And I have an existing Business Unit I want to amend
+    When I select to "Manage MPAM Business Units"
+    And I select the correct Business Area
+    And I select to amend the Business Unit
+    And I submit a new name for the Business Unit
+    Then the success message for amending a Business Unit should be displayed
+    And I should be able to view the renamed Business Unit in the table of Business Units
 
 
 #    MANAGE MPAM ENQUIRY REASONS
 
-  @ListsManagement
-  Scenario: User is able to create new enquiry reason through Lists management
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to add an MPAM Enquiry Reason through Lists Management
     When I select to "Manage MPAM Enquiry Reasons"
-    And I load the enquiry reasons for the "Person Specific" enquiry subject
-    And I create a new enquiry reason
-    Then a success message is displayed
-    Then the new enquiry reason is added to the list of enquiry reasons
+    And I select a Enquiry Subject to add a new Enquiry Reason to
+    And I select to add a new Enquiry Reason
+    And I submit details for the new Enquiry Reason
+    Then the success message for adding an Enquiry Reason should be displayed
+    And I should be able to view the new Enquiry Reason in the table of Enquiry Reasons
+
+  @ListsManagement @MPAMRegression2
+  Scenario: User is able to amend the details of an MPAM Enquiry Reason through Lists Management
+    And I have an existing Enquiry Reason I want to amend
+    When I select to "Manage MPAM Enquiry Reasons"
+    And I select the correct Enquiry Subject
+    And I select to amend the Enquiry Reason
+    And I submit a new name for the Enquiry Reason
+    Then the success message for amending an Enquiry Reason should be displayed
+    And I should be able to view the renamed Enquiry Reason in the table of Enquiry Reasons
+
+  @ListsManagement @MPAMRegression2
+  Scenario: User can select a new Enquiry Reason that was added through Lists Management when viewing a case in DECS
+    And I have added a new Enquiry Reason in MUI
+    When I navigate to "CS"
+    And I get a "MPAM" case at the "Triage" stage
+    And I select to set the Enquiry Subject and Reason
+    And I select the appropriate Enquiry Subject
+    Then I should be able to select the new Enquiry Reason
 
 
 #    MANAGE FOI ACCOUNT MANAGERS
 
   @ListsManagement @FOIRegression
-  Scenario: User is able to add a new account manager
+  Scenario: User is able to add a FOI Account Manager through Lists Management
     When I select to "Manage FOI Account Managers"
     And I select to add a new account manager
     And I submit details for the new account manager
@@ -547,9 +591,10 @@ Feature: ManagementUI
     And I should be able to view the new account manager in the table of account managers
 
   @ListsManagement @FOIRegression
-  Scenario: User is able to edit an account managers name
+  Scenario: User is able to amend the details of an FOI Account Manager through Lists Management
+    And I have an existing account manager I want to amend
     When I select to "Manage FOI Account Managers"
-    And I select to amend an existing account manager
+    And I select to amend the account manager
     And I submit a new name for the account manager
     Then the success message for amending an account manager should be displayed
     And I should be able to view the renamed account manager in the table of account managers
@@ -558,7 +603,7 @@ Feature: ManagementUI
 #    MANAGE FOI INTERESTED PARTIES
 
   @ListsManagement @FOIRegression
-  Scenario: User is able to add a new interested party
+  Scenario: User is able to add a FOI Interested Party through Lists Management
     When I select to "Manage FOI Interested Parties"
     And I select to add a new interested party
     And I submit details for the new interested party
@@ -566,38 +611,48 @@ Feature: ManagementUI
     And I should be able to view the new interested party in the table of interested parties
 
   @ListsManagement @FOIRegression
-  Scenario: User is able to edit an interested parties name
+  Scenario: User is able to amend the details of an FOI Interested Party through Lists Management
+    And I have an existing interested party I want to amend
     When I select to "Manage FOI Interested Parties"
-    And I select to amend an existing interested party
+    And I select to amend the interested party
     And I submit a new name for the interested party
     Then the success message for amending an interested party should be displayed
     And I should be able to view the renamed interested party in the table of interested parties
 
+  @ListsManagement @FOIRegression
+  Scenario: User is able to select an Interested Party added through Lists Management when registering an interest in an FOI case in DECS
+    And I have added a new interested party in MUI
+    When I navigate to "CS"
+    And I get a "FOI" case at the "Case Creation" stage
+    And I select the actions tab
+    When I select to record an interest in the case
+    Then I should be able to select that the interested party is the one I created in MUI
+
 
 #    MANAGE TREAT OFFICIAL CAMPAIGNS
 
-  @ListsManagement
-  Scenario: User is able to add a Treat Official campaign through campaign management
+  @ListsManagement @TORegression
+  Scenario: User is able to add a Treat Official campaign through Lists Management
     When I select to "Manage Treat Official campaigns"
-    And I add a campaign with random name and campaign code
+    And I select to add a new campaign
+    And I submit details for the new campaign
     Then the success message for adding a campaign should be displayed
-    Then the new "TO" campaign has been added to the list of campaigns
+    And I should be able to view the new "Treat Official" campaign in the table of campaigns
 
   @ListsManagement @TORegression
-  Scenario: User is able to amend the details of a Treat Official campaign through campaign management
+  Scenario: User is able to amend the details of a Treat Official campaign through Lists Management
+    And I have an existing "Treat Official" campaign I want to amend
     When I select to "Manage Treat Official campaigns"
-    And I add a campaign with random name and campaign code
-    And I select to "Manage Treat Official campaigns"
-    And I edit a campaign name
+    And I select to amend the campaign
+    And I submit a new name for the campaign
     Then the success message for amending a campaign should be displayed
-    Then the "TO" campaign name should have changed in the list of campaigns
+    And I should be able to view the renamed "Treat Official" campaign in the table of campaigns
 
   @ListsManagement @TORegression
-  Scenario: User can add a TO case to a new Treat Official campaign that was added through campaign management
-    And I select to "Manage Treat Official campaigns"
-    And I add a campaign with random name and campaign code
-    And I navigate to "CS"
-    When I get a "TO" case at the "Triage" stage
+  Scenario: User can add a Treat Official case to a new Treat Official campaign that was added through Lists Management
+    And I have added a new "Treat Official" campaign in MUI
+    When I navigate to "CS"
+    And I get a "TO" case at the "Triage" stage
     And I set an Enquiry Subject and Reason
     And I select a Business Unit Type and corresponding Business Unit
     And I put the case into the new campaign
@@ -605,27 +660,27 @@ Feature: ManagementUI
 
 
 #    MANAGE TREAT OFFICIAL RECIPIENTS
-  
-  @ListsManagement
-  Scenario: User is able to add a Treat Official Recipient through Recipient Management
+
+  @ListsManagement @TORegression
+  Scenario: User is able to add a new Treat Official Recipient through Lists Management
     And I select to "Manage Treat Official Recipients"
-    And I add a recipient with a random name and code
+    And I select to add a new recipient
+    And I submit details for the new recipient
     Then the success message for adding a new recipient should be displayed
-    And the new recipient details should be displayed in the list of recipients
+    And I should be able to view the new recipient in the table of recipients
 
   @ListsManagement @TORegression
   Scenario: User is able to amend the details of a Treat Official recipient through recipient management
-    When I select to "Manage Treat Official Recipients"
-    And I add a recipient with a random name and code
+    And I have an existing recipient I want to amend
     And I select to "Manage Treat Official Recipients"
-    And I edit the name of a recipient
+    And I select to amend the recipient
+    And I submit a new name for the recipient
     Then the success message for amending a recipient should be displayed
-    And the new recipient details should be displayed in the list of recipients
+    And I should be able to view the renamed recipient in the table of recipients
 
   @ListsManagement @TORegression
-  Scenario: User can add a newly created Recipient to a TO case
-    And I select to "Manage Treat Official Recipients"
-    And I add a recipient with a random name and code
+  Scenario: User can add a Recipient that was added through Lists Management to a TO case in DECS
+    And I have added a new recipient in MUI
     And I navigate to "CS"
     And I get a "TO" case at "Data Input" stage
     And I select which business area the correspondence is for
