@@ -43,7 +43,7 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I add the newly created recipient to the case")
     public void iAddTheNewlyCreatedRecipientToTheCase() {
-        String recipient = sessionVariableCalled("newRecipientName");
+        String recipient = sessionVariableCalled("recipientName");
         dataInput.selectWhetherToAddRecipient("Yes");
         dataInput.selectSpecificRecipient(recipient);
         clickTheButton("Continue");
