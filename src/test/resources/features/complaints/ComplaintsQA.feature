@@ -81,6 +81,30 @@ Feature: Complaints QA
       | REJECTION REASON REQUIRED |
 
 
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can accept the response and send a UKVI stage 2 complaint case to Service Send stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service QA" stage
+    And I load and claim the current case
+    When I "accept" the response to the complaint at the QA stage
+    Then the case should be moved to the "Stage 2 Service Send" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service QA" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can reject the response and send a UKVI stage 2 complaint case back to Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service QA" stage
+    And I load and claim the current case
+    When I "reject" the response to the complaint at the QA stage
+    Then the case should be moved to the "Stage 2 Service Draft" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service QA" stage
+
+
 #     BF COMPLAINTS
 
   # HOCS-4064

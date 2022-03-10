@@ -128,6 +128,43 @@ Feature: Complaints Draft
       | ESCALATION REASON                |
 
 
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a UKVI stage 2 complaint case to Service Send stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I select the "Response is ready to send" action at the Service Draft stage
+    Then the case should be moved to the "Stage 2 Service Send" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User can send a UKVI stage 2 complaint case to Service QA stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Draft" stage
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I select the "Send case to QA" action at the Service Draft stage
+    Then the case should be moved to the "Stage 2 Service QA" stage
+    And the summary should display the owning team as "Stage 2 CCT Response QA"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression
+  Scenario: User is able to escalate a UKVI stage 2 complaint case to WFM at Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Draft" stage
+    And I load and claim the current case
+    And I escalate the case to WFM at Service Draft stage
+    Then the case should be moved to the "Stage 2 Service Escalate" stage
+    And the summary should display the owning team as "Stage 2 CCT Escalated"
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+
+
+
 #     IEDET COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression

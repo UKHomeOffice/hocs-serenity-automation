@@ -25,7 +25,6 @@ public class ComplaintsEscalated extends BasePage {
                     recordCaseData.selectSpecificRadioButton("Return case to Triage");
                 } else {
                     selectSpecificRadioButton("Send to Triage");
-                    //Once HOCS-4487 is completed this needs to be updated to 'Send to Triage'
                 }
                 break;
             case "CASE READY FOR DRAFTING":
@@ -38,6 +37,11 @@ public class ComplaintsEscalated extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Confirm");
+        if (continueButton.isVisible()) {
+            safeClickOn(continueButton);
+        } else {
+            safeClickOn(confirmButton);
+        }
+
     }
 }
