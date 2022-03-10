@@ -691,7 +691,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I submit details for the new campaign")
     public void addACampaignWithNameAndCode() {
-        listsManagement. enterCampaignName();
+        listsManagement.enterCampaignName();
         listsManagement.enterCampaignCode();
         clickTheButton("Submit");
     }
@@ -729,7 +729,7 @@ public class ManagementUIStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         listsManagement.clickTheAddNewCampaignButton();
-        listsManagement. enterCampaignName();
+        listsManagement.enterCampaignName();
         listsManagement.enterCampaignCode();
         clickTheButton("Submit");
     }
@@ -763,7 +763,7 @@ public class ManagementUIStepDefs extends BasePage {
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         listsManagement.clickTheAddNewCampaignButton();
-        listsManagement. enterCampaignName();
+        listsManagement.enterCampaignName();
         listsManagement.enterCampaignCode();
         clickTheButton("Submit");
     }
@@ -842,7 +842,7 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.selectABusinessArea();
         clickTheButton("Submit");
         listsManagement.clickTheAddNewBusinessUnitButton();
-        listsManagement. enterBusinessUnitName();
+        listsManagement.enterBusinessUnitName();
         clickTheButton("Submit");
     }
 
@@ -904,7 +904,7 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.selectAnEnquirySubject();
         clickTheButton("Submit");
         listsManagement.clickTheAddNewEnquiryReasonButton();
-        listsManagement. enterEnquiryReasonName();
+        listsManagement.enterEnquiryReasonName();
         clickTheButton("Add");
     }
 
@@ -936,7 +936,7 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.selectAnEnquirySubject();
         clickTheButton("Submit");
         listsManagement.clickTheAddNewEnquiryReasonButton();
-        listsManagement. enterEnquiryReasonName();
+        listsManagement.enterEnquiryReasonName();
         clickTheButton("Add");
     }
 
