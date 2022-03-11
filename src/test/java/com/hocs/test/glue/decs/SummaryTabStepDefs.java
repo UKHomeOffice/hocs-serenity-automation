@@ -10,6 +10,8 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import java.util.Arrays;
+import java.util.List;
 
 public class SummaryTabStepDefs extends BasePage {
 
@@ -214,5 +216,35 @@ public class SummaryTabStepDefs extends BasePage {
     public void theNewlyCreatedRecipientShouldBeDisplayedInTheSummaryTab() {
         String recipient = sessionVariableCalled("recipientName");
         summaryTab.assertRecipientIsAddedToTOCase(recipient);
+    }
+
+    @And("I can only see Registration information in the summary")
+    public void iCanOnlySeeRegistrationInformationInTheSummary() {
+        summaryTab.selectSummaryTab();
+        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel");
+        summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
+    }
+
+    @Then("I should not be able to see which stage the case is at")
+    public void iShouldNotBeAbleToSeeWhichStageTheCaseIsAt() {
+        summaryTab.assertNoActiveStageVisible();
+    }
+
+    @And("I should not be able to see which team the case is currently assigned to")
+    public void iShouldNotBeAbleToSeeWhichTeamTheCaseIsCurrentlyAssignedTo() {
+        summaryTab.assertNoAllocatedTeamVisible();
+    }
+
+    @And("I should not be able to see which user is currently assigned to the case")
+    public void iShouldNotBeAbleToSeeWhichUserIsCurrentlyAssignedToTheCase() {
+        summaryTab.assertNoAllocatedUserVisible();
+    }
+
+    @And("I can see all of the cases Summary data")
+    public void iCanSeeAllOfTheCasesSummaryData() {
+        summaryTab.selectSummaryTab();
+        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel", "Business Area", "Case Outcome",
+                "Enquiry Reason", "Is a Letter of Authority required?", "When was the correspondence received?");
+        summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 }

@@ -10,8 +10,10 @@ public class RecordCaseData extends BasePage{
 
     CaseView caseView;
 
-    public static void resetDataRecords() {
-        dataRecords = new HashMap<>();
+    public static void checkIfDataRecordsShouldBeWiped() {
+        if (!keepAllCaseData) {
+            dataRecords = new HashMap<>();
+        }
     }
 
     //Radio buttons
@@ -120,7 +122,7 @@ public class RecordCaseData extends BasePage{
         dataRecords.put(value, "Yes");
     }
 
-    public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
+    public void assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
             String accordionKey = entry.getKey();
             String expectedAccordionValue = entry.getValue();

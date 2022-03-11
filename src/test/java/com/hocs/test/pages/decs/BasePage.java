@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import config.CurrentUser;
+import config.PreviousUser;
 import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -30,6 +31,8 @@ import org.openqa.selenium.support.ui.Select;
 public class BasePage extends PageObject {
 
     public static String currentPlatform = "";
+
+    public static boolean keepAllCaseData = false;
 
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
@@ -391,6 +394,19 @@ public class BasePage extends PageObject {
 
     public User getCurrentUser() {
         return CurrentUser.getInstance().getUser();
+    }
+
+    public void setPreviousUser(User user) {
+        PreviousUser.getInstance().setUser(user);
+        System.out.println("Previous user recorded as: " + user.getUsername());
+    }
+
+    public User getPreviousUser() {
+        return PreviousUser.getInstance().getUser();
+    }
+
+    public void keepAllCaseDataWhenProgressingCase() {
+        keepAllCaseData = true;
     }
 
     protected void checkOrderOfHeaderTagsOnCaseView() {

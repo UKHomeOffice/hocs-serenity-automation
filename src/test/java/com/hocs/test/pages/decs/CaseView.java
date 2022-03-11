@@ -124,4 +124,11 @@ public class CaseView extends BasePage {
             Assert.fail("'" + accordionKey + ": " + expectedAccordionValue + "' is not visible in accordion");
         }
     }
+
+    public void expandAllCaseDetailsAccordionSections() {
+        List<WebElementFacade> accordionSectionButtons = findAll("//button[@class='govuk-accordion__section-button']");
+        for (WebElementFacade accordionSectionButton : accordionSectionButtons) {
+            safeClickOn(accordionSectionButton);
+        }
+    }
 }

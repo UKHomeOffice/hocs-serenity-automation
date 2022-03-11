@@ -184,7 +184,7 @@ public class COMPProgressCase extends BasePage {
         }
         dashboard.waitForDashboard();
         System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
-        RecordCaseData.resetDataRecords();
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
     public void moveCaseFromRegistrationToTriage() {

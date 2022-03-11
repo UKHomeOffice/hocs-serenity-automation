@@ -83,7 +83,7 @@ public class SMCProgressCase extends BasePage {
         }
         dashboard.waitForDashboard();
         System.out.println(stageToComplete + " stage completed");
-        RecordCaseData.resetDataRecords();
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
     public void moveSMCCaseFromRegistrationToTriage() {

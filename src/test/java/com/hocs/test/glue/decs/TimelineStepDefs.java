@@ -22,6 +22,7 @@ public class TimelineStepDefs extends BasePage {
 
     @And("I add a new case note to the timeline")
     public void iCreateACaseNoteWithRandomContent() {
+        timelineTab.selectTimelineTab();
         timelineTab.createACaseNote();
     }
 
@@ -201,5 +202,35 @@ public class TimelineStepDefs extends BasePage {
         String interestedParty = sessionVariableCalled("interestedParty");
         String detailsOfInterest = sessionVariableCalled("detailsOfInterest");
         timelineTab.assertCaseLogWithTitleContainsText(typeOfInterest + " Updated: " + interestedParty, detailsOfInterest);
+    }
+
+    @Then("I should not be able to see the case note added by the previous user")
+    public void iShouldNotBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
+        timelineTab.assertCaseNotesAuthoredByUserAreNotVisible(getPreviousUser());
+    }
+
+    @And("I should be able to see the case note added by the current user")
+    public void iShouldBeAbleToSeeTheCaseNoteAddedByTheCurrentUser() {
+        timelineTab.assertCaseNotesAuthoredByUserAreVisible(getCurrentUser());
+    }
+
+    @Then("I should be able to see the case note added by the previous user")
+    public void iShouldBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
+        timelineTab.assertCaseNotesAuthoredByUserAreVisible(getPreviousUser());
+    }
+
+    @Then("I should be able to see logs for case actions taken by the current user")
+    public void iShouldBeAbleToSeeLogsForCaseActionsTakenByTheCurrentUser() {
+        timelineTab.assertTimelineLogsAttributedToUserAreVisible(getCurrentUser());
+    }
+
+    @And("I should not be able to see logs for case actions taken by the previous user")
+    public void iShouldNotBeAbleToSeeLogsForCaseActionsTakenByThePreviousUser() {
+        timelineTab.assertTimelineLogsAttributedToUserAreNotVisible(getPreviousUser());
+    }
+
+    @And("I should be able to see logs for case actions taken by the previous user")
+    public void iShouldBeAbleToSeeLogsForCaseActionsTakenByThePreviousUser() {
+        timelineTab.assertTimelineLogsAttributedToUserAreVisible(getPreviousUser());
     }
 }
