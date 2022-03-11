@@ -854,7 +854,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I select to amend the Business Unit")
     public void iSelectToAmendTheBusinessUnit() {
-        listsManagement.clickAmendLinkFor(sessionVariableCalled("businessArea"));
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("businessUnitName"));
     }
 
     @And("I submit a new name for the Business Unit")

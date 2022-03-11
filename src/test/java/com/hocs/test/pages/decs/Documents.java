@@ -242,7 +242,7 @@ public class Documents extends BasePage {
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
                 findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
-        waitFor(documentUnderHeader);
+        documentUnderHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
