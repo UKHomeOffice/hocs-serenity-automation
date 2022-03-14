@@ -367,6 +367,7 @@ Feature: Complaints Triage
   Scenario: User completes the Case Triage stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT" stage
@@ -377,6 +378,7 @@ Feature: Complaints Triage
   Scenario: User is able to escalate a BF complaint case to workflow manager at the Case Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM" stage
@@ -388,6 +390,7 @@ Feature: Complaints Triage
   Scenario: User can hard close a BF complaint case at the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I select to complete the case at Triage
     And I click the "Continue" button
@@ -399,6 +402,7 @@ Feature: Complaints Triage
   Scenario Outline: User can add and complete or cancel contributions to BF complaint cases as part of Case Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request
@@ -417,6 +421,7 @@ Feature: Complaints Triage
   Scenario: User completes the Case Triage stage for a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
@@ -427,6 +432,7 @@ Feature: Complaints Triage
   Scenario: User is able to escalate a BF stage 2 complaint case to workflow manager at the Case Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
@@ -438,6 +444,7 @@ Feature: Complaints Triage
   Scenario: User can hard close a BF stage 2 complaint case at the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I select to complete the case at Triage
     And I click the "Continue" button
@@ -449,6 +456,7 @@ Feature: Complaints Triage
   Scenario Outline: User can add and complete or cancel contributions to BF stage 2 complaint cases as part of Case Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
     And I submit details on the Triage Capture Reason page
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request

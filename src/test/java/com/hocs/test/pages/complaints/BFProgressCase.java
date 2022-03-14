@@ -182,6 +182,8 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveBFCaseFromTriageToDraft() {
+        complaintsTriage.selectAcceptCase();
+        clickTheButton("Continue");
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriage.selectReadyForDrafting();
@@ -189,6 +191,8 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveBFCaseFromTriageToEscalated() {
+        complaintsTriage.selectAcceptCase();
+        clickTheButton("Continue");
         waitForPageWithTitle("Triage Capture Reason");
         complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
         clickTheButton("Continue");
