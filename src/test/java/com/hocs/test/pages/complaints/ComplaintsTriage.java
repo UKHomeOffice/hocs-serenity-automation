@@ -156,9 +156,11 @@ public class ComplaintsTriage extends BasePage {
     public void enterDetailsOnBFTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 1");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 2");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason 3");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 1");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 2");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 3");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 4");
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 5");
         selectIfLOARequired("Yes");
     }
     
