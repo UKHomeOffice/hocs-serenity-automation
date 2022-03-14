@@ -157,7 +157,6 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         selectBFReasonsForComplaint();
-        String selectedComplaintReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 1");
         selectIfLOARequired("Yes");
     }
 
