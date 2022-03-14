@@ -156,12 +156,18 @@ public class ComplaintsTriage extends BasePage {
     public void enterDetailsOnBFTriageCaptureReasonPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 1");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 2");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 3");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 4");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 5");
+        selectBFReasonsForComplaint();
+        String selectedComplaintReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint 1");
         selectIfLOARequired("Yes");
+    }
+
+    private void selectBFReasonsForComplaint() {
+        for (int i = 1; i <= 5; i++) {
+            String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
+            if (selectedReasonForComplaint.equals("Other")) {
+                recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason " + i + ")");
+            }
+        }
     }
     
     public void enterDetailsOnTriageCaptureReasonPage() {
