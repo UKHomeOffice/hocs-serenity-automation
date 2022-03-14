@@ -164,6 +164,16 @@ Feature: Registration
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Case Registration" stage
 
+  # HOCS-4404, HOCS-4423, HOCS-4707
+  @ComplaintsRegression
+  Scenario: User must add a Complainant type correspondent to a BF complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    And I create a single "BF" case
+    And I allocate the case to myself via the successful case creation screen
+    And I add a "Third Party Representative" correspondent
+    When I confirm the primary correspondent
+    Then the "Complaint Correspondents Invalid" page should be displayed
+
 #     BF STAGE 2 COMPLAINTS
 
   @ComplaintsRegression @ComplaintsWorkflow
