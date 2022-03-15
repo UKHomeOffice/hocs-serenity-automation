@@ -68,7 +68,7 @@ Feature: Manage Documents
       | docType                                     |
       | Additional correspondence (Holding Replies) |
 
-  @ComplaintsRegression
+  @ComplaintsRegression2
   Scenario Outline: As a Complaints user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new Complaints case
     And I click add documents
@@ -87,7 +87,7 @@ Feature: Manage Documents
       | Appeal Leaflet        |
       | IMB Letter            |
 
-  @ComplaintsRegression
+  @ComplaintsRegression2
   Scenario Outline: As a BF user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new "BF" case
     And I click add documents
@@ -105,7 +105,7 @@ Feature: Manage Documents
       | DRAFT                 |
 
   #HOCS-3661
-  @ComplaintsRegression
+  @ComplaintsRegression2
   Scenario Outline: As an IEDET User, I want to be able to select from additional document types, so the document can be easily identified later
     When I manage the documents of a new "IEDET" case
     And I add a "<docType>" type document to the case

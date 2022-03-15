@@ -4,7 +4,7 @@ Feature: Complaints Search
 #     UKVI COMPLAINTS
 
   # HOCS-2838, HOCS-3036
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario Outline: User tests UKVI complaint case search criteria
     Given I am logged into "CS" as user "COMP_USER"
     When I navigate to the "Search" page
@@ -22,7 +22,7 @@ Feature: Complaints Search
       | Complainant Home Office Reference | Test entry for Home Office Reference |
 
   # HOCS-2838
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can search for a UKVI complaint case by its case reference
     Given I am logged into "CS" as user "COMP_USER"
     When I create a single "COMP" case
@@ -30,13 +30,14 @@ Feature: Complaints Search
     Then the created case should be the only case visible in the search results
 
     # HOCS-2847 HOCS-3161
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: UKVI complaints user sees the required information when viewing search results
     Given I am logged into "CS" as user "COMP_USER"
     When I navigate to the "search" page
     And I click the search button on the search page
     Then the "COMP Search" workstack should contain only the expected columns
 
+  @UKVIComplaints
   Scenario: User is able to select a COMP2 case reference from the escalate case column of a COMP case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
@@ -49,7 +50,7 @@ Feature: Complaints Search
 #     BF COMPLAINTS
 
   # HOCS-4079
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario Outline: User tests BF complaint case search criteria
     Given I am logged into "CS" as user "BF_USER"
     When I navigate to the "Search" page
@@ -65,7 +66,7 @@ Feature: Complaints Search
     | Complainant Home Office Reference | Test entry for Home Office Reference  |
 
   # HOCS-4079
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: User can search for a BF complaint case by its case reference
     Given I am logged into "CS" as user "BF_USER"
     When I create a single "BF" case
@@ -73,7 +74,7 @@ Feature: Complaints Search
     Then the created case should be the only case visible in the search results
 
   #HOCS-4079, HOCS-4222
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: BF user sees the required information when viewing search results
     Given I am logged into "CS" as user "BF_USER"
     When I navigate to the "search" page
@@ -83,6 +84,7 @@ Feature: Complaints Search
 
 #     BF STAGE 2 COMPLAINTS
 
+  @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to select a BF2 case reference from the escalate case column of a BF case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Registration" stage
@@ -94,7 +96,7 @@ Feature: Complaints Search
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @IEDETComplaints
   Scenario Outline: User tests IEDET complaint case search criteria
     Given I am logged into "CS" as user "IEDET_USER"
     When I navigate to the "Search" page
@@ -109,7 +111,7 @@ Feature: Complaints Search
       | Complainant Date Of Birth         | 01/01/2001                           |
       | Complainant Home Office Reference | Test entry for Home Office Reference |
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @IEDETComplaints
   Scenario: User can search for a IEDET complaint case by its case reference
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a single "IEDET" case

@@ -3,11 +3,13 @@ Feature: Complaints End To End
 
 #     UKVI STAGE 1 COMPLAINTS
 
+  @UKVIComplaints
   Scenario: User creates a UKVI stage 1 complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Registration" stage
     Then the case should be moved to the "Registration" stage
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Triage"
@@ -18,6 +20,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to CCH stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to "CCH"
@@ -29,6 +32,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Escalated stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> <targetStage>" stage
@@ -39,6 +43,7 @@ Feature: Complaints End To End
       | Ex-Gratia        | Escalate    |
       | Minor Misconduct | Escalate    |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Draft"
@@ -49,6 +54,7 @@ Feature: Complaints End To End
       | Ex-Gratia        | Response Draft |
       | Minor Misconduct | Response Draft |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> QA"
@@ -59,6 +65,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "<complaintType> Send"
@@ -69,7 +76,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
-  @ComplaintsRegression @Smoketests
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 1 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "Complaint Closed"
@@ -83,11 +90,13 @@ Feature: Complaints End To End
 
 #     UKVI STAGE 2 COMPLAINTS
 
+  @UKVIComplaints
   Scenario: User creates a UKVI stage 2 complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     Then the case should be moved to the "Stage 2 Registration" stage
 
+  @UKVIComplaints
   Scenario Outline: User moves a COMP case to the Stage 2 Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Triage" stage
@@ -98,6 +107,7 @@ Feature: Complaints End To End
       | Ex-Gratia     |
       | MM            |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Draft" stage
@@ -108,6 +118,7 @@ Feature: Complaints End To End
       | Ex-Gratia Response |
       | MM Response        |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> QA" stage
@@ -118,6 +129,7 @@ Feature: Complaints End To End
       | Ex-Gratia     |
       | MM            |
 
+  @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Send" stage
@@ -128,7 +140,7 @@ Feature: Complaints End To End
       | Ex-Gratia     |
       | MM            |
 
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case for a "<complaintType>" complaint and move it to "Stage 2 Complaint Closed" stage
@@ -142,27 +154,31 @@ Feature: Complaints End To End
 
 #     IEDET COMPLAINTS
 
+  @IEDETComplaints
   Scenario: User creates a IEDET complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Registration" stage
     Then the case should be moved to the "Registration" stage
 
+  @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     Then the case should be moved to the "Triage" stage
 
+  @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Draft stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
     Then the case should be moved to the "Draft" stage
 
+  @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Send stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
@@ -171,22 +187,25 @@ Feature: Complaints End To End
 
 #     SMC COMPLAINTS
 
+  @SMCComplaints
   Scenario: User creates a SMC complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Registration" stage
     Then the case should be moved to the "Registration" stage
 
+  @SMCComplaints
   Scenario: User moves an SMC complaint case to the Triage stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Triage" stage
     Then the case should be moved to the "Triage" stage
 
+  @SMCComplaints
   Scenario: User moves an SMC complaint case to the Send stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @SMCComplaints
   Scenario: User is able to close an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to "Case Closed"
@@ -195,11 +214,13 @@ Feature: Complaints End To End
 
 #     BF COMPLAINTS
 
+  @BFComplaints
   Scenario: User creates a BF complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case and move it to the "Registration" stage
     Then the case should be moved to the "Case Registration" stage
 
+  @BFComplaints
   Scenario Outline: User moves a BF complaint case to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Triage"
@@ -209,6 +230,7 @@ Feature: Complaints End To End
       | Service          |
       | Minor Misconduct |
 
+  @BFComplaints
   Scenario Outline: User moves a BF complaint case to the Escalated stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "<targetStage>" stage
@@ -218,6 +240,7 @@ Feature: Complaints End To End
       | Service          | Escalated to WFM |
       | Minor Misconduct | Escalated to WFM |
 
+  @BFComplaints
   Scenario Outline: User moves a BF complaint case to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Draft"
@@ -227,6 +250,7 @@ Feature: Complaints End To End
       | Service          | Draft       |
       | Minor Misconduct | Draft       |
 
+  @BFComplaints
   Scenario Outline: User moves a BF complaint case to the QA stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "QA"
@@ -236,6 +260,7 @@ Feature: Complaints End To End
       | Service          |
       | Minor Misconduct |
 
+  @BFComplaints
   Scenario Outline: User moves a BF complaint to the Send stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Send"
@@ -245,7 +270,7 @@ Feature: Complaints End To End
       | Service          |
       | Minor Misconduct |
 
-  @ComplaintsRegression @Smoketests
+  @ComplaintsRegression2 @BFComplaints
   Scenario Outline: User is able to close a BF stage 1 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Closed"
@@ -258,37 +283,43 @@ Feature: Complaints End To End
 
 #     BF STAGE 2 COMPLAINTS
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and it starts at the Registration stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Registration" stage
     Then the case should be moved to the "Case Registration (Stage 2)" stage
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and moves it to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Triage" stage
     Then the case should be moved to the "Case Triage (Stage 2)" stage
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and moves it to the Escalated stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Escalated to WFM" stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and moves it to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Draft" stage
     Then the case should be moved to the "Draft (Stage 2)" stage
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and moves it to the QA stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "QA" stage
     Then the case should be moved to the "QA (Stage 2)" stage
 
+  @BFComplaints
   Scenario: User escalates a BF complaint case to stage 2 and moves it to the Send stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Send" stage
     Then the case should be moved to the "Send (Stage 2)" stage
 
-  @ComplaintsRegression @Smoketests
+  @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to close a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Closed" stage

@@ -57,8 +57,8 @@ Feature: Deadlines
     Then the stage and case deadlines revert back to those for a 20 day SLA
 
 #    Expected failure. Defect HOCS-4230 raised.
-  @COMPRegression
-  Scenario: As a COMP User, when I have a Ex-Gratia complaint, I expect the deadline to be 60 working days
+  @ComplaintsRegression1
+  Scenario: As a UKVI Complaints user, when I have a Ex-Gratia complaint, I expect the deadline to be 60 working days
     When I create a "COMP" case for a "Ex-Gratia" complaint and move it to "Ex-Gratia Triage" stage
     And I load the current case
     Then the case deadline date displayed in the summary is correct for a "Ex-Gratia" case

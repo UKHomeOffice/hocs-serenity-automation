@@ -5,7 +5,7 @@ Feature: Ex-Gratia Tab
     Given I am logged into "CS" as user "BF_USER"
 
 #    HOCS-4003
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to summarise details of the Ex-Gratia element of a complaint through the Ex-Gratia tab
     When I get a "BF" case at the "Registration" stage
     And I select the Ex-Gratia tab

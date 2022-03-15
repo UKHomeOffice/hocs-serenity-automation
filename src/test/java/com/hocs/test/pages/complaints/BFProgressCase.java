@@ -161,7 +161,6 @@ public class BFProgressCase extends BasePage {
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
-        System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
@@ -212,7 +211,7 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveBFCaseFromSendToCaseClosed() {
-        complaintsSend.selectACaseOutcome();
+        complaintsSend.selectBFCaseOutcomes();
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
