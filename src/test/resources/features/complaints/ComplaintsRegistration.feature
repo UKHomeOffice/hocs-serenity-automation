@@ -4,7 +4,7 @@ Feature: Registration
 #     UKVI COMPLAINTS
 
   # HOCS-2999, HOCS-2858, HOCS-2859, HOCS-2860, HOCS-2862, HOCS-2881, HOCS-2899, HOCS-2648
-  @ComplaintsWorkflow @ComplaintsRegression
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Service complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -23,6 +23,7 @@ Feature: Registration
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
   # HOCS-3441, HOCS-3442
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Ex-Gratia complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -37,6 +38,7 @@ Feature: Registration
     And the summary should display the owning team as "Ex-Gratia"
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Minor Misconduct complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -52,7 +54,7 @@ Feature: Registration
     And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
   # HOCS-2709, HOCS-2858
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: User must add a Complainant type correspondent to a UKVI Complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -61,6 +63,7 @@ Feature: Registration
     When I confirm the primary correspondent
     Then the "Complaint Correspondents Invalid" page should be displayed
 
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can navigate to the relevant stage 1 UKVI complaint case from the summary of the stage 2 UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP2" case and move it to the "Stage 2 Registration" stage
@@ -68,7 +71,7 @@ Feature: Registration
     And I select the previous COMP case reference from the COMP2 case summary tab
     Then the previous COMP case is displayed
 
-  @Validation
+  @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaint case at the Registration stage
     Given I am logged into "CS" as user "COMP_USER"
     And I create a single "COMP" case
@@ -87,7 +90,7 @@ Feature: Registration
 
 #     UKVI COMPLAINTS STAGE 2
 
-  @ComplaintsWorkflow @ComplaintsRegression
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Service stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
@@ -108,7 +111,7 @@ Feature: Registration
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression
+  @ComplaintsWorkflow @ComplaintsRegression2 @IEDETComplaints
   Scenario: User can complete the Registration stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     And I create a single "IEDET" case
@@ -129,7 +132,7 @@ Feature: Registration
 
 #     SMC COMPLAINTS
 
-  @ComplaintsRegression @ComplaintsWorkflow
+  @ComplaintsWorkflow @ComplaintsRegression2 @SMCComplaints
   Scenario: User is able to complete the Registration stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     And I create a single "SMC" case
@@ -149,7 +152,7 @@ Feature: Registration
 
 #     BF COMPLAINTS
 
-  @ComplaintsRegression @ComplaintsWorkflow
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to complete the Registration stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a single "BF" case
@@ -165,7 +168,7 @@ Feature: Registration
     And the read-only Case Details accordion should contain all case information entered during the "Case Registration" stage
 
   # HOCS-4404, HOCS-4423, HOCS-4707
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: User must add a Complainant type correspondent to a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     And I create a single "BF" case
@@ -176,7 +179,7 @@ Feature: Registration
 
 #     BF STAGE 2 COMPLAINTS
 
-  @ComplaintsRegression @ComplaintsWorkflow
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to complete the Registration stage for a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Registration" stage

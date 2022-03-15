@@ -515,7 +515,7 @@ Feature: ManagementUI
 
 #    MANAGE EX-GRATIA BUSINESS AREA REPRESENTATIVES
 
-  @ListsManagement @COMPRegression
+  @ListsManagement @ComplaintsRegression2
   Scenario: User can add and delete an Ex-Gratia Business Area Representative through Lists Management
     When I select to "Manage Ex-Gratia Business Area Representatives"
     And I select to add a new representative

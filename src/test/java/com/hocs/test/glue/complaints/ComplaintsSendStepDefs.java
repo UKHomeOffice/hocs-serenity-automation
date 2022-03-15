@@ -27,4 +27,15 @@ public class ComplaintsSendStepDefs extends BasePage {
     public void iCompleteTheSendStage() {
         clickTheButton("Complete");
     }
+
+    @And("I select a Case Outcome for each Reason for Complaint")
+    public void iSelectACaseOutcomeForEachReasonForComplaint() {
+        complaintsSend.selectBFCaseOutcomes();
+    }
+
+    @And("I can see the selected Reasons for Complaint")
+    public void iCanSeeTheSelectedReasonsForComplaint() {
+        waitForPageWithTitle("Complaint Send Response");
+        complaintsSend.assertReasonsForComplaintAreVisible();
+    }
 }

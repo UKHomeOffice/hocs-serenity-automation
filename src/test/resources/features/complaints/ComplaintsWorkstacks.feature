@@ -4,7 +4,7 @@ Feature: Complaints Workstacks
 #     UKVI COMPLAINTS
 
   # HOCS-2865, HOCS-3161
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario Outline: UKVI complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "COMP_USER"
     And I enter the "<workstack>" workstack
@@ -16,7 +16,7 @@ Feature: Complaints Workstacks
       | Minor Misconduct       |
       | CCT Triage             |
 
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
@@ -33,7 +33,7 @@ Feature: Complaints Workstacks
     When I view the "My Cases" workstack
     Then I should be able to tell that the case has an overdue contribution
 
-  @ComplaintsRegression
+  @ComplaintsRegression1 @UKVIComplaints
   Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has a due contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
@@ -51,7 +51,7 @@ Feature: Complaints Workstacks
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @IEDETComplaints
   Scenario: IEDET complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "IEDET_USER"
     And I enter the "IE Detention" workstack
@@ -60,7 +60,7 @@ Feature: Complaints Workstacks
 
 #     SMC COMPLAINTS
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @IEDETComplaints
   Scenario: Serious Misconduct complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "SMC_USER"
     And I enter the "Serious Misconduct" workstack
@@ -69,7 +69,7 @@ Feature: Complaints Workstacks
 
 #     BF COMPLAINTS
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: Border Force complaints user can see the required information when viewing the Border Force workstack
     Given I am logged into "CS" as user "BF_USER"
     And I enter a "Border Force" workstack
@@ -78,7 +78,7 @@ Feature: Complaints Workstacks
 
 #     BF STAGE 2 COMPLAINTS
 
-  @ComplaintsRegression
+  @ComplaintsRegression2 @BFComplaints
   Scenario: Border Force complaints user can see the required information when viewing the Border Force (Stage 2) workstack
     Given I am logged into "CS" as user "BF_USER"
     And I enter a "Border Force (Stage 2)" workstack
@@ -88,7 +88,7 @@ Feature: Complaints Workstacks
 #     ALL COMPLAINTS
 
   # HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression
+  @ComplaintsRegression2
   Scenario Outline: Complaints user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
     Given I am logged into "CS" as user "<caseType>_USER"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
@@ -101,7 +101,7 @@ Feature: Complaints Workstacks
       | SMC      | 55           | Serious Misconduct     |
 
   # HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression
+  @ComplaintsRegression2
   Scenario Outline: Complaints user is able to see a red highlighted deadline on an complaint case that is past its deadline date
     Given I am logged into "CS" as user "<caseType>_USER"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago

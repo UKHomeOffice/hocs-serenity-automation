@@ -166,6 +166,7 @@ public class ComplaintsTriage extends BasePage {
             if (selectedReasonForComplaint.equals("Other")) {
                 recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason " + i + ")");
             }
+            setSessionVariable("reasonForComplaint"+i).to(selectedReasonForComplaint);
         }
     }
     
