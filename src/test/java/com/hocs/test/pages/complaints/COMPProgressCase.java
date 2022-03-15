@@ -105,6 +105,13 @@ public class COMPProgressCase extends BasePage {
         checkSpecificCheckbox("Complaint Case");
         search.searchByCaseReference(getCurrentCaseReference());
         search.waitForResultsPage();
+        if (search.getNumberOfSearchResults() == 0) {
+            waitABit(5000);
+            dashboard.selectSearchLinkFromMenuBar();
+            checkSpecificCheckbox("Complaint Case");
+            search.searchByCaseReference(getCurrentCaseReference());
+            search.waitForResultsPage();
+        }
     }
 
     private void escalateEligibleStage1CaseToStage2() {

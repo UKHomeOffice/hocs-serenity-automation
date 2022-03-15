@@ -92,6 +92,15 @@ public class BFProgressCase extends BasePage {
         }
         search.searchByCaseReference(getCurrentCaseReference());
         search.waitForResultsPage();
+        if (search.getNumberOfSearchResults() == 0) {
+            waitABit(5000);
+            dashboard.selectSearchLinkFromMenuBar();
+            if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
+                checkSpecificCheckbox("Border Force Case");
+            }
+            search.searchByCaseReference(getCurrentCaseReference());
+            search.waitForResultsPage();
+        }
     }
 
     private void escalateEligibleStage1CaseToStage2() {

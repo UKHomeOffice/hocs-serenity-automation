@@ -102,7 +102,8 @@ Feature: Complaints Send
   Scenario: User can complete the Send stage for a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Send" stage
-    And I select a Case Outcome
+    And I can see the selected Reasons for Complaint
+    And I select a Case Outcome for each Reason for Complaint
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Send (Stage 2)" stage
