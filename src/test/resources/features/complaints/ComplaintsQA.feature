@@ -122,12 +122,22 @@ Feature: Complaints QA
   Scenario: User can reject the response at the QA stage and send a BF complaint case back to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "QA" stage
-    And I "reject" the response to the complaint at the QA stage
+    And I "reject return to draft" the response to the complaint at the QA stage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "Border Force"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA" stage
 
+  # HOCS-4638
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can reject the response at the QA stage and send a BF complaint case back to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "QA" stage
+    And I "reject return to triage" the response to the complaint at the QA stage
+    Then the case should be moved to the "Case Triage" stage
+    And the summary should display the owning team as "Border Force"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
 
 #     BF STAGE 2 COMPLAINTS
 
@@ -144,8 +154,19 @@ Feature: Complaints QA
   Scenario: User can reject the response at the QA stage and send a BF Stage 2 complaint case back to the Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "QA" stage
-    And I "reject" the response to the complaint at the QA stage
+    And I "reject return to draft" the response to the complaint at the QA stage
     Then the case should be moved to the "Draft (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage
+
+  # HOCS-4638
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can reject the response at the QA stage and send a BF Stage 2 complaint case back to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "QA" stage
+    And I "reject return to triage" the response to the complaint at the QA stage
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA (Stage 2)" stage
