@@ -56,6 +56,7 @@ Feature: Draft
     And I change the Business Area of the TO case to "UKVI"
     Then the case should be moved to the "CCH Returns" stage
     And the summary should display the owning team as "Treat Official CCH"
+    And a Case transfer reason note is visible in the timeline showing the reason for reallocation
     Examples:
       | businessArea  |
       | HMPO          |
@@ -68,6 +69,7 @@ Feature: Draft
     And I open the "Case Details" accordion section
     And I change the Business Area of the TO case to "<finalBusinessArea>"
     Then the case should be moved to the correct Treat Official team for the new business area
+    And a Case transfer reason note is visible in the timeline showing the reason for reallocation
     Examples:
       | initialBusinessArea | finalBusinessArea |
       | UKVI                | HMPO              |

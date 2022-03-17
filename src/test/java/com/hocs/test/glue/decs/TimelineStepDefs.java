@@ -233,4 +233,10 @@ public class TimelineStepDefs extends BasePage {
     public void iShouldBeAbleToSeeLogsForCaseActionsTakenByThePreviousUser() {
         timelineTab.assertTimelineLogsAttributedToUserAreVisible(getPreviousUser());
     }
+
+    @And("a Case transfer reason note is visible in the timeline showing the reason for reallocation")
+    public void aCaseTransferReasonNoteIsVisibleInTheTimelineShowingTheReasonForReallocation() {
+        String reallocationReason = sessionVariableCalled("reallocationReason");
+        timelineTab.assertCaseNoteWithTitleContainsText("Case transfer reason", reallocationReason);
+    }
 }

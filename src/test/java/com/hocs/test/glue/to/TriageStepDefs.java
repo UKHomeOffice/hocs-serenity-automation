@@ -38,6 +38,7 @@ public class TriageStepDefs extends BasePage {
         triage.selectToChangeTheBusinessArea();
         waitForPageWithTitle("Transfer To Business Area");
         dataInput.selectSpecificBusinessArea(businessArea);
+        dataInput.enterReallocationReason();
         clickTheButton("Finish");
     }
 

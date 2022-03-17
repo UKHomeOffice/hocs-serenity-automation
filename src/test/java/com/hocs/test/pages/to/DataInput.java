@@ -56,4 +56,9 @@ public class DataInput extends BasePage {
         selectSpecificOptionFromDropdownWithHeading(recipient, "Recipient");
         setSessionVariable("recipient").to(recipient);
     }
+
+    public void enterReallocationReason() {
+        String reallocationReason = enterTextIntoTextAreaWithHeading("Enter reason for reallocation");
+        setSessionVariable("reallocationReason").to(reallocationReason);
+    }
 }
