@@ -27,11 +27,14 @@ public class ComplaintsQA extends BasePage {
             case "ACCEPT":
                 recordCaseData.selectSpecificRadioButton("Accept - send response to complainant");
                 break;
-            case "REJECT RETURN TO DRAFT":
+            case "REJECT":
                 recordCaseData.selectSpecificRadioButton("Reject - return response to draft");
                 break;
+            case "REJECT RETURN TO DRAFT":
+                recordCaseData.selectSpecificRadioButton("Reject - return to draft");
+                break;
             case "REJECT RETURN TO TRIAGE":
-                recordCaseData.selectSpecificRadioButton("Reject - return response to triage");
+                recordCaseData.selectSpecificRadioButton("Reject - return to triage");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
