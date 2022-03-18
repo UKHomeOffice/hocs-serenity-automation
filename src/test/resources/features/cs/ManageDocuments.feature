@@ -183,6 +183,12 @@ Feature: Manage Documents
     Then document should have the Failed Conversion tag
 
   @CSRegression
+  Scenario: As a Correspondence System user, when I add a document that fails during the virus scan, I want to be informed of the failure
+    And I manage the documents of a new case
+    When I upload a file that fails during the virus scan
+    Then document should have the Failed Virus Scan tag
+
+  @CSRegression
   Scenario: As a Correspondence System user, I want to be able to select which document to preview, so I can inspect different uploaded documents
     And I manage the documents of a new case
     And I upload a 5MB and a 10MB file

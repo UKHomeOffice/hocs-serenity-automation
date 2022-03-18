@@ -46,8 +46,11 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'FAILED_CONVERSION')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
     public WebElementFacade failedConversionTag;
+
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    public WebElementFacade failedVirusScanTag;
 
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
@@ -108,6 +111,13 @@ public class Documents extends BasePage {
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "broken.jpg").to(addDocument);
     }
+
+    public void uploadDocumentThatFailsScan() {
+        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                "documents" +  File.separator + "fails.txt").to(addDocument);
+    }
+
 
 
     //Multi-step methods
@@ -248,6 +258,10 @@ public class Documents extends BasePage {
 
     public void assertFailedConversionTagVisible() {
         failedConversionTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
+    public void assertFailedVirusScanTagVisible() {
+        failedVirusScanTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void waitForFileToUpload(Object fileIdentifier) {

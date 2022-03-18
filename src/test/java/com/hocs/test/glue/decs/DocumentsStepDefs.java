@@ -194,9 +194,22 @@ public class DocumentsStepDefs extends BasePage {
         clickTheButton("Add");
     }
 
+    @When("I upload a file that fails during the virus scan")
+    public void iUploadAFileThatFailsDuringTheVirusScan() {
+        documents.clickVisibleAddDocumentsLink();
+        documents.selectADocumentType();
+        documents.uploadDocumentThatFailsScan();
+        clickTheButton("Add");
+    }
+
     @Then("document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
+    }
+
+    @Then("document should have the Failed Virus Scan tag")
+    public void documentShouldHaveTheFailedVirusScanTag() {
+        documents.assertFailedVirusScanTagVisible();
     }
 
     @And("I confirm/approve the (new )primary draft document")
