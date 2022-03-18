@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import com.hocs.test.pages.complaints.ExGratiaTab;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -14,7 +15,7 @@ public class ExGratiaTabStepDefs extends BasePage {
     CaseView caseView;
 
     ExGratiaTab exGratiaTab;
-
+    
     @And("I select the Ex-Gratia tab")
     public void iSelectTheExGratiaTab() {
         caseView.waitForCaseToLoad();
@@ -45,7 +46,7 @@ public class ExGratiaTabStepDefs extends BasePage {
         exGratiaTab.enterAmountRequestedByComplainant(amount);
     }
 
-    @And("I enter {string} into the amount requested from business\\/port field")
+    @And("I enter {string} into the amount requested from business or port field")
     public void iEnterIntoTheAmountRequestedFromBusinessPortField(String amount) {
         exGratiaTab.enterAmountRequestedFromBusiness(amount);
     }
@@ -73,5 +74,10 @@ public class ExGratiaTabStepDefs extends BasePage {
     @Then("the Ex-Gratia tab summary should contain the correct values")
     public void theExGratiaTabSummaryShouldContainTheCorrectValues() {
         exGratiaTab.assertExGratiaTabSummary();
+    }
+
+    @Then("the Ex-Gratia tab summary should show that the complainant has accepted the offer")
+    public void theExGratiaTabSummaryShouldShowThatTheComplainantHasAcceptedTheOffer() {
+        exGratiaTab.assertSummaryContainsExpectedValueForGivenHeader("Yes", "Complainant has accepted:");
     }
 }

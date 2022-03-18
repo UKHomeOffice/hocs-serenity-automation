@@ -130,7 +130,7 @@ public class BFProgressCase extends BasePage {
             case "SEND":
                 precedingStage = "QA";
                 break;
-            case "CLOSED":
+            case "CASE CLOSED":
                 precedingStage = "SEND";
                 break;
             default:

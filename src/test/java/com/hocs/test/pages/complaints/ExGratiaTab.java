@@ -4,6 +4,7 @@ import com.hocs.test.pages.decs.BasePage;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -66,6 +67,19 @@ public class ExGratiaTab extends BasePage {
     public void selectComplainantHasAccepted() {
         checkSpecificCheckbox("Complainant has accepted");
         setSessionVariable("complainantHasAccepted").to("Yes");
+    }
+
+    public String getExGratiaSummaryValueForGivenHeader(String header) {
+        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
+        return displayedValueElement.getText();
+    }
+
+    public void assertSummaryContainsExpectedValueForGivenHeader(String expectedValue, String header) {
+        String displayedValue = getExGratiaSummaryValueForGivenHeader(header);
+        if (!containsIgnoreCase(displayedValue, expectedValue)) {
+            Assert.fail("Ex-Gratia summary value incorrect for: " + header + "\nExpected value was: \"" + expectedValue + "\"\nDisplayed value was: \"" +
+                    displayedValue + "\"");
+        }
     }
 
     public void assertExGratiaTabSummary() {
