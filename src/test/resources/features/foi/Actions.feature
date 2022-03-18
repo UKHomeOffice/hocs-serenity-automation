@@ -4,6 +4,7 @@ Feature: Actions
   Background:
     Given I am logged into "CS" as user "FOI_USER"
 
+    #    Expected failure. Defect HOCS-4777 raised.
 #    HOCS-3835, HOCS-3925, HOCS-4103
   @FOIRegression
   Scenario: As a FOI User, I want to be able to apply an extension to a case, so that we have enough time to casework the request
