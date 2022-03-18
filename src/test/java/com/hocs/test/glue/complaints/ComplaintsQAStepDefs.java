@@ -11,7 +11,7 @@ public class ComplaintsQAStepDefs extends BasePage {
     @And("I {string} the response to the complaint at the QA stage")
     public void responseAtServiceQAStage(String action) {
         compQA.selectActionAtServiceQA(action);
-        if (action.equalsIgnoreCase("REJECT RETURN TO DRAFT") || action.equalsIgnoreCase("REJECT RETURN TO TRIAGE") ) {
+        if (action.equalsIgnoreCase("REJECT") || action.equalsIgnoreCase("REJECT RETURN TO DRAFT") || action.equalsIgnoreCase("REJECT RETURN TO TRIAGE") ) {
             compQA.submitRejectionReason();
         }
     }
