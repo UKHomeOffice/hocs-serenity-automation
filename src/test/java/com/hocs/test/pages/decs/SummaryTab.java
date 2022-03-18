@@ -164,10 +164,13 @@ public class SummaryTab extends BasePage {
         return activeStage.getText();
     }
 
-    public boolean checkDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
+    public void assertDisplayedDeadlineMatchesCalculatedDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
         String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate,
                 sessionVariableCalled("caseType"));
-        return displayedDeadline.equals(expectedDeadline);
+        if (!displayedDeadline.equals(expectedDeadline)) {
+            Assert.fail("Displayed deadline did not match deadline calculated for this case type.\nExpected deadline was: " + expectedDeadline +
+                    "\nDisplayed deadline was: " + displayedDeadline);
+        }
     }
 
     public void selectPreviousCaseReference() {
@@ -186,7 +189,7 @@ public class SummaryTab extends BasePage {
         switch (deadlineDecidingFactor.toUpperCase()) {
             case "HOME SECRETARY SIGN-OFF":
                 expectedNumberOfWorkdaysTillDeadline = 10;
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             case "MIN":
             case "TRO":
@@ -199,12 +202,12 @@ public class SummaryTab extends BasePage {
             case "BF":
             case "TO":
                 expectedNumberOfWorkdaysTillDeadline = 20;
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             case "EX-GRATIA":
             case "SMC":
                 expectedNumberOfWorkdaysTillDeadline = 60;
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             case "DTEN":
                 assertThat(displayedDeadline.equalsIgnoreCase(sessionVariableCalled("dtenDispatchDeadline")), is(true));
@@ -260,7 +263,7 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             case "DTEN":
                 String inputDeadline = null;
@@ -315,7 +318,7 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             case "HOME SECRETARY SIGN-OFF":
                 switch (stage.toUpperCase()) {
@@ -358,7 +361,7 @@ public class SummaryTab extends BasePage {
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
-                assertThat(checkDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline), is(true));
+                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
                 break;
             default:
                 pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
@@ -425,7 +428,7 @@ public class SummaryTab extends BasePage {
 
     public void assertDeadlineOfExtendedFOICase() {
         String displayedDeadline = deadline.getText();
-        checkDeadline(displayedDeadline, getTodaysDate(), sessionVariableCalled("numberOfDays"));
+        assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, getTodaysDate(), sessionVariableCalled("numberOfDays"));
     }
 
     public void assertAppealInformationIsDisplayed() {
