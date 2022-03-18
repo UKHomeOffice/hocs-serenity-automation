@@ -35,7 +35,7 @@ public class ActionsTab extends BasePage {
 
     public void selectHowManyDayToExtendDeadlineBy() {
         String numberOfDays = selectRandomOptionFromDropdownWithHeading("How many working days do you want to extend the case by?");
-        setSessionVariable("numberOfDays").to(Integer.parseInt(numberOfDays)-1);
+        setSessionVariable("numberOfDays").to(Integer.parseInt(numberOfDays));
     }
 
     public void selectASpecificAmountOfDaysToExtendDeadlineBy(String numberOfDays) {
