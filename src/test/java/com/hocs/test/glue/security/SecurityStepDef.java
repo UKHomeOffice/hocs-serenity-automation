@@ -54,6 +54,8 @@ public class SecurityStepDef extends BaseSecurity {
 
     @After(value = "@security", order = 1)
     public void tidyUp() throws ClientApiException, IOException {
+        waitForPassiveScanToComplete();
+        checkRiskCount(BASE_URL);
         getDriver().quit();
         byte[] bytes = clientApi.core.htmlreport();
         String str = new String(bytes, StandardCharsets.UTF_8);
@@ -72,9 +74,9 @@ public class SecurityStepDef extends BaseSecurity {
         findById("case-type-1").click(); // comp
         next();
         next();
+        setCaseRef();
         findById("submit").click();
         waitABit(500);
-        caseref = getDriver().findElement(By.className("govuk-heading-l")).getText();
         allocateToMe();
         findBylinktext("Add a correspondent").click();
         waitABit(500);
@@ -83,6 +85,7 @@ public class SecurityStepDef extends BaseSecurity {
         next();
         next();
         next();
+        waitABit(500);
         findById("CompType-0").click(); // Service radio button
         next();
         findById("Channel-2").click();
@@ -92,7 +95,6 @@ public class SecurityStepDef extends BaseSecurity {
         findById("CatDelay_Delay").click();
         select(findById("OwningCSU")).selectByVisibleText("UKVI");
         next();
-        System.out.println(caseref);
         // Triage
         findAndAllocate();
         findById("CctTriageAccept-0").click();
@@ -130,7 +132,14 @@ public class SecurityStepDef extends BaseSecurity {
         next();
     }
 
+    private void setCaseRef() {
+
+        caseref = findById("case-reference").getAttribute("value");
+        System.out.println("caseref:  " + caseref);
+    }
+
     private void findAndAllocate() {
+        waitABit(1000);
         findById("case-reference").sendKeys(caseref);
         findById("case-reference").sendKeys(Keys.ENTER);
         waitABit(500);
@@ -159,6 +168,11 @@ public class SecurityStepDef extends BaseSecurity {
         return getDriver().findElement(By.id(identifier));
     }
 
+    private WebElement findByXpath(String identifier) {
+        waitABit(500);
+        return getDriver().findElement(By.xpath(identifier));
+    }
+
     private WebElement findByName(String identifier) {
         waitABit(500);
         return getDriver().findElement(By.name(identifier));
@@ -180,5 +194,141 @@ public class SecurityStepDef extends BaseSecurity {
                 "documents" + File.separator + "test.docx";
     }
 
+    @And("I create a foi case for security testing")
+    public void iCreateAFoiCaseForSecurityTesting() {
+        findBylinktext("Create Single Case").click();
+        waitABit(500);
+        findById("case-type-5").click(); // foi
+        next();
+        findById("OriginalChannel-0").click();
+        select(findById("Country")).selectByVisibleText("United Kingdom");
+        findById("Fullname").sendKeys("Foi_sec_fullName");
+        findById("Email").sendKeys("foi_sec_test@test.com");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
+
+        findById("RequestQuestion").sendKeys("test request question");
+        next();
+        waitABit(500);
+        setCaseRef();
+        findById("submit").click();
+        waitABit(500);
+
+        next();
+// allocation
+        findById("RequestValidity-0").click();
+        next();
+        waitABit(500);
+        findBylinktext("Add a document").click();
+        select(findById("document_type")).selectByVisibleText("Initial response");
+        findById("add_document").sendKeys(file);
+        next();
+        String responseDate = getDatePlusMinusNDaysAgo(-10);
+        System.out.println("resp " + responseDate);
+        findById("AcknowledgementDate-day").sendKeys(dayOfDate(responseDate));
+        findById("AcknowledgementDate-month").sendKeys(monthOfDate(responseDate));
+        findById("AcknowledgementDate-year").sendKeys(yearOfDate(responseDate));
+        next();
+        select(findById("Directorate")).selectByVisibleText("Border Force");
+        select(findById("AcceptanceTeam")).selectByVisibleText("FOI Border Force Operations Acceptance Team");
+        select(findById("AccountManager")).selectByIndex(1);
+        next();
+        next();
+        //acceptance
+        findAndAllocate();
+        findById("AcceptCase-0").click();
+        next();
+        select(findById("DraftTeam")).selectByVisibleText("FOI Border Force Operations Draft Team");
+        next();
+
+        //Consider and Draft
+        findAndAllocate();
+        findById("ContributionsRequired-0").click();
+        next();
+        waitABit(1000);
+        findBylinktext("Add a Contribution").click();
+        select(findById("contributionBusinessUnit")).selectByVisibleText("Border Force");
+        findById("contributionRequestDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("contributionRequestDate-month").sendKeys(monthOfDate(getTodaysDate()));
+        findById("contributionRequestDate-year").sendKeys(yearOfDate(getTodaysDate()));
+
+        findById("contributionDueDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("contributionDueDate-month").sendKeys(monthOfDate(getTodaysDate()));
+        findById("contributionDueDate-year").sendKeys(yearOfDate(getTodaysDate()));
+        findById("contributionRequestNote").sendKeys("test");
+        next();
+        waitABit(500);
+        findBylinktext("Edit").click();
+        findById("contributionStatus-0").click();
+        findById("contributionReceivedDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("contributionReceivedDate-month").sendKeys(monthOfDate(getTodaysDate()));
+        findById("contributionReceivedDate-year").sendKeys(yearOfDate(getTodaysDate()));
+        findById("contributionReceivedNote").sendKeys(" test note");
+        next();
+        next();
+        addDocument("Draft response");
+        next();
+
+        //Approval
+        waitABit(1000);
+        findBylinktext("Add an Approval Request").click();
+        select(findById("approvalRequestForBusinessUnit")).selectByVisibleText("Minister");
+        findById("approvalRequestCreatedDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("approvalRequestCreatedDate-month").sendKeys(monthOfDate((getTodaysDate())));
+        findById("approvalRequestCreatedDate-year").sendKeys(yearOfDate(getTodaysDate()));
+
+        findById("approvalRequestDueDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("approvalRequestDueDate-month").sendKeys(monthOfDate((getTodaysDate())));
+        findById("approvalRequestDueDate-year").sendKeys(yearOfDate(getTodaysDate()));
+
+        next();
+
+        findBylinktext("Edit").click();
+        findById("approvalRequestStatus-0").click();
+        findById("approvalRequestDecision-0").click();
+
+        findById("approvalRequestResponseReceivedDate-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("approvalRequestResponseReceivedDate-month").sendKeys(monthOfDate((getTodaysDate())));
+        findById("approvalRequestResponseReceivedDate-year").sendKeys(yearOfDate(getTodaysDate()));
+        findById("approvalRequestResponseBy").sendKeys("respondents name");
+        findById("approvalRequestResponseNote").sendKeys("approval note");
+        next();
+        next();
+
+        //Dispatch
+        select(findById("CaseType")).selectByVisibleText("FOI");
+        select(findById("ResponseChannel")).selectByVisibleText("Email");
+        findById("TransferOutcome-0").click();
+        next();
+        findById("Exemptions_Fee Threshold Invoked").click();
+        next();
+        next();
+        findById("ShouldDispatch-0").click();
+        findById("dateOfResponse-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById("dateOfResponse-month").sendKeys(monthOfDate((getTodaysDate())));
+        findById("dateOfResponse-year").sendKeys(yearOfDate(getTodaysDate()));
+        next();
+        addDocument("Final responses");
+        next();
+    }
+
+    private void addDocument(String documentType) {
+        findBylinktext("Add a document").click();
+        select(findById("document_type")).selectByVisibleText(documentType);
+        findById("add_document").sendKeys(file);
+        next();
+    }
+
+    public String dayOfDate(String date) {
+        return date.split("/")[0];
+    }
+
+    public String monthOfDate(String date) {
+        return date.split("/")[1];
+    }
+
+    public String yearOfDate(String date) {
+        return date.split("/")[2];
+    }
 }
 
