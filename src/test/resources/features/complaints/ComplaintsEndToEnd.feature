@@ -273,7 +273,7 @@ Feature: Complaints End To End
   @ComplaintsRegression2 @BFComplaints
   Scenario Outline: User is able to close a BF stage 1 complaint case
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF" case for a "<complaintType>" complaint and move it to "Closed"
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
     Then the case should be closed
     Examples:
       | complaintType    |
@@ -322,5 +322,5 @@ Feature: Complaints End To End
   @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to close a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
-    When I create a "BF2" case and move it to the "Closed" stage
+    When I create a "BF2" case and move it to the "Case Closed" stage
     Then the case should be closed
