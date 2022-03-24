@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
+import com.hocs.test.pages.complaints.POGRProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
@@ -44,6 +45,8 @@ public class ProgressCaseStepDefs extends BasePage {
 
     TOProgressCase toProgressCase;
 
+    POGRProgressCase pogrProgressCase;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
@@ -74,6 +77,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "TO":
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
+                break;
+            case "POGR":
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -114,6 +120,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "TO":
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                break;
+            case "POGR":
+                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

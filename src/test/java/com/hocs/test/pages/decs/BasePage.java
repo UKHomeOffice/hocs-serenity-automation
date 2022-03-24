@@ -218,7 +218,7 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
 
-    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case();}
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase();}
 
     public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
 
@@ -229,6 +229,8 @@ public class BasePage extends PageObject {
     public boolean bfCase() { return sessionVariableCalled("caseType").toString().equals("BF"); }
 
     public boolean bf2Case() { return sessionVariableCalled("caseType").toString().equals("BF2"); }
+
+    public boolean pogrCase() { return sessionVariableCalled("caseType").toString().equals("POGR"); }
 
     public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
 

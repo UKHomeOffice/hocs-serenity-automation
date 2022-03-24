@@ -129,6 +129,12 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
+    @And("the POGR case should be assigned to the investigating team selected at Data Input")
+    public void thePOGRCaseShouldBeAssignedToTheInvestigatingTeamSelectedAtDataInput() {
+        String teamName = sessionVariableCalled("investigatingTeam");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
     @And("the summary should display {string} for {string}")
     public void theSummaryShouldDisplayFor(String value, String header) {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(value, header);
