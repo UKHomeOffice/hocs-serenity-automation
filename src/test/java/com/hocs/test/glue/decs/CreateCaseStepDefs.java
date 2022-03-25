@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -43,6 +44,8 @@ public class CreateCaseStepDefs extends BasePage {
     MPAMProgressCase mpamProgressCase;
 
     COMPProgressCase compProgressCase;
+
+    SMCProgressCase smcProgressCase;
 
     TOProgressCase toProgressCase;
 
@@ -268,6 +271,11 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
     public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
         createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+        if (caseType.equalsIgnoreCase("SMC")) {
+            dashboard.goToDashboard();
+            dashboard.getAndClaimCurrentCase();
+            smcProgressCase.moveSMCCaseFromRegistrationToTriage();
+        }
     }
 
     @And("I create a single {string} case with the correspondence received date set as today")
