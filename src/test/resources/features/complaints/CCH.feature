@@ -1,8 +1,8 @@
 @CCH @Complaints
 Feature: CCH
 
-  Background:
-    Given I am logged into "CS" as user "COMP_USER"
+#  Background:
+#    Given I am logged into "CS" as user "COMP_USER"
 
 #    UKVI COMPLAINTS
 
@@ -84,3 +84,15 @@ Feature: CCH
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 CCH" stage
+
+  @ComplaintsRegression2 @BFComplaints @HOCS-4221
+  Scenario: User can transfer a BF complaints case to CCH
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "CCH" stage
+    Then the case should be closed
+    And I logout of the application
+    And I am logged into "CS" as user "COMP_USER"
+    And I click to view the case in the "Complaint Registration" workstack
+    And the transferred case appears in "COMP" registration workstack
+    And I click the link for the transferred case in the workstack
+    And the summary should contain the Old Case Reference

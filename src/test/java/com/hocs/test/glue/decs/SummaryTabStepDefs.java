@@ -247,4 +247,9 @@ public class SummaryTabStepDefs extends BasePage {
                 "Enquiry Reason", "Is a Letter of Authority required?", "When was the correspondence received?");
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
+
+    @And("the summary should contain the Old Case Reference")
+    public void theSummaryShouldContainTheOldCaseReference() {
+        summaryTab.assertPreviousCaseRef(oldCaseRef);
+    }
 }

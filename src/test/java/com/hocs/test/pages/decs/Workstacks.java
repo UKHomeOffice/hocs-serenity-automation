@@ -480,6 +480,11 @@ public class Workstacks extends BasePage {
         assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
+    public void assertVisibilityOfSpecificCaseReference(boolean trueFalse, String caseRefNumber) {
+        WebElementFacade thisReference = findBy("//a[text()='" + caseRefNumber + "']");
+        assertThat(isElementDisplayed(thisReference), is(trueFalse));
+    }
+
     public void assertThatThereAreNoCasesInWorkstack() {
         zeroItemsInWorkstackCount.shouldContainText("0 Items");
     }

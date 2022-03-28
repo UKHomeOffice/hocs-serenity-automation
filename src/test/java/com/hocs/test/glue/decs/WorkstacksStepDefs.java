@@ -138,6 +138,11 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.goToCurrentCaseFromWorkstack();
     }
 
+    @And("I click the link for the transferred case in the workstack")
+    public void iClickTheLinkForTheTransferredCase() {
+        workstacks.selectSpecificCaseReferenceLink(newCaseRef);
+    }
+
     @And("I filter the workstack using the current cases reference")
     public void iFilterTheWorkstackUsingTheCurrentCasesReference() {
         workstacks.filterByCurrentCaseReference();
