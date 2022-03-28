@@ -2,7 +2,7 @@
 Feature: Data Input
 
   Background:
-    Given I am logged into "CS" as user "HMPO_USER"
+    Given I am logged into "CS" as user "POGR_USER"
     And I get a "POGR" case at the "Data Input" stage
 
   Scenario: User is able to complete the Data Input stage for a POGR case with HMPO as the business area
