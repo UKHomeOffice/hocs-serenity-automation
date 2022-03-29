@@ -140,7 +140,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I click the link for the transferred case in the workstack")
     public void iClickTheLinkForTheTransferredCase() {
-        workstacks.selectSpecificCaseReferenceLink(newCaseRef);
+        workstacks.selectSpecificCaseReferenceLink(sessionVariableCalled("newCaseReference"));
     }
 
     @And("I filter the workstack using the current cases reference")
@@ -628,5 +628,10 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("only cases of/at that Workflow/Stage should be displayed in the workstack")
     public void onlyCasesOfThatWorkflowShouldBeDisplayedInTheWorkstack() {
         workstacks.assertCaseTotalIs(Integer.parseInt(sessionVariableCalled("filterCardCaseTotal")));
+    }
+
+    @And("the transferred case appears in {string} registration workstack")
+    public void transferredCaseAppearsInWorkStack(String newCaseType) {
+        workstacks.assertVisibilityOfSpecificCaseReference(true,getCurrentCaseReferenceFromTransferredCase(newCaseType));
     }
 }

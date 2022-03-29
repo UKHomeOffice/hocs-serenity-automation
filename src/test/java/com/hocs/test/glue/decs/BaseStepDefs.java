@@ -10,7 +10,6 @@ import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.decs.Workstacks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,8 +27,6 @@ public class BaseStepDefs extends BasePage {
     TimelineTab timelineTab;
 
     CaseView caseView;
-
-    Workstacks workstacks;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -161,10 +158,5 @@ public class BaseStepDefs extends BasePage {
     public void accessibilityStatementLinkShouldBeVisible() {
         assertVisibilityOfAccessibilityLink();
     }
-
-    @And("the transferred case appears in {string} registration workstack")
-    public void transferredCaseAppearsInWorkStack(String newCaseType) {
-            workstacks.assertVisibilityOfSpecificCaseReference(true,getCurrentCaseReferenceFromTransferredCase(newCaseType));
-        }
 }
 

@@ -248,8 +248,8 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 
-    @And("the summary should contain the Old Case Reference")
+    @And("the summary should contain the old case reference")
     public void theSummaryShouldContainTheOldCaseReference() {
-        summaryTab.assertPreviousCaseRef(oldCaseRef);
+        summaryTab.assertPreviousCaseReferenceIsVisible(getCurrentCaseReference());
     }
 }

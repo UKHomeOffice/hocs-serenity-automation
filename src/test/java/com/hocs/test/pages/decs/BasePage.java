@@ -32,9 +32,7 @@ public class BasePage extends PageObject {
 
     public static String currentPlatform = "";
 
-    public static String newCaseRef = "";
 
-    public static String oldCaseRef = "";
 
     public static boolean keepAllCaseData = false;
 
@@ -371,8 +369,7 @@ public class BasePage extends PageObject {
     }
 
     public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
-        oldCaseRef = getCurrentCaseReference();
-        newCaseRef = oldCaseRef.replace(sessionVariableCalled("caseType"),newCaseType);
+        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
         setSessionVariable("newCaseReference").to(newCaseRef);
         return sessionVariableCalled("newCaseReference");
     }

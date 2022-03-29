@@ -147,4 +147,15 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.enterCompletionReason();
         clickTheButton("Complete case");
     }
+
+    @And("I do not accept the case at Triage")
+    public void iDoNotAcceptTheCaseAtTriage() {
+        complaintsTriage.selectTransferComplaint();
+    }
+
+    @And("I transfer the case to CCH")
+    public void iTransferTheCaseTo() {
+        complaintsTriage.enterTransferReason();
+        complaintsTriage.selectTransferToCCH();
+    }
 }

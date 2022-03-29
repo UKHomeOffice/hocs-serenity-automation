@@ -385,7 +385,7 @@ public class SummaryTab extends BasePage {
         allocatedTeam.shouldContainText(team);
     }
 
-    public void assertPreviousCaseRef(String prevCaseRef) {
+    public void assertPreviousCaseReferenceIsVisible(String prevCaseRef) {
         if (!allocatedTeam.isVisible()) {
             selectSummaryTab();
         }

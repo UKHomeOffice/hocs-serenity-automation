@@ -156,9 +156,6 @@ public class BFProgressCase extends BasePage {
                     case "ESCALATED TO WFM":
                         moveBFCaseFromTriageToEscalated();
                         break;
-                    case "CCH":
-                        moveCaseFromTriageToCCH();
-                        break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -177,12 +174,6 @@ public class BFProgressCase extends BasePage {
         }
         dashboard.waitForDashboard();
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
-    }
-
-    public void moveCaseFromTriageToCCH() {
-        complaintsTriage.selectTransferComplaint();
-        complaintsTriage.enterTransferReason();
-        complaintsTriage.selectTransferToCCH();
     }
 
     public void moveBFCaseFromRegistrationToTriage() {
