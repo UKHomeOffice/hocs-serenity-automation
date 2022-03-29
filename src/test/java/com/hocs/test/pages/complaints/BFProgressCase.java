@@ -124,9 +124,6 @@ public class BFProgressCase extends BasePage {
             case "ESCALATED TO WFM":
                 precedingStage = "TRIAGE";
                 break;
-            case "CCH":
-                precedingStage = "TRIAGE";
-                break;
             case "QA":
                 precedingStage = "DRAFT";
                 break;
