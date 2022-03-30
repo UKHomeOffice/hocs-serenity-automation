@@ -476,7 +476,11 @@ public class Workstacks extends BasePage {
     public void assertVisibilityOfCaseReference(boolean trueFalse) {
         String caseReferenceNumber
                 = getCurrentCaseReference();
-        WebElementFacade thisReference = findBy("//a[text()='" + caseReferenceNumber + "']");
+        assertVisibilityOfSpecificCaseReference(trueFalse,caseReferenceNumber);
+    }
+
+    public void assertVisibilityOfSpecificCaseReference(boolean trueFalse, String caseRefNumber) {
+        WebElementFacade thisReference = findBy("//a[text()='" + caseRefNumber + "']");
         assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
