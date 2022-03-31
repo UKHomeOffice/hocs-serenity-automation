@@ -486,7 +486,7 @@ public class ClaimCategories extends BasePage {
 
         typeInto(benefitsPaidHMRC, String.valueOf(benefitsHMRC));
 
-        typeInto(benefitsAmountAwarded, String.valueOf(amountAwarded));
+        benefitsAmountAwarded.sendKeys(String.valueOf(amountAwarded));
         addToAmountAwardedTotal(amountAwarded);
 
         typeInto(benefitsAmountPaid, String.valueOf(amountPaid));

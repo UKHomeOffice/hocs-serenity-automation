@@ -3,6 +3,7 @@ package com.hocs.test.glue.decs;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -20,8 +21,6 @@ public class DocumentsStepDefs extends BasePage {
     CreateCase createCase;
 
     ConfirmationScreens confirmationScreens;
-
-    COMPProgressCase compProgressCase;
 
     Dashboard dashboard;
 
@@ -55,11 +54,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I manage the documents of a new Complaints case")
     public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
-        String caseType = createCase.getRandomComplaintsCaseType();
-        if (caseType.equalsIgnoreCase("COMP2")) {
-            compProgressCase.escalateAStage1CaseToStage2();
-        }
-        createCase.createCSCaseOfType(caseType);
+        createCase.createComplaintsCaseOfRandomType();
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
