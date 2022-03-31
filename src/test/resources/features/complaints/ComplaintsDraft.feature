@@ -164,7 +164,6 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
 
 
-
 #     IEDET COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression2 @IEDETComplaints
