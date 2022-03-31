@@ -73,12 +73,6 @@ public class CreateCaseStepDefs extends BasePage {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else {
-            if (caseType.equalsIgnoreCase("COMP2")) {
-                compProgressCase.escalateAStage1CaseToStage2();
-            }
-            if (caseType.equals("BF2")) {
-                bfProgressCase.escalateAStage1CaseToStage2();
-            }
             createCase.createCSCaseOfType(caseType.toUpperCase());
         }
     }
