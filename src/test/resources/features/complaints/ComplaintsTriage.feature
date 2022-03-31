@@ -427,7 +427,6 @@ Feature: Complaints Triage
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
-    And the summary should display "Service" for "Complaint Type"
 
   @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
   Scenario: User is able to escalate a BF stage 2 complaint case to workflow manager at the Case Triage stage
@@ -440,7 +439,6 @@ Feature: Complaints Triage
     And the summary should display the owning team as "Border Force (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
-    And the summary should display "Service" for "Complaint Type"
 
   @ComplaintsRegression2 @BFComplaints
   Scenario: User can hard close a BF stage 2 complaint case at the Triage stage
@@ -453,7 +451,6 @@ Feature: Complaints Triage
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
-    And the summary should display "Service" for "Complaint Type"
 
   @ComplaintsRegression2 @BFComplaints
   Scenario Outline: User can add and complete or cancel contributions to BF stage 2 complaint cases as part of Case Triage
