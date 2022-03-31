@@ -805,10 +805,9 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
                 break;
             case "BORDER FORCE":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date"));
-                break;
             case "BORDER FORCE (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Team", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date",
+                        "Deadline"));
                 break;
             case "BF SEARCH":
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Postcode", "HO Ref", "Escalate Case"));
