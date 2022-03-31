@@ -90,32 +90,32 @@ Feature: Complaints Workstacks
   # HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression2
   Scenario Outline: Complaints user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
-    Given I am logged into "CS" as user "<user>_USER"
+    Given I am logged into "CS" as user "<user>"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "yellow"
     Examples:
       | caseType | user  | amountOfDays | workstack                      |
-      | COMP     | COMP  | 15           | Complaint Registration         |
-      | COMP2    | COMP  | 15           | Stage 2 Complaint Registration |
-      | IEDET    | IEDET | 15           | IE Detention                   |
-      | SMC      | SMC   | 55           | Serious Misconduct             |
-      | BF       | BF    | 15           | Border Force                   |
-      | BF2      | BF    | 15           | Border Force (Stage 2)         |
+      | COMP     | COMP_USER  | 15           | Complaint Registration         |
+      | COMP2    | COMP_USER  | 15           | Stage 2 Complaint Registration |
+      | IEDET    | IEDET_USER | 15           | IE Detention                   |
+      | SMC      | SMC_USER   | 55           | Serious Misconduct             |
+      | BF       | BF_USER    | 15           | Border Force                   |
+      | BF2      | BF_USER    | 15           | Border Force (Stage 2)         |
 
   # HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression2
   Scenario Outline: Complaints user is able to see a red highlighted deadline on an complaint case that is past its deadline date
-    Given I am logged into "CS" as user "<user>_USER"
+    Given I am logged into "CS" as user "<user>"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "red"
     Examples:
       | caseType | user  | amountOfDays | workstack                      |
-      | COMP     | COMP  | 21           | Complaint Registration         |
-      | COMP2    | COMP  | 21           | Stage 2 Complaint Registration |
-      | IEDET    | IEDET | 21           | IE Detention                   |
-      | SMC      | SMC   | 61           | Serious Misconduct             |
-      | BF       | BF    | 21           | Border Force                   |
-      | BF2      | BF    | 21           | Border Force (Stage 2)         |
+      | COMP     | COMP_USER  | 21           | Complaint Registration         |
+      | COMP2    | COMP_USER  | 21           | Stage 2 Complaint Registration |
+      | IEDET    | IEDET_USER | 21           | IE Detention                   |
+      | SMC      | SMC_USER   | 61           | Serious Misconduct             |
+      | BF       | BF_USER    | 21           | Border Force                   |
+      | BF2      | BF_USER    | 21           | Border Force (Stage 2)         |
 
