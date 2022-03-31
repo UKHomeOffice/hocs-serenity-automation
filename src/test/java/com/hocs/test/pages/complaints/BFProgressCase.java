@@ -37,8 +37,6 @@ public class BFProgressCase extends BasePage {
 
     ComplaintsQA compQA;
 
-    Search search;
-
     ComplaintsDraft complaintsDraft;
 
     String complaintType = "Service";
@@ -46,9 +44,6 @@ public class BFProgressCase extends BasePage {
     public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            if (caseType.equals("BF2")) {
-                escalateAStage1CaseToStage2();
-            }
             createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
         } else {
@@ -62,53 +57,6 @@ public class BFProgressCase extends BasePage {
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
-    }
-
-    public void escalateAStage1CaseToStage2() {
-        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
-            getStage1CaseEligibleForEscalation();
-        }
-        escalateEligibleStage1CaseToStage2();
-        setSessionVariable("caseType").to("BF2");
-        waitABit(500);
-    }
-
-    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
-        dashboard.selectSearchLinkFromMenuBar();
-        if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
-            checkSpecificCheckbox("Border Force Case");
-        }
-        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
-        search.clickTheButton("Search");
-        search.waitForResultsPage();
-        return search.checkVisibilityOfEscalationHypertext();
-    }
-
-    private void getStage1CaseEligibleForEscalation() {
-        createCase.createAndWithDrawACSCaseOfType("BF");
-        dashboard.selectSearchLinkFromMenuBar();
-        if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
-            checkSpecificCheckbox("Border Force Case");
-        }
-        search.searchByCaseReference(getCurrentCaseReference());
-        search.waitForResultsPage();
-        if (search.getNumberOfSearchResults() == 0) {
-            waitABit(5000);
-            dashboard.selectSearchLinkFromMenuBar();
-            if (checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
-                checkSpecificCheckbox("Border Force Case");
-            }
-            search.searchByCaseReference(getCurrentCaseReference());
-            search.waitForResultsPage();
-        }
-    }
-
-    private void escalateEligibleStage1CaseToStage2() {
-        WebElementFacade bfCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-        String bfCaseRef = bfCaseRefField.getText();
-        setSessionVariable("stage2CaseReference").to(bfCaseRef);
-        System.out.print("Case reference of case being escalated: " + bfCaseRef + "\n");
-        search.clickEscalateComplaintsCaseToStage2();
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
