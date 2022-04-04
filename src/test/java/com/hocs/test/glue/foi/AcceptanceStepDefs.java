@@ -37,5 +37,6 @@ public class AcceptanceStepDefs extends BasePage {
     @And("I select a Responsible Team and complete acceptance")
     public void iSelectAResponsibleTeamAndCompleteAcceptance() {
         acceptance.selectAResponsibleTeam();
+        clickTheButton("Complete Acceptance");
     }
 }
