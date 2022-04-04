@@ -16,34 +16,26 @@ public class AcceptanceStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @And("I select that the case {string} belong to this Directorate")
-    public void iSelectThatTheCaseBelongToTheDirectorate(String input) {
+    @And("I select that the case {string} belong in this Group")
+    public void iSelectThatTheCaseBelongToTheGroup(String input) {
         if (input.equalsIgnoreCase("DOES")) {
-            acceptance.selectIfCaseIsInCorrectDirectorate("Yes");
+            acceptance.selectIfCaseIsInCorrectGroup("Yes");
+            clickTheButton("Continue");
         } else if (input.equalsIgnoreCase("DOESN'T")) {
-            acceptance.selectIfCaseIsInCorrectDirectorate("No");
+            acceptance.selectIfCaseIsInCorrectGroup("No");
         } else {
             pendingStep(input + " is not defined within " + getMethodName());
         }
     }
 
-    @And("I enter a rejection reason at the Acceptance stage")
+    @And("I submit a rejection reason at the Acceptance stage")
     public void iEnterARejectionReasonAtTheAcceptanceStage() {
         acceptance.enterRejectionReason();
+        clickTheButton("Continue");
     }
 
-    @And("I select the drafting team required to respond to the request")
-    public void iSelectTheDraftingTeamRequiredToRespondToTheRequest() {
-        acceptance.selectDraftTeam();
-    }
-
-    @Then("the case should be assigned to the Drafting team selected at Acceptance")
-    public void theCaseShouldBeAssignedToTheDraftingTeamSelectedAtAcceptance() {
-        summaryTab.assertAllocatedTeam(sessionVariableCalled("selectedDraftTeam"));
-    }
-
-    @And("I {string} the Acceptance stage")
-    public void iTheAcceptanceStage(String buttonLabel) {
-        clickTheButton(buttonLabel);
+    @And("I select a Responsible Team and complete acceptance")
+    public void iSelectAResponsibleTeamAndCompleteAcceptance() {
+        acceptance.selectAResponsibleTeam();
     }
 }
