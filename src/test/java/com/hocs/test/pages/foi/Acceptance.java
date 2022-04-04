@@ -24,6 +24,5 @@ public class Acceptance extends BasePage {
 
     public void selectAResponsibleTeam() {
         setSessionVariable("responsibleTeam").to(recordCaseData.selectRandomOptionFromDropdownWithHeading("Responsible Team"));
-        clickTheButton("Complete Acceptance");
     }
 }
