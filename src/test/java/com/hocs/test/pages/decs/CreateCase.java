@@ -308,7 +308,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createComplaintsCaseOfRandomType() {
-        createCSCaseOfTypeWithoutDocument(getRandomComplaintsCaseType());
+        createCSCaseOfType(getRandomComplaintsCaseType());
     }
 
     public void createMPAMOrMTSCaseOfRandomType() {

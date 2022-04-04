@@ -157,6 +157,16 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
+    @And("the summary should display the owning team as the selected FOI Group")
+    public void theSummaryShouldDisplayTheOwningTeamAsTheSelectedFOIGroup() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("foiGroup"), "Team");
+    }
+
+    @And("the case should still be owned by the selected FOI Group")
+    public void theCaseShouldStillBeOwnedByTheSelectedFOIGroup() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("foiGroup"), "Team");
+    }
+
     @And("the summary should contain the Business Area, Channel Received, Home Secretary Interest selection, and Primary Correspondents details")
     public void theSummaryShouldContainTheBusinessAreaChannelReceivedAddresseeAndPrimaryCorrespondent() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"), "Business Area");
@@ -251,5 +261,17 @@ public class SummaryTabStepDefs extends BasePage {
     @And("the summary should contain the old case reference")
     public void theSummaryShouldContainTheOldCaseReference() {
         summaryTab.assertPreviousCaseReferenceIsVisible(getCurrentCaseReference());
+    }
+
+    @Then("the Requested Question should be displayed in the summary tab")
+    public void theRequestedQuestionShouldBeDisplayedInTheSummaryTab() {
+        waitABit(500);
+        summaryTab.selectSummaryTab();
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("requestQuestion"), "Request Question");
+    }
+
+    @And("the summary should contain the Responsible Team")
+    public void theSummaryShouldContainTheResponsibleTeam() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("responsibleTeam"), "Responsible Team");
     }
 }

@@ -115,18 +115,17 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromAllocationToAcceptance() {
-        allocation.selectADirectorate();
-        allocation.selectAnAcceptanceTeam();
+        allocation.selectAGroup();
         allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
-        waitABit(250);
+        waitForPageWithTitle("FOI Allocation");
         clickTheButton("Confirm Allocation");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
-        acceptance.selectIfCaseIsInCorrectDirectorate("Yes");
+        acceptance.selectIfCaseIsInCorrectGroup("Yes");
         clickTheButton("Continue");
-        acceptance.selectDraftTeam();
+        acceptance.selectAResponsibleTeam();
         clickTheButton("Complete Acceptance");
     }
 

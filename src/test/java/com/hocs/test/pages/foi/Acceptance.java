@@ -9,21 +9,21 @@ public class Acceptance extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    public void selectIfCaseIsInCorrectDirectorate(String input) {
+    public void selectIfCaseIsInCorrectGroup(String input) {
         if (input.equalsIgnoreCase("YES")) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Does this case belong to your Directorate?");
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Does this case belong in your group?");
         } else if (input.equalsIgnoreCase("NO")) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Does this case belong to your Directorate?");
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Does this case belong in your group?");
         }
-    }
-
-    public void selectDraftTeam() {
-        String draftTeam = recordCaseData.selectRandomOptionFromDropdownWithHeading("Please select the team required for drafting the response");
-        setSessionVariable("selectedDraftTeam").to(draftTeam);
     }
 
     public void enterRejectionReason() {
         recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Rejection Reason", "Reason");
         setSessionVariable("rejectionReason").to("Test Rejection Reason");
+    }
+
+    public void selectAResponsibleTeam() {
+        setSessionVariable("responsibleTeam").to(recordCaseData.selectRandomOptionFromDropdownWithHeading("Responsible Team"));
+        clickTheButton("Complete Acceptance");
     }
 }
