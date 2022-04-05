@@ -23,6 +23,8 @@ public class Acceptance extends BasePage {
     }
 
     public void selectAResponsibleTeam() {
-        setSessionVariable("responsibleTeam").to(recordCaseData.selectRandomOptionFromDropdownWithHeading("Responsible Team"));
+        if (!sessionVariableCalled("foiGroup").equals("FOI UK Visas and Immigration")) {
+            setSessionVariable("responsibleTeam").to(recordCaseData.selectRandomOptionFromDropdownWithHeading("Responsible Team"));
+        }
     }
 }

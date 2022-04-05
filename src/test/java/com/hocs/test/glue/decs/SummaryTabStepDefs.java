@@ -3,6 +3,7 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -272,6 +273,8 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the summary should contain the Responsible Team")
     public void theSummaryShouldContainTheResponsibleTeam() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("responsibleTeam"), "Responsible Team");
+        if (!sessionVariableCalled("foiGroup").equals("FOI UK Visas and Immigration")) {
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("responsibleTeam"), "Responsible Team");
+        }
     }
 }
