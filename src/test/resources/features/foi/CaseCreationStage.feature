@@ -14,6 +14,8 @@ Feature: Case Creation Stage
     And I submit a valid request acknowledgement response date
     Then the case should be moved to the "Allocation" stage
     And the read-only Case Details accordion should contain all case information entered during the "Case Creation" stage
+    And the Requested Question should be displayed in the summary tab
+
 
   #HOCS-3482 HOCS-3838
   @FOIRegression

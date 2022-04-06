@@ -120,6 +120,11 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
+    public void selectTransferToPSU() {
+        recordCaseData.selectSpecificRadioButton("PSU");
+        clickTheButton("Continue");
+    }
+
     public void selectTransferToIEDET() {
         recordCaseData.selectSpecificRadioButton("IE Detention");
         clickTheButton("Continue");

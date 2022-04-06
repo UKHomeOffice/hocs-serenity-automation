@@ -189,6 +189,7 @@ public class ClaimCategoriesStepDefs {
             case "BENEFITS":
                 claimCategories.iClickShowHideDetails("BENEFITS");
                 claimCategories.benefitsAmountAwarded.clear();
+                claimCategories.benefitsAmountAwarded.sendKeys("0");
                 claimCategories.subtractFromAmountAwardedTotal(sessionVariableCalled("amountAwarded5"));
                 break;
             case "HOUSING":
