@@ -8,7 +8,7 @@ Feature: Data Input
   Scenario: User is able to complete the Data Input stage for a POGR case with HMPO as the business area
     When I select "HMPO" as the business area for the POGR case
     And I add a "Complainant" correspondent
-    And I click the "Continue" button
+    And I confirm the primary correspondent
     And I enter complainant details on the complainant details screen
     And I click the "Continue" button
     And I add an "Interim Letter" type document to the case
@@ -21,7 +21,7 @@ Feature: Data Input
   Scenario: User is able to complete the Data Input stage for a POGR case with GRO as the business area
     When I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
-    And I click the "Continue" button
+    And I confirm the primary correspondent
     And I enter complainant details on the complainant details screen
     And I click the "Continue" button
     And I add an "Interim Letter" type document to the case

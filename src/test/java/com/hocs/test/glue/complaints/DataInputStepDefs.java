@@ -30,4 +30,20 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectInvestigatingTeam();
         safeClickOn(finishButton);
     }
+
+    @And("I record that the case is a Priority case")
+    public void iRecordThatTheCaseIsAPriorityCase() {
+        dataInput.selectCategory();
+        dataInput.enterDescriptionOfComplaint();
+        dataInput.checkPriorityCheckbox();
+        safeClickOn(continueButton);
+    }
+
+    @And("I record that the case was not received by post")
+    public void iRecordThatTheCaseWasNotReceivedByPost() {
+        dataInput.selectCategory();
+        dataInput.enterDescriptionOfComplaint();
+        dataInput.selectASpecificComplaintChannel("Email");
+        safeClickOn(continueButton);
+    }
 }

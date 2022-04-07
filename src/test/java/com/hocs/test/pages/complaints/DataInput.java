@@ -68,6 +68,10 @@ public class DataInput extends BasePage {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Channel");
     }
 
+    public void selectASpecificComplaintChannel(String channel) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Complaint Channel");
+    }
+
     public void checkPriorityCheckbox() {
         checkSpecificCheckbox("Yes");
     }

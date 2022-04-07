@@ -3,7 +3,6 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -83,7 +82,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the case deadline date displayed in the summary is correct for a {string} case")
     public void theCaseDeadlineDateDisplayedInTheSummaryIsCorrectForACaseString(String deadlineDecidingFactor) {
-        summaryTab.assertDeadlineDateOfCase(deadlineDecidingFactor);
+        summaryTab.assertDeadlineDateOfCaseIsCorrect(deadlineDecidingFactor);
     }
 
     @Then("the stage and case deadlines have altered to those for a 10 day SLA")

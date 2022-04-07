@@ -37,6 +37,8 @@ Feature: Deadlines
       | FOI      |
       | TO       |
       | BF       |
+      | BF2      |
+      | POGR     |
 
   @DCURegression
   Scenario: As a DCU User, when I select that the Home Secretary is the Private Office team, I expect the cases deadlines to reflect a 10 day SLA
@@ -62,3 +64,31 @@ Feature: Deadlines
     When I create a "COMP" case for a "Ex-Gratia" complaint and move it to "Ex-Gratia Triage" stage
     And I load the current case
     Then the case deadline date displayed in the summary is correct for a "Ex-Gratia" case
+
+  @ComplaintsRegression1
+  Scenario: As a GRO Complaints user, when I have a Priority complaint, I expect the deadline to be 1 working day
+    When I get a "POGR" case at the "Data Input" stage
+    When I select "GRO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I record that the case is a Priority case
+    Then the case deadline date displayed in the summary is correct for a "Priority GRO complaint" case
+
+  @ComplaintsRegression1
+  Scenario: As a GRO Complaints user, when I have a non-Prioirty complaint that wasnt receive by post, I expect the deadline to be 5 working day
+    When I get a "POGR" case at the "Data Input" stage
+    When I select "GRO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I record that the case was not received by post
+    Then the case deadline date displayed in the summary is correct for a "non-Priority, non-Post GRO complaint" case
+
+  #    Expected failure. Defect HOCS-4917 raised.
+  @ComplaintsRegression1
+  Scenario: As a GRO Complaints user, when I have a non-Prioirty complaint that was receive by post, I expect the deadline stay 10 working day
+    When I get a "POGR" case at the "Data Input" stage
+    When I select "GRO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I record that the case was not received by post
+    Then the case deadline date displayed in the summary is correct for a "non-Priority, Post GRO complaint" case
