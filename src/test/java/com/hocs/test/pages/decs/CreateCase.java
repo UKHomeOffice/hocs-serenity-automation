@@ -39,6 +39,10 @@ public class CreateCase extends BasePage {
 
     LoginPage loginPage;
 
+    Search search;
+
+    String stage1CaseType = "";
+
     // Elements
 
     @FindBy(className = "govuk-radios")
@@ -251,6 +255,14 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
+        if (caseType.equalsIgnoreCase("COMP2")) {
+            this.stage1CaseType = "COMP";
+            escalateAStage1CaseToStage2();
+        }
+        if (caseType.equals("BF2")) {
+            this.stage1CaseType = "BF";
+            escalateAStage1CaseToStage2();
+        }
         if (!caseType.equals("COMP2") && !caseType.equalsIgnoreCase("BF2")) {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
             if (!nextButton.isVisible()) {
@@ -296,7 +308,7 @@ public class CreateCase extends BasePage {
     }
 
     public void createComplaintsCaseOfRandomType() {
-        createCSCaseOfTypeWithoutDocument(getRandomComplaintsCaseType());
+        createCSCaseOfType(getRandomComplaintsCaseType());
     }
 
     public void createMPAMOrMTSCaseOfRandomType() {
@@ -341,6 +353,56 @@ public class CreateCase extends BasePage {
         createCSCaseOfType(caseType);
         mui.withdrawACaseInMUI(getCurrentCaseReference());
         loginPage.navigateToCS();
+    }
+
+    public void escalateAStage1CaseToStage2() {
+        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+            getStage1CaseEligibleForEscalation();
+        }
+        escalateEligibleStage1CaseToStage2();
+        setSessionVariable("caseType").to(stage1CaseType + "2");
+        waitABit(500);
+    }
+
+    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
+        dashboard.selectSearchLinkFromMenuBar();
+        selectStage1CaseTypeSearchCriteriaIfVisible();
+        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        search.clickTheButton("Search");
+        search.waitForResultsPage();
+        return search.checkVisibilityOfEscalationHypertext();
+    }
+
+    private void getStage1CaseEligibleForEscalation() {
+        createAndWithDrawACSCaseOfType(stage1CaseType);
+        dashboard.selectSearchLinkFromMenuBar();
+        selectStage1CaseTypeSearchCriteriaIfVisible();
+        search.searchByCaseReference(getCurrentCaseReference());
+        search.waitForResultsPage();
+        if (search.getNumberOfSearchResults() == 0) {
+            waitABit(5000);
+            dashboard.selectSearchLinkFromMenuBar();
+            selectStage1CaseTypeSearchCriteriaIfVisible();
+            search.searchByCaseReference(getCurrentCaseReference());
+            search.waitForResultsPage();
+        }
+    }
+
+    private void escalateEligibleStage1CaseToStage2() {
+        WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+        String stage1CaseRef = stage1CaseRefField.getText();
+        setSessionVariable("stage1CaseReference").to(stage1CaseRef);
+        System.out.print("Case reference of case being escalated: " + stage1CaseRef + "\n");
+        search.clickEscalateComplaintsCaseToStage2();
+    }
+
+    private void selectStage1CaseTypeSearchCriteriaIfVisible() {
+        if(stage1CaseType.equalsIgnoreCase("COMP")) {
+            checkSpecificCheckbox("Complaint Case");
+        }
+        else if (stage1CaseType.equalsIgnoreCase("BF") && checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
+            checkSpecificCheckbox("Border Force Case");
+        }
     }
 
     public void clearCorrespondentReceivedDateFields() {

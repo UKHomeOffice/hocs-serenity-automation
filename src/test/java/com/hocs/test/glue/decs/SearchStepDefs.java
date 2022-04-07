@@ -296,7 +296,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I search for the complaints case escalated to stage 2 by it's case reference")
     public void iSearchForTheEscalatedComplaintsCaseByCaseReference() {
-        String complaintCaseRef = sessionVariableCalled("stage2CaseReference");
+        String complaintCaseRef = sessionVariableCalled("stage1CaseReference");
         search.enterComplaintsSearchCriteria("Case Reference", complaintCaseRef);
         safeClickOn(searchButton);
         search.waitForResultsPage();
@@ -304,7 +304,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column")
     public void iLoadTheStage2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
-        search.selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(sessionVariableCalled("stage2CaseReference"));
+        search.selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(sessionVariableCalled("stage1CaseReference"));
     }
 
     @And("I search for the case by the newly updated primary correspondent")

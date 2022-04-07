@@ -39,8 +39,6 @@ public class COMPProgressCase extends BasePage {
 
     ComplaintsSend complaintsSend;
 
-    Search search;
-
     String complaintType = "Service";
 
     public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
@@ -49,9 +47,6 @@ public class COMPProgressCase extends BasePage {
         currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            if (caseType.equals("COMP2")) {
-                escalateAStage1CaseToStage2();
-            }
             createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
         } else {
@@ -79,47 +74,6 @@ public class COMPProgressCase extends BasePage {
         } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
             complaintType = "Minor Misconduct";
         }
-    }
-
-    public void escalateAStage1CaseToStage2() {
-        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
-            getStage1CaseEligibleForEscalation();
-        }
-        escalateEligibleStage1CaseToStage2();
-        setSessionVariable("caseType").to("COMP2");
-        waitABit(500);
-    }
-
-    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
-        dashboard.selectSearchLinkFromMenuBar();
-        checkSpecificCheckbox("Complaint Case");
-        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
-        search.clickTheButton("Search");
-        search.waitForResultsPage();
-        return search.checkVisibilityOfEscalationHypertext();
-    }
-
-    private void getStage1CaseEligibleForEscalation() {
-        createCase.createAndWithDrawACSCaseOfType("COMP");
-        dashboard.selectSearchLinkFromMenuBar();
-        checkSpecificCheckbox("Complaint Case");
-        search.searchByCaseReference(getCurrentCaseReference());
-        search.waitForResultsPage();
-        if (search.getNumberOfSearchResults() == 0) {
-            waitABit(5000);
-            dashboard.selectSearchLinkFromMenuBar();
-            checkSpecificCheckbox("Complaint Case");
-            search.searchByCaseReference(getCurrentCaseReference());
-            search.waitForResultsPage();
-        }
-    }
-
-    private void escalateEligibleStage1CaseToStage2() {
-        WebElementFacade compCaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-        String compCaseRef = compCaseRefField.getText();
-        setSessionVariable("stage2CaseReference").to(compCaseRef);
-        System.out.print("Case reference of case being escalated: " + compCaseRef + "\n");
-        search.clickEscalateComplaintsCaseToStage2();
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -270,9 +224,6 @@ public class COMPProgressCase extends BasePage {
     public void generateCOMPSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
-                if (infoValue.equals("COMP2")) {
-                    escalateAStage1CaseToStage2();
-                }
                 createCase.createCSCaseOfType(infoValue);
                 break;
             case "CORRESPONDENT FULL NAME":
