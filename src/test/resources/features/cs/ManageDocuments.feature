@@ -115,7 +115,7 @@ Feature: Manage Documents
       | docType                |
       | Acknowledgement letter |
       | Interim response       |
-      | Final response         |
+      | Final Response         |
 
   @FOIRegression
   Scenario Outline: As a FOI user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
