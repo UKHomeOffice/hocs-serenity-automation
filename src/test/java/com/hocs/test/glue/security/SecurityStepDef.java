@@ -330,5 +330,88 @@ public class SecurityStepDef extends BaseSecurity {
     public String yearOfDate(String date) {
         return date.split("/")[2];
     }
+
+    @And("I create a DCU-Min case for security testing")
+    public void iCreateADCUCaseForSecurityTesting() {
+        findBylinktext("Create Single Case").click();
+        waitABit(500);
+        findByXpath("//label[contains(text(), 'DCU Ministerial')]").click();
+        next();
+        next();
+        waitABit(500);
+        setCaseRef();
+        findById("submit").click();
+        waitABit(500);
+
+        //Data Input
+        allocateToMe();
+        setTodaysDate("DateOfCorrespondence");
+        findById("OriginalChannel-0").click();
+        findById("CopyNumberTen-0").click();
+        findById("HomeSecInterest-1").click();
+        findById("HomeSecReply-1").click();
+        next();
+        findBylinktext("Add a correspondent").click();
+        waitABit(500);
+        findById("isMember-1").click();
+        next();
+
+        select(findById("type")).selectByVisibleText("Constituent");
+        findById("fullname").sendKeys("security_test_constituent");
+        next();
+        next();
+
+        // Markup
+        findAndAllocate();
+        findById("MarkupDecision-0").click();
+        next();
+        findBylinktext("Add a topic").click();
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
+        next();
+        next();
+        next();
+
+        // Initial Draft
+        findAndAllocate();
+        findById("InitialDraftDecision-0").click();
+        next();
+        findById("ResponseChannel-1").click();
+        next();
+        addDocument("DRAFT");
+        next();
+        findById("OfflineQA-1").click();
+        next();
+
+        // QA
+        findAndAllocate();
+        findById("QAResponseDecision-0").click();
+        next();
+
+        // Private Office Approval
+        findAndAllocate();
+        findById("PrivateOfficeDecision-0").click();
+        next();
+
+        // Ministerial Sign off
+        findAndAllocate();
+        findById("MinisterSignOffDecision-0").click();
+        next();
+
+        // Dispatch
+        findAndAllocate();
+        findById("DispatchDecision-0").click();
+        next();
+
+        // Copy To Number 10
+        findAndAllocate();
+        next();
+    }
+
+    private void setTodaysDate(String field) {
+        findById(field + "-day").sendKeys(dayOfDate(getTodaysDate()));
+        findById(field + "-month").sendKeys(monthOfDate((getTodaysDate())));
+        findById(field + "-year").sendKeys(yearOfDate(getTodaysDate()));
+    }
 }
 
