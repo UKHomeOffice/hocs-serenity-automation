@@ -366,7 +366,7 @@ public class SecurityStepDef extends BaseSecurity {
         findById("MarkupDecision-0").click();
         next();
         findBylinktext("Add a topic").click();
-        findByXpath("//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
         findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
         next();
         next();
