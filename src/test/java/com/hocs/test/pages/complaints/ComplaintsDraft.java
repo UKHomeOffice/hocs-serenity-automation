@@ -37,6 +37,9 @@ public class ComplaintsDraft extends BasePage {
     @FindBy(xpath = "//a[text()='Action is required']")
     public WebElementFacade actionIsRequired;
 
+    @FindBy(xpath = "//input[@id='TelephoneResponse_Yes']/following-sibling::label[text()='Yes']")
+    public WebElementFacade resolvedByTelephoneCheckbox;
+
     public void selectActionAtServiceDraft(String action) {
         switch (action.toUpperCase()) {
             case "RESPONSE IS READY TO SEND":
@@ -51,6 +54,25 @@ public class ComplaintsDraft extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        safeClickOn(continueButton);
+    }
+
+    public void selectActionAtPOGRDraft(String action) {
+        switch (action.toUpperCase()) {
+            case "RESPOND BY PHONE":
+                recordCaseData.selectSpecificRadioButton("Respond by Phone");
+                break;
+            case "RETURN TO INVESTIGATION":
+                recordCaseData.selectSpecificRadioButton("Return to Investigation");
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void completePOGRComplaintTelephoneResponseScreen() {
+        safeClickOn(resolvedByTelephoneCheckbox);
+        enterTextIntoTextAreaWithHeading("Case Notes");
         safeClickOn(continueButton);
     }
 

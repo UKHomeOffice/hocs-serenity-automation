@@ -16,6 +16,8 @@ public class POGRProgressCase extends BasePage {
 
     CreateCase createCase;
 
+    ComplaintsDraft complaintsDraft;
+
     Correspondents correspondents;
 
     DataInput dataInput;
@@ -23,6 +25,8 @@ public class POGRProgressCase extends BasePage {
     Dashboard dashboard;
 
     Documents documents;
+
+    Investigation investigation;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -39,22 +43,20 @@ public class POGRProgressCase extends BasePage {
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
         String precedingStage = "";
+        setSessionVariable("targetStage").to(targetStage);
         //Unsure on stage names for POGR workflow, will need updating once new stages are developed
         switch (targetStage.toUpperCase()) {
             case "DATA INPUT":
                 precedingStage = "CREATE NEW CASE";
                 break;
-            case "TRIAGE":
+            case "INVESTIGATION":
                 precedingStage = "DATA INPUT";
                 break;
             case "DRAFT":
-                precedingStage = "TRIAGE";
-                break;
-            case "SEND":
-                precedingStage = "DRAFT";
+                precedingStage = "INVESTIGATION";
                 break;
             case "CASE CLOSED":
-                precedingStage = "SEND";
+                precedingStage = "DRAFT";
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -67,16 +69,13 @@ public class POGRProgressCase extends BasePage {
         //Unsure on stage names for POGR workflow, will need updating once new stages are developed
         switch (stageToComplete.toUpperCase()) {
             case "DATA INPUT":
-                movePOGRCaseFromDataInputToTriage();
+                movePOGRCaseFromDataInputToInvestigation();
                 break;
-            case "TRIAGE":
-                movePOGRCaseFromTriageToDraft();
+            case "INVESTIGATION":
+                movePOGRCaseFromInvestigationToDraft();
                 break;
             case "DRAFT":
-                movePOGRCaseFromDraftToSend();
-                break;
-            case "SEND":
-                movePOGRCaseFromSendToCaseClosed();
+                movePOGRCaseFromDraftToCaseClosed();
                 break;
             default:
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
@@ -86,8 +85,12 @@ public class POGRProgressCase extends BasePage {
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
-    public void movePOGRCaseFromDataInputToTriage() {
-        dataInput.selectBusinessArea();
+    public void movePOGRCaseFromDataInputToInvestigation() {
+        if (sessionVariableCalled("targetStage").toString().equalsIgnoreCase("TRIAGE")) {
+            dataInput.selectBusinessArea();
+        } else {
+            dataInput.selectSpecificBusinessArea("GRO");
+        }
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
@@ -98,21 +101,21 @@ public class POGRProgressCase extends BasePage {
         safeClickOn(continueButton);
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             dataInput.selectInvestigatingTeam();
-            safeClickOn(continueButton);
+            safeClickOn(finishButton);
         }
     }
 
-    //The following methods can be completed once the relevant tickets come through
-
-    public void movePOGRCaseFromTriageToDraft() {
-
+    public void movePOGRCaseFromInvestigationToDraft() {
+        investigation.acceptCaseAtInvestigation();
+        safeClickOn(continueButton);
+        investigation.selectAllInformationCollectedRespondAction();
+        safeClickOn(finishButton);
     }
 
-    public void movePOGRCaseFromDraftToSend() {
-
-    }
-
-    public void movePOGRCaseFromSendToCaseClosed() {
-
+    public void movePOGRCaseFromDraftToCaseClosed() {
+        documents.addADocumentOfDocumentType("Draft");
+        complaintsDraft.selectActionAtPOGRDraft("Respond by Phone");
+        safeClickOn(finishButton);
+        complaintsDraft.completePOGRComplaintTelephoneResponseScreen();
     }
 }
