@@ -61,10 +61,14 @@ Feature: Complaints Workstacks
 #     SMC COMPLAINTS
 
   @ComplaintsRegression2 @IEDETComplaints
-  Scenario: Serious Misconduct complaints user sees the required information when viewing a workstack
+  Scenario Outline: Serious Misconduct complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "SMC_USER"
-    And I enter the "Serious Misconduct" workstack
-    Then the "Serious Misconduct" workstack should contain only the expected columns
+    And I enter the "<workstack>" workstack
+    Then the "<workstack>" workstack should contain only the expected columns
+    Examples:
+      | workstack                   |
+      | Serious Misconduct          |
+      | Serious Misconduct My Cases |
 
 
 #     BF COMPLAINTS
@@ -95,7 +99,7 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "yellow"
     Examples:
-      | caseType | user  | amountOfDays | workstack                      |
+      | caseType | user       | amountOfDays | workstack                      |
       | COMP     | COMP_USER  | 15           | Complaint Registration         |
       | COMP2    | COMP_USER  | 15           | Stage 2 Complaint Registration |
       | IEDET    | IEDET_USER | 15           | IE Detention                   |
@@ -111,7 +115,7 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "red"
     Examples:
-      | caseType | user  | amountOfDays | workstack                      |
+      | caseType | user       | amountOfDays | workstack                      |
       | COMP     | COMP_USER  | 21           | Complaint Registration         |
       | COMP2    | COMP_USER  | 21           | Stage 2 Complaint Registration |
       | IEDET    | IEDET_USER | 21           | IE Detention                   |
