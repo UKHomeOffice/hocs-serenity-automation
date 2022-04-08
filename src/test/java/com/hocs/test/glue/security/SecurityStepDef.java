@@ -331,11 +331,11 @@ public class SecurityStepDef extends BaseSecurity {
         return date.split("/")[2];
     }
 
-    @And("I create a DCU case for security testing")
+    @And("I create a DCU-Min case for security testing")
     public void iCreateADCUCaseForSecurityTesting() {
         findBylinktext("Create Single Case").click();
         waitABit(500);
-        findById("case-type-2").click(); // foi
+        findByXpath("//label[contains(text(), 'DCU Ministerial')]").click();
         next();
         next();
         waitABit(500);
@@ -366,7 +366,7 @@ public class SecurityStepDef extends BaseSecurity {
         findById("MarkupDecision-0").click();
         next();
         findBylinktext("Add a topic").click();
-        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
         findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
         next();
         next();
