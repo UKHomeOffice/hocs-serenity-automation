@@ -215,6 +215,7 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromSendToClosed() {
+        documents.addADocumentOfDocumentType("Final Response");
         complaintsSend.selectACaseOutcome();
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();
