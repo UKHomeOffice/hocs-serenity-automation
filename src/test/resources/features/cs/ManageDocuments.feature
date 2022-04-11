@@ -86,7 +86,6 @@ Feature: Manage Documents
       | DRAFT                 |
       | Appeal Leaflet        |
       | IMB Letter            |
-      | Final Response        |
 
   @ComplaintsRegression2
   Scenario Outline: As a BF user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
