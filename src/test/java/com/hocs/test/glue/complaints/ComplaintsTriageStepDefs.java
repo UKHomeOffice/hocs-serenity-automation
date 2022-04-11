@@ -39,6 +39,8 @@ public class ComplaintsTriageStepDefs extends BasePage {
             complaintsTriage.selectTransferToCCH();
         } else if(transferTo.equals("IE Detention")){
             complaintsTriage.selectTransferToIEDET();
+        } else if(transferTo.equals("PSU")){
+            complaintsTriage.selectTransferToPSU();
         }
     }
 
@@ -147,4 +149,10 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.enterCompletionReason();
         clickTheButton("Complete case");
     }
+
+    @And("I do not accept the case at Triage")
+    public void iDoNotAcceptTheCaseAtTriage() {
+        complaintsTriage.selectTransferComplaint();
+    }
+
 }

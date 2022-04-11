@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class IEDETProgressCase extends BasePage {
@@ -28,6 +29,8 @@ public class IEDETProgressCase extends BasePage {
     ConfirmationScreens confirmationScreens;
 
     CaseView caseView;
+
+    Documents documents;
 
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -121,6 +124,7 @@ public class IEDETProgressCase extends BasePage {
     }
 
     public void moveIEDETCaseFromSendToCaseClosed() {
+        documents.addADocumentOfDocumentType("Final Response");
         complaintsSend.selectACaseOutcome();
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");

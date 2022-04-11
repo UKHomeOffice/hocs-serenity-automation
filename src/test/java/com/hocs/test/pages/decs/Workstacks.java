@@ -476,7 +476,11 @@ public class Workstacks extends BasePage {
     public void assertVisibilityOfCaseReference(boolean trueFalse) {
         String caseReferenceNumber
                 = getCurrentCaseReference();
-        WebElementFacade thisReference = findBy("//a[text()='" + caseReferenceNumber + "']");
+        assertVisibilityOfSpecificCaseReference(trueFalse,caseReferenceNumber);
+    }
+
+    public void assertVisibilityOfSpecificCaseReference(boolean trueFalse, String caseRefNumber) {
+        WebElementFacade thisReference = findBy("//a[text()='" + caseRefNumber + "']");
         assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
@@ -801,10 +805,9 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
                 break;
             case "BORDER FORCE":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date"));
-                break;
             case "BORDER FORCE (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Team", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date",
+                        "Deadline"));
                 break;
             case "BF SEARCH":
                 requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Postcode", "HO Ref", "Escalate Case"));

@@ -385,6 +385,11 @@ public class SummaryTab extends BasePage {
         allocatedTeam.shouldContainText(team);
     }
 
+    public void assertPreviousCaseReferenceIsVisible(String prevCaseRef) {
+        selectSummaryTab();
+        previousCOMPCaseReference.shouldContainText(prevCaseRef);
+    }
+
     public void assertAllocatedMPAMTeam(String stage) {
         if (!allocatedTeam.isVisible()) {
             selectSummaryTab();

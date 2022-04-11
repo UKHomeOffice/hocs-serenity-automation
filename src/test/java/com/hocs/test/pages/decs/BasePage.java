@@ -32,6 +32,8 @@ public class BasePage extends PageObject {
 
     public static String currentPlatform = "";
 
+
+
     public static boolean keepAllCaseData = false;
 
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
@@ -366,6 +368,12 @@ public class BasePage extends PageObject {
 
     public String getCurrentCaseReference() {
         return sessionVariableCalled("caseReference");
+    }
+
+    public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
+        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
+        setSessionVariable("newCaseReference").to(newCaseRef);
+        return sessionVariableCalled("newCaseReference");
     }
 
     public String getCurrentCaseType() {

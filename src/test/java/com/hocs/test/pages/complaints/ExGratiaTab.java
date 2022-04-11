@@ -40,27 +40,27 @@ public class ExGratiaTab extends BasePage {
     }
 
     public void enterAmountRequestedByComplainant(String amount) {
-        enterSpecificTextIntoTextFieldWithHeading(amount, "Amount requested by complainant");
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Amount requested by complainant (GBP)");
         setSessionVariable("amountRequestedByComplainantInput").to(amount);
     }
 
     public void enterAmountRequestedFromBusiness(String amount) {
-        enterSpecificTextIntoTextFieldWithHeading(amount, "Amount requested from business/port");
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Amount requested from business/port (GBP)");
         setSessionVariable("amountRequestedFromBusiness").to(amount);
     }
 
     public void enterConsolatoryPaymentOfferSentToComplainant(String amount) {
-        enterSpecificTextIntoTextFieldWithHeading(amount, "Consolatory payment offer sent to the complainant");
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Consolatory payment offer sent to the complainant (GBP)");
         setSessionVariable("consolatoryPaymentOfferSentToComplainant").to(amount);
     }
 
     public void enterExGratiaPaymentOfferSentToComplainant(String amount) {
-        enterSpecificTextIntoTextFieldWithHeading(amount, "Ex-Gratia payment offer sent to the complainant");
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Ex-Gratia payment offer sent to the complainant (GBP)");
         setSessionVariable("exGratiaPaymentOfferSentToComplainant").to(amount);
     }
 
     public void enterTotalPaymentOfferSentToComplainant(String amount) {
-        enterSpecificTextIntoTextFieldWithHeading(amount, "Total payment offer sent to the complainant");
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Total payment offer sent to the complainant (GBP)");
         setSessionVariable("totalPaymentOfferSentToComplainant").to(amount);
     }
 

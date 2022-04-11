@@ -170,12 +170,6 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertCaseLogWithTitleContainsText("Case Extension", extensionReason);
     }
 
-    @And("an Allocation note should be visible in the timeline showing the details of the allocation")
-    public void aAllocationNoteShouldBeVisibleInTheTimelineShowingTheDetailsOfTheAllocation() {
-        String allocatedTeam = sessionVariableCalled("acceptanceTeam");
-        timelineTab.assertCaseNoteWithTitleContainsText("Allocation note", allocatedTeam);
-    }
-
     @And("an Appeal Created log should be visible in the timeline for the selected appeal type")
     public void anAppealCreatedLogShouldBeVisibleInTheTimelineForTheSelectedAppealType() {
         String appealType = sessionVariableCalled("appealType");
