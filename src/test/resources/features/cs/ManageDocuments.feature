@@ -86,7 +86,20 @@ Feature: Manage Documents
       | DRAFT                 |
       | Appeal Leaflet        |
       | IMB Letter            |
-      | Final Response        |
+
+  @ComplaintsRegression2
+  Scenario Outline: User is able to add a Final Response document to specific complaints cases
+    And I manage the documents of a new "<caseType>" case
+    And I click add documents
+    When I choose the document type "Final Response"
+    And I add a "Final Response" type document to the case
+    Then the "docx" document should be under the "Final Response" header
+    Examples:
+    | caseType  |
+    | COMP      |
+    | COMP2     |
+    | IEDET     |
+#    | SMC       | Remove comment once HOCS-4859 is resolved.
 
   @ComplaintsRegression2
   Scenario Outline: As a BF user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
