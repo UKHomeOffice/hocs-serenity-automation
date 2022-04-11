@@ -12,6 +12,10 @@ public class Investigation extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading("No - close and transfer to external team", "Can your team respond to this complaint?");
     }
 
+    public void enterRejectionReason() {
+        enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
+    }
+
     public void selectAllInformationCollectedRespondAction() {
         selectSpecificRadioButtonFromGroupWithHeading("All information collected - respond", "Actions");
     }

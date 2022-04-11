@@ -15,8 +15,7 @@ Feature: Data Input
     And I enter the date that the letter was sent
     Then the case should be moved to the "Investigating Triage" stage
     And the summary should display the owning team as "HMPO Complaints"
-#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage  Bits of information
-#    missing, doesn't work yet
+#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
   Scenario: User is able to complete the Data Input stage for a POGR case with GRO as the business area
     When I select "GRO" as the business area for the POGR case
@@ -29,4 +28,4 @@ Feature: Data Input
     And I select the investigating team for the case
     Then the case should be moved to the "Investigating Triage" stage
     And the POGR case should be assigned to the investigating team selected at Data Input
-#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage   Same issue as above
+#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
