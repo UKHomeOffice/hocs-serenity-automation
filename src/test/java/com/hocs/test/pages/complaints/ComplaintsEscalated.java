@@ -24,15 +24,11 @@ public class ComplaintsEscalated extends BasePage {
                 if (!bfCase() && !bf2Case()) {
                     recordCaseData.selectSpecificRadioButton("Return case to Triage");
                 } else {
-                    selectSpecificRadioButton("Send to Triage");
+                    selectSpecificRadioButton("Return to triage");
                 }
                 break;
             case "CASE READY FOR DRAFTING":
-                if (!bfCase() && !bf2Case()) {
-                    recordCaseData.selectSpecificRadioButton("Case ready for drafting");
-                } else {
-                    selectSpecificRadioButton("Send to Draft");
-                }
+                recordCaseData.selectSpecificRadioButton("Case ready for drafting");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
