@@ -26,7 +26,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
-        createCase.createCSCaseOfTypeWithoutDocument(caseType);
+        createCase.createCSCaseOfType(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
         documents.selectToManageDocuments();
     }
