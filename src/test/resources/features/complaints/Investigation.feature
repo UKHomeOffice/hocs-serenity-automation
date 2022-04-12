@@ -73,3 +73,18 @@ Feature: Investigation
     And the POGR case should be assigned to the correct investigating team
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
 #     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  Scenario Outline: User can add and complete or cancel contributions for POGR complaint cases as part of the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR" case at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I click the "Continue" button
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<status>"
+    Examples:
+      | contributionType  | action    | status    |
+      | Complainant       | Complete  | Complete  |
+      | Complainant       | Cancel    | Cancelled |
+      | Business          | Complete  | Complete  |
+      | Business          | Cancel    | Cancelled |
