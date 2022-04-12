@@ -804,6 +804,9 @@ public class Workstacks extends BasePage {
             case "SERIOUS MISCONDUCT":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
                 break;
+            case "SERIOUS MISCONDUCT MY CASES":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "PSU Reference", "Current Stage", "Team", "Deadline"));
+                break;
             case "BORDER FORCE":
             case "BORDER FORCE (STAGE 2)":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date",
