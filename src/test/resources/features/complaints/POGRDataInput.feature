@@ -27,5 +27,5 @@ Feature: Data Input
     And I enter the date that the letter was sent
     And I select the investigating team for the case
     Then the case should be moved to the "Investigating Triage" stage
-    And the POGR case should be assigned to the investigating team selected at Data Input
+    And the POGR case should be assigned to the correct investigating team
 #    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage

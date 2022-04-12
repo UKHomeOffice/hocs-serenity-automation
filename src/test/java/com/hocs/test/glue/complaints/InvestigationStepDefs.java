@@ -37,8 +37,18 @@ public class InvestigationStepDefs extends BasePage {
         safeClickOn(finishButton);
     }
 
-    @And("I enter a rejection reason at the Investigation stage")
-    public void iEnterARejectionReasonAtTheInvestigationStage() {
-        investigation.enterRejectionReason();
+    @And("I enter a transfer reason at the Investigation stage")
+    public void iEnterATransferReasonAtTheInvestigationStage() {
+        investigation.enterTransferReason();
+    }
+
+    @And("I select that the case is to be transferred to an {string} team")
+    public void iSelectThatTheCaseIsToBeTransferredToATeam(String internalExternal) {
+        investigation.selectInternalOrExternalTransfer(internalExternal);
+    }
+
+    @And("I select an investigating team")
+    public void iSelectAnInvestigatingTeam() {
+        investigation.selectInvestigatingTeam();
     }
 }
