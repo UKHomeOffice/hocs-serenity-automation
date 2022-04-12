@@ -67,8 +67,7 @@ public class CaseView extends BasePage {
     }
 
     public void allocateToUserByVisibleText(String allocationUser) {
-        safeClickOn(allocateDropdown);
-        allocateDropdown.selectByVisibleText(allocationUser);
+        selectSpecificOptionFromDropdownWithHeading(allocationUser, "Allocate to a team member");
         safeClickOn(allocateButton);
     }
 
