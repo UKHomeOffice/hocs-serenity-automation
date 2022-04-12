@@ -5,7 +5,7 @@ Feature: Data Input
     Given I am logged into "CS" as user "POGR_USER"
     And I get a "POGR" case at the "Data Input" stage
 
-  Scenario: User is able to complete the Data Input stage for a POGR case with HMPO as the business area
+  Scenario: User is able to complete the Data Input stage for a POGR complaint case with HMPO as the business area
     When I select "HMPO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I click the "Continue" button
@@ -17,7 +17,7 @@ Feature: Data Input
     And the summary should display the owning team as "HMPO Complaints"
 #    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
-  Scenario: User is able to complete the Data Input stage for a POGR case with GRO as the business area
+  Scenario: User is able to complete the Data Input stage for a POGR complaint case with GRO as the business area
     When I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I click the "Continue" button

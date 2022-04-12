@@ -246,3 +246,30 @@ Feature: Complaints Draft
     And the summary should display the owning team as "Border Force (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+
+#     POGR COMPLAINTS
+
+  Scenario Outline: User completes the Draft stage for a POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I add a "Draft" type document to the case
+    And I select the "Respond by Phone" action at the Draft stage
+    And I complete the Complaint Telephone Response screen
+    Then the case should be closed
+    And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
+#    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+    | businessArea  |
+    | HMPO          |
+    | GRO           |
+
+  Scenario Outline: User can return a POGR complaint case to the Investigation stage from Draft
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Return to Investigation" action at the Draft stage
+    Then the case should be returned to the "Investigation" stage
+    #    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+  Examples:
+    | businessArea  |
+    | HMPO          |
+    | GRO           |

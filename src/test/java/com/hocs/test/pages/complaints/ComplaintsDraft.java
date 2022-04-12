@@ -40,7 +40,7 @@ public class ComplaintsDraft extends BasePage {
     @FindBy(xpath = "//input[@id='TelephoneResponse_Yes']/following-sibling::label[text()='Yes']")
     public WebElementFacade resolvedByTelephoneCheckbox;
 
-    public void selectActionAtServiceDraft(String action) {
+    public void selectActionAtDraft(String action) {
         switch (action.toUpperCase()) {
             case "RESPONSE IS READY TO SEND":
                 recordCaseData.selectSpecificRadioButton("Response is ready to send");
@@ -51,14 +51,6 @@ public class ComplaintsDraft extends BasePage {
             case "ESCALATE CASE TO WFM":
                 recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
                 break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
-        safeClickOn(continueButton);
-    }
-
-    public void selectActionAtPOGRDraft(String action) {
-        switch (action.toUpperCase()) {
             case "RESPOND BY PHONE":
                 recordCaseData.selectSpecificRadioButton("Respond by Phone");
                 break;
@@ -68,11 +60,17 @@ public class ComplaintsDraft extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
+        if (!pogrCase()) {
+            safeClickOn(continueButton);
+        } else {
+            safeClickOn(finishButton);
+        }
     }
 
     public void completePOGRComplaintTelephoneResponseScreen() {
         safeClickOn(resolvedByTelephoneCheckbox);
-        enterTextIntoTextAreaWithHeading("Case Notes");
+        String phoneCallSummary = enterTextIntoTextAreaWithHeading("Case Notes");
+        setSessionVariable("phoneCallSummary").to(phoneCallSummary);
         safeClickOn(continueButton);
     }
 
