@@ -468,6 +468,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectSMCTeam();
                 }
                 break;
+            case "SERIOUS MISCONDUCT MY CASES":
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
+                    createCase.createCSCaseOfType("SMC");
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
+                    dashboard.goToDashboard();
+                }
+                dashboard.selectMyCases();
+                break;
             case "BORDER FORCE":
                 try {
                     dashboard.selectBFTeam();

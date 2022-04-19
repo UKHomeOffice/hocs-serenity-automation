@@ -11,11 +11,11 @@ Feature: Ex-Gratia Tab
     And I select the Ex-Gratia tab
     And I select the update Ex-Gratia details hypertext
     And I select the "Consolatory" payment type checkbox
-    And I enter "£1000" into the amount requested by the complainant field
-    And I enter "£900" into the amount requested from business or port field
-    And I enter "£800" into the consolatory payment offer sent to the complainant field
-    And I enter "£700" into the Ex-Gratia payment offer sent to the complainant field
-    And I enter "£600" into the total payment offer sent to the complainant field
+    And I enter "1000.00" into the amount requested by the complainant field
+    And I enter "900.00" into the amount requested from business or port field
+    And I enter "800.00" into the consolatory payment offer sent to the complainant field
+    And I enter "700.00" into the Ex-Gratia payment offer sent to the complainant field
+    And I enter "600.00" into the total payment offer sent to the complainant field
     And I select that the complainant has accepted the offer
     And I click the "Submit" button
     Then the Ex-Gratia tab summary should contain the correct values
@@ -36,11 +36,11 @@ Feature: Ex-Gratia Tab
     And I select the Ex-Gratia tab
     And I select the update Ex-Gratia details hypertext
     And I select the "Consolatory" payment type checkbox
-    And I enter "£1000" into the amount requested by the complainant field
-    And I enter "£900" into the amount requested from business or port field
-    And I enter "£800" into the consolatory payment offer sent to the complainant field
-    And I enter "£700" into the Ex-Gratia payment offer sent to the complainant field
-    And I enter "£600" into the total payment offer sent to the complainant field
+    And I enter "1000.00" into the amount requested by the complainant field
+    And I enter "900.00" into the amount requested from business or port field
+    And I enter "800.00" into the consolatory payment offer sent to the complainant field
+    And I enter "700.00" into the Ex-Gratia payment offer sent to the complainant field
+    And I enter "600.00" into the total payment offer sent to the complainant field
     And I select that the complainant has accepted the offer
     And I click the "Submit" button
     Then the Ex-Gratia tab summary should contain the correct values

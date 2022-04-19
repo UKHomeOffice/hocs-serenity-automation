@@ -206,15 +206,15 @@ public class COMPProgressCase extends BasePage {
 
     public void moveCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("DRAFT");
-        complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
+        complaintsDraft.selectActionAtDraft("Send Case to QA");
     }
-
 
     public void moveCaseFromQAToSend() {
         compQA.selectActionAtServiceQA("ACCEPT");
     }
 
     public void moveCaseFromSendToClosed() {
+        documents.addADocumentOfDocumentType("Final Response");
         complaintsSend.selectACaseOutcome();
         complaintsSend.selectAResponseChannel();
         complaintsSend.enterADateOfResponse();

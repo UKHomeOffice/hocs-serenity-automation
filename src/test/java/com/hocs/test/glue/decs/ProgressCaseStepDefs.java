@@ -79,7 +79,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             case "POGR":
-                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, null);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -122,7 +122,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "POGR":
-                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage, null);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -191,6 +191,12 @@ public class ProgressCaseStepDefs extends BasePage {
     @And("I get a Treat Official case at the {string} stage that has Home Secretary Interest")
     public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String stage) {
         toProgressCase.createCaseAndMoveItToTargetStageWithHomeSecInterestSetToYes(stage);
+        dashboard.getAndClaimCurrentCase();
+    }
+
+    @And("I get a POGR case with {string} as the Business Area at the {string} stage")
+    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
+        pogrProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", stage, businessArea);
         dashboard.getAndClaimCurrentCase();
     }
 }

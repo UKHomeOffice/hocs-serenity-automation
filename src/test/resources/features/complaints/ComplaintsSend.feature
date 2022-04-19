@@ -9,6 +9,7 @@ Feature: Complaints Send
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Send" stage
     And I load the current case
+    And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
@@ -19,6 +20,7 @@ Feature: Complaints Send
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Send" stage
     And I load the current case
+    And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
@@ -29,6 +31,7 @@ Feature: Complaints Send
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Send" stage
     And I load the current case
+    And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
@@ -54,6 +57,7 @@ Feature: Complaints Send
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Send" stage
     And I load the current case
+    And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
@@ -67,6 +71,7 @@ Feature: Complaints Send
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage
     And I load the current case
+    And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
