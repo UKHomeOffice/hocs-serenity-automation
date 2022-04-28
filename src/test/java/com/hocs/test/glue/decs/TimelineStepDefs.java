@@ -239,4 +239,9 @@ public class TimelineStepDefs extends BasePage {
         String reallocationReason = sessionVariableCalled("reallocationReason");
         timelineTab.assertCaseNoteWithTitleContainsText("Case transfer reason", reallocationReason);
     }
+
+    @And("a Case Suspension Applied log should be visible in the timeline")
+    public void aCaseSuspensionAppliedLogShouldBeVisibleInTheTimeline() {
+        timelineTab.assertCaseLogWithTitleIsVisible("Case Suspension Applied");
+    }
 }

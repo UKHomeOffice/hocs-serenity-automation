@@ -160,4 +160,44 @@ public class ActionsTab extends BasePage {
         WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a");
         safeClickOn(updateLink);
     }
+
+    // Suspend Case
+
+    public void suspendTheCase() {
+        clickTheLink("Suspend this case");
+        waitForPageWithTitle("Case Suspension");
+        clickTheButton("Suspend case");
+    }
+
+    public void assertDetailsOfSuspensionVisible() {
+        String expectedDetailsOfSuspension = "Date current suspension applied: " + getTodaysDate() + ".";
+        String displayedDetailsOfSuspension = findBy("//h2[text()='Case Currently Suspended']/following-sibling::p").getText();
+        if (!displayedDetailsOfSuspension.equals(expectedDetailsOfSuspension)) {
+            Assert.fail("Expected details of suspension to be '" + expectedDetailsOfSuspension + "' but displayed details of suspension were '" + displayedDetailsOfSuspension + "'");
+        }
+    }
+
+    public void removeSuspensionFromTheCase() {
+        clickTheLink("Remove the current suspension");
+        waitForPageWithTitle("Remove Suspension");
+        clickTheButton("Remove case suspension");
+    }
+
+    public void assertPreviousSuspensionCountVisible() {
+        String expectedDetailsOfSuspensionCount = "This case has previously been suspended 1 time.";
+        String displayedDetailsOfSuspensionCount = findBy("//h3[text()='Case Suspension History']/following-sibling::p[1]").getText();
+        if (!displayedDetailsOfSuspensionCount.equals(expectedDetailsOfSuspensionCount)) {
+            Assert.fail("Expected details of suspension count to be '" + expectedDetailsOfSuspensionCount + "' but displayed details of "
+                    + "suspension count were '" + displayedDetailsOfSuspensionCount + "'");
+        }
+    }
+
+    public void assertDetailsOfPreviousSuspensionVisible() {
+        String expectedDetailsOfPreviousSuspension = "From: " + getTodaysDate() + ", until: " + getTodaysDate();
+        String displayedDetailsOfPreviousSuspension = findBy("//h3[text()='Case Suspension History']/following-sibling::p[2]").getText();
+        if (!displayedDetailsOfPreviousSuspension.equals(expectedDetailsOfPreviousSuspension)) {
+            Assert.fail("Expected details of previous suspension to be '" + expectedDetailsOfPreviousSuspension + "' but displayed details of "
+                    + "previous suspension were '" + displayedDetailsOfPreviousSuspension + "'");
+        }
+    }
 }

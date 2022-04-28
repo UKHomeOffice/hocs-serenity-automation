@@ -282,4 +282,9 @@ public class SummaryTabStepDefs extends BasePage {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("responsibleTeam"), "Responsible Team");
         }
     }
+
+    @And("the deadline of the case should be replaced with (the word ){string} in the Summary tab")
+    public void theDeadlineOfTheCaseShouldBeReplacedWithTheWordInTheSummaryTab(String replacementValue) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(replacementValue, "Deadline");
+    }
 }
