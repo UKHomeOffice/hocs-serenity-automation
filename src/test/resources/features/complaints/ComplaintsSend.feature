@@ -83,6 +83,7 @@ Feature: Complaints Send
   Scenario: User can complete the Send stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I get a "SMC" case at the "Send" stage
+    And I add a "Final Response" type document to the case
     And I select a Case Outcome
     And I submit the SMC Send stage
     Then the case should be closed
