@@ -324,3 +324,26 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Case Closed" stage
     Then the case should be closed
+
+
+#     POGR COMPLAINTS
+
+  Scenario: User creates a POGR complaint case and it should be at the Data Input stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "Data Input" stage
+    Then the case should be moved to the "Data Input" stage
+
+  Scenario: User moves a POGR complaint case to the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "Investigation" stage
+    Then the case should be moved to the "Investigation" stage
+
+  Scenario: User moves a POGR complaint case to the Draft stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "Draft" stage
+    Then the case should be moved to the "Draft" stage
+
+  Scenario: User is able to close a POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "Case Closed" stage
+    Then the case should be closed

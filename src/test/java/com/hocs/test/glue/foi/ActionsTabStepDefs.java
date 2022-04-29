@@ -172,4 +172,42 @@ public class ActionsTabStepDefs extends BasePage {
         actionsTab.selectASpecificInterestedParty(sessionVariableCalled("interestedPartyName"));
 
     }
+
+    @When("I suspend the case")
+    public void iSuspendTheCase() {
+        actionsTab.suspendTheCase();
+    }
+
+    @Then("I should see a confirmation message stating that the case has been suspended")
+    public void iShouldSeeAConfirmationMessageStatingThatTheCaseHasBeenSuspended() {
+        confirmationScreens.assertCaseSuspendedConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("the details of the current suspension should be visible in the actions tab")
+    public void theDetailsOfTheCurrentSuspensionShouldBeVisibleInTheActionsTab() {
+        actionsTab.assertDetailsOfSuspensionVisible();
+    }
+
+    @And("I return to the case from the confirmation screen")
+    public void iReturnToTheCaseFromTheConfirmationScreen() {
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("I remove the suspension from the case")
+    public void iRemoveTheSuspensionFromTheCase() {
+        actionsTab.removeSuspensionFromTheCase();
+    }
+
+    @Then("I should see a confirmation message stating that the suspension has been removed from the case")
+    public void iShouldSeeAConfirmationMessageStatingThatTheSuspensionHasBeenRemovedFromTheCase() {
+        confirmationScreens.assertCaseSuspensionRemovedConfirmationDisplayed();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("the details of the previous suspension should be visible in the actions tab")
+    public void theDetailsOfThePreviousSuspensionShouldBeVisibleInTheActionsTab() {
+        actionsTab.assertPreviousSuspensionCountVisible();
+        actionsTab.assertDetailsOfPreviousSuspensionVisible();
+    }
 }

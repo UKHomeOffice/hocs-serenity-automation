@@ -66,4 +66,14 @@ public class ConfirmationScreens extends BasePage {
         panelBody.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         panelBody.shouldContainText("External Interest for " + getCurrentCaseReference() + " updated");
     }
+
+    public void assertCaseSuspendedConfirmationDisplayed() {
+        panelBody.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelBody.shouldContainText("Case " + getCurrentCaseReference() + " has been suspended");
+    }
+
+    public void assertCaseSuspensionRemovedConfirmationDisplayed() {
+        panelBody.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelBody.shouldContainText("Suspension for case " + getCurrentCaseReference() + " has been removed");
+    }
 }

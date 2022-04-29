@@ -166,6 +166,19 @@ Feature: Manage Documents
       | Contribution Response  |
       | Background Note        |
 
+  @ComplaintsRegression2
+  Scenario Outline: As a POGR user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
+    And I manage the documents of a new "POGR" case
+    And I click add documents
+    When I choose the document type "<docType>"
+    And I add a "<docType>" type document to the case
+    Then the "docx" document should be under the "<docType>" header
+    Examples:
+      | docType            |
+      | Original Complaint |
+      | Interim Letter     |
+      | Draft              |
+
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake
     And I manage the documents of a new case

@@ -168,7 +168,7 @@ public class SummaryTab extends BasePage {
         String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate,
                 sessionVariableCalled("caseType"));
         if (!displayedDeadline.equals(expectedDeadline)) {
-            Assert.fail("Displayed deadline did not match deadline calculated for this case type.\nExpected deadline was: " + expectedDeadline +
+            Assert.fail("Displayed deadline did not match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
                     "\nDisplayed deadline was: " + displayedDeadline);
         }
     }
@@ -182,38 +182,46 @@ public class SummaryTab extends BasePage {
         assertThat(input.toUpperCase().equals(displayedCampaign), is(true));
     }
 
-    public void assertDeadlineDateOfCase(String deadlineDecidingFactor) {
-        int expectedNumberOfWorkdaysTillDeadline = 0;
+    public void assertDeadlineDateOfCaseIsCorrect(String deadlineDecidingFactor) {
         String displayedDeadline = getSummaryTabValueForGivenHeader("Deadline");
-        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
-        switch (deadlineDecidingFactor.toUpperCase()) {
-            case "HOME SECRETARY SIGN-OFF":
-                expectedNumberOfWorkdaysTillDeadline = 10;
-                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
-                break;
-            case "MIN":
-            case "TRO":
-            case "MPAM":
-            case "MTS":
-            case "COMP":
-            case "COMP2":
-            case "IEDET":
-            case "FOI":
-            case "BF":
-            case "TO":
-                expectedNumberOfWorkdaysTillDeadline = 20;
-                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
-                break;
-            case "EX-GRATIA":
-            case "SMC":
-                expectedNumberOfWorkdaysTillDeadline = 60;
-                assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
-                break;
-            case "DTEN":
-                assertThat(displayedDeadline.equalsIgnoreCase(sessionVariableCalled("dtenDispatchDeadline")), is(true));
-                break;
-            default:
-                pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
+        if (deadlineDecidingFactor.equalsIgnoreCase("DTEN")) {
+            assertThat(displayedDeadline.equalsIgnoreCase(sessionVariableCalled("dtenDispatchDeadline")), is(true));
+        } else {
+            int expectedNumberOfWorkdaysTillDeadline = 0;
+            String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+            switch (deadlineDecidingFactor.toUpperCase()) {
+                case "PRIORITY GRO COMPLAINT":
+                    expectedNumberOfWorkdaysTillDeadline = 1;
+                    break;
+                case "NON-PRIORITY, NON-POST GRO COMPLAINT":
+                    expectedNumberOfWorkdaysTillDeadline = 5;
+                    break;
+                case "HOME SECRETARY SIGN-OFF":
+                case "POGR":
+                case "NON-PRIORITY, POST GRO COMPLAINT":
+                    expectedNumberOfWorkdaysTillDeadline = 10;
+                    break;
+                case "MIN":
+                case "TRO":
+                case "MPAM":
+                case "MTS":
+                case "COMP":
+                case "COMP2":
+                case "IEDET":
+                case "FOI":
+                case "BF":
+                case "BF2":
+                case "TO":
+                    expectedNumberOfWorkdaysTillDeadline = 20;
+                    break;
+                case "EX-GRATIA":
+                case "SMC":
+                    expectedNumberOfWorkdaysTillDeadline = 60;
+                    break;
+                default:
+                    pendingStep(deadlineDecidingFactor + " is not defined within " + getMethodName());
+            }
+            assertDisplayedDeadlineMatchesCalculatedDeadline(displayedDeadline, correspondenceReceivedDate, expectedNumberOfWorkdaysTillDeadline);
         }
     }
 

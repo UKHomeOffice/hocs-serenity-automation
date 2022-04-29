@@ -81,6 +81,9 @@ public class CreateCase extends BasePage {
     @FindBy(xpath = "//label[text()='Treat Official']")
     public WebElementFacade treatOfficialRadioButton;
 
+    @FindBy(xpath = "//label[text()='HMPO/GRO Complaint Case']")
+    public WebElementFacade pogrRadioButton;
+
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
 
@@ -179,6 +182,10 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("Border Force Case");
     }
 
+    private void clickPogrRadioButton() {
+        safeClickOn(pogrRadioButton);
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -222,6 +229,9 @@ public class CreateCase extends BasePage {
             case "TO":
                 clickToRadioButton();
                 break;
+            case "POGR":
+                clickPogrRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
@@ -229,7 +239,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomCSCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "TO", "BF");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "TO", "BF", "POGR");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -239,7 +249,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomComplaintsCaseType() {
-        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET");
+        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET", "BF", "POGR");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -466,6 +476,11 @@ public class CreateCase extends BasePage {
                 break;
             case "TO_USER":
                 if (treatOfficialRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "POGR_USER":
+                if (pogrRadioButton.isVisible()) {
                     correctUser = true;
                 }
                 break;

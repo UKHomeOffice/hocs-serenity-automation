@@ -8,6 +8,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
+import com.hocs.test.pages.complaints.POGRProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
@@ -44,6 +45,8 @@ public class ProgressCaseStepDefs extends BasePage {
 
     TOProgressCase toProgressCase;
 
+    POGRProgressCase pogrProgressCase;
+
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
         String caseType = sessionVariableCalled("caseType");
@@ -74,6 +77,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "TO":
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
+                break;
+            case "POGR":
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, null);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -114,6 +120,9 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "TO":
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+                break;
+            case "POGR":
+                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage, null);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -182,6 +191,12 @@ public class ProgressCaseStepDefs extends BasePage {
     @And("I get a Treat Official case at the {string} stage that has Home Secretary Interest")
     public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String stage) {
         toProgressCase.createCaseAndMoveItToTargetStageWithHomeSecInterestSetToYes(stage);
+        dashboard.getAndClaimCurrentCase();
+    }
+
+    @And("I get a POGR case with {string} as the Business Area at the {string} stage")
+    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
+        pogrProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", stage, businessArea);
         dashboard.getAndClaimCurrentCase();
     }
 }

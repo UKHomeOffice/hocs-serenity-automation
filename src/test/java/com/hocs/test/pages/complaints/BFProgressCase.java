@@ -158,7 +158,7 @@ public class BFProgressCase extends BasePage {
 
     public void moveBFCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("DRAFT");
-        complaintsDraft.selectActionAtServiceDraft("Send Case to QA");
+        complaintsDraft.selectActionAtDraft("Send Case to QA");
         System.out.println("Case moved from Draft to QA");
     }
 
