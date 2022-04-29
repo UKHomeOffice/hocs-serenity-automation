@@ -1,14 +1,19 @@
 package com.hocs.test.pages.decs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -89,7 +94,8 @@ public class Documents extends BasePage {
     }
 
     public void selectADocumentType() {
-        selectRandomOptionFromDropdownWithHeading("Document type");
+        String selectedDocumentType = selectRandomOptionFromDropdownWithHeading("Document type");
+        setSessionVariable("documentType").to(selectedDocumentType);
     }
 
     public void uploadDocumentOfSize(int fileSize) {
@@ -306,5 +312,66 @@ public class Documents extends BasePage {
 
     public void selectToManageDocuments() {
         safeClickOn(manageDocumentsLink);
+    }
+
+    public void assertExpectedDocumentTypesPresent(String caseType) {
+        List<String> availableDocumentTypes = getSelectableOptionsFromDropdownWithHeading("Document type");
+        List<String> requiredDocumentTypes = new ArrayList<>();
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+            case "TRO":
+            case "DTEN":
+                requiredDocumentTypes.addAll(Arrays.asList("ORIGINAL", "DRAFT", "FINAL", "CONTRIBUTION", "BACKGROUND NOTE"));
+                break;
+            case "MPAM":
+                requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
+                        + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response", "Additional correspondence (Holding Replies)"));
+                break;
+            case "MTS":
+                requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
+                        + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response"));
+                break;
+            case "COMP":
+            case "COMP2":
+            case "SMC":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
+                break;
+            case "IEDET":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response", "Acknowledgement letter", "Interim response"));
+                break;
+            case "BF":
+            case "BF2":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT"));
+                break;
+            case "TO":
+                requiredDocumentTypes.addAll(Arrays.asList("Initial Correspondence", "Initial Draft", "Final Response", "Contribution Request", "Contribution Response"
+                        , "Background Note"));
+                break;
+            case "FOI":
+                requiredDocumentTypes.addAll(Arrays.asList("Request", "Initial response", "Draft response", "Clearances", "Final responses"
+                        , "Correspondence", "Contribution", "Miscellaneous", "Appeal Response"));
+                break;
+            case "POGR":
+                requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft"));
+                break;
+            case "FOI TEAM":
+                requiredDocumentTypes.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
+                        "Extended"));
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        for (String requiredDocumentType : requiredDocumentTypes) {
+            if (!availableDocumentTypes.contains(requiredDocumentType)) {
+                Assert.fail("'" + requiredDocumentType + "' Document Type is not available for a " + caseType + " case");
+            }
+            availableDocumentTypes.remove(requiredDocumentType);
+        }
+        if (!availableDocumentTypes.isEmpty()) {
+            Assert.fail("Unexpected document type/s: '" + availableDocumentTypes.toString() + "' were present for a" + caseType + " case");
+        }
     }
 }
