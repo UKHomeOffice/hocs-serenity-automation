@@ -152,7 +152,12 @@ public class ComplaintsTriageStepDefs extends BasePage {
 
     @And("I do not accept the case at Triage")
     public void iDoNotAcceptTheCaseAtTriage() {
-        complaintsTriage.selectTransferComplaint();
+        complaintsTriage.selectTransferOfflineAndCloseTheCase();
     }
 
+    @And("I enter reason for Triage transfer and close the case")
+    public void iEnterReasonForTriageTransferAndCloseTheCase() {
+        complaintsTriage.enterTransferReason();
+        clickTheButton("Close Case");
+    }
 }
