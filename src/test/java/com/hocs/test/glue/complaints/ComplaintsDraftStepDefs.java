@@ -10,14 +10,19 @@ public class ComplaintsDraftStepDefs extends BasePage {
     ComplaintsDraft complaintsDraft;
 
     @And("I select the {string} action at the (Service )Draft stage")
-    public void iSendTheCaseToQA(String action) {
-        complaintsDraft.selectActionAtServiceDraft(action);
+    public void iSelectTheActionAtTheDraftStage(String action) {
+        complaintsDraft.selectActionAtDraft(action);
     }
 
     @And("I escalate the case to WFM at( Service) Draft stage")
     public void iEscalateTheCaseToWFMAtServiceDraftStage() {
-        complaintsDraft.selectActionAtServiceDraft("Escalate case to WFM");
+        complaintsDraft.selectActionAtDraft("Escalate case to WFM");
         complaintsDraft.submitEscalationReason();
+    }
+
+    @And("I complete the Complaint Telephone Response screen")
+    public void iCompleteTheComplaintTelephoneResponseScreen() {
+        complaintsDraft.completePOGRComplaintTelephoneResponseScreen();
     }
 
     @Then("an error message is displayed as I have not uploaded a document")

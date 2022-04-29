@@ -113,6 +113,12 @@ public class TimelineStepDefs extends BasePage {
         String rejectionReason = sessionVariableCalled("rejectionReason");
         timelineTab.assertCaseNoteWithTitleContainsText("Rejection note", rejectionReason);
     }
+  
+    @And("a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call")
+    public void aPhoneCallSummaryNoteShouldBeVisibleInTheTimelineContainingTheDetailsOfThePhoneCall() {
+        String phoneCallSummary = sessionVariableCalled("phoneCallSummary");
+        timelineTab.assertCaseNoteWithTitleContainsText("Phone call summary", phoneCallSummary);
+    }
 
     @And("an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation")
     public void anEscalationNoteShouldBeVisibleInTheTimelineShowingTheReasonForTheCasesEscalation() {
@@ -238,5 +244,10 @@ public class TimelineStepDefs extends BasePage {
     public void aCaseTransferReasonNoteIsVisibleInTheTimelineShowingTheReasonForReallocation() {
         String reallocationReason = sessionVariableCalled("reallocationReason");
         timelineTab.assertCaseNoteWithTitleContainsText("Case transfer reason", reallocationReason);
+    }
+
+    @And("a Case Suspension Applied log should be visible in the timeline")
+    public void aCaseSuspensionAppliedLogShouldBeVisibleInTheTimeline() {
+        timelineTab.assertCaseLogWithTitleIsVisible("Case Suspension Applied");
     }
 }

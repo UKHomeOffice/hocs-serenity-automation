@@ -638,4 +638,18 @@ public class WorkstacksStepDefs extends BasePage {
     public void transferredCaseAppearsInWorkStack(String newCaseType) {
         workstacks.assertVisibilityOfSpecificCaseReference(true,getCurrentCaseReferenceFromTransferredCase(newCaseType));
     }
+
+    @And("the deadline of the case should be replaced with (the word ){string} in the {string} workstack")
+    public void theDeadlineOfTheCaseShouldBeReplacedWithTheWordInTheWorkstack(String replacementValue, String teamName) {
+        dashboard.goToDashboard();
+        dashboard.selectWorkstackByTeamName(teamName);
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", replacementValue);
+    }
+
+    @And("the deadline of the case should be replaced with (the word ){string} in the My Cases workstack")
+    public void theDeadlineOfTheCaseShouldBeReplacedWithTheWordInTheMyCasesWorkstack(String replacementValue) {
+        dashboard.goToDashboard();
+        dashboard.selectMyCases();
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", replacementValue);
+    }
 }

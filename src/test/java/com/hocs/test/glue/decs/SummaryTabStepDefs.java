@@ -3,7 +3,6 @@ package com.hocs.test.glue.decs;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -83,7 +82,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the case deadline date displayed in the summary is correct for a {string} case")
     public void theCaseDeadlineDateDisplayedInTheSummaryIsCorrectForACaseString(String deadlineDecidingFactor) {
-        summaryTab.assertDeadlineDateOfCase(deadlineDecidingFactor);
+        summaryTab.assertDeadlineDateOfCaseIsCorrect(deadlineDecidingFactor);
     }
 
     @Then("the stage and case deadlines have altered to those for a 10 day SLA")
@@ -127,6 +126,12 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the summary should display the owning team as {string}")
     public void theSummaryShouldDisplayTheOwningTeamAs(String teamName) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
+    @And("the POGR case should be assigned to the correct investigating team")
+    public void thePOGRCaseShouldBeAssignedToTheInvestigatingTeamSelectedAtDataInput() {
+        String teamName = sessionVariableCalled("investigatingTeam");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
@@ -271,5 +276,10 @@ public class SummaryTabStepDefs extends BasePage {
         if (!sessionVariableCalled("foiGroup").equals("FOI UK Visas and Immigration")) {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("responsibleTeam"), "Responsible Team");
         }
+    }
+
+    @And("the deadline of the case should be replaced with (the word ){string} in the Summary tab")
+    public void theDeadlineOfTheCaseShouldBeReplacedWithTheWordInTheSummaryTab(String replacementValue) {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(replacementValue, "Deadline");
     }
 }
