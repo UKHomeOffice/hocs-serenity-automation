@@ -264,11 +264,6 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 
-    @And("the summary should contain the old case reference")
-    public void theSummaryShouldContainTheOldCaseReference() {
-        summaryTab.assertPreviousCaseReferenceIsVisible(getCurrentCaseReference());
-    }
-
     @Then("the Requested Question should be displayed in the summary tab")
     public void theRequestedQuestionShouldBeDisplayedInTheSummaryTab() {
         waitABit(500);

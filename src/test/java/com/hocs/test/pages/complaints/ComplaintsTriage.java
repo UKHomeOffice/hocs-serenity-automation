@@ -105,6 +105,11 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
     }
 
+    public void selectTransferOfflineAndCloseTheCase() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case", "Can your team respond to this complaint?");
+        clickTheButton("Continue");
+    }
+
     public void selectTransferComplaint() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
         clickTheButton("Continue");
