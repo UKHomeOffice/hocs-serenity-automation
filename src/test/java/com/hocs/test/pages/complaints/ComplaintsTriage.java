@@ -105,6 +105,11 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
     }
 
+    public void selectTransferOfflineAndCloseTheCase() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case", "Can your team respond to this complaint?");
+        clickTheButton("Continue");
+    }
+
     public void selectTransferComplaint() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
         clickTheButton("Continue");
@@ -180,8 +185,10 @@ public class ComplaintsTriage extends BasePage {
         if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
-
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        if (iedetCase() && businessArea.equalsIgnoreCase("OTHER")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Other Business Area");
+        }
         if (!iedetCase()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
         }
