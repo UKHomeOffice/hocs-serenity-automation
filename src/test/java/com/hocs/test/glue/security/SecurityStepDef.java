@@ -46,25 +46,25 @@ public class SecurityStepDef extends BaseSecurity {
         setCurrentUser(targetUser);
     }
 
-//    @And("I wait for Passive Scan to complete")
-//    public void iWaitForPassiveScanToComplete() throws ClientApiException {
-//        waitForPassiveScanToComplete();
-//        checkRiskCount(BASE_URL);
-//    }
-//
-//    @After(value = "@security", order = 1)
-//    public void tidyUp() throws ClientApiException, IOException {
-//        waitForPassiveScanToComplete();
-//        checkRiskCount(BASE_URL);
-//        getDriver().quit();
-//        byte[] bytes = clientApi.core.htmlreport();
-//        String str = new String(bytes, StandardCharsets.UTF_8);
-//        File newTextFile = new File(securityTestReportPath);
-//        try (FileWriter fw = new FileWriter(newTextFile)) {
-//            fw.write(str);
-//        }
-//
-//    }
+    @And("I wait for Passive Scan to complete")
+    public void iWaitForPassiveScanToComplete() throws ClientApiException {
+        waitForPassiveScanToComplete();
+        checkRiskCount(BASE_URL);
+    }
+
+    @After(value = "@security", order = 1)
+    public void tidyUp() throws ClientApiException, IOException {
+        waitForPassiveScanToComplete();
+        checkRiskCount(BASE_URL);
+        getDriver().quit();
+        byte[] bytes = clientApi.core.htmlreport();
+        String str = new String(bytes, StandardCharsets.UTF_8);
+        File newTextFile = new File(securityTestReportPath);
+        try (FileWriter fw = new FileWriter(newTextFile)) {
+            fw.write(str);
+        }
+
+    }
 
     @And("I create a {string} case for security testing")
     public void iCreateACaseForSecurityTesting(String arg0) {
