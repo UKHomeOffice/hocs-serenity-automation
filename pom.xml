@@ -101,7 +101,7 @@
       <groupId>org.zaproxy</groupId>
       <artifactId>zap-clientapi</artifactId>
       <version>1.9.0</version>
-    </dependency>smoke
+    </dependency>
     <dependency>
       <groupId>org.zaproxy</groupId>
       <artifactId>zap</artifactId>
