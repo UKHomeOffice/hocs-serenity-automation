@@ -9,8 +9,7 @@ Feature: Manage Documents
   so I can complete my work
     And I manage the documents of a new case
     And I add a "<fileType>" type file to the case as a document
-    Then I can see the "<fileType>" file in the uploaded document list
-    And the "<fileType>" document should be selected to be displayed in the preview pane
+    Then the document should be listed under the expected Document Type header
     When I remove the "<fileType>" document
     Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:
@@ -27,157 +26,26 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @DCURegression
-  Scenario Outline: As a DCU user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new DCU case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I upload a file of type "docx"
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType         |
-      | ORIGINAL        |
-      | DRAFT           |
-      | FINAL           |
-      | CONTRIBUTION    |
-      | BACKGROUND NOTE |
-
-  @MPAMRegression2
-  Scenario Outline: As a MPAM/MTS user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new MPAM or MTS case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I upload a file of type "docx"
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType                                |
-      | Original correspondence                |
-      | Further correspondence from MPs Office |
-      | Contributions requested                |
-      | Contributions received                 |
-      | Draft response (includes QA rejected)  |
-      | Background note                        |
-      | Final response                         |
-
-  @MPAMRegression2
-  Scenario Outline: As an MPAM User, I want to be able to select from additional document types, so the document can be easily identified later
-    When I manage the documents of a new "MPAM" case
-    And I add an "<docType>" type document to the case
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType                                     |
-      | Additional correspondence (Holding Replies) |
-
-  @ComplaintsRegression2
-  Scenario Outline: As a Complaints user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new Complaints case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I add a "<docType>" type document to the case
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType               |
-      | To document           |
-      | Public correspondence |
-      | Complaint leaflet     |
-      | Complaint letter      |
-      | Email                 |
-      | CRF                   |
-      | DRAFT                 |
-      | Appeal Leaflet        |
-      | IMB Letter            |
-
-  @ComplaintsRegression2
-  Scenario Outline: User is able to add a Final Response document to specific complaints cases
+  @CSRegression
+  Scenario Outline: As a DECS user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new "<caseType>" case
-    And I click add documents
-    When I choose the document type "Final Response"
-    And I add a "Final Response" type document to the case
-    Then the "docx" document should be under the "Final Response" header
+    When I click add documents
+    Then I should see a dropdown containing the expected Document Types for the case I am working on
     Examples:
-    | caseType  |
-    | COMP      |
-    | COMP2     |
-    | IEDET     |
-    | SMC       |
-
-  @ComplaintsRegression2
-  Scenario Outline: As a BF user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new "BF" case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I add a "<docType>" type document to the case
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType               |
-      | To document           |
-      | Public correspondence |
-      | Complaint leaflet     |
-      | Complaint letter      |
-      | Email                 |
-      | CRF                   |
-      | DRAFT                 |
-
-  #HOCS-3661
-  @ComplaintsRegression2
-  Scenario Outline: As an IEDET User, I want to be able to select from additional document types, so the document can be easily identified later
-    When I manage the documents of a new "IEDET" case
-    And I add a "<docType>" type document to the case
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType                |
-      | Acknowledgement letter |
-      | Interim response       |
-      | Final Response         |
-
-  @FOIRegression
-  Scenario Outline: As a FOI user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new "FOI" case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I upload a file of type "docx"
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType          |
-      | Request          |
-      | Initial response |
-      | Draft response   |
-      | Clearances       |
-      | Final responses  |
-      | Correspondence   |
-      | Contribution     |
-      | Miscellaneous    |
-      | Appeal Response  |
-
-  @TORegression
-  Scenario Outline: As a UKVI/HMPO/BF Treat Official user, I want to be able to select the type of an uploaded document, so the document can be easily
-  identified later
-    And I manage the documents of a new "TO" case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I upload a file of type "docx"
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType                |
-      | Initial Correspondence |
-      | Initial Draft          |
-      | Final Response         |
-      | Contribution Request   |
-      | Contribution Response  |
-      | Background Note        |
-
-  @ComplaintsRegression2
-  Scenario Outline: As a POGR user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
-    And I manage the documents of a new "POGR" case
-    And I click add documents
-    When I choose the document type "<docType>"
-    And I add a "<docType>" type document to the case
-    Then the "docx" document should be under the "<docType>" header
-    Examples:
-      | docType            |
-      | Original Complaint |
-      | Interim Letter     |
-      | Draft              |
+      | caseType |
+      | MIN      |
+      | TRO      |
+      | DTEN     |
+      | MPAM     |
+      | MTS      |
+      | COMP     |
+      | COMP2    |
+      | IEDET    |
+      | SMC      |
+      | BF       |
+      | BF2      |
+      | TO       |
+      | POGR     |
 
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake

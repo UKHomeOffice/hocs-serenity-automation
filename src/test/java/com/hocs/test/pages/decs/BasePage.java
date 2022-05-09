@@ -615,6 +615,18 @@ public class BasePage extends PageObject {
         return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
     }
 
+    public List<String> getSelectableOptionsFromDropdownWithHeading(String headingText) {
+        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling::select/option");
+        optionElements.remove(0);
+        List<String> selectableOptions = new ArrayList<>();
+        for (WebElementFacade optionElement: optionElements) {
+            selectableOptions.add(optionElement.getText());
+        }
+        return selectableOptions;
+
+    }
+
     public Boolean checkIfSelectableOptionsPresentInDropdownWithHeading(String headingText) {
         return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }

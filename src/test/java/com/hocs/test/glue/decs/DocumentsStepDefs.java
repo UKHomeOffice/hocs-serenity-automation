@@ -1,7 +1,11 @@
 package com.hocs.test.glue.decs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
@@ -13,6 +17,9 @@ import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DocumentsStepDefs extends BasePage {
 
@@ -80,12 +87,6 @@ public class DocumentsStepDefs extends BasePage {
         clickAddButton();
     }
 
-    @Then("I can see the {string} file in the uploaded document list")
-    public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
-        documents.waitForFileToUpload(fileType);
-        documents.assertFileIsVisible(fileType);
-    }
-
     @Then("the document should have the {string} tag")
     public void theDocumentShouldHaveTheTag(String Tag) {
         documents.assertDocumentHasTag(Tag.toUpperCase());
@@ -106,9 +107,33 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertFileTypeIsNotAllowedErrorMessage();
     }
 
+    @Then("I can see the {string} file in the uploaded document list")
+    public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
+        documents.waitForFileToUpload(fileType);
+        documents.assertFileIsVisible(fileType);
+    }
+
     @And("I cannot see the {string} file in the uploaded document list")
     public void iCannotSeeTheFileInTheUploadedDocumentList(String fileIdentifier) {
         documents.assertFileIsNotVisible(fileIdentifier);
+    }
+
+    @Then("the {string} document should be under the {string} header")
+    public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
+        documents.waitForFileToUpload(fileIdentifier);
+        documents.assertDocumentIsUnderHeader(header);
+    }
+
+    @Then("the document should be listed under the expected Document Type header")
+    public void theDocumentShouldBeListedUnderTheExpectedDocumentTypeHeader() {
+        documents.waitForFileToUpload(sessionVariableCalled("fileType"));
+        documents.assertDocumentIsUnderHeader(sessionVariableCalled("documentType"));
+    }
+
+    @And("the document added at case creation should be listed under the {string} document type heading")
+    public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
+        documents.selectDocumentsTab();
+        documents.assertDocumentIsUnderHeader(docType);
     }
 
     @And("I upload a file that is {int}MB in size")
@@ -163,12 +188,6 @@ public class DocumentsStepDefs extends BasePage {
         safeClickOn(documents.manageDocumentsLink);
         documents.clickRemoveLinkForFile(fileIdentifier);
         documents.clickRemoveButton();
-    }
-
-    @Then("the {string} document should be under the {string} header")
-    public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
-        documents.waitForFileToUpload(fileIdentifier);
-        documents.assertDocumentIsUnderHeader(header);
     }
 
     @Then("the primary draft tag is next to the primary draft document")
@@ -228,12 +247,6 @@ public class DocumentsStepDefs extends BasePage {
         }
     }
 
-    @And("the document added at case creation should be listed under the {string} document type heading")
-    public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
-        documents.selectDocumentsTab();
-        documents.assertDocumentIsUnderHeader(docType);
-    }
-
     @And("I select a file to be uploaded as a PIT Extension document")
     public void iSelectAFileToBeUploadedAsAPITExtensionDocument() {
         documents.uploadFileOfType("docx");
@@ -278,5 +291,10 @@ public class DocumentsStepDefs extends BasePage {
     @Then("I should be able to see the document uploaded by the previous user")
     public void iShouldBeAbleToSeeTheDocumentUploadedByThePreviousUser() {
         documents.assertFileIsVisible("docx");
+    }
+
+    @Then("I should see a dropdown containing the expected Document Types for the case I am working on")
+    public void iShouldSeeADropdownContainingTheExpectedDocumentTypesForTheCaseIAmWorkingOn() {
+        documents.assertExpectedDocumentTypesPresent(getCurrentCaseType());
     }
 }
