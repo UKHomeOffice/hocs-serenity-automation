@@ -264,7 +264,12 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
     public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+        if (caseType.contains("SMC")) {
+            String smcCaseType = caseType.split(" ")[0];
+            createCase.createCaseReceivedNWorkdaysAgo(smcCaseType, days);
+        } else {
+            createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+        }
         if (caseType.equalsIgnoreCase("SMC")) {
             dashboard.goToDashboard();
             dashboard.getAndClaimCurrentCase();
