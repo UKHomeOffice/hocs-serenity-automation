@@ -204,8 +204,8 @@ public class SecurityStepDef extends BaseSecurity {
         select(findById("Country")).selectByVisibleText("United Kingdom");
         findById("Fullname").sendKeys("Foi_sec_fullName");
         findById("Email").sendKeys("foi_sec_test@test.com");
-        findByXpath("label[contains(text(), 'Topic')]following-sibling::divinput").sendKeys("Animal alternatives (3Rs)");
-        findByXpath("label[contains(text(), 'Topic')]following-sibling::divinput").sendKeys(Keys.ENTER);
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
 
         findById("RequestQuestion").sendKeys("test request question");
         next();
@@ -335,7 +335,7 @@ public class SecurityStepDef extends BaseSecurity {
     public void iCreateADCUCaseForSecurityTesting() {
         findBylinktext("Create Single Case").click();
         waitABit(500);
-        findByXpath("label[contains(text(), 'DCU Ministerial')]").click();
+        findByXpath("//label[contains(text(), 'DCU Ministerial')]").click();
         next();
         next();
         waitABit(500);
@@ -366,8 +366,8 @@ public class SecurityStepDef extends BaseSecurity {
         findById("MarkupDecision-0").click();
         next();
         findBylinktext("Add a topic").click();
-        findByXpath("label[contains(text(), 'Topic')]following-sibling::divinput").sendKeys("Animal alternatives (3Rs)");
-        findByXpath("label[contains(text(), 'Topic')]following-sibling::divinput").sendKeys(Keys.ENTER);
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys("Animal alternatives (3Rs)");
+        findByXpath("//label[contains(text(), 'Topic')]//following-sibling::div//input").sendKeys(Keys.ENTER);
         next();
         next();
         next();
