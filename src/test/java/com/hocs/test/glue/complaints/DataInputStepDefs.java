@@ -53,6 +53,14 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(continueButton);
     }
 
+    @And("I record that the case was received by post")
+    public void iRecordThatTheCaseWasReceivedByPost() {
+        dataInput.selectCategory();
+        dataInput.enterDescriptionOfComplaint();
+        dataInput.selectASpecificComplaintChannel("Post");
+        safeClickOn(continueButton);
+    }
+
     @And("I complete the Data Input stage with {string} as the business area")
     public void iCompleteTheDataInputStageWithAsTheBusinessArea(String businessArea) {
         dataInput.selectSpecificBusinessArea(businessArea);
