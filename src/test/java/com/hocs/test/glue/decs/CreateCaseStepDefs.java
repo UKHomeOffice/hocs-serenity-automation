@@ -264,16 +264,16 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
     public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
-        if (caseType.contains("SMC")) {
-            String smcCaseType = caseType.split(" ")[0];
-            createCase.createCaseReceivedNWorkdaysAgo(smcCaseType, days);
-        } else {
-            createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
-        }
-        if (caseType.equalsIgnoreCase("SMC")) {
+        createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+    }
+
+    @And("I create an SMC case received {int} workdays in the past and move it to the {string} stage")
+    public void iCreateAnSMCCaseReceivedNWorkdaysAgo(int days, String stage) {
+        createCase.createCaseReceivedNWorkdaysAgo("SMC", days);
+        if (!stage.equalsIgnoreCase("REGISTRATION")) {
             dashboard.goToDashboard();
             dashboard.getAndClaimCurrentCase();
-            smcProgressCase.moveSMCCaseFromRegistrationToTriage();
+            smcProgressCase.moveCaseFromCurrentStageToTargetStage("Registration", stage);
         }
     }
 

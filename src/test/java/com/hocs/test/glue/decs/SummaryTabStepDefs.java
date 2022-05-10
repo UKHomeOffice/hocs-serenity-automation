@@ -237,7 +237,7 @@ public class SummaryTabStepDefs extends BasePage {
     @And("I can only see Registration information in the summary")
     public void iCanOnlySeeRegistrationInformationInTheSummary() {
         summaryTab.selectSummaryTab();
-        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel");
+        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel", "When was the correspondence received?");
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 
