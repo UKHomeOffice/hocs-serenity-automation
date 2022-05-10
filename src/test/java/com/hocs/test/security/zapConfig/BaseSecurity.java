@@ -45,7 +45,7 @@ public class BaseSecurity extends BaseClassOnDemandDriverSetupWithProxy {
     public static void waitForPassiveScanToComplete() throws ClientApiException {
         log.info("--- Waiting for passive scan to finish --- ");
         try {
-            // Passive scanner are run by default: https:stackoverflow.com/a/35944273/270835
+            // Passive scanner are run by default: https://stackoverflow.com/a/35944273/270835
             clientApi.pscan.enableAllScanners();//  enables all passive scanner.
 
             ApiResponse response = clientApi.pscan.recordsToScan();
