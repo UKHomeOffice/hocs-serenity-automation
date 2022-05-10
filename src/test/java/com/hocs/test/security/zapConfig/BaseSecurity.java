@@ -19,7 +19,8 @@ public class BaseSecurity extends BaseClassOnDemandDriverSetupWithProxy {
     public static String securityTestReportPath = getProperty("zap.report.path");
 
     public static void spiderTarget(String targetURL) throws InterruptedException, ClientApiException {
-        String application_base_url = "https://<application_url>/"; // Example code to start and synchronize the spider scan.private static void startSpiderScan()
+        String application_base_url = "https:<application_url>/";  //Example code to start and synchronize the spider scan.private static void
+        // startSpiderScan()
         log.info("Spider : {}", application_base_url);
 
         // Start spider scan
@@ -45,11 +46,11 @@ public class BaseSecurity extends BaseClassOnDemandDriverSetupWithProxy {
         log.info("--- Waiting for passive scan to finish --- ");
         try {
             // Passive scanner are run by default: https://stackoverflow.com/a/35944273/270835
-            clientApi.pscan.enableAllScanners(); // enables all passive scanner.
+            clientApi.pscan.enableAllScanners();//  enables all passive scanner.
 
             ApiResponse response = clientApi.pscan.recordsToScan();
 
-            //iterating till pending scan count is 0
+            // iterating till pending scan count is 0
             while (!response.toString().equals("0")) {
                 response = clientApi.pscan.recordsToScan();
             }

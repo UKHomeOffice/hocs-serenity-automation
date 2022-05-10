@@ -68,10 +68,10 @@ public class SecurityStepDef extends BaseSecurity {
 
     @And("I create a {string} case for security testing")
     public void iCreateACaseForSecurityTesting(String arg0) {
-        //Registration
+        // Registration
         findBylinktext("Create Single Case").click();
         waitABit(500);
-        findById("case-type-1").click(); // comp
+        findById("case-type-1").click();  // COMP
         next();
         next();
         setCaseRef();
@@ -86,7 +86,7 @@ public class SecurityStepDef extends BaseSecurity {
         next();
         next();
         waitABit(500);
-        findById("CompType-0").click(); // Service radio button
+        findById("CompType-0").click();  // Service radio button
         next();
         findById("Channel-2").click();
         findById("Severity-2").click();
@@ -109,7 +109,7 @@ public class SecurityStepDef extends BaseSecurity {
         waitABit(500);
         findById("CctTriageResult-1").click();
         next();
-        //Draft
+        // Draft
         findAndAllocate();
         findBylinktext("Add a document").click();
         select(findById("document_type")).selectByVisibleText("DRAFT");
@@ -198,7 +198,7 @@ public class SecurityStepDef extends BaseSecurity {
     public void iCreateAFoiCaseForSecurityTesting() {
         findBylinktext("Create Single Case").click();
         waitABit(500);
-        findById("case-type-5").click(); // foi
+        findById("case-type-5").click();  // FOI
         next();
         findById("OriginalChannel-0").click();
         select(findById("Country")).selectByVisibleText("United Kingdom");
@@ -215,7 +215,7 @@ public class SecurityStepDef extends BaseSecurity {
         waitABit(500);
 
         next();
-// allocation
+ // Allocation
         findById("RequestValidity-0").click();
         next();
         waitABit(500);
@@ -234,14 +234,14 @@ public class SecurityStepDef extends BaseSecurity {
         select(findById("AccountManager")).selectByIndex(1);
         next();
         next();
-        //acceptance
+        // Acceptance
         findAndAllocate();
         findById("AcceptCase-0").click();
         next();
         select(findById("DraftTeam")).selectByVisibleText("FOI Border Force Operations Draft Team");
         next();
 
-        //Consider and Draft
+        // Consider and Draft
         findAndAllocate();
         findById("ContributionsRequired-0").click();
         next();
@@ -269,7 +269,7 @@ public class SecurityStepDef extends BaseSecurity {
         addDocument("Draft response");
         next();
 
-        //Approval
+        // Approval
         waitABit(1000);
         findBylinktext("Add an Approval Request").click();
         select(findById("approvalRequestForBusinessUnit")).selectByVisibleText("Minister");
@@ -295,7 +295,7 @@ public class SecurityStepDef extends BaseSecurity {
         next();
         next();
 
-        //Dispatch
+        // Dispatch
         select(findById("CaseType")).selectByVisibleText("FOI");
         select(findById("ResponseChannel")).selectByVisibleText("Email");
         findById("TransferOutcome-0").click();
@@ -343,7 +343,7 @@ public class SecurityStepDef extends BaseSecurity {
         findById("submit").click();
         waitABit(500);
 
-        //Data Input
+        // Data Input
         allocateToMe();
         setTodaysDate("DateOfCorrespondence");
         findById("OriginalChannel-0").click();
