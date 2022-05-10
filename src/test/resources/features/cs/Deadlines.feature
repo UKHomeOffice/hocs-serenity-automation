@@ -90,5 +90,5 @@ Feature: Deadlines
     When I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
-    And I record that the case was not received by post
+    And I record that the case was received by post
     Then the case deadline date displayed in the summary is correct for a "non-Priority, Post GRO complaint" case
