@@ -122,4 +122,9 @@ public class NavigationStepDefs extends BasePage {
         workstacks.unallocateSelectedCase(getCurrentCaseReference());
         workstacks.selectSpecificCaseReferenceLink(getCurrentCaseReference());
     }
+
+    @Then("I should be returned to the dashboard")
+    public void iShouldBeReturnedToTheDashboard() {
+        dashboard.assertAtDashboard();
+    }
 }
