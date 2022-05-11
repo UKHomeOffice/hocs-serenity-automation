@@ -242,7 +242,10 @@ public class Registration extends BasePage {
     }
 
     public void selectComplaintOrigin() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
+        String selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
+        if (selectedComplaintOrigin.equalsIgnoreCase("Other")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Other Complaint Origin");
+        }
     }
 
     public void enterADescriptionOfTheComplaint() {
