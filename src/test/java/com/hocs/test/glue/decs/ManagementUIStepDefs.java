@@ -874,15 +874,20 @@ public class ManagementUIStepDefs extends BasePage {
         clickTheButton("Submit");
     }
 
-    @And("I select to add a new Enquiry Reason")
-    public void iSelectToAddANewEnquiryReason() {
-        listsManagement.clickTheAddNewEnquiryReasonButton();
+    @And("I select to add a new {string} Enquiry Reason")
+    public void iSelectToAddANewEnquiryReason(String caseType) {
+        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
     }
 
-    @And("I submit details for the new Enquiry Reason")
-    public void iSubmitDetailsForTheNewEnquiryReason() {
+    @And("I submit details for the new {string} Enquiry Reason")
+    public void iSubmitDetailsForTheNewEnquiryReason(String caseType) {
         listsManagement.enterEnquiryReasonName();
-        clickTheButton("Add");
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Add");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            listsManagement.enterEnquiryReasonCode();
+            clickTheButton("Submit");
+        }
     }
 
     @Then("the success message for adding an Enquiry Reason should be displayed")
@@ -890,11 +895,15 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.assertSuccessMessageForAddingEnquiryReasonVisible();
     }
 
-    @And("I should be able to view the new/renamed Enquiry Reason in the table of Enquiry Reasons")
-    public void iShouldBeAbleToViewTheNewEnquiryReasonInTheTableOfEnquiryReasons() {
-        iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
-        listsManagement.selectASpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
-        clickTheButton("Submit");
+    @And("I should be able to view the new/renamed {string} Enquiry Reason in the table of Enquiry Reasons")
+    public void iShouldBeAbleToViewTheNewEnquiryReasonInTheTableOfEnquiryReasons(String caseType) {
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+            listsManagement.selectASpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
+        }
         listsManagement.assertVisibilityOfEnquiryReasonInEnquiryReasonTable();
     }
 
@@ -903,7 +912,7 @@ public class ManagementUIStepDefs extends BasePage {
         iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
         listsManagement.selectAnEnquirySubject();
         clickTheButton("Submit");
-        listsManagement.clickTheAddNewEnquiryReasonButton();
+        listsManagement.clickTheAddNewEnquiryReasonButton("MPAM");
         listsManagement.enterEnquiryReasonName();
         clickTheButton("Add");
     }
@@ -919,10 +928,14 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.clickAmendLinkFor(sessionVariableCalled("enquiryReasonName"));
     }
 
-    @And("I submit a new name for the Enquiry Reason")
-    public void iSubmitANewNameForTheEnquiryReason() {
+    @And("I submit a new name for the {string} Enquiry Reason")
+    public void iSubmitANewNameForTheEnquiryReason(String caseType) {
         listsManagement.enterEnquiryReasonName();
-        clickTheButton("Amend");
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Amend");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            clickTheButton("Submit");
+        }
     }
 
     @Then("the success message for amending an Enquiry Reason should be displayed")
@@ -930,18 +943,27 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.assertSuccessMessageForAmendingEnquiryReasonVisible();
     }
 
-    @And("I have added a new Enquiry Reason in MUI")
-    public void iHaveAddedANewEnquiryReasonInMUI() {
-        iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
-        listsManagement.selectAnEnquirySubject();
-        clickTheButton("Submit");
-        listsManagement.clickTheAddNewEnquiryReasonButton();
+    @And("I have added a new {string} Enquiry Reason in MUI")
+    public void iHaveAddedANewEnquiryReasonInMUI(String caseType) {
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+            listsManagement.selectAnEnquirySubject();
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
+        }
+        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
         listsManagement.enterEnquiryReasonName();
-        clickTheButton("Add");
+        if (caseType.equalsIgnoreCase("COMP")) {
+            listsManagement.enterEnquiryReasonCode();
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Add");
+        }
     }
 
     @And("I select to add a new account manager")
-    public void iSelectToAddANewAccountMananger() {
+    public void iSelectToAddANewAccountManager() {
         listsManagement.clickTheAddNewAccountManagerButton();
     }
 
