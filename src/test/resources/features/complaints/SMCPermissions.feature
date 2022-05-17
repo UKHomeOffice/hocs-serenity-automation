@@ -94,3 +94,10 @@ Feature: SMC Permissions
     When I view the "Timeline" tab
     Then I should be able to see logs for case actions taken by the current user
     And I should be able to see logs for case actions taken by the previous user
+
+  @ComplaintsRegression2 @SMCComplaints
+  Scenario: As a SMC Registration user, I should not be able to complete any actions against a case
+    Given I am logged into "CS" as user "SMC_REGISTRATION_USER_1"
+    And I get a new "SMC" case
+    When I attempt to view the "Actions" tab
+    Then I should be returned to the dashboard

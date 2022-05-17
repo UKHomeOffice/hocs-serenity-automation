@@ -10,6 +10,7 @@ import com.hocs.test.pages.decs.PeopleTab;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.foi.ActionsTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,6 +26,8 @@ public class BaseStepDefs extends BasePage {
     PeopleTab peopleTab;
 
     TimelineTab timelineTab;
+
+    ActionsTab actionsTab;
 
     CaseView caseView;
 
@@ -110,7 +113,7 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertCaseStage(stage);
     }
 
-    @And("I view the {string} tab")
+    @And("I (attempt to )view the {string} tab")
     public void iClickToViewTheTab(String tab) {
         switch (tab.toUpperCase()) {
             case "SUMMARY":
@@ -121,6 +124,9 @@ public class BaseStepDefs extends BasePage {
                 break;
             case "PEOPLE":
                 peopleTab.selectPeopleTab();
+                break;
+            case "ACTIONS":
+                actionsTab.selectActionsTab();
                 break;
             default:
                 pendingStep(tab + " is not defined within " + getMethodName());
