@@ -39,6 +39,9 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
 
+    @FindBy(xpath = "//button[text()='Add new enquiry reason']")
+    public WebElementFacade addNewEnquiryReasonButton;
+
     @FindBy(xpath = "//button[text()='Add new recipient']")
     public WebElementFacade addNewRecipientButton;
 
@@ -75,7 +78,13 @@ public class ListsManagement extends BasePage {
 
     public void clickTheAddNewBusinessUnitButton() { safeClickOn(addBusinessUnitButton); }
 
-    public void clickTheAddNewEnquiryReasonButton() { safeClickOn(addEnquiryReasonButton); }
+    public void clickTheAddNewEnquiryReasonButton(String caseType) {
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            safeClickOn(addEnquiryReasonButton);
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            safeClickOn(addNewEnquiryReasonButton);
+        }
+    }
 
     public void clickTheAddNewAccountManagerButton() {
         safeClickOn(addNewAccountManagerButton);
@@ -123,6 +132,10 @@ public class ListsManagement extends BasePage {
 
     public void enterEnquiryReasonName() {
         setSessionVariable("enquiryReasonName").to(enterName());
+    }
+
+    public void enterEnquiryReasonCode() {
+        setSessionVariable("enquiryReasonCode").to(enterCode());
     }
 
     public void enterRecipientName() {
@@ -243,7 +256,7 @@ public class ListsManagement extends BasePage {
     }
 
     public void assertVisibilityOfEnquiryReasonInEnquiryReasonTable() {
-        waitForMUIPageWithTitle("View and Edit Enquiry Reasons for ");
+        waitForMUIPageWithTitle("View");
         String enquiryReasonName = sessionVariableCalled("enquiryReasonName");
         WebElementFacade enquiryReasonInTable = findBy("//tr/td[1][text()='" + enquiryReasonName + "']");
         if (!enquiryReasonInTable.isCurrentlyVisible()) {

@@ -31,6 +31,7 @@ Feature: ManagementUI
       | Manage FOI Interested Parties                  | View and edit interested parties                 |
       | Manage Treat Official campaigns                | View and edit campaigns                          |
       | Manage Treat Official Recipients               | View and edit recipients                         |
+      | Manage UKVI Complaint Enquiry Reasons          | View and edit UKVI enquiry reasons               |
 
 
 #    MANAGE STANDARD LINES
@@ -555,10 +556,10 @@ Feature: ManagementUI
   Scenario: User is able to add an MPAM Enquiry Reason through Lists Management
     When I select to "Manage MPAM Enquiry Reasons"
     And I select a Enquiry Subject to add a new Enquiry Reason to
-    And I select to add a new Enquiry Reason
-    And I submit details for the new Enquiry Reason
+    And I select to add a new "MPAM" Enquiry Reason
+    And I submit details for the new "MPAM" Enquiry Reason
     Then the success message for adding an Enquiry Reason should be displayed
-    And I should be able to view the new Enquiry Reason in the table of Enquiry Reasons
+    And I should be able to view the new "MPAM" Enquiry Reason in the table of Enquiry Reasons
 
   @ListsManagement @MPAMRegression2
   Scenario: User is able to amend the details of an MPAM Enquiry Reason through Lists Management
@@ -566,13 +567,13 @@ Feature: ManagementUI
     When I select to "Manage MPAM Enquiry Reasons"
     And I select the correct Enquiry Subject
     And I select to amend the Enquiry Reason
-    And I submit a new name for the Enquiry Reason
+    And I submit a new name for the "MPAM" Enquiry Reason
     Then the success message for amending an Enquiry Reason should be displayed
-    And I should be able to view the renamed Enquiry Reason in the table of Enquiry Reasons
+    And I should be able to view the renamed "MPAM" Enquiry Reason in the table of Enquiry Reasons
 
   @ListsManagement @MPAMRegression2
   Scenario: User can select a new Enquiry Reason that was added through Lists Management when viewing a case in DECS
-    And I have added a new Enquiry Reason in MUI
+    And I have added a new "MPAM" Enquiry Reason in MUI
     When I navigate to "CS"
     And I get a "MPAM" case at the "Triage" stage
     And I select to set the Enquiry Subject and Reason
@@ -692,3 +693,33 @@ Feature: ManagementUI
     And I load the current case
     And I select the summary tab
     Then the newly created recipient details should be displayed in the summary tab
+
+
+#     MANAGE UKVI COMPLAINT ENQUIRY REASONS
+
+  @ListsManagement @ComplaintsRegression1
+  Scenario: User is able to add a new UKVI Complaints Enquiry Reason through Lists Management
+    And I select to "Manage UKVI Complaint Enquiry Reasons"
+    And I select to add a new "COMP" Enquiry Reason
+    And I submit details for the new "COMP" Enquiry Reason
+    Then the success message for adding an Enquiry Reason should be displayed
+    And I should be able to view the new "COMP" Enquiry Reason in the table of Enquiry Reasons
+
+  @ListsManagement @COMPRegression1
+  Scenario: User is able to amend the details of a COMP Enquiry Reason through Lists Management
+    And I have added a new "COMP" Enquiry Reason in MUI
+    When I select to "Manage UKVI Complaint Enquiry Reasons"
+    And I select to amend the Enquiry Reason
+    And I submit a new name for the "COMP" Enquiry Reason
+    Then the success message for amending an Enquiry Reason should be displayed
+    And I should be able to view the renamed "COMP" Enquiry Reason in the table of Enquiry Reasons
+
+  @ListsManagement @COMPRegression1
+  Scenario: User can select a new COMP Enquiry Reason that was added through Lists Management when viewing a case in DECS
+    And I have added a new "COMP" Enquiry Reason in MUI
+    When I navigate to "CS"
+    And I get a "COMP" case at the "Service Triage" stage
+    And I accept the case at "Service" Triage stage
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    Then I should be able to select the new COMP Enquiry Reason

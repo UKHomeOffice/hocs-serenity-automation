@@ -2,9 +2,12 @@ package com.hocs.test.glue.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 
 public class ComplaintsTriageStepDefs extends BasePage {
 
@@ -159,5 +162,10 @@ public class ComplaintsTriageStepDefs extends BasePage {
     public void iEnterReasonForTriageTransferAndCloseTheCase() {
         complaintsTriage.enterTransferReason();
         clickTheButton("Close Case");
+    }
+
+    @Then("I should be able to select the new COMP Enquiry Reason")
+    public void iShouldBeAbleToSelectTheNewEnquiryReason() {
+        complaintsTriage.selectEnquiryReason(sessionVariableCalled("enquiryReasonName"));
     }
 }
