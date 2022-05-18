@@ -140,8 +140,7 @@ public class BFProgressCase extends BasePage {
     public void moveBFCaseFromTriageToDraft() {
         complaintsTriage.selectAcceptCase();
         clickTheButton("Continue");
-        complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        complaintsTriage.enterDetailsOnBFTriageDetailsPage();
         complaintsTriage.selectReadyForDrafting();
         System.out.println("Case moved from Case Triage to Draft");
     }
@@ -150,8 +149,7 @@ public class BFProgressCase extends BasePage {
         complaintsTriage.selectAcceptCase();
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Capture Reason");
-        complaintsTriage.enterDetailsOnBFTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        complaintsTriage.enterDetailsOnBFTriageDetailsPage();
         complaintsTriage.escalateCaseToWFM();
         System.out.println("Case moved from Case Triage to Escalated to WFM");
     }

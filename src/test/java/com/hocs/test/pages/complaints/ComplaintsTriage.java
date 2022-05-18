@@ -167,7 +167,7 @@ public class ComplaintsTriage extends BasePage {
         }
     }
 
-    public void enterDetailsOnBFTriageCaptureReasonPage() {
+    public void enterDetailsOnBFTriageDetailsPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         selectBFReasonsForComplaint();
@@ -212,12 +212,20 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectReadyForDrafting() {
         recordCaseData.selectSpecificRadioButton("All information collected - case ready for drafting");
-        clickTheButton("Continue");
+        if (bfCase() || bf2Case()) {
+            clickTheButton("Finish");
+        } else {
+            clickTheButton("Continue");
+        }
     }
 
     public void escalateCaseToWFM() {
         recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
-        clickTheButton("Continue");
+        if (bfCase() || bf2Case()) {
+            clickTheButton("Finish");
+        } else {
+            clickTheButton("Continue");
+        }
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
         clickTheButton("Escalate case");

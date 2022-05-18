@@ -368,7 +368,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT" stage
     And the summary should display the owning team as "Border Force"
@@ -379,7 +379,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM" stage
     And the summary should display the owning team as "Border Force"
@@ -391,9 +391,9 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I select to complete the case at Triage
-    And I click the "Continue" button
+    And I click the "Finish" button
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage" stage
@@ -403,7 +403,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<action>"
@@ -422,7 +422,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -433,7 +433,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -445,9 +445,9 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I select to complete the case at Triage
-    And I click the "Continue" button
+    And I click the "Finish" button
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
@@ -457,7 +457,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I enter information on the Triage Details page
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<action>"
