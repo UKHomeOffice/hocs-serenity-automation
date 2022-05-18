@@ -148,7 +148,7 @@ public class BFProgressCase extends BasePage {
     public void moveBFCaseFromTriageToEscalated() {
         complaintsTriage.selectAcceptCase();
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Capture Reason");
+        waitForPageWithTitle("Triage Details");
         complaintsTriage.enterDetailsOnBFTriageDetailsPage();
         complaintsTriage.escalateCaseToWFM();
         System.out.println("Case moved from Case Triage to Escalated to WFM");
