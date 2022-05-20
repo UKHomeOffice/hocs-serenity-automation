@@ -27,7 +27,6 @@ Feature: Actions
     Then I should see a confirmation message stating that the external interest has been registered
     And the details of the interest should be visible in the actions tab
     And an Interest Created log should be visible in the timeline for the interested party
-
     When I update the registered interest
     Then I should see a confirmation message stating that the external interest has been updated
     And the updated details of the interest should be visible in the actions tab
