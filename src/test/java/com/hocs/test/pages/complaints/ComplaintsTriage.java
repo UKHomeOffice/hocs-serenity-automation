@@ -121,7 +121,7 @@ public class ComplaintsTriage extends BasePage {
 
     public void enterTransferReason() {
         String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
-        setSessionVariable("rejectionReason").to(enteredText);
+        setSessionVariable("transferReason").to(enteredText);
     }
 
     public void selectTransferToCCH() {

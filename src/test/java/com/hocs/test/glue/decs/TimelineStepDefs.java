@@ -113,6 +113,12 @@ public class TimelineStepDefs extends BasePage {
         String rejectionReason = sessionVariableCalled("rejectionReason");
         timelineTab.assertCaseNoteWithTitleContainsText("Rejection note", rejectionReason);
     }
+
+    @And("a Case Transfer note should be visible in the timeline showing the submitted reason for transferring the case")
+    public void aCaseTransferNoteShouldBeVisibleInTheTimelineShowingTheSubmittedReasonForTransferringTheCase() {
+        String transferReason = sessionVariableCalled("transferReason");
+        timelineTab.assertCaseLogWithTitleContainsText("Offline Case Transfer", transferReason);
+    }
   
     @And("a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call")
     public void aPhoneCallSummaryNoteShouldBeVisibleInTheTimelineContainingTheDetailsOfThePhoneCall() {
