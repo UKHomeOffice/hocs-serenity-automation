@@ -41,25 +41,7 @@ public class ComplaintsDraft extends BasePage {
     public WebElementFacade resolvedByTelephoneCheckbox;
 
     public void selectActionAtDraft(String action) {
-        switch (action.toUpperCase()) {
-            case "RESPONSE IS READY TO SEND":
-                recordCaseData.selectSpecificRadioButton("Response is ready to send");
-                break;
-            case "SEND CASE TO QA":
-                recordCaseData.selectSpecificRadioButton("Send case to QA");
-                break;
-            case "ESCALATE CASE TO WFM":
-                recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
-                break;
-            case "RESPOND BY PHONE":
-                recordCaseData.selectSpecificRadioButton("Respond by Phone");
-                break;
-            case "RETURN TO INVESTIGATION":
-                recordCaseData.selectSpecificRadioButton("Return to Investigation");
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
+        recordCaseData.selectSpecificRadioButton(action);
         if (!pogrCase()) {
             safeClickOn(continueButton);
         } else {

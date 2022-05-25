@@ -196,7 +196,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
     And I add a "DRAFT" type document to the case
-    And I select the "Response is Ready to Send" action at the Draft stage
+    And I select the "Response is ready to send" action at the Draft stage
     Then the case should be moved to the "Send draft response" stage
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
@@ -223,6 +223,18 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
 
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can reject a BF complaint case at the Draft stage and send it back to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Draft" stage
+    And I select to return the case back to Triage stage
+    And I submit a rejection reason
+    Then the case should be moved to the "Case Triage" stage
+    And the summary should display the owning team as "Border Force"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+
+
 #     BF STAGE 2 COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
@@ -246,6 +258,18 @@ Feature: Complaints Draft
     And the summary should display the owning team as "Border Force (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can reject a BF Stage 2 complaint case at the Draft stage and send it back to the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Draft" stage
+    And I select to return the case back to Triage stage
+    And I submit a rejection reason
+    Then the case should be moved to the "Triage (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+
 
 #     POGR COMPLAINTS
 
