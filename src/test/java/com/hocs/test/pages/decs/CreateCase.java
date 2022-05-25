@@ -357,6 +357,7 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
+        System.out.println("WCS Claim " + sessionVariableCalled("caseReference") + " created");
     }
 
     public void createAndWithDrawACSCaseOfType(String caseType) {
