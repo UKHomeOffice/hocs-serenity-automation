@@ -98,13 +98,13 @@ public class ComplaintsTriageStepDefs extends BasePage {
         complaintsTriage.assertOverdueContributionRequestIsHighlighted();
     }
 
-    @And("I accept the previous Claim Category selection")
+    @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
         waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");
     }
 
-    @And("I accept the previous Case Details selection")
+    @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
@@ -168,5 +168,13 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @Then("I should be able to select the new COMP Enquiry Reason")
     public void iShouldBeAbleToSelectTheNewEnquiryReason() {
         complaintsTriage.selectEnquiryReason(sessionVariableCalled("enquiryReasonName"));
+    }
+
+    @Then("I should be able to select the new COMP Business Area")
+    public void iShouldBeAbleToSelectTheNewCOMPBusinessArea() {
+        String directorate = sessionVariableCalled("directorate");
+        selectSpecificOptionFromDropdownWithHeading(directorate, "Directorate");
+        String businessArea = sessionVariableCalled("businessAreaName");
+        selectSpecificOptionFromDropdownWithHeading(businessArea, "Business Area");
     }
 }

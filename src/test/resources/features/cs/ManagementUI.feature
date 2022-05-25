@@ -32,6 +32,7 @@ Feature: ManagementUI
       | Manage Treat Official campaigns                | View and edit campaigns                          |
       | Manage Treat Official Recipients               | View and edit recipients                         |
       | Manage UKVI Complaint Enquiry Reasons          | View and edit UKVI enquiry reasons               |
+      | Manage UKVI Complaints Business Areas          | Select a Directorate                             |
 
 
 #    MANAGE STANDARD LINES
@@ -706,7 +707,7 @@ Feature: ManagementUI
     And I should be able to view the new "COMP" Enquiry Reason in the table of Enquiry Reasons
 
   @ListsManagement @COMPRegression1
-  Scenario: User is able to amend the details of a COMP Enquiry Reason through Lists Management
+  Scenario: User is able to amend the details of a UKVI Complaints Enquiry Reason through Lists Management
     And I have added a new "COMP" Enquiry Reason in MUI
     When I select to "Manage UKVI Complaint Enquiry Reasons"
     And I select to amend the Enquiry Reason
@@ -715,7 +716,7 @@ Feature: ManagementUI
     And I should be able to view the renamed "COMP" Enquiry Reason in the table of Enquiry Reasons
 
   @ListsManagement @COMPRegression1
-  Scenario: User can select a new COMP Enquiry Reason that was added through Lists Management when viewing a case in DECS
+  Scenario: User can select a new UKVI Complaints Enquiry Reason that was added through Lists Management when viewing a case in DECS
     And I have added a new "COMP" Enquiry Reason in MUI
     When I navigate to "CS"
     And I get a "COMP" case at the "Service Triage" stage
@@ -723,3 +724,37 @@ Feature: ManagementUI
     And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     Then I should be able to select the new COMP Enquiry Reason
+
+
+#     MANAGE UKVI COMPLAINTS BUSINESS AREAS
+
+  @ListsManagement @ComplaintsRegression1
+  Scenario: User is able to add a new UKVI Complaints Business Area through Lists Management
+    And I select to "Manage UKVI Complaints Business Areas"
+    And I select a directorate to add the new Business Area to
+    And I add a new business area to the selected directorate
+#    Then the success message for adding a new business area should be displayed  Comment to be removed once HOCS-5117 is resolved
+    And I should be able to view the created business area in the table of business areas
+
+  @ListsManagement @COMPRegression1
+  Scenario: User is able to amend the details of a UKVI Complaints Business Area through Lists Management
+    And I select to "Manage UKVI Complaints Business Areas"
+    And I select a directorate to add the new Business Area to
+    And I add a new business area to the selected directorate
+    And I navigate to the business area list and select the amend link for the business area
+    And I amend the name of the business area
+#    Then the success message for amending a Business Area should be displayed  Comment to be removed once HOCS-5117 is removed
+    And I should be able to view the renamed business area in the table of business areas
+
+  @ListsManagement @COMPRegression1
+  Scenario: User can select a new UKVI Complaints Business Area that was added through Lists Management when viewing a case in DECS
+    And I select to "Manage UKVI Complaints Business Areas"
+    And I select a directorate to add the new Business Area to
+    And I add a new business area to the selected directorate
+    When I navigate to "CS"
+    And I get a "COMP" case at the "Service Triage" stage
+    And I accept the case at "Service" Triage stage
+    And I select "UKVI" as the Owning CSU
+    And I accept the Claim Category selection
+    And I accept the Case Details selection
+    Then I should be able to select the new COMP Business Area

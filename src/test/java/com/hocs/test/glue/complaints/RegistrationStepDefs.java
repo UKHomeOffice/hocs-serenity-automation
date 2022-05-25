@@ -79,6 +79,11 @@ public class RegistrationStepDefs extends BasePage {
         registration.selectAnOwningCSU();
     }
 
+    @And("I select {string} as the Owning CSU")
+    public void iSelectAsTheOwningCSU(String owningCSU) {
+        registration.selectSpecificOwningCSU(owningCSU);
+    }
+
     @Then("the previous COMP case is displayed")
     public void thePreviousCOMPCaseIsDisplayed() {
         String caseRef = sessionVariableCalled("compCaseReference");

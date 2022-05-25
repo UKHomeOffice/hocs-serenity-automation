@@ -1123,5 +1123,52 @@ public class ManagementUIStepDefs extends BasePage {
         listsManagement.enterRecipientCode();
         clickTheButton("Submit");
     }
+
+    @And("I select a directorate to add the new Business Area to")
+    public void iSelectADirectorateToAddTheNewBusinessAreaTo() {
+        listsManagement.selectADirectorate();
+        clickTheButton("Submit");
+    }
+
+    @And("I add a new business area to the selected directorate")
+    public void iAddANewBusinessAreaToTheSelectedDirectorate() {
+        listsManagement.clickAddNewBusinessAreaButton();
+        listsManagement.enterBusinessAreaName();
+        clickTheButton("Submit");
+    }
+
+    @And("I navigate to the business area list and select the amend link for the business area")
+    public void iSelectTheAmendLinkForBusinessArea() {
+        iSelectAManagementUIDashboardLink("Manage UKVI Complaints Business Areas");
+        String directorate = sessionVariableCalled("directorate");
+        listsManagement.selectSpecificDirectorate(directorate);
+        clickTheButton("Submit");
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("businessAreaName"));
+    }
+
+    @And("I amend the name of the business area")
+    public void iAmendTheNameOfTheBusinessArea() {
+        listsManagement.enterBusinessAreaName();
+        clickTheButton("Submit");
+    }
+
+    @And("I should be able to view the created/renamed business area in the table of business areas")
+    public void iShouldBeAbleToViewTheCreatedBusinessAreaInTheTableOfBusinessAreas() {
+        iSelectAManagementUIDashboardLink("Manage UKVI Complaints Business Areas");
+        String directorate = sessionVariableCalled("directorate");
+        listsManagement.selectSpecificDirectorate(directorate);
+        clickTheButton("Submit");
+        listsManagement.assertVisibilityOfBusinessAreaInBusinessAreaTable();
+    }
+
+    @Then("the success message for adding a new business area should be displayed")
+    public void theSuccessMessageForAddingANewBusinessAreaShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingBusinessAreaVisible();
+    }
+
+    @Then("the success message for amending a Business Area should be displayed")
+    public void theSuccessMessageForAmendingABusinessAreaShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingBusinessAreaVisible();
+    }
 }
 

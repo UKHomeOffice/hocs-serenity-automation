@@ -305,4 +305,8 @@ public class Registration extends BasePage {
     public void selectAnOwningCSU() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
     }
+
+    public void selectSpecificOwningCSU(String owningCSU) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(owningCSU, "Owning CSU");
+    }
 }
