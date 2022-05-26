@@ -36,6 +36,9 @@ public class ListsManagement extends BasePage {
     @FindBy(xpath = "//button[text()='Add Business Unit']")
     public WebElementFacade addBusinessUnitButton;
 
+    @FindBy(xpath = "//button[text()='Add Business Area']")
+    public WebElementFacade addBusinessAreaButton;
+
     @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
 
@@ -78,6 +81,10 @@ public class ListsManagement extends BasePage {
 
     public void clickTheAddNewBusinessUnitButton() { safeClickOn(addBusinessUnitButton); }
 
+    public void clickAddNewBusinessAreaButton() {
+        safeClickOn(addBusinessAreaButton);
+    }
+
     public void clickTheAddNewEnquiryReasonButton(String caseType) {
         if (caseType.equalsIgnoreCase("MPAM")) {
             safeClickOn(addEnquiryReasonButton);
@@ -99,6 +106,16 @@ public class ListsManagement extends BasePage {
     public void selectABusinessArea() {
         String selectedBusinessArea = selectRandomOptionFromTypeaheadWithHeading("Business Areas");
         setSessionVariable("businessArea").to(selectedBusinessArea);
+    }
+
+    public void selectADirectorate() {
+        String selectedDirectorate = selectRandomOptionFromTypeaheadWithHeading("Directorate");
+        setSessionVariable("directorate").to(selectedDirectorate);
+    }
+
+    public void selectSpecificDirectorate(String directorate) {
+        selectSpecificOptionFromTypeaheadWithHeading(directorate, "Directorate");
+        setSessionVariable("directorate").to(directorate);
     }
 
     public void selectASpecificBusinessArea(String businessArea) {
@@ -132,6 +149,10 @@ public class ListsManagement extends BasePage {
 
     public void enterEnquiryReasonName() {
         setSessionVariable("enquiryReasonName").to(enterName());
+    }
+
+    public void enterBusinessAreaName() {
+        setSessionVariable("businessAreaName").to(enterName());
     }
 
     public void enterEnquiryReasonCode() {
@@ -202,6 +223,14 @@ public class ListsManagement extends BasePage {
         successMessage.shouldContainText("The business unit was amended successfully");
     }
 
+    public void assertSuccessMessageForAddingBusinessAreaVisible() {
+        successMessage.shouldContainText("The business area was added successfully");
+    }
+
+    public void assertSuccessMessageForAmendingBusinessAreaVisible() {
+        successMessage.shouldContainText("The business unit was amended successfully");
+    }
+
     public void assertSuccessMessageForAddingEnquiryReasonVisible() {
         successMessage.shouldContainText("The enquiry reason was added successfully");
     }
@@ -252,6 +281,15 @@ public class ListsManagement extends BasePage {
         WebElementFacade businessUnitInTable = findBy("//tr/td[1][text()='" + businessUnitName + "']");
         if (!businessUnitInTable.isCurrentlyVisible()) {
             Assert.fail(businessUnitName + " is not visible in table");
+        }
+    }
+
+    public void assertVisibilityOfBusinessAreaInBusinessAreaTable() {
+        waitForMUIPageWithTitle("View and Edit Business Areas for");
+        String businessAreaName = sessionVariableCalled("businessAreaName");
+        WebElementFacade businessAreaInTable = findBy("//tr/td[1][text()='" + businessAreaName + "']");
+        if (!businessAreaInTable.isCurrentlyVisible()) {
+            Assert.fail(businessAreaName + " is not visible in table");
         }
     }
 
