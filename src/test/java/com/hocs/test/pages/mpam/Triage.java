@@ -97,9 +97,8 @@ public class Triage extends BasePage {
     }
 
     public void setBusinessUnit() {
-        businessUnitDropdown.waitUntilEnabled();
-        businessUnitDropdown.selectByIndex(1);
-        setSessionVariable("businessUnit").to(businessUnitDropdown.getValue());
+        String businessUnit = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business unit");
+        setSessionVariable("businessUnit").to(businessUnit);
     }
 
     public void putTriageCaseOnHold() {
