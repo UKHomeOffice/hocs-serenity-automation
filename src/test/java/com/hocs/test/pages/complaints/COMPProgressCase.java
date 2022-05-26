@@ -206,7 +206,7 @@ public class COMPProgressCase extends BasePage {
 
     public void moveCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("DRAFT");
-        complaintsDraft.selectActionAtDraft("Send Case to QA");
+        complaintsDraft.selectActionAtDraft("Send case to QA");
     }
 
     public void moveCaseFromQAToSend() {
