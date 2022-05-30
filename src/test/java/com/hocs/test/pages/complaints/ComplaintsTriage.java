@@ -97,7 +97,7 @@ public class ComplaintsTriage extends BasePage {
     public WebElementFacade dateOfAcceptanceLabel;
 
     @FindBy(id = "TotalOfferSentToComplainant")
-    public WebElementFacade totalOfferSentToComplainantTextField;
+    public WebElementFacade totalOfferSentToComplainantField;
 
     public void selectAcceptCase() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
@@ -190,7 +190,7 @@ public class ComplaintsTriage extends BasePage {
         double exGratiaOffer = Double.parseDouble(sessionVariableCalled("exGratiaOfferAmount").toString());
         double totalOffer = consolatoryOffer + exGratiaOffer;
         waitABit(1000);
-        String totalOfferFieldOffer = totalOfferSentToComplainantTextField.getValue();
+        String totalOfferFieldOffer = totalOfferSentToComplainantField.getValue();
         double displayedTotalOffer = Double.parseDouble(totalOfferFieldOffer);
         assertThat(totalOffer == displayedTotalOffer, is(true));
     }
