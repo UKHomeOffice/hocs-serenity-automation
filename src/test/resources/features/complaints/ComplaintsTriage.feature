@@ -369,6 +369,9 @@ Feature: Complaints Triage
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I send the case to drafting
     Then the case should be moved to the "DRAFT" stage
     And the summary should display the owning team as "Border Force"
@@ -380,6 +383,9 @@ Feature: Complaints Triage
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM" stage
     And the summary should display the owning team as "Border Force"
@@ -392,6 +398,9 @@ Feature: Complaints Triage
     When I get a "BF" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I select to complete the case at Triage
     And I click the "Finish" button
     And I enter a reason for closing the case
@@ -414,6 +423,19 @@ Feature: Complaints Triage
     | Business          | Complete  |
     | Business          | Cancel    |
 
+  Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF case at Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
+    And I enter information on the Triage Details page
+    And I select "Yes" for has the complainant requested a payment
+    And I enter "100.00" as the amount requested by the complainant
+    And I select "Yes" for are we issuing an offer for a Consolatory payment
+    And I enter "60.00" as the Consolatory payment offer sent to the complainant
+    And I select "Yes" for are we issuing an offer for an Ex-Gratia payment
+    And I enter "35.00" as the Ex-Gratia payment offer sent to the complainant
+    And I save the changes
+    Then the total payment offer sent to the complainant should be the sum of the payment offers previously entered
 
 #     BF STAGE 2 COMPLAINTS
 
@@ -423,6 +445,9 @@ Feature: Complaints Triage
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I send the case to drafting
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -434,6 +459,9 @@ Feature: Complaints Triage
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -446,6 +474,9 @@ Feature: Complaints Triage
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
+    And I select "No" for has the complainant requested a payment
+    And I select "No" for are we issuing an offer for a Consolatory payment
+    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I select to complete the case at Triage
     And I click the "Finish" button
     And I enter a reason for closing the case
@@ -467,3 +498,17 @@ Feature: Complaints Triage
       | Complainant       | Cancel    |
       | Business          | Complete  |
       | Business          | Cancel    |
+
+  Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF2 case at Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
+    And I enter information on the Triage Details page
+    And I select "Yes" for has the complainant requested a payment
+    And I enter "100.00" as the amount requested by the complainant
+    And I select "Yes" for are we issuing an offer for a Consolatory payment
+    And I enter "60.00" as the Consolatory payment offer sent to the complainant
+    And I select "Yes" for are we issuing an offer for an Ex-Gratia payment
+    And I enter "35.00" as the Ex-Gratia payment offer sent to the complainant
+    And I save the changes
+    Then the total payment offer sent to the complainant should be the sum of the payment offers previously entered
