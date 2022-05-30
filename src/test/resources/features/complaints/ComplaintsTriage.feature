@@ -435,9 +435,6 @@ Feature: Complaints Triage
     When I get a "BF2" case at the "Triage" stage
     And I accept the case at Triage stage
     And I enter information on the Triage Details page
-    And I select "No" for has the complainant requested a payment
-    And I select "No" for are we issuing an offer for a Consolatory payment
-    And I select "No" for are we issuing an offer for an Ex-Gratia payment
     And I send the case to drafting
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
