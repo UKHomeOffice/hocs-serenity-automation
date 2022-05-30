@@ -141,9 +141,6 @@ public class BFProgressCase extends BasePage {
         complaintsTriage.selectAcceptCase();
         clickTheButton("Continue");
         complaintsTriage.enterDetailsOnBFTriageDetailsPage();
-        complaintsTriage.selectComplainantHasRequestedPayment("No");
-        complaintsTriage.selectAreWeIssuingOfferForConsolatoryPayment("No");
-        complaintsTriage.selectAreWeIssuingOfferForExGratiaPayment("No");
         complaintsTriage.selectReadyForDrafting();
         System.out.println("Case moved from Case Triage to Draft");
     }
@@ -153,9 +150,6 @@ public class BFProgressCase extends BasePage {
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Details");
         complaintsTriage.enterDetailsOnBFTriageDetailsPage();
-        complaintsTriage.selectComplainantHasRequestedPayment("No");
-        complaintsTriage.selectAreWeIssuingOfferForConsolatoryPayment("No");
-        complaintsTriage.selectAreWeIssuingOfferForExGratiaPayment("No");
         complaintsTriage.escalateCaseToWFM();
         System.out.println("Case moved from Case Triage to Escalated to WFM");
     }
