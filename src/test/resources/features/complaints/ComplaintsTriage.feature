@@ -414,6 +414,18 @@ Feature: Complaints Triage
     | Business          | Complete  |
     | Business          | Cancel    |
 
+  Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF case at Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Triage" stage
+    And I accept the case at Triage stage
+    And I select "Yes" for has the complainant requested a payment
+    And I enter "100.00" as the amount requested by the complainant
+    And I select "Yes" for are we issuing an offer for a Consolatory payment
+    And I enter "60.00" as the Consolatory payment offer sent to the complainant
+    And I select "Yes" for are we issuing an offer for an Ex-Gratia payment
+    And I enter "35.00" as the Ex-Gratia payment offer sent to the complainant
+    And I save the changes
+    Then the total payment offer sent to the complainant should be the sum of the payment offers previously entered
 
 #     BF STAGE 2 COMPLAINTS
 
@@ -467,3 +479,16 @@ Feature: Complaints Triage
       | Complainant       | Cancel    |
       | Business          | Complete  |
       | Business          | Cancel    |
+
+  Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF2 case at Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Triage" stage
+    And I accept the case at Triage stage
+    And I select "Yes" for has the complainant requested a payment
+    And I enter "100.00" as the amount requested by the complainant
+    And I select "Yes" for are we issuing an offer for a Consolatory payment
+    And I enter "60.00" as the Consolatory payment offer sent to the complainant
+    And I select "Yes" for are we issuing an offer for an Ex-Gratia payment
+    And I enter "35.00" as the Ex-Gratia payment offer sent to the complainant
+    And I save the changes
+    Then the total payment offer sent to the complainant should be the sum of the payment offers previously entered

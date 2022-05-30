@@ -177,4 +177,39 @@ public class ComplaintsTriageStepDefs extends BasePage {
         String businessArea = sessionVariableCalled("businessAreaName");
         selectSpecificOptionFromDropdownWithHeading(businessArea, "Business Area");
     }
+
+    @And("I select {string} for has the complainant requested a payment")
+    public void iSelectForHasComplainantRequestedAPayment(String yesNo) {
+        complaintsTriage.selectComplainantHasRequestedPayment(yesNo);
+    }
+
+    @And("I enter {string} as the amount requested by the complainant")
+    public void iEnterAsTheAmountRequestedByTheComplainant(String amount) {
+        complaintsTriage.enterAmountRequestedByComplainant(amount);
+    }
+
+    @And("I select {string} for are we issuing an offer for a Consolatory payment")
+    public void iSelectForAreWeIssuingAnOfferForAConsolatoryPayment(String yesNo) {
+        complaintsTriage.selectAreWeIssuingOfferForConsolatoryPayment(yesNo);
+    }
+
+    @And("I enter {string} as the Consolatory payment offer sent to the complainant")
+    public void iEnterAsTheConsolatoryPaymentOfferSentToTheComplainant(String amount) {
+        complaintsTriage.enterConsolatoryPaymentOffer(amount);
+    }
+
+    @And("I select {string} for are we issuing an offer for an Ex-Gratia payment")
+    public void iSelectForAreWeIssuingAnOfferForAExGratiaPayment(String yesNo) {
+        complaintsTriage.selectAreWeIssuingOfferForExGratiaPayment(yesNo);
+    }
+
+    @And("I enter {string} as the Ex-Gratia payment offer sent to the complainant")
+    public void iEnterAsTheExGratiaPaymentOfferSentToTheComplainant(String amount) {
+        complaintsTriage.enterExGratiaPaymentOffer(amount);
+    }
+
+    @Then("the total payment offer sent to the complainant should be the sum of the payment offers previously entered")
+    public void theTotalPaymentOfferSentToTheComplainantShouldBeTheSumOfThePaymentOffersPreviouslyEntered() {
+        complaintsTriage.assertTotalPaymentOfferIsCorrect();
+    }
 }

@@ -49,7 +49,7 @@ public class TriageStepDefs extends BasePage {
 
     @And("I save the changes")
     public void iSaveTheChanges() {
-        selectTheStageAction("Save changes");
+        selectSpecificRadioButton("Save changes");
         clickTheButton("Finish");
     }
 
