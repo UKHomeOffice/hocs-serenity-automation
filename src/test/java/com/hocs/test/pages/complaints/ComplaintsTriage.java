@@ -228,6 +228,9 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         selectBFReasonsForComplaint();
         selectIfLOARequired("Yes");
+        selectComplainantHasRequestedPayment("No");
+        selectAreWeIssuingOfferForConsolatoryPayment("No");
+        selectAreWeIssuingOfferForExGratiaPayment("No");
     }
 
     private void selectBFReasonsForComplaint() {
