@@ -335,6 +335,10 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234", "PSU Reference");
     }
 
+    public void enterSpecificPSUReference(String reference) {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(reference, "PSU Reference");
+    }
+
     public void selectAdditionalInformation(String additionalInformation) {
         recordCaseData.checkSpecificCheckbox(additionalInformation);
     }
