@@ -66,24 +66,14 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
     public WebElementFacade primaryDraftDocumentName;
 
-    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
-    public WebElementFacade nonActiveTab;
-
     //Simple methods
 
     public void selectDocumentsTab() {
-        if(!documentsTabIsActiveTab()) {
-            safeClickOn(documentsTab);
-        }
+        selectTheTab("Documents");
     }
 
     public void refreshDocumentTab() {
-        safeClickOn(nonActiveTab);
-        selectDocumentsTab();
-    }
-
-    public boolean documentsTabIsActiveTab() {
-        return documentsTab.getAttribute("class").contains("active");
+        refreshTheTab("Documents");
     }
 
     public void selectDocumentTypeByText(String docType) {

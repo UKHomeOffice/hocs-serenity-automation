@@ -7,16 +7,12 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PeopleTab extends BasePage {
 
     Correspondents correspondents;
-
-    @FindBy(xpath = "//a[text()='People']")
-    public WebElementFacade peopleTab;
 
     @FindBy(xpath = "//a[text()='Manage People']")
     public WebElementFacade managePeopleHypertext;
@@ -36,17 +32,12 @@ public class PeopleTab extends BasePage {
     @FindBy(xpath = "//input[@value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
-    public WebElementFacade nonActiveTab;
-
     public void selectPeopleTab() {
-        safeClickOn(peopleTab);
+        selectTheTab("People");
     }
 
     public void refreshPeopleTab() {
-        waitABit(500);
-        safeClickOn(nonActiveTab);
-        selectPeopleTab();
+        refreshTheTab("People");
     }
 
     public void addAMemberCorrespondent() {
@@ -122,7 +113,7 @@ public class PeopleTab extends BasePage {
     public void assertNewCorrespondentIsDisplayed() {
         int n = 0;
         if (!managePeopleHypertext.isVisible()) {
-            safeClickOn(peopleTab);
+            selectPeopleTab();
         }
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int listSize = correspondentNames.size();
@@ -138,14 +129,14 @@ public class PeopleTab extends BasePage {
 
     public void assertNewPrimaryCorrespondent(String newPrimaryCorrespondent) {
         if (!managePeopleHypertext.isVisible()) {
-            safeClickOn(peopleTab);
+            selectPeopleTab();
         }
         assertThat(primaryCorrespondentName.getText().contains(newPrimaryCorrespondent), is(true));
     }
 
     public void assertCorrespondentHasBeenRemoved(String correspondent) {
         continueButton.waitUntilVisible();
-        safeClickOn(peopleTab);
+        selectPeopleTab();
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int n = 0;
         while (n < (correspondentNames.size())) {

@@ -509,22 +509,22 @@ public class Search extends BasePage {
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertMPCorrespondentIsAddedToTheCase(sessionVariableCalled("searchMemberOfParliamentName"));
                 break;
             case "PUBLIC CORRESPONDENT NAME":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
                 break;
             case "CORRESPONDENT POSTCODE":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertCorrespondentPostcode(sessionVariableCalled("searchCorrespondentPostcode"));
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertCorrespondentEmailAddress(sessionVariableCalled("searchCorrespondentEmailAddress"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
@@ -606,7 +606,7 @@ public class Search extends BasePage {
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertMPCorrespondentIsAddedToTheCase(sessionVariableCalled("searchMemberOfParliamentName"));
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
@@ -626,7 +626,7 @@ public class Search extends BasePage {
                 break;
             case "PUBLIC CORRESPONDENT NAME":
                 safeClickOn(randomSearchResult);
-                safeClickOn(peopleTab.peopleTab);
+                peopleTab.selectPeopleTab();
                 peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
                 break;
             case "ACTIVE CASES ONLY":

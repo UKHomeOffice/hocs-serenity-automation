@@ -19,9 +19,6 @@ public class SummaryTab extends BasePage {
 
     Workdays workdays;
 
-    @FindBy(xpath = "//a[text()='Summary']")
-    public WebElementFacade summaryTab;
-
     @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade deadline;
 
@@ -115,23 +112,11 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
     public WebElementFacade previousCOMPCaseReference;
 
-    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
-    public WebElementFacade nonActiveTab;
+
 
 
     public void selectSummaryTab() {
-        if (!summaryTabIsActiveTab()) {
-            safeClickOn(summaryTab);
-        }
-    }
-
-    public void refreshSummaryTab() {
-        safeClickOn(nonActiveTab);
-        selectSummaryTab();
-    }
-
-    public boolean summaryTabIsActiveTab() {
-        return summaryTab.getAttribute("class").contains("active");
+        selectTheTab("Summary");
     }
 
     public void assertSummaryContainsExpectedValueForGivenHeader(String value, String header) {
@@ -141,7 +126,7 @@ public class SummaryTab extends BasePage {
             assertThat(containsIgnoreCase(displayedValue, expectedDisplayValue), is(true));
         } catch (AssertionError e) {
             waitABit(100);
-            refreshSummaryTab();
+            refreshTheTab("Summary");
             displayedValue = getSummaryTabValueForGivenHeader(header);
             if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
                 Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: \"" + value + "\"\nDisplayed value was: \"" +

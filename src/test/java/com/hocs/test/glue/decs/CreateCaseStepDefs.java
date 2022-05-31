@@ -81,6 +81,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void iGetANewCase(String caseType) {
         createNewCase(caseType);
         confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.waitForCaseToLoad();
         dashboard.claimCurrentCase();
     }
 

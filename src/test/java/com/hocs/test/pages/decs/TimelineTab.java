@@ -6,16 +6,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
-import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 
 public class TimelineTab extends BasePage {
-
-    @FindBy(xpath = "//a[contains(@class,'tab')][text()='Timeline']")
-    public WebElementFacade timelineTab;
 
     @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
     public WebElementFacade addCaseNoteButton;
@@ -47,22 +43,12 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//li/p/strong[text()='Case Closed']")
     public WebElementFacade caseClosedNote;
 
-    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
-    public WebElementFacade nonActiveTab;
-
     public void selectTimelineTab() {
-        if (!timelineTabIsActiveTab()) {
-            safeClickOn(timelineTab);
-        }
+        selectTheTab("Timeline");
     }
 
     public void refreshTimelineTab() {
-        safeClickOn(nonActiveTab);
-        selectTimelineTab();
-    }
-
-    public boolean timelineTabIsActiveTab() {
-        return timelineTab.getAttribute("class").contains("active");
+        refreshTheTab("Timeline");
     }
 
     public void clickAddCaseNote() {

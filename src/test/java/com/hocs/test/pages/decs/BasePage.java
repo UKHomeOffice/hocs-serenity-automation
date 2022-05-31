@@ -21,6 +21,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -107,6 +108,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//label[text()='Save changes']")
     public WebElementFacade saveChangesRadioButton;
 
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
+
     public void waitABit(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -135,6 +139,33 @@ public class BasePage extends PageObject {
     public void clickTheLink(String linkText) {
         WebElementFacade link = findBy("//a[contains(text(), '" + linkText + "')]");
         safeClickOn(link);
+    }
+
+    public void selectTheTab(String tabName) {
+        WebElementFacade tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
+        tab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        if (!tab.getAttribute("class").contains("active")) {
+            try {
+                tab.click();
+            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+                waitABit(500);
+                tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
+                tab.click();
+            }
+        }
+    }
+
+    public void refreshTheTab(String tabName) {
+        WebElementFacade nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+        nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+            try {
+                nonActiveTab.click();
+            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+                waitABit(500);
+                nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+                nonActiveTab.click();
+            }
+        selectTheTab(tabName);
     }
 
     public boolean accordionSectionIsVisible(String accordionLabel) {

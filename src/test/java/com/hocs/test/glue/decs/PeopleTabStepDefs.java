@@ -16,11 +16,9 @@ public class PeopleTabStepDefs extends BasePage {
 
     PeopleTab peopleTab;
 
-    SummaryTab summaryTab;
-
     @And("I add a {string} correspondent to the case")
     public void iAddANewCorrespondent(String correspondentType) {
-        safeClickOn(peopleTab.peopleTab);
+        peopleTab.selectPeopleTab();
         switch (correspondentType.toUpperCase()) {
             case "MEMBER":
                 peopleTab.addAMemberCorrespondent();
