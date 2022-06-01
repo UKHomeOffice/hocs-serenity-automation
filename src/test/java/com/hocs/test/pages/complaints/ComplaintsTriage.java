@@ -2,13 +2,13 @@ package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.util.ArrayList;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
@@ -96,8 +96,11 @@ public class ComplaintsTriage extends BasePage {
     @FindBy(xpath = "//legend[text()='Date of Acceptance']")
     public WebElementFacade dateOfAcceptanceLabel;
 
+    @FindBy(id = "TotalOfferSentToComplainant")
+    public WebElementFacade totalOfferSentToComplainantField;
+
     public void selectAcceptCase() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
         waitABit(500);
     }
 
@@ -105,14 +108,28 @@ public class ComplaintsTriage extends BasePage {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
     }
 
+    public void selectEnquiryReason(String enquiryReason) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry Reason");
+    }
+
+    public void selectTransferOfflineAndCloseTheCase() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case", "Can your team respond to this complaint?");
+        clickTheButton("Continue");
+    }
+
     public void selectTransferComplaint() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint","Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
         clickTheButton("Continue");
     }
 
     public void enterTransferReason() {
-        String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for transfer");
-        setSessionVariable("rejectionReason").to(enteredText);
+        String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+        if (bfCase()) {
+            setSessionVariable("transferReason").to(enteredText);
+        }
+        else {
+            setSessionVariable("rejectionReason").to(enteredText);
+        }
     }
 
     public void selectTransferToCCH() {
@@ -120,9 +137,122 @@ public class ComplaintsTriage extends BasePage {
         clickTheButton("Continue");
     }
 
-    public void enterDetailsOnTriageCaptureReasonPage() {
+    public void selectTransferToPSU() {
+        recordCaseData.selectSpecificRadioButton("PSU");
+        clickTheButton("Continue");
+    }
+
+    public void selectTransferToIEDET() {
+        recordCaseData.selectSpecificRadioButton("IE Detention");
+        clickTheButton("Continue");
+    }
+
+    public void selectComplainantHasRequestedPayment(String yesNo) {
+        if (yesNo.equalsIgnoreCase("YES")) {
+            selectSpecificRadioButtonFromGroupWithHeading("Yes", "Has the complainant requested a payment?");
+        } else if (yesNo.equalsIgnoreCase("NO")) {
+            selectSpecificRadioButtonFromGroupWithHeading("No", "Has the complainant requested a payment?");
+        }
+    }
+
+    public void enterAmountRequestedByComplainant(String amount) {
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Amount requested by complainant");
+    }
+
+    public void selectAreWeIssuingOfferForConsolatoryPayment(String yesNo) {
+        if (yesNo.equalsIgnoreCase("YES")) {
+            selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are we issuing an offer for a Consolatory payment?");
+        } else if (yesNo.equalsIgnoreCase("NO")) {
+            selectSpecificRadioButtonFromGroupWithHeading("No", "Are we issuing an offer for a Consolatory payment?");
+        }
+    }
+
+    public void enterConsolatoryPaymentOffer(String amount) {
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Consolatory payment offer sent to the complainant");
+        setSessionVariable("consolatoryOfferAmount").to(amount);
+    }
+
+    public void selectAreWeIssuingOfferForExGratiaPayment(String yesNo) {
+        if (yesNo.equalsIgnoreCase("YES")) {
+            selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are we issuing an offer for an Ex-Gratia payment?");
+        } else if (yesNo.equalsIgnoreCase("NO")) {
+            selectSpecificRadioButtonFromGroupWithHeading("No", "Are we issuing an offer for an Ex-Gratia payment?");
+        }
+    }
+
+    public void enterExGratiaPaymentOffer(String amount) {
+        enterSpecificTextIntoTextFieldWithHeading(amount, "Ex-Gratia payment offer sent to the complainant");
+        setSessionVariable("exGratiaOfferAmount").to(amount);
+    }
+
+    public void assertTotalPaymentOfferIsCorrect() {
+        double consolatoryOffer = Double.parseDouble(sessionVariableCalled("consolatoryOfferAmount").toString());
+        double exGratiaOffer = Double.parseDouble(sessionVariableCalled("exGratiaOfferAmount").toString());
+        double totalOffer = consolatoryOffer + exGratiaOffer;
+        waitABit(1000);
+        String totalOfferFieldOffer = totalOfferSentToComplainantField.getValue();
+        double displayedTotalOffer = Double.parseDouble(totalOfferFieldOffer);
+        assertThat(totalOffer == displayedTotalOffer, is(true));
+    }
+
+    public void openTheSeriousAndMinorComplaintCategoryAccordion() {
+        openOrCloseAccordionSection("Serious and Minor");
+    }
+
+    public void selectAVisibleClaimCategory() {
+        List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
+        List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
+        for (WebElementFacade claimCategory: claimCategories) {
+            if (claimCategory.isCurrentlyVisible()) {
+                visibleClaimCategories.add(claimCategory);
+            }
+        }
+        recordCaseData.checkRandomCheckboxFromList(visibleClaimCategories);
+    }
+
+    public void enterDetailsOnComplaintCategoryPage() {
+        String complaintType = sessionVariableCalled("complaintType");
+        if (complaintType.equalsIgnoreCase("MINOR MISCONDUCT")) {
+            selectOwningCSU();
+            openTheSeriousAndMinorComplaintCategoryAccordion();
+            selectAVisibleClaimCategory();
+        }
+        if (complaintType.equalsIgnoreCase("EX-GRATIA")) {
+            openExGratiaAccordion();
+            selectAVisibleClaimCategory();
+        }
+    }
+
+    public void enterDetailsOnBFTriageDetailsPage() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        selectBFReasonsForComplaint();
+        selectIfLOARequired("Yes");
+        selectComplainantHasRequestedPayment("No");
+        selectAreWeIssuingOfferForConsolatoryPayment("No");
+        selectAreWeIssuingOfferForExGratiaPayment("No");
+    }
+
+    private void selectBFReasonsForComplaint() {
+        for (int i = 1; i <= 5; i++) {
+            String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
+            if (selectedReasonForComplaint.equals("Other")) {
+                recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason " + i + ")");
+            }
+            setSessionVariable("reasonForComplaint"+i).to(selectedReasonForComplaint);
+        }
+    }
+    
+    public void enterDetailsOnTriageCaptureReasonPage() {
+        String complaintType = sessionVariableCalled("complaintType");
+        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+        }
+        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        if (iedetCase() && businessArea.equalsIgnoreCase("OTHER")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Other Business Area");
+        }
+        if (!iedetCase()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
         }
         selectIfLOARequired("Yes");
@@ -141,12 +271,20 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectReadyForDrafting() {
         recordCaseData.selectSpecificRadioButton("All information collected - case ready for drafting");
-        clickTheButton("Continue");
+        if (bfCase() || bf2Case()) {
+            clickTheButton("Finish");
+        } else {
+            clickTheButton("Continue");
+        }
     }
 
     public void escalateCaseToWFM() {
         recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
-        clickTheButton("Continue");
+        if (bfCase() || bf2Case()) {
+            clickTheButton("Finish");
+        } else {
+            clickTheButton("Continue");
+        }
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
         clickTheButton("Escalate case");
@@ -154,7 +292,6 @@ public class ComplaintsTriage extends BasePage {
 
     public void selectCompleteTheCase() {
         recordCaseData.selectSpecificRadioButton("No response - complete the case (close permanently)");
-        clickTheButton("Continue");
     }
 
     public void enterCompletionReason() {
@@ -192,5 +329,25 @@ public class ComplaintsTriage extends BasePage {
         WebElement label = find(By.xpath("//label[text()='Overdue " + sessionVariableCalled("contributionDueDate") + "']"));
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
+    }
+
+    public void enterPSUReference() {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading("1234", "PSU Reference");
+    }
+
+    public void selectAdditionalInformation(String additionalInformation) {
+        recordCaseData.checkSpecificCheckbox(additionalInformation);
+    }
+
+    public void selectOwningCSU() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Owning CSU");
+    }
+
+    public void selectACloseReason() {
+        String closeReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
+        if (closeReason.equals("Other")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
+        }
+        clickTheButton("Continue");
     }
 }

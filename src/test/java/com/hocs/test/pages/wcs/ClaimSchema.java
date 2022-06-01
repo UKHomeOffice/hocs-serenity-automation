@@ -472,8 +472,18 @@ public class ClaimSchema extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Windrush Scheme (Task Force) reference");
     }
 
-    public void selectATypeOfClaim(){
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Type of claim");
+    public void selectASpecificTypeOfClaim(String typeOfClaim){
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(typeOfClaim,"Type of claim");
+        if (typeOfClaim.equalsIgnoreCase("Estate of deceased")) {
+            String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Has the probate pack been sent?");
+            if (selectedOption.equalsIgnoreCase("Yes")) {
+                recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was the probate pack sent?");
+            }
+            selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Has the probate pack been received?");
+            if (selectedOption.equalsIgnoreCase("Yes")) {
+                recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "When was the probate pack received?");
+            }
+        }
     }
 
     public void selectASubmissionType(){
@@ -481,7 +491,10 @@ public class ClaimSchema extends BasePage {
     }
 
     public void selectOptionForWasFormSentThroughClaimantAssistanceAdviser() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the form sent through Claimant Assistance Adviser?");
+        String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Was the form sent through Claimant Assistance Adviser?");
+        if (selectedOption.equalsIgnoreCase("Yes")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Associated reference");
+        }
     }
 
     public void selectIfClaimCameFromInOrOutOfTheCountry(){
@@ -517,7 +530,7 @@ public class ClaimSchema extends BasePage {
     public void completeRequiredFieldsInCaseInfoSection(){
         expandCollapseCaseInfoSection();
         enterReceivedDate();
-        selectATypeOfClaim();
+        selectASpecificTypeOfClaim("Primary");
         selectASubmissionType();
         selectOptionForWasFormSentThroughClaimantAssistanceAdviser();
         selectIfClaimCameFromInOrOutOfTheCountry();
@@ -527,6 +540,7 @@ public class ClaimSchema extends BasePage {
     public void completeCaseInfoSection(){
         expandCollapseCaseInfoSection();
         enterATaskForceReference();
+        selectASpecificTypeOfClaim("Estate of deceased");
         enterTextIntoLinkedClaimsTextBox();
         enterBroughtForwardDate(getTodaysDate());
         selectWithClaimant();

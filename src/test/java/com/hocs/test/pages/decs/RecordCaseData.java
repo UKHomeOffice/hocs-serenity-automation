@@ -3,7 +3,6 @@ package com.hocs.test.pages.decs;
 import java.util.HashMap;
 import java.util.List;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.junit.Assert;
 
 public class RecordCaseData extends BasePage{
 
@@ -11,8 +10,10 @@ public class RecordCaseData extends BasePage{
 
     CaseView caseView;
 
-    public static void resetDataRecords() {
-        dataRecords = new HashMap<>();
+    public static void checkIfDataRecordsShouldBeWiped() {
+        if (!keepAllCaseData) {
+            dataRecords = new HashMap<>();
+        }
     }
 
     //Radio buttons
@@ -43,6 +44,7 @@ public class RecordCaseData extends BasePage{
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
         String textToEnter = super.enterTextIntoTextFieldWithHeading(headingText);
+        addHeadingAndValueRecord(headingText, textToEnter);
         return textToEnter;
     }
 
@@ -55,6 +57,7 @@ public class RecordCaseData extends BasePage{
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
         String textToEnter = super.enterTextIntoTextAreaWithHeading(headingText);
+        addHeadingAndValueRecord(headingText, textToEnter);
         return textToEnter;
     }
 
@@ -95,6 +98,22 @@ public class RecordCaseData extends BasePage{
         addValueRecord(checkboxLabelText);
     }
 
+    // Typeaheads
+
+    public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
+        String optionText = super.selectRandomOptionFromTypeaheadWithHeading(headingText);
+        addHeadingAndValueRecord(headingText,optionText);
+        return optionText;
+    }
+
+    public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
+        String selectedOptionText = super.selectSpecificOptionFromTypeaheadWithHeading(optionText, headingText);
+        addHeadingAndValueRecord(headingText, optionText);
+        return selectedOptionText;
+    }
+
+    // Other methods
+
     public void addHeadingAndValueRecord(String heading, String value) {
         dataRecords.put(heading, value);
     }
@@ -103,21 +122,11 @@ public class RecordCaseData extends BasePage{
         dataRecords.put(value, "Yes");
     }
 
-    public void assertAllRecordedCaseDataIsDisplayedInTheReadOnlyAccordionSection() {
+    public void assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion() {
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
-            List<String> visibleDisplayValues = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(entry.getKey());
-            String recordedValue = entry.getValue();
-            String expectedDisplayValue = recordedValue.replace("\n", " ");
-            boolean expectedValueIsDisplayed = false;
-            for (String visibleDisplayValue : visibleDisplayValues) {
-                if (visibleDisplayValue.contains(expectedDisplayValue)) {
-                    expectedValueIsDisplayed = true;
-                    break;
-                }
-            }
-            if (!expectedValueIsDisplayed) {
-                Assert.fail("'" + entry.getKey() + ": " + expectedDisplayValue + "' is not visible in accordion");
-            }
+            String accordionKey = entry.getKey();
+            String expectedAccordionValue = entry.getValue();
+            caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(expectedAccordionValue, accordionKey);
         }
     }
 

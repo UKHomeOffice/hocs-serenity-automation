@@ -1,7 +1,5 @@
 package com.hocs.test.pages.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -9,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import config.CurrentUser;
+import config.PreviousUser;
 import config.User;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,20 +15,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 public class BasePage extends PageObject {
 
     public static String currentPlatform = "";
+
+
+
+    public static boolean keepAllCaseData = false;
 
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
@@ -55,7 +60,7 @@ public class BasePage extends PageObject {
     public WebElementFacade continueButton;
 
     @FindBy(className = "govuk-error-summary")
-    protected WebElementFacade errorMessage;
+    protected WebElementFacade errorMessageList;
 
     @FindBy(linkText = "Correspondence System")
     public WebElementFacade csDashboardLink;
@@ -80,9 +85,6 @@ public class BasePage extends PageObject {
 
     @FindBy(css = "[value='Reject']")
     public WebElementFacade rejectButton;
-
-    @FindBy(id = "CaseNote_RejectionNote")
-    protected WebElementFacade rejectReasonTextField;
 
     @FindBy(css = "[value = 'Save']")
     public WebElementFacade saveButton;
@@ -130,6 +132,11 @@ public class BasePage extends PageObject {
         safeClickOn(button);
     }
 
+    public void clickTheLink(String linkText) {
+        WebElementFacade link = findBy("//a[contains(text(), '" + linkText + "')]");
+        safeClickOn(link);
+    }
+
     public boolean accordionSectionIsVisible(String accordionLabel) {
         WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
         return accordionSectionButton.isCurrentlyVisible();
@@ -141,11 +148,17 @@ public class BasePage extends PageObject {
     }
 
     public void assertErrorMessageText(String text) {
-        assertThat(getErrorMessageText(), containsString(text));
+        assertThat(getAllErrorMessageText(), containsString(text));
     }
 
     public void assertPageTitle(String title) {
         WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
+        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert (pageTitle.isVisible());
+    }
+
+    public void assertManagementUIPageTitle(String title) {
+        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
         pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assert (pageTitle.isVisible());
     }
@@ -155,6 +168,18 @@ public class BasePage extends PageObject {
         while (retries < 3) {
             try {
                 assertPageTitle(pageTitle);
+                break;
+            } catch (AssertionError e) {
+                retries++;
+            }
+        }
+    }
+
+    public void waitForMUIPageWithTitle(String pageTitle) {
+        int retries = 0;
+        while (retries < 3) {
+            try {
+                assertManagementUIPageTitle(pageTitle);
                 break;
             } catch (AssertionError e) {
                 retries++;
@@ -175,51 +200,84 @@ public class BasePage extends PageObject {
         safeClickOn(continueButton);
     }
 
-    public void clickRejectButton() {
-        safeClickOn(rejectButton);
+    public boolean dcuCase() { return minCase() | dtenCase() | troCase(); }
+
+    public boolean minCase() {
+        return sessionVariableCalled("caseType").toString().equals("MIN");
     }
 
-    public void enterRejectionNotes() {
-        waitFor(rejectReasonTextField);
-        String rejectionReason = "Rejection Reason: " + generateRandomString();
-        rejectReasonTextField.sendKeys(rejectionReason);
-        setSessionVariable("rejectionReason").to(rejectionReason);
+    public boolean dtenCase() {
+        return sessionVariableCalled("caseType").toString().equals("DTEN");
+    }
+
+    public boolean troCase() {
+        return sessionVariableCalled("caseType").toString().equals("TRO");
+    }
+
+    public boolean mpamCase() {
+        return sessionVariableCalled("caseType").toString().equals("MPAM");
+    }
+
+    public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
+
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase();}
+
+    public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
+
+    public boolean comp2Case() { return sessionVariableCalled("caseType").toString().equals("COMP2"); }
+
+    public boolean iedetCase() { return sessionVariableCalled("caseType").toString().equals("IEDET"); }
+
+    public boolean bfCase() { return sessionVariableCalled("caseType").toString().equals("BF"); }
+
+    public boolean bf2Case() { return sessionVariableCalled("caseType").toString().equals("BF2"); }
+
+    public boolean pogrCase() { return sessionVariableCalled("caseType").toString().equals("POGR"); }
+
+    public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
+
+    public boolean foiCase() {
+        return sessionVariableCalled("caseType").toString().equals("FOI");
+    }
+
+    public boolean toCase() { return sessionVariableCalled("caseType").toString().equals("TO"); }
+
+    public boolean wcsCase() {
+        return sessionVariableCalled("caseType").toString().equals("WCS");
+    }
+
+    public void clickRejectButton() {
+        safeClickOn(rejectButton);
     }
 
     public void javascriptScrollToElem(WebElementFacade element) {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public void errorMessageIsDisplayed() {
-        assertThat(isElementDisplayed(errorMessage), is(true));
+    public void assertThatAnErrorMessageIsDisplayed() {
+        assertThat(isElementDisplayed(errorMessageList), is(true));
+    }
+
+    private String getAllErrorMessageText() {
+        return errorMessageList.getText();
     }
 
     protected String generateRandomString() {
-        StringBuilder randStr = new StringBuilder();
+        return generateRandomStringOfLength(8);
+    }
 
-        for (int i = 0; i < 8; i++) {
-            int number = getRandomNumber();
-            char ch = CHAR_LIST.charAt(number);
+    protected String generateRandomStringOfLength(int length) {
+        StringBuilder randStr = new StringBuilder();
+        Random randomGenerator = new Random();
+        for (int i = 1; i <= length; i++) {
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
             randStr.append(ch);
         }
-
         return randStr.toString();
     }
 
-    private String getErrorMessageText() {
-        return errorMessage.getText();
-    }
-
-    private int getRandomNumber() {
-        Random randomGenerator = new Random();
-
-        int randomInt = randomGenerator.nextInt(CHAR_LIST.length());
-
-        if (randomInt - 1 == -1) {
-            return randomInt;
-        } else {
-            return randomInt - 1;
-        }
+    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
+        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
     }
 
     public boolean isElementDisplayed(WebElementFacade element) {
@@ -295,6 +353,7 @@ public class BasePage extends PageObject {
     }
 
     public String setCaseReferenceFromAssignedCase() {
+        headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
                 .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());
@@ -311,10 +370,26 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseReference");
     }
 
+    public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
+        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
+        setSessionVariable("newCaseReference").to(newCaseRef);
+        return sessionVariableCalled("newCaseReference");
+    }
+
+    public String getCurrentCaseType() {
+        String caseType = getCurrentCaseReference().split("/")[0];
+        return caseType.toUpperCase();
+    }
     public void safeClickOn(WebElementFacade webElementFacade) {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
-        javascriptScrollToElem(webElementFacade);
-        webElementFacade.click();
+        try {
+            javascriptScrollToElem(webElementFacade);
+            webElementFacade.click();
+        } catch (StaleElementReferenceException e) {
+            waitABit(500);
+            javascriptScrollToElem(webElementFacade);
+            webElementFacade.click();
+        }
     }
 
     public void jsClickOn(WebElementFacade webElementFacade) {
@@ -329,6 +404,19 @@ public class BasePage extends PageObject {
 
     public User getCurrentUser() {
         return CurrentUser.getInstance().getUser();
+    }
+
+    public void setPreviousUser(User user) {
+        PreviousUser.getInstance().setUser(user);
+        System.out.println("Previous user recorded as: " + user.getUsername());
+    }
+
+    public User getPreviousUser() {
+        return PreviousUser.getInstance().getUser();
+    }
+
+    public void keepAllCaseDataWhenProgressingCase() {
+        keepAllCaseData = true;
     }
 
     protected void checkOrderOfHeaderTagsOnCaseView() {
@@ -347,15 +435,23 @@ public class BasePage extends PageObject {
         accessibilityLink.shouldBeVisible();
     }
 
+    public void assertExpectedErrorMessageIsDisplayed(String errorMessageText) {
+        if (!getAllErrorMessageText().contains(errorMessageText)) {
+            Assert.fail("Expected error message '" + errorMessageText + "' is not contained in the displayed list of error messages:\n" + getAllErrorMessageText());
+        }
+    }
+
+    public void selectTheStageAction(String action) {
+        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
+    }
+
     //Helper methods
 
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> radioButtonElements = findAll(
-                "//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
-                        + "//input/following-sibling::label");
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -377,8 +473,34 @@ public class BasePage extends PageObject {
         safeClickOn(radioButtonElement);
     }
 
+    public String selectDifferentRadioButtonFromGroupWithHeading(String headingText) {
+        List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
+        WebElementFacade currentlySelectedRadioButton =
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                        + "::fieldset//input[@checked]/following-sibling::label");
+        radioButtonLabels.remove(currentlySelectedRadioButton.getText());
+        Random random = new Random();
+        String radioButtonLabelToSelect = radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
+        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
+        return radioButtonLabelToSelect;
+    }
+
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
         return findBy("//input/following-sibling::label[contains(text()," + sanitiseXpathAttributeString(elementText) + ")]");
+    }
+
+    private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
+        return findAll("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
+                        + "//input/following-sibling::label");
+    }
+
+    public List<String> getRadioButtonLabelsInGroupWithHeading(String headingText) {
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+        List<String> radioButtonLabels = new ArrayList<>();
+        for (WebElementFacade radioButtonElement : radioButtonElements) {
+            radioButtonLabels.add(radioButtonElement.getText());
+        }
+        return radioButtonLabels;
     }
 
     //Date fields
@@ -389,6 +511,12 @@ public class BasePage extends PageObject {
         WebElementFacade monthField = getVisibleMonthFieldWithMatchingHeading(headingText);
         WebElementFacade yearField = getVisibleYearFieldWithMatchingHeading(headingText);
         typeIntoDateFields(dayField, monthField, yearField, date);
+    }
+
+    public void clearDateFieldsWithHeading(String headingText) {
+        getVisibleDayFieldWithMatchingHeading(headingText).clear();
+        getVisibleMonthFieldWithMatchingHeading(headingText).clear();
+        getVisibleYearFieldWithMatchingHeading(headingText).clear();
     }
 
     private WebElementFacade getVisibleDayFieldWithMatchingHeading(String headingText) {
@@ -420,6 +548,7 @@ public class BasePage extends PageObject {
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(headingText);
+        textField.clear();
         textField.sendKeys(textToEnter);
     }
 
@@ -434,12 +563,14 @@ public class BasePage extends PageObject {
     public String enterTextIntoTextAreaWithHeading(String headingText) {
         String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText + " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
-        return textToEnter;
+        String sanitisedText = textToEnter.replace("\n", " ");
+        return sanitisedText;
     }
 
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(headingText);
+        textArea.clear();
         textArea.sendKeys(textToEnter);
     }
 
@@ -453,9 +584,7 @@ public class BasePage extends PageObject {
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> optionElements =
-                findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling"
-                + "::select/option");
+        List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(headingText);
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
         safeClickOn(optionElementToSelect);
@@ -468,6 +597,38 @@ public class BasePage extends PageObject {
                 findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
                         + "/option[text()='" + optionText + "']");
         safeClickOn(optionElement);
+    }
+
+    public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        List<WebElement> options = dropdown.getOptions();
+        options.remove(0);
+        options.remove(dropdown.getFirstSelectedOption());
+        Random random = new Random();
+        String optionToSelect = options.get(random.nextInt(options.size())).getText();
+        selectSpecificOptionFromDropdownWithHeading(optionToSelect, headingText);
+        return optionToSelect;
+    }
+
+    public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+    }
+
+    public List<String> getSelectableOptionsFromDropdownWithHeading(String headingText) {
+        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling::select/option");
+        optionElements.remove(0);
+        List<String> selectableOptions = new ArrayList<>();
+        for (WebElementFacade optionElement: optionElements) {
+            selectableOptions.add(optionElement.getText());
+        }
+        return selectableOptions;
+
+    }
+
+    public Boolean checkIfSelectableOptionsPresentInDropdownWithHeading(String headingText) {
+        return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }
 
     //Checkboxes
@@ -493,6 +654,49 @@ public class BasePage extends PageObject {
         safeClickOn(checkbox);
     }
 
+    public boolean checkboxWithLabelIsCurrentlyVisible(String checkboxLabelText) {
+        WebElementFacade checkbox =
+                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
+        return  checkbox.isCurrentlyVisible();
+    }
+
+    // Typeaheads
+
+    public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        safeClickOn(typeahead);
+        waitABit(200);
+        boolean selectableOptionVisibleInTypeahead = false;
+        List<WebElementFacade> typeaheadOptions = null;
+        int attempts = 0;
+        while (!selectableOptionVisibleInTypeahead && attempts < 20) {
+            typeahead.clear();
+            typeahead.sendKeys(generateRandomStringOfLength(1));
+            waitABit(1000);
+            typeaheadOptions = findAll("//div[contains(@class,'option')]");
+            selectableOptionVisibleInTypeahead = typeaheadOptions.size() > 1;
+            attempts++;
+        }
+        Random random = new Random();
+        WebElementFacade optionToSelect = typeaheadOptions.get(random.nextInt(typeaheadOptions.size()));
+        safeClickOn(optionToSelect);
+        waitABit(500);
+        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
+        return selectedOption.getText();
+    }
+
+    public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        safeClickOn(typeahead);
+        waitABit(200);
+        typeahead.sendKeys(optionText);
+        waitABit(500);
+        typeahead.sendKeys(Keys.RETURN);
+        waitABit(500);
+        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
+        return selectedOption.getText();
+    }
+
     // Other methods
 
     private void waitForHeadingToBeVisible(String headingText) {
@@ -516,6 +720,7 @@ public class BasePage extends PageObject {
         Random rand = new Random();
         WebElementFacade randomElement = list.get(rand.nextInt(list.size()));
         while (!randomElement.isCurrentlyVisible()) {
+            list.remove(randomElement);
             randomElement = list.get(rand.nextInt(list.size()));
         }
         return randomElement;

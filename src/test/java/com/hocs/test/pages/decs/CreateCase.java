@@ -5,6 +5,8 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.managementUI.MUI;
+
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,13 +25,23 @@ public class CreateCase extends BasePage {
 
     Documents documents;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
     Dashboard dashboard;
 
     Workdays workdays;
 
     RecordCaseData recordCaseData;
+
+    Correspondents correspondents;
+
+    MUI mui;
+
+    LoginPage loginPage;
+
+    Search search;
+
+    String stage1CaseType = "";
 
     // Elements
 
@@ -62,6 +74,15 @@ public class CreateCase extends BasePage {
 
     @FindBy(xpath = "//label[text()='FOI Request']")
     public WebElementFacade foiRadioButton;
+
+    @FindBy(xpath = "//label[text()='Border Force Case']")
+    public WebElementFacade bfRadioButton;
+
+    @FindBy(xpath = "//label[text()='Treat Official']")
+    public WebElementFacade treatOfficialRadioButton;
+
+    @FindBy(xpath = "//label[text()='HMPO/GRO Complaint Case']")
+    public WebElementFacade pogrRadioButton;
 
     @FindBy(id = "DateReceived-day")
     public WebElementFacade correspondenceReceivedDayField;
@@ -149,6 +170,22 @@ public class CreateCase extends BasePage {
         selectSpecificRadioButton("IE Detention Case");
     }
 
+    private void clickSmcRadioButton() {
+        selectSpecificRadioButton("Serious Misconduct Case");
+    }
+
+    private void clickToRadioButton() {
+        safeClickOn(treatOfficialRadioButton);
+    }
+
+    private void clickBfRadioButton() {
+        selectSpecificRadioButton("Border Force Case");
+    }
+
+    private void clickPogrRadioButton() {
+        safeClickOn(pogrRadioButton);
+    }
+
     public void clickCreateCaseButton() {
         safeClickOn(createCaseButton);
     }
@@ -183,15 +220,42 @@ public class CreateCase extends BasePage {
             case "FOI":
                 clickFoiRadioButton();
                 break;
+            case "SMC":
+                clickSmcRadioButton();
+                break;
+            case "BF":
+                clickBfRadioButton();
+                break;
+            case "TO":
+                clickToRadioButton();
+                break;
+            case "POGR":
+                clickPogrRadioButton();
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
         setSessionVariable("caseType").to(caseType);
     }
 
-    public void selectRandomCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "FOI");
-        selectCaseType(list.get(new Random().nextInt(list.size())));
+    public String getRandomCSCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "TO", "BF", "POGR");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomDCUCaseType() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomComplaintsCaseType() {
+        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET", "BF", "POGR");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public String getRandomMPAMOrMTSCaseType() {
+        List<String> list = Arrays.asList("MPAM", "MTS");
+        return list.get(new Random().nextInt(list.size()));
     }
 
     public void editReceivedDate(String date) {
@@ -200,27 +264,33 @@ public class CreateCase extends BasePage {
 
     // Multi Step Methods
 
-    public void createCSCaseOfType(String caseType) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+    private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
+        if (caseType.equalsIgnoreCase("COMP2")) {
+            this.stage1CaseType = "COMP";
+            escalateAStage1CaseToStage2();
         }
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
-        documents.uploadDocumentOfType("docx");
+        if (caseType.equals("BF2")) {
+            this.stage1CaseType = "BF";
+            escalateAStage1CaseToStage2();
+        }
+        if (!caseType.equals("COMP2") && !caseType.equalsIgnoreCase("BF2")) {
+            dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            if (!nextButton.isVisible()) {
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+            }
+            selectCaseType(caseType);
+            safeClickOn(nextButton);
+        }
+        waitFor(correspondenceReceivedDayField);
+        if (!receivedDate.equalsIgnoreCase("N/A")) {
+            editReceivedDate(receivedDate);
+        }
+        if (addDocument) {
+            documents.uploadFileOfType("docx");
+        }
         storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
-    }
-
-    public void createCSCaseOfRandomType() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectRandomCaseType();
-        safeClickOn(nextButton);
-        if (sessionVariableCalled("caseType").equals("FOI")){
+        if (caseType.equals("FOI")) {
+            storeCorrespondenceReceivedInKIMUDate();
             selectCorrespondenceInboundChannel();
             enterCorrespondentDetails();
             selectFOITopic("Animal alternatives (3Rs)");
@@ -229,38 +299,38 @@ public class CreateCase extends BasePage {
         } else {
             clickCreateCaseButton();
         }
-        createCaseSuccessPage.storeCaseReference();
+        confirmationScreens.storeCaseReference();
     }
 
-    public void createCOMP2Case() {
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        setSessionVariable("caseType").to("COMP2");
-        createCaseSuccessPage.storeCaseReference();
+    public void createCSCaseOfType(String caseType) {
+        if (caseType.equals("CS")) {
+            caseType = getRandomCSCaseType();
+        }
+        createCSCase(caseType, true, "N/A");
+    }
+
+    public void createCSCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomCSCaseType());
+    }
+
+    public void createDCUCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomDCUCaseType());
+    }
+
+    public void createComplaintsCaseOfRandomType() {
+        createCSCaseOfType(getRandomComplaintsCaseType());
+    }
+
+    public void createMPAMOrMTSCaseOfRandomType() {
+        createCSCaseOfTypeWithoutDocument(getRandomMPAMOrMTSCaseType());
     }
 
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
+        createCSCase(caseType, false, "N/A");
     }
 
-    public void createCaseWithSetCorrespondenceReceivedDate(String caseType, String date) {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        selectCaseType(caseType);
-        safeClickOn(nextButton);
-        waitFor(correspondenceReceivedDayField);
-        editReceivedDate(date);
-        documents.uploadDocumentOfType("docx");
-        storeCorrespondenceReceivedDate();
-        clickCreateCaseButton();
-        createCaseSuccessPage.storeCaseReference();
+    public void createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(String caseType, String date) {
+        createCSCase(caseType, true, date);
     }
 
     public void createCaseReceivedFiveDaysBeforeOrAfterDate(String caseType, String beforeAfter, String inputDate) throws ParseException {
@@ -275,11 +345,11 @@ public class CreateCase extends BasePage {
         c.setTime(format.parse(inputDate));
         c.add(Calendar.DAY_OF_WEEK, numberOfDays);
         String date = format.format(c.getTime());
-        createCaseWithSetCorrespondenceReceivedDate(caseType, date);
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
     }
 
     public void createCaseReceivedNWorkdaysAgo(String caseType, int days) {
-        createCaseWithSetCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgo(days));
+        createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, workdays.getDateXWorkdaysAgoForGivenCaseType(days, caseType));
     }
 
     public void createWCSCase() {
@@ -287,6 +357,63 @@ public class CreateCase extends BasePage {
         clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
+        System.out.println("WCS Claim " + sessionVariableCalled("caseReference") + " created");
+    }
+
+    public void createAndWithDrawACSCaseOfType(String caseType) {
+        createCSCaseOfType(caseType);
+        mui.withdrawACaseInMUI(getCurrentCaseReference());
+        loginPage.navigateToCS();
+    }
+
+    public void escalateAStage1CaseToStage2() {
+        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+            getStage1CaseEligibleForEscalation();
+        }
+        escalateEligibleStage1CaseToStage2();
+        setSessionVariable("caseType").to(stage1CaseType + "2");
+        waitABit(500);
+    }
+
+    private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
+        dashboard.selectSearchLinkFromMenuBar();
+        selectStage1CaseTypeSearchCriteriaIfVisible();
+        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        search.clickTheButton("Search");
+        search.waitForResultsPage();
+        return search.checkVisibilityOfEscalationHypertext();
+    }
+
+    private void getStage1CaseEligibleForEscalation() {
+        createAndWithDrawACSCaseOfType(stage1CaseType);
+        dashboard.selectSearchLinkFromMenuBar();
+        selectStage1CaseTypeSearchCriteriaIfVisible();
+        search.searchByCaseReference(getCurrentCaseReference());
+        search.waitForResultsPage();
+        if (search.getNumberOfSearchResults() == 0) {
+            waitABit(5000);
+            dashboard.selectSearchLinkFromMenuBar();
+            selectStage1CaseTypeSearchCriteriaIfVisible();
+            search.searchByCaseReference(getCurrentCaseReference());
+            search.waitForResultsPage();
+        }
+    }
+
+    private void escalateEligibleStage1CaseToStage2() {
+        WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+        String stage1CaseRef = stage1CaseRefField.getText();
+        setSessionVariable("stage1CaseReference").to(stage1CaseRef);
+        System.out.print("Case reference of case being escalated: " + stage1CaseRef + "\n");
+        search.clickEscalateComplaintsCaseToStage2();
+    }
+
+    private void selectStage1CaseTypeSearchCriteriaIfVisible() {
+        if(stage1CaseType.equalsIgnoreCase("COMP")) {
+            checkSpecificCheckbox("Complaint Case");
+        }
+        else if (stage1CaseType.equalsIgnoreCase("BF") && checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
+            checkSpecificCheckbox("Border Force Case");
+        }
     }
 
     public void clearCorrespondentReceivedDateFields() {
@@ -319,7 +446,7 @@ public class CreateCase extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsRadioButton.isVisible() && !dcuMinRadioButton.isVisible()) {
                     correctUser = true;
                 }
@@ -343,6 +470,21 @@ public class CreateCase extends BasePage {
                     correctUser = true;
                 }
                 break;
+            case "BF_USER":
+                if (bfRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "TO_USER":
+                if (treatOfficialRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "POGR_USER":
+                if (pogrRadioButton.isVisible()) {
+                    correctUser = true;
+                }
+                break;
             case "WCS_USER":
                 if (createClaimButton.isVisible()) {
                     correctUser = true;
@@ -363,34 +505,33 @@ public class CreateCase extends BasePage {
         setSessionVariable("correspondenceReceivedByKIMUMonth").to(correspondenceMonth);
         String correspondenceYear = dateKIMUReceivedYearField.getValue();
         setSessionVariable("correspondenceReceivedByKIMUYear").to(correspondenceYear);
-        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" +correspondenceYear);
+        setSessionVariable("correspondenceReceivedByKIMUDate").to(correspondenceDay + "/" + correspondenceMonth + "/" + correspondenceYear);
     }
 
     public void selectCorrespondenceInboundChannel() {
-        String channel = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("How was the request received?");
+        String channel = selectRandomRadioButtonFromGroupWithHeading("How was the request received?");
+        recordCaseData.addHeadingAndValueRecord("How was the correspondence received?", channel);
         setSessionVariable("foiInboundChannel").to(channel);
     }
 
     public void enterCorrespondentDetails() {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (inboundChannel.equalsIgnoreCase("EMAIL")) {
-            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
-            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
-            setSessionVariable("requesterFullName").to("Test McTester");
-            selectRandomOptionFromDropdownWithHeading("Country");
-            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address");
-            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            correspondents.enterCorrespondentFullName("Sam McTester");
+            correspondents.enterCorrespondentOrganisation();
+            correspondents.selectACorrespondentCountry();
+            correspondents.enterCorrespondentEmailAddress("SamMcTester@Test.com");
+            correspondents.enterCorrespondenceReference("Ref-ABCD-1234");
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
-            enterSpecificTextIntoTextFieldWithHeading("Test McTester", "Full Name");
-            enterTextIntoTextFieldWithHeading("Organisation (Optional)");
-            setSessionVariable("requesterFullName").to("Test McTester");
-            enterSpecificTextIntoTextFieldWithHeading("Test Building", "Building");
-            enterSpecificTextIntoTextFieldWithHeading("Test Street", "Street");
-            enterSpecificTextIntoTextFieldWithHeading("Test Town", "Town or City");
-            enterSpecificTextIntoTextFieldWithHeading("TST PSTCD", "Postcode");
-            selectRandomOptionFromDropdownWithHeading("Country");
-            enterSpecificTextIntoTextFieldWithHeading("Test.Email@Test.com", "Email Address (Optional)");
-            enterSpecificTextIntoTextFieldWithHeading("TST/REF/123", "Requester's Reference (Optional)");
+            correspondents.enterCorrespondentFullName("Sam McTester");
+            correspondents.enterCorrespondentOrganisation();
+            correspondents.enterCorrespondentBuilding("1 Test House");
+            correspondents.enterCorrespondentStreet("Test Road");
+            correspondents.enterCorrespondentTownOrCity("Test Town");
+            correspondents.enterCorrespondentPostcode("AB1 2CD");
+            correspondents.selectACorrespondentCountry();
+            correspondents.enterCorrespondentEmailAddress("SamMcTester@Test.com");
+            correspondents.enterCorrespondenceReference("Ref-ABCD-1234");
         }
     }
 
@@ -403,24 +544,6 @@ public class CreateCase extends BasePage {
     public void enterRequestQuestion() {
         recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Test Request Question", "Request Question");
         setSessionVariable("requestQuestion").to("Test Request Question");
-    }
-
-    public void createFOICase() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        if (!nextButton.isVisible()) {
-            dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        }
-        selectCaseType("FOI");
-        clickTheButton("Next");
-        storeCorrespondenceReceivedDate();
-        storeCorrespondenceReceivedInKIMUDate();
-        documents.uploadDocumentOfType("docx");
-        selectCorrespondenceInboundChannel();
-        enterCorrespondentDetails();
-        selectFOITopic("Animal alternatives (3Rs)");
-        enterRequestQuestion();
-        clickTheButton("Submit");
-        createCaseSuccessPage.storeCaseReference();
     }
 
     //Assertions

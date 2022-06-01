@@ -67,8 +67,9 @@ public class StandardLine extends BasePage {
     }
 
     public void addStandardLineDocument() {
-        upload("src/test/resources/documents/test12.docx").to(standardLineDocumentButton);
-        setSessionVariable("standardLineDocument").to("test12.docx");
+        upload("src/test/resources/documents/Standard Line test.docx").to(standardLineDocumentButton);
+        setSessionVariable("standardLineDocument").to("Standard Line test.docx");
+        setSessionVariable("standardLineFileName").to("test.docx");
     }
 
     public void enterStandardLineExpirationDate() {
@@ -82,8 +83,8 @@ public class StandardLine extends BasePage {
     }
 
     public void selectActionForStandardLine(String topic, String action) {
-        if (action.toUpperCase().equals("EXPIRE")) {
-            setSessionVariable("standardLineExpiryDate").to(getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
+        if (action.equalsIgnoreCase("EXPIRE")) {
+            setSessionVariable("standardLineExpiryDate").to(getTodaysDate());
         }
         WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
         jsClickOn(hypertext);

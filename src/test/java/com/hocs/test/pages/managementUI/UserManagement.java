@@ -32,6 +32,15 @@ public class UserManagement extends BasePage {
     @FindBy(xpath = "//h2[text()='Success']")
     public WebElementFacade successBanner;
 
+    @FindBy(id = "email")
+    public WebElementFacade emailAddressTextBox;
+
+    @FindBy(id = "firstName")
+    public WebElementFacade firstNameField;
+
+    @FindBy(id = "lastName")
+    public WebElementFacade lastNameField;
+
     public void searchForAUsersTeams(String inputUser) {
         User user = User.valueOf(inputUser.toUpperCase());
         String input = user.getAllocationText();
@@ -55,6 +64,12 @@ public class UserManagement extends BasePage {
         waitABit(3000);
         selectTeamsTypeAhead.sendKeys(Keys.RETURN);
         safeClickOn(addSelectedTeamsButton);
+    }
+
+    public void enterNewUserDetails() {
+        emailAddressTextBox.sendKeys(generateRandomString() + "@homeoffice.gov.uk");
+        firstNameField.sendKeys(generateRandomString());
+        lastNameField.sendKeys(generateRandomString());
     }
 
     public void removeTeam(String team) {

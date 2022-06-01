@@ -8,11 +8,12 @@ import static org.hamcrest.core.Is.is;
 
 import config.User;
 import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -52,55 +53,13 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
     public WebElementFacade transferN10Team;
 
-    @FindBy(xpath = "//span[text()='Minister of State for Immigration']")
-    public WebElementFacade ministerOfStateForImmigrationTeam;
-
-    @FindBy(xpath = "//span[text()='Minister for Lords']")
-    public WebElementFacade ministerForLordsTeam;
-
-    @FindBy(xpath = "//span[text()='Animals in Science Regulation Unit']")
-    public WebElementFacade animalsInScienceTeam;
-
-    @FindBy(xpath = "//span[text()='Direct Communications Unit Central Drafting Team']")
-    public WebElementFacade centralDraftingTeam;
-
-    @FindBy(xpath = "//span[text()='Police Workforce and Professionalism Unit']")
-    public WebElementFacade policeWorkforceProfessionalismUnit;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Policing and Fire Service']")
-    public WebElementFacade ministerOfStateForPolicingAndFireServiceTeam;
-
-    @FindBy(xpath = "//span[text()='Minister of State for Security and Economic Crime']")
-    public WebElementFacade ministerOfStateForSecurityAndEconomicCrime;
-
-    @FindBy(xpath = "//span[text()='Public Protection Unit']")
-    public WebElementFacade publicProtectionUnit;
-
-    @FindBy(xpath = "//span[text()='Counter Extremism Unit']")
-    public WebElementFacade counterExtremismUnit;
-
-    @FindBy(xpath = "//span[text()='Extremism Analysis Unit']")
-    public WebElementFacade extremismAnalysisUnit;
-
-    @FindBy(xpath = "//span[text()='Counter-Terrorism Legislation and Investigatory Powers Unit']")
-    public WebElementFacade counterTerrorismLegislationInvestigatoryPowersUnit;
-
-    @FindBy(xpath = "//span[text()='Chemical, Biological, Radiological, Nuclear & Explosives']")
-    public WebElementFacade chemBioRadioNuclearExplosives;
-
-    @FindBy(xpath = "//span[text()='Press Office']")
-    public WebElementFacade pressOffice;
-
-    @FindBy(xpath = "//span[text()='Finance']")
-    public WebElementFacade financeTeam;
-
-    @FindBy(xpath = "//span[text()='MTS Team']")
-    public WebElementFacade mtsTeamWorkstack;
-
     //MPAM Teams
 
     @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
+
+    @FindBy(xpath = "//span[text()='MTS Team']")
+    public WebElementFacade mtsTeamWorkstack;
 
     // Complaints Teams
 
@@ -123,6 +82,19 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
 
+    // BF Teams
+
+    @FindBy(xpath = "//span[text()='Border Force']")
+    public WebElementFacade borderForceWorkstack;
+
+    @FindBy(xpath = "//span[text()='Border Force (Stage 2)']")
+    public WebElementFacade borderForceStage2Workstack;
+
+    //TO Teams
+
+    @FindBy(xpath = "//span[text()='Treat Official Creation']")
+    public WebElementFacade treatOfficialCreationWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -135,6 +107,7 @@ public class Dashboard extends BasePage {
 
     public void selectSearchLinkFromMenuBar() {
         safeClickOn(searchLink);
+        waitForPageWithTitle("Search");
     }
 
     public void selectCreateSingleCaseLinkFromMenuBar() {
@@ -222,9 +195,37 @@ public class Dashboard extends BasePage {
         safeClickOn(mtsTeamWorkstack);
     }
 
+    public void selectIEDETTeam() {
+        safeClickOn(ieDetentionWorkstack);
+    }
+
+    public void selectSMCTeam() {
+        safeClickOn(seriousMisconductWorkstack);
+    }
+
+    public void selectBFTeam() {
+        safeClickOn(borderForceWorkstack);
+    }
+
+    public void selectBF2Team() {
+        safeClickOn(borderForceStage2Workstack);
+    }
+
+    public void selectFOICreationTeam() {
+        safeClickOn(foiCreationWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
+    }
+
+    public void selectARandomWorkstack() {
+        List<WebElementFacade> visibleWorkstackCards = findAll("//h2[text()='Team Cases']/following-sibling::ul[contains(@class,'dashboard__teams')"
+                + "]/li[contains(@class,'card')]/a");
+        Random rand = new Random();
+        WebElementFacade randomWorkstack = visibleWorkstackCards.get(rand.nextInt(visibleWorkstackCards.size()));
+        safeClickOn(randomWorkstack);
     }
 
     // Multi Step Methods
@@ -253,7 +254,7 @@ public class Dashboard extends BasePage {
     public void claimCurrentCase() {
         assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
-        while (attempts < 6 && !caseView.caseCanBeAllocated()) {
+        while (attempts < 12 && !caseView.caseCanBeAllocated()) {
             waitABit(5000);
             goToDashboard();
             getCurrentCase();
@@ -267,6 +268,19 @@ public class Dashboard extends BasePage {
     public void getAndClaimCurrentCase() {
         getCurrentCase();
         claimCurrentCase();
+    }
+
+    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
+        if (!caseView.currentCaseIsLoaded()) {
+                goToDashboard();
+                waitForDashboard();
+                getCurrentCase();
+            }
+        if (caseView.caseCanBeAllocated()) {
+            claimCurrentCase();
+            caseView.waitForCaseToLoad();
+            caseView.assertCaseCannotBeAllocated();
+        }
     }
 
     public int getNumberOfCasesInWorkstackFromDashboardCard(String workstackName) {
@@ -299,7 +313,7 @@ public class Dashboard extends BasePage {
                     correctUser = true;
                 }
                 break;
-            case "UKVI_USER":
+            case "MPAM_USER":
                 if (mtsTeamWorkstack.isVisible() && !performanceProcessTeam.isVisible()) {
                     correctUser = true;
                 }
@@ -321,6 +335,16 @@ public class Dashboard extends BasePage {
                 break;
             case "FOI_USER":
                 if (foiCreationWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "BF_USER":
+                if (borderForceWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "TO_USER":
+                if (treatOfficialCreationWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;

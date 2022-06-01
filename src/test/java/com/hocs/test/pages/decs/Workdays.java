@@ -1,5 +1,8 @@
 package com.hocs.test.pages.decs;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +13,14 @@ public class Workdays extends BasePage{
 
     private List<LocalDate> bankHolidays = new ArrayList<>();
 
-    public Workdays(){
+    private void generateBankHolidaysForCaseType(String caseType) {
+        addEnglishAndWelshBankHolidays();
+        if (caseType.equalsIgnoreCase("FOI")) {
+            addAdditionalScottishAndNIBankHolidays();
+        }
+    }
+
+    private void addEnglishAndWelshBankHolidays() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         bankHolidays.add(LocalDate.parse("10/04/2020", formatter));
         bankHolidays.add(LocalDate.parse("13/04/2020", formatter));
@@ -28,9 +38,27 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("27/12/2021", formatter));
         bankHolidays.add(LocalDate.parse("28/12/2021", formatter));
         bankHolidays.add(LocalDate.parse("03/01/2022", formatter));
+        bankHolidays.add(LocalDate.parse("15/04/2022", formatter));
+        bankHolidays.add(LocalDate.parse("18/04/2022", formatter));
+        bankHolidays.add(LocalDate.parse("02/05/2022", formatter));
+        bankHolidays.add(LocalDate.parse("02/06/2022", formatter));
+        bankHolidays.add(LocalDate.parse("03/06/2022", formatter));
+        bankHolidays.add(LocalDate.parse("29/08/2022", formatter));
+        bankHolidays.add(LocalDate.parse("26/12/2022", formatter));
+        bankHolidays.add(LocalDate.parse("27/12/2022", formatter));
+        bankHolidays.add(LocalDate.parse("02/01/2023", formatter));
     }
 
-    public boolean isWorkday(LocalDate inputDate) {
+    private void addAdditionalScottishAndNIBankHolidays() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        bankHolidays.add(LocalDate.parse("04/01/2022", formatter));
+        bankHolidays.add(LocalDate.parse("17/03/2022", formatter));
+        bankHolidays.add(LocalDate.parse("12/07/2022", formatter));
+        bankHolidays.add(LocalDate.parse("01/08/2022", formatter));
+        bankHolidays.add(LocalDate.parse("30/11/2020", formatter));
+    }
+
+    private boolean isWorkday(LocalDate inputDate) {
         return (isNotWeekendDay(inputDate) && isNotBankHoliday(inputDate));
     }
 
@@ -42,7 +70,8 @@ public class Workdays extends BasePage{
         return !bankHolidays.contains(inputDate);
     }
 
-    public String getDateXWorkdaysAgo(int targetAmount) {
+    public String getDateXWorkdaysAgoForGivenCaseType(int targetAmount, String caseType) {
+        generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
         assert totalWorkDays <= targetAmount;
         LocalDate targetDay = LocalDate.now();
@@ -52,21 +81,25 @@ public class Workdays extends BasePage{
                 totalWorkDays ++;
             }
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
         return targetDay.format(formatters);
     }
 
-    public String getDateXWorkdaysFromToday(int targetAmount) {
+    public String getDateXWorkdaysFromTodayForGivenCaseType(int targetAmount, String caseType) {
+        return getDateXWorkdaysFromSetDateForGivenCaseType(targetAmount, getTodaysDate(), caseType);
+    }
+
+    public String getDateXWorkdaysFromSetDateForGivenCaseType(int targetAmount, String startDate, String caseType) {
+        generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
-        assert totalWorkDays <= targetAmount;
-        LocalDate targetDay = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(startDate, formatter);
         while (totalWorkDays < targetAmount) {
-            targetDay = targetDay.plusDays(1);
-            if (isWorkday(targetDay)) {
-                totalWorkDays ++;
+            date = date.plusDays(1);
+            if (isWorkday(date)) {
+                totalWorkDays += 1;
             }
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        return targetDay.format(formatters);
+        return date.format(formatter);
     }
 }

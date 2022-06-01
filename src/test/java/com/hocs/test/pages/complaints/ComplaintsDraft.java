@@ -37,20 +37,22 @@ public class ComplaintsDraft extends BasePage {
     @FindBy(xpath = "//a[text()='Action is required']")
     public WebElementFacade actionIsRequired;
 
-    public void selectActionAtServiceDraft(String action) {
-        switch (action.toUpperCase()) {
-            case "RESPONSE IS READY TO SEND":
-                recordCaseData.selectSpecificRadioButton("Response is ready to send");
-                break;
-            case "SEND CASE TO QA":
-                recordCaseData.selectSpecificRadioButton("Send case to QA");
-                break;
-            case "ESCALATE CASE TO WFM":
-                recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
+    @FindBy(xpath = "//input[@id='TelephoneResponse_Yes']/following-sibling::label[text()='Yes']")
+    public WebElementFacade resolvedByTelephoneCheckbox;
+
+    public void selectActionAtDraft(String action) {
+        recordCaseData.selectSpecificRadioButton(action);
+        if (!pogrCase()) {
+            safeClickOn(continueButton);
+        } else {
+            safeClickOn(finishButton);
         }
+    }
+
+    public void completePOGRComplaintTelephoneResponseScreen() {
+        safeClickOn(resolvedByTelephoneCheckbox);
+        String phoneCallSummary = enterTextIntoTextAreaWithHeading("Case Notes");
+        setSessionVariable("phoneCallSummary").to(phoneCallSummary);
         safeClickOn(continueButton);
     }
 

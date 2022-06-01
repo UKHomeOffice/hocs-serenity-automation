@@ -14,5 +14,5 @@ Feature: FOI Create Case
     And I enter the Request Question
     And I click the "Submit" button
     Then a case is created successfully
-    Then the FOI case should be moved to the "Case Creation" stage
-    And the case "Should" be allocated to me in the summary
+    Then the case should be moved to the "Case Creation" stage
+    And the case "should" be allocated to me in the summary

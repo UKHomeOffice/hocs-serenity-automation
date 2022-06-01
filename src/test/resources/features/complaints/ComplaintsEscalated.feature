@@ -1,12 +1,12 @@
-@COMPEscalated @COMP
-Feature: COMP Escalated
+@ComplaintsEscalated @Complaints
+Feature: Complaints Escalated
 
-  Background:
+#     UKVI COMPLAINTS
+
+  # HOCS-3076, HOCS-3028
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can return a UKVI complaint case to Service Triage stage
     Given I am logged into "CS" as user "COMP_USER"
-
-#    HOCS-3076, HOCS-3028
-  @COMPWorkflow @COMPRegression
-  Scenario: User can return the case to Service Triage stage
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to return the case to Triage
@@ -14,9 +14,10 @@ Feature: COMP Escalated
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
 
-#    HOCS-3076, HOCS-3028
-  @COMPWorkflow @COMPRegression
-  Scenario: User can send the case to Service Draft stage
+  # HOCS-3076, HOCS-3028
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can send a UKVI complaint case to Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to send the case to drafting
@@ -24,45 +25,54 @@ Feature: COMP Escalated
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
 
-  @COMPWorkflow @COMPRegression
-  Scenario: User can return the case to Ex-Gratia Triage stage
+  # Expected failure. Defect HOCS-4308 raised.
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can return a UKVI complaint case to Ex-Gratia Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
     Then the case should be moved to the "Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
-  @COMPWorkflow @COMPRegression
-  Scenario: User can send the case to Ex-Gratia Response Draft stage
+  # Expected failure. Defect HOCS-4308 raised.
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can send a UKVI complaint case to Ex-Gratia Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
     Then the case should be moved to the "Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-#    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
 
-  @COMPWorkflow @COMPRegression
-  Scenario: User can return the case to Minor Misconduct Triage stage
+  # Expected failure. Defect HOCS-4308 raised.
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can return a UKVI complaint case to Minor Misconduct Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
     Then the case should be moved to the "Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
-  @COMPWorkflow @COMPRegression
-  Scenario: User can send the case to Minor Misconduct Response Draft stage
+  # Expected failure. Defect HOCS-4308 raised.
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can send a UKVI complaint case to Minor Misconduct Response Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
     Then the case should be moved to the "Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-#    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
 
-#    HOCS-2870, HOCS-3096
-  @COMPRegression
-  Scenario Outline: User can add and complete or cancel contributions as part of Service Escalated stage
+  # HOCS-2870, HOCS-3096
+  @ComplaintsRegression1 @UKVIComplaints
+  Scenario Outline: User can add and complete or cancel contributions to a UKVI complaint case as part of Service Escalated stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I add a "<contributionType>" contribution request
@@ -71,12 +81,13 @@ Feature: COMP Escalated
     Examples:
       | contributionType | action   |
       | Complainant      | Complete |
-      | Business         | Cancel   |
-      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
       | Business         | Cancel   |
 
-  @Validation
-  Scenario Outline: User tests the validation at the Service Escalated stage
+  @Validation @UKVIComplaints
+  Scenario Outline: User tests the validation for a UKVI complaint case at the Service Escalated stage
+    Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I trigger the "<errorType>" error message at the "Service Escalated" stage
@@ -84,3 +95,95 @@ Feature: COMP Escalated
     Examples:
       | errorType       |
       | Action Required |
+
+
+#     UKVI COMPLAINTS STAGE 2
+
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can return a UKVI stage 2 complaint case to Service Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Escalated" stage
+    And I load and claim the current case
+    And I select to return the case to Triage
+    Then the case should be moved to the "Stage 2 Service Triage" stage
+    And the summary should display the owning team as "Stage 2 CCT Triage Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+
+  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  Scenario: User can send a UKVI stage 2 complaint case to Service Draft stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2" case and move it to the "Service Escalated" stage
+    And I load and claim the current case
+    And I select to send the case to drafting
+    Then the case should be moved to the "Stage 2 Service Draft" stage
+    And the summary should display the owning team as "Stage 2 CCT Response Team"
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+
+
+#     BF COMPLAINTS
+
+  # HOCS-4055
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can send a BF complaint case to Draft stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I select to send the case to drafting
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "Border Force"
+
+  # HOCS-4055
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can send a BF complaint case to Triage stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I select to return the case to Triage
+    Then the case should be moved to the "Case Triage" stage
+    And the summary should display the owning team as "Border Force"
+
+  # HOCS-4055
+  @ComplaintsRegression2 @BFComplaints
+  Scenario Outline: User can add and complete or cancel contributions to a BF complaint cases as part of Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF" case at the "Escalated to WFM" stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |
+
+
+#     BF STAGE 2 COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can send a BF stage 2 complaint case to Draft stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I select to send the case to drafting
+    Then the case should be moved to the "Draft (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario: User can send a BF stage 2 complaint case to Triage stage from Escalated
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I select to return the case to Triage
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    And the summary should display the owning team as "Border Force (Stage 2)"
+
+  @BFComplaints
+  Scenario Outline: User can add and complete or cancel contributions to a BF stage 2 complaint cases as part of Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I get a "BF2" case at the "Escalated to WFM" stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |

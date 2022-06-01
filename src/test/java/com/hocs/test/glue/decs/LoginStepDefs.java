@@ -1,15 +1,16 @@
 package com.hocs.test.glue.decs;
 
+import static config.User.BF_USER;
 import static config.User.COMP_USER;
 import static config.User.DCU_USER;
 import static config.User.DECS_USER;
 import static config.User.FAKE;
+import static config.User.MPAM_USER;
 import static config.User.FOI_USER;
 import static config.User.IEDET_USER;
 import static config.User.SMC_USER;
-import static config.User.UKVI_USER;
+import static config.User.TO_USER;
 import static config.User.WCS_USER;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.BasePage;
@@ -26,7 +27,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jxl.read.biff.Record;
 
 public class LoginStepDefs extends BasePage {
 
@@ -97,11 +97,12 @@ public class LoginStepDefs extends BasePage {
             System.err.println("Platform : " + platform + "Not Found");
         }
         currentPlatform = platform;
-        RecordCaseData.resetDataRecords();
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
     @Given("I switch to user {string}")
     public void iSwitchToUser(String user) {
+        setPreviousUser(getCurrentUser());
         targetUser = User.valueOf(user);
         navigateToPlatform(currentPlatform);
         if (!loginPage.onLoginPage()) {
@@ -159,6 +160,8 @@ public class LoginStepDefs extends BasePage {
         } else {
             safeClickOn(dashboard.logoutButton);
         }
+        loginPage.usernameField.waitUntilVisible();
+
     }
 
     @When("I enter the login credentials of another user {string} and click the login button")
@@ -179,7 +182,8 @@ public class LoginStepDefs extends BasePage {
     @Then("I should be logged in as the user {string}")
     public void iShouldBeLoggedInAsTheUser(String user) {
         targetUser = User.valueOf(user);
-        assert loggedInAsTargetUser();
+        Boolean loggedInAsCorrectUser = loggedInAsTargetUser();
+        assert loggedInAsCorrectUser;
     }
 
     private void checkForOverrideUser() {
@@ -191,7 +195,7 @@ public class LoginStepDefs extends BasePage {
 
     private boolean loggedInAsTargetUser() {
         boolean targetUserLoggedIn = false;
-        if (targetUser == DCU_USER | targetUser == UKVI_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER) {
+        if (targetUser == DCU_USER | targetUser == MPAM_USER | targetUser == DECS_USER | targetUser == WCS_USER | targetUser == COMP_USER  | targetUser == WCS_USER | targetUser == FOI_USER | targetUser == IEDET_USER | targetUser == SMC_USER | targetUser == BF_USER | targetUser == TO_USER) {
             if (dashboard.checkTargetUserIsLoggedInUsingVisibleTeams(targetUser)) {
                 targetUserLoggedIn = true;
             } else {
@@ -218,6 +222,7 @@ public class LoginStepDefs extends BasePage {
         }
         return targetUserLoggedIn;
     }
+
     @And("I navigate to {string}")
     public void iNavigateTo(String platform) {
         navigateToPlatform(platform);

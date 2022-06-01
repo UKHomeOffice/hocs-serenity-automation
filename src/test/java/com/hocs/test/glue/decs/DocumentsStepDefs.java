@@ -2,16 +2,24 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.hocs.test.pages.complaints.BFProgressCase;
+import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DocumentsStepDefs extends BasePage {
 
@@ -19,53 +27,43 @@ public class DocumentsStepDefs extends BasePage {
 
     CreateCase createCase;
 
-    CreateCase_SuccessPage createCaseSuccessPage;
+    ConfirmationScreens confirmationScreens;
 
-    @And("I click to manage the documents of a new {string} case")
+    Dashboard dashboard;
+
+    @And("I manage the documents of a new {string} case")
     public void iClickToManageTheDocumentsOfANewCase(String caseType) {
-        createCase.createCSCaseOfTypeWithoutDocument(caseType);
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
-        safeClickOn(documents.manageDocumentsLink);
+        createCase.createCSCaseOfType(caseType);
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        documents.selectToManageDocuments();
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
         createCase.createCSCaseOfRandomType();
-        createCaseSuccessPage.goToCaseFromSuccessfulCreationScreen();
+        confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
 
-    @And("I upload a {string} document")
-    public void IUploadADocument(String docType) {
-        switch (docType.toUpperCase()) {
-            case "ORIGINAL":
-                documents.addADocumentOfType("ORIGINAL");
-                break;
-            case "DRAFT":
-                documents.addADraftDocumentAtDraftStage();
-                break;
-            case "SECOND DRAFT":
-                documents.addADocumentOfType("DRAFT");
-                setSessionVariable("second draft").to("docx");
-                break;
-            case "FINAL":
-                documents.addADocumentOfType("FINAL");
-                break;
-            case "INITIAL RESPONSE":
-                documents.addADocumentOfType("Initial response");
-                break;
-            case "INTERIM RESPONSE":
-                documents.addADocumentOfType("Interim response");
-                break;
-            case "ACKNOWLEDGEMENT LETTER":
-                documents.addADocumentOfType("Acknowledgement letter");
-                break;
-            case "FINAL RESPONSE":
-                documents.addADocumentOfType("Final response");
-                break;
-            default:
-                pendingStep(docType + " is not defined within " + getMethodName());
-        }
+    @And("I manage the documents of a new DCU case")
+    public void iManageTheDocumentsOfANewDCUCase() {
+        createCase.createDCUCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new MPAM or MTS case")
+    public void iManageTheDocumentsOfANewMPAMOrMTSCase() {
+        createCase.createMPAMOrMTSCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
+    }
+
+    @And("I manage the documents of a new Complaints case")
+    public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
+        createCase.createComplaintsCaseOfRandomType();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        safeClickOn(documents.manageDocumentsLink);
     }
 
     @And("I click manage documents")
@@ -75,11 +73,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @When("I click add documents")
     public void iClickAddDocuments() {
-        if (documents.addDocumentLink.isVisible()) {
-            safeClickOn(documents.addDocumentLink);
-        } else if (documents.addDocumentsButton.isVisible()) {
-            safeClickOn(documents.addDocumentsButton);
-        }
+        documents.clickVisibleAddDocumentsLink();
     }
 
     @And("I choose the document type {string}")
@@ -89,14 +83,8 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a file of type {string}")
     public void iUploadAFileOfType(String fileType) {
-        documents.uploadDocumentOfType(fileType);
+        documents.uploadFileOfType(fileType);
         clickAddButton();
-    }
-
-    @Then("I can see the {string} file in the uploaded document list")
-    public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
-        documents.waitForFileToUpload(fileType);
-        documents.assertFileIsVisible(fileType);
     }
 
     @Then("the document should have the {string} tag")
@@ -119,9 +107,33 @@ public class DocumentsStepDefs extends BasePage {
         documents.assertFileTypeIsNotAllowedErrorMessage();
     }
 
+    @Then("I can see the {string} file in the uploaded document list")
+    public void iCanSeeTheFileInTheUploadedDocumentList(String fileType) {
+        documents.waitForFileToUpload(fileType);
+        documents.assertFileIsVisible(fileType);
+    }
+
     @And("I cannot see the {string} file in the uploaded document list")
     public void iCannotSeeTheFileInTheUploadedDocumentList(String fileIdentifier) {
         documents.assertFileIsNotVisible(fileIdentifier);
+    }
+
+    @Then("the {string} document should be under the {string} header")
+    public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
+        documents.waitForFileToUpload(fileIdentifier);
+        documents.assertDocumentIsUnderHeader(header);
+    }
+
+    @Then("the document should be listed under the expected Document Type header")
+    public void theDocumentShouldBeListedUnderTheExpectedDocumentTypeHeader() {
+        documents.waitForFileToUpload(sessionVariableCalled("fileType"));
+        documents.assertDocumentIsUnderHeader(sessionVariableCalled("documentType"));
+    }
+
+    @And("the document added at case creation should be listed under the {string} document type heading")
+    public void theDocumentAddedAtCaseCreationShouldHaveTheDocumentType(String docType) {
+        documents.selectDocumentsTab();
+        documents.assertDocumentIsUnderHeader(docType);
     }
 
     @And("I upload a file that is {int}MB in size")
@@ -137,12 +149,12 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a {int}MB and a {int}MB file")
     public void iUploadTwoFilesOfSizes(int fileSize1, int fileSize2) {
-        iClickAddDocuments();
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize1);
         documents.waitForFileToUpload(fileSize1);
         iClickManageDocuments();
-        iClickAddDocuments();
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize2);
         documents.waitForFileToUpload(fileSize2);
@@ -158,19 +170,17 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickPreviewButtonForFile(fileIdentifier);
     }
 
-    @And("I add a {string} document to the case/claim")
-    public void iAddADocumentToTheCase(String fileIdentifier) {
-        iClickAddDocuments();
-        documents.selectADocumentType();
-        iUploadAFileOfType(fileIdentifier);
-        iCanSeeTheFileInTheUploadedDocumentList(fileIdentifier);
+    @And("I add a {string} type file to the case as a document")
+    public void iAddADocumentToTheCaseClaimByUploadingAFile(String fileType) {
+        documents.addADocumentOfFileType(fileType);
+        iCanSeeTheFileInTheUploadedDocumentList(fileType);
     }
 
-    @And("I add a {string} type document to the case")
+    @And("I add a/an {string} type document to the case")
     public void iAddATypeDocumentToTheCase(String docType) {
-        iClickAddDocuments();
-        documents.selectDocumentTypeByText(docType);
-        iUploadAFileOfType("docx");
+        documents.addADocumentOfDocumentType(docType);
+        iCanSeeTheFileInTheUploadedDocumentList(sessionVariableCalled("fileType"));
+        documents.assertDocumentIsUnderHeader(docType);
     }
 
     @And("I remove the {string} document")
@@ -178,17 +188,6 @@ public class DocumentsStepDefs extends BasePage {
         safeClickOn(documents.manageDocumentsLink);
         documents.clickRemoveLinkForFile(fileIdentifier);
         documents.clickRemoveButton();
-    }
-
-    @Then("the document should have the Pending tag")
-    public void theDocumentShouldHaveThePendingTag() {
-        documents.assertPendingTagVisible();
-    }
-
-    @Then("the {string} document should be under the {string} header")
-    public void theDocumentShouldBeUnderTheHeader(String fileIdentifier, String header) {
-        documents.waitForFileToUpload(fileIdentifier);
-        documents.assertDocumentIsUnderHeader(header);
     }
 
     @Then("the primary draft tag is next to the primary draft document")
@@ -203,14 +202,99 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I upload a file that fails to convert to PDF")
     public void iUploadAFileThatWillFailToConvertToPDF() {
-        safeClickOn(documents.addDocumentLink);
+        documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         documents.uploadDocumentThatFailsConversion();
+        clickTheButton("Add");
+    }
+
+    @When("I upload a file that fails during the virus scan")
+    public void iUploadAFileThatFailsDuringTheVirusScan() {
+        documents.clickVisibleAddDocumentsLink();
+        documents.selectADocumentType();
+        documents.uploadDocumentThatFailsScan();
         clickTheButton("Add");
     }
 
     @Then("document should have the Failed Conversion tag")
     public void documentShouldHaveTheFailedConversionTag() {
         documents.assertFailedConversionTagVisible();
+    }
+
+    @Then("document should have the Failed Virus Scan tag")
+    public void documentShouldHaveTheFailedVirusScanTag() {
+        documents.assertFailedVirusScanTagVisible();
+    }
+
+    @And("I confirm/approve the (new )primary draft document")
+    public void iConfirmThePrimaryDraftDocument() {
+        documents.recordPrimaryDraftDocument();
+        if (continueButton.isCurrentlyVisible()) {
+            clickTheButton("Continue");
+        } else {
+            clickTheButton("Approve primary draft");
+        }
+    }
+
+    @And("the selected/replacement document should be tagged as the primary draft")
+    public void theSelectedDocumentShouldBeTaggedAsThePrimaryDraft() {
+        documents.refreshDocumentTab();
+        try {
+            documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+        } catch (NullPointerException e) {
+            documents.refreshDocumentTab();
+            documents.assertThatPrimaryDraftIs(sessionVariableCalled("primaryDraft"));
+        }
+    }
+
+    @And("I select a file to be uploaded as a PIT Extension document")
+    public void iSelectAFileToBeUploadedAsAPITExtensionDocument() {
+        documents.uploadFileOfType("docx");
+    }
+
+    @And("I select a document to be added to the case as an Appeal Response document")
+    public void iSelectADocumentToBeAddedToTheCaseAsAnAppealResponseDocument() {
+        clickTheLink("Add a document");
+        documents.uploadFileOfType("docx");
+        safeClickOn(addButton);
+    }
+
+    @And("I upload another {string} document as a replacement")
+    public void iUploadAnotherDocumentAsAReplacement(String docType) {
+        documents.addADocumentOfDocumentTypeAndFileType(docType, "txt");
+        setSessionVariable("replacement draft").to("txt");
+    }
+
+    @And("I add a document to the case as the (first )Registration user")
+    public void iAddADocumentToTheCaseAsTheFirstRegistrationUser() {
+        documents.addADocumentOfFileType("docx");
+    }
+
+    @And("I add a document to the case as the (second Registration )/(Casework )user")
+    public void iAddADocumentToTheCaseAsTheSecondRegistrationUser() {
+        dashboard.getCurrentCase();
+        documents.selectDocumentsTab();
+        documents.selectToManageDocuments();
+        documents.addADocumentOfFileType("txt");
+    }
+
+    @Then("I should not be able to see the document uploaded by the previous user")
+    public void iShouldNotBeAbleToSeeTheDocumentUploadedByThePreviousUser() {
+        documents.assertFileIsNotVisible("docx");
+    }
+
+    @And("I should be able to see the document uploaded by the current user")
+    public void iShouldBeAbleToSeeTheDocumentUploadedByTheCurrentUser() {
+        documents.assertFileIsVisible("txt");
+    }
+
+    @Then("I should be able to see the document uploaded by the previous user")
+    public void iShouldBeAbleToSeeTheDocumentUploadedByThePreviousUser() {
+        documents.assertFileIsVisible("docx");
+    }
+
+    @Then("I should see a dropdown containing the expected Document Types for the case I am working on")
+    public void iShouldSeeADropdownContainingTheExpectedDocumentTypesForTheCaseIAmWorkingOn() {
+        documents.assertExpectedDocumentTypesPresent(getCurrentCaseType());
     }
 }

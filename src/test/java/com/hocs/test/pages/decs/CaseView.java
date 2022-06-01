@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -45,12 +46,15 @@ public class CaseView extends BasePage {
         return allocateToMeLink.isCurrentlyVisible();
     }
 
-    public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading(String heading) {
+    public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenKey(String heading) {
         List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
             if (value.isCurrentlyVisible()) {
-                valuesText.add(value.getText());
+                String text = value.getText();
+                text = text.split(":")[1];
+                text = text.trim();
+                valuesText.add(text);
             }
         }
         return valuesText;
@@ -58,18 +62,17 @@ public class CaseView extends BasePage {
 
     //assertions
 
-    public void assertCaseCannotBeAssigned() {
+    public void assertCaseCannotBeAllocated() {
         assertThat(caseCanBeAllocated(), is(false));
     }
 
     public void allocateToUserByVisibleText(String allocationUser) {
-        safeClickOn(allocateDropdown);
-        allocateDropdown.selectByVisibleText(allocationUser);
+        selectSpecificOptionFromDropdownWithHeading(allocationUser, "Allocate to a team member");
         safeClickOn(allocateButton);
     }
 
     public boolean caseDetailsAccordionIsVisible() {
-        if (sessionVariableCalled("caseType").equals("WCS")) {
+        if (wcsCase()) {
             return wcsCaseDetailsAccordion.isCurrentlyVisible();
         } else {
             return csCaseDetailsAccordion.isCurrentlyVisible();
@@ -105,5 +108,26 @@ public class CaseView extends BasePage {
             }
         }
         return false;
+    }
+
+    public void assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(String expectedAccordionValue, String accordionKey) {
+        List<String> visibleDisplayValues = getValuesFromOpenCaseDetailsAccordionSectionForGivenKey(accordionKey);
+        boolean expectedValueIsDisplayed = false;
+        for (String visibleDisplayValue : visibleDisplayValues) {
+            if (visibleDisplayValue.contains(expectedAccordionValue)) {
+                expectedValueIsDisplayed = true;
+                break;
+            }
+        }
+        if (!expectedValueIsDisplayed) {
+            Assert.fail("'" + accordionKey + ": " + expectedAccordionValue + "' is not visible in accordion");
+        }
+    }
+
+    public void expandAllCaseDetailsAccordionSections() {
+        List<WebElementFacade> accordionSectionButtons = findAll("//button[@class='govuk-accordion__section-button']");
+        for (WebElementFacade accordionSectionButton : accordionSectionButtons) {
+            safeClickOn(accordionSectionButton);
+        }
     }
 }

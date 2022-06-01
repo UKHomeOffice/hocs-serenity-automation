@@ -97,7 +97,7 @@ public class CaseCreationStage extends BasePage {
         } else if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             createCase.fullNameTextField.clear();
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
-            setSessionVariable("requesterFullName").to("Edited Test McTester");
+            setSessionVariable("correspondentFullName").to("Edited Test McTester");
         }
         if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             clickTheButton("Save");
@@ -107,6 +107,7 @@ public class CaseCreationStage extends BasePage {
     }
 
     public void assertCaseDetailsAreCorrect() {
+        receivedDateValue.waitUntilVisible();
         String displayedReceivedDate = receivedDateValue.getText();
         String enteredReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
         assertThat(displayedReceivedDate.equals(enteredReceivedDate), is(true));
@@ -128,7 +129,7 @@ public class CaseCreationStage extends BasePage {
         assertThat(displayedRequestQuestion.equals(enteredRequestQuestion), is(true));
 
         String displayedRequesterName = primaryCorrespondentValue.getText();
-        String enteredRequesterName = sessionVariableCalled("requesterFullName");
+        String enteredRequesterName = sessionVariableCalled("correspondentFullName");
         assertThat(displayedRequesterName.equals(enteredRequesterName), is(true));
     }
 
@@ -139,6 +140,6 @@ public class CaseCreationStage extends BasePage {
 
     public void enterAnInvalidRequestResponseDate() {
         String responseDate = getDatePlusMinusNDaysAgo(-10);
-        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "When was the response to the invalid request was issued?");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(responseDate, "What day was the response sent?");
     }
 }

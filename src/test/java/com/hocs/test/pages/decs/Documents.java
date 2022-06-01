@@ -1,15 +1,21 @@
 package com.hocs.test.pages.decs;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class Documents extends BasePage {
 
@@ -20,9 +26,6 @@ public class Documents extends BasePage {
 
     @FindBy(xpath = "//a[text() = 'Manage Documents']")
     public WebElementFacade manageDocumentsLink;
-
-    @FindBy(xpath = "//a[text() = 'Add document']")
-    public WebElementFacade addDocumentLink;
 
     @FindBy(id = "add_document")
     public WebElementFacade addDocument;
@@ -36,9 +39,6 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//a[@href = '#add_document-error']")
     public WebElementFacade addDocumentErrorMessage;
 
-    @FindBy(xpath = "//a[text()='document']")
-    public WebElementFacade addDocumentsButton;
-
     @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
@@ -51,14 +51,23 @@ public class Documents extends BasePage {
     @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'FAILED_CONVERSION')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
     public WebElementFacade failedConversionTag;
+
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    public WebElementFacade failedVirusScanTag;
 
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
 
     @FindBy(xpath = "//strong[text()='Primary Draft']")
     public WebElementFacade primaryDraftDocumentTag;
+
+    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
+    public WebElementFacade primaryDraftDocumentName;
+
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
 
     //Simple methods
 
@@ -68,20 +77,25 @@ public class Documents extends BasePage {
         }
     }
 
+    public void refreshDocumentTab() {
+        safeClickOn(nonActiveTab);
+        selectDocumentsTab();
+    }
+
     public boolean documentsTabIsActiveTab() {
         return documentsTab.getAttribute("class").contains("active");
     }
 
     public void selectDocumentTypeByText(String docType) {
-        String caseType = sessionVariableCalled("caseType");
-        if(!caseType.equals("MPAM") && !caseType.equals("WCS") && !caseType.equals("FOI") && !caseType.equals("IEDET")) {
+        if(dcuCase()) {
             docType = docType.toUpperCase();
         }
-        documentTypeDropDown.selectByVisibleText(docType);
+        documentTypeDropDown.waitUntilVisible().selectByVisibleText(docType);
     }
 
     public void selectADocumentType() {
-        selectRandomOptionFromDropdownWithHeading("Document type");
+        String selectedDocumentType = selectRandomOptionFromDropdownWithHeading("Document type");
+        setSessionVariable("documentType").to(selectedDocumentType);
     }
 
     public void uploadDocumentOfSize(int fileSize) {
@@ -91,11 +105,11 @@ public class Documents extends BasePage {
                 "documents" +  File.separator  + fileSize + "MB.docx").to(addDocument);
     }
 
-    public void uploadDocumentOfType(String type) {
-        setSessionVariable("docType").to(type);
+    public void uploadFileOfType(String fileType) {
+        setSessionVariable("fileType").to(fileType);
         addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
-                "documents" +  File.separator + "test."  + type).to(addDocument);
+                "documents" +  File.separator + "test."  + fileType).to(addDocument);
     }
 
     public void uploadDocumentThatFailsConversion() {
@@ -103,6 +117,13 @@ public class Documents extends BasePage {
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "broken.jpg").to(addDocument);
     }
+
+    public void uploadDocumentThatFailsScan() {
+        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
+                "documents" +  File.separator + "fails.txt").to(addDocument);
+    }
+
 
 
     //Multi-step methods
@@ -122,26 +143,41 @@ public class Documents extends BasePage {
         addDocument.sendKeys(allFiles);
     }
 
-    public void addADocumentOfType(String docType) {
-        if (addDocumentsButton.isVisible()) {
-            safeClickOn(addDocumentsButton);
-        } else if (addDocumentLink.isVisible()) {
-            safeClickOn(addDocumentLink);
-        }
+    public void addADocumentOfDocumentType(String docType) {
+        clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
-        uploadDocumentOfType("docx");
+        uploadFileOfType("docx");
+        safeClickOn(addButton);
+        setSessionVariable(docType.toLowerCase()).to("docx");
+        waitABit(500);
+    }
+
+    public void clickVisibleAddDocumentsLink() {
+        List<WebElementFacade> addDocumentLinks = findAll("//a[contains(text(),'Add') and contains(.,'document')]");
+        for ( WebElementFacade addDocumentLink : addDocumentLinks
+        ) {
+            if (addDocumentLink.isVisible()) {
+                safeClickOn(addDocumentLink);
+                break;
+            }
+        }
+        waitForPageWithTitle("Add Documents");
+    }
+
+    public void addADocumentOfFileType(String fileType) {
+        clickVisibleAddDocumentsLink();
+        selectADocumentType();
+        uploadFileOfType(fileType);
         safeClickOn(addButton);
         waitABit(500);
     }
 
-    public void addADraftDocumentAtDraftStage() {
-        addDocumentsButton.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
-        safeClickOn(addDocumentsButton);
-        selectDocumentTypeByText("DRAFT");
-        uploadDocumentOfType("docx");
+    public void addADocumentOfDocumentTypeAndFileType(String docType, String fileType) {
+        clickVisibleAddDocumentsLink();
+        selectDocumentTypeByText(docType);
+        uploadFileOfType(fileType);
         safeClickOn(addButton);
-        setSessionVariable("draft").to("docx");
-        recordCaseData.addHeadingAndValueRecord("Primary draft document", "test.docx");
+        waitABit(500);
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {
@@ -158,7 +194,7 @@ public class Documents extends BasePage {
     }
 
     public void clickRemoveLinkForFile(String fileIdentifier) {
-        addDocumentLink.waitUntilVisible();
+        waitForPageWithTitle("Manage Documents");
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
@@ -222,21 +258,16 @@ public class Documents extends BasePage {
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
                 findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
-        waitFor(documentUnderHeader);
+        documentUnderHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assertThat(documentUnderHeader.isVisible(), is(true));
-    }
-
-    public void assertPendingTagVisible() {
-        if (!pendingTag.isVisible()) {
-            assertThat(pendingTag.isVisible(), is(true));
-        } else {
-            WebElementFacade downloadHypertext = findBy("//a[@download]");
-            assertThat(downloadHypertext.isVisible(), is(true));
-        }
     }
 
     public void assertFailedConversionTagVisible() {
         failedConversionTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+    }
+
+    public void assertFailedVirusScanTagVisible() {
+        failedVirusScanTag.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void waitForFileToUpload(Object fileIdentifier) {
@@ -253,4 +284,94 @@ public class Documents extends BasePage {
         assertThat(primaryDraftDocumentTag.isVisible(), is(true));
     }
 
+    public void selectPrimaryDraft(String fileIdentifier) {
+        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        safeClickOn(documentToSelect);
+    }
+
+    public void recordPrimaryDraftDocument() {
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='DraftDocuments'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='DraftDocuments'][@checked]/ancestor::fieldset//span");
+        selectedPrimaryDraftDocument.waitUntilVisible();
+        recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
+        setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
+    }
+
+    public void recordFinalResponseDocument() {
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span");
+        selectedPrimaryDraftDocument.waitUntilVisible();
+        recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
+        setSessionVariable("finalResponse").to(selectedPrimaryDraftDocument.getText());
+    }
+
+    public void assertThatPrimaryDraftIs(String fileName) {
+        primaryDraftDocumentName.waitUntilVisible();
+        primaryDraftDocumentName.shouldContainText(fileName);
+    }
+
+    public void selectToManageDocuments() {
+        safeClickOn(manageDocumentsLink);
+    }
+
+    public void assertExpectedDocumentTypesPresent(String caseType) {
+        List<String> availableDocumentTypes = getSelectableOptionsFromDropdownWithHeading("Document type");
+        List<String> requiredDocumentTypes = new ArrayList<>();
+        switch (caseType.toUpperCase()) {
+            case "MIN":
+            case "TRO":
+            case "DTEN":
+                requiredDocumentTypes.addAll(Arrays.asList("ORIGINAL", "DRAFT", "FINAL", "CONTRIBUTION", "BACKGROUND NOTE"));
+                break;
+            case "MPAM":
+                requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
+                        + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response", "Additional correspondence (Holding Replies)"));
+                break;
+            case "MTS":
+                requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
+                        + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response"));
+                break;
+            case "COMP":
+            case "COMP2":
+            case "SMC":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
+                break;
+            case "IEDET":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response", "Acknowledgement letter", "Interim response"));
+                break;
+            case "BF":
+            case "BF2":
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT"));
+                break;
+            case "TO":
+                requiredDocumentTypes.addAll(Arrays.asList("Initial Correspondence", "Initial Draft", "Final Response", "Contribution Request", "Contribution Response"
+                        , "Background Note"));
+                break;
+            case "FOI":
+                requiredDocumentTypes.addAll(Arrays.asList("Request", "Initial response", "Draft response", "Clearances", "Final responses"
+                        , "Correspondence", "Contribution", "Miscellaneous", "Appeal Response"));
+                break;
+            case "POGR":
+                requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft"));
+                break;
+            case "FOI TEAM":
+                requiredDocumentTypes.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
+                        "Extended"));
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        for (String requiredDocumentType : requiredDocumentTypes) {
+            if (!availableDocumentTypes.contains(requiredDocumentType)) {
+                Assert.fail("'" + requiredDocumentType + "' Document Type is not available for a " + caseType + " case");
+            }
+            availableDocumentTypes.remove(requiredDocumentType);
+        }
+        if (!availableDocumentTypes.isEmpty()) {
+            Assert.fail("Unexpected document type/s: '" + availableDocumentTypes.toString() + "' were present for a" + caseType + " case");
+        }
+    }
 }

@@ -1,55 +1,138 @@
 package com.hocs.test.pages.foi;
 
+import static jnr.posix.util.MethodName.getMethodName;
+import static net.serenitybdd.core.Serenity.pendingStep;
+
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
-import com.hocs.test.pages.decs.CreateCase_SuccessPage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 
 public class FOIProgressCase extends BasePage {
 
-    RecordCaseData recordCaseData;
+    CreateCase createCase;
+
+    Dashboard dashboard;
 
     CaseCreationStage caseCreationStage;
 
+    Allocation allocation;
+
+    Acceptance acceptance;
+
     Approval approval;
 
+    ConsiderAndDraft considerAndDraft;
+
+    FOIDispatch foiDispatch;
+
     Documents documents;
+
+    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+        String precedingStage = getStageThatPrecedesTargetStage(targetStage);
+        if (precedingStage.equals("CREATE NEW CASE")) {
+            createCase.createCSCaseOfType("FOI");
+            dashboard.goToDashboard();
+        } else {
+            if (!precedingStage.equalsIgnoreCase(currentStage)) {
+                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
+            }
+            completeTheFOIStage(precedingStage);
+        }
+    }
+
+    private String getStageThatPrecedesTargetStage(String targetStage) {
+        String precedingStage = "";
+        switch (targetStage.toUpperCase()) {
+            case "CASE CREATION":
+                precedingStage = "CREATE NEW CASE";
+                break;
+            case "ALLOCATION":
+                precedingStage = "CASE CREATION";
+                break;
+            case "ACCEPTANCE":
+                precedingStage = "ALLOCATION";
+                break;
+            case "CONSIDER AND DRAFT":
+                precedingStage = "ACCEPTANCE";
+                break;
+            case "APPROVAL":
+                precedingStage = "CONSIDER AND DRAFT";
+                break;
+            case "DISPATCH":
+                precedingStage = "APPROVAL";
+                break;
+            case "SOFT CLOSE":
+                precedingStage = "DISPATCH";
+                break;
+            default:
+                pendingStep(targetStage + " is not defined within " + getMethodName());
+        }
+        return precedingStage;
+    }
+
+    public void completeTheFOIStage(String stageToComplete) {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        switch (stageToComplete.toUpperCase()) {
+            case "CASE CREATION":
+                moveCaseFromCaseCreationToAllocation();
+                break;
+            case "ALLOCATION":
+                moveCaseFromAllocationToAcceptance();
+                break;
+            case "ACCEPTANCE":
+                moveCaseFromAcceptanceToConsiderAndDraft();
+                break;
+            case "CONSIDER AND DRAFT":
+                moveCaseFromConsiderAndDraftToApproval();
+                break;
+            case "APPROVAL":
+                moveCaseFromApprovalToDispatch();
+                break;
+            case "DISPATCH":
+                moveCaseFromDispatchToSoftClose();
+                break;
+            default:
+                pendingStep(stageToComplete + " is not defined within " + getMethodName());
+        }
+        if (stageToComplete.equalsIgnoreCase("ACCEPTANCE") || stageToComplete.equalsIgnoreCase("ALLOCATION")) {
+            dashboard.waitForDashboard();
+        }
+        System.out.println(stageToComplete + " stage completed");
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
+    }
 
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");
         caseCreationStage.selectValidityOfRequest("Valid");
         safeClickOn(continueButton);
         waitABit(250);
-        documents.addADocumentOfType("Initial response");
+        documents.addADocumentOfDocumentType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
         waitABit(250);
     }
 
     public void moveCaseFromAllocationToAcceptance() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Acceptance Team");
+        allocation.selectAGroup();
+        allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
-        waitABit(250);
+        waitForPageWithTitle("FOI Allocation");
         clickTheButton("Confirm Allocation");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Does this case belong to your Directorate?");
+        acceptance.selectIfCaseIsInCorrectGroup("Yes");
         clickTheButton("Continue");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Please select the team required for drafting the response");
+        acceptance.selectAResponsibleTeam();
         clickTheButton("Complete Acceptance");
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No", "Do you need to request contributions?");
+        considerAndDraft.isContributionRequestNeeded("No");
         clickTheButton("Continue");
-        safeClickOn(documents.addDocumentsButton);
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading("Draft response", "Document type");
-        documents.uploadDocumentOfType("docx");
-        clickTheButton("Add");
+        documents.addADocumentOfDocumentType("Draft response");
         clickTheButton("Complete Draft");
     }
 
@@ -59,13 +142,66 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromDispatchToSoftClose() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading( "What type of case is this?");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading( "How will the response be sent?");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Information released in full","What was the outcome of this case?");
+        foiDispatch.selectACaseType();
+        foiDispatch.selectAResponseChannel();
+        foiDispatch.selectOutcomeOfTheCase("Information released in full");
         clickTheButton("Continue");
         clickTheButton("Confirm");
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Are you sure you want to dispatch this case?");
+        foiDispatch.selectDoYouWantToDispatch("Yes");
+        foiDispatch.enterFinalResponseDate();
+        clickTheButton("Continue");
+        documents.addADocumentOfDocumentType("Final responses");
         clickTheButton("Complete Dispatch");
         waitABit(500);
+    }
+
+    public void generateFOISearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+            case "CORRESPONDENT (NON-MP)":
+            case "TOPIC":
+            case "ACTIVE CASES ONLY":
+                createCase.createCSCaseOfType("FOI");
+                dashboard.goToDashboard();
+                break;
+            case "RECEIVED ON OR AFTER":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("FOI");
+                clickTheButton("Next");
+                createCase.editReceivedDate(getTodaysDate());
+                createCase.storeCorrespondenceReceivedDate();
+                createCase.storeCorrespondenceReceivedInKIMUDate();
+                documents.uploadFileOfType("docx");
+                createCase.selectCorrespondenceInboundChannel();
+                createCase.enterCorrespondentDetails();
+                createCase.selectFOITopic("Animal alternatives (3Rs)");
+                createCase.enterRequestQuestion();
+                clickTheButton("Submit");
+                dashboard.goToDashboard();
+                break;
+            case "RECEIVED ON OR BEFORE":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("FOI");
+                clickTheButton("Next");
+                createCase.editReceivedDate("01/01/2010");
+                createCase.storeCorrespondenceReceivedDate();
+                createCase.storeCorrespondenceReceivedInKIMUDate();
+                documents.uploadFileOfType("docx");
+                createCase.selectCorrespondenceInboundChannel();
+                createCase.enterCorrespondentDetails();
+                createCase.selectFOITopic("Animal alternatives (3Rs)");
+                createCase.enterRequestQuestion();
+                clickTheButton("Submit");
+                dashboard.goToDashboard();
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }

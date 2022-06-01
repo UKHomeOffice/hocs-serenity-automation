@@ -6,38 +6,30 @@ Feature: TransferConfirmation
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User confirms the case does not require a response
-    When I create a "<caseType>" case and move it to the "Transfer Confirmation" stage
-    And I load and claim the current case
-    And I click the confirm transfer yes radio button
-    And I click the "Finish" button
+    And I get a "<caseType>" case at the "Transfer Confirmation" stage
+    When I confirm the case should be transferred
     Then the case should be closed
     Examples:
     | caseType  |
     | MIN       |
-#    | TRO       |
-#    | DTEN      |
+    | TRO       |
+    | DTEN      |
 
   @DCUWorkflow @DCURegression
   Scenario Outline: User selects that they dont agree that the case requires no response
-    When I create a "<caseType>" case and move it to the "Transfer Confirmation" stage
-    And I load and claim the current case
-    And I click the confirm transfer no radio button
-    And I click the "Finish" button
+    And I get a "<caseType>" case at the "Transfer Confirmation" stage
+    When I confirm the case should not be transferred
     Then the case should be moved to the "Markup" stage
+    And the summary should display the owning team as "<markupTeam>"
     Examples:
-      | caseType  |
-      | MIN       |
-      | TRO       |
-      | DTEN      |
+      | caseType | markupTeam                                       |
+      | MIN      | Direct Communications Unit Central Drafting Team |
+      | TRO      | Direct Communications Unit Central Drafting Team |
+      | DTEN     | Transfers & No10 Team                            |
+
 
   @Validation
-  Scenario Outline: User tests the validation at the Transfer Confirmation stage
-    When I create a "<caseType>" case and move it to the "Transfer Confirmation" stage
-    And I load and claim the current case
-    And I trigger the "<errorMessage>" error message at the "Transfer Confirmation" stage
-    Then the "<errorMessage>" error message is displayed at the "Transfer Confirmation" stage
-    Examples:
-    | caseType  | errorMessage                                      |
-    | MIN       | Should this case be transferred response required |
-    | TRO       | Should this case be transferred response required |
-    | DTEN      | Should this case be transferred response required |
+  Scenario: User tests the validation at the Transfer Confirmation stage
+    And I get a "MIN" case at the "Transfer Confirmation" stage
+    And I trigger the "Should this case be transferred response required" error message at the "Transfer Confirmation" stage
+    Then the "Should this case be transferred response required" error message is displayed at the "Transfer Confirmation" stage

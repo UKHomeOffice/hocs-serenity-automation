@@ -7,7 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.ukvi.AccordionMPAM;
+import com.hocs.test.pages.mpam.AccordionMPAM;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.ElementNotVisibleException;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
@@ -42,39 +42,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[text()='DCU Treat Official']")
     public WebElementFacade searchTROCheckbox;
 
-    @FindBy(xpath = "//label[text()='MPAM Case']")
-    public WebElementFacade searchMPAMCheckbox;
-
-    @FindBy(xpath = "//label[text()='MTS Case']")
-    public WebElementFacade searchMTSCheckbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-day']")
-    public WebElementFacade receivedAfterDayTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-month']")
-    public WebElementFacade receivedAfterMonthTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedFrom-year']")
-    public WebElementFacade receivedAfterYearTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-day']")
-    public WebElementFacade receivedBeforeDayTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-month']")
-    public WebElementFacade receivedBeforeMonthTextbox;
-
-    @FindBy(xpath = "//input[@id='dateReceivedTo-year']")
-    public WebElementFacade receivedBeforeYearTextbox;
-
-    @FindBy(xpath = "//input[@id='correspondent']")
-    public WebElementFacade searchCorrespondentTextbox;
-
-    @FindBy(xpath = "//input[@id='topic']")
-    public WebElementFacade searchTopicTextbox;
-
-    @FindBy(xpath = "//select[@id='signOffMinister']")
-    public WebElementFacade searchSignOffTeamDropdown;
-
     @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
@@ -93,9 +60,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//input[@id='correspondentExternalKey']")
     public WebElementFacade memberOfParliamentSearchBox;
 
-    @FindBy(id = "correspondentReference")
-    public WebElementFacade correspondentReferenceNumber;
-
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
@@ -104,39 +68,6 @@ public class Search extends BasePage {
 
     @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
     public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;
-
-    @FindBy(xpath = "//div[@id='CampaignType']//input")
-    public WebElementFacade campaignSearchField;
-
-    @FindBy(id = "MinSignOffTeam")
-    public WebElementFacade ministerialSignOffDropdown;
-
-    @FindBy(id = "correspondentNameNotMember")
-    public WebElementFacade applicantOrConstituentFullNameTextField;
-
-    @FindBy(id = "OfficialEngagement")
-    public WebElementFacade telephoneSurgeryOfficialEngagementDropdown;
-
-    @FindBy(id = "correspondent")
-    public WebElementFacade correspondentFullNameTextField;
-
-    @FindBy(id = "correspondentPostcode")
-    public WebElementFacade correspondentPostcodeTextField;
-
-    @FindBy(id = "correspondentEmail")
-    public WebElementFacade correspondentEmailAddressTextField;
-
-    @FindBy(id = "ComplainantDOB-day")
-    public WebElementFacade complainantDateOfBirthDayTextField;
-
-    @FindBy(id = "ComplainantDOB-month")
-    public WebElementFacade complainantDateOfBirthMonthTextField;
-
-    @FindBy(id = "ComplainantDOB-year")
-    public WebElementFacade complainantDateOfBirthYearTextField;
-
-    @FindBy(id = "reference")
-    public WebElementFacade caseReferenceTextField;
 
     @FindBy(id = "ComplainantHORef")
     public WebElementFacade complainantHomeOfficeReferenceTextField;
@@ -184,6 +115,9 @@ public class Search extends BasePage {
                 }
                 setSessionVariable("searchCaseType").to(value);
                 break;
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                break;
             case "RECEIVED ON OR AFTER DATE":
                 enterDateIntoDateFieldsWithHeading(value, "Received on or after");
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
@@ -221,13 +155,13 @@ public class Search extends BasePage {
                 setSessionVariable("searchSignOffTeam").to(value);
                 break;
             case "ACTIVE CASES ONLY":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
                 break;
             case "HOME SECRETARY INTEREST":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
                 }
                 break;
@@ -237,9 +171,15 @@ public class Search extends BasePage {
     }
 
     public void enterMPAMSearchCriteria(String criteria, String value) {
+        if (mpamCaseCheckbox.isCurrentlyVisible()) {
+            safeClickOn(mpamCaseCheckbox);
+        }
+        if (mtsCaseCheckbox.isCurrentlyVisible()) {
+            safeClickOn(mtsCaseCheckbox);
+        }
         switch (criteria.toUpperCase()) {
             case "CASE REFERENCE":
-                caseReferenceSearchBox.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
                 setSessionVariable("searchCaseReference").to(value);
                 break;
             case "REFERENCE TYPE":
@@ -256,39 +196,35 @@ public class Search extends BasePage {
                 setSessionVariable("searchReferenceType").to(value);
                 break;
             case "MINISTERIAL SIGN OFF TEAM":
-                ministerialSignOffDropdown.selectByVisibleText(value);
+                selectSpecificOptionFromDropdownWithHeading(value, "Ministerial sign off team");
                 setSessionVariable("searchMinisterialSignOffTeam").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                safeClickOn(memberOfParliamentSearchBox);
-                memberOfParliamentSearchBox.sendKeys(value);
-                waitABit(5000);
-                memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of parliament name");
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                correspondentReferenceNumber.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                typeIntoDateFields(receivedBeforeDayTextbox, receivedBeforeMonthTextbox, receivedBeforeYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                typeIntoDateFields(receivedAfterDayTextbox, receivedAfterMonthTextbox, receivedAfterYearTextbox, value);
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "CAMPAIGN":
-                campaignSearchField.sendKeys(value);
-                campaignSearchField.sendKeys(Keys.RETURN);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
                 setSessionVariable("searchCampaign").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
-                applicantOrConstituentFullNameTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name (applicant or constituent)");
                 setSessionVariable("searchCorrespondentName").to(value);
                 break;
             case "ACTIVE CASES ONLY":
-                if (value.toUpperCase().equals("YES")) {
+                if (value.equalsIgnoreCase("YES")) {
                     safeClickOn(caseStatusActiveCheckbox);
                 }
                 setSessionVariable("searchActiveCases").to(value);
@@ -298,7 +234,7 @@ public class Search extends BasePage {
         }
     }
 
-    public void enterCOMPSearchCriteria(String criteria, String value) {
+    public void enterComplaintsSearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -308,29 +244,63 @@ public class Search extends BasePage {
                     case "COMP2":
                         checkSpecificCheckbox("Complaint Case - Stage 2");
                         break;
+                    case "IEDET":
+                        checkSpecificCheckbox("IE Detention Case");
+                        break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "CORRESPONDENT FULL NAME":
-                correspondentFullNameTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
                 setSessionVariable("searchCorrespondentFullName").to(value);
                 break;
             case "CORRESPONDENT POSTCODE":
-                correspondentPostcodeTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
                 setSessionVariable("searchCorrespondentPostcode").to(value);
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
-                correspondentEmailAddressTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
                 setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                typeIntoDateFields(complainantDateOfBirthDayTextField, complainantDateOfBirthMonthTextField, complainantDateOfBirthYearTextField, value);
+                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
                 setSessionVariable("searchComplainantDateOfBirth").to(value);
                 break;
             case "CASE REFERENCE":
-                caseReferenceTextField.sendKeys(value);
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
+                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void enterBFSearchCriteria(String criteria, String value) {
+        switch (criteria.toUpperCase()) {
+            case "CORRESPONDENT FULL NAME":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
+                setSessionVariable("searchComplainantDateOfBirth").to(value);
+                break;
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
                 setSessionVariable("searchCaseReference").to(value);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
@@ -376,13 +346,63 @@ public class Search extends BasePage {
         }
     }
 
+    public void enterTOSearchCriteria(String criteria, String value) {
+        checkSpecificCheckbox("Treat Official");
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
+                setSessionVariable("searchCaseReference").to(value);
+                break;
+            case "RECEIVED ON OR AFTER":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
+                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
+                break;
+            case "RECEIVED ON OR BEFORE":
+                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
+                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
+                break;
+            case "CORRESPONDENT FULL NAME":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
+                setSessionVariable("searchCorrespondentReferenceNumber").to(value);
+                break;
+            case "ACTIVE CASES ONLY":
+                checkSpecificCheckbox("Include Active Cases only");
+                setSessionVariable("searchActiveCases").to(true);
+                break;
+            case "CAMPAIGN":
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
+                setSessionVariable("searchCampaign").to(value);
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
+    public void searchByCaseReference(String caseReference) {
+        enterSpecificTextIntoTextFieldWithHeading(caseReference, "Case reference");
+        safeClickOn(searchButton);
+    }
+
+
     public void searchBySubstringOfCaseReference() {
         int n = 0;
         String substring = null;
         String firstCharOfSubstring = "";
         String caseRef = getCurrentCaseReference();
         String split = caseRef.split("/01")[1];
-        int randomStringLength = (int)(Math.random() * ((5 - 1) + 1)) + 1;
+        int randomStringLength = (int) (Math.random() * ((5 - 1) + 1)) + 1;
         while (n <= randomStringLength) {
             substring = split.substring(n, randomStringLength);
             firstCharOfSubstring = String.valueOf(substring.charAt(0));
@@ -405,16 +425,15 @@ public class Search extends BasePage {
         }
         String randomCaseRefString = "/012" + randomCaseIntToString;
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
-        caseReferenceSearchBox.sendKeys(randomCaseRefString);
-        safeClickOn(searchButton);
+        searchByCaseReference(randomCaseRefString);
     }
 
     public boolean checkVisibilityOfEscalationHypertext() {
         return escalateCaseHypertext.isVisible();
     }
 
-    public void clickEscalateCOMPCaseToCOMP2() {
-       safeClickOn(escalateCaseHypertext);
+    public void clickEscalateComplaintsCaseToStage2() {
+        safeClickOn(escalateCaseHypertext);
     }
 
     //Assertions
@@ -460,9 +479,11 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR AFTER DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }
@@ -472,11 +493,13 @@ public class Search extends BasePage {
                 break;
             case "RECEIVED ON OR BEFORE DATE":
                 safeClickOn(randomSearchResult);
+                caseView.waitForCaseToLoad();
                 searchDate = null;
                 caseDate = null;
                 try {
                     searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
-                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(workstacks.getCorrespondenceReceivedDateFromSummary());
+                    caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                            + "received?"));
                 } catch (ParseException pE) {
                     System.out.println("Could not parse dates");
                 }
@@ -520,12 +543,14 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResult);
                 summaryTab.selectSummaryTab();
                 if (summaryTab.overridePrivateOfficeTeam.isVisible()) {
-                    signOffTeam = summaryTab.overridePrivateOfficeTeam.getText().toUpperCase();
+                    signOffTeam = summaryTab.overridePrivateOfficeTeam.getText();
                 } else {
-                    signOffTeam = summaryTab.privateOfficeTeam.getText().toUpperCase();
+                    signOffTeam = summaryTab.privateOfficeTeam.getText();
                 }
-                assertThat(signOffTeam.equals(sessionVariableCalled("searchSignOffTeam").toString().toUpperCase()),
-                        is(true));
+                String expectedSignOffTeam = sessionVariableCalled("searchSignOffTeam");
+                if (!signOffTeam.equalsIgnoreCase(expectedSignOffTeam)) {
+                    Assert.fail("Displayed sign off team '" + signOffTeam + "' did not match expected sign off team '" + expectedSignOffTeam + "'");
+                }
                 break;
             case "ACTIVE CASES ONLY":
                 List<WebElementFacade> activeCases = findAll("//td[2][not(text() = 'Closed')]");
@@ -615,7 +640,105 @@ public class Search extends BasePage {
         }
     }
 
-    public void assertCOMPInformationRandomSearchResult(String criteria) {
+    public void assertComplaintsInformationRandomSearchResult(String criteria) {
+        waitForResultsPage();
+        WebElementFacade cell = null;
+        String displayedValue = null;
+        String expectedValue = null;
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        String caseType = randomSearchResult.split("/")[0];
+        setSessionVariable("randomCaseRef").to(randomSearchResult);
+        switch (criteria.toUpperCase()) {
+            case "CASE TYPE":
+                expectedValue = sessionVariableCalled("searchCaseType");
+                List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
+                assertThat(numberOfCasesDisplayed == listOfCaseRefs.size(), is(true));
+                displayedValue = expectedValue;
+                break;
+            case "CORRESPONDENT FULL NAME":
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    peopleTab.selectPeopleTab();
+                    cell = findBy("//th[text()='Name']/following-sibling::td");
+                }
+                expectedValue = sessionVariableCalled("searchCorrespondentFullName");
+                break;
+            case "CORRESPONDENT POSTCODE":
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    peopleTab.selectPeopleTab();
+                    cell = findBy("//th[text()='Address']/following-sibling::td/span[4]");
+                }
+                expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                cell = findBy("//th[text()='Email address']/following-sibling::td");
+                expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                safeClickOn(randomSearchResultHypertext);
+                caseView.waitForCaseToLoad();
+                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration")) {
+                    summaryTab.selectSummaryTab();
+                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+                    String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(assignedTeam);
+                    workstacks.unallocateSelectedCase(randomSearchResult);
+                    workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                }
+                if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET")) {
+                    openOrCloseAccordionSection("Registration");
+                } else {
+                    openOrCloseAccordionSection("Stage 2 Registration");
+                }
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
+                expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
+                break;
+            case "CASE REFERENCE":
+                cell = randomSearchResultHypertext;
+                expectedValue = sessionVariableCalled("searchCaseReference");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                if (!caseType.equalsIgnoreCase("IEDET")) {
+                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                } else {
+                    safeClickOn(randomSearchResultHypertext);
+                    caseView.waitForCaseToLoad();
+                    if (!accordionSectionIsVisible("Registration")) {
+                        summaryTab.selectSummaryTab();
+                        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+                        String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+                        dashboard.goToDashboard();
+                        dashboard.selectWorkstackByTeamName(assignedTeam);
+                        workstacks.unallocateSelectedCase(randomSearchResult);
+                        workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                    }
+                    openOrCloseAccordionSection("Registration");
+                    displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office Reference").get(0);
+                }
+                expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+        if (displayedValue == null) {
+            assert cell != null;
+            displayedValue = cell.getText();
+        }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+    }
+
+    public void assertBFInformationRandomSearchResult(String criteria) {
         waitForResultsPage();
         WebElementFacade cell = null;
         String displayedValue = "";
@@ -626,39 +749,35 @@ public class Search extends BasePage {
         String randomSearchResult = randomSearchResultHypertext.getText();
         setSessionVariable("randomCaseRef").to(randomSearchResult);
         switch (criteria.toUpperCase()) {
-            case "CASE TYPE":
-                expectedValue = sessionVariableCalled("searchCaseType");
-                List<WebElementFacade> listOfCaseRefs = findAll("//td[2]/a[contains(text(), '" + expectedValue + "/')]");
-                assertThat(numberOfCasesDisplayed==listOfCaseRefs.size(), is(true));
-                break;
             case "CORRESPONDENT FULL NAME":
                 cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/preceding-sibling::td");
                 expectedValue = sessionVariableCalled("searchCorrespondentFullName");
                 break;
             case "CORRESPONDENT POSTCODE":
-                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[3]");
                 expectedValue = sessionVariableCalled("searchCorrespondentPostcode");
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
                 safeClickOn(randomSearchResultHypertext);
-                safeClickOn(peopleTab.peopleTab);
+                caseView.waitForCaseToLoad();
+                peopleTab.selectPeopleTab();
                 cell = findBy("//th[text()='Email address']/following-sibling::td");
                 expectedValue = sessionVariableCalled("searchCorrespondentEmailAddress");
                 break;
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
-                if (!caseView.caseCanBeAllocated()) {
+                if (!accordionSectionIsVisible("Case Registration")) {
                     summaryTab.selectSummaryTab();
-                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader("User",getCurrentUser().getUsername());
+                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(assignedTeam);
                     workstacks.unallocateSelectedCase(randomSearchResult);
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
-                openOrCloseAccordionSection("Registration");
-                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenHeading("Date of Birth").get(0);
+                openOrCloseAccordionSection("Case Registration");
+                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
@@ -666,20 +785,16 @@ public class Search extends BasePage {
                 expectedValue = sessionVariableCalled("searchCaseReference");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
                 expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
-        if (!criteria.equalsIgnoreCase("CASE TYPE")) {
-            if (criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
-                displayedValue = displayedValue.split(": ")[1];
-            } else {
-                displayedValue = cell.getText();
-            }
-            assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
+        if (!criteria.equalsIgnoreCase("COMPLAINANT DATE OF BIRTH")) {
+            displayedValue = cell.getText();
         }
+        assertThat(displayedValue.equalsIgnoreCase(expectedValue), is(true));
     }
 
     public void assertFOIInformationRandomSearchResult(String criteria) {
@@ -695,7 +810,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 List<WebElementFacade> listOfCaseRefs = findAll("//a[contains(text(), 'FOI')]");
-                assertThat(listOfCaseRefs.size()==numberOfCasesDisplayed, is(true));
+                assertThat(listOfCaseRefs.size() == numberOfCasesDisplayed, is(true));
                 break;
             case "CASE REFERENCE":
                 String caseRef = sessionVariableCalled("searchCaseReference");
@@ -752,6 +867,94 @@ public class Search extends BasePage {
         }
     }
 
+    public void assertTOInformationRandomSearchResult(String criteria) throws ParseException {
+        int n = 0;
+        Date searchDate = null;
+        Date caseDate = null;
+        WebElementFacade randomResultReceivedDateCell = findBy("//th[text()='Date Received']/following-sibling::td");
+        String displayedReceivedDate;
+        int numberOfCasesDisplayed = getNumberOfSearchResults();
+        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
+        WebElementFacade randomSearchResultHypertext = findBy("//tr[" + randomNumber + "]/td/a");
+        String randomSearchResult = randomSearchResultHypertext.getText();
+        switch (criteria.toUpperCase()) {
+            case "CASE REFERENCE":
+                String caseRef = sessionVariableCalled("searchCaseReference");
+                assertThat(randomSearchResult.equals(caseRef), is(true));
+                break;
+            case "RECEIVED ON OR AFTER":
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                displayedReceivedDate = randomResultReceivedDateCell.getText();
+                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
+                caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
+                assertThat(!caseDate.before(searchDate), is(true));
+                break;
+            case "RECEIVED ON OR BEFORE":
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                displayedReceivedDate = randomResultReceivedDateCell.getText();
+                searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
+                caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
+                assertThat(!caseDate.after(searchDate), is(true));
+                break;
+            case "CORRESPONDENT FULL NAME":
+                String searchCorrespondentFullName = sessionVariableCalled("searchCorrespondentFullName");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentFullName = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Name']/following-sibling::td");
+                primaryCorrespondentFullName.shouldContainText(searchCorrespondentFullName);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                String searchCorrespondentPostcode = sessionVariableCalled("searchCorrespondentPostcode");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentPostcode = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Address']/following-sibling::td/span[4]");
+                primaryCorrespondentPostcode.shouldContainText(searchCorrespondentPostcode);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                String searchCorrespondentEmailAddress = sessionVariableCalled("searchCorrespondentEmailAddress");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentEmailAddress = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Email address']/following-sibling::td");
+                primaryCorrespondentEmailAddress.shouldContainText(searchCorrespondentEmailAddress);
+                break;
+            case "CORRESPONDENT REFERENCE NUMBER":
+                String searchCorrespondentReferenceNumber = sessionVariableCalled("searchCorrespondentReferenceNumber");
+                safeClickOn(randomSearchResultHypertext);
+                peopleTab.selectPeopleTab();
+                WebElementFacade primaryCorrespondentReferenceNumber = findBy(
+                        "//h2[text()='Correspondent (primary)']/following-sibling::table//th[text()='Reference']/following-sibling::td");
+                primaryCorrespondentReferenceNumber.shouldContainText(searchCorrespondentReferenceNumber);
+                break;
+            case "ACTIVE CASES ONLY":
+                List<WebElementFacade> listOfSearchResultCurrentStage = findAll("//a/parent::td/following-sibling::td[1]");
+                while (n < listOfSearchResultCurrentStage.size()) {
+                    String currentStage = listOfSearchResultCurrentStage.get(n).getText();
+                    if (currentStage.equalsIgnoreCase("Closed")) {
+                        Assert.fail("Closed case displayed in 'Active only' search result");
+                        break;
+                    }
+                    assertThat(!currentStage.equalsIgnoreCase("Closed"), is(true));
+                    n++;
+                }
+                break;
+            case "CAMPAIGN":
+                String searchCampaign = sessionVariableCalled("searchCampaign");
+                safeClickOn(randomSearchResultHypertext);
+                summaryTab.selectSummaryTab();
+                WebElementFacade randomCaseCampaignName = findBy("//th[text()='Campaign name']/following-sibling::td");
+                String displayedCampaignName = randomCaseCampaignName.getText();
+                assertThat(displayedCampaignName.toUpperCase().contains(searchCampaign.toUpperCase()), is(true));
+                break;
+            default:
+                pendingStep(criteria + " is not defined within " + getMethodName());
+        }
+    }
+
     public void waitForResultsPage() {
         numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
@@ -768,8 +971,8 @@ public class Search extends BasePage {
         return getNumberOfSearchResults() == 0;
     }
 
-    public void selectCOMP2CaseRefOfEscalatedCOMPCase(String stage1CaseRef) {
-        WebElementFacade comp2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
-        safeClickOn(comp2CaseRef);
+    public void selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(String stage1CaseRef) {
+        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
+        safeClickOn(stage2CaseRef);
     }
 }

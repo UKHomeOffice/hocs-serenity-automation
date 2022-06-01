@@ -4,14 +4,13 @@ Feature: DCU Search
   Background:
     Given I am logged into "CS" as user "DCU_USER"
 
+#    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
   @DCURegression
   Scenario Outline: User tests DCU search criteria
-    When I create a "DCU" case with "<infoValue>" as its "<infoType>"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" DCU search criteria
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "DCU" search configuration
     And I click the search button on the search page
-    Then I check that the DCU search results have the correct "<infoType>"
+    Then I check that the search results have the correct "<infoType>"
     Examples:
       | infoType                    | infoValue                 |
       | Case Type                   | MIN                       |
@@ -27,15 +26,12 @@ Feature: DCU Search
       | Active Cases Only           | Yes                       |
 
   Scenario Outline: User can search for DCU case types
-    When I create a "DCU" case with "<infoValue>" as its "Case Type"
-    And I navigate to the "Dashboard" page
-    And I navigate to the "Search" page
-    And I enter "<infoValue>" into the "Case Type" DCU search criteria
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "Case Type" search field in the "DCU" search configuration
     And I click the search button on the search page
-    Then I check that the DCU search results have the correct "Case Type"
+    Then I check that the search results have the correct "Case Type"
     Examples:
       | infoValue |
-      | MIN       |
       | TRO       |
       | DTEN      |
 
@@ -58,7 +54,7 @@ Feature: DCU Search
   Scenario: User should be able to click on the case link when cases are displayed in the results list
     And I create a single "MIN" case
     And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" DCU search criteria
+    And I enter "MIN" into the "Case Type" search field in the "DCU" search configuration
     And I click the search button on the search page
     And I click the case reference of the case in search results
     Then I should be taken directly to the case
@@ -67,7 +63,7 @@ Feature: DCU Search
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     And I create a single "<createCase>" case
     And I navigate to the "search" page
-    When I enter "<searchCase>" into the "Case Type" DCU search criteria
+    And I enter "<searchCase>" into the "Case Type" search field in the "DCU" search configuration
     And I click the search button on the search page
     Then the "DCU Search" workstack should contain only the expected columns
     Examples:
@@ -84,16 +80,16 @@ Feature: DCU Search
   Scenario: User should be able to search by multiple parameters
     And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
     And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" DCU search criteria
-    And I enter "Animal alternatives (3Rs)" into the "Topic" DCU search criteria
+    When I enter "MIN" into the "Case Type" search field in the "DCU" search configuration
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search field in the "DCU" search configuration
     And I click the search button on the search page
-    Then I check that the DCU search results have the correct "Case Type"
-    And I check that the DCU search results have the correct "Topic"
+    Then I check that the search results have the correct "Case Type"
+    And I check that the search results have the correct "Topic"
 
   @SearchByDateReceived
   Scenario Outline: No cases should be displayed if a user searches for a criteria that would contain no cases
     And I navigate to the "search" page
-    When I enter "<infoValue>" into the "<infoType>" DCU search criteria
+    When I enter "<infoValue>" into the "<infoType>" search field in the "DCU" search configuration
     And I click the search button on the search page
     Then 0 cases should be displayed
     Examples:
@@ -113,3 +109,14 @@ Feature: DCU Search
       | MIN      |
       | DTEN     |
       | TRO      |
+
+  @DCURegression
+  Scenario: User is able to search for case that has changed it's primary correspondent
+    And I create a "MIN" case with "Boris Johnson" as the correspondent
+    And I load the current case
+    And I add a "Member" correspondent to the case
+    And I change the primary correspondent of the case
+    And I navigate to the "search" page
+    And I enter the current case reference into the case reference search field
+    And I search for the case by the newly updated primary correspondent
+    Then the created case should be the only case visible in the search results

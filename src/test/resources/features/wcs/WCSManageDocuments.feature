@@ -48,7 +48,7 @@ Feature: WCS Manage Documents
 
   @WCSRegression
   Scenario: User can remove a document
-    And I add a "docx" document to the claim
+    And I add a "docx" type file to the case as a document
     When I remove the "docx" document
     Then I cannot see the "docx" file in the uploaded document list
 
@@ -73,14 +73,8 @@ Feature: WCS Manage Documents
     Then an error message should be displayed as I have selected a file type which is not allowed
     And I cannot see the "csv" file in the uploaded document list
 
-  Scenario: User can see a pending tag whilst a document is being converted to PDF
-    And I click add documents
-    When I choose the document type "Matrix"
-    And I upload a file that is 5MB in size
-    Then the document should have the Pending tag
-
   Scenario Outline: User can remove any document
-    And I add a "<fileType>" document to the claim
+    And I add a "<fileType>" type file to the case as a document
     When I remove the "<fileType>" document
     Then I cannot see the "<fileType>" file in the uploaded document list
     Examples:

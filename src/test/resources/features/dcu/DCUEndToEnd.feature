@@ -6,8 +6,8 @@ Feature: DCU End To End
 
   @DCUWorkflow
   Scenario Outline: New case moves to Data Input stage
-    When I create a single "<caseType>" case and return to the dashboard
-    Then the case should be moved to the "DATA INPUT" stage
+    When I get a new "<caseType>" case
+    Then the case should be at the "Data Input" stage
     Examples:
       | caseType |
       | MIN      |
@@ -16,23 +16,20 @@ Feature: DCU End To End
 
   @DCUWorkflow
   Scenario Outline: New case moves to Markup stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    Then the case should be moved to the "MARKUP" stage
+    When I get a "<caseType>" case at the "Data Input" stage
+    And I complete the "Data Input" stage
+    Then the case should be moved to the "Markup" stage
     Examples:
       | caseType |
       | MIN      |
       | TRO      |
-#      | DTEN     |
+      | DTEN     |
 
   @DCUWorkflow
   Scenario Outline: New case moves to Initial Draft stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    Then the case should be moved to the "INITIAL DRAFT" stage
+    When I get a "<caseType>" case at the "Markup" stage
+    And I complete the "Markup" stage
+    Then the case should be moved to the "Initial Draft" stage
     Examples:
       | caseType |
       | MIN      |
@@ -41,12 +38,9 @@ Feature: DCU End To End
 
   @DCUWorkflow
   Scenario Outline: New case moves to QA Response stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    Then the case should be moved to the "QA RESPONSE" stage
+    When I get a "<caseType>" case at the "Initial Draft" stage
+    And I complete the "Initial Draft" stage
+    Then the case should be moved to the "QA Response" stage
     Examples:
       | caseType |
       | MIN      |
@@ -54,107 +48,71 @@ Feature: DCU End To End
       | DTEN     |
 
   @DCUWorkflow
-  Scenario Outline: New case moves to Private Office stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    Then the case should be moved to the "PRIVATE OFFICE APPROVAL" stage
+  Scenario Outline: MIN or DTEN case moves to Private Office stage
+    When I get a "<caseType>" case at the "QA response" stage
+    And I complete the "QA response" stage
+    Then the case should be moved to the "Private Office Approval" stage
     Examples:
       | caseType |
       | MIN      |
       | DTEN     |
 
   @DCUWorkflow
-  Scenario Outline: New case moves to Ministerial Sign Off stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    Then the case should be moved to the "MINISTERIAL SIGN OFF" stage
-    Examples:
-      | caseType |
-      | MIN      |
+  Scenario: MIN case moves to Ministerial Sign Off stage
+    When I get a "<caseType>" case at the "Private Office Approval" stage
+    And I complete the "Private Office Approval" stage
+    Then the case should be moved to the "Ministerial Sign Off" stage
+
 
   @DCUWorkflow
   Scenario: MIN case moves to Dispatch stage
-    When I create a single "MIN" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the Ministerial Sign Off stage
-    Then the case should be moved to the "DISPATCH" stage
+    When I get a "MIN" case at the "Ministerial Sign Off" stage
+    And I complete the "Ministerial Sign Off" stage
+    Then the case should be moved to the "Dispatch" stage
 
   @DCUWorkflow
-  Scenario Outline: TRO and DTEN case moves to Dispatch stage
-    When I create a single "<caseType>" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    Then the case should be moved to the "DISPATCH" stage
-    Examples:
-      | caseType |
-      | TRO      |
-      | DTEN     |
+  Scenario: DTEN case moves to Dispatch stage
+    When I get a "DTEN" case at the "Private Office Approval" stage
+    And I complete the "Private Office Approval" stage
+    Then the case should be moved to the "Dispatch" stage
 
-  @DCUWorkflow @DCURegression @SmokeTests
-  Scenario: Dispatch a case with Copy to Number Ten selected
-    When I create a single "MIN" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input stage and send a copy to Number Ten
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the Ministerial Sign Off stage
-    And I complete the dispatch stage
-    Then the case should be moved to the "COPY TO NUMBER 10" stage
+  @DCUWorkflow
+  Scenario: TRO case moves to Dispatch stage
+    When I get a "TRO" case at the "QA response" stage
+    And I complete the "QA response" stage
+    Then the case should be moved to the "Dispatch" stage
 
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
-    When I create a single "MIN" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the Ministerial Sign Off stage
-    And I complete the dispatch stage
+    When I get a new "MIN" case
+    And I complete the "Data Input" stage
+    And I complete the "Markup" stage
+    And I complete the "Initial Draft" stage
+    And I complete the "QA response" stage
+    And I complete the "Private Office Approval" stage
+    And I complete the "Ministerial Sign Off" stage
+    And I complete the "Dispatch" stage
     Then the case should be closed
 
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
-    When I create a single "DTEN" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the Private Office stage
-    And I complete the dispatch stage
+    When I get a new "DTEN" case
+    And I complete the "Data Input" stage
+    And I complete the "Markup" stage
+    And I complete the "Initial Draft" stage
+    And I complete the "QA response" stage
+    And I complete the "Private Office Approval" stage
+    And I complete the "Dispatch" stage
     Then the case should be closed
 
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
-    When I create a single "TRO" case and return to the dashboard
-    And I load and claim the current case
-    And I complete the Data Input Stage
-    And I complete the Markup stage
-    And I complete the Initial Draft stage
-    And I complete the QA response stage
-    And I complete the dispatch stage
+    When I get a new "TRO" case
+    And I complete the "Data Input" stage
+    And I complete the "Markup" stage
+    And I complete the "Initial Draft" stage
+    And I complete the "QA response" stage
+    And I complete the "Dispatch" stage
     Then the case should be closed
 
   @DCUWorkflow

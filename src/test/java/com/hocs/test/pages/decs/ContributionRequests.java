@@ -97,6 +97,9 @@ public class ContributionRequests extends BasePage {
             case "BUSINESS":
                 safeClickOn(addBusinessContributionHypertext);
                 contributionRequestBusinessArea.selectByIndex(1);
+                if (pogrCase()) {
+                    selectRandomOptionFromDropdownWithHeading("Business Unit");
+                }
                 break;
             case "FOI":
                 safeClickOn(addAContributionHypertext);
@@ -109,7 +112,7 @@ public class ContributionRequests extends BasePage {
                 requestDate);
         typeIntoDateFields(contributionDueDateDayField, contributionDueDateMonthField, contributionDueDateYearField, dueDate);
         setSessionVariable("contributionDueDate").to(dueDate);
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("COMP")) {
+        if (compCase()) {
             try {
                 contributionDueDate = new SimpleDateFormat("dd/MM/yyyy").parse(dueDate);
                 currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(getDatePlusMinusNDaysAgo(0));
@@ -123,7 +126,7 @@ public class ContributionRequests extends BasePage {
             } else if (contributionDueDate.before(currentDate)) {
                 expectedStatus = "Overdue";
             }
-            setSessionVariable("expectedWorkstackCRStatus").to(expectedStatus);
+            setSessionVariable("expectedContributionRequestStatus").to(expectedStatus);
         }
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
         safeClickOn(addButton);
@@ -141,8 +144,7 @@ public class ContributionRequests extends BasePage {
         switch (action.toUpperCase()) {
             case "COMPLETE":
                 safeClickOn(completeRadioButton);
-                typeIntoDateFields(contributionReceivedDateDayField, contributionReceivedDateMonthField, contributionReceivedDateYearField,
-                        getDatePlusMinusNDaysAgo(-1));
+                enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), "Contribution received date");
                 contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
                 break;
             case "CANCEL":
@@ -161,7 +163,7 @@ public class ContributionRequests extends BasePage {
             addAContribution(contributionType, getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
             count++;
         }
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("MPAM")) {
+        if (mpamCase()) {
             safeClickOn(continueButton);
         }
         setSessionVariable("numberOfContributions").to(numberOfContributionRequests);

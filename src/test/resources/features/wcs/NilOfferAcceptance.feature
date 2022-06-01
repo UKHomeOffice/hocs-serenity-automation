@@ -3,8 +3,7 @@ Feature: Nil Offer Acceptance
 
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
-    And I create a single "WCS" claim
-    And I move the claim to the "Nil Offer Acceptance" stage
+    And I get a "WCS" claim at the "Nil Offer Acceptance" stage
 
   @Workflow @WCSRegression
   Scenario: User records that there was no challenge to the Nil Offer

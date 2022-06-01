@@ -1,7 +1,7 @@
 package com.hocs.test.glue.decs;
 
 import com.hocs.test.pages.complaints.ComplaintsSend;
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.complaints.CCH;
@@ -16,14 +16,14 @@ import com.hocs.test.pages.dcu.Markup;
 import com.hocs.test.pages.dcu.MinisterialSignOff;
 import com.hocs.test.pages.dcu.PrivateOfficeApproval;
 import com.hocs.test.pages.dcu.QAResponse;
-import com.hocs.test.pages.ukvi.Campaign;
-import com.hocs.test.pages.ukvi.CloseCaseTelephone;
-import com.hocs.test.pages.ukvi.Creation;
-import com.hocs.test.pages.ukvi.DispatchStages;
-import com.hocs.test.pages.ukvi.Draft;
-import com.hocs.test.pages.ukvi.MTSDataInput;
-import com.hocs.test.pages.ukvi.QA;
-import com.hocs.test.pages.ukvi.Triage;
+import com.hocs.test.pages.mpam.Campaign;
+import com.hocs.test.pages.mpam.CloseCaseTelephone;
+import com.hocs.test.pages.mpam.Creation;
+import com.hocs.test.pages.mpam.DispatchStages;
+import com.hocs.test.pages.mpam.Draft;
+import com.hocs.test.pages.mpam.MTSDataInput;
+import com.hocs.test.pages.mpam.QA;
+import com.hocs.test.pages.mpam.Triage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -66,7 +66,7 @@ public class ValidationStepDefs extends BasePage {
 
     Campaign campaign;
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     Registration registration;
 
@@ -89,41 +89,66 @@ public class ValidationStepDefs extends BasePage {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
+                                break;
+                            case "CORRESPONDENT TYPE MUST BE PROVIDED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                safeClickOn(continueButton);
+                                break;
+                            case "MEMBER IS REQUIRED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsMP();
+                                safeClickOn(addButton);
+                                break;
+                            case "CORRESPONDENT MUST HAVE TYPE":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsNotMP();
+                                correspondents.enterCorrespondentFullName("Han Solo");
+                                safeClickOn(addButton);
+                                break;
+                            case "CORRESPONDENT NAME REQUIRED":
+                                dataInput.fillAllMandatoryCorrespondenceFields();
+                                dataInput.clickContinueButton();
+                                correspondents.selectToAddACorrespondent();
+                                correspondents.selectCorrespondentIsNotMP();
+                                correspondents.selectCorrespondentTypeFromDropdown("Applicant");
+                                safeClickOn(addButton);
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -142,7 +167,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -150,13 +175,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -202,7 +227,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -212,7 +237,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -230,7 +255,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -246,25 +271,25 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
+                                privateOfficeApproval.selectIfApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
                                 break;
                             case "OVERRIDE PRIVATE OFFICE TEAM REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeChangeMinisterRadioButton);
+                                privateOfficeApproval.selectToChangeMinister();
                                 safeClickOn(continueButton);
-                                typeInto(privateOfficeApproval.privateOfficeOverrideNoteField, "Test");
+                                privateOfficeApproval.enterAReasonForChangingPOTeam();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR CHANGE MINISTER REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeChangeMinisterRadioButton);
+                                privateOfficeApproval.selectToChangeMinister();
                                 safeClickOn(continueButton);
                                 privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown("Home Secretary");
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TOPIC CHANGE REQUIRED":
-                                safeClickOn(privateOfficeApproval.changeTopicRadioButton);
+                                privateOfficeApproval.selectToChangeTopic();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -280,13 +305,13 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION TO DRAFT NOTE REQUIRED":
-                                safeClickOn(ministerialSignOff.ministerSignOffRejectRadioButton);
+                                ministerialSignOff.selectToApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION TO PRIVATE OFFICE NOTE REQUIRED":
-                                safeClickOn(ministerialSignOff.notApplicableRadioButton);
+                                ministerialSignOff.selectNotApplicableToApproveResponse();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -302,7 +327,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -320,38 +345,35 @@ public class ValidationStepDefs extends BasePage {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
-                                safeClickOn(dataInput.shouldResponseBeCopiedN10YesRadioButton);
-                                safeClickOn(dataInput.homeSecInterestYesRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
+                                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                                dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -373,7 +395,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -381,13 +403,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -433,7 +455,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -443,7 +465,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 jsClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -461,7 +483,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -477,7 +499,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -488,50 +510,40 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     default:
                         pendingStep(stage + " is not defined within " + getMethodName());
-                    }
+                }
                 break;
             case "DTEN":
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "DRAFTING DEADLINE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
                                 break;
                             case "DISPATCH DEADLINE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
                                 break;
                             case "CORRESPONDENCE SENT DATE REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
+                                dataInput.selectACorrespondenceReceivedChannel();
                                 safeClickOn(continueButton);
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                typeIntoDateFields(dataInput.dateCorrespondenceReceivedDayField, dataInput.dateCorrespondenceReceivedMonthField,
-                                        dataInput.dateCorrespondenceReceivedYearField, getDatePlusMinusNDaysAgo(0));
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                typeIntoDateFields(dataInput.dtenDraftingDeadlineDayField, dataInput.dtenDraftingDeadlineMonthField,
-                                        dataInput.dtenDraftingDeadlineYearField, getDatePlusMinusNDaysAgo(5));
-                                typeIntoDateFields(dataInput.dtenDispatchDeadlineDayField, dataInput.dtenDispatchDeadlineMonthField,
-                                        dataInput.dtenDispatchDeadlineYearField, getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
+                                dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
                                 safeClickOn(continueButton);
-                                typeIntoDateFields(dataInput.dateCorrespondenceSentDayField, dataInput.dateCorrespondenceSentMonthField,
-                                        dataInput.dateCorrespondenceSentYearField, getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(dataInput.emailOriginalChannelRadioButton);
+                                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                                dataInput.selectACorrespondenceReceivedChannel();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -553,7 +565,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
-                                markup.selectNoReplyNeededRadioButton();
+                                markup.selectNoResponseNeededRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -561,13 +573,13 @@ public class ValidationStepDefs extends BasePage {
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDDestinationTextBox, "TEST");
+                                markup.enterAOGDReason();
                                 safeClickOn(finishButton);
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
                                 safeClickOn(continueButton);
-                                typeInto(markup.OGDReasonTextBox, "TEST");
+                                markup.enterAOGDDestination();
                                 safeClickOn(finishButton);
                                 break;
                             default:
@@ -605,7 +617,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 safeClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
@@ -615,7 +627,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 safeClickOn(continueButton);
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 safeClickOn(continueButton);
@@ -633,7 +645,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(qaResponse.QARejectRadioButton);
+                                qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -649,7 +661,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(privateOfficeApproval.privateOfficeRejectRadioButton);
+                                privateOfficeApproval.selectIfApproveResponse("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -665,7 +677,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "REJECTION NOTE REQUIRED":
-                                safeClickOn(dispatch.dispatchRejectRadioButton);
+                                dispatch.selectAbleToDispatch("No");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(finishButton);
@@ -1024,35 +1036,35 @@ public class ValidationStepDefs extends BasePage {
                             break;
                         case "BUSINESS AREA REQUIRED":
                         case "BUSINESS UNIT REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "URGENCY REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "CHANNEL RECEIVED REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
@@ -1060,36 +1072,36 @@ public class ValidationStepDefs extends BasePage {
                             break;
                         case "ENQUIRY SUBJECT REQUIRED":
                         case "ENQUIRY REASON REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "SUPPORT CASE NOTE REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "YOUR BUSINESS AREA REQUIRED":
-                            addCorrespondent.addAMemberCorrespondent("Boris Johnson");
+                            correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
-                            mtsDataInput.selectBusinessArea();
+                            mtsDataInput.selectABusinessArea();
                             mtsDataInput.businessUnitDropdown.selectByIndex(1);
-                            mtsDataInput.selectUrgency();
-                            mtsDataInput.selectChannelReceived();
-                            mtsDataInput.selectEnquirySubject();
+                            mtsDataInput.selectAnUrgency();
+                            mtsDataInput.selectAChannelReceived();
+                            mtsDataInput.selectAnEnquirySubject();
                             mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
                             typeInto(mtsDataInput.supportNoteTextArea, "Test");
                             clickTheButton("Complete and Close Case");
@@ -1110,37 +1122,37 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "COMPLAINT TYPE REQUIRED":
-                                addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                                safeClickOn(continueButton);
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                                correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 break;
                             case "CHANNEL REQUIRED":
-                                addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                                safeClickOn(continueButton);
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                                correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);
                                 break;
                             case "SEVERITY REQUIRED":
-                                addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                                safeClickOn(continueButton);
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                                correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 safeClickOn(continueButton);
                                 break;
                             case "OWNING CSU REQUIRED":
-                                addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                                safeClickOn(continueButton);
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                                correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);
@@ -1149,11 +1161,11 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(finishButton);
                                 break;
                             case "COMPLAINT TYPE OPTION REQUIRED":
-                                addCorrespondent.addAPublicCorrespondentOfType("Complainant");
-                                safeClickOn(continueButton);
+                                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                                correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
                                 safeClickOn(continueButton);
-                                registration.selectComplaintType("Service");
+                                registration.selectASpecificComplaintType("Service");
                                 registration.selectAChannel();
                                 registration.selectASeverity();
                                 safeClickOn(continueButton);
@@ -1276,11 +1288,11 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "ACTION REQUIRED":
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(continueButton);
                                 break;
                             case "ESCALATION REASON":
-                                documents.addADraftDocumentAtDraftStage();
+                                documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(ComplaintsDraft.escalateCaseToWFMRadioButton);
                                 safeClickOn(continueButton);
                                 waitABit(500);
@@ -1392,6 +1404,18 @@ public class ValidationStepDefs extends BasePage {
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 errorText = "Which is the primary correspondent?";
+                                break;
+                            case "CORRESPONDENT TYPE MUST BE PROVIDED":
+                                errorText = "The correspondent type must be provided";
+                                break;
+                            case "MEMBER IS REQUIRED":
+                                errorText = "Member is required";
+                                break;
+                            case "CORRESPONDENT MUST HAVE TYPE":
+                                errorText = "The correspondent must have a type";
+                                break;
+                            case "CORRESPONDENT NAME REQUIRED":
+                                errorText = "The correspondent's full name is required";
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());

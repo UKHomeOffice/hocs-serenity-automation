@@ -16,10 +16,26 @@ public class ComplaintsSendStepDefs extends BasePage {
 
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (!iedetCase()) {
             complaintsSend.selectAResponseChannel();
         }
         complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
+    }
+
+    @And("I submit the SMC Send stage")
+    public void iCompleteTheSendStage() {
+        clickTheButton("Complete");
+    }
+
+    @And("I select a Case Outcome for each Reason for Complaint")
+    public void iSelectACaseOutcomeForEachReasonForComplaint() {
+        complaintsSend.selectBFCaseOutcomes();
+    }
+
+    @And("I can see the selected Reasons for Complaint")
+    public void iCanSeeTheSelectedReasonsForComplaint() {
+        waitForPageWithTitle("Complaint Send Response");
+        complaintsSend.assertReasonsForComplaintAreVisible();
     }
 }

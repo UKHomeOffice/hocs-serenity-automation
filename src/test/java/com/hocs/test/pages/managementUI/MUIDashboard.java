@@ -1,10 +1,15 @@
 package com.hocs.test.pages.managementUI;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 public class MUIDashboard extends BasePage {
+
+    Dashboard dashboard;
 
     @FindBy (xpath = "//a[@href='/team-search']")
     public WebElementFacade manageATeamButton;
@@ -31,7 +36,10 @@ public class MUIDashboard extends BasePage {
     public WebElementFacade successMessage;
 
     @FindBy(xpath = "//a[text()='Manage a user']")
-    public WebElementFacade userManagementHypertext;
+    public WebElementFacade manageAUserHypertext;
+
+    @FindBy(xpath = "//a[text()='Add a user']")
+    public WebElementFacade addAUserHypertext;
 
     @FindBy(xpath = "//a[text()='Manage MPAM campaigns']")
     public WebElementFacade manageMPAMCampaignsHypertext;
@@ -52,5 +60,11 @@ public class MUIDashboard extends BasePage {
         assertElementIsDisplayed(successMessage);
     }
 
-
+    public void selectDashboardLinkWithText(String linkText) {
+        WebElementFacade link = findBy("//a[text()='" + linkText + "']");
+        if(!link.isCurrentlyVisible()) {
+            dashboard.goToMUIDashboard();
+        }
+        safeClickOn(link);
+    }
 }

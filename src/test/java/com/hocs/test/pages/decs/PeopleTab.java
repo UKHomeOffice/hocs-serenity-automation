@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PeopleTab extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
 
     @FindBy(xpath = "//a[text()='People']")
     public WebElementFacade peopleTab;
@@ -36,19 +36,27 @@ public class PeopleTab extends BasePage {
     @FindBy(xpath = "//input[@value='Remove']")
     public WebElementFacade removeButton;
 
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
+    public WebElementFacade nonActiveTab;
+
     public void selectPeopleTab() {
         safeClickOn(peopleTab);
     }
 
-    public void addAMemberCorrespondent(String newCorrespondent) {
+    public void refreshPeopleTab() {
+        waitABit(500);
+        safeClickOn(nonActiveTab);
+        selectPeopleTab();
+    }
+
+    public void addAMemberCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        addCorrespondent.addAMemberCorrespondent(newCorrespondent);
-        setSessionVariable("correspondentFullName").to(newCorrespondent);
+        correspondents.addAMemberCorrespondent();
     }
 
     public void addAPublicCorrespondent() {
         safeClickOn(managePeopleHypertext);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
+        correspondents.addANonMemberCorrespondentOfType("Constituent");
     }
 
     public void editCorrespondent(String detail, String correspondent) {
@@ -57,32 +65,32 @@ public class PeopleTab extends BasePage {
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
             case "FULL NAME":
-                addCorrespondent.correspondentFullNameField.clear();
-                addCorrespondent.correspondentFullNameField.sendKeys("Test - correspondent name");
+                correspondents.correspondentFullNameField.clear();
+                correspondents.correspondentFullNameField.sendKeys("Test - correspondent name");
                 break;
             case "BUILDING":
-                addCorrespondent.correspondentBuildingField.clear();
-                addCorrespondent.correspondentBuildingField.sendKeys("Test - correspondent building");
+                correspondents.correspondentBuildingField.clear();
+                correspondents.correspondentBuildingField.sendKeys("Test - correspondent building");
                 break;
             case "STREET":
-                addCorrespondent.correspondentStreetField.clear();
-                addCorrespondent.correspondentStreetField.sendKeys("Test - correspondent street");
+                correspondents.correspondentStreetField.clear();
+                correspondents.correspondentStreetField.sendKeys("Test - correspondent street");
                 break;
             case "TOWN OR CITY":
-                addCorrespondent.correspondentTownOrCityField.clear();
-                addCorrespondent.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
+                correspondents.correspondentTownOrCityField.clear();
+                correspondents.correspondentTownOrCityField.sendKeys("Test - correspondent town/city");
                 break;
             case "POSTCODE":
-                addCorrespondent.correspondentPostcodeField.clear();
-                addCorrespondent.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
+                correspondents.correspondentPostcodeField.clear();
+                correspondents.correspondentPostcodeField.sendKeys("Test - correspondent postcode");
                 break;
             case "TELEPHONE":
-                addCorrespondent.correspondentTelephoneField.clear();
-                addCorrespondent.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
+                correspondents.correspondentTelephoneField.clear();
+                correspondents.correspondentTelephoneField.sendKeys("Test - correspondent telephone");
                 break;
             case "EMAIL ADDRESS":
-                addCorrespondent.correspondentEmailField.clear();
-                addCorrespondent.correspondentEmailField.sendKeys("Test - correspondent email address");
+                correspondents.correspondentEmailField.clear();
+                correspondents.correspondentEmailField.sendKeys("Test - correspondent email address");
                 break;
             default:
                 pendingStep(detail + " is not defined within " + getMethodName());
@@ -97,10 +105,17 @@ public class PeopleTab extends BasePage {
         safeClickOn(removeButton);
     }
 
-    public void changePrimaryCorrespondent(String newPrimaryCorrespondent) {
+    public void changePrimaryCorrespondentToSpecificCorrespondent(String newPrimaryCorrespondent) {
         safeClickOn(managePeopleHypertext);
         WebElementFacade radioButtonOfNewPrimaryCorrespondent = findBy("//label[contains(text(), '"+ newPrimaryCorrespondent + "')]");
         safeClickOn(radioButtonOfNewPrimaryCorrespondent);
+        safeClickOn(finishButton);
+    }
+
+    public void changePrimaryCorrespondent() {
+        safeClickOn(managePeopleHypertext);
+        WebElementFacade nonCheckedRadioButton = findBy("//input[not(@checked)]/following-sibling::label");
+        safeClickOn(nonCheckedRadioButton);
         safeClickOn(finishButton);
     }
 

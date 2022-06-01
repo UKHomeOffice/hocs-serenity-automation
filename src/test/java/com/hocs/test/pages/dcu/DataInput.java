@@ -3,14 +3,17 @@ package com.hocs.test.pages.dcu;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import com.hocs.test.pages.decs.AddCorrespondent;
+import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class DataInput extends BasePage {
 
-    AddCorrespondent addCorrespondent;
+    Correspondents correspondents;
+
+    RecordCaseData recordCaseData;
 
     // Elements
 
@@ -74,157 +77,80 @@ public class DataInput extends BasePage {
     @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='No']")
     public WebElementFacade homeSecInterestNoRadioButton;
 
-    // Multi Step Methods
+    // Basic Methods
 
-    public void moveCaseFromDataInputToMarkup() {
-        fillAllMandatoryCorrespondenceFields();
-        safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
+    public void enterDTENDraftingDeadline(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the drafting deadline?");
+        setSessionVariable("dtenInitialDraftDeadline").to(date);
     }
 
-    public void selectSpecificHomeSecReplyOption(String yesOrNo) {
-        selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Is this a potential Home Secretary Reply case?");
+    public void enterDTENDispatchDeadline(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "What is the dispatch deadline?");
+        setSessionVariable("dtenDispatchDeadline").to(date);
     }
 
-    public void selectAHomeSecReplyOption() {
-        selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
-    }
-
-    public void dataInputFullFlowWithCopyToN10() {
-        fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes();
-        safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
-    }
-
-    public void clearDateCorrespondenceReceived() {
-        dateCorrespondenceReceivedDayField.clear();
-        dateCorrespondenceReceivedMonthField.clear();
-        dateCorrespondenceReceivedYearField.clear();
+    public void enterCorrespondenceSentDate(String date) {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "When was the correspondence sent?");
     }
 
     public void clearDateCorrespondenceSent() {
-        dateCorrespondenceSentDayField.clear();
-        dateCorrespondenceSentMonthField.clear();
-        dateCorrespondenceSentYearField.clear();
+        clearDateFieldsWithHeading("When was the correspondence sent?");
     }
+
+    public void overwriteCorrespondenceReceivedDate(String date) {
+        clearDateFieldsWithHeading("When was the correspondence received?");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
+    }
+
+    public void clearDateCorrespondenceReceived() {
+        clearDateFieldsWithHeading("When was the correspondence received?");
+    }
+
+    public void selectACorrespondenceReceivedChannel() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("How was the correspondence received?");
+    }
+
+    public void selectASpecificCopyToNoTenOption(String yesOrNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Should the response be copied to Number 10?");
+    }
+
+    public void selectACopyToNoTenOption() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Should the repsonse be copied to Number 10?");
+    }
+
+    public void selectASpecificHomeSecInterestOption(String yesOrNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Does the Home Secretary have an interest in this case?");
+    }
+
+    public void selectAHomeSecInterestOption() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Does the Home Secretary have an interest in this case?");
+    }
+
+    public void selectASpecificHomeSecReplyOption(String yesOrNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesOrNo, "Is this a potential Home Secretary Reply case?");
+    }
+
+    public void selectAHomeSecReplyOption() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
+    }
+
+    // Multi Step Methods
 
     public void fillAllMandatoryCorrespondenceFields() {
-        String caseType = sessionVariableCalled("caseType");
-        if (caseType.equals("DTEN")) {
-            typeIntoDateFields(dtenDraftingDeadlineDayField, dtenDraftingDeadlineMonthField, dtenDraftingDeadlineYearField, "01/01/2019");
-            setSessionVariable("dtenInitialDraftDeadline").to("01/01/2019");
-            typeIntoDateFields(dtenDispatchDeadlineDayField, dtenDispatchDeadlineMonthField, dtenDispatchDeadlineYearField, "01/01/2019");
-            setSessionVariable("dtenDispatchDeadline").to("01/01/2019");
+        if (dtenCase()) {
+            enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
+            enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
             safeClickOn(continueButton);
         }
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getDatePlusMinusNDaysAgo(-2));
-        safeClickOn(emailOriginalChannelRadioButton);
-        if (caseType.equals("MIN") | caseType.equals("TRO")) {
-            safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-            safeClickOn(homeSecInterestYesRadioButton);
+        enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+        selectACorrespondenceReceivedChannel();
+        if (minCase() | troCase()) {
+            selectASpecificCopyToNoTenOption("No");
+            selectAHomeSecInterestOption();
         }
-        if (caseType.equals("MIN")) {
+        if (minCase()) {
             selectAHomeSecReplyOption();
         }
-    }
-
-    public void fillAllMandatoryCorrespondenceFieldsWithCopyToNumberTenYes() {
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getDatePlusMinusNDaysAgo(-2));
-        safeClickOn(emailOriginalChannelRadioButton);
-        safeClickOn(shouldResponseBeCopiedN10YesRadioButton);
-        safeClickOn(homeSecInterestYesRadioButton);
-        selectAHomeSecReplyOption();
-    }
-
-    public void invalidCorrespondenceReceivedDate() {
-        typeIntoDateFields(dateCorrespondenceReceivedDayField, dateCorrespondenceReceivedMonthField, dateCorrespondenceReceivedYearField,
-                getDatePlusMinusNDaysAgo(1));
-    }
-
-    public void invalidCorrespondenceSentDate() {
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getDatePlusMinusNDaysAgo(1));
-    }
-
-    public void completeDataInputStageWithMPCorrespondent(String correspondent) {
-        fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
-        addCorrespondent.addAMemberCorrespondent(correspondent);
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputStageWithPublicCorrespondent() {
-        fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputStageAndStoreEnteredInformation() {
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear());
-        String currentDay = dateCorrespondenceSentDayField.getValue();
-        setSessionVariable("currentDay").to(currentDay);
-        String currentMonth = dateCorrespondenceSentMonthField.getValue();
-        setSessionVariable("currentMonth").to(currentMonth);
-        String currentYear = dateCorrespondenceSentYearField.getValue();
-        setSessionVariable("currentYear").to(currentYear);
-
-        safeClickOn(emailOriginalChannelRadioButton);
-        String selectedCorrespondenceReceivedRadioButton = emailOriginalChannelRadioButton.getText();
-        setSessionVariable("selectedCorrespondenceReceivedRadioButton").to(selectedCorrespondenceReceivedRadioButton);
-
-        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        String selectedCopiedN10NoRadioButton = shouldResponseBeCopiedN10NoRadioButton.getTextContent();
-        setSessionVariable("selectedCopiedN10NoRadioButton").to(selectedCopiedN10NoRadioButton);
-        safeClickOn(homeSecInterestYesRadioButton);
-        String selectedHomeSecInterest = homeSecInterestYesRadioButton.getText();
-        setSessionVariable("selectedHomeSecInterestRadioButton").to(selectedHomeSecInterest);
-        safeClickOn(continueButton);
-        waitABit(1000);
-        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon MSP");
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputStageWithThreeMPCorrespondents() {
-        fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
-        addCorrespondent.addAMemberCorrespondent("Boris Johnson");
-        addCorrespondent.addAMemberCorrespondent("Nicola Sturgeon");
-        addCorrespondent.addAMemberCorrespondent("Theresa May");
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputWithThreePublicCorrespondents() {
-        fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
-    }
-
-    public void completeDataInputStageSpecifyingHomeSecInterest(boolean interest) {
-        String caseType = sessionVariableCalled("caseType");
-        typeIntoDateFields(dateCorrespondenceSentDayField, dateCorrespondenceSentMonthField, dateCorrespondenceSentYearField,
-                getDatePlusMinusNDaysAgo(-2));
-        safeClickOn(emailOriginalChannelRadioButton);
-        safeClickOn(shouldResponseBeCopiedN10NoRadioButton);
-        if (interest) {
-            safeClickOn(homeSecInterestYesRadioButton);
-        } else {
-            safeClickOn(homeSecInterestNoRadioButton);
-        }
-        if (caseType.equals("MIN")) {
-            selectAHomeSecReplyOption();
-        }
-        safeClickOn(continueButton);
-        addCorrespondent.addAPublicCorrespondentOfType("Constituent");
-        safeClickOn(finishButton);
     }
 
     // Assertions

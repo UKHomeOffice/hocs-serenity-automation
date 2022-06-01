@@ -6,8 +6,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import config.User;
+import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 
 public class TimelineTab extends BasePage {
 
@@ -41,46 +44,21 @@ public class TimelineTab extends BasePage {
     @FindBy(css = "input[value='Save']")
     public WebElementFacade saveButton;
 
-    @FindBy(xpath = "//li//span[text()='Rejection note']/ancestor::p")
-    public WebElementFacade rejectionNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Escalation note']/ancestor::p")
-    public WebElementFacade escalationNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Case closure note']/ancestor::p")
-    public WebElementFacade closureNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Contribution request note']/ancestor::p")
-    public WebElementFacade contributionRequestNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Details of follow up']/ancestor::p")
-    public WebElementFacade detailsOfFollowUpNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Follow up not completed']/ancestor::p")
-    public WebElementFacade followUpNotCompletedReasonNoteContents;
-
-    @FindBy(xpath = "//li//span[contains(text(),'Conversion note')]/ancestor::p")
-    public WebElementFacade conversionNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Case transfer reason']/parent::p")
-    public WebElementFacade caseTransferReasonNoteContents;
-
-    @FindBy(xpath = "//span[text()='Change note']/parent::p")
-    public WebElementFacade topicChangeCaseNoteContents;
-
-    @FindBy(xpath = "//li//span[text()='Case withdrawn']/ancestor::p")
-    public WebElementFacade caseWithdrawnNoteContents;
-
     @FindBy(xpath = "//li/p/strong[text()='Case Closed']")
     public WebElementFacade caseClosedNote;
 
-    @FindBy(xpath ="//a[@class='tab'][not(@class='tab__active')]")
+    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
     public WebElementFacade nonActiveTab;
 
     public void selectTimelineTab() {
-        if(!timelineTabIsActiveTab()) {
+        if (!timelineTabIsActiveTab()) {
             safeClickOn(timelineTab);
         }
+    }
+
+    public void refreshTimelineTab() {
+        safeClickOn(nonActiveTab);
+        selectTimelineTab();
     }
 
     public boolean timelineTabIsActiveTab() {
@@ -134,7 +112,7 @@ public class TimelineTab extends BasePage {
         caseNoteMustNotBeBlankErrorMessage.shouldContainText("Case note must not be blank");
     }
 
-    public void assertAllocationLogVisible(User user, String stage) {
+    public void assertAllocationToUserLogVisible(User user, String stage) {
         WebElementFacade logAllocatedUser = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(1)");
         WebElementFacade logCaseStage = findBy(".timeline > ul > li:nth-child(1) > p:nth-child(2)");
         logAllocatedUser.shouldContainText("Allocated to " + user.getUsername());
@@ -147,8 +125,7 @@ public class TimelineTab extends BasePage {
         try {
             assertThat(stageCompletionLog.isVisible(), is(true));
         } catch (AssertionError e) {
-            safeClickOn(nonActiveTab);
-            selectTimelineTab();
+            refreshTimelineTab();
             assertThat(stageCompletionLog.isVisible(), is(true));
         }
     }
@@ -159,10 +136,15 @@ public class TimelineTab extends BasePage {
         try {
             assertThat(stageStartedLog.isVisible(), is(true));
         } catch (AssertionError e) {
-            safeClickOn(nonActiveTab);
-            selectTimelineTab();
+            refreshTimelineTab();
             assertThat(stageStartedLog.isVisible(), is(true));
         }
+    }
+
+    public void assertTopicAddedLogVisible() {
+        String testTopic = sessionVariableCalled("topic").toString();
+        String renameTopic = topCaseNoteOrLog.getText().substring(7, 27);
+        assertThat(renameTopic.equals(testTopic), Is.is(true));
     }
 
     public void createAnotherCaseNote() {
@@ -180,8 +162,8 @@ public class TimelineTab extends BasePage {
     public void assertEditedCaseNoteAppearInCorrectStage(String stage) {
         String[] words = stage.split("\\s");
         String capitalise = "";
-        for (String w:words) {
-            String first = w.substring(0,1);
+        for (String w : words) {
+            String first = w.substring(0, 1);
             String afterFirst = w.substring(1);
             capitalise += first.toUpperCase() + afterFirst.toLowerCase() + " ";
         }
@@ -191,60 +173,80 @@ public class TimelineTab extends BasePage {
         assertThat(fullCaseNote.contains("Case note "), is(true));
     }
 
-    public void assertRejectionNoteVisible() {
-        selectTimelineTab();
-        String rejectionReason = sessionVariableCalled("rejectionReason");
-        assertThat(rejectionNoteContents.getText().contains(rejectionReason), is(true));
-    }
-
-    public void assertEscalationNoteVisible() {
-        selectTimelineTab();
-        String escalationReason = sessionVariableCalled("escalationReason");
-        assertThat(escalationNoteContents.getText().contains(escalationReason), is(true));
-    }
-
-    public void assertClosureNoteVisible() {
-        selectTimelineTab();
-        String closureReason = sessionVariableCalled("closureReason");
-        assertThat(closureNoteContents.getText().contains(closureReason), is(true));
-    }
-
-    public void assertContributionRequestNoteVisible() {
-        selectTimelineTab();
-        String requestDescription = sessionVariableCalled("requestDescription");
-        assertThat(contributionRequestNoteContents.getText().contains(requestDescription), is(true));
-    }
-
-    public void assertDetailsOfFollowUpNoteVisible() {
-        selectTimelineTab();
-        String followUpDetails = sessionVariableCalled("followUpDetails");
-        assertThat(detailsOfFollowUpNoteContents.getText().contains(followUpDetails), is(true));
-    }
-
-    public void assertFollowUpNotCompletedNoteVisible() {
-        selectTimelineTab();
-        String followUpNotCompletedReason = sessionVariableCalled("followUpNotCompletedReason");
-        assertThat(followUpNotCompletedReasonNoteContents.getText().contains(followUpNotCompletedReason), is(true));
-    }
-
-    public void assertConversionNoteVisible() {
-        selectTimelineTab();
-        String conversionNotes = sessionVariableCalled("conversionNotes");
-        assertThat(conversionNoteContents.getText().contains(conversionNotes), is(true));
-    }
-
-    public void assertCaseTransferReason() {
-        String inputTransferReason = sessionVariableCalled("inputReasonForTransfer");
-        assertThat(caseTransferReasonNoteContents.getText().contains(inputTransferReason), is(true));
+    public void assertCaseNoteAppearsBetweenLogsForStage(String stage) {
+        WebElementFacade stageLogFollowingCaseNote = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/preceding-sibling::li//*[contains(text(),'" + stage + "')]");
+        WebElementFacade stageLogPrecedingCaseNote = findBy(
+                "//p[text()='" + sessionVariableCalled("createdNoteContents") + "']//ancestor::li/following-sibling::li//*[contains(text(),'" + stage + "')]");
+        if (!stageLogFollowingCaseNote.isCurrentlyVisible() || !stageLogPrecedingCaseNote.isCurrentlyVisible()) {
+            Assert.fail(stage + " stage log are not visible either side of the case note int he timeline");
+        }
     }
 
     public void assertCaseClosedNoteVisible() {
+        selectTimelineTab();
         caseClosedNote.shouldBeVisible();
     }
 
-    public void assertCaseWithDrawnNoteVisible() {
+    public void assertCaseNoteWithTitleIsVisible(String caseNoteTitle) {
         selectTimelineTab();
-        String withdrawalNotes = sessionVariableCalled("withdrawalNotes");
-        assertThat(caseWithdrawnNoteContents.getText().contains(withdrawalNotes), is(true));
+        WebElementFacade caseNote = findBy("//p/span[text()='" + caseNoteTitle + "']/ancestor::li");
+        if (!caseNote.isVisible()) {
+            Assert.fail("The case note with title '" + caseNoteTitle + "' is not visible in the timeline");
+        }
+    }
+
+    public void assertCaseNoteWithTitleContainsText(String caseNoteTitle, String text) {
+        selectTimelineTab();
+        WebElementFacade caseNote = findBy("//p/span[text()='" + caseNoteTitle + "']/ancestor::li");
+        String caseNoteContents = caseNote.getText().replace("\n", " ");
+        if (!caseNoteContents.contains(text)) {
+            Assert.fail("The '" + caseNoteTitle + "' case note was expected to have text: '" + caseNoteContents + "' but had text: '" + text + "'");
+        }
+    }
+
+    public void assertCaseLogWithTitleIsVisible(String caseLogTitle) {
+        selectTimelineTab();
+        WebElementFacade caseLog = findBy("//p/strong[text()='" + caseLogTitle + "']/ancestor::li");
+        if (!caseLog.isVisible()) {
+            Assert.fail("The case log with title '" + caseLogTitle + "' is not visible in the timeline");
+        }
+    }
+
+    public void assertCaseLogWithTitleContainsText(String caseLogTitle, String text) {
+        selectTimelineTab();
+        WebElementFacade caseLog = findBy("//p/strong[text()='" + caseLogTitle + "']/ancestor::li");
+        String caseLogContents = caseLog.getText().replace("\n", " ");
+        if (!caseLogContents.contains(text)) {
+            Assert.fail("The '" + caseLogTitle + "' case log was expected to have text: '" + caseLogContents + "' but had text: '" + text + "'");
+        }
+    }
+
+    public void assertCaseNotesAuthoredByUserAreNotVisible(User user) {
+        WebElementFacade caseNoteAuthoredByUser = findBy("//li[@class='case-note']//span[text()='" + user.getUsername() + "']");
+        if (caseNoteAuthoredByUser.isCurrentlyVisible()) {
+            Assert.fail("Case notes authored by " + user.getUsername() + " are visible in the timeline");
+        }
+    }
+
+    public void assertCaseNotesAuthoredByUserAreVisible(User user) {
+        WebElementFacade caseNoteAuthoredByUser = findBy("//li[@class='case-note']//span[text()='" + user.getUsername() + "']");
+        if (!caseNoteAuthoredByUser.isCurrentlyVisible()) {
+            Assert.fail("Case notes authored by " + user.getUsername() + " are not visible in the timeline");
+        }
+    }
+
+    public void assertTimelineLogsAttributedToUserAreVisible(User user) {
+        WebElementFacade logAttributedToUser = findBy("//div[@class='timeline']//li[not(@class='case-note')]//span[text()='" + user.getUsername() + "']");
+        if (!logAttributedToUser.isCurrentlyVisible()) {
+            Assert.fail("Logs attributed to " + user.getUsername() + " are not visible in the timeline");
+        }
+    }
+
+    public void assertTimelineLogsAttributedToUserAreNotVisible(User user) {
+        WebElementFacade logAttributedToUser = findBy("//div[@class='timeline']//li[not(@class='case-note')]//span[text()='" + user.getUsername() + "']");
+        if (logAttributedToUser.isCurrentlyVisible()) {
+            Assert.fail("Logs attributed to " + user.getUsername() + " are visible in the timeline");
+        }
     }
 }

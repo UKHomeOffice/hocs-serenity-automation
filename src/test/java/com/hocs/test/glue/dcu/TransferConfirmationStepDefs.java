@@ -8,13 +8,15 @@ public class TransferConfirmationStepDefs extends BasePage {
 
     TransferConfirmation transferConfirmation;
 
-    @When("I click the confirm transfer yes radio button")
-    public void iClickTheConfirmTransferYesRadioButton() {
-        safeClickOn(transferConfirmation.transferCaseYesRadioButton);
+    @When("I confirm the case should be transferred")
+    public void iConfirmTheCaseShouldBeTransferred() {
+        transferConfirmation.selectCaseShouldBeTransferred();
+        safeClickOn(finishButton);
     }
 
-    @When("I click the confirm transfer no radio button")
-    public void iClickTheConfirmTransferNoRadioButton() {
-        safeClickOn(transferConfirmation.transferCaseNoRadioButton);
+    @When("I confirm the case should not be transferred")
+    public void iConfirmTheCaseShouldNotBeTransferred() {
+        transferConfirmation.selectCaseShouldNotBeTransferred();
+        safeClickOn(finishButton);
     }
 }

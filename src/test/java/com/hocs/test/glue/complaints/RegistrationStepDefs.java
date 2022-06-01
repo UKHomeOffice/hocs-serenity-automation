@@ -32,18 +32,21 @@ public class RegistrationStepDefs extends BasePage {
 
     @And("I select {string} as the Complaint Type")
     public void iSelectAsTheComplaintType(String complaintType) {
-        registration.selectComplaintType(complaintType);
+        registration.selectASpecificComplaintType(complaintType);
     }
 
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
         registration.selectAChannel();
-        if (sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (iedetCase()) {
             registration.selectComplaintOrigin();
         }
         registration.enterADescriptionOfTheComplaint();
-        if (!sessionVariableCalled("caseType").toString().equalsIgnoreCase("IEDET")) {
+        if (!iedetCase() && !bfCase() && !smcCase() && !bf2Case()) {
             registration.selectASeverity();
+            registration.enterAPreviousUKVIComplaintReference();
+        } else if (smcCase()) {
+            registration.selectAdditionalInformation();
             registration.enterAPreviousUKVIComplaintReference();
         }
         registration.enterAThirdPartyReference();
@@ -56,7 +59,7 @@ public class RegistrationStepDefs extends BasePage {
                 registration.openTheServiceComplaintCategoryAccordion();
                 break;
             case "SERIOUS AND MINOR":
-                registration.openTheSeriousAndMinorComplaintCategoryAccordion();
+                complaintsTriage.openTheSeriousAndMinorComplaintCategoryAccordion();
                 break;
             case "SERIOUS":
                 registration.openTheSeriousComplaintCategoryAccordion();
@@ -74,6 +77,11 @@ public class RegistrationStepDefs extends BasePage {
     @And("I select a Owning CSU")
     public void iSelectAOwningCSU() {
         registration.selectAnOwningCSU();
+    }
+
+    @And("I select {string} as the Owning CSU")
+    public void iSelectAsTheOwningCSU(String owningCSU) {
+        registration.selectSpecificOwningCSU(owningCSU);
     }
 
     @Then("the previous COMP case is displayed")

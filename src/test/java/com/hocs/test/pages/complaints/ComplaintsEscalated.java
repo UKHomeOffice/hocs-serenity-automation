@@ -21,7 +21,11 @@ public class ComplaintsEscalated extends BasePage {
     public void selectActionAtServiceEscalated(String action) {
         switch (action.toUpperCase()) {
             case "RETURN CASE TO TRIAGE":
-                recordCaseData.selectSpecificRadioButton("Return case to Triage");
+                if (!bfCase() && !bf2Case()) {
+                    recordCaseData.selectSpecificRadioButton("Return case to Triage");
+                } else {
+                    selectSpecificRadioButton("Return to triage");
+                }
                 break;
             case "CASE READY FOR DRAFTING":
                 recordCaseData.selectSpecificRadioButton("Case ready for drafting");
@@ -29,6 +33,11 @@ public class ComplaintsEscalated extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Confirm");
+        if (continueButton.isVisible()) {
+            safeClickOn(continueButton);
+        } else {
+            safeClickOn(confirmButton);
+        }
+
     }
 }

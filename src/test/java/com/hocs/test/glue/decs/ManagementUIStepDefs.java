@@ -5,15 +5,15 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.managementUI.TemplateManagement;
 import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
-import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.dcu.Markup;
-import com.hocs.test.pages.dcu.Markup_AddTopics;
-import com.hocs.test.pages.dcu.fetchExistingDCUCases;
-import com.hocs.test.pages.managementUI.AddChildTopic;
+import com.hocs.test.pages.managementUI.TopicManagement;
 import com.hocs.test.pages.managementUI.LinkTopicToTeam;
 import com.hocs.test.pages.managementUI.ListsManagement;
 import com.hocs.test.pages.managementUI.MUIDashboard;
@@ -30,21 +30,20 @@ import io.cucumber.java.en.When;
 public class ManagementUIStepDefs extends BasePage {
 
     LoginPage loginPage;
-    MuiLoginPage muiLoginPage;
 
-    fetchExistingDCUCases fetchExistingDCUCases;
+    CreateCase createCase;
 
-    Markup markupDecision;
+    DCUProgressCase dcuProgressCase;
 
-    Markup_AddTopics markupAddTopics;
+    Markup markup;
 
-    MUIDashboard MUIDashboard;
+    MUIDashboard muiDashboard;
 
     TeamManagement teamManagement;
 
     UnitManagement unitManagement;
 
-    AddChildTopic addChildTopic;
+    TopicManagement topicManagement;
 
     StandardLine standardLine;
 
@@ -58,71 +57,11 @@ public class ManagementUIStepDefs extends BasePage {
 
     WithdrawACase withdrawACase;
 
-    @When("I navigate to the {string} Management page")
-    public void navigateToSelectedManagementPage(String managementPage) {
-        switch (managementPage.toUpperCase()) {
-            case "ADD A STANDARD LINE":
-                safeClickOn(MUIDashboard.addStandardLineButton);
-                break;
-            case "MANAGE STANDARD LINES":
-                safeClickOn(MUIDashboard.manageStandardLinesHypertext);
-                break;
-            case "TEAM":
-                safeClickOn(MUIDashboard.manageATeamButton);
-                break;
-            case "CREATE DCU DRAFTING TEAM":
-                safeClickOn(MUIDashboard.createDCUDraftingTeamHypertext);
-                break;
-            case "ADD CHILD TOPIC":
-                safeClickOn(MUIDashboard.addChildTopicButton);
-                break;
-            case "ADD A UNIT":
-                safeClickOn(MUIDashboard.addUnitButton);
-                break;
-            case "VIEW UNITS":
-                safeClickOn(MUIDashboard.viewUnitsButton);
-                break;
-            case "LINK TOPIC TO TEAM":
-                safeClickOn(MUIDashboard.linkTopicToTeamButton);
-                break;
-            case "USER MANAGEMENT":
-                safeClickOn(MUIDashboard.userManagementHypertext);
-                break;
-            case "CAMPAIGN MANAGEMENT":
-                safeClickOn(MUIDashboard.manageMPAMCampaignsHypertext);
-                break;
-            case "WITHDRAW A CASE":
-                safeClickOn(MUIDashboard.withdrawACaseHypertext);
-                break;
-            default:
-                pendingStep(managementPage + " is not defined within " + getMethodName());
-        }
-    }
+    TemplateManagement templateManagement;
 
-    @Then("I should be taken to the {string} Management page")
-    public void assertThatTheUserIsTakenToTheSelectedManagementPage(String managementPage) {
-        switch (managementPage.toUpperCase()) {
-            case "ADD A STANDARD LINE":
-                standardLine.assertAddStandardLinePageTitle();
-                break;
-            case "TEAM":
-                teamManagement.assertTeamManagementPageTitle();
-                break;
-            case "ADD A UNIT":
-                unitManagement.assertAddUnitPageTitle();
-                break;
-            case "VIEW UNITS":
-                unitManagement.assertViewUnitPageTitle();
-                break;
-            case "ADD CHILD TOPIC":
-                addChildTopic.assertAddChildTopicPageTitle();
-                break;
-            case "LINK TOPIC TO TEAM":
-                linkTopicToTeam.assertLinkTopicToTeamPageTitle();
-                break;
-            default:
-                pendingStep(managementPage + " is not defined within " + getMethodName());
-        }
+    @When("I select to {string}")
+    public void iSelectAManagementUIDashboardLink(String linkText) {
+        muiDashboard.selectDashboardLinkWithText(linkText);
     }
 
     @When("I select the {string} team from the dropdown")
@@ -246,9 +185,15 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have created a new child topic")
     public void iHaveCreatedANewChildTopic() {
-        navigateToSelectedManagementPage("ADD CHILD TOPIC");
-        addChildTopic.selectAParentTopic("Police Website");
-        addChildTopic.inputNewChildTopic();
+        iSelectAManagementUIDashboardLink("Add child topic");
+        topicManagement.selectAParentTopic("Police Website");
+        topicManagement.inputNewChildTopic();
+    }
+
+    @And("I can create a child topic with the newly created parent topic linked")
+    public void iCanCreateAChildTopicWithTheNewlyCreatedParentTopicLinked() {
+        topicManagement.selectAParentTopic(sessionVariableCalled("newParentTopic"));
+        topicManagement.inputNewChildTopic();
     }
 
     @And("I select a {string} team")
@@ -287,7 +232,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @Given("I have linked teams to the new child topic")
     public void iHaveLinkedTeamsToTheNewChildTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         clickTheButton("Submit");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
@@ -298,15 +243,21 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopicWithoutHittingFinish("101 non-emergency number (cost)");
-        markupAddTopics.getCurrentDefaultTeamsForTopic();
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
+        markup.recordDefaultTeamsForTopic();
     }
 
     @And("I select to amend the team links for the topic")
     public void iSelectToAmendTheTeamLinksForTheTopic() {
-        navigateToSelectedManagementPage("LINK TOPIC TO TEAM");
+        iSelectAManagementUIDashboardLink("Link topic to team");
         iSelectATopicThatHaveLinkedTeams("DOES");
         clickTheButton("Submit");
     }
@@ -348,70 +299,81 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I check the default team links in CS again")
     public void iCheckTheDefaultTeamLinksInCSAgain() {
         loginPage.open();
-        fetchExistingDCUCases.giveMeACase("MIN", "MARKUP");
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
-        markupAddTopics.enterATopic("101 non-emergency number (cost)");
+        createCase.createCSCaseOfType("MIN");
+        dashboard.getAndClaimCurrentCase();
+        dcuProgressCase.moveCaseFromDataInputToMarkup();
+        dashboard.getAndClaimCurrentCase();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
+        markup.addTopicToCase("101 non-emergency number (cost)");
+        markup.confirmPrimaryTopic();
     }
 
     @When("I enter a display name")
     public void iEnterADisplayName() {
-        addChildTopic.inputNewChildTopic();
+        topicManagement.inputNewChildTopic();
     }
 
     @When("I select a parent topic")
     public void iSelectAParentTopic() {
-        addChildTopic.selectAParentTopic("Specific Cases");
+        topicManagement.selectAParentTopic("Specific Cases");
     }
 
     @Then("I am returned to the dashboard screen")
     public void iAmReturnedToTheDashboardScreen() {
-        MUIDashboard.assertElementIsDisplayed(MUIDashboard.subheading);
+        muiDashboard.assertElementIsDisplayed(muiDashboard.subheading);
     }
 
     @Then("an error message should be displayed as no parent topic has been selected")
     public void anErrorMessageShouldBeDisplayedAsNoParentTopicHasBeenSelected() {
-        addChildTopic.assertParentTopicIsRequiredErrorMessage();
+        topicManagement.assertParentTopicIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed as no display name has been entered")
     public void anErrorMessageShouldBeDisplayedAsNoDisplayNameHasBeenEntered() {
-        addChildTopic.assertDisplayNameIsRequiredErrorMessage();
+        topicManagement.assertDisplayNameIsRequiredErrorMessage();
     }
 
     @Then("an error message should be displayed stating that topic already exists")
     public void anErrorMessageShouldBeDisplayedStatingThatTopicAlreadyExists() {
-        addChildTopic.assertDuplicateTopicErrorMessage();
+        topicManagement.assertDuplicateTopicErrorMessage();
     }
 
     @And("I enter a parent topic and display name that duplicate an existing child topic")
     public void iEnterAParentTopicAndDisplayNameThatDuplicateAnExistingChildTopic() {
-        addChildTopic.selectAParentTopic("Biometrics");
-        addChildTopic.inputAChildTopicDisplayName("TEST TOPIC");
+        topicManagement.selectAParentTopic("Biometrics");
+        topicManagement.inputAChildTopicDisplayName("TEST TOPIC");
     }
 
     @And("I select a different parent topic")
     public void iSelectADifferentParentTopic() {
-        addChildTopic.selectAParentTopic("Biometrics");
+        topicManagement.selectAParentTopic("Biometrics");
     }
 
     @And("I enter the same display name")
     public void iEnterTheSameDisplayName() {
-        addChildTopic.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
+        topicManagement.inputAChildTopicDisplayName(sessionVariableCalled("newChildTopic").toString());
     }
 
     @And("I progress the case to the point of adding a topic")
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
-        markupDecision.getToMarkupAddATopicScreenPrerequisites();
+        markup.selectPolicyResponseRadioButton();
+        safeClickOn(continueButton);
+        waitABit(1000);
     }
 
     @And("a success message is displayed")
     public void aSuccessMessageIsDisplayed() {
-        MUIDashboard.assertSuccessMessageDisplayed();
+        muiDashboard.assertSuccessMessageDisplayed();
     }
 
     @When("I add a new Standard Line with {string} as the topic")
     public void userAddsANewStandardLine(String topic) {
+        if (standardLine.addNewStandardLineButton.isCurrentlyVisible()) {
+            safeClickOn(standardLine.addNewStandardLineButton);
+        }
         standardLine.enterStandardLineTopic(topic);
         standardLine.addStandardLineDocument();
         standardLine.enterStandardLineExpirationDate();
@@ -544,24 +506,19 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.assertListContainsCreatedUnit();
     }
 
-    @And("I add a Campaign with random name and campaign code")
-    public void addACampaignWithNameAndCode() {
-        listsManagement.addANewCampaign();
-    }
-
-    @Then("the new Campaign has been added to the list of Campaigns")
-    public void newCampaignHasBeenAddedToListOfCampaigns() {
-        listsManagement.assertCampaignAddedToCampaignTable();
-    }
-
-    @And("I edit a Campaign name")
-    public void editCampaignNameFrom() {
-        listsManagement.amendACampaign();
-    }
-
-    @Then("the Campaign name should have changed in the list of Campaigns")
-    public void campaignNameShouldHaveChangedInTheList() {
-        listsManagement.assertCampaignAddedToCampaignTable();
+    @Then("the new {string} campaign has been added to the list of campaigns")
+    public void newCampaignHasBeenAddedToListOfCampaigns(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TO":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        listsManagement.assertVisibilityOfCampaignInCampaignTable();
     }
 
     @And("I click the view team button")
@@ -637,7 +594,7 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I enter the (cases )reference, a valid withdrawal date and text into the note field")
     public void iEnterTheCasesReferenceAValidWithdrawalDateAndTextIntoTheNoteField() {
         withdrawACase.enterCaseReference(getCurrentCaseReference());
-        withdrawACase.enterWithdrawalDate();
+        withdrawACase.enterWithdrawalDate(getTodaysDate());
         withdrawACase.enterWithdrawalNotes("Test withdrawal notes");
     }
 
@@ -672,6 +629,546 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the deactivated team should be displayed")
     public void theDeactivatedTeamShouldBeDisplayed() {
         teamManagement.assertDeactivatedTeamIsDisplayed();
+    }
+
+    @Then("the {string} management page should be displayed")
+    public void theManagementPageShouldBeDisplayed(String pageTitle) {
+        assertManagementUIPageTitle(pageTitle);
+    }
+
+    @And("I submit the details for the new user")
+    public void iEnterTheDetailsForTheNewUser() {
+        userManagement.enterNewUserDetails();
+        clickTheButton("Submit");
+    }
+
+    @And("I create a new parent topic")
+    public void iCreateANewParentTopic() {
+        topicManagement.inputAParentTopicDisplayedName();
+        clickTheButton("Submit");
+    }
+
+    @And("I load the templates for the {string} case type")
+    public void iLoadTheTemplatesForTheCaseType(String caseType) {
+        templateManagement.selectACaseType(caseType);
+    }
+
+    @And("I add a new template to the case type")
+    public void iAddANewTemplateToTheCaseType() {
+        templateManagement.addTemplate();
+    }
+
+    @And("I remove a template from the case type")
+    public void iRemoveATemplateFromTheCaseType() {
+        templateManagement.removeTemplate();
+    }
+
+    @Then("the new business unit is added to the list of business units")
+    public void theNewBusinessUnitIsAddedToTheListOfBusinessUnits() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Business Units");
+        listsManagement.selectASpecificBusinessArea(sessionVariableCalled("businessArea"));
+        clickTheButton("Submit");
+        listsManagement.assertVisibilityOfBusinessUnitInBusinessUnitTable();
+    }
+
+    @Then("the template should be removed from the case type")
+    public void theTemplateShouldBeRemovedFromTheCaseType() {
+        templateManagement.assertTemplateRemoval();
+    }
+
+    @Then("the template should be displayed in the list of available templates")
+    public void theTemplateShouldBeDisplayedInTheListOfAvailableTemplates() {
+        templateManagement.assertTemplateIsDisplayedInDECS();
+    }
+
+
+//    Lists Management
+
+    @And("I select to add a new campaign")
+    public void iSelectToAddANewCampaign() {
+        listsManagement.clickTheAddNewCampaignButton();
+    }
+
+    @And("I submit details for the new campaign")
+    public void addACampaignWithNameAndCode() {
+        listsManagement.enterCampaignName();
+        listsManagement.enterCampaignCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding a campaign should be displayed")
+    public void theSuccessMessageForAddingACampaignShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingCampaignVisible();
+    }
+
+    @Then("I should be able to view the new/renamed {string} campaign in the table of campaigns")
+    public void campaignNameShouldHaveChangedInTheList(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TREAT OFFICIAL":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        listsManagement.assertVisibilityOfCampaignInCampaignTable();
+    }
+
+    @And("I have an existing {string} campaign I want to amend")
+    public void iHaveAnExistingCampaignIWantToAmend(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TREAT OFFICIAL":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        listsManagement.clickTheAddNewCampaignButton();
+        listsManagement.enterCampaignName();
+        listsManagement.enterCampaignCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the campaign")
+    public void iSelectToAmendTheCampaign() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("campaignName"));
+    }
+
+    @And("I submit a new name for the campaign")
+    public void iSubmitANewNameForTheCampaign() {
+        listsManagement.enterCampaignName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending a campaign should be displayed")
+    public void theSuccessMessageForAmendingACampaignShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingCampaignVisible();
+    }
+
+    @And("I have added a new {string} campaign in MUI")
+    public void iHaveAddedANewCampaignInMUI(String caseType) {
+        switch (caseType.toUpperCase()) {
+            case "MPAM":
+                muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
+                break;
+            case "TREAT OFFICIAL":
+                muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
+                break;
+            default:
+                pendingStep(caseType + " is not defined within " + getMethodName());
+        }
+        listsManagement.clickTheAddNewCampaignButton();
+        listsManagement.enterCampaignName();
+        listsManagement.enterCampaignCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to add a new representative")
+    public void iSelectToAddANewRepresentative() {
+        listsManagement.clickTheAddNewRepresentativeButton();
+    }
+
+    @And("I submit details for the new representative")
+    public void iSubmitDetailsForTheNewRepresentative() {
+        listsManagement.enterRepresentativeName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding a representative should be displayed")
+    public void theSuccessMessageForAddingARepresentativeShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingRepresentativeVisible();
+    }
+
+    @And("I should be able to view the new representative in the table of representatives")
+    public void iShouldBeAbleToViewTheNewRepresentativeInTheTableOfRepresentatives() {
+        iSelectAManagementUIDashboardLink("Manage Ex-Gratia Business Area Representatives");
+        listsManagement.assertVisibilityOfRepresentativeInRepresentativeTable();
+    }
+
+    @When("I select to delete the representative")
+    public void iSelectToDeleteTheRepresentative() {
+        listsManagement.clickDeleteLinkFor(sessionVariableCalled("representativeName"));
+    }
+
+    @Then("the success message for deleting a representative should be displayed")
+    public void theSuccessMessageForDeletingARepresentativeShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForDeletingRepresentativeVisible();
+    }
+
+    @And("I should not be able to view the deleted representative in the table of representatives")
+    public void iShouldNotBeAbleToViewTheDeletedRepresentativeInTheTableOfRepresentatives() {
+        iSelectAManagementUIDashboardLink("Manage Ex-Gratia Business Area Representatives");
+        listsManagement.assertRepresentativeNotVisibleInRepresentativeTable();
+    }
+
+    @And("I select a Business Area to add a new Business Unit to")
+    public void iSelectABusinessAreaToAddABusinessUnitTo() {
+        listsManagement.selectABusinessArea();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to add a new Business Unit")
+    public void iSelectToAddANewBusinessUnit() {
+        listsManagement.clickTheAddNewBusinessUnitButton();
+    }
+
+    @And("I submit details for the new Business Unit")
+    public void iSubmitDetailsForTheNewBusinessUnit() {
+        listsManagement.enterBusinessUnitName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding a Business Unit should be displayed")
+    public void theSuccessMessageForAddingABusinessUnitShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingBusinessUnitVisible();
+    }
+
+    @And("I should be able to view the new/renamed Business Unit in the table of Business Units")
+    public void iShouldBeAbleToViewTheNewBusinessUnitInTheTableOfBusinessUnits() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Business Units");
+        listsManagement.selectASpecificBusinessArea(sessionVariableCalled("businessArea"));
+        clickTheButton("Submit");
+        listsManagement.assertVisibilityOfBusinessUnitInBusinessUnitTable();
+    }
+
+    @And("I have an existing Business Unit I want to amend")
+    public void iHaveAnExistingBusinessUnitIWantToAmend() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Business Units");
+        listsManagement.selectABusinessArea();
+        clickTheButton("Submit");
+        listsManagement.clickTheAddNewBusinessUnitButton();
+        listsManagement.enterBusinessUnitName();
+        clickTheButton("Submit");
+    }
+
+    @And("I select the correct Business Area")
+    public void iSelectTheCorrectBusinessUnit() {
+        listsManagement.selectASpecificBusinessArea(sessionVariableCalled("businessArea"));
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the Business Unit")
+    public void iSelectToAmendTheBusinessUnit() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("businessUnitName"));
+    }
+
+    @And("I submit a new name for the Business Unit")
+    public void iSubmitANewNameForTheBusinessUnit() {
+        listsManagement.enterBusinessUnitName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending a Business Unit should be displayed")
+    public void theSuccessMessageForAmendingABusinessUnitShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingBusinessUnitVisible();
+    }
+
+    @And("I select a Enquiry Subject to add a new Enquiry Reason to")
+    public void iSelectAEnquirySubjectToAddANewEnquiryReasonTo() {
+        listsManagement.selectAnEnquirySubject();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to add a new {string} Enquiry Reason")
+    public void iSelectToAddANewEnquiryReason(String caseType) {
+        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
+    }
+
+    @And("I submit details for the new {string} Enquiry Reason")
+    public void iSubmitDetailsForTheNewEnquiryReason(String caseType) {
+        listsManagement.enterEnquiryReasonName();
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Add");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            listsManagement.enterEnquiryReasonCode();
+            clickTheButton("Submit");
+        }
+    }
+
+    @Then("the success message for adding an Enquiry Reason should be displayed")
+    public void theSuccessMessageForAddingAnEnquiryReasonShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingEnquiryReasonVisible();
+    }
+
+    @And("I should be able to view the new/renamed {string} Enquiry Reason in the table of Enquiry Reasons")
+    public void iShouldBeAbleToViewTheNewEnquiryReasonInTheTableOfEnquiryReasons(String caseType) {
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+            listsManagement.selectASpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
+        }
+        listsManagement.assertVisibilityOfEnquiryReasonInEnquiryReasonTable();
+    }
+
+    @And("I have an existing Enquiry Reason I want to amend")
+    public void iHaveAnExistingEnquiryReasonIWantToAmend() {
+        iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+        listsManagement.selectAnEnquirySubject();
+        clickTheButton("Submit");
+        listsManagement.clickTheAddNewEnquiryReasonButton("MPAM");
+        listsManagement.enterEnquiryReasonName();
+        clickTheButton("Add");
+    }
+
+    @And("I select the correct Enquiry Subject")
+    public void iSelectTheCorrectEnquirySubject() {
+        listsManagement.selectASpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the Enquiry Reason")
+    public void iSelectToAmendTheEnquiryReason() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("enquiryReasonName"));
+    }
+
+    @And("I submit a new name for the {string} Enquiry Reason")
+    public void iSubmitANewNameForTheEnquiryReason(String caseType) {
+        listsManagement.enterEnquiryReasonName();
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Amend");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            clickTheButton("Submit");
+        }
+    }
+
+    @Then("the success message for amending an Enquiry Reason should be displayed")
+    public void theSuccessMessageForAmendingAnEnquiryReasonShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingEnquiryReasonVisible();
+    }
+
+    @And("I have added a new {string} Enquiry Reason in MUI")
+    public void iHaveAddedANewEnquiryReasonInMUI(String caseType) {
+        if (caseType.equalsIgnoreCase("MPAM")) {
+            iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
+            listsManagement.selectAnEnquirySubject();
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("COMP")) {
+            iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
+        }
+        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
+        listsManagement.enterEnquiryReasonName();
+        if (caseType.equalsIgnoreCase("COMP")) {
+            listsManagement.enterEnquiryReasonCode();
+            clickTheButton("Submit");
+        } else if (caseType.equalsIgnoreCase("MPAM")) {
+            clickTheButton("Add");
+        }
+    }
+
+    @And("I select to add a new account manager")
+    public void iSelectToAddANewAccountManager() {
+        listsManagement.clickTheAddNewAccountManagerButton();
+    }
+
+    @And("I submit details for the new account manager")
+    public void iSubmitDetailsForTheNewAccountManager() {
+        listsManagement.enterAccountManagerName();
+        listsManagement.enterAccountManagerCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding an account manager should be displayed")
+    public void theSuccessMessageForAddingAnAccountManagerShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingAccountManagerVisible();
+    }
+
+    @And("I should be able to view the new/renamed account manager in the table of account managers")
+    public void iShouldBeAbleToViewTheNewAccountManagerOnTheViewAndEditAccountManagersPage() {
+        muiDashboard.selectDashboardLinkWithText("Manage FOI Account Managers");
+        listsManagement.assertVisibilityOfAccountManagerInAccountManagerTable();
+    }
+
+    @And("I have an existing account manager I want to amend")
+    public void iHaveAnExistingAccountManagerIWantToAmend() {
+        iSelectAManagementUIDashboardLink("Manage FOI Account Managers");
+        listsManagement.clickTheAddNewAccountManagerButton();
+        listsManagement.enterAccountManagerName();
+        listsManagement.enterAccountManagerCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the account manager")
+    public void iSelectToAmendTheAccountManager() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("accountManagerName"));
+    }
+
+    @And("I submit a new name for the account manager")
+    public void iSubmitANewNameForTheAccountManager() {
+        listsManagement.enterAccountManagerName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending an account manager should be displayed")
+    public void theSuccessMessageForAmendingAnAccountManagerShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingAccountManagerVisible();
+    }
+
+    @And("I select to add a new interested party")
+    public void iSelectToAddANewIntersetedParty() {
+        listsManagement.clickTheAddNewInterestedPartyButton();
+    }
+
+    @And("I submit details for the new interested party")
+    public void iSubmitDetailsForTheNewInterestedParty() {
+        listsManagement.enterInterestedPartyName();
+        listsManagement.enterInterestedPartyCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding an interested party should be displayed")
+    public void theSuccessMessageForAddingAnInterestedPartyShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingInterestedPartyVisible();
+    }
+
+    @And("I should be able to view the new/renamed interested party in the table of interested parties")
+    public void iShouldBeAbleToViewTheNewInterestedPartyOnTheViewAndEditInterestedPartiesPage() {
+        muiDashboard.selectDashboardLinkWithText("Manage FOI Interested Parties");
+        listsManagement.assertVisibilityOfInterestedPartyInInterestedPartyTable();
+    }
+
+    @And("I have an existing interested party I want to amend")
+    public void iHaveAnExistingInterestedPartyIWantToAmend() {
+        iSelectAManagementUIDashboardLink("Manage FOI Interested Parties");
+        listsManagement.clickTheAddNewInterestedPartyButton();
+        listsManagement.enterInterestedPartyName();
+        listsManagement.enterInterestedPartyCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the interested party")
+    public void iSelectToAmendTheInterestedParty() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("interestedPartyName"));
+    }
+
+    @And("I submit a new name for the interested party")
+    public void iSubmitANewNameForTheInterestedParty() {
+        listsManagement.enterInterestedPartyName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending an interested party should be displayed")
+    public void theSuccessMessageForAmendingAnInterestedPartyShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingInterestedPartyVisible();
+    }
+
+    @And("I have added a new interested party in MUI")
+    public void iHaveAddedANewInterestedPartyInMUI() {
+        iSelectAManagementUIDashboardLink("Manage FOI Interested Parties");
+        listsManagement.clickTheAddNewInterestedPartyButton();
+        listsManagement.enterInterestedPartyName();
+        listsManagement.enterInterestedPartyCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to add a new recipient")
+    public void iSelectToAddANewRecipient() {
+        listsManagement.clickTheAddNewRecipientButton();
+    }
+
+    @And("I submit details for the new recipient")
+    public void iSubmitDetailsForTheNewRecipient() {
+        listsManagement.enterRecipientName();
+        listsManagement.enterRecipientCode();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for adding a new recipient should be displayed")
+    public void theSuccessMessageForAddingANewRecipientShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingRecipientVisible();
+    }
+
+    @Then("I should be able to view the new/renamed recipient in the table of recipients")
+    public void theNewRecipientDetailsShouldBeDisplayedInTheListOfRecipients() {
+        muiDashboard.selectDashboardLinkWithText("Manage Treat Official Recipients");
+        listsManagement.assertVisibilityOfRecipientInRecipientTable();
+    }
+
+    @And("I have an existing recipient I want to amend")
+    public void iHaveAnExistingRecipientIWantToAmend() {
+        iSelectAManagementUIDashboardLink("Manage Treat Official Recipients");
+        listsManagement.clickTheAddNewRecipientButton();
+        listsManagement.enterRecipientName();
+        listsManagement.enterRecipientCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select to amend the recipient")
+    public void iSelectToAmendTheRecipient() {
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("recipientName"));
+    }
+
+    @And("I submit a new name for the recipient")
+    public void iSubmitANewNameForTheRecipient() {
+        listsManagement.enterRecipientName();
+        clickTheButton("Submit");
+    }
+
+    @Then("the success message for amending a recipient should be displayed")
+    public void theSuccessMessageForAmendingARecipientShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingRecipientVisible();
+    }
+
+    @And("I have added a new recipient in MUI")
+    public void iHaveAddedANewRecipientInMUI() {
+        iSelectAManagementUIDashboardLink("Manage Treat Official Recipients");
+        listsManagement.clickTheAddNewRecipientButton();
+        listsManagement.enterRecipientName();
+        listsManagement.enterRecipientCode();
+        clickTheButton("Submit");
+    }
+
+    @And("I select a directorate to add the new Business Area to")
+    public void iSelectADirectorateToAddTheNewBusinessAreaTo() {
+        listsManagement.selectADirectorate();
+        clickTheButton("Submit");
+    }
+
+    @And("I add a new business area to the selected directorate")
+    public void iAddANewBusinessAreaToTheSelectedDirectorate() {
+        listsManagement.clickAddNewBusinessAreaButton();
+        listsManagement.enterBusinessAreaName();
+        clickTheButton("Submit");
+    }
+
+    @And("I navigate to the business area list and select the amend link for the business area")
+    public void iSelectTheAmendLinkForBusinessArea() {
+        iSelectAManagementUIDashboardLink("Manage UKVI Complaints Business Areas");
+        String directorate = sessionVariableCalled("directorate");
+        listsManagement.selectSpecificDirectorate(directorate);
+        clickTheButton("Submit");
+        listsManagement.clickAmendLinkFor(sessionVariableCalled("businessAreaName"));
+    }
+
+    @And("I amend the name of the business area")
+    public void iAmendTheNameOfTheBusinessArea() {
+        listsManagement.enterBusinessAreaName();
+        clickTheButton("Submit");
+    }
+
+    @And("I should be able to view the created/renamed business area in the table of business areas")
+    public void iShouldBeAbleToViewTheCreatedBusinessAreaInTheTableOfBusinessAreas() {
+        iSelectAManagementUIDashboardLink("Manage UKVI Complaints Business Areas");
+        String directorate = sessionVariableCalled("directorate");
+        listsManagement.selectSpecificDirectorate(directorate);
+        clickTheButton("Submit");
+        listsManagement.assertVisibilityOfBusinessAreaInBusinessAreaTable();
+    }
+
+    @Then("the success message for adding a new business area should be displayed")
+    public void theSuccessMessageForAddingANewBusinessAreaShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAddingBusinessAreaVisible();
+    }
+
+    @Then("the success message for amending a Business Area should be displayed")
+    public void theSuccessMessageForAmendingABusinessAreaShouldBeDisplayed() {
+        listsManagement.assertSuccessMessageForAmendingBusinessAreaVisible();
     }
 }
 
