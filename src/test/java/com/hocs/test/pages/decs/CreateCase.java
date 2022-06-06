@@ -390,12 +390,14 @@ public class CreateCase extends BasePage {
         selectStage1CaseTypeSearchCriteriaIfVisible();
         search.searchByCaseReference(getCurrentCaseReference());
         search.waitForResultsPage();
-        if (search.getNumberOfSearchResults() == 0) {
+        int retries = 0;
+        while ((search.getNumberOfSearchResults() == 0) && (retries < 3)) {
             waitABit(5000);
             dashboard.selectSearchLinkFromMenuBar();
             selectStage1CaseTypeSearchCriteriaIfVisible();
             search.searchByCaseReference(getCurrentCaseReference());
             search.waitForResultsPage();
+            retries++;
         }
     }
 

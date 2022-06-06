@@ -91,6 +91,7 @@ public class SMCProgressCase extends BasePage {
         clickTheButton("Continue");
         registration.enterComplainantDetails();
         registration.selectAChannel();
+        registration.selectComplaintOrigin();
         registration.selectAdditionalInformation();
         registration.enterADescriptionOfTheComplaint();
         registration.enterAPreviousUKVIComplaintReference();

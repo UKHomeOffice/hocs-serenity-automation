@@ -265,7 +265,7 @@ Feature: Complaints Draft
     When I get a "BF2" case at the "Draft" stage
     And I select to return the case back to Triage stage
     And I submit a rejection reason
-    Then the case should be moved to the "Triage (Stage 2)" stage
+    Then the case should be moved to the "Case Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage

@@ -124,7 +124,7 @@ public class ComplaintsTriage extends BasePage {
 
     public void enterTransferReason() {
         String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
-        if (bfCase()) {
+        if (bfCase() | bf2Case()) {
             setSessionVariable("transferReason").to(enteredText);
         }
         else {

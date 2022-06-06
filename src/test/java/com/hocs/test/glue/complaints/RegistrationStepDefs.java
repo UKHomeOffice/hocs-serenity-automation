@@ -38,7 +38,7 @@ public class RegistrationStepDefs extends BasePage {
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
         registration.selectAChannel();
-        if (iedetCase()) {
+        if (iedetCase() | smcCase()) {
             registration.selectComplaintOrigin();
         }
         registration.enterADescriptionOfTheComplaint();
