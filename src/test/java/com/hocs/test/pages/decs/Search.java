@@ -247,6 +247,9 @@ public class Search extends BasePage {
                     case "IEDET":
                         checkSpecificCheckbox("IE Detention Case");
                         break;
+                    case "SMC":
+                        checkSpecificCheckbox("Serious Misconduct");
+                        break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
@@ -275,6 +278,10 @@ public class Search extends BasePage {
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
                 setSessionVariable("searchComplainantHomeOfficeReference").to(value);
+                break;
+            case "PSU REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "PSU Reference");
+                setSessionVariable("searchPSUReference").to(value);
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
@@ -670,7 +677,11 @@ public class Search extends BasePage {
                 break;
             case "CORRESPONDENT POSTCODE":
                 if (!caseType.equalsIgnoreCase("IEDET")) {
-                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                    if (!caseType.equalsIgnoreCase("SMC")) {
+                        cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                    } else {
+                        cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[3]");
+                    }
                 } else {
                     safeClickOn(randomSearchResultHypertext);
                     peopleTab.selectPeopleTab();
@@ -696,7 +707,7 @@ public class Search extends BasePage {
                     workstacks.unallocateSelectedCase(randomSearchResult);
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
                 }
-                if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET")) {
+                if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET") || caseType.equalsIgnoreCase("SMC")) {
                     openOrCloseAccordionSection("Registration");
                 } else {
                     openOrCloseAccordionSection("Stage 2 Registration");
@@ -710,7 +721,11 @@ public class Search extends BasePage {
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 if (!caseType.equalsIgnoreCase("IEDET")) {
-                    cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                    if (!caseType.equalsIgnoreCase("SMC")) {
+                        cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[5]");
+                    } else {
+                        cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
+                    }
                 } else {
                     safeClickOn(randomSearchResultHypertext);
                     caseView.waitForCaseToLoad();
@@ -727,6 +742,12 @@ public class Search extends BasePage {
                     displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office Reference").get(0);
                 }
                 expectedValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
+                break;
+            case "PSU REFERENCE":
+                expectedValue = sessionVariableCalled("searchPSUReference");
+                List<WebElementFacade> listOfPSUReference = findAll("//a/parent::td/following-sibling::td[5]");
+                assertThat(numberOfCasesDisplayed == listOfPSUReference.size(), is(true));
+                displayedValue = expectedValue;
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());

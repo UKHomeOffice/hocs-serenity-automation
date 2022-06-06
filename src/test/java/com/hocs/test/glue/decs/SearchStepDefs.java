@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
+import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -54,6 +55,8 @@ public class SearchStepDefs extends BasePage {
 
     IEDETProgressCase iedetProgressCase;
 
+    SMCProgressCase smcProgressCase;
+
     @And("I enter {string} into the {string} search field in the {string} search configuration")
     public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String searchConfig) {
         setSessionVariable("searchValue").to(value);
@@ -68,6 +71,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             case "COMP":
             case "IEDET":
+            case "SMC":
                 search.enterComplaintsSearchCriteria(criteria, value);
                 break;
             case "FOI":
@@ -102,6 +106,9 @@ public class SearchStepDefs extends BasePage {
                 case "IEDET":
                     iedetProgressCase.generateIEDETSearchCaseData(infoValue, criteria);
                     break;
+                case "SMC":
+                    smcProgressCase.generateSMCSearchCaseData(infoValue, criteria);
+                    break;
                 case "FOI":
                     foiProgressCase.generateFOISearchCaseData(infoValue, criteria);
                     break;
@@ -129,6 +136,7 @@ public class SearchStepDefs extends BasePage {
                 break;
             case "COMP":
             case "IEDET":
+            case "SMC":
                 search.assertComplaintsInformationRandomSearchResult(criteria);
                 break;
             case "FOI":
