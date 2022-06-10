@@ -136,6 +136,7 @@ public class SMCProgressCase extends BasePage {
     public void moveSMCCaseFromSendToCaseClosed() {
         documents.addADocumentOfDocumentType("Final Response");
         complaintsSend.selectACaseOutcome();
+        complaintsSend.enterADateOfResponse();
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
     }
