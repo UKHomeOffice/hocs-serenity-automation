@@ -85,7 +85,7 @@ Feature: Complaints Send
     When I get a "SMC" case at the "Send" stage
     And I add a "Final Response" type document to the case
     And I select a Case Outcome
-    And I submit the SMC Send stage
+    And I submit the Response details
     Then the case should be closed
 
 

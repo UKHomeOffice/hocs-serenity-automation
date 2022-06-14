@@ -34,7 +34,7 @@ public class ComplaintsSend extends BasePage {
         String headerText = null;
         if (compCase() || comp2Case() || bfCase() || bf2Case()) {
             headerText = "Date of Response";
-        } else if (iedetCase()) {
+        } else if (iedetCase() || smcCase()) {
             headerText = "Response date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);

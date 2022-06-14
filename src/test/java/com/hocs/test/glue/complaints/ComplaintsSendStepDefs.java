@@ -16,15 +16,10 @@ public class ComplaintsSendStepDefs extends BasePage {
 
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
-        if (!iedetCase()) {
+        if (!iedetCase() && !smcCase()) {
             complaintsSend.selectAResponseChannel();
         }
         complaintsSend.enterADateOfResponse();
-        clickTheButton("Complete");
-    }
-
-    @And("I submit the SMC Send stage")
-    public void iCompleteTheSendStage() {
         clickTheButton("Complete");
     }
 
