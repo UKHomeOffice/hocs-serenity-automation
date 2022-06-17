@@ -234,10 +234,11 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertRecipientIsAddedToTOCase(recipient);
     }
 
-    @And("I can only see Registration information in the summary")
+    @And("I can only see non-sensitive information in the Summary tab")
     public void iCanOnlySeeRegistrationInformationInTheSummary() {
         summaryTab.selectSummaryTab();
-        List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel", "When was the correspondence received?");
+        List<String> expectedHeaders = Arrays
+                .asList("Created", "Deadline", "Primary correspondent", "Channel", "When was the correspondence received?", "Response date");
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 
@@ -260,7 +261,7 @@ public class SummaryTabStepDefs extends BasePage {
     public void iCanSeeAllOfTheCasesSummaryData() {
         summaryTab.selectSummaryTab();
         List<String> expectedHeaders = Arrays.asList("Created", "Deadline", "Primary correspondent", "Channel", "Business Area", "Case Outcome",
-                "Enquiry Reason", "Is a Letter of Authority required?", "When was the correspondence received?");
+                "Enquiry Reason", "Is a Letter of Authority required?", "When was the correspondence received?", "Response date");
         summaryTab.assertSummaryContainsOnlyExpectedHeaders(expectedHeaders);
     }
 

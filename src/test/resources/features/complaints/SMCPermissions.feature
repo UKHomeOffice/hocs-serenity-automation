@@ -2,13 +2,13 @@
 Feature: SMC Permissions
 
   @ComplaintsRegression2 @SMCComplaints
-  Scenario: As a SMC Registration user, when viewing a case, I should only see case data that was entered at the registration stage
+  Scenario: As a SMC Registration user, when viewing a case, I should only see non-sensitive case data
     Given I am logged into "CS" as user "SMC_USER"
     And I create a "SMC" case and move it to the "CASE CLOSED" stage
     When I switch to user "SMC_REGISTRATION_USER_1"
     And I load the current case
-    Then I can only view the Registration section of the Case Details accordion
-    And I can only see Registration information in the summary
+    Then I can only view sections of the Case Details accordion that contain non-sensitive case data
+    And I can only see non-sensitive information in the Summary tab
 
   @ComplaintsRegression2 @SMCComplaints
   Scenario: As a SMC Registration user, when viewing a case that has passed Registration, I should not be able to see any allocation information

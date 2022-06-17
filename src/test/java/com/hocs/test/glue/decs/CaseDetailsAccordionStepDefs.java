@@ -43,13 +43,16 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
         recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
 
-    @Then("I can only view the Registration section of the Case Details accordion")
+    @Then("I can only view sections of the Case Details accordion that contain non-sensitive case data")
     public void iCanOnlyViewTheRegistrationSectionOfTheCaseDetailsAccordion() {
         if (!accordionSectionIsVisible("Registration")) {
             Assert.fail("Registration section not visible");
         }
-        if (accordionSectionIsVisible("TRIAGE") || accordionSectionIsVisible("DRAFT") || accordionSectionIsVisible("SEND")) {
-            Assert.fail("Section other than Registration is visible");
+        if (!accordionSectionIsVisible("Send")) {
+            Assert.fail("Send section not visible");
+        }
+        if (accordionSectionIsVisible("Triage") || accordionSectionIsVisible("Draft")) {
+            Assert.fail("Section other than Registration or Send is visible");
         }
     }
 

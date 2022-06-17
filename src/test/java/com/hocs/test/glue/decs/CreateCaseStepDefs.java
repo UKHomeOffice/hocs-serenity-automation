@@ -315,6 +315,9 @@ public class CreateCaseStepDefs extends BasePage {
             case "BF":
                 user = User.BF_USER;
                 break;
+            case "POGR":
+                user = User.POGR_USER;
+                break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
