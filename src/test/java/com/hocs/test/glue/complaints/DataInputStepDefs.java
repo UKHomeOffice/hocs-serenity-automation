@@ -20,9 +20,9 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(continueButton);
     }
 
-    @And("I enter complainant details on the complainant details screen")
-    public void iCompleteTheComplainantDetailsScreen() {
-        dataInput.completeComplainantDetails();
+    @And("I enter details on the Data Input screen")
+    public void iCompleteTheDataInputScreen() {
+        dataInput.completeDataInputScreen();
     }
 
     @And("I enter the date that the letter was sent")
@@ -42,6 +42,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectCategory();
         dataInput.enterDescriptionOfComplaint();
         dataInput.checkPriorityCheckbox();
+        dataInput.selectIsLoARequired();
         safeClickOn(continueButton);
     }
 
@@ -50,6 +51,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectCategory();
         dataInput.enterDescriptionOfComplaint();
         dataInput.selectASpecificComplaintChannel("Email");
+        dataInput.selectIsLoARequired();
         safeClickOn(continueButton);
     }
 
@@ -58,6 +60,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectCategory();
         dataInput.enterDescriptionOfComplaint();
         dataInput.selectASpecificComplaintChannel("Post");
+        dataInput.selectIsLoARequired();
         safeClickOn(continueButton);
     }
 
@@ -67,7 +70,7 @@ public class DataInputStepDefs extends BasePage {
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
-        dataInput.completeComplainantDetails();
+        dataInput.completeDataInputScreen();
         safeClickOn(continueButton);
         documents.addADocumentOfDocumentType("Interim Letter");
         dataInput.enterDateLetterSent();

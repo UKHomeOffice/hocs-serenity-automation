@@ -86,11 +86,13 @@ public class ComplaintsTriageStepDefs extends BasePage {
     @And("I select that a Letter of Authority is required")
     public void iSelectThatALOAIsRequired() {
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriage.selectSpecificOptionForIsLOARequired("Yes");
+        clickTheButton("Continue");
     }
 
     @And("I can mark that the LoA was received and enter the LoA date")
     public void iCanMarkThatTheLOAWasReceivedAndEnterTheLOADates() {
-        complaintsTriage.selectLOAReceived();
+        complaintsTriage.enterLoAReceivedDetails();
     }
 
     @And("the overdue contribution request should be highlighted")

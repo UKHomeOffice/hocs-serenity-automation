@@ -80,7 +80,12 @@ public class DataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
     }
 
-    public void completeComplainantDetails() {
+    public void selectIsLoARequired() {
+        String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
+        setSessionVariable("isLoARequired").to(selectedOption);
+    }
+
+    public void completeDataInputScreen() {
         enterComplainantDOB();
         selectComplainantGender();
         selectNationComplaintWasMadeFrom();
@@ -98,6 +103,7 @@ public class DataInput extends BasePage {
         selectComplaintChannel();
         checkPriorityCheckbox();
         enterThirdPartyReference();
+        selectIsLoARequired();
     }
 
     public void enterDateLetterSent() {

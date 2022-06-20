@@ -8,12 +8,10 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import com.hocs.test.pages.decs.Search;
-import net.serenitybdd.core.pages.WebElementFacade;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class COMPProgressCase extends BasePage {
 
@@ -178,6 +176,10 @@ public class COMPProgressCase extends BasePage {
         waitForPageWithTitle("Triage Capture Reason");
         complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
+        waitForPageWithTitle("Triage Contributions");
+        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+            complaintsTriage.enterLoAReceivedDetails();
+        }
         complaintsTriage.selectReadyForDrafting();
     }
 
