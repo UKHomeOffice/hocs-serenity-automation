@@ -213,7 +213,6 @@ Feature: Complaints Triage
     And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I select that a Letter of Authority is required
-    And I click the "Continue" button
     And I can mark that the LoA was received and enter the LoA date
     And I send the case to drafting
     And I load the current case

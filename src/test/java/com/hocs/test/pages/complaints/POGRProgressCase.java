@@ -28,17 +28,24 @@ public class POGRProgressCase extends BasePage {
 
     Investigation investigation;
 
-    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage, String businessArea) {
+    String businessArea;
+
+    public void  moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
             createCase.createCSCaseOfType("POGR");
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
-                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage, businessArea);
+                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
             }
-            completeThePOGRStageSoThatCaseMovesToTargetStage(precedingStage, businessArea);
+            completeThePOGRStageSoThatCaseMovesToTargetStage(precedingStage);
         }
+    }
+
+    public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea (String businessArea, String targetStage) {
+        this.businessArea = businessArea;
+        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -64,16 +71,12 @@ public class POGRProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void completeThePOGRStageSoThatCaseMovesToTargetStage(String stageToComplete, String businessArea) {
+    public void completeThePOGRStageSoThatCaseMovesToTargetStage(String stageToComplete) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         //Unsure on stage names for POGR workflow, will need updating once new stages are developed
         switch (stageToComplete.toUpperCase()) {
             case "DATA INPUT":
-                if (businessArea == null) {
-                    movePOGRCaseFromDataInputToInvestigation();
-                } else {
-                    movePOGRCaseWithSpecificBusinessAreaFromDataInputToInvestigation(businessArea);
-                }
+                movePOGRCaseFromDataInputToInvestigation();
                 break;
             case "INVESTIGATION":
                 movePOGRCaseFromInvestigationToDraft();
@@ -90,32 +93,20 @@ public class POGRProgressCase extends BasePage {
     }
 
     public void movePOGRCaseFromDataInputToInvestigation() {
-        dataInput.selectBusinessArea();
+        if (businessArea == null) {
+            dataInput.selectBusinessArea();
+        } else {
+            dataInput.selectSpecificBusinessArea(businessArea);
+        }
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
-        dataInput.completeComplainantDetails();
+        dataInput.completeDataInputScreen();
         safeClickOn(continueButton);
         documents.addADocumentOfDocumentType("Interim Letter");
         dataInput.enterDateLetterSent();
         safeClickOn(continueButton);
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
-            dataInput.selectInvestigatingTeam();
-            safeClickOn(finishButton);
-        }
-    }
-
-    public void movePOGRCaseWithSpecificBusinessAreaFromDataInputToInvestigation(String businessArea) {
-        dataInput.selectSpecificBusinessArea(businessArea);
-        safeClickOn(continueButton);
-        correspondents.addANonMemberCorrespondentOfType("Complainant");
-        safeClickOn(continueButton);
-        dataInput.completeComplainantDetails();
-        safeClickOn(continueButton);
-        documents.addADocumentOfDocumentType("Interim Letter");
-        dataInput.enterDateLetterSent();
-        safeClickOn(continueButton);
-        if (businessArea.equalsIgnoreCase("GRO")) {
             dataInput.selectInvestigatingTeam();
             safeClickOn(finishButton);
         }

@@ -25,6 +25,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -143,7 +144,13 @@ public class BasePage extends PageObject {
 
     public void selectTheTab(String tabName) {
         WebElementFacade tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
-        tab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        try {
+            tab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        }catch (TimeoutException e) {
+            waitABit(500);
+            tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
+            tab.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
+        }
         if (!tab.getAttribute("class").contains("active")) {
             try {
                 tab.click();
@@ -757,14 +764,19 @@ public class BasePage extends PageObject {
         return randomElement;
     }
 
-    public WebElementFacade getOnlyCurrentlyVisibleElementFromList(List<WebElementFacade> list) {
+    public WebElementFacade getOnlyCurrentlyVisibleElementFromList(List<WebElementFacade> list) throws IndexOutOfBoundsException {
         List<WebElementFacade> optionElements = new ArrayList<>();
         for (WebElementFacade element : list) {
             if (element.isCurrentlyVisible()) {
                 optionElements.add(element);
             }
         }
-        assert(optionElements.size() == 1);
+        if (optionElements.size() > 1) {
+            Assert.fail("Element identifier not sufficiently unique");
+        }
+        if (optionElements.size() < 1) {
+            Assert.fail("No visible elements matching identifier found");
+        }
         return optionElements.get(0);
     }
 
