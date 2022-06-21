@@ -11,6 +11,7 @@ import com.hocs.test.pages.decs.RecordCaseData;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 public class COMPProgressCase extends BasePage {
 
@@ -175,6 +176,10 @@ public class COMPProgressCase extends BasePage {
         waitForPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
+        waitForPageWithTitle("Triage Contributions");
+        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+            complaintsTriageAndInvestigation.enterLoAReceivedDetails();
+        }
         complaintsTriageAndInvestigation.selectReadyForDrafting();
     }
 

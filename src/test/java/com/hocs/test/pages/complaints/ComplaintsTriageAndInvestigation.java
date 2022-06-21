@@ -113,7 +113,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferOfflineAndCloseTheCase() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case", "Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case",
+                "Can your team respond to this complaint?");
         clickTheButton("Continue");
     }
 
@@ -126,8 +127,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
         if (bfCase() | bf2Case()) {
             setSessionVariable("transferReason").to(enteredText);
-        }
-        else {
+        } else {
             setSessionVariable("rejectionReason").to(enteredText);
         }
     }
@@ -202,7 +202,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
-        for (WebElementFacade claimCategory: claimCategories) {
+        for (WebElementFacade claimCategory : claimCategories) {
             if (claimCategory.isCurrentlyVisible()) {
                 visibleClaimCategories.add(claimCategory);
             }
@@ -227,7 +227,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
         selectBFReasonsForComplaint();
-        selectIfLOARequired("Yes");
+        selectIsLoARequired();
         selectComplainantHasRequestedPayment("No");
         selectAreWeIssuingOfferForConsolatoryPayment("No");
         selectAreWeIssuingOfferForExGratiaPayment("No");
@@ -239,10 +239,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             if (selectedReasonForComplaint.equals("Other")) {
                 recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason " + i + ")");
             }
-            setSessionVariable("reasonForComplaint"+i).to(selectedReasonForComplaint);
+            setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
         }
     }
-    
+
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
         if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
@@ -255,14 +255,22 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         if (!iedetCase()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
         }
-        selectIfLOARequired("Yes");
+        selectIsLoARequired();
     }
 
-    public void selectIfLOARequired(String yesNo) {
-        recordCaseData.selectSpecificRadioButton(yesNo);
+    public void selectIsLoARequired() {
+        String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
+        if ((bfCase() || bf2Case()) && selectedOption.equalsIgnoreCase("YES")) {
+            enterLoAReceivedDetails();
+        }
+        setSessionVariable("isLoARequired").to(selectedOption);
     }
 
-    public void selectLOAReceived() {
+    public void selectSpecificOptionForIsLOARequired(String yesNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Is a Letter of Authority required?");
+    }
+
+    public void enterLoAReceivedDetails() {
         recordCaseData.checkSpecificCheckbox("Has Letter of Authority been received?");
         setSessionVariable("loaReceived").to("Yes");
         recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Letter of Authority");

@@ -23,6 +23,11 @@ public class Investigation extends BasePage {
     }
 
     public void enterTransferReason() {
+        if (sessionVariableCalled("businessArea").equals("GRO")) {
+            waitForPageWithTitle("Investigation - Transfer Case");
+        } else {
+            waitABit(500);
+        }
         String rejectionReason = enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
         setSessionVariable("rejectionReason").to(rejectionReason);
     }

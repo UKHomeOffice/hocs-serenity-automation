@@ -2,6 +2,7 @@ package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -123,6 +124,10 @@ public class SMCProgressCase extends BasePage {
         clickTheButton("Continue");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
+        waitForPageWithTitle("Triage Contributions");
+        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+            complaintsTriageAndInvestigation.enterLoAReceivedDetails();
+        }
         complaintsTriageAndInvestigation.selectReadyForDrafting();
         System.out.println("Case moved from Service Triage to Draft");
     }

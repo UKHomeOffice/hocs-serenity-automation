@@ -79,7 +79,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             case "POGR":
-                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, null);
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -122,7 +122,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "POGR":
-                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage, null);
+                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -196,7 +196,7 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @And("I get a POGR case with {string} as the Business Area at the {string} stage")
     public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
-        pogrProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", stage, businessArea);
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
         dashboard.getAndClaimCurrentCase();
     }
 }
