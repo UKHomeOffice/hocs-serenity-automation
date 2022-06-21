@@ -19,8 +19,8 @@ public class POGRProgressCase extends BasePage {
     ComplaintsDraft complaintsDraft;
 
     Correspondents correspondents;
-
-    DataInput dataInput;
+    
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
     Dashboard dashboard;
 
@@ -90,33 +90,33 @@ public class POGRProgressCase extends BasePage {
     }
 
     public void movePOGRCaseFromDataInputToInvestigation() {
-        dataInput.selectBusinessArea();
+        complaintsRegistrationAndDataInput.selectBusinessArea();
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
-        dataInput.completeComplainantDetails();
+        complaintsRegistrationAndDataInput.completeComplainantDetails();
         safeClickOn(continueButton);
         documents.addADocumentOfDocumentType("Interim Letter");
-        dataInput.enterDateLetterSent();
+        complaintsRegistrationAndDataInput.enterDateLetterSent();
         safeClickOn(continueButton);
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
-            dataInput.selectInvestigatingTeam();
+            complaintsRegistrationAndDataInput.selectInvestigatingTeam();
             safeClickOn(finishButton);
         }
     }
 
     public void movePOGRCaseWithSpecificBusinessAreaFromDataInputToInvestigation(String businessArea) {
-        dataInput.selectSpecificBusinessArea(businessArea);
+        complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
-        dataInput.completeComplainantDetails();
+        complaintsRegistrationAndDataInput.completeComplainantDetails();
         safeClickOn(continueButton);
         documents.addADocumentOfDocumentType("Interim Letter");
-        dataInput.enterDateLetterSent();
+        complaintsRegistrationAndDataInput.enterDateLetterSent();
         safeClickOn(continueButton);
         if (businessArea.equalsIgnoreCase("GRO")) {
-            dataInput.selectInvestigatingTeam();
+            complaintsRegistrationAndDataInput.selectInvestigatingTeam();
             safeClickOn(finishButton);
         }
     }

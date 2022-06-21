@@ -14,7 +14,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ComplaintsTriage extends BasePage {
+public class ComplaintsTriageAndInvestigation extends BasePage {
 
     RecordCaseData recordCaseData;
 

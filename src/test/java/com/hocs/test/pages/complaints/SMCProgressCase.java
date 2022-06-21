@@ -26,9 +26,9 @@ public class SMCProgressCase extends BasePage {
 
     Correspondents correspondents;
 
-    Registration registration;
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    ComplaintsTriage complaintsTriage;
+    ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
     ComplaintsSend complaintsSend;
 
@@ -95,35 +95,35 @@ public class SMCProgressCase extends BasePage {
     public void moveSMCCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
-        registration.enterComplainantDetails();
-        registration.selectAChannel();
-        registration.selectComplaintOrigin();
-        registration.selectAdditionalInformation();
-        registration.enterADescriptionOfTheComplaint();
-        registration.enterAPreviousUKVIComplaintReference();
-        registration.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.selectAChannel();
+        complaintsRegistrationAndDataInput.selectComplaintOrigin();
+        complaintsRegistrationAndDataInput.selectAdditionalInformation();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Continue");
-        registration.openTheSeriousComplaintCategoryAccordion();
+        complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
         waitABit(1000);
-        registration.selectAVisibleClaimCategory();
-        registration.selectAnOwningCSU();
+        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+        complaintsRegistrationAndDataInput.selectAnOwningCSU();
         clickTheButton("Finish");
         System.out.println("Case moved from Registration to Triage");
 
     }
 
     public void moveSMCCaseFromTriageToDraft() {
-        complaintsTriage.selectAcceptCase();
+        complaintsTriageAndInvestigation.selectAcceptCase();
         clickTheButton("Continue");
-        complaintsTriage.enterPSUReference();
+        complaintsTriageAndInvestigation.enterPSUReference();
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Category");
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
-        complaintsTriage.selectReadyForDrafting();
+        complaintsTriageAndInvestigation.selectReadyForDrafting();
         System.out.println("Case moved from Service Triage to Draft");
     }
 
@@ -162,12 +162,12 @@ public class SMCProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(infoValue);
-                registration.selectAGender();
-                registration.selectANationality();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 clickTheButton("Continue");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
@@ -176,20 +176,20 @@ public class SMCProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-                registration.selectAGender();
-                registration.selectANationality();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(infoValue);
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 clickTheButton("Continue");
                 break;
             case "PSU REFERENCE":
                 moveCaseFromCurrentStageToTargetStage("N/A", "TRIAGE");
                 dashboard.getAndClaimCurrentCase();
-                complaintsTriage.selectAcceptCase();
+                complaintsTriageAndInvestigation.selectAcceptCase();
                 clickTheButton("Continue");
-                complaintsTriage.enterSpecificPSUReference(infoValue);
+                complaintsTriageAndInvestigation.enterSpecificPSUReference(infoValue);
                 clickTheButton("Continue");
                 break;
             default:
