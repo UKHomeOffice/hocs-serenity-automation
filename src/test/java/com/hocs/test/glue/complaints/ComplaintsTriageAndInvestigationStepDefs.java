@@ -214,4 +214,45 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     public void theTotalPaymentOfferSentToTheComplainantShouldBeTheSumOfThePaymentOffersPreviouslyEntered() {
         complaintsTriageAndInvestigation.assertTotalPaymentOfferIsCorrect();
     }
+
+    @And("I {string} the case at the Investigation stage")
+    public void complaintsTriageAndInvestigationAcceptanceDecision(String decision) {
+        if (decision.equalsIgnoreCase("ACCEPT")) {
+            complaintsTriageAndInvestigation.acceptCaseAtInvestigation();
+        } else if (decision.equalsIgnoreCase("REJECT")) {
+            complaintsTriageAndInvestigation.rejectCaseAtInvestigation();
+        } else {
+            pendingStep(decision + " is not a valid input for " + getMethodName());
+        }
+    }
+
+    @And("I complete the {string} action at the Investigation stage")
+    public void iSelectTheActionAtTheInvestigationStage(String action) {
+        switch (action.toUpperCase()) {
+            case "ALL INFORMATION COLLECTED - RESPOND":
+                complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
+                break;
+            case "NO RESPONSE - COMPLETE THE CASE":
+                complaintsTriageAndInvestigation.selectNoResponseCloseCaseAction();
+                break;
+            default:
+                pendingStep(action + " is not defined within " + getMethodName());
+        }
+        safeClickOn(finishButton);
+    }
+
+    @And("I enter a transfer reason at the Investigation stage")
+    public void iEnterATransferReasonAtTheInvestigationStage() {
+        complaintsTriageAndInvestigation.enterTransferReason();
+    }
+
+    @And("I select that the case is to be transferred to an {string} team")
+    public void iSelectThatTheCaseIsToBeTransferredToATeam(String internalExternal) {
+        complaintsTriageAndInvestigation.selectInternalOrExternalTransfer(internalExternal);
+    }
+
+    @And("I select an investigating team")
+    public void iSelectAnInvestigatingTeam() {
+        complaintsTriageAndInvestigation.selectInvestigatingTeam();
+    }
 }

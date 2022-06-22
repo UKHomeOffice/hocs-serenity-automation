@@ -37,7 +37,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
-        complaintsRegistrationAndDataInput.selectAChannel();
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
         if (iedetCase() | smcCase()) {
             complaintsRegistrationAndDataInput.selectComplaintOrigin();
         }
@@ -96,14 +96,15 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         safeClickOn(continueButton);
     }
 
-    @And("I enter complainant details on the complainant details screen")
-    public void iCompleteTheComplainantDetailsScreen() {
-        complaintsRegistrationAndDataInput.completeComplainantDetails();
+    @And("I enter details on the Data Input screen")
+    public void iCompleteTheDataInputScreen() {
+        complaintsRegistrationAndDataInput.completeDataInputScreen();
+        safeClickOn(continueButton);
     }
 
-    @And("I enter the date that the letter was sent")
-    public void iEnterTheDateThatTheLetterWasSent() {
-        complaintsRegistrationAndDataInput.enterDateLetterSent();
+    @And("I enter the date that the Interim letter was sent")
+    public void iEnterTheDateThatTheInterimLetterWasSent() {
+        complaintsRegistrationAndDataInput.enterDateInterimLetterSent();
         safeClickOn(continueButton);
     }
 
@@ -115,24 +116,24 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case is a Priority case")
     public void iRecordThatTheCaseIsAPriorityCase() {
-        complaintsRegistrationAndDataInput.selectCategory();
-        complaintsRegistrationAndDataInput.enterDescriptionOfComplaint();
+        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.checkPriorityCheckbox();
         safeClickOn(continueButton);
     }
 
     @And("I record that the case was not received by post")
     public void iRecordThatTheCaseWasNotReceivedByPost() {
-        complaintsRegistrationAndDataInput.selectCategory();
-        complaintsRegistrationAndDataInput.enterDescriptionOfComplaint();
+        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Email");
         safeClickOn(continueButton);
     }
 
     @And("I record that the case was received by post")
     public void iRecordThatTheCaseWasReceivedByPost() {
-        complaintsRegistrationAndDataInput.selectCategory();
-        complaintsRegistrationAndDataInput.enterDescriptionOfComplaint();
+        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Post");
         safeClickOn(continueButton);
     }

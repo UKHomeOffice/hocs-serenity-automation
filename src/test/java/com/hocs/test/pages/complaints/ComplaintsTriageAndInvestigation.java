@@ -18,12 +18,6 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//button[text()='Case Details']")
-    public WebElementFacade caseDetailsAccordionButton;
-
-    @FindBy(xpath = "//textarea[@name='CaseSummary']")
-    public WebElementFacade caseSummaryTextArea;
-
     @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
 
@@ -36,9 +30,6 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     @FindBy(xpath = "//label[contains(text(),'CCH')]")
     public WebElementFacade transferToCCHRadioButton;
 
-    @FindBy(css = "label[for='CctCompType-Minor']")
-    public WebElementFacade transferToMinorMisconductRadioButton;
-
     @FindBy(id = "BusArea")
     public WebElementFacade businessAreaDropdown;
 
@@ -48,53 +39,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     @FindBy(xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade loaRequiredYesRadioButton;
 
-    @FindBy(xpath = "//label[contains(text(),'No')]")
-    public WebElementFacade loaRequiredNoRadioButton;
-
-    @FindBy(xpath = "//a[text()='Add complainant contribution']")
-    public WebElementFacade addComplainantContributionHypertext;
-
-    @FindBy(css = "label[for='LoaReceived_Yes']")
-    public WebElementFacade loaReceivedCheckbox;
-
-    @FindBy(xpath = "//a[text()='Add business contribution']")
-    public WebElementFacade addBusinessContributionHypertext;
-
-    @FindBy(xpath = "//input[@name='LoaDate-day']")
-    public WebElementFacade loaReceivedDayField;
-
-    @FindBy(xpath = "//input[@name='LoaDate-month']")
-    public WebElementFacade loaReceivedMonthField;
-
-    @FindBy(xpath = "//input[@name='LoaDate-year']")
-    public WebElementFacade loaReceivedYearField;
-
-    @FindBy(xpath = "//label[text()='All information collected - case ready for drafting']")
-    public WebElementFacade readyForDraftingRadioButton;
-
     @FindBy(xpath = "//label[text()='Escalate case to WFM']")
     public WebElementFacade escalateToWFMRadioButton;
 
-    @FindBy(id = "CaseNote_TriageEscalate")
-    public WebElementFacade reasonForEscalationTextField;
-
-    @FindBy(xpath = "//input[@value='Escalate case']")
-    public WebElementFacade escalateCaseButton;
-
     @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
-
-    @FindBy(id = "CaseNote_CompleteReason")
-    public WebElementFacade completionReasonTextField;
-
-    @FindBy(xpath = "//label[text()='Yes']")
-    public WebElementFacade permanentlyCloseCaseYesRadioButton;
-
-    @FindBy(xpath = "//label[text()='No']")
-    public WebElementFacade permanentlyCloseCaseNoRadioButton;
-
-    @FindBy(xpath = "//legend[text()='Date of Acceptance']")
-    public WebElementFacade dateOfAcceptanceLabel;
 
     @FindBy(id = "TotalOfferSentToComplainant")
     public WebElementFacade totalOfferSentToComplainantField;
@@ -124,7 +73,18 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterTransferReason() {
-        String enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+        String enteredText;
+        if (pogrCase()) {
+            if (sessionVariableCalled("businessArea").equals("GRO")) {
+                waitForPageWithTitle("Investigation - Transfer Case");
+            } else {
+                waitABit(500);
+            }
+            enteredText = enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
+        } else {
+            enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+        }
+
         if (bfCase() | bf2Case()) {
             setSessionVariable("transferReason").to(enteredText);
         } else {
@@ -361,5 +321,40 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
         }
         clickTheButton("Continue");
+    }
+
+    public void acceptCaseAtInvestigation() {
+        selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
+    }
+
+    public void rejectCaseAtInvestigation() {
+        String rejectionRadioButtonLabelName = null;
+        if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
+            rejectionRadioButtonLabelName = "No - close and transfer to external team";
+        } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
+            rejectionRadioButtonLabelName = "No - transfer the case";
+        }
+        selectSpecificRadioButtonFromGroupWithHeading(rejectionRadioButtonLabelName, "Can your team respond to this complaint?");
+    }
+
+    public void selectInternalOrExternalTransfer(String transferAction) {
+        if (transferAction.equalsIgnoreCase("INTERNAL")) {
+            selectSpecificRadioButtonFromGroupWithHeading("Internal", "Internal or external transfer");
+        } else if (transferAction.equalsIgnoreCase("EXTERNAL")) {
+            selectSpecificRadioButtonFromGroupWithHeading("External - close the case", "Internal or external transfer");
+        }
+    }
+
+    public void selectInvestigatingTeam() {
+        String investigatingTeam = selectRandomOptionFromDropdownWithHeading("Investigating Team");
+        setSessionVariable("investigatingTeam").to(investigatingTeam);
+    }
+
+    public void selectAllInformationCollectedRespondAction() {
+        selectSpecificRadioButtonFromGroupWithHeading("All information collected - respond", "Actions");
+    }
+
+    public void selectNoResponseCloseCaseAction() {
+        selectSpecificRadioButtonFromGroupWithHeading("No response - complete the case", "Actions");
     }
 }

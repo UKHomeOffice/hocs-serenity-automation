@@ -1144,7 +1144,7 @@ public class ValidationStepDefs extends BasePage {
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-                                complaintsRegistrationAndDataInput.selectAChannel();
+                                complaintsRegistrationAndDataInput.selectAComplaintChannel();
                                 safeClickOn(continueButton);
                                 break;
                             case "OWNING CSU REQUIRED":
@@ -1153,7 +1153,7 @@ public class ValidationStepDefs extends BasePage {
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-                                complaintsRegistrationAndDataInput.selectAChannel();
+                                complaintsRegistrationAndDataInput.selectAComplaintChannel();
                                 complaintsRegistrationAndDataInput.selectASeverity();
                                 safeClickOn(continueButton);
                                 complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
@@ -1166,7 +1166,7 @@ public class ValidationStepDefs extends BasePage {
                                 waitABit(500);
                                 safeClickOn(continueButton);
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-                                complaintsRegistrationAndDataInput.selectAChannel();
+                                complaintsRegistrationAndDataInput.selectAComplaintChannel();
                                 complaintsRegistrationAndDataInput.selectASeverity();
                                 safeClickOn(continueButton);
                                 complaintsRegistrationAndDataInput.selectAnOwningCSU();

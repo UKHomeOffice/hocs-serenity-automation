@@ -97,7 +97,7 @@ public class IEDETProgressCase extends BasePage {
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-        complaintsRegistrationAndDataInput.selectAChannel();
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();

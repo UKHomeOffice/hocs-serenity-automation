@@ -190,6 +190,28 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickRemoveButton();
     }
 
+    @And("I select the {string} document as the primary draft")
+    public void iSelectTheDocumentAsThePrimaryDraft(String document) {
+        documents.selectPrimaryDraft(sessionVariableCalled(document));
+    }
+
+    @And("I confirm/approve the (new )primary draft document")
+    public void iConfirmThePrimaryDraftDocument() {
+        documents.recordPrimaryDraftDocument();
+        if (continueButton.isCurrentlyVisible()) {
+            clickTheButton("Continue");
+        } else {
+            clickTheButton("Approve primary draft");
+        }
+    }
+
+    @And("I upload my Primary Draft document")
+    public void iUploadMyPrimaryDraftDocument() {
+        iAddATypeDocumentToTheCase("DRAFT");
+        iSelectTheDocumentAsThePrimaryDraft("draft");
+        iConfirmThePrimaryDraftDocument();
+    }
+
     @Then("the primary draft tag is next to the primary draft document")
     public void primaryDraftTagNextToPrimaryDraftDocument() {
         documents.assertVisibilityOfPrimaryDraftDocumentTag();
@@ -224,16 +246,6 @@ public class DocumentsStepDefs extends BasePage {
     @Then("document should have the Failed Virus Scan tag")
     public void documentShouldHaveTheFailedVirusScanTag() {
         documents.assertFailedVirusScanTagVisible();
-    }
-
-    @And("I confirm/approve the (new )primary draft document")
-    public void iConfirmThePrimaryDraftDocument() {
-        documents.recordPrimaryDraftDocument();
-        if (continueButton.isCurrentlyVisible()) {
-            clickTheButton("Continue");
-        } else {
-            clickTheButton("Approve primary draft");
-        }
     }
 
     @And("the selected/replacement document should be tagged as the primary draft")

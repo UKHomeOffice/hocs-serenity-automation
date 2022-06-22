@@ -97,7 +97,7 @@ public class SMCProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
         complaintsRegistrationAndDataInput.enterComplainantDetails();
-        complaintsRegistrationAndDataInput.selectAChannel();
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.selectAdditionalInformation();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();

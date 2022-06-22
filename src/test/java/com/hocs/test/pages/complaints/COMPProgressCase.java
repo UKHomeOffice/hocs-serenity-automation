@@ -250,7 +250,7 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 safeClickOn(continueButton);
                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-                complaintsRegistrationAndDataInput.selectAChannel();
+                complaintsRegistrationAndDataInput.selectAComplaintChannel();
                 complaintsRegistrationAndDataInput.selectASeverity();
                 safeClickOn(continueButton);
                 complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();

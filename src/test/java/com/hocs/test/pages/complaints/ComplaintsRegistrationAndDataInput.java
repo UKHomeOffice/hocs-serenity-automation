@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ComplaintsRegistrationAndDataInput extends BasePage {
@@ -78,8 +77,20 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("complaintType").to(complaintType);
     }
 
-    public void selectAChannel() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
+    public void selectAComplaintChannel() {
+        if (pogrCase()) {
+            recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Channel");
+        } else {
+            recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
+        }
+    }
+
+    public void selectASpecificComplaintChannel(String channel) {
+        if (pogrCase()) {
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Complaint Channel");
+        } else {
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Channel");
+        }
     }
 
     public void selectAdditionalInformation() {
@@ -97,7 +108,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint() {
-        recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
+        if (pogrCase()) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
+        } else {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
+        }
     }
 
     public void selectASeverity() {
@@ -120,7 +135,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterComplaintDetails() {
-        selectAChannel();
+        selectAComplaintChannel();
         enterADescriptionOfTheComplaint();
         selectASeverity();
         enterAPreviousUKVIComplaintReference();
@@ -158,8 +173,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(owningCSU, "Owning CSU");
     }
 
-    //POGR
-
     public void selectSpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
@@ -170,20 +183,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("businessArea").to(businessArea);
     }
 
-    public void enterComplainantDOB() {
-        recordCaseData.enterDateIntoDateFieldsWithHeading("01/01/2001", "Date of Birth");
-    }
-
-    public void selectComplainantGender() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
-    }
-
     public void selectNationComplaintWasMadeFrom() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Nation from which complaint is being made");
-    }
-
-    public void enterComplainantCompanyName() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
     }
 
     public void enterApplicationReference() {
@@ -198,9 +199,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Case/Account Number");
     }
 
-    public void selectCategory() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Category");
-    }
+    public void selectPOGRCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Category"); }
 
     public void selectNRO() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("NRO");
@@ -210,47 +209,37 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Location");
     }
 
-    public void enterDescriptionOfComplaint() {
-        recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
-    }
-
-    public void selectComplaintChannel() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Channel");
-    }
-
-    public void selectASpecificComplaintChannel(String channel) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Complaint Channel");
-    }
-
     public void checkPriorityCheckbox() {
         checkSpecificCheckbox("Yes");
     }
 
-    public void enterThirdPartyReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
+    public void selectIsLoARequired() {
+        String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
+        setSessionVariable("isLoARequired").to(selectedOption);
     }
 
-    public void completeComplainantDetails() {
-        enterComplainantDOB();
-        selectComplainantGender();
+    public void completeDataInputScreen() {
+        enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+        selectAGender();
         selectNationComplaintWasMadeFrom();
-        enterComplainantCompanyName();
+        enterACompanyName();
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
             enterApplicationReference();
             enterPassportNumber();
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             enterAccountNumber();
         }
-        selectCategory();
+        selectPOGRCategory();
         selectNRO();
         selectLocation();
-        enterDescriptionOfComplaint();
-        selectComplaintChannel();
+        enterADescriptionOfTheComplaint();
+        selectAComplaintChannel();
         checkPriorityCheckbox();
-        enterThirdPartyReference();
+        enterAThirdPartyReference();
+        selectIsLoARequired();
     }
 
-    public void enterDateLetterSent() {
+    public void enterDateInterimLetterSent() {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date Letter Sent");
     }
 
