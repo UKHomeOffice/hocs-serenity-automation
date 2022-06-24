@@ -197,7 +197,6 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
-        documents.recordPrimaryDraftDocument();
         if (continueButton.isCurrentlyVisible()) {
             clickTheButton("Continue");
         } else {
@@ -208,8 +207,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I upload my Primary Draft document")
     public void iUploadMyPrimaryDraftDocument() {
         iAddATypeDocumentToTheCase("DRAFT");
-        iSelectTheDocumentAsThePrimaryDraft("draft");
-        iConfirmThePrimaryDraftDocument();
+        documents.recordPrimaryDraftDocument();
     }
 
     @Then("the primary draft tag is next to the primary draft document")
