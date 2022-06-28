@@ -118,7 +118,7 @@ public class Markup extends BasePage {
 
     public void addTopicToCase(String topic) {
         clickAddTopicLink();
-        recordCaseData.selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
+        selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
         waitABit(1000);
         safeClickOn(addButton);
     }
