@@ -78,8 +78,6 @@ name: DCU-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
@@ -430,8 +428,6 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
