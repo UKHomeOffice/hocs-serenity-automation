@@ -100,6 +100,7 @@ public class ActionsTabStepDefs extends BasePage {
 
     @And("the registered appeal should have the status {string} in the actions tab")
     public void theRegisteredAppealShouldHaveTheStatusInTheActionsTab(String appealStatus) {
+        waitABit(1000);
         actionsTab.assertStatusOfAppealIs(appealStatus);
     }
 
