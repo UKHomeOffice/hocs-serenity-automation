@@ -76,6 +76,9 @@ public class ClaimCategoriesStepDefs {
             case "URGENT EXCEPTIONAL PAYMENT":
                 claimSchema.clickOnUrgentExceptionalPaymentCheckbox();
                 break;
+            case "LIVING COSTS":
+                claimSchema.clickOnLivingCostsCheckbox();
+                break;
             default:
                 pendingStep(ClaimCategory + " is not defined within " + getMethodName());
         }

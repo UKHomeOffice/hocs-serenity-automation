@@ -47,6 +47,8 @@ Feature: Claim Categories
     And I choose a full payment for the "DRIVING LICENCE" and enter 5 into the Amount Awarded field, and 100 into the Amount Paid field
     And I select the "URGENT EXCEPTIONAL PAYMENT" checkbox
     And I enter 5 into amount awarded and 100 into amount deducted for the Urgent Exceptional Payment
+    And I select the "LIVING COSTS" checkbox
+    And I choose a full payment for the "LIVING COSTS" and enter 5 into the Amount Awarded field, and 100 into the Amount Paid field
     And I save changes to the claim
     And I open the "Claim categories" accordion section
     Then the displayed totals should match the values I have recorded
