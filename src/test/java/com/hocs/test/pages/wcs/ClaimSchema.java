@@ -1066,7 +1066,10 @@ public class ClaimSchema extends BasePage {
 
     public void clickOnUrgentExceptionalPaymentCheckbox() {
         recordCaseData.checkSpecificCheckbox("Urgent Exceptional Payment (UEP)");
+    }
 
+    public void clickOnLivingCostsCheckbox() {
+        recordCaseData.checkSpecificCheckbox("Living Costs");
     }
 
     public void selectAllClaimCategories(){
@@ -1085,6 +1088,7 @@ public class ClaimSchema extends BasePage {
         clickOnDiscretionaryCheckbox();
         clickOnDrivingLicenceCheckbox();
         clickOnUrgentExceptionalPaymentCheckbox();
+        clickOnLivingCostsCheckbox();
         expandCollapseClaimCategoriesSection();
     }
 

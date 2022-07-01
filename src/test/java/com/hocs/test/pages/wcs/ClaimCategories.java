@@ -228,6 +228,18 @@ public class ClaimCategories extends BasePage {
     @FindBy(id = "HomelessPaidDate-year")
     public WebElementFacade homelessnessPaidDateYear;
 
+    @FindBy(id = "HomelessAdditionalAmountPaid")
+    public WebElementFacade homelessnessAdditionalAmountPaid;
+
+    @FindBy(id = "HomelessAdditionalAmountPaidDate-day")
+    public WebElementFacade homelessnessAdditionalPaidDateDay;
+
+    @FindBy(id = "HomelessAdditionalAmountPaidDate-month")
+    public WebElementFacade homelessnessAdditionalPaidDateMonth;
+
+    @FindBy(id = "HomelessAdditionalAmountPaidDate-year")
+    public WebElementFacade homelessnessAdditionalPaidDateYear;
+
     @FindBy(id = "ImpactPrelimOffer")
     public WebElementFacade impactPreliminaryOfferTextField;
 
@@ -332,6 +344,24 @@ public class ClaimCategories extends BasePage {
 
     @FindBy(id = "UepDeduct")
     public WebElementFacade urgentExceptionalPaymentDeductedAmount;
+
+    @FindBy(id = "LivingType")
+    public WebElementFacade livingCostsPaymentType;
+
+    @FindBy(id = "LivingAward")
+    public WebElementFacade livingCostsAmountAwarded;
+
+    @FindBy(id = "LivingPaid")
+    public WebElementFacade livingCostsAmountPaid;
+
+    @FindBy(id = "LivingPaidDate-day")
+    public WebElementFacade livingCostsPaidDateDay;
+
+    @FindBy(id = "LivingPaidDate-month")
+    public WebElementFacade livingCostsPaidDateMonth;
+
+    @FindBy(id = "LivingPaidDate-year")
+    public WebElementFacade livingCostsPaidDateYear;
 
     @FindBy(id = "TotalAward")
     public WebElementFacade totalAwardedBox;
@@ -547,7 +577,7 @@ public class ClaimCategories extends BasePage {
         typeIntoDateFields(educationPaidDateDay, educationPaidDateMonth, educationPaidDateYear, date);
     }
 
-    public void homelessnessInput(int paymentType, int amountAwarded, int amountPaid, String date) {
+    public void homelessnessInput(int paymentType, int amountAwarded, int amountPaid, int additionalAmountPaid, String paymentDate, String additionalPaymentDate) {
         homelessnessPaymentType.selectByIndex(paymentType);
 
         typeInto(homelessnessAmountAwarded, String.valueOf(amountAwarded));
@@ -556,7 +586,13 @@ public class ClaimCategories extends BasePage {
         typeInto(homelessnessAmountPaid, String.valueOf(amountPaid));
         addToAmountPaidTotal(amountPaid);
 
-        typeIntoDateFields(homelessnessPaidDateDay, homelessnessPaidDateMonth, homelessnessPaidDateYear, date);
+        typeIntoDateFields(homelessnessPaidDateDay, homelessnessPaidDateMonth, homelessnessPaidDateYear, paymentDate);
+
+        typeInto(homelessnessAdditionalAmountPaid, String.valueOf(additionalAmountPaid));
+        addToAmountPaidTotal(additionalAmountPaid);
+
+        typeIntoDateFields(homelessnessAdditionalPaidDateDay, homelessnessAdditionalPaidDateMonth, homelessnessAdditionalPaidDateYear,
+                additionalPaymentDate);
     }
 
     public void impactOnDailyLifeInput(int paymentType, int amountAwarded, int amountPaid, int additionalAmountPaid,
@@ -606,7 +642,18 @@ public class ClaimCategories extends BasePage {
 
         typeInto(urgentExceptionalPaymentDeductedAmount, String.valueOf(amountDeducted));
         subtractFromAmountPaidTotal(amountDeducted);
+    }
 
+    public void livingCostsInputs(int paymentType, int amountAwarded, int amountPaid, String date) {
+        livingCostsPaymentType.selectByIndex(paymentType);
+
+        typeInto(livingCostsAmountAwarded, String.valueOf(amountAwarded));
+        addToAmountAwardedTotal(amountAwarded);
+
+        typeInto(livingCostsAmountPaid, String.valueOf(amountPaid));
+        addToAmountPaidTotal(amountPaid);
+
+        typeIntoDateFields(livingCostsPaidDateDay, livingCostsPaidDateMonth, livingCostsPaidDateYear, date);
     }
 
     public void preliminaryOfferInputs(int offerValue, int paidValue, String dateSent, String datePaid, String dateConsidered) {

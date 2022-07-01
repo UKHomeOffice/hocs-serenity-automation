@@ -118,10 +118,7 @@ public class Markup extends BasePage {
 
     public void addTopicToCase(String topic) {
         clickAddTopicLink();
-        topicsTextField.click();
-        topicsTextField.sendKeys(topic);
-        waitABit(1000);
-        topicsTextField.sendKeys(Keys.RETURN);
+        selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
         waitABit(1000);
         safeClickOn(addButton);
     }
