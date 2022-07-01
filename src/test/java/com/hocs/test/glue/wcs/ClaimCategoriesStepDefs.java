@@ -76,6 +76,9 @@ public class ClaimCategoriesStepDefs {
             case "URGENT EXCEPTIONAL PAYMENT":
                 claimSchema.clickOnUrgentExceptionalPaymentCheckbox();
                 break;
+            case "LIVING COSTS":
+                claimSchema.clickOnLivingCostsCheckbox();
+                break;
             default:
                 pendingStep(ClaimCategory + " is not defined within " + getMethodName());
         }
@@ -114,16 +117,16 @@ public class ClaimCategoriesStepDefs {
                 claimCategories.educationInput(2, Award, Paid, "1/1/2021");
                 setSessionVariable("amountAwarded9").to(Award);
                 break;
-            case "HOMELESSNESS":
-                claimCategories.homelessnessInput(2, Award, Paid, "1/1/2021");
-                setSessionVariable("amountAwarded10").to(Award);
-                break;
             case "DISCRETIONARY":
                 claimCategories.discretionaryInput(2, Award, Paid, "1/1/2021");
                 setSessionVariable("amountAwarded12").to(Award);
                 break;
             case "DRIVING LICENCE":
                 claimCategories.drivingLicenceInputs(2, Award, Paid, "1/1/2021");
+                setSessionVariable("amountAwarded13").to(Award);
+                break;
+            case "LIVING COSTS":
+                claimCategories.livingCostsInputs(2, Award, Paid, "1/1/2021");
                 setSessionVariable("amountAwarded13").to(Award);
                 break;
             default:
@@ -143,6 +146,10 @@ public class ClaimCategoriesStepDefs {
             case "EMPLOYMENT":
                 claimCategories.employmentInputs(2, Award, Paid, AdditionalPaid, "1/1/2021", "1/1/2021");
                 setSessionVariable("amountAwarded3").to(Award);
+                break;
+            case "HOMELESSNESS":
+                claimCategories.homelessnessInput(2, Award, Paid, AdditionalPaid, "1/1/2021", "1/1/2021");
+                setSessionVariable("amountAwarded10").to(Award);
                 break;
             case "IMPACT ON DAILY LIFE":
                 claimCategories.impactOnDailyLifeInput(2, Award, Paid, AdditionalPaid, "1/1/2021", "1/1/2021");
