@@ -37,7 +37,7 @@ Feature: Claim Categories
     And I select the "EDUCATION" checkbox
     And I choose a full payment for the "EDUCATION" and enter 5 into the Amount Awarded field, and 100 into the Amount Paid field
     And I select the "HOMELESSNESS" checkbox
-    And I choose a full payment for the "HOMELESSNESS" and enter 5 into the Amount Awarded field, and 100 into the Amount Paid field
+    And I choose a full payment for the "HOMELESSNESS" and enter 5 into the Amount Awarded field, 100 into the Amount Paid field, and 1000 into the Additional Amount Paid field
     And I select the "IMPACT ON DAILY LIFE" checkbox
     And I enter 5 into the Preliminary Offer field, and 100 into the Preliminary Offer Paid Amount field
     And I choose a full payment for the "IMPACT ON DAILY LIFE" and enter 5 into the Amount Awarded field, 100 into the Amount Paid field, and 1000 into the Additional Amount Paid field
