@@ -204,17 +204,9 @@ public class DocumentsStepDefs extends BasePage {
         }
     }
 
-    @And("I upload my Primary Draft document")
-    public void iUploadMyPrimaryDraftDocument() {
-        if (pogrCase()) {
-            iAddATypeDocumentToTheCase("Draft");
-        } else if (toCase()) {
-            iAddATypeDocumentToTheCase("Initial Draft");
-        } else if (foiCase()) {
-            iAddATypeDocumentToTheCase("Draft response");
-        } else {
-            iAddATypeDocumentToTheCase("DRAFT");
-        }
+    @And("I upload my Primary {string} document")
+    public void iUploadMyPrimaryDraftDocument(String docType) {
+        iAddATypeDocumentToTheCase(docType);
         documents.recordPrimaryDraftDocument();
     }
 

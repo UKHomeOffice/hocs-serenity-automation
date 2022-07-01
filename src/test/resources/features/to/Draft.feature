@@ -7,7 +7,7 @@ Feature: Draft
 
   @TOWorkflow @TORegression
   Scenario: As a Draft user, I want to be able to send a case to Dispatch, so the reply can be sent out
-    When I add an "Initial Draft" type document to the case
+    And I upload my Primary "Initial Draft" document
     And I send the Treat Official case to Dispatch
     Then the case should be moved to the "Dispatch" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
@@ -16,7 +16,7 @@ Feature: Draft
 
   @TOWorkflow @TORegression
   Scenario: As a Draft user, I want to be able to send a case to QA, so the draft reply can be reviewed
-    When I add an "Initial Draft" type document to the case
+    And I upload my Primary "Initial Draft" document
     And I send the Treat Official case to QA
     Then the case should be moved to the "QA" stage
     And the case should still be owned by the correct Treat Official team for the selected business area

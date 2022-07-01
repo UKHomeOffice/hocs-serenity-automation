@@ -10,7 +10,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
@@ -22,7 +22,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Ex-Gratia Send" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -34,7 +34,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -47,7 +47,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Service QA" stage
     And the summary should display the owning team as "CCT Stage 1 Response QA"
@@ -59,7 +59,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Ex-Gratia QA" stage
     And the summary should display the owning team as "Ex-Gratia"
@@ -71,7 +71,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Minor Misconduct QA" stage
     And the summary should display the owning team as "Minor Misconduct"
@@ -141,7 +141,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
     Then the case should be moved to the "Stage 2 Service Send" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
@@ -153,7 +153,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
     Then the case should be moved to the "Stage 2 Service QA" stage
     And the summary should display the owning team as "Stage 2 CCT Response QA"
@@ -191,7 +191,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Draft" stage
     And I load and claim the current case
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I click the "Response Ready" button
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "Serious Misconduct"
@@ -204,7 +204,7 @@ Feature: Complaints Draft
   Scenario: User completes the Draft stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Draft stage
     Then the case should be moved to the "Send draft response" stage
     And the summary should display the owning team as "Border Force"
@@ -215,7 +215,7 @@ Feature: Complaints Draft
   Scenario: User can send a BF complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Draft stage
     Then the case should be moved to the "QA" stage
     And the summary should display the owning team as "Border Force"
@@ -227,7 +227,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case and move it to the "Draft" stage
     And I load and claim the current case
-    And I add a "DRAFT" type document to the case
+    And I upload my Primary "DRAFT" document
     And I escalate the case to WFM at Draft stage
     Then the case should be moved to the "Escalated to WFM" stage
     And the summary should display the owning team as "Border Force"
@@ -252,7 +252,7 @@ Feature: Complaints Draft
   Scenario: User completes the Draft stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Draft stage
     Then the case should be moved to the "Send draft response (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -263,7 +263,7 @@ Feature: Complaints Draft
   Scenario: User can send a BF stage 2 complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
-    And I upload my Primary Draft document
+    And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Draft stage
     Then the case should be moved to the "QA (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -275,7 +275,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Draft" stage
     And I load and claim the current case
-    And I add a "DRAFT" type document to the case
+    And I upload my Primary "DRAFT" document
     And I escalate the case to WFM at Draft stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
     And the summary should display the owning team as "Border Force (Stage 2)"
@@ -338,27 +338,29 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to QA stage, so my Draft response can be reviewed
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
-    And I add a "DRAFT" type document to the case
+    And I upload my Primary "Draft" document
     And I select the "Send to QA" action at the Draft stage
     Then the case should be moved to the "QA" stage
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the selected document should be tagged as the primary draft
     Examples:
       | businessArea |
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to Dispatch stage, so my Draft response can be sent out
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
-    And I add a "DRAFT" type document to the case
+    And I upload my Primary "Draft" document
     And I select the "Send to Dispatch" action at the Draft stage
     Then the case should be moved to the "Dispatch" stage
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the selected document should be tagged as the primary draft
     Examples:
       | businessArea |
       | HMPO         |
