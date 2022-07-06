@@ -49,13 +49,6 @@ public class ComplaintsDraft extends BasePage {
         }
     }
 
-    public void completePOGRComplaintTelephoneResponseScreen() {
-        safeClickOn(resolvedByTelephoneCheckbox);
-        String phoneCallSummary = enterTextIntoTextAreaWithHeading("Case Notes");
-        setSessionVariable("phoneCallSummary").to(phoneCallSummary);
-        safeClickOn(continueButton);
-    }
-
     public void submitEscalationReason() {
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
@@ -68,5 +61,21 @@ public class ComplaintsDraft extends BasePage {
         } else if (errorMessage.equalsIgnoreCase("PRIMARY DRAFT DOCUMENT")) {
             primaryDraftDocumentIsRequiredErrorMessage.shouldBeVisible();
         }
+    }
+
+    public void selectIfResolvedByPhoneCall(String yesNo) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Resolved by Phone");
+        setSessionVariable("resolvedByPhone").to(yesNo);
+    }
+
+
+    public void enterDateOfPhoneCall() {
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1),"Date of Call");
+        setSessionVariable("callDate").to(getDatePlusMinusNDaysAgo(-1));
+    }
+
+    public void enterDetailsOfPhoneCall() {
+        String callDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Case Notes");
+        setSessionVariable("callDetails").to(callDetails);
     }
 }

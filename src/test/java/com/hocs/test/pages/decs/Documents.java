@@ -280,8 +280,8 @@ public class Documents extends BasePage {
     }
 
     public void recordPrimaryDraftDocument() {
-        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='DraftDocuments'][@checked]/following-sibling::label");
-        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='DraftDocuments'][@checked]/ancestor::fieldset//span");
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[contains(@name,'Draft')][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[contains(@name,'Draft')][@checked]/ancestor::fieldset//span");
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());

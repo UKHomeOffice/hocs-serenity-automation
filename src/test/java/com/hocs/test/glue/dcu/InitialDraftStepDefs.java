@@ -74,11 +74,6 @@ public class InitialDraftStepDefs extends BasePage {
         clickTheButton("Finish");
     }
 
-    @And("I select the {string} document as the primary draft")
-    public void iSelectTheDocumentAsThePrimaryDraft(String document) {
-        documents.selectPrimaryDraft(sessionVariableCalled(document));
-    }
-
     @And("the case should be assigned to the DCU draft team created in Management UI")
     public void theCaseShouldBeAssignedToTheDCUDraftTeamCreatedInMUI() {
         summaryTab.selectSummaryTab();

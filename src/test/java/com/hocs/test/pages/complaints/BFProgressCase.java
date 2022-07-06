@@ -2,8 +2,6 @@ package com.hocs.test.pages.complaints;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -13,8 +11,6 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import com.hocs.test.pages.decs.Search;
-import net.serenitybdd.core.pages.WebElementFacade;
 
 public class BFProgressCase extends BasePage {
 
@@ -30,9 +26,9 @@ public class BFProgressCase extends BasePage {
 
     Correspondents correspondents;
 
-    Registration registration;
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    ComplaintsTriage complaintsTriage;
+    ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
     ComplaintsSend complaintsSend;
 
@@ -125,33 +121,33 @@ public class BFProgressCase extends BasePage {
     public void moveBFCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickTheButton("Continue");
-        registration.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
         if (bfCase()) {
-            registration.selectAComplaintType();
+            complaintsRegistrationAndDataInput.selectAComplaintType();
             clickTheButton("Continue");
         }
-        registration.selectAChannel();
-        registration.enterADescriptionOfTheComplaint();
-        registration.enterAPreviousComplaintReference();
-        registration.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.enterAPreviousComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Finish");
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 
     public void moveBFCaseFromTriageToDraft() {
-        complaintsTriage.selectAcceptCase();
+        complaintsTriageAndInvestigation.selectAcceptCase();
         clickTheButton("Continue");
-        complaintsTriage.enterDetailsOnBFTriageDetailsPage();
-        complaintsTriage.selectReadyForDrafting();
+        complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
+        complaintsTriageAndInvestigation.selectReadyForDrafting();
         System.out.println("Case moved from Case Triage to Draft");
     }
 
     public void moveBFCaseFromTriageToEscalated() {
-        complaintsTriage.selectAcceptCase();
+        complaintsTriageAndInvestigation.selectAcceptCase();
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Details");
-        complaintsTriage.enterDetailsOnBFTriageDetailsPage();
-        complaintsTriage.escalateCaseToWFM();
+        complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
+        complaintsTriageAndInvestigation.escalateCaseToWFM();
         System.out.println("Case moved from Case Triage to Escalated to WFM");
     }
 
@@ -191,11 +187,11 @@ public class BFProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(infoValue);
-                registration.selectAGender();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 safeClickOn(continueButton);
                 break;
             case "CASE REFERENCE":
@@ -207,11 +203,11 @@ public class BFProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB("01/01/2001");
-                registration.selectAGender();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(infoValue);
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 safeClickOn(continueButton);
                 break;
             default:

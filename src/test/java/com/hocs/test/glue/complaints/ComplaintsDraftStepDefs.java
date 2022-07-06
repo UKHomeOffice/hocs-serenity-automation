@@ -21,11 +21,6 @@ public class ComplaintsDraftStepDefs extends BasePage {
         complaintsDraft.submitEscalationReason();
     }
 
-    @And("I complete the Complaint Telephone Response screen")
-    public void iCompleteTheComplaintTelephoneResponseScreen() {
-        complaintsDraft.completePOGRComplaintTelephoneResponseScreen();
-    }
-
     @Then("an error message is displayed as I have not uploaded a document")
     public void anErrorMessageIsDisabledAsIHaveNotUploadedADocument() {
         complaintsDraft.assertErrorMessageIsDisplayed("Primary Draft Document");
@@ -41,5 +36,22 @@ public class ComplaintsDraftStepDefs extends BasePage {
         String rejectionReason = enterTextIntoTextAreaWithHeading("Enter reason for rejection");
         setSessionVariable("rejectionReason").to(rejectionReason);
         clickTheButton("Reject");
+    }
+
+    @And("I select that the case was resolved by the phone call")
+    public void iSelectThatTheCaseWasResolved() {
+        complaintsDraft.selectIfResolvedByPhoneCall("Yes");
+    }
+
+    @And("I select that the case was not resolved by the phone call")
+    public void iSelectThatTheCaseWasNotResolved() {
+        complaintsDraft.selectIfResolvedByPhoneCall("No");
+    }
+
+    @And("I submit details of the phone call")
+    public void iSubmitDetailsOfTheCall() {
+        complaintsDraft.enterDateOfPhoneCall();
+        complaintsDraft.enterDetailsOfPhoneCall();
+        clickTheButton("Continue");
     }
 }

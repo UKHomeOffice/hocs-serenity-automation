@@ -79,7 +79,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             case "POGR":
-                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage);
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

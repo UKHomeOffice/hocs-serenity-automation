@@ -6,11 +6,13 @@ Feature: Consider and Draft
     When I create a "FOI" case and move it to the "Consider and Draft" stage
     And I load and claim the current case
 
+  @FOIRegression
   Scenario: User is able to complete the Consider and Draft stage
     And I select that the case "Doesn't" require a contribution
-    And I add a "Draft response" type document to the case
+    And I upload my Primary "Draft response" document
     And I click the "Complete Draft" button
     Then the case should be moved to the "Approval" stage
+    And the selected document should be tagged as the primary draft
 
   #HOCS-2809, HOCS-2930
   @FOIRegression

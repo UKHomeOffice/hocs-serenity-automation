@@ -27,9 +27,9 @@ public class COMPProgressCase extends BasePage {
 
     Dashboard dashboard;
 
-    Registration registration;
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    ComplaintsTriage complaintsTriage;
+    ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
     ComplaintsDraft complaintsDraft;
 
@@ -149,61 +149,61 @@ public class COMPProgressCase extends BasePage {
     public void moveCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
-        registration.enterComplainantDetails();
-        registration.selectASpecificComplaintType(complaintType);
-        registration.enterComplaintDetails();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        complaintsRegistrationAndDataInput.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("SERVICE")) {
             clickTheButton("Continue");
-            registration.openTheServiceComplaintCategoryAccordion();
+            complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
             waitABit(1000);
-            registration.selectAVisibleClaimCategory();
-            registration.selectAnOwningCSU();
+            complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+            complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
         clickTheButton("Finish");
     }
 
     public void moveCaseFromTriageToDraft() {
-        complaintsTriage.selectAcceptCase();
+        complaintsTriageAndInvestigation.selectAcceptCase();
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
-            complaintsTriage.enterDateOfAcceptance();
+            complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Category");
-        complaintsTriage.enterDetailsOnComplaintCategoryPage();
+        complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Capture Reason");
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
-            complaintsTriage.enterLoAReceivedDetails();
+            complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
-        complaintsTriage.selectReadyForDrafting();
+        complaintsTriageAndInvestigation.selectReadyForDrafting();
     }
 
     public void moveCaseFromTriageToEscalated() {
-        complaintsTriage.selectAcceptCase();
+        complaintsTriageAndInvestigation.selectAcceptCase();
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
-            complaintsTriage.enterDateOfAcceptance();
+            complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Category");
-        complaintsTriage.enterDetailsOnComplaintCategoryPage();
+        complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         waitForPageWithTitle("Triage Capture Reason");
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
-        complaintsTriage.escalateCaseToWFM();
+        complaintsTriageAndInvestigation.escalateCaseToWFM();
     }
 
     public void moveCaseFromTriageToCCH() {
-        complaintsTriage.selectTransferComplaint();
-        complaintsTriage.enterTransferReason();
-        complaintsTriage.selectTransferToCCH();
+        complaintsTriageAndInvestigation.selectTransferComplaint();
+        complaintsTriageAndInvestigation.enterTransferReason();
+        complaintsTriageAndInvestigation.selectTransferToCCH();
     }
 
     public void moveCaseFromDraftToQA() {
@@ -243,19 +243,19 @@ public class COMPProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(infoValue);
-                registration.selectAGender();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference("Test entry for Home Office Reference");
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 safeClickOn(continueButton);
-                registration.selectASpecificComplaintType("Service");
-                registration.selectAChannel();
-                registration.selectASeverity();
+                complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+                complaintsRegistrationAndDataInput.selectAComplaintChannel();
+                complaintsRegistrationAndDataInput.selectASeverity();
                 safeClickOn(continueButton);
-                registration.openTheServiceComplaintCategoryAccordion();
-                registration.selectAVisibleClaimCategory();
-                registration.selectAnOwningCSU();
+                complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
+                complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+                complaintsRegistrationAndDataInput.selectAnOwningCSU();
                 safeClickOn(finishButton);
                 break;
             case "CASE REFERENCE":
@@ -267,11 +267,11 @@ public class COMPProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB("01/01/2001");
-                registration.selectAGender();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(infoValue);
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 safeClickOn(continueButton);
                 break;
             default:

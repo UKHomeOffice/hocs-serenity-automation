@@ -17,14 +17,12 @@ public class DraftStepDefs extends BasePage {
 
     @And("I send the Treat Official case to Dispatch")
     public void iSendTheTreatOfficialCaseToDispatch() {
-        documents.recordPrimaryDraftDocument();
         selectTheStageAction("Send to Dispatch");
         clickTheButton("Finish");
     }
 
     @And("I send the Treat Official case to QA")
     public void iSendTheTreatOfficialCaseToQA() {
-        documents.recordPrimaryDraftDocument();
         selectTheStageAction("Move to QA");
         clickTheButton("Finish");
     }

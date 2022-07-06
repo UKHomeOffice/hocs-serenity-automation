@@ -283,4 +283,13 @@ public class SummaryTabStepDefs extends BasePage {
     public void theDeadlineOfTheCaseShouldBeReplacedWithTheWordInTheSummaryTab(String replacementValue) {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(replacementValue, "Deadline");
     }
+
+    @And("the summary should contain details of the phone call")
+    public void theSummaryShouldContainDetailsOfThePhoneCall() {
+        String resolvedByPhone = sessionVariableCalled("resolvedByPhone");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(resolvedByPhone, "Resolved by Phone");
+        if (resolvedByPhone.equalsIgnoreCase("Yes")) {
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("callDate"), "Date of Call");
+        }
+    }
 }

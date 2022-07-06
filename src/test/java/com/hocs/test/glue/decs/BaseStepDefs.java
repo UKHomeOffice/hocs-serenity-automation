@@ -36,6 +36,11 @@ public class BaseStepDefs extends BasePage {
         assertPageTitle(pageTitle);
     }
 
+    @Then("I should be returned to the {string} page")
+    public void iShouldBeReturnedToTheScreen(String pageTitle) {
+        assertPageTitle(pageTitle);
+    }
+
     @Then("an error message is displayed")
     public void anErrorMessageIsDisplayed() {
         assertThatAnErrorMessageIsDisplayed();

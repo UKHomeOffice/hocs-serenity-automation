@@ -20,9 +20,9 @@ public class IEDETProgressCase extends BasePage {
 
     Correspondents correspondents;
 
-    Registration registration;
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    ComplaintsTriage complaintsTriage;
+    ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
     ComplaintsSend complaintsSend;
 
@@ -95,25 +95,25 @@ public class IEDETProgressCase extends BasePage {
     public void moveIEDETCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
-        registration.enterComplainantDetails();
-        registration.selectASpecificComplaintType("Service");
-        registration.selectAChannel();
-        registration.selectComplaintOrigin();
-        registration.enterADescriptionOfTheComplaint();
-        registration.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
+        complaintsRegistrationAndDataInput.selectComplaintOrigin();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Continue");
-        registration.openTheServiceComplaintCategoryAccordion();
+        complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
         waitABit(1000);
-        registration.selectAVisibleClaimCategory();
-        registration.selectAnOwningCSU();
+        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+        complaintsRegistrationAndDataInput.selectAnOwningCSU();
         clickTheButton("Finish");
         System.out.println("Case moved from Registration to Triage");
     }
 
     public void moveIEDETCaseFromTriageToDraft() {
-        complaintsTriage.selectTransferredToIEDetentionComplianceTeam();
+        complaintsTriageAndInvestigation.selectTransferredToIEDetentionComplianceTeam();
         clickTheButton("Continue");
-        complaintsTriage.enterDetailsOnTriageCaptureReasonPage();
+        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         safeClickOn(continueButton);
         System.out.println("Case moved from Triage to Draft");
     }
@@ -152,12 +152,12 @@ public class IEDETProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(infoValue);
-                registration.selectAGender();
-                registration.selectANationality();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 clickTheButton("Continue");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
@@ -166,12 +166,12 @@ public class IEDETProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                registration.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-                registration.selectAGender();
-                registration.selectANationality();
-                registration.enterACompanyName();
-                registration.enterAHomeOfficeReference(infoValue);
-                registration.enterAPortReference();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                complaintsRegistrationAndDataInput.enterAPortReference();
                 clickTheButton("Continue");
                 break;
             default:
