@@ -118,16 +118,20 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     public void iRecordThatTheCaseIsAPriorityCase() {
         complaintsRegistrationAndDataInput.selectPOGRCategory();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.selectIsLoARequired();
         complaintsRegistrationAndDataInput.checkPriorityCheckbox();
         safeClickOn(continueButton);
+        waitABit(1000);
     }
 
     @And("I record that the case was not received by post")
     public void iRecordThatTheCaseWasNotReceivedByPost() {
         complaintsRegistrationAndDataInput.selectPOGRCategory();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.selectIsLoARequired();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Email");
         safeClickOn(continueButton);
+        waitABit(1000);
     }
 
     @And("I record that the case was received by post")
@@ -135,6 +139,8 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         complaintsRegistrationAndDataInput.selectPOGRCategory();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Post");
+        complaintsRegistrationAndDataInput.selectIsLoARequired();
         safeClickOn(continueButton);
+        waitABit(1000);
     }
 }

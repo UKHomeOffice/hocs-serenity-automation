@@ -207,7 +207,7 @@ Feature: Registration
     And I enter details on the Data Input screen
     And I add an "Interim Letter" type document to the case
     And I enter the date that the Interim letter was sent
-    Then the case should be moved to the "Investigating Triage" stage
+    Then the case should be moved to the "Investigation" stage
     And the summary should display the owning team as "HMPO Complaints"
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
@@ -222,6 +222,6 @@ Feature: Registration
     And I add an "Interim Letter" type document to the case
     And I enter the date that the Interim letter was sent
     And I select the investigating team for the case
-    Then the case should be moved to the "Investigating Triage" stage
+    Then the case should be moved to the "Investigation" stage
     And the POGR case should be assigned to the correct investigating team
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage

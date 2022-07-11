@@ -249,17 +249,6 @@ Feature: Complaints Draft
 #     BF STAGE 2 COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
-  Scenario: User completes the Draft stage for a BF complaint case
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF2" case at the "Draft" stage
-    And I upload my Primary "DRAFT" document
-    And I select the "Response is ready to send" action at the Draft stage
-    Then the case should be moved to the "Send draft response (Stage 2)" stage
-    And the summary should display the owning team as "Border Force (Stage 2)"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
-    And the selected document should be tagged as the primary draft
-
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
   Scenario: User can send a BF stage 2 complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
@@ -318,8 +307,10 @@ Feature: Complaints Draft
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
     And I select that the case was not resolved by the phone call
+    And I submit details of the phone call
     And I click the "Continue" button
     Then I should be returned to the "Draft" page
+    And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
     And the summary should contain details of the phone call
     Examples:
       | businessArea |
