@@ -193,6 +193,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I select the {string} document as the primary draft")
     public void iSelectTheDocumentAsThePrimaryDraft(String document) {
         documents.selectPrimaryDraft(sessionVariableCalled(document));
+        documents.recordPrimaryDraftDocument();
     }
 
     @And("I confirm/approve the (new )primary draft document")
