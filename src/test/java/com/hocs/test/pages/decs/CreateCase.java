@@ -391,7 +391,7 @@ public class CreateCase extends BasePage {
         search.searchByCaseReference(getCurrentCaseReference());
         search.waitForResultsPage();
         int retries = 0;
-        while ((search.getNumberOfSearchResults() == 0) && (retries < 3)) {
+        while ((search.getNumberOfSearchResults() == 0) && (retries < 6)) {
             waitABit(5000);
             dashboard.selectSearchLinkFromMenuBar();
             selectStage1CaseTypeSearchCriteriaIfVisible();
