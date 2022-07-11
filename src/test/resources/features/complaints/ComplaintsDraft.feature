@@ -249,17 +249,6 @@ Feature: Complaints Draft
 #     BF STAGE 2 COMPLAINTS
 
   @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
-  Scenario: User completes the Draft stage for a BF complaint case
-    Given I am logged into "CS" as user "BF_USER"
-    When I get a "BF2" case at the "Draft" stage
-    And I upload my Primary "DRAFT" document
-    And I select the "Response is ready to send" action at the Draft stage
-    Then the case should be moved to the "Send draft response (Stage 2)" stage
-    And the summary should display the owning team as "Border Force (Stage 2)"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
-    And the selected document should be tagged as the primary draft
-
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
   Scenario: User can send a BF stage 2 complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
