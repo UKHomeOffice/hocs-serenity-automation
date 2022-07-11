@@ -298,7 +298,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     Examples:
       | businessArea |
-#      | HMPO         |
+      | HMPO         |
       | GRO          |
 
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
