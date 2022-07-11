@@ -115,7 +115,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     }
 
     @And("I record that the case is a Priority case")
-    public void  iRecordThatTheCaseIsAPriorityCase() {
+    public void iRecordThatTheCaseIsAPriorityCase() {
         complaintsRegistrationAndDataInput.selectPOGRCategory();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectIsLoARequired();
