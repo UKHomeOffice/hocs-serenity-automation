@@ -354,7 +354,7 @@ public class CreateCase extends BasePage {
 
     public void createWCSCase() {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        clickTheButton("Create claim");
+//        clickTheButton("Create claim");
         setSessionVariable("caseType").to("WCS");
         setCaseReferenceFromAssignedCase();
         System.out.println("WCS Claim " + sessionVariableCalled("caseReference") + " created");
