@@ -298,7 +298,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     Examples:
       | businessArea |
-      | HMPO         |
+#      | HMPO         |
       | GRO          |
 
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
@@ -307,8 +307,10 @@ Feature: Complaints Draft
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
     And I select that the case was not resolved by the phone call
+    And I submit details of the phone call
     And I click the "Continue" button
     Then I should be returned to the "Draft" page
+    And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
     And the summary should contain details of the phone call
     Examples:
       | businessArea |

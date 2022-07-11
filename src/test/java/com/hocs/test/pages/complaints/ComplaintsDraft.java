@@ -64,7 +64,7 @@ public class ComplaintsDraft extends BasePage {
     }
 
     public void selectIfResolvedByPhoneCall(String yesNo) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Resolved by Phone");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(yesNo, "Was the case resolved by phone call?");
         setSessionVariable("resolvedByPhone").to(yesNo);
     }
 
@@ -75,7 +75,7 @@ public class ComplaintsDraft extends BasePage {
     }
 
     public void enterDetailsOfPhoneCall() {
-        String callDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Case Notes");
+        String callDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Details of Phone Call");
         setSessionVariable("callDetails").to(callDetails);
     }
 }

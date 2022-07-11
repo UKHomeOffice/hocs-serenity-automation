@@ -287,7 +287,7 @@ public class SummaryTabStepDefs extends BasePage {
     @And("the summary should contain details of the phone call")
     public void theSummaryShouldContainDetailsOfThePhoneCall() {
         String resolvedByPhone = sessionVariableCalled("resolvedByPhone");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(resolvedByPhone, "Resolved by Phone");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(resolvedByPhone, "Was the case resolved by phone call?");
         if (resolvedByPhone.equalsIgnoreCase("Yes")) {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("callDate"), "Date of Call");
         }
