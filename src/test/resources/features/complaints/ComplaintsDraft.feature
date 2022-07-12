@@ -322,7 +322,10 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Return to Investigation" action at the Draft stage
+    And I submit a rejection reason
     Then the case should be returned to the "Investigation" stage
+    And the case "should" be allocated to me in the summary
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     Examples:
       | businessArea |

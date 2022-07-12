@@ -33,7 +33,13 @@ public class ComplaintsDraftStepDefs extends BasePage {
 
     @And("I submit a rejection reason")
     public void iSubmitARejectionReason() {
-        String rejectionReason = enterTextIntoTextAreaWithHeading("Enter reason for rejection");
+        String rejectionReason;
+        if (pogrCase()) {
+            rejectionReason = enterTextIntoTextAreaWithHeading("Reason for rejection");
+        } else {
+            rejectionReason = enterTextIntoTextAreaWithHeading("Enter reason for rejection");
+
+        }
         setSessionVariable("rejectionReason").to(rejectionReason);
         clickTheButton("Reject");
     }
