@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class CreateCase extends BasePage {
@@ -391,13 +392,16 @@ public class CreateCase extends BasePage {
         search.searchByCaseReference(getCurrentCaseReference());
         search.waitForResultsPage();
         int retries = 0;
-        while ((search.getNumberOfSearchResults() == 0) && (retries < 3)) {
+        while ((search.getNumberOfSearchResults() == 0) && (retries <= 6)) {
             waitABit(5000);
             dashboard.selectSearchLinkFromMenuBar();
             selectStage1CaseTypeSearchCriteriaIfVisible();
             search.searchByCaseReference(getCurrentCaseReference());
             search.waitForResultsPage();
             retries++;
+        }
+        if(search.getNumberOfSearchResults()==0) {
+            Assert.fail("Search by stage 1 case reference is still returning 0 results after " + String.valueOf(retries*5) + " seconds");
         }
     }
 
