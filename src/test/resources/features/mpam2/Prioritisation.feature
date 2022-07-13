@@ -5,7 +5,7 @@ Feature: Prioritisation
     Given I am logged into "CS" as user "MPAM_USER"
 
   @MPAMRegression2
-  Scenario: User checks that a Ministerial case is given a higher priority in My Cases workstack than an Offical case
+  Scenario: User checks that a Ministerial case is given a higher priority in My Cases workstack than an Official case
     And I create and claim a MPAM case with "Standard" as the Urgency level and "Ministerial" as the Reference Type
     And I record the case reference of this case as "Ministerial"
     And I create and claim a MPAM case with "Standard" as the Urgency level and "Official" as the Reference Type

@@ -788,7 +788,7 @@ public class Search extends BasePage {
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
-                if (!accordionSectionIsVisible("Case Registration")) {
+                if (!accordionSectionIsVisible("Case Registration") && !accordionSectionIsVisible("Case Registration (Stage 2)") ) {
                     summaryTab.selectSummaryTab();
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
@@ -796,8 +796,13 @@ public class Search extends BasePage {
                     dashboard.selectWorkstackByTeamName(assignedTeam);
                     workstacks.unallocateSelectedCase(randomSearchResult);
                     workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                    caseView.waitForCaseToLoad();
                 }
-                openOrCloseAccordionSection("Case Registration");
+                if (accordionSectionIsVisible("Case Registration")) {
+                    openOrCloseAccordionSection("Case Registration");
+                } else if (accordionSectionIsVisible("Case Registration (Stage 2)")) {
+                    openOrCloseAccordionSection("Case Registration (Stage 2)");
+                }
                 displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;

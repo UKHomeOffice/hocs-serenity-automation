@@ -94,6 +94,9 @@ public class Workdays extends BasePage{
         int totalWorkDays = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse(startDate, formatter);
+        while (!isWorkday(date)) {
+            date = date.plusDays(1);
+        }
         while (totalWorkDays < targetAmount) {
             date = date.plusDays(1);
             if (isWorkday(date)) {
