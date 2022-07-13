@@ -73,13 +73,13 @@ public class ProgressCaseStepDefs extends BasePage {
                 foiProgressCase.completeTheFOIStage(stage);
                 break;
             case "WCS":
-                wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
+                wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             case "TO":
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             case "POGR":
-                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage,"Happy Path");
+                pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -110,7 +110,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case "BF":
             case "BF2":
-                bfProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType,currentStage, targetStage);
+                bfProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             case "FOI":
                 foiProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
@@ -145,15 +145,11 @@ public class ProgressCaseStepDefs extends BasePage {
     @And("I get a {string} case/claim at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);
-        boolean previousStageWasSticky;
-        previousStageWasSticky = (caseType.equals("FOI") && (stage.equalsIgnoreCase("CASE CREATION") || stage.equalsIgnoreCase(
-                "ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION")));
-            if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWasSticky) {
-                dashboard.getCurrentCase();
-            } else {
-                dashboard.getAndClaimCurrentCase();
-            }
-
+        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated(caseType, stage)) {
+            dashboard.getCurrentCase();
+        } else {
+            dashboard.getAndClaimCurrentCase();
+        }
     }
 
     @And("I get a DCU {string} case at the {string} stage that should be copied to Number 10")
@@ -180,9 +176,9 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @When("I create a {string} case for a {string} complaint and move it to {string}( stage)")
     public void iCreateACaseForAComplaintAndMoveItToStage(String caseType, String complaintType, String stage) {
-        if(caseType.equalsIgnoreCase("BF")) {
+        if (caseType.equalsIgnoreCase("BF")) {
             bfProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
-        } else{
+        } else {
             compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
         }
     }
@@ -197,6 +193,22 @@ public class ProgressCaseStepDefs extends BasePage {
     @And("I get a POGR case with {string} as the Business Area at the {string} stage")
     public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
         pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
-        dashboard.getAndClaimCurrentCase();
+        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated("POGR", stage)) {
+            dashboard.getCurrentCase();
+        } else {
+            dashboard.getAndClaimCurrentCase();
+        }
+    }
+
+    private boolean previousStageWouldHaveAutoAllocated(String caseType, String stage) {
+        switch (caseType) {
+            case "FOI":
+                return stage.equalsIgnoreCase("CASE CREATION") || stage.equalsIgnoreCase(
+                        "ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION");
+            case "POGR":
+                return (stage.equalsIgnoreCase("DRAFT"));
+            default:
+                return false;
+        }
     }
 }

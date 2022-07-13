@@ -95,6 +95,11 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='Treat Official Creation']")
     public WebElementFacade treatOfficialCreationWorkstack;
 
+    //POGR Teams
+
+    @FindBy(xpath = "//span[text()='HMPO/GRO Registration']")
+    public WebElementFacade hmpoGroRegistrationWorkstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -345,6 +350,11 @@ public class Dashboard extends BasePage {
                 break;
             case "TO_USER":
                 if (treatOfficialCreationWorkstack.isVisible()) {
+                    correctUser = true;
+                }
+                break;
+            case "POGR_USER":
+                if (hmpoGroRegistrationWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;
