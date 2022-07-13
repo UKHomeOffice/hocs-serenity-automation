@@ -48,6 +48,17 @@ public class POGRProgressCase extends BasePage {
         moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
+    public void createCaseAndMoveItToTargetStageWithPrioritySetTo(boolean pogrPriority, String targetStage) {
+        complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
+        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
+    }
+
+    public void createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(String businessArea, boolean pogrPriority, String targetStage) {
+        this.businessArea = businessArea;
+        complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
+        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
+    }
+
     private String getStageThatPrecedesTargetStage(String targetStage) {
         String precedingStage = "";
         setSessionVariable("targetStage").to(targetStage);

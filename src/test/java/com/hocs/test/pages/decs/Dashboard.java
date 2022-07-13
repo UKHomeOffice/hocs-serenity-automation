@@ -220,6 +220,10 @@ public class Dashboard extends BasePage {
         safeClickOn(foiCreationWorkstack);
     }
 
+    public void selectPOGRRegistrationTeam() {
+        safeClickOn(hmpoGroRegistrationWorkstack);
+    }
+
     public void selectWorkstackByTeamName(String teamName) {
         WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);

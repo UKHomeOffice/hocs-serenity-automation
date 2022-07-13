@@ -70,6 +70,28 @@ Feature: Complaints Workstacks
       | Serious Misconduct          |
       | Serious Misconduct My Cases |
 
+  @ComplaintsRegression2
+  Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "yellow"
+    Examples:
+      | amountOfDays | stage        | workstack          |
+      | 55           | Registration | SMC Registration   |
+      | 55           | Triage       | Serious Misconduct |
+
+  @ComplaintsRegression2
+  Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "red"
+    Examples:
+      | amountOfDays | stage        | workstack          |
+      | 61           | Registration | SMC Registration   |
+      | 61           | Triage       | Serious Misconduct |
+
 
 #     BF COMPLAINTS
 
@@ -89,6 +111,19 @@ Feature: Complaints Workstacks
     Then the "Border Force (Stage 2)" workstack should contain only the expected columns
 
 
+#     POGR COMPLAINTS
+
+  @ComplaintsRegression2 @IEDETComplaints
+  Scenario Outline: HMPO/GRO complaints user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "POGR_USER"
+    And I enter the "<workstack>" workstack
+    Then the "<workstack>" workstack should contain only the expected columns
+    Examples:
+      | workstack         |
+      | POGR Registration |
+      | POGR My Cases     |
+
+
 #     ALL COMPLAINTS
 
   # HOCS-3076 HOCS-3161 HOCS-4006
@@ -99,23 +134,12 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "yellow"
     Examples:
-      | caseType           | user       | amountOfDays | workstack                      |
-      | COMP               | COMP_USER  | 15           | Complaint Registration         |
-      | COMP2              | COMP_USER  | 15           | Stage 2 Complaint Registration |
-      | IEDET              | IEDET_USER | 15           | IE Detention                   |
-      | BF                 | BF_USER    | 15           | Border Force                   |
-      | BF2                | BF_USER    | 15           | Border Force (Stage 2)         |
-
-  @ComplaintsRegression2
-  Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "yellow"
-    Examples:
-      | amountOfDays | stage        | workstack          |
-      | 55           | Registration | SMC Registration   |
-      | 55           | Triage       | Serious Misconduct |
+      | caseType | user       | amountOfDays | workstack                      |
+      | COMP     | COMP_USER  | 15           | Complaint Registration         |
+      | COMP2    | COMP_USER  | 15           | Stage 2 Complaint Registration |
+      | IEDET    | IEDET_USER | 15           | IE Detention                   |
+      | BF       | BF_USER    | 15           | Border Force                   |
+      | BF2      | BF_USER    | 15           | Border Force (Stage 2)         |
 
   # HOCS-3076 HOCS-3161 HOCS-4006
   @ComplaintsRegression2
@@ -125,20 +149,10 @@ Feature: Complaints Workstacks
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "red"
     Examples:
-      | caseType           | user       | amountOfDays | workstack                      |
-      | COMP               | COMP_USER  | 21           | Complaint Registration         |
-      | COMP2              | COMP_USER  | 21           | Stage 2 Complaint Registration |
-      | IEDET              | IEDET_USER | 21           | IE Detention                   |
-      | BF                 | BF_USER    | 21           | Border Force                   |
-      | BF2                | BF_USER    | 21           | Border Force (Stage 2)         |
-
-  @ComplaintsRegression2
-  Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "red"
-    Examples:
-      | amountOfDays | stage        | workstack          |
-      | 61           | Registration | SMC Registration   |
-      | 61           | Triage       | Serious Misconduct |
+      | caseType | user       | amountOfDays | workstack                      |
+      | COMP     | COMP_USER  | 21           | Complaint Registration         |
+      | COMP2    | COMP_USER  | 21           | Stage 2 Complaint Registration |
+      | IEDET    | IEDET_USER | 21           | IE Detention                   |
+      | BF       | BF_USER    | 21           | Border Force                   |
+      | BF2      | BF_USER    | 21           | Border Force (Stage 2)         |
+      | POGR     | POGR_USER  | 21           | HMPO/GRO Registration          |

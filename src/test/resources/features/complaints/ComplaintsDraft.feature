@@ -308,7 +308,6 @@ Feature: Complaints Draft
     And I select the "Respond by Phone" action at the Draft stage
     And I select that the case was not resolved by the phone call
     And I submit details of the phone call
-    And I click the "Continue" button
     Then I should be returned to the "Draft" page
     And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
     And the summary should contain details of the phone call

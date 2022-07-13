@@ -293,7 +293,7 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertColumnIsOrderedProperly(column, order);
     }
 
-    @And("I view the MPAM case in the appropriate {string} stage workstack")
+    @And("I view the MPAM case(s) in the appropriate {string} stage workstack")
     public void iViewTheCaseInTheWorkstack(String stage) {
         dashboard.goToDashboard();
         dashboard.selectCorrectMPAMTeamByStage(stage);
@@ -498,6 +498,24 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.goToDashboard();
                     dashboard.selectFOICreationTeam();
                 }
+                break;
+            case "POGR REGISTRATION":
+                try {
+                    dashboard.selectPOGRRegistrationTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("POGR");
+                    dashboard.goToDashboard();
+                    dashboard.selectPOGRRegistrationTeam();
+                }
+                break;
+            case "POGR MY CASES":
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
+                    createCase.createCSCaseOfType("POGR");
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
+                    dashboard.goToDashboard();
+                }
+                dashboard.selectMyCases();
                 break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());

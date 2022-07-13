@@ -819,6 +819,14 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
                         "Extended"));
                 break;
+            case "POGR REGISTRATION":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Deadline",
+                        "Urgency", "Days", "Rejected"));
+                break;
+            case "POGR MY CASES":
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Team", "Deadline",
+                        "Urgency", "Days", "Rejected"));
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
