@@ -17,6 +17,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     RecordCaseData recordCaseData;
 
+    Boolean pogrPriority = true;
+
     public void enterComplainantDOB(String complainantDOB) {
         recordCaseData.enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
     }
@@ -234,9 +236,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         selectLocation();
         enterADescriptionOfTheComplaint();
         selectAComplaintChannel();
-        checkPriorityCheckbox();
+        if (pogrPriority) {
+            checkPriorityCheckbox();
+        }
         enterAThirdPartyReference();
         selectIsLoARequired();
+    }
+
+    public void setPOGRPriority(Boolean priority) {
+        this.pogrPriority = priority;
     }
 
     public void enterDateInterimLetterSent() {

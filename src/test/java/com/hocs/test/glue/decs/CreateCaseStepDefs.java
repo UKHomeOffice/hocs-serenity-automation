@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.POGRProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
@@ -50,6 +51,8 @@ public class CreateCaseStepDefs extends BasePage {
     TOProgressCase toProgressCase;
 
     BFProgressCase bfProgressCase;
+
+    POGRProgressCase pogrProgressCase;
 
     DataInput dataInput;
 
@@ -348,5 +351,31 @@ public class CreateCaseStepDefs extends BasePage {
     public void theCaseShouldBeAllocatedToThePreviouslySelectedUser() {
         summaryTab.selectSummaryTab();
         summaryTab.assertAllocatedUserIs(sessionVariableCalled("selectedUser"));
+    }
+
+    @And("I create and claim a Priority POGR case")
+    public void iCreateAndClaimAPriorityPOGRCase() {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(true, "Investigation");
+        dashboard.waitForDashboard();
+        dashboard.getAndClaimCurrentCase();
+    }
+
+    @And("I create and claim a non-Priority POGR case")
+    public void iCreateAndClaimANonPriorityPOGRCase() {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(false, "Investigation");
+        dashboard.waitForDashboard();
+        dashboard.getAndClaimCurrentCase();
+    }
+
+    @And("I create a {string} Priority POGR case")
+    public void iCreateAPriorityPOGRCase(String businessArea) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(businessArea, true, "Investigation");
+        dashboard.waitForDashboard();
+    }
+
+    @And("I create a {string} non-Priority POGR case")
+    public void iCreateANonPriorityPOGRCase(String businessArea) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(businessArea, false, "Investigation");
+        dashboard.waitForDashboard();
     }
 }

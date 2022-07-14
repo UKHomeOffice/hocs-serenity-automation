@@ -155,8 +155,8 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertAllocatedUserIs(getPreviousUser());
     }
 
-    @And("I record the case reference of this case as {string}")
-    public void iRecordTheCaseReferenceOfThisCaseAs(String sessionVariableName) {
+    @And("I record the case reference of this {string} case")
+    public void iRecordTheCaseReferenceOfThisCase(String sessionVariableName) {
         setSessionVariable(sessionVariableName).to(getCurrentCaseReference());
     }
 
