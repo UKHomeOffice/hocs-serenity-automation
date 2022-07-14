@@ -132,12 +132,10 @@ public class POGRProgressCase extends BasePage {
     public void movePOGRCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("Draft");
         complaintsDraft.selectActionAtDraft("Send to QA");
-        safeClickOn(finishButton);
     }
 
     public void movePOGRCaseFromDraftToDispatch() {
         documents.addADocumentOfDocumentType("Draft");
         complaintsDraft.selectActionAtDraft("Send to Dispatch");
-        safeClickOn(finishButton);
     }
 }
