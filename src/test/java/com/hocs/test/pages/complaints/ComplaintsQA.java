@@ -25,10 +25,18 @@ public class ComplaintsQA extends BasePage {
     public void selectActionAtServiceQA(String action) {
         switch (action.toUpperCase()) {
             case "ACCEPT":
-                recordCaseData.selectSpecificRadioButton("Accept - send response to complainant");
+                if (pogrCase()) {
+                    recordCaseData.selectSpecificRadioButton("Accept");
+                }else {
+                    recordCaseData.selectSpecificRadioButton("Accept - send response to complainant");
+                }
                 break;
             case "REJECT":
-                recordCaseData.selectSpecificRadioButton("Reject - return response to draft");
+                if (pogrCase()) {
+                    recordCaseData.selectSpecificRadioButton("Reject");
+                }else {
+                    recordCaseData.selectSpecificRadioButton("Reject - return response to draft");
+                }
                 break;
             case "REJECT RETURN TO DRAFT":
                 recordCaseData.selectSpecificRadioButton("Reject - return to draft");
