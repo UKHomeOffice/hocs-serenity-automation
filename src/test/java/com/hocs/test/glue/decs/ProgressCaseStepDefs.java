@@ -190,10 +190,15 @@ public class ProgressCaseStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
     }
 
-    @And("I get a POGR case with {string} as the Business Area at the {string} stage")
+    @And("I create a POGR case with {string} as the Business Area and move it to the {string} stage")
     public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
         pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
-        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated("POGR", stage)) {
+    }
+
+    @And("I get a POGR case with {string} as the Business Area at the {string} stage")
+    public void iGetAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
+        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated("POGR", stage) || stage.equalsIgnoreCase("DISPATCH") && businessArea.equalsIgnoreCase("GRO")) {
             dashboard.getCurrentCase();
         } else {
             dashboard.getAndClaimCurrentCase();

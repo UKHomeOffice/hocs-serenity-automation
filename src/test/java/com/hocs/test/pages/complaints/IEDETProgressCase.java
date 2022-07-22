@@ -24,7 +24,7 @@ public class IEDETProgressCase extends BasePage {
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
-    ComplaintsSend complaintsSend;
+    ComplaintsDispatchAndSend complaintsDispatchAndSend;
 
     ConfirmationScreens confirmationScreens;
 
@@ -125,8 +125,8 @@ public class IEDETProgressCase extends BasePage {
 
     public void moveIEDETCaseFromSendToCaseClosed() {
         documents.addADocumentOfDocumentType("Final Response");
-        complaintsSend.selectACaseOutcome();
-        complaintsSend.enterADateOfResponse();
+        complaintsDispatchAndSend.selectACaseOutcome();
+        complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
     }
