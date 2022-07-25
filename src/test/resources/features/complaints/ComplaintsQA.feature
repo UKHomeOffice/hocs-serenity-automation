@@ -177,10 +177,8 @@ Feature: Complaints QA
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "QA" stage
     When I "accept" the response to the complaint at the QA stage
-    Then the case should be closed
+    Then the case should be moved to the "Dispatch" stage
     And the read-only Case Details accordion should contain all case information entered during the "QA" stage
-#    Delete above line and uncomment below line once HOCS-4648 is developed
-#    Then the case should be moved to the "Dispatch" stage
     Examples:
       | businessArea |
       | HMPO         |

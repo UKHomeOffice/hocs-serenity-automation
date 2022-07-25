@@ -1,5 +1,5 @@
 @ComplaintsSend @Complaints
-Feature: Complaints Send
+Feature: Complaints Dispatch & Send
 
 #     UKVI COMPLAINTS
 
@@ -114,3 +114,17 @@ Feature: Complaints Send
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Send (Stage 2)" stage
     And the summary should display "Service" for "Complaint Type"
+
+#     POGR COMPLAINTS
+
+  Scenario Outline: User can complete the Dispatch stage for a POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Dispatch" stage
+    And I add a "Final Response" type document to the case
+    And I select a Dispatch Outcome
+    And I submit the Response details
+    Then the case should be closed
+    Examples:
+    | businessArea  |
+    | HMPO          |
+    | GRO           |

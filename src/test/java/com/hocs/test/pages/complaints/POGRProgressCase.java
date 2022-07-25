@@ -24,6 +24,8 @@ public class POGRProgressCase extends BasePage {
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
+    ComplaintsDispatchAndSend complaintsDispatchAndSend;
+
     Dashboard dashboard;
 
     Documents documents;
@@ -62,7 +64,6 @@ public class POGRProgressCase extends BasePage {
     private String getStageThatPrecedesTargetStage(String targetStage) {
         String precedingStage = "";
         setSessionVariable("targetStage").to(targetStage);
-        //Unsure on stage names for POGR workflow, will need updating once new stages are developed
         switch (targetStage.toUpperCase()) {
             case "DATA INPUT":
                 precedingStage = "CREATE NEW CASE";
@@ -104,6 +105,9 @@ public class POGRProgressCase extends BasePage {
                         movePOGRCaseFromDraftToDispatch();
                         break;
                 }
+                break;
+            case "DISPATCH":
+                movePOGRCaseFromDispatchToClosed();
                 break;
             default:
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
@@ -148,5 +152,13 @@ public class POGRProgressCase extends BasePage {
     public void movePOGRCaseFromDraftToDispatch() {
         documents.addADocumentOfDocumentType("Draft");
         complaintsDraft.selectActionAtDraft("Send to Dispatch");
+    }
+
+    public void movePOGRCaseFromDispatchToClosed() {
+        documents.addADocumentOfDocumentType("Final Response");
+        complaintsDispatchAndSend.selectACaseOutcome();
+        complaintsDispatchAndSend.selectAResponseChannel();
+        complaintsDispatchAndSend.enterADateOfResponse();
+        clickTheButton("Dispatch and Close case");
     }
 }

@@ -30,7 +30,7 @@ public class BFProgressCase extends BasePage {
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
-    ComplaintsSend complaintsSend;
+    ComplaintsDispatchAndSend complaintsDispatchAndSend;
 
     ComplaintsQA compQA;
 
@@ -163,9 +163,9 @@ public class BFProgressCase extends BasePage {
     }
 
     public void moveBFCaseFromSendToCaseClosed() {
-        complaintsSend.selectBFCaseOutcomes();
-        complaintsSend.selectAResponseChannel();
-        complaintsSend.enterADateOfResponse();
+        complaintsDispatchAndSend.selectBFCaseOutcomes();
+        complaintsDispatchAndSend.selectAResponseChannel();
+        complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Complete");
         System.out.println("Case moved from Send draft response to Case Closed");
     }

@@ -9,12 +9,18 @@ import org.junit.Assert;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-public class ComplaintsSend extends BasePage {
+public class ComplaintsDispatchAndSend extends BasePage {
 
     RecordCaseData recordCaseData;
 
     public void selectACaseOutcome() {
-        String caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
+        String caseOutcome;
+        if (!pogrCase()) {
+            caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
+
+        } else {
+            caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Outcome");
+        }
         if (iedetCase() && caseOutcome.equalsIgnoreCase("Other")) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
         }
@@ -27,7 +33,11 @@ public class ComplaintsSend extends BasePage {
     }
 
     public void selectAResponseChannel() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
+        if (!pogrCase()) {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
+        } else {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Channel");
+        }
     }
 
     public void enterADateOfResponse() {
@@ -36,6 +46,8 @@ public class ComplaintsSend extends BasePage {
             headerText = "Date of Response";
         } else if (iedetCase() || smcCase()) {
             headerText = "Response date";
+        } else if (pogrCase()) {
+            headerText = "Dispatch Date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);
     }

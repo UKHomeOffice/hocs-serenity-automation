@@ -1,6 +1,6 @@
 package com.hocs.test.glue.decs;
 
-import com.hocs.test.pages.complaints.ComplaintsSend;
+import com.hocs.test.pages.complaints.ComplaintsDispatchAndSend;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
@@ -78,7 +78,7 @@ public class ValidationStepDefs extends BasePage {
 
     CCH cch;
 
-    ComplaintsSend complaintsSend;
+    ComplaintsDispatchAndSend complaintsDispatchAndSend;
 
     @And("I trigger the {string} error message at (the ){string}( stage)")
     public void iTriggerTheErrorMessageAtTheStage(String errorMessage, String stage) {
@@ -1352,20 +1352,20 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CASE OUTCOME REQUIRED":
                                 waitABit(500);
-                                complaintsSend.selectAResponseChannel();
-                                complaintsSend.enterADateOfResponse();
+                                complaintsDispatchAndSend.selectAResponseChannel();
+                                complaintsDispatchAndSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 waitABit(500);
-                                complaintsSend.selectACaseOutcome();
-                                complaintsSend.enterADateOfResponse();
+                                complaintsDispatchAndSend.selectACaseOutcome();
+                                complaintsDispatchAndSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "DATE OF RESPONSE REQUIRED":
                                 waitABit(500);
-                                complaintsSend.selectACaseOutcome();
-                                complaintsSend.selectAResponseChannel();
+                                complaintsDispatchAndSend.selectACaseOutcome();
+                                complaintsDispatchAndSend.selectAResponseChannel();
                                 clickTheButton("Complete");
                                 break;
                             default:
