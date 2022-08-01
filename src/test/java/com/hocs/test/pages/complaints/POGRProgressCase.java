@@ -6,6 +6,8 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -17,6 +19,10 @@ public class POGRProgressCase extends BasePage {
     CreateCase createCase;
 
     ComplaintsDraft complaintsDraft;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     Correspondents correspondents;
 
@@ -160,5 +166,51 @@ public class POGRProgressCase extends BasePage {
         complaintsDispatchAndSend.selectAResponseChannel();
         complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Dispatch and Close case");
+    }
+
+    public void generatePOGRSearchCaseData(String infoValue, String infoType) {
+        switch (infoType.toUpperCase()) {
+            case "CASE TYPE":
+            case "CASE REFERENCE":
+                createCase.createCSCaseOfType("POGR");
+                break;
+            case "CORRESPONDENT FULL NAME":
+            case "CORRESPONDENT POSTCODE":
+            case "CORRESPONDENT EMAIL ADDRESS":
+                createCase.createCSCaseOfType("POGR");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                createCase.createCSCaseOfType("POGR");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.completeDataInputScreen();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
+                clickTheButton("Continue");
+                break;
+            case "COMPLAINANT HOME OFFICE REFERENCE":
+                createCase.createCSCaseOfType("POGR");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.completeDataInputScreen();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                clickTheButton("Continue");
+                break;
+            default:
+                pendingStep(infoType + " is not defined within " + getMethodName());
+        }
     }
 }
