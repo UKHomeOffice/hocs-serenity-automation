@@ -677,7 +677,7 @@ public class Search extends BasePage {
                 break;
             case "CORRESPONDENT POSTCODE":
                 if (!caseType.equalsIgnoreCase("IEDET")) {
-                    if (!caseType.equalsIgnoreCase("SMC")) {
+                    if (!caseType.equalsIgnoreCase("SMC") && !caseType.equalsIgnoreCase("POGR")) {
                         cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[4]");
                     } else {
                         cell = findBy("//a[text()='" + randomSearchResult + "']/parent::td/following-sibling::td[3]");
@@ -698,8 +698,8 @@ public class Search extends BasePage {
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
-                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration")) {
-                    summaryTab.selectSummaryTab();
+                summaryTab.selectSummaryTab();
+                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration") && summaryTab.activeStage.isVisible()) {
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
                     dashboard.goToDashboard();
@@ -709,6 +709,8 @@ public class Search extends BasePage {
                 }
                 if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET") || caseType.equalsIgnoreCase("SMC")) {
                     openOrCloseAccordionSection("Registration");
+                } else if (caseType.equalsIgnoreCase("POGR")) {
+                    openOrCloseAccordionSection("Data Input");
                 } else {
                     openOrCloseAccordionSection("Stage 2 Registration");
                 }

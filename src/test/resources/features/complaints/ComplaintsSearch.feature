@@ -143,3 +143,26 @@ Feature: Complaints Search
     When I create a single "SMC" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
+
+#     POGR COMPLAINTS
+
+  @ComplaintsRegression2 @POGRComplaints
+  Scenario Outline: User tests POGR complaint case search criteria
+    Given I am logged into "CS" as user "POGR_USER"
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "POGR" search configuration
+    And I click the search button on the search page
+    Then I check that the search results have the correct "<infoType>"
+    Examples:
+      | infoType                          | infoValue                             |
+      | Correspondent full name           | Sam McTester                          |
+      | Correspondent postcode            | AB1 2CD                               |
+      | Correspondent email address       | SamMcTester@Test.com                  |
+      | Complainant date of birth         | 01/01/2001                            |
+
+  @ComplaintsRegression2 @POGRComplaints
+  Scenario: User can search for a POGR complaint case by its case reference
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a single "POGR" case
+    And I search for the case by its case reference
+    Then the created case should be the only case visible in the search results
