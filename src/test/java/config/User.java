@@ -19,6 +19,7 @@ public enum User {
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     COMP_SUPERUSER("comp super user", "Password1!", "COMP Super User (compsuperuser@test.com)"),
     FOI_SUPERUSER("foi super user", "Password1!", "FOI Super User (foisuperuser@test.com)"),
+    BF_SUPERUSER("bf super user", "Password1!", "BF Super User (bfsuperuser@test.com)"),
     WCS_TASKFORCE_USER("wcs taskforce user", "Password1!", "WCS Taskforce User (wcstaskforceuser@test.com)"),
     TEST_USER_1("test user 1", "Password1!", "Test User 1 (testuser1@test.com)"),
     CASEY("casey.prosser@ten10.com", "Password1!", "Casey Prosser (casey.prosser@ten10.com)"),
