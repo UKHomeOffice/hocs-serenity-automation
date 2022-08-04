@@ -10,11 +10,25 @@ public class ComplaintsEscalatedStepDefs extends BasePage {
 
     @And("I select to return the case to Triage")
     public void iSelectToReturnTheCaseToTriage() {
-        complaintsEscalated.selectActionAtServiceEscalated("Return case to Triage");
+        if (!bfCase() && !bf2Case()) {
+            complaintsEscalated.selectActionAtEscalatedStage("Return case to Triage");
+        } else {
+            complaintsEscalated.selectActionAtEscalatedStage("Return to triage");
+        }
     }
 
     @And("I select to send the case to drafting")
     public void iSelectToSendTheCaseToDrafting() {
-        complaintsEscalated.selectActionAtServiceEscalated("Case ready for drafting");
+        complaintsEscalated.selectActionAtEscalatedStage("Case ready for drafting");
+    }
+
+    @And("I select to return the case to Draft")
+    public void iSelectToReturnTheCaseToDraft() {
+        complaintsEscalated.selectActionAtEscalatedStage("Return case to Draft");
+    }
+
+    @And("I select to return the case to Investigation")
+    public void iSelectToReturnTheCaseToInvestigation() {
+        complaintsEscalated.selectActionAtEscalatedStage("Return case to Investigation");
     }
 }

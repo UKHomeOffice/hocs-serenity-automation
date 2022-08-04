@@ -78,6 +78,7 @@ public class POGRProgressCase extends BasePage {
                 precedingStage = "DATA INPUT";
                 break;
             case "DRAFT":
+            case "ESCALATED":
                 precedingStage = "INVESTIGATION";
                 break;
             case "QA":
@@ -100,7 +101,14 @@ public class POGRProgressCase extends BasePage {
                 movePOGRCaseFromDataInputToInvestigation();
                 break;
             case "INVESTIGATION":
-                movePOGRCaseFromInvestigationToDraft();
+                switch (targetStage.toUpperCase()) {
+                    case "DRAFT":
+                        movePOGRCaseFromInvestigationToDraft();
+                        break;
+                    case "ESCALATED":
+                        movePOGRCaseFromInvestigationToEscalated();
+                        break;
+                }
                 break;
             case "DRAFT":
                 switch (targetStage.toUpperCase()) {
@@ -145,9 +153,13 @@ public class POGRProgressCase extends BasePage {
 
     public void movePOGRCaseFromInvestigationToDraft() {
         complaintsTriageAndInvestigation.acceptCaseAtInvestigation();
-        safeClickOn(continueButton);
         complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
         safeClickOn(finishButton);
+    }
+
+    private void movePOGRCaseFromInvestigationToEscalated() {
+        complaintsTriageAndInvestigation.acceptCaseAtInvestigation();
+        complaintsTriageAndInvestigation.escalateCaseToWFM();
     }
 
     public void movePOGRCaseFromDraftToQA() {

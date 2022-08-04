@@ -178,6 +178,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectSpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
+        if (businessArea.equalsIgnoreCase("HMPO")) {
+            setSessionVariable("investigatingTeam").to("HMPO Complaints");
+        }
     }
 
     public void selectBusinessArea() {

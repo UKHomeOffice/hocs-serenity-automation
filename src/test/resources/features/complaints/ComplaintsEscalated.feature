@@ -187,3 +187,46 @@ Feature: Complaints Escalated
       | Complainant      | Cancel   |
       | Business         | Complete |
       | Business         | Cancel   |
+
+
+    #    POGR COMPLAINTS
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario Outline: User can send a POGR complaint case to Draft stage from Escalated
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Escalated" stage
+    And I select to return the case to Draft
+    Then the case should be moved to the "Draft" stage
+    And the POGR case should be assigned to the correct investigating team
+    And the read-only Case Details accordion should contain all case information entered during the "Escalated" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  Scenario Outline: User can send a POGR complaint case to Investigation stage from Escalated
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Escalated" stage
+    And I select to return the case to Investigation
+    Then the case should be moved to the "Investigation" stage
+    And the POGR case should be assigned to the correct investigating team
+    And the read-only Case Details accordion should contain all case information entered during the "Escalated" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @BFComplaints
+  Scenario Outline: User can add and complete or cancel contributions to a POGR complaint cases as part of Escalated stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR" case at the "Escalated" stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<action>"
+    Examples:
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |
