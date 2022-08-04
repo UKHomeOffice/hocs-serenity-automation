@@ -63,7 +63,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         complaintsTriageAndInvestigation.selectReadyForDrafting();
     }
 
-    @And("I escalate the case to WFM at Triage stage")
+    @And("I escalate the case to WFM at Triage/Investigation stage")
     public void iEscalateTheCaseToWFM() {
         complaintsTriageAndInvestigation.escalateCaseToWFM();
     }
@@ -244,6 +244,9 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I enter a transfer reason at the Investigation stage")
     public void iEnterATransferReasonAtTheInvestigationStage() {
         complaintsTriageAndInvestigation.enterTransferReason();
+        if (sessionVariableCalled("businessArea").equals("HMPO")) {
+            safeClickOn(continueButton);
+        }
     }
 
     @And("I select that the case is to be transferred to an {string} team")
@@ -254,5 +257,6 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select an investigating team")
     public void iSelectAnInvestigatingTeam() {
         complaintsTriageAndInvestigation.selectInvestigatingTeam();
+        safeClickOn(continueButton);
     }
 }

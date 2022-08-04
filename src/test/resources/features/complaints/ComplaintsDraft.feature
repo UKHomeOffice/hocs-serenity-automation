@@ -358,3 +358,17 @@ Feature: Complaints Draft
       | businessArea |
       | HMPO         |
       | GRO          |
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I escalate the case to WFM at Draft stage
+    Then the case should be moved to the "Escalated" stage
+    And the POGR case should be assigned to the correct Escalation team
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
