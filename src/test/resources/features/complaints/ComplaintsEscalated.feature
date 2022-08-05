@@ -198,6 +198,7 @@ Feature: Complaints Escalated
     And I select to return the case to Draft
     Then the case should be moved to the "Draft" stage
     And the POGR case should be assigned to the correct investigating team
+
     And the read-only Case Details accordion should contain all case information entered during the "Escalated" stage
     Examples:
       | businessArea |

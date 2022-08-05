@@ -699,7 +699,8 @@ public class Search extends BasePage {
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
                 summaryTab.selectSummaryTab();
-                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration") && summaryTab.activeStage.isVisible()) {
+                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration") && !accordionSectionIsVisible(
+                        "Data Input") && summaryTab.activeStage.isVisible()) {
                     summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
                     String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
                     dashboard.goToDashboard();
