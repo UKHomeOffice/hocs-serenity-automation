@@ -45,6 +45,7 @@ public class ComplaintsDraft extends BasePage {
         if (!pogrCase()) {
             safeClickOn(continueButton);
         } else {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
             safeClickOn(finishButton);
         }
     }
