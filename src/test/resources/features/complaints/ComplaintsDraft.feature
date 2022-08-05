@@ -382,6 +382,8 @@ Feature: Complaints Draft
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+#    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case    To be removed when HOCS-5433 is
+  #    completed
     Examples:
       | businessArea |
       | HMPO         |
