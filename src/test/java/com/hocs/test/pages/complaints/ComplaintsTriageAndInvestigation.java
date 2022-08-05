@@ -248,14 +248,18 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void escalateCaseToWFM() {
         recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
-        if (bfCase() || bf2Case()) {
+        if (bfCase() || bf2Case() || pogrCase() || pogr2Case()) {
             clickTheButton("Finish");
         } else {
             clickTheButton("Continue");
         }
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
-        clickTheButton("Escalate case");
+        if (pogrCase() || pogr2Case()) {
+            clickTheButton("Continue");
+        } else {
+            clickTheButton("Escalate case");
+        }
     }
 
     public void selectCompleteTheCase() {
@@ -324,17 +328,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void acceptCaseAtInvestigation() {
-        selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
+        safeClickOn(continueButton);
     }
 
     public void rejectCaseAtInvestigation() {
-        String rejectionRadioButtonLabelName = null;
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
-            rejectionRadioButtonLabelName = "No - close and transfer to external team";
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - close and transfer to external team", "Can your team respond to this complaint?");
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
-            rejectionRadioButtonLabelName = "No - transfer the case";
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the case", "Can your team respond to this complaint?");
+            safeClickOn(continueButton);
         }
-        selectSpecificRadioButtonFromGroupWithHeading(rejectionRadioButtonLabelName, "Can your team respond to this complaint?");
     }
 
     public void selectInternalOrExternalTransfer(String transferAction) {
@@ -342,6 +346,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             selectSpecificRadioButtonFromGroupWithHeading("Internal", "Internal or external transfer");
         } else if (transferAction.equalsIgnoreCase("EXTERNAL")) {
             selectSpecificRadioButtonFromGroupWithHeading("External - close the case", "Internal or external transfer");
+            safeClickOn(continueButton);
         }
     }
 

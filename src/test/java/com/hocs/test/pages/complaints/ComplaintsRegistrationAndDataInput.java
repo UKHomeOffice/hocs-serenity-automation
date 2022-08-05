@@ -178,6 +178,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectSpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
+        if (businessArea.equalsIgnoreCase("HMPO")) {
+            setSessionVariable("investigatingTeam").to("HMPO Complaints");
+        }
     }
 
     public void selectBusinessArea() {
@@ -228,12 +231,12 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
             enterApplicationReference();
             enterPassportNumber();
+            selectNRO();
+            selectLocation();
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             enterAccountNumber();
         }
         selectPOGRCategory();
-        selectNRO();
-        selectLocation();
         enterADescriptionOfTheComplaint();
         selectAComplaintChannel();
         if (pogrPriority) {

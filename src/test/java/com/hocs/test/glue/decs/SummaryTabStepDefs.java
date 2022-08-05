@@ -130,8 +130,14 @@ public class SummaryTabStepDefs extends BasePage {
     }
 
     @And("the POGR case should be assigned to the correct investigating team")
-    public void thePOGRCaseShouldBeAssignedToTheInvestigatingTeamSelectedAtDataInput() {
+    public void thePOGRCaseShouldBeAssignedToTheCorrectInvestigatingTeam() {
         String teamName = sessionVariableCalled("investigatingTeam");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
+    }
+
+    @And("the POGR case should be assigned to the correct Escalation team")
+    public void thePOGRCaseShouldBeAssignedToTheCorrectEscalationTeam() {
+        String teamName = sessionVariableCalled("businessArea").toString() + " Escalation";
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
