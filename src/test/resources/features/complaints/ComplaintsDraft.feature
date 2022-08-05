@@ -377,7 +377,6 @@ Feature: Complaints Draft
   Scenario Outline: As a POGR Draft user, I want to be able to close a case at the Draft stage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
-    And I upload my Primary "Draft" document
     And I select the "Close the case" action at the Draft stage
     And I enter a reason for closing the case
     Then the case should be closed
