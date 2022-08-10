@@ -206,6 +206,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectPOGRCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Category"); }
 
+    public void selectComplaintCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Category"); }
+
+    public void selectComplaintReason() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Reason"); }
+
     public void selectNRO() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("NRO");
     }
@@ -236,7 +240,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             enterAccountNumber();
         }
-        selectPOGRCategory();
+        selectComplaintCategory();
+        selectComplaintReason();
         enterADescriptionOfTheComplaint();
         selectAComplaintChannel();
         if (pogrPriority) {
