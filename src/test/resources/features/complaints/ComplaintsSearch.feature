@@ -155,9 +155,9 @@ Feature: Complaints Search
     Then I check that the search results have the correct "<infoType>"
     Examples:
       | infoType                          | infoValue                             |
-#      | Correspondent full name           | Sam McTester                          |
-#      | Correspondent postcode            | AB1 2CD                               |
-#      | Correspondent email address       | SamMcTester@Test.com                  |
+      | Correspondent full name           | Sam McTester                          |
+      | Correspondent postcode            | AB1 2CD                               |
+      | Correspondent email address       | SamMcTester@Test.com                  |
       | Complainant date of birth         | 01/01/2001                            |
 
   @ComplaintsRegression2 @POGRComplaints
