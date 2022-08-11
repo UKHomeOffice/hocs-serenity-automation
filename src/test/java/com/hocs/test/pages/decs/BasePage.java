@@ -573,6 +573,16 @@ public class BasePage extends PageObject {
         return getOnlyCurrentlyVisibleElementFromList(yearFieldsWithMatchingHeading);
     }
 
+    public String getDisplayedDateInDateFieldsWithHeading(String headingText) {
+        return getVisibleDayFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleMonthFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleYearFieldWithMatchingHeading(headingText).getText();
+    }
+
+    public boolean dateFieldsWithHeadingAreCurrentlyVisible(String headingText) {
+        WebElementFacade dayFieldWithMatchingHeading = find("//legend[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+                + "-sibling::div/div[1]//input");
+        return dayFieldWithMatchingHeading.isCurrentlyVisible();
+    }
+
     //Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {

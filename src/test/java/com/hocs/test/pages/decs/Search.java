@@ -698,24 +698,28 @@ public class Search extends BasePage {
             case "COMPLAINANT DATE OF BIRTH":
                 safeClickOn(randomSearchResultHypertext);
                 caseView.waitForCaseToLoad();
-                summaryTab.selectSummaryTab();
-                if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration") && !accordionSectionIsVisible(
-                        "Data Input") && summaryTab.activeStage.isVisible()) {
-                    summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
-                    String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
-                    dashboard.goToDashboard();
-                    dashboard.selectWorkstackByTeamName(assignedTeam);
-                    workstacks.unallocateSelectedCase(randomSearchResult);
-                    workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
-                }
-                if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET") || caseType.equalsIgnoreCase("SMC")) {
-                    openOrCloseAccordionSection("Registration");
-                } else if (caseType.equalsIgnoreCase("POGR")) {
-                    openOrCloseAccordionSection("Data Input");
+                if (dateFieldsWithHeadingAreCurrentlyVisible("Date of Birth")) {
+                    displayedValue = getDisplayedDateInDateFieldsWithHeading("Date of Birth");
                 } else {
-                    openOrCloseAccordionSection("Stage 2 Registration");
+                    if (!accordionSectionIsVisible("Registration") && !accordionSectionIsVisible("Stage 2 Registration") && !accordionSectionIsVisible(
+                            "Data Input")) {
+                        summaryTab.selectSummaryTab();
+                        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(getCurrentUser().getUsername(), "User");
+                        String assignedTeam = summaryTab.getSummaryTabValueForGivenHeader("Team");
+                        dashboard.goToDashboard();
+                        dashboard.selectWorkstackByTeamName(assignedTeam);
+                        workstacks.unallocateSelectedCase(randomSearchResult);
+                        workstacks.selectSpecificCaseReferenceLink(randomSearchResult);
+                    }
+                    if (caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("IEDET") || caseType.equalsIgnoreCase("SMC")) {
+                        openOrCloseAccordionSection("Registration");
+                    } else if (caseType.equalsIgnoreCase("POGR")) {
+                        openOrCloseAccordionSection("Data Input");
+                    } else {
+                        openOrCloseAccordionSection("Stage 2 Registration");
+                    }
+                    displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 }
-                displayedValue = caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0);
                 expectedValue = sessionVariableCalled("searchComplainantDateOfBirth");
                 break;
             case "CASE REFERENCE":
