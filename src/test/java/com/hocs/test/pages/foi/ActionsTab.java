@@ -113,6 +113,7 @@ public class ActionsTab extends BasePage {
 
     public void assertStatusOfAppealIs(String appealStatus) {
         selectActionsTab();
+        waitABit(1000);
         String registeredAppealType = sessionVariableCalled("appealType");
         String displayedAppealStatus = findBy("//td[text()='" + registeredAppealType + "']/following-sibling::td").getText();
         if (!displayedAppealStatus.equalsIgnoreCase(appealStatus)) {
