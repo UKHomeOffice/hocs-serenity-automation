@@ -38,12 +38,16 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I enter a reason for {string} transfer and continue")
     public void iEnterAReasonForTransferAndContinue(String transferTo) {
         complaintsTriageAndInvestigation.enterTransferReason();
-        if(transferTo.equals("CCH")){
-            complaintsTriageAndInvestigation.selectTransferToCCH();
-        } else if(transferTo.equals("IE Detention")){
-            complaintsTriageAndInvestigation.selectTransferToIEDET();
-        } else if(transferTo.equals("PSU")){
-            complaintsTriageAndInvestigation.selectTransferToPSU();
+        switch (transferTo) {
+            case "CCH":
+                complaintsTriageAndInvestigation.selectTransferToCCH();
+                break;
+            case "IE Detention":
+                complaintsTriageAndInvestigation.selectTransferToIEDET();
+                break;
+            case "PSU":
+                complaintsTriageAndInvestigation.selectTransferToPSU();
+                break;
         }
     }
 
@@ -258,5 +262,12 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     public void iSelectAnInvestigatingTeam() {
         complaintsTriageAndInvestigation.selectInvestigatingTeam();
         safeClickOn(continueButton);
+    }
+
+    @And("I enter any required information at the Investigation stage")
+    public void iEnterAnyRequiredInformationAtTheInvestigationStage() {
+        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+            complaintsTriageAndInvestigation.enterLoAReceivedDetails();
+        }
     }
 }

@@ -502,6 +502,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "HMPO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
+    And I enter any required information at the Investigation stage
     And I complete the "All Information Collected - Respond" action at the Investigation stage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "HMPO Complaints"
@@ -512,6 +513,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
+    And I enter any required information at the Investigation stage
     And I complete the "All Information Collected - Respond" action at the Investigation stage
     Then the case should be moved to the "Draft" stage
     And the POGR case should be assigned to the correct investigating team

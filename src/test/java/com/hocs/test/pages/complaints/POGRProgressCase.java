@@ -153,6 +153,9 @@ public class POGRProgressCase extends BasePage {
 
     public void movePOGRCaseFromInvestigationToDraft() {
         complaintsTriageAndInvestigation.acceptCaseAtInvestigation();
+        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+            complaintsTriageAndInvestigation.enterLoAReceivedDetails();
+        }
         complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
         safeClickOn(finishButton);
     }
