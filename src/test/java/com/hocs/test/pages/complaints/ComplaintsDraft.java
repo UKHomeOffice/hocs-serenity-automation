@@ -42,17 +42,24 @@ public class ComplaintsDraft extends BasePage {
 
     public void selectActionAtDraft(String action) {
         recordCaseData.selectSpecificRadioButton(action);
-        if (!pogrCase()) {
-            safeClickOn(continueButton);
-        } else {
+        if (pogrCase()) {
+            if (action.equalsIgnoreCase("Close the case")) {
+                recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
+            }
             safeClickOn(finishButton);
+        } else {
+            safeClickOn(continueButton);
         }
     }
 
     public void submitEscalationReason() {
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
-        clickTheButton("Escalate case");
+        if (pogrCase()) {
+            safeClickOn(continueButton);
+        } else {
+            clickTheButton("Escalate case");
+        }
     }
 
     public void assertErrorMessageIsDisplayed(String errorMessage) {

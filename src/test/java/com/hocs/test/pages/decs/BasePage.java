@@ -258,7 +258,7 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
 
-    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase();}
+    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
 
     public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
 
@@ -272,6 +272,8 @@ public class BasePage extends PageObject {
 
     public boolean pogrCase() { return sessionVariableCalled("caseType").toString().equals("POGR"); }
 
+    public boolean pogr2Case() { return sessionVariableCalled("caseType").toString().equals("POGR2"); }
+
     public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
 
     public boolean foiCase() {
@@ -282,10 +284,6 @@ public class BasePage extends PageObject {
 
     public boolean wcsCase() {
         return sessionVariableCalled("caseType").toString().equals("WCS");
-    }
-
-    public void clickRejectButton() {
-        safeClickOn(rejectButton);
     }
 
     public void javascriptScrollToElem(WebElementFacade element) {

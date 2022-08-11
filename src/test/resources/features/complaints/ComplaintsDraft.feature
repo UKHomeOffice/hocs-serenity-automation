@@ -358,3 +358,32 @@ Feature: Complaints Draft
       | businessArea |
       | HMPO         |
       | GRO          |
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I escalate the case to WFM at Draft stage
+    Then the case should be moved to the "Escalated" stage
+    And the POGR case should be assigned to the correct Escalation team
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRComplaints @ComplaintsRegression
+  Scenario Outline: As a POGR Draft user, I want to be able to close a case at the Draft stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Close the case" action at the Draft stage
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+#    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case    To be removed when HOCS-5433 is
+  #    completed
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |

@@ -116,7 +116,8 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case is a Priority case")
     public void iRecordThatTheCaseIsAPriorityCase() {
-        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.selectComplaintCategory();
+        complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectIsLoARequired();
         complaintsRegistrationAndDataInput.checkPriorityCheckbox();
@@ -126,7 +127,8 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case was not received by post")
     public void iRecordThatTheCaseWasNotReceivedByPost() {
-        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.selectComplaintCategory();
+        complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectIsLoARequired();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Email");
@@ -136,7 +138,8 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case was received by post")
     public void iRecordThatTheCaseWasReceivedByPost() {
-        complaintsRegistrationAndDataInput.selectPOGRCategory();
+        complaintsRegistrationAndDataInput.selectComplaintCategory();
+        complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Post");
         complaintsRegistrationAndDataInput.selectIsLoARequired();

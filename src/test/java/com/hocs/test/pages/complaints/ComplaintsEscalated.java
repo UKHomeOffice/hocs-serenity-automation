@@ -18,21 +18,8 @@ public class ComplaintsEscalated extends BasePage {
     @FindBy(xpath = "//label[text()='Case ready for drafting']")
     public WebElementFacade caseReadyForDraftingRadioButton;
 
-    public void selectActionAtServiceEscalated(String action) {
-        switch (action.toUpperCase()) {
-            case "RETURN CASE TO TRIAGE":
-                if (!bfCase() && !bf2Case()) {
-                    recordCaseData.selectSpecificRadioButton("Return case to Triage");
-                } else {
-                    selectSpecificRadioButton("Return to triage");
-                }
-                break;
-            case "CASE READY FOR DRAFTING":
-                recordCaseData.selectSpecificRadioButton("Case ready for drafting");
-                break;
-            default:
-                pendingStep(action + " is not defined within " + getMethodName());
-        }
+    public void selectActionAtEscalatedStage(String action) {
+        recordCaseData.selectSpecificRadioButton(action);
         if (continueButton.isVisible()) {
             safeClickOn(continueButton);
         } else {

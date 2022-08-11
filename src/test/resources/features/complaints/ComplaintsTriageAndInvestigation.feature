@@ -502,7 +502,6 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "HMPO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I click the "Continue" button
     And I complete the "All Information Collected - Respond" action at the Investigation stage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "HMPO Complaints"
@@ -513,7 +512,6 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I click the "Continue" button
     And I complete the "All Information Collected - Respond" action at the Investigation stage
     Then the case should be moved to the "Draft" stage
     And the POGR case should be assigned to the correct investigating team
@@ -524,7 +522,6 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I click the "Continue" button
     And I complete the "No Response - Complete the Case" action at the Investigation stage
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
@@ -539,7 +536,6 @@ Feature: Complaints Triage
     When I get a POGR case with "HMPO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
     And I enter a transfer reason at the Investigation stage
-    And I click the "Continue" button
     Then the case should be closed
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
@@ -549,10 +545,8 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
-    And I click the "Continue" button
     And I enter a transfer reason at the Investigation stage
     And I select that the case is to be transferred to an "External" team
-    And I click the "Continue" button
     Then the case should be closed
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
@@ -562,11 +556,9 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
-    And I click the "Continue" button
     And I enter a transfer reason at the Investigation stage
     And I select that the case is to be transferred to an "Internal" team
     And I select an investigating team
-    And I click the "Continue" button
     Then the case should be at the "Investigation" stage
     And the POGR case should be assigned to the correct investigating team
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
@@ -577,7 +569,6 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR" case at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I click the "Continue" button
     And I add a "<contributionType>" contribution request
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<status>"
@@ -587,3 +578,18 @@ Feature: Complaints Triage
       | Complainant      | Cancel   | Cancelled |
       | Business         | Complete | Complete  |
       | Business         | Cancel   | Cancelled |
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I escalate the case to WFM at Investigation stage
+    Then the case should be moved to the "Escalated" stage
+    And the POGR case should be assigned to the correct Escalation team
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
