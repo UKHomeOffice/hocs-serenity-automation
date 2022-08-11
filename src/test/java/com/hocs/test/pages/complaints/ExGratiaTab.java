@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ExGratiaTab extends BasePage {
 
-    @FindBy(xpath = "//span[text()='Update Ex-Gratia details']")
+    @FindBy(xpath = "//span[text()='Update Ex-Gratia Details']")
     public WebElementFacade updateExGratiaDetailsHypertext;
 
     @FindBy(xpath = "//a[text()='Ex-Gratia']")
