@@ -64,6 +64,23 @@ public class ExGratiaTab extends BasePage {
         setSessionVariable("totalPaymentOfferSentToComplainant").to(amount);
     }
 
+    public void enterPOGRExGratiaTabDetails() {
+        String businessArea = sessionVariableCalled("businessArea");
+        if (businessArea.equalsIgnoreCase("HMPO")) {
+            enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Claim");
+        } else if (businessArea.equalsIgnoreCase("GRO")) {
+            selectRandomRadioButtonFromGroupWithHeading("Refund Required");
+            selectRandomOptionFromDropdownWithHeading("Type of Refund");
+            selectRandomOptionFromDropdownWithHeading("Primary Reason for Refund");
+            enterSpecificTextIntoTextFieldWithHeading("10.00", "Amount");
+            selectRandomOptionFromDropdownWithHeading("Payment Method");
+            enterTextIntoTextFieldWithHeading("Payment Reference Number");
+        }
+        enterTextIntoTextFieldWithHeading("Authorised By");
+        enterSpecificTextIntoTextFieldWithHeading("10.00", "Total Amount (GBP)");
+        clickTheButton("Submit");
+    }
+
     public void selectComplainantHasAccepted() {
         checkSpecificCheckbox("Complainant has accepted");
         setSessionVariable("complainantHasAccepted").to("Yes");
