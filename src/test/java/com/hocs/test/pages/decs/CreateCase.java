@@ -266,15 +266,10 @@ public class CreateCase extends BasePage {
     // Multi Step Methods
 
     private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
-        if (caseType.equalsIgnoreCase("COMP2")) {
-            this.stage1CaseType = "COMP";
+        if(caseType.contains("2")) {
+            this.stage1CaseType = caseType.substring(0, caseType.indexOf("2"));
             escalateAStage1CaseToStage2();
-        }
-        if (caseType.equals("BF2")) {
-            this.stage1CaseType = "BF";
-            escalateAStage1CaseToStage2();
-        }
-        if (!caseType.equals("COMP2") && !caseType.equalsIgnoreCase("BF2")) {
+        } else {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
             if (!nextButton.isVisible()) {
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
@@ -379,7 +374,10 @@ public class CreateCase extends BasePage {
     private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
         dashboard.selectSearchLinkFromMenuBar();
         selectStage1CaseTypeSearchCriteriaIfVisible();
-        search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        if (!this.stage1CaseType.equalsIgnoreCase("POGR")) {
+            search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+
+        }
         search.clickTheButton("Search");
         search.waitForResultsPage();
         return search.checkVisibilityOfEscalationHypertext();
@@ -419,6 +417,9 @@ public class CreateCase extends BasePage {
         }
         else if (stage1CaseType.equalsIgnoreCase("BF") && checkboxWithLabelIsCurrentlyVisible("Border Force Case")) {
             checkSpecificCheckbox("Border Force Case");
+        }
+        if(stage1CaseType.equalsIgnoreCase("POGR")) {
+            checkSpecificCheckbox("HMPO/GRO Complaint Case");
         }
     }
 

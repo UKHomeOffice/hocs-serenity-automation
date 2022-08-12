@@ -820,6 +820,7 @@ public class Workstacks extends BasePage {
                         "Extended"));
                 break;
             case "POGR REGISTRATION":
+            case "POGR REGISTRATION (STAGE 2)":
                 requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Deadline",
                         "Urgency", "Days", "Rejected"));
                 break;

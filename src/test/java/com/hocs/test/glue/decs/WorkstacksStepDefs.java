@@ -517,6 +517,15 @@ public class WorkstacksStepDefs extends BasePage {
                 }
                 dashboard.selectMyCases();
                 break;
+            case "POGR REGISTRATION (STAGE 2)":
+                try {
+                    dashboard.selectPOGR2RegistrationTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfType("POGR2");
+                    dashboard.goToDashboard();
+                    dashboard.selectPOGR2RegistrationTeam();
+                }
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
