@@ -11,7 +11,7 @@ Feature: Ex-Gratia Tab
     And I select the update Ex-Gratia details hypertext
     And I select that the complainant has accepted the offer
     And I click the "Submit" button
-    Then the Ex-Gratia tab summary should show that the complainant has accepted the offer
+    Then an Ex-Gratia updated log should be visible in the case timeline
 
     #    HOCS-4256
   @ComplaintsRegression2 @BFComplaints
@@ -22,7 +22,7 @@ Feature: Ex-Gratia Tab
     And I select the update Ex-Gratia details hypertext
     And I select that the complainant has accepted the offer
     And I click the "Submit" button
-    Then the Ex-Gratia tab summary should show that the complainant has accepted the offer
+    Then an Ex-Gratia updated log should be visible in the case timeline
 
 #     POGR COMPLAINTS CASE
 
