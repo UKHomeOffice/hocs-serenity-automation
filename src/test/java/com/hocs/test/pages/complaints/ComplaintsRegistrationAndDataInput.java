@@ -204,7 +204,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Case/Account Number");
     }
 
-    private void enterDateOfCorrespondence() { recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Correspondence"); }
+    public void enterDateOfCorrespondence() { recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Correspondence"); }
 
     public void selectPOGRCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Category"); }
 
