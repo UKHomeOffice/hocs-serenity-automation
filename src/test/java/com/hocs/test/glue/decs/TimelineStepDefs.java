@@ -216,6 +216,11 @@ public class TimelineStepDefs extends BasePage {
         timelineTab.assertCaseLogWithTitleContainsText(typeOfInterest + " Updated: " + interestedParty, detailsOfInterest);
     }
 
+    @And("an Ex-Gratia updated log should be visible in the case timeline")
+    public void anExGratiaUpdatedLogShouldBeVisibleInTheCaseTimeline() {
+        timelineTab.assertCaseLogWithTitleIsVisible("Ex-Gratia Updated");
+    }
+
     @Then("I should not be able to see the case note added by the previous user")
     public void iShouldNotBeAbleToSeeTheCaseNoteAddedByThePreviousUser() {
         timelineTab.assertCaseNotesAuthoredByUserAreNotVisible(getPreviousUser());

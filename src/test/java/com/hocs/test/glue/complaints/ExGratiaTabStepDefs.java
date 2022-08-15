@@ -41,6 +41,11 @@ public class ExGratiaTabStepDefs extends BasePage {
         }
     }
 
+    @And("I enter details into the Ex-Gratia tab for a POGR case")
+    public void iEnterDetailsIntoTheExGratiaTabForAPOGRCase() {
+        exGratiaTab.enterPOGRExGratiaTabDetails();
+    }
+
     @And("I enter {string} into the amount requested by the complainant field")
     public void iEnterIntoTheAmountRequestedByTheComplainantField(String amount) {
         exGratiaTab.enterAmountRequestedByComplainant(amount);
