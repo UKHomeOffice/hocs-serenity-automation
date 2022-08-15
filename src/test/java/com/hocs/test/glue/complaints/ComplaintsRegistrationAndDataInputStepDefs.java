@@ -116,6 +116,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case is a Priority case")
     public void iRecordThatTheCaseIsAPriorityCase() {
+        complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
         complaintsRegistrationAndDataInput.selectComplaintCategory();
         complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
@@ -127,6 +128,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case was not received by post")
     public void iRecordThatTheCaseWasNotReceivedByPost() {
+        complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
         complaintsRegistrationAndDataInput.selectComplaintCategory();
         complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
@@ -138,6 +140,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I record that the case was received by post")
     public void iRecordThatTheCaseWasReceivedByPost() {
+        complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
         complaintsRegistrationAndDataInput.selectComplaintCategory();
         complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
