@@ -210,10 +210,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectComplaintReason() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Reason"); }
 
-    public void selectNRO() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("NRO");
-    }
-
     public void selectLocation() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Location");
     }
@@ -235,7 +231,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
             enterApplicationReference();
             enterPassportNumber();
-            selectNRO();
             selectLocation();
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             enterAccountNumber();
