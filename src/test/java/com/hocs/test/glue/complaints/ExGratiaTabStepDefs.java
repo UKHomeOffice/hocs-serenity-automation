@@ -81,8 +81,4 @@ public class ExGratiaTabStepDefs extends BasePage {
         exGratiaTab.assertExGratiaTabSummary();
     }
 
-    @Then("the Ex-Gratia tab summary should show that the complainant has accepted the offer")
-    public void theExGratiaTabSummaryShouldShowThatTheComplainantHasAcceptedTheOffer() {
-        exGratiaTab.assertSummaryContainsExpectedValueForGivenHeader("Yes", "Complainant has accepted:");
-    }
 }
