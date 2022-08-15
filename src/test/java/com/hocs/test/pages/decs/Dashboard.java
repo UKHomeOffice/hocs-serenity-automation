@@ -100,6 +100,9 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[text()='HMPO/GRO Registration']")
     public WebElementFacade hmpoGroRegistrationWorkstack;
 
+    @FindBy(xpath = "//span[text()='HMPO/GRO Registration (Stage 2)']")
+    public WebElementFacade hmpoGroRegistrationStage2Workstack;
+
     // Basic Methods
 
     public void enterCaseReferenceIntoSearchBar(String caseReference) {
@@ -222,6 +225,10 @@ public class Dashboard extends BasePage {
 
     public void selectPOGRRegistrationTeam() {
         safeClickOn(hmpoGroRegistrationWorkstack);
+    }
+
+    public void selectPOGR2RegistrationTeam() {
+        safeClickOn(hmpoGroRegistrationStage2Workstack);
     }
 
     public void selectWorkstackByTeamName(String teamName) {

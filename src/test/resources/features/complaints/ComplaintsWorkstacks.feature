@@ -113,7 +113,7 @@ Feature: Complaints Workstacks
 
 #     POGR COMPLAINTS
 
-  @ComplaintsRegression2 @IEDETComplaints
+  @ComplaintsRegression2 @POGRComplaints
   Scenario Outline: HMPO/GRO complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "POGR_USER"
     And I enter the "<workstack>" workstack
@@ -122,6 +122,17 @@ Feature: Complaints Workstacks
       | workstack         |
       | POGR Registration |
       | POGR My Cases     |
+
+
+#     POGR STAGE 2 COMPLAINTS
+
+#  SCENARIO AWAITING CONFIGURATION OF POGR2 WORKSTACKS
+
+#  @ComplaintsRegression2 @POGRComplaints
+#  Scenario: HMPO/GRO complaints user sees the required information when viewing a Stage 2 workstack
+#    Given I am logged into "CS" as user "POGR_USER"
+#    And I enter the "POGR Registration (Stage 2)" workstack
+#    Then the "POGR Registration (Stage 2)" workstack should contain only the expected columns
 
 
 #     ALL COMPLAINTS
@@ -155,4 +166,7 @@ Feature: Complaints Workstacks
       | IEDET    | IEDET_USER | 21           | IE Detention                   |
       | BF       | BF_USER    | 21           | Border Force                   |
       | BF2      | BF_USER    | 21           | Border Force (Stage 2)         |
-      | POGR     | POGR_USER  | 21           | HMPO/GRO Registration          |
+      | POGR     | POGR_USER  | 11           | HMPO/GRO Registration          |
+#      | POGR2    | POGR_USER  | 11           | HMPO/GRO Registration (Stage 2)|
+
+  #    POGR2 Example awaiting configuration of POGR2 workstacks
