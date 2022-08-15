@@ -210,10 +210,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectComplaintReason() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Reason"); }
 
-    public void selectNRO() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("NRO");
-    }
-
     public void selectLocation() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Location");
     }
