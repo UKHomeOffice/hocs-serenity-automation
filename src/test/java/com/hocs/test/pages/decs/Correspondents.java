@@ -131,12 +131,12 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentBuilding(String building) {
-        enterSpecificTextIntoTextFieldWithHeading(building, "Building");
+        enterSpecificTextIntoTextFieldWithHeading(building, "Address line 1");
         setSessionVariable("correspondentBuilding").to(building);
     }
 
     public void enterCorrespondentStreet(String street) {
-        enterSpecificTextIntoTextFieldWithHeading(street, "Street");
+        enterSpecificTextIntoTextFieldWithHeading(street, "Address line 2");
         setSessionVariable("correspondentStreet").to(street);
     }
 
