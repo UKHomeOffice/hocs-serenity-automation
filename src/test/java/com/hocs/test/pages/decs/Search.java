@@ -17,7 +17,6 @@ import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
 
 public class Search extends BasePage {
 
@@ -33,15 +32,6 @@ public class Search extends BasePage {
 
     Dashboard dashboard;
 
-    @FindBy(xpath = "//label[text()='DCU Ministerial']")
-    public WebElementFacade searchMINCheckbox;
-
-    @FindBy(xpath = "//label[text()='DCU Number 10']")
-    public WebElementFacade searchDTENCheckbox;
-
-    @FindBy(xpath = "//label[text()='DCU Treat Official']")
-    public WebElementFacade searchTROCheckbox;
-
     @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
@@ -51,29 +41,14 @@ public class Search extends BasePage {
     @FindBy(css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
-    @FindBy(id = "reference")
-    public WebElementFacade caseReferenceSearchBox;
-
-    @FindBy(id = "RefType")
-    public WebElementFacade mpamRefTypeDropdown;
-
-    @FindBy(xpath = "//input[@id='correspondentExternalKey']")
-    public WebElementFacade memberOfParliamentSearchBox;
-
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
     @FindBy(xpath = "//label[text()='MTS Case']")
     public WebElementFacade mtsCaseCheckbox;
 
-    @FindBy(xpath = "//label[text()='Include Home Secretary Interest Cases only']")
-    public WebElementFacade includeHomeSecInterestCasesOnlyCheckbox;
-
     @FindBy(id = "ComplainantHORef")
     public WebElementFacade complainantHomeOfficeReferenceTextField;
-
-    @FindBy(xpath = "//label[text()='FOI Request']")
-    public WebElementFacade foiRequestCheckbox;
 
     @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
@@ -85,30 +60,30 @@ public class Search extends BasePage {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
                     case "MIN":
-                        safeClickOn(searchMINCheckbox);
+                        checkSpecificCheckbox("DCU Ministerial");
                         break;
                     case "DTEN":
-                        safeClickOn(searchDTENCheckbox);
+                        checkSpecificCheckbox("DCU Number 10");
                         break;
                     case "TRO":
-                        safeClickOn(searchTROCheckbox);
+                        checkSpecificCheckbox("DCU Treat Official");
                         break;
                     case "MIN + TRO":
-                        safeClickOn(searchMINCheckbox);
-                        safeClickOn(searchTROCheckbox);
+                        checkSpecificCheckbox("DCU Ministerial");
+                        checkSpecificCheckbox("DCU Treat Official");
                         break;
                     case "MIN + DTEN":
-                        safeClickOn(searchMINCheckbox);
-                        safeClickOn(searchDTENCheckbox);
+                        checkSpecificCheckbox("DCU Ministerial");
+                        checkSpecificCheckbox("DCU Number 10");
                         break;
                     case "TRO + DTEN":
-                        safeClickOn(searchTROCheckbox);
-                        safeClickOn(searchDTENCheckbox);
+                        checkSpecificCheckbox("DCU Treat Official");
+                        checkSpecificCheckbox("DCU Number 10");
                         break;
                     case "ALL DCU CASE TYPES":
-                        safeClickOn(searchMINCheckbox);
-                        safeClickOn(searchTROCheckbox);
-                        safeClickOn(searchDTENCheckbox);
+                        checkSpecificCheckbox("DCU Ministerial");
+                        checkSpecificCheckbox("DCU Treat Official");
+                        checkSpecificCheckbox("DCU Number 10");
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -123,15 +98,12 @@ public class Search extends BasePage {
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                safeClickOn(searchMINCheckbox);
+                checkSpecificCheckbox("DCU Ministerial");
                 enterDateIntoDateFieldsWithHeading(value, "Received on or before");
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                safeClickOn(memberOfParliamentSearchBox);
-                memberOfParliamentSearchBox.sendKeys(value);
-                waitABit(5000);
-                memberOfParliamentSearchBox.sendKeys(Keys.ENTER);
+                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of Parliament name");
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
@@ -156,13 +128,13 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 if (value.equalsIgnoreCase("YES")) {
-                    safeClickOn(caseStatusActiveCheckbox);
+                    checkSpecificCheckbox("Include Active Cases only");
                 }
                 setSessionVariable("searchActiveCases").to(value);
                 break;
             case "HOME SECRETARY INTEREST":
                 if (value.equalsIgnoreCase("YES")) {
-                    safeClickOn(includeHomeSecInterestCasesOnlyCheckbox);
+                    checkSpecificCheckbox("Include Home Secretary Interest Cases only");
                 }
                 break;
             default:
@@ -185,10 +157,10 @@ public class Search extends BasePage {
             case "REFERENCE TYPE":
                 switch (value.toUpperCase()) {
                     case "MINISTERIAL":
-                        mpamRefTypeDropdown.selectByIndex(1);
+                        selectSpecificOptionFromDropdownWithHeading("Ministerial", "Reference type");
                         break;
                     case "OFFICIAL":
-                        mpamRefTypeDropdown.selectByIndex(2);
+                        selectSpecificOptionFromDropdownWithHeading("Official", "Reference type");
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -225,7 +197,7 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 if (value.equalsIgnoreCase("YES")) {
-                    safeClickOn(caseStatusActiveCheckbox);
+                    checkSpecificCheckbox("Include Active Only");
                 }
                 setSessionVariable("searchActiveCases").to(value);
                 break;
@@ -249,6 +221,9 @@ public class Search extends BasePage {
                         break;
                     case "SMC":
                         checkSpecificCheckbox("Serious Misconduct");
+                        break;
+                    case "POGR":
+                        checkSpecificCheckbox("HMPO/GRO Complaint Case");
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -322,7 +297,7 @@ public class Search extends BasePage {
     public void enterFOISearchCriteria(String criteria, String value) {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
-                safeClickOn(foiRequestCheckbox);
+                checkSpecificCheckbox("FOI Request");
                 break;
             case "CASE REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
@@ -346,7 +321,7 @@ public class Search extends BasePage {
                 break;
             case "ACTIVE CASES ONLY":
                 //This doesn't really work since the 'soft closed' cases are still technically active
-                safeClickOn(caseStatusActiveCheckbox);
+                checkSpecificCheckbox("Include Active Cases only");
                 break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
