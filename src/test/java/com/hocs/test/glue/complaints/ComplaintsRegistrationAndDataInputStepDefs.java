@@ -114,38 +114,26 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         safeClickOn(finishButton);
     }
 
-    @And("I record that the case is a Priority case")
-    public void iRecordThatTheCaseIsAPriorityCase() {
+    @And("I record that the GRO case is a {string}")
+    public void iRecordThatTheCaseIsA(String deadlineDefiningFactor) {
         complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
         complaintsRegistrationAndDataInput.selectComplaintCategory();
         complaintsRegistrationAndDataInput.selectComplaintReason();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.selectIsLoARequired();
-        complaintsRegistrationAndDataInput.checkPriorityCheckbox();
-        safeClickOn(continueButton);
-        waitABit(1000);
-    }
-
-    @And("I record that the case was not received by post")
-    public void iRecordThatTheCaseWasNotReceivedByPost() {
-        complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
-        complaintsRegistrationAndDataInput.selectComplaintCategory();
-        complaintsRegistrationAndDataInput.selectComplaintReason();
-        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
-        complaintsRegistrationAndDataInput.selectIsLoARequired();
-        complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Email");
-        safeClickOn(continueButton);
-        waitABit(1000);
-    }
-
-    @And("I record that the case was received by post")
-    public void iRecordThatTheCaseWasReceivedByPost() {
-        complaintsRegistrationAndDataInput.enterDateOfCorrespondence();
-        complaintsRegistrationAndDataInput.selectComplaintCategory();
-        complaintsRegistrationAndDataInput.selectComplaintReason();
-        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
-        complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Post");
-        complaintsRegistrationAndDataInput.selectIsLoARequired();
+        switch (deadlineDefiningFactor) {
+            case "Priority GRO complaint":
+                complaintsRegistrationAndDataInput.checkPriorityCheckbox();
+                break;
+            case "non-Priority, non-Post GRO complaint":
+                complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Email");
+                break;
+            case "non-Priority, Post GRO complaint":
+                complaintsRegistrationAndDataInput.selectASpecificComplaintChannel("Post");
+                break;
+            default:
+                pendingStep(deadlineDefiningFactor + " is not defined within " + getMethodName());
+        }
         safeClickOn(continueButton);
         waitABit(1000);
     }

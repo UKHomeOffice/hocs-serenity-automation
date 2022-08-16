@@ -133,6 +133,10 @@ public class CreateCase extends BasePage {
     @FindBy(id = "RequestQuestion")
     public WebElementFacade requestQuestionTextArea;
 
+    Boolean specificStage1CaseProvided = false;
+
+    String stage1CaseReference;
+
     // Basic Methods
 
     public void assertNoOptionsAvailable() {
@@ -362,9 +366,19 @@ public class CreateCase extends BasePage {
         loginPage.navigateToCS();
     }
 
+    public void createAStage2CaseFromASpecificClosedStage1Case(String stage1CaseReference) {
+        specificStage1CaseProvided = true;
+        this.stage1CaseReference = stage1CaseReference;
+        createCSCaseOfType(getCaseTypeFromCaseReference(stage1CaseReference) + "2");
+    }
+
     public void escalateAStage1CaseToStage2() {
-        if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
-            getStage1CaseEligibleForEscalation();
+        if (specificStage1CaseProvided) {
+            searchForClosedStage1Case(stage1CaseReference);
+        } else {
+            if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+                getStage1CaseEligibleForEscalation();
+            }
         }
         escalateEligibleStage1CaseToStage2();
         setSessionVariable("caseType").to(stage1CaseType + "2");
@@ -385,16 +399,20 @@ public class CreateCase extends BasePage {
 
     private void getStage1CaseEligibleForEscalation() {
         createAndWithDrawACSCaseOfType(stage1CaseType);
+        searchForClosedStage1Case(getCurrentCaseReference());
+    }
+
+    public void searchForClosedStage1Case(String caseReference) {
         dashboard.selectSearchLinkFromMenuBar();
         selectStage1CaseTypeSearchCriteriaIfVisible();
-        search.searchByCaseReference(getCurrentCaseReference());
+        search.searchByCaseReference(caseReference);
         search.waitForResultsPage();
         int retries = 0;
         while ((search.getNumberOfSearchResults() == 0) && (retries <= 6)) {
             waitABit(5000);
             dashboard.selectSearchLinkFromMenuBar();
             selectStage1CaseTypeSearchCriteriaIfVisible();
-            search.searchByCaseReference(getCurrentCaseReference());
+            search.searchByCaseReference(caseReference);
             search.waitForResultsPage();
             retries++;
         }
@@ -403,11 +421,13 @@ public class CreateCase extends BasePage {
         }
     }
 
-    private void escalateEligibleStage1CaseToStage2() {
-        WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-        String stage1CaseRef = stage1CaseRefField.getText();
-        setSessionVariable("stage1CaseReference").to(stage1CaseRef);
-        System.out.print("Case reference of case being escalated: " + stage1CaseRef + "\n");
+    public void escalateEligibleStage1CaseToStage2() {
+        if (stage1CaseReference.isEmpty()) {
+            WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
+            stage1CaseReference = stage1CaseRefField.getText();
+        }
+        setSessionVariable("stage1CaseReference").to(stage1CaseReference);
+        System.out.print("Case reference of case being escalated: " + stage1CaseReference + "\n");
         search.clickEscalateComplaintsCaseToStage2();
     }
 

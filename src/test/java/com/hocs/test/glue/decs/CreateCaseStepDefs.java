@@ -378,4 +378,10 @@ public class CreateCaseStepDefs extends BasePage {
         pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(businessArea, false, "Investigation");
         dashboard.waitForDashboard();
     }
+
+    @And("I escalate the closed case to Stage 2")
+    public void iEscalateTheClosedCaseToStage() {
+        createCase.createAStage2CaseFromASpecificClosedStage1Case(getCurrentCaseReference());
+        confirmationScreens.goToCaseFromConfirmationScreen();
+    }
 }
