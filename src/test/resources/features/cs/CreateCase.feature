@@ -26,7 +26,7 @@ Feature: Create case
       | BF       | Case Registration           | To document             | Border Force                    |
       | BF2      | Case Registration (Stage 2) | To document             | Border Force (Stage 2)          |
       | POGR     | Data Input                  | Original Complaint      | HMPO/GRO Registration           |
-      | POGR2    | Data Input                  | To document             | HMPO/GRO Registration (Stage 2) |
+      | POGR2    | Data Input                  | To document             | HMPO/GRO Registration Stage 2   |
 
 
   @Allocation
