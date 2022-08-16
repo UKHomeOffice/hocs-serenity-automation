@@ -98,7 +98,6 @@ public class TeamManagement extends BasePage {
 
     public void selectAUser(User user) {
         userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().clear();
-        userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().sendKeys(user.getAllocationText());
         WebElementFacade userOption = findBy("//div[contains(@class, 'govuk-typeahead__option')][text()='" + user.getAllocationText() + "']");
         userOption.withTimeoutOf(Duration.ofSeconds(30)).waitUntilClickable().click();
         waitABit(1000);
