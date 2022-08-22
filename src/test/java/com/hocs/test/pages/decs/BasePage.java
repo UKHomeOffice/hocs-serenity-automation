@@ -406,6 +406,10 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseReference");
     }
 
+    public String getCaseTypeFromCaseReference(String caseReference) {
+        return caseReference.split("/")[0];
+    }
+
     public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
         String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
         setSessionVariable("newCaseReference").to(newCaseRef);
@@ -416,6 +420,7 @@ public class BasePage extends PageObject {
         String caseType = getCurrentCaseReference().split("/")[0];
         return caseType.toUpperCase();
     }
+
     public void safeClickOn(WebElementFacade webElementFacade) {
         webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
         try {

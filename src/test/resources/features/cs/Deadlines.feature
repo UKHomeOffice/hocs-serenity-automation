@@ -67,28 +67,31 @@ Feature: Deadlines
     Then the case deadline date displayed in the summary is correct for a "Ex-Gratia" case
 
   @ComplaintsRegression1
-  Scenario: As a GRO Complaints user, when I have a Priority complaint, I expect the deadline to be 1 working day
-    When I get a "POGR" case at the "Data Input" stage
-    When I select "GRO" as the business area for the POGR case
+  Scenario Outline: As a GRO Complaints user, when I submit details about a Stage 1 complaint, I expect the deadline to be correct
+    And I get a "POGR" case at the "Data Input" stage
+    And I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
-    And I record that the case is a Priority case
-    Then the case deadline date displayed in the summary is correct for a "Priority GRO complaint" case
+    When I record that the GRO case is a "<deadlineDefiningFactor>"
+    Then the case deadline date displayed in the summary is correct for a "<deadlineDefiningFactor>" case
+    Examples:
+      | deadlineDefiningFactor              |
+      | Priority GRO complaint              |
+      | non-Priority, non-Post GRO complaint |
+      | non-Priority, Post GRO complaint    |
 
   @ComplaintsRegression1
-  Scenario: As a GRO Complaints user, when I have a non-Prioirty complaint that wasnt receive by post, I expect the deadline to be 5 working days
-    When I get a "POGR" case at the "Data Input" stage
-    When I select "GRO" as the business area for the POGR case
+  Scenario Outline: As a GRO Complaints user, when I escalate a Stage 1 complaint to Stage 2, I expect the escalated case to have the correct deadline
+    And I get a "POGR" case at the "Data Input" stage
+    And I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
-    And I record that the case was not received by post
-    Then the case deadline date displayed in the summary is correct for a "non-Priority, non-Post GRO complaint" case
-
-  @ComplaintsRegression1
-  Scenario: As a GRO Complaints user, when I have a non-Prioirty complaint that was receive by post, I expect the deadline to stay 10 working days
-    When I get a "POGR" case at the "Data Input" stage
-    When I select "GRO" as the business area for the POGR case
-    And I add a "Complainant" correspondent
-    And I confirm the primary correspondent
-    And I record that the case was received by post
-    Then the case deadline date displayed in the summary is correct for a "non-Priority, Post GRO complaint" case
+    And I record that the GRO case is a "<deadlineDefiningFactor>"
+    And I withdraw the case
+    And I escalate the closed case to Stage 2
+    Then the case deadline date displayed in the summary is correct for a "<deadlineDefiningFactor>" case
+    Examples:
+      | deadlineDefiningFactor              |
+      | Priority GRO complaint              |
+      | non-Priority, non-Post GRO complaint |
+      | non-Priority, Post GRO complaint    |

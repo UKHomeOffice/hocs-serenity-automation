@@ -231,7 +231,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterLoAReceivedDetails() {
-        recordCaseData.checkSpecificCheckbox("Has Letter of Authority been received?");
+        recordCaseData.checkSpecificCheckbox("Yes");
         setSessionVariable("loaReceived").to("Yes");
         recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Letter of Authority");
         setSessionVariable("loaReceivedDate").to(getTodaysDate());

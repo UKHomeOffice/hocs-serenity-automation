@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.CreateCase;
+import com.hocs.test.pages.managementUI.MUI;
 import com.hocs.test.pages.managementUI.TemplateManagement;
 import com.hocs.test.pages.managementUI.WithdrawACase;
 import com.hocs.test.pages.decs.BasePage;
@@ -36,6 +37,8 @@ public class ManagementUIStepDefs extends BasePage {
     DCUProgressCase dcuProgressCase;
 
     Markup markup;
+
+    MUI mui;
 
     MUIDashboard muiDashboard;
 
@@ -1169,6 +1172,12 @@ public class ManagementUIStepDefs extends BasePage {
     @Then("the success message for amending a Business Area should be displayed")
     public void theSuccessMessageForAmendingABusinessAreaShouldBeDisplayed() {
         listsManagement.assertSuccessMessageForAmendingBusinessAreaVisible();
+    }
+
+    @And("I withdraw the case")
+    public void iWithdrawTheCase() {
+        mui.withdrawACaseInMUI(getCurrentCaseReference());
+        loginPage.navigateToCS();
     }
 }
 
