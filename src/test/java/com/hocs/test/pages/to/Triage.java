@@ -24,12 +24,12 @@ public class Triage extends BasePage {
     }
 
     public void selectAnEnquirySubject() {
-        String enquirySubject = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Subject");
+        String enquirySubject = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry subject");
         setSessionVariable("enquirySubject").to(enquirySubject);
     }
 
     public void selectAnEnquiryReason() {
-        String enquiryReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
+        String enquiryReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
         setSessionVariable("enquiryReason").to(enquiryReason);
     }
 

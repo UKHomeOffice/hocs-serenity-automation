@@ -14,11 +14,8 @@ public class TriageStepDefs extends BasePage {
 
     @When("I set an Enquiry Subject and Reason")
     public void iSetAnEnquirySubjectAndReason() {
-        triage.selectSetEnquirySubjectAndReasonLink();
         triage.selectAnEnquirySubject();
-        clickTheButton("Continue");
         triage.selectAnEnquiryReason();
-        clickTheButton("Continue");
     }
 
     @And("I select a Business Unit Type and corresponding Business Unit")
