@@ -173,11 +173,8 @@ public class TOProgressCase extends BasePage {
     }
 
     private void moveCaseFromTriageToDraft() {
-        triage.selectSetEnquirySubjectAndReasonLink();
         triage.selectAnEnquirySubject();
-        clickTheButton("Continue");
         triage.selectAnEnquiryReason();
-        clickTheButton("Continue");
         triage.selectABusinessUnitType();
         triage.selectABusinessUnit();
         selectTheStageAction("Ready to draft");
