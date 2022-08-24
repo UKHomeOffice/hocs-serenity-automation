@@ -220,10 +220,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectIsLoARequired() {
         String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
+        setSessionVariable("isLoARequired").to(selectedOption);
         if ((bfCase() || bf2Case()) && selectedOption.equalsIgnoreCase("YES")) {
             enterLoAReceivedDetails();
         }
-        setSessionVariable("isLoARequired").to(selectedOption);
     }
 
     public void selectSpecificOptionForIsLOARequired(String yesNo) {
@@ -231,9 +231,14 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterLoAReceivedDetails() {
-        recordCaseData.checkSpecificCheckbox("Yes");
+        if (pogrCase() || pogr2Case()) {
+            recordCaseData.checkSpecificCheckbox("Yes");
+            recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Letter of Authority Date Received");
+        } else {
+            recordCaseData.checkSpecificCheckbox("Has Letter of Authority been received?");
+            recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Letter of Authority");
+        }
         setSessionVariable("loaReceived").to("Yes");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Letter of Authority Date Received");
         setSessionVariable("loaReceivedDate").to(getTodaysDate());
     }
 
