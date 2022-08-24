@@ -36,4 +36,14 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
         waitForPageWithTitle("Complaint Send Response");
         complaintsDispatchAndSend.assertReasonsForComplaintAreVisible();
     }
+
+    @And("I select if a refund is required")
+    public void iSelectIfARefundIsRequired() {
+        complaintsDispatchAndSend.selectIfRefundRequired();
+    }
+
+    @And("I enter details of any Gratis offered")
+    public void iEnterDetailsOfAnyGratisOffered() {
+        complaintsDispatchAndSend.enterGratisOfferedDetails();
+    }
 }
