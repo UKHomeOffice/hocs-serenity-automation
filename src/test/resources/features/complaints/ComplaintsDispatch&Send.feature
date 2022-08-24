@@ -117,14 +117,20 @@ Feature: Complaints Dispatch & Send
 
 #     POGR COMPLAINTS
 
-  Scenario Outline: User can complete the Dispatch stage for a POGR complaint case
+  Scenario: User can complete the Dispatch stage for a HMPO POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Dispatch" stage
+    When I get a POGR case with "HMPO" as the Business Area at the "Dispatch" stage
+    And I add a "Final Response" type document to the case
+    And I select a Dispatch Outcome
+    And I select if a refund is required
+    And I enter details of any Gratis offered
+    And I submit the Response details
+    Then the case should be closed
+
+  Scenario: User can complete the Dispatch stage for a GRO POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a POGR case with "GRO" as the Business Area at the "Dispatch" stage
     And I add a "Final Response" type document to the case
     And I select a Dispatch Outcome
     And I submit the Response details
     Then the case should be closed
-    Examples:
-    | businessArea  |
-    | HMPO          |
-    | GRO           |

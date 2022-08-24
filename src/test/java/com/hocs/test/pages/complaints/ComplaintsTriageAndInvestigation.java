@@ -233,7 +233,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterLoAReceivedDetails() {
         recordCaseData.checkSpecificCheckbox("Yes");
         setSessionVariable("loaReceived").to("Yes");
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Letter of Authority");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Letter of Authority Date Received");
         setSessionVariable("loaReceivedDate").to(getTodaysDate());
     }
 
