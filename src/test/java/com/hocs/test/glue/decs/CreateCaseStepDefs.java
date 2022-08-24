@@ -355,27 +355,27 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create and claim a Priority POGR case")
     public void iCreateAndClaimAPriorityPOGRCase() {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(true, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo("POGR", true, "Investigation");
         dashboard.waitForDashboard();
         dashboard.getAndClaimCurrentCase();
     }
 
     @And("I create and claim a non-Priority POGR case")
     public void iCreateAndClaimANonPriorityPOGRCase() {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(false, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo("POGR", false, "Investigation");
         dashboard.waitForDashboard();
         dashboard.getAndClaimCurrentCase();
     }
 
     @And("I create a {string} Priority POGR case")
     public void iCreateAPriorityPOGRCase(String businessArea) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(businessArea, true, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority("POGR", businessArea, true, "Investigation");
         dashboard.waitForDashboard();
     }
 
     @And("I create a {string} non-Priority POGR case")
     public void iCreateANonPriorityPOGRCase(String businessArea) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(businessArea, false, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority("POGR", businessArea, false, "Investigation");
         dashboard.waitForDashboard();
     }
 

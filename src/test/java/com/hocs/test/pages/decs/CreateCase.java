@@ -135,7 +135,7 @@ public class CreateCase extends BasePage {
 
     Boolean specificStage1CaseProvided = false;
 
-    String stage1CaseReference;
+    String stage1CaseReference = "";
 
     // Basic Methods
 
