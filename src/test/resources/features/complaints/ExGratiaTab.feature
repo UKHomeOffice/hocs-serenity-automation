@@ -3,7 +3,7 @@ Feature: Ex-Gratia Tab
 
 #     BF COMPLAINTS CASE
 
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario: User is able to record that a BF Stage 1 complainant has accepted the Ex-Gratia offer after a case is closed
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Case Closed" stage
@@ -14,7 +14,7 @@ Feature: Ex-Gratia Tab
     Then an Ex-Gratia updated log should be visible in the case timeline
 
     #    HOCS-4256
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario: User is able to record that a BF Stage 2 complainant has accepted the Ex-Gratia offer after a case is closed
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Case Closed" stage
@@ -26,7 +26,7 @@ Feature: Ex-Gratia Tab
 
 #     POGR COMPLAINTS CASE
 
-  @ComplaintsRegression2 @POGRComplaints
+  @POGRRegression @POGRComplaints
   Scenario Outline: User is able to record Ex-Gratia payment details in the Ex-Gratia tab of a POGR case
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
