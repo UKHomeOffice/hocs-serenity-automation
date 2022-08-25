@@ -60,13 +60,13 @@ Feature: Deadlines
     Then the stage and case deadlines revert back to those for a 20 day SLA
 
 #    Expected failure. Defect HOCS-4230 raised.
-  @ComplaintsRegression1
+  @COMPRegression
   Scenario: As a UKVI Complaints user, when I have a Ex-Gratia complaint, I expect the deadline to be 60 working days
     When I create a "COMP" case for a "Ex-Gratia" complaint and move it to "Ex-Gratia Triage" stage
     And I load the current case
     Then the case deadline date displayed in the summary is correct for a "Ex-Gratia" case
 
-  @ComplaintsRegression1
+  @COMPRegression
   Scenario Outline: As a GRO Complaints user, when I submit details about a Stage 1 complaint, I expect the deadline to be correct
     And I get a "POGR" case at the "Data Input" stage
     And I select "GRO" as the business area for the POGR case
@@ -80,7 +80,7 @@ Feature: Deadlines
       | non-Priority, non-Post GRO complaint |
       | non-Priority, Post GRO complaint    |
 
-  @ComplaintsRegression1
+  @COMPRegression
   Scenario Outline: As a GRO Complaints user, when I escalate a Stage 1 complaint to Stage 2, I expect the escalated case to have the correct deadline
     And I get a "POGR" case at the "Data Input" stage
     And I select "GRO" as the business area for the POGR case

@@ -76,7 +76,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor Misconduct |
 
-  @ComplaintsRegression1 @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 1 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "Complaint Closed"
@@ -140,7 +140,7 @@ Feature: Complaints End To End
       | Ex-Gratia     |
       | MM            |
 
-  @ComplaintsRegression1 @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case for a "<complaintType>" complaint and move it to "Stage 2 Complaint Closed" stage
@@ -178,7 +178,7 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @ComplaintsRegression2 @IEDETComplaints
+  @IDETAndSMCRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
@@ -205,7 +205,7 @@ Feature: Complaints End To End
     When I create a "SMC" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @ComplaintsRegression2 @SMCComplaints
+  @IDETAndSMCRegression @SMCComplaints
   Scenario: User is able to close an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to "Case Closed"
@@ -270,7 +270,7 @@ Feature: Complaints End To End
       | Service          |
       | Minor Misconduct |
 
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario Outline: User is able to close a BF stage 1 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
@@ -319,7 +319,7 @@ Feature: Complaints End To End
     When I create a "BF2" case and move it to the "Send" stage
     Then the case should be moved to the "Send (Stage 2)" stage
 
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario: User is able to close a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Case Closed" stage
@@ -328,21 +328,37 @@ Feature: Complaints End To End
 
 #     POGR COMPLAINTS
 
+  @POGRComplaints
   Scenario: User creates a POGR complaint case and it should be at the Data Input stage
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Data Input" stage
     Then the case should be moved to the "Data Input" stage
 
+  @POGRComplaints
   Scenario: User moves a POGR complaint case to the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Investigation" stage
     Then the case should be moved to the "Investigation" stage
 
+  @POGRComplaints
   Scenario: User moves a POGR complaint case to the Draft stage
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Draft" stage
     Then the case should be moved to the "Draft" stage
 
+  @POGRComplaints
+  Scenario: User moves a POGR complaint case to the QA stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "QA" stage
+    Then the case should be moved to the "QA" stage
+
+  @POGRComplaints
+  Scenario: User moves a POGR complaint case to the QA stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR" case and move it to the "Dispatch" stage
+    Then the case should be moved to the "Disptach" stage
+
+  @POGRRegression @POGRComplaints
   Scenario: User is able to close a POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Case Closed" stage

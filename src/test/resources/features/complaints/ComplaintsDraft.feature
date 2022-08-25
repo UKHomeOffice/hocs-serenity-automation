@@ -5,7 +5,7 @@ Feature: Complaints Draft
 #     UKVI COMPLAINTS
 
   # HOCS-3695
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Service Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -17,7 +17,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Ex-Gratia Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -29,7 +29,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Minor Misconduct Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
@@ -42,7 +42,7 @@ Feature: Complaints Draft
     And the selected document should be tagged as the primary draft
 
   # HOCS-3695
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Service QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -54,7 +54,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Ex-Gratia QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -66,7 +66,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI complaint case to Minor Misconduct QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
@@ -78,7 +78,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI complaint case to WFM at Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Draft" stage
@@ -89,7 +89,7 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI complaint case to WFM at Ex-Gratia Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
@@ -100,7 +100,7 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI complaint case to WFM at Minor Misconduct Response Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
@@ -136,7 +136,7 @@ Feature: Complaints Draft
 
 #     UKVI COMPLAINTS STAGE 2
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI stage 2 complaint case to Service Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Draft" stage
@@ -148,7 +148,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI stage 2 complaint case to Service QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Draft" stage
@@ -160,7 +160,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI stage 2 complaint case to WFM at Service Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Draft" stage
@@ -174,7 +174,7 @@ Feature: Complaints Draft
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @IEDETComplaints
+  @ComplaintsWorkflow @IDETAndSMCRegression @IEDETComplaints
   Scenario: User completes the Draft stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
@@ -186,7 +186,7 @@ Feature: Complaints Draft
 
 #     SMC COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @SMCComplaints
+  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
   Scenario: User completes the Draft stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Draft" stage
@@ -200,7 +200,7 @@ Feature: Complaints Draft
 
 #     BF COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User completes the Draft stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
@@ -211,7 +211,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can send a BF complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
@@ -222,7 +222,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User is able to escalate a BF complaint case to WFM at Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case and move it to the "Draft" stage
@@ -234,7 +234,7 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can reject a BF complaint case at the Draft stage and send it back to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Draft" stage
@@ -248,7 +248,7 @@ Feature: Complaints Draft
 
 #     BF STAGE 2 COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can send a BF stage 2 complaint case to the QA stage from Draft
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
@@ -259,7 +259,7 @@ Feature: Complaints Draft
     And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
     And the selected document should be tagged as the primary draft
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User is able to escalate a BF stage 2 complaint case to WFM at Draft stage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Draft" stage
@@ -271,7 +271,7 @@ Feature: Complaints Draft
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can reject a BF Stage 2 complaint case at the Draft stage and send it back to the Triage stage
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Draft" stage
@@ -285,7 +285,7 @@ Feature: Complaints Draft
 
 #     POGR COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to mark a case as resolved by a telephone call, so that the case is closed
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -301,7 +301,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to submit details of a non-resolving phone call, so a further response can be drafted
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -316,7 +316,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to return a case to the Investigation stage, so that corrections can be made
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -331,7 +331,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to QA stage, so my Draft response can be reviewed
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -345,7 +345,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to Dispatch stage, so my Draft response can be sent out
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -359,7 +359,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -373,7 +373,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
-  @ComplaintsWorkflow @POGRComplaints @ComplaintsRegression
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to close a case at the Draft stage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -381,8 +381,7 @@ Feature: Complaints Draft
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
-#    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case    To be removed when HOCS-5433 is
-  #    completed
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     Examples:
       | businessArea |
       | HMPO         |

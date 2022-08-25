@@ -4,7 +4,7 @@ Feature: Complaints Dispatch & Send
 #     UKVI COMPLAINTS
 
   # HOCS-2722, HOCS-3076
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete service send stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Service Send" stage
@@ -15,7 +15,7 @@ Feature: Complaints Dispatch & Send
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Service Send" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete Ex-Gratia send stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Ex-Gratia Send" stage
@@ -26,7 +26,7 @@ Feature: Complaints Dispatch & Send
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Send" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete Minor Misconduct send stage for a UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case and move it to the "Minor Misconduct Send" stage
@@ -52,7 +52,7 @@ Feature: Complaints Dispatch & Send
 
 #     UKVI COMPLAINTS STAGE 2
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete service send stage for a UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Service Send" stage
@@ -66,7 +66,7 @@ Feature: Complaints Dispatch & Send
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @IEDETComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User can complete the Send stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage
@@ -79,7 +79,7 @@ Feature: Complaints Dispatch & Send
 
 #     SMC COMPLAINTS
 
-  @ComplaintsPWorkflow @ComplaintsRegression2 @SMCComplaints
+  @ComplaintsPWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User can complete the Send stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I get a "SMC" case at the "Send" stage
@@ -91,7 +91,7 @@ Feature: Complaints Dispatch & Send
 
 #     BF COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can complete the Send stage for a BF complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Send" stage
@@ -104,7 +104,7 @@ Feature: Complaints Dispatch & Send
 
 #     BF STAGE 2 COMPLAINTS
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @BFComplaints
+  @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can complete the Send stage for a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Send" stage
@@ -115,8 +115,10 @@ Feature: Complaints Dispatch & Send
     And the read-only Case Details accordion should contain all case information entered during the "Send (Stage 2)" stage
     And the summary should display "Service" for "Complaint Type"
 
+
 #     POGR COMPLAINTS
 
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a HMPO POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "HMPO" as the Business Area at the "Dispatch" stage
@@ -127,6 +129,7 @@ Feature: Complaints Dispatch & Send
     And I submit the Response details
     Then the case should be closed
 
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a GRO POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I get a POGR case with "GRO" as the Business Area at the "Dispatch" stage

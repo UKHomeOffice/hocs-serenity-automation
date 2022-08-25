@@ -517,7 +517,7 @@ Feature: ManagementUI
 
 #    MANAGE EX-GRATIA BUSINESS AREA REPRESENTATIVES
 
-  @ListsManagement @ComplaintsRegression2
+  @ListsManagement @COMPRegression
   Scenario: User can add and delete an Ex-Gratia Business Area Representative through Lists Management
     When I select to "Manage Ex-Gratia Business Area Representatives"
     And I select to add a new representative
@@ -698,7 +698,7 @@ Feature: ManagementUI
 
 #     MANAGE UKVI COMPLAINT ENQUIRY REASONS
 
-  @ListsManagement @ComplaintsRegression1
+  @ListsManagement @COMPRegression
   Scenario: User is able to add a new UKVI Complaints Enquiry Reason through Lists Management
     And I select to "Manage UKVI Complaint Enquiry Reasons"
     And I select to add a new "COMP" Enquiry Reason
@@ -706,7 +706,7 @@ Feature: ManagementUI
     Then the success message for adding an Enquiry Reason should be displayed
     And I should be able to view the new "COMP" Enquiry Reason in the table of Enquiry Reasons
 
-  @ListsManagement @COMPRegression1
+  @ListsManagement @COMPRegression
   Scenario: User is able to amend the details of a UKVI Complaints Enquiry Reason through Lists Management
     And I have added a new "COMP" Enquiry Reason in MUI
     When I select to "Manage UKVI Complaint Enquiry Reasons"
@@ -715,7 +715,7 @@ Feature: ManagementUI
     Then the success message for amending an Enquiry Reason should be displayed
     And I should be able to view the renamed "COMP" Enquiry Reason in the table of Enquiry Reasons
 
-  @ListsManagement @COMPRegression1
+  @ListsManagement @COMPRegression
   Scenario: User can select a new UKVI Complaints Enquiry Reason that was added through Lists Management when viewing a case in DECS
     And I have added a new "COMP" Enquiry Reason in MUI
     When I navigate to "CS"
@@ -728,7 +728,7 @@ Feature: ManagementUI
 
 #     MANAGE UKVI COMPLAINTS BUSINESS AREAS
 
-  @ListsManagement @ComplaintsRegression1
+  @ListsManagement @COMPRegression
   Scenario: User is able to add a new UKVI Complaints Business Area through Lists Management
     And I select to "Manage UKVI Complaints Business Areas"
     And I select a directorate to add the new Business Area to
@@ -736,7 +736,7 @@ Feature: ManagementUI
 #    Then the success message for adding a new business area should be displayed  Comment to be removed once HOCS-5117 is resolved
     And I should be able to view the created business area in the table of business areas
 
-  @ListsManagement @COMPRegression1
+  @ListsManagement @COMPRegression
   Scenario: User is able to amend the details of a UKVI Complaints Business Area through Lists Management
     And I select to "Manage UKVI Complaints Business Areas"
     And I select a directorate to add the new Business Area to
@@ -746,7 +746,7 @@ Feature: ManagementUI
 #    Then the success message for amending a Business Area should be displayed  Comment to be removed once HOCS-5117 is removed
     And I should be able to view the renamed business area in the table of business areas
 
-  @ListsManagement @COMPRegression1
+  @ListsManagement @COMPRegression
   Scenario: User can select a new UKVI Complaints Business Area that was added through Lists Management when viewing a case in DECS
     And I select to "Manage UKVI Complaints Business Areas"
     And I select a directorate to add the new Business Area to

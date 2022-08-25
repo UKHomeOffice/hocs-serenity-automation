@@ -4,7 +4,7 @@ Feature: Complaints Workstacks
 #     UKVI COMPLAINTS
 
   # HOCS-2865, HOCS-3161
-  @ComplaintsRegression1 @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario Outline: UKVI complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "COMP_USER"
     And I enter the "<workstack>" workstack
@@ -16,7 +16,7 @@ Feature: Complaints Workstacks
       | Minor Misconduct       |
       | CCT Triage             |
 
-  @ComplaintsRegression1 @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has an overdue contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
@@ -33,7 +33,7 @@ Feature: Complaints Workstacks
     When I view the "My Cases" workstack
     Then I should be able to tell that the case has an overdue contribution
 
-  @ComplaintsRegression1 @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario: As a UKVI complaints user, when I view cases in a workstack, I want to be able to tell if a case has a due contribution request
     Given I am logged into "CS" as user "COMP_USER"
     And I create a "COMP" case and move it to the "Service Triage" stage
@@ -51,7 +51,7 @@ Feature: Complaints Workstacks
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsRegression2 @IEDETComplaints
+  @IDETAndSMCRegression @IEDETComplaints
   Scenario: IEDET complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "IEDET_USER"
     And I enter the "IE Detention" workstack
@@ -60,7 +60,7 @@ Feature: Complaints Workstacks
 
 #     SMC COMPLAINTS
 
-  @ComplaintsRegression2 @IEDETComplaints
+  @IDETAndSMCRegression @IEDETComplaints
   Scenario Outline: Serious Misconduct complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "SMC_USER"
     And I enter the "<workstack>" workstack
@@ -70,7 +70,7 @@ Feature: Complaints Workstacks
       | Serious Misconduct          |
       | Serious Misconduct My Cases |
 
-  @ComplaintsRegression2
+  @IDETAndSMCRegression
   Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
     Given I am logged into "CS" as user "SMC_USER"
     When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
@@ -81,7 +81,7 @@ Feature: Complaints Workstacks
       | 55           | Registration | SMC Registration   |
       | 55           | Triage       | Serious Misconduct |
 
-  @ComplaintsRegression2
+  @IDETAndSMCRegression
   Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
     Given I am logged into "CS" as user "SMC_USER"
     When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
@@ -95,7 +95,7 @@ Feature: Complaints Workstacks
 
 #     BF COMPLAINTS
 
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario: Border Force complaints user can see the required information when viewing the Border Force workstack
     Given I am logged into "CS" as user "BF_USER"
     And I enter a "Border Force" workstack
@@ -104,7 +104,7 @@ Feature: Complaints Workstacks
 
 #     BF STAGE 2 COMPLAINTS
 
-  @ComplaintsRegression2 @BFComplaints
+  @BFRegression @BFComplaints
   Scenario: Border Force complaints user can see the required information when viewing the Border Force (Stage 2) workstack
     Given I am logged into "CS" as user "BF_USER"
     And I enter a "Border Force (Stage 2)" workstack
@@ -113,7 +113,7 @@ Feature: Complaints Workstacks
 
 #     POGR COMPLAINTS
 
-  @ComplaintsRegression2 @POGRComplaints
+  @POGRRegression @POGRComplaints
   Scenario Outline: HMPO/GRO complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "POGR_USER"
     And I enter the "<workstack>" workstack
@@ -126,19 +126,17 @@ Feature: Complaints Workstacks
 
 #     POGR STAGE 2 COMPLAINTS
 
-#  SCENARIO AWAITING CONFIGURATION OF POGR2 WORKSTACKS
-
-#  @ComplaintsRegression2 @POGRComplaints
-#  Scenario: HMPO/GRO complaints user sees the required information when viewing a Stage 2 workstack
-#    Given I am logged into "CS" as user "POGR_USER"
-#    And I enter the "POGR Registration (Stage 2)" workstack
-#    Then the "POGR Registration (Stage 2)" workstack should contain only the expected columns
+  @POGRRegression @POGRComplaints
+  Scenario: HMPO/GRO complaints user sees the required information when viewing a Stage 2 workstack
+    Given I am logged into "CS" as user "POGR_USER"
+    And I enter the "POGR Registration (Stage 2)" workstack
+    Then the "POGR Registration (Stage 2)" workstack should contain only the expected columns
 
 
 #     ALL COMPLAINTS
 
   # HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression2
+  @CSRegression
   Scenario Outline: Complaints user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
     Given I am logged into "CS" as user "<user>"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
@@ -153,7 +151,7 @@ Feature: Complaints Workstacks
       | BF2      | BF_USER    | 15           | Border Force (Stage 2)         |
 
   # HOCS-3076 HOCS-3161 HOCS-4006
-  @ComplaintsRegression2
+  @CSRegression
   Scenario Outline: Complaints user is able to see a red highlighted deadline on an complaint case that is past its deadline date
     Given I am logged into "CS" as user "<user>"
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
@@ -167,6 +165,4 @@ Feature: Complaints Workstacks
       | BF       | BF_USER    | 21           | Border Force                   |
       | BF2      | BF_USER    | 21           | Border Force (Stage 2)         |
       | POGR     | POGR_USER  | 11           | HMPO/GRO Registration          |
-#      | POGR2    | POGR_USER  | 11           | HMPO/GRO Registration (Stage 2)|
-
-  #    POGR2 Example awaiting configuration of POGR2 workstacks
+      | POGR2    | POGR_USER  | 11           | HMPO/GRO Registration (Stage 2)|
