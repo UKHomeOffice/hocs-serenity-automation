@@ -228,19 +228,31 @@ Feature: Registration
 
 #     POGR Stage 2 Complaints
 
-#  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints   Remove when POGR2 is developed
-  Scenario Outline: User is able to complete the Data Input stage for a POGR stage 2 complaint case with HMPO as the business area
+  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with HMPO as the business area
     Given I am logged into "CS" as user "POGR_USER"
-    And I get a "POGR2" case with "<businessArea>" as the Business Area at the "Data Input" stage
+    When I create a "POGR2" case with "HMPO" as the Business Area and move it to the "Data Input" stage
+    And I load and claim the current case
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
     And I enter details on the Data Input screen
     And I add an "Interim Letter" type document to the case
     And I enter the date that the Interim letter was sent
-#    Then the case should be moved to the "Investigation" stage
-#    And the summary should display the owning team as "HMPO Complaints"
+    Then the case should be moved to the "Investigation" stage
+    And the summary should display the owning team as "HMPO Complaints"
 #    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
-    Examples:
-    | businessArea  |
-    | HMPO          |
-    | GRO           |
+
+  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with GRO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case with "GRO" as the Business Area and move it to the "Data Input" stage
+    And I load and claim the current case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I enter details on the Data Input screen
+    And I add an "Interim Letter" type document to the case
+    And I enter the date that the Interim letter was sent
+    And I select the investigating team for the case
+    Then the case should be moved to the "Investigation" stage
+    And the POGR case should be assigned to the correct investigating team
+#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage

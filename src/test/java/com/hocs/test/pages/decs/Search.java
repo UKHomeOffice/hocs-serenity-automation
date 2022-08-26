@@ -377,35 +377,13 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
-
     public void searchBySubstringOfCaseReference() {
-        int n = 0;
-        String substring = null;
-        String firstCharOfSubstring = "";
         String caseRef = getCurrentCaseReference();
-        String split = caseRef.split("/01")[1];
-        int randomStringLength = (int) (Math.random() * ((5 - 1) + 1)) + 1;
-        while (n <= randomStringLength) {
-            substring = split.substring(n, randomStringLength);
-            firstCharOfSubstring = String.valueOf(substring.charAt(0));
-            if (!firstCharOfSubstring.equals("0")) {
-                break;
-            }
-            n++;
-        }
-        int caseNumberUpperBound = Integer.parseInt(substring);
-        int randomCaseInteger = new Random().nextInt(caseNumberUpperBound);
-        String randomCaseIntToString = Integer.toString(randomCaseInteger);
-        if (randomCaseInteger < 1000) {
-            randomCaseIntToString = "0" + randomCaseIntToString;
-        }
-        if (randomCaseInteger < 100) {
-            randomCaseIntToString = "0" + randomCaseIntToString;
-        }
-        if (randomCaseInteger < 10) {
-            randomCaseIntToString = "0" + randomCaseIntToString;
-        }
-        String randomCaseRefString = "/012" + randomCaseIntToString;
+        String currentMaxCaseNumber = caseRef.split("/")[1];
+        int randomStringPosition = (int) (Math.random() * ((6 - 4) + 1)) + 4;
+        String leadingCaseRefValues = currentMaxCaseNumber.substring(0, 3);
+        String substring = currentMaxCaseNumber.substring(3, randomStringPosition);
+        String randomCaseRefString = "/" + leadingCaseRefValues + substring;
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
         searchByCaseReference(randomCaseRefString);
     }
