@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.SummaryTab;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     RecordCaseData recordCaseData;
+
+    SummaryTab summaryTab;
 
     Boolean pogrPriority = true;
 
@@ -80,7 +83,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectAComplaintChannel() {
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Channel");
         } else {
             recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel");
@@ -88,7 +91,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectASpecificComplaintChannel(String channel) {
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Complaint Channel");
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(channel,"Channel");
@@ -110,7 +113,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint() {
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
         } else {
             recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
@@ -231,6 +234,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         enterDateOfCorrespondence();
         selectNationComplaintWasMadeFrom();
         enterACompanyName();
+        if (pogr2Case()) {
+            summaryTab.selectSummaryTab();
+            String businessArea = summaryTab.getSummaryTabValueForGivenHeader("Business Area");
+            setSessionVariable("businessArea").to(businessArea);
+        }
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("HMPO")) {
             enterApplicationReference();
             enterPassportNumber();

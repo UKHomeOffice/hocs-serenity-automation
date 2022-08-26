@@ -122,7 +122,8 @@ public class ProgressCaseStepDefs extends BasePage {
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case "POGR":
-                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
+            case "POGR2":
+                pogrProgressCase.moveCaseFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
@@ -183,21 +184,20 @@ public class ProgressCaseStepDefs extends BasePage {
         }
     }
 
-
     @And("I get a Treat Official case at the {string} stage that has Home Secretary Interest")
     public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String stage) {
         toProgressCase.createCaseAndMoveItToTargetStageWithHomeSecInterestSetToYes(stage);
         dashboard.getAndClaimCurrentCase();
     }
 
-    @And("I create a POGR case with {string} as the Business Area and move it to the {string} stage")
-    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
+    @And("I create a {string} case with {string} as the Business Area and move it to the {string} stage")
+    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String caseType, String businessArea, String stage) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(caseType, businessArea, stage);
     }
 
-    @And("I get a POGR case with {string} as the Business Area at the {string} stage")
-    public void iGetAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String businessArea, String stage) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(businessArea, stage);
+    @And("I get a {string} case with {string} as the Business Area at the {string} stage")
+    public void iGetAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String caseType, String businessArea, String stage) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(caseType, businessArea, stage);
         if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated("POGR", stage) || stage.equalsIgnoreCase("DISPATCH") && businessArea.equalsIgnoreCase("GRO")) {
             dashboard.getCurrentCase();
         } else {

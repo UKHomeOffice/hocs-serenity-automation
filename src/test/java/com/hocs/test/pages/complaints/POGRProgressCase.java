@@ -13,6 +13,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.SummaryTab;
 
 public class POGRProgressCase extends BasePage {
 
@@ -36,35 +37,38 @@ public class POGRProgressCase extends BasePage {
 
     Documents documents;
 
+    SummaryTab summaryTab;
+
     String businessArea;
 
-    public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
+    public void moveCaseFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("POGR");
+            createCase.createCSCaseOfType(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
-                moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
+                moveCaseFromCurrentStageToTargetStage(caseType, currentStage, precedingStage);
             }
             completeThePOGRStageSoThatCaseMovesToTargetStage(precedingStage, targetStage);
         }
     }
 
-    public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea(String businessArea, String targetStage) {
+    public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea(String caseType, String businessArea, String targetStage) {
         this.businessArea = businessArea;
-        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
+        moveCaseFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
-    public void createCaseAndMoveItToTargetStageWithPrioritySetTo(boolean pogrPriority, String targetStage) {
+    public void createCaseAndMoveItToTargetStageWithPrioritySetTo(String caseType, boolean pogrPriority, String targetStage) {
         complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
-        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
+        moveCaseFromCurrentStageToTargetStage(caseType,"N/A", targetStage);
     }
 
-    public void createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(String businessArea, boolean pogrPriority, String targetStage) {
+    public void createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(String caseType, String businessArea, boolean pogrPriority,
+            String targetStage) {
         this.businessArea = businessArea;
         complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
-        moveCaseFromCurrentStageToTargetStage("N/A", targetStage);
+        moveCaseFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
     private String getStageThatPrecedesTargetStage(String targetStage) {
@@ -132,12 +136,18 @@ public class POGRProgressCase extends BasePage {
     }
 
     public void movePOGRCaseFromDataInputToInvestigation() {
-        if (businessArea == null) {
-            complaintsRegistrationAndDataInput.selectBusinessArea();
+        if (!pogr2Case()) {
+            if (businessArea == null) {
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+            } else {
+                complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
+            }
+            safeClickOn(continueButton);
         } else {
-            complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
+            summaryTab.selectSummaryTab();
+            String businessArea = summaryTab.getSummaryTabValueForGivenHeader("Business Area");
+            setSessionVariable("businessArea").to(businessArea);
         }
-        safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         safeClickOn(continueButton);
         complaintsRegistrationAndDataInput.completeDataInputScreen();
