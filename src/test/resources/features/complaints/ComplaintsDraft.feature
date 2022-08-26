@@ -378,6 +378,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Close the case" action at the Draft stage
+    And I select a Closure Reason
     And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage

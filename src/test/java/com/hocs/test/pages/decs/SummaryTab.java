@@ -183,7 +183,6 @@ public class SummaryTab extends BasePage {
                     break;
                 case "HOME SECRETARY SIGN-OFF":
                 case "POGR":
-                case "POGR2":
                 case "NON-PRIORITY, POST GRO COMPLAINT":
                     expectedNumberOfWorkdaysTillDeadline = 10;
                     break;

@@ -526,8 +526,11 @@ Feature: Complaints Triage
     When I get a "POGR" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
     And I complete the "No Response - Complete the Case" action at the Investigation stage
+    And I select a Closure Reason
+    And I enter a reason for closing the case
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     Examples:
       | businessArea |
       | HMPO         |

@@ -270,4 +270,9 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
     }
+
+    @And("I select a Closure Reason")
+    public void iSelectAClosureReason() {
+        complaintsTriageAndInvestigation.selectAClosureReason();
+    }
 }
