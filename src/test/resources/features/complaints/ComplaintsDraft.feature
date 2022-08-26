@@ -174,7 +174,7 @@ Feature: Complaints Draft
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User completes the Draft stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
@@ -186,7 +186,7 @@ Feature: Complaints Draft
 
 #     SMC COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User completes the Draft stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Draft" stage
@@ -288,7 +288,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to mark a case as resolved by a telephone call, so that the case is closed
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
     And I select that the case was resolved by the phone call
     And I submit details of the phone call
@@ -304,7 +304,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to submit details of a non-resolving phone call, so a further response can be drafted
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
     And I select that the case was not resolved by the phone call
     And I submit details of the phone call
@@ -319,7 +319,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to return a case to the Investigation stage, so that corrections can be made
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Return to Investigation" action at the Draft stage
     And I submit a rejection reason
     Then the case should be returned to the "Investigation" stage
@@ -334,7 +334,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to QA stage, so my Draft response can be reviewed
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I upload my Primary "Draft" document
     And I select the "Send to QA" action at the Draft stage
     Then the case should be moved to the "QA" stage
@@ -348,7 +348,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to Dispatch stage, so my Draft response can be sent out
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I upload my Primary "Draft" document
     And I select the "Send to Dispatch" action at the Draft stage
     Then the case should be moved to the "Dispatch" stage
@@ -362,7 +362,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I escalate the case to WFM at Draft stage
     Then the case should be moved to the "Escalated" stage
     And the POGR case should be assigned to the correct Escalation team
@@ -376,7 +376,7 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to close a case at the Draft stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Draft" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Close the case" action at the Draft stage
     And I enter a reason for closing the case
     Then the case should be closed

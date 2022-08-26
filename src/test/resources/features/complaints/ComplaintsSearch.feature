@@ -37,13 +37,16 @@ Feature: Complaints Search
     And I click the search button on the search page
     Then the "COMP Search" workstack should contain only the expected columns
 
+
+#     UKVI STAGE 2 COMPLAINTS
+
   @UKVIComplaints
   Scenario: User is able to select a COMP2 case reference from the escalate case column of a COMP case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
     And I navigate to the "Search" page
     And I search for the complaints case escalated to stage 2 by it's case reference
-    And I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column
+    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
 
 
@@ -90,13 +93,13 @@ Feature: Complaints Search
     When I create a "BF2" case and move it to the "Registration" stage
     And I navigate to the "Search" page
     And I search for the complaints case escalated to stage 2 by it's case reference
-    And I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column
+    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
 
 
 #     IEDET COMPLAINTS
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario Outline: User tests IEDET complaint case search criteria
     Given I am logged into "CS" as user "IEDET_USER"
     When I navigate to the "Search" page
@@ -111,7 +114,7 @@ Feature: Complaints Search
       | Complainant Date Of Birth         | 01/01/2001                           |
       | Complainant Home Office Reference | Test entry for Home Office Reference |
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User can search for a IEDET complaint case by its case reference
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a single "IEDET" case
@@ -121,7 +124,7 @@ Feature: Complaints Search
 
 #     SMC COMPLAINTS
 
-  @IDETAndSMCRegression @SMCComplaints
+  @IEDETAndSMCRegression @SMCComplaints
   Scenario Outline: User tests SMC complaint case search criteria
     Given I am logged into "CS" as user "SMC_USER"
     When I navigate to the "Search" page
@@ -137,12 +140,13 @@ Feature: Complaints Search
       | Complainant Home Office Reference | Test entry for Home Office Reference  |
       | PSU Reference                     | 123456789                             |
 
-  @IDETAndSMCRegression @SMCComplaints
+  @IEDETAndSMCRegression @SMCComplaints
   Scenario: User can search for a SMC complaint case by its case reference
     Given I am logged into "CS" as user "SMC_USER"
     When I create a single "SMC" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
+
 
 #     POGR COMPLAINTS
 
@@ -166,3 +170,15 @@ Feature: Complaints Search
     When I create a single "POGR" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
+
+
+#     POGR2 STAGE 2 COMPLAINTS
+
+  @BFRegression @BFComplaints
+  Scenario: User is able to select a BF2 case reference from the escalate case column of a BF case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Data Input" stage
+    And I navigate to the "Search" page
+    And I search for the complaints case escalated to stage 2 by it's case reference
+    And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
+    Then the case should be loaded

@@ -29,7 +29,7 @@ Feature: Ex-Gratia Tab
   @POGRRegression @POGRComplaints
   Scenario Outline: User is able to record Ex-Gratia payment details in the Ex-Gratia tab of a POGR case
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I select the Ex-Gratia tab
     And I enter details into the Ex-Gratia tab for a POGR case
     Then an Ex-Gratia updated log should be visible in the case timeline
@@ -37,3 +37,17 @@ Feature: Ex-Gratia Tab
     | businessArea  |
     | HMPO          |
     | GRO           |
+
+#     POGR Stage 2 Complaints
+
+  @POGRRegression @POGRComplaints
+  Scenario Outline: User is able to record Ex-Gratia payment details in the Ex-Gratia tab of a POGR2 case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Investigation" stage
+    And I select the Ex-Gratia tab
+    And I enter details into the Ex-Gratia tab for a POGR case
+    Then an Ex-Gratia updated log should be visible in the case timeline
+    Examples:
+      | businessArea  |
+      | HMPO          |
+      | GRO           |
