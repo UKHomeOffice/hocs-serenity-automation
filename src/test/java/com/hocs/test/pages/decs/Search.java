@@ -377,7 +377,6 @@ public class Search extends BasePage {
         safeClickOn(searchButton);
     }
 
-
     public void searchBySubstringOfCaseReference() {
         String caseRef = getCurrentCaseReference();
         String currentMaxCaseNumber = caseRef.split("/")[1];
@@ -388,8 +387,6 @@ public class Search extends BasePage {
         setSessionVariable("caseReferenceSubstring").to(randomCaseRefString);
         searchByCaseReference(randomCaseRefString);
     }
-
-
 
     public boolean checkVisibilityOfEscalationHypertext() {
         return escalateCaseHypertext.isVisible();
